@@ -1,0 +1,16 @@
+[
+{
+  "modid": "prefab",
+  "name": "Prefab",
+  "description": "Provides ways of making pre-fabricated houses and other structures.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["WuestMan"],
+  "credits": "Daxlin for making the textures and the construction of the ideas",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
