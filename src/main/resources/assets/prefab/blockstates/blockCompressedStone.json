@@ -1,0 +1,8 @@
+{
+	"variants": 
+	{
+		"variant=blockcompressedstone": { "model": "prefab:blockCompressedStone" },
+		"variant=blockdoublecompressedstone": { "model": "prefab:blockDoubleCompressedStone" },
+		"variant=blocktriplecompressedstone": { "model": "prefab:blockTripleCompressedStone" }
+	}
+}

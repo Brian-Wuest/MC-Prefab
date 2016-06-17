@@ -8,6 +8,7 @@ import com.wuest.prefab.Gui.GuiHouseItem;
 import com.wuest.prefab.Proxy.Messages.HouseTagMessage;
 import com.wuest.prefab.Proxy.Messages.Handlers.HouseHandler;
 
+import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -44,12 +45,16 @@ public class CommonProxy implements IGuiHandler
 		ModConfiguration.syncConfig();
 		
 		Prefab.network.registerMessage(HouseHandler.class, HouseTagMessage.class, 1, Side.SERVER);
+		
+		// Register items here.
+		ModRegistry.RegisterModComponents();
+		
+		// Register the recipes here.
+		ModRegistry.RegisterRecipes();
 	}
 	
 	public void init(FMLInitializationEvent event)
 	{
-		// Register items here.
-		ModRegistry.RegisterModComponents();
 		NetworkRegistry.INSTANCE.registerGuiHandler(Prefab.instance, Prefab.proxy);
 		this.RegisterEventListeners();
 	}
