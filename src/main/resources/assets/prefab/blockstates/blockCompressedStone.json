@@ -1,8 +1,10 @@
 {
 	"variants": 
 	{
-		"variant=blockcompressedstone": { "model": "prefab:blockCompressedStone" },
-		"variant=blockdoublecompressedstone": { "model": "prefab:blockDoubleCompressedStone" },
-		"variant=blocktriplecompressedstone": { "model": "prefab:blockTripleCompressedStone" }
+		"variant=block_compressed_stone": { "model": "prefab:blockCompressedStone" },
+		"variant=block_double_compressed_stone": { "model": "prefab:blockDoubleCompressedStone" },
+		"variant=block_triple_compressed_stone": { "model": "prefab:blockTripleCompressedStone" },
+		"variant=block_compressed_glowstone": { "model": "prefab:blockCompressedGlowStone" },
+		"variant=block_double_compressed_glowstone": { "model": "prefab:blockDoubleCompressedGlowStone" }
 	}
 }

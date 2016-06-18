@@ -1,4 +1,6 @@
 item.prefab:itemStartHouse.name=Starting House
-tile.prefab:blockCompressedStone.blockcompressedstone.name=Compressed Stone
-tile.prefab:blockCompressedStone.blockdoublecompressedstone.name=Double Compressed Stone
-tile.prefab:blockCompressedStone.blocktriplecompressedstone.name=Triple Compressed Stone
+tile.prefab:blockCompressedStone.block_compressed_stone.name=Compressed Stone
+tile.prefab:blockCompressedStone.block_double_compressed_stone.name=Double Compressed Stone
+tile.prefab:blockCompressedStone.block_triple_compressed_stone.name=Triple Compressed Stone
+tile.prefab:blockCompressedStone.block_compressed_glowstone.name=Compressed Glowstone
+tile.prefab:blockCompressedStone.block_double_compressed_glowstone.name=Double Compressed Glowstone

@@ -90,6 +90,28 @@ public class ModRegistry
 		GameRegistry.addRecipe(new ItemStack(ModRegistry.CompressedStoneItem(), 9, BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE.getMetadata()),
 				"x",
 				'x', new ItemStack(ModRegistry.CompressedStoneItem(), 1, BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE.getMetadata()));
+		
+		// Compressed Glowstone.
+		GameRegistry.addRecipe(new ItemStack(ModRegistry.CompressedStoneItem(), 1, BlockCompressedStone.EnumType.COMPRESSED_GLOWSTONE.getMetadata()),
+				"xxx",
+				"xxx",
+				"xxx",
+				'x', Item.getItemFromBlock(Blocks.GLOWSTONE));
+		
+		GameRegistry.addRecipe(new ItemStack( ModRegistry.CompressedStoneItem(), 1, BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE.getMetadata()),
+				"x",
+				'x', new ItemStack(ModRegistry.CompressedStoneItem(), 1, BlockCompressedStone.EnumType.COMPRESSED_GLOWSTONE.getMetadata()));
+		
+		// Double Compressed Glowstone.
+		GameRegistry.addRecipe(new ItemStack(ModRegistry.CompressedStoneItem(), 1, BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE.getMetadata()),
+				"xxx",
+				"xxx",
+				"xxx",
+				'x', new ItemStack(ModRegistry.CompressedStoneItem(), 1, BlockCompressedStone.EnumType.COMPRESSED_GLOWSTONE.getMetadata()));
+		
+		GameRegistry.addRecipe(new ItemStack(ModRegistry.CompressedStoneItem(), 1, BlockCompressedStone.EnumType.COMPRESSED_GLOWSTONE.getMetadata()),
+				"x",
+				'x', new ItemStack(ModRegistry.CompressedStoneItem(), 1, BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE.getMetadata()));
 	}
 	
 	/**

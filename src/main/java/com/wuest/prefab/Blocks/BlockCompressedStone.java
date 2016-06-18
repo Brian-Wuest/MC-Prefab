@@ -27,6 +27,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.translation.I18n;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -61,6 +62,34 @@ public class BlockCompressedStone extends Block implements IMetaBlock
     public String getLocalizedName()
     {
         return I18n.translateToLocal("tile.prefab" + BlockCompressedStone.EnumType.COMPRESSED_STONE.getUnlocalizedName() + ".name");
+    }
+	
+    /**
+     * Get a light value for the block at the specified coordinates, normal ranges are between 0 and 15
+     *
+     * @param state Block state
+     * @param world The current world
+     * @param pos Block position in world
+     * @return The light value
+     */
+    @Override
+	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos)
+    {
+        IBlockState other = world.getBlockState(pos);
+        
+        if (other.getBlock() != this)
+        {
+            return other.getLightValue(world, pos);
+        }
+        
+        EnumType meta = this.getVariantFromState(state);
+        
+        if (meta == EnumType.COMPRESSED_GLOWSTONE || meta == EnumType.DOUBLE_COMPRESSED_GLOWSTONE)
+        {
+        	return 15;
+        }
+        
+        return state.getLightValue();
     }
 	
     /**
@@ -153,12 +182,19 @@ public class BlockCompressedStone extends Block implements IMetaBlock
     {
         return new BlockStateContainer(this, new IProperty[] {VARIANT});
     }
+    
+    public EnumType getVariantFromState(IBlockState state)
+    {
+    	return (EnumType)state.getValue(VARIANT);
+    }
 	
 	public static enum EnumType implements IStringSerializable
 	{
-		COMPRESSED_STONE(0, "blockcompressedstone", "blockCompressedStone"),
-		DOUBLE_COMPRESSED_STONE(1, "blockdoublecompressedstone", "blockDoubleCompressedStone"),
-		TRIPLE_COMPRESSED_STONE(2, "blocktriplecompressedstone", "blockTripleCompressedStone");
+		COMPRESSED_STONE(0, "block_compressed_stone", "blockCompressedStone"),
+		DOUBLE_COMPRESSED_STONE(1, "block_double_compressed_stone", "blockDoubleCompressedStone"),
+		TRIPLE_COMPRESSED_STONE(2, "block_triple_compressed_stone", "blockTripleCompressedStone"),
+		COMPRESSED_GLOWSTONE(3, "block_compressed_glowstone", "blockCompressedGlowStone"),
+		DOUBLE_COMPRESSED_GLOWSTONE(4, "block_double_compressed_glowstone", "blockDoubleCompressedGlowStone");
 		
         private final int meta;
 		
