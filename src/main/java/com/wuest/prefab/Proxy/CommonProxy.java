@@ -5,8 +5,11 @@ import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Events.ModEventHandler;
 import com.wuest.prefab.Gui.GuiHouseItem;
+import com.wuest.prefab.Gui.GuiWareHosue;
 import com.wuest.prefab.Proxy.Messages.HouseTagMessage;
+import com.wuest.prefab.Proxy.Messages.WareHouseTagMessage;
 import com.wuest.prefab.Proxy.Messages.Handlers.HouseHandler;
+import com.wuest.prefab.Proxy.Messages.Handlers.WareHouseHandler;
 
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.entity.player.EntityPlayer;
@@ -45,6 +48,7 @@ public class CommonProxy implements IGuiHandler
 		ModConfiguration.syncConfig();
 		
 		Prefab.network.registerMessage(HouseHandler.class, HouseTagMessage.class, 1, Side.SERVER);
+		Prefab.network.registerMessage(WareHouseHandler.class, WareHouseTagMessage.class, 2, Side.SERVER);
 		
 		// Register items here.
 		ModRegistry.RegisterModComponents();
@@ -75,6 +79,10 @@ public class CommonProxy implements IGuiHandler
 		if (ID == GuiHouseItem.GUI_ID)
 		{
 			return new GuiHouseItem(x, y, z);
+		}
+		else if (ID == GuiWareHosue.GUI_ID)
+		{
+			return new GuiWareHosue(x, y, z);
 		}
 
 		return null;
