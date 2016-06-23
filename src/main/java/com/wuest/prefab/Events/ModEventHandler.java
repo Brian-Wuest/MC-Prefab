@@ -37,6 +37,7 @@ public class ModEventHandler
 			{
 				ItemStack stack = new ItemStack(ModRegistry.StartHouse());
 				player.inventory.addItemStackToInventory(stack);
+				player.inventoryContainer.detectAndSendChanges();
 
 				// Make sure to set the tag for this player so they don't get the item again.
 				persistTag.setBoolean(ModEventHandler.GIVEN_HOUSEBUILDER_TAG, true);

@@ -25,7 +25,7 @@ group= "com.wuest.prefab" // http://maven.apache.org/guides/mini/guide-naming-co
 archivesBaseName = "prefab"
 
 minecraft {
-    version = "1.9.4-12.17.0.1961"
+    version = "1.10-12.18.0.1984-1.10.0"
     runDir = "run"
     
     // the mappings can be changed at any time, and must be in the following format.

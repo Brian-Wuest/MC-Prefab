@@ -1,5 +1,104 @@
 Changelog:
-Build 1961:
+Build 1984:
+	blay09:
+		[1.10] Fix keys with KeyModifier failing to load (#3018)
+		Fix key options with KeyModifier failing to load due to
+		NumberFormatException
+
+Build 1.10-12.18.0.1983-1.10.0:
+	cpw:
+		Accept more 1.9.4 version strings. Fix NPE for custom villager types and
+		their associated zombie spawns. Still needs review.
+
+Build 1.10-12.18.0.1982-1.10.0:
+	mezz: Fix all guis closing as soon as they are opened (#3013)
+
+Build 1.10-12.18.0.1981-1.10.0:
+	cpw: Update to 1.10
+	LexManos: Fix version number.
+
+Build 1.9.4-12.17.0.1980-1.10.0:
+	cpw: Fix the MDK - it gets the license too!
+
+Build 1.9.4-12.17.0.1979-1.10.0:
+	cpw:
+		Update the build.gradle script to ship the new license and stop shipping
+		the old licenses.
+
+Build 1.9.4-12.17.0.1978-1.10.0:
+	cpw:
+		In accordance with our stated goal of relicensing Forge to LGPL v2.1,
+		this commit enacts that change. Although it is using the 1.9.4 codebase,
+		it is intended that this branch become public with the 1.10 changes, as
+		such the license will take effect at that time. The three commits from
+		persons who have failed to accept the new license, as documented in
+		#2789, have had their commits reverted. This should complete the license
+		transition. Commits after the commit date of this commit should be
+		considered licensed by LGPLv2.1, as indicated in LICENSE-new.txt. All
+		patches are now considered owned by the Forge project and Forge
+		Development LLC in particular (note that they will not get the license
+		boilerplate, as they are machine generated files).
+
+Build 1.9.4-12.17.0.1976:
+	GirafiStudios:
+		Made forge-type spawn eggs spawn childs, when right clicking
+		EntityAgeable again. (#2982)
+
+Build 1.9.4-12.17.0.1975:
+	shadowfacts: Fix broken EntityItem merging for Items with capabilities
+	diesieben07:
+		Make ASMDataTable more useful: (#2911)
+		- EnumHolder now has getters for it's data
+		- enum arrays work now
+		- nested annotations work now outside of being in arrays
+		(cherry picked from commit f10f750)
+
+Build 1.9.4-12.17.0.1974-1.9.4:
+	diesieben07:
+		Make ASMDataTable more useful: (#2911)
+		- EnumHolder now has getters for it's data
+		- enum arrays work now
+		- nested annotations work now outside of being in arrays
+
+Build 1.9.4-12.17.0.1973:
+	mezz: Fix incorrect FluidUtil doc (#2996)
+
+Build 1.9.4-12.17.0.1972:
+	mezz: Fix ItemStack deserialization can't clear nbt (#3005)
+	mezz: Improve the "missing mods" on-screen error message (#2997)
+
+Build 1.9.4-12.17.0.1970:
+	cpw: Update CONTRIBUTING.md
+
+Build 1.9.4-12.17.0.1969:
+	cpw: Update CONTRIBUTING.md
+
+Build 1.9.4-12.17.0.1968:
+	mezz: Fix #2918 Make dispensers with buckets work with modded fluids (#2947)
+
+Build 1.9.4-12.17.0.1967:
+	LexManos: Fixed brewing stand returning incorrect solts for side inventories.
+
+Build 1.9.4-12.17.0.1966:
+	LexManos: Fixed villager career display names being off by one.
+
+Build 1.9.4-12.17.0.1965:
+	diesieben07:
+		Fix DataParameter mixup when vanilla clients are connected causing CCE
+		in zombie renderer (#2992)
+
+Build 1.9.4-12.17.0.1964:
+	williewillus: Fix AnimationItemOverrideList not falling back to super (#2990)
+
+Build 1.9.4-12.17.0.1963:
+	mezz:
+		Fix #2961 Capability data is not preserved by fluid handler interactions
+		(#2976)
+
+Build 1.9.4-12.17.0.1962:
+	cpw: Slight tweak to early loading, to accommodate FMP
+
+Build 1.9.4-12.17.0.1961:
 	LexManos:
 		Fixed Fernflower decompile issue in AnvilChunkLoader.saveExtraData()
 		Closes #2985
