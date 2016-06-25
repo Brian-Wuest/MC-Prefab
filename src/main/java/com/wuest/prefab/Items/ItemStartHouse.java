@@ -44,8 +44,6 @@ import com.wuest.prefab.Proxy.CommonProxy;
 
 public class ItemStartHouse extends Item
 {
-	public static ItemStartHouse RegisteredItem;
-
 	protected static BlockPos NorthEastCorner;
 	protected static BlockPos SouthEastCorner;
 	protected static BlockPos SouthWestCorner;
@@ -145,7 +143,7 @@ public class ItemStartHouse extends Item
 						ItemStartHouse.PlaceMineShaft(world, startingPosition, configuration.houseDepth, northFace);
 					}
 
-					player.inventory.clearMatchingItems(ItemStartHouse.RegisteredItem, -1, 1, null);
+					player.inventory.clearMatchingItems(ModRegistry.StartHouse(), -1, 1, null);
 					player.inventoryContainer.detectAndSendChanges();
 				}
 			}
