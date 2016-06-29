@@ -12,6 +12,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.model.ModelLoader;
 
 public final class ItemRenderRegister 
 {
@@ -46,6 +47,7 @@ public final class ItemRenderRegister
 	{
 		ModelResourceLocation location = new ModelResourceLocation(blockName, "inventory");
 		//System.out.println("Registering Item: " + location.getResourceDomain() + "[" + location.getResourcePath() + "]");
+		//ModelLoader.setCustomModelResourceLocation(item, metaData, location);
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, metaData, location);
 	}
 

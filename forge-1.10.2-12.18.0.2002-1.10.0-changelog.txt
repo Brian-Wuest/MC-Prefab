@@ -1,5 +1,13 @@
 Changelog:
-Build 2000:
+Build 2002:
+	LexManos:
+		Fixed MC version number... I could of SWORN we removed this in favor of
+		a automated system...
+
+Build 1.10.2-12.18.0.2001-1.10.0:
+	LexManos: 1.10.2 Update
+
+Build 1.10-12.18.0.2000-1.10.0:
 	diesieben07:
 		Fix mob-spawners crashing for non-living entities and simply the patch
 		in the process (#3042)
