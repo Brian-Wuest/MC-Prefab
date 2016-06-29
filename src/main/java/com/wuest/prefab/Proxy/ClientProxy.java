@@ -17,6 +17,11 @@ public class ClientProxy extends CommonProxy
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		super.preInit(event);
+		
+		// After all items have been registered and all recipes loaded, register any necessary renderer.
+		Prefab.proxy.registerRenderers();
+				
+		ModelBakery.registerItemVariants(ModRegistry.CompressedStoneItem(), BlockCompressedStone.EnumType.GetNames());
 	}
 
 	@Override
@@ -24,11 +29,6 @@ public class ClientProxy extends CommonProxy
 	{
 		super.init(event);
 
-		// After all items have been registered and all recipes loaded, register any necessary renderer.
-		Prefab.proxy.registerRenderers();
-		
-		ModelBakery.registerItemVariants(ModRegistry.CompressedStoneItem(), BlockCompressedStone.EnumType.GetNames());
-		
 		this.RegisterEventListeners();
 	}
 
@@ -43,7 +43,9 @@ public class ClientProxy extends CommonProxy
 		ItemRenderRegister.registerItemRenderer();
 	}
 	
-	private void RegisterEventListeners()
+	@Override
+	protected void RegisterEventListeners()
 	{
+		super.RegisterEventListeners();
 	}
 }

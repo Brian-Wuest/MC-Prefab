@@ -89,7 +89,7 @@ public class CommonProxy implements IGuiHandler
 	}
 
 	
-	private void RegisterEventListeners()
+	protected void RegisterEventListeners()
 	{
 		// DEBUG
 		System.out.println("Registering event listeners");

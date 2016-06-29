@@ -46,9 +46,9 @@ public final class ItemRenderRegister
 	public static void regItem(Item item, int metaData, String blockName)
 	{
 		ModelResourceLocation location = new ModelResourceLocation(blockName, "inventory");
-		//System.out.println("Registering Item: " + location.getResourceDomain() + "[" + location.getResourcePath() + "]");
-		//ModelLoader.setCustomModelResourceLocation(item, metaData, location);
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, metaData, location);
+		System.out.println("Registering Item: " + location.getResourceDomain() + "[" + location.getResourcePath() + "]");
+		ModelLoader.setCustomModelResourceLocation(item, metaData, location);
+		//Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, metaData, location);
 	}
 
 	/**
