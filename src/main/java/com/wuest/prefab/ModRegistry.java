@@ -50,7 +50,7 @@ public class ModRegistry
 	public static void RegisterModComponents()
 	{
 		ModRegistry.registerItem(new ItemStartHouse("itemStartHouse"));
-		//ModRegistry.registerItem(new ItemWareHouse("itemWareHouse"));
+		ModRegistry.registerItem(new ItemWareHouse("itemWareHouse"));
 		
 		// Create/register the item block with this block as it's needed due to this being a meta data block.
 		BlockCompressedStone stone = new BlockCompressedStone();

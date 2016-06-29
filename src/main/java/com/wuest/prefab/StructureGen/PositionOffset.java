@@ -1,5 +1,8 @@
 package com.wuest.prefab.StructureGen;
 
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+
 /**
  * This class represents the offsets for a particular position.
  * @author WuestMan
@@ -74,5 +77,24 @@ public class PositionOffset
 		this.eastOffset = 0;
 		this.westOffset = 0;
 		this.heightOffset = 0;
+	}
+	
+	public BlockPos getRelativePosition(BlockPos pos, EnumFacing assumedNorth)
+	{
+		// North offset.
+		pos = pos.offset(assumedNorth, this.northOffset);
+		
+		// East offset.
+		pos = pos.offset(assumedNorth.rotateY(), this.eastOffset);
+		
+		// South offset.
+		pos = pos.offset(assumedNorth.getOpposite(), this.southOffset);
+		
+		// West offset.
+		pos = pos.offset(assumedNorth.rotateYCCW(), this.westOffset);
+		
+		pos = pos.offset(EnumFacing.UP, this.heightOffset);
+		
+		return pos;
 	}
 }

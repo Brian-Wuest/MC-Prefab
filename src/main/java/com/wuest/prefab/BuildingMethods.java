@@ -48,6 +48,29 @@ public class BuildingMethods
 			northSide = northSide.offset(houseFacing.rotateYCCW());
 		}
 	}
+	
+	/**
+	 * Clears the given space without returning any of the drops.
+	 * 
+	 * @param world - The world used to clear the space.
+	 * @param startingPosition - The starting position, note the width, depth
+	 *            will be used to determine the starting corner(s).
+	 * @param width - The radius x-axis of how wide to clear. (East/West)
+	 * @param height - How high from the starting position to clear (this
+	 *            includes starting position).
+	 * @param depth - The radius z-axis of how deep to clear. (North/South)
+	 */
+	public static void ClearSpaceExact(World world, BlockPos startingPosition, int width, int height, int depth, EnumFacing houseFacing)
+	{
+		BlockPos northSide = startingPosition;
+
+		for (int i = 0; i < width; i++)
+		{
+			BuildingMethods.CreateWall(world, height, depth, houseFacing.getOpposite(), northSide, Blocks.AIR);
+			
+			northSide = northSide.offset(houseFacing.rotateYCCW());
+		}
+	}
 
 	public static ArrayList<ItemStack> ConsolidateDrops(Block block, World world, BlockPos pos, IBlockState state, ArrayList<ItemStack> originalStacks)
 	{

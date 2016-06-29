@@ -1,5 +1,70 @@
 Changelog:
-Build 1984:
+Build 2000:
+	diesieben07:
+		Fix mob-spawners crashing for non-living entities and simply the patch
+		in the process (#3042)
+
+Build 1.10-12.18.0.1999-1.10.0:
+	mezz:
+		Fix legacy handling for ItemBucket subclasses and non-universal buckets
+		(#3038)
+	mezz:
+		Fix milk bucket is fillable with water or lava when milk is unregistered
+		(#3039)
+
+Build 1.10-12.18.0.1998-1.10.0:
+	mezz: Remove duplicated universal buckets from the creative list (#3035)
+	mezz: Fix FluidContainerRegistry handling potions as water bottles (#3037)
+
+Build 1.10-12.18.0.1997-1.10.0:
+	cpw:
+		Big warning for recipe types found without being registered, it turns
+		out this is pretty severe, modders need to fix it.
+
+Build 1.10-12.18.0.1996-1.10.0:
+	mezz:
+		Fix comparison stability of the Recipe Sorter with unknown recipes #2962
+		(#3030)
+
+Build 1.10-12.18.0.1995-1.10.0:
+	LexManos: Fixed Husks rendering as standard zombies. Closes #3028
+
+Build 1.10-12.18.0.1994-1.10.0:
+	LexManos: Fixed chests being replaced when trees grew.
+
+Build 1.10-12.18.0.1993-1.10.0:
+	luacs1998: Simple implementation of a Open/Close container event (#3017)
+
+Build 1.10-12.18.0.1991-1.10.0:
+	LexManos:
+		Fixed shifted patch in GameSettings causing settings to not load
+		properly. Closes #3025 #3022
+	LexManos: Fixed incorrect variable being sent to doSpecialSpawn. Closes #2986
+	LexManos: Fix incorrect logic in ChunkCache.isSideSolid. Closes #3026
+	LexManos: Provide 'cleaner' version of TextureMap.setTextureEntry. Closes #1385
+
+Build 1.9.4-12.17.0.1990:
+	LexManos: Fixed incorrect variable being sent to doSpecialSpawn. Closes #2986
+	LexManos: Fix incorrect logic in ChunkCache.isSideSolid. Closes #3026
+
+Build 1.10-12.18.0.1989-1.10.0:
+	cpw: Fix doors popping off solid sides.
+
+Build 1.10-12.18.0.1988-1.10.0:
+	cpw: Fix that the Missing blocks/items/registries prompt often got stuck.
+
+Build 1.9.4-12.17.0.1987:
+	LexManos:
+		Set ModelLoader.WHITE's texture size iniatlly instead of defaulting to
+		zero and being set later.
+
+Build 1.10-12.18.0.1986-1.10.0:
+	cpw: Fix Realms button text to be shorter again. Closes #3019
+
+Build 1.10-12.18.0.1985-1.10.0:
+	cpw: Fix item pickup dupe bugs. Closes #3015
+
+Build 1.10-12.18.0.1984-1.10.0:
 	blay09:
 		[1.10] Fix keys with KeyModifier failing to load (#3018)
 		Fix key options with KeyModifier failing to load due to

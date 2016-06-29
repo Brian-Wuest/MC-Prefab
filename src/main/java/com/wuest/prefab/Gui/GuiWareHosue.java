@@ -3,7 +3,9 @@ package com.wuest.prefab.Gui;
 import java.awt.Color;
 import java.io.IOException;
 
+import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.WareHouseConfiguration;
+import com.wuest.prefab.Proxy.Messages.WareHouseTagMessage;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiLabel;
@@ -52,7 +54,7 @@ public class GuiWareHosue extends GuiScreen
 		int grayBoxY = (this.height / 2) - 83;
 
 		// Create the buttons.
-		this.btnHouseFacing = new GuiButtonExt(3, grayBoxX + 10, grayBoxY + 20, 100, 20, this.configuration.wareHouseFacing.getName());
+		this.btnHouseFacing = new GuiButtonExt(3, grayBoxX + 10, grayBoxY + 20, 100, 20, this.configuration.houseFacing.getName());
 		this.buttonList.add(this.btnHouseFacing);
 
 		this.btnGlassColor = new GuiButtonExt(10, grayBoxX + 10, grayBoxY + 60, 100, 20, this.configuration.dyeColor.getName());
@@ -117,8 +119,8 @@ public class GuiWareHosue extends GuiScreen
 		this.mc.fontRendererObj.drawString("Glass Color", grayBoxX + 10, grayBoxY + 50, color);
 		
 		// Draw the text here.
-		//this.btnCancel = new GuiButtonExt(2, grayBoxX + 147, grayBoxY + 136, 90, 20, "Cancel");
 		this.mc.fontRendererObj.drawSplitString("The red box in the image on the right shows the block you clicked on.", grayBoxX + 147, grayBoxY + 10, 100, color);
+		this.mc.fontRendererObj.drawSplitString("Note: If you're facing north, choose south so the doors are facing you.", grayBoxX + 147, grayBoxY + 60, 100, color);
 	}
 	
     /**
@@ -156,6 +158,17 @@ public class GuiWareHosue extends GuiScreen
 	{
 		if (button == this.btnCancel)
 		{
+			this.mc.displayGuiScreen(null);
+		}
+		else if (button == this.btnBuild)
+		{
+			WareHouseConfiguration houseConfiguration = new WareHouseConfiguration();
+			houseConfiguration.pos = this.pos;
+			houseConfiguration.houseFacing = EnumFacing.byName(this.btnHouseFacing.displayString);
+			houseConfiguration.dyeColor = this.configuration.dyeColor;
+			
+			Prefab.network.sendToServer(new WareHouseTagMessage(houseConfiguration.WriteToNBTTagCompound()));
+			
 			this.mc.displayGuiScreen(null);
 		}
 		else if (button == this.btnHouseFacing)

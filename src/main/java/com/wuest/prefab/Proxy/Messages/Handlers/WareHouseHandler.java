@@ -30,7 +30,7 @@ IMessageHandler<WareHouseTagMessage, IMessage>
 			public void run() 
 			{
 				// This is server side. Build the house.
-				WareHouseConfiguration configuration = WareHouseConfiguration.ReadFromNBTTagCompound(message.getMessageTag());
+				WareHouseConfiguration configuration = (new WareHouseConfiguration()).ReadFromNBTTagCompound(message.getMessageTag());
 				ItemWareHouse.BuildHouse(ctx.getServerHandler().playerEntity, ctx.getServerHandler().playerEntity.worldObj, configuration);
 			}
 		});

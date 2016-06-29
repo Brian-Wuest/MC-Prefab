@@ -1,12 +1,20 @@
 package com.wuest.prefab.Items;
 
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Map.Entry;
+
+import com.google.common.collect.ImmutableMap;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.WareHouseConfiguration;
 import com.wuest.prefab.Gui.GuiWareHosue;
 import com.wuest.prefab.Proxy.CommonProxy;
+import com.wuest.prefab.StructureGen.*;
+import com.wuest.prefab.StructureGen.CustomStructures.StructureWarehouse;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -70,11 +78,99 @@ public class ItemWareHouse extends Item
 			if (hitBlockState != null)
 			{
 				Block hitBlock = hitBlockState.getBlock();
-
+ 
 				if (hitBlock != null)
 				{
+					StructureWarehouse structure = StructureWarehouse.CreateInstance("assets/prefab/structures/warehouse.json", StructureWarehouse.class);
+					structure.BuildStructure(configuration, world, hitBlockPos, EnumFacing.NORTH);
+					
+					player.inventory.clearMatchingItems(ModRegistry.WareHouse(), -1, 1, null);
+					player.inventoryContainer.detectAndSendChanges();
 				}
 			}
 		}
+	}
+	
+	private static Structure getSeedStructure()
+	{
+		Structure structure = new Structure();
+		structure.setName("WareHouse");
+		
+		// North wall.
+		BuildWall wall = new BuildWall();
+		wall.setBlockDomain("minecraft");
+		wall.setBlockName("stoneBrick");
+		wall.getShape().setDirection(EnumFacing.EAST);
+		wall.getShape().setHeight(5);
+		wall.getShape().setWidth(1);
+		wall.getShape().setLength(10);
+		wall.getStartingPosition().setWestOffset(4);
+		structure.getWalls().add(wall);
+		
+		// West Wall.
+		wall = new BuildWall();
+		wall.setBlockDomain("minecraft");
+		wall.setBlockName("stoneBrick");
+		wall.getShape().setDirection(EnumFacing.SOUTH);
+		wall.getShape().setHeight(5);
+		wall.getShape().setWidth(1);
+		wall.getShape().setLength(10);
+		wall.getStartingPosition().setWestOffset(4);
+		structure.getWalls().add(wall);
+		
+		// South Wall.
+		wall = new BuildWall();
+		wall.setBlockDomain("minecraft");
+		wall.setBlockName("stoneBrick");
+		wall.getShape().setDirection(EnumFacing.EAST);
+		wall.getShape().setHeight(5);
+		wall.getShape().setWidth(1);
+		wall.getShape().setLength(10);
+		wall.getStartingPosition().setSouthOffset(10);
+		wall.getStartingPosition().setWestOffset(4);
+		structure.getWalls().add(wall);
+		
+		// East Wall.
+		wall = new BuildWall();
+		wall.setBlockDomain("minecraft");
+		wall.setBlockName("stoneBrick");
+		wall.getShape().setDirection(EnumFacing.SOUTH);
+		wall.getShape().setHeight(5);
+		wall.getShape().setWidth(1);
+		wall.getShape().setLength(10);
+		wall.getStartingPosition().setEastOffset(6);
+		structure.getWalls().add(wall);
+		
+		// Floor
+		BuildFloor floor = new BuildFloor();
+		floor.setBlockDomain("minecraft");
+		floor.setBlockName("brick");
+		floor.getShape().setDirection(EnumFacing.SOUTH);
+		floor.getShape().setHeight(1);
+		floor.getShape().setLength(10);
+		floor.getShape().setWidth(10);
+		floor.getStartingPosition().setWestOffset(4);
+		structure.getFloors().add(floor);
+		
+		BuildBlock block = new BuildBlock();
+		block.setBlockDomain("minecraft");
+		block.setBlockName("furnace");
+		block.getStartingPosition().setEastOffset(1);
+		block.getStartingPosition().setSouthOffset(1);
+		
+		BuildProperty property = new BuildProperty();
+		property.setName("facing");
+		property.setValue("east");
+		block.getProperties().add(property);
+		structure.getBlocks().add(block);
+		
+		block = new BuildBlock();
+		block.setBlockDomain("prefab");
+		block.setBlockName("blockCompressedGlowstone");
+		block.getStartingPosition().setEastOffset(2);
+		block.getStartingPosition().setSouthOffset(1);
+		structure.getBlocks().add(block);
+		
+		return structure;
 	}
 }
