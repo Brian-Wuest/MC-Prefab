@@ -1,5 +1,5 @@
 {
-	"parent": "prefab:block/blockDoubleCompressedGlowStone",
+	"parent": "prefab:block/blockDoubleCompressedGlowstone",
 	"display": {
 		"thirdperson": {
 			"rotation": [ 10, -45, 170 ],

@@ -193,8 +193,8 @@ public class BlockCompressedStone extends Block implements IMetaBlock
 		COMPRESSED_STONE(0, "block_compressed_stone", "blockCompressedStone"),
 		DOUBLE_COMPRESSED_STONE(1, "block_double_compressed_stone", "blockDoubleCompressedStone"),
 		TRIPLE_COMPRESSED_STONE(2, "block_triple_compressed_stone", "blockTripleCompressedStone"),
-		COMPRESSED_GLOWSTONE(3, "block_compressed_glowstone", "blockCompressedGlowStone"),
-		DOUBLE_COMPRESSED_GLOWSTONE(4, "block_double_compressed_glowstone", "blockDoubleCompressedGlowStone");
+		COMPRESSED_GLOWSTONE(3, "block_compressed_glowstone", "blockCompressedGlowstone"),
+		DOUBLE_COMPRESSED_GLOWSTONE(4, "block_double_compressed_glowstone", "blockDoubleCompressedGlowstone");
 		
         private final int meta;
 		
