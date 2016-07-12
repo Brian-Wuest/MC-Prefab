@@ -57,6 +57,7 @@ public class ItemWareHouse extends Item
 			if (side == EnumFacing.UP)
 			{
 				// Open the client side gui to determine the house options.
+				//Structure.ScanStructure(world, hitBlockPos, hitBlockPos.east(7).south(1).down(5), hitBlockPos.west(8).south(16).up(10), "C:\\Users\\Brian\\Documents\\GitHub\\MC-Prefab\\src\\main\\resources\\assets\\prefab\\structures\\warehouse.json");
 				player.openGui(Prefab.instance, GuiWareHosue.GUI_ID, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
 				return EnumActionResult.PASS;
 			}

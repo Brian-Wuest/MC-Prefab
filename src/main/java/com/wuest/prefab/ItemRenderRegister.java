@@ -22,15 +22,15 @@ public final class ItemRenderRegister
 	public static void registerItemRenderer()
 	{
 		// Blocks.
-		for(Entry<String, Block> currentBlock : ModRegistry.ModBlocks.entrySet())
+		for(Block currentBlock : ModRegistry.ModBlocks)
 		{
-			ItemRenderRegister.regBlock(currentBlock.getValue());
+			ItemRenderRegister.regBlock(currentBlock);
 		}
 
 		// Items.
-		for (Entry<String, Item> currentItem : ModRegistry.ModItems.entrySet())
+		for (Item currentItem : ModRegistry.ModItems)
 		{
-			ItemRenderRegister.regItem(currentItem.getValue());
+			ItemRenderRegister.regItem(currentItem);
 		}
 	}
 
@@ -46,7 +46,7 @@ public final class ItemRenderRegister
 	public static void regItem(Item item, int metaData, String blockName)
 	{
 		ModelResourceLocation location = new ModelResourceLocation(blockName, "inventory");
-		System.out.println("Registering Item: " + location.getResourceDomain() + "[" + location.getResourcePath() + "]");
+		//System.out.println("Registering Item: " + location.getResourceDomain() + "[" + location.getResourcePath() + "]");
 		ModelLoader.setCustomModelResourceLocation(item, metaData, location);
 		//Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, metaData, location);
 	}

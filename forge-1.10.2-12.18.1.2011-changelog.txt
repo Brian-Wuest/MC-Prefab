@@ -1,5 +1,46 @@
 Changelog:
-Build 2002:
+Build 2011:
+	LexManos: Bump version for a RB
+
+Build 1.10.2-12.18.0.2010:
+	bernhard.bonigl:
+		Add an event that allows to modify the looting level based on damage
+		source
+
+Build 1.10.2-12.18.0.2009:
+	williewillus: Add throwable impact event (#3071)
+
+Build 1.10.2-12.18.0.2007-1.10.0:
+	LexManos:
+		Fix hopper extract behavior being broken on edge cases due to
+		IItemHandler capability. Closes #3062
+
+Build 1.10.2-12.18.0.2006-1.10.0:
+	LexManos:
+		Fixed FPS graph and new debug lines not being rendered in Debug screen.
+		Closes #3054
+
+Build 1.10.2-12.18.0.2005-1.10.0:
+	diesieben07:
+		Restore (buggy?) behavior of vanilla BlockPistonMoving and ignore drop
+		chance (#3052)
+
+Build 1.10.2-12.18.0.2004-1.10.0:
+	LexManos:
+		Fix villages generating to high when using a cusom sea level. Closes
+		#3050
+
+Build 1.10.2-12.18.0.2003-1.10.0:
+	LexManos:
+		Forge will now load extra mods from mods/mod_list.json and
+		mods/mc_version/mod_list.json. As defined by the same json spec as
+		--modListFile. And now if repositoryRoot is prefixed with absolute: the
+		path will NOT be relative to the MC directory.
+	LexManos:
+		Update build.gradle to have single line for specifying minecraft
+		version, and will update ForgeVersion.java as needed.
+
+Build 1.10.2-12.18.0.2002-1.10.0:
 	LexManos:
 		Fixed MC version number... I could of SWORN we removed this in favor of
 		a automated system...
