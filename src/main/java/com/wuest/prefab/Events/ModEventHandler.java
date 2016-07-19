@@ -3,14 +3,17 @@ package com.wuest.prefab.Events;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.ModConfiguration;
+import com.wuest.prefab.Proxy.Messages.ConfigSyncMessage;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 
 /**
  * This is the server side event hander.
@@ -42,6 +45,17 @@ public class ModEventHandler
 				// Make sure to set the tag for this player so they don't get the item again.
 				persistTag.setBoolean(ModEventHandler.GIVEN_HOUSEBUILDER_TAG, true);
 			}
+		}
+	}
+	
+	@SubscribeEvent
+	public void onPlayerLoginEvent(PlayerLoggedInEvent event)
+	{
+		if(!event.player.worldObj.isRemote)
+		{
+			NBTTagCompound tag = Prefab.proxy.proxyConfiguration.ToNBTTagCompound();
+			Prefab.network.sendTo(new ConfigSyncMessage(tag), (EntityPlayerMP)event.player);
+			System.out.println("Sent config to '" + event.player.getDisplayName() + ".'");
 		}
 	}
 
@@ -93,4 +107,3 @@ public class ModEventHandler
 	}
 
 }
-

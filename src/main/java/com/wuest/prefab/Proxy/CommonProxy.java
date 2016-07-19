@@ -6,8 +6,10 @@ import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Events.ModEventHandler;
 import com.wuest.prefab.Gui.GuiHouseItem;
 import com.wuest.prefab.Gui.GuiWareHosue;
+import com.wuest.prefab.Proxy.Messages.ConfigSyncMessage;
 import com.wuest.prefab.Proxy.Messages.HouseTagMessage;
 import com.wuest.prefab.Proxy.Messages.WareHouseTagMessage;
+import com.wuest.prefab.Proxy.Messages.Handlers.ConfigSyncHandler;
 import com.wuest.prefab.Proxy.Messages.Handlers.HouseHandler;
 import com.wuest.prefab.Proxy.Messages.Handlers.WareHouseHandler;
 
@@ -49,6 +51,7 @@ public class CommonProxy implements IGuiHandler
 		
 		Prefab.network.registerMessage(HouseHandler.class, HouseTagMessage.class, 1, Side.SERVER);
 		Prefab.network.registerMessage(WareHouseHandler.class, WareHouseTagMessage.class, 2, Side.SERVER);
+		Prefab.network.registerMessage(ConfigSyncHandler.class, ConfigSyncMessage.class, 3, Side.CLIENT);
 		
 		// Register items here.
 		ModRegistry.RegisterModComponents();

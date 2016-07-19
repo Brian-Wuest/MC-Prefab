@@ -2,6 +2,7 @@ package com.wuest.prefab.Config;
 
 import com.wuest.prefab.Prefab;
 
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.config.Configuration;
 
 /**
@@ -18,6 +19,7 @@ public class ModConfiguration
 	// Config file option names.
 	private static String addHouseItemName = "Add House Item On New Player Join";
 	private static String enableHouseGenerationRestrictionName = "Enable House Generation Restrictions";
+	private static String maximumHouseSizeName = "Maximum Starting House Size";
 	
 	// Chest content option names.
 	private static String addSwordName = "Add Sword";
@@ -36,6 +38,7 @@ public class ModConfiguration
 	// Configuration Options.
 	public boolean addHouseItem;
 	public boolean enableHouseGenerationRestrictions;
+	public int maximumStartingHouseSize;
 	
 	// Chest content options.
 	public boolean addSword;
@@ -55,6 +58,7 @@ public class ModConfiguration
 	public ModConfiguration()
 	{
 		this.addHouseItem = true;
+		this.maximumStartingHouseSize = 16;
 	}
 	
 	public static void syncConfig()
@@ -69,7 +73,8 @@ public class ModConfiguration
 		// General settings.
 		Prefab.proxy.proxyConfiguration.addHouseItem = config.getBoolean(ModConfiguration.addHouseItemName, ModConfiguration.OPTIONS, true, "Determines if the house item is added to player inventory when joining the world for the first time. Server configuration overrides client.");
 		Prefab.proxy.proxyConfiguration.enableHouseGenerationRestrictions = config.getBoolean(ModConfiguration.enableHouseGenerationRestrictionName, ModConfiguration.OPTIONS, false, "When true this option causes the Crafting Table, Furnace and Chest to not be added when creating a house, regardless of options chosen. Server Configuration overrides client.");
-
+		Prefab.proxy.proxyConfiguration.maximumStartingHouseSize = config.getInt(ModConfiguration.maximumHouseSizeName, ModConfiguration.OPTIONS, 16, 5, 16, "Determines the maximum size the starting house can be generated as. Server configuration overrides client.");
+		
 		config.setCategoryComment(ModConfiguration.ChestContentOptions, "This category is to determine the contents of the chest created by the house item. When playing on a server, the server configuration is used.");
 
 		Prefab.proxy.proxyConfiguration.addSword = config.getBoolean(ModConfiguration.addSwordName, ModConfiguration.ChestContentOptions, true, "Determines if a Stone Sword is added the the chest when the house is created.");
@@ -94,6 +99,17 @@ public class ModConfiguration
 		}
 	}
 
+	public NBTTagCompound ToNBTTagCompound()
+	{
+	
+		return null;
+	}
+	
+	public void UpdateFromNBTTagCompound(NBTTagCompound tag)
+	{
+		
+	}
+	
 	public enum CeilingFloorBlockType
 	{
 		StoneBrick(0),
