@@ -101,13 +101,55 @@ public class ModConfiguration
 
 	public NBTTagCompound ToNBTTagCompound()
 	{
-	
-		return null;
+		NBTTagCompound tag = new NBTTagCompound();
+		
+		tag.setBoolean(ModConfiguration.addHouseItemName, this.addHouseItem);
+		tag.setBoolean(ModConfiguration.enableHouseGenerationRestrictionName, this.enableHouseGenerationRestrictions);
+		tag.setInteger(ModConfiguration.maximumHouseSizeName, this.maximumStartingHouseSize);
+		tag.setBoolean(ModConfiguration.addSwordName, this.addSword);
+		tag.setBoolean(ModConfiguration.addAxeName, this.addAxe);
+		tag.setBoolean(ModConfiguration.addShovelName, this.addShovel);
+		tag.setBoolean(ModConfiguration.addHoeName, this.addHoe);
+		tag.setBoolean(ModConfiguration.addPickAxeName, this.addPickAxe);
+		tag.setBoolean(ModConfiguration.addArmorName, this.addArmor);
+		tag.setBoolean(ModConfiguration.addFoodName, this.addFood);
+		tag.setBoolean(ModConfiguration.addCropsName, this.addCrops);
+		tag.setBoolean(ModConfiguration.addDirtName, this.addDirt);
+		tag.setBoolean(ModConfiguration.addCobbleName, this.addCobble);
+		tag.setBoolean(ModConfiguration.addSaplingsName, this.addSaplings);
+		tag.setBoolean(ModConfiguration.addTorchesName, this.addTorches);
+		
+		return tag;
 	}
 	
-	public void UpdateFromNBTTagCompound(NBTTagCompound tag)
+	public static ModConfiguration getFromNBTTagCompound(NBTTagCompound tag)
 	{
+		ModConfiguration config = new ModConfiguration();
 		
+		config.addHouseItem = tag.getBoolean(ModConfiguration.addHouseItemName);
+		config.enableHouseGenerationRestrictions = tag.getBoolean(ModConfiguration.enableHouseGenerationRestrictionName);
+		config.maximumStartingHouseSize = tag.getInteger(ModConfiguration.maximumHouseSizeName);
+		
+		// Make sure the server admin didn't set the maximum starting size to an invalid value from the configuration file.
+		if (config.maximumStartingHouseSize < 5 || config.maximumStartingHouseSize > 16)
+		{
+			config.maximumStartingHouseSize = 16;
+		}
+		
+		config.addSword = tag.getBoolean(ModConfiguration.addSwordName);
+		config.addAxe = tag.getBoolean(ModConfiguration.addAxeName);
+		config.addShovel = tag.getBoolean(ModConfiguration.addShovelName);
+		config.addHoe = tag.getBoolean(ModConfiguration.addHoeName);
+		config.addPickAxe = tag.getBoolean(ModConfiguration.addPickAxeName);
+		config.addArmor = tag.getBoolean(ModConfiguration.addArmorName);
+		config.addFood = tag.getBoolean(ModConfiguration.addFoodName);
+		config.addCrops = tag.getBoolean(ModConfiguration.addCropsName);
+		config.addDirt = tag.getBoolean(ModConfiguration.addDirtName);
+		config.addCobble = tag.getBoolean(ModConfiguration.addCobbleName);
+		config.addSaplings = tag.getBoolean(ModConfiguration.addSaplingsName);
+		config.addTorches = tag.getBoolean(ModConfiguration.addTorchesName);
+		
+		return config;
 	}
 	
 	public enum CeilingFloorBlockType

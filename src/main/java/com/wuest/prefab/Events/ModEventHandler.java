@@ -3,6 +3,7 @@ package com.wuest.prefab.Events;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.ModConfiguration;
+import com.wuest.prefab.Proxy.ClientProxy;
 import com.wuest.prefab.Proxy.Messages.ConfigSyncMessage;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,6 +15,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent;
 
 /**
  * This is the server side event hander.
@@ -55,7 +57,19 @@ public class ModEventHandler
 		{
 			NBTTagCompound tag = Prefab.proxy.proxyConfiguration.ToNBTTagCompound();
 			Prefab.network.sendTo(new ConfigSyncMessage(tag), (EntityPlayerMP)event.player);
-			System.out.println("Sent config to '" + event.player.getDisplayName() + ".'");
+			System.out.println("Sent config to '" + event.player.getDisplayNameString() + ".'");
+		}
+	}
+	
+	@SubscribeEvent
+	public void onPlayerLoggedOutEvent(PlayerLoggedOutEvent event)
+	{
+		// When the player logs out, make sure to re-set the server configuration. 
+		// This is so a new configuration can be successfully loaded when they switch servers or worlds (on single player.
+		if (event.player.worldObj.isRemote)
+		{
+			// Make sure to null out the server configuration from the client.
+			((ClientProxy)Prefab.proxy).serverConfiguration = null;
 		}
 	}
 

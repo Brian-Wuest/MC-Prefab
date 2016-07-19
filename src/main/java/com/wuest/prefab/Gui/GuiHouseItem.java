@@ -12,6 +12,7 @@ import net.minecraftforge.fml.client.config.GuiSlider;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.HouseConfiguration;
 import com.wuest.prefab.Config.ModConfiguration;
+import com.wuest.prefab.Proxy.ClientProxy;
 import com.wuest.prefab.Proxy.Messages.HouseTagMessage;
 
 public class GuiHouseItem extends GuiScreen
@@ -102,6 +103,8 @@ public class GuiHouseItem extends GuiScreen
 	{
 		int x = 20;
 		int y = 20;
+		
+		ModConfiguration serverConfiguration = ((ClientProxy)Prefab.proxy).getServerConfiguration();
 
 		this.btnAddTorches = new GuiCheckBox(1, x, y, HouseConfiguration.addTorchesName, true);
 		this.buttonList.add(this.btnAddTorches);
@@ -113,11 +116,11 @@ public class GuiHouseItem extends GuiScreen
 		this.buttonList.add(this.btnHouseFacing);
 		
 		y+= 40;
-		this.btnHouseDepth = new GuiSlider(15, x, y, 120, 20, "", "", 5, 16, 9, false, true);
+		this.btnHouseDepth = new GuiSlider(15, x, y, 120, 20, "", "", 5, serverConfiguration.maximumStartingHouseSize, 9, false, true);
 		this.buttonList.add(this.btnHouseDepth);
 		
 		y+= 40;
-		this.btnHouseWidth = new GuiSlider(16, x, y, 120, 20, "", "", 5, 16, 9, false, true);
+		this.btnHouseWidth = new GuiSlider(16, x, y, 120, 20, "", "", 5, serverConfiguration.maximumStartingHouseSize, 9, false, true);
 		this.buttonList.add(this.btnHouseWidth);
 		
 		y = 20;
