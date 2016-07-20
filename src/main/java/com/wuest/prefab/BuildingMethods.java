@@ -190,15 +190,26 @@ public class BuildingMethods
 		IBlockState stateWithoutFacing = stairs.getBlockState().getBaseState().withProperty(BlockStairs.HALF, BlockStairs.EnumHalf.BOTTOM)
 				.withProperty(BlockStairs.SHAPE, BlockStairs.EnumShape.STRAIGHT);
 
-		int wallLength = configuration.houseWidth;
-
-		while (wallLength > 0)
+		int wallWidth = configuration.houseWidth;
+		int wallDepth = configuration.houseDepth;
+		int height = wallWidth / 2;
+		boolean isWider = false;
+		
+		if (wallWidth > wallDepth)
 		{
+			height = wallDepth / 2;
+			isWider = true;
+		}
+
+		for (int i = 0; i <= height; i++)
+		{
+			// I is the vaulted roof level.
 			for (int j = 0; j < 4; j++)
 			{
-				// I is the wall side starting on the east side.
+				// Default is depth.
 				EnumFacing facing = houseFacing.rotateYCCW();
 				EnumFacing flowDirection = houseFacing.getOpposite();
+				int wallSize = wallDepth;
 
 				switch (j)
 				{
@@ -206,6 +217,7 @@ public class BuildingMethods
 					{
 						facing = houseFacing;
 						flowDirection = houseFacing.rotateYCCW();
+						wallSize = wallWidth;
 						break;
 					}
 
@@ -213,6 +225,7 @@ public class BuildingMethods
 					{
 						facing = houseFacing.rotateY();
 						flowDirection = houseFacing;
+						wallSize = wallDepth;
 						break;
 					}
 
@@ -220,11 +233,12 @@ public class BuildingMethods
 					{
 						facing = houseFacing.getOpposite();
 						flowDirection = houseFacing.rotateY();
+						wallSize = wallWidth;
 						break;
 					}
 				}
 
-				for (int k = 0; k <= wallLength; k++)
+				for (int k = 0; k <= wallSize; k++)
 				{
 					// j is the north/south counter.
 					BuildingMethods.ReplaceBlock(world, pos, stateWithoutFacing.withProperty(BlockStairs.FACING, facing));
@@ -234,21 +248,53 @@ public class BuildingMethods
 			}
 
 			pos = pos.offset(houseFacing.rotateYCCW()).offset(houseFacing.getOpposite()).up();
-			wallLength = wallLength - 2;
+			wallWidth = wallWidth - 2;
+			wallDepth = wallDepth - 2;
 		}
 
-		BuildingMethods.ReplaceBlock(world, pos, block);
-		
-		if (world.isAirBlock(pos.down().offset(houseFacing.rotateYCCW())))
+		if (world.isAirBlock(pos.down()))
 		{
-			// There are blank blocks around this one, fill them in.
-			BuildingMethods.ReplaceBlock(world, pos.offset(houseFacing.rotateYCCW()), block);
-			BuildingMethods.ReplaceBlock(world, pos.offset(houseFacing.getOpposite()), block);
-			BuildingMethods.ReplaceBlock(world, pos.offset(houseFacing.rotateYCCW()).offset(houseFacing.getOpposite()), block);
+			int finalStoneCount = wallDepth;
+			
+			if (isWider)
+			{
+				finalStoneCount = wallWidth;
+			}
+			
+			// Add the number of blocks based on the depth/width (minimum 1);
+			if (finalStoneCount < 1)
+			{
+				finalStoneCount = 1;
+			}
+			else
+			{
+				finalStoneCount = finalStoneCount + 2;
+			}
+			
+			BlockPos torchPos = pos;
+			
+			for (int i = 0; i < finalStoneCount; i++)
+			{
+				BuildingMethods.ReplaceBlock(world, pos, block);
+				
+				if (isWider)
+				{
+					pos = pos.offset(houseFacing.rotateYCCW());
+				}
+				else
+				{
+					pos = pos.offset(houseFacing.getOpposite());	
+				}
+			}
+			
+			IBlockState torchLocation = world.getBlockState(torchPos);
+			
+			if (torchLocation.getBlock().canPlaceTorchOnTop(torchLocation, world, torchPos))
+			{
+				IBlockState blockState = ((BlockTorch)Blocks.TORCH).getStateFromMeta(5);
+				BuildingMethods.ReplaceBlock(world, torchPos.up(), blockState);
+			}
 		}
-
-		IBlockState blockState = ((BlockTorch)Blocks.TORCH).getStateFromMeta(5);
-		BuildingMethods.ReplaceBlock(world, pos.up(), blockState);
 	}
 
 	public static void ReplaceBlock(World world, BlockPos pos, Block replacementBlock)
