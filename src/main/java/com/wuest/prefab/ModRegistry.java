@@ -35,6 +35,11 @@ public class ModRegistry
 		return ModRegistry.GetItem(ItemWareHouse.class);
 	}
 	
+	public static ItemChickenCoop ChickenCoop()
+	{
+		return ModRegistry.GetItem(ItemChickenCoop.class);
+	}
+	
 	public static ItemBlockMeta CompressedStoneItem()
 	{
 		return ModRegistry.GetItem(ItemBlockMeta.class);
@@ -83,6 +88,7 @@ public class ModRegistry
 	{
 		ModRegistry.registerItem(new ItemStartHouse("itemStartHouse"));
 		ModRegistry.registerItem(new ItemWareHouse("itemWareHouse"));
+		ModRegistry.registerItem(new ItemChickenCoop("itemChickenCoop"));
 		ModRegistry.registerItem(new ItemCompressedChest("itemCompressedChest"));
 		
 		// Create/register the item block with this block as it's needed due to this being a meta data block.

@@ -1,0 +1,23 @@
+Classes/Files needed for each Structure:
+com.wuest.prefab.Config
+	[Structure]Configuration
+com.wuest.prefab.Gui
+	Gui[Structure]
+com.wuest.prefab.Items
+	Item[Structure]
+com.wuest.prefab.Proxy.Messages
+	[Structure]TagMessage
+com.wuest.prefab.Proxy.Messages.Handlers
+	[Structure]Handler
+com.wuest.prefab.StructureGen.CustomStructures
+	Structure[Structure]
+assets.prefab.structures
+	[structure].json - Note, this should be lowercase
+assests.prefab.models.item
+	item[structure]
+assets.prefab.textures.items
+	item[structure]
+
+Notes:
+	Message registration must be added to CommonProxy.
+	Item and item Recipe(if any) must be registered within ModRegistry.

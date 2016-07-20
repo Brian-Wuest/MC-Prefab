@@ -15,8 +15,6 @@
 			"heightOffset" : -5
 		}
 	},
-	"floors" : [],
-	"walls" : [],
 	"blocks" : [{
 			"blockDomain" : "minecraft",
 			"blockName" : "double_stone_slab",
