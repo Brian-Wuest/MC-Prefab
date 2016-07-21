@@ -42,6 +42,8 @@ public class ItemChickenCoop extends Item
 			if (side == EnumFacing.UP)
 			{
 				// Open the client side gui to determine the house options.
+				//StructureChickenCoop chickenCoop = new StructureChickenCoop();
+				//chickenCoop.ScanStructure(world, hitBlockPos, player.getHorizontalFacing());
 				player.openGui(Prefab.instance, GuiChickenCoop.GUI_ID, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
 				return EnumActionResult.PASS;
 			}
@@ -67,7 +69,7 @@ public class ItemChickenCoop extends Item
 				if (hitBlock != null)
 				{
 					StructureChickenCoop structure = StructureChickenCoop.CreateInstance(StructureChickenCoop.ASSETLOCATION, StructureChickenCoop.class);
-					structure.BuildStructure(configuration, world, hitBlockPos, EnumFacing.NORTH);
+					structure.BuildStructure(configuration, world, hitBlockPos, EnumFacing.WEST);
 					
 					player.inventory.clearMatchingItems(ModRegistry.ChickenCoop(), -1, 1, null);
 					player.inventoryContainer.detectAndSendChanges();

@@ -18,7 +18,7 @@ public class StructureWarehouse extends Structure
 {
 	public static final String ASSETLOCATION = "assets/prefab/structures/warehouse.json"; 
 	
-	public static void ScanStructure(World world, BlockPos originalPos)
+	public static void ScanStructure(World world, BlockPos originalPos, EnumFacing playerFacing)
 	{
 		BuildClear clearedSpace = new BuildClear();
 		clearedSpace.getShape().setDirection(EnumFacing.SOUTH);
@@ -35,7 +35,8 @@ public class StructureWarehouse extends Structure
 				originalPos.east(7).south(1).down(5), 
 				originalPos.west(8).south(16).up(10), 
 				"C:\\Users\\Brian\\Documents\\GitHub\\MC-Prefab\\src\\main\\resources\\assets\\prefab\\structures\\warehouse.json",
-				clearedSpace);	
+				clearedSpace,
+				playerFacing);	
 	}
 	
 	@Override

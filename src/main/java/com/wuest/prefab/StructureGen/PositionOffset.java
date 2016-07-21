@@ -97,4 +97,97 @@ public class PositionOffset
 		
 		return pos;
 	}
+	
+	public BlockPos getRelativePosition(BlockPos pos, EnumFacing assumedNorth, EnumFacing configurationFacing)
+	{
+		EnumFacing facing = this.getRelativeFacing(assumedNorth, configurationFacing);
+
+		for (int i = 0; i < 4; i++)
+		{
+			switch (facing)
+			{
+				case EAST:
+				{
+					pos = pos.offset(facing, this.eastOffset);
+					break;
+				}
+				
+				case SOUTH:
+				{
+					pos = pos.offset(facing, this.southOffset);
+					break;
+				}
+				
+				case WEST:
+				{
+					pos = pos.offset(facing, this.westOffset);
+					break;
+				}
+				
+				default:
+				{
+					pos = pos.offset(facing, this.northOffset);
+					break;
+				}
+			}
+			
+			facing = facing.rotateY();
+		}
+		
+		pos = pos.offset(EnumFacing.UP, this.heightOffset);
+		
+		return pos;
+	}
+	
+	public EnumFacing getRelativeFacing(EnumFacing assumedNorth, EnumFacing facing)
+	{
+		if (facing == assumedNorth.rotateY())
+		{
+			return EnumFacing.EAST;
+		}
+		else if (facing == assumedNorth.getOpposite())
+		{
+			return EnumFacing.SOUTH;
+		}
+		else if (facing == assumedNorth.rotateYCCW())
+		{
+			return EnumFacing.WEST;
+		}
+		else
+		{
+			return EnumFacing.NORTH;
+		}
+	}
+	
+	public void setAppropriateOffSet(EnumFacing assumedNorth, EnumFacing facing, int offset)
+	{
+		facing = this.getRelativeFacing(assumedNorth, facing);
+		
+		switch (facing)
+		{
+			case EAST:
+			{
+				this.eastOffset = offset;
+				break;
+			}
+			
+			case WEST:
+			{
+				this.westOffset = offset;
+				break;
+			}
+			
+			case SOUTH:
+			{
+				this.southOffset = offset;
+				break;
+			}
+			
+			default:
+			{
+				this.northOffset = offset;
+				break;
+			}
+		}
+	}
 }

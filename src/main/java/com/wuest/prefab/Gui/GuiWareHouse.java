@@ -24,7 +24,7 @@ import net.minecraftforge.fml.client.config.GuiButtonExt;
  * @author WuestMan
  *
  */
-public class GuiWareHosue extends GuiScreen
+public class GuiWareHouse extends GuiScreen
 {
 	public static final int GUI_ID = 1;
 	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/defaultBackground.png");
@@ -39,7 +39,7 @@ public class GuiWareHosue extends GuiScreen
 	protected GuiButtonExt btnGlassColor;
 	protected WareHouseConfiguration configuration;
 	
-	public GuiWareHosue(int x, int y, int z)
+	public GuiWareHouse(int x, int y, int z)
 	{
 		this.pos = new BlockPos(x, y, z);
 	}

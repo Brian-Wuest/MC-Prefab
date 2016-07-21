@@ -91,7 +91,7 @@ public class Structure
 		}
 	}
 
-	public static void ScanStructure(World world, BlockPos originalPos, BlockPos cornerPos1, BlockPos cornerPos2, String fileLocation, BuildClear clearedSpace)
+	public static void ScanStructure(World world, BlockPos originalPos, BlockPos cornerPos1, BlockPos cornerPos2, String fileLocation, BuildClear clearedSpace, EnumFacing playerFacing)
 	{
 		Structure scannedStructure = new Structure();
 		scannedStructure.setClearSpace(clearedSpace);
@@ -110,27 +110,31 @@ public class Structure
 			buildBlock.setBlockDomain(currentBlock.getRegistryName().getResourceDomain());
 			buildBlock.setBlockName(currentBlock.getRegistryName().getResourcePath());
 
-			// if (currentPos.getX() > hitBlockPos.getX()). currentPos is "East"
+			// if (currentPos.getX() > originalPos.getX()). currentPos is "East"
 			// of hitBlock
-			// if (currentPos.getZ() > hitBlockPos.getZ()). currentPos is
+			// if (currentPos.getZ() > originalPos.getZ()). currentPos is
 			// "South" of hitBlock
 
 			if (currentPos.getX() > originalPos.getX())
 			{
 				buildBlock.getStartingPosition().setEastOffset(currentPos.getX() - originalPos.getX());
+				//buildBlock.getStartingPosition().setAppropriateOffSet(playerFacing, EnumFacing.EAST, currentPos.getX() - originalPos.getX());
 			}
 			else
 			{
 				buildBlock.getStartingPosition().setWestOffset(originalPos.getX() - currentPos.getX());
+				//buildBlock.getStartingPosition().setAppropriateOffSet(playerFacing, EnumFacing.WEST, originalPos.getX() - currentPos.getX());
 			}
 
 			if (currentPos.getZ() > originalPos.getZ())
 			{
 				buildBlock.getStartingPosition().setSouthOffset(currentPos.getZ() - originalPos.getZ());
+				//buildBlock.getStartingPosition().setAppropriateOffSet(playerFacing, EnumFacing.SOUTH, currentPos.getZ() - originalPos.getZ());
 			}
 			else
 			{
 				buildBlock.getStartingPosition().setNorthOffset(originalPos.getZ() - currentPos.getZ());
+				//buildBlock.getStartingPosition().setAppropriateOffSet(playerFacing, EnumFacing.NORTH, originalPos.getZ() - currentPos.getZ());
 			}
 
 			buildBlock.getStartingPosition().setHeightOffset(currentPos.getY() - originalPos.getY());
@@ -195,8 +199,7 @@ public class Structure
 	 * @param configuration The configuration the user updated.
 	 * @param world The current world.
 	 * @param originalPos The block the user clicked on.
-	 * @param assumedNorth The assumed "north". All block orientations are based
-	 *            off of this assumed "north".
+	 * @param assumedNorth This should always be "NORTH" when the file is based on a scan.
 	 */
 	public void BuildStructure(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth)
 	{
@@ -204,8 +207,10 @@ public class Structure
 		{
 			// First, clear the area where the structure will be built.
 			this.ClearSpace(configuration, world, originalPos, assumedNorth);
-	
+			
 			this.placedBlocks = new ArrayList<BuildBlock>();
+			
+			int counter = 0;
 			
 			// Now place all of the blocks.
 			for (BuildBlock block : this.getBlocks())
@@ -231,11 +236,18 @@ public class Structure
 						
 						if (!block.getHasFacing())
 						{
-							BuildingMethods.ReplaceBlock(world, block.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing), block.getBlockState());
+							BuildingMethods.ReplaceBlock(world, block.getStartingPosition().getRelativePosition(originalPos, assumedNorth, configuration.houseFacing), block.getBlockState());
 							
 							if (subBlock != null)
 							{
-								BuildingMethods.ReplaceBlock(world, subBlock.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing), subBlock.getBlockState());
+								BuildingMethods.ReplaceBlock(world, subBlock.getStartingPosition().getRelativePosition(originalPos, assumedNorth, configuration.houseFacing), subBlock.getBlockState());
+							}
+							
+							counter++;
+							
+							if (counter > 20)
+							{
+								break;
 							}
 						}
 						else
@@ -254,14 +266,14 @@ public class Structure
 			// Now place all of the facing blocks. This needs to be done here these blocks may not "stick" before all of the other solid blocks are placed.
 			for (BuildBlock currentBlock : this.placedBlocks)
 			{
-				BuildingMethods.ReplaceBlock(world, currentBlock.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing), currentBlock.getBlockState());
+				BuildingMethods.ReplaceBlock(world, currentBlock.getStartingPosition().getRelativePosition(originalPos, assumedNorth, configuration.houseFacing), currentBlock.getBlockState());
 				
 				// After placing the initial block, set the sub-block. This needs to happen as the list isn't always in the correct order.
 				if (currentBlock.getSubBlock() != null)
 				{
 					BuildBlock subBlock = currentBlock.getSubBlock();
 					
-					BuildingMethods.ReplaceBlock(world, subBlock.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing), subBlock.getBlockState());
+					BuildingMethods.ReplaceBlock(world, subBlock.getStartingPosition().getRelativePosition(originalPos, assumedNorth, configuration.houseFacing), subBlock.getBlockState());
 				}
 			}
 		}
@@ -280,7 +292,7 @@ public class Structure
 	 */
 	protected boolean BeforeBuilding(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth)
 	{
-		return true;
+		return false;
 	}
 	
 	/**

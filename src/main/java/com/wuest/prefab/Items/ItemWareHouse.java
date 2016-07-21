@@ -8,7 +8,7 @@ import com.google.common.collect.ImmutableMap;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.WareHouseConfiguration;
-import com.wuest.prefab.Gui.GuiWareHosue;
+import com.wuest.prefab.Gui.GuiWareHouse;
 import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.StructureGen.*;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureWarehouse;
@@ -52,7 +52,7 @@ public class ItemWareHouse extends Item
 			if (side == EnumFacing.UP)
 			{
 				// Open the client side gui to determine the house options.
-				player.openGui(Prefab.instance, GuiWareHosue.GUI_ID, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+				player.openGui(Prefab.instance, GuiWareHouse.GUI_ID, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
 				return EnumActionResult.PASS;
 			}
 		}
