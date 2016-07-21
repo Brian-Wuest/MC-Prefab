@@ -210,8 +210,6 @@ public class Structure
 			
 			this.placedBlocks = new ArrayList<BuildBlock>();
 			
-			int counter = 0;
-			
 			// Now place all of the blocks.
 			for (BuildBlock block : this.getBlocks())
 			{
@@ -236,18 +234,11 @@ public class Structure
 						
 						if (!block.getHasFacing())
 						{
-							BuildingMethods.ReplaceBlock(world, block.getStartingPosition().getRelativePosition(originalPos, assumedNorth, configuration.houseFacing), block.getBlockState());
+							BuildingMethods.ReplaceBlock(world, block.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing), block.getBlockState());
 							
 							if (subBlock != null)
 							{
-								BuildingMethods.ReplaceBlock(world, subBlock.getStartingPosition().getRelativePosition(originalPos, assumedNorth, configuration.houseFacing), subBlock.getBlockState());
-							}
-							
-							counter++;
-							
-							if (counter > 20)
-							{
-								break;
+								BuildingMethods.ReplaceBlock(world, subBlock.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing), subBlock.getBlockState());
 							}
 						}
 						else
@@ -266,14 +257,14 @@ public class Structure
 			// Now place all of the facing blocks. This needs to be done here these blocks may not "stick" before all of the other solid blocks are placed.
 			for (BuildBlock currentBlock : this.placedBlocks)
 			{
-				BuildingMethods.ReplaceBlock(world, currentBlock.getStartingPosition().getRelativePosition(originalPos, assumedNorth, configuration.houseFacing), currentBlock.getBlockState());
+				BuildingMethods.ReplaceBlock(world, currentBlock.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing), currentBlock.getBlockState());
 				
 				// After placing the initial block, set the sub-block. This needs to happen as the list isn't always in the correct order.
 				if (currentBlock.getSubBlock() != null)
 				{
 					BuildBlock subBlock = currentBlock.getSubBlock();
 					
-					BuildingMethods.ReplaceBlock(world, subBlock.getStartingPosition().getRelativePosition(originalPos, assumedNorth, configuration.houseFacing), subBlock.getBlockState());
+					BuildingMethods.ReplaceBlock(world, subBlock.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing), subBlock.getBlockState());
 				}
 			}
 		}

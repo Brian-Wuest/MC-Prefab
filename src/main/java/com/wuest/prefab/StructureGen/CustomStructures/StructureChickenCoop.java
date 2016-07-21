@@ -25,8 +25,8 @@ public class StructureChickenCoop extends Structure
 		Structure.ScanStructure(
 				world, 
 				originalPos, 
-				originalPos.south(1).east(9), 
-				originalPos.south(5).west(2).up(7), 
+				originalPos.east(10), 
+				originalPos.south(6).west(3).up(7), 
 				"C:\\Users\\Brian\\Documents\\GitHub\\MC-Prefab\\src\\main\\resources\\assets\\prefab\\structures\\chickencoop.json",
 				clearedSpace,
 				playerFacing);	
