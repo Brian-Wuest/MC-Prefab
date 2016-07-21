@@ -69,7 +69,7 @@ public class ItemChickenCoop extends Item
 				if (hitBlock != null)
 				{
 					StructureChickenCoop structure = StructureChickenCoop.CreateInstance(StructureChickenCoop.ASSETLOCATION, StructureChickenCoop.class);
-					structure.BuildStructure(configuration, world, hitBlockPos, EnumFacing.WEST);
+					structure.BuildStructure(configuration, world, hitBlockPos, EnumFacing.NORTH);
 					
 					player.inventory.clearMatchingItems(ModRegistry.ChickenCoop(), -1, 1, null);
 					player.inventoryContainer.detectAndSendChanges();

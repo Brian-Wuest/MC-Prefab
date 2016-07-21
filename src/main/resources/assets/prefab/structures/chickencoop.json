@@ -5,7 +5,7 @@
 			"width" : 12,
 			"height" : 7,
 			"length" : 5,
-			"direction" : "WEST"
+			"direction" : "SOUTH"
 		},
 		"startingPosition" : {
 			"northOffset" : 0,
@@ -19,65 +19,8 @@
 			"blockDomain" : "minecraft",
 			"blockName" : "dirt",
 			"startingPosition" : {
-				"northOffset" : 2,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 2,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 2,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 2,
-				"southOffset" : 0,
+				"northOffset" : 0,
+				"southOffset" : 1,
 				"eastOffset" : 0,
 				"westOffset" : 2,
 				"heightOffset" : 0
@@ -95,8 +38,8 @@
 			"blockDomain" : "minecraft",
 			"blockName" : "dirt",
 			"startingPosition" : {
-				"northOffset" : 2,
-				"southOffset" : 0,
+				"northOffset" : 0,
+				"southOffset" : 1,
 				"eastOffset" : 0,
 				"westOffset" : 1,
 				"heightOffset" : 0
@@ -106,7 +49,197 @@
 					"value" : "false"
 				}, {
 					"name" : "variant",
-					"value" : "dirt"
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 0,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 1,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 2,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 3,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 4,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 5,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 6,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 7,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 8,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 9,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
 				}
 			],
 			"hasFacing" : false
@@ -114,10 +247,10 @@
 			"blockDomain" : "minecraft",
 			"blockName" : "double_stone_slab",
 			"startingPosition" : {
-				"northOffset" : 2,
-				"southOffset" : 0,
+				"northOffset" : 0,
+				"southOffset" : 1,
 				"eastOffset" : 0,
-				"westOffset" : 5,
+				"westOffset" : 2,
 				"heightOffset" : 1
 			},
 			"properties" : [{
@@ -133,686 +266,10 @@
 			"blockDomain" : "minecraft",
 			"blockName" : "spruce_fence",
 			"startingPosition" : {
-				"northOffset" : 2,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 1
-			},
-			"properties" : [{
-					"name" : "east",
-					"value" : "false"
-				}, {
-					"name" : "north",
-					"value" : "false"
-				}, {
-					"name" : "south",
-					"value" : "false"
-				}, {
-					"name" : "west",
-					"value" : "false"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_fence",
-			"startingPosition" : {
-				"northOffset" : 2,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 1
-			},
-			"properties" : [{
-					"name" : "east",
-					"value" : "false"
-				}, {
-					"name" : "north",
-					"value" : "false"
-				}, {
-					"name" : "south",
-					"value" : "false"
-				}, {
-					"name" : "west",
-					"value" : "false"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_fence",
-			"startingPosition" : {
-				"northOffset" : 2,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 2,
-				"heightOffset" : 1
-			},
-			"properties" : [{
-					"name" : "east",
-					"value" : "false"
-				}, {
-					"name" : "north",
-					"value" : "false"
-				}, {
-					"name" : "south",
-					"value" : "false"
-				}, {
-					"name" : "west",
-					"value" : "false"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "double_stone_slab",
-			"startingPosition" : {
-				"northOffset" : 2,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 1
-			},
-			"properties" : [{
-					"name" : "seamless",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "stone"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "log",
-			"startingPosition" : {
-				"northOffset" : 2,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 2
-			},
-			"properties" : [{
-					"name" : "axis",
-					"value" : "y"
-				}, {
-					"name" : "variant",
-					"value" : "spruce"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_fence",
-			"startingPosition" : {
-				"northOffset" : 2,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 2
-			},
-			"properties" : [{
-					"name" : "east",
-					"value" : "false"
-				}, {
-					"name" : "north",
-					"value" : "false"
-				}, {
-					"name" : "south",
-					"value" : "false"
-				}, {
-					"name" : "west",
-					"value" : "false"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_fence",
-			"startingPosition" : {
-				"northOffset" : 2,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 2
-			},
-			"properties" : [{
-					"name" : "east",
-					"value" : "false"
-				}, {
-					"name" : "north",
-					"value" : "false"
-				}, {
-					"name" : "south",
-					"value" : "false"
-				}, {
-					"name" : "west",
-					"value" : "false"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_fence",
-			"startingPosition" : {
-				"northOffset" : 2,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 2,
-				"heightOffset" : 2
-			},
-			"properties" : [{
-					"name" : "east",
-					"value" : "false"
-				}, {
-					"name" : "north",
-					"value" : "false"
-				}, {
-					"name" : "south",
-					"value" : "false"
-				}, {
-					"name" : "west",
-					"value" : "false"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "log",
-			"startingPosition" : {
-				"northOffset" : 2,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 2
-			},
-			"properties" : [{
-					"name" : "axis",
-					"value" : "y"
-				}, {
-					"name" : "variant",
-					"value" : "spruce"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 2,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 3
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "brick_block",
-			"startingPosition" : {
-				"northOffset" : 2,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 3
-			},
-			"properties" : [],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "brick_block",
-			"startingPosition" : {
-				"northOffset" : 2,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 3
-			},
-			"properties" : [],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "brick_block",
-			"startingPosition" : {
-				"northOffset" : 2,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 2,
-				"heightOffset" : 3
-			},
-			"properties" : [],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 2,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 3
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 2,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 4
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 1,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 1,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 1,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 1,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 2,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 1,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_fence",
-			"startingPosition" : {
-				"northOffset" : 1,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 1
-			},
-			"properties" : [{
-					"name" : "east",
-					"value" : "false"
-				}, {
-					"name" : "north",
-					"value" : "false"
-				}, {
-					"name" : "south",
-					"value" : "false"
-				}, {
-					"name" : "west",
-					"value" : "false"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_fence",
-			"startingPosition" : {
-				"northOffset" : 1,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 1
-			},
-			"properties" : [{
-					"name" : "east",
-					"value" : "false"
-				}, {
-					"name" : "north",
-					"value" : "false"
-				}, {
-					"name" : "south",
-					"value" : "false"
-				}, {
-					"name" : "west",
-					"value" : "false"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_fence",
-			"startingPosition" : {
-				"northOffset" : 1,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 2
-			},
-			"properties" : [{
-					"name" : "east",
-					"value" : "false"
-				}, {
-					"name" : "north",
-					"value" : "false"
-				}, {
-					"name" : "south",
-					"value" : "false"
-				}, {
-					"name" : "west",
-					"value" : "false"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 1,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 3
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 1,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 3
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "top"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "torch",
-			"startingPosition" : {
-				"northOffset" : 1,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 3
-			},
-			"properties" : [{
-					"name" : "facing",
-					"value" : "south"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 1,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 2,
-				"heightOffset" : 3
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "top"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 1,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 3
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 1,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 4
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 2,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 0,
+				"southOffset" : 1,
 				"eastOffset" : 0,
 				"westOffset" : 1,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_fence",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 5,
 				"heightOffset" : 1
 			},
 			"properties" : [{
@@ -835,14 +292,14 @@
 			"blockName" : "spruce_fence_gate",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 0,
+				"southOffset" : 1,
 				"eastOffset" : 0,
-				"westOffset" : 1,
+				"westOffset" : 0,
 				"heightOffset" : 1
 			},
 			"properties" : [{
 					"name" : "facing",
-					"value" : "west"
+					"value" : "south"
 				}, {
 					"name" : "in_wall",
 					"value" : "false"
@@ -860,224 +317,9 @@
 			"blockName" : "spruce_fence",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 2
-			},
-			"properties" : [{
-					"name" : "east",
-					"value" : "false"
-				}, {
-					"name" : "north",
-					"value" : "false"
-				}, {
-					"name" : "south",
-					"value" : "false"
-				}, {
-					"name" : "west",
-					"value" : "false"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 3
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 3
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "top"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 2,
-				"heightOffset" : 3
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "top"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 3
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 0,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 4
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
 				"southOffset" : 1,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 1,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 1,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 1,
-				"eastOffset" : 0,
-				"westOffset" : 2,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 1,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_fence",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 1,
-				"eastOffset" : 0,
-				"westOffset" : 5,
+				"eastOffset" : 1,
+				"westOffset" : 0,
 				"heightOffset" : 1
 			},
 			"properties" : [{
@@ -1092,278 +334,6 @@
 				}, {
 					"name" : "west",
 					"value" : "false"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_fence",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 1,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 1
-			},
-			"properties" : [{
-					"name" : "east",
-					"value" : "false"
-				}, {
-					"name" : "north",
-					"value" : "false"
-				}, {
-					"name" : "south",
-					"value" : "false"
-				}, {
-					"name" : "west",
-					"value" : "false"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_fence",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 1,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 2
-			},
-			"properties" : [{
-					"name" : "east",
-					"value" : "false"
-				}, {
-					"name" : "north",
-					"value" : "false"
-				}, {
-					"name" : "south",
-					"value" : "false"
-				}, {
-					"name" : "west",
-					"value" : "false"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 1,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 3
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 1,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 3
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "top"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 1,
-				"eastOffset" : 0,
-				"westOffset" : 2,
-				"heightOffset" : 3
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "top"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 1,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 3
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "torch",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 1,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 4
-			},
-			"properties" : [{
-					"name" : "facing",
-					"value" : "north"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 1,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 4
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "torch",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 1,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 4
-			},
-			"properties" : [{
-					"name" : "facing",
-					"value" : "north"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 2,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 2,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 2,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 2,
-				"eastOffset" : 0,
-				"westOffset" : 2,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 2,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "dirt"
 				}
 			],
 			"hasFacing" : false
@@ -1372,9 +342,9 @@
 			"blockName" : "double_stone_slab",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 2,
-				"eastOffset" : 0,
-				"westOffset" : 5,
+				"southOffset" : 1,
+				"eastOffset" : 2,
+				"westOffset" : 0,
 				"heightOffset" : 1
 			},
 			"properties" : [{
@@ -1388,12 +358,156 @@
 			"hasFacing" : false
 		}, {
 			"blockDomain" : "minecraft",
+			"blockName" : "spruce_fence",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 3,
+				"westOffset" : 0,
+				"heightOffset" : 1
+			},
+			"properties" : [{
+					"name" : "east",
+					"value" : "false"
+				}, {
+					"name" : "north",
+					"value" : "false"
+				}, {
+					"name" : "south",
+					"value" : "false"
+				}, {
+					"name" : "west",
+					"value" : "false"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_fence",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 4,
+				"westOffset" : 0,
+				"heightOffset" : 1
+			},
+			"properties" : [{
+					"name" : "east",
+					"value" : "false"
+				}, {
+					"name" : "north",
+					"value" : "false"
+				}, {
+					"name" : "south",
+					"value" : "false"
+				}, {
+					"name" : "west",
+					"value" : "false"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
 			"blockName" : "double_stone_slab",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 2,
-				"eastOffset" : 0,
-				"westOffset" : 1,
+				"southOffset" : 1,
+				"eastOffset" : 5,
+				"westOffset" : 0,
+				"heightOffset" : 1
+			},
+			"properties" : [{
+					"name" : "seamless",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "stone"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_fence",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 6,
+				"westOffset" : 0,
+				"heightOffset" : 1
+			},
+			"properties" : [{
+					"name" : "east",
+					"value" : "false"
+				}, {
+					"name" : "north",
+					"value" : "false"
+				}, {
+					"name" : "south",
+					"value" : "false"
+				}, {
+					"name" : "west",
+					"value" : "false"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_fence",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 7,
+				"westOffset" : 0,
+				"heightOffset" : 1
+			},
+			"properties" : [{
+					"name" : "east",
+					"value" : "false"
+				}, {
+					"name" : "north",
+					"value" : "false"
+				}, {
+					"name" : "south",
+					"value" : "false"
+				}, {
+					"name" : "west",
+					"value" : "false"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_fence",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 8,
+				"westOffset" : 0,
+				"heightOffset" : 1
+			},
+			"properties" : [{
+					"name" : "east",
+					"value" : "false"
+				}, {
+					"name" : "north",
+					"value" : "false"
+				}, {
+					"name" : "south",
+					"value" : "false"
+				}, {
+					"name" : "west",
+					"value" : "false"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "double_stone_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 9,
+				"westOffset" : 0,
 				"heightOffset" : 1
 			},
 			"properties" : [{
@@ -1410,9 +524,9 @@
 			"blockName" : "log",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 2,
+				"southOffset" : 1,
 				"eastOffset" : 0,
-				"westOffset" : 5,
+				"westOffset" : 2,
 				"heightOffset" : 2
 			},
 			"properties" : [{
@@ -1429,9 +543,9 @@
 			"blockName" : "log",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 2,
-				"eastOffset" : 0,
-				"westOffset" : 1,
+				"southOffset" : 1,
+				"eastOffset" : 2,
+				"westOffset" : 0,
 				"heightOffset" : 2
 			},
 			"properties" : [{
@@ -1445,445 +559,12 @@
 			"hasFacing" : false
 		}, {
 			"blockDomain" : "minecraft",
-			"blockName" : "log",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 2,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 3
-			},
-			"properties" : [{
-					"name" : "axis",
-					"value" : "y"
-				}, {
-					"name" : "variant",
-					"value" : "spruce"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 2,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 3
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "top"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 2,
-				"eastOffset" : 0,
-				"westOffset" : 2,
-				"heightOffset" : 3
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "top"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "log",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 2,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 3
-			},
-			"properties" : [{
-					"name" : "axis",
-					"value" : "y"
-				}, {
-					"name" : "variant",
-					"value" : "spruce"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "log",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 2,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 4
-			},
-			"properties" : [{
-					"name" : "axis",
-					"value" : "y"
-				}, {
-					"name" : "variant",
-					"value" : "spruce"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
 			"blockName" : "spruce_fence",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 2,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 4
-			},
-			"properties" : [{
-					"name" : "east",
-					"value" : "false"
-				}, {
-					"name" : "north",
-					"value" : "false"
-				}, {
-					"name" : "south",
-					"value" : "false"
-				}, {
-					"name" : "west",
-					"value" : "false"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "brick_block",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 2,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 4
-			},
-			"properties" : [],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_fence",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 2,
-				"eastOffset" : 0,
-				"westOffset" : 2,
-				"heightOffset" : 4
-			},
-			"properties" : [{
-					"name" : "east",
-					"value" : "false"
-				}, {
-					"name" : "north",
-					"value" : "false"
-				}, {
-					"name" : "south",
-					"value" : "false"
-				}, {
-					"name" : "west",
-					"value" : "false"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "log",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 2,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 4
-			},
-			"properties" : [{
-					"name" : "axis",
-					"value" : "y"
-				}, {
-					"name" : "variant",
-					"value" : "spruce"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 2,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 5
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "brick_block",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 2,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 5
-			},
-			"properties" : [],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "brick_block",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 2,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 5
-			},
-			"properties" : [],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "brick_block",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 2,
-				"eastOffset" : 0,
-				"westOffset" : 2,
-				"heightOffset" : 5
-			},
-			"properties" : [],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 2,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 5
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 2,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 6
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 3,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 3,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 3,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 3,
-				"eastOffset" : 0,
-				"westOffset" : 2,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 3,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_fence",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 3,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 1
-			},
-			"properties" : [{
-					"name" : "east",
-					"value" : "false"
-				}, {
-					"name" : "north",
-					"value" : "false"
-				}, {
-					"name" : "south",
-					"value" : "false"
-				}, {
-					"name" : "west",
-					"value" : "false"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "wooden_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 3,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 1
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "variant",
-					"value" : "spruce"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_fence",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 3,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 1
-			},
-			"properties" : [{
-					"name" : "east",
-					"value" : "false"
-				}, {
-					"name" : "north",
-					"value" : "false"
-				}, {
-					"name" : "south",
-					"value" : "false"
-				}, {
-					"name" : "west",
-					"value" : "false"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_fence",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 3,
-				"eastOffset" : 0,
-				"westOffset" : 5,
+				"southOffset" : 1,
+				"eastOffset" : 3,
+				"westOffset" : 0,
 				"heightOffset" : 2
 			},
 			"properties" : [{
@@ -1906,9 +587,9 @@
 			"blockName" : "spruce_fence",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 3,
-				"eastOffset" : 0,
-				"westOffset" : 1,
+				"southOffset" : 1,
+				"eastOffset" : 4,
+				"westOffset" : 0,
 				"heightOffset" : 2
 			},
 			"properties" : [{
@@ -1928,40 +609,196 @@
 			"hasFacing" : false
 		}, {
 			"blockDomain" : "minecraft",
-			"blockName" : "spruce_fence",
+			"blockName" : "log",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 3,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 3
+				"southOffset" : 1,
+				"eastOffset" : 5,
+				"westOffset" : 0,
+				"heightOffset" : 2
 			},
 			"properties" : [{
-					"name" : "east",
-					"value" : "false"
+					"name" : "axis",
+					"value" : "y"
 				}, {
-					"name" : "north",
-					"value" : "false"
-				}, {
-					"name" : "south",
-					"value" : "false"
-				}, {
-					"name" : "west",
-					"value" : "false"
+					"name" : "variant",
+					"value" : "spruce"
 				}
 			],
 			"hasFacing" : false
 		}, {
 			"blockDomain" : "minecraft",
-			"blockName" : "spruce_fence",
+			"blockName" : "planks",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 3,
+				"southOffset" : 1,
+				"eastOffset" : 6,
+				"westOffset" : 0,
+				"heightOffset" : 2
+			},
+			"properties" : [{
+					"name" : "variant",
+					"value" : "spruce"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "planks",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 7,
+				"westOffset" : 0,
+				"heightOffset" : 2
+			},
+			"properties" : [{
+					"name" : "variant",
+					"value" : "spruce"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "planks",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 8,
+				"westOffset" : 0,
+				"heightOffset" : 2
+			},
+			"properties" : [{
+					"name" : "variant",
+					"value" : "spruce"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "log",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 9,
+				"westOffset" : 0,
+				"heightOffset" : 2
+			},
+			"properties" : [{
+					"name" : "axis",
+					"value" : "y"
+				}, {
+					"name" : "variant",
+					"value" : "spruce"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "stone_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 0,
+				"westOffset" : 2,
+				"heightOffset" : 3
+			},
+			"properties" : [{
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "variant",
+					"value" : "brick"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "stone_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
 				"eastOffset" : 0,
 				"westOffset" : 1,
 				"heightOffset" : 3
 			},
 			"properties" : [{
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "variant",
+					"value" : "brick"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "stone_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 0,
+				"westOffset" : 0,
+				"heightOffset" : 3
+			},
+			"properties" : [{
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "variant",
+					"value" : "brick"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "stone_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 1,
+				"westOffset" : 0,
+				"heightOffset" : 3
+			},
+			"properties" : [{
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "variant",
+					"value" : "brick"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "log",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 2,
+				"westOffset" : 0,
+				"heightOffset" : 3
+			},
+			"properties" : [{
+					"name" : "axis",
+					"value" : "y"
+				}, {
+					"name" : "variant",
+					"value" : "spruce"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_fence",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 3,
+				"westOffset" : 0,
+				"heightOffset" : 3
+			},
+			"properties" : [{
 					"name" : "east",
 					"value" : "false"
 				}, {
@@ -1981,10 +818,10 @@
 			"blockName" : "spruce_fence",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 3,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 4
+				"southOffset" : 1,
+				"eastOffset" : 4,
+				"westOffset" : 0,
+				"heightOffset" : 3
 			},
 			"properties" : [{
 					"name" : "east",
@@ -1998,6 +835,110 @@
 				}, {
 					"name" : "west",
 					"value" : "false"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "log",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 5,
+				"westOffset" : 0,
+				"heightOffset" : 3
+			},
+			"properties" : [{
+					"name" : "axis",
+					"value" : "y"
+				}, {
+					"name" : "variant",
+					"value" : "spruce"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_stairs",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 6,
+				"westOffset" : 0,
+				"heightOffset" : 3
+			},
+			"properties" : [{
+					"name" : "facing",
+					"value" : "south"
+				}, {
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "shape",
+					"value" : "outer_right"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_stairs",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 7,
+				"westOffset" : 0,
+				"heightOffset" : 3
+			},
+			"properties" : [{
+					"name" : "facing",
+					"value" : "south"
+				}, {
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "shape",
+					"value" : "outer_right"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_stairs",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 8,
+				"westOffset" : 0,
+				"heightOffset" : 3
+			},
+			"properties" : [{
+					"name" : "facing",
+					"value" : "south"
+				}, {
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "shape",
+					"value" : "outer_right"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "log",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 9,
+				"westOffset" : 0,
+				"heightOffset" : 3
+			},
+			"properties" : [{
+					"name" : "axis",
+					"value" : "y"
+				}, {
+					"name" : "variant",
+					"value" : "spruce"
 				}
 			],
 			"hasFacing" : false
@@ -2006,1422 +947,118 @@
 			"blockName" : "torch",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 3,
-				"eastOffset" : 0,
-				"westOffset" : 3,
+				"southOffset" : 1,
+				"eastOffset" : 1,
+				"westOffset" : 0,
+				"heightOffset" : 4
+			},
+			"properties" : [{
+					"name" : "facing",
+					"value" : "west"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "log",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 2,
+				"westOffset" : 0,
+				"heightOffset" : 4
+			},
+			"properties" : [{
+					"name" : "axis",
+					"value" : "y"
+				}, {
+					"name" : "variant",
+					"value" : "spruce"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_fence",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 3,
+				"westOffset" : 0,
+				"heightOffset" : 4
+			},
+			"properties" : [{
+					"name" : "east",
+					"value" : "false"
+				}, {
+					"name" : "north",
+					"value" : "false"
+				}, {
+					"name" : "south",
+					"value" : "false"
+				}, {
+					"name" : "west",
+					"value" : "false"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_fence",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 4,
+				"westOffset" : 0,
+				"heightOffset" : 4
+			},
+			"properties" : [{
+					"name" : "east",
+					"value" : "false"
+				}, {
+					"name" : "north",
+					"value" : "false"
+				}, {
+					"name" : "south",
+					"value" : "false"
+				}, {
+					"name" : "west",
+					"value" : "false"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "log",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 5,
+				"westOffset" : 0,
+				"heightOffset" : 4
+			},
+			"properties" : [{
+					"name" : "axis",
+					"value" : "y"
+				}, {
+					"name" : "variant",
+					"value" : "spruce"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_stairs",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 6,
+				"westOffset" : 0,
 				"heightOffset" : 4
 			},
 			"properties" : [{
 					"name" : "facing",
 					"value" : "south"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_fence",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 3,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 4
-			},
-			"properties" : [{
-					"name" : "east",
-					"value" : "false"
-				}, {
-					"name" : "north",
-					"value" : "false"
-				}, {
-					"name" : "south",
-					"value" : "false"
-				}, {
-					"name" : "west",
-					"value" : "false"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 3,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 5
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 3,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 5
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "top"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 3,
-				"eastOffset" : 0,
-				"westOffset" : 2,
-				"heightOffset" : 5
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "top"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 3,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 5
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 3,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 6
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 4,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 4,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 4,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 4,
-				"eastOffset" : 0,
-				"westOffset" : 2,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 4,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_fence",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 4,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 1
-			},
-			"properties" : [{
-					"name" : "east",
-					"value" : "false"
-				}, {
-					"name" : "north",
-					"value" : "false"
-				}, {
-					"name" : "south",
-					"value" : "false"
-				}, {
-					"name" : "west",
-					"value" : "false"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_stairs",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 4,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 1
-			},
-			"properties" : [{
-					"name" : "facing",
-					"value" : "north"
-				}, {
-					"name" : "half",
-					"value" : "top"
-				}, {
-					"name" : "shape",
-					"value" : "outer_right"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_fence",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 4,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 1
-			},
-			"properties" : [{
-					"name" : "east",
-					"value" : "false"
-				}, {
-					"name" : "north",
-					"value" : "false"
-				}, {
-					"name" : "south",
-					"value" : "false"
-				}, {
-					"name" : "west",
-					"value" : "false"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_fence",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 4,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 2
-			},
-			"properties" : [{
-					"name" : "east",
-					"value" : "false"
-				}, {
-					"name" : "north",
-					"value" : "false"
-				}, {
-					"name" : "south",
-					"value" : "false"
-				}, {
-					"name" : "west",
-					"value" : "false"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_fence",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 4,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 2
-			},
-			"properties" : [{
-					"name" : "east",
-					"value" : "false"
-				}, {
-					"name" : "north",
-					"value" : "false"
-				}, {
-					"name" : "south",
-					"value" : "false"
-				}, {
-					"name" : "west",
-					"value" : "false"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_fence",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 4,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 3
-			},
-			"properties" : [{
-					"name" : "east",
-					"value" : "false"
-				}, {
-					"name" : "north",
-					"value" : "false"
-				}, {
-					"name" : "south",
-					"value" : "false"
-				}, {
-					"name" : "west",
-					"value" : "false"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_fence",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 4,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 3
-			},
-			"properties" : [{
-					"name" : "east",
-					"value" : "false"
-				}, {
-					"name" : "north",
-					"value" : "false"
-				}, {
-					"name" : "south",
-					"value" : "false"
-				}, {
-					"name" : "west",
-					"value" : "false"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_fence",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 4,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 4
-			},
-			"properties" : [{
-					"name" : "east",
-					"value" : "false"
-				}, {
-					"name" : "north",
-					"value" : "false"
-				}, {
-					"name" : "south",
-					"value" : "false"
-				}, {
-					"name" : "west",
-					"value" : "false"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_fence",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 4,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 4
-			},
-			"properties" : [{
-					"name" : "east",
-					"value" : "false"
-				}, {
-					"name" : "north",
-					"value" : "false"
-				}, {
-					"name" : "south",
-					"value" : "false"
-				}, {
-					"name" : "west",
-					"value" : "false"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 4,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 5
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 4,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 5
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "top"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 4,
-				"eastOffset" : 0,
-				"westOffset" : 2,
-				"heightOffset" : 5
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "top"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 4,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 5
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 4,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 6
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 5,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 5,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 5,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 5,
-				"eastOffset" : 0,
-				"westOffset" : 2,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 5,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "double_stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 5,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 1
-			},
-			"properties" : [{
-					"name" : "seamless",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "stone"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "wooden_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 5,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 1
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "top"
-				}, {
-					"name" : "variant",
-					"value" : "spruce"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "wooden_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 5,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 1
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "top"
-				}, {
-					"name" : "variant",
-					"value" : "spruce"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "wooden_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 5,
-				"eastOffset" : 0,
-				"westOffset" : 2,
-				"heightOffset" : 1
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "top"
-				}, {
-					"name" : "variant",
-					"value" : "spruce"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "double_stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 5,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 1
-			},
-			"properties" : [{
-					"name" : "seamless",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "stone"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "log",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 5,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 2
-			},
-			"properties" : [{
-					"name" : "axis",
-					"value" : "y"
-				}, {
-					"name" : "variant",
-					"value" : "spruce"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "planks",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 5,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 2
-			},
-			"properties" : [{
-					"name" : "variant",
-					"value" : "spruce"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "wooden_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 5,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 2
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "variant",
-					"value" : "spruce"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "planks",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 5,
-				"eastOffset" : 0,
-				"westOffset" : 2,
-				"heightOffset" : 2
-			},
-			"properties" : [{
-					"name" : "variant",
-					"value" : "spruce"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "log",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 5,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 2
-			},
-			"properties" : [{
-					"name" : "axis",
-					"value" : "y"
-				}, {
-					"name" : "variant",
-					"value" : "spruce"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "log",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 5,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 3
-			},
-			"properties" : [{
-					"name" : "axis",
-					"value" : "y"
-				}, {
-					"name" : "variant",
-					"value" : "spruce"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "planks",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 5,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 3
-			},
-			"properties" : [{
-					"name" : "variant",
-					"value" : "spruce"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "planks",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 5,
-				"eastOffset" : 0,
-				"westOffset" : 2,
-				"heightOffset" : 3
-			},
-			"properties" : [{
-					"name" : "variant",
-					"value" : "spruce"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "log",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 5,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 3
-			},
-			"properties" : [{
-					"name" : "axis",
-					"value" : "y"
-				}, {
-					"name" : "variant",
-					"value" : "spruce"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "log",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 5,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 4
-			},
-			"properties" : [{
-					"name" : "axis",
-					"value" : "y"
-				}, {
-					"name" : "variant",
-					"value" : "spruce"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "planks",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 5,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 4
-			},
-			"properties" : [{
-					"name" : "variant",
-					"value" : "spruce"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "wooden_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 5,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 4
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "top"
-				}, {
-					"name" : "variant",
-					"value" : "spruce"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "planks",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 5,
-				"eastOffset" : 0,
-				"westOffset" : 2,
-				"heightOffset" : 4
-			},
-			"properties" : [{
-					"name" : "variant",
-					"value" : "spruce"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "log",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 5,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 4
-			},
-			"properties" : [{
-					"name" : "axis",
-					"value" : "y"
-				}, {
-					"name" : "variant",
-					"value" : "spruce"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 5,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 5
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "brick_block",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 5,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 5
-			},
-			"properties" : [],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "brick_block",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 5,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 5
-			},
-			"properties" : [],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "brick_block",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 5,
-				"eastOffset" : 0,
-				"westOffset" : 2,
-				"heightOffset" : 5
-			},
-			"properties" : [],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 5,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 5
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 5,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 6
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 6,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 6,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 6,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 6,
-				"eastOffset" : 0,
-				"westOffset" : 2,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 6,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_fence",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 6,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 1
-			},
-			"properties" : [{
-					"name" : "east",
-					"value" : "false"
-				}, {
-					"name" : "north",
-					"value" : "false"
-				}, {
-					"name" : "south",
-					"value" : "false"
-				}, {
-					"name" : "west",
-					"value" : "false"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "wooden_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 6,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 1
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "top"
-				}, {
-					"name" : "variant",
-					"value" : "spruce"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "wooden_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 6,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 1
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "top"
-				}, {
-					"name" : "variant",
-					"value" : "spruce"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "wooden_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 6,
-				"eastOffset" : 0,
-				"westOffset" : 2,
-				"heightOffset" : 1
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "top"
-				}, {
-					"name" : "variant",
-					"value" : "spruce"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_fence",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 6,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 1
-			},
-			"properties" : [{
-					"name" : "east",
-					"value" : "false"
-				}, {
-					"name" : "north",
-					"value" : "false"
-				}, {
-					"name" : "south",
-					"value" : "false"
-				}, {
-					"name" : "west",
-					"value" : "false"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "planks",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 6,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 2
-			},
-			"properties" : [{
-					"name" : "variant",
-					"value" : "spruce"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "hay_block",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 6,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 2
-			},
-			"properties" : [{
-					"name" : "axis",
-					"value" : "y"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "wooden_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 6,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 2
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "variant",
-					"value" : "spruce"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "hay_block",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 6,
-				"eastOffset" : 0,
-				"westOffset" : 2,
-				"heightOffset" : 2
-			},
-			"properties" : [{
-					"name" : "axis",
-					"value" : "y"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "planks",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 6,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 2
-			},
-			"properties" : [{
-					"name" : "variant",
-					"value" : "spruce"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_stairs",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 6,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 3
-			},
-			"properties" : [{
-					"name" : "facing",
-					"value" : "east"
-				}, {
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "shape",
-					"value" : "outer_right"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_stairs",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 6,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 3
-			},
-			"properties" : [{
-					"name" : "facing",
-					"value" : "west"
-				}, {
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "shape",
-					"value" : "outer_right"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_stairs",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 6,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 4
-			},
-			"properties" : [{
-					"name" : "facing",
-					"value" : "east"
 				}, {
 					"name" : "half",
 					"value" : "top"
@@ -3436,137 +1073,61 @@
 			"blockName" : "spruce_stairs",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 6,
-				"eastOffset" : 0,
-				"westOffset" : 4,
+				"southOffset" : 1,
+				"eastOffset" : 7,
+				"westOffset" : 0,
 				"heightOffset" : 4
-			},
-			"properties" : [{
-					"name" : "facing",
-					"value" : "west"
-				}, {
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "shape",
-					"value" : "outer_right"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_stairs",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 6,
-				"eastOffset" : 0,
-				"westOffset" : 2,
-				"heightOffset" : 4
-			},
-			"properties" : [{
-					"name" : "facing",
-					"value" : "east"
-				}, {
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "shape",
-					"value" : "outer_right"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_stairs",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 6,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 4
-			},
-			"properties" : [{
-					"name" : "facing",
-					"value" : "west"
-				}, {
-					"name" : "half",
-					"value" : "top"
-				}, {
-					"name" : "shape",
-					"value" : "outer_right"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 6,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 5
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 6,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 5
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "top"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "torch",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 6,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 5
 			},
 			"properties" : [{
 					"name" : "facing",
 					"value" : "south"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 6,
-				"eastOffset" : 0,
-				"westOffset" : 2,
-				"heightOffset" : 5
-			},
-			"properties" : [{
+				}, {
 					"name" : "half",
 					"value" : "top"
 				}, {
+					"name" : "shape",
+					"value" : "outer_right"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_stairs",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 8,
+				"westOffset" : 0,
+				"heightOffset" : 4
+			},
+			"properties" : [{
+					"name" : "facing",
+					"value" : "south"
+				}, {
+					"name" : "half",
+					"value" : "top"
+				}, {
+					"name" : "shape",
+					"value" : "outer_right"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "log",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 9,
+				"westOffset" : 0,
+				"heightOffset" : 4
+			},
+			"properties" : [{
+					"name" : "axis",
+					"value" : "y"
+				}, {
 					"name" : "variant",
-					"value" : "brick"
+					"value" : "spruce"
 				}
 			],
 			"hasFacing" : false
@@ -3575,9 +1136,9 @@
 			"blockName" : "stone_slab",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 6,
-				"eastOffset" : 0,
-				"westOffset" : 1,
+				"southOffset" : 1,
+				"eastOffset" : 2,
+				"westOffset" : 0,
 				"heightOffset" : 5
 			},
 			"properties" : [{
@@ -3594,10 +1155,124 @@
 			"blockName" : "stone_slab",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 6,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 6
+				"southOffset" : 1,
+				"eastOffset" : 3,
+				"westOffset" : 0,
+				"heightOffset" : 5
+			},
+			"properties" : [{
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "variant",
+					"value" : "brick"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "stone_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 4,
+				"westOffset" : 0,
+				"heightOffset" : 5
+			},
+			"properties" : [{
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "variant",
+					"value" : "brick"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "stone_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 5,
+				"westOffset" : 0,
+				"heightOffset" : 5
+			},
+			"properties" : [{
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "variant",
+					"value" : "brick"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "stone_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 6,
+				"westOffset" : 0,
+				"heightOffset" : 5
+			},
+			"properties" : [{
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "variant",
+					"value" : "brick"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "stone_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 7,
+				"westOffset" : 0,
+				"heightOffset" : 5
+			},
+			"properties" : [{
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "variant",
+					"value" : "brick"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "stone_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 8,
+				"westOffset" : 0,
+				"heightOffset" : 5
+			},
+			"properties" : [{
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "variant",
+					"value" : "brick"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "stone_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 1,
+				"eastOffset" : 9,
+				"westOffset" : 0,
+				"heightOffset" : 5
 			},
 			"properties" : [{
 					"name" : "half",
@@ -3613,64 +1288,7 @@
 			"blockName" : "dirt",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 7,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 7,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 7,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 7,
+				"southOffset" : 2,
 				"eastOffset" : 0,
 				"westOffset" : 2,
 				"heightOffset" : 0
@@ -3689,9 +1307,199 @@
 			"blockName" : "dirt",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 7,
+				"southOffset" : 2,
 				"eastOffset" : 0,
 				"westOffset" : 1,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 2,
+				"eastOffset" : 0,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 2,
+				"eastOffset" : 1,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 2,
+				"eastOffset" : 2,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 2,
+				"eastOffset" : 3,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 2,
+				"eastOffset" : 4,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 2,
+				"eastOffset" : 5,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 2,
+				"eastOffset" : 6,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 2,
+				"eastOffset" : 7,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 2,
+				"eastOffset" : 8,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 2,
+				"eastOffset" : 9,
+				"westOffset" : 0,
 				"heightOffset" : 0
 			},
 			"properties" : [{
@@ -3708,9 +1516,9 @@
 			"blockName" : "spruce_fence",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 7,
+				"southOffset" : 2,
 				"eastOffset" : 0,
-				"westOffset" : 5,
+				"westOffset" : 2,
 				"heightOffset" : 1
 			},
 			"properties" : [{
@@ -3733,9 +1541,9 @@
 			"blockName" : "wooden_slab",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 7,
-				"eastOffset" : 0,
-				"westOffset" : 4,
+				"southOffset" : 2,
+				"eastOffset" : 5,
+				"westOffset" : 0,
 				"heightOffset" : 1
 			},
 			"properties" : [{
@@ -3752,9 +1560,9 @@
 			"blockName" : "wooden_slab",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 7,
-				"eastOffset" : 0,
-				"westOffset" : 3,
+				"southOffset" : 2,
+				"eastOffset" : 6,
+				"westOffset" : 0,
 				"heightOffset" : 1
 			},
 			"properties" : [{
@@ -3771,9 +1579,28 @@
 			"blockName" : "wooden_slab",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 7,
-				"eastOffset" : 0,
-				"westOffset" : 2,
+				"southOffset" : 2,
+				"eastOffset" : 7,
+				"westOffset" : 0,
+				"heightOffset" : 1
+			},
+			"properties" : [{
+					"name" : "half",
+					"value" : "top"
+				}, {
+					"name" : "variant",
+					"value" : "spruce"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "wooden_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 2,
+				"eastOffset" : 8,
+				"westOffset" : 0,
 				"heightOffset" : 1
 			},
 			"properties" : [{
@@ -3790,10 +1617,35 @@
 			"blockName" : "spruce_fence",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 7,
-				"eastOffset" : 0,
-				"westOffset" : 1,
+				"southOffset" : 2,
+				"eastOffset" : 9,
+				"westOffset" : 0,
 				"heightOffset" : 1
+			},
+			"properties" : [{
+					"name" : "east",
+					"value" : "false"
+				}, {
+					"name" : "north",
+					"value" : "false"
+				}, {
+					"name" : "south",
+					"value" : "false"
+				}, {
+					"name" : "west",
+					"value" : "false"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_fence",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 2,
+				"eastOffset" : 0,
+				"westOffset" : 2,
+				"heightOffset" : 2
 			},
 			"properties" : [{
 					"name" : "east",
@@ -3815,9 +1667,9 @@
 			"blockName" : "planks",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 7,
-				"eastOffset" : 0,
-				"westOffset" : 5,
+				"southOffset" : 2,
+				"eastOffset" : 5,
+				"westOffset" : 0,
 				"heightOffset" : 2
 			},
 			"properties" : [{
@@ -3831,9 +1683,9 @@
 			"blockName" : "hay_block",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 7,
-				"eastOffset" : 0,
-				"westOffset" : 4,
+				"southOffset" : 2,
+				"eastOffset" : 6,
+				"westOffset" : 0,
 				"heightOffset" : 2
 			},
 			"properties" : [{
@@ -3844,20 +1696,17 @@
 			"hasFacing" : false
 		}, {
 			"blockDomain" : "minecraft",
-			"blockName" : "wooden_slab",
+			"blockName" : "hay_block",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 7,
-				"eastOffset" : 0,
-				"westOffset" : 3,
+				"southOffset" : 2,
+				"eastOffset" : 7,
+				"westOffset" : 0,
 				"heightOffset" : 2
 			},
 			"properties" : [{
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "variant",
-					"value" : "spruce"
+					"name" : "axis",
+					"value" : "y"
 				}
 			],
 			"hasFacing" : false
@@ -3866,9 +1715,9 @@
 			"blockName" : "hay_block",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 7,
-				"eastOffset" : 0,
-				"westOffset" : 2,
+				"southOffset" : 2,
+				"eastOffset" : 8,
+				"westOffset" : 0,
 				"heightOffset" : 2
 			},
 			"properties" : [{
@@ -3882,10 +1731,74 @@
 			"blockName" : "planks",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 7,
+				"southOffset" : 2,
+				"eastOffset" : 9,
+				"westOffset" : 0,
+				"heightOffset" : 2
+			},
+			"properties" : [{
+					"name" : "variant",
+					"value" : "spruce"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "brick_block",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 2,
+				"eastOffset" : 0,
+				"westOffset" : 2,
+				"heightOffset" : 3
+			},
+			"properties" : [],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "brick_block",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 2,
 				"eastOffset" : 0,
 				"westOffset" : 1,
-				"heightOffset" : 2
+				"heightOffset" : 3
+			},
+			"properties" : [],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "brick_block",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 2,
+				"eastOffset" : 0,
+				"westOffset" : 0,
+				"heightOffset" : 3
+			},
+			"properties" : [],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "brick_block",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 2,
+				"eastOffset" : 1,
+				"westOffset" : 0,
+				"heightOffset" : 3
+			},
+			"properties" : [],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "planks",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 2,
+				"eastOffset" : 5,
+				"westOffset" : 0,
+				"heightOffset" : 3
 			},
 			"properties" : [{
 					"name" : "variant",
@@ -3898,31 +1811,9 @@
 			"blockName" : "spruce_stairs",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 7,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 3
-			},
-			"properties" : [{
-					"name" : "facing",
-					"value" : "east"
-				}, {
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "shape",
-					"value" : "outer_right"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_stairs",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 7,
-				"eastOffset" : 0,
-				"westOffset" : 1,
+				"southOffset" : 2,
+				"eastOffset" : 9,
+				"westOffset" : 0,
 				"heightOffset" : 3
 			},
 			"properties" : [{
@@ -3939,17 +1830,58 @@
 			"hasFacing" : false
 		}, {
 			"blockDomain" : "minecraft",
+			"blockName" : "spruce_fence",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 2,
+				"eastOffset" : 2,
+				"westOffset" : 0,
+				"heightOffset" : 4
+			},
+			"properties" : [{
+					"name" : "east",
+					"value" : "false"
+				}, {
+					"name" : "north",
+					"value" : "false"
+				}, {
+					"name" : "south",
+					"value" : "false"
+				}, {
+					"name" : "west",
+					"value" : "false"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "planks",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 2,
+				"eastOffset" : 5,
+				"westOffset" : 0,
+				"heightOffset" : 4
+			},
+			"properties" : [{
+					"name" : "variant",
+					"value" : "spruce"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
 			"blockName" : "spruce_stairs",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 7,
-				"eastOffset" : 0,
-				"westOffset" : 5,
+				"southOffset" : 2,
+				"eastOffset" : 6,
+				"westOffset" : 0,
 				"heightOffset" : 4
 			},
 			"properties" : [{
 					"name" : "facing",
-					"value" : "east"
+					"value" : "north"
 				}, {
 					"name" : "half",
 					"value" : "top"
@@ -3964,9 +1896,53 @@
 			"blockName" : "spruce_stairs",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 7,
-				"eastOffset" : 0,
-				"westOffset" : 4,
+				"southOffset" : 2,
+				"eastOffset" : 7,
+				"westOffset" : 0,
+				"heightOffset" : 4
+			},
+			"properties" : [{
+					"name" : "facing",
+					"value" : "north"
+				}, {
+					"name" : "half",
+					"value" : "top"
+				}, {
+					"name" : "shape",
+					"value" : "outer_right"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_stairs",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 2,
+				"eastOffset" : 8,
+				"westOffset" : 0,
+				"heightOffset" : 4
+			},
+			"properties" : [{
+					"name" : "facing",
+					"value" : "north"
+				}, {
+					"name" : "half",
+					"value" : "top"
+				}, {
+					"name" : "shape",
+					"value" : "outer_right"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_stairs",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 2,
+				"eastOffset" : 9,
+				"westOffset" : 0,
 				"heightOffset" : 4
 			},
 			"properties" : [{
@@ -3974,50 +1950,6 @@
 					"value" : "west"
 				}, {
 					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "shape",
-					"value" : "outer_right"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_stairs",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 7,
-				"eastOffset" : 0,
-				"westOffset" : 2,
-				"heightOffset" : 4
-			},
-			"properties" : [{
-					"name" : "facing",
-					"value" : "east"
-				}, {
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "shape",
-					"value" : "outer_right"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_stairs",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 7,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 4
-			},
-			"properties" : [{
-					"name" : "facing",
-					"value" : "west"
-				}, {
-					"name" : "half",
 					"value" : "top"
 				}, {
 					"name" : "shape",
@@ -4027,12 +1959,96 @@
 			"hasFacing" : false
 		}, {
 			"blockDomain" : "minecraft",
+			"blockName" : "brick_block",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 2,
+				"eastOffset" : 2,
+				"westOffset" : 0,
+				"heightOffset" : 5
+			},
+			"properties" : [],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "brick_block",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 2,
+				"eastOffset" : 3,
+				"westOffset" : 0,
+				"heightOffset" : 5
+			},
+			"properties" : [],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "brick_block",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 2,
+				"eastOffset" : 4,
+				"westOffset" : 0,
+				"heightOffset" : 5
+			},
+			"properties" : [],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "brick_block",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 2,
+				"eastOffset" : 5,
+				"westOffset" : 0,
+				"heightOffset" : 5
+			},
+			"properties" : [],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "brick_block",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 2,
+				"eastOffset" : 6,
+				"westOffset" : 0,
+				"heightOffset" : 5
+			},
+			"properties" : [],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "brick_block",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 2,
+				"eastOffset" : 7,
+				"westOffset" : 0,
+				"heightOffset" : 5
+			},
+			"properties" : [],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "brick_block",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 2,
+				"eastOffset" : 8,
+				"westOffset" : 0,
+				"heightOffset" : 5
+			},
+			"properties" : [],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
 			"blockName" : "stone_slab",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 7,
-				"eastOffset" : 0,
-				"westOffset" : 5,
+				"southOffset" : 2,
+				"eastOffset" : 9,
+				"westOffset" : 0,
 				"heightOffset" : 5
 			},
 			"properties" : [{
@@ -4046,143 +2062,10 @@
 			"hasFacing" : false
 		}, {
 			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 7,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 5
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "top"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 7,
-				"eastOffset" : 0,
-				"westOffset" : 2,
-				"heightOffset" : 5
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "top"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 7,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 5
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 7,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 6
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
 			"blockName" : "dirt",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 8,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 8,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 8,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 8,
+				"southOffset" : 3,
 				"eastOffset" : 0,
 				"westOffset" : 2,
 				"heightOffset" : 0
@@ -4201,9 +2084,199 @@
 			"blockName" : "dirt",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 8,
+				"southOffset" : 3,
 				"eastOffset" : 0,
 				"westOffset" : 1,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 3,
+				"eastOffset" : 0,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 3,
+				"eastOffset" : 1,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 3,
+				"eastOffset" : 2,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 3,
+				"eastOffset" : 3,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 3,
+				"eastOffset" : 4,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 3,
+				"eastOffset" : 5,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 3,
+				"eastOffset" : 6,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 3,
+				"eastOffset" : 7,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 3,
+				"eastOffset" : 8,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 3,
+				"eastOffset" : 9,
+				"westOffset" : 0,
 				"heightOffset" : 0
 			},
 			"properties" : [{
@@ -4220,9 +2293,9 @@
 			"blockName" : "spruce_fence",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 8,
+				"southOffset" : 3,
 				"eastOffset" : 0,
-				"westOffset" : 5,
+				"westOffset" : 2,
 				"heightOffset" : 1
 			},
 			"properties" : [{
@@ -4245,9 +2318,50 @@
 			"blockName" : "wooden_slab",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 8,
-				"eastOffset" : 0,
-				"westOffset" : 4,
+				"southOffset" : 3,
+				"eastOffset" : 3,
+				"westOffset" : 0,
+				"heightOffset" : 1
+			},
+			"properties" : [{
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "variant",
+					"value" : "spruce"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_stairs",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 3,
+				"eastOffset" : 4,
+				"westOffset" : 0,
+				"heightOffset" : 1
+			},
+			"properties" : [{
+					"name" : "facing",
+					"value" : "west"
+				}, {
+					"name" : "half",
+					"value" : "top"
+				}, {
+					"name" : "shape",
+					"value" : "outer_right"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "wooden_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 3,
+				"eastOffset" : 5,
+				"westOffset" : 0,
 				"heightOffset" : 1
 			},
 			"properties" : [{
@@ -4264,9 +2378,9 @@
 			"blockName" : "wooden_slab",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 8,
-				"eastOffset" : 0,
-				"westOffset" : 3,
+				"southOffset" : 3,
+				"eastOffset" : 6,
+				"westOffset" : 0,
 				"heightOffset" : 1
 			},
 			"properties" : [{
@@ -4283,9 +2397,28 @@
 			"blockName" : "wooden_slab",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 8,
-				"eastOffset" : 0,
-				"westOffset" : 2,
+				"southOffset" : 3,
+				"eastOffset" : 7,
+				"westOffset" : 0,
+				"heightOffset" : 1
+			},
+			"properties" : [{
+					"name" : "half",
+					"value" : "top"
+				}, {
+					"name" : "variant",
+					"value" : "spruce"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "wooden_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 3,
+				"eastOffset" : 8,
+				"westOffset" : 0,
 				"heightOffset" : 1
 			},
 			"properties" : [{
@@ -4302,9 +2435,9 @@
 			"blockName" : "spruce_fence",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 8,
-				"eastOffset" : 0,
-				"westOffset" : 1,
+				"southOffset" : 3,
+				"eastOffset" : 9,
+				"westOffset" : 0,
 				"heightOffset" : 1
 			},
 			"properties" : [{
@@ -4324,33 +2457,26 @@
 			"hasFacing" : false
 		}, {
 			"blockDomain" : "minecraft",
-			"blockName" : "planks",
+			"blockName" : "spruce_fence",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 8,
+				"southOffset" : 3,
 				"eastOffset" : 0,
-				"westOffset" : 5,
+				"westOffset" : 2,
 				"heightOffset" : 2
 			},
 			"properties" : [{
-					"name" : "variant",
-					"value" : "spruce"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "hay_block",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 8,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 2
-			},
-			"properties" : [{
-					"name" : "axis",
-					"value" : "y"
+					"name" : "east",
+					"value" : "false"
+				}, {
+					"name" : "north",
+					"value" : "false"
+				}, {
+					"name" : "south",
+					"value" : "false"
+				}, {
+					"name" : "west",
+					"value" : "false"
 				}
 			],
 			"hasFacing" : false
@@ -4359,9 +2485,9 @@
 			"blockName" : "wooden_slab",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 8,
-				"eastOffset" : 0,
-				"westOffset" : 3,
+				"southOffset" : 3,
+				"eastOffset" : 5,
+				"westOffset" : 0,
 				"heightOffset" : 2
 			},
 			"properties" : [{
@@ -4375,17 +2501,58 @@
 			"hasFacing" : false
 		}, {
 			"blockDomain" : "minecraft",
-			"blockName" : "hay_block",
+			"blockName" : "wooden_slab",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 8,
-				"eastOffset" : 0,
-				"westOffset" : 2,
+				"southOffset" : 3,
+				"eastOffset" : 6,
+				"westOffset" : 0,
 				"heightOffset" : 2
 			},
 			"properties" : [{
-					"name" : "axis",
-					"value" : "y"
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "variant",
+					"value" : "spruce"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "wooden_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 3,
+				"eastOffset" : 7,
+				"westOffset" : 0,
+				"heightOffset" : 2
+			},
+			"properties" : [{
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "variant",
+					"value" : "spruce"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "wooden_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 3,
+				"eastOffset" : 8,
+				"westOffset" : 0,
+				"heightOffset" : 2
+			},
+			"properties" : [{
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "variant",
+					"value" : "spruce"
 				}
 			],
 			"hasFacing" : false
@@ -4394,9 +2561,9 @@
 			"blockName" : "planks",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 8,
-				"eastOffset" : 0,
-				"westOffset" : 1,
+				"southOffset" : 3,
+				"eastOffset" : 9,
+				"westOffset" : 0,
 				"heightOffset" : 2
 			},
 			"properties" : [{
@@ -4407,67 +2574,29 @@
 			"hasFacing" : false
 		}, {
 			"blockDomain" : "minecraft",
-			"blockName" : "spruce_stairs",
+			"blockName" : "brick_block",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 8,
+				"southOffset" : 3,
 				"eastOffset" : 0,
-				"westOffset" : 5,
+				"westOffset" : 2,
 				"heightOffset" : 3
 			},
-			"properties" : [{
-					"name" : "facing",
-					"value" : "east"
-				}, {
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "shape",
-					"value" : "outer_right"
-				}
-			],
+			"properties" : [],
 			"hasFacing" : false
 		}, {
 			"blockDomain" : "minecraft",
-			"blockName" : "spruce_stairs",
+			"blockName" : "torch",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 8,
+				"southOffset" : 3,
 				"eastOffset" : 0,
 				"westOffset" : 1,
 				"heightOffset" : 3
 			},
 			"properties" : [{
 					"name" : "facing",
-					"value" : "west"
-				}, {
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "shape",
-					"value" : "outer_right"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_stairs",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 8,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 4
-			},
-			"properties" : [{
-					"name" : "facing",
 					"value" : "east"
-				}, {
-					"name" : "half",
-					"value" : "top"
-				}, {
-					"name" : "shape",
-					"value" : "outer_right"
 				}
 			],
 			"hasFacing" : false
@@ -4476,10 +2605,10 @@
 			"blockName" : "spruce_stairs",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 8,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 4
+				"southOffset" : 3,
+				"eastOffset" : 9,
+				"westOffset" : 0,
+				"heightOffset" : 3
 			},
 			"properties" : [{
 					"name" : "facing",
@@ -4495,45 +2624,39 @@
 			"hasFacing" : false
 		}, {
 			"blockDomain" : "minecraft",
-			"blockName" : "spruce_stairs",
+			"blockName" : "stone_slab",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 8,
+				"southOffset" : 3,
 				"eastOffset" : 0,
 				"westOffset" : 2,
 				"heightOffset" : 4
 			},
 			"properties" : [{
-					"name" : "facing",
-					"value" : "east"
-				}, {
 					"name" : "half",
 					"value" : "bottom"
 				}, {
-					"name" : "shape",
-					"value" : "outer_right"
+					"name" : "variant",
+					"value" : "brick"
 				}
 			],
 			"hasFacing" : false
 		}, {
 			"blockDomain" : "minecraft",
-			"blockName" : "spruce_stairs",
+			"blockName" : "stone_slab",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 8,
+				"southOffset" : 3,
 				"eastOffset" : 0,
 				"westOffset" : 1,
 				"heightOffset" : 4
 			},
 			"properties" : [{
-					"name" : "facing",
-					"value" : "west"
-				}, {
 					"name" : "half",
-					"value" : "top"
+					"value" : "bottom"
 				}, {
-					"name" : "shape",
-					"value" : "outer_right"
+					"name" : "variant",
+					"value" : "brick"
 				}
 			],
 			"hasFacing" : false
@@ -4542,10 +2665,10 @@
 			"blockName" : "stone_slab",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 8,
+				"southOffset" : 3,
 				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 5
+				"westOffset" : 0,
+				"heightOffset" : 4
 			},
 			"properties" : [{
 					"name" : "half",
@@ -4561,17 +2684,64 @@
 			"blockName" : "stone_slab",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 8,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 5
+				"southOffset" : 3,
+				"eastOffset" : 1,
+				"westOffset" : 0,
+				"heightOffset" : 4
+			},
+			"properties" : [{
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "variant",
+					"value" : "brick"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "brick_block",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 3,
+				"eastOffset" : 2,
+				"westOffset" : 0,
+				"heightOffset" : 4
+			},
+			"properties" : [],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "torch",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 3,
+				"eastOffset" : 3,
+				"westOffset" : 0,
+				"heightOffset" : 4
+			},
+			"properties" : [{
+					"name" : "facing",
+					"value" : "east"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "wooden_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 3,
+				"eastOffset" : 5,
+				"westOffset" : 0,
+				"heightOffset" : 4
 			},
 			"properties" : [{
 					"name" : "half",
 					"value" : "top"
 				}, {
 					"name" : "variant",
-					"value" : "brick"
+					"value" : "spruce"
 				}
 			],
 			"hasFacing" : false
@@ -4580,44 +2750,131 @@
 			"blockName" : "torch",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 8,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 5
+				"southOffset" : 3,
+				"eastOffset" : 8,
+				"westOffset" : 0,
+				"heightOffset" : 4
 			},
 			"properties" : [{
 					"name" : "facing",
-					"value" : "north"
+					"value" : "west"
 				}
 			],
 			"hasFacing" : false
 		}, {
 			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
+			"blockName" : "spruce_stairs",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 8,
-				"eastOffset" : 0,
-				"westOffset" : 2,
-				"heightOffset" : 5
+				"southOffset" : 3,
+				"eastOffset" : 9,
+				"westOffset" : 0,
+				"heightOffset" : 4
 			},
 			"properties" : [{
+					"name" : "facing",
+					"value" : "west"
+				}, {
 					"name" : "half",
 					"value" : "top"
 				}, {
-					"name" : "variant",
-					"value" : "brick"
+					"name" : "shape",
+					"value" : "outer_right"
 				}
 			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "brick_block",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 3,
+				"eastOffset" : 2,
+				"westOffset" : 0,
+				"heightOffset" : 5
+			},
+			"properties" : [],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "brick_block",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 3,
+				"eastOffset" : 3,
+				"westOffset" : 0,
+				"heightOffset" : 5
+			},
+			"properties" : [],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "brick_block",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 3,
+				"eastOffset" : 4,
+				"westOffset" : 0,
+				"heightOffset" : 5
+			},
+			"properties" : [],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "brick_block",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 3,
+				"eastOffset" : 5,
+				"westOffset" : 0,
+				"heightOffset" : 5
+			},
+			"properties" : [],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "brick_block",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 3,
+				"eastOffset" : 6,
+				"westOffset" : 0,
+				"heightOffset" : 5
+			},
+			"properties" : [],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "brick_block",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 3,
+				"eastOffset" : 7,
+				"westOffset" : 0,
+				"heightOffset" : 5
+			},
+			"properties" : [],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "brick_block",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 3,
+				"eastOffset" : 8,
+				"westOffset" : 0,
+				"heightOffset" : 5
+			},
+			"properties" : [],
 			"hasFacing" : false
 		}, {
 			"blockDomain" : "minecraft",
 			"blockName" : "stone_slab",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 8,
-				"eastOffset" : 0,
-				"westOffset" : 1,
+				"southOffset" : 3,
+				"eastOffset" : 9,
+				"westOffset" : 0,
 				"heightOffset" : 5
 			},
 			"properties" : [{
@@ -4634,9 +2891,123 @@
 			"blockName" : "stone_slab",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 8,
-				"eastOffset" : 0,
-				"westOffset" : 3,
+				"southOffset" : 3,
+				"eastOffset" : 2,
+				"westOffset" : 0,
+				"heightOffset" : 6
+			},
+			"properties" : [{
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "variant",
+					"value" : "brick"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "stone_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 3,
+				"eastOffset" : 3,
+				"westOffset" : 0,
+				"heightOffset" : 6
+			},
+			"properties" : [{
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "variant",
+					"value" : "brick"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "stone_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 3,
+				"eastOffset" : 4,
+				"westOffset" : 0,
+				"heightOffset" : 6
+			},
+			"properties" : [{
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "variant",
+					"value" : "brick"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "stone_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 3,
+				"eastOffset" : 5,
+				"westOffset" : 0,
+				"heightOffset" : 6
+			},
+			"properties" : [{
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "variant",
+					"value" : "brick"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "stone_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 3,
+				"eastOffset" : 6,
+				"westOffset" : 0,
+				"heightOffset" : 6
+			},
+			"properties" : [{
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "variant",
+					"value" : "brick"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "stone_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 3,
+				"eastOffset" : 7,
+				"westOffset" : 0,
+				"heightOffset" : 6
+			},
+			"properties" : [{
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "variant",
+					"value" : "brick"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "stone_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 3,
+				"eastOffset" : 8,
+				"westOffset" : 0,
 				"heightOffset" : 6
 			},
 			"properties" : [{
@@ -4653,64 +3024,7 @@
 			"blockName" : "dirt",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 9,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 9,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 9,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 0
-			},
-			"properties" : [{
-					"name" : "snowy",
-					"value" : "false"
-				}, {
-					"name" : "variant",
-					"value" : "coarse_dirt"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "dirt",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 9,
+				"southOffset" : 4,
 				"eastOffset" : 0,
 				"westOffset" : 2,
 				"heightOffset" : 0
@@ -4729,7 +3043,7 @@
 			"blockName" : "dirt",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 9,
+				"southOffset" : 4,
 				"eastOffset" : 0,
 				"westOffset" : 1,
 				"heightOffset" : 0
@@ -4739,7 +3053,974 @@
 					"value" : "false"
 				}, {
 					"name" : "variant",
-					"value" : "dirt"
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 0,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 1,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 2,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 3,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 4,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 5,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 6,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 7,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 8,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 9,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_fence",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 0,
+				"westOffset" : 2,
+				"heightOffset" : 1
+			},
+			"properties" : [{
+					"name" : "east",
+					"value" : "false"
+				}, {
+					"name" : "north",
+					"value" : "false"
+				}, {
+					"name" : "south",
+					"value" : "false"
+				}, {
+					"name" : "west",
+					"value" : "false"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "wooden_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 5,
+				"westOffset" : 0,
+				"heightOffset" : 1
+			},
+			"properties" : [{
+					"name" : "half",
+					"value" : "top"
+				}, {
+					"name" : "variant",
+					"value" : "spruce"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "wooden_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 6,
+				"westOffset" : 0,
+				"heightOffset" : 1
+			},
+			"properties" : [{
+					"name" : "half",
+					"value" : "top"
+				}, {
+					"name" : "variant",
+					"value" : "spruce"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "wooden_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 7,
+				"westOffset" : 0,
+				"heightOffset" : 1
+			},
+			"properties" : [{
+					"name" : "half",
+					"value" : "top"
+				}, {
+					"name" : "variant",
+					"value" : "spruce"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "wooden_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 8,
+				"westOffset" : 0,
+				"heightOffset" : 1
+			},
+			"properties" : [{
+					"name" : "half",
+					"value" : "top"
+				}, {
+					"name" : "variant",
+					"value" : "spruce"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_fence",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 9,
+				"westOffset" : 0,
+				"heightOffset" : 1
+			},
+			"properties" : [{
+					"name" : "east",
+					"value" : "false"
+				}, {
+					"name" : "north",
+					"value" : "false"
+				}, {
+					"name" : "south",
+					"value" : "false"
+				}, {
+					"name" : "west",
+					"value" : "false"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_fence",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 0,
+				"westOffset" : 2,
+				"heightOffset" : 2
+			},
+			"properties" : [{
+					"name" : "east",
+					"value" : "false"
+				}, {
+					"name" : "north",
+					"value" : "false"
+				}, {
+					"name" : "south",
+					"value" : "false"
+				}, {
+					"name" : "west",
+					"value" : "false"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "planks",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 5,
+				"westOffset" : 0,
+				"heightOffset" : 2
+			},
+			"properties" : [{
+					"name" : "variant",
+					"value" : "spruce"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "hay_block",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 6,
+				"westOffset" : 0,
+				"heightOffset" : 2
+			},
+			"properties" : [{
+					"name" : "axis",
+					"value" : "y"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "hay_block",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 7,
+				"westOffset" : 0,
+				"heightOffset" : 2
+			},
+			"properties" : [{
+					"name" : "axis",
+					"value" : "y"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "hay_block",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 8,
+				"westOffset" : 0,
+				"heightOffset" : 2
+			},
+			"properties" : [{
+					"name" : "axis",
+					"value" : "y"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "planks",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 9,
+				"westOffset" : 0,
+				"heightOffset" : 2
+			},
+			"properties" : [{
+					"name" : "variant",
+					"value" : "spruce"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "brick_block",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 0,
+				"westOffset" : 2,
+				"heightOffset" : 3
+			},
+			"properties" : [],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "brick_block",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 0,
+				"westOffset" : 1,
+				"heightOffset" : 3
+			},
+			"properties" : [],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "brick_block",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 0,
+				"westOffset" : 0,
+				"heightOffset" : 3
+			},
+			"properties" : [],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "brick_block",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 1,
+				"westOffset" : 0,
+				"heightOffset" : 3
+			},
+			"properties" : [],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "planks",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 5,
+				"westOffset" : 0,
+				"heightOffset" : 3
+			},
+			"properties" : [{
+					"name" : "variant",
+					"value" : "spruce"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_stairs",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 9,
+				"westOffset" : 0,
+				"heightOffset" : 3
+			},
+			"properties" : [{
+					"name" : "facing",
+					"value" : "west"
+				}, {
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "shape",
+					"value" : "outer_right"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_fence",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 2,
+				"westOffset" : 0,
+				"heightOffset" : 4
+			},
+			"properties" : [{
+					"name" : "east",
+					"value" : "false"
+				}, {
+					"name" : "north",
+					"value" : "false"
+				}, {
+					"name" : "south",
+					"value" : "false"
+				}, {
+					"name" : "west",
+					"value" : "false"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "planks",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 5,
+				"westOffset" : 0,
+				"heightOffset" : 4
+			},
+			"properties" : [{
+					"name" : "variant",
+					"value" : "spruce"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_stairs",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 6,
+				"westOffset" : 0,
+				"heightOffset" : 4
+			},
+			"properties" : [{
+					"name" : "facing",
+					"value" : "south"
+				}, {
+					"name" : "half",
+					"value" : "top"
+				}, {
+					"name" : "shape",
+					"value" : "outer_right"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_stairs",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 7,
+				"westOffset" : 0,
+				"heightOffset" : 4
+			},
+			"properties" : [{
+					"name" : "facing",
+					"value" : "south"
+				}, {
+					"name" : "half",
+					"value" : "top"
+				}, {
+					"name" : "shape",
+					"value" : "outer_right"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_stairs",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 8,
+				"westOffset" : 0,
+				"heightOffset" : 4
+			},
+			"properties" : [{
+					"name" : "facing",
+					"value" : "south"
+				}, {
+					"name" : "half",
+					"value" : "top"
+				}, {
+					"name" : "shape",
+					"value" : "outer_right"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_stairs",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 9,
+				"westOffset" : 0,
+				"heightOffset" : 4
+			},
+			"properties" : [{
+					"name" : "facing",
+					"value" : "west"
+				}, {
+					"name" : "half",
+					"value" : "top"
+				}, {
+					"name" : "shape",
+					"value" : "outer_right"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "brick_block",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 2,
+				"westOffset" : 0,
+				"heightOffset" : 5
+			},
+			"properties" : [],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "brick_block",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 3,
+				"westOffset" : 0,
+				"heightOffset" : 5
+			},
+			"properties" : [],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "brick_block",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 4,
+				"westOffset" : 0,
+				"heightOffset" : 5
+			},
+			"properties" : [],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "brick_block",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 5,
+				"westOffset" : 0,
+				"heightOffset" : 5
+			},
+			"properties" : [],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "brick_block",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 6,
+				"westOffset" : 0,
+				"heightOffset" : 5
+			},
+			"properties" : [],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "brick_block",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 7,
+				"westOffset" : 0,
+				"heightOffset" : 5
+			},
+			"properties" : [],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "brick_block",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 8,
+				"westOffset" : 0,
+				"heightOffset" : 5
+			},
+			"properties" : [],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "stone_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 4,
+				"eastOffset" : 9,
+				"westOffset" : 0,
+				"heightOffset" : 5
+			},
+			"properties" : [{
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "variant",
+					"value" : "brick"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 0,
+				"westOffset" : 2,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 0,
+				"westOffset" : 1,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 0,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 1,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 2,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 3,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 4,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 5,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 6,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 7,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 8,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "dirt",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 9,
+				"westOffset" : 0,
+				"heightOffset" : 0
+			},
+			"properties" : [{
+					"name" : "snowy",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "coarse_dirt"
 				}
 			],
 			"hasFacing" : false
@@ -4748,9 +4029,9 @@
 			"blockName" : "double_stone_slab",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 9,
+				"southOffset" : 5,
 				"eastOffset" : 0,
-				"westOffset" : 5,
+				"westOffset" : 2,
 				"heightOffset" : 1
 			},
 			"properties" : [{
@@ -4767,9 +4048,9 @@
 			"blockName" : "spruce_fence",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 9,
+				"southOffset" : 5,
 				"eastOffset" : 0,
-				"westOffset" : 4,
+				"westOffset" : 1,
 				"heightOffset" : 1
 			},
 			"properties" : [{
@@ -4792,9 +4073,9 @@
 			"blockName" : "spruce_fence",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 9,
+				"southOffset" : 5,
 				"eastOffset" : 0,
-				"westOffset" : 3,
+				"westOffset" : 0,
 				"heightOffset" : 1
 			},
 			"properties" : [{
@@ -4817,9 +4098,9 @@
 			"blockName" : "spruce_fence",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 9,
-				"eastOffset" : 0,
-				"westOffset" : 2,
+				"southOffset" : 5,
+				"eastOffset" : 1,
+				"westOffset" : 0,
 				"heightOffset" : 1
 			},
 			"properties" : [{
@@ -4842,9 +4123,172 @@
 			"blockName" : "double_stone_slab",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 9,
-				"eastOffset" : 0,
-				"westOffset" : 1,
+				"southOffset" : 5,
+				"eastOffset" : 2,
+				"westOffset" : 0,
+				"heightOffset" : 1
+			},
+			"properties" : [{
+					"name" : "seamless",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "stone"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_fence",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 3,
+				"westOffset" : 0,
+				"heightOffset" : 1
+			},
+			"properties" : [{
+					"name" : "east",
+					"value" : "false"
+				}, {
+					"name" : "north",
+					"value" : "false"
+				}, {
+					"name" : "south",
+					"value" : "false"
+				}, {
+					"name" : "west",
+					"value" : "false"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_fence",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 4,
+				"westOffset" : 0,
+				"heightOffset" : 1
+			},
+			"properties" : [{
+					"name" : "east",
+					"value" : "false"
+				}, {
+					"name" : "north",
+					"value" : "false"
+				}, {
+					"name" : "south",
+					"value" : "false"
+				}, {
+					"name" : "west",
+					"value" : "false"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "double_stone_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 5,
+				"westOffset" : 0,
+				"heightOffset" : 1
+			},
+			"properties" : [{
+					"name" : "seamless",
+					"value" : "false"
+				}, {
+					"name" : "variant",
+					"value" : "stone"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_fence",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 6,
+				"westOffset" : 0,
+				"heightOffset" : 1
+			},
+			"properties" : [{
+					"name" : "east",
+					"value" : "false"
+				}, {
+					"name" : "north",
+					"value" : "false"
+				}, {
+					"name" : "south",
+					"value" : "false"
+				}, {
+					"name" : "west",
+					"value" : "false"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_fence",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 7,
+				"westOffset" : 0,
+				"heightOffset" : 1
+			},
+			"properties" : [{
+					"name" : "east",
+					"value" : "false"
+				}, {
+					"name" : "north",
+					"value" : "false"
+				}, {
+					"name" : "south",
+					"value" : "false"
+				}, {
+					"name" : "west",
+					"value" : "false"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_fence",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 8,
+				"westOffset" : 0,
+				"heightOffset" : 1
+			},
+			"properties" : [{
+					"name" : "east",
+					"value" : "false"
+				}, {
+					"name" : "north",
+					"value" : "false"
+				}, {
+					"name" : "south",
+					"value" : "false"
+				}, {
+					"name" : "west",
+					"value" : "false"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "double_stone_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 9,
+				"westOffset" : 0,
 				"heightOffset" : 1
 			},
 			"properties" : [{
@@ -4861,9 +4305,172 @@
 			"blockName" : "log",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 9,
+				"southOffset" : 5,
 				"eastOffset" : 0,
-				"westOffset" : 5,
+				"westOffset" : 2,
+				"heightOffset" : 2
+			},
+			"properties" : [{
+					"name" : "axis",
+					"value" : "y"
+				}, {
+					"name" : "variant",
+					"value" : "spruce"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_fence",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 0,
+				"westOffset" : 1,
+				"heightOffset" : 2
+			},
+			"properties" : [{
+					"name" : "east",
+					"value" : "false"
+				}, {
+					"name" : "north",
+					"value" : "false"
+				}, {
+					"name" : "south",
+					"value" : "false"
+				}, {
+					"name" : "west",
+					"value" : "false"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_fence",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 0,
+				"westOffset" : 0,
+				"heightOffset" : 2
+			},
+			"properties" : [{
+					"name" : "east",
+					"value" : "false"
+				}, {
+					"name" : "north",
+					"value" : "false"
+				}, {
+					"name" : "south",
+					"value" : "false"
+				}, {
+					"name" : "west",
+					"value" : "false"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_fence",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 1,
+				"westOffset" : 0,
+				"heightOffset" : 2
+			},
+			"properties" : [{
+					"name" : "east",
+					"value" : "false"
+				}, {
+					"name" : "north",
+					"value" : "false"
+				}, {
+					"name" : "south",
+					"value" : "false"
+				}, {
+					"name" : "west",
+					"value" : "false"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "log",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 2,
+				"westOffset" : 0,
+				"heightOffset" : 2
+			},
+			"properties" : [{
+					"name" : "axis",
+					"value" : "y"
+				}, {
+					"name" : "variant",
+					"value" : "spruce"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_fence",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 3,
+				"westOffset" : 0,
+				"heightOffset" : 2
+			},
+			"properties" : [{
+					"name" : "east",
+					"value" : "false"
+				}, {
+					"name" : "north",
+					"value" : "false"
+				}, {
+					"name" : "south",
+					"value" : "false"
+				}, {
+					"name" : "west",
+					"value" : "false"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_fence",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 4,
+				"westOffset" : 0,
+				"heightOffset" : 2
+			},
+			"properties" : [{
+					"name" : "east",
+					"value" : "false"
+				}, {
+					"name" : "north",
+					"value" : "false"
+				}, {
+					"name" : "south",
+					"value" : "false"
+				}, {
+					"name" : "west",
+					"value" : "false"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "log",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 5,
+				"westOffset" : 0,
 				"heightOffset" : 2
 			},
 			"properties" : [{
@@ -4880,9 +4487,9 @@
 			"blockName" : "planks",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 9,
-				"eastOffset" : 0,
-				"westOffset" : 4,
+				"southOffset" : 5,
+				"eastOffset" : 6,
+				"westOffset" : 0,
 				"heightOffset" : 2
 			},
 			"properties" : [{
@@ -4896,9 +4503,9 @@
 			"blockName" : "planks",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 9,
-				"eastOffset" : 0,
-				"westOffset" : 3,
+				"southOffset" : 5,
+				"eastOffset" : 7,
+				"westOffset" : 0,
 				"heightOffset" : 2
 			},
 			"properties" : [{
@@ -4912,9 +4519,9 @@
 			"blockName" : "planks",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 9,
-				"eastOffset" : 0,
-				"westOffset" : 2,
+				"southOffset" : 5,
+				"eastOffset" : 8,
+				"westOffset" : 0,
 				"heightOffset" : 2
 			},
 			"properties" : [{
@@ -4928,218 +4535,10 @@
 			"blockName" : "log",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 9,
-				"eastOffset" : 0,
-				"westOffset" : 1,
+				"southOffset" : 5,
+				"eastOffset" : 9,
+				"westOffset" : 0,
 				"heightOffset" : 2
-			},
-			"properties" : [{
-					"name" : "axis",
-					"value" : "y"
-				}, {
-					"name" : "variant",
-					"value" : "spruce"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "log",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 9,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 3
-			},
-			"properties" : [{
-					"name" : "axis",
-					"value" : "y"
-				}, {
-					"name" : "variant",
-					"value" : "spruce"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_stairs",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 9,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 3
-			},
-			"properties" : [{
-					"name" : "facing",
-					"value" : "north"
-				}, {
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "shape",
-					"value" : "outer_right"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_stairs",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 9,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 3
-			},
-			"properties" : [{
-					"name" : "facing",
-					"value" : "north"
-				}, {
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "shape",
-					"value" : "outer_right"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_stairs",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 9,
-				"eastOffset" : 0,
-				"westOffset" : 2,
-				"heightOffset" : 3
-			},
-			"properties" : [{
-					"name" : "facing",
-					"value" : "north"
-				}, {
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "shape",
-					"value" : "outer_right"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "log",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 9,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 3
-			},
-			"properties" : [{
-					"name" : "axis",
-					"value" : "y"
-				}, {
-					"name" : "variant",
-					"value" : "spruce"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "log",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 9,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 4
-			},
-			"properties" : [{
-					"name" : "axis",
-					"value" : "y"
-				}, {
-					"name" : "variant",
-					"value" : "spruce"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_stairs",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 9,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 4
-			},
-			"properties" : [{
-					"name" : "facing",
-					"value" : "north"
-				}, {
-					"name" : "half",
-					"value" : "top"
-				}, {
-					"name" : "shape",
-					"value" : "outer_right"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_stairs",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 9,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 4
-			},
-			"properties" : [{
-					"name" : "facing",
-					"value" : "north"
-				}, {
-					"name" : "half",
-					"value" : "top"
-				}, {
-					"name" : "shape",
-					"value" : "outer_right"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "spruce_stairs",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 9,
-				"eastOffset" : 0,
-				"westOffset" : 2,
-				"heightOffset" : 4
-			},
-			"properties" : [{
-					"name" : "facing",
-					"value" : "north"
-				}, {
-					"name" : "half",
-					"value" : "top"
-				}, {
-					"name" : "shape",
-					"value" : "outer_right"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "log",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 9,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 4
 			},
 			"properties" : [{
 					"name" : "axis",
@@ -5155,65 +4554,10 @@
 			"blockName" : "stone_slab",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 9,
-				"eastOffset" : 0,
-				"westOffset" : 5,
-				"heightOffset" : 5
-			},
-			"properties" : [{
-					"name" : "half",
-					"value" : "bottom"
-				}, {
-					"name" : "variant",
-					"value" : "brick"
-				}
-			],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "brick_block",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 9,
-				"eastOffset" : 0,
-				"westOffset" : 4,
-				"heightOffset" : 5
-			},
-			"properties" : [],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "brick_block",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 9,
-				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 5
-			},
-			"properties" : [],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "brick_block",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 9,
+				"southOffset" : 5,
 				"eastOffset" : 0,
 				"westOffset" : 2,
-				"heightOffset" : 5
-			},
-			"properties" : [],
-			"hasFacing" : false
-		}, {
-			"blockDomain" : "minecraft",
-			"blockName" : "stone_slab",
-			"startingPosition" : {
-				"northOffset" : 0,
-				"southOffset" : 9,
-				"eastOffset" : 0,
-				"westOffset" : 1,
-				"heightOffset" : 5
+				"heightOffset" : 3
 			},
 			"properties" : [{
 					"name" : "half",
@@ -5229,10 +4573,562 @@
 			"blockName" : "stone_slab",
 			"startingPosition" : {
 				"northOffset" : 0,
-				"southOffset" : 9,
+				"southOffset" : 5,
 				"eastOffset" : 0,
-				"westOffset" : 3,
-				"heightOffset" : 6
+				"westOffset" : 1,
+				"heightOffset" : 3
+			},
+			"properties" : [{
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "variant",
+					"value" : "brick"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "stone_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 0,
+				"westOffset" : 0,
+				"heightOffset" : 3
+			},
+			"properties" : [{
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "variant",
+					"value" : "brick"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "stone_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 1,
+				"westOffset" : 0,
+				"heightOffset" : 3
+			},
+			"properties" : [{
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "variant",
+					"value" : "brick"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "log",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 2,
+				"westOffset" : 0,
+				"heightOffset" : 3
+			},
+			"properties" : [{
+					"name" : "axis",
+					"value" : "y"
+				}, {
+					"name" : "variant",
+					"value" : "spruce"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_fence",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 3,
+				"westOffset" : 0,
+				"heightOffset" : 3
+			},
+			"properties" : [{
+					"name" : "east",
+					"value" : "false"
+				}, {
+					"name" : "north",
+					"value" : "false"
+				}, {
+					"name" : "south",
+					"value" : "false"
+				}, {
+					"name" : "west",
+					"value" : "false"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_fence",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 4,
+				"westOffset" : 0,
+				"heightOffset" : 3
+			},
+			"properties" : [{
+					"name" : "east",
+					"value" : "false"
+				}, {
+					"name" : "north",
+					"value" : "false"
+				}, {
+					"name" : "south",
+					"value" : "false"
+				}, {
+					"name" : "west",
+					"value" : "false"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "log",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 5,
+				"westOffset" : 0,
+				"heightOffset" : 3
+			},
+			"properties" : [{
+					"name" : "axis",
+					"value" : "y"
+				}, {
+					"name" : "variant",
+					"value" : "spruce"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_stairs",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 6,
+				"westOffset" : 0,
+				"heightOffset" : 3
+			},
+			"properties" : [{
+					"name" : "facing",
+					"value" : "north"
+				}, {
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "shape",
+					"value" : "outer_right"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_stairs",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 7,
+				"westOffset" : 0,
+				"heightOffset" : 3
+			},
+			"properties" : [{
+					"name" : "facing",
+					"value" : "north"
+				}, {
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "shape",
+					"value" : "outer_right"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_stairs",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 8,
+				"westOffset" : 0,
+				"heightOffset" : 3
+			},
+			"properties" : [{
+					"name" : "facing",
+					"value" : "north"
+				}, {
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "shape",
+					"value" : "outer_right"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "log",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 9,
+				"westOffset" : 0,
+				"heightOffset" : 3
+			},
+			"properties" : [{
+					"name" : "axis",
+					"value" : "y"
+				}, {
+					"name" : "variant",
+					"value" : "spruce"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "torch",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 1,
+				"westOffset" : 0,
+				"heightOffset" : 4
+			},
+			"properties" : [{
+					"name" : "facing",
+					"value" : "west"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "log",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 2,
+				"westOffset" : 0,
+				"heightOffset" : 4
+			},
+			"properties" : [{
+					"name" : "axis",
+					"value" : "y"
+				}, {
+					"name" : "variant",
+					"value" : "spruce"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_fence",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 3,
+				"westOffset" : 0,
+				"heightOffset" : 4
+			},
+			"properties" : [{
+					"name" : "east",
+					"value" : "false"
+				}, {
+					"name" : "north",
+					"value" : "false"
+				}, {
+					"name" : "south",
+					"value" : "false"
+				}, {
+					"name" : "west",
+					"value" : "false"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_fence",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 4,
+				"westOffset" : 0,
+				"heightOffset" : 4
+			},
+			"properties" : [{
+					"name" : "east",
+					"value" : "false"
+				}, {
+					"name" : "north",
+					"value" : "false"
+				}, {
+					"name" : "south",
+					"value" : "false"
+				}, {
+					"name" : "west",
+					"value" : "false"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "log",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 5,
+				"westOffset" : 0,
+				"heightOffset" : 4
+			},
+			"properties" : [{
+					"name" : "axis",
+					"value" : "y"
+				}, {
+					"name" : "variant",
+					"value" : "spruce"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_stairs",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 6,
+				"westOffset" : 0,
+				"heightOffset" : 4
+			},
+			"properties" : [{
+					"name" : "facing",
+					"value" : "north"
+				}, {
+					"name" : "half",
+					"value" : "top"
+				}, {
+					"name" : "shape",
+					"value" : "outer_right"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_stairs",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 7,
+				"westOffset" : 0,
+				"heightOffset" : 4
+			},
+			"properties" : [{
+					"name" : "facing",
+					"value" : "north"
+				}, {
+					"name" : "half",
+					"value" : "top"
+				}, {
+					"name" : "shape",
+					"value" : "outer_right"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "spruce_stairs",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 8,
+				"westOffset" : 0,
+				"heightOffset" : 4
+			},
+			"properties" : [{
+					"name" : "facing",
+					"value" : "north"
+				}, {
+					"name" : "half",
+					"value" : "top"
+				}, {
+					"name" : "shape",
+					"value" : "outer_right"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "log",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 9,
+				"westOffset" : 0,
+				"heightOffset" : 4
+			},
+			"properties" : [{
+					"name" : "axis",
+					"value" : "y"
+				}, {
+					"name" : "variant",
+					"value" : "spruce"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "stone_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 2,
+				"westOffset" : 0,
+				"heightOffset" : 5
+			},
+			"properties" : [{
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "variant",
+					"value" : "brick"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "stone_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 3,
+				"westOffset" : 0,
+				"heightOffset" : 5
+			},
+			"properties" : [{
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "variant",
+					"value" : "brick"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "stone_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 4,
+				"westOffset" : 0,
+				"heightOffset" : 5
+			},
+			"properties" : [{
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "variant",
+					"value" : "brick"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "stone_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 5,
+				"westOffset" : 0,
+				"heightOffset" : 5
+			},
+			"properties" : [{
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "variant",
+					"value" : "brick"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "stone_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 6,
+				"westOffset" : 0,
+				"heightOffset" : 5
+			},
+			"properties" : [{
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "variant",
+					"value" : "brick"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "stone_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 7,
+				"westOffset" : 0,
+				"heightOffset" : 5
+			},
+			"properties" : [{
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "variant",
+					"value" : "brick"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "stone_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 8,
+				"westOffset" : 0,
+				"heightOffset" : 5
+			},
+			"properties" : [{
+					"name" : "half",
+					"value" : "bottom"
+				}, {
+					"name" : "variant",
+					"value" : "brick"
+				}
+			],
+			"hasFacing" : false
+		}, {
+			"blockDomain" : "minecraft",
+			"blockName" : "stone_slab",
+			"startingPosition" : {
+				"northOffset" : 0,
+				"southOffset" : 5,
+				"eastOffset" : 9,
+				"westOffset" : 0,
+				"heightOffset" : 5
 			},
 			"properties" : [{
 					"name" : "half",

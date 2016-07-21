@@ -15,7 +15,7 @@ public class StructureChickenCoop extends Structure
 	public static void ScanStructure(World world, BlockPos originalPos, EnumFacing playerFacing)
 	{
 		BuildClear clearedSpace = new BuildClear();
-		clearedSpace.getShape().setDirection(EnumFacing.WEST);
+		clearedSpace.getShape().setDirection(EnumFacing.SOUTH);
 		clearedSpace.getShape().setHeight(7);
 		clearedSpace.getShape().setLength(5);
 		clearedSpace.getShape().setWidth(12);
@@ -25,8 +25,8 @@ public class StructureChickenCoop extends Structure
 		Structure.ScanStructure(
 				world, 
 				originalPos, 
-				originalPos.south(9).west(1), 
-				originalPos.west(5).north(2).up(7), 
+				originalPos.south(1).east(9), 
+				originalPos.south(5).west(2).up(7), 
 				"C:\\Users\\Brian\\Documents\\GitHub\\MC-Prefab\\src\\main\\resources\\assets\\prefab\\structures\\chickencoop.json",
 				clearedSpace,
 				playerFacing);	
