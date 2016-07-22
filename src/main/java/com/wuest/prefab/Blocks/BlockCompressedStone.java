@@ -49,7 +49,7 @@ public class BlockCompressedStone extends Block implements IMetaBlock
 		this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
 		this.setHardness(1.5F);
 		this.setResistance(10.0F);
-		this.setHarvestLevel("pickaxe", 0);
+		this.setHarvestLevel(null, 0);
 		this.setSoundType(SoundType.STONE);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, EnumType.COMPRESSED_STONE));
 		ModRegistry.setBlockName(this, "blockCompressedStone");
@@ -100,6 +100,19 @@ public class BlockCompressedStone extends Block implements IMetaBlock
     public Item getItemDropped(IBlockState state, Random rand, int fortune)
     {
         return Item.getItemFromBlock(ModRegistry.CompressedStoneBlock());
+    }
+    
+    /**
+     * Determines if the player can harvest this block, obtaining it's drops when the block is destroyed.
+     *
+     * @param player The player damaging the block, may be null
+     * @param meta The block's current metadata
+     * @return True to spawn the drops
+     */
+    @Override
+    public boolean canHarvestBlock(IBlockAccess world, BlockPos pos, EntityPlayer player)
+    {
+        return true;
     }
 
     /**
@@ -194,7 +207,9 @@ public class BlockCompressedStone extends Block implements IMetaBlock
 		DOUBLE_COMPRESSED_STONE(1, "block_double_compressed_stone", "blockDoubleCompressedStone"),
 		TRIPLE_COMPRESSED_STONE(2, "block_triple_compressed_stone", "blockTripleCompressedStone"),
 		COMPRESSED_GLOWSTONE(3, "block_compressed_glowstone", "blockCompressedGlowstone"),
-		DOUBLE_COMPRESSED_GLOWSTONE(4, "block_double_compressed_glowstone", "blockDoubleCompressedGlowstone");
+		DOUBLE_COMPRESSED_GLOWSTONE(4, "block_double_compressed_glowstone", "blockDoubleCompressedGlowstone"),
+		COMPRESSED_DIRT(5, "block_compressed_dirt", "blockCompressedDirt"),
+		DOUBLE_COMPRESSED_DIRT(6, "block_double_compressed_dirt", "blockDoubleCompressedDirt");
 		
         private final int meta;
 		
