@@ -2,12 +2,9 @@ package com.wuest.prefab.Items;
 
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Config.ChickenCoopConfiguration;
-import com.wuest.prefab.Config.ProduceFarmConfiguration;
-import com.wuest.prefab.Gui.GuiChickenCoop;
-import com.wuest.prefab.Gui.GuiProduceFarm;
-import com.wuest.prefab.StructureGen.CustomStructures.StructureChickenCoop;
-import com.wuest.prefab.StructureGen.CustomStructures.StructureProduceFarm;
+import com.wuest.prefab.Config.TreeFarmConfiguration;
+import com.wuest.prefab.Gui.GuiTreeFarm;
+import com.wuest.prefab.StructureGen.CustomStructures.StructureTreeFarm;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -21,11 +18,11 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class ItemProduceFarm extends Item 
+public class ItemTreeFarm extends Item 
 {
-	private ProduceFarmConfiguration currentConfiguration = null;
+	private TreeFarmConfiguration currentConfiguration = null;
 
-	public ItemProduceFarm(String name)
+	public ItemTreeFarm(String name)
 	{
 		super();
 
@@ -45,9 +42,9 @@ public class ItemProduceFarm extends Item
 			if (side == EnumFacing.UP)
 			{
 				// Open the client side gui to determine the house options.
-				//StructureProduceFarm produceFarm = new StructureProduceFarm();
-				//produceFarm.ScanStructure(world, hitBlockPos, player.getHorizontalFacing());
-				player.openGui(Prefab.instance, GuiProduceFarm.GUI_ID, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+				//StructureTreeFarm treeFarm = new StructureTreeFarm();
+				//treeFarm.ScanStructure(world, hitBlockPos, player.getHorizontalFacing());
+				player.openGui(Prefab.instance, GuiTreeFarm.GUI_ID, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
 				return EnumActionResult.PASS;
 			}
 		}
@@ -55,7 +52,7 @@ public class ItemProduceFarm extends Item
 		return EnumActionResult.FAIL;
 	}
 	
-	public static void BuildHouse(EntityPlayer player, World world, ProduceFarmConfiguration configuration)
+	public static void BuildHouse(EntityPlayer player, World world, TreeFarmConfiguration configuration)
 	{
 		// This is always on the server.
 		if (configuration != null)
@@ -71,10 +68,10 @@ public class ItemProduceFarm extends Item
  
 				if (hitBlock != null)
 				{
-					StructureProduceFarm structure = StructureProduceFarm.CreateInstance(StructureProduceFarm.ASSETLOCATION, StructureProduceFarm.class);
+					StructureTreeFarm structure = StructureTreeFarm.CreateInstance(StructureTreeFarm.ASSETLOCATION, StructureTreeFarm.class);
 					structure.BuildStructure(configuration, world, hitBlockPos, EnumFacing.NORTH);
 					
-					player.inventory.clearMatchingItems(ModRegistry.ProduceFarm(), -1, 1, null);
+					player.inventory.clearMatchingItems(ModRegistry.TreeFarm(), -1, 1, null);
 					player.inventoryContainer.detectAndSendChanges();
 				}
 			}

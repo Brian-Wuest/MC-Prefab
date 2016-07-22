@@ -21,7 +21,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 public class Prefab
 {
     public static final String MODID = "prefab";
-    public static final String VERSION = "1.1.0.5";
+    public static final String VERSION = "1.1.0.6";
     
     @Instance(value = Prefab.MODID)
 	public static Prefab instance;

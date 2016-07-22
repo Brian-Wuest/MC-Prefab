@@ -2,6 +2,7 @@ item.prefab:itemStartHouse.name=Starting House
 item.prefab:itemWareHouse.name=Warehouse
 item.prefab:itemChickenCoop.name=Chicken Coop
 item.prefab:itemProduceFarm.name=Produce Farm
+item.prefab:itemTreeFarm.name=Tree Farm
 item.prefab:itemCompressedChest.name=Compressed Chest
 tile.prefab:blockCompressedStone.block_compressed_stone.name=Compressed Stone
 tile.prefab:blockCompressedStone.block_double_compressed_stone.name=Double Compressed Stone

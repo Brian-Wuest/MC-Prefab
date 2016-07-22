@@ -4,29 +4,16 @@ import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Events.ModEventHandler;
-import com.wuest.prefab.Gui.GuiChickenCoop;
-import com.wuest.prefab.Gui.GuiHouseItem;
-import com.wuest.prefab.Gui.GuiProduceFarm;
-import com.wuest.prefab.Gui.GuiWareHouse;
-import com.wuest.prefab.Proxy.Messages.ChickenCoopTagMessage;
-import com.wuest.prefab.Proxy.Messages.ConfigSyncMessage;
-import com.wuest.prefab.Proxy.Messages.HouseTagMessage;
-import com.wuest.prefab.Proxy.Messages.ProduceFarmTagMessage;
-import com.wuest.prefab.Proxy.Messages.WareHouseTagMessage;
-import com.wuest.prefab.Proxy.Messages.Handlers.ChickenCoopHandler;
-import com.wuest.prefab.Proxy.Messages.Handlers.ConfigSyncHandler;
-import com.wuest.prefab.Proxy.Messages.Handlers.HouseHandler;
-import com.wuest.prefab.Proxy.Messages.Handlers.ProduceFarmHandler;
-import com.wuest.prefab.Proxy.Messages.Handlers.WareHouseHandler;
+import com.wuest.prefab.Gui.*;
+import com.wuest.prefab.Proxy.Messages.*;
+import com.wuest.prefab.Proxy.Messages.Handlers.*;
 
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -60,6 +47,7 @@ public class CommonProxy implements IGuiHandler
 		Prefab.network.registerMessage(ConfigSyncHandler.class, ConfigSyncMessage.class, 3, Side.CLIENT);
 		Prefab.network.registerMessage(ChickenCoopHandler.class, ChickenCoopTagMessage.class, 4, Side.SERVER);
 		Prefab.network.registerMessage(ProduceFarmHandler.class, ProduceFarmTagMessage.class, 5, Side.SERVER);
+		Prefab.network.registerMessage(TreeFarmHandler.class, TreeFarmTagMessage.class, 6, Side.SERVER);
 		
 		// Register items here.
 		ModRegistry.RegisterModComponents();
@@ -102,6 +90,10 @@ public class CommonProxy implements IGuiHandler
 		else if (ID == GuiProduceFarm.GUI_ID)
 		{
 			return new GuiProduceFarm(x, y, z);
+		}
+		else if (ID == GuiTreeFarm.GUI_ID)
+		{
+			return new GuiTreeFarm(x, y, z);
 		}
 
 		return null;
