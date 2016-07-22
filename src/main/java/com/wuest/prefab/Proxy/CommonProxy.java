@@ -6,14 +6,17 @@ import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Events.ModEventHandler;
 import com.wuest.prefab.Gui.GuiChickenCoop;
 import com.wuest.prefab.Gui.GuiHouseItem;
+import com.wuest.prefab.Gui.GuiProduceFarm;
 import com.wuest.prefab.Gui.GuiWareHouse;
 import com.wuest.prefab.Proxy.Messages.ChickenCoopTagMessage;
 import com.wuest.prefab.Proxy.Messages.ConfigSyncMessage;
 import com.wuest.prefab.Proxy.Messages.HouseTagMessage;
+import com.wuest.prefab.Proxy.Messages.ProduceFarmTagMessage;
 import com.wuest.prefab.Proxy.Messages.WareHouseTagMessage;
 import com.wuest.prefab.Proxy.Messages.Handlers.ChickenCoopHandler;
 import com.wuest.prefab.Proxy.Messages.Handlers.ConfigSyncHandler;
 import com.wuest.prefab.Proxy.Messages.Handlers.HouseHandler;
+import com.wuest.prefab.Proxy.Messages.Handlers.ProduceFarmHandler;
 import com.wuest.prefab.Proxy.Messages.Handlers.WareHouseHandler;
 
 import net.minecraft.client.renderer.block.model.ModelBakery;
@@ -56,6 +59,7 @@ public class CommonProxy implements IGuiHandler
 		Prefab.network.registerMessage(WareHouseHandler.class, WareHouseTagMessage.class, 2, Side.SERVER);
 		Prefab.network.registerMessage(ConfigSyncHandler.class, ConfigSyncMessage.class, 3, Side.CLIENT);
 		Prefab.network.registerMessage(ChickenCoopHandler.class, ChickenCoopTagMessage.class, 4, Side.SERVER);
+		Prefab.network.registerMessage(ProduceFarmHandler.class, ProduceFarmTagMessage.class, 5, Side.SERVER);
 		
 		// Register items here.
 		ModRegistry.RegisterModComponents();
@@ -94,6 +98,10 @@ public class CommonProxy implements IGuiHandler
 		else if (ID == GuiChickenCoop.GUI_ID)
 		{
 			return new GuiChickenCoop(x, y, z);
+		}
+		else if (ID == GuiProduceFarm.GUI_ID)
+		{
+			return new GuiProduceFarm(x, y, z);
 		}
 
 		return null;

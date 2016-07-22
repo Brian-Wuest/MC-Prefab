@@ -55,6 +55,11 @@ public class ModRegistry
 		return ModRegistry.GetItem(ItemCompressedChest.class);
 	}
 	
+	public static Item ProduceFarm() 
+	{
+		return ModRegistry.GetItem(ItemProduceFarm.class);
+	}
+	
 	public static <T extends Item> T GetItem(Class<T> genericClass)
 	{
 		for (Item entry : ModRegistry.ModItems)
@@ -89,6 +94,7 @@ public class ModRegistry
 		ModRegistry.registerItem(new ItemStartHouse("itemStartHouse"));
 		ModRegistry.registerItem(new ItemWareHouse("itemWareHouse"));
 		ModRegistry.registerItem(new ItemChickenCoop("itemChickenCoop"));
+		ModRegistry.registerItem(new ItemProduceFarm("itemProduceFarm"));
 		ModRegistry.registerItem(new ItemCompressedChest("itemCompressedChest"));
 		
 		// Create/register the item block with this block as it's needed due to this being a meta data block.
