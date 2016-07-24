@@ -7,15 +7,14 @@ import java.util.stream.*;
 import com.wuest.prefab.Items.*;
 import com.wuest.prefab.Blocks.*;
 import com.wuest.prefab.Proxy.CommonProxy;
+import com.wuest.prefab.Proxy.Messages.*;
+import com.wuest.prefab.Proxy.Messages.Handlers.*;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockPlanks;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
+import net.minecraft.block.*;
+import net.minecraft.init.*;
+import net.minecraft.item.*;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
 
 /**
  * This is the mod registry so there is a way to get to all instances of the blocks/items created by this mod.
@@ -77,6 +76,11 @@ public class ModRegistry
 		return ModRegistry.GetItem(ItemPalletOfBricks.class);
 	}
 	
+	/**
+	 * Gets the item from the ModItems collections.
+	 * @param genericClass The class of item to get from the collection.
+	 * @return Null if the item could not be found otherwise the item found.
+	 */
 	public static <T extends Item> T GetItem(Class<T> genericClass)
 	{
 		for (Item entry : ModRegistry.ModItems)
@@ -90,6 +94,11 @@ public class ModRegistry
 		return null;
 	}
 	
+	/**
+	 * Gets the block from the ModBlockss collections.
+	 * @param genericClass The class of block to get from the collection.
+	 * @return Null if the block could not be found otherwise the block found.
+	 */
 	public static <T extends Block> T GetBlock(Class<T> genericClass)
 	{
 		for (Block entry : ModRegistry.ModBlocks)
@@ -278,6 +287,19 @@ public class ModRegistry
 				'e', Item.getItemFromBlock(Blocks.BRICK_BLOCK));
 	}
 
+	/**
+	 * This is where the mod messages are registered.
+	 */
+	public static void RegisterMessages()
+	{
+		Prefab.network.registerMessage(HouseHandler.class, HouseTagMessage.class, 1, Side.SERVER);
+		Prefab.network.registerMessage(WareHouseHandler.class, WareHouseTagMessage.class, 2, Side.SERVER);
+		Prefab.network.registerMessage(ConfigSyncHandler.class, ConfigSyncMessage.class, 3, Side.CLIENT);
+		Prefab.network.registerMessage(ChickenCoopHandler.class, ChickenCoopTagMessage.class, 4, Side.SERVER);
+		Prefab.network.registerMessage(ProduceFarmHandler.class, ProduceFarmTagMessage.class, 5, Side.SERVER);
+		Prefab.network.registerMessage(TreeFarmHandler.class, TreeFarmTagMessage.class, 6, Side.SERVER);
+	}
+	
 	/**
 	 * Register an Item
 	 *
