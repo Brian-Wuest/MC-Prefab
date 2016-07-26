@@ -272,7 +272,7 @@ public class ModRegistry
 				"aba",
 				'a', ModRegistry.PalletOfBricks(),
 				'b', new ItemStack(ModRegistry.CompressedStoneBlock(), 1, BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_DIRT.getMetadata()),
-				'c', Item.getItemFromBlock(Blocks.FLOWER_POT),
+				'c', Items.FLOWER_POT,
 				'd', new ItemStack(ModRegistry.CompressedStoneBlock(), 1, BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE.getMetadata()));
 		
 		// Chicken Coop
