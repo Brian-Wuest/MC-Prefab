@@ -91,6 +91,10 @@ public class CommonProxy implements IGuiHandler
 		{
 			return new GuiTreeFarm(x, y, z);
 		}
+		else if (ID == GuiFishPond.GUI_ID)
+		{
+			return new GuiFishPond(x, y, z);
+		}
 
 		return null;
 	}

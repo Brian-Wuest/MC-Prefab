@@ -66,6 +66,11 @@ public class ModRegistry
 		return ModRegistry.GetItem(ItemTreeFarm.class);
 	}
 	
+	public static ItemFishPond FishPond()
+	{
+		return ModRegistry.GetItem(ItemFishPond.class);
+	}
+	
 	public static ItemPileOfBricks PileOfBricks() 
 	{
 		return ModRegistry.GetItem(ItemPileOfBricks.class);
@@ -125,6 +130,7 @@ public class ModRegistry
 		ModRegistry.registerItem(new ItemCompressedChest("itemCompressedChest"));
 		ModRegistry.registerItem(new ItemPileOfBricks("itemPileOfBricks"));
 		ModRegistry.registerItem(new ItemPalletOfBricks("itemPalletOfBricks"));
+		ModRegistry.registerItem(new ItemFishPond("itemFishPond"));
 		
 		// Create/register the item block with this block as it's needed due to this being a meta data block.
 		BlockCompressedStone stone = new BlockCompressedStone();
@@ -298,6 +304,7 @@ public class ModRegistry
 		Prefab.network.registerMessage(ChickenCoopHandler.class, ChickenCoopTagMessage.class, 4, Side.SERVER);
 		Prefab.network.registerMessage(ProduceFarmHandler.class, ProduceFarmTagMessage.class, 5, Side.SERVER);
 		Prefab.network.registerMessage(TreeFarmHandler.class, TreeFarmTagMessage.class, 6, Side.SERVER);
+		Prefab.network.registerMessage(FishPondHandler.class, FishPondTagMessage.class, 7, Side.SERVER);
 	}
 	
 	/**

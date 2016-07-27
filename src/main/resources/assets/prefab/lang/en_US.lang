@@ -3,6 +3,7 @@ item.prefab:itemWareHouse.name=Warehouse
 item.prefab:itemChickenCoop.name=Chicken Coop
 item.prefab:itemProduceFarm.name=Produce Farm
 item.prefab:itemTreeFarm.name=Tree Farm
+item.prefab:itemFishPond.name=Fish Pond
 item.prefab:itemCompressedChest.name=Compressed Chest
 item.prefab:itemPileOfBricks.name=Pile of Bricks
 item.prefab:itemPalletOfBricks.name=Pallet of Bricks
