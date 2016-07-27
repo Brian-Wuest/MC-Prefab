@@ -1,16 +1,19 @@
 package com.wuest.prefab;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.stream.*;
 
 import com.wuest.prefab.Items.*;
 import com.wuest.prefab.Blocks.*;
+import com.wuest.prefab.Gui.*;
 import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.Proxy.Messages.*;
 import com.wuest.prefab.Proxy.Messages.Handlers.*;
 
 import net.minecraft.block.*;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.init.*;
 import net.minecraft.item.*;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -25,6 +28,13 @@ public class ModRegistry
 {
 	public static ArrayList<Item> ModItems = new ArrayList<Item>();
 	public static ArrayList<Block> ModBlocks = new ArrayList<Block>();
+	public static HashMap<Integer, Class> ModGuis = new HashMap<Integer, Class>();
+	public static final int GuiWareHouse = 1;
+	public static final int GuiStartHouse = 549;
+	public static final int GuiChickenCoop = 2;
+	public static final int GuiProduceFarm = 3;
+	public static final int GuiTreeFarm = 4;
+	public static final int GuiFishPond = 5;
 	
 	public static ItemStartHouse StartHouse()
 	{
@@ -117,6 +127,52 @@ public class ModRegistry
 		return null;
 	}
 	
+	public static GuiScreen GetModGuiByID(int id, int x, int y, int z)
+	{
+		for (Entry<Integer, Class> entry : ModRegistry.ModGuis.entrySet())
+		{
+			if (entry.getKey() == id)
+			{
+				try
+				{
+					return (GuiScreen)entry.getValue().getConstructor(int.class, int.class, int.class).newInstance(x, y, z);
+				}
+				catch (InstantiationException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				catch (IllegalAccessException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				catch (IllegalArgumentException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				catch (InvocationTargetException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				catch (NoSuchMethodException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				catch (SecurityException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return null;
+	}
+	
 	/**
 	 * This is where all in-game mod components (Items, Blocks) will be registered.
 	 */
@@ -137,6 +193,8 @@ public class ModRegistry
 		ItemBlockMeta meta = new ItemBlockMeta(stone);
 		ModRegistry.setItemName(meta, "blockCompressedStone");
 		ModRegistry.registerBlock(stone, meta);
+		
+		ModRegistry.AddGuis();
 	}
 	
 	/**
@@ -367,5 +425,15 @@ public class ModRegistry
 	{
 		block.setRegistryName(blockName);
 		block.setUnlocalizedName(block.getRegistryName().toString());
+	}
+
+	private static void AddGuis()
+	{
+		ModRegistry.ModGuis.put(ModRegistry.GuiWareHouse, GuiWareHouse.class);
+		ModRegistry.ModGuis.put(ModRegistry.GuiStartHouse, GuiHouseItem.class);
+		ModRegistry.ModGuis.put(ModRegistry.GuiChickenCoop, GuiChickenCoop.class);
+		ModRegistry.ModGuis.put(ModRegistry.GuiProduceFarm, GuiProduceFarm.class);
+		ModRegistry.ModGuis.put(ModRegistry.GuiTreeFarm, GuiTreeFarm.class);
+		ModRegistry.ModGuis.put(ModRegistry.GuiFishPond, GuiFishPond.class);
 	}
 }

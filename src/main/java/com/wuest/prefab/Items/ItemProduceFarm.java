@@ -47,7 +47,7 @@ public class ItemProduceFarm extends Item
 				// Open the client side gui to determine the house options.
 				//StructureProduceFarm produceFarm = new StructureProduceFarm();
 				//produceFarm.ScanStructure(world, hitBlockPos, player.getHorizontalFacing());
-				player.openGui(Prefab.instance, GuiProduceFarm.GUI_ID, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+				player.openGui(Prefab.instance, ModRegistry.GuiProduceFarm, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
 				return EnumActionResult.PASS;
 			}
 		}

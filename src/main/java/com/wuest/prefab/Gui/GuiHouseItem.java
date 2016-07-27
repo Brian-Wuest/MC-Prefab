@@ -17,7 +17,7 @@ import com.wuest.prefab.Proxy.Messages.HouseTagMessage;
 
 public class GuiHouseItem extends GuiScreen
 {
-	public static final int GUI_ID = 549;
+	
 	protected GuiButtonExt btnCancel;
 	protected GuiButtonExt btnBuild;
 

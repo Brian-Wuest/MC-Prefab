@@ -20,7 +20,6 @@ import net.minecraftforge.fml.client.config.GuiButtonExt;
 
 public class GuiTreeFarm extends GuiScreen
 {
-	public static final int GUI_ID = 4;
 	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/defaultBackground.png");
 	private static final ResourceLocation structureTopDown = new ResourceLocation("prefab", "textures/gui/treeFarmTopDown.png");
 	

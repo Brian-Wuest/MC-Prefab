@@ -71,32 +71,7 @@ public class CommonProxy implements IGuiHandler
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
-		if (ID == GuiHouseItem.GUI_ID)
-		{
-			return new GuiHouseItem(x, y, z);
-		}
-		else if (ID == GuiWareHouse.GUI_ID)
-		{
-			return new GuiWareHouse(x, y, z);
-		}
-		else if (ID == GuiChickenCoop.GUI_ID)
-		{
-			return new GuiChickenCoop(x, y, z);
-		}
-		else if (ID == GuiProduceFarm.GUI_ID)
-		{
-			return new GuiProduceFarm(x, y, z);
-		}
-		else if (ID == GuiTreeFarm.GUI_ID)
-		{
-			return new GuiTreeFarm(x, y, z);
-		}
-		else if (ID == GuiFishPond.GUI_ID)
-		{
-			return new GuiFishPond(x, y, z);
-		}
-
-		return null;
+		return ModRegistry.GetModGuiByID(ID, x, y, z);
 	}
 
 	

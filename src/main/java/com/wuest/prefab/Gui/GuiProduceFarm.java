@@ -21,7 +21,6 @@ import net.minecraftforge.fml.client.config.GuiButtonExt;
 
 public class GuiProduceFarm extends GuiScreen
 {
-	public static final int GUI_ID = 3;
 	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/defaultBackground.png");
 	private static final ResourceLocation houseTopDown = new ResourceLocation("prefab", "textures/gui/produceFarmTopDown.png");
 	

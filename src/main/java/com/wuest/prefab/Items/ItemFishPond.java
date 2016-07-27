@@ -44,7 +44,7 @@ public class ItemFishPond extends Item
 				// Open the client side gui to determine the house options.
 				//StructureFishPond fishPond = new StructureFishPond();
 				//fishPond.ScanStructure(world, hitBlockPos, player.getHorizontalFacing());
-				player.openGui(Prefab.instance, GuiFishPond.GUI_ID, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+				player.openGui(Prefab.instance, ModRegistry.GuiFishPond, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
 				return EnumActionResult.PASS;
 			}
 		}

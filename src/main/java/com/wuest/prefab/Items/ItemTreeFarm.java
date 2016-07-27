@@ -44,7 +44,7 @@ public class ItemTreeFarm extends Item
 				// Open the client side gui to determine the house options.
 				//StructureTreeFarm treeFarm = new StructureTreeFarm();
 				//treeFarm.ScanStructure(world, hitBlockPos, player.getHorizontalFacing());
-				player.openGui(Prefab.instance, GuiTreeFarm.GUI_ID, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+				player.openGui(Prefab.instance, ModRegistry.GuiTreeFarm, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
 				return EnumActionResult.PASS;
 			}
 		}
