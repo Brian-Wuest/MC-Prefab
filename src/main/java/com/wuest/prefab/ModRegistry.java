@@ -30,11 +30,12 @@ public class ModRegistry
 	public static ArrayList<Block> ModBlocks = new ArrayList<Block>();
 	public static HashMap<Integer, Class> ModGuis = new HashMap<Integer, Class>();
 	public static final int GuiWareHouse = 1;
-	public static final int GuiStartHouse = 549;
 	public static final int GuiChickenCoop = 2;
 	public static final int GuiProduceFarm = 3;
 	public static final int GuiTreeFarm = 4;
 	public static final int GuiFishPond = 5;
+	public static final int GuiStartHouseChooser = 6;
+	public static final int GuiStartHouse = 7;
 	
 	public static ItemStartHouse StartHouse()
 	{
@@ -435,5 +436,6 @@ public class ModRegistry
 		ModRegistry.ModGuis.put(ModRegistry.GuiProduceFarm, GuiProduceFarm.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiTreeFarm, GuiTreeFarm.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiFishPond, GuiFishPond.class);
+		ModRegistry.ModGuis.put(ModRegistry.GuiStartHouseChooser, GuiStartHouseChooser.class);
 	}
 }
