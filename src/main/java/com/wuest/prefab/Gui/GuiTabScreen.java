@@ -3,12 +3,15 @@ package com.wuest.prefab.Gui;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.lwjgl.opengl.GL11;
+
 import com.wuest.prefab.Gui.Controls.GuiTab;
 import com.wuest.prefab.Gui.Controls.GuiTabTray;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiLabel;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -27,8 +30,12 @@ public class GuiTabScreen extends GuiScreen
 	 * @param tab The tab which was clicked.
 	 */
 	protected void tabClicked(GuiTab tab)
+	{	
+	}
+	
+	protected GuiTab getSelectedTab()
 	{
-		
+		return this.Tabs.GetSelectedTab();
 	}
 	
 	@Override
@@ -81,6 +88,10 @@ public class GuiTabScreen extends GuiScreen
      */
     public static void drawModalRectWithCustomSizedTexture(int x, int y, int z, int width, int height, float textureWidth, float textureHeight)
     {
+    	GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.enableBlend();
+        GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
+        
     	float u = 0;
     	float v = 0;
         float f = 1.0F / textureWidth;

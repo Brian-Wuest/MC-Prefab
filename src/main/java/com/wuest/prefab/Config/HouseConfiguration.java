@@ -3,8 +3,10 @@ package com.wuest.prefab.Config;
 import com.wuest.prefab.Config.ModConfiguration.CeilingFloorBlockType;
 import com.wuest.prefab.Config.ModConfiguration.WallBlockType;
 
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 
 /**
  * This class is used to determine the configuration for a particular house.
@@ -47,6 +49,8 @@ public class HouseConfiguration
 	private static String houseWidthTag = "houseWidth";
 	private static String houseDepthTag = "houseDepth";
 	private static String houseFacingTag = "houseFacing";
+	private static String houseStyleTag = "houseStyle";
+	private static String glassColorTag = "glassColor";
 
 	public boolean addTorches;
 	public boolean addBed;
@@ -63,6 +67,8 @@ public class HouseConfiguration
 	public int hitY;
 	public int hitZ;
 	public EnumFacing houseFacing; 
+	public HouseStyle houseStyle;
+	public EnumDyeColor glassColor;
 	
 	/**
 	 * When the house is facing north, this would be the east/west direction.
@@ -98,6 +104,8 @@ public class HouseConfiguration
 		tag.setInteger(HouseConfiguration.houseDepthTag, this.houseDepth);
 		tag.setInteger(HouseConfiguration.houseWidthTag, this.houseWidth);
 		tag.setString(HouseConfiguration.houseFacingTag, this.houseFacing.getName());
+		tag.setInteger(HouseConfiguration.houseStyleTag, this.houseStyle.value);
+		tag.setString(HouseConfiguration.glassColorTag, this.glassColor.getName().toUpperCase());
 		
 		return tag;
 	}
@@ -209,9 +217,92 @@ public class HouseConfiguration
 			{
 				config.houseFacing = EnumFacing.byName(tag.getString(HouseConfiguration.houseFacingTag));
 			}
+			
+			if (tag.hasKey(HouseConfiguration.houseStyleTag))
+			{
+				config.houseStyle = HouseStyle.ValueOf(tag.getInteger(HouseConfiguration.houseStyleTag));
+			}
+			
+			if (tag.hasKey(HouseConfiguration.glassColorTag))
+			{
+				config.glassColor = EnumDyeColor.valueOf(tag.getString(HouseConfiguration.glassColorTag));
+			}
 		}
 
 		return config;
 	}
 
+	public enum HouseStyle
+	{
+		Basic(0, "Basic House", new ResourceLocation("prefab", "textures/gui/basicHouse.png"), "A highly configurable house but has a very basic design.", 153, 148),
+		Ranch(1, "Ranch Style", new ResourceLocation("prefab", "textures/gui/ranchHouse.png"), "A less configurable house designed in a ranch style.", 152, 89);
+
+		private final int value;
+		private final String displayName;
+		private final ResourceLocation housePicture;
+		private final String houseNotes;
+		private final int imageWidth;
+		private final int imageHeight;
+		
+		HouseStyle(int newValue, String displayName, ResourceLocation housePicture, String houseNotes, int imageWidth, int imageHeight) 
+		{
+			this.value = newValue;
+			this.displayName = displayName;
+			this.housePicture = housePicture;
+			this.houseNotes = houseNotes;
+			this.imageWidth = imageWidth;
+			this.imageHeight = imageHeight;
+		}
+
+		public int getValue() 
+		{
+			return value; 
+		}
+		
+		public String getDisplayName() 
+		{
+			return this.displayName;
+		}
+		
+		public String getHouseNotes()
+		{
+			return this.houseNotes;
+		}
+		
+		public ResourceLocation getHousePicture()
+		{
+			return this.housePicture;
+		}
+		
+		public int getImageWidth()
+		{
+			return this.imageWidth;
+		}
+		
+		public int getImageHeight()
+		{
+			return this.imageHeight;
+		}
+
+		public static HouseStyle ValueOf(int value)
+		{
+			switch (value)
+			{
+				case 0:
+				{
+					return HouseStyle.Basic;
+				}
+	
+				case 1:
+				{
+					return HouseStyle.Ranch;
+				}
+	
+				default:
+				{
+					return HouseStyle.Basic;
+				}
+			}
+		}
+	}
 }

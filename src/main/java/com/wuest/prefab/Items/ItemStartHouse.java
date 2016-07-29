@@ -96,52 +96,55 @@ public class ItemStartHouse extends Item
 
 				if (hitBlock != null)
 				{
-					// We hit a block, let's start building!!!!!
-					BlockPos startingPosition = hitBlockPos.up();
-
-					// Get the new "North" facing. This is the orientation of
-					// the house and all building will be based on this.
-					EnumFacing northFace = configuration.houseFacing;
-
-					// Get the "South" facing of the house to make rotating
-					// easier.
-					EnumFacing southFace = northFace.getOpposite();
-
-					// Set the "North East" corner.
-					ItemStartHouse.NorthEastCorner = startingPosition.offset(northFace, (int) Math.floor(configuration.houseDepth / 2) + 1)
-							.offset(northFace.rotateY(), (int) Math.floor(configuration.houseWidth / 2) + 1);
-
-					// Set the "South East" corner.
-					ItemStartHouse.SouthEastCorner = ItemStartHouse.NorthEastCorner.offset(southFace, configuration.houseDepth + 1);
-
-					// Set the "South West" corner.
-					ItemStartHouse.SouthWestCorner = ItemStartHouse.SouthEastCorner.offset(northFace.rotateYCCW(), configuration.houseWidth + 1);
-
-					// Set the "North West" corner.
-					ItemStartHouse.NorthWestCorner = ItemStartHouse.NorthEastCorner.offset(northFace.rotateYCCW(), configuration.houseWidth + 1);
-
-					// Clear the space before the user is teleported. This
-					// is in-case they right-click on a space that is only 1
-					// block tall.
-					BuildingMethods.ClearSpace(world, ItemStartHouse.NorthEastCorner, configuration.houseWidth, 15, configuration.houseDepth, northFace);
-
-					// Teleport the player to the middle of the house so
-					// they don't die while house is created.
-					player.attemptTeleport(startingPosition.up(2).getX(), startingPosition.up(2).getY(), startingPosition.up(2).getZ());
-
-					// Build the basic structure.
-					ItemStartHouse.BuildStructure(world, startingPosition, configuration, northFace);
-
-					// Build the interior.
-					ItemStartHouse.BuildInterior(world, startingPosition, player, configuration, northFace);
-
-					// Set up the exterior.
-					ItemStartHouse.BuildExterior(world, startingPosition, player, configuration, northFace);
-
-					if (configuration.addMineShaft && startingPosition.getY() > 15)
+					if (configuration.houseStyle == HouseConfiguration.HouseStyle.Basic)
 					{
-						// Set up the mineshaft.
-						ItemStartHouse.PlaceMineShaft(world, startingPosition, configuration.houseDepth, northFace);
+						// We hit a block, let's start building!!!!!
+						BlockPos startingPosition = hitBlockPos.up();
+	
+						// Get the new "North" facing. This is the orientation of
+						// the house and all building will be based on this.
+						EnumFacing northFace = configuration.houseFacing;
+	
+						// Get the "South" facing of the house to make rotating
+						// easier.
+						EnumFacing southFace = northFace.getOpposite();
+	
+						// Set the "North East" corner.
+						ItemStartHouse.NorthEastCorner = startingPosition.offset(northFace, (int) Math.floor(configuration.houseDepth / 2) + 1)
+								.offset(northFace.rotateY(), (int) Math.floor(configuration.houseWidth / 2) + 1);
+	
+						// Set the "South East" corner.
+						ItemStartHouse.SouthEastCorner = ItemStartHouse.NorthEastCorner.offset(southFace, configuration.houseDepth + 1);
+	
+						// Set the "South West" corner.
+						ItemStartHouse.SouthWestCorner = ItemStartHouse.SouthEastCorner.offset(northFace.rotateYCCW(), configuration.houseWidth + 1);
+	
+						// Set the "North West" corner.
+						ItemStartHouse.NorthWestCorner = ItemStartHouse.NorthEastCorner.offset(northFace.rotateYCCW(), configuration.houseWidth + 1);
+	
+						// Clear the space before the user is teleported. This
+						// is in-case they right-click on a space that is only 1
+						// block tall.
+						BuildingMethods.ClearSpace(world, ItemStartHouse.NorthEastCorner, configuration.houseWidth, 15, configuration.houseDepth, northFace);
+	
+						// Teleport the player to the middle of the house so
+						// they don't die while house is created.
+						player.attemptTeleport(startingPosition.up(2).getX(), startingPosition.up(2).getY(), startingPosition.up(2).getZ());
+	
+						// Build the basic structure.
+						ItemStartHouse.BuildStructure(world, startingPosition, configuration, northFace);
+	
+						// Build the interior.
+						ItemStartHouse.BuildInterior(world, startingPosition, player, configuration, northFace);
+	
+						// Set up the exterior.
+						ItemStartHouse.BuildExterior(world, startingPosition, player, configuration, northFace);
+	
+						if (configuration.addMineShaft && startingPosition.getY() > 15)
+						{
+							// Set up the mineshaft.
+							ItemStartHouse.PlaceMineShaft(world, startingPosition, configuration.houseDepth, northFace);
+						}
 					}
 
 					player.inventory.clearMatchingItems(ModRegistry.StartHouse(), -1, 1, null);

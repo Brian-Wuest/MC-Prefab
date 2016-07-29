@@ -1,4 +1,4 @@
-package com.wuest.prefab.Gui;
+package com.wuest.prefab.Gui.Controls;
 
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.client.config.GuiUtils;
