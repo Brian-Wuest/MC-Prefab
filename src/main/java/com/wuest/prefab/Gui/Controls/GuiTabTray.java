@@ -3,12 +3,16 @@ package com.wuest.prefab.Gui.Controls;
 import java.awt.Color;
 import java.util.ArrayList;
 
+import org.lwjgl.opengl.GL11;
+
 import com.wuest.prefab.Gui.GuiTabScreen;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.client.config.GuiUtils;
 
 public class GuiTabTray extends Gui
 {
@@ -52,7 +56,7 @@ public class GuiTabTray extends Gui
 	
 	public GuiTab GetSelectedTab()
 	{
-		if (this.tabs.size() > 1)
+		if (this.tabs.size() > 0)
 		{
 			for (GuiTab tab : this.tabs)
 			{

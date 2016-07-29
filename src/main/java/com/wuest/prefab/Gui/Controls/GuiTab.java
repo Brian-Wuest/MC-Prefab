@@ -90,22 +90,6 @@ public class GuiTab extends Gui
 	{
 		this.selected = value;
 	}
-	
-    /**
-     * Returns 0 if the button is disabled, 1 if the mouse is NOT hovering over this button and 2 if it IS hovering over
-     * this button.
-     */
-    protected int getHoverState(boolean mouseOver)
-    {
-        int i = 1;
-
-        if (mouseOver)
-        {
-            i = 2;
-        }
-
-        return i;
-    }
     
     /**
      * Draws this button to the screen.
@@ -124,8 +108,11 @@ public class GuiTab extends Gui
         	mc.getTextureManager().bindTexture(TAB_TEXTURES);	
         }
         
-        //this.drawTexturedModalRect(this.xPosition, this.yPosition, 0, 0, this.width, this.height);
-        //this.drawScaledCustomSizeModalRect(this.xPosition, this.yPosition, 0, 0, this.width, this.height, mouseX, mouseY, 100, 21);
+        /*if (this.hovered)
+        {
+        	System.out.println("Hovering Over Tab: X: " + mouseX + " Y: " + mouseY);
+        }*/
+
         GuiTabScreen.drawModalRectWithCustomSizedTexture(this.xPosition, this.yPosition, 0, this.width, this.height, this.width, this.height);
         this.mouseDragged(mc, mouseX, mouseY);
         int j = Color.LIGHT_GRAY.getRGB();
