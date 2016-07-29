@@ -297,19 +297,73 @@ public class BuildingMethods
 		}
 	}
 
+	/**
+	 * Replaces a block at the given position in the world. The block in the pos will be replaced with air before placing the block;
+	 * @param world The world object.
+	 * @param pos The position to update.
+	 * @param replacementBlock The block object to place at this position. The default state is used.
+	 */
 	public static void ReplaceBlock(World world, BlockPos pos, Block replacementBlock)
 	{
 		BuildingMethods.ReplaceBlock(world, pos, replacementBlock.getDefaultState(), 3);
 	}
+	
+	/**
+	 * Replaces a block at the given position in the world. This is faster as the position is not set to air first.
+	 * @param world The world object.
+	 * @param pos The position to update.
+	 * @param replacementBlock The block object to place at this position. The default state is used.
+	 */
+	public static void ReplaceBlockNoAir(World world, BlockPos pos, Block replacementBlock)
+	{
+		BuildingMethods.ReplaceBlockNoAir(world, pos, replacementBlock.getDefaultState(), 3);
+	}
 
+	/**
+	 * Replaces a block at the given position in the world. The block in the pos will be replaced with air before placing the block;
+	 * @param world The world object.
+	 * @param pos The position to update.
+	 * @param replacementBlockState The block state to place at this position.
+	 */
 	public static void ReplaceBlock(World world, BlockPos pos, IBlockState replacementBlockState)
 	{
 		BuildingMethods.ReplaceBlock(world, pos, replacementBlockState, 3);
 	}
+	
+	/**
+	 * Replaces a block at the given position in the world. This is faster as the position is not set to air first.
+	 * @param world The world object.
+	 * @param pos The position to update.
+	 * @param replacementBlockState The block state to place at this position.
+	 */
+	public static void ReplaceBlockNoAir(World world, BlockPos pos, IBlockState replacementBlockState)
+	{
+		BuildingMethods.ReplaceBlockNoAir(world, pos, replacementBlockState, 3);
+	}
 
+	/**
+	 * 
+	 * Replaces a block at the given position in the world. The block in the pos will be replaced with air before placing the block;
+	 * @param world The world object.
+	 * @param pos The position to update.
+	 * @param replacementBlockState The block state to place at this position.
+	 * @param flags The trigger flags, this should always be set to 3 so the clients are updated.
+	 */
 	public static void ReplaceBlock(World world, BlockPos pos, IBlockState replacementBlockState, int flags)
 	{
 		world.setBlockToAir(pos);
+		world.setBlockState(pos, replacementBlockState, flags);
+	}
+	
+	/**
+	 * Replaces a block at the given position in the world. This is faster as the position is not set to air first.
+	 * @param world The world object.
+	 * @param pos The position to update.
+	 * @param replacementBlockState The block state to place at this position.
+	 * @param flags The trigger flags, this should always be set to 3 so the clients are updated.
+	 */
+	public static void ReplaceBlockNoAir(World world, BlockPos pos, IBlockState replacementBlockState, int flags)
+	{
 		world.setBlockState(pos, replacementBlockState, flags);
 	}
 	

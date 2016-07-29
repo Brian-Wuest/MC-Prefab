@@ -7,13 +7,14 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 
 /**
  * This class is used to determine the configuration for a particular house.
  * @author WuestMan
  *
  */
-public class HouseConfiguration 
+public class HouseConfiguration extends StructureConfiguration
 {
 	public static String tagKey = "WuestHouseConfig";
 
@@ -63,10 +64,6 @@ public class HouseConfiguration
 	public WallBlockType wallWoodType;
 	public boolean isCeilingFlat;
 	public boolean addMineShaft;
-	public int hitX;
-	public int hitY;
-	public int hitZ;
-	public EnumFacing houseFacing; 
 	public HouseStyle houseStyle;
 	public EnumDyeColor glassColor;
 	
@@ -79,7 +76,19 @@ public class HouseConfiguration
 	 * When the house if facing north, this would be the north/south direction.
 	 */
 	public int houseDepth;
+	
+	public HouseConfiguration()
+	{
+		super();
+	}
+	
+	@Override
+	public void Initialize()
+	{
+		super.Initialize();
+	}
 
+	@Override
 	public NBTTagCompound WriteToNBTTagCompound()
 	{
 		NBTTagCompound tag = new NBTTagCompound();
@@ -98,9 +107,9 @@ public class HouseConfiguration
 		tag.setInteger(HouseConfiguration.wallWoodTypeTag, this.wallWoodType.getValue());
 		tag.setBoolean(HouseConfiguration.isCeilingFlatTag, this.isCeilingFlat);
 		tag.setBoolean(HouseConfiguration.addMineShaftTag, this.addMineShaft);
-		tag.setInteger(HouseConfiguration.hitXTag, this.hitX);
-		tag.setInteger(HouseConfiguration.hitYTag, this.hitY);
-		tag.setInteger(HouseConfiguration.hitZTag, this.hitZ);
+		tag.setInteger(HouseConfiguration.hitXTag, this.pos.getX());
+		tag.setInteger(HouseConfiguration.hitYTag, this.pos.getY());
+		tag.setInteger(HouseConfiguration.hitZTag, this.pos.getZ());
 		tag.setInteger(HouseConfiguration.houseDepthTag, this.houseDepth);
 		tag.setInteger(HouseConfiguration.houseWidthTag, this.houseWidth);
 		tag.setString(HouseConfiguration.houseFacingTag, this.houseFacing.getName());
@@ -125,7 +134,7 @@ public class HouseConfiguration
 		return "";
 	}
 
-	public static HouseConfiguration ReadFromNBTTagCompound(NBTTagCompound tag)
+	public HouseConfiguration ReadFromNBTTagCompound(NBTTagCompound tag)
 	{
 		HouseConfiguration config = null;
 
@@ -190,17 +199,7 @@ public class HouseConfiguration
 
 			if (tag.hasKey(HouseConfiguration.hitXTag))
 			{
-				config.hitX = tag.getInteger(HouseConfiguration.hitXTag);
-			}
-
-			if (tag.hasKey(HouseConfiguration.hitYTag))
-			{
-				config.hitY = tag.getInteger(HouseConfiguration.hitYTag);
-			}
-
-			if (tag.hasKey(HouseConfiguration.hitZTag))
-			{
-				config.hitZ = tag.getInteger(HouseConfiguration.hitZTag);
+				config.pos = new BlockPos(tag.getInteger(HouseConfiguration.hitXTag), tag.getInteger(HouseConfiguration.hitYTag), tag.getInteger(HouseConfiguration.hitZTag)); 
 			}
 			
 			if (tag.hasKey(HouseConfiguration.houseDepthTag))
@@ -234,8 +233,9 @@ public class HouseConfiguration
 
 	public enum HouseStyle
 	{
-		Basic(0, "Basic House", new ResourceLocation("prefab", "textures/gui/basicHouse.png"), "A highly configurable house but has a very basic design.", 153, 148),
-		Ranch(1, "Ranch Style", new ResourceLocation("prefab", "textures/gui/ranchHouse.png"), "A less configurable house designed in a ranch style.", 152, 89);
+		BASIC(0, "Basic House", new ResourceLocation("prefab", "textures/gui/basicHouse.png"), "A highly configurable house but has a very basic design.", 153, 148),
+		RANCH(1, "Ranch Style", new ResourceLocation("prefab", "textures/gui/ranchHouse.png"), "A less configurable house designed in a ranch style.", 152, 89),
+		LOFT(2, "Loft Style", new ResourceLocation("prefab", "textures/gui/ranchHouse.png"), "A less configurable house designed with a lofted area for the bed and chests.", 152, 89);
 
 		private final int value;
 		private final String displayName;
@@ -290,17 +290,22 @@ public class HouseConfiguration
 			{
 				case 0:
 				{
-					return HouseStyle.Basic;
+					return HouseStyle.BASIC;
 				}
 	
 				case 1:
 				{
-					return HouseStyle.Ranch;
+					return HouseStyle.RANCH;
+				}
+				
+				case 2:
+				{
+					return HouseStyle.LOFT;
 				}
 	
 				default:
 				{
-					return HouseStyle.Basic;
+					return HouseStyle.BASIC;
 				}
 			}
 		}

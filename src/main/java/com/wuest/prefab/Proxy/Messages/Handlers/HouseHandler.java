@@ -25,7 +25,7 @@ IMessageHandler<HouseTagMessage, IMessage>
 			public void run() 
 			{
 				// This is server side. Build the house.
-				HouseConfiguration configuration = HouseConfiguration.ReadFromNBTTagCompound(message.getMessageTag());
+				HouseConfiguration configuration = (new HouseConfiguration()).ReadFromNBTTagCompound(message.getMessageTag());
 				ItemStartHouse.BuildHouse(ctx.getServerHandler().playerEntity, ctx.getServerHandler().playerEntity.worldObj, configuration);
 			}
 		});

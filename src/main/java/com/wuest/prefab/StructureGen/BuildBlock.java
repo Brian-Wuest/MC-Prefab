@@ -159,6 +159,36 @@ public class BuildBlock
 					// Facing properties should be relative to the configuration facing.
 					EnumFacing facing = EnumFacing.byName(propertyValue.get().toString());
 					
+					// Cannot rotate verticals.
+					if (facing != EnumFacing.UP && facing != EnumFacing.DOWN)
+					{
+						if (configuration.houseFacing == assumedNorth.rotateY())
+						{
+							facing = facing.rotateY();
+						}
+						else if (configuration.houseFacing == assumedNorth.getOpposite())
+						{
+							facing = facing.getOpposite();
+						}
+						else if (configuration.houseFacing == assumedNorth.rotateYCCW())
+						{
+							facing = facing.rotateYCCW();
+						}
+					}
+					
+					comparable = facing;
+					
+					block.setHasFacing(true);
+				}
+				else if (property.getName().equals("rotation"))
+				{
+					// 0 = South
+					// 4 = West
+					// 8 = North
+					// 12 = East
+					int rotation = (Integer)propertyValue.get();
+					EnumFacing facing = rotation == 0 ? EnumFacing.SOUTH : rotation == 4 ? EnumFacing.WEST : rotation == 8 ? EnumFacing.NORTH : EnumFacing.EAST;
+					
 					if (configuration.houseFacing == assumedNorth.rotateY())
 					{
 						facing = facing.rotateY();
@@ -172,8 +202,8 @@ public class BuildBlock
 						facing = facing.rotateYCCW();
 					}
 					
-					comparable = facing;
-					
+					rotation = facing == EnumFacing.SOUTH ? 0 : facing == EnumFacing.WEST ? 4 : facing == EnumFacing.NORTH ? 8 : 12;
+					comparable = rotation;
 					block.setHasFacing(true);
 				}
 

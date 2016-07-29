@@ -56,7 +56,7 @@ public class GuiStartHouseChooser extends GuiTabScreen
 	protected GuiTextSlider btnCeilingBlock;
 	protected GuiTextSlider btnWallWoodType;
 	
-	protected HouseConfiguration.HouseStyle houseStyle = HouseConfiguration.HouseStyle.Basic;
+	protected HouseConfiguration.HouseStyle houseStyle = HouseConfiguration.HouseStyle.BASIC;
 	public BlockPos pos;
 	
 	public GuiStartHouseChooser(int x, int y, int z)
@@ -123,7 +123,7 @@ public class GuiStartHouseChooser extends GuiTabScreen
 			this.btnAddCraftingTable.visible = true;
 			this.btnAddMineShaft.visible = true;
 			
-			if (this.houseStyle == HouseConfiguration.HouseStyle.Basic)
+			if (this.houseStyle == HouseConfiguration.HouseStyle.BASIC)
 			{
 				this.btnAddFarm.visible = true;
 				this.btnIsCeilingFlat.visible = true;
@@ -131,7 +131,7 @@ public class GuiStartHouseChooser extends GuiTabScreen
 		}
 		else if (this.getSelectedTab() == this.tabBlockTypes)
 		{
-			if (this.houseStyle == HouseConfiguration.HouseStyle.Basic)
+			if (this.houseStyle == HouseConfiguration.HouseStyle.BASIC)
 			{
 				this.btnFloorBlock.visible = true;
 				this.btnWallWoodType.visible = true;
@@ -139,7 +139,7 @@ public class GuiStartHouseChooser extends GuiTabScreen
 				this.btnHouseDepth.visible = true;
 				this.btnHouseWidth.visible = true;
 			}
-			else if (this.houseStyle == HouseConfiguration.HouseStyle.Ranch)
+			else
 			{
 				this.btnGlassColor.visible = true;
 			}
@@ -169,7 +169,7 @@ public class GuiStartHouseChooser extends GuiTabScreen
 		}
 		else if (this.getSelectedTab() == this.tabBlockTypes)
 		{
-			if (this.houseStyle == HouseConfiguration.HouseStyle.Basic)
+			if (this.houseStyle == HouseConfiguration.HouseStyle.BASIC)
 			{
 				// Column 1:
 				this.mc.fontRendererObj.drawString("Floor Block Type", grayBoxX + 10, grayBoxY + 10, color);
@@ -180,7 +180,7 @@ public class GuiStartHouseChooser extends GuiTabScreen
 				this.mc.fontRendererObj.drawString("Interior Depth", grayBoxX + 147, grayBoxY + 10, color);
 				this.mc.fontRendererObj.drawString("Interior Width", grayBoxX + 147, grayBoxY + 50, color);
 			}
-			else if (this.houseStyle == HouseConfiguration.HouseStyle.Ranch)
+			else
 			{
 				// Color 1:
 				this.mc.fontRendererObj.drawString("Glass Color", grayBoxX + 10, grayBoxY + 10, color);
@@ -201,9 +201,7 @@ public class GuiStartHouseChooser extends GuiTabScreen
 		else if (button == this.btnBuild)
 		{
 			HouseConfiguration houseConfiguration = new HouseConfiguration();
-			houseConfiguration.hitX = this.pos.getX();
-			houseConfiguration.hitY = this.pos.getY();
-			houseConfiguration.hitZ = this.pos.getZ();
+			houseConfiguration.pos = this.pos;
 			houseConfiguration.addBed = this.btnAddBed.isChecked();
 			houseConfiguration.addChest = this.btnAddChest.isChecked();
 			houseConfiguration.addChestContents = this.btnAddChestContents.isChecked();

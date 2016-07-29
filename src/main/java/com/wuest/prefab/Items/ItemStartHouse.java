@@ -41,6 +41,8 @@ import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.HouseConfiguration;
 import com.wuest.prefab.Gui.GuiHouseItem;
 import com.wuest.prefab.Proxy.CommonProxy;
+import com.wuest.prefab.StructureGen.CustomStructures.StructureAlternateStart;
+import com.wuest.prefab.StructureGen.CustomStructures.StructureChickenCoop;
 
 public class ItemStartHouse extends Item
 {
@@ -72,6 +74,10 @@ public class ItemStartHouse extends Item
 			{
 				// Open the client side gui to determine the house options.
 				//player.openGui(Prefab.instance, ModRegistry.GuiStartHouse, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+				
+				//StructureAlternateStart alternateStart = new StructureAlternateStart();
+				//alternateStart.ScanRanchStructure(world, hitBlockPos, player.getHorizontalFacing());
+				
 				player.openGui(Prefab.instance, ModRegistry.GuiStartHouseChooser, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
 				return EnumActionResult.PASS;
 			}
@@ -85,7 +91,7 @@ public class ItemStartHouse extends Item
 		// This is always on the server.
 		if (configuration != null)
 		{
-			BlockPos hitBlockPos = new BlockPos(configuration.hitX, configuration.hitY, configuration.hitZ);
+			BlockPos hitBlockPos = configuration.pos;
 			BlockPos playerPosition = player.getPosition();
 
 			IBlockState hitBlockState = world.getBlockState(hitBlockPos);
@@ -96,7 +102,7 @@ public class ItemStartHouse extends Item
 
 				if (hitBlock != null)
 				{
-					if (configuration.houseStyle == HouseConfiguration.HouseStyle.Basic)
+					if (configuration.houseStyle == HouseConfiguration.HouseStyle.BASIC)
 					{
 						// We hit a block, let's start building!!!!!
 						BlockPos startingPosition = hitBlockPos.up();
@@ -145,6 +151,12 @@ public class ItemStartHouse extends Item
 							// Set up the mineshaft.
 							ItemStartHouse.PlaceMineShaft(world, startingPosition, configuration.houseDepth, northFace);
 						}
+					}
+					else
+					{
+						// Build the alternate starter house instead.
+						StructureAlternateStart structure = StructureAlternateStart.CreateInstance(StructureAlternateStart.RANCH_HOUSE, StructureAlternateStart.class);
+						structure.BuildStructure(configuration, world, hitBlockPos, EnumFacing.NORTH);
 					}
 
 					player.inventory.clearMatchingItems(ModRegistry.StartHouse(), -1, 1, null);
