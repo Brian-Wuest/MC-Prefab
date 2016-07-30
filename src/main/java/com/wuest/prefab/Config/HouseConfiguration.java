@@ -235,7 +235,7 @@ public class HouseConfiguration extends StructureConfiguration
 	{
 		BASIC(0, "Basic House", new ResourceLocation("prefab", "textures/gui/basicHouse.png"), "A highly configurable house but has a very basic design.", 153, 148),
 		RANCH(1, "Ranch Style", new ResourceLocation("prefab", "textures/gui/ranchHouse.png"), "A less configurable house designed in a ranch style.", 152, 89),
-		LOFT(2, "Loft Style", new ResourceLocation("prefab", "textures/gui/ranchHouse.png"), "A less configurable house designed with a lofted area for the bed and chests.", 152, 89);
+		LOFT(2, "Loft Style", new ResourceLocation("prefab", "textures/gui/ranchHouse.png"), "A less configurable house designed with a lofted area for the chests.", 152, 89);
 
 		private final int value;
 		private final String displayName;

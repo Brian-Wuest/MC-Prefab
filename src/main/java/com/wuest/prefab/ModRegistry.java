@@ -35,7 +35,6 @@ public class ModRegistry
 	public static final int GuiTreeFarm = 4;
 	public static final int GuiFishPond = 5;
 	public static final int GuiStartHouseChooser = 6;
-	public static final int GuiStartHouse = 7;
 	
 	public static ItemStartHouse StartHouse()
 	{
@@ -350,6 +349,20 @@ public class ModRegistry
 				'c', new ItemStack(ModRegistry.CompressedStoneBlock(), 1, BlockCompressedStone.EnumType.COMPRESSED_DIRT.getMetadata()),
 				'd', Item.getItemFromBlock(Blocks.HAY_BLOCK),
 				'e', Item.getItemFromBlock(Blocks.BRICK_BLOCK));
+		
+		// Fish farm.
+		GameRegistry.addRecipe(new ItemStack(ModRegistry.FishPond()),
+				"abc",
+				"ded",
+				"fgf",
+				'a', new ItemStack(Item.getItemFromBlock(Blocks.TALLGRASS), 1, 1),
+				'b', new ItemStack(Items.REEDS),
+				'c', new ItemStack(Item.getItemFromBlock(Blocks.SAPLING), 1, 0),
+				'd', new ItemStack(Items.WATER_BUCKET),
+				'e', new ItemStack(Items.FISHING_ROD, 1, 0),
+				'f', new ItemStack(Item.getItemFromBlock(Blocks.SAND)),
+				'g', new ItemStack(Items.FISH, 1, 0));
+				
 	}
 
 	/**
@@ -431,7 +444,6 @@ public class ModRegistry
 	private static void AddGuis()
 	{
 		ModRegistry.ModGuis.put(ModRegistry.GuiWareHouse, GuiWareHouse.class);
-		ModRegistry.ModGuis.put(ModRegistry.GuiStartHouse, GuiHouseItem.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiChickenCoop, GuiChickenCoop.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiProduceFarm, GuiProduceFarm.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiTreeFarm, GuiTreeFarm.class);

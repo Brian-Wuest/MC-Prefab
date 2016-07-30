@@ -55,7 +55,7 @@ public class GuiFishPond extends GuiScreen
 		
 		// Draw the control background.
 		this.mc.getTextureManager().bindTexture(structureTopDown);
-		this.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 0, 0, 252, 136, 252, 136);
+		this.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 0, 0, 151, 149, 151, 149);
 		
 		this.mc.getTextureManager().bindTexture(backgroundTextures);
 		this.drawTexturedModalRect(grayBoxX, grayBoxY, 0, 0, 256, 256);
@@ -73,11 +73,11 @@ public class GuiFishPond extends GuiScreen
 		// Draw the text here.
 		int color = Color.DARK_GRAY.getRGB();
 
-		this.mc.fontRendererObj.drawString("Chicken Coop Facing", grayBoxX + 10, grayBoxY + 10, color);
+		this.mc.fontRendererObj.drawString("Fish Pond Facing", grayBoxX + 10, grayBoxY + 10, color);
 		
 		// Draw the text here.
-		this.mc.fontRendererObj.drawSplitString("The red box in the image on the right shows the block you clicked on.", grayBoxX + 147, grayBoxY + 10, 100, color);
-		this.mc.fontRendererObj.drawSplitString("Note: If you're facing north, choose south so the doors are facing you.", grayBoxX + 147, grayBoxY + 60, 100, color);
+		this.mc.fontRendererObj.drawSplitString("The red box in the image on the right shows the block you clicked on.", grayBoxX + 147, grayBoxY + 10, 95, color);
+		this.mc.fontRendererObj.drawSplitString("Note: If you're facing north, choose south so the pier is going away from you. The white border is just to show the size.", grayBoxX + 147, grayBoxY + 60, 95, color);
 	}
 	
 	/**

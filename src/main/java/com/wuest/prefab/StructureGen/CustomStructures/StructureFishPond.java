@@ -20,13 +20,13 @@ public class StructureFishPond extends Structure
 		clearedSpace.getShape().setWidth(32);
 		clearedSpace.getStartingPosition().setSouthOffset(1);
 		clearedSpace.getStartingPosition().setEastOffset(16);
-		clearedSpace.getStartingPosition().setHeightOffset(-5);
+		clearedSpace.getStartingPosition().setHeightOffset(-3);
 		
 		Structure.ScanStructure(
 				world, 
 				originalPos, 
-				originalPos.east(16).south().down(5), 
-				originalPos.south(32).west(3).up(15),
+				originalPos.east(16).south().down(3), 
+				originalPos.south(32).west(15).up(12),
 				"C:\\Users\\Brian\\Documents\\GitHub\\MC-Prefab\\src\\main\\resources\\assets\\prefab\\structures\\fishpond.json",
 				clearedSpace,
 				playerFacing);	

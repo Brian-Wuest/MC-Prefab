@@ -10,6 +10,7 @@ import com.wuest.prefab.BuildingMethods;
 import com.wuest.prefab.Config.StructureConfiguration;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockVine;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -139,11 +140,50 @@ public class BuildBlock
 	
 	public static BuildBlock SetBlockState(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth, BuildBlock block, Block foundBlock, IBlockState blockState)
 	{
+		EnumFacing vineFacing = EnumFacing.UP;
+		
+		// Vines have a special property for it's "facing"
+		if (foundBlock instanceof BlockVine)
+		{
+			if (block.getProperty("east").getValue().equals("true"))
+			{
+				vineFacing = EnumFacing.EAST;
+			}
+			else if (block.getProperty("west").getValue().equals("true"))
+			{
+				vineFacing = EnumFacing.WEST;
+			}
+			else if (block.getProperty("south").getValue().equals("true"))
+			{
+				vineFacing = EnumFacing.SOUTH;
+			}
+			else if (block.getProperty("north").getValue().equals("true"))
+			{
+				vineFacing = EnumFacing.NORTH;
+			}
+			
+			if (vineFacing != EnumFacing.UP)
+			{
+				if (configuration.houseFacing == assumedNorth.rotateY())
+				{
+					vineFacing = vineFacing.rotateY();
+				}
+				else if (configuration.houseFacing == assumedNorth.getOpposite())
+				{
+					vineFacing = vineFacing.getOpposite();
+				}
+				else if (configuration.houseFacing == assumedNorth.rotateYCCW())
+				{
+					vineFacing = vineFacing.rotateYCCW();
+				}
+			}
+		}
+		
 		// If this block has custom processing for block state just continue onto the next block. The sub-class is expected to place the block.
 		if (block.getProperties().size() > 0)
 		{
 			ImmutableMap<IProperty<?>, Comparable<?>> properties = blockState.getProperties();
-
+			
 			// Go through each property of this block and set it.
 			// The state will be updated as the properties are
 			// applied.
@@ -205,6 +245,19 @@ public class BuildBlock
 					rotation = facing == EnumFacing.SOUTH ? 0 : facing == EnumFacing.WEST ? 4 : facing == EnumFacing.NORTH ? 8 : 12;
 					comparable = rotation;
 					block.setHasFacing(true);
+				}
+				else if (foundBlock instanceof BlockVine)
+				{
+					// Vines have a special state. There is 1 property for each "facing".
+					if (property.getName().equals(vineFacing.getName2()))
+					{
+						comparable = true;
+						block.setHasFacing(true);
+					}
+					else
+					{
+						comparable = false;
+					}
 				}
 
 				ImmutableTable<IProperty<?>, Comparable<?>, IBlockState> table = ((BlockStateContainer.StateImplementation) blockState)
