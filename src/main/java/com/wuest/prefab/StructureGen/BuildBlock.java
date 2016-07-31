@@ -10,6 +10,8 @@ import com.wuest.prefab.BuildingMethods;
 import com.wuest.prefab.Config.StructureConfiguration;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockLog;
+import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.block.BlockVine;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
@@ -141,6 +143,7 @@ public class BuildBlock
 	public static BuildBlock SetBlockState(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth, BuildBlock block, Block foundBlock, IBlockState blockState)
 	{
 		EnumFacing vineFacing = EnumFacing.UP;
+		EnumAxis logFacing = EnumAxis.X;
 		
 		// Vines have a special property for it's "facing"
 		if (foundBlock instanceof BlockVine)
@@ -176,6 +179,31 @@ public class BuildBlock
 				{
 					vineFacing = vineFacing.rotateYCCW();
 				}
+			}
+		}
+		
+		if (foundBlock instanceof BlockLog)
+		{
+			if (block.getProperty("axis").getValue().equals("x"))
+			{
+				logFacing = EnumAxis.X;
+			}
+			else if (block.getProperty("axis").getValue().equals("y"))
+			{
+				logFacing = EnumAxis.Y;
+			}
+			else
+			{
+				logFacing = EnumAxis.Z;
+			}
+			
+			if (logFacing != EnumAxis.Y)
+			{
+				logFacing = 
+						configuration.houseFacing == assumedNorth || configuration.houseFacing == assumedNorth.getOpposite() 
+							? logFacing : 
+						logFacing == EnumAxis.X 
+							? EnumAxis.Z : EnumAxis.X; 
 			}
 		}
 		
@@ -257,6 +285,15 @@ public class BuildBlock
 					else
 					{
 						comparable = false;
+					}
+				}
+				else if (foundBlock instanceof BlockLog)
+				{
+					// logs have a special state. There is a property called axis and it only has 3 directions.
+					if (property.getName().equals("axis"))
+					{
+						comparable = logFacing;
+						block.setHasFacing(true);
 					}
 				}
 
