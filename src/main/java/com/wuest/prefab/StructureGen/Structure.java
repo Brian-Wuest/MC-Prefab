@@ -3,6 +3,7 @@ package com.wuest.prefab.StructureGen;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -68,10 +69,10 @@ public class Structure
 		try
 		{
 			Gson converter = new Gson();
-			FileWriter writer = new FileWriter(fileLocation);
-			converter.toJson(structure, writer);
-
-			writer.close();
+			StringWriter stringWriter = new StringWriter();
+			converter.toJson(structure, stringWriter);
+			
+			ZipUtil.zipStringToFile(stringWriter.toString(), fileLocation);
 		}
 		catch (Exception e)
 		{
