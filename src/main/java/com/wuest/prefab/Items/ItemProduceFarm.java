@@ -72,7 +72,7 @@ public class ItemProduceFarm extends Item
 				if (hitBlock != null)
 				{
 					StructureProduceFarm structure = StructureProduceFarm.CreateInstance(StructureProduceFarm.ASSETLOCATION, StructureProduceFarm.class);
-					structure.BuildStructure(configuration, world, hitBlockPos, EnumFacing.NORTH);
+					structure.BuildStructure(configuration, world, hitBlockPos, EnumFacing.NORTH, player);
 					
 					player.inventory.clearMatchingItems(ModRegistry.ProduceFarm(), -1, 1, null);
 					player.inventoryContainer.detectAndSendChanges();

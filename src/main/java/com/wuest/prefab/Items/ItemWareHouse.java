@@ -77,7 +77,7 @@ public class ItemWareHouse extends Item
 				if (hitBlock != null)
 				{
 					StructureWarehouse structure = StructureWarehouse.CreateInstance(StructureWarehouse.ASSETLOCATION, StructureWarehouse.class);
-					structure.BuildStructure(configuration, world, hitBlockPos, EnumFacing.NORTH);
+					structure.BuildStructure(configuration, world, hitBlockPos, EnumFacing.NORTH, player);
 					
 					player.inventory.clearMatchingItems(ModRegistry.WareHouse(), -1, 1, null);
 					player.inventoryContainer.detectAndSendChanges();
