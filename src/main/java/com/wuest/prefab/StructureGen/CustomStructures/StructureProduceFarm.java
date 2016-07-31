@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 
 public class StructureProduceFarm extends Structure 
 {
-	public static final String ASSETLOCATION = "assets/prefab/structures/producefarm.json";
+	public static final String ASSETLOCATION = "assets/prefab/structures/producefarm.zip";
 
 	public static void ScanStructure(World world, BlockPos originalPos, EnumFacing playerFacing)
 	{
@@ -34,7 +34,7 @@ public class StructureProduceFarm extends Structure
 				originalPos, 
 				originalPos.east(28).south().down(1), 
 				originalPos.south(32).west(3).up(9), 
-				"C:\\Users\\Brian\\Documents\\GitHub\\MC-Prefab\\src\\main\\resources\\assets\\prefab\\structures\\producefarm.json",
+				"C:\\Users\\Brian\\Documents\\GitHub\\MC-Prefab\\src\\main\\resources\\assets\\prefab\\structures\\producefarm.zip",
 				clearedSpace,
 				playerFacing);	
 	}

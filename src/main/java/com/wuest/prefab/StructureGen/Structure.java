@@ -14,6 +14,7 @@ import com.google.common.collect.ImmutableTable;
 import com.google.gson.Gson;
 import com.wuest.prefab.BuildingMethods;
 import com.wuest.prefab.Prefab;
+import com.wuest.prefab.ZipUtil;
 import com.wuest.prefab.Config.StructureConfiguration;
 
 import net.minecraft.block.Block;
@@ -55,22 +56,9 @@ public class Structure
 	{
 		T structure = null;
 
-		try
-		{
-			Gson file = new Gson();
-			InputStreamReader reader = new InputStreamReader(Prefab.class.getClassLoader().getResourceAsStream(resourceLocation), "UTF-8");
-
-			if (reader != null)
-			{
-				
-				structure = (T) file.fromJson(reader, child);
-			}
-		}
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Gson file = new Gson();
+		//InputStreamReader reader = new InputStreamReader(Prefab.class.getClassLoader().getResourceAsStream(resourceLocation), "UTF-8");
+		structure = (T) file.fromJson(ZipUtil.decompressResource(resourceLocation), child);
 
 		return structure;
 	}

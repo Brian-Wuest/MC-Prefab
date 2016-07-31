@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 
 public class StructureTreeFarm extends Structure
 {
-	public static final String ASSETLOCATION = "assets/prefab/structures/treefarm.json";
+	public static final String ASSETLOCATION = "assets/prefab/structures/treefarm.zip";
 
 	public static void ScanStructure(World world, BlockPos originalPos, EnumFacing playerFacing)
 	{
@@ -26,7 +26,7 @@ public class StructureTreeFarm extends Structure
 				originalPos, 
 				originalPos.east(18).south(), 
 				originalPos.south(38).west(19).up(7), 
-				"C:\\Users\\Brian\\Documents\\GitHub\\MC-Prefab\\src\\main\\resources\\assets\\prefab\\structures\\treefarm.json",
+				"C:\\Users\\Brian\\Documents\\GitHub\\MC-Prefab\\src\\main\\resources\\assets\\prefab\\structures\\treefarm.zip",
 				clearedSpace,
 				playerFacing);	
 	}

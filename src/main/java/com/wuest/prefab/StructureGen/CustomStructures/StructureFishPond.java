@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 
 public class StructureFishPond extends Structure
 {
-	public static final String ASSETLOCATION = "assets/prefab/structures/fishpond.json";
+	public static final String ASSETLOCATION = "assets/prefab/structures/fishpond.zip";
 
 	public static void ScanStructure(World world, BlockPos originalPos, EnumFacing playerFacing)
 	{
@@ -27,7 +27,7 @@ public class StructureFishPond extends Structure
 				originalPos, 
 				originalPos.east(16).south().down(3), 
 				originalPos.south(32).west(15).up(12),
-				"C:\\Users\\Brian\\Documents\\GitHub\\MC-Prefab\\src\\main\\resources\\assets\\prefab\\structures\\fishpond.json",
+				"C:\\Users\\Brian\\Documents\\GitHub\\MC-Prefab\\src\\main\\resources\\assets\\prefab\\structures\\fishpond.zip",
 				clearedSpace,
 				playerFacing);	
 	}

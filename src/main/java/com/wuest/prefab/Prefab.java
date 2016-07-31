@@ -35,7 +35,7 @@ public class Prefab
     
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
-	{
+	{	
 		Prefab.proxy.preInit(event);
 	}
 

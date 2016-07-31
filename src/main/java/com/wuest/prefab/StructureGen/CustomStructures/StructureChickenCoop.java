@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 
 public class StructureChickenCoop extends Structure
 {
-	public static final String ASSETLOCATION = "assets/prefab/structures/chickencoop.json";
+	public static final String ASSETLOCATION = "assets/prefab/structures/chickencoop.zip";
 
 	public static void ScanStructure(World world, BlockPos originalPos, EnumFacing playerFacing)
 	{

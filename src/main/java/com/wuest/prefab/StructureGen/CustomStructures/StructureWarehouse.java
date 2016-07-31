@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 
 public class StructureWarehouse extends Structure
 {
-	public static final String ASSETLOCATION = "assets/prefab/structures/warehouse.json"; 
+	public static final String ASSETLOCATION = "assets/prefab/structures/warehouse.zip"; 
 	
 	public static void ScanStructure(World world, BlockPos originalPos, EnumFacing playerFacing)
 	{
@@ -34,7 +34,7 @@ public class StructureWarehouse extends Structure
 				originalPos, 
 				originalPos.east(7).south(1).down(5), 
 				originalPos.west(8).south(16).up(10), 
-				"C:\\Users\\Brian\\Documents\\GitHub\\MC-Prefab\\src\\main\\resources\\assets\\prefab\\structures\\warehouse.json",
+				"C:\\Users\\Brian\\Documents\\GitHub\\MC-Prefab\\src\\main\\resources\\assets\\prefab\\structures\\warehouse.zip",
 				clearedSpace,
 				playerFacing);	
 	}
