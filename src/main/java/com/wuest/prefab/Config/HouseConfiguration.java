@@ -233,9 +233,10 @@ public class HouseConfiguration extends StructureConfiguration
 
 	public enum HouseStyle
 	{
-		BASIC(0, "Basic House", new ResourceLocation("prefab", "textures/gui/basicHouse.png"), "A highly configurable house but has a very basic design.", 153, 148),
-		RANCH(1, "Ranch Style", new ResourceLocation("prefab", "textures/gui/ranchHouse.png"), "A less configurable house designed in a ranch style.", 152, 89),
-		LOFT(2, "Loft Style", new ResourceLocation("prefab", "textures/gui/ranchHouse.png"), "A less configurable house designed with a lofted area for the chests.", 152, 89);
+		BASIC(0, "Basic House", new ResourceLocation("prefab", "textures/gui/basicHouse.png"), "A highly configurable house but has a very basic design.", 153, 148, ""),
+		RANCH(1, "Ranch Style", new ResourceLocation("prefab", "textures/gui/ranchHouse.png"), "A house designed in a ranch style.", 152, 89, "assets/prefab/structures/ranch_house.zip"),
+		LOFT(2, "Loft Style", new ResourceLocation("prefab", "textures/gui/loftHouse.png"), "A house designed with a lofted area for the chests.", 152, 87, "assets/prefab/structures/loft_house.zip"),
+		HOBBIT(3, "Hobbit Style", new ResourceLocation("prefab", "textures/gui/hobbitHouse.png"), "A house designed into the ground like a hobbit.", 151, 133, "assets/prefab/structures/hobbit_house.zip");
 
 		private final int value;
 		private final String displayName;
@@ -243,8 +244,9 @@ public class HouseConfiguration extends StructureConfiguration
 		private final String houseNotes;
 		private final int imageWidth;
 		private final int imageHeight;
+		private final String structureLocation;  
 		
-		HouseStyle(int newValue, String displayName, ResourceLocation housePicture, String houseNotes, int imageWidth, int imageHeight) 
+		HouseStyle(int newValue, String displayName, ResourceLocation housePicture, String houseNotes, int imageWidth, int imageHeight, String structureLocation) 
 		{
 			this.value = newValue;
 			this.displayName = displayName;
@@ -252,6 +254,7 @@ public class HouseConfiguration extends StructureConfiguration
 			this.houseNotes = houseNotes;
 			this.imageWidth = imageWidth;
 			this.imageHeight = imageHeight;
+			this.structureLocation = structureLocation;
 		}
 
 		public int getValue() 
@@ -283,6 +286,11 @@ public class HouseConfiguration extends StructureConfiguration
 		{
 			return this.imageHeight;
 		}
+		
+		public String getStructureLocation()
+		{
+			return this.structureLocation;
+		}
 
 		public static HouseStyle ValueOf(int value)
 		{
@@ -301,6 +309,11 @@ public class HouseConfiguration extends StructureConfiguration
 				case 2:
 				{
 					return HouseStyle.LOFT;
+				}
+				
+				case 3:
+				{
+					return HouseStyle.HOBBIT;
 				}
 	
 				default:

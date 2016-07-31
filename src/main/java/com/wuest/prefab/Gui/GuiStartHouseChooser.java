@@ -228,6 +228,20 @@ public class GuiStartHouseChooser extends GuiTabScreen
 			int id = this.houseStyle.getValue() + 1;
 			this.houseStyle = HouseConfiguration.HouseStyle.ValueOf(id);
 			this.btnHouseStyle.displayString = this.houseStyle.getDisplayName();
+			
+			// Set the default glass colors for this style.
+			if (this.houseStyle == HouseConfiguration.HouseStyle.HOBBIT)
+			{
+				this.btnGlassColor.displayString = EnumDyeColor.GREEN.getName();
+			}
+			else if (this.houseStyle == HouseConfiguration.HouseStyle.LOFT)
+			{
+				this.btnGlassColor.displayString = EnumDyeColor.BLACK.getName();
+			}
+			else
+			{
+				this.btnGlassColor.displayString = EnumDyeColor.CYAN.getName();
+			}
 		}
 		else if (button == this.btnHouseFacing)
 		{

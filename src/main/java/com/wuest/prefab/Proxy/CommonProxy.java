@@ -2,6 +2,7 @@ package com.wuest.prefab.Proxy;
 
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
+import com.wuest.prefab.UpdateChecker;
 import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Events.ModEventHandler;
 import com.wuest.prefab.Gui.*;
@@ -41,6 +42,9 @@ public class CommonProxy implements IGuiHandler
 		Prefab.config = new Configuration(event.getSuggestedConfigurationFile());
 		Prefab.config.load();
 		ModConfiguration.syncConfig();
+		
+		// Pull the repository information.
+		UpdateChecker.checkVersion();
 		
 		// Register messages.
 		ModRegistry.RegisterMessages();

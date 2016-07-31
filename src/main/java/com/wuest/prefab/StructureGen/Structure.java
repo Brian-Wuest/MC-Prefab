@@ -19,9 +19,12 @@ import com.wuest.prefab.ZipUtil;
 import com.wuest.prefab.Config.StructureConfiguration;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockQuartz;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -134,7 +137,15 @@ public class Structure
 			{
 				BuildProperty property = new BuildProperty();
 				property.setName(entry.getKey().getName());
-				property.setValue(entry.getValue().toString());
+				
+				if (currentBlock instanceof BlockQuartz && property.getName().equals("variant"))
+				{
+					property.setValue(((BlockQuartz.EnumType)entry.getValue()).getName());
+				}
+				else
+				{
+					property.setValue(entry.getValue().toString());
+				}
 
 				buildBlock.getProperties().add(property);
 			}
@@ -190,9 +201,9 @@ public class Structure
 	 * @param originalPos The block the user clicked on.
 	 * @param assumedNorth This should always be "NORTH" when the file is based on a scan.
 	 */
-	public void BuildStructure(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth)
+	public void BuildStructure(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth, EntityPlayer player)
 	{
-		if (!this.BeforeBuilding(configuration, world, originalPos, assumedNorth))
+		if (!this.BeforeBuilding(configuration, world, originalPos, assumedNorth, player))
 		{
 			// First, clear the area where the structure will be built.
 			this.ClearSpace(configuration, world, originalPos, assumedNorth);
@@ -209,7 +220,7 @@ public class Structure
 					IBlockState blockState = foundBlock.getDefaultState();
 					BuildBlock subBlock = null;
 					
-					if (!this.CustomBlockProcessingHandled(configuration, block, world, originalPos, assumedNorth, foundBlock, blockState))
+					if (!this.CustomBlockProcessingHandled(configuration, block, world, originalPos, assumedNorth, foundBlock, blockState, player))
 					{
 						block = BuildBlock.SetBlockState(configuration, world, originalPos, assumedNorth, block, foundBlock, blockState);
 						
@@ -259,7 +270,7 @@ public class Structure
 		}
 		
 		// Process any after block building needs.
-		this.AfterBuilding(configuration, world, originalPos, assumedNorth);
+		this.AfterBuilding(configuration, world, originalPos, assumedNorth, player);
 	}
 
 	/**
@@ -268,9 +279,10 @@ public class Structure
 	 * @param world The current world.
 	 * @param originalPos The original position clicked on.
 	 * @param assumedNorth The assumed northern direction.
+	 * @param player The player which initiated the construction.
 	 * @return False if processing should continue, otherwise true to cancel processing.
 	 */
-	protected boolean BeforeBuilding(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth)
+	protected boolean BeforeBuilding(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth, EntityPlayer player)
 	{
 		return false;
 	}
@@ -281,8 +293,9 @@ public class Structure
 	 * @param world The current world.
 	 * @param originalPos The original position clicked on.
 	 * @param assumedNorth The assumed northern direction.
+	 * @param player The player which initiated the construction.
 	 */
-	protected void AfterBuilding(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth)
+	protected void AfterBuilding(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth, EntityPlayer player)
 	{
 	}
 	
@@ -293,7 +306,7 @@ public class Structure
 	}
 
 	protected Boolean CustomBlockProcessingHandled(StructureConfiguration configuration, BuildBlock block, World world, BlockPos originalPos, EnumFacing assumedNorth,
-			Block foundBlock, IBlockState blockState)
+			Block foundBlock, IBlockState blockState, EntityPlayer player)
 	{
 		return false;
 	}

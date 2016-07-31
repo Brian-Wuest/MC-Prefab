@@ -2,14 +2,17 @@ package com.wuest.prefab.Events;
 
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
+import com.wuest.prefab.UpdateChecker;
 import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Proxy.ClientProxy;
 import com.wuest.prefab.Proxy.Messages.ConfigSyncMessage;
 
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
@@ -46,6 +49,14 @@ public class ModEventHandler
 
 				// Make sure to set the tag for this player so they don't get the item again.
 				persistTag.setBoolean(ModEventHandler.GIVEN_HOUSEBUILDER_TAG, true);
+			}
+		}
+		else if (event.getWorld().isRemote && event.getEntity() instanceof EntityPlayer)
+		{
+			// Show a message to this player if their version is old.
+			if (UpdateChecker.showMessage)
+			{
+				((EntityPlayer)event.getEntity()).addChatMessage(new TextComponentString(UpdateChecker.messageToShow));
 			}
 		}
 	}
