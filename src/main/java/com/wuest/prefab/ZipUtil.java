@@ -1,5 +1,6 @@
 package com.wuest.prefab;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -10,8 +11,12 @@ import java.io.InputStreamReader;
 import java.io.StringBufferInputStream;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
+import java.util.zip.DataFormatException;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
+import java.util.zip.Inflater;
+
+import javax.imageio.ImageIO;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.ByteStreams;
@@ -79,6 +84,38 @@ public class ZipUtil
 		return sb.toString();
 	}
 	
+	public static byte[] decompressBytes(byte[] compressedBytes)
+	{
+		try
+		{
+		    Inflater decompressor = new Inflater();
+		    decompressor.setInput(compressedBytes);
+		    ByteArrayOutputStream bos = new ByteArrayOutputStream(compressedBytes.length);
+		    byte[] buf = new byte[1024];
+		    
+		    while (!decompressor.finished()) 
+		    {
+		      int count = decompressor.inflate(buf);
+		      bos.write(buf, 0, count);
+		    }
+		    
+		    bos.close();
+		    return bos.toByteArray();
+		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (DataFormatException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+	
 	public static void zipResourceToFile(String resourceLocation, String fileLocation)
 	{
 		InputStream stream = Prefab.class.getClassLoader().getResourceAsStream(resourceLocation);
@@ -132,6 +169,29 @@ public class ZipUtil
 			buf = ByteStreams.toByteArray(stream);
 			returnValue = ZipUtil.decompressString(buf);
 			stream.close();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		
+		return returnValue;
+	}
+
+	public static BufferedImage decompressImageResource(String resourceLocation)
+	{
+		InputStream stream = Prefab.class.getClassLoader().getResourceAsStream(resourceLocation);
+		byte[] buf;
+		BufferedImage returnValue = null;
+		
+		try
+		{
+			buf = ByteStreams.toByteArray(stream);
+			buf = ZipUtil.decompressBytes(buf);
+			stream.close();
+			
+			// The file has been decompressed, convert those bytes to a BufferedImage.
+			returnValue = ImageIO.read(new ByteArrayInputStream(buf));
 		}
 		catch (IOException e)
 		{

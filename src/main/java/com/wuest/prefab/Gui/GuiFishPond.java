@@ -1,9 +1,11 @@
 package com.wuest.prefab.Gui;
 
 import java.awt.Color;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import com.wuest.prefab.Prefab;
+import com.wuest.prefab.ZipUtil;
 import com.wuest.prefab.Config.FishPondConfiguration;
 import com.wuest.prefab.Proxy.Messages.FishPondTagMessage;
 
@@ -12,6 +14,7 @@ import net.minecraft.client.gui.GuiLabel;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.VertexBuffer;
+import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
@@ -54,7 +57,13 @@ public class GuiFishPond extends GuiScreen
 		this.drawDefaultBackground();
 		
 		// Draw the control background.
+		// Create class to de-compress image from resource path.
+		// This class should inherit from "SimpleTexture" and override it's loadTexture method
+		// After the buffered image has been loaded, the GlStateManager.bindTexture class should be called.
+		// Will probably want to keep the buffered image around in a class so the resources aren't constantly being de-compressed as this happens on every tick.
+		//BufferedImage image = ZipUtil.decompressImageResource(structureTopDown.getResourcePath());
 		this.mc.getTextureManager().bindTexture(structureTopDown);
+		
 		this.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 0, 0, 151, 149, 151, 149);
 		
 		this.mc.getTextureManager().bindTexture(backgroundTextures);

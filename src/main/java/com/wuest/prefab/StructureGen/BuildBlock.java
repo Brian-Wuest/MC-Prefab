@@ -11,6 +11,7 @@ import com.wuest.prefab.Config.StructureConfiguration;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
+import net.minecraft.block.BlockQuartz;
 import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.block.BlockVine;
 import net.minecraft.block.properties.IProperty;
@@ -144,6 +145,7 @@ public class BuildBlock
 	{
 		EnumFacing vineFacing = EnumFacing.UP;
 		EnumAxis logFacing = EnumAxis.X;
+		BlockQuartz.EnumType quartzFacing = BlockQuartz.EnumType.DEFAULT;
 		
 		// Vines have a special property for it's "facing"
 		if (foundBlock instanceof BlockVine)
@@ -204,6 +206,31 @@ public class BuildBlock
 							? logFacing : 
 						logFacing == EnumAxis.X 
 							? EnumAxis.Z : EnumAxis.X; 
+			}
+		}
+		
+		if (foundBlock instanceof BlockQuartz)
+		{
+			if (block.getProperty("variant").getValue().startsWith("lines"))
+			{
+				if (block.getProperty("variant").getValue().equals("lines_x"))
+				{
+					quartzFacing = BlockQuartz.EnumType.LINES_X;
+				}
+				else if (block.getProperty("variant").getValue().equals("lines_z"))
+				{
+					quartzFacing = BlockQuartz.EnumType.LINES_Z;
+				}
+				
+				if (quartzFacing == BlockQuartz.EnumType.LINES_X
+						|| quartzFacing == BlockQuartz.EnumType.LINES_Z)
+				{
+					quartzFacing = 
+							configuration.houseFacing == assumedNorth || configuration.houseFacing == assumedNorth.getOpposite() 
+								? quartzFacing : 
+									quartzFacing == BlockQuartz.EnumType.LINES_X 
+								? BlockQuartz.EnumType.LINES_Z : BlockQuartz.EnumType.LINES_X;
+				}
 			}
 		}
 		
@@ -293,6 +320,14 @@ public class BuildBlock
 					if (property.getName().equals("axis"))
 					{
 						comparable = logFacing;
+						block.setHasFacing(true);
+					}
+				}
+				else if (foundBlock instanceof BlockQuartz)
+				{
+					if (property.getName().equals("variant") && quartzFacing != BlockQuartz.EnumType.DEFAULT)
+					{
+						comparable = quartzFacing;
 						block.setHasFacing(true);
 					}
 				}
