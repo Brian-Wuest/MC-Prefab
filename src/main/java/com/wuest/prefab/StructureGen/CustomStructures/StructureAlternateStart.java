@@ -320,13 +320,21 @@ public class StructureAlternateStart extends Structure
 
 		stacks = StructureAlternateStart.CreateLadderShaft(world, pos, stacks, facing);
 
+		// Get to Y11;
 		pos = pos.down(pos.getY() - 10);
 
 		ArrayList<ItemStack> tempStacks = new ArrayList<ItemStack>();
+		
+		BlockPos ceilingLevel = pos.up(4);
+		
+		tempStacks = BuildingMethods.SetFloor(world, ceilingLevel.offset(facing, 2).offset(facing.rotateY(), 2).offset(facing.getOpposite()), Blocks.STONE, 4, 4, tempStacks, facing.getOpposite());
 
+		// After setting the floor, make sure to replace the ladder.
+		BuildingMethods.ReplaceBlock(world, ceilingLevel, Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, facing));
+		
 		// The entire ladder has been created. Create a platform at this level
 		// and place a chest next to the ladder.
-		tempStacks = BuildingMethods.SetFloor(world, pos.offset(facing).offset(facing.rotateY()), Blocks.STONE, 3, 4, tempStacks, facing.getOpposite());
+		tempStacks.addAll(BuildingMethods.SetFloor(world, pos.offset(facing).offset(facing.rotateY()), Blocks.STONE, 3, 4, tempStacks, facing.getOpposite()));
 
 		// Remove the ladder stack since they shouldn't be getting that.
 		for (int i = 0; i < tempStacks.size(); i++)

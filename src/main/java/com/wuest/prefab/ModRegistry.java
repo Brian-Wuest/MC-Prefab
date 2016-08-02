@@ -193,8 +193,6 @@ public class ModRegistry
 		ItemBlockMeta meta = new ItemBlockMeta(stone);
 		ModRegistry.setItemName(meta, "blockCompressedStone");
 		ModRegistry.registerBlock(stone, meta);
-		
-		ModRegistry.AddGuis();
 	}
 	
 	/**
@@ -441,7 +439,7 @@ public class ModRegistry
 		block.setUnlocalizedName(block.getRegistryName().toString());
 	}
 
-	private static void AddGuis()
+	public static void AddGuis()
 	{
 		ModRegistry.ModGuis.put(ModRegistry.GuiWareHouse, GuiWareHouse.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiChickenCoop, GuiChickenCoop.class);

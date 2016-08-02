@@ -21,6 +21,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
 /**
@@ -51,6 +52,12 @@ public class ItemWareHouse extends Item
 		{
 			if (side == EnumFacing.UP)
 			{
+				if (player.dimension != 0)
+				{
+					player.addChatMessage(new TextComponentString("The Warehouse can only be placed in the overworld."));
+					return EnumActionResult.FAIL;
+				}
+				
 				// Open the client side gui to determine the house options.
 				player.openGui(Prefab.instance, ModRegistry.GuiWareHouse, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
 				return EnumActionResult.PASS;

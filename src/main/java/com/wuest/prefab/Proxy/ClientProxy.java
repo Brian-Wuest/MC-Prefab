@@ -20,6 +20,8 @@ public class ClientProxy extends CommonProxy
 	{
 		super.preInit(event);
 		
+		ModRegistry.AddGuis();
+		
 		// After all items have been registered and all recipes loaded, register any necessary renderer.
 		Prefab.proxy.registerRenderers();
 				

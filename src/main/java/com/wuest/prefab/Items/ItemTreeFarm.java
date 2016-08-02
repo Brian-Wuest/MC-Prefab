@@ -16,6 +16,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
 public class ItemTreeFarm extends Item 
@@ -41,6 +42,12 @@ public class ItemTreeFarm extends Item
 		{
 			if (side == EnumFacing.UP)
 			{
+				if (player.dimension != 0)
+				{
+					player.addChatMessage(new TextComponentString("The Tree Farm can only be placed in the overworld."));
+					return EnumActionResult.FAIL;
+				}
+				
 				// Open the client side gui to determine the house options.
 				//StructureTreeFarm treeFarm = new StructureTreeFarm();
 				//treeFarm.ScanStructure(world, hitBlockPos, player.getHorizontalFacing());

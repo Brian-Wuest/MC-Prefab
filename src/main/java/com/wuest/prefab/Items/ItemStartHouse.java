@@ -71,6 +71,12 @@ public class ItemStartHouse extends Item
 		{
 			if (side == EnumFacing.UP)
 			{
+				if (player.dimension != 0)
+				{
+					player.addChatMessage(new TextComponentString("The Starter House can only be placed in the overworld."));
+					return EnumActionResult.FAIL;
+				}
+				
 				// Open the client side gui to determine the house options.
 				//StructureAlternateStart alternateStart = new StructureAlternateStart();
 				//alternateStart.ScanLoftStructure(world, hitBlockPos, player.getHorizontalFacing());
