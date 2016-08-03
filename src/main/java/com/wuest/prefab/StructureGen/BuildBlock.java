@@ -320,7 +320,6 @@ public class BuildBlock
 					if (property.getName().equals("axis"))
 					{
 						comparable = logFacing;
-						block.setHasFacing(true);
 					}
 				}
 				else if (foundBlock instanceof BlockQuartz)
@@ -328,7 +327,6 @@ public class BuildBlock
 					if (property.getName().equals("variant") && quartzFacing != BlockQuartz.EnumType.DEFAULT)
 					{
 						comparable = quartzFacing;
-						block.setHasFacing(true);
 					}
 				}
 
