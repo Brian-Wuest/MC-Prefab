@@ -32,6 +32,7 @@ public class StructureAlternateStart extends Structure
 	private BlockPos furnacePosition = null;
 	private BlockPos trapDoorPosition = null;
 	private BlockPos signPosition = null;
+	private static ArrayList<BlockPos> torchPositions = null;
 
 	public static void ScanRanchStructure(World world, BlockPos originalPos, EnumFacing playerFacing)
 	{
@@ -332,6 +333,17 @@ public class StructureAlternateStart extends Structure
 		// After setting the floor, make sure to replace the ladder.
 		BuildingMethods.ReplaceBlock(world, ceilingLevel, Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, facing));
 		
+		IBlockState torchState = Blocks.TORCH.getStateFromMeta(5);
+		
+		// Place the torches at this point since the entire shaft has been set.
+		for (BlockPos torchPos : StructureAlternateStart.torchPositions)
+		{
+			IBlockState surroundingState = world.getBlockState(torchPos);
+			Block surroundingBlock = surroundingState.getBlock();
+			tempStacks = BuildingMethods.ConsolidateDrops( surroundingBlock, world, torchPos, surroundingState, tempStacks);
+			BuildingMethods.ReplaceBlock(world, torchPos, torchState);
+		}
+		
 		// The entire ladder has been created. Create a platform at this level
 		// and place a chest next to the ladder.
 		tempStacks.addAll(BuildingMethods.SetFloor(world, pos.offset(facing).offset(facing.rotateY()), Blocks.STONE, 3, 4, tempStacks, facing.getOpposite()));
@@ -434,10 +446,10 @@ public class StructureAlternateStart extends Structure
 
 		// Get the ladder state based on the house facing.
 		IBlockState ladderState = Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, houseFacing);
-		IBlockState torchState = Blocks.TORCH.getStateFromMeta(5);
 
 		// Replace the main floor block with air since we don't want it placed in the chest at the end.
 		BuildingMethods.ReplaceBlock(world, pos, Blocks.AIR);
+		StructureAlternateStart.torchPositions = new ArrayList<BlockPos>();
 		
 		while (pos.getY() > 8)
 		{
@@ -506,19 +518,16 @@ public class StructureAlternateStart extends Structure
 						}
 						
 						// Make sure that this is a normal solid block and not a liquid or partial block.
-						if (!surroundingBlock.isBlockNormalCube(surroundingState)
-								|| surroundingBlock instanceof BlockLiquid)
+						if (!(surroundingBlock instanceof BlockStone))
 						{
-							// This is not a solid block. Get the drops then replace
-							// it with stone.
-							BuildingMethods.ConsolidateDrops(surroundingBlock, world, tempPos, surroundingState, originalStacks);
+							// This is not a stone block. Get the drops then replace it with stone.
+							originalStacks = BuildingMethods.ConsolidateDrops(surroundingBlock, world, tempPos, surroundingState, originalStacks);
 
 							BuildingMethods.ReplaceBlock(world, tempPos, Blocks.STONE);
 						}
 					}
 
-					BuildingMethods.ReplaceBlock(world, pos.offset(houseFacing.rotateYCCW()), torchState);
-
+					StructureAlternateStart.torchPositions.add(pos.offset(facing));
 					torchCounter = 0;
 				}
 				else
@@ -532,7 +541,7 @@ public class StructureAlternateStart extends Structure
 					{
 						// This is not a solid block. Get the drops then replace
 						// it with stone.
-						BuildingMethods.ConsolidateDrops(surroundingBlock, world, tempPos, surroundingState, originalStacks);
+						originalStacks = BuildingMethods.ConsolidateDrops(surroundingBlock, world, tempPos, surroundingState, originalStacks);
 
 						BuildingMethods.ReplaceBlock(world, tempPos, Blocks.STONE);
 					}
@@ -540,7 +549,7 @@ public class StructureAlternateStart extends Structure
 			}
 
 			// Get the block drops then replace it with a ladder.
-			BuildingMethods.ConsolidateDrops(block, world, pos, state, originalStacks);
+			originalStacks = BuildingMethods.ConsolidateDrops(block, world, pos, state, originalStacks);
 
 			// Don't place a ladder at this location since it will be destroyed.
 			if (pos.getY() >= 10)
@@ -550,7 +559,7 @@ public class StructureAlternateStart extends Structure
 
 			pos = pos.down();
 		}
-
+		
 		return originalStacks;
 	}
 }
