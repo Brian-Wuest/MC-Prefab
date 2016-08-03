@@ -1,0 +1,16 @@
+item.prefab:itemStartHouse.name=Стартовый Дом
+item.prefab:itemWareHouse.name=Склад
+item.prefab:itemChickenCoop.name=Курятник
+item.prefab:itemProduceFarm.name=Создание Фермы
+item.prefab:itemTreeFarm.name=Ферма Деревьев
+item.prefab:itemFishPond.name=Пруд Для Разведения Рыбы
+item.prefab:itemCompressedChest.name=Сжатый Сундук
+item.prefab:itemPileOfBricks.name=Груда Кирпичей
+item.prefab:itemPalletOfBricks.name=Поддон Кирпичей
+tile.prefab:blockCompressedStone.block_compressed_stone.name=Сжатый Камень
+tile.prefab:blockCompressedStone.block_double_compressed_stone.name=Двойной Сжатый Камень
+tile.prefab:blockCompressedStone.block_triple_compressed_stone.name=Тройной Сжатый Камень
+tile.prefab:blockCompressedStone.block_compressed_glowstone.name=Сжатый Светокамень
+tile.prefab:blockCompressedStone.block_double_compressed_glowstone.name=Двойной Сжатый Светокамень
+tile.prefab:blockCompressedStone.block_compressed_dirt.name=Сжата Грязь
+tile.prefab:blockCompressedStone.block_double_compressed_dirt.name=Двойная Сжатая Грязь
