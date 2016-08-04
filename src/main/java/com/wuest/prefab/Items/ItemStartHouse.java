@@ -119,8 +119,9 @@ public class ItemStartHouse extends Item
 						EnumFacing southFace = northFace.getOpposite();
 	
 						// Set the "North East" corner.
-						ItemStartHouse.NorthEastCorner = startingPosition.offset(northFace, (int) Math.floor(configuration.houseDepth / 2) + 1)
-								.offset(northFace.rotateY(), (int) Math.floor(configuration.houseWidth / 2) + 1);
+						/*ItemStartHouse.NorthEastCorner = startingPosition.offset(northFace, (int) Math.floor(configuration.houseDepth / 2) + 1)
+								.offset(northFace.rotateY(), (int) Math.floor(configuration.houseWidth / 2) + 1);*/
+						ItemStartHouse.NorthEastCorner = startingPosition.offset(southFace).offset(northFace.rotateY());
 	
 						// Set the "South East" corner.
 						ItemStartHouse.SouthEastCorner = ItemStartHouse.NorthEastCorner.offset(southFace, configuration.houseDepth + 1);
@@ -131,14 +132,14 @@ public class ItemStartHouse extends Item
 						// Set the "North West" corner.
 						ItemStartHouse.NorthWestCorner = ItemStartHouse.NorthEastCorner.offset(northFace.rotateYCCW(), configuration.houseWidth + 1);
 	
+						// Put the starting position in the middle of the house as that's what the rest of the methods expect.
+						startingPosition = ItemStartHouse.NorthEastCorner.offset(southFace, (int) Math.floor(configuration.houseDepth / 2) + 1)
+								.offset(northFace.rotateYCCW(), (int) Math.floor(configuration.houseWidth / 2) + 1);
+						
 						// Clear the space before the user is teleported. This
 						// is in-case they right-click on a space that is only 1
 						// block tall.
 						BuildingMethods.ClearSpace(world, ItemStartHouse.NorthEastCorner, configuration.houseWidth, 15, configuration.houseDepth, northFace);
-	
-						// Teleport the player to the middle of the house so
-						// they don't die while house is created.
-						player.attemptTeleport(startingPosition.up(2).getX(), startingPosition.up(2).getY(), startingPosition.up(2).getZ());
 	
 						// Build the basic structure.
 						ItemStartHouse.BuildStructure(world, startingPosition, configuration, northFace);
