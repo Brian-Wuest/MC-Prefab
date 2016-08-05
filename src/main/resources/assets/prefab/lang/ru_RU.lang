@@ -7,6 +7,7 @@ item.prefab:itemFishPond.name=Пруд Для Разведения Рыбы
 item.prefab:itemCompressedChest.name=Сжатый Сундук
 item.prefab:itemPileOfBricks.name=Груда Кирпичей
 item.prefab:itemPalletOfBricks.name=Поддон Кирпичей
+
 tile.prefab:blockCompressedStone.block_compressed_stone.name=Сжатый Камень
 tile.prefab:blockCompressedStone.block_double_compressed_stone.name=Двойной Сжатый Камень
 tile.prefab:blockCompressedStone.block_triple_compressed_stone.name=Тройной Сжатый Камень
@@ -14,3 +15,84 @@ tile.prefab:blockCompressedStone.block_compressed_glowstone.name=Сжатый С
 tile.prefab:blockCompressedStone.block_double_compressed_glowstone.name=Двойной Сжатый Светокамень
 tile.prefab:blockCompressedStone.block_compressed_dirt.name=Сжата Грязь
 tile.prefab:blockCompressedStone.block_double_compressed_dirt.name=Двойная Сжатая Грязь
+
+prefab.gui.fishpond.structure.facing=Note: If you're facing north, choose south so the pier is going away from you. The white border is just to show the size.
+
+prefab.gui.producefarm.structure.size=This structure is 32x32 blocks in size.
+
+prefab.gui.treefarm.structure.size=This structure is 38x38 blocks in size.
+
+prefab.gui.starter.tab.general=General
+prefab.gui.starter.tab.config=Config
+prefab.gui.starter.tab.block=Blocks/Size
+prefab.gui.starter.style.label=House Style
+prefab.gui.starter.floortype.label=Floor Block Type
+prefab.gui.starter.ceilingtype.label=Ceiling Block Type
+prefab.gui.starter.walltype.label=Wall Wood Type
+prefab.gui.starter.depth.label=Interior Depth
+prefab.gui.starter.width.label=Interior Width
+prefab.gui.starter.basic.display=Basic House
+prefab.gui.starter.basic.notes=A highly configurable house but has a very basic design.
+prefab.gui.starter.ranch.display=Ranch Style
+prefab.gui.starter.ranch.notes=A house designed in a ranch style.
+prefab.gui.starter.loft.display=Loft Style
+prefab.gui.starter.loft.notes=A house designed with a lofted area for the chests.
+prefab.gui.starter.hobbit.display=Hobbit Style
+prefab.gui.starter.hobbit.notes=A house designed into the ground like a hobbit.
+
+prefab.gui.starter.addtorches=Add Torches
+prefab.gui.starter.addbed=Add Bed
+prefab.gui.starter.addcraftingtable=Add Crafting Table
+prefab.gui.starter.addchest=Add Chest
+prefab.gui.starter.addchestcontents=Add Chest Contents
+prefab.gui.starter.addfarm=Add Farm
+prefab.gui.starter.floorstone=Floor Stone Type
+prefab.gui.starter.ceilingtype=Ceiling Stone Type
+prefab.gui.starter.walltype=Wall Wood Type
+prefab.gui.starter.ceilingflat=Is Ceiling Flat
+prefab.gui.starter.buildmineshaft=Build Mineshaft
+
+prefab.ceiling.block.type.stone=Stonebrick
+prefab.ceiling.block.type.brick=Brick
+prefab.ceiling.block.type.sand=Sandstone
+
+prefab.wall.block.type.oak=Oak
+prefab.wall.block.type.spruce=Spruce
+prefab.wall.block.type.birch=Birch
+prefab.wall.block.type.jungle=Jungle
+prefab.wall.block.type.acacia=Acacia
+prefab.wall.block.type.darkoak=Dark Oak
+
+prefab.gui.treefarm.facing=Tree Farm Facing
+prefab.gui.treefarm.structure.size=This structure is 38x38 blocks in size.
+
+prefab.gui.structure.facing=Structure Facing
+prefab.gui.structure.glass=Glass Color
+
+prefab.gui.structure.block.clicked=The red box in the image on the right shows the block you clicked on.
+prefab.gui.structure.door.facing=Note: If you're facing north, choose south so the doors are facing you.
+
+prefab.gui.button.build=Build!
+prefab.gui.button.cancel=Cancel
+
+prefab.gui.north=North
+prefab.gui.east=East
+prefab.gui.south=South
+prefab.gui.west=West
+
+prefab.gui.white=White
+prefab.gui.orange=Orange
+prefab.gui.magenta=Magenta
+prefab.gui.lightBlue=Light Blue
+prefab.gui.yellow=Yellow
+prefab.gui.lime=Lime
+prefab.gui.pink=Pink
+prefab.gui.gray=Gray
+prefab.gui.silver=Silver
+prefab.gui.cyan=Cyan
+prefab.gui.purple=Purple
+prefab.gui.blue=Blue
+prefab.gui.brown=Brown
+prefab.gui.green=Green
+prefab.gui.red=Red
+prefab.gui.black=Black
