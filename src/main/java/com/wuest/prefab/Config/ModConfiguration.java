@@ -1,6 +1,7 @@
 package com.wuest.prefab.Config;
 
 import com.wuest.prefab.Prefab;
+import com.wuest.prefab.Gui.GuiLangKeys;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.config.Configuration;
@@ -154,18 +155,25 @@ public class ModConfiguration
 	
 	public enum CeilingFloorBlockType
 	{
-		StoneBrick(0),
-		Brick(1),
-		SandStone(2);
+		StoneBrick(0, GuiLangKeys.CEILING_BLOCK_TYPE_STONE),
+		Brick(1, GuiLangKeys.CEILING_BLOCK_TYPE_BRICK),
+		SandStone(2, GuiLangKeys.CEILING_BLOCK_TYPE_SAND);
 
 		private final int value;
+		private final String langKey;
 
-		CeilingFloorBlockType(int newValue) 
+		CeilingFloorBlockType(int newValue, String langKey) 
 		{
-			value = newValue;
+			this.value = newValue;
+			this.langKey = langKey;
 		}
 
 		public int getValue() { return value; }
+		
+		public String getName()
+		{
+			return GuiLangKeys.translateString(this.langKey);
+		}
 
 		public static CeilingFloorBlockType ValueOf(int value)
 		{
@@ -191,22 +199,29 @@ public class ModConfiguration
 
 	public enum WallBlockType
 	{
-		Oak(0),
-		Spruce(1),
-		Birch(2),
-		Jungle(3),
-		Acacia(4),
-		DarkOak(5);
+		Oak(0, GuiLangKeys.WALL_BLOCK_TYPE_OAK),
+		Spruce(1, GuiLangKeys.WALL_BLOCK_TYPE_SPRUCE),
+		Birch(2, GuiLangKeys.WALL_BLOCK_TYPE_BIRCH),
+		Jungle(3, GuiLangKeys.WALL_BLOCK_TYPE_JUNGLE),
+		Acacia(4, GuiLangKeys.WALL_BLOCK_TYPE_ACACIA),
+		DarkOak(5, GuiLangKeys.WALL_BLOCK_TYPE_DARK_OAK);
 
 		private final int value;
+		private final String langKey;
 
-		WallBlockType(final int newValue) 
+		WallBlockType(final int newValue, String langKey)
 		{
 			value = newValue;
+			this.langKey = langKey;
 		}
 
 		public int getValue() { return value; }
 
+		public String getName()
+		{
+			return GuiLangKeys.translateString(this.langKey);
+		}
+		
 		public static WallBlockType ValueOf(int value)
 		{
 			switch (value)

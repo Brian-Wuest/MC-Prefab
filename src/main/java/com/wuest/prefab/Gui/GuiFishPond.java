@@ -82,11 +82,11 @@ public class GuiFishPond extends GuiScreen
 		// Draw the text here.
 		int color = Color.DARK_GRAY.getRGB();
 
-		this.mc.fontRendererObj.drawString("Fish Pond Facing", grayBoxX + 10, grayBoxY + 10, color);
+		this.mc.fontRendererObj.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_FACING), grayBoxX + 10, grayBoxY + 10, color);
 		
 		// Draw the text here.
-		this.mc.fontRendererObj.drawSplitString("The red box in the image on the right shows the block you clicked on.", grayBoxX + 147, grayBoxY + 10, 95, color);
-		this.mc.fontRendererObj.drawSplitString("Note: If you're facing north, choose south so the pier is going away from you. The white border is just to show the size.", grayBoxX + 147, grayBoxY + 60, 95, color);
+		this.mc.fontRendererObj.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), grayBoxX + 147, grayBoxY + 10, 95, color);
+		this.mc.fontRendererObj.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.FISH_POND_STRUCTURE_FACING), grayBoxX + 147, grayBoxY + 60, 95, color);
 	}
 	
 	/**
@@ -101,18 +101,14 @@ public class GuiFishPond extends GuiScreen
 		}
 		else if (button == this.btnBuild)
 		{
-			FishPondConfiguration houseConfiguration = new FishPondConfiguration();
-			houseConfiguration.pos = this.pos;
-			houseConfiguration.houseFacing = EnumFacing.byName(this.btnHouseFacing.displayString);
-			
-			Prefab.network.sendToServer(new FishPondTagMessage(houseConfiguration.WriteToNBTTagCompound()));
+			Prefab.network.sendToServer(new FishPondTagMessage(this.configuration.WriteToNBTTagCompound()));
 			
 			this.mc.displayGuiScreen(null);
 		}
 		else if (button == this.btnHouseFacing)
 		{
-			EnumFacing currentFacing = EnumFacing.byName(this.btnHouseFacing.displayString).rotateY();
-			this.btnHouseFacing.displayString = currentFacing.getName();
+			this.configuration.houseFacing = this.configuration.houseFacing.rotateY();
+			this.btnHouseFacing.displayString = GuiLangKeys.translateFacing(this.configuration.houseFacing);
 		}
 	}
 	
@@ -135,14 +131,14 @@ public class GuiFishPond extends GuiScreen
 		int grayBoxY = (this.height / 2) - 83;
 
 		// Create the buttons.
-		this.btnHouseFacing = new GuiButtonExt(3, grayBoxX + 10, grayBoxY + 20, 100, 20, this.configuration.houseFacing.getName());
+		this.btnHouseFacing = new GuiButtonExt(3, grayBoxX + 10, grayBoxY + 20, 100, 20, GuiLangKeys.translateFacing(this.configuration.houseFacing));
 		this.buttonList.add(this.btnHouseFacing);
 
 		// Create the done and cancel buttons.
-		this.btnBuild = new GuiButtonExt(1, grayBoxX + 10, grayBoxY + 136, 90, 20, "Build!");
+		this.btnBuild = new GuiButtonExt(1, grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_BUILD));
 		this.buttonList.add(this.btnBuild);
 
-		this.btnCancel = new GuiButtonExt(2, grayBoxX + 147, grayBoxY + 136, 90, 20, "Cancel");
+		this.btnCancel = new GuiButtonExt(2, grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_CANCEL));
 		this.buttonList.add(this.btnCancel);
 	}
 	

@@ -48,17 +48,17 @@ public class GuiProduceFarm extends GuiScreen
 		int grayBoxY = (this.height / 2) - 83;
 
 		// Create the buttons.
-		this.btnHouseFacing = new GuiButtonExt(3, grayBoxX + 10, grayBoxY + 20, 100, 20, this.configuration.houseFacing.getName());
+		this.btnHouseFacing = new GuiButtonExt(3, grayBoxX + 10, grayBoxY + 20, 100, 20, GuiLangKeys.translateFacing(this.configuration.houseFacing));
 		this.buttonList.add(this.btnHouseFacing);
 
-		this.btnGlassColor = new GuiButtonExt(10, grayBoxX + 10, grayBoxY + 60, 100, 20, this.configuration.dyeColor.getName());
+		this.btnGlassColor = new GuiButtonExt(10, grayBoxX + 10, grayBoxY + 60, 100, 20, GuiLangKeys.translateDye(this.configuration.dyeColor));
 		this.buttonList.add(this.btnGlassColor);
 
 		// Create the done and cancel buttons.
-		this.btnBuild = new GuiButtonExt(1, grayBoxX + 10, grayBoxY + 136, 90, 20, "Build!");
+		this.btnBuild = new GuiButtonExt(1, grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_BUILD));
 		this.buttonList.add(this.btnBuild);
 
-		this.btnCancel = new GuiButtonExt(2, grayBoxX + 147, grayBoxY + 136, 90, 20, "Cancel");
+		this.btnCancel = new GuiButtonExt(2, grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_CANCEL));
 		this.buttonList.add(this.btnCancel);
 	}
 
@@ -108,14 +108,14 @@ public class GuiProduceFarm extends GuiScreen
 		// Draw the text here.
 		int color = Color.DARK_GRAY.getRGB();
 
-		this.mc.fontRendererObj.drawString("House Facing", grayBoxX + 10, grayBoxY + 10, color);
+		this.mc.fontRendererObj.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_FACING), grayBoxX + 10, grayBoxY + 10, color);
 
-		this.mc.fontRendererObj.drawString("Glass Color", grayBoxX + 10, grayBoxY + 50, color);
+		this.mc.fontRendererObj.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS), grayBoxX + 10, grayBoxY + 50, color);
 		
 		// Draw the text here.
-		this.mc.fontRendererObj.drawSplitString("The red box in the image on the right shows the block you clicked on.", grayBoxX + 147, grayBoxY + 10, 100, color);
-		this.mc.fontRendererObj.drawSplitString("Note: If you're facing north, choose south so the doors are facing you.", grayBoxX + 147, grayBoxY + 50, 100, color);
-		this.mc.fontRendererObj.drawSplitString("This structure is 32x32 blocks in size.", grayBoxX + 147, grayBoxY + 105, 100, color);
+		this.mc.fontRendererObj.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), grayBoxX + 147, grayBoxY + 10, 100, color);
+		this.mc.fontRendererObj.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_DOOR_FACING), grayBoxX + 147, grayBoxY + 50, 100, color);
+		this.mc.fontRendererObj.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.PRODUCE_FARM_SIZE), grayBoxX + 147, grayBoxY + 105, 100, color);
 	}
 	
     /**
@@ -157,25 +157,19 @@ public class GuiProduceFarm extends GuiScreen
 		}
 		else if (button == this.btnBuild)
 		{
-			ProduceFarmConfiguration houseConfiguration = new ProduceFarmConfiguration();
-			houseConfiguration.pos = this.pos;
-			houseConfiguration.houseFacing = EnumFacing.byName(this.btnHouseFacing.displayString);
-			houseConfiguration.dyeColor = this.configuration.dyeColor;
-			
-			Prefab.network.sendToServer(new ProduceFarmTagMessage(houseConfiguration.WriteToNBTTagCompound()));
+			Prefab.network.sendToServer(new ProduceFarmTagMessage(this.configuration.WriteToNBTTagCompound()));
 			
 			this.mc.displayGuiScreen(null);
 		}
 		else if (button == this.btnHouseFacing)
 		{
-			EnumFacing currentFacing = EnumFacing.byName(this.btnHouseFacing.displayString).rotateY();
-			this.btnHouseFacing.displayString = currentFacing.getName();
+			this.configuration.houseFacing = this.configuration.houseFacing.rotateY();
+			this.btnHouseFacing.displayString = GuiLangKeys.translateFacing(this.configuration.houseFacing);
 		}
 		else if (button == this.btnGlassColor)
 		{
-			EnumDyeColor color = EnumDyeColor.byMetadata(this.configuration.dyeColor.getMetadata() + 1);
-			this.configuration.dyeColor = color;
-			this.btnGlassColor.displayString = color.getName();
+			this.configuration.dyeColor = EnumDyeColor.byMetadata(this.configuration.dyeColor.getMetadata() + 1);
+			this.btnGlassColor.displayString = GuiLangKeys.translateDye(this.configuration.dyeColor);
 		}
 	}
 }

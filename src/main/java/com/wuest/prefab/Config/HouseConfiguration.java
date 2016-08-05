@@ -2,6 +2,7 @@ package com.wuest.prefab.Config;
 
 import com.wuest.prefab.Config.ModConfiguration.CeilingFloorBlockType;
 import com.wuest.prefab.Config.ModConfiguration.WallBlockType;
+import com.wuest.prefab.Gui.GuiLangKeys;
 
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.nbt.NBTTagCompound;
@@ -17,21 +18,6 @@ import net.minecraft.util.math.BlockPos;
 public class HouseConfiguration extends StructureConfiguration
 {
 	public static String tagKey = "WuestHouseConfig";
-
-	public static String addTorchesName = "Add Torches";
-	public static String addBedName = "Add Bed";
-	public static String addCraftingTableName = "Add Crafting Table";
-	public static String addChestName = "Add Chest";
-	public static String addChestContentsName = "Add Chest Contents";
-	public static String addFarmName = "Add Farm";
-	public static String floorBlockName = "Floor Stone Type";
-	public static String ceilingBlockName = "Ceiling Stone Type";
-	public static String wallWoodTypeName = "Wall Wood Type";
-	public static String isCeilingFlatName = "Is Ceiling Flat";
-	public static String addMineShaftName = "Build Mineshaft";
-	public static String houseWidthName = "House Width";
-	public static String houseDepthName = "House Depth";
-	public static String houseFacingName = "House Facing";
 	
 	private static String addTorchesTag = "addTorches";
 	private static String addBedTag = "addBed";
@@ -121,14 +107,14 @@ public class HouseConfiguration extends StructureConfiguration
 
 	public static String GetIntegerOptionStringValue(String name, int value)
 	{
-		if (name.equals(HouseConfiguration.ceilingBlockName)
-				|| name.equals(HouseConfiguration.floorBlockName))
+		if (name.equals(GuiLangKeys.STARTER_HOUSE_CEILING_TYPE)
+				|| name.equals(GuiLangKeys.STARTER_HOUSE_FLOOR_STONE))
 		{
-			return " - " + CeilingFloorBlockType.ValueOf(value).name();
+			return " - " + CeilingFloorBlockType.ValueOf(value).getName();
 		}
-		else if (name.equals(HouseConfiguration.wallWoodTypeName))
+		else if (name.equals(GuiLangKeys.STARTER_HOUSE_WALL_TYPE))
 		{
-			return " - " + WallBlockType.ValueOf(value).name();
+			return " - " + WallBlockType.ValueOf(value).getName();
 		}
 
 		return "";
@@ -233,10 +219,10 @@ public class HouseConfiguration extends StructureConfiguration
 
 	public enum HouseStyle
 	{
-		BASIC(0, "Basic House", new ResourceLocation("prefab", "textures/gui/basicHouse.png"), "A highly configurable house but has a very basic design.", 153, 148, ""),
-		RANCH(1, "Ranch Style", new ResourceLocation("prefab", "textures/gui/ranchHouse.png"), "A house designed in a ranch style.", 152, 89, "assets/prefab/structures/ranch_house.zip"),
-		LOFT(2, "Loft Style", new ResourceLocation("prefab", "textures/gui/loftHouse.png"), "A house designed with a lofted area for the chests.", 152, 87, "assets/prefab/structures/loft_house.zip"),
-		HOBBIT(3, "Hobbit Style", new ResourceLocation("prefab", "textures/gui/hobbitHouse.png"), "A house designed into the ground like a hobbit.", 151, 133, "assets/prefab/structures/hobbit_house.zip");
+		BASIC(0, GuiLangKeys.STARTER_HOUSE_BASIC_DISPLAY, new ResourceLocation("prefab", "textures/gui/basicHouse.png"), GuiLangKeys.STARTER_HOUSE_BASIC_NOTES, 153, 148, ""),
+		RANCH(1, GuiLangKeys.STARTER_HOUSE_RANCH_DISPLAY, new ResourceLocation("prefab", "textures/gui/ranchHouse.png"), GuiLangKeys.STARTER_HOUSE_RANCH_NOTES, 152, 89, "assets/prefab/structures/ranch_house.zip"),
+		LOFT(2, GuiLangKeys.STARTER_HOUSE_LOFT_DISPLAY, new ResourceLocation("prefab", "textures/gui/loftHouse.png"), GuiLangKeys.STARTER_HOUSE_LOFT_NOTES, 152, 87, "assets/prefab/structures/loft_house.zip"),
+		HOBBIT(3, GuiLangKeys.STARTER_HOUSE_HOBBIT_DISPLAY, new ResourceLocation("prefab", "textures/gui/hobbitHouse.png"), GuiLangKeys.STARTER_HOUSE_HOBBIT_NOTES, 151, 133, "assets/prefab/structures/hobbit_house.zip");
 
 		private final int value;
 		private final String displayName;
@@ -264,12 +250,12 @@ public class HouseConfiguration extends StructureConfiguration
 		
 		public String getDisplayName() 
 		{
-			return this.displayName;
+			return GuiLangKeys.translateString(this.displayName);
 		}
 		
 		public String getHouseNotes()
 		{
-			return this.houseNotes;
+			return GuiLangKeys.translateString(this.houseNotes);
 		}
 		
 		public ResourceLocation getHousePicture()
