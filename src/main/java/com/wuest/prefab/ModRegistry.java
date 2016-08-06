@@ -35,6 +35,7 @@ public class ModRegistry
 	public static final int GuiTreeFarm = 4;
 	public static final int GuiFishPond = 5;
 	public static final int GuiStartHouseChooser = 6;
+	public static final int GuiAdvancedWareHouse = 7;
 	
 	public static ItemStartHouse StartHouse()
 	{
@@ -44,6 +45,11 @@ public class ModRegistry
 	public static ItemWareHouse WareHouse()
 	{
 		return ModRegistry.GetItem(ItemWareHouse.class);
+	}
+	
+	public static ItemAdvancedWareHouse AdvancedWareHouse()
+	{
+		return ModRegistry.GetItem(ItemAdvancedWareHouse.class);
 	}
 	
 	public static ItemChickenCoop ChickenCoop()
@@ -100,7 +106,7 @@ public class ModRegistry
 	{
 		for (Item entry : ModRegistry.ModItems)
 		{
-			if (entry.getClass().isAssignableFrom(genericClass))
+			if (entry.getClass() == genericClass)
 			{
 				return (T)entry;
 			}
@@ -118,7 +124,7 @@ public class ModRegistry
 	{
 		for (Block entry : ModRegistry.ModBlocks)
 		{
-			if (entry.getClass().isAssignableFrom(genericClass))
+			if (entry.getClass() == genericClass)
 			{
 				return (T)entry;
 			}
@@ -187,6 +193,7 @@ public class ModRegistry
 		ModRegistry.registerItem(new ItemPileOfBricks("itemPileOfBricks"));
 		ModRegistry.registerItem(new ItemPalletOfBricks("itemPalletOfBricks"));
 		ModRegistry.registerItem(new ItemFishPond("itemFishPond"));
+		ModRegistry.registerItem(new ItemAdvancedWareHouse("itemAdvancedWareHouse"));
 		
 		// Create/register the item block with this block as it's needed due to this being a meta data block.
 		BlockCompressedStone stone = new BlockCompressedStone();
@@ -447,5 +454,6 @@ public class ModRegistry
 		ModRegistry.ModGuis.put(ModRegistry.GuiTreeFarm, GuiTreeFarm.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiFishPond, GuiFishPond.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiStartHouseChooser, GuiStartHouseChooser.class);
+		ModRegistry.ModGuis.put(ModRegistry.GuiAdvancedWareHouse, GuiAdvancedWareHouse.class);
 	}
 }

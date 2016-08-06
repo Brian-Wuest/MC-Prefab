@@ -7,6 +7,7 @@ item.prefab:itemFishPond.name=Пруд Для Разведения Рыбы
 item.prefab:itemCompressedChest.name=Сжатый Сундук
 item.prefab:itemPileOfBricks.name=Груда Кирпичей
 item.prefab:itemPalletOfBricks.name=Поддон Кирпичей
+item.prefab:itemAdvancedWareHouse.name=Advanced Warehouse
 
 tile.prefab:blockCompressedStone.block_compressed_stone.name=Сжатый Камень
 tile.prefab:blockCompressedStone.block_double_compressed_stone.name=Двойной Сжатый Камень

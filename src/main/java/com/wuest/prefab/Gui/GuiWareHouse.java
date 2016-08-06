@@ -47,6 +47,7 @@ public class GuiWareHouse extends GuiScreen
 	{
 		this.configuration = new WareHouseConfiguration();
 		this.configuration.pos = this.pos;
+		this.configuration.houseFacing = EnumFacing.NORTH;
 
 		// Get the upper left hand corner of the GUI box.
 		int grayBoxX = (this.width / 2) - 180;

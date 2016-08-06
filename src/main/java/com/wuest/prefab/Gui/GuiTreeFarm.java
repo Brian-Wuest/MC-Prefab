@@ -117,13 +117,14 @@ public class GuiTreeFarm extends GuiScreen
 	{
 		this.configuration = new TreeFarmConfiguration();
 		this.configuration.pos = this.pos;
+		this.configuration.houseFacing = EnumFacing.NORTH;
 
 		// Get the upper left hand corner of the GUI box.
 		int grayBoxX = (this.width / 2) - 213;
 		int grayBoxY = (this.height / 2) - 83;
 
 		// Create the buttons.
-		this.btnHouseFacing = new GuiButtonExt(3, grayBoxX + 10, grayBoxY + 20, 100, 20, this.configuration.houseFacing.getName());
+		this.btnHouseFacing = new GuiButtonExt(3, grayBoxX + 10, grayBoxY + 20, 100, 20, GuiLangKeys.translateFacing(this.configuration.houseFacing));
 		this.buttonList.add(this.btnHouseFacing);
 
 		// Create the done and cancel buttons.

@@ -18,24 +18,32 @@ import net.minecraft.world.World;
 public class StructureWarehouse extends Structure
 {
 	public static final String ASSETLOCATION = "assets/prefab/structures/warehouse.zip"; 
+	public static final String ADVANCED_ASSET_LOCATION = "assets/prefab/structures/advanced_warehouse.zip";
 	
-	public static void ScanStructure(World world, BlockPos originalPos, EnumFacing playerFacing)
+	public static void ScanStructure(World world, BlockPos originalPos, EnumFacing playerFacing, boolean advanced)
 	{
 		BuildClear clearedSpace = new BuildClear();
 		clearedSpace.getShape().setDirection(EnumFacing.SOUTH);
-		clearedSpace.getShape().setHeight(17);
-		clearedSpace.getShape().setLength(17);
-		clearedSpace.getShape().setWidth(17);
+		clearedSpace.getShape().setHeight(16);
+		clearedSpace.getShape().setLength(16);
+		clearedSpace.getShape().setWidth(16);
 		clearedSpace.getStartingPosition().setEastOffset(7);
-		clearedSpace.getStartingPosition().setHeightOffset(-7);
+		clearedSpace.getStartingPosition().setHeightOffset(-5);
 		clearedSpace.getStartingPosition().setSouthOffset(1);
+		
+		String fileLocation = "C:\\Users\\Brian\\Documents\\GitHub\\MC-Prefab\\src\\main\\resources\\assets\\prefab\\structures\\warehouse.zip";
+		
+		if (advanced)
+		{
+			fileLocation = "C:\\Users\\Brian\\Documents\\GitHub\\MC-Prefab\\src\\main\\resources\\assets\\prefab\\structures\\advanced_warehouse.zip";
+		}
 		
 		Structure.ScanStructure(
 				world, 
 				originalPos, 
 				originalPos.east(7).south(1).down(5), 
 				originalPos.west(8).south(16).up(10), 
-				"C:\\Users\\Brian\\Documents\\GitHub\\MC-Prefab\\src\\main\\resources\\assets\\prefab\\structures\\warehouse.zip",
+				fileLocation,
 				clearedSpace,
 				playerFacing);	
 	}

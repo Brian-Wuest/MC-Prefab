@@ -12,7 +12,9 @@ import net.minecraft.util.math.BlockPos;
 public class WareHouseConfiguration extends StructureConfiguration
 {
 	private static String dyeColorTag = "dyeColor";
+	private static String advancedTag = "advanced";
 	public EnumDyeColor dyeColor;
+	public boolean advanced;
 	
 	public WareHouseConfiguration()
 	{
@@ -25,6 +27,7 @@ public class WareHouseConfiguration extends StructureConfiguration
 		super.Initialize();
 		this.houseFacing = EnumFacing.SOUTH;
 		this.dyeColor = EnumDyeColor.CYAN;
+		this.advanced = false;
 	}
 	
 	@Override
@@ -33,7 +36,12 @@ public class WareHouseConfiguration extends StructureConfiguration
 		if (messageTag.hasKey(WareHouseConfiguration.dyeColorTag))
 		{
 			((WareHouseConfiguration)config).dyeColor = EnumDyeColor.byMetadata(messageTag.getInteger(WareHouseConfiguration.dyeColorTag));
-		}		
+		}
+		
+		if (messageTag.hasKey(WareHouseConfiguration.advancedTag))
+		{
+			((WareHouseConfiguration)config).advanced = messageTag.getBoolean(WareHouseConfiguration.advancedTag);
+		}
 	}
 	
 	public WareHouseConfiguration ReadFromNBTTagCompound(NBTTagCompound messageTag)
@@ -47,6 +55,8 @@ public class WareHouseConfiguration extends StructureConfiguration
 	protected NBTTagCompound CustomWriteToNBTTagCompound(NBTTagCompound tag)
 	{
 		tag.setInteger(WareHouseConfiguration.dyeColorTag, this.dyeColor.getMetadata());
+		
+		tag.setBoolean(WareHouseConfiguration.advancedTag, this.advanced);
 		
 		return tag;
 	}
