@@ -8,6 +8,8 @@ item.prefab:itemCompressedChest.name=Сжатый Сундук
 item.prefab:itemPileOfBricks.name=Груда Кирпичей
 item.prefab:itemPalletOfBricks.name=Поддон Кирпичей
 item.prefab:itemAdvancedWareHouse.name=Advanced Warehouse
+item.prefab:itemMonsterMasher.name=Monster Masher
+item.prefab:itemWareHouseUpgrade.name=Warehouse Upgrade
 
 tile.prefab:blockCompressedStone.block_compressed_stone.name=Сжатый Камень
 tile.prefab:blockCompressedStone.block_double_compressed_stone.name=Двойной Сжатый Камень

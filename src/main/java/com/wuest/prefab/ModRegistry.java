@@ -36,6 +36,7 @@ public class ModRegistry
 	public static final int GuiFishPond = 5;
 	public static final int GuiStartHouseChooser = 6;
 	public static final int GuiAdvancedWareHouse = 7;
+	public static final int GuiMonsterMasher = 8;
 	
 	public static ItemStartHouse StartHouse()
 	{
@@ -95,6 +96,16 @@ public class ModRegistry
 	public static ItemPalletOfBricks PalletOfBricks()
 	{
 		return ModRegistry.GetItem(ItemPalletOfBricks.class);
+	}
+	
+	public static ItemMonsterMasher MonsterMasher()
+	{
+		return ModRegistry.GetItem(ItemMonsterMasher.class);
+	}
+	
+	public static ItemWarehouseUpgrade WareHouseUpgrade()
+	{
+		return ModRegistry.GetItem(ItemWarehouseUpgrade.class);
 	}
 	
 	/**
@@ -194,6 +205,8 @@ public class ModRegistry
 		ModRegistry.registerItem(new ItemPalletOfBricks("itemPalletOfBricks"));
 		ModRegistry.registerItem(new ItemFishPond("itemFishPond"));
 		ModRegistry.registerItem(new ItemAdvancedWareHouse("itemAdvancedWareHouse"));
+		ModRegistry.registerItem(new ItemMonsterMasher("itemMonsterMasher"));
+		ModRegistry.registerItem(new ItemWarehouseUpgrade("itemWareHouseUpgrade"));
 		
 		// Create/register the item block with this block as it's needed due to this being a meta data block.
 		BlockCompressedStone stone = new BlockCompressedStone();
@@ -367,6 +380,41 @@ public class ModRegistry
 				'e', new ItemStack(Items.FISHING_ROD, 1, 0),
 				'f', new ItemStack(Item.getItemFromBlock(Blocks.SAND)),
 				'g', new ItemStack(Items.FISH, 1, 0));
+		
+		// Warehouse Upgrade
+		GameRegistry.addRecipe(new ItemStack(ModRegistry.WareHouseUpgrade()),
+				"aba",
+				"cdc",
+				"aba",
+				'a', Item.getItemFromBlock(Blocks.BOOKSHELF),
+				'b', Items.BREWING_STAND,
+				'c', Item.getItemFromBlock(Blocks.ENCHANTING_TABLE),
+				'd', Item.getItemFromBlock(Blocks.ANVIL));
+		
+		// Advanced Warehouse
+		GameRegistry.addRecipe(new ItemStack(ModRegistry.AdvancedWareHouse()),
+				"xbx",
+				"xyx",
+				"zaz",
+				'x', new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedStoneBlock()), 1, BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE.getMetadata()),
+				'y', ModRegistry.CompressedChestItem(),
+				'z', new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedStoneBlock()), 1, BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE.getMetadata()),
+				'a', new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedStoneBlock()), 1, BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE.getMetadata()),
+				'b', ModRegistry.WareHouseUpgrade());
+		
+		// Monster Masher.
+		GameRegistry.addRecipe(new ItemStack(ModRegistry.MonsterMasher()),
+				"abc",
+				"ede",
+				"fgh",
+				'a', new ItemStack(Item.getItemFromBlock(Blocks.SKULL), 1, 2),
+				'b', Item.getItemFromBlock(Blocks.REDSTONE_BLOCK),
+				'c', new ItemStack(Item.getItemFromBlock(Blocks.SKULL), 1, 0),
+				'e', Item.getItemFromBlock(Blocks.IRON_BARS),
+				'd', ModRegistry.CompressedChestItem(),
+				'f', new ItemStack(ModRegistry.CompressedStoneBlock(), 1, BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE.getMetadata()),
+				'g', new ItemStack(ModRegistry.CompressedStoneBlock(), 1, BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE.getMetadata()),
+				'h', new ItemStack(ModRegistry.CompressedStoneBlock(), 1, BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE.getMetadata()));
 				
 	}
 
@@ -382,6 +430,7 @@ public class ModRegistry
 		Prefab.network.registerMessage(ProduceFarmHandler.class, ProduceFarmTagMessage.class, 5, Side.SERVER);
 		Prefab.network.registerMessage(TreeFarmHandler.class, TreeFarmTagMessage.class, 6, Side.SERVER);
 		Prefab.network.registerMessage(FishPondHandler.class, FishPondTagMessage.class, 7, Side.SERVER);
+		Prefab.network.registerMessage(MonsterMasherHandler.class, MonsterMasherTagMessage.class, 8, Side.SERVER);
 	}
 	
 	/**
@@ -455,5 +504,6 @@ public class ModRegistry
 		ModRegistry.ModGuis.put(ModRegistry.GuiFishPond, GuiFishPond.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiStartHouseChooser, GuiStartHouseChooser.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiAdvancedWareHouse, GuiAdvancedWareHouse.class);
+		ModRegistry.ModGuis.put(ModRegistry.GuiMonsterMasher, GuiMonsterMasher.class);
 	}
 }

@@ -10,6 +10,8 @@ import com.wuest.prefab.BuildingMethods;
 import com.wuest.prefab.Config.StructureConfiguration;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockLever;
+import net.minecraft.block.BlockLever.EnumOrientation;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockQuartz;
 import net.minecraft.block.BlockLog.EnumAxis;
@@ -146,6 +148,7 @@ public class BuildBlock
 		EnumFacing vineFacing = EnumFacing.UP;
 		EnumAxis logFacing = EnumAxis.X;
 		BlockQuartz.EnumType quartzFacing = BlockQuartz.EnumType.DEFAULT;
+		EnumOrientation leverOrientation = EnumOrientation.NORTH;
 		
 		// Vines have a special property for it's "facing"
 		if (foundBlock instanceof BlockVine)
@@ -234,6 +237,59 @@ public class BuildBlock
 			}
 		}
 		
+		if (foundBlock instanceof BlockLever)
+		{
+			// Levers have a special facing.
+			leverOrientation = BlockLever.EnumOrientation.valueOf(block.getProperty("facing").getValue().toUpperCase());
+			
+			if (leverOrientation.getFacing() == EnumFacing.DOWN
+					|| leverOrientation.getFacing() == EnumFacing.UP)
+			{
+				if (leverOrientation.getFacing() == EnumFacing.DOWN)
+				{
+					leverOrientation = 
+							configuration.houseFacing == assumedNorth || configuration.houseFacing == assumedNorth.getOpposite() 
+								? leverOrientation : 
+									leverOrientation == EnumOrientation.DOWN_X 
+								? EnumOrientation.DOWN_Z : EnumOrientation.DOWN_X;
+				}
+				else
+				{
+					leverOrientation = 
+							configuration.houseFacing == assumedNorth || configuration.houseFacing == assumedNorth.getOpposite() 
+								? leverOrientation : 
+									leverOrientation == EnumOrientation.UP_X 
+								? EnumOrientation.UP_Z : EnumOrientation.UP_X;
+				}
+			}
+			else
+			{
+				EnumFacing facing = leverOrientation.getFacing();
+				
+				if (configuration.houseFacing == assumedNorth.rotateY())
+				{				
+					facing = facing.rotateY();
+				}
+				else if (configuration.houseFacing == assumedNorth.getOpposite())
+				{
+					facing = facing.getOpposite();
+				}
+				else if (configuration.houseFacing == assumedNorth.rotateYCCW())
+				{
+					facing = facing.rotateYCCW();
+				}
+				
+				for (EnumOrientation tempOrientation : EnumOrientation.values())
+				{
+					if (tempOrientation.getFacing() == facing)
+					{
+						leverOrientation = tempOrientation;
+						break;
+					}
+				}
+			}
+		}
+		
 		// If this block has custom processing for block state just continue onto the next block. The sub-class is expected to place the block.
 		if (block.getProperties().size() > 0)
 		{
@@ -249,16 +305,16 @@ public class BuildBlock
 				Optional<?> propertyValue = property.parseValue(buildProperty.getValue());
 				Comparable<?> comparable = set.getValue().getClass().cast(propertyValue.get());
 				
-				if (property.getName().equals("facing"))
+				if (property.getName().equals("facing") && !(foundBlock instanceof BlockLever))
 				{
 					// Facing properties should be relative to the configuration facing.
 					EnumFacing facing = EnumFacing.byName(propertyValue.get().toString());
 					
 					// Cannot rotate verticals.
-					if (facing != EnumFacing.UP && facing != EnumFacing.DOWN)
+					if (facing != null && facing != EnumFacing.UP && facing != EnumFacing.DOWN)
 					{
 						if (configuration.houseFacing == assumedNorth.rotateY())
-						{
+						{				
 							facing = facing.rotateY();
 						}
 						else if (configuration.houseFacing == assumedNorth.getOpposite())
@@ -273,6 +329,11 @@ public class BuildBlock
 					
 					comparable = facing;
 					
+					block.setHasFacing(true);
+				}
+				else if (property.getName().equals("facing") && foundBlock instanceof BlockLever)
+				{
+					comparable = leverOrientation;
 					block.setHasFacing(true);
 				}
 				else if (property.getName().equals("rotation"))

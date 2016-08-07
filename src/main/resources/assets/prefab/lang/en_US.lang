@@ -8,6 +8,8 @@ item.prefab:itemCompressedChest.name=Compressed Chest
 item.prefab:itemPileOfBricks.name=Pile of Bricks
 item.prefab:itemPalletOfBricks.name=Pallet of Bricks
 item.prefab:itemAdvancedWareHouse.name=Advanced Warehouse
+item.prefab:itemMonsterMasher.name=Monster Masher
+item.prefab:itemWareHouseUpgrade.name=Warehouse Upgrade
 
 tile.prefab:blockCompressedStone.block_compressed_stone.name=Compressed Stone
 tile.prefab:blockCompressedStone.block_double_compressed_stone.name=Double Compressed Stone

@@ -19,7 +19,11 @@ import com.wuest.prefab.ZipUtil;
 import com.wuest.prefab.Config.StructureConfiguration;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockButton;
+import net.minecraft.block.BlockLever;
 import net.minecraft.block.BlockQuartz;
+import net.minecraft.block.BlockSign;
+import net.minecraft.block.BlockTorch;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -254,18 +258,38 @@ public class Structure
 				}
 			}
 			
+			ArrayList<BuildBlock> otherFacingBlocks = new ArrayList<BuildBlock>();
+			
 			// Now place all of the facing blocks. This needs to be done here these blocks may not "stick" before all of the other solid blocks are placed.
 			for (BuildBlock currentBlock : this.placedBlocks)
 			{
-				BuildingMethods.ReplaceBlockNoAir(world, currentBlock.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing), currentBlock.getBlockState());
+				IBlockState state = currentBlock.getBlockState();
+
+				// These blocks may be attached to other facing blocks and must be done later.
+				if (state.getBlock() instanceof BlockTorch 
+						|| state.getBlock() instanceof BlockSign
+						|| state.getBlock() instanceof BlockLever
+						|| state.getBlock() instanceof BlockButton)
+				{
+					otherFacingBlocks.add(currentBlock);
+					continue;
+				}
+				
+				BuildingMethods.ReplaceBlockNoAir(world, currentBlock.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing), state);
 				
 				// After placing the initial block, set the sub-block. This needs to happen as the list isn't always in the correct order.
 				if (currentBlock.getSubBlock() != null)
 				{
 					BuildBlock subBlock = currentBlock.getSubBlock();
 					
-					BuildingMethods.ReplaceBlockNoAir(world, subBlock.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing), subBlock.getBlockState());
+					BuildingMethods.ReplaceBlockNoAir(world, subBlock.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing), state);
 				}
+			}
+			
+			// Do the final facing blocks, these ones MUST be done last.
+			for (BuildBlock currentBlock : otherFacingBlocks)
+			{
+				BuildingMethods.ReplaceBlockNoAir(world, currentBlock.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing), currentBlock.getBlockState());
 			}
 		}
 		
