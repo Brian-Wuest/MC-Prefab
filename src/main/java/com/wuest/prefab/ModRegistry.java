@@ -407,15 +407,16 @@ public class ModRegistry
 				"abc",
 				"ede",
 				"fgh",
-				'a', new ItemStack(Item.getItemFromBlock(Blocks.SKULL), 1, 2),
+				'a', new ItemStack(Items.SKULL, 1, 2),
 				'b', Item.getItemFromBlock(Blocks.REDSTONE_BLOCK),
-				'c', new ItemStack(Item.getItemFromBlock(Blocks.SKULL), 1, 0),
+				'c', new ItemStack(Items.SKULL, 1, 0),
 				'e', Item.getItemFromBlock(Blocks.IRON_BARS),
 				'd', ModRegistry.CompressedChestItem(),
 				'f', new ItemStack(ModRegistry.CompressedStoneBlock(), 1, BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE.getMetadata()),
 				'g', new ItemStack(ModRegistry.CompressedStoneBlock(), 1, BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE.getMetadata()),
 				'h', new ItemStack(ModRegistry.CompressedStoneBlock(), 1, BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE.getMetadata()));
-				
+		
+		
 	}
 
 	/**
