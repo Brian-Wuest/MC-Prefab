@@ -282,14 +282,14 @@ public class Structure
 				{
 					BuildBlock subBlock = currentBlock.getSubBlock();
 					
-					BuildingMethods.ReplaceBlockNoAir(world, subBlock.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing), state);
+					BuildingMethods.ReplaceBlockNoAir(world, subBlock.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing), subBlock.getBlockState());
 				}
 			}
 			
 			// Do the final facing blocks, these ones MUST be done last.
-			for (BuildBlock currentBlock : otherFacingBlocks)
+			for (BuildBlock otherBlock : otherFacingBlocks)
 			{
-				BuildingMethods.ReplaceBlockNoAir(world, currentBlock.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing), currentBlock.getBlockState());
+				BuildingMethods.ReplaceBlockNoAir(world, otherBlock.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing), otherBlock.getBlockState());
 			}
 		}
 		
