@@ -450,8 +450,18 @@ public class ModRegistry
 	
 	public static <T extends Block> T registerBlock(T block)
 	{
+		return ModRegistry.registerBlock(block, true);
+	}
+	
+	public static <T extends Block> T registerBlock(T block, boolean includeItemBlock)
+	{
 		GameRegistry.register(block);
-		GameRegistry.register(new ItemBlock(block).setRegistryName(block.getRegistryName()));
+		
+		if (includeItemBlock)
+		{
+			GameRegistry.register(new ItemBlock(block).setRegistryName(block.getRegistryName()));
+		}
+		
 		ModRegistry.ModBlocks.add(block);
 		
 		return block;
