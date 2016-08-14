@@ -6,6 +6,8 @@ import java.io.IOException;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.ChickenCoopConfiguration;
 import com.wuest.prefab.Proxy.Messages.ChickenCoopTagMessage;
+import com.wuest.prefab.Render.StructureRenderHandler;
+import com.wuest.prefab.StructureGen.CustomStructures.StructureChickenCoop;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiLabel;
@@ -27,6 +29,7 @@ public class GuiChickenCoop extends GuiScreen
 	
 	protected GuiButtonExt btnCancel;
 	protected GuiButtonExt btnBuild;
+	protected GuiButtonExt btnVisualize;
 	
 	public BlockPos pos;
 	
@@ -50,14 +53,14 @@ public class GuiChickenCoop extends GuiScreen
 	@Override
 	public void drawScreen(int x, int y, float f) 
 	{
-		int grayBoxX = (this.width / 2) - 188;
+		int grayBoxX = (this.width / 2) - 213;
 		int grayBoxY = (this.height / 2) - 83;
 		
 		this.drawDefaultBackground();
 		
 		// Draw the control background.
 		this.mc.getTextureManager().bindTexture(structureTopDown);
-		this.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 0, 0, 252, 136, 252, 136);
+		this.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 0, 0, 171, 87, 171, 87);
 		
 		this.mc.getTextureManager().bindTexture(backgroundTextures);
 		this.drawTexturedModalRect(grayBoxX, grayBoxY, 0, 0, 256, 256);
@@ -103,6 +106,12 @@ public class GuiChickenCoop extends GuiScreen
 			this.configuration.houseFacing = this.configuration.houseFacing.rotateY();
 			this.btnHouseFacing.displayString = GuiLangKeys.translateFacing(this.configuration.houseFacing);
 		}
+		else if (button == this.btnVisualize)
+		{
+			StructureChickenCoop structure = StructureChickenCoop.CreateInstance(StructureChickenCoop.ASSETLOCATION, StructureChickenCoop.class);
+			StructureRenderHandler.setStructure(structure, EnumFacing.NORTH, this.configuration);
+			this.mc.displayGuiScreen(null);
+		}
 	}
 	
 	/**
@@ -120,13 +129,16 @@ public class GuiChickenCoop extends GuiScreen
 		this.configuration.pos = this.pos;
 
 		// Get the upper left hand corner of the GUI box.
-		int grayBoxX = (this.width / 2) - 188;
+		int grayBoxX = (this.width / 2) - 213;
 		int grayBoxY = (this.height / 2) - 83;
 
 		// Create the buttons.
-		this.btnHouseFacing = new GuiButtonExt(3, grayBoxX + 10, grayBoxY + 20, 100, 20, GuiLangKeys.translateFacing(this.configuration.houseFacing));
+		this.btnHouseFacing = new GuiButtonExt(3, grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateFacing(this.configuration.houseFacing));
 		this.buttonList.add(this.btnHouseFacing);
 
+		this.btnVisualize = new GuiButtonExt(4, grayBoxX + 10, grayBoxY + 50, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW));
+		this.buttonList.add(this.btnVisualize);
+		
 		// Create the done and cancel buttons.
 		this.btnBuild = new GuiButtonExt(1, grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_BUILD));
 		this.buttonList.add(this.btnBuild);

@@ -6,11 +6,14 @@ import java.io.IOException;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.MonsterMasherConfiguration;
 import com.wuest.prefab.Proxy.Messages.MonsterMasherTagMessage;
+import com.wuest.prefab.Render.StructureRenderHandler;
+import com.wuest.prefab.StructureGen.CustomStructures.StructureMonsterMasher;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiLabel;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.item.EnumDyeColor;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
@@ -18,10 +21,11 @@ import net.minecraftforge.fml.client.config.GuiButtonExt;
 public class GuiMonsterMasher extends GuiScreen
 {
 	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/defaultBackground.png");
-	private static final ResourceLocation houseTopDown = new ResourceLocation("prefab", "textures/gui/MonsterMasherTopDown.png");
+	private static final ResourceLocation houseTopDown = new ResourceLocation("prefab", "textures/gui/monsterMasherTopDown.png");
 	
 	protected GuiButtonExt btnCancel;
 	protected GuiButtonExt btnBuild;
+	protected GuiButtonExt btnVisualize;
 	
 	public BlockPos pos;
 	
@@ -44,11 +48,14 @@ public class GuiMonsterMasher extends GuiScreen
 		int grayBoxY = (this.height / 2) - 83;
 
 		// Create the buttons.
-		this.btnHouseFacing = new GuiButtonExt(3, grayBoxX + 10, grayBoxY + 20, 100, 20, GuiLangKeys.translateFacing(this.configuration.houseFacing));
+		this.btnHouseFacing = new GuiButtonExt(3, grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateFacing(this.configuration.houseFacing));
 		this.buttonList.add(this.btnHouseFacing);
 
-		this.btnGlassColor = new GuiButtonExt(10, grayBoxX + 10, grayBoxY + 60, 100, 20, GuiLangKeys.translateDye(this.configuration.dyeColor));
+		this.btnGlassColor = new GuiButtonExt(10, grayBoxX + 10, grayBoxY + 60, 90, 20, GuiLangKeys.translateDye(this.configuration.dyeColor));
 		this.buttonList.add(this.btnGlassColor);
+		
+		this.btnVisualize = new GuiButtonExt(4, grayBoxX + 10, grayBoxY + 90, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW));
+		this.buttonList.add(this.btnVisualize);
 
 		// Create the done and cancel buttons.
 		this.btnBuild = new GuiButtonExt(1, grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_BUILD));
@@ -138,6 +145,12 @@ public class GuiMonsterMasher extends GuiScreen
 		{
 			this.configuration.dyeColor = EnumDyeColor.byMetadata(this.configuration.dyeColor.getMetadata() + 1);
 			this.btnGlassColor.displayString = GuiLangKeys.translateDye(this.configuration.dyeColor);
+		}
+		else if (button == this.btnVisualize)
+		{
+			StructureMonsterMasher structure = StructureMonsterMasher.CreateInstance(StructureMonsterMasher.ASSETLOCATION, StructureMonsterMasher.class);
+			StructureRenderHandler.setStructure(structure, EnumFacing.NORTH, this.configuration);
+			this.mc.displayGuiScreen(null);
 		}
 	}
 }

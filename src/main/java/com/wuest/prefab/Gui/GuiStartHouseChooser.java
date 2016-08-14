@@ -2,20 +2,19 @@ package com.wuest.prefab.Gui;
 
 import java.awt.Color;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Config.ChickenCoopConfiguration;
 import com.wuest.prefab.Config.HouseConfiguration;
 import com.wuest.prefab.Config.ModConfiguration;
-import com.wuest.prefab.Gui.Controls.*;
+import com.wuest.prefab.Gui.Controls.GuiCheckBox;
+import com.wuest.prefab.Gui.Controls.GuiTab;
+import com.wuest.prefab.Gui.Controls.GuiTextSlider;
 import com.wuest.prefab.Proxy.ClientProxy;
-import com.wuest.prefab.Proxy.Messages.ChickenCoopTagMessage;
 import com.wuest.prefab.Proxy.Messages.HouseTagMessage;
+import com.wuest.prefab.Render.StructureRenderHandler;
+import com.wuest.prefab.StructureGen.CustomStructures.StructureAlternateStart;
 
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiLabel;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
@@ -38,6 +37,7 @@ public class GuiStartHouseChooser extends GuiTabScreen
 	protected GuiButtonExt btnHouseStyle;
 	protected GuiButtonExt btnHouseFacing;
 	protected GuiButtonExt btnGlassColor;
+	protected GuiButtonExt btnVisualize;
 	
 	// Config:
 	protected GuiCheckBox btnAddTorches;
@@ -115,6 +115,15 @@ public class GuiStartHouseChooser extends GuiTabScreen
 		{
 			this.btnHouseStyle.visible = true;
 			this.btnHouseFacing.visible = true;
+			
+			if (this.houseStyle == HouseConfiguration.HouseStyle.BASIC)
+			{
+				this.btnVisualize.visible = false;
+			}
+			else
+			{
+				this.btnVisualize.visible = true;
+			}
 		}
 		else if (this.getSelectedTab() == this.tabConfig)
 		{
@@ -254,6 +263,18 @@ public class GuiStartHouseChooser extends GuiTabScreen
 			this.houseColor = EnumDyeColor.byMetadata(this.houseColor.getMetadata() + 1);
 			this.btnGlassColor.displayString = GuiLangKeys.translateDye(this.houseColor);
 		}
+		else if (button == this.btnVisualize)
+		{
+			HouseConfiguration configuration = new HouseConfiguration();
+			configuration.pos = this.pos;
+			configuration.glassColor = this.houseColor;
+			configuration.houseFacing = this.houseFacing;
+			configuration.houseStyle = this.houseStyle;
+			StructureAlternateStart structure = StructureAlternateStart.CreateInstance(configuration.houseStyle.getStructureLocation(), StructureAlternateStart.class);
+			
+			StructureRenderHandler.setStructure(structure, EnumFacing.NORTH, configuration);
+			this.mc.displayGuiScreen(null);
+		}
 	}
 	
 	/**
@@ -280,6 +301,10 @@ public class GuiStartHouseChooser extends GuiTabScreen
 		
 		this.btnHouseFacing = new GuiButtonExt(3, grayBoxX + 10, grayBoxY + 60, 90, 20, GuiLangKeys.translateFacing(EnumFacing.NORTH));
 		this.buttonList.add(this.btnHouseFacing);
+		
+		this.btnVisualize = new GuiButtonExt(4, grayBoxX + 10, grayBoxY + 90, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW));
+		this.buttonList.add(this.btnVisualize);
+
 		
 		int x = grayBoxX + 10;
 		int y = grayBoxY + 10;

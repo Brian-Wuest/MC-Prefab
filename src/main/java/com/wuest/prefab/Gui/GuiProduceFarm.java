@@ -6,6 +6,8 @@ import java.io.IOException;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.ProduceFarmConfiguration;
 import com.wuest.prefab.Proxy.Messages.ProduceFarmTagMessage;
+import com.wuest.prefab.Render.StructureRenderHandler;
+import com.wuest.prefab.StructureGen.CustomStructures.StructureProduceFarm;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiLabel;
@@ -26,6 +28,7 @@ public class GuiProduceFarm extends GuiScreen
 	
 	protected GuiButtonExt btnCancel;
 	protected GuiButtonExt btnBuild;
+	protected GuiButtonExt btnVisualize;
 	
 	public BlockPos pos;
 	
@@ -48,12 +51,15 @@ public class GuiProduceFarm extends GuiScreen
 		int grayBoxY = (this.height / 2) - 83;
 
 		// Create the buttons.
-		this.btnHouseFacing = new GuiButtonExt(3, grayBoxX + 10, grayBoxY + 20, 100, 20, GuiLangKeys.translateFacing(this.configuration.houseFacing));
+		this.btnHouseFacing = new GuiButtonExt(3, grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateFacing(this.configuration.houseFacing));
 		this.buttonList.add(this.btnHouseFacing);
 
-		this.btnGlassColor = new GuiButtonExt(10, grayBoxX + 10, grayBoxY + 60, 100, 20, GuiLangKeys.translateDye(this.configuration.dyeColor));
+		this.btnGlassColor = new GuiButtonExt(10, grayBoxX + 10, grayBoxY + 60, 90, 20, GuiLangKeys.translateDye(this.configuration.dyeColor));
 		this.buttonList.add(this.btnGlassColor);
 
+		this.btnVisualize = new GuiButtonExt(4, grayBoxX + 10, grayBoxY + 90, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW));
+		this.buttonList.add(this.btnVisualize);
+		
 		// Create the done and cancel buttons.
 		this.btnBuild = new GuiButtonExt(1, grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_BUILD));
 		this.buttonList.add(this.btnBuild);
@@ -170,6 +176,12 @@ public class GuiProduceFarm extends GuiScreen
 		{
 			this.configuration.dyeColor = EnumDyeColor.byMetadata(this.configuration.dyeColor.getMetadata() + 1);
 			this.btnGlassColor.displayString = GuiLangKeys.translateDye(this.configuration.dyeColor);
+		}
+		else if (button == this.btnVisualize)
+		{
+			StructureProduceFarm structure = StructureProduceFarm.CreateInstance(StructureProduceFarm.ASSETLOCATION, StructureProduceFarm.class);
+			StructureRenderHandler.setStructure(structure, EnumFacing.NORTH, this.configuration);
+			this.mc.displayGuiScreen(null);
 		}
 	}
 }

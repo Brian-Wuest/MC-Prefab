@@ -154,6 +154,15 @@ public class GuiLangKeys
 	@Unlocalized(name = "Cancel")
 	public static final String GUI_BUTTON_CANCEL = "prefab.gui.button.cancel";
 	
+	@Unlocalized(name = "Preview!")
+	public static final String GUI_BUTTON_PREVIEW = "prefab.gui.button.preview";
+	
+	@Unlocalized(name = "Structure Complete!")
+	public static final String GUI_PREVIEW_COMPLETE = "prefab.gui.preview.complete";
+	
+	@Unlocalized(name = "Right-click on any block in the world to remove the preview.")
+	public static final String GUI_PREVIEW_NOTICE = "prefab.gui.preview.notice";
+	
 	@Unlocalized(name = "north")
 	public static final String GUI_NORTH = "prefab.gui.north";
 	

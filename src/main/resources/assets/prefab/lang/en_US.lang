@@ -77,6 +77,10 @@ prefab.gui.structure.door.facing=Note: If you're facing north, choose south so t
 
 prefab.gui.button.build=Build!
 prefab.gui.button.cancel=Cancel
+prefab.gui.button.preview=Preview!
+
+prefab.gui.preview.complete=Structure Complete!
+prefab.gui.preview.notice=Right-click on any block in the world to remove the preview.
 
 prefab.gui.north=North
 prefab.gui.east=East

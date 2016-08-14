@@ -6,6 +6,8 @@ import java.io.IOException;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.TreeFarmConfiguration;
 import com.wuest.prefab.Proxy.Messages.TreeFarmTagMessage;
+import com.wuest.prefab.Render.StructureRenderHandler;
+import com.wuest.prefab.StructureGen.CustomStructures.StructureTreeFarm;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiLabel;
@@ -25,6 +27,7 @@ public class GuiTreeFarm extends GuiScreen
 	
 	protected GuiButtonExt btnCancel;
 	protected GuiButtonExt btnBuild;
+	protected GuiButtonExt btnVisualize;
 	
 	public BlockPos pos;
 	
@@ -102,6 +105,12 @@ public class GuiTreeFarm extends GuiScreen
 			this.configuration.houseFacing = this.configuration.houseFacing.rotateY();
 			this.btnHouseFacing.displayString = GuiLangKeys.translateFacing(this.configuration.houseFacing);
 		}
+		else if (button == this.btnVisualize)
+		{
+			StructureTreeFarm structure = StructureTreeFarm.CreateInstance(StructureTreeFarm.ASSETLOCATION, StructureTreeFarm.class);
+			StructureRenderHandler.setStructure(structure, EnumFacing.NORTH, this.configuration);
+			this.mc.displayGuiScreen(null);
+		}
 	}
 	
 	/**
@@ -124,8 +133,12 @@ public class GuiTreeFarm extends GuiScreen
 		int grayBoxY = (this.height / 2) - 83;
 
 		// Create the buttons.
-		this.btnHouseFacing = new GuiButtonExt(3, grayBoxX + 10, grayBoxY + 20, 100, 20, GuiLangKeys.translateFacing(this.configuration.houseFacing));
+		this.btnHouseFacing = new GuiButtonExt(3, grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateFacing(this.configuration.houseFacing));
 		this.buttonList.add(this.btnHouseFacing);
+		
+		this.btnVisualize = new GuiButtonExt(4, grayBoxX + 10, grayBoxY + 50, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW));
+		this.buttonList.add(this.btnVisualize);
+
 
 		// Create the done and cancel buttons.
 		this.btnBuild = new GuiButtonExt(1, grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_BUILD));

@@ -5,8 +5,12 @@ import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Blocks.BlockCompressedStone;
 import com.wuest.prefab.Config.ModConfiguration;
+import com.wuest.prefab.Events.ClientEventHandler;
+import com.wuest.prefab.Render.ShaderHelper;
+import com.wuest.prefab.Render.StructureRenderHandler;
 
 import net.minecraft.client.renderer.block.model.ModelBakery;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -14,6 +18,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class ClientProxy extends CommonProxy
 {
 	public ModConfiguration serverConfiguration = null;
+	public static ClientEventHandler clientEventHandler = new ClientEventHandler();
 	
 	@Override
 	public void preInit(FMLPreInitializationEvent event)
@@ -45,12 +50,15 @@ public class ClientProxy extends CommonProxy
 	public void registerRenderers() 
 	{
 		ItemRenderRegister.registerItemRenderer();
+		ShaderHelper.Initialize();
 	}
 	
 	@Override
 	protected void RegisterEventListeners()
 	{
-		super.RegisterEventListeners();
+		System.out.println("Registering event listeners");
+
+		MinecraftForge.EVENT_BUS.register(clientEventHandler);
 	}
 	
 	@Override
