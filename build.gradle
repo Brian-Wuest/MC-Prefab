@@ -61,6 +61,14 @@ dependencies {
 
 }
 
+compileJava {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 processResources
 {
     // this will ensure that this task is redone when the versions change.
