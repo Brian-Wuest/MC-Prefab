@@ -14,6 +14,12 @@ import com.wuest.prefab.Events.ClientEventHandler;
 
 import net.minecraft.client.renderer.OpenGlHelper;
 
+/**
+ * This class we derived from Botania's ShaderHelper. The only real change was to change the location of the assets when initializing the shader.
+ * http://botaniamod.net/license.php
+ * @author WuestMan
+ *
+ */
 public class ShaderHelper
 {
 	private static final int VERT = ARBVertexShader.GL_VERTEX_SHADER_ARB;

@@ -58,8 +58,14 @@ public class ClientEventHandler
 		{
 			GuiScreen gui = Minecraft.getMinecraft().currentScreen;
 			
-			if(gui == null || !gui.doesGuiPauseGame()) 
+			if (gui == null || !gui.doesGuiPauseGame()) 
 			{
+				// Reset the ticks in game if we are getting close to the maximum value of an integer.
+				if (Integer.MAX_VALUE - 100 == ClientEventHandler.ticksInGame)
+				{
+					ClientEventHandler.ticksInGame = 1;
+				}
+				
 				ClientEventHandler.ticksInGame++;
 			}
 		}

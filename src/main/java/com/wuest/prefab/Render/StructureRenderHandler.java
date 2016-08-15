@@ -34,6 +34,7 @@ import net.minecraftforge.fml.relauncher.ReflectionHelper;
  * @author WuestMan
  * This class was derived from Botania's MultiBlockRenderer.
  * Most changes are for extra comments for myself as well as to use my blocks class structure.
+ * http://botaniamod.net/license.php
  *
  */
 public class StructureRenderHandler
