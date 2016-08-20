@@ -61,7 +61,7 @@ public class StructureMonsterMasher extends Structure
 			
 			blockState = blockState.withProperty(BlockStainedGlass.COLOR, wareHouseConfiguration.dyeColor);
 			block.setBlockState(blockState);
-			this.placedBlocks.add(block);
+			this.priorityOneBlocks.add(block);
 			
 			return true;
 		}
@@ -87,7 +87,7 @@ public class StructureMonsterMasher extends Structure
 	 * @param player The player which initiated the construction.
 	 */
 	@Override
-	protected void AfterBuilding(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth, EntityPlayer player)
+	public void AfterBuilding(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth, EntityPlayer player)
 	{
 		int monstersPlaced = 0;
 		

@@ -82,7 +82,7 @@ public class CommonProxy implements IGuiHandler
 	protected void RegisterEventListeners()
 	{
 		// DEBUG
-		System.out.println("Registering event listeners");
+		System.out.println("Registering server event listeners");
 		MinecraftForge.EVENT_BUS.register(eventHandler);
 	}
 	

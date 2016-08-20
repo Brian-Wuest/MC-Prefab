@@ -51,7 +51,8 @@ public class StructureProduceFarm extends Structure
 			
 			blockState = blockState.withProperty(BlockStainedGlass.COLOR, wareHouseConfiguration.dyeColor);
 			block.setBlockState(blockState);
-			this.placedBlocks.add(block);
+			//this.placedBlocks.add(block);
+			this.priorityOneBlocks.add(block);
 			
 			return true;
 		}

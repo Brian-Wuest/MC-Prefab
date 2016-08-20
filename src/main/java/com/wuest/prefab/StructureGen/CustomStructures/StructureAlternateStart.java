@@ -119,7 +119,7 @@ public class StructureAlternateStart extends Structure
 		{
 			blockState = blockState.withProperty(BlockStainedGlass.COLOR, houseConfig.glassColor);
 			block.setBlockState(blockState);
-			this.placedBlocks.add(block);
+			this.priorityOneBlocks.add(block);
 
 			return true;
 		}
@@ -127,7 +127,7 @@ public class StructureAlternateStart extends Structure
 				&& foundBlock.getRegistryName().getResourcePath().equals(Blocks.STAINED_GLASS_PANE.getRegistryName().getResourcePath()))
 		{
 			block.setBlockState(foundBlock.getStateFromMeta(houseConfig.glassColor.getMetadata()));
-			this.placedBlocks.add(block);
+			this.priorityOneBlocks.add(block);
 			return true;
 		}
 
@@ -145,7 +145,7 @@ public class StructureAlternateStart extends Structure
 	 * @param player The player which initiated the construction.
 	 */
 	@Override
-	protected void AfterBuilding(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth, EntityPlayer player)
+	public void AfterBuilding(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth, EntityPlayer player)
 	{
 		HouseConfiguration houseConfig = (HouseConfiguration) configuration;
 

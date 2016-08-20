@@ -1,5 +1,7 @@
 package com.wuest.prefab.StructureGen;
 
+import com.google.gson.annotations.Expose;
+
 import net.minecraft.util.EnumFacing;
 
 /**
@@ -8,9 +10,16 @@ import net.minecraft.util.EnumFacing;
  */
 public class BuildShape
 {
+	@Expose
 	private int width;
+	
+	@Expose
 	private int height;
+	
+	@Expose
 	private int length;
+	
+	@Expose
 	private EnumFacing direction;
 	
 	public BuildShape()

@@ -1,5 +1,7 @@
 package com.wuest.prefab.StructureGen;
 
+import com.google.gson.annotations.Expose;
+
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 
@@ -9,10 +11,19 @@ import net.minecraft.util.math.BlockPos;
  */
 public class PositionOffset
 {
+	@Expose
 	private int northOffset;
+	
+	@Expose
 	private int southOffset;
+	
+	@Expose
 	private int eastOffset;
+	
+	@Expose
 	private int westOffset;
+	
+	@Expose
 	private int heightOffset;
 	
 	public PositionOffset()

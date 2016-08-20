@@ -1,5 +1,7 @@
 package com.wuest.prefab.StructureGen;
 
+import com.google.gson.annotations.Expose;
+
 /**
  * Defines a shape which should have all of it's blocks replaced with air.
  * @author WuestMan
@@ -7,7 +9,10 @@ package com.wuest.prefab.StructureGen;
  */
 public class BuildClear
 {
+	@Expose
 	private BuildShape shape;
+	
+	@Expose
 	private PositionOffset startingPosition;
 	
 	public BuildClear()

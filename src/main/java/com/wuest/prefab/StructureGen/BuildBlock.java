@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableTable;
+import com.google.gson.annotations.Expose;
 import com.wuest.prefab.BuildingMethods;
 import com.wuest.prefab.Config.StructureConfiguration;
 
@@ -30,12 +31,25 @@ import net.minecraft.world.World;
  */
 public class BuildBlock
 {
+	@Expose
 	private String blockDomain;
+	
+	@Expose
 	private String blockName;
+	
+	@Expose
 	private PositionOffset startingPosition;
+	
+	@Expose
 	private ArrayList<BuildProperty> properties;
+	
+	@Expose
 	private BuildBlock subBlock;
+	
+	@Expose
 	private boolean hasFacing;
+	
+	@Expose
 	private IBlockState state;
 	
 	public BuildBlock()

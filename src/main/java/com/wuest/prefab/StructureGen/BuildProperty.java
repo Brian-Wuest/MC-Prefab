@@ -1,8 +1,13 @@
 package com.wuest.prefab.StructureGen;
 
+import com.google.gson.annotations.Expose;
+
 public class BuildProperty
 {
+	@Expose
 	private String name;
+	
+	@Expose
 	private String value;
 	
 	public BuildProperty()

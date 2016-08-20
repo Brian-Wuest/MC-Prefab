@@ -1,5 +1,10 @@
 package com.wuest.prefab.Events;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map.Entry;
+
+import com.wuest.prefab.BuildingMethods;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.UpdateChecker;
@@ -7,7 +12,10 @@ import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Proxy.ClientProxy;
 import com.wuest.prefab.Proxy.Messages.ConfigSyncMessage;
 import com.wuest.prefab.Render.StructureRenderHandler;
+import com.wuest.prefab.StructureGen.BuildBlock;
+import com.wuest.prefab.StructureGen.Structure;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,6 +31,7 @@ import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent.ServerTickEvent;
 
 /**
  * This is the server side event hander.
@@ -32,6 +41,8 @@ public class ModEventHandler
 {
 	public static final String GIVEN_HOUSEBUILDER_TAG = "givenHousebuilder";
 
+	public static HashMap<EntityPlayer, ArrayList<Structure>> structuresToBuild = new HashMap<EntityPlayer, ArrayList<Structure>>();
+	
 	@SubscribeEvent
 	public void PlayerJoinedWorld(EntityJoinWorldEvent event)
 	{
@@ -62,6 +73,78 @@ public class ModEventHandler
 			{
 				((EntityPlayer)event.getEntity()).addChatMessage(new TextComponentString(UpdateChecker.messageToShow));
 			}
+		}
+	}
+	
+	@SubscribeEvent
+	public void onServerTick(ServerTickEvent event)
+	{
+		ArrayList<EntityPlayer> playersToRemove = new ArrayList<EntityPlayer>();
+		
+		for (Entry<EntityPlayer, ArrayList<Structure>> entry : ModEventHandler.structuresToBuild.entrySet())
+		{
+			ArrayList<Structure> structuresToRemove = new ArrayList<Structure>();
+			
+			// Build the first 100 blocks of each structure for this player.
+			for (Structure structure : entry.getValue())
+			{
+				for (int i = 0; i < 100; i++)
+				{
+					BuildBlock currentBlock = null;
+					
+					if (structure.priorityOneBlocks.size() > 0)
+					{
+						currentBlock = structure.priorityOneBlocks.get(0);
+						structure.priorityOneBlocks.remove(0);
+					}
+					else if (structure.priorityTwoBlocks.size() > 0)
+					{
+						currentBlock = structure.priorityTwoBlocks.get(0);
+						structure.priorityTwoBlocks.remove(0);
+					}
+					else if (structure.priorityThreeBlocks.size() > 0)
+					{
+						currentBlock = structure.priorityThreeBlocks.get(0);
+						structure.priorityThreeBlocks.remove(0);
+					}
+					else
+					{
+						// There are no more blocks to set.
+						structuresToRemove.add(structure);
+						break;
+					}
+					
+					IBlockState state = currentBlock.getBlockState();
+					
+					BuildingMethods.ReplaceBlockNoAir(structure.world, currentBlock.getStartingPosition().getRelativePosition(structure.originalPos, structure.configuration.houseFacing), state);
+					
+					// After placing the initial block, set the sub-block. This needs to happen as the list isn't always in the correct order.
+					if (currentBlock.getSubBlock() != null)
+					{
+						BuildBlock subBlock = currentBlock.getSubBlock();
+						
+						BuildingMethods.ReplaceBlockNoAir(structure.world, subBlock.getStartingPosition().getRelativePosition(structure.originalPos, structure.configuration.houseFacing), subBlock.getBlockState());
+					}
+				}
+			}
+			
+			for (Structure structure : structuresToRemove)
+			{
+				// This structure is done building. Do any post-building operations.
+				structure.AfterBuilding(structure.configuration, structure.world, structure.originalPos, structure.assumedNorth, entry.getKey());
+				entry.getValue().remove(structure);
+			}
+			
+			if (entry.getValue().size() == 0)
+			{
+				playersToRemove.add(entry.getKey());
+			}
+		}
+		
+		// Remove each player that has their structure's built.
+		for (EntityPlayer player : playersToRemove)
+		{
+			ModEventHandler.structuresToBuild.remove(player);
 		}
 	}
 	

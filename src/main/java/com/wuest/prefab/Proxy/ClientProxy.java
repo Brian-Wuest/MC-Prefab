@@ -56,7 +56,9 @@ public class ClientProxy extends CommonProxy
 	@Override
 	protected void RegisterEventListeners()
 	{
-		System.out.println("Registering event listeners");
+		super.RegisterEventListeners();
+		
+		System.out.println("Registering client event listeners");
 
 		MinecraftForge.EVENT_BUS.register(clientEventHandler);
 	}
