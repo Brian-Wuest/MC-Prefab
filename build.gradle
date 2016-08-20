@@ -20,7 +20,7 @@ plugins {
     id "net.minecraftforge.gradle.forge" version "2.0.2"
 }
 */
-version = "1.1.0.9"
+version = "1.1.1.0"
 group= "com.wuest.prefab" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "prefab"
 

@@ -1,32 +1,21 @@
 package com.wuest.prefab.StructureGen;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.io.*;
+import java.util.*;
 import java.util.Map.Entry;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableTable;
-import com.google.gson.Gson;
-import com.wuest.prefab.BuildingMethods;
-import com.wuest.prefab.Prefab;
-import com.wuest.prefab.ZipUtil;
+import com.google.gson.*;
+import com.google.gson.annotations.Expose;
+import com.wuest.prefab.*;
 import com.wuest.prefab.Config.StructureConfiguration;
+import com.wuest.prefab.Events.ModEventHandler;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockButton;
-import net.minecraft.block.BlockLever;
-import net.minecraft.block.BlockQuartz;
-import net.minecraft.block.BlockSign;
-import net.minecraft.block.BlockTorch;
+import net.minecraft.block.*;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.state.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
@@ -40,11 +29,23 @@ import net.minecraft.world.World;
  */
 public class Structure
 {
+	@Expose
 	private String name;
+	
+	@Expose
 	private BuildClear clearSpace;
+	
+	@Expose
 	private ArrayList<BuildBlock> blocks;
-	protected ArrayList<BuildBlock> placedBlocks;
-
+	
+	public ArrayList<BuildBlock> priorityOneBlocks = new ArrayList<BuildBlock>();
+	public ArrayList<BuildBlock> priorityTwoBlocks = new ArrayList<BuildBlock>();
+	public ArrayList<BuildBlock> priorityThreeBlocks = new ArrayList<BuildBlock>();
+	public StructureConfiguration configuration;
+	public World world;
+	public BlockPos originalPos;
+	public EnumFacing assumedNorth;
+	
 	public Structure()
 	{
 		this.Initialize();
@@ -64,8 +65,7 @@ public class Structure
 	{
 		T structure = null;
 
-		Gson file = new Gson();
-		//InputStreamReader reader = new InputStreamReader(Prefab.class.getClassLoader().getResourceAsStream(resourceLocation), "UTF-8");
+		Gson file = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 		structure = (T) file.fromJson(ZipUtil.decompressResource(resourceLocation), child);
 
 		return structure;
@@ -114,23 +114,19 @@ public class Structure
 			if (currentPos.getX() > originalPos.getX())
 			{
 				buildBlock.getStartingPosition().setEastOffset(currentPos.getX() - originalPos.getX());
-				//buildBlock.getStartingPosition().setAppropriateOffSet(playerFacing, EnumFacing.EAST, currentPos.getX() - originalPos.getX());
 			}
 			else
 			{
 				buildBlock.getStartingPosition().setWestOffset(originalPos.getX() - currentPos.getX());
-				//buildBlock.getStartingPosition().setAppropriateOffSet(playerFacing, EnumFacing.WEST, originalPos.getX() - currentPos.getX());
 			}
 
 			if (currentPos.getZ() > originalPos.getZ())
 			{
 				buildBlock.getStartingPosition().setSouthOffset(currentPos.getZ() - originalPos.getZ());
-				//buildBlock.getStartingPosition().setAppropriateOffSet(playerFacing, EnumFacing.SOUTH, currentPos.getZ() - originalPos.getZ());
 			}
 			else
 			{
 				buildBlock.getStartingPosition().setNorthOffset(originalPos.getZ() - currentPos.getZ());
-				//buildBlock.getStartingPosition().setAppropriateOffSet(playerFacing, EnumFacing.NORTH, originalPos.getZ() - currentPos.getZ());
 			}
 
 			buildBlock.getStartingPosition().setHeightOffset(currentPos.getY() - originalPos.getY());
@@ -212,8 +208,6 @@ public class Structure
 			// First, clear the area where the structure will be built.
 			this.ClearSpace(configuration, world, originalPos, assumedNorth);
 			
-			this.placedBlocks = new ArrayList<BuildBlock>();
-			
 			// Now place all of the blocks.
 			for (BuildBlock block : this.getBlocks())
 			{
@@ -235,66 +229,55 @@ public class Structure
 							
 							subBlock = BuildBlock.SetBlockState(configuration, world, originalPos, assumedNorth, block.getSubBlock(), foundBlock, blockState);
 						}
+
+						if (subBlock != null)
+						{
+							block.setSubBlock(subBlock);
+						}
 						
 						if (!block.getHasFacing())
 						{
-							BuildingMethods.ReplaceBlockNoAir(world, block.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing), block.getBlockState());
-							
-							if (subBlock != null)
-							{
-								BuildingMethods.ReplaceBlockNoAir(world, subBlock.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing), subBlock.getBlockState());
-							}
-						}
-						else
-						{
-							if (subBlock != null)
+							if (subBlock!= null)
 							{
 								block.setSubBlock(subBlock);
 							}
 							
-							this.placedBlocks.add(block);
+							this.priorityOneBlocks.add(block);
+						}
+						else
+						{
+							// These blocks may be attached to other facing blocks and must be done later.
+							if (foundBlock instanceof BlockTorch 
+									|| foundBlock instanceof BlockSign
+									|| foundBlock instanceof BlockLever
+									|| foundBlock instanceof BlockButton)
+							{
+								this.priorityThreeBlocks.add(block);
+							}
+							else
+							{
+								this.priorityTwoBlocks.add(block);
+							}
 						}
 					}
 				}
 			}
 			
-			ArrayList<BuildBlock> otherFacingBlocks = new ArrayList<BuildBlock>();
-			
-			// Now place all of the facing blocks. This needs to be done here these blocks may not "stick" before all of the other solid blocks are placed.
-			for (BuildBlock currentBlock : this.placedBlocks)
+			if (ModEventHandler.structuresToBuild.containsKey(player))
 			{
-				IBlockState state = currentBlock.getBlockState();
-
-				// These blocks may be attached to other facing blocks and must be done later.
-				if (state.getBlock() instanceof BlockTorch 
-						|| state.getBlock() instanceof BlockSign
-						|| state.getBlock() instanceof BlockLever
-						|| state.getBlock() instanceof BlockButton)
-				{
-					otherFacingBlocks.add(currentBlock);
-					continue;
-				}
-				
-				BuildingMethods.ReplaceBlockNoAir(world, currentBlock.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing), state);
-				
-				// After placing the initial block, set the sub-block. This needs to happen as the list isn't always in the correct order.
-				if (currentBlock.getSubBlock() != null)
-				{
-					BuildBlock subBlock = currentBlock.getSubBlock();
-					
-					BuildingMethods.ReplaceBlockNoAir(world, subBlock.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing), subBlock.getBlockState());
-				}
+				ModEventHandler.structuresToBuild.get(player).add(this);
 			}
-			
-			// Do the final facing blocks, these ones MUST be done last.
-			for (BuildBlock otherBlock : otherFacingBlocks)
+			else
 			{
-				BuildingMethods.ReplaceBlockNoAir(world, otherBlock.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing), otherBlock.getBlockState());
+				ArrayList<Structure> structures = new ArrayList<Structure>();
+				structures.add(this);
+				this.configuration = configuration;
+				this.world = world;
+				this.assumedNorth = assumedNorth;
+				this.originalPos = originalPos;
+				ModEventHandler.structuresToBuild.put(player, structures);
 			}
 		}
-		
-		// Process any after block building needs.
-		this.AfterBuilding(configuration, world, originalPos, assumedNorth, player);
 	}
 
 	/**
@@ -319,7 +302,7 @@ public class Structure
 	 * @param assumedNorth The assumed northern direction.
 	 * @param player The player which initiated the construction.
 	 */
-	protected void AfterBuilding(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth, EntityPlayer player)
+	public void AfterBuilding(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth, EntityPlayer player)
 	{
 	}
 	
