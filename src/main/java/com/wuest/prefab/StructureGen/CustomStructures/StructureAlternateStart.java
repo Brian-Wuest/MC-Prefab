@@ -273,6 +273,8 @@ public class StructureAlternateStart extends Structure
 			{
 				// Add some bread.
 				chestTile.setInventorySlotContents(itemSlot++, new ItemStack(Items.BREAD, 20));
+				
+				player.addStat(AchievementList.MAKE_BREAD);
 			}
 
 			if (Prefab.proxy.proxyConfiguration.addCrops)
