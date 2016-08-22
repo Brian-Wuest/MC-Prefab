@@ -13,29 +13,37 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 
 /**
- * The starting point to load all of the blocks, items and other objects associated with this mod. 
+ * The starting point to load all of the blocks, items and other objects
+ * associated with this mod.
+ * 
  * @author WuestMan
  *
  */
-@Mod(modid = Prefab.MODID, version = Prefab.VERSION, acceptedMinecraftVersions="[1.10],[1.10.2]", guiFactory = "com.wuest.prefab.Gui.ConfigGuiFactory")
+@Mod(modid = Prefab.MODID, version = Prefab.VERSION, acceptedMinecraftVersions = "[1.10],[1.10.2]", guiFactory = "com.wuest.prefab.Gui.ConfigGuiFactory")
 public class Prefab
 {
-    public static final String MODID = "prefab";
-    public static final String VERSION = "1.1.1.0";
-    
-    @Instance(value = Prefab.MODID)
+	public static final String MODID = "prefab";
+	public static final String VERSION = "1.1.1.1";
+	public static boolean isDebug = false;
+
+	@Instance(value = Prefab.MODID)
 	public static Prefab instance;
-    
+
 	// Says where the client and server 'proxy' code is loaded.
 	@SidedProxy(clientSide = "com.wuest.prefab.Proxy.ClientProxy", serverSide = "com.wuest.prefab.Proxy.CommonProxy")
 	public static CommonProxy proxy;
 
 	public static SimpleNetworkWrapper network;
 	public static Configuration config;
-    
+
+	static
+	{
+		Prefab.isDebug = java.lang.management.ManagementFactory.getRuntimeMXBean().getInputArguments().toString().contains("-agentlib:jdwp");
+	}
+
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
-	{	
+	{
 		Prefab.proxy.preInit(event);
 	}
 

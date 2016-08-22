@@ -9,6 +9,7 @@ import com.wuest.prefab.Proxy.Messages.ConfigSyncMessage;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.IThreadListener;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -40,6 +41,14 @@ IMessageHandler<ConfigSyncMessage, IMessage>
 			{
 				// This is client side. Update the configuration.
 				((ClientProxy)Prefab.proxy).serverConfiguration =  ModConfiguration.getFromNBTTagCompound(message.getMessageTag());
+				
+				ModConfiguration config = ((ClientProxy)Prefab.proxy).getServerConfiguration();
+				 				
+				// Show a message to this player if their version is old.
+				if (config.showMessage && config.enableVersionCheckMessage)
+				{
+					Minecraft.getMinecraft().thePlayer.addChatMessage(new TextComponentString(config.versionMessage));
+				}
 			}
 		});
 

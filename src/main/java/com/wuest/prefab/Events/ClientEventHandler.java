@@ -2,6 +2,7 @@ package com.wuest.prefab.Events;
 
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.ModConfiguration;
+import com.wuest.prefab.Proxy.ClientProxy;
 import com.wuest.prefab.Render.StructureRenderHandler;
 
 import net.minecraft.client.Minecraft;
@@ -13,20 +14,12 @@ import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
+import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 
 public class ClientEventHandler
 {
 	public static int ticksInGame;
 
-	@SubscribeEvent
-	public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent onConfigChangedEvent)
-	{
-		if(onConfigChangedEvent.getModID().equals(Prefab.MODID))
-		{
-			ModConfiguration.syncConfig();
-		}
-	}
-	
 	@SubscribeEvent
 	public void onWorldRenderLast(RenderWorldLastEvent event)
 	{
@@ -49,6 +42,14 @@ public class ClientEventHandler
 				event.setCanceled(true);
 			}
 		}
+	}
+	
+	@SubscribeEvent
+	public void OnClientDisconnectEvent(FMLNetworkEvent.ClientDisconnectionFromServerEvent event)
+	{
+		// When the player logs out, make sure to re-set the server configuration. 
+	 	// This is so a new configuration can be successfully loaded when they switch servers or worlds (on single player.
+	 	((ClientProxy)Prefab.proxy).serverConfiguration = null;
 	}
 	
 	@SubscribeEvent

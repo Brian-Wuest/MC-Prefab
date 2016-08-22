@@ -32,6 +32,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ServerTickEvent;
+import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 
 /**
  * This is the server side event hander.
@@ -64,14 +65,6 @@ public class ModEventHandler
 
 				// Make sure to set the tag for this player so they don't get the item again.
 				persistTag.setBoolean(ModEventHandler.GIVEN_HOUSEBUILDER_TAG, true);
-			}
-		}
-		else if (event.getWorld().isRemote && event.getEntity() instanceof EntityPlayer)
-		{
-			// Show a message to this player if their version is old.
-			if (UpdateChecker.showMessage)
-			{
-				((EntityPlayer)event.getEntity()).addChatMessage(new TextComponentString(UpdateChecker.messageToShow));
 			}
 		}
 	}

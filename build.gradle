@@ -20,12 +20,17 @@ plugins {
     id "net.minecraftforge.gradle.forge" version "2.0.2"
 }
 */
-version = "1.1.1.0"
+version = "1.1.1.1"
 group= "com.wuest.prefab" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "prefab"
 
+sourceCompatibility = targetCompatibility = "1.8" // Need this here so eclipse task generates correctly.
+compileJava {
+    sourceCompatibility = targetCompatibility = "1.8"
+}
+
 minecraft {
-    version = "1.10.2-12.18.1.2044"
+    version = "1.10.2-12.18.1.2070"
     runDir = "run"
     
     // the mappings can be changed at any time, and must be in the following format.
@@ -60,14 +65,6 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
 }
-
-compileJava {
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
-}
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
 
 processResources
 {

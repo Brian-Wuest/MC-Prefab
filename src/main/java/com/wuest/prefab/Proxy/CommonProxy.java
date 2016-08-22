@@ -43,8 +43,11 @@ public class CommonProxy implements IGuiHandler
 		Prefab.config.load();
 		ModConfiguration.syncConfig();
 		
-		// Pull the repository information.
-		UpdateChecker.checkVersion();
+		if (this.proxyConfiguration.enableVersionCheckMessage)
+		{
+			// Pull the repository information.
+			UpdateChecker.checkVersion();
+		}
 		
 		// Register messages.
 		ModRegistry.RegisterMessages();

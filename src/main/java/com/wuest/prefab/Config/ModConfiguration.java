@@ -1,6 +1,7 @@
 package com.wuest.prefab.Config;
 
 import com.wuest.prefab.Prefab;
+import com.wuest.prefab.UpdateChecker;
 import com.wuest.prefab.Gui.GuiLangKeys;
 
 import net.minecraft.nbt.NBTTagCompound;
@@ -21,6 +22,7 @@ public class ModConfiguration
 	private static String addHouseItemName = "Add House Item On New Player Join";
 	private static String enableHouseGenerationRestrictionName = "Enable House Generation Restrictions";
 	private static String maximumHouseSizeName = "Maximum Starting House Size";
+	private static String enableVersionCheckMessageName = "Enable Version Checking";
 	
 	// Chest content option names.
 	private static String addSwordName = "Add Sword";
@@ -36,10 +38,14 @@ public class ModConfiguration
 	private static String addSaplingsName = "Add Saplings";
 	private static String addTorchesName = "Add Torches";
 	
+	private static String versionMessageName = "Version Message";
+	private static String showMessageName = "Show Message";
+	
 	// Configuration Options.
 	public boolean addHouseItem;
 	public boolean enableHouseGenerationRestrictions;
 	public int maximumStartingHouseSize;
+	public boolean enableVersionCheckMessage;
 	
 	// Chest content options.
 	public boolean addSword;
@@ -56,10 +62,15 @@ public class ModConfiguration
 	public boolean addSaplings;
 	public boolean addTorches;
 	
+	// Version Check Message Info
+	public String versionMessage = "";
+	public boolean showMessage = false;
+	
 	public ModConfiguration()
 	{
 		this.addHouseItem = true;
 		this.maximumStartingHouseSize = 16;
+		this.enableVersionCheckMessage = true;
 	}
 	
 	public static void syncConfig()
@@ -75,6 +86,7 @@ public class ModConfiguration
 		Prefab.proxy.proxyConfiguration.addHouseItem = config.getBoolean(ModConfiguration.addHouseItemName, ModConfiguration.OPTIONS, true, "Determines if the house item is added to player inventory when joining the world for the first time. Server configuration overrides client.");
 		Prefab.proxy.proxyConfiguration.enableHouseGenerationRestrictions = config.getBoolean(ModConfiguration.enableHouseGenerationRestrictionName, ModConfiguration.OPTIONS, false, "When true this option causes the Crafting Table, Furnace and Chest to not be added when creating a house, regardless of options chosen. Server Configuration overrides client.");
 		Prefab.proxy.proxyConfiguration.maximumStartingHouseSize = config.getInt(ModConfiguration.maximumHouseSizeName, ModConfiguration.OPTIONS, 16, 5, 16, "Determines the maximum size the starting house can be generated as. Server configuration overrides client.");
+		Prefab.proxy.proxyConfiguration.enableVersionCheckMessage = config.getBoolean(ModConfiguration.enableVersionCheckMessageName, ModConfiguration.OPTIONS, true, "Determines if version checking is enabled when application starts. Also determines if the chat message about old versions is shown when joining a world. Server configuration overrides client.");
 		
 		config.setCategoryComment(ModConfiguration.ChestContentOptions, "This category is to determine the contents of the chest created by the house item. When playing on a server, the server configuration is used.");
 
@@ -120,6 +132,9 @@ public class ModConfiguration
 		tag.setBoolean(ModConfiguration.addSaplingsName, this.addSaplings);
 		tag.setBoolean(ModConfiguration.addTorchesName, this.addTorches);
 		
+		tag.setString(ModConfiguration.versionMessageName, UpdateChecker.messageToShow);
+		tag.setBoolean(ModConfiguration.showMessageName, UpdateChecker.showMessage);
+		
 		return tag;
 	}
 	
@@ -149,6 +164,9 @@ public class ModConfiguration
 		config.addCobble = tag.getBoolean(ModConfiguration.addCobbleName);
 		config.addSaplings = tag.getBoolean(ModConfiguration.addSaplingsName);
 		config.addTorches = tag.getBoolean(ModConfiguration.addTorchesName);
+		
+		config.versionMessage = tag.getString(ModConfiguration.versionMessageName);
+		config.showMessage = tag.getBoolean(ModConfiguration.showMessageName);
 		
 		return config;
 	}
