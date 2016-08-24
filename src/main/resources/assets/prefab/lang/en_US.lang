@@ -10,6 +10,7 @@ item.prefab:itemPalletOfBricks.name=Pallet of Bricks
 item.prefab:itemAdvancedWareHouse.name=Advanced Warehouse
 item.prefab:itemMonsterMasher.name=Monster Masher
 item.prefab:itemWareHouseUpgrade.name=Warehouse Upgrade
+item.prefab:itemBundleOfTimber.name=Bundle of Timber
 
 tile.prefab:blockCompressedStone.block_compressed_stone.name=Compressed Stone
 tile.prefab:blockCompressedStone.block_double_compressed_stone.name=Double Compressed Stone

@@ -18,6 +18,8 @@ import net.minecraft.init.*;
 import net.minecraft.item.*;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
 /**
  * This is the mod registry so there is a way to get to all instances of the blocks/items created by this mod.
@@ -106,6 +108,11 @@ public class ModRegistry
 	public static ItemWarehouseUpgrade WareHouseUpgrade()
 	{
 		return ModRegistry.GetItem(ItemWarehouseUpgrade.class);
+	}
+	
+	public static ItemBundleOfTimber BundleOfTimber()
+	{
+		return ModRegistry.GetItem(ItemBundleOfTimber.class);
 	}
 	
 	/**
@@ -207,6 +214,7 @@ public class ModRegistry
 		ModRegistry.registerItem(new ItemAdvancedWareHouse("itemAdvancedWareHouse"));
 		ModRegistry.registerItem(new ItemMonsterMasher("itemMonsterMasher"));
 		ModRegistry.registerItem(new ItemWarehouseUpgrade("itemWareHouseUpgrade"));
+		ModRegistry.registerItem(new ItemBundleOfTimber("itemBundleOfTimber"));
 		
 		// Create/register the item block with this block as it's needed due to this being a meta data block.
 		BlockCompressedStone stone = new BlockCompressedStone();
@@ -416,7 +424,17 @@ public class ModRegistry
 				'g', new ItemStack(ModRegistry.CompressedStoneBlock(), 1, BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE.getMetadata()),
 				'h', new ItemStack(ModRegistry.CompressedStoneBlock(), 1, BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE.getMetadata()));
 		
+		// Planks to bundles of timber.
+		GameRegistry.addRecipe(new ShapedOreRecipe(ModRegistry.BundleOfTimber(), 
+				"aaa", 
+				"aaa", 
+				"aaa", 
+				'a', "plankWood"));
 		
+		// Bundle of timber to oak planks.
+		GameRegistry.addRecipe(new ItemStack(Item.getItemFromBlock(Blocks.PLANKS)), 
+				"a",
+				'a', ModRegistry.BundleOfTimber());
 	}
 
 	/**
