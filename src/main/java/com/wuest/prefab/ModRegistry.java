@@ -39,6 +39,7 @@ public class ModRegistry
 	public static final int GuiStartHouseChooser = 6;
 	public static final int GuiAdvancedWareHouse = 7;
 	public static final int GuiMonsterMasher = 8;
+	public static final int GuiHorseStable = 9;
 	
 	public static ItemStartHouse StartHouse()
 	{
@@ -113,6 +114,11 @@ public class ModRegistry
 	public static ItemBundleOfTimber BundleOfTimber()
 	{
 		return ModRegistry.GetItem(ItemBundleOfTimber.class);
+	}
+	
+	public static ItemHorseStable HorseStable()
+	{
+		return ModRegistry.GetItem(ItemHorseStable.class);
 	}
 	
 	/**
@@ -215,6 +221,7 @@ public class ModRegistry
 		ModRegistry.registerItem(new ItemMonsterMasher("itemMonsterMasher"));
 		ModRegistry.registerItem(new ItemWarehouseUpgrade("itemWareHouseUpgrade"));
 		ModRegistry.registerItem(new ItemBundleOfTimber("itemBundleOfTimber"));
+		ModRegistry.registerItem(new ItemHorseStable("itemHorseStable"));
 		
 		// Create/register the item block with this block as it's needed due to this being a meta data block.
 		BlockCompressedStone stone = new BlockCompressedStone();
@@ -450,6 +457,7 @@ public class ModRegistry
 		Prefab.network.registerMessage(TreeFarmHandler.class, TreeFarmTagMessage.class, 6, Side.SERVER);
 		Prefab.network.registerMessage(FishPondHandler.class, FishPondTagMessage.class, 7, Side.SERVER);
 		Prefab.network.registerMessage(MonsterMasherHandler.class, MonsterMasherTagMessage.class, 8, Side.SERVER);
+		Prefab.network.registerMessage(HorseStableHandler.class, HorseStableTagMessage.class, 9, Side.SERVER );
 	}
 	
 	/**
@@ -534,5 +542,6 @@ public class ModRegistry
 		ModRegistry.ModGuis.put(ModRegistry.GuiStartHouseChooser, GuiStartHouseChooser.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiAdvancedWareHouse, GuiAdvancedWareHouse.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiMonsterMasher, GuiMonsterMasher.class);
+		ModRegistry.ModGuis.put(ModRegistry.GuiHorseStable, GuiHorseStable.class);
 	}
 }

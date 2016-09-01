@@ -1,5 +1,143 @@
 Changelog:
-Build 2044:
+Build 2076:
+	LexManos:
+		Move dismount version of EntityMountEvent to Entity class. Should fix
+		canceling dismounting. Closes #3226
+
+Build 1.10.2-12.18.1.2075:
+	LexManos: Yet another fix for stupid stairs. Closes #3224
+
+Build 1.10.2-12.18.1.2074:
+	LexManos: Make StructureBlock TESRs always render. Closes #3222
+
+Build 1.10.2-12.18.1.2073:
+	paul.fulham0: Fix item use stats (#3216)
+
+Build 1.10.2-12.18.1.2072:
+	LexManos:
+		Fixed decorate event being called with SHROOM type for both convered
+		trees and large mushrooms. Closes #3215
+
+Build 1.10.2-12.18.1.2071:
+	LexManos: Another fix for registry substitutions. Closes #3212
+
+Build 1.10.2-12.18.1.2070:
+	LexManos: Add legacy support for signature change of AddCallback.
+	LexManos:
+		Update gradle wrapper to 2.14, reference MC json, and add java6 compat
+		lines to default MDK build.gradle.
+
+Build 1.10.2-12.18.1.2069:
+	bonii-xx: Revert changes to ItemTool for binary compatibility (#3211)
+
+Build 1.10.2-12.18.1.2068:
+	bonii-xx: Expand getHarvestLevel to include player and blockstate (#3192)
+
+Build 1.10.2-12.18.1.2067:
+	LexManos:
+		Make enchantment tables spawn particles for any custom energy provider.
+		Closes #3208
+
+Build 1.10.2-12.18.1.2066:
+	williewillus: Allow blocks to affect the beacon color (#3205)
+
+Build 1.10.2-12.18.1.2065:
+	LexManos: Fix armors rendering badly. Closes #3196
+
+Build 1.10.2-12.18.1.2064:
+	abab9579: Fixed NPE from missing Capabilities (#3191)
+
+Build 1.10.2-12.18.1.2063:
+	LexManos: Fix World Capabilities NPE when there are no attached capabilities.
+
+Build 1.10.2-12.18.1.2062:
+	abab9579: Introduced Capabilities for World (#3069)
+
+Build 1.10.2-12.18.1.2061:
+	LexManos:
+		Fix vanilla bug in BlockFalling that caused blocks to loose state info
+		during world gen. Closes #3183
+
+Build 1.10.2-12.18.1.2060:
+	Gerard Bruwn: Added PlayerBrewedPotionEvent (#3187)
+
+Build 1.10.2-12.18.1.2059:
+	cpw: Don't crash if you select a fake player
+
+Build 1.10.2-12.18.1.2058:
+	LexManos:
+		Skip searching for mods in the JAVA_HOME directory. Closes #2249 and
+		#2250
+
+Build 1.10.2-12.18.1.2057:
+	LexManos:
+		Fix leather armor overlay not rendering when armor is pure white. Closes
+		#3184
+
+Build 1.10.2-12.18.1.2056:
+	josephcsible:
+		Fix test mod IDs, names, and versions (#3122)
+		Most of our test mods have bad IDs (uppercase) and are missing names or
+		versions. Forge produces a bunch of warnings in the console about this,
+		which
+
+Build 1.10.2-12.18.1.2055:
+	florian:
+		Make InventoryHelper#spawnItemStack use ItemStack#splitStack to avoid
+		losing capability data. (#3163)
+
+Build 1.10.2-12.18.1.2054:
+	sebastian:
+		Unlike BakedQuad, UnpackedBakedQuad does not propagate the diffuse
+		lighting flag to Vertex Consumers. Made UnpackedBakedQuad conform to
+		BakedQuad's behavior. (#3181)
+
+Build 1.10.2-12.18.1.2053:
+	LexManos:
+		Set ModelLoader.WHITE's texture size iniatlly instead of defaulting to
+		zero and being set later.
+	LexManos: Add RenderTooltipEvent (#3034)
+
+Build 1.10.2-12.18.1.2052:
+	tehgeek:
+		Fix #3165 Dispensers with buckets can destroy fluid handler blocks
+		(#3180)
+
+Build 1.9.4-12.17.0.2051:
+	tterrag1098: Add RenderTooltipEvent (#3034)
+
+Build 1.10.2-12.18.1.2050:
+	LexManos: Fix Fire not using getFireSpreadSpeed. Closes #3175
+
+Build 1.10.2-12.18.1.2049:
+	LexManos: Fix issue with stairs.
+
+Build 1.10.2-12.18.1.2048:
+	LexManos: Removed unintentional functionality when using the Splash Screen.
+
+Build 1.10.2-12.18.1.2047:
+	LexManos: Make stair culling use actual state, and be more robust. Closes #3170
+	LexManos: Fix name in legacy support in registry changes.
+	LexManos:
+		Compleetly skip FML handshake for Vanilla connections. Should fix race
+		condition. Closes #3084
+	LexManos:
+		Disable DecorateEventDebug by default. Prevents me thinking that
+		decoration is broken >.<
+
+Build 1.10.2-12.18.1.2046:
+	AlgorithmX2:
+		Fix Vertex Transformer for breaking models (#3132)
+		* Add setTexture to IVertexConsumer and propagate it.
+
+Build 1.10.2-12.18.1.2045:
+	LexManos:
+		Restone binary compatibility with registry substitution rework. Modders
+		please switch to using the provided RegistryBuilder to ensure more
+		forward compatbility. Closes #3144
+	LexManos: Fix Forge fluids not serializing properly. Closes #3152
+
+Build 1.10.2-12.18.1.2044:
 	LexManos:
 		Second pass at fixing 'Dissapearing Doors' This now more robustly fixes
 		ALL uses of get and has slight performance improvements for itterable
