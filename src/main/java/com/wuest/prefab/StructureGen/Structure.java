@@ -75,7 +75,7 @@ public class Structure
 	{
 		try
 		{
-			Gson converter = new Gson();
+			Gson converter = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 			StringWriter stringWriter = new StringWriter();
 			converter.toJson(structure, stringWriter);
 			

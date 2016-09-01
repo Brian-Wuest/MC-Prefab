@@ -55,7 +55,7 @@ public class GuiHorseStable extends GuiScreen
 		
 		// Draw the control background.
 		this.mc.getTextureManager().bindTexture(structureTopDown);
-		GuiTabScreen.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 171, 87, 171, 87);
+		GuiTabScreen.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 104, 166, 104, 166);
 		
 		this.mc.getTextureManager().bindTexture(backgroundTextures);
 		this.drawTexturedModalRect(grayBoxX, grayBoxY, 0, 0, 256, 256);

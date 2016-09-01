@@ -16,17 +16,17 @@ public class StructureHorseStable extends Structure
 		BuildClear clearedSpace = new BuildClear();
 		clearedSpace.getShape().setDirection(EnumFacing.SOUTH);
 		clearedSpace.getShape().setHeight(11);
-		clearedSpace.getShape().setLength(5);
-		clearedSpace.getShape().setWidth(12);
+		clearedSpace.getShape().setLength(10);
+		clearedSpace.getShape().setWidth(8);
 		clearedSpace.getStartingPosition().setSouthOffset(1);
-		clearedSpace.getStartingPosition().setEastOffset(9);
+		clearedSpace.getStartingPosition().setEastOffset(4);
 		clearedSpace.getStartingPosition().setHeightOffset(-4);
 		
 		Structure.ScanStructure(
 				world, 
 				originalPos, 
-				originalPos.east(10).down(4), 
-				originalPos.south(6).west(3).up(7), 
+				originalPos.east(4).down(4), 
+				originalPos.south(10).west(3).up(7), 
 				"C:\\Users\\Brian\\Documents\\GitHub\\MC-Prefab\\src\\main\\resources\\assets\\prefab\\structures\\horsestable.zip",
 				clearedSpace,
 				playerFacing);	

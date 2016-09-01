@@ -442,6 +442,17 @@ public class ModRegistry
 		GameRegistry.addRecipe(new ItemStack(Item.getItemFromBlock(Blocks.PLANKS)), 
 				"a",
 				'a', ModRegistry.BundleOfTimber());
+		
+		// Horse Stable.
+		GameRegistry.addRecipe(new ItemStack(ModRegistry.HorseStable()),
+				"aaa",
+				"bcb",
+				"ded",
+				'a', Item.getItemFromBlock(Blocks.BRICK_BLOCK),
+				'b', ModRegistry.BundleOfTimber(),
+				'c', Item.getItemFromBlock(Blocks.HAY_BLOCK),
+				'd', Item.getItemFromBlock(Blocks.SPRUCE_FENCE),
+				'e', Item.getItemFromBlock(Blocks.SPRUCE_FENCE_GATE));
 	}
 
 	/**
