@@ -422,17 +422,45 @@ public class StructureAlternateStart extends Structure
 			// Place a chest to the right of the ladder.
 			IBlockState chestState = Blocks.CHEST.getDefaultState().withProperty(BlockChest.FACING, facing);
 			BuildingMethods.ReplaceBlock(world, pos.offset(facing.rotateY()), chestState);
+			
+			if (stacks.size() > 27)
+			{
+				// Add another chest to south of the existing chest.
+				BuildingMethods.ReplaceBlock(world, pos.offset(facing.rotateY()).offset(facing.getOpposite()), chestState);
+			}
+			
 			TileEntity tileEntity = world.getTileEntity(pos.offset(facing.rotateY()));
+			TileEntity tileEntity2 = world.getTileEntity(pos.offset(facing.rotateY()).offset(facing.getOpposite()));
 
 			if (tileEntity instanceof TileEntityChest)
 			{
 				TileEntityChest chestTile = (TileEntityChest) tileEntity;
+				TileEntityChest chestTile2 = (TileEntityChest) tileEntity2;
 
 				int i = 0;
+				boolean fillSecond = false;
+				
 				// All of the stacks should be consolidated at this point.
 				for (ItemStack stack : stacks)
 				{
-					chestTile.setInventorySlotContents(i, stack);
+					if (i == 27 && !fillSecond)
+					{
+						// Start filling the second chest.
+						fillSecond = true;
+						i = 0;
+						chestTile = chestTile2;
+					}
+					
+					if (i >= 27 && fillSecond) 
+					{
+						// Too many items, discard the rest.
+						break;
+					}
+					else
+					{
+						chestTile.setInventorySlotContents(i, stack);
+					}
+					
 					i++;
 				}
 			}
