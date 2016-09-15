@@ -439,7 +439,7 @@ public class ModRegistry
 				'a', "plankWood"));
 		
 		// Bundle of timber to oak planks.
-		GameRegistry.addRecipe(new ItemStack(Item.getItemFromBlock(Blocks.PLANKS)), 
+		GameRegistry.addRecipe(new ItemStack(Item.getItemFromBlock(Blocks.PLANKS), 9), 
 				"a",
 				'a', ModRegistry.BundleOfTimber());
 		
@@ -453,6 +453,56 @@ public class ModRegistry
 				'c', Item.getItemFromBlock(Blocks.HAY_BLOCK),
 				'd', Item.getItemFromBlock(Blocks.SPRUCE_FENCE),
 				'e', Item.getItemFromBlock(Blocks.SPRUCE_FENCE_GATE));
+		
+		GameRegistry.addRecipe(new ItemStack(ModRegistry.HorseStable()),
+				"aaa",
+				"bcb",
+				"ded",
+				'a', Item.getItemFromBlock(Blocks.BRICK_BLOCK),
+				'b', ModRegistry.BundleOfTimber(),
+				'c', Item.getItemFromBlock(Blocks.HAY_BLOCK),
+				'd', Item.getItemFromBlock(Blocks.OAK_FENCE),
+				'e', Item.getItemFromBlock(Blocks.OAK_FENCE_GATE));
+		
+		GameRegistry.addRecipe(new ItemStack(ModRegistry.HorseStable()),
+				"aaa",
+				"bcb",
+				"ded",
+				'a', Item.getItemFromBlock(Blocks.BRICK_BLOCK),
+				'b', ModRegistry.BundleOfTimber(),
+				'c', Item.getItemFromBlock(Blocks.HAY_BLOCK),
+				'd', Item.getItemFromBlock(Blocks.BIRCH_FENCE),
+				'e', Item.getItemFromBlock(Blocks.BIRCH_FENCE_GATE));
+		
+		GameRegistry.addRecipe(new ItemStack(ModRegistry.HorseStable()),
+				"aaa",
+				"bcb",
+				"ded",
+				'a', Item.getItemFromBlock(Blocks.BRICK_BLOCK),
+				'b', ModRegistry.BundleOfTimber(),
+				'c', Item.getItemFromBlock(Blocks.HAY_BLOCK),
+				'd', Item.getItemFromBlock(Blocks.ACACIA_FENCE),
+				'e', Item.getItemFromBlock(Blocks.ACACIA_FENCE_GATE));
+		
+		GameRegistry.addRecipe(new ItemStack(ModRegistry.HorseStable()),
+				"aaa",
+				"bcb",
+				"ded",
+				'a', Item.getItemFromBlock(Blocks.BRICK_BLOCK),
+				'b', ModRegistry.BundleOfTimber(),
+				'c', Item.getItemFromBlock(Blocks.HAY_BLOCK),
+				'd', Item.getItemFromBlock(Blocks.JUNGLE_FENCE),
+				'e', Item.getItemFromBlock(Blocks.JUNGLE_FENCE_GATE));
+		
+		GameRegistry.addRecipe(new ItemStack(ModRegistry.HorseStable()),
+				"aaa",
+				"bcb",
+				"ded",
+				'a', Item.getItemFromBlock(Blocks.BRICK_BLOCK),
+				'b', ModRegistry.BundleOfTimber(),
+				'c', Item.getItemFromBlock(Blocks.HAY_BLOCK),
+				'd', Item.getItemFromBlock(Blocks.DARK_OAK_FENCE),
+				'e', Item.getItemFromBlock(Blocks.DARK_OAK_FENCE_GATE));
 	}
 
 	/**

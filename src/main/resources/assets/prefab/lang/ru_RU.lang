@@ -10,6 +10,8 @@ item.prefab:itemPalletOfBricks.name=Поддон Кирпичей
 item.prefab:itemAdvancedWareHouse.name=Расширенный Склад
 item.prefab:itemMonsterMasher.name=Монстр Сердцеед
 item.prefab:itemWareHouseUpgrade.name=Улучшение Для Склада
+item.prefab:itemBundleOfTimber.name=Bundle of Timber
+item.prefab:itemHorseStable.name=Horse Stable
  
 tile.prefab:blockCompressedStone.block_compressed_stone.name=Сжатый Камень
 tile.prefab:blockCompressedStone.block_double_compressed_stone.name=Двойной Сжатый Камень
