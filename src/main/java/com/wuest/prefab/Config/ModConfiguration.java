@@ -23,6 +23,7 @@ public class ModConfiguration
 	private static String enableHouseGenerationRestrictionName = "Enable House Generation Restrictions";
 	private static String maximumHouseSizeName = "Maximum Starting House Size";
 	private static String enableVersionCheckMessageName = "Enable Version Checking";
+	private static String enableLoftHouseName = "Enable Loft House";
 	
 	// Chest content option names.
 	private static String addSwordName = "Add Sword";
@@ -46,6 +47,7 @@ public class ModConfiguration
 	public boolean enableHouseGenerationRestrictions;
 	public int maximumStartingHouseSize;
 	public boolean enableVersionCheckMessage;
+	public boolean enableLoftHouse;
 	
 	// Chest content options.
 	public boolean addSword;
@@ -87,6 +89,11 @@ public class ModConfiguration
 		Prefab.proxy.proxyConfiguration.enableHouseGenerationRestrictions = config.getBoolean(ModConfiguration.enableHouseGenerationRestrictionName, ModConfiguration.OPTIONS, false, "When true this option causes the Crafting Table, Furnace and Chest to not be added when creating a house, regardless of options chosen. Server Configuration overrides client.");
 		Prefab.proxy.proxyConfiguration.maximumStartingHouseSize = config.getInt(ModConfiguration.maximumHouseSizeName, ModConfiguration.OPTIONS, 16, 5, 16, "Determines the maximum size the starting house can be generated as. Server configuration overrides client.");
 		Prefab.proxy.proxyConfiguration.enableVersionCheckMessage = config.getBoolean(ModConfiguration.enableVersionCheckMessageName, ModConfiguration.OPTIONS, true, "Determines if version checking is enabled when application starts. Also determines if the chat message about old versions is shown when joining a world. Server configuration overrides client.");
+		Prefab.proxy.proxyConfiguration.enableLoftHouse = config.getBoolean(ModConfiguration.enableLoftHouseName, ModConfiguration.OPTIONS, false, "Determines if the loft starter house is enabled. This house contains Nether materials in it's construction. Server configuration overrides client.");
+		
+		// Make this property require a restart.
+		config.get(ModConfiguration.OPTIONS, ModConfiguration.enableVersionCheckMessageName, true).setRequiresMcRestart(true);
+		config.get(ModConfiguration.OPTIONS, ModConfiguration.enableLoftHouseName, false).setRequiresMcRestart(true);
 		
 		config.setCategoryComment(ModConfiguration.ChestContentOptions, "This category is to determine the contents of the chest created by the house item. When playing on a server, the server configuration is used.");
 
@@ -119,6 +126,9 @@ public class ModConfiguration
 		tag.setBoolean(ModConfiguration.addHouseItemName, this.addHouseItem);
 		tag.setBoolean(ModConfiguration.enableHouseGenerationRestrictionName, this.enableHouseGenerationRestrictions);
 		tag.setInteger(ModConfiguration.maximumHouseSizeName, this.maximumStartingHouseSize);
+		tag.setBoolean(ModConfiguration.enableVersionCheckMessageName, this.enableVersionCheckMessage);
+		tag.setBoolean(ModConfiguration.enableLoftHouseName, this.enableLoftHouse);
+		
 		tag.setBoolean(ModConfiguration.addSwordName, this.addSword);
 		tag.setBoolean(ModConfiguration.addAxeName, this.addAxe);
 		tag.setBoolean(ModConfiguration.addShovelName, this.addShovel);
@@ -144,6 +154,8 @@ public class ModConfiguration
 		
 		config.addHouseItem = tag.getBoolean(ModConfiguration.addHouseItemName);
 		config.enableHouseGenerationRestrictions = tag.getBoolean(ModConfiguration.enableHouseGenerationRestrictionName);
+		config.enableVersionCheckMessage = tag.getBoolean(ModConfiguration.enableVersionCheckMessageName);
+		config.enableLoftHouse = tag.getBoolean(ModConfiguration.enableLoftHouseName);
 		config.maximumStartingHouseSize = tag.getInteger(ModConfiguration.maximumHouseSizeName);
 		
 		// Make sure the server admin didn't set the maximum starting size to an invalid value from the configuration file.
