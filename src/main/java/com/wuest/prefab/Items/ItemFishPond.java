@@ -76,10 +76,12 @@ public class ItemFishPond extends Item
 				if (hitBlock != null)
 				{
 					StructureFishPond structure = StructureFishPond.CreateInstance(StructureFishPond.ASSETLOCATION, StructureFishPond.class);
-					structure.BuildStructure(configuration, world, hitBlockPos, EnumFacing.NORTH, player);
 					
-					player.inventory.clearMatchingItems(ModRegistry.FishPond(), -1, 1, null);
-					player.inventoryContainer.detectAndSendChanges();
+					if (structure.BuildStructure(configuration, world, hitBlockPos, EnumFacing.NORTH, player))
+					{
+						player.inventory.clearMatchingItems(ModRegistry.FishPond(), -1, 1, null);
+						player.inventoryContainer.detectAndSendChanges();
+					}
 				}
 			}
 		}

@@ -70,10 +70,12 @@ public class ItemHorseStable extends Item
 				if (hitBlock != null)
 				{
 					StructureHorseStable structure = StructureHorseStable.CreateInstance(StructureHorseStable.ASSETLOCATION, StructureHorseStable.class);
-					structure.BuildStructure(configuration, world, hitBlockPos, EnumFacing.NORTH, player);
 					
-					player.inventory.clearMatchingItems(ModRegistry.HorseStable(), -1, 1, null);
-					player.inventoryContainer.detectAndSendChanges();
+					if (structure.BuildStructure(configuration, world, hitBlockPos, EnumFacing.NORTH, player))
+					{
+						player.inventory.clearMatchingItems(ModRegistry.HorseStable(), -1, 1, null);
+						player.inventoryContainer.detectAndSendChanges();
+					}
 				}
 			}
 		}

@@ -86,18 +86,20 @@ public class ItemWareHouse extends Item
 					String assetLocation = configuration.advanced ? StructureWarehouse.ADVANCED_ASSET_LOCATION : StructureWarehouse.ASSETLOCATION;
 					
 					StructureWarehouse structure = StructureWarehouse.CreateInstance(assetLocation, StructureWarehouse.class);
-					structure.BuildStructure(configuration, world, hitBlockPos, EnumFacing.NORTH, player);
 					
-					if (configuration.advanced)
+					if (structure.BuildStructure(configuration, world, hitBlockPos, EnumFacing.NORTH, player))
 					{
-						player.inventory.clearMatchingItems(ModRegistry.AdvancedWareHouse(), -1, 1, null);
+						if (configuration.advanced)
+						{
+							player.inventory.clearMatchingItems(ModRegistry.AdvancedWareHouse(), -1, 1, null);
+						}
+						else
+						{
+							player.inventory.clearMatchingItems(ModRegistry.WareHouse(), -1, 1, null);
+						}
+						
+						player.inventoryContainer.detectAndSendChanges();
 					}
-					else
-					{
-						player.inventory.clearMatchingItems(ModRegistry.WareHouse(), -1, 1, null);
-					}
-					
-					player.inventoryContainer.detectAndSendChanges();
 				}
 			}
 		}

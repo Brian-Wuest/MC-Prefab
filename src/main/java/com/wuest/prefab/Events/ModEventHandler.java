@@ -20,8 +20,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -83,6 +85,17 @@ public class ModEventHandler
 			{
 				for (int i = 0; i < 100; i++)
 				{
+					// Structure clearing happens before anything else.
+					if (structure.clearedBlockPos.size() > 0)
+					{
+						BlockPos currentPos = structure.clearedBlockPos.get(0);
+						structure.clearedBlockPos.remove(0);
+						
+						structure.world.setBlockToAir(currentPos);
+						
+						continue;
+					}
+					
 					BuildBlock currentBlock = null;
 					
 					if (structure.priorityOneBlocks.size() > 0)

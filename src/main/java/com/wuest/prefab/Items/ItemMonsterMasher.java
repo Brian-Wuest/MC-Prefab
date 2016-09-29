@@ -77,10 +77,12 @@ public class ItemMonsterMasher extends Item
 				if (hitBlock != null)
 				{
 					StructureMonsterMasher structure = StructureMonsterMasher.CreateInstance(StructureMonsterMasher.ASSETLOCATION, StructureMonsterMasher.class);
-					structure.BuildStructure(configuration, world, hitBlockPos, EnumFacing.NORTH, player);
 					
-					player.inventory.clearMatchingItems(ModRegistry.MonsterMasher(), -1, 1, null);
-					player.inventoryContainer.detectAndSendChanges();
+					if (structure.BuildStructure(configuration, world, hitBlockPos, EnumFacing.NORTH, player))
+					{
+						player.inventory.clearMatchingItems(ModRegistry.MonsterMasher(), -1, 1, null);
+						player.inventoryContainer.detectAndSendChanges();
+					}
 				}
 			}
 		}

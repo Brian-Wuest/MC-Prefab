@@ -4,16 +4,21 @@ import java.lang.*;
 import java.util.ArrayList;
 
 import com.wuest.prefab.Config.HouseConfiguration;
+import com.wuest.prefab.Config.StructureConfiguration;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.block.BlockTorch;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.BlockSnapshot;
+import net.minecraftforge.event.world.BlockEvent;
 
 /**
  * This class is used to hold he generalized building methods used by the
@@ -404,5 +409,46 @@ public class BuildingMethods
 				return 5;
 			}
 		}
+	}
+
+	/**
+	 * This method is used to determine if the player can build the structure.
+	 * 
+	 * @param configuration The structure configuration.
+	 * @param world The world to build the structure in.
+	 * @param originalPos The original block position.
+	 * @param assumedNorth The assumed north of the structure (usually just
+	 *            EnumFacing.North).
+	 * @param player The player running this build request.
+	 * @return True if all blocks can be replaced. Otherwise false and send a
+	 *         message to the player.
+	 */
+	public static boolean CheckBuildSpaceForAllowedBlockReplacement(StructureConfiguration configuration, World world, BlockPos startBlockPos, BlockPos endBlockPos, EntityPlayer player)
+	{
+		// Check each block in the space to be cleared if it's protected from
+		// breaking or placing, if it is return false.
+		for (BlockPos currentPos : BlockPos.getAllInBox(startBlockPos, endBlockPos))
+		{
+			IBlockState blockState = world.getBlockState(currentPos);
+			
+			if (!blockState.getBlock().isAir(blockState, world, currentPos))
+			{
+				BlockEvent.BreakEvent breakEvent = new BlockEvent.BreakEvent(world, currentPos, world.getBlockState(currentPos), player);
+			
+				if (MinecraftForge.EVENT_BUS.post(breakEvent))
+				{
+					return false;
+				}
+			}
+			 
+			BlockEvent.PlaceEvent placeEvent = new BlockEvent.PlaceEvent(new BlockSnapshot(world, currentPos, blockState), Blocks.AIR.getDefaultState(), player);
+
+			if (MinecraftForge.EVENT_BUS.post(placeEvent))
+			{
+				return false;
+			}
+		}
+
+		return true;
 	}
 }
