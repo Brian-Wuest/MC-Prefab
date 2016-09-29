@@ -27,18 +27,24 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.tileentity.TileEntitySign;
+import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.BlockSnapshot;
+import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import com.wuest.prefab.BuildingMethods;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.HouseConfiguration;
+import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureAlternateStart;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureChickenCoop;
@@ -105,6 +111,8 @@ public class ItemStartHouse extends Item
 
 				if (hitBlock != null)
 				{
+					boolean houseBuilt = true;
+					
 					if (configuration.houseStyle == HouseConfiguration.HouseStyle.BASIC)
 					{
 						// We hit a block, let's start building!!!!!
@@ -136,6 +144,19 @@ public class ItemStartHouse extends Item
 						startingPosition = ItemStartHouse.NorthEastCorner.offset(southFace, (int) Math.floor(configuration.houseDepth / 2) + 1)
 								.offset(northFace.rotateYCCW(), (int) Math.floor(configuration.houseWidth / 2) + 1);
 						
+						BlockPos endBlockPos = startingPosition.offset(northFace.rotateYCCW(), configuration.houseWidth + 11)
+								.offset(southFace, configuration.houseDepth + 11)
+								.offset(EnumFacing.UP, 15);
+						
+						// Make sure this structure can be placed here.
+						if (!BuildingMethods.CheckBuildSpaceForAllowedBlockReplacement(configuration, world, startingPosition, endBlockPos, player))
+						{
+							// Send a message to the player saying that the structure could not
+							// be built.
+							player.addChatComponentMessage(new TextComponentTranslation(GuiLangKeys.GUI_STRUCTURE_NOBUILD).setStyle(new Style().setColor(TextFormatting.GREEN)));
+							return;
+						}
+						
 						// Clear the space before the user is teleported. This
 						// is in-case they right-click on a space that is only 1
 						// block tall.
@@ -160,11 +181,15 @@ public class ItemStartHouse extends Item
 					{
 						// Build the alternate starter house instead.
 						StructureAlternateStart structure = StructureAlternateStart.CreateInstance(configuration.houseStyle.getStructureLocation(), StructureAlternateStart.class);
-						structure.BuildStructure(configuration, world, hitBlockPos, EnumFacing.NORTH, player);
+						houseBuilt = structure.BuildStructure(configuration, world, hitBlockPos, EnumFacing.NORTH, player);
 					}
 
-					player.inventory.clearMatchingItems(ModRegistry.StartHouse(), -1, 1, null);
-					player.inventoryContainer.detectAndSendChanges();
+					// The house was successfully built, remove the item from the inventory.
+					if (houseBuilt)
+					{
+						player.inventory.clearMatchingItems(ModRegistry.StartHouse(), -1, 1, null);
+						player.inventoryContainer.detectAndSendChanges();
+					}
 				}
 			}
 

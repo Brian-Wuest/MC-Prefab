@@ -7,11 +7,13 @@ import java.util.Map.Entry;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableTable;
+import com.google.common.collect.Lists;
 import com.google.gson.*;
 import com.google.gson.annotations.Expose;
 import com.wuest.prefab.*;
 import com.wuest.prefab.Config.StructureConfiguration;
 import com.wuest.prefab.Events.ModEventHandler;
+import com.wuest.prefab.Gui.GuiLangKeys;
 
 import net.minecraft.block.*;
 import net.minecraft.block.properties.IProperty;
@@ -20,7 +22,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.BlockSnapshot;
+import net.minecraftforge.event.world.BlockEvent;
 
 /**
  * Each structure represents a building which is pre-defined in a JSON file.
@@ -31,13 +39,14 @@ public class Structure
 {
 	@Expose
 	private String name;
-	
+
 	@Expose
 	private BuildClear clearSpace;
-	
+
 	@Expose
 	private ArrayList<BuildBlock> blocks;
-	
+
+	public ArrayList<BlockPos> clearedBlockPos = new ArrayList<BlockPos>();
 	public ArrayList<BuildBlock> priorityOneBlocks = new ArrayList<BuildBlock>();
 	public ArrayList<BuildBlock> priorityTwoBlocks = new ArrayList<BuildBlock>();
 	public ArrayList<BuildBlock> priorityThreeBlocks = new ArrayList<BuildBlock>();
@@ -45,7 +54,7 @@ public class Structure
 	public World world;
 	public BlockPos originalPos;
 	public EnumFacing assumedNorth;
-	
+
 	public Structure()
 	{
 		this.Initialize();
@@ -57,7 +66,7 @@ public class Structure
 	 * 
 	 * @param resourceLocation The location of the JSON file to load. Example:
 	 *            "assets/prefab/structures/warehouse.json"
-	 * @return 
+	 * @return
 	 * @return Null if the resource wasn't found or the JSON could not be
 	 *         parsed, otherwise the de-serialized object.
 	 */
@@ -78,7 +87,7 @@ public class Structure
 			Gson converter = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 			StringWriter stringWriter = new StringWriter();
 			converter.toJson(structure, stringWriter);
-			
+
 			ZipUtil.zipStringToFile(stringWriter.toString(), fileLocation);
 		}
 		catch (Exception e)
@@ -87,7 +96,8 @@ public class Structure
 		}
 	}
 
-	public static void ScanStructure(World world, BlockPos originalPos, BlockPos cornerPos1, BlockPos cornerPos2, String fileLocation, BuildClear clearedSpace, EnumFacing playerFacing)
+	public static void ScanStructure(World world, BlockPos originalPos, BlockPos cornerPos1, BlockPos cornerPos2, String fileLocation, BuildClear clearedSpace,
+			EnumFacing playerFacing)
 	{
 		Structure scannedStructure = new Structure();
 		scannedStructure.setClearSpace(clearedSpace);
@@ -137,10 +147,10 @@ public class Structure
 			{
 				BuildProperty property = new BuildProperty();
 				property.setName(entry.getKey().getName());
-				
+
 				if (currentBlock instanceof BlockQuartz && property.getName().equals("variant"))
 				{
-					property.setValue(((BlockQuartz.EnumType)entry.getValue()).getName());
+					property.setValue(((BlockQuartz.EnumType) entry.getValue()).getName());
 				}
 				else
 				{
@@ -199,34 +209,49 @@ public class Structure
 	 * @param configuration The configuration the user updated.
 	 * @param world The current world.
 	 * @param originalPos The block the user clicked on.
-	 * @param assumedNorth This should always be "NORTH" when the file is based on a scan.
+	 * @param assumedNorth This should always be "NORTH" when the file is based
+	 *            on a scan.
 	 */
-	public void BuildStructure(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth, EntityPlayer player)
+	public boolean BuildStructure(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth, EntityPlayer player)
 	{
+		BlockPos startBlockPos = this.clearSpace.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing);
+		BlockPos endBlockPos = startBlockPos.offset(configuration.houseFacing.rotateYCCW(), this.clearSpace.getShape().getWidth() - 1)
+				.offset(configuration.houseFacing.getOpposite(), this.clearSpace.getShape().getWidth() - 1)
+				.offset(EnumFacing.UP, this.clearSpace.getShape().getHeight());
+		
+		// Make sure this structure can be placed here.
+		if (!BuildingMethods.CheckBuildSpaceForAllowedBlockReplacement(configuration, world, startBlockPos, endBlockPos, player))
+		{
+			// Send a message to the player saying that the structure could not
+			// be built.
+			player.addChatComponentMessage(new TextComponentTranslation(GuiLangKeys.GUI_STRUCTURE_NOBUILD).setStyle(new Style().setColor(TextFormatting.GREEN)));
+			return false;
+		}
+
 		if (!this.BeforeBuilding(configuration, world, originalPos, assumedNorth, player))
 		{
 			// First, clear the area where the structure will be built.
 			this.ClearSpace(configuration, world, originalPos, assumedNorth);
-			
+
 			// Now place all of the blocks.
 			for (BuildBlock block : this.getBlocks())
 			{
 				Block foundBlock = Block.REGISTRY.getObject(block.getResourceLocation());
-	
+
 				if (foundBlock != null)
 				{
 					IBlockState blockState = foundBlock.getDefaultState();
 					BuildBlock subBlock = null;
-					
+
 					if (!this.CustomBlockProcessingHandled(configuration, block, world, originalPos, assumedNorth, foundBlock, blockState, player))
 					{
 						block = BuildBlock.SetBlockState(configuration, world, originalPos, assumedNorth, block, foundBlock, blockState);
-						
+
 						if (block.getSubBlock() != null)
 						{
 							foundBlock = Block.REGISTRY.getObject(block.getSubBlock().getResourceLocation());
 							blockState = foundBlock.getDefaultState();
-							
+
 							subBlock = BuildBlock.SetBlockState(configuration, world, originalPos, assumedNorth, block.getSubBlock(), foundBlock, blockState);
 						}
 
@@ -234,22 +259,21 @@ public class Structure
 						{
 							block.setSubBlock(subBlock);
 						}
-						
+
 						if (!block.getHasFacing())
 						{
-							if (subBlock!= null)
+							if (subBlock != null)
 							{
 								block.setSubBlock(subBlock);
 							}
-							
+
 							this.priorityOneBlocks.add(block);
 						}
 						else
 						{
-							// These blocks may be attached to other facing blocks and must be done later.
-							if (foundBlock instanceof BlockTorch 
-									|| foundBlock instanceof BlockSign
-									|| foundBlock instanceof BlockLever
+							// These blocks may be attached to other facing
+							// blocks and must be done later.
+							if (foundBlock instanceof BlockTorch || foundBlock instanceof BlockSign || foundBlock instanceof BlockLever
 									|| foundBlock instanceof BlockButton)
 							{
 								this.priorityThreeBlocks.add(block);
@@ -262,7 +286,7 @@ public class Structure
 					}
 				}
 			}
-			
+
 			if (ModEventHandler.structuresToBuild.containsKey(player))
 			{
 				ModEventHandler.structuresToBuild.get(player).add(this);
@@ -278,24 +302,32 @@ public class Structure
 				ModEventHandler.structuresToBuild.put(player, structures);
 			}
 		}
+
+		return true;
 	}
 
 	/**
-	 * This method is used before any building occurs to check for things or possibly pre-build locations. Note: This is even done before blocks are cleared.
+	 * This method is used before any building occurs to check for things or
+	 * possibly pre-build locations. Note: This is even done before blocks are
+	 * cleared.
+	 * 
 	 * @param configuration The structure configuration.
 	 * @param world The current world.
 	 * @param originalPos The original position clicked on.
 	 * @param assumedNorth The assumed northern direction.
 	 * @param player The player which initiated the construction.
-	 * @return False if processing should continue, otherwise true to cancel processing.
+	 * @return False if processing should continue, otherwise true to cancel
+	 *         processing.
 	 */
 	protected boolean BeforeBuilding(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth, EntityPlayer player)
 	{
 		return false;
 	}
-	
+
 	/**
-	 * This method is used after the main building is build for any additional structures or modifications.
+	 * This method is used after the main building is build for any additional
+	 * structures or modifications.
+	 * 
 	 * @param configuration The structure configuration.
 	 * @param world The current world.
 	 * @param originalPos The original position clicked on.
@@ -305,15 +337,19 @@ public class Structure
 	public void AfterBuilding(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth, EntityPlayer player)
 	{
 	}
-	
+
 	protected void ClearSpace(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth)
 	{
-		BuildingMethods.ClearSpaceExact(world, this.clearSpace.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing),
-				this.clearSpace.getShape().getWidth(), this.clearSpace.getShape().getHeight(), this.clearSpace.getShape().getLength(), configuration.houseFacing);
+		BlockPos startBlockPos = this.clearSpace.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing);
+		BlockPos endBlockPos = startBlockPos.offset(configuration.houseFacing.rotateYCCW(), this.clearSpace.getShape().getWidth() - 1)
+				.offset(configuration.houseFacing.getOpposite(), this.clearSpace.getShape().getLength() - 1)
+				.offset(EnumFacing.UP, this.clearSpace.getShape().getHeight());
+				
+		this.clearedBlockPos = Lists.newArrayList(BlockPos.getAllInBox(startBlockPos, endBlockPos));
 	}
 
-	protected Boolean CustomBlockProcessingHandled(StructureConfiguration configuration, BuildBlock block, World world, BlockPos originalPos, EnumFacing assumedNorth,
-			Block foundBlock, IBlockState blockState, EntityPlayer player)
+	protected Boolean CustomBlockProcessingHandled(StructureConfiguration configuration, BuildBlock block, World world, BlockPos originalPos,
+			EnumFacing assumedNorth, Block foundBlock, IBlockState blockState, EntityPlayer player)
 	{
 		return false;
 	}
