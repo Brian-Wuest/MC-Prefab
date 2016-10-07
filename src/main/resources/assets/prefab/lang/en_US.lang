@@ -12,6 +12,7 @@ item.prefab:itemMonsterMasher.name=Monster Masher
 item.prefab:itemWareHouseUpgrade.name=Warehouse Upgrade
 item.prefab:itemBundleOfTimber.name=Bundle of Timber
 item.prefab:itemHorseStable.name=Horse Stable
+item.prefab:itemNetherGate.name=Nether Gate
 
 tile.prefab:blockCompressedStone.block_compressed_stone.name=Compressed Stone
 tile.prefab:blockCompressedStone.block_double_compressed_stone.name=Double Compressed Stone
@@ -74,6 +75,7 @@ prefab.gui.treefarm.structure.size=This structure is 38x38 blocks in size.
 prefab.gui.structure.facing=Structure Facing
 prefab.gui.structure.glass=Glass Color
 
+prefab.gui.structure.facing.player=Note: If you're facing north, choose south so the structure is facing you.
 prefab.gui.structure.block.clicked=The red box in the image on the right shows the block you clicked on.
 prefab.gui.structure.door.facing=Note: If you're facing north, choose south so the doors are facing you.
 prefab.gui.structure.nobuild=Cannot build structure due to protected blocks/area.

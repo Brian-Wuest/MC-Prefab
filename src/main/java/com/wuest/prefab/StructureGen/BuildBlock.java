@@ -11,6 +11,7 @@ import com.wuest.prefab.BuildingMethods;
 import com.wuest.prefab.Config.StructureConfiguration;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockBone;
 import net.minecraft.block.BlockLever;
 import net.minecraft.block.BlockLever.EnumOrientation;
 import net.minecraft.block.BlockLog;
@@ -201,7 +202,7 @@ public class BuildBlock
 			}
 		}
 		
-		if (foundBlock instanceof BlockLog)
+		if (foundBlock instanceof BlockLog || foundBlock instanceof BlockBone)
 		{
 			if (block.getProperty("axis").getValue().equals("x"))
 			{
@@ -389,7 +390,7 @@ public class BuildBlock
 						comparable = false;
 					}
 				}
-				else if (foundBlock instanceof BlockLog)
+				else if (foundBlock instanceof BlockLog || foundBlock instanceof BlockBone)
 				{
 					// logs have a special state. There is a property called axis and it only has 3 directions.
 					if (property.getName().equals("axis"))

@@ -40,6 +40,7 @@ public class ModRegistry
 	public static final int GuiAdvancedWareHouse = 7;
 	public static final int GuiMonsterMasher = 8;
 	public static final int GuiHorseStable = 9;
+	public static final int GuiNetherGate = 10;
 	
 	public static ItemStartHouse StartHouse()
 	{
@@ -119,6 +120,11 @@ public class ModRegistry
 	public static ItemHorseStable HorseStable()
 	{
 		return ModRegistry.GetItem(ItemHorseStable.class);
+	}
+	
+	public static ItemNetherGate NetherGate()
+	{
+		return ModRegistry.GetItem(ItemNetherGate.class);
 	}
 	
 	/**
@@ -222,6 +228,7 @@ public class ModRegistry
 		ModRegistry.registerItem(new ItemWarehouseUpgrade("itemWareHouseUpgrade"));
 		ModRegistry.registerItem(new ItemBundleOfTimber("itemBundleOfTimber"));
 		ModRegistry.registerItem(new ItemHorseStable("itemHorseStable"));
+		ModRegistry.registerItem(new ItemNetherGate("itemNetherGate"));
 		
 		// Create/register the item block with this block as it's needed due to this being a meta data block.
 		BlockCompressedStone stone = new BlockCompressedStone();
@@ -503,6 +510,15 @@ public class ModRegistry
 				'c', Item.getItemFromBlock(Blocks.HAY_BLOCK),
 				'd', Item.getItemFromBlock(Blocks.DARK_OAK_FENCE),
 				'e', Item.getItemFromBlock(Blocks.DARK_OAK_FENCE_GATE));
+		
+		// Nether Gate
+		GameRegistry.addRecipe(new ItemStack(ModRegistry.NetherGate()),
+				"aba",
+				"bcb",
+				"aba",
+				'a', new ItemStack(ModRegistry.CompressedStoneBlock(), 1, BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE.getMetadata()),
+				'b', Item.getItemFromBlock(Blocks.OBSIDIAN),
+				'c', Items.FLINT_AND_STEEL);
 	}
 
 	/**
@@ -519,6 +535,7 @@ public class ModRegistry
 		Prefab.network.registerMessage(FishPondHandler.class, FishPondTagMessage.class, 7, Side.SERVER);
 		Prefab.network.registerMessage(MonsterMasherHandler.class, MonsterMasherTagMessage.class, 8, Side.SERVER);
 		Prefab.network.registerMessage(HorseStableHandler.class, HorseStableTagMessage.class, 9, Side.SERVER );
+		Prefab.network.registerMessage(NetherGateHandler.class, NetherGateTagMessage.class, 10, Side.SERVER);
 	}
 	
 	/**
@@ -604,5 +621,6 @@ public class ModRegistry
 		ModRegistry.ModGuis.put(ModRegistry.GuiAdvancedWareHouse, GuiAdvancedWareHouse.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiMonsterMasher, GuiMonsterMasher.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiHorseStable, GuiHorseStable.class);
+		ModRegistry.ModGuis.put(ModRegistry.GuiNetherGate,  GuiNetherGate.class);
 	}
 }
