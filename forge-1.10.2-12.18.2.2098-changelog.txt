@@ -1,5 +1,107 @@
 Changelog:
-Build 2076:
+Build 2098:
+	mezz: Fix proxy injector filtering. (#3300)
+
+Build 1.10.2-12.18.2.2097:
+	LexManos: Bump version for new Recommended Build.
+
+Build 1.10.2-12.18.1.2096:
+	LexManos: Small Cleanup in example build.gradle.
+	LexManos:
+		Filter out proxy injectors for incorrect mods. Prevents mod classes
+		being initialized early when multiple mods are in the same source.
+	LexManos:
+		Introduce IContextSetter for events. This will set the active mod
+		container for events using the normal EventBus. Fixes improper warnings
+		from initializing mods using the new Registry events. Modders, you
+		should not use this as it has many performance implementations and if
+		abused will slow down the event bus A LOT. ActiveModContainer is not
+		thread safe.
+
+Build 1.10.2-12.18.1.2095:
+	mezz: Fix unbound keybindings are activated by unknown keyboard keys (#3288)
+
+Build 1.10.2-12.18.1.2094:
+	mmehnert:
+		caseSensitiveCustomCategories must be set before loading the
+		configuration file. (#3269)
+		Otherwise one set with categories in lowercase letters and on case
+		sensitive
+
+Build 1.10.2-12.18.1.2093:
+	tterrag1098: Fix typo in sky rendering causing tons of BlockPos allocations (#3267)
+
+Build 1.10.2-12.18.1.2092:
+	cpw:
+		Add in registry registration events, new subscription events you can use
+		to make sure you're registering things at the "best" time.
+
+Build 1.10.2-12.18.1.2091:
+	LexManos:
+		Add support for generic filtering of events. Please DO NOT use this in
+		performance sensitive environments where you will have tons of things
+		added to the listener list. If that's the case define sub-classes as
+		they have completely separate lists and will thus be more efficient when
+		firing the event.
+
+Build 1.10.2-12.18.1.2090:
+	lukas.tenbrink:
+		Fix roofed forests posting decoration events for small mushrooms rather
+		than big (#3259)
+
+Build 1.10.2-12.18.1.2089:
+	mattmess1221:
+		Add support for offhand bow aiming animation (#3085)
+		Vanilla allows you to use a bow in your offhand, but it's not visible to
+		others or in third person.
+
+Build 1.10.2-12.18.1.2088:
+	tehgeek:
+		Remove oredict for Bone Block recipe, stop white dye to bonemeal exploit
+		(#3255)
+
+Build 1.10.2-12.18.1.2087:
+	LexManos:
+		Fixed Biome.platFlower not being called when bonemealing grass. Closes
+		#3254
+
+Build 1.10.2-12.18.1.2086:
+	latvianmodder:
+		Added getCommandMap() & getSortedCommandList() in CommandTreeBase
+		(#3251)
+
+Build 1.10.2-12.18.1.2085:
+	atomicblom+github: New event to allow mutating a baby entity based on it's parents (#3227)
+
+Build 1.10.2-12.18.1.2084:
+	latvianmodder: Added CommandTreeBase (#3193)
+
+Build 1.10.2-12.18.1.2083:
+	paul.fulham0: Fix debug command creating empty file (MC-103399) (#3218)
+
+Build 1.10.2-12.18.1.2082:
+	marvinroesch99: Fix universal bucket not being returned in crafting recipes (#3234)
+
+Build 1.10.2-12.18.1.2081:
+	cpw: Create EnergySystems.md
+
+Build 1.10.2-12.18.1.2080:
+	LexManos:
+		Introducing a new standardized energy capability system. Heavily
+		inspired by the old RedstoneFlux API developed by King Lemming and Team
+		CoFH.
+	LexManos: Fix potential shading issue in GuiEditArrayEntries. Closes #3247
+
+Build 1.10.2-12.18.1.2079:
+	LexManos: Fixed ItemStacks having ForgeCaps tag when no caps are serialized.
+
+Build 1.10.2-12.18.1.2078:
+	LexManos: Fix Cactus being able top be planted on incorrect soil.
+
+Build 1.10.2-12.18.1.2077:
+	bloodmc: Fix wrong var being used during getMaxSpawnPackSize check. (#3240)
+
+Build 1.10.2-12.18.1.2076:
 	LexManos:
 		Move dismount version of EntityMountEvent to Entity class. Should fix
 		canceling dismounting. Closes #3226
@@ -5072,7 +5174,7 @@ Build 1.7.10-10.13.0.1170:
 	LexManos: STENCIL buffer and DEPTH buffer, attempt a fix for GL errors.
 
 Build 1.7.10-10.13.0.1169:
-	alexrusso225: Added Javadoc comments for Forge Event documentation.
+	alex grabriel: Added Javadoc comments for Forge Event documentation.
 
 Build 1.7.10-10.13.0.1168:
 	LexManos: MinecraftForge/FML@ac994e178a3533aa3c2ad8359aef9e5852c27a72 Scala people test your shit.
