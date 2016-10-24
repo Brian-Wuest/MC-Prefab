@@ -12,6 +12,8 @@ item.prefab:itemMonsterMasher.name=Монстр Сердцеед
 item.prefab:itemWareHouseUpgrade.name=Улучшение Для Склада
 item.prefab:itemBundleOfTimber.name=Bundle of Timber
 item.prefab:itemHorseStable.name=Horse Stable
+item.prefab:itemNetherGate.name=Nether Gate
+item.prefab:itemModularHouse.name=Modular House
  
 tile.prefab:blockCompressedStone.block_compressed_stone.name=Сжатый Камень
 tile.prefab:blockCompressedStone.block_double_compressed_stone.name=Двойной Сжатый Камень
