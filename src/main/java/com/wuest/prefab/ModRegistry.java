@@ -11,6 +11,7 @@ import com.wuest.prefab.Gui.*;
 import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.Proxy.Messages.*;
 import com.wuest.prefab.Proxy.Messages.Handlers.*;
+import com.wuest.prefab.TileEntities.TileEntityDrafter;
 
 import net.minecraft.block.*;
 import net.minecraft.client.gui.GuiScreen;
@@ -42,6 +43,7 @@ public class ModRegistry
 	public static final int GuiHorseStable = 9;
 	public static final int GuiNetherGate = 10;
 	public static final int GuiModularHouse = 11;
+	public static final int GuiDrafter = 12;
 	
 	public static ItemStartHouse StartHouse()
 	{
@@ -131,6 +133,11 @@ public class ModRegistry
 	public static ItemModularHouse ModularHouse()
 	{
 		return ModRegistry.GetItem(ItemModularHouse.class);
+	}
+	
+	public static BlockDrafter Drafter()
+	{
+		return ModRegistry.GetBlock(BlockDrafter.class);
 	}
 	
 	/**
@@ -242,6 +249,10 @@ public class ModRegistry
 		ItemBlockMeta meta = new ItemBlockMeta(stone);
 		ModRegistry.setItemName(meta, "blockCompressedStone");
 		ModRegistry.registerBlock(stone, meta);
+		
+		BlockDrafter drafter = new BlockDrafter();
+		ModRegistry.registerBlock(drafter);
+		GameRegistry.registerTileEntity(TileEntityDrafter.class, "Drafter");
 	}
 	
 	/**
@@ -631,5 +642,6 @@ public class ModRegistry
 		ModRegistry.ModGuis.put(ModRegistry.GuiHorseStable, GuiHorseStable.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiNetherGate,  GuiNetherGate.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiModularHouse, GuiModularHouse.class);
+		ModRegistry.ModGuis.put(ModRegistry.GuiDrafter, GuiDrafter.class);
 	}
 }
