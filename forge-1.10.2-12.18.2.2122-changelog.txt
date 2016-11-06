@@ -1,5 +1,112 @@
 Changelog:
-Build 2098:
+Build 2122:
+	maxanier: Add support for custom entity selectors in commands (#3356)
+
+Build 1.10.2-12.18.2.2121:
+	latvianmodder: Added PermissionAPI (#3155)
+
+Build 1.10.2-12.18.2.2120:
+	Choonster.2010: Add hand argument to BlockEvent.PlaceEvent (#3221) (#3270)
+
+Build 1.10.2-12.18.2.2119:
+	jezzadabomb:
+		Fixes #3237 and #2752. (#3347)
+		* Fix #3237 by correctly utilising the keepLooking argument.
+		
+		* Explain within SimpleNetworkWrapper's javadoc that the execute of the
+		handler isn't on the main Minecraft thread.
+
+Build 1.10.2-12.18.2.2118:
+	draco18s: Made default slot implementation respect inventory stack size limit.
+
+Build 1.10.2-12.18.2.2117:
+	aa1ronham: Fixed Block.setBedOccupied ignoring 'occupied' parameter
+
+Build 1.10.2-12.18.2.2116:
+	raoulvdberge:
+		Add Item#getNBTShareTag (#3342)
+		* Add Item#getNBTShareTag
+		
+		* Update comment
+
+Build 1.10.2-12.18.2.2115:
+	bonii-xx:
+		Call Looting Event on player death and loot table drops (#3275)
+		* Call Looting Event on player death and loot table drops
+		
+		* Simplify patches
+		
+		* More code cleanup: Replace old usage with compact forgehooks
+		implementation
+
+Build 1.10.2-12.18.2.2114:
+	LexManos: Fix POTENTIAL issue with Texture Stitcher exceeding max size.
+
+Build 1.10.2-12.18.2.2113:
+	dawn0966:
+		Fixed Ore Dictionary replacing the oak boat recipe (#3329)
+		Fixes the oak boat recipe being able to be crafted with any wood
+
+Build 1.10.2-12.18.2.2112:
+	rwtema:
+		Improve the default isItemValid() and getItemStackLimit()
+		implementations in SlotItemHandler. You can now properly swap the
+		player's held itemstack with the slot's itemstack. (#3273)
+
+Build 1.10.2-12.18.2.2111:
+	LexManos:
+		Fixed texture stitcher not using full texture height before expanding
+		width.
+
+Build 1.10.2-12.18.2.2110:
+	LexManos:
+		Special case not drooping snowballs for water and snow layers. Closes
+		#3326
+	LexManos: Update readme to be a little more clear.
+
+Build 1.10.2-12.18.2.2109:
+	bs2609: Fix MC-105406 (OpenGL leak in View Frustum) (#3308)
+
+Build 1.10.2-12.18.2.2108:
+	mezz: Fix very laggy mipmap slider MC-64581 (#3305)
+
+Build 1.10.2-12.18.2.2107:
+	shadowfacts: Add Block#getStateForPlacement (#3129)
+
+Build 1.10.2-12.18.2.2106:
+	mezz: Add better key modifier behavior for GUI contexts (#3307)
+
+Build 1.10.2-12.18.2.2105:
+	tterrag1098: Make item repair recipe respect itemstack's getMaxDamage (#3295)
+
+Build 1.10.2-12.18.2.2104:
+	LexManos: Fix Tabbing issues with config classes.
+	LexManos: Fix infinite loop in dragon fight when the dragon is over the void.
+
+Build 1.10.2-12.18.2.2103:
+	LexManos: Initial pass a re-working the configuration system. Work in progress.
+
+Build 1.10.2-12.18.2.2102:
+	atomicblom+github: Allow all Forge Registries to work with ObjectHolder (#3220)
+	LexManos: @ObjectHolder will now inject null for dummied objects. Closes #3301
+	cpw:
+		Revert "Another fix for registry substitutions. Closes #3212"
+		This reverts commit ec2977afc919c0f676f59977e6065148ea635f9e.
+	cpw:
+		Fix substitutions being broken after freezing - actually store the
+		original state in registry copies, not the computed state, which is
+		wrong because it only sees the sub, not the original.
+	cpw:
+		Add in missing test runner for a test. Fixes failing tests on jenkins,
+		hopefully.
+
+Build 1.10.2-12.18.2.2099:
+	LexManos:
+		Revert commits related to filtering proxy and Automatic Subscriber
+		annotations. Broke some existing setups, will require a annotation
+		definition change in 1.11.
+
+Build 1.10.2-12.18.2.2098:
 	mezz: Fix proxy injector filtering. (#3300)
 
 Build 1.10.2-12.18.2.2097:
