@@ -7,7 +7,9 @@ import java.util.List;
 
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.DrafterTileEntityConfig;
+import com.wuest.prefab.Config.DrafterTileEntityConfig.RoomInfo;
 import com.wuest.prefab.Config.ModConfiguration;
+import com.wuest.prefab.Gui.Controls.GuiRoomInfoButton;
 import com.wuest.prefab.Gui.Controls.GuiTab;
 import com.wuest.prefab.Proxy.ClientProxy;
 import com.wuest.prefab.TileEntities.TileEntityDrafter;
@@ -47,7 +49,7 @@ public class GuiDrafter extends GuiTabScreen
 	/**
 	 * This is the array list for all 49 rooms.
 	 */
-	protected ArrayList<GuiButtonExt> roomButtons;
+	protected ArrayList<GuiRoomInfoButton> roomButtons;
 	protected ArrayList<HoverChecker> roomHovers;
 	
 	protected BlockPos pos;
@@ -60,7 +62,7 @@ public class GuiDrafter extends GuiTabScreen
 		super();
 		this.pos = new BlockPos(x, y, z);
 		this.Tabs.trayWidth = 320;
-		this.roomButtons = new ArrayList<GuiButtonExt>();
+		this.roomButtons = new ArrayList<GuiRoomInfoButton>();
 		this.roomHovers = new ArrayList<HoverChecker>();
 	}
 	
@@ -117,8 +119,13 @@ public class GuiDrafter extends GuiTabScreen
 			
 			if (hoverChecker.checkHover(x, y))
 			{
-				String hoverText = "Room: " + (i + 1);
-				this.drawHoveringText(this.mc.fontRendererObj.listFormattedStringToWidth(hoverText, 300), x, y);
+				GuiRoomInfoButton button = this.roomButtons.get(i);
+				
+				if (button.enabled)
+				{
+					String hoverText = "Room Name: " + (i + 1) + "\nRoom Coordinates:\n X: BlahX Y: BlahY Z: BlahZ";
+					this.drawHoveringText(this.mc.fontRendererObj.listFormattedStringToWidth(button.getHoverText(), 300), x, y);
+				}
 			}
 		}
 		
@@ -127,10 +134,6 @@ public class GuiDrafter extends GuiTabScreen
 		
 		// Draw specific text labels here.
 		this.mc.fontRendererObj.drawString("Level", grayBoxX + 7, grayBoxY + 20, color);
-		
-		this.mc.fontRendererObj.drawString("Room Name:", grayBoxX + 186, grayBoxY + 20, color);
-		
-		this.mc.fontRendererObj.drawString("Room Coordinates:", grayBoxX + 186, grayBoxY + 50, color);
 	}
 	
 	/**
@@ -143,6 +146,118 @@ public class GuiDrafter extends GuiTabScreen
 		{
 			this.mc.displayGuiScreen(null);
 		}
+		else if (button == this.btnBasement2)
+		{
+			this.setRoomInfosForFloor(-2);
+			this.setFloorButtonsEnabled();
+			button.enabled = false;
+		}
+		else if (button == this.btnBasement1)
+		{
+			this.setRoomInfosForFloor(-1);
+			this.setFloorButtonsEnabled();
+			button.enabled = false;
+		}
+		else if (button == this.btnGroundFloor)
+		{
+			this.setRoomInfosForFloor(0);
+			this.setFloorButtonsEnabled();
+			button.enabled = false;
+		}
+		else if (button == this.btnSecondFloor)
+		{
+			this.setRoomInfosForFloor(1);
+			this.setFloorButtonsEnabled();
+			button.enabled = false;
+		}
+		else if (button == this.btnThirdFloor)
+		{
+			this.setRoomInfosForFloor(2);
+			this.setFloorButtonsEnabled();
+			button.enabled = false;
+		}
+	}
+	
+	protected void setRoomInfosForFloor(int floorNumber)
+	{
+		RoomInfo[] roomArray = null;
+		
+		switch (floorNumber)
+		{
+			case -2:
+			{
+				roomArray = this.drafterConfig.Basement2FloorRooms;
+				break;
+			}
+			
+			case -1:
+			{
+				roomArray = this.drafterConfig.BasementFloorRooms;
+				break;
+			}
+			
+			case 0:
+			{
+				roomArray = this.drafterConfig.FirstFloorRooms;
+				break;
+			}
+			
+			case 1:
+			{
+				roomArray = this.drafterConfig.SecondFloorRooms;
+				break;
+			}
+			
+			case 2:
+			{
+				roomArray = this.drafterConfig.ThirdFloorRooms;
+				break;
+			}
+		}
+		
+		this.enableRoomsForFloor(roomArray, floorNumber);
+	}
+	
+	protected void enableRoomsForFloor(RoomInfo[] roomArray, int floorNumber)
+	{
+		for (int i = 0; i < 49; i++)
+		{
+			GuiRoomInfoButton button = this.roomButtons.get(i);
+			button.roomInfo = roomArray[i];
+			
+			// Ground floor room 47 is the foyer and will always exist.
+			if (i == 45 && floorNumber == 0)
+			{
+				button.enabled = true;
+				continue;
+			}
+			else if (i == 45)
+			{
+				button.enabled = true;
+				continue;
+			}
+			
+			// Only set the buttons to enabled if a neighbor is enabled and it has a structure name.
+			button.enabled = button.roomInfo.checkNeighbors(roomArray);
+			
+			if (button.enabled && button.roomInfo.StructureName.equals("Nothing"))
+			{
+				button.displayString = "+";
+			}
+			else if (!button.enabled)
+			{
+				button.displayString = "";
+			}
+		}
+	}
+	
+	protected void setFloorButtonsEnabled()
+	{
+		this.btnBasement2.enabled = true;
+		this.btnBasement1.enabled = true;
+		this.btnGroundFloor.enabled = true;
+		this.btnSecondFloor.enabled = true;
+		this.btnThirdFloor.enabled = true;
 	}
 	
 	private void Initialize() 
@@ -178,17 +293,17 @@ public class GuiDrafter extends GuiTabScreen
 		// Create the 49 room buttons.
 		for (int i = 1; i < 50; i++)
 		{
-			GuiButtonExt roomButton = new GuiButtonExt(uiComponentID++, roomX, roomY, 20, 20, "");
+			GuiRoomInfoButton roomButton = new GuiRoomInfoButton(uiComponentID++, roomX, roomY, 18, 18, "");
 			HoverChecker hoverChecker = new HoverChecker(roomButton, 800);
 			this.roomHovers.add(hoverChecker);
 			this.buttonList.add(roomButton);
 			this.roomButtons.add(roomButton);
-			roomX = roomX + 20;
+			roomX = roomX + 18;
 			
 			if (i % 7 == 0)
 			{
 				roomX = grayBoxX + 40;
-				roomY = roomY + 20;
+				roomY = roomY + 18;
 			}
 		}
 		
@@ -199,6 +314,8 @@ public class GuiDrafter extends GuiTabScreen
 		this.buttonList.add(this.btnBasement1);
 		
 		this.btnGroundFloor = new GuiButtonExt(uiComponentID++, grayBoxX + 10, grayBoxY + 95, 20, 20, "G");
+		this.btnGroundFloor.enabled = false;
+		
 		this.buttonList.add(this.btnGroundFloor);
 		
 		this.btnSecondFloor = new GuiButtonExt(uiComponentID++, grayBoxX + 10, grayBoxY + 70, 20, 20, "2");
@@ -220,6 +337,19 @@ public class GuiDrafter extends GuiTabScreen
 		this.tabGeneral = new GuiTab(this.Tabs, GuiLangKeys.translateString(GuiLangKeys.STARTER_TAB_GENERAL), grayBoxX + 5, grayBoxY - 10);
 		this.Tabs.AddTab(this.tabGeneral);
 		
-		this.tabDetails = new GuiTab(this.Tabs, "Details", grayBoxX + 55, grayBoxY - 10);
+		this.tabDetails = new GuiTab(this.Tabs, "Details", grayBoxX + 58, grayBoxY - 10);
+		this.Tabs.AddTab(this.tabDetails);
+		
+		try
+		{
+			this.actionPerformed(this.btnGroundFloor);
+			this.roomButtons.get(45).roomInfo.StructureName = "Foyer";
+			this.actionPerformed(this.btnGroundFloor);
+		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
