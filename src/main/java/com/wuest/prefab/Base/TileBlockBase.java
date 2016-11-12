@@ -204,8 +204,11 @@ public abstract class TileBlockBase<T extends TileEntityBase> extends Block impl
 		
 		int tickDelay = this.customUpdateState(worldIn, pos, state, tileEntity);
 		
-		worldIn.markBlockRangeForRenderUpdate(pos, pos);
-		worldIn.scheduleUpdate(pos, this, tickDelay);
+		if (tickDelay > 0)
+		{
+			worldIn.markBlockRangeForRenderUpdate(pos, pos);
+			worldIn.scheduleUpdate(pos, this, tickDelay);
+		}
 	}
 	
 	/**

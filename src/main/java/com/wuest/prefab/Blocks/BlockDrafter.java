@@ -5,6 +5,7 @@ import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Base.TileBlockBase;
 import com.wuest.prefab.TileEntities.TileEntityDrafter;
 
+import io.netty.channel.embedded.EmbeddedChannel;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -14,12 +15,22 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.ModContainer;
+import net.minecraftforge.fml.common.network.FMLOutboundHandler;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.FMLOutboundHandler.OutboundTarget;
+import net.minecraftforge.fml.common.network.internal.FMLMessage;
+import net.minecraftforge.fml.relauncher.Side;
 
 /**
  * This is the block for the modular house interface.
@@ -85,7 +96,28 @@ public class BlockDrafter extends TileBlockBase<TileEntityDrafter> implements IM
 	{
 		if (world.isRemote) 
 		{
-			player.openGui(Prefab.instance, ModRegistry.GuiDrafter, world, pos.getX(), pos.getY(), pos.getZ());
+			
+		}
+		else
+		{
+			
+			// Inventory data needs to be sent to the client to show the gui. This is because chests don't push their data to the client until they are opened.
+			// Get the neighbor chest (if there is one) and set the property on the tile entity.
+			EnumFacing blockFacing = state.getValue(FACING).rotateYCCW();
+			
+			// This is to set the item stacks on the tile entity which will be synced to the client.
+			TileEntityDrafter drafterTileEntity = this.getLocalTileEntity(world, pos);
+			drafterTileEntity.setItemStacks(world, pos.offset(blockFacing));
+			
+			// Make sure to sync up the client after setting the stacks before opening the GUI.
+			SPacketUpdateTileEntity spacketupdatetileentity = drafterTileEntity.getUpdatePacket();
+
+            if (spacketupdatetileentity != null)
+            {
+                ((EntityPlayerMP)player).connection.sendPacket(spacketupdatetileentity);
+            }
+            
+            player.openGui(Prefab.instance, ModRegistry.GuiDrafter, world, pos.getX(), pos.getY(), pos.getZ());
 		}
 
 		return true;
@@ -94,7 +126,6 @@ public class BlockDrafter extends TileBlockBase<TileEntityDrafter> implements IM
 	@Override
 	public int customUpdateState(World worldIn, BlockPos pos, IBlockState state, TileEntityDrafter tileEntity)
 	{
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

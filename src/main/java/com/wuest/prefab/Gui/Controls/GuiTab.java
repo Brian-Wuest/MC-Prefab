@@ -24,6 +24,11 @@ public class GuiTab extends Gui
 	protected static final ResourceLocation TAB_TEXTURES = new ResourceLocation("prefab", "textures/gui/guiTab.png");
 	protected static final ResourceLocation TAB_TEXTURES_hovered = new ResourceLocation("prefab", "textures/gui/guiTab_hovered.png");
 	
+	/*
+	 * Determines if this tab is visible.
+	 */
+	public boolean visible;
+	
     /** Button width in pixels */
     public int width;
     /** Button height in pixels */
@@ -47,6 +52,7 @@ public class GuiTab extends Gui
 		this.width = 50;
 		this.xPosition = x;
 		this.yPosition = y;
+		this.visible = true;
 	}
 	
 	public GuiTabTray getParent()
@@ -96,6 +102,11 @@ public class GuiTab extends Gui
      */
     public void drawTab(Minecraft mc, int mouseX, int mouseY)
     {
+    	if (!this.visible)
+    	{
+    		return;
+    	}
+    	
         FontRenderer fontrenderer = mc.fontRendererObj;
         this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
         

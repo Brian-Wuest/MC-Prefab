@@ -1,10 +1,21 @@
 package com.wuest.prefab.Config;
 
-import com.wuest.prefab.Base.BaseConfig;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import com.wuest.prefab.ModRegistry;
+import com.wuest.prefab.Base.BaseConfig;
+import com.wuest.prefab.Blocks.BlockCompressedStone;
+import com.wuest.prefab.Config.ModConfiguration.WallBlockType;
+
+import net.minecraft.init.Items;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 
 /**
@@ -21,6 +32,29 @@ public class DrafterTileEntityConfig extends BaseConfig
 	public RoomInfo[] ThirdFloorRooms;
 	
 	public BlockPos pos;
+	
+	static
+	{
+		DrafterTileEntityConfig.InitializeMaterials();
+	}
+	
+	static void InitializeMaterials()
+	{
+		// Set the materials for the field.
+		AvailableRoomType.Field.getRoomMaterials().add(new RoomMaterial(ModRegistry.CompressedStoneBlock().getRegistryName(), BlockCompressedStone.EnumType.COMPRESSED_DIRT.getMetadata(), 4));
+		
+		// Set the materials for the farmland.
+		AvailableRoomType.FarmLand.getRoomMaterials().add(new RoomMaterial(ModRegistry.CompressedStoneBlock().getRegistryName(), BlockCompressedStone.EnumType.COMPRESSED_DIRT.getMetadata(), 4));
+		AvailableRoomType.FarmLand.getRoomMaterials().add(new RoomMaterial(Items.WATER_BUCKET.getRegistryName(), -1, 3));
+		
+		// Set the materials for the Plain stone room.
+		AvailableRoomType.PlainStoneRoom.getRoomMaterials().add(new RoomMaterial(ModRegistry.CompressedStoneBlock().getRegistryName(), BlockCompressedStone.EnumType.COMPRESSED_STONE.getMetadata(), 12));
+		
+		// Set the materials for the tree farm.
+		AvailableRoomType.TreeFarm.getRoomMaterials().add(new RoomMaterial(ModRegistry.CompressedStoneBlock().getRegistryName(), BlockCompressedStone.EnumType.COMPRESSED_DIRT.getMetadata(), 4));
+		AvailableRoomType.TreeFarm.getRoomMaterials().add(new RoomMaterial(Items.WATER_BUCKET.getRegistryName(), -1, 3));
+		AvailableRoomType.TreeFarm.getRoomMaterials().add(new RoomMaterial(ModRegistry.BundleOfTimber().getRegistryName(), -1, 2));
+	}
 	
 	public DrafterTileEntityConfig()
 	{
@@ -289,4 +323,97 @@ public class DrafterTileEntityConfig extends BaseConfig
 			}
 		}
 	}
+	
+	public static class RoomMaterial
+	{
+		public ResourceLocation resourceLocation;
+		public int metaData;
+		public int numberRequired;
+		
+		public RoomMaterial(ResourceLocation resourceLocation, int metaData, int numberRequried)
+		{
+			this.resourceLocation = resourceLocation;
+			this.metaData = metaData;
+			this.numberRequired = numberRequried;
+		}
+	}
+
+	public enum AvailableRoomType
+	{
+		/**
+		 * This is a regular flat field.
+		 */
+		Field(0, "Field"),
+		
+		FarmLand(1, "Farm Land"),
+		
+		PlainStoneRoom(2, "Plain Stone Room"),
+		
+		TreeFarm(3, "Tree Farm");
+		
+		private final int key;
+		private final String name;
+		private ArrayList<RoomMaterial> roomMaterials;
+		
+		AvailableRoomType(int key, String name)
+		{
+			this.key = key;
+			this.name = name;
+			this.roomMaterials = new ArrayList<RoomMaterial>();
+		}
+		
+		/**
+		 * Gets the key associated with this available room.
+		 * @return The integer representing the key for this room.
+		 */
+		public int getKey()
+		{
+			return this.key;
+		}
+		
+		/**
+		 * Returns the name of this room.
+		 * @return The name of this room.
+		 */
+		public String getName()
+		{
+			return this.name;
+		}
+		
+		/**
+		 * Get the materials for this room.
+		 * @return The required materials for this room.
+		 */
+		public ArrayList<RoomMaterial> getRoomMaterials()
+		{
+			return this.roomMaterials;
+		}
+		
+		public static AvailableRoomType ValueOf(int value)
+		{
+			for (AvailableRoomType room : AvailableRoomType.values())
+			{
+				if (value == room.getKey())
+				{
+					return room;
+				}
+			}
+			
+			return AvailableRoomType.Field;
+		}
+		
+		public static AvailableRoomType ValueOf(String roomName)
+		{
+			for (AvailableRoomType room : AvailableRoomType.values())
+			{
+				if (roomName.equals(room.name))
+				{
+					return room;
+				}
+			}
+			
+			return AvailableRoomType.Field;
+		}
+	}
+
 }

@@ -72,7 +72,12 @@ public class CommonProxy implements IGuiHandler
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
-		return null;
+		if (ID == ModRegistry.GuiDrafter)
+		{
+			return new GuiCustomContainer();
+		}
+		
+		return ModRegistry.GetModGuiByID(ID, x, y, z);
 	}
 
 	@Override
