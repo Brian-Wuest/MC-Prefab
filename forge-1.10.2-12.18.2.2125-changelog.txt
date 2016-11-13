@@ -1,5 +1,15 @@
 Changelog:
-Build 2122:
+Build 2125:
+	cpw: Update to 20161111 mcp names
+	cpw: regenerate entitylivingbase patch
+
+Build 1.10.2-12.18.2.2124:
+	mezz: Improve error message from crashes during loading (#3362)
+
+Build 1.10.2-12.18.2.2123:
+	draco18s: Added events for crop growth (#3320)
+
+Build 1.10.2-12.18.2.2122:
 	maxanier: Add support for custom entity selectors in commands (#3356)
 
 Build 1.10.2-12.18.2.2121:
