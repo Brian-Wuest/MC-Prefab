@@ -94,13 +94,8 @@ public class BlockDrafter extends TileBlockBase<TileEntityDrafter> implements IM
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ)
 	{
-		if (world.isRemote) 
+		if (!world.isRemote) 
 		{
-			
-		}
-		else
-		{
-			
 			// Inventory data needs to be sent to the client to show the gui. This is because chests don't push their data to the client until they are opened.
 			// Get the neighbor chest (if there is one) and set the property on the tile entity.
 			EnumFacing blockFacing = state.getValue(FACING).rotateYCCW();

@@ -242,7 +242,7 @@ public class ModRegistry
 		ModRegistry.registerItem(new ItemBundleOfTimber("itemBundleOfTimber"));
 		ModRegistry.registerItem(new ItemHorseStable("itemHorseStable"));
 		ModRegistry.registerItem(new ItemNetherGate("itemNetherGate"));
-		ModRegistry.registerItem(new ItemModularHouse("itemModularHouse"));
+		//ModRegistry.registerItem(new ItemModularHouse("itemModularHouse"));
 		
 		// Create/register the item block with this block as it's needed due to this being a meta data block.
 		BlockCompressedStone stone = new BlockCompressedStone();
@@ -250,9 +250,9 @@ public class ModRegistry
 		ModRegistry.setItemName(meta, "blockCompressedStone");
 		ModRegistry.registerBlock(stone, meta);
 		
-		BlockDrafter drafter = new BlockDrafter();
-		ModRegistry.registerBlock(drafter);
-		GameRegistry.registerTileEntity(TileEntityDrafter.class, "Drafter");
+		//BlockDrafter drafter = new BlockDrafter();
+		//ModRegistry.registerBlock(drafter);
+		//GameRegistry.registerTileEntity(TileEntityDrafter.class, "Drafter");
 	}
 	
 	/**

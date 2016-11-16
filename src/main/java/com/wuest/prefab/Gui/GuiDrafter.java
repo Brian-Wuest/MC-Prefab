@@ -83,8 +83,20 @@ public class GuiDrafter extends GuiTabScreen
 	protected DrafterTileEntityConfig drafterConfig;
 	protected TileEntityDrafter tileEntity;
 	
-	
 	protected GuiRoomInfoButton selectedRoom;
+	
+	/*
+	 * Notes: 
+	 * 	1. Need to create properties on config so it can store the pending changes.
+	 * 		a. These pending changes should be shown on the grid with the name of the room.
+	 * 		b. Pending changes cannot be changed unless canceled. This is just a queue.
+	 * 		c. If a user queues up multiple pending changes for connected rooms and cancels the root room a warning message should appear or not allow the user to cancel that change right away.
+	 *	2. Room coordinates must be shown on the grid. This means that the room info must be calculated as part of the tile entity and stored in the RoomInfo Class.
+	 *		a. The room coordinates will be the "lower left" most block. This is based upon the block's facing.
+	 *		b. This calculation must happen at the initialization of the tile entity.
+	 *	3. I need to store the house generated facing when placing the drafter block so I know what how that facing relates to this blocks facing.
+	 *		a. Need to account for a null house generated facing since creative places could place my block.
+	 */
 	
 	public GuiDrafter(int x, int y, int z)
 	{
@@ -165,7 +177,17 @@ public class GuiDrafter extends GuiTabScreen
 				
 				if (button.enabled)
 				{
-					String hoverText = "Room Name: " + (i + 1) + "\nRoom Coordinates:\n X: BlahX Y: BlahY Z: BlahZ";
+					String hoverText = "";
+					
+					if (button.roomInfo.StructureName.equals("Nothing"))
+					{
+						hoverText = "\nRoom Coordinates:\n X: BlahX Y: BlahY Z: BlahZ";
+					}
+					else
+					{
+						hoverText = "Room Name: " + (i + 1) + "\nRoom Coordinates:\n X: BlahX Y: BlahY Z: BlahZ";
+					}
+					
 					this.drawHoveringText(this.mc.fontRendererObj.listFormattedStringToWidth(button.getHoverText(), 300), x, y);
 				}
 			}
@@ -179,6 +201,11 @@ public class GuiDrafter extends GuiTabScreen
 		if (this.getSelectedTab() == this.tabGeneral)
 		{
 			this.mc.fontRendererObj.drawString("Level", grayBoxX + 7, grayBoxY + 20, color);
+			
+			if (this.selectedRoom != null && !this.selectedRoom.roomInfo.StructureName.equals("Nothing"))
+			{
+				// Show the structure name and room coordinates for this selected room.
+			}
 		}
 		else if (this.getSelectedTab() == this.tabDesignRoom)
 		{
@@ -193,6 +220,14 @@ public class GuiDrafter extends GuiTabScreen
 	@Override
 	protected void actionPerformed(GuiButton button) throws IOException
 	{
+		if (button instanceof GuiRoomInfoButton
+				&& this.selectedRoom != null)
+		{
+			// If a room info button was clicked, set the selected button so everything will show up on the details page.
+			// Turn off the current button.
+			this.selectedRoom.selected = false;
+		}
+		
 		this.selectedRoom = null;
 		
 		if (button == this.btnCancel)
@@ -204,30 +239,35 @@ public class GuiDrafter extends GuiTabScreen
 		{
 			this.setRoomInfosForFloor(-2);
 			this.setFloorButtonsEnabled();
+			this.tabDesignRoom.visible = false;
 			button.enabled = false;
 		}
 		else if (button == this.btnBasement1)
 		{
 			this.setRoomInfosForFloor(-1);
 			this.setFloorButtonsEnabled();
+			this.tabDesignRoom.visible = false;
 			button.enabled = false;
 		}
 		else if (button == this.btnGroundFloor)
 		{
 			this.setRoomInfosForFloor(0);
 			this.setFloorButtonsEnabled();
+			this.tabDesignRoom.visible = false;
 			button.enabled = false;
 		}
 		else if (button == this.btnSecondFloor)
 		{
 			this.setRoomInfosForFloor(1);
 			this.setFloorButtonsEnabled();
+			this.tabDesignRoom.visible = false;
 			button.enabled = false;
 		}
 		else if (button == this.btnThirdFloor)
 		{
 			this.setRoomInfosForFloor(2);
 			this.setFloorButtonsEnabled();
+			this.tabDesignRoom.visible = false;
 			button.enabled = false;
 		}
 		else if (button == this.btnClearPending)
@@ -236,8 +276,8 @@ public class GuiDrafter extends GuiTabScreen
 		}
 		else if (button instanceof GuiRoomInfoButton)
 		{
-			// If a room info button was clicked, set the selected button so everything will show up on the details page.
 			this.selectedRoom = (GuiRoomInfoButton)button;
+			this.selectedRoom.selected = true;
 			
 			if (this.selectedRoom.roomInfo.StructureName.equals("Nothing"))
 			{
@@ -300,6 +340,7 @@ public class GuiDrafter extends GuiTabScreen
 		{
 			GuiRoomInfoButton button = this.roomButtons.get(i);
 			button.roomInfo = roomArray[i];
+			button.selected = false;
 			
 			// Ground floor room 47 is the foyer and will always exist.
 			if (i == 45 && floorNumber == 0)
@@ -688,30 +729,6 @@ public class GuiDrafter extends GuiTabScreen
     				returnValue += stack.stackSize;
     			}
         	}
-        	
-        	/*
-        	IBlockState drafterState = this.parent.tileEntity.getBlockType().getStateFromMeta(this.parent.tileEntity.getBlockMetadata());
-        	EnumFacing blockFacing = drafterState.getValue(BlockDrafter.FACING).rotateYCCW();
-        	
-        	BlockPos inventoryPos = this.parent.pos.offset(blockFacing);
-        	TileEntity tileEntity = this.parent.mc.theWorld.getTileEntity(inventoryPos);
-        	
-        	if (tileEntity != null && tileEntity instanceof IInventory)
-        	{
-        		IInventory inventory = (IInventory)tileEntity;
-        		
-        		for (int i = 0; i < inventory.getSizeInventory(); i++)
-        		{
-        			ItemStack slotStack = inventory.getStackInSlot(i);
-        			
-        			if (slotStack != null && slotStack.getItem() == desiredItemStack.getItem() && slotStack.getMetadata() == desiredItemStack.getMetadata())
-        			{
-        				// This is an exact match, update the return value with how many items are in this stack.
-        				returnValue += slotStack.stackSize;
-        			}
-        		}
-        	}
-        	*/
         	
         	return returnValue;
         }

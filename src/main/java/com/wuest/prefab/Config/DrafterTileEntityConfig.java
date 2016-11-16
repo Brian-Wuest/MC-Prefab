@@ -38,6 +38,9 @@ public class DrafterTileEntityConfig extends BaseConfig
 		DrafterTileEntityConfig.InitializeMaterials();
 	}
 	
+	/**
+	 * This method is used to initialize the materials needed for specific room types. 
+	 */
 	static void InitializeMaterials()
 	{
 		// Set the materials for the field.
@@ -241,6 +244,7 @@ public class DrafterTileEntityConfig extends BaseConfig
 		public EnumFacing StructureFacing;
 		public BlockPos RoomCoordinates;
 		public boolean PendingBuilding; 
+		public int FloorNumber;
 		
 		/**
 		 * Initializes a new instance of the RoomInfo class.
@@ -252,6 +256,7 @@ public class DrafterTileEntityConfig extends BaseConfig
 			this.RoomCoordinates = new BlockPos(0,0,0);
 			this.StructureName = "Nothing";
 			this.PendingBuilding = false;
+			this.FloorNumber = 0;
 		}
 		
 		public static RoomInfo CreateFromNBTTag(NBTTagCompound compound)
@@ -263,6 +268,7 @@ public class DrafterTileEntityConfig extends BaseConfig
 				info.StructureFacing = EnumFacing.byName(compound.getString("facing"));
 				info.RoomCoordinates = new BlockPos(compound.getInteger("x"), compound.getInteger("y"), compound.getInteger("z"));
 				info.PendingBuilding = compound.getBoolean("pendingBuilding");
+				info.FloorNumber = compound.getInteger("floor_number");
 				
 				return info;
 			}
@@ -281,6 +287,7 @@ public class DrafterTileEntityConfig extends BaseConfig
 			tag.setInteger("y", this.RoomCoordinates.getY());
 			tag.setInteger("z", this.RoomCoordinates.getZ());
 			tag.setBoolean("pendingBuilding", this.PendingBuilding);
+			tag.setInteger("floor_number", this.FloorNumber);
 			
 			compound.setTag("room_" + this.ID, tag);
 		}
