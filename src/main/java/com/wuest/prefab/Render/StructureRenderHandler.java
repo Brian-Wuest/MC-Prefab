@@ -158,11 +158,11 @@ public class StructureRenderHandler
 				StructureRenderHandler.setStructure(null, EnumFacing.NORTH, null);
 				player.addChatComponentMessage(
 						new TextComponentTranslation(GuiLangKeys.GUI_PREVIEW_COMPLETE)
-						.setStyle(new Style().setColor(TextFormatting.GREEN)));
+						.setStyle(new Style().setColor(TextFormatting.GREEN)), true);
 			}
 			else if (!StructureRenderHandler.showedMessage)
 			{
-				player.addChatComponentMessage(new TextComponentTranslation(GuiLangKeys.GUI_PREVIEW_NOTICE).setStyle(new Style().setColor(TextFormatting.GREEN)));
+				player.addChatComponentMessage(new TextComponentTranslation(GuiLangKeys.GUI_PREVIEW_NOTICE).setStyle(new Style().setColor(TextFormatting.GREEN)), true);
 				StructureRenderHandler.showedMessage = true;
 			}
 		}

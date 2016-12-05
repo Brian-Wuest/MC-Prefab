@@ -1,5 +1,211 @@
 Changelog:
-Build 2125:
+Build 2176:
+	logictechcorp: Allow connectable blocks to choose what they can connect to (#3437)
+
+Build 1.11-13.19.0.2175:
+	dawn0966: Changed Armor Material to use an ItemStack aware version (#3469)
+
+Build 1.11-13.19.0.2174:
+	bs2609: Fix Redstone Torch memory leak (#3474)
+
+Build 1.11-13.19.0.2173:
+	diesieben07: BiomeDictionary code cleanup (#3466)
+
+Build 1.11-13.19.0.2172:
+	TechnicianLP: Added EquipmentChangeEvent (#3411)
+
+Build 1.10.2-12.18.2.2171:
+	bs2609: Fix Redstone Torch memory leak (#3271)
+
+Build 1.10.2-12.18.2.2170:
+	1vInc: Fix for showing config default values twice in tooltip (#2257) (#3338)
+
+Build 1.11-13.19.0.2169:
+	marvinroesch99: Update assets to new Forge brand (#3464)
+
+Build 1.11-13.19.0.2168:
+	LexManos:
+		First pass at exposing data fixers to modders. Each mod gets its own
+		version number, mods SHOULD NOT rely on other mod's fixers, just care
+		about yourself. Walkers can use IDataFixerData to retrieve their
+		version.
+
+Build 1.11-13.19.0.2167:
+	williewillus: Add getSlotLimit(slot) to IItemHandler (#3445)
+
+Build 1.10.2-12.18.2.2166:
+	draco18s: Added isItemValidForSlot check to hopper extraction (#3444)
+
+Build 1.11-13.19.0.2165:
+	mezz: Provide access to GuiContainer location and dimensions (#3440)
+	kashike:
+		Add method to check if an Entity can trample a Block. Fixes #2510
+		(#2730)
+	cpw:
+		Pass along if the respawn event was the result of the end being
+		conquered or not (end respawning is really FUNKY code and uses death
+		instead of 'change dimension')
+
+Build 1.11-13.19.0.2162:
+	bs2609: Clean up handling of changes to IVertexConsumer (#3458)
+
+Build 1.11-13.19.0.2161:
+	bs2609: Quick fix for another ItemStack null check (#3426)
+	mezz: Provide access to ShapedOreRecipe width and height (#3439)
+
+Build 1.11-13.19.0.2160:
+	cpw:
+		Fix problem with the server hanging around after forcing the client to
+		exit, leaving behind stale processes.
+
+Build 1.11-13.19.0.2159:
+	mezz:
+		Fix #3432 Hopper and Dropper item moving does not exactly match vanilla
+		(#3442)
+	mezz: Fix using the wrong Pair implementation (#3449)
+
+Build 1.11-13.19.0.2157:
+	mezz: Fix #3424 ItemCraftedEvent returns air when shift-clicking (#3441)
+
+Build 1.11-13.19.0.2156:
+	mezz:
+		Cleanup some null checks and remove deprecated methods in Item and Block
+		(#3429)
+
+Build 1.11-13.19.0.2155:
+	LexManos: Make all tests one side only, so we can test vanilla clients in dev env.
+	LexManos:
+		Insert FML packet handler into Vanilla pipelines in case modders send
+		FMLPacket to vanilla. Fixes #3422
+	LexManos: Fix max CustomPayload size, 1MB not 16MB.
+
+Build 1.11-13.19.0.2154:
+	LexManos: Fix AbstractMethodException in FML Registries. Closes #3427
+
+Build 1.11-13.19.0.2153:
+	shadowfacts:
+		Move EntityHorse capability patches to AbstractHorse (#3417)
+		Fixes #3409
+	LexManos: Fix ItemStack null check in PlayerInteractionManager
+
+Build 1.11-13.19.0.2152:
+	shadowfacts: Initial annotations/nullability changes (#3392)
+	TechnicianLP: Remove Block.addInformation exists in vanilla (#3413)
+	LexManos: Fix Item transfers related to Hoppers.
+
+Build 1.10.2-12.18.2.2151:
+	ohai.iChun:
+		Add GetCollisionBoxesEvent. Allows manipulation of the collision boxes
+		for moving entities and entities stuck in walls. (#3397)
+
+Build 1.11-13.19.0.2150:
+	ohai.iChun:
+		Add GetCollisionBoxesEvent. Allows manipulation of the collision boxes
+		of blocks for entities. MC1.11 edition. (#3405)
+
+Build 1.11-13.19.0.2149:
+	LexManos: First draft of Entity Registry re-write.
+
+Build 1.11-13.19.0.2148:
+	LexManos:
+		Make Wither Skulls respect Block.canEntityDestroy. Closes #3404
+		(cherry picked from commit 6b52023a5c341420d976cb50359e2a2a4a6a9192)
+
+Build 1.10.2-12.18.2.2147:
+	LexManos: Make Wither Skulls respect Block.canEntityDestroy. Closes #3404
+
+Build 1.11-13.19.0.2146:
+	Bartek_s2: Added EnumHand parameter to Block.getStateForPlacement (#3402)
+
+Build 1.11-13.19.0.2145:
+	LexManos:
+		Fix issues with ZombieVillagers Closes #3398 1.11 doesn't intertwine
+		zombie types anymore so our edits to split them out for custom
+		professions are not needed.
+	LexManos: Fix client side placement issue on blocks with GUIs. Closes #3399
+
+Build 1.11-13.19.0.2144:
+	ezterry3:
+		Fix Villagers for 1.11 (#3401)
+		- Add cartographer registry entry
+		- Fix textures for the nitwit
+
+Build 1.11-13.19.0.2143:
+	mezz: [1.11] Fix nullability issues around ForgeHooks and Capabilities (#3395)
+
+Build 1.11-13.19.0.2142:
+	larsgerrits99:
+		Change OreDictionary over from "null" to the new ItemStack system.
+		(#3400)
+
+Build 1.11-13.19.0.2141:
+	LexManos:
+		Do not install mod_list.json for optional mods. Classpath scanning is in
+		so they will still be detected
+
+Build 1.10.2-12.18.2.2140:
+	LexManos:
+		Do not install mod_list.json for optional mods. Classpath scanning is in
+		so they will still be detected
+
+Build 1.10.2-12.18.2.2139:
+	LexManos: Include Mercurius in installer. See Forge Forums for more info.
+
+Build 1.11-13.19.0.2138:
+	LexManos: Include Mercurius in installer. See Forge Forums for more info.
+
+Build 1.11-13.19.0.2137:
+	LexManos: Restore the ability to register modded TileEntities.
+
+Build 1.11-13.19.0.2136:
+	mezz: Remove deprecated Fluid stuff
+	mezz: Implement fluid item capabilities without item swapping
+
+Build 1.11-13.19.0.2135:
+	LexManos:
+		Make EntityShulker fire EnderTeleportEvent. Closes #3383
+		(cherry picked from commit d48985fafaed6de6f09136b999ca8aa44184a7b9)
+	LexManos: Fixed damage bar color. Closes #3389
+	LexManos: Fix ItemStackHandler's constructor ignoring size. Closes #3386
+	shadowfacts: Fix crafting causing crash (#3388) Closes #3387
+
+Build 1.10.2-12.18.2.2134:
+	LexManos: Update installer to 1.5, and fix local buildscript issues.
+	LexManos: Make EntityShulker fire EnderTeleportEvent. Closes #3383
+
+Build 1.11-13.19.0.2133:
+	LexManos:
+		Added event to allow modification of player visibility to mobs/AI
+		(#3382)
+		(cherry picked from commit 0a5ef64d6ea96fe85d7c62107081ced649e6a3e9)
+
+Build 1.10.2-12.18.2.2132:
+	maxanier:
+		Added event to allow modification of player visibility to mobs/AI
+		(#3382)
+
+Build 1.11-13.19.0.2131:
+	LexManos: Apply missed patch to WorldProvider.
+	mezz: [1.11] Fix initCapabilities for ItemStacks (#3379)
+	LexManos: Disable capabilities for empty ItemStacks.
+	LexManos: Restore another missing patch in WorldProvider.
+
+Build 1.11-13.19.0.2130:
+	LexManos:
+		Fix build.gradle problems: Installer missing url.png UploadArchives
+		erroring on local systems due to missing changelog Adding branch name
+		improperly.
+
+Build 1.11-13.19.0.2129-1.11.x:
+	LexManos: Fix localizations not loading correctly in legacy resource packs.
+
+Build 1.11-13.19.0.2128-1.11.x:
+	LexManos: Fix FurnaceRecipy registration.
+
+Build 1.11-13.19.0.2127-1.11.x:
+	LexManos: Fixed test cases for 1.11 changes.
+
+Build 1.10.2-12.18.2.2125:
 	cpw: Update to 20161111 mcp names
 	cpw: regenerate entitylivingbase patch
 

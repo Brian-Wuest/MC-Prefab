@@ -726,7 +726,7 @@ public class GuiDrafter extends GuiTabScreen
     			if (stack != null && stack.getItem() == desiredItemStack.getItem() && stack.getMetadata() == desiredItemStack.getMetadata())
     			{
     				// This is an exact match, update the return value with how many items are in this stack.
-    				returnValue += stack.stackSize;
+    				returnValue += stack.func_190916_E();
     			}
         	}
         	

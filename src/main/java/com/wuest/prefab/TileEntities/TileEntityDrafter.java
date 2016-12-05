@@ -65,7 +65,8 @@ public class TileEntityDrafter extends TileEntityBase<DrafterTileEntityConfig>
 			
 			for (String key : stacks.getKeySet())
 			{
-				ItemStack stack = ItemStack.loadItemStackFromNBT(stacks.getCompoundTag(key));
+				
+				ItemStack stack = new ItemStack(stacks.getCompoundTag(key));
 				
 				if (stack != null)
 				{
