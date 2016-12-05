@@ -19,11 +19,11 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
  * @author WuestMan
  *
  */
-@Mod(modid = Prefab.MODID, version = Prefab.VERSION, acceptedMinecraftVersions = "[1.10],[1.10.2]", guiFactory = "com.wuest.prefab.Gui.ConfigGuiFactory")
+@Mod(modid = Prefab.MODID, version = Prefab.VERSION, acceptedMinecraftVersions = "[1.11]", guiFactory = "com.wuest.prefab.Gui.ConfigGuiFactory")
 public class Prefab
 {
 	public static final String MODID = "prefab";
-	public static final String VERSION = "1.1.1.4";
+	public static final String VERSION = "1.2";
 	public static boolean isDebug = false;
 
 	@Instance(value = Prefab.MODID)
