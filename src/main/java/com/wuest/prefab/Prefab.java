@@ -1,16 +1,23 @@
 package com.wuest.prefab;
 
+import java.util.List;
+
 import com.wuest.prefab.Proxy.CommonProxy;
 
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLMissingMappingsEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLMissingMappingsEvent.MissingMapping;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.common.registry.GameRegistry.Type;
 
 /**
  * The starting point to load all of the blocks, items and other objects
@@ -57,5 +64,140 @@ public class Prefab
 	public void postinit(FMLPostInitializationEvent event)
 	{
 		Prefab.proxy.postinit(event);
+	}
+	
+	@EventHandler
+	public void OnMissingMapping(FMLMissingMappingsEvent event) 
+	{
+		List<MissingMapping> missingMappings = event.get();
+		
+		for(MissingMapping mapping : missingMappings) 
+		{
+			if (mapping.type == Type.BLOCK)
+			{
+				Block mappedBlock = null;
+				
+				switch (mapping.resourceLocation.getResourcePath())
+				{
+					case "blockcompressedstone":
+					{
+						mappedBlock = ModRegistry.CompressedStoneBlock();
+					}
+				}
+				
+				if (mappedBlock != null)
+				{
+					mapping.remap(mappedBlock);
+				}
+			}
+			else
+			{
+				Item mappedItem = null;
+				
+				switch (mapping.resourceLocation.getResourcePath())
+				{
+					case "blockcompressedstone":
+					{
+						mappedItem = ModRegistry.ModItems.stream().filter(item -> item.getRegistryName().getResourcePath().equals("block_compressed_stone")).findFirst().get();
+						break;
+					}
+					
+					case "itemproducefarm" :
+					{
+						mappedItem = ModRegistry.ProduceFarm();
+						break;
+					}
+					
+					case "itempileofbricks" :
+					{
+						mappedItem = ModRegistry.PileOfBricks();
+						break;
+					}
+					
+					case "itemhorsestable" :
+					{
+						mappedItem = ModRegistry.HorseStable();
+						break;
+					}
+					
+					case "itemnethergate" :
+					{
+						mappedItem = ModRegistry.NetherGate();
+						break;
+					}
+					
+					case "itemwarehouseupgrade" :
+					{
+						mappedItem = ModRegistry.WareHouseUpgrade();
+						break;
+					}
+					
+					case "itemchickencoop" :
+					{
+						mappedItem = ModRegistry.ChickenCoop();
+						break;
+					}
+					
+					case "itemtreefarm" :
+					{
+						mappedItem = ModRegistry.TreeFarm();
+						break;
+					}
+					
+					case "itemcompressedchest" :
+					{
+						mappedItem = ModRegistry.CompressedChestItem();
+						break;
+					}
+					
+					case "itembundleoftimber" :
+					{
+						mappedItem = ModRegistry.BundleOfTimber();
+						break;
+					}
+					
+					case "itemwarehouse" :
+					{
+						mappedItem = ModRegistry.WareHouse();
+						break;
+					}
+					
+					case "itempalletofbricks" :
+					{
+						mappedItem = ModRegistry.PalletOfBricks();
+						break;
+					}
+					
+					case "itemfishpond" :
+					{
+						mappedItem = ModRegistry.FishPond();
+						break;
+					}
+					
+					case "itemmonstermasher" :
+					{
+						mappedItem = ModRegistry.MonsterMasher();
+						break;
+					}
+					
+					case "itemstarthouse" :
+					{
+						mappedItem = ModRegistry.StartHouse();
+						break;
+					}
+					
+					case "itemadvancedwarehouse" :
+					{
+						mappedItem = ModRegistry.AdvancedWareHouse();
+						break;
+					}
+				}
+				
+				if (mappedItem != null)
+				{
+					mapping.remap(mappedItem);
+				}
+			}
+		}
 	}
 }

@@ -162,7 +162,7 @@ public class StructureRenderHandler
 			}
 			else if (!StructureRenderHandler.showedMessage)
 			{
-				player.addChatComponentMessage(new TextComponentTranslation(GuiLangKeys.GUI_PREVIEW_NOTICE).setStyle(new Style().setColor(TextFormatting.GREEN)), true);
+				player.addChatComponentMessage(new TextComponentTranslation(GuiLangKeys.GUI_PREVIEW_NOTICE).setStyle(new Style().setColor(TextFormatting.GREEN)), false);
 				StructureRenderHandler.showedMessage = true;
 			}
 		}

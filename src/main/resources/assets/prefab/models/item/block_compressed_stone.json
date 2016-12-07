@@ -1,5 +1,5 @@
 {
-	"parent": "prefab:block/blockCompressedStone",
+	"parent": "prefab:block/block_compressed_stone",
 	"display": {
 		"thirdperson": {
 			"rotation": [ 10, -45, 170 ],

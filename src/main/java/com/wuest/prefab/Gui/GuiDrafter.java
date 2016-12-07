@@ -52,7 +52,7 @@ public class GuiDrafter extends GuiTabScreen
 {
 	public AvailableRoomType selectedRoomType;
 	
-	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/defaultBackground.png");
+	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/default_background.png");
 	
 	protected GuiTab tabGeneral;
 	protected GuiTab tabDesignRoom;
