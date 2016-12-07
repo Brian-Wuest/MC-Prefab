@@ -30,7 +30,7 @@ import net.minecraftforge.fml.client.config.GuiSlider;
  */
 public class GuiStartHouseChooser extends GuiTabScreen
 {
-	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/defaultBackground.png");
+	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/default_background.png");
 	protected GuiButtonExt btnCancel;
 	protected GuiButtonExt btnBuild;
 	

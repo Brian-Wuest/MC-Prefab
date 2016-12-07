@@ -1,7 +1,7 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "prefab:items/itemStartHouse"
+        "layer0": "prefab:items/item_start_house"
     },
     "display": {
         "thirdperson": {

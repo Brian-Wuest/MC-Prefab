@@ -29,8 +29,8 @@ import net.minecraftforge.fml.client.config.GuiButtonExt;
  */
 public class GuiChickenCoop extends GuiScreen
 {
-	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/defaultBackground.png");
-	private static final ResourceLocation structureTopDown = new ResourceLocation("prefab", "textures/gui/chickenCoopTopDown.png");
+	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/default_background.png");
+	private static final ResourceLocation structureTopDown = new ResourceLocation("prefab", "textures/gui/chicken_coop_top_down.png");
 	
 	protected GuiButtonExt btnCancel;
 	protected GuiButtonExt btnBuild;

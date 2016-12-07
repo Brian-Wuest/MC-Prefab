@@ -1,6 +1,6 @@
 {
 	"parent": "block/cube_all",
 	"textures": {
-		"all": "prefab:blocks/blockDoubleCompressedStone"
+		"all": "prefab:blocks/block_double_compressed_stone"
 	}
 }

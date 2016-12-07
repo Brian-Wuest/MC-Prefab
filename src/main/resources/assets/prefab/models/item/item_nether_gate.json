@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "prefab:items/itemMonsterMasher"
+        "layer0": "prefab:items/item_nether_gate"
     }
 }

@@ -55,7 +55,7 @@ public class BlockDrafter extends TileBlockBase<TileEntityDrafter> implements IM
 		this.setBlockUnbreakable();
 		this.setResistance(6000000.0F);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(BlockDrafter.FACING, EnumFacing.NORTH));
-		ModRegistry.setBlockName(this, "blockDrafter");
+		ModRegistry.setBlockName(this, "block_drafter");
 	}
 	
 	/**
