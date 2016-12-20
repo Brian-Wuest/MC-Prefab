@@ -1,5 +1,150 @@
 Changelog:
-Build 2176:
+Build 2195:
+	tehgeek:
+		Make NBSP character display as a space. MC-2595 (#3522)
+		Add easy getter for the Locale: MinecraftForgeClient.getLocale()
+
+Build 1.11-13.19.1.2194:
+	bs2609:
+		Patch EntityPlayerSP to use location-aware version of isNormalCube
+		(#3494)
+	tehgeek:
+		Fix uses of uppercase "Forge" where it fails Loader.isModLoaded(modID)
+		(#3513)
+	maxanier: [1.11] Made WalkNodeProcessor consider burning blocks (#3515)
+	tehgeek: Fix setting the world in TileEntity.addTileEntity (#2863) (#3517)
+	dawn0966:
+		Added Oak door to Ore Dictionary Exclusion list to fix able to craft it
+		with any wood type (#3519)
+
+Build 1.11-13.19.1.2193:
+	whs1999kr: reset repo to upstream and reapplied patches (#3434)
+	tehgeek: [1.11] Add memory display to loading screen (#3447)
+
+Build 1.11-13.19.1.2192:
+	rock: [1.11] Added EnchantmentLevelSetEvent (#3433)
+
+Build 1.11-13.19.1.2191:
+	minecrell: Register Minecraft mod container in FML loader (#3414)
+
+Build 1.11-13.19.1.2190:
+	LexManos: Fix modid field name for ProjectInjector.
+	LexManos: Small memory optimization in Registries.
+
+Build 1.11-13.19.1.2189:
+	LexManos:
+		Enable Enforcement of modid formatting. Must be lowercase and <= 64
+		characters
+
+Build 1.11-13.19.1.2188:
+	LexManos: Bump version for RB.
+
+Build 1.11-13.19.0.2187:
+	mezz: [1.11.x] Refine fluid placement utilities (#3509)
+
+Build 1.11-13.19.0.2186:
+	LexManos:
+		Properly filter out annotations that are for multiple mods in the same
+		mod source. This prevents disabled mods from getting their proxies
+		injected. Also prevents mods from getting their proxies injected
+		multiple times. Effects the @EventBusSubscriber, @Instance, @Metadata,
+		@SidedProxy annotations. If the target modid is not in the annotation
+		data, and there are multiple mods in the source, it will attempt to find
+		it by matching the annotations's class names. This is a potentially
+		breaking change. Review your logs for "skipping" messages.
+
+Build 1.10.2-12.18.3.2185:
+	LexManos: Bump version number for new Recommended Build.
+
+Build 1.11-13.19.0.2184:
+	LexManos:
+		Prevent a crash when scheduling block updates for non-existing blocks
+		#3485
+
+Build 1.10.2-12.18.2.2183:
+	LexManos:
+		Prevent a crash when scheduling block updates for non-existing blocks
+		#3485
+
+Build 1.10.2-12.18.2.2182:
+	LexManos:
+		Make Container.mergeItemStack respect target slot's max size when slot
+		is non-empty. Closes #3498 Fix Shift clicking in Beacons with stacked
+		items when fuel slot is empty.
+		(cherry picked from commit c6bc4ec5a92b640ebe773bfa48732dfa7eb59a17)
+	LexManos:
+		Fix NPE when rendering missing mod screen with version bound
+		requirements. #3501
+		(cherry picked from commit c1e832bff09c949bfe736f492c2e4aa8004baa84)
+	LexManos:
+		Fix issue reading chunks from the network when client and server do not
+		agree on block count. Closes #34925
+		(cherry picked from commit daf21e4dcf246cfa15c362800effc5dc787ab777)
+
+Build 1.11-13.19.0.2181:
+	LexManos: Make sure to log kick messages in NetworkDispatcher. Closes #3507
+	LexManos:
+		Fix NPE when rendering missing mod screen with version bound
+		requirements. #3501
+	LexManos:
+		Added isItemValidForSlot check to hopper extraction (#3444)
+		(cherry picked from commit 0348760a774ca7ed9639376baadae38e272f5bf8)
+	LexManos:
+		Fix for showing config default values twice in tooltip (#2257) (#3338)
+		(cherry picked from commit be73ec3d5ebd972cfacb0f255f71112a0430bc43)
+	LexManos:
+		Add null check and informative error message when client receives an
+		invalid update packet (#3266)
+		(cherry picked from commit 882e0e3bf22784d693e3816b0efeba5fbedb1a22)
+	LexManos:
+		Add ItemBlockSpecial#getBlock (#3343)
+		(cherry picked from commit cf26f4acbe48ee8790edc03d0b5c16c1167278ab)
+	LexManos:
+		Added gradle.properties to  MDK (#3361)
+		The file sets the default max heap size to 3 GiB so that the
+		decompilation doesn't fail as often.
+		(cherry picked from commit 49ec3d1b9322ee2b7a1312059118173b0b3fe6d0)
+	LexManos:
+		Make SlotItemHandler override Slot.getSlotStackLimit. Closes #3497 Make
+		Container.mergeItemStack respect target slot's max size when slot is
+		non-empty. Closes #3498 Fix Shift clicking in Beacons with stacked items
+		when fuel slot is empty.
+	LexManos: Restore missed patch in World.updateComparatorOutputLevel. Closes #3495
+	LexManos:
+		Fix issue reading chunks from the network when client and server do not
+		agree on block count. Closes #34925
+
+Build 1.11-13.19.0.2180:
+	diesieben07: Add missing pooled BlockPos retain in World patch (#3486)
+	mezz:
+		Add a way for modded GuiScreens to cancel mouse and keyboard events
+		(#3438)
+	blay09:
+		[1.11] Add canApplyAtEnchantmentTable to Item (#3463)
+		Allowing increased control of which enchantments can be put on an item
+		over Vanilla's hard-coded item type checks.
+		disabled when the item is enchantable but the enchantability requirement
+		is not met on lower levels.
+	mezz: [1.11] Add biome dictionary types for newer biomes (#3475)
+	bs2609: [1.11] Fix null checks in shouldCauseReequipAnimation (#3482)
+
+Build 1.10.2-12.18.2.2179:
+	blay09:
+		Add null check and informative error message when client receives an
+		invalid update packet (#3266)
+	raoulvdberge: Add ItemBlockSpecial#getBlock (#3343)
+	yannick:
+		Added gradle.properties to  MDK (#3361)
+		The file sets the default max heap size to 3 GiB so that the
+		decompilation doesn't fail as often.
+
+Build 1.11-13.19.0.2178:
+	liach: Moved TextureStitchEvent.Pre to allow custom sprites for blocks (#3436)
+
+Build 1.11-13.19.0.2177:
+	bs2609: Fix sky colour blending not working for render distances >16 (#3476)
+
+Build 1.11-13.19.0.2176:
 	logictechcorp: Allow connectable blocks to choose what they can connect to (#3437)
 
 Build 1.11-13.19.0.2175:
