@@ -210,7 +210,7 @@ public class DrafterTileEntityConfig extends BaseConfig
 				for (String key : pendingChanges.getKeySet())
 				{
 					NBTTagCompound pendingChange = compound.getCompoundTag(key);
-					AvailableRoomType roomType = AvailableRoomType.Field;
+					AvailableRoomType roomType = AvailableRoomType.Empty;
 					RoomInfo roomInfo = null;
 					
 					for (String pendingChangeKey : pendingChange.getKeySet())
@@ -226,7 +226,7 @@ public class DrafterTileEntityConfig extends BaseConfig
 						}
 					}
 					
-					if (roomInfo != null)
+					if (roomInfo != null && roomType != AvailableRoomType.Empty)
 					{
 						this.AddUpdatePendingChange(roomInfo, roomType);
 					}
@@ -353,7 +353,7 @@ public class DrafterTileEntityConfig extends BaseConfig
 			this.ID = id;
 			this.StructureFacing = EnumFacing.NORTH;
 			this.RoomCoordinates = new BlockPos(0,0,0);
-			this.StructureName = AvailableRoomType.Field;
+			this.StructureName = AvailableRoomType.Empty;
 			this.PendingBuilding = false;
 			this.FloorNumber = 0;
 		}
@@ -363,6 +363,8 @@ public class DrafterTileEntityConfig extends BaseConfig
 			if (compound.hasKey("ID"))
 			{
 				RoomInfo info = new RoomInfo(compound.getInteger("ID"));
+				
+				String roomName = compound.getString("name");
 				info.StructureName = AvailableRoomType.ValueOf(compound.getString("name"));
 				info.StructureFacing = EnumFacing.byName(compound.getString("facing"));
 				info.RoomCoordinates = new BlockPos(compound.getInteger("x"), compound.getInteger("y"), compound.getInteger("z"));
@@ -393,18 +395,20 @@ public class DrafterTileEntityConfig extends BaseConfig
 	
 		public boolean checkNeighbors(RoomInfo[] roomInfoArray)
 		{
-			if (this.StructureName.equals("Nothing"))
+			String emptyRoomName = AvailableRoomType.Empty.getName();
+			
+			if (this.StructureName.getName().equals(emptyRoomName))
 			{
 				RoomInfo roomToTheLeft = this.getRoomInfoForID(roomInfoArray, this.ID - 1);
 				RoomInfo roomToTheRight = this.getRoomInfoForID(roomInfoArray, this.ID + 1);
 				RoomInfo roomAbove = this.getRoomInfoForID(roomInfoArray, this.ID - 7);
 				RoomInfo roomBelow = this.getRoomInfoForID(roomInfoArray, this.ID + 7);
 				
-				// Make sure that at least 1 neighbor is not nothnig.
-				if ((roomToTheLeft != null && !roomToTheLeft.StructureName.equals("Nothing"))
-						|| (roomToTheRight != null && !roomToTheRight.StructureName.equals("Nothing"))
-						|| (roomAbove != null && !roomAbove.StructureName.equals("Nothing"))
-						|| (roomBelow != null && !roomBelow.StructureName.equals("Nothing")))
+				// Make sure that at least 1 neighbor is not empty.
+				if ((roomToTheLeft != null && !roomToTheLeft.StructureName.getName().equals(emptyRoomName))
+						|| (roomToTheRight != null && !roomToTheRight.StructureName.getName().equals(emptyRoomName))
+						|| (roomAbove != null && !roomAbove.StructureName.getName().equals(emptyRoomName))
+						|| (roomBelow != null && !roomBelow.StructureName.getName().equals(emptyRoomName)))
 				{
 					return true;
 				}
@@ -446,6 +450,10 @@ public class DrafterTileEntityConfig extends BaseConfig
 
 	public enum AvailableRoomType
 	{
+		Empty(-2, "Empty"),
+		
+		Foyer(-1, "Foyer"),
+	
 		/**
 		 * This is a regular flat field.
 		 */
@@ -486,6 +494,24 @@ public class DrafterTileEntityConfig extends BaseConfig
 			return this.name;
 		}
 		
+		public static ArrayList<AvailableRoomType> getValues()
+		{
+			ArrayList<AvailableRoomType> roomTypes = new ArrayList<AvailableRoomType>();
+			
+			for (AvailableRoomType roomType : AvailableRoomType.values())
+			{
+				if (roomType == AvailableRoomType.Empty
+						|| roomType == Foyer)
+				{
+					continue;
+				}
+				
+				roomTypes.add(roomType);
+			}
+			
+			return roomTypes;
+		}
+		
 		/**
 		 * Get the materials for this room.
 		 * @return The required materials for this room.
@@ -505,7 +531,7 @@ public class DrafterTileEntityConfig extends BaseConfig
 				}
 			}
 			
-			return AvailableRoomType.Field;
+			return AvailableRoomType.Empty;
 		}
 		
 		public static AvailableRoomType ValueOf(String roomName)
@@ -518,7 +544,7 @@ public class DrafterTileEntityConfig extends BaseConfig
 				}
 			}
 			
-			return AvailableRoomType.Field;
+			return AvailableRoomType.Empty;
 		}
 	}
 

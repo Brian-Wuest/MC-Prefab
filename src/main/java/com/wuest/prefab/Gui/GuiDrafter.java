@@ -179,7 +179,7 @@ public class GuiDrafter extends GuiTabScreen
 				{
 					String hoverText = "";
 					
-					if (button.roomInfo.StructureName.equals("Nothing"))
+					if (button.roomInfo.StructureName.getName().equals(AvailableRoomType.Empty.getName()))
 					{
 						hoverText = "\nRoom Coordinates:\n X: BlahX Y: BlahY Z: BlahZ";
 					}
@@ -202,7 +202,7 @@ public class GuiDrafter extends GuiTabScreen
 		{
 			this.mc.fontRendererObj.drawString("Level", grayBoxX + 7, grayBoxY + 20, color);
 			
-			if (this.selectedRoom != null && !this.selectedRoom.roomInfo.StructureName.equals("Nothing"))
+			if (this.selectedRoom != null && !this.selectedRoom.roomInfo.StructureName.getName().equals(AvailableRoomType.Empty.getName()))
 			{
 				// Show the structure name and room coordinates for this selected room.
 			}
@@ -279,7 +279,7 @@ public class GuiDrafter extends GuiTabScreen
 			this.selectedRoom = (GuiRoomInfoButton)button;
 			this.selectedRoom.selected = true;
 			
-			if (this.selectedRoom.roomInfo.StructureName.equals("Nothing"))
+			if (this.selectedRoom.roomInfo.StructureName.getName().equals(AvailableRoomType.Empty.getName()))
 			{
 				this.tabDesignRoom.visible = true;
 			}
@@ -357,7 +357,7 @@ public class GuiDrafter extends GuiTabScreen
 			// Only set the buttons to enabled if a neighbor is enabled and it has a structure name.
 			button.enabled = button.roomInfo.checkNeighbors(roomArray);
 			
-			if (button.enabled && button.roomInfo.StructureName.equals("Nothing"))
+			if (button.enabled && button.roomInfo.StructureName.getName().equals(AvailableRoomType.Empty.getName()))
 			{
 				button.displayString = "+";
 			}
@@ -481,7 +481,7 @@ public class GuiDrafter extends GuiTabScreen
 		try
 		{
 			this.actionPerformed(this.btnGroundFloor);
-			this.roomButtons.get(45).roomInfo.StructureName = "Foyer";
+			this.roomButtons.get(45).roomInfo.StructureName = AvailableRoomType.Foyer;
 			this.actionPerformed(this.btnGroundFloor);
 		}
 		catch (IOException e)
@@ -557,7 +557,7 @@ public class GuiDrafter extends GuiTabScreen
 		@Override
 		protected int getSize()
 		{
-			return AvailableRoomType.values().length;
+			return AvailableRoomType.getValues().size();
 		}
 
 		@Override
@@ -585,7 +585,7 @@ public class GuiDrafter extends GuiTabScreen
 			FontRenderer font = this.parent.fontRendererObj;
 			AvailableRoomType room = AvailableRoomType.ValueOf(slotIdx);
 			
-            font.drawString(font.trimStringToWidth(room.getName(),    listWidth - 5), this.left + 3 , slotTop +  2, 0xFFFFFF);
+            font.drawString(font.trimStringToWidth(room.getName(), listWidth - 5), this.left + 3 , slotTop +  2, 0xFFFFFF);
 		}
 	}
 	
