@@ -14,13 +14,16 @@ import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.StructureGen.*;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockChest;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.shader.ShaderLinkHelper;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.*;
 import net.minecraft.util.text.*;
@@ -46,6 +49,7 @@ public class StructureRenderHandler
 	public static EnumFacing assumedNorth;
 	public static boolean rendering = false;
 	public static boolean showedMessage = false;
+	private static final ChestRenderer chestRenderer = new ChestRenderer();
 	private static int dimension;
 
 	private static final String[] RENDERPOSX =
@@ -226,17 +230,51 @@ public class StructureRenderHandler
 
 		if (state == null)
 		{
+			GlStateManager.popMatrix();
 			return;
 		}
-
-		BlockRendererDispatcher brd = Minecraft.getMinecraft().getBlockRendererDispatcher();
+		
 		GlStateManager.translate(pos.getX(), pos.getY(), pos.getZ() + 1);
 		GlStateManager.color(1, 1, 1, 1);
-		brd.renderBlockBrightness(state, 1.0F);
+		StructureRenderHandler.renderBlockBrightness(state, 1.0F);
 
 		GlStateManager.color(1F, 1F, 1F, 1F);
 		GlStateManager.enableDepth();
 		GlStateManager.popMatrix();
 	}
+	
+    public static void renderBlockBrightness(IBlockState state, float brightness)
+    {
+    	BlockRendererDispatcher brd = Minecraft.getMinecraft().getBlockRendererDispatcher();
+    	
+        EnumBlockRenderType enumblockrendertype = state.getRenderType();
+
+        if (enumblockrendertype != EnumBlockRenderType.INVISIBLE)
+        {
+            switch (enumblockrendertype)
+            {
+                case MODEL:
+                case ENTITYBLOCK_ANIMATED:
+                {
+                	// Only use the chest renderer if this is actually an instance of a chest.
+                	if (enumblockrendertype == EnumBlockRenderType.ENTITYBLOCK_ANIMATED
+                			&& state.getBlock() instanceof BlockChest)
+                	{
+                		StructureRenderHandler.chestRenderer.renderChestBrightness(state.getBlock(), brightness);
+                		break;
+                	}
+                	
+                    IBakedModel ibakedmodel = brd.getModelForState(state);
+                    BlockModelRenderer renderer = brd.getBlockModelRenderer();
+                    renderer.renderModelBrightness(ibakedmodel, state, brightness, true);
+                    break;
+                }
+				default:
+				{
+					break;
+				}
+            }
+        }
+    }
 
 }

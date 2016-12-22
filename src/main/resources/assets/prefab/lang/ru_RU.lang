@@ -81,6 +81,10 @@ prefab.gui.structure.door.facing=Примечание: Е�?ли вы �?то�
  
 prefab.gui.button.build=Строить!
 prefab.gui.button.cancel=Отмена
+prefab.gui.button.preview=Preview!
+
+prefab.gui.preview.complete=Structure Complete!
+prefab.gui.preview.notice=Right-click on any block in the world to remove the preview.
  
 prefab.gui.north=Север
 prefab.gui.east=Во�?ток
