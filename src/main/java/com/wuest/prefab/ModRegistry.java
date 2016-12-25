@@ -7,6 +7,9 @@ import java.util.stream.*;
 
 import com.wuest.prefab.Items.*;
 import com.wuest.prefab.Blocks.*;
+import com.wuest.prefab.Capabilities.IStructureConfigurationCapability;
+import com.wuest.prefab.Capabilities.StructureConfigurationCapability;
+import com.wuest.prefab.Capabilities.Storage.StructureConfigurationStorage;
 import com.wuest.prefab.Gui.*;
 import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.Proxy.Messages.*;
@@ -17,6 +20,10 @@ import net.minecraft.block.*;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.init.*;
 import net.minecraft.item.*;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.OreDictionary;
@@ -44,6 +51,13 @@ public class ModRegistry
 	public static final int GuiNetherGate = 10;
 	public static final int GuiModularHouse = 11;
 	public static final int GuiDrafter = 12;
+	public static final int GuiBasicStructure = 13;
+	
+	/**
+	 * This capability is used to save the locations where a player spawns when transferring dimensions.
+	 */
+	@CapabilityInject(IStructureConfigurationCapability.class)
+	public static Capability<IStructureConfigurationCapability> StructureConfiguration = null;
 	
 	public static ItemStartHouse StartHouse()
 	{
@@ -138,6 +152,11 @@ public class ModRegistry
 	public static BlockDrafter Drafter()
 	{
 		return ModRegistry.GetBlock(BlockDrafter.class);
+	}
+	
+	public static ItemBasicStructure BasicStructure()
+	{
+		return ModRegistry.GetItem(ItemBasicStructure.class);
 	}
 	
 	/**
@@ -243,6 +262,10 @@ public class ModRegistry
 		ModRegistry.registerItem(new ItemHorseStable("itemHorseStable"));
 		ModRegistry.registerItem(new ItemNetherGate("itemNetherGate"));
 		//ModRegistry.registerItem(new ItemModularHouse("itemModularHouse"));
+		
+		// Register all the basic structures here. The resource location is used for the item models and textures.
+		// Only the first one in this list should have the last variable set to true.
+		ModRegistry.registerItem(new ItemBasicStructure("item_basic_structure"), new ResourceLocation("prefab", "item_advanced_chicken_coop"), true);
 		
 		// Create/register the item block with this block as it's needed due to this being a meta data block.
 		BlockCompressedStone stone = new BlockCompressedStone();
@@ -555,6 +578,16 @@ public class ModRegistry
 		Prefab.network.registerMessage(HorseStableHandler.class, HorseStableTagMessage.class, 9, Side.SERVER );
 		Prefab.network.registerMessage(NetherGateHandler.class, NetherGateTagMessage.class, 10, Side.SERVER);
 		Prefab.network.registerMessage(ModularHouseHandler.class, ModularHouseTagMessage.class, 11, Side.SERVER);
+		Prefab.network.registerMessage(BasicStructureHandler.class, BasicStructureTagMessage.class, 12, Side.SERVER);
+	}
+	
+	/**
+	 * This is where mod capabilities are registered.
+	 */
+	public static void RegisterCapabilities()
+	{
+		// Register the dimension home capability.
+		CapabilityManager.INSTANCE.register(IStructureConfigurationCapability.class, new StructureConfigurationStorage(), StructureConfigurationCapability.class);
 	}
 	
 	/**
@@ -569,6 +602,25 @@ public class ModRegistry
 		GameRegistry.register(item);
 		ModRegistry.ModItems.add(item);
 
+		return item;
+	}
+	
+	/**
+	 * Register an Item
+	 *
+	 * @param item The Item instance
+	 * @param <T> The Item type
+	 * @return The Item instance
+	 */
+	public static <T extends Item> T registerItem(T item, ResourceLocation resourceLocation, boolean registerInMod)
+	{
+		GameRegistry.register(item, resourceLocation);
+		
+		if (registerInMod)
+		{
+			ModRegistry.ModItems.add(item);
+		}
+		
 		return item;
 	}
 	

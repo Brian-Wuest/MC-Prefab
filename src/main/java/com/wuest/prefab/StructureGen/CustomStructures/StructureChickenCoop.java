@@ -1,6 +1,5 @@
 package com.wuest.prefab.StructureGen.CustomStructures;
 
-import com.wuest.prefab.Config.ChickenCoopConfiguration;
 import com.wuest.prefab.StructureGen.BuildClear;
 import com.wuest.prefab.StructureGen.Structure;
 

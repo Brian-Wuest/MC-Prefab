@@ -20,8 +20,6 @@ import net.minecraft.world.World;
 
 public class ItemChickenCoop extends Item
 {
-	private ChickenCoopConfiguration currentConfiguration = null;
-
 	public ItemChickenCoop(String name)
 	{
 		super();

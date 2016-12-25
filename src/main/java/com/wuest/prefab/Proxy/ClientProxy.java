@@ -26,11 +26,6 @@ public class ClientProxy extends CommonProxy
 		super.preInit(event);
 		
 		ModRegistry.AddGuis();
-		
-		// After all items have been registered and all recipes loaded, register any necessary renderer.
-		Prefab.proxy.registerRenderers();
-				
-		ModelBakery.registerItemVariants(ModRegistry.CompressedStoneItem(), BlockCompressedStone.EnumType.GetNames());
 	}
 
 	@Override
@@ -38,6 +33,11 @@ public class ClientProxy extends CommonProxy
 	{
 		super.init(event);
 
+		// After all items have been registered and all recipes loaded, register any necessary renderer.
+		Prefab.proxy.registerRenderers();
+				
+		ModelBakery.registerItemVariants(ModRegistry.CompressedStoneItem(), BlockCompressedStone.EnumType.GetNames());
+		
 		this.RegisterEventListeners();
 	}
 

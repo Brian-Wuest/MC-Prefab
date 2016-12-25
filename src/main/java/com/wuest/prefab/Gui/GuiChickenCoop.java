@@ -60,7 +60,7 @@ public class GuiChickenCoop extends GuiScreen
 		
 		// Draw the control background.
 		this.mc.getTextureManager().bindTexture(structureTopDown);
-		this.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 0, 0, 171, 87, 171, 87);
+		GuiTabScreen.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 171, 87, 171, 87);
 		
 		this.mc.getTextureManager().bindTexture(backgroundTextures);
 		this.drawTexturedModalRect(grayBoxX, grayBoxY, 0, 0, 256, 256);
@@ -146,31 +146,5 @@ public class GuiChickenCoop extends GuiScreen
 		this.btnCancel = new GuiButtonExt(2, grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_CANCEL));
 		this.buttonList.add(this.btnCancel);
 	}
-	
-    /**
-     * Draws a textured rectangle Args: x, y, z, u, v, width, height, textureWidth, textureHeight
-     */
-    public static void drawModalRectWithCustomSizedTexture(int x, int y, int z, float u, float v, int width, int height, float textureWidth, float textureHeight)
-    {
-        float f = 1.0F / textureWidth;
-        float f1 = 1.0F / textureHeight;
-        Tessellator tessellator = Tessellator.getInstance();
-        VertexBuffer vertexbuffer = tessellator.getBuffer();
-        
-        vertexbuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
-        
-        vertexbuffer.pos((double)x, (double)(y + height), (double)z)
-        	.tex((double)(u * f), (double)((v + (float)height) * f1)).endVertex();
-        
-        vertexbuffer.pos((double)(x + width), (double)(y + height), (double)z)
-        	.tex((double)((u + (float)width) * f), (double)((v + (float)height) * f1)).endVertex();
-        
-        vertexbuffer.pos((double)(x + width), (double)y, (double)z)
-        	.tex((double)((u + (float)width) * f), (double)(v * f1)).endVertex();
-        
-        vertexbuffer.pos((double)x, (double)y, (double)z)
-        	.tex((double)(u * f), (double)(v * f1)).endVertex();
-        
-        tessellator.draw();
-    }
+
 }
