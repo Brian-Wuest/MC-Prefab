@@ -6,9 +6,12 @@ import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Blocks.BlockCompressedStone;
 import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Events.ClientEventHandler;
+import com.wuest.prefab.Items.ItemBasicStructure;
+import com.wuest.prefab.Render.PrefabModelMesher;
 import com.wuest.prefab.Render.ShaderHelper;
 import com.wuest.prefab.Render.StructureRenderHandler;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -24,19 +27,21 @@ public class ClientProxy extends CommonProxy
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		super.preInit(event);
-		
+
 		ModRegistry.AddGuis();
+		
+		// After all items have been registered and all recipes loaded, register any necessary renderer.
+		Prefab.proxy.registerRenderers();
+		
+		ModRegistry.RegisterItemVariants();
 	}
 
 	@Override
 	public void init(FMLInitializationEvent event)
 	{
 		super.init(event);
-
-		// After all items have been registered and all recipes loaded, register any necessary renderer.
-		Prefab.proxy.registerRenderers();
-				
-		ModelBakery.registerItemVariants(ModRegistry.CompressedStoneItem(), BlockCompressedStone.EnumType.GetNames());
+		
+		ModRegistry.RegisterModelMeshers();
 		
 		this.RegisterEventListeners();
 	}
@@ -45,7 +50,7 @@ public class ClientProxy extends CommonProxy
 	public void postinit(FMLPostInitializationEvent event)
 	{
 	}
-
+	
 	@Override
 	public void registerRenderers() 
 	{

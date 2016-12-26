@@ -1,10 +1,13 @@
 package com.wuest.prefab.Items;
 
+import java.util.List;
+
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Capabilities.*;
 import com.wuest.prefab.Config.BasicStructureConfiguration;
 import com.wuest.prefab.Config.ModularHouseConfiguration;
+import com.wuest.prefab.Config.BasicStructureConfiguration.EnumBasicStructureName;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureBasic;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureModularHouse;
 
@@ -19,7 +22,10 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * This class is used for basic structures to show the basic GUI.
@@ -35,6 +41,7 @@ public class ItemBasicStructure extends Item
 
 		this.setCreativeTab(CreativeTabs.MISC);
 		ModRegistry.setItemName(this, name);
+		this.setHasSubtypes(true);
 	}
 	
 	/**
@@ -67,26 +74,52 @@ public class ItemBasicStructure extends Item
 	}
 	
     /**
+     * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
+     */
+    @Override
+	@SideOnly(Side.CLIENT)
+    public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems)
+    {
+		for (EnumBasicStructureName value : EnumBasicStructureName.values())
+		{
+			if (value.getResourceLocation() != null)
+			{
+				ItemStack stack = new ItemStack(itemIn);
+				IStructureConfigurationCapability capability = stack.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
+				capability.getConfiguration().basicStructureName = value;
+				
+				subItems.add(stack);
+			}
+		}
+    }
+	
+    /**
      * Returns the unlocalized name of this item. This version accepts an ItemStack so different stacks can have
      * different names based on their damage or NBT.
      */
     @Override
 	public String getUnlocalizedName(ItemStack stack)
     {
-    	NBTTagCompound tagCompound = stack.getTagCompound();
+    	IStructureConfigurationCapability capability = stack.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
+    	
+    	if (capability != null)
+    	{
+    		return capability.getConfiguration().getDisplayName();
+    	}
+    	/*	NBTTagCompound tagCompound = stack.getTagCompound();
 		
-		if (tagCompound.hasKey("structureConfiguration"))
+		if (tagCompound != null && tagCompound.hasKey("structureConfiguration"))
 		{
 			BasicStructureConfiguration structureConfiguration = new BasicStructureConfiguration().ReadFromNBTTagCompound(tagCompound.getCompoundTag("structureConfiguration"));
 			return structureConfiguration.getDisplayName();
-		}
-    	/*if (stack.hasCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH))
-    	{
-    		IStructureConfigurationCapability capability = stack.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
-    		return capability.getConfiguration().getDisplayName();
-    	}*/
-    	
-        return "item." + this.getUnlocalizedName();
+		}*/
+
+        return this.getUnlocalizedName();
+    }
+    
+    public String getItemStackDisplayName(ItemStack stack)
+    {
+        return ("" + I18n.translateToLocal(this.getUnlocalizedNameInefficiently(stack))).trim();
     }
 
 	public static void BuildHouse(EntityPlayer player, World world, BasicStructureConfiguration configuration)
@@ -121,7 +154,16 @@ public class ItemBasicStructure extends Item
 					if (structure.BuildStructure(configuration, world, hitBlockPos, EnumFacing.NORTH, player))
 					{
 						ItemStack stack = ItemBasicStructure.getBasicStructureItemInHand(player);
-						player.inventory.clearMatchingItems(stack.getItem(), -1, 1, stack.getTagCompound());
+						
+						if (stack.stackSize == 1)
+						{
+							player.inventory.removeStackFromSlot(player.inventory.getSlotFor(stack));
+						}
+						else
+						{
+							stack.stackSize = stack.stackSize - 1;
+						}
+						
 						player.inventoryContainer.detectAndSendChanges();
 					}
 				}

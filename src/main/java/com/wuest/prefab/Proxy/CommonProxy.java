@@ -54,17 +54,18 @@ public class CommonProxy implements IGuiHandler
 		
 		// Register the capabilities.
 		ModRegistry.RegisterCapabilities();
-	}
-	
-	public void init(FMLInitializationEvent event)
-	{
+		
 		// Register items here.
 		ModRegistry.RegisterModComponents();
 		
 		// Register the recipes here.
 		ModRegistry.RegisterRecipes();
-		
+	}
+	
+	public void init(FMLInitializationEvent event)
+	{
 		NetworkRegistry.INSTANCE.registerGuiHandler(Prefab.instance, Prefab.proxy);
+		
 		this.RegisterEventListeners();
 	}
 	

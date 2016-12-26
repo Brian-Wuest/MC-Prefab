@@ -14,6 +14,8 @@ item.prefab:itemBundleOfTimber.name=Bundle of Timber
 item.prefab:itemHorseStable.name=Horse Stable
 item.prefab:itemNetherGate.name=Nether Gate
 item.prefab:itemModularHouse.name=Modular House
+item.prefab:item_basic_structure=Basic Structure
+item.advanced.chicken.coop=Advanced Chicken Coop
 
 tile.prefab:blockCompressedStone.block_compressed_stone.name=Compressed Stone
 tile.prefab:blockCompressedStone.block_double_compressed_stone.name=Double Compressed Stone

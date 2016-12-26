@@ -1,17 +1,23 @@
 package com.wuest.prefab;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
 import com.google.common.collect.Lists;
 import com.wuest.prefab.Blocks.BlockCompressedStone;
 import com.wuest.prefab.Blocks.IMetaBlock;
+import com.wuest.prefab.Config.BasicStructureConfiguration.EnumBasicStructureName;
+import com.wuest.prefab.Items.ItemBasicStructure;
+import com.wuest.prefab.Render.PrefabModelMesher;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 
 public final class ItemRenderRegister 
@@ -47,8 +53,28 @@ public final class ItemRenderRegister
 	{
 		ModelResourceLocation location = new ModelResourceLocation(blockName, "inventory");
 		//System.out.println("Registering Item: " + location.getResourceDomain() + "[" + location.getResourcePath() + "]");
-		ModelLoader.setCustomModelResourceLocation(item, metaData, location);
-		//Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, metaData, location);
+		
+		if (!(item instanceof ItemBasicStructure))
+		{
+			ModelLoader.setCustomModelResourceLocation(item, metaData, location);
+		}
+		else
+		{
+			ArrayList<ResourceLocation> names = new ArrayList<ResourceLocation>();
+			
+			for (EnumBasicStructureName value : EnumBasicStructureName.values())
+			{
+				if (value.getResourceLocation() != null)
+				{
+					names.add(value.getResourceLocation());
+				}
+			}
+			
+			ResourceLocation[] resources = new ResourceLocation[names.size()];
+			resources = names.toArray(resources);
+			
+			ModelLoader.registerItemVariants(item, resources);
+		}
 	}
 
 	/**

@@ -14,10 +14,13 @@ import com.wuest.prefab.Gui.*;
 import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.Proxy.Messages.*;
 import com.wuest.prefab.Proxy.Messages.Handlers.*;
+import com.wuest.prefab.Render.PrefabModelMesher;
 import com.wuest.prefab.TileEntities.TileEntityDrafter;
 
 import net.minecraft.block.*;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.init.*;
 import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
@@ -265,7 +268,7 @@ public class ModRegistry
 		
 		// Register all the basic structures here. The resource location is used for the item models and textures.
 		// Only the first one in this list should have the last variable set to true.
-		ModRegistry.registerItem(new ItemBasicStructure("item_basic_structure"), new ResourceLocation("prefab", "item_advanced_chicken_coop"), true);
+		ModRegistry.registerItem(new ItemBasicStructure("item_basic_structure"));
 		
 		// Create/register the item block with this block as it's needed due to this being a meta data block.
 		BlockCompressedStone stone = new BlockCompressedStone();
@@ -591,6 +594,25 @@ public class ModRegistry
 	}
 	
 	/**
+	 * This method is used to register item variants for the blocks for this mod.
+	 */
+	public static void RegisterItemVariants()
+	{
+		ModelBakery.registerItemVariants(ModRegistry.CompressedStoneItem(), BlockCompressedStone.EnumType.GetNames());
+	}
+	
+	/**
+	 * This method is used to register model meshers for specific items.
+	 */
+	public static void RegisterModelMeshers()
+	{
+		ItemBasicStructure item = ModRegistry.BasicStructure();
+		
+		// Register the model mesher for this item.
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, new PrefabModelMesher());
+	}
+	
+	/**
 	 * Register an Item
 	 *
 	 * @param item The Item instance
@@ -665,8 +687,11 @@ public class ModRegistry
 	 */
 	public static void setItemName(Item item, String itemName) 
 	{
-		item.setRegistryName(itemName);
-		item.setUnlocalizedName(item.getRegistryName().toString());
+		if (itemName != null)
+		{
+			item.setRegistryName(itemName);
+			item.setUnlocalizedName(item.getRegistryName().toString());
+		}
 	}
 	
 	/**

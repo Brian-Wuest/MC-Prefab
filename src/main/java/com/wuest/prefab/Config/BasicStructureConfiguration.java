@@ -92,17 +92,18 @@ public class BasicStructureConfiguration extends StructureConfiguration
 	 */
 	public enum EnumBasicStructureName
 	{
-		Custom("custom", null, null, null),
-		AdavancedCoop("advancedcoop", "item.advanced.chicken.coop", "assets/prefab/structures/advanced_chicken_coop.zip", "textures/gui/advanced_chicken_coop_topdown.png");
+		Custom("custom", null, null, null, null),
+		AdavancedCoop("advancedcoop", "item.advanced.chicken.coop", "assets/prefab/structures/advanced_chicken_coop.zip", "textures/gui/advanced_chicken_coop_topdown.png", "item_advanced_chicken_coop");
 		
 		private String name;
 		private String assetLocation;
 		private String topDownPictureLocation;
 		private String unlocalizedName;
 		private BuildShape clearShape;
+		private ResourceLocation resourceLocation;
 		private PositionOffset clearPositionOffset;
 		
-		private EnumBasicStructureName(String name, String unlocalizedName, String assetLocation, String topDownPictureLocation)
+		private EnumBasicStructureName(String name, String unlocalizedName, String assetLocation, String topDownPictureLocation, String resourceLocation)
 		{
 			this.name = name;
 			this.unlocalizedName = unlocalizedName;
@@ -111,6 +112,11 @@ public class BasicStructureConfiguration extends StructureConfiguration
 			
 			this.clearShape = new BuildShape();
 			this.clearPositionOffset = new PositionOffset();
+			
+			if (resourceLocation != null)
+			{
+				this.resourceLocation = new ResourceLocation("prefab", resourceLocation);
+			}
 		}
 		
 		public String getName()
@@ -146,6 +152,11 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		public PositionOffset getClearPositionOffset()
 		{
 			return this.clearPositionOffset;
+		}
+		
+		public ResourceLocation getResourceLocation()
+		{
+			return this.resourceLocation;
 		}
 	}
 }
