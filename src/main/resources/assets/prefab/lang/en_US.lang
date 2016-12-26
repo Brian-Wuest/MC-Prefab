@@ -16,6 +16,7 @@ item.prefab:itemNetherGate.name=Nether Gate
 item.prefab:itemModularHouse.name=Modular House
 item.prefab:item_basic_structure=Basic Structure
 item.advanced.chicken.coop=Advanced Chicken Coop
+item.advanced.horse.stable=Advanced Horse Stable
 
 tile.prefab:blockCompressedStone.block_compressed_stone.name=Compressed Stone
 tile.prefab:blockCompressedStone.block_double_compressed_stone.name=Double Compressed Stone

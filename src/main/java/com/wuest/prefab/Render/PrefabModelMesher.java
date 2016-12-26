@@ -2,6 +2,7 @@ package com.wuest.prefab.Render;
 
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Capabilities.IStructureConfigurationCapability;
+import com.wuest.prefab.Config.BasicStructureConfiguration.EnumBasicStructureName;
 
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -26,6 +27,11 @@ public class PrefabModelMesher implements ItemMeshDefinition
 		if (structureCapability != null)
 		{
 			resourceLocation = structureCapability.getConfiguration().basicStructureName.getResourceLocation();
+		}
+		
+		if (resourceLocation == null)
+		{
+			resourceLocation = EnumBasicStructureName.AdavancedCoop.getResourceLocation();
 		}
 		
 		return new ModelResourceLocation(resourceLocation, "inventory");

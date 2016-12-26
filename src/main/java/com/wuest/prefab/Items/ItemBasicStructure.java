@@ -55,11 +55,12 @@ public class ItemBasicStructure extends Item
 		{
 			if (side == EnumFacing.UP)
 			{
-				NBTTagCompound tagCompound = stack.getTagCompound();
+				IStructureConfigurationCapability capability = stack.getCapability(ModRegistry.StructureConfiguration,  EnumFacing.NORTH); // NBTTagCompound tagCompound = stack.getTagCompound();
 				
-				if (tagCompound.hasKey("structureConfiguration"))
+				if (capability != null)
+				//if (tagCompound.hasKey("structureConfiguration"))
 				{
-					BasicStructureConfiguration structureConfiguration = new BasicStructureConfiguration().ReadFromNBTTagCompound(tagCompound.getCompoundTag("structureConfiguration"));
+					BasicStructureConfiguration structureConfiguration = capability.getConfiguration(); //new BasicStructureConfiguration().ReadFromNBTTagCompound(tagCompound.getCompoundTag("structureConfiguration"));
 					
 					// Open the client side gui to determine the house options.
 					//StructureBasic basicStructure = new StructureBasic();

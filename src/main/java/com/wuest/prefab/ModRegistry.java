@@ -729,5 +729,6 @@ public class ModRegistry
 		ModRegistry.ModGuis.put(ModRegistry.GuiNetherGate,  GuiNetherGate.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiModularHouse, GuiModularHouse.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiDrafter, GuiDrafter.class);
+		ModRegistry.ModGuis.put(ModRegistry.GuiBasicStructure, GuiBasicStructure.class);
 	}
 }

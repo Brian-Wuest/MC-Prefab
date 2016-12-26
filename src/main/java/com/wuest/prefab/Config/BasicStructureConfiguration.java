@@ -68,13 +68,29 @@ public class BasicStructureConfiguration extends StructureConfiguration
 	@Override
 	protected void CustomReadFromNBTTag(NBTTagCompound messageTag, StructureConfiguration config)
 	{
-	
+		BasicStructureConfiguration basicConfig = (BasicStructureConfiguration)config;
+		
+		if (messageTag.hasKey(BasicStructureConfiguration.structureEnumNameTag))
+		{
+			basicConfig.basicStructureName = EnumBasicStructureName.valueOf(messageTag.getString(BasicStructureConfiguration.structureEnumNameTag));
+		}
+		
+		if (messageTag.hasKey(BasicStructureConfiguration.structureDisplayNameTag))
+		{
+			basicConfig.structureDisplayName = messageTag.getString(BasicStructureConfiguration.structureDisplayNameTag);
+		}
 	}
 	
 	@Override
 	protected NBTTagCompound CustomWriteToNBTTagCompound(NBTTagCompound tag)
 	{
-
+		tag.setString(BasicStructureConfiguration.structureEnumNameTag, this.basicStructureName.name());
+		
+		if (this.structureDisplayName != null)
+		{
+			tag.setString(BasicStructureConfiguration.structureDisplayNameTag, this.structureDisplayName);
+		}
+		
 		return tag;
 	}
 	
@@ -93,7 +109,8 @@ public class BasicStructureConfiguration extends StructureConfiguration
 	public enum EnumBasicStructureName
 	{
 		Custom("custom", null, null, null, null),
-		AdavancedCoop("advancedcoop", "item.advanced.chicken.coop", "assets/prefab/structures/advanced_chicken_coop.zip", "textures/gui/advanced_chicken_coop_topdown.png", "item_advanced_chicken_coop");
+		AdavancedCoop("advancedcoop", "item.advanced.chicken.coop", "assets/prefab/structures/advanced_chicken_coop.zip", "textures/gui/chickenCoopTopDown.png", "item_advanced_chicken_coop"),
+		AdvancedHorseStable("advanced_horse_stable", "item.advanced.horse.stable", "assets/prefab/structures/advanced_horse_stable.zip", "textures/gui/advanced_horse_stable_topdown.png", "item_advanced_horse_stable");
 		
 		private String name;
 		private String assetLocation;
