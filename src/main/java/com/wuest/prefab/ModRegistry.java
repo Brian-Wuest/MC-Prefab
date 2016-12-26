@@ -10,6 +10,7 @@ import com.wuest.prefab.Blocks.*;
 import com.wuest.prefab.Capabilities.IStructureConfigurationCapability;
 import com.wuest.prefab.Capabilities.StructureConfigurationCapability;
 import com.wuest.prefab.Capabilities.Storage.StructureConfigurationStorage;
+import com.wuest.prefab.Config.BasicStructureConfiguration.EnumBasicStructureName;
 import com.wuest.prefab.Gui.*;
 import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.Proxy.Messages.*;
@@ -23,6 +24,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.init.*;
 import net.minecraft.item.*;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
@@ -563,6 +565,13 @@ public class ModRegistry
 				'a', new ItemStack(ModRegistry.CompressedStoneBlock(), 1, BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE.getMetadata()),
 				'b', Item.getItemFromBlock(Blocks.OBSIDIAN),
 				'c', Items.FLINT_AND_STEEL);
+		
+		// Advanced Chicken Coop
+		ItemStack result = new ItemStack(ModRegistry.BasicStructure());
+		IStructureConfigurationCapability capability = result.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
+		capability.getConfiguration().basicStructureName = EnumBasicStructureName.AdavancedCoop;
+		
+		GameRegistry.addShapelessRecipe(result, ModRegistry.ChickenCoop(), ModRegistry.PalletOfBricks());
 	}
 
 	/**

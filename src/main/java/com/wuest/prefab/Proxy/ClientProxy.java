@@ -27,6 +27,8 @@ public class ClientProxy extends CommonProxy
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		super.preInit(event);
+		
+		this.RegisterEventListeners();
 
 		ModRegistry.AddGuis();
 		
@@ -42,8 +44,6 @@ public class ClientProxy extends CommonProxy
 		super.init(event);
 		
 		ModRegistry.RegisterModelMeshers();
-		
-		this.RegisterEventListeners();
 	}
 
 	@Override
