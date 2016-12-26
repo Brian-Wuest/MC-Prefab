@@ -30,6 +30,13 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		EnumBasicStructureName.AdavancedCoop.getClearShape().setLength(11);
 		EnumBasicStructureName.AdavancedCoop.getClearPositionOffset().setSouthOffset(1);
 		EnumBasicStructureName.AdavancedCoop.getClearPositionOffset().setEastOffset(5);
+		
+		EnumBasicStructureName.AdvancedHorseStable.getClearShape().setDirection(EnumFacing.SOUTH);
+		EnumBasicStructureName.AdvancedHorseStable.getClearShape().setHeight(8);
+		EnumBasicStructureName.AdvancedHorseStable.getClearShape().setWidth(17);
+		EnumBasicStructureName.AdvancedHorseStable.getClearShape().setLength(16);
+		EnumBasicStructureName.AdvancedHorseStable.getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.AdvancedHorseStable.getClearPositionOffset().setEastOffset(8);
 	}
 	
 	/**
@@ -108,9 +115,13 @@ public class BasicStructureConfiguration extends StructureConfiguration
 	 */
 	public enum EnumBasicStructureName
 	{
-		Custom("custom", null, null, null, null),
-		AdavancedCoop("advancedcoop", "item.advanced.chicken.coop", "assets/prefab/structures/advanced_chicken_coop.zip", "textures/gui/chickenCoopTopDown.png", "item_advanced_chicken_coop"),
-		AdvancedHorseStable("advanced_horse_stable", "item.advanced.horse.stable", "assets/prefab/structures/advanced_horse_stable.zip", "textures/gui/advanced_horse_stable_topdown.png", "item_advanced_horse_stable");
+		Custom("custom", null, null, null, null, 0, 0),
+		AdavancedCoop("advancedcoop", "item.advanced.chicken.coop", 
+				"assets/prefab/structures/advancedcoop.zip", "textures/gui/advanced_chicken_coop_topdown.png", "item_advanced_chicken_coop", 
+				161, 160),
+		AdvancedHorseStable("advanced_horse_stable", "item.advanced.horse.stable", 
+				"assets/prefab/structures/advanced_horse_stable.zip", "textures/gui/advanced_horse_stable_topdown.png", "item_advanced_horse_stable", 
+				150, 150);
 		
 		private String name;
 		private String assetLocation;
@@ -119,13 +130,17 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		private BuildShape clearShape;
 		private ResourceLocation resourceLocation;
 		private PositionOffset clearPositionOffset;
+		private int imageHeight;
+		private int imageWidth;
 		
-		private EnumBasicStructureName(String name, String unlocalizedName, String assetLocation, String topDownPictureLocation, String resourceLocation)
+		private EnumBasicStructureName(String name, String unlocalizedName, String assetLocation, String topDownPictureLocation, String resourceLocation, int imageHeight, int imageWidth)
 		{
 			this.name = name;
 			this.unlocalizedName = unlocalizedName;
 			this.assetLocation = assetLocation;
 			this.topDownPictureLocation = topDownPictureLocation;
+			this.imageHeight = imageHeight;
+			this.imageWidth = imageWidth;
 			
 			this.clearShape = new BuildShape();
 			this.clearPositionOffset = new PositionOffset();
@@ -174,6 +189,16 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		public ResourceLocation getResourceLocation()
 		{
 			return this.resourceLocation;
+		}
+		
+		public int getImageHeight()
+		{
+			return this.imageHeight;
+		}
+		
+		public int getImageWidth()
+		{
+			return this.imageWidth;
 		}
 	}
 }

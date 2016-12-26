@@ -63,9 +63,9 @@ public class ItemBasicStructure extends Item
 					BasicStructureConfiguration structureConfiguration = capability.getConfiguration(); //new BasicStructureConfiguration().ReadFromNBTTagCompound(tagCompound.getCompoundTag("structureConfiguration"));
 					
 					// Open the client side gui to determine the house options.
-					//StructureBasic basicStructure = new StructureBasic();
-					//basicStructure.ScanStructure(world, hitBlockPos, player.getHorizontalFacing());
-					player.openGui(Prefab.instance, ModRegistry.GuiBasicStructure, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+					StructureBasic basicStructure = new StructureBasic();
+					basicStructure.ScanStructure(world, hitBlockPos, player.getHorizontalFacing(), structureConfiguration);
+					//player.openGui(Prefab.instance, ModRegistry.GuiBasicStructure, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
 					return EnumActionResult.PASS;
 				}
 			}
@@ -141,7 +141,7 @@ public class ItemBasicStructure extends Item
 				{
 					String assetLocation = "";
 					
-					if (configuration.IsCustomStructure())
+					if (!configuration.IsCustomStructure())
 					{
 						assetLocation = configuration.basicStructureName.getAssetLocation();
 					}
@@ -176,13 +176,14 @@ public class ItemBasicStructure extends Item
 	{
 		ItemStack stack = null;
 		
-		if (player.getHeldItemMainhand().getItem() instanceof ItemBasicStructure)
-		{
-			stack = player.getHeldItemMainhand();
-		}
-		else if (player.getHeldItemOffhand().getItem() instanceof ItemBasicStructure)
+		// Get off hand first since that is the right-click hand if there is something in there.
+		if (player.getHeldItemOffhand().getItem() instanceof ItemBasicStructure)
 		{
 			stack = player.getHeldItemOffhand();
+		}
+		else if (player.getHeldItemMainhand().getItem() instanceof ItemBasicStructure)
+		{
+			stack = player.getHeldItemMainhand();
 		}
 		
 		return stack;

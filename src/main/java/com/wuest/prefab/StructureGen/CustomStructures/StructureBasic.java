@@ -34,13 +34,14 @@ public class StructureBasic extends Structure
 			PositionOffset offset = configuration.basicStructureName.getClearPositionOffset();
 			
 			int downOffset = offset.getHeightOffset() < 0 ? offset.getHeightOffset() : 0;
+			BlockPos cornerPos = originalPos.east(offset.getEastOffset()).south(offset.getSouthOffset()).down(downOffset);
 			
 			Structure.ScanStructure(
 					world, 
 					originalPos, 
-					originalPos.east(offset.getEastOffset()).south(offset.getSouthOffset()).down(downOffset), 
-					originalPos.south(buildShape.getLength()).west(buildShape.getWidth()).up(buildShape.getHeight()), 
-					"C:\\Users\\Brian\\Documents\\GitHub\\MC-Prefab\\src\\main\\resources\\assets\\prefab\\structures\\" + configuration.basicStructureName.getName()  + ".zip",
+					cornerPos,
+					cornerPos.south(buildShape.getLength()).west(buildShape.getWidth()).up(buildShape.getHeight()), 
+					"..\\src\\main\\resources\\assets\\prefab\\structures\\" + configuration.basicStructureName.getName()  + ".zip",
 					clearedSpace,
 					playerFacing);
 		}

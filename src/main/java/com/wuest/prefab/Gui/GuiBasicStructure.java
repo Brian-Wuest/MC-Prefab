@@ -10,10 +10,8 @@ import com.wuest.prefab.Config.BasicStructureConfiguration;
 import com.wuest.prefab.Config.BasicStructureConfiguration.EnumBasicStructureName;
 import com.wuest.prefab.Items.ItemBasicStructure;
 import com.wuest.prefab.Proxy.Messages.BasicStructureTagMessage;
-import com.wuest.prefab.Proxy.Messages.ChickenCoopTagMessage;
 import com.wuest.prefab.Render.StructureRenderHandler;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureBasic;
-import com.wuest.prefab.StructureGen.CustomStructures.StructureChickenCoop;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiLabel;
@@ -73,7 +71,9 @@ public class GuiBasicStructure extends GuiScreen
 		{
 			// Draw the control background.
 			this.mc.getTextureManager().bindTexture(this.configuration.basicStructureName.getTopDownPictureLocation());
-			GuiTabScreen.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 171, 87, 171, 87);
+			GuiTabScreen.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 
+					this.configuration.basicStructureName.getImageWidth(), this.configuration.basicStructureName.getImageHeight(), 
+					this.configuration.basicStructureName.getImageWidth(), this.configuration.basicStructureName.getImageHeight());
 		}
 		else
 		{
@@ -127,7 +127,7 @@ public class GuiBasicStructure extends GuiScreen
 		}
 		else if (button == this.btnVisualize)
 		{
-			StructureBasic structure = StructureBasic.CreateInstance(this.configuration.basicStructureName.getAssetLocation(), StructureChickenCoop.class);
+			StructureBasic structure = StructureBasic.CreateInstance(this.configuration.basicStructureName.getAssetLocation(), StructureBasic.class);
 			StructureRenderHandler.setStructure(structure, EnumFacing.NORTH, this.configuration);
 			this.mc.displayGuiScreen(null);
 		}
