@@ -34,9 +34,16 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		EnumBasicStructureName.AdvancedHorseStable.getClearShape().setDirection(EnumFacing.SOUTH);
 		EnumBasicStructureName.AdvancedHorseStable.getClearShape().setHeight(8);
 		EnumBasicStructureName.AdvancedHorseStable.getClearShape().setWidth(17);
-		EnumBasicStructureName.AdvancedHorseStable.getClearShape().setLength(16);
+		EnumBasicStructureName.AdvancedHorseStable.getClearShape().setLength(34);
 		EnumBasicStructureName.AdvancedHorseStable.getClearPositionOffset().setSouthOffset(1);
 		EnumBasicStructureName.AdvancedHorseStable.getClearPositionOffset().setEastOffset(8);
+		
+		EnumBasicStructureName.Barn.getClearShape().setDirection(EnumFacing.SOUTH);
+		EnumBasicStructureName.Barn.getClearShape().setHeight(10);
+		EnumBasicStructureName.Barn.getClearShape().setWidth(30);
+		EnumBasicStructureName.Barn.getClearShape().setLength(35);
+		EnumBasicStructureName.Barn.getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.Barn.getClearPositionOffset().setEastOffset(15);
 	}
 	
 	/**
@@ -116,12 +123,13 @@ public class BasicStructureConfiguration extends StructureConfiguration
 	public enum EnumBasicStructureName
 	{
 		Custom("custom", null, null, null, null, 0, 0),
-		AdavancedCoop("advancedcoop", "item.advanced.chicken.coop", 
+		AdavancedCoop("advancedcoop", "item.prefab.advanced.chicken.coop", 
 				"assets/prefab/structures/advancedcoop.zip", "textures/gui/advanced_chicken_coop_topdown.png", "item_advanced_chicken_coop", 
-				161, 160),
-		AdvancedHorseStable("advanced_horse_stable", "item.advanced.horse.stable", 
+				156, 121),
+		AdvancedHorseStable("advanced_horse_stable", "item.prefab.advanced.horse.stable", 
 				"assets/prefab/structures/advanced_horse_stable.zip", "textures/gui/advanced_horse_stable_topdown.png", "item_advanced_horse_stable", 
-				150, 150);
+				128, 158),
+		Barn("barn", "item.prefab.barn", "assets/prefab/structures/barn.zip", "textures/gui/barn_topdown.png", "item_barn", 164, 160);
 		
 		private String name;
 		private String assetLocation;

@@ -63,9 +63,9 @@ public class ItemBasicStructure extends Item
 					BasicStructureConfiguration structureConfiguration = capability.getConfiguration(); //new BasicStructureConfiguration().ReadFromNBTTagCompound(tagCompound.getCompoundTag("structureConfiguration"));
 					
 					// Open the client side gui to determine the house options.
-					StructureBasic basicStructure = new StructureBasic();
-					basicStructure.ScanStructure(world, hitBlockPos, player.getHorizontalFacing(), structureConfiguration);
-					//player.openGui(Prefab.instance, ModRegistry.GuiBasicStructure, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+					//StructureBasic basicStructure = new StructureBasic();
+					//basicStructure.ScanStructure(world, hitBlockPos, player.getHorizontalFacing(), structureConfiguration);
+					player.openGui(Prefab.instance, ModRegistry.GuiBasicStructure, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
 					return EnumActionResult.PASS;
 				}
 			}
@@ -107,13 +107,6 @@ public class ItemBasicStructure extends Item
     	{
     		return capability.getConfiguration().getDisplayName();
     	}
-    	/*	NBTTagCompound tagCompound = stack.getTagCompound();
-		
-		if (tagCompound != null && tagCompound.hasKey("structureConfiguration"))
-		{
-			BasicStructureConfiguration structureConfiguration = new BasicStructureConfiguration().ReadFromNBTTagCompound(tagCompound.getCompoundTag("structureConfiguration"));
-			return structureConfiguration.getDisplayName();
-		}*/
 
         return this.getUnlocalizedName();
     }
@@ -174,16 +167,19 @@ public class ItemBasicStructure extends Item
 	
 	public static ItemStack getBasicStructureItemInHand(EntityPlayer player)
 	{
-		ItemStack stack = null;
+		ItemStack stack = player.getHeldItemOffhand();
 		
 		// Get off hand first since that is the right-click hand if there is something in there.
-		if (player.getHeldItemOffhand().getItem() instanceof ItemBasicStructure)
+		if (stack == null || !(stack.getItem() instanceof ItemBasicStructure))
 		{
-			stack = player.getHeldItemOffhand();
-		}
-		else if (player.getHeldItemMainhand().getItem() instanceof ItemBasicStructure)
-		{
-			stack = player.getHeldItemMainhand();
+			if (player.getHeldItemMainhand() != null  && player.getHeldItemMainhand().getItem() instanceof ItemBasicStructure)
+			{
+				stack = player.getHeldItemMainhand();
+			}
+			else
+			{
+				stack = null;
+			}
 		}
 		
 		return stack;
