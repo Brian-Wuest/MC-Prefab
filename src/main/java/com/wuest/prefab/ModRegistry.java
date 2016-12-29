@@ -7,8 +7,7 @@ import java.util.stream.*;
 
 import com.wuest.prefab.Items.*;
 import com.wuest.prefab.Blocks.*;
-import com.wuest.prefab.Capabilities.IStructureConfigurationCapability;
-import com.wuest.prefab.Capabilities.StructureConfigurationCapability;
+import com.wuest.prefab.Capabilities.*;
 import com.wuest.prefab.Capabilities.Storage.StructureConfigurationStorage;
 import com.wuest.prefab.Config.BasicStructureConfiguration.EnumBasicStructureName;
 import com.wuest.prefab.Gui.*;
@@ -24,15 +23,11 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.init.*;
 import net.minecraft.item.*;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
-import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraft.util.*;
+import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.*;
 
 /**
  * This is the mod registry so there is a way to get to all instances of the blocks/items created by this mod.
@@ -164,6 +159,16 @@ public class ModRegistry
 		return ModRegistry.GetItem(ItemBasicStructure.class);
 	}
 	
+	public static ItemStack GetCompressedStoneType(BlockCompressedStone.EnumType enumType)
+	{
+		return ModRegistry.GetCompressedStoneType(enumType, 1);
+	}
+	
+	public static ItemStack GetCompressedStoneType(BlockCompressedStone.EnumType enumType, int count)
+	{
+		return new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedStoneBlock()), count, enumType.getMetadata());
+	}
+	
 	/**
 	 * Gets the item from the ModItems collections.
 	 * @param genericClass The class of item to get from the collection.
@@ -289,7 +294,7 @@ public class ModRegistry
 	public static void RegisterRecipes()
 	{
 		// Compressed Stone.
-		GameRegistry.addRecipe(new ItemStack(ModRegistry.CompressedStoneItem(), 1, BlockCompressedStone.EnumType.COMPRESSED_STONE.getMetadata()),
+		GameRegistry.addRecipe(ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_STONE),
 				"xxx",
 				"xxx",
 				"xxx",
@@ -297,32 +302,32 @@ public class ModRegistry
 		
 		GameRegistry.addRecipe(new ItemStack(Item.getItemFromBlock(Blocks.STONE), 9), 
 				"x",
-				'x', new ItemStack(ModRegistry.CompressedStoneItem(), 1, BlockCompressedStone.EnumType.COMPRESSED_STONE.getMetadata()));
+				'x', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_STONE));
 		
 		// Double Compressed Stone.
-		GameRegistry.addRecipe(new ItemStack(ModRegistry.CompressedStoneItem(), 1, BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE.getMetadata()),
+		GameRegistry.addRecipe(ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE),
 				"xxx",
 				"xxx",
 				"xxx",
-				'x', new ItemStack(ModRegistry.CompressedStoneItem(), 1, BlockCompressedStone.EnumType.COMPRESSED_STONE.getMetadata()));
+				'x', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_STONE));
 		
-		GameRegistry.addRecipe(new ItemStack(ModRegistry.CompressedStoneItem(), 9, BlockCompressedStone.EnumType.COMPRESSED_STONE.getMetadata()),
+		GameRegistry.addRecipe(ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_STONE, 9),
 				"x",
-				'x', new ItemStack(ModRegistry.CompressedStoneItem(), 1, BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE.getMetadata()));
+				'x',ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE));
 		
 		// Triple Compressed Stone.
-		GameRegistry.addRecipe(new ItemStack(ModRegistry.CompressedStoneItem(), 1, BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE.getMetadata()),
+		GameRegistry.addRecipe(ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE),
 				"xxx",
 				"xxx",
 				"xxx",
-				'x', new ItemStack(ModRegistry.CompressedStoneItem(), 1, BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE.getMetadata()));
+				'x', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE));
 		
-		GameRegistry.addRecipe(new ItemStack(ModRegistry.CompressedStoneItem(), 9, BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE.getMetadata()),
+		GameRegistry.addRecipe(ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE, 9),
 				"x",
-				'x', new ItemStack(ModRegistry.CompressedStoneItem(), 1, BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE.getMetadata()));
+				'x', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE));
 		
 		// Compressed Glowstone.
-		GameRegistry.addRecipe(new ItemStack(ModRegistry.CompressedStoneItem(), 1, BlockCompressedStone.EnumType.COMPRESSED_GLOWSTONE.getMetadata()),
+		GameRegistry.addRecipe(ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_GLOWSTONE),
 				"xxx",
 				"xxx",
 				"xxx",
@@ -330,21 +335,21 @@ public class ModRegistry
 		
 		GameRegistry.addRecipe(new ItemStack(Item.getItemFromBlock(Blocks.GLOWSTONE), 9),
 				"x",
-				'x', new ItemStack(ModRegistry.CompressedStoneItem(), 1, BlockCompressedStone.EnumType.COMPRESSED_GLOWSTONE.getMetadata()));
+				'x', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_GLOWSTONE));
 		
 		// Double Compressed Glowstone.
-		GameRegistry.addRecipe(new ItemStack(ModRegistry.CompressedStoneItem(), 1, BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE.getMetadata()),
+		GameRegistry.addRecipe(ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE),
 				"xxx",
 				"xxx",
 				"xxx",
-				'x', new ItemStack(ModRegistry.CompressedStoneItem(), 1, BlockCompressedStone.EnumType.COMPRESSED_GLOWSTONE.getMetadata()));
+				'x', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_GLOWSTONE));
 		
-		GameRegistry.addRecipe(new ItemStack(ModRegistry.CompressedStoneItem(), 9, BlockCompressedStone.EnumType.COMPRESSED_GLOWSTONE.getMetadata()),
+		GameRegistry.addRecipe(ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_GLOWSTONE, 9),
 				"x",
-				'x', new ItemStack(ModRegistry.CompressedStoneItem(), 1, BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE.getMetadata()));
+				'x', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE));
 		
 		// Compressed Dirt
-		GameRegistry.addRecipe(new ItemStack(ModRegistry.CompressedStoneItem(), 1, BlockCompressedStone.EnumType.COMPRESSED_DIRT.getMetadata()),
+		GameRegistry.addRecipe(ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_DIRT),
 				"xxx",
 				"xxx",
 				"xxx",
@@ -352,18 +357,18 @@ public class ModRegistry
 		
 		GameRegistry.addRecipe(new ItemStack(Item.getItemFromBlock(Blocks.DIRT), 9),
 				"x",
-				'x', new ItemStack(ModRegistry.CompressedStoneItem(), 1, BlockCompressedStone.EnumType.COMPRESSED_DIRT.getMetadata()));
+				'x', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_DIRT));
 		
 		// Double Compressed Dirt
-		GameRegistry.addRecipe(new ItemStack(ModRegistry.CompressedStoneItem(), 1, BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_DIRT.getMetadata()),
+		GameRegistry.addRecipe(ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_DIRT),
 				"xxx",
 				"xxx",
 				"xxx",
-				'x', new ItemStack(ModRegistry.CompressedStoneItem(), 1, BlockCompressedStone.EnumType.COMPRESSED_DIRT.getMetadata()));
+				'x', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_DIRT));
 		
-		GameRegistry.addRecipe(new ItemStack(ModRegistry.CompressedStoneItem(), 9, BlockCompressedStone.EnumType.COMPRESSED_DIRT.getMetadata()),
+		GameRegistry.addRecipe(ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_DIRT, 9),
 				"x",
-				'x', new ItemStack(ModRegistry.CompressedStoneItem(), 1, BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_DIRT.getMetadata()));
+				'x', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_DIRT));
 		
 		// Compressed Chest
 		GameRegistry.addRecipe(new ItemStack(ModRegistry.CompressedChestItem()),
@@ -400,10 +405,10 @@ public class ModRegistry
 				"x x",
 				"xyx",
 				"zaz",
-				'x', new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedStoneBlock()), 1, BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE.getMetadata()),
+				'x', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE),
 				'y', ModRegistry.CompressedChestItem(),
-				'z', new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedStoneBlock()), 1, BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE.getMetadata()),
-				'a', new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedStoneBlock()), 1, BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE.getMetadata()));
+				'z', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE),
+				'a', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE));
 		
 		// Produce Farm.
 		GameRegistry.addRecipe(new ItemStack(ModRegistry.ProduceFarm()),
@@ -411,9 +416,9 @@ public class ModRegistry
 				"cdc",
 				"aba",
 				'a', ModRegistry.PalletOfBricks(),
-				'b', new ItemStack(ModRegistry.CompressedStoneBlock(), 1, BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_DIRT.getMetadata()),
+				'b', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_DIRT),
 				'c', Items.WATER_BUCKET,
-				'd', new ItemStack(ModRegistry.CompressedStoneBlock(), 1, BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE.getMetadata()));
+				'd', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE));
 		
 		// Tree Farm/Park
 		GameRegistry.addRecipe(new ItemStack(ModRegistry.TreeFarm()),
@@ -421,9 +426,9 @@ public class ModRegistry
 				"cdc",
 				"aba",
 				'a', ModRegistry.PalletOfBricks(),
-				'b', new ItemStack(ModRegistry.CompressedStoneBlock(), 1, BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_DIRT.getMetadata()),
+				'b', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_DIRT),
 				'c', Items.FLOWER_POT,
-				'd', new ItemStack(ModRegistry.CompressedStoneBlock(), 1, BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE.getMetadata()));
+				'd', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE));
 		
 		// Chicken Coop
 		GameRegistry.addRecipe(new ItemStack(ModRegistry.ChickenCoop()),
@@ -432,7 +437,7 @@ public class ModRegistry
 				"cdc",
 				'a', new ItemStack(Item.getItemFromBlock(Blocks.LOG), 1, BlockPlanks.EnumType.SPRUCE.getMetadata()),
 				'b', Items.EGG,
-				'c', new ItemStack(ModRegistry.CompressedStoneBlock(), 1, BlockCompressedStone.EnumType.COMPRESSED_DIRT.getMetadata()),
+				'c', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_DIRT),
 				'd', Item.getItemFromBlock(Blocks.HAY_BLOCK),
 				'e', Item.getItemFromBlock(Blocks.BRICK_BLOCK));
 		
@@ -464,10 +469,10 @@ public class ModRegistry
 				"xbx",
 				"xyx",
 				"zaz",
-				'x', new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedStoneBlock()), 1, BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE.getMetadata()),
+				'x', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE),
 				'y', ModRegistry.CompressedChestItem(),
-				'z', new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedStoneBlock()), 1, BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE.getMetadata()),
-				'a', new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedStoneBlock()), 1, BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE.getMetadata()),
+				'z', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE),
+				'a', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE),
 				'b', ModRegistry.WareHouseUpgrade());
 		
 		// Monster Masher.
@@ -480,19 +485,19 @@ public class ModRegistry
 				'c', new ItemStack(Items.SKULL, 1, 0),
 				'e', Item.getItemFromBlock(Blocks.IRON_BARS),
 				'd', ModRegistry.CompressedChestItem(),
-				'f', new ItemStack(ModRegistry.CompressedStoneBlock(), 1, BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE.getMetadata()),
-				'g', new ItemStack(ModRegistry.CompressedStoneBlock(), 1, BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE.getMetadata()),
-				'h', new ItemStack(ModRegistry.CompressedStoneBlock(), 1, BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE.getMetadata()));
+				'f', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE),
+				'g', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE),
+				'h', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE));
 		
 		// Planks to bundles of timber.
 		GameRegistry.addRecipe(new ShapedOreRecipe(ModRegistry.BundleOfTimber(), 
 				"aaa", 
 				"aaa", 
 				"aaa", 
-				'a', "plankWood"));
-		
+				'a', "logWood"));
+
 		// Bundle of timber to oak planks.
-		GameRegistry.addRecipe(new ItemStack(Item.getItemFromBlock(Blocks.PLANKS), 9), 
+		GameRegistry.addRecipe(new ItemStack(Item.getItemFromBlock(Blocks.LOG), 9), 
 				"a",
 				'a', ModRegistry.BundleOfTimber());
 		
@@ -562,7 +567,7 @@ public class ModRegistry
 				"aba",
 				"bcb",
 				"aba",
-				'a', new ItemStack(ModRegistry.CompressedStoneBlock(), 1, BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE.getMetadata()),
+				'a', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE),
 				'b', Item.getItemFromBlock(Blocks.OBSIDIAN),
 				'c', Items.FLINT_AND_STEEL);
 		
@@ -572,6 +577,29 @@ public class ModRegistry
 		capability.getConfiguration().basicStructureName = EnumBasicStructureName.AdavancedCoop;
 		
 		GameRegistry.addShapelessRecipe(result, ModRegistry.ChickenCoop(), ModRegistry.PalletOfBricks());
+		
+		// Advanced Horse Stable
+		result = new ItemStack(ModRegistry.BasicStructure());
+		capability = result.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
+		capability.getConfiguration().basicStructureName = EnumBasicStructureName.AdvancedHorseStable;
+		
+		GameRegistry.addShapelessRecipe(result, 
+				ModRegistry.HorseStable(), ModRegistry.HorseStable(), ModRegistry.HorseStable(), ModRegistry.HorseStable(),
+				ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE));
+		
+		// Barn
+		result = new ItemStack(ModRegistry.BasicStructure());
+		capability = result.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
+		capability.getConfiguration().basicStructureName = EnumBasicStructureName.Barn;
+		
+		GameRegistry.addRecipe(result,
+				"aba",
+				"ccc",
+				"cdc",
+				'a', ModRegistry.PalletOfBricks(),
+				'b', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_GLOWSTONE),
+				'c', ModRegistry.BundleOfTimber(),
+				'd', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_DIRT));
 	}
 
 	/**
@@ -609,17 +637,7 @@ public class ModRegistry
 	{
 		ModelBakery.registerItemVariants(ModRegistry.CompressedStoneItem(), BlockCompressedStone.EnumType.GetNames());
 	}
-	
-	/**
-	 * This method is used to register model meshers for specific items.
-	 */
-	public static void RegisterModelMeshers()
-	{
-		ItemBasicStructure item = ModRegistry.BasicStructure();
-		
-		// Register the model mesher for this item.
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, new PrefabModelMesher());
-	}
+
 	
 	/**
 	 * Register an Item

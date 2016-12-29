@@ -1,22 +1,16 @@
 package com.wuest.prefab.Proxy;
 
-import com.wuest.prefab.ItemRenderRegister;
-import com.wuest.prefab.ModRegistry;
-import com.wuest.prefab.Prefab;
+import com.wuest.prefab.*;
 import com.wuest.prefab.Blocks.BlockCompressedStone;
 import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Items.ItemBasicStructure;
-import com.wuest.prefab.Render.PrefabModelMesher;
-import com.wuest.prefab.Render.ShaderHelper;
-import com.wuest.prefab.Render.StructureRenderHandler;
+import com.wuest.prefab.Render.*;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.*;
 
 public class ClientProxy extends CommonProxy
 {
@@ -43,7 +37,7 @@ public class ClientProxy extends CommonProxy
 	{
 		super.init(event);
 		
-		ModRegistry.RegisterModelMeshers();
+		ClientModRegistry.RegisterModelMeshers();
 	}
 
 	@Override

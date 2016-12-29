@@ -82,7 +82,7 @@ public class ModEventHandler
 	{
 		if (event.getItem() instanceof ItemBasicStructure)
 		{
-			event.addCapability(new ResourceLocation(Prefab.MODID, "structuresonfiguration"), new StructureConfigurationProvider(new StructureConfigurationCapability()));
+			event.addCapability(new ResourceLocation(Prefab.MODID, "structuresconfiguration"), new StructureConfigurationProvider(new StructureConfigurationCapability()));
 		}
 	}
 	

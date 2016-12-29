@@ -5,6 +5,7 @@ import java.util.List;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Capabilities.*;
+import com.wuest.prefab.Capabilities.Storage.StructureConfigurationStorage;
 import com.wuest.prefab.Config.BasicStructureConfiguration;
 import com.wuest.prefab.Config.ModularHouseConfiguration;
 import com.wuest.prefab.Config.BasicStructureConfiguration.EnumBasicStructureName;
@@ -14,6 +15,7 @@ import com.wuest.prefab.StructureGen.CustomStructures.StructureModularHouse;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -55,12 +57,11 @@ public class ItemBasicStructure extends Item
 		{
 			if (side == EnumFacing.UP)
 			{
-				IStructureConfigurationCapability capability = stack.getCapability(ModRegistry.StructureConfiguration,  EnumFacing.NORTH); // NBTTagCompound tagCompound = stack.getTagCompound();
+				IStructureConfigurationCapability capability = stack.getCapability(ModRegistry.StructureConfiguration,  EnumFacing.NORTH);
 				
 				if (capability != null)
-				//if (tagCompound.hasKey("structureConfiguration"))
 				{
-					BasicStructureConfiguration structureConfiguration = capability.getConfiguration(); //new BasicStructureConfiguration().ReadFromNBTTagCompound(tagCompound.getCompoundTag("structureConfiguration"));
+					BasicStructureConfiguration structureConfiguration = capability.getConfiguration();
 					
 					// Open the client side gui to determine the house options.
 					//StructureBasic basicStructure = new StructureBasic();
@@ -94,6 +95,41 @@ public class ItemBasicStructure extends Item
 		}
     }
 	
+    /**
+     * Called each tick as long the item is on a player inventory. Uses by maps to check if is on a player hand and
+     * update it's contents.
+     */
+    @Override
+    public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
+    {
+    	if (entityIn instanceof EntityPlayer)
+    	{
+    		// Check that the item stack has a non-custom capability. If it does have a custom capability, make sure the nbt data matches, if it doesn't, update the stack.
+    		if (stack.hasCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH))
+    		{
+    			NBTTagCompound forgeCapabilities = stack.getSubCompound("ForgeCaps", false);
+    			
+    			if (forgeCapabilities != null)
+    			{
+    				IStructureConfigurationCapability stackCapability = stack.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
+        			
+    				if (stackCapability.getDirty() && forgeCapabilities.hasKey(Prefab.MODID + ":structuresconfiguration"))
+        			{
+        				StructureConfigurationCapability capabilityTemp = new StructureConfigurationCapability();
+        				StructureConfigurationStorage storage = new StructureConfigurationStorage();
+        				storage.readNBT(ModRegistry.StructureConfiguration, capabilityTemp, EnumFacing.NORTH, forgeCapabilities.getCompoundTag(Prefab.MODID + ":structuresconfiguration"));
+        				
+        				if (!capabilityTemp.getConfiguration().basicStructureName.getName().equals(stackCapability.getConfiguration().basicStructureName.getName()))
+        				{
+        					stackCapability.setConfiguration(capabilityTemp.getConfiguration());
+        					stackCapability.setDirty(false);
+        				}
+        			}
+    			}
+    		}
+    	}
+    }
+    
     /**
      * Returns the unlocalized name of this item. This version accepts an ItemStack so different stacks can have
      * different names based on their damage or NBT.
@@ -164,6 +200,24 @@ public class ItemBasicStructure extends Item
 			}
 		}
 	}
+	
+    /**
+     * Override this method to change the NBT data being sent to the client.
+     * You should ONLY override this when you have no other choice, as this might change behavior client side!
+     *
+     * @param stack The stack to send the NBT tag for
+     * @return The NBT tag
+     */
+    @Override
+	public NBTTagCompound getNBTShareTag(ItemStack stack)
+    {
+    	if (stack.getTagCompound() == null)
+    	{
+    		return stack.serializeNBT();
+    	}
+    	
+        return stack.getTagCompound();
+    }
 	
 	public static ItemStack getBasicStructureItemInHand(EntityPlayer player)
 	{

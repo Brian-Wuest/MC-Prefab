@@ -10,6 +10,8 @@ import com.wuest.prefab.Config.BasicStructureConfiguration;
 public interface IStructureConfigurationCapability extends ITransferable<IStructureConfigurationCapability>
 {
 	BasicStructureConfiguration getConfiguration();
+	boolean getDirty();
+	void setDirty(boolean value);
 	
 	IStructureConfigurationCapability setConfiguration(BasicStructureConfiguration configuration);
 }
