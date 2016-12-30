@@ -7,10 +7,8 @@ import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Capabilities.*;
 import com.wuest.prefab.Capabilities.Storage.StructureConfigurationStorage;
 import com.wuest.prefab.Config.BasicStructureConfiguration;
-import com.wuest.prefab.Config.ModularHouseConfiguration;
 import com.wuest.prefab.Config.BasicStructureConfiguration.EnumBasicStructureName;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureBasic;
-import com.wuest.prefab.StructureGen.CustomStructures.StructureModularHouse;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -104,29 +102,7 @@ public class ItemBasicStructure extends Item
     {
     	if (entityIn instanceof EntityPlayer)
     	{
-    		// Check that the item stack has a non-custom capability. If it does have a custom capability, make sure the nbt data matches, if it doesn't, update the stack.
-    		if (stack.hasCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH))
-    		{
-    			NBTTagCompound forgeCapabilities = stack.getSubCompound("ForgeCaps", false);
-    			
-    			if (forgeCapabilities != null)
-    			{
-    				IStructureConfigurationCapability stackCapability = stack.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
-        			
-    				if (stackCapability.getDirty() && forgeCapabilities.hasKey(Prefab.MODID + ":structuresconfiguration"))
-        			{
-        				StructureConfigurationCapability capabilityTemp = new StructureConfigurationCapability();
-        				StructureConfigurationStorage storage = new StructureConfigurationStorage();
-        				storage.readNBT(ModRegistry.StructureConfiguration, capabilityTemp, EnumFacing.NORTH, forgeCapabilities.getCompoundTag(Prefab.MODID + ":structuresconfiguration"));
-        				
-        				if (!capabilityTemp.getConfiguration().basicStructureName.getName().equals(stackCapability.getConfiguration().basicStructureName.getName()))
-        				{
-        					stackCapability.setConfiguration(capabilityTemp.getConfiguration());
-        					stackCapability.setDirty(false);
-        				}
-        			}
-    			}
-    		}
+    		ItemBasicStructure.getStackCapability(stack);
     	}
     }
     
@@ -137,8 +113,8 @@ public class ItemBasicStructure extends Item
     @Override
 	public String getUnlocalizedName(ItemStack stack)
     {
-    	IStructureConfigurationCapability capability = stack.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
-    	
+    	IStructureConfigurationCapability capability = ItemBasicStructure.getStackCapability(stack);
+
     	if (capability != null)
     	{
     		return capability.getConfiguration().getDisplayName();
@@ -187,7 +163,7 @@ public class ItemBasicStructure extends Item
 						
 						if (stack.stackSize == 1)
 						{
-							player.inventory.removeStackFromSlot(player.inventory.getSlotFor(stack));
+							player.inventory.deleteStack(stack);
 						}
 						else
 						{
@@ -237,5 +213,34 @@ public class ItemBasicStructure extends Item
 		}
 		
 		return stack;
+	}
+	
+	public static IStructureConfigurationCapability getStackCapability(ItemStack stack)
+	{
+		if (stack.hasCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH))
+		{
+			NBTTagCompound forgeCapabilities = stack.getSubCompound("ForgeCaps", false);
+			IStructureConfigurationCapability stackCapability = stack.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
+			
+			if (forgeCapabilities != null)
+			{
+				if (stackCapability.getDirty() && forgeCapabilities.hasKey(Prefab.MODID + ":structuresconfiguration"))
+    			{
+    				StructureConfigurationCapability capabilityTemp = new StructureConfigurationCapability();
+    				StructureConfigurationStorage storage = new StructureConfigurationStorage();
+    				storage.readNBT(ModRegistry.StructureConfiguration, capabilityTemp, EnumFacing.NORTH, forgeCapabilities.getCompoundTag(Prefab.MODID + ":structuresconfiguration"));
+    				
+    				if (!capabilityTemp.getConfiguration().basicStructureName.getName().equals(stackCapability.getConfiguration().basicStructureName.getName()))
+    				{
+    					stackCapability.setConfiguration(capabilityTemp.getConfiguration());
+    					stackCapability.setDirty(false);
+    				}
+    			}
+			}
+			
+			return stackCapability;
+		}
+		
+		return null;
 	}
 }
