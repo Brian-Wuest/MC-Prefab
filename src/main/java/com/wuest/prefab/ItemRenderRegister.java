@@ -17,11 +17,8 @@ import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-<<<<<<< HEAD
 import net.minecraft.util.NonNullList;
-=======
 import net.minecraft.util.ResourceLocation;
->>>>>>> refs/remotes/origin/MC-1.10.2
 import net.minecraftforge.client.model.ModelLoader;
 
 public final class ItemRenderRegister 

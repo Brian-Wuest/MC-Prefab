@@ -3,16 +3,12 @@ package com.wuest.prefab.Events;
 import java.util.*;
 import java.util.Map.Entry;
 
-<<<<<<< HEAD
 import com.wuest.prefab.*;
-=======
 import com.wuest.prefab.BuildingMethods;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.UpdateChecker;
-import com.wuest.prefab.Capabilities.StructureConfigurationCapability;
-import com.wuest.prefab.Capabilities.StructureConfigurationProvider;
->>>>>>> refs/remotes/origin/MC-1.10.2
+import com.wuest.prefab.Capabilities.*;
 import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Items.ItemBasicStructure;
 import com.wuest.prefab.Proxy.ClientProxy;
