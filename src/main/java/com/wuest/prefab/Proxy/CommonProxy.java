@@ -5,19 +5,17 @@ import com.wuest.prefab.Prefab;
 import com.wuest.prefab.UpdateChecker;
 import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Events.ModEventHandler;
-import com.wuest.prefab.Gui.*;
-import com.wuest.prefab.Proxy.Messages.*;
-import com.wuest.prefab.Proxy.Messages.Handlers.*;
+import com.wuest.prefab.Gui.GuiCustomContainer;
 
-import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.fml.relauncher.Side;
 
 /**
  * This is the server side proxy.
@@ -52,8 +50,13 @@ public class CommonProxy implements IGuiHandler
 		// Register messages.
 		ModRegistry.RegisterMessages();
 		
+		// Register the capabilities.
+		ModRegistry.RegisterCapabilities();
+		
 		// Register items here.
 		ModRegistry.RegisterModComponents();
+		
+		this.RegisterEventListeners();
 		
 		// Register the recipes here.
 		ModRegistry.RegisterRecipes();
@@ -62,7 +65,6 @@ public class CommonProxy implements IGuiHandler
 	public void init(FMLInitializationEvent event)
 	{
 		NetworkRegistry.INSTANCE.registerGuiHandler(Prefab.instance, Prefab.proxy);
-		this.RegisterEventListeners();
 	}
 	
 	public void postinit(FMLPostInitializationEvent event)

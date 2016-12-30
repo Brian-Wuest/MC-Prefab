@@ -31,9 +31,13 @@ public class StructureConfiguration
 	{
 		NBTTagCompound tag = new NBTTagCompound();
 		
-		tag.setInteger(StructureConfiguration.hitXTag, this.pos.getX());
-		tag.setInteger(StructureConfiguration.hitYTag, this.pos.getY());
-		tag.setInteger(StructureConfiguration.hitZTag, this.pos.getZ());
+		if (this.pos != null)
+		{
+			tag.setInteger(StructureConfiguration.hitXTag, this.pos.getX());
+			tag.setInteger(StructureConfiguration.hitYTag, this.pos.getY());
+			tag.setInteger(StructureConfiguration.hitZTag, this.pos.getZ());
+		}
+		
 		tag.setString(StructureConfiguration.houseFacingTag, this.houseFacing.getName());
 		
 		tag = this.CustomWriteToNBTTagCompound(tag);

@@ -3,8 +3,18 @@ package com.wuest.prefab.Events;
 import java.util.*;
 import java.util.Map.Entry;
 
+<<<<<<< HEAD
 import com.wuest.prefab.*;
+=======
+import com.wuest.prefab.BuildingMethods;
+import com.wuest.prefab.ModRegistry;
+import com.wuest.prefab.Prefab;
+import com.wuest.prefab.UpdateChecker;
+import com.wuest.prefab.Capabilities.StructureConfigurationCapability;
+import com.wuest.prefab.Capabilities.StructureConfigurationProvider;
+>>>>>>> refs/remotes/origin/MC-1.10.2
 import com.wuest.prefab.Config.ModConfiguration;
+import com.wuest.prefab.Items.ItemBasicStructure;
 import com.wuest.prefab.Proxy.ClientProxy;
 import com.wuest.prefab.Proxy.Messages.ConfigSyncMessage;
 import com.wuest.prefab.Render.StructureRenderHandler;
@@ -16,11 +26,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.*;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.fml.client.event.*;
@@ -64,6 +77,15 @@ public class ModEventHandler
 				// Make sure to set the tag for this player so they don't get the item again.
 				persistTag.setBoolean(ModEventHandler.GIVEN_HOUSEBUILDER_TAG, true);
 			}
+		}
+	}
+	
+	@SubscribeEvent
+	public void AttachItemStackCapabilities(AttachCapabilitiesEvent.Item event)
+	{
+		if (event.getItem() instanceof ItemBasicStructure)
+		{
+			event.addCapability(new ResourceLocation(Prefab.MODID, "structuresconfiguration"), new StructureConfigurationProvider(new StructureConfigurationCapability()));
 		}
 	}
 	
