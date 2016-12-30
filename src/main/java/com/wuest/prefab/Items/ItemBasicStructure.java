@@ -189,6 +189,7 @@ public class ItemBasicStructure extends Item
     {
     	if (stack.getTagCompound() == null)
     	{
+    		// Make sure to serialize the NBT for this stack so the information is pushed to the client and the appropriate Icon is displayed for this stack.
     		return stack.serializeNBT();
     	}
     	

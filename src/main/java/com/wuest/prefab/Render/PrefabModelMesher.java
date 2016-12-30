@@ -42,5 +42,4 @@ public class PrefabModelMesher implements ItemMeshDefinition
 		return new ModelResourceLocation(resourceLocation, "inventory");
 		
 	}
-
 }
