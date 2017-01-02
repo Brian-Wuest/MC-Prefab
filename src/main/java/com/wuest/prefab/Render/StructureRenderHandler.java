@@ -139,12 +139,9 @@ public class StructureRenderHandler
 					IBlockState blockState = foundBlock.getDefaultState();
 					buildBlock = BuildBlock.SetBlockState(StructureRenderHandler.currentConfiguration, player.worldObj, StructureRenderHandler.currentConfiguration.pos, StructureRenderHandler.assumedNorth, buildBlock, foundBlock, blockState);
 					
-					if (buildBlock.getStartingPosition().getHeightOffset() > 0)
+					if (StructureRenderHandler.renderComponentInWorld(player.worldObj, buildBlock))
 					{
-						if (StructureRenderHandler.renderComponentInWorld(player.worldObj, buildBlock))
-						{
-							didAny = true;
-						}
+						didAny = true;
 					}
 				}
 			}

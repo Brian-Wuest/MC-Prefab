@@ -1,10 +1,14 @@
 package com.wuest.prefab.Items;
 
 import com.wuest.prefab.*;
+import com.wuest.prefab.Config.BasicStructureConfiguration;
 import com.wuest.prefab.Gui.GuiLangKeys;
+import com.wuest.prefab.Render.StructureRenderHandler;
+import com.wuest.prefab.StructureGen.CustomStructures.StructureBasic;
 
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.*;
@@ -15,6 +19,7 @@ import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.MapData;
 
 /**
  * This is the instant bridge item.
@@ -23,6 +28,9 @@ import net.minecraft.world.World;
  */
 public class ItemInstantBridge extends Item
 {
+	private StructureBasic basic;
+	private BasicStructureConfiguration config; 
+	
 	public ItemInstantBridge(String name)
 	{
 		super();
@@ -38,11 +46,7 @@ public class ItemInstantBridge extends Item
     {
 		if (!worldIn.isRemote)
 		{
-	        Vec3d vec3d = player.getPositionEyes(1.0F);
-	        Vec3d vec3d1 = player.getLook(1.0F);
-	        Vec3d vec3d2 = vec3d.addVector(vec3d1.xCoord * 5.0F, vec3d1.yCoord * 5.0F, vec3d1.zCoord * 5.0F);
-	        RayTraceResult result = worldIn.rayTraceBlocks(vec3d, vec3d2, true, false, true);
-			
+	        RayTraceResult result = ItemInstantBridge.RayTrace(worldIn, player, 5.0F, true);	
 	        BlockPos blockPos = null;
 	        
 	        if (result.typeOfHit == Type.MISS)
@@ -73,7 +77,79 @@ public class ItemInstantBridge extends Item
         return new ActionResult(EnumActionResult.PASS, player.getHeldItem(hand));
     }
 	
-	private boolean BuildBridge(World worldIn, EntityPlayer playerIn, BlockPos originalBlockPos)
+    /**
+     * Called each tick as long the item is on a player inventory. Uses by maps to check if is on a player hand and
+     * update it's contents.
+     */
+    @Override
+	public void onUpdate(ItemStack stack, World worldIn, Entity player, int itemSlot, boolean isSelected)
+    {
+        if (worldIn.isRemote && isSelected && player instanceof EntityPlayer)
+        {
+        	RayTraceResult result = ItemInstantBridge.RayTrace(worldIn, (EntityPlayer)player, 5.0F, true);	
+        	BlockPos blockPos = null;
+        	
+        	if (result.typeOfHit == Type.MISS)
+	        {
+	        	// The block position is the player's current position.
+	        	blockPos = player.getPosition().down(1);
+	        }
+	        else if (result.typeOfHit == Type.BLOCK)
+	        {
+		        blockPos = result.getBlockPos();
+	        }
+	        
+	        if (blockPos != null && ((result.typeOfHit == Type.BLOCK && worldIn.getBlockState(blockPos).getBlock() instanceof BlockLiquid)
+	        		|| result.typeOfHit == Type.MISS))
+	        {
+	        	StructureBasic basic = ((ItemInstantBridge)stack.getItem()).basic;
+	        	BasicStructureConfiguration config = ((ItemInstantBridge)stack.getItem()).config;
+	        	
+	        	if (basic == null)
+	        	{
+		        	basic = StructureBasic.CreateInstance("assets/prefab/structures/instant_bridge.zip", StructureBasic.class);
+		        	basic.setName("instant_bridge");
+		        	config = new BasicStructureConfiguration();
+		        	config.houseFacing = player.getHorizontalFacing().getOpposite();
+		        	config.pos = blockPos;
+		        	
+		        	((ItemInstantBridge)stack.getItem()).basic = basic;
+		        	((ItemInstantBridge)stack.getItem()).config = config;
+	        	}
+	        	
+	        	if (config.houseFacing != player.getHorizontalFacing().getOpposite()
+	        			|| config.pos.getDistance(blockPos.getX(), blockPos.getY(), blockPos.getZ()) != 0)
+	        	{
+	        		config.pos = blockPos;
+	        		config.houseFacing = player.getHorizontalFacing().getOpposite();
+		        	StructureRenderHandler.setStructure(basic, EnumFacing.NORTH, config);
+		        	StructureRenderHandler.showedMessage = true;
+	        	}
+	        }
+	        else
+	        {
+	        	StructureRenderHandler.setStructure(null, EnumFacing.NORTH, null);
+	        }
+        }
+        else if (worldIn.isRemote && player instanceof EntityPlayer)
+        {
+        	if (StructureRenderHandler.currentStructure != null && StructureRenderHandler.currentStructure instanceof StructureBasic
+        			&& StructureRenderHandler.currentStructure.getName().equals("instant_bridge"))
+        	{
+        		StructureRenderHandler.setStructure(null, EnumFacing.NORTH, null);
+        	}
+        }
+    }
+    
+    public static RayTraceResult RayTrace(World world, EntityPlayer player, float distance, boolean includeFluids)
+    {
+        Vec3d vec3d = player.getPositionEyes(1.0F);
+        Vec3d vec3d1 = player.getLook(1.0F);
+        Vec3d vec3d2 = vec3d.addVector(vec3d1.xCoord * distance, vec3d1.yCoord * distance, vec3d1.zCoord * distance);
+        return world.rayTraceBlocks(vec3d, vec3d2, includeFluids, false, true);
+    }
+	
+ 	private boolean BuildBridge(World worldIn, EntityPlayer playerIn, BlockPos originalBlockPos)
 	{
 		EnumFacing playerFacing = playerIn.getHorizontalFacing();
 		
