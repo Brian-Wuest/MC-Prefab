@@ -159,6 +159,11 @@ public class ModRegistry
 		return ModRegistry.GetItem(ItemBasicStructure.class);
 	}
 	
+	public static ItemInstantBridge InstantBridge()
+	{
+		return ModRegistry.GetItem(ItemInstantBridge.class);
+	}
+	
 	public static ItemStack GetCompressedStoneType(BlockCompressedStone.EnumType enumType)
 	{
 		return ModRegistry.GetCompressedStoneType(enumType, 1);
@@ -271,6 +276,7 @@ public class ModRegistry
 		ModRegistry.registerItem(new ItemBundleOfTimber("item_bundle_of_timber"));
 		ModRegistry.registerItem(new ItemHorseStable("item_horse_stable"));
 		ModRegistry.registerItem(new ItemNetherGate("item_nether_gate"));
+		ModRegistry.registerItem(new ItemInstantBridge("item_instant_bridge"));
 		//ModRegistry.registerItem(new ItemModularHouse("item_modular_house"));
 		
 		// Register all the basic structures here. The resource location is used for the item models and textures.
@@ -600,6 +606,14 @@ public class ModRegistry
 				'b', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_GLOWSTONE),
 				'c', ModRegistry.BundleOfTimber(),
 				'd', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_DIRT));
+		
+		// Instant Bridge.
+		GameRegistry.addRecipe(new ItemStack(ModRegistry.InstantBridge()),
+				"bab",
+				"bab",
+				"bab",
+				'a', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE),
+				'b', Item.getItemFromBlock(Blocks.TORCH));
 	}
 
 	/**
