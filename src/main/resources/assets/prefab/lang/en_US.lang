@@ -14,7 +14,7 @@ item.prefab:item_bundle_of_timber.name=Bundle of Timber
 item.prefab:item_horse_stable.name=Horse Stable
 item.prefab:item_nether_gate.name=Nether Gate
 item.prefab:item_modular_house.name=Modular House
-item.prefab:item_basic_structure=Basic Structure
+item.prefab:item_basic_structure.name=Basic Structure
 item.prefab:item_instant_bridge.name=Instant Bridge
 
 item.prefab.advanced.chicken.coop=Advanced Chicken Coop
