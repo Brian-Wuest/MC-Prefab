@@ -11,6 +11,7 @@ import com.wuest.prefab.Config.BasicStructureConfiguration.EnumBasicStructureNam
 import com.wuest.prefab.StructureGen.CustomStructures.StructureBasic;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -18,10 +19,14 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -48,13 +53,15 @@ public class ItemBasicStructure extends Item
 	 * Does something when the item is right-clicked.
 	 */
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos hitBlockPos, EnumHand hand, EnumFacing side, float hitX,
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos hitBlockPos, EnumHand hand, EnumFacing side, float hitX,
 			float hitY, float hitZ)
 	{
 		if (world.isRemote)
 		{
 			if (side == EnumFacing.UP)
 			{
+				ItemStack stack = player.getHeldItem(hand);
+				
 				IStructureConfigurationCapability capability = stack.getCapability(ModRegistry.StructureConfiguration,  EnumFacing.NORTH);
 				
 				if (capability != null)
@@ -78,7 +85,7 @@ public class ItemBasicStructure extends Item
      */
     @Override
 	@SideOnly(Side.CLIENT)
-    public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems)
+    public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems)
     {
 		for (EnumBasicStructureName value : EnumBasicStructureName.values())
 		{
@@ -161,13 +168,13 @@ public class ItemBasicStructure extends Item
 					{
 						ItemStack stack = ItemBasicStructure.getBasicStructureItemInHand(player);
 						
-						if (stack.stackSize == 1)
+						if (stack.func_190916_E() == 1)
 						{
 							player.inventory.deleteStack(stack);
 						}
 						else
 						{
-							stack.stackSize = stack.stackSize - 1;
+							stack.func_190920_e(stack.func_190916_E() - 1);
 						}
 						
 						player.inventoryContainer.detectAndSendChanges();
@@ -220,7 +227,7 @@ public class ItemBasicStructure extends Item
 	{
 		if (stack.hasCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH))
 		{
-			NBTTagCompound forgeCapabilities = stack.getSubCompound("ForgeCaps", false);
+			NBTTagCompound forgeCapabilities = stack.getSubCompound("ForgeCaps");
 			IStructureConfigurationCapability stackCapability = stack.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
 			
 			if (forgeCapabilities != null)

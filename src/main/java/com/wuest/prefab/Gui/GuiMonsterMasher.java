@@ -20,8 +20,8 @@ import net.minecraftforge.fml.client.config.GuiButtonExt;
 
 public class GuiMonsterMasher extends GuiScreen
 {
-	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/defaultBackground.png");
-	private static final ResourceLocation houseTopDown = new ResourceLocation("prefab", "textures/gui/monsterMasherTopDown.png");
+	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/default_background.png");
+	private static final ResourceLocation houseTopDown = new ResourceLocation("prefab", "textures/gui/monster_masher_top_down.png");
 	
 	protected GuiButtonExt btnCancel;
 	protected GuiButtonExt btnBuild;

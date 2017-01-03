@@ -10,19 +10,12 @@ import com.google.gson.annotations.Expose;
 import com.wuest.prefab.BuildingMethods;
 import com.wuest.prefab.Config.StructureConfiguration;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockBone;
-import net.minecraft.block.BlockLever;
+import net.minecraft.block.*;
 import net.minecraft.block.BlockLever.EnumOrientation;
-import net.minecraft.block.BlockLog;
-import net.minecraft.block.BlockQuartz;
 import net.minecraft.block.BlockLog.EnumAxis;
-import net.minecraft.block.BlockVine;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.block.state.*;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -166,7 +159,8 @@ public class BuildBlock
 		EnumOrientation leverOrientation = EnumOrientation.NORTH;
 		
 		// Vines have a special property for it's "facing"
-		if (foundBlock instanceof BlockVine)
+		if (foundBlock instanceof BlockVine
+				|| foundBlock instanceof BlockWall)
 		{
 			if (block.getProperty("east").getValue().equals("true"))
 			{
@@ -317,19 +311,54 @@ public class BuildBlock
 			{
 				IProperty<?> property = set.getKey();
 				BuildProperty buildProperty = block.getProperty(property.getName());
-				Optional<?> propertyValue = property.parseValue(buildProperty.getValue());
-				Comparable<?> comparable = set.getValue().getClass().cast(propertyValue.get());
 				
-				if (property.getName().equals("facing") && !(foundBlock instanceof BlockLever))
+				try
 				{
-					// Facing properties should be relative to the configuration facing.
-					EnumFacing facing = EnumFacing.byName(propertyValue.get().toString());
-					
-					// Cannot rotate verticals.
-					if (facing != null && facing != EnumFacing.UP && facing != EnumFacing.DOWN)
+					Optional<?> propertyValue  = property.parseValue(buildProperty.getValue());
+					Comparable<?> comparable = set.getValue().getClass().cast(propertyValue.get());
+
+					if (property.getName().equals("facing") && !(foundBlock instanceof BlockLever))
 					{
+						// Facing properties should be relative to the configuration facing.
+						EnumFacing facing = EnumFacing.byName(propertyValue.get().toString());
+						
+						// Cannot rotate verticals.
+						if (facing != null && facing != EnumFacing.UP && facing != EnumFacing.DOWN)
+						{
+							if (configuration.houseFacing == assumedNorth.rotateY())
+							{				
+								facing = facing.rotateY();
+							}
+							else if (configuration.houseFacing == assumedNorth.getOpposite())
+							{
+								facing = facing.getOpposite();
+							}
+							else if (configuration.houseFacing == assumedNorth.rotateYCCW())
+							{
+								facing = facing.rotateYCCW();
+							}
+						}
+						
+						comparable = facing;
+						
+						block.setHasFacing(true);
+					}
+					else if (property.getName().equals("facing") && foundBlock instanceof BlockLever)
+					{
+						comparable = leverOrientation;
+						block.setHasFacing(true);
+					}
+					else if (property.getName().equals("rotation"))
+					{
+						// 0 = South
+						// 4 = West
+						// 8 = North
+						// 12 = East
+						int rotation = (Integer)propertyValue.get();
+						EnumFacing facing = rotation == 0 ? EnumFacing.SOUTH : rotation == 4 ? EnumFacing.WEST : rotation == 8 ? EnumFacing.NORTH : EnumFacing.EAST;
+						
 						if (configuration.houseFacing == assumedNorth.rotateY())
-						{				
+						{
 							facing = facing.rotateY();
 						}
 						else if (configuration.houseFacing == assumedNorth.getOpposite())
@@ -340,85 +369,72 @@ public class BuildBlock
 						{
 							facing = facing.rotateYCCW();
 						}
-					}
-					
-					comparable = facing;
-					
-					block.setHasFacing(true);
-				}
-				else if (property.getName().equals("facing") && foundBlock instanceof BlockLever)
-				{
-					comparable = leverOrientation;
-					block.setHasFacing(true);
-				}
-				else if (property.getName().equals("rotation"))
-				{
-					// 0 = South
-					// 4 = West
-					// 8 = North
-					// 12 = East
-					int rotation = (Integer)propertyValue.get();
-					EnumFacing facing = rotation == 0 ? EnumFacing.SOUTH : rotation == 4 ? EnumFacing.WEST : rotation == 8 ? EnumFacing.NORTH : EnumFacing.EAST;
-					
-					if (configuration.houseFacing == assumedNorth.rotateY())
-					{
-						facing = facing.rotateY();
-					}
-					else if (configuration.houseFacing == assumedNorth.getOpposite())
-					{
-						facing = facing.getOpposite();
-					}
-					else if (configuration.houseFacing == assumedNorth.rotateYCCW())
-					{
-						facing = facing.rotateYCCW();
-					}
-					
-					rotation = facing == EnumFacing.SOUTH ? 0 : facing == EnumFacing.WEST ? 4 : facing == EnumFacing.NORTH ? 8 : 12;
-					comparable = rotation;
-					block.setHasFacing(true);
-				}
-				else if (foundBlock instanceof BlockVine)
-				{
-					// Vines have a special state. There is 1 property for each "facing".
-					if (property.getName().equals(vineFacing.getName2()))
-					{
-						comparable = true;
+						
+						rotation = facing == EnumFacing.SOUTH ? 0 : facing == EnumFacing.WEST ? 4 : facing == EnumFacing.NORTH ? 8 : 12;
+						comparable = rotation;
 						block.setHasFacing(true);
 					}
-					else
+					else if (foundBlock instanceof BlockVine)
 					{
-						comparable = false;
+						// Vines have a special state. There is 1 property for each "facing".
+						if (property.getName().equals(vineFacing.getName2()))
+						{
+							comparable = true;
+							block.setHasFacing(true);
+						}
+						else
+						{
+							comparable = false;
+						}
+					}
+					else if (foundBlock instanceof BlockWall)
+					{
+						if (property.getName().equals(vineFacing.getName2())
+								|| property.getName().equals(vineFacing.getOpposite().getName2()))
+						{
+							comparable = true;
+							block.setHasFacing(true);
+						}
+						else
+						{
+							comparable = false;
+						}
+					}
+					else if (foundBlock instanceof BlockLog || foundBlock instanceof BlockBone)
+					{
+						// logs have a special state. There is a property called axis and it only has 3 directions.
+						if (property.getName().equals("axis"))
+						{
+							comparable = logFacing;
+						}
+					}
+					else if (foundBlock instanceof BlockQuartz)
+					{
+						if (property.getName().equals("variant") && quartzFacing != BlockQuartz.EnumType.DEFAULT)
+						{
+							comparable = quartzFacing;
+						}
+					}
+	
+					ImmutableTable<IProperty<?>, Comparable<?>, IBlockState> table = ((BlockStateContainer.StateImplementation) blockState)
+							.getPropertyValueTable();
+					ImmutableMap<IProperty<?>, IBlockState> map = table.column(comparable);
+	
+					for (Entry<IProperty<?>, IBlockState> mapping : map.entrySet())
+					{
+						if (property.getName().equals(mapping.getKey().getName()))
+						{
+							// Found the appropriate mapping for this
+							// value and property, update the block
+							// state and go to the next property.
+							blockState = mapping.getValue();
+						}
 					}
 				}
-				else if (foundBlock instanceof BlockLog || foundBlock instanceof BlockBone)
+				catch (Exception ex)
 				{
-					// logs have a special state. There is a property called axis and it only has 3 directions.
-					if (property.getName().equals("axis"))
-					{
-						comparable = logFacing;
-					}
-				}
-				else if (foundBlock instanceof BlockQuartz)
-				{
-					if (property.getName().equals("variant") && quartzFacing != BlockQuartz.EnumType.DEFAULT)
-					{
-						comparable = quartzFacing;
-					}
-				}
-
-				ImmutableTable<IProperty<?>, Comparable<?>, IBlockState> table = ((BlockStateContainer.StateImplementation) blockState)
-						.getPropertyValueTable();
-				ImmutableMap<IProperty<?>, IBlockState> map = table.column(comparable);
-
-				for (Entry<IProperty<?>, IBlockState> mapping : map.entrySet())
-				{
-					if (property.getName().equals(mapping.getKey().getName()))
-					{
-						// Found the appropriate mapping for this
-						// value and property, update the block
-						// state and go to the next property.
-						blockState = mapping.getValue();
-					}
+					System.out.println("Error getting properly value for property name [" + property.getName() + "] property value [" + buildProperty.getValue() + "] for block [" + block.getBlockName() + "]");
+					throw ex;
 				}
 			}
 		}
