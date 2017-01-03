@@ -22,8 +22,8 @@ import net.minecraftforge.fml.client.config.GuiButtonExt;
 
 public class GuiModularHouse extends GuiScreen
 {
-	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/default_background.png");
-	private static final ResourceLocation structureTopDown = new ResourceLocation("prefab", "textures/gui/modular_house_top_down.png");
+	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/defaultBackground.png");
+	private static final ResourceLocation structureTopDown = new ResourceLocation("prefab", "textures/gui/modularHouseTopDown.png");
 	
 	protected GuiButtonExt btnCancel;
 	protected GuiButtonExt btnBuild;

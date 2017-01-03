@@ -139,9 +139,12 @@ public class StructureRenderHandler
 					IBlockState blockState = foundBlock.getDefaultState();
 					buildBlock = BuildBlock.SetBlockState(StructureRenderHandler.currentConfiguration, player.worldObj, StructureRenderHandler.currentConfiguration.pos, StructureRenderHandler.assumedNorth, buildBlock, foundBlock, blockState);
 					
-					if (StructureRenderHandler.renderComponentInWorld(player.worldObj, buildBlock))
+					if (buildBlock.getStartingPosition().getHeightOffset() > 0)
 					{
-						didAny = true;
+						if (StructureRenderHandler.renderComponentInWorld(player.worldObj, buildBlock))
+						{
+							didAny = true;
+						}
 					}
 				}
 			}
@@ -159,11 +162,11 @@ public class StructureRenderHandler
 				StructureRenderHandler.setStructure(null, EnumFacing.NORTH, null);
 				player.addChatComponentMessage(
 						new TextComponentTranslation(GuiLangKeys.GUI_PREVIEW_COMPLETE)
-						.setStyle(new Style().setColor(TextFormatting.GREEN)), true);
+						.setStyle(new Style().setColor(TextFormatting.GREEN)));
 			}
 			else if (!StructureRenderHandler.showedMessage)
 			{
-				player.addChatComponentMessage(new TextComponentTranslation(GuiLangKeys.GUI_PREVIEW_NOTICE).setStyle(new Style().setColor(TextFormatting.GREEN)), false);
+				player.addChatComponentMessage(new TextComponentTranslation(GuiLangKeys.GUI_PREVIEW_NOTICE).setStyle(new Style().setColor(TextFormatting.GREEN)));
 				StructureRenderHandler.showedMessage = true;
 			}
 		}

@@ -91,9 +91,9 @@ public class BuildingMethods
 				{
 					// Make sure that this combined stack is at or smaller than
 					// the max.
-					if (existingStack.func_190916_E() + stack.func_190916_E() <= stack.getMaxStackSize())
+					if (existingStack.stackSize + stack.stackSize <= stack.getMaxStackSize())
 					{
-						existingStack.func_190920_e(existingStack.func_190916_E() + stack.func_190916_E());
+						existingStack.stackSize = existingStack.stackSize + stack.stackSize;
 						foundStack = true;
 						break;
 					}

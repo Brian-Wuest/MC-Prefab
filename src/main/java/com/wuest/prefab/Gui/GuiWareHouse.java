@@ -28,8 +28,8 @@ import net.minecraftforge.fml.client.config.GuiButtonExt;
  */
 public class GuiWareHouse extends GuiScreen
 {
-	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/default_background.png");
-	private static final ResourceLocation wareHouseTopDown = new ResourceLocation("prefab", "textures/gui/warehouse_top_down.png");
+	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/defaultBackground.png");
+	private static final ResourceLocation wareHouseTopDown = new ResourceLocation("prefab", "textures/gui/wareHouseTopDown.png");
 	
 	protected GuiButtonExt btnCancel;
 	protected GuiButtonExt btnBuild;

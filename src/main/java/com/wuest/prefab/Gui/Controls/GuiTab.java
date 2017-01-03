@@ -21,8 +21,8 @@ public class GuiTab extends Gui
 	private boolean selected;
 	private String name;
 	protected boolean hovered;
-	protected static final ResourceLocation TAB_TEXTURES = new ResourceLocation("prefab", "textures/gui/gui_tab.png");
-	protected static final ResourceLocation TAB_TEXTURES_hovered = new ResourceLocation("prefab", "textures/gui/gui_tab_hovered.png");
+	protected static final ResourceLocation TAB_TEXTURES = new ResourceLocation("prefab", "textures/gui/guiTab.png");
+	protected static final ResourceLocation TAB_TEXTURES_hovered = new ResourceLocation("prefab", "textures/gui/guiTab_hovered.png");
 	
 	/*
 	 * Determines if this tab is visible.

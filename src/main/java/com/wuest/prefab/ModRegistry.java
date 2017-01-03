@@ -159,11 +159,6 @@ public class ModRegistry
 		return ModRegistry.GetItem(ItemBasicStructure.class);
 	}
 	
-	public static ItemInstantBridge InstantBridge()
-	{
-		return ModRegistry.GetItem(ItemInstantBridge.class);
-	}
-	
 	public static ItemStack GetCompressedStoneType(BlockCompressedStone.EnumType enumType)
 	{
 		return ModRegistry.GetCompressedStoneType(enumType, 1);
@@ -261,23 +256,22 @@ public class ModRegistry
 	 */
 	public static void RegisterModComponents()
 	{
-		ModRegistry.registerItem(new ItemStartHouse("item_start_house"));
-		ModRegistry.registerItem(new ItemWareHouse("item_warehouse"));
-		ModRegistry.registerItem(new ItemChickenCoop("item_chicken_coop"));
-		ModRegistry.registerItem(new ItemProduceFarm("item_produce_farm"));
-		ModRegistry.registerItem(new ItemTreeFarm("item_tree_farm"));
-		ModRegistry.registerItem(new ItemCompressedChest("item_compressed_chest"));
-		ModRegistry.registerItem(new ItemPileOfBricks("item_pile_of_bricks"));
-		ModRegistry.registerItem(new ItemPalletOfBricks("item_pallet_of_bricks"));
-		ModRegistry.registerItem(new ItemFishPond("item_fish_pond"));
-		ModRegistry.registerItem(new ItemAdvancedWareHouse("item_advanced_warehouse"));
-		ModRegistry.registerItem(new ItemMonsterMasher("item_monster_masher"));
-		ModRegistry.registerItem(new ItemWarehouseUpgrade("item_warehouse_upgrade"));
-		ModRegistry.registerItem(new ItemBundleOfTimber("item_bundle_of_timber"));
-		ModRegistry.registerItem(new ItemHorseStable("item_horse_stable"));
-		ModRegistry.registerItem(new ItemNetherGate("item_nether_gate"));
-		ModRegistry.registerItem(new ItemInstantBridge("item_instant_bridge"));
-		//ModRegistry.registerItem(new ItemModularHouse("item_modular_house"));
+		ModRegistry.registerItem(new ItemStartHouse("itemStartHouse"));
+		ModRegistry.registerItem(new ItemWareHouse("itemWareHouse"));
+		ModRegistry.registerItem(new ItemChickenCoop("itemChickenCoop"));
+		ModRegistry.registerItem(new ItemProduceFarm("itemProduceFarm"));
+		ModRegistry.registerItem(new ItemTreeFarm("itemTreeFarm"));
+		ModRegistry.registerItem(new ItemCompressedChest("itemCompressedChest"));
+		ModRegistry.registerItem(new ItemPileOfBricks("itemPileOfBricks"));
+		ModRegistry.registerItem(new ItemPalletOfBricks("itemPalletOfBricks"));
+		ModRegistry.registerItem(new ItemFishPond("itemFishPond"));
+		ModRegistry.registerItem(new ItemAdvancedWareHouse("itemAdvancedWareHouse"));
+		ModRegistry.registerItem(new ItemMonsterMasher("itemMonsterMasher"));
+		ModRegistry.registerItem(new ItemWarehouseUpgrade("itemWareHouseUpgrade"));
+		ModRegistry.registerItem(new ItemBundleOfTimber("itemBundleOfTimber"));
+		ModRegistry.registerItem(new ItemHorseStable("itemHorseStable"));
+		ModRegistry.registerItem(new ItemNetherGate("itemNetherGate"));
+		//ModRegistry.registerItem(new ItemModularHouse("itemModularHouse"));
 		
 		// Register all the basic structures here. The resource location is used for the item models and textures.
 		// Only the first one in this list should have the last variable set to true.
@@ -286,7 +280,7 @@ public class ModRegistry
 		// Create/register the item block with this block as it's needed due to this being a meta data block.
 		BlockCompressedStone stone = new BlockCompressedStone();
 		ItemBlockMeta meta = new ItemBlockMeta(stone);
-		ModRegistry.setItemName(meta, "block_compressed_stone");
+		ModRegistry.setItemName(meta, "blockCompressedStone");
 		ModRegistry.registerBlock(stone, meta);
 		
 		//BlockDrafter drafter = new BlockDrafter();
@@ -606,14 +600,6 @@ public class ModRegistry
 				'b', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_GLOWSTONE),
 				'c', ModRegistry.BundleOfTimber(),
 				'd', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_DIRT));
-		
-		// Instant Bridge.
-		GameRegistry.addRecipe(new ItemStack(ModRegistry.InstantBridge()),
-				"bab",
-				"bab",
-				"bab",
-				'a', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE),
-				'b', Item.getItemFromBlock(Blocks.TORCH));
 	}
 
 	/**
