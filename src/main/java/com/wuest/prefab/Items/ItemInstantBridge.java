@@ -102,6 +102,11 @@ public class ItemInstantBridge extends Item
 	        if (blockPos != null && ((result.typeOfHit == Type.BLOCK && worldIn.getBlockState(blockPos).getBlock() instanceof BlockLiquid)
 	        		|| result.typeOfHit == Type.MISS))
 	        {
+	        	if (result.typeOfHit == Type.BLOCK)
+	        	{
+	        		blockPos = blockPos.up();
+	        	}
+	        	
 	        	StructureBasic basic = ((ItemInstantBridge)stack.getItem()).basic;
 	        	BasicStructureConfiguration config = ((ItemInstantBridge)stack.getItem()).config;
 	        	
@@ -110,9 +115,8 @@ public class ItemInstantBridge extends Item
 		        	basic = StructureBasic.CreateInstance("assets/prefab/structures/instant_bridge.zip", StructureBasic.class);
 		        	basic.setName("instant_bridge");
 		        	config = new BasicStructureConfiguration();
-		        	config.houseFacing = player.getHorizontalFacing().getOpposite();
-		        	config.pos = blockPos;
 		        	
+		        	config.pos = new BlockPos(0, 0, 0);
 		        	((ItemInstantBridge)stack.getItem()).basic = basic;
 		        	((ItemInstantBridge)stack.getItem()).config = config;
 	        	}
@@ -136,6 +140,8 @@ public class ItemInstantBridge extends Item
         	if (StructureRenderHandler.currentStructure != null && StructureRenderHandler.currentStructure instanceof StructureBasic
         			&& StructureRenderHandler.currentStructure.getName().equals("instant_bridge"))
         	{
+        		((ItemInstantBridge)stack.getItem()).basic = null;
+        		((ItemInstantBridge)stack.getItem()).config = null;
         		StructureRenderHandler.setStructure(null, EnumFacing.NORTH, null);
         	}
         }
@@ -143,7 +149,7 @@ public class ItemInstantBridge extends Item
     
     public static RayTraceResult RayTrace(World world, EntityPlayer player, float distance, boolean includeFluids)
     {
-        Vec3d vec3d = player.getPositionEyes(1.0F);
+        Vec3d vec3d = new Vec3d(player.posX, player.posY + (double)player.getEyeHeight(), player.posZ);
         Vec3d vec3d1 = player.getLook(1.0F);
         Vec3d vec3d2 = vec3d.addVector(vec3d1.xCoord * distance, vec3d1.yCoord * distance, vec3d1.zCoord * distance);
         return world.rayTraceBlocks(vec3d, vec3d2, includeFluids, false, true);
