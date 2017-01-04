@@ -2,6 +2,7 @@ package com.wuest.prefab.StructureGen.CustomStructures;
 
 import java.util.ArrayList;
 
+import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.MonsterMasherConfiguration;
 import com.wuest.prefab.Config.StructureConfiguration;
 import com.wuest.prefab.StructureGen.BuildBlock;
@@ -66,7 +67,8 @@ public class StructureMonsterMasher extends Structure
 			return true;
 		}
 		else if (foundBlock.getRegistryName().getResourceDomain().equals(Blocks.MOB_SPAWNER.getRegistryName().getResourceDomain())
-				&& foundBlock.getRegistryName().getResourcePath().equals(Blocks.MOB_SPAWNER.getRegistryName().getResourcePath()))
+				&& foundBlock.getRegistryName().getResourcePath().equals(Blocks.MOB_SPAWNER.getRegistryName().getResourcePath())
+				&& Prefab.proxy.proxyConfiguration.includeSpawnersInMasher)
 		{
 			this.mobSpawnerPos.add(block.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing));
 		}
