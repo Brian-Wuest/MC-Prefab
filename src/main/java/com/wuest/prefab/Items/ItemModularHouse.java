@@ -33,7 +33,7 @@ public class ItemModularHouse extends Item
 	 * Does something when the item is right-clicked.
 	 */
 	@Override
-	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos hitBlockPos, EnumHand hand, EnumFacing side, float hitX,
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos hitBlockPos, EnumHand hand, EnumFacing side, float hitX,
 			float hitY, float hitZ)
 	{
 		if (world.isRemote)

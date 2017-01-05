@@ -1,26 +1,28 @@
 package com.wuest.prefab.Events;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map.Entry;
 
-import com.wuest.prefab.*;
 import com.wuest.prefab.BuildingMethods;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.UpdateChecker;
-import com.wuest.prefab.Capabilities.*;
+import com.wuest.prefab.Capabilities.StructureConfigurationCapability;
+import com.wuest.prefab.Capabilities.StructureConfigurationProvider;
 import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Items.ItemBasicStructure;
 import com.wuest.prefab.Proxy.ClientProxy;
 import com.wuest.prefab.Proxy.Messages.ConfigSyncMessage;
 import com.wuest.prefab.Render.StructureRenderHandler;
-import com.wuest.prefab.StructureGen.*;
+import com.wuest.prefab.StructureGen.BuildBlock;
+import com.wuest.prefab.StructureGen.Structure;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.entity.player.*;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -31,15 +33,14 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.event.entity.player.*;
-import net.minecraftforge.fml.client.event.*;
-import net.minecraftforge.fml.common.event.FMLMissingMappingsEvent;
-import net.minecraftforge.fml.common.event.FMLMissingMappingsEvent.MissingMapping;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent.*;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ServerTickEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry.Type;
 
 /**
  * This is the server side event hander.

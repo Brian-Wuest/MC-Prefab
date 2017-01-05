@@ -22,8 +22,8 @@ import net.minecraftforge.fml.client.config.GuiButtonExt;
 
 public class GuiFishPond extends GuiScreen
 {
-	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/default_background.png");
-	private static final ResourceLocation structureTopDown = new ResourceLocation("prefab", "textures/gui/fish_pond_top_down.png");
+	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/defaultBackground.png");
+	private static final ResourceLocation structureTopDown = new ResourceLocation("prefab", "textures/gui/fishPondTopDown.png");
 	
 	protected GuiButtonExt btnCancel;
 	protected GuiButtonExt btnBuild;

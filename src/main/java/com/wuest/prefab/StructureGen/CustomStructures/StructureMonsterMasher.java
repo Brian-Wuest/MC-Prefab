@@ -2,16 +2,23 @@ package com.wuest.prefab.StructureGen.CustomStructures;
 
 import java.util.ArrayList;
 
-import com.wuest.prefab.Config.*;
-import com.wuest.prefab.StructureGen.*;
+import com.wuest.prefab.Prefab;
+import com.wuest.prefab.Config.MonsterMasherConfiguration;
+import com.wuest.prefab.Config.StructureConfiguration;
+import com.wuest.prefab.StructureGen.BuildBlock;
+import com.wuest.prefab.StructureGen.BuildClear;
+import com.wuest.prefab.StructureGen.Structure;
 
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockSign;
+import net.minecraft.block.BlockStainedGlass;
+import net.minecraft.block.BlockStandingSign;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityList;
-import net.minecraft.entity.monster.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.tileentity.*;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityMobSpawner;
+import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
@@ -62,7 +69,14 @@ public class StructureMonsterMasher extends Structure
 		else if (foundBlock.getRegistryName().getResourceDomain().equals(Blocks.MOB_SPAWNER.getRegistryName().getResourceDomain())
 				&& foundBlock.getRegistryName().getResourcePath().equals(Blocks.MOB_SPAWNER.getRegistryName().getResourcePath()))
 		{
-			this.mobSpawnerPos.add(block.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing));
+			if (Prefab.proxy.proxyConfiguration.includeSpawnersInMasher)
+			{
+				this.mobSpawnerPos.add(block.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing));
+			}
+			else
+			{
+				return true;
+			}
 		}
 		else if (foundBlock instanceof BlockSign)
 		{
@@ -99,28 +113,28 @@ public class StructureMonsterMasher extends Structure
 					case 0:
 					{
 						// Zombie.
-						spawner.getSpawnerBaseLogic().func_190894_a(EntityList.func_191306_a(EntityZombie.class));
+						spawner.getSpawnerBaseLogic().setEntityName("Zombie");
 						break;
 					}
 					
 					case 1:
 					{
 						// Skeleton.
-						spawner.getSpawnerBaseLogic().func_190894_a(EntityList.func_191306_a(EntitySkeleton.class));
+						spawner.getSpawnerBaseLogic().setEntityName("Skeleton");
 						break;
 					}
 					
 					case 2:
 					{
 						// Spider.
-						spawner.getSpawnerBaseLogic().func_190894_a(EntityList.func_191306_a(EntitySpider.class));
+						spawner.getSpawnerBaseLogic().setEntityName("Spider");
 						break;
 					}
 					
 					default:
 					{
 						// Creeper.
-						spawner.getSpawnerBaseLogic().func_190894_a(EntityList.func_191306_a(EntityCreeper.class));
+						spawner.getSpawnerBaseLogic().setEntityName("Creeper");
 						break;
 					}
 				}

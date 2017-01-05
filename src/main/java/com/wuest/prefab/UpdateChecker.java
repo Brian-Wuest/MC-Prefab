@@ -55,12 +55,11 @@ public class UpdateChecker
 
 			if (Prefab.isDebug)
 			{
-				
 				url = new File("..\\src\\main\\resources\\mcmod.info").toURI().toURL();
 			}
 			else
 			{
-				url = new URL("https://raw.githubusercontent.com/Brian-Wuest/MC-Prefab/master/src/main/resources/mcmod.info");
+				url = new URL("https://raw.githubusercontent.com/Brian-Wuest/MC-Prefab/MC-1.10.2/src/main/resources/mcmod.info");
 			}
 
 			Gson file = new Gson();

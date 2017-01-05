@@ -161,7 +161,7 @@ public abstract class TileBlockBase<T extends TileEntityBase> extends Block impl
 	{
 		for (EnumFacing enumfacing : EnumFacing.values())
 		{
-			worldIn.func_190524_a(pos.offset(enumfacing), this, pos);
+			worldIn.notifyNeighborsOfStateChange(pos.offset(enumfacing), this);
 		}
 
 		worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));

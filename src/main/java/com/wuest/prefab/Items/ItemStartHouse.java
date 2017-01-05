@@ -70,7 +70,7 @@ public class ItemStartHouse extends Item
 	 * Does something when the item is right-clicked.
 	 */
 	@Override
-	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos hitBlockPos, EnumHand hand, EnumFacing side, float hitX,
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos hitBlockPos, EnumHand hand, EnumFacing side, float hitX,
 			float hitY, float hitZ)
 	{
 		if (world.isRemote)
@@ -153,7 +153,7 @@ public class ItemStartHouse extends Item
 						{
 							// Send a message to the player saying that the structure could not
 							// be built.
-							player.addChatComponentMessage(new TextComponentTranslation(GuiLangKeys.GUI_STRUCTURE_NOBUILD).setStyle(new Style().setColor(TextFormatting.GREEN)), true);
+							player.addChatComponentMessage(new TextComponentTranslation(GuiLangKeys.GUI_STRUCTURE_NOBUILD).setStyle(new Style().setColor(TextFormatting.GREEN)));
 							return;
 						}
 						

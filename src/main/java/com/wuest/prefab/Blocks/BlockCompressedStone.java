@@ -23,7 +23,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -53,7 +52,7 @@ public class BlockCompressedStone extends Block implements IMetaBlock
 		this.setHarvestLevel(null, 0);
 		this.setSoundType(SoundType.STONE);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, EnumType.COMPRESSED_STONE));
-		ModRegistry.setBlockName(this, "block_compressed_stone");
+		ModRegistry.setBlockName(this, "blockCompressedStone");
 	}
 	
     /**
@@ -165,7 +164,7 @@ public class BlockCompressedStone extends Block implements IMetaBlock
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public void getSubBlocks(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> list)
+    public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list)
     {
         for (BlockCompressedStone.EnumType enumType : BlockCompressedStone.EnumType.values())
         {
@@ -204,13 +203,13 @@ public class BlockCompressedStone extends Block implements IMetaBlock
 	
 	public static enum EnumType implements IStringSerializable
 	{
-		COMPRESSED_STONE(0, "block_compressed_stone", "block_compressed_stone"),
-		DOUBLE_COMPRESSED_STONE(1, "block_double_compressed_stone", "block_double_compressed_stone"),
-		TRIPLE_COMPRESSED_STONE(2, "block_triple_compressed_stone", "block_triple_compressed_stone"),
-		COMPRESSED_GLOWSTONE(3, "block_compressed_glowstone", "block_compressed_glowstone"),
-		DOUBLE_COMPRESSED_GLOWSTONE(4, "block_double_compressed_glowstone", "block_double_compressed_glowstone"),
-		COMPRESSED_DIRT(5, "block_compressed_dirt", "block_compressed_dirt"),
-		DOUBLE_COMPRESSED_DIRT(6, "block_double_compressed_dirt", "block_double_compressed_dirt");
+		COMPRESSED_STONE(0, "block_compressed_stone", "blockCompressedStone"),
+		DOUBLE_COMPRESSED_STONE(1, "block_double_compressed_stone", "blockDoubleCompressedStone"),
+		TRIPLE_COMPRESSED_STONE(2, "block_triple_compressed_stone", "blockTripleCompressedStone"),
+		COMPRESSED_GLOWSTONE(3, "block_compressed_glowstone", "blockCompressedGlowstone"),
+		DOUBLE_COMPRESSED_GLOWSTONE(4, "block_double_compressed_glowstone", "blockDoubleCompressedGlowstone"),
+		COMPRESSED_DIRT(5, "block_compressed_dirt", "blockCompressedDirt"),
+		DOUBLE_COMPRESSED_DIRT(6, "block_double_compressed_dirt", "blockDoubleCompressedDirt");
 		
         private final int meta;
 		

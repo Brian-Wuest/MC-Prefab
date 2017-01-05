@@ -16,7 +16,7 @@ import net.minecraftforge.fml.client.config.GuiUtils;
 
 public class GuiTabTray extends Gui
 {
-	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/default_background.png");
+	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/defaultBackground.png");
 	private ArrayList<GuiTab> tabs;
 	public int trayWidth = 50;
 	public int trayX = 0;

@@ -52,7 +52,7 @@ public class GuiDrafter extends GuiTabScreen
 {
 	public AvailableRoomType selectedRoomType;
 	
-	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/default_background.png");
+	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/defaultBackground.png");
 	
 	protected GuiTab tabGeneral;
 	protected GuiTab tabDesignRoom;
@@ -179,7 +179,7 @@ public class GuiDrafter extends GuiTabScreen
 				{
 					String hoverText = "";
 					
-					if (button.roomInfo.StructureName.getName().equals(AvailableRoomType.Empty.getName()))
+					if (button.roomInfo.StructureName.equals("Nothing"))
 					{
 						hoverText = "\nRoom Coordinates:\n X: BlahX Y: BlahY Z: BlahZ";
 					}
@@ -202,7 +202,7 @@ public class GuiDrafter extends GuiTabScreen
 		{
 			this.mc.fontRendererObj.drawString("Level", grayBoxX + 7, grayBoxY + 20, color);
 			
-			if (this.selectedRoom != null && !this.selectedRoom.roomInfo.StructureName.getName().equals(AvailableRoomType.Empty.getName()))
+			if (this.selectedRoom != null && !this.selectedRoom.roomInfo.StructureName.equals("Nothing"))
 			{
 				// Show the structure name and room coordinates for this selected room.
 			}
@@ -279,7 +279,7 @@ public class GuiDrafter extends GuiTabScreen
 			this.selectedRoom = (GuiRoomInfoButton)button;
 			this.selectedRoom.selected = true;
 			
-			if (this.selectedRoom.roomInfo.StructureName.getName().equals(AvailableRoomType.Empty.getName()))
+			if (this.selectedRoom.roomInfo.StructureName.equals("Nothing"))
 			{
 				this.tabDesignRoom.visible = true;
 			}
@@ -357,7 +357,7 @@ public class GuiDrafter extends GuiTabScreen
 			// Only set the buttons to enabled if a neighbor is enabled and it has a structure name.
 			button.enabled = button.roomInfo.checkNeighbors(roomArray);
 			
-			if (button.enabled && button.roomInfo.StructureName.getName().equals(AvailableRoomType.Empty.getName()))
+			if (button.enabled && button.roomInfo.StructureName.equals("Nothing"))
 			{
 				button.displayString = "+";
 			}
@@ -481,7 +481,7 @@ public class GuiDrafter extends GuiTabScreen
 		try
 		{
 			this.actionPerformed(this.btnGroundFloor);
-			this.roomButtons.get(45).roomInfo.StructureName = AvailableRoomType.Foyer;
+			this.roomButtons.get(45).roomInfo.StructureName = "Foyer";
 			this.actionPerformed(this.btnGroundFloor);
 		}
 		catch (IOException e)
@@ -557,7 +557,7 @@ public class GuiDrafter extends GuiTabScreen
 		@Override
 		protected int getSize()
 		{
-			return AvailableRoomType.getValues().size();
+			return AvailableRoomType.values().length;
 		}
 
 		@Override
@@ -585,7 +585,7 @@ public class GuiDrafter extends GuiTabScreen
 			FontRenderer font = this.parent.fontRendererObj;
 			AvailableRoomType room = AvailableRoomType.ValueOf(slotIdx);
 			
-            font.drawString(font.trimStringToWidth(room.getName(), listWidth - 5), this.left + 3 , slotTop +  2, 0xFFFFFF);
+            font.drawString(font.trimStringToWidth(room.getName(),    listWidth - 5), this.left + 3 , slotTop +  2, 0xFFFFFF);
 		}
 	}
 	
@@ -726,7 +726,7 @@ public class GuiDrafter extends GuiTabScreen
     			if (stack != null && stack.getItem() == desiredItemStack.getItem() && stack.getMetadata() == desiredItemStack.getMetadata())
     			{
     				// This is an exact match, update the return value with how many items are in this stack.
-    				returnValue += stack.func_190916_E();
+    				returnValue += stack.stackSize;
     			}
         	}
         	
