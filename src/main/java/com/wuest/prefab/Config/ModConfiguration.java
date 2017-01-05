@@ -24,7 +24,6 @@ public class ModConfiguration
 	private static String maximumHouseSizeName = "Maximum Starting House Size";
 	private static String enableVersionCheckMessageName = "Enable Version Checking";
 	private static String enableLoftHouseName = "Enable Loft House";
-	private static String includeSpawnersInMasherName = "Include Spawners in Monster Masher";
 	
 	// Chest content option names.
 	private static String addSwordName = "Add Sword";
@@ -49,7 +48,6 @@ public class ModConfiguration
 	public int maximumStartingHouseSize;
 	public boolean enableVersionCheckMessage;
 	public boolean enableLoftHouse;
-	public boolean includeSpawnersInMasher;
 	
 	// Chest content options.
 	public boolean addSword;
@@ -75,7 +73,6 @@ public class ModConfiguration
 		this.addHouseItem = true;
 		this.maximumStartingHouseSize = 16;
 		this.enableVersionCheckMessage = true;
-		this.includeSpawnersInMasher = true;
 	}
 	
 	public static void syncConfig()
@@ -93,7 +90,6 @@ public class ModConfiguration
 		Prefab.proxy.proxyConfiguration.maximumStartingHouseSize = config.getInt(ModConfiguration.maximumHouseSizeName, ModConfiguration.OPTIONS, 16, 5, 16, "Determines the maximum size the starting house can be generated as. Server configuration overrides client.");
 		Prefab.proxy.proxyConfiguration.enableVersionCheckMessage = config.getBoolean(ModConfiguration.enableVersionCheckMessageName, ModConfiguration.OPTIONS, true, "Determines if version checking is enabled when application starts. Also determines if the chat message about old versions is shown when joining a world. Server configuration overrides client.");
 		Prefab.proxy.proxyConfiguration.enableLoftHouse = config.getBoolean(ModConfiguration.enableLoftHouseName, ModConfiguration.OPTIONS, false, "Determines if the loft starter house is enabled. This house contains Nether materials in it's construction. Server configuration overrides client.");
-		Prefab.proxy.proxyConfiguration.includeSpawnersInMasher = config.getBoolean(ModConfiguration.includeSpawnersInMasherName, ModConfiguration.OPTIONS, true, "Determines if the spawners for the Monster Masher building are included. Server configuration overrides client.");
 		
 		// Make this property require a restart.
 		config.get(ModConfiguration.OPTIONS, ModConfiguration.enableVersionCheckMessageName, true).setRequiresMcRestart(true);

@@ -17,6 +17,7 @@ import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 
@@ -83,7 +84,7 @@ public final class ItemRenderRegister
 	 */
 	public static void regBlock(Block block)
 	{
-		List<ItemStack> stacks = Lists.<ItemStack>newArrayList();
+		NonNullList<ItemStack> stacks = NonNullList.func_191196_a();
 		
 		Item itemBlock = Item.getItemFromBlock(block);
 		
