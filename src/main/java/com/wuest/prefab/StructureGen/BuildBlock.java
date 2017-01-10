@@ -1,21 +1,25 @@
 package com.wuest.prefab.StructureGen;
 
 import java.util.ArrayList;
-import java.util.Map.Entry;
+import java.util.Collection;
 
 import com.google.common.base.Optional;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableTable;
 import com.google.gson.annotations.Expose;
-import com.wuest.prefab.BuildingMethods;
 import com.wuest.prefab.Config.StructureConfiguration;
 
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockBone;
+import net.minecraft.block.BlockLever;
 import net.minecraft.block.BlockLever.EnumOrientation;
+import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
+import net.minecraft.block.BlockQuartz;
+import net.minecraft.block.BlockVine;
+import net.minecraft.block.BlockWall;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.*;
-import net.minecraft.util.*;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -155,169 +159,27 @@ public class BuildBlock
 	{
 		try
 		{
-			EnumFacing vineFacing = EnumFacing.UP;
-			EnumAxis logFacing = EnumAxis.X;
-			BlockQuartz.EnumType quartzFacing = BlockQuartz.EnumType.DEFAULT;
-			EnumOrientation leverOrientation = EnumOrientation.NORTH;
-			
-			// Vines have a special property for it's "facing"
-			if (foundBlock instanceof BlockVine
-					|| foundBlock instanceof BlockWall)
-			{
-				if (block.getProperty("east").getValue().equals("true"))
-				{
-					vineFacing = EnumFacing.EAST;
-				}
-				else if (block.getProperty("west").getValue().equals("true"))
-				{
-					vineFacing = EnumFacing.WEST;
-				}
-				else if (block.getProperty("south").getValue().equals("true"))
-				{
-					vineFacing = EnumFacing.SOUTH;
-				}
-				else if (block.getProperty("north").getValue().equals("true"))
-				{
-					vineFacing = EnumFacing.NORTH;
-				}
-				
-				if (vineFacing != EnumFacing.UP)
-				{
-					if (configuration.houseFacing == assumedNorth.rotateY())
-					{
-						vineFacing = vineFacing.rotateY();
-					}
-					else if (configuration.houseFacing == assumedNorth.getOpposite())
-					{
-						vineFacing = vineFacing.getOpposite();
-					}
-					else if (configuration.houseFacing == assumedNorth.rotateYCCW())
-					{
-						vineFacing = vineFacing.rotateYCCW();
-					}
-				}
-			}
-			
-			if (foundBlock instanceof BlockLog || foundBlock instanceof BlockBone)
-			{
-				if (block.getProperty("axis").getValue().equals("x"))
-				{
-					logFacing = EnumAxis.X;
-				}
-				else if (block.getProperty("axis").getValue().equals("y"))
-				{
-					logFacing = EnumAxis.Y;
-				}
-				else
-				{
-					logFacing = EnumAxis.Z;
-				}
-				
-				if (logFacing != EnumAxis.Y)
-				{
-					logFacing = 
-							configuration.houseFacing == assumedNorth || configuration.houseFacing == assumedNorth.getOpposite() 
-								? logFacing : 
-							logFacing == EnumAxis.X 
-								? EnumAxis.Z : EnumAxis.X; 
-				}
-			}
-			
-			if (foundBlock instanceof BlockQuartz)
-			{
-				if (block.getProperty("variant").getValue().startsWith("lines"))
-				{
-					if (block.getProperty("variant").getValue().equals("lines_x"))
-					{
-						quartzFacing = BlockQuartz.EnumType.LINES_X;
-					}
-					else if (block.getProperty("variant").getValue().equals("lines_z"))
-					{
-						quartzFacing = BlockQuartz.EnumType.LINES_Z;
-					}
-					
-					if (quartzFacing == BlockQuartz.EnumType.LINES_X
-							|| quartzFacing == BlockQuartz.EnumType.LINES_Z)
-					{
-						quartzFacing = 
-								configuration.houseFacing == assumedNorth || configuration.houseFacing == assumedNorth.getOpposite() 
-									? quartzFacing : 
-										quartzFacing == BlockQuartz.EnumType.LINES_X 
-									? BlockQuartz.EnumType.LINES_Z : BlockQuartz.EnumType.LINES_X;
-					}
-				}
-			}
-			
-			if (foundBlock instanceof BlockLever)
-			{
-				// Levers have a special facing.
-				leverOrientation = BlockLever.EnumOrientation.valueOf(block.getProperty("facing").getValue().toUpperCase());
-				
-				if (leverOrientation.getFacing() == EnumFacing.DOWN
-						|| leverOrientation.getFacing() == EnumFacing.UP)
-				{
-					if (leverOrientation.getFacing() == EnumFacing.DOWN)
-					{
-						leverOrientation = 
-								configuration.houseFacing == assumedNorth || configuration.houseFacing == assumedNorth.getOpposite() 
-									? leverOrientation : 
-										leverOrientation == EnumOrientation.DOWN_X 
-									? EnumOrientation.DOWN_Z : EnumOrientation.DOWN_X;
-					}
-					else
-					{
-						leverOrientation = 
-								configuration.houseFacing == assumedNorth || configuration.houseFacing == assumedNorth.getOpposite() 
-									? leverOrientation : 
-										leverOrientation == EnumOrientation.UP_X 
-									? EnumOrientation.UP_Z : EnumOrientation.UP_X;
-					}
-				}
-				else
-				{
-					EnumFacing facing = leverOrientation.getFacing();
-					
-					if (configuration.houseFacing == assumedNorth.rotateY())
-					{				
-						facing = facing.rotateY();
-					}
-					else if (configuration.houseFacing == assumedNorth.getOpposite())
-					{
-						facing = facing.getOpposite();
-					}
-					else if (configuration.houseFacing == assumedNorth.rotateYCCW())
-					{
-						facing = facing.rotateYCCW();
-					}
-					
-					for (EnumOrientation tempOrientation : EnumOrientation.values())
-					{
-						if (tempOrientation.getFacing() == facing)
-						{
-							leverOrientation = tempOrientation;
-							break;
-						}
-					}
-				}
-			}
+			EnumFacing vineFacing = BuildBlock.getVineFacing(configuration, foundBlock, block, assumedNorth);
+			EnumAxis logFacing = BuildBlock.getLogFacing(configuration, foundBlock, block, assumedNorth);
+			BlockQuartz.EnumType quartzFacing = BuildBlock.getQuartsFacing(configuration, foundBlock, block, assumedNorth);
+			EnumOrientation leverOrientation = BuildBlock.getLeverOrientation(configuration, foundBlock, block, assumedNorth);
 			
 			// If this block has custom processing for block state just continue onto the next block. The sub-class is expected to place the block.
 			if (block.getProperties().size() > 0)
 			{
-				ImmutableMap<IProperty<?>, Comparable<?>> properties = blockState.getProperties();
+				Collection<IProperty<?>> properties = blockState.getPropertyNames();
 				
 				// Go through each property of this block and set it.
 				// The state will be updated as the properties are
 				// applied.
-				for (Entry<IProperty<?>, Comparable<?>> set : properties.entrySet())
+				for (IProperty<?> property : properties)
 				{
-					IProperty<?> property = set.getKey();
 					BuildProperty buildProperty = block.getProperty(property.getName());
 					
 					try
 					{
 						Optional<?> propertyValue  = property.parseValue(buildProperty.getValue());
-						Comparable<?> comparable = set.getValue().getClass().cast(propertyValue.get());
+						Comparable<?> comparable = property.getValueClass().cast(propertyValue.get());
 						
 						if (property.getName().equals("facing") && !(foundBlock instanceof BlockLever))
 						{
@@ -391,15 +253,18 @@ public class BuildBlock
 						}
 						else if (foundBlock instanceof BlockWall)
 						{
-							if (property.getName().equals(vineFacing.getName2())
-									|| property.getName().equals(vineFacing.getOpposite().getName2()))
+							if (!property.getName().equals("variant"))
 							{
-								comparable = true;
-								block.setHasFacing(true);
-							}
-							else
-							{
-								comparable = false;
+								if (property.getName().equals(vineFacing.getName2())
+										|| property.getName().equals(vineFacing.getOpposite().getName2()))
+								{
+									comparable = true;
+									block.setHasFacing(true);
+								}
+								else
+								{
+									comparable = false;
+								}
 							}
 						}
 						else if (foundBlock instanceof BlockLog || foundBlock instanceof BlockBone)
@@ -425,28 +290,10 @@ public class BuildBlock
 		
 						try
 						{
-							boolean continueCycle = true;
-							IBlockState tempBlockState = blockState;
-							
-							Comparable<?> original = tempBlockState.getValue(property);
-							
-							while (continueCycle)
+							if (blockState.getValue(property) != comparable)
 							{
-								if (tempBlockState.getValue(property) == comparable)
-								{
-									break;
-								}
-
-								tempBlockState = tempBlockState.cycleProperty(property);
-								
-								if (tempBlockState.getValue(property) == original)
-								{
-									// The original value was reached after this cycle and no record was found, just break out.
-									continueCycle = false;
-								}
+								blockState = BuildBlock.setProperty(blockState, property, comparable);
 							}
-							
-							blockState = tempBlockState;
 						}
 						catch (Exception ex)
 						{
@@ -469,5 +316,180 @@ public class BuildBlock
 			System.out.println("Error setting block state for block [" + block.getBlockName() + "] for structure configuration class [" + configuration.getClass().getName() + "]");
 			throw ex;
 		}
+	}
+	
+	private static EnumFacing getVineFacing(StructureConfiguration configuration, Block foundBlock, BuildBlock block, EnumFacing assumedNorth)
+	{
+		EnumFacing vineFacing = EnumFacing.UP;
+		
+		// Vines have a special property for it's "facing"
+		if (foundBlock instanceof BlockVine
+				|| foundBlock instanceof BlockWall)
+		{
+			if (block.getProperty("east").getValue().equals("true"))
+			{
+				vineFacing = EnumFacing.EAST;
+			}
+			else if (block.getProperty("west").getValue().equals("true"))
+			{
+				vineFacing = EnumFacing.WEST;
+			}
+			else if (block.getProperty("south").getValue().equals("true"))
+			{
+				vineFacing = EnumFacing.SOUTH;
+			}
+			else if (block.getProperty("north").getValue().equals("true"))
+			{
+				vineFacing = EnumFacing.NORTH;
+			}
+			
+			if (vineFacing != EnumFacing.UP)
+			{
+				if (configuration.houseFacing == assumedNorth.rotateY())
+				{
+					vineFacing = vineFacing.rotateY();
+				}
+				else if (configuration.houseFacing == assumedNorth.getOpposite())
+				{
+					vineFacing = vineFacing.getOpposite();
+				}
+				else if (configuration.houseFacing == assumedNorth.rotateYCCW())
+				{
+					vineFacing = vineFacing.rotateYCCW();
+				}
+			}
+		}
+		
+		return vineFacing;
+	}
+	
+	private static EnumAxis getLogFacing(StructureConfiguration configuration, Block foundBlock, BuildBlock block, EnumFacing assumedNorth)
+	{
+		EnumAxis logFacing = EnumAxis.X;
+		
+		if (foundBlock instanceof BlockLog || foundBlock instanceof BlockBone)
+		{
+			if (block.getProperty("axis").getValue().equals("x"))
+			{
+				logFacing = EnumAxis.X;
+			}
+			else if (block.getProperty("axis").getValue().equals("y"))
+			{
+				logFacing = EnumAxis.Y;
+			}
+			else
+			{
+				logFacing = EnumAxis.Z;
+			}
+			
+			if (logFacing != EnumAxis.Y)
+			{
+				logFacing = 
+						configuration.houseFacing == assumedNorth || configuration.houseFacing == assumedNorth.getOpposite() 
+							? logFacing : 
+						logFacing == EnumAxis.X 
+							? EnumAxis.Z : EnumAxis.X; 
+			}
+		}
+		
+		return logFacing;
+	}
+	
+	private static BlockQuartz.EnumType getQuartsFacing(StructureConfiguration configuration, Block foundBlock, BuildBlock block, EnumFacing assumedNorth)
+	{
+		BlockQuartz.EnumType quartzFacing = BlockQuartz.EnumType.DEFAULT;
+		
+		if (foundBlock instanceof BlockQuartz)
+		{
+			if (block.getProperty("variant").getValue().startsWith("lines"))
+			{
+				if (block.getProperty("variant").getValue().equals("lines_x"))
+				{
+					quartzFacing = BlockQuartz.EnumType.LINES_X;
+				}
+				else if (block.getProperty("variant").getValue().equals("lines_z"))
+				{
+					quartzFacing = BlockQuartz.EnumType.LINES_Z;
+				}
+				
+				if (quartzFacing == BlockQuartz.EnumType.LINES_X
+						|| quartzFacing == BlockQuartz.EnumType.LINES_Z)
+				{
+					quartzFacing = 
+							configuration.houseFacing == assumedNorth || configuration.houseFacing == assumedNorth.getOpposite() 
+								? quartzFacing : 
+									quartzFacing == BlockQuartz.EnumType.LINES_X 
+								? BlockQuartz.EnumType.LINES_Z : BlockQuartz.EnumType.LINES_X;
+				}
+			}
+		}
+		
+		return quartzFacing;
+	}
+	
+	private static EnumOrientation getLeverOrientation(StructureConfiguration configuration, Block foundBlock, BuildBlock block, EnumFacing assumedNorth)
+	{
+		EnumOrientation leverOrientation = EnumOrientation.NORTH;
+		
+		if (foundBlock instanceof BlockLever)
+		{
+			// Levers have a special facing.
+			leverOrientation = BlockLever.EnumOrientation.valueOf(block.getProperty("facing").getValue().toUpperCase());
+			
+			if (leverOrientation.getFacing() == EnumFacing.DOWN
+					|| leverOrientation.getFacing() == EnumFacing.UP)
+			{
+				if (leverOrientation.getFacing() == EnumFacing.DOWN)
+				{
+					leverOrientation = 
+							configuration.houseFacing == assumedNorth || configuration.houseFacing == assumedNorth.getOpposite() 
+								? leverOrientation : 
+									leverOrientation == EnumOrientation.DOWN_X 
+								? EnumOrientation.DOWN_Z : EnumOrientation.DOWN_X;
+				}
+				else
+				{
+					leverOrientation = 
+							configuration.houseFacing == assumedNorth || configuration.houseFacing == assumedNorth.getOpposite() 
+								? leverOrientation : 
+									leverOrientation == EnumOrientation.UP_X 
+								? EnumOrientation.UP_Z : EnumOrientation.UP_X;
+				}
+			}
+			else
+			{
+				EnumFacing facing = leverOrientation.getFacing();
+				
+				if (configuration.houseFacing == assumedNorth.rotateY())
+				{				
+					facing = facing.rotateY();
+				}
+				else if (configuration.houseFacing == assumedNorth.getOpposite())
+				{
+					facing = facing.getOpposite();
+				}
+				else if (configuration.houseFacing == assumedNorth.rotateYCCW())
+				{
+					facing = facing.rotateYCCW();
+				}
+				
+				for (EnumOrientation tempOrientation : EnumOrientation.values())
+				{
+					if (tempOrientation.getFacing() == facing)
+					{
+						leverOrientation = tempOrientation;
+						break;
+					}
+				}
+			}
+		}
+		
+		return leverOrientation;
+	}
+	
+	private static IBlockState setProperty(IBlockState state, IProperty property, Comparable comparable)
+	{
+		// This method is required since the properties and comparables have a <?> in them and it doesn't work properly when that is there. There is a compilation error since it's not hard typed.
+		return state.withProperty(property, comparable);
 	}
 }
