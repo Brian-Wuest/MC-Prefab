@@ -174,6 +174,21 @@ public class ModRegistry
 		return new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedStoneBlock()), count, enumType.getMetadata());
 	}
 	
+	public static BlockPaperLantern PaperLantern()
+	{
+		return ModRegistry.GetBlock(BlockPaperLantern.class);
+	}
+	
+	public static ItemStringOfLanterns StringOfLanterns()
+	{
+		return ModRegistry.GetItem(ItemStringOfLanterns.class);
+	}
+	
+	public static ItemCoilOfLanterns CoilOfLanterns()
+	{
+		return ModRegistry.GetItem(ItemCoilOfLanterns.class);
+	}
+	
 	/**
 	 * Gets the item from the ModItems collections.
 	 * @param genericClass The class of item to get from the collection.
@@ -278,6 +293,8 @@ public class ModRegistry
 		ModRegistry.registerItem(new ItemNetherGate("item_nether_gate"));
 		ModRegistry.registerItem(new ItemInstantBridge("item_instant_bridge"));
 		//ModRegistry.registerItem(new ItemModularHouse("item_modular_house"));
+		ModRegistry.registerItem(new ItemStringOfLanterns("item_string_of_lanterns"));
+		ModRegistry.registerItem(new ItemCoilOfLanterns("item_coil_of_lanterns"));
 		
 		// Register all the basic structures here. The resource location is used for the item models and textures.
 		// Only the first one in this list should have the last variable set to true.
@@ -288,6 +305,8 @@ public class ModRegistry
 		ItemBlockMeta meta = new ItemBlockMeta(stone);
 		ModRegistry.setItemName(meta, "block_compressed_stone");
 		ModRegistry.registerBlock(stone, meta);
+		
+		ModRegistry.registerBlock(new BlockPaperLantern("block_paper_lantern"));
 		
 		//BlockDrafter drafter = new BlockDrafter();
 		//ModRegistry.registerBlock(drafter);
@@ -304,7 +323,7 @@ public class ModRegistry
 				"xxx",
 				"xxx",
 				"xxx",
-				'x', Item.getItemFromBlock(Blocks.STONE));
+				'x', new ItemStack(Blocks.STONE, 1, OreDictionary.WILDCARD_VALUE));
 		
 		GameRegistry.addRecipe(new ItemStack(Item.getItemFromBlock(Blocks.STONE), 9), 
 				"x",
@@ -607,6 +626,19 @@ public class ModRegistry
 				'c', ModRegistry.BundleOfTimber(),
 				'd', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_DIRT));
 		
+		// Machinery Tower
+		result = new ItemStack(ModRegistry.BasicStructure());
+		capability = result.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
+		capability.getConfiguration().basicStructureName = EnumBasicStructureName.MachineryTower;
+		
+		GameRegistry.addRecipe(result, 
+				"aaa",
+				" b ",
+				" c ",
+				'a', Item.getItemFromBlock(Blocks.GOLDEN_RAIL),
+				'b', ModRegistry.StringOfLanterns(),
+				'c', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE));
+		
 		// Instant Bridge.
 		GameRegistry.addRecipe(new ItemStack(ModRegistry.InstantBridge()),
 				"bab",
@@ -614,6 +646,28 @@ public class ModRegistry
 				"bab",
 				'a', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE),
 				'b', Item.getItemFromBlock(Blocks.TORCH));
+		
+		// Paper Lantern.
+		GameRegistry.addShapelessRecipe(new ItemStack(Item.getItemFromBlock(ModRegistry.PaperLantern())), Items.STICK, Items.PAPER, Item.getItemFromBlock(Blocks.TORCH));
+		
+		// String of lanterns (compressed paper lanterns).
+		GameRegistry.addRecipe(new ItemStack(ModRegistry.StringOfLanterns()),
+				"aaa",
+				"aaa",
+				"aaa",
+				'a', Item.getItemFromBlock(ModRegistry.PaperLantern()));
+		
+		GameRegistry.addShapelessRecipe(new ItemStack(Item.getItemFromBlock(ModRegistry.PaperLantern()), 9),
+				ModRegistry.StringOfLanterns());
+		
+		// Coil of lanterns (double compressed paper lanterns).
+		GameRegistry.addRecipe(new ItemStack(ModRegistry.CoilOfLanterns()),
+				"aaa",
+				"aaa",
+				"aaa",
+				'a', ModRegistry.StringOfLanterns());
+		
+		GameRegistry.addShapelessRecipe(new ItemStack(ModRegistry.StringOfLanterns(), 9), ModRegistry.CoilOfLanterns());
 	}
 
 	/**

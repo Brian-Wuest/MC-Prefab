@@ -14,6 +14,14 @@ item.prefab:item_bundle_of_timber.name=Bundle of Timber
 item.prefab:item_horse_stable.name=Horse Stable
 item.prefab:item_nether_gate.name=Nether Gate
 item.prefab:item_modular_house.name=Modular House
+item.prefab:item_basic_structure.name=Basic Structure
+item.prefab:item_instant_bridge.name=Instant Bridge
+item.prefab.advanced.chicken.coop=Advanced Chicken Coop
+item.prefab.advanced.horse.stable=Advanced Horse Stable
+item.prefab.barn=Barn
+item.prefab.machinery.tower=Machinery Tower
+item.prefab.item_string_of_lanterns=String of Lanterns
+item.prefab.item_coil_of_lanterns=Coil of Lanterns
  
 tile.prefab:block_compressed_stone.block_compressed_stone.name=Сжатый Камень
 tile.prefab:block_compressed_stone.block_double_compressed_stone.name=Двойной Сжатый Камень
@@ -22,6 +30,8 @@ tile.prefab:block_compressed_stone.block_compressed_glowstone.name=Сжатый 
 tile.prefab:block_compressed_stone.block_double_compressed_glowstone.name=Двойной Сжатый Светокамень
 tile.prefab:block_compressed_stone.block_compressed_dirt.name=Сжата Гр�?зь
 tile.prefab:block_compressed_stone.block_double_compressed_dirt.name=Двойна�? Сжата�? Гр�?зь
+tile.prefab:blockDrafter.name=Drafter
+tile.prefab:block_paper_lantern.name=Paper Lantern
  
 prefab.gui.fishpond.structure.facing=Примечание: е�?ли вы лицом к �?еверу, выберите Юг. Бела�? окантовка - �?то про�?то чтобы показать размер.
  
@@ -75,10 +85,12 @@ prefab.gui.treefarm.structure.size=Эта �?труктура размером 
  
 prefab.gui.structure.facing=Структура облицовочные
 prefab.gui.structure.glass=Цвет Стекла
- 
+
+prefab.gui.structure.facing.player=Note: If you're facing north, choose south so the structure is facing you.  
 prefab.gui.structure.block.clicked=В кра�?ной коробке на ри�?унке �?права показывает какой блок вы щелкнули.
 prefab.gui.structure.door.facing=Примечание: Е�?ли вы �?толкнули�?ь на �?евер, юг, так что выбрать двери перед вами.
- 
+prefab.gui.structure.nobuild=Cannot build structure due to protected blocks/area.
+
 prefab.gui.button.build=Строить!
 prefab.gui.button.cancel=Отмена
 prefab.gui.button.preview=Preview!
