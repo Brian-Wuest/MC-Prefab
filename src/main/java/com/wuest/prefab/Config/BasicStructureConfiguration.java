@@ -44,6 +44,13 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		EnumBasicStructureName.Barn.getClearShape().setLength(35);
 		EnumBasicStructureName.Barn.getClearPositionOffset().setSouthOffset(1);
 		EnumBasicStructureName.Barn.getClearPositionOffset().setEastOffset(15);
+		
+		EnumBasicStructureName.MachineryTower.getClearShape().setDirection(EnumFacing.SOUTH);
+		EnumBasicStructureName.MachineryTower.getClearShape().setHeight(12);
+		EnumBasicStructureName.MachineryTower.getClearShape().setWidth(16);
+		EnumBasicStructureName.MachineryTower.getClearShape().setLength(16);
+		EnumBasicStructureName.MachineryTower.getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.MachineryTower.getClearPositionOffset().setEastOffset(8);
 	}
 	
 	/**
@@ -129,7 +136,12 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		AdvancedHorseStable("advanced_horse_stable", "item.prefab.advanced.horse.stable", 
 				"assets/prefab/structures/advanced_horse_stable.zip", "textures/gui/advanced_horse_stable_topdown.png", "item_advanced_horse_stable", 
 				128, 158),
-		Barn("barn", "item.prefab.barn", "assets/prefab/structures/barn.zip", "textures/gui/barn_topdown.png", "item_barn", 164, 160);
+		Barn("barn", "item.prefab.barn", "assets/prefab/structures/barn.zip", "textures/gui/barn_topdown.png", "item_barn", 164, 160),
+		MachineryTower("machinery_tower", "item.prefab.machinery.tower",
+				"assets/prefab/structures/machinery_tower.zip",
+				"textures/gui/machinery_tower_topdown.png",
+				"item_machinery_tower",
+				153, 175);
 		
 		private String name;
 		private String assetLocation;
@@ -141,6 +153,16 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		private int imageHeight;
 		private int imageWidth;
 		
+		/**
+		 * This is a basic structure which doesn't have any (or limited) custom processing.
+		 * @param name - This is the name for this structure. This is used for comparative purposes in item stacks.
+		 * @param unlocalizedName - This is the localization key to determine the displayed name to the user.
+		 * @param assetLocation - This is location of the structure zip file in the jar file.
+		 * @param topDownPictureLocation - This is the picture location used in the basic GUI when the player uses the item.
+		 * @param resourceLocation - This is the resource location for the item's texture when it's in the players and or in inventories/the world.
+		 * @param imageHeight - This is the height of the image shown to the user in the build structure GUI.
+		 * @param imageWidth - This is the width of the image shown to the user in the build structure GUI.
+		 */
 		private EnumBasicStructureName(String name, String unlocalizedName, String assetLocation, String topDownPictureLocation, String resourceLocation, int imageHeight, int imageWidth)
 		{
 			this.name = name;

@@ -14,6 +14,14 @@ item.prefab:itemBundleOfTimber.name=Bundle of Timber
 item.prefab:itemHorseStable.name=Horse Stable
 item.prefab:itemNetherGate.name=Nether Gate
 item.prefab:itemModularHouse.name=Modular House
+item.prefab:item_basic_structure.name=Basic Structure
+item.prefab:item_instant_bridge.name=Instant Bridge
+item.prefab.advanced.chicken.coop=Advanced Chicken Coop
+item.prefab.advanced.horse.stable=Advanced Horse Stable
+item.prefab.barn=Barn
+item.prefab.machinery.tower=Machinery Tower
+item.prefab.item_string_of_lanterns=String of Lanterns
+item.prefab.item_coil_of_lanterns=Coil of Lanterns
  
 tile.prefab:blockCompressedStone.block_compressed_stone.name=Сжатый Камень
 tile.prefab:blockCompressedStone.block_double_compressed_stone.name=Двойной Сжатый Камень
@@ -22,6 +30,8 @@ tile.prefab:blockCompressedStone.block_compressed_glowstone.name=Сжатый С
 tile.prefab:blockCompressedStone.block_double_compressed_glowstone.name=Двойной Сжатый Светокамень
 tile.prefab:blockCompressedStone.block_compressed_dirt.name=Сжата Грязь
 tile.prefab:blockCompressedStone.block_double_compressed_dirt.name=Двойная Сжатая Грязь
+tile.prefab:blockDrafter.name=Drafter
+tile.prefab:block_paper_lantern.name=Paper Lantern
  
 prefab.gui.fishpond.structure.facing=Примечание: если вы лицом к северу, выберите Юг. Белая окантовка - это просто чтобы показать размер.
  
@@ -75,9 +85,11 @@ prefab.gui.treefarm.structure.size=Эта структура размером в
  
 prefab.gui.structure.facing=Структура облицовочные
 prefab.gui.structure.glass=Цвет Стекла
- 
+
+prefab.gui.structure.facing.player=Note: If you're facing north, choose south so the structure is facing you. 
 prefab.gui.structure.block.clicked=В красной коробке на рисунке справа показывает какой блок вы щелкнули.
 prefab.gui.structure.door.facing=Примечание: Если вы столкнулись на север, юг, так что выбрать двери перед вами.
+prefab.gui.structure.nobuild=Cannot build structure due to protected blocks/area.
  
 prefab.gui.button.build=Строить!
 prefab.gui.button.cancel=Отмена

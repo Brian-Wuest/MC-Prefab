@@ -97,11 +97,15 @@ public final class ItemRenderRegister
 				for (ItemStack stack : stacks)
 				{
 					Block subBlock = block.getStateFromMeta(stack.getMetadata()).getBlock();
-					String name = subBlock.getUnlocalizedName();
+					String name = "";
 					
 					if (block instanceof IMetaBlock)
 					{
 						name = "prefab:" + ((IMetaBlock)block).getMetaDataUnLocalizedName(stack.getMetadata());
+					}
+					else
+					{
+						name = subBlock.getRegistryName().toString();
 					}
 					
 					ItemRenderRegister.regItem(stack.getItem(), stack.getMetadata(), name);
