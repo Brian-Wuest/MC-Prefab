@@ -118,6 +118,11 @@ public class GuiMonsterMasher extends GuiScreen
 		// Draw the text here.
 		this.mc.fontRendererObj.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), grayBoxX + 147, grayBoxY + 10, 100, color);
 		this.mc.fontRendererObj.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_DOOR_FACING), grayBoxX + 147, grayBoxY + 50, 100, color);
+		
+		if (!Prefab.proxy.proxyConfiguration.enableStructurePreview)
+		{
+			this.btnVisualize.enabled = false;
+		}
 	}
 	
 	/**

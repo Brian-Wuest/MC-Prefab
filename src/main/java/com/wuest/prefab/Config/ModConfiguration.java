@@ -25,6 +25,7 @@ public class ModConfiguration
 	private static String enableVersionCheckMessageName = "Enable Version Checking";
 	private static String enableLoftHouseName = "Enable Loft House";
 	private static String includeSpawnersInMasherName = "Include Spawners in Monster Masher";
+	private static String enableStructurePreviewName = "Include Structure Previews";
 	
 	// Chest content option names.
 	private static String addSwordName = "Add Sword";
@@ -50,6 +51,7 @@ public class ModConfiguration
 	public boolean enableVersionCheckMessage;
 	public boolean enableLoftHouse;
 	public boolean includeSpawnersInMasher;
+	public boolean enableStructurePreview;
 	
 	// Chest content options.
 	public boolean addSword;
@@ -76,6 +78,7 @@ public class ModConfiguration
 		this.maximumStartingHouseSize = 16;
 		this.enableVersionCheckMessage = true;
 		this.includeSpawnersInMasher = true;
+		this.enableStructurePreview = true;
 	}
 	
 	public static void syncConfig()
@@ -94,6 +97,7 @@ public class ModConfiguration
 		Prefab.proxy.proxyConfiguration.enableVersionCheckMessage = config.getBoolean(ModConfiguration.enableVersionCheckMessageName, ModConfiguration.OPTIONS, true, "Determines if version checking is enabled when application starts. Also determines if the chat message about old versions is shown when joining a world. Server configuration overrides client.");
 		Prefab.proxy.proxyConfiguration.enableLoftHouse = config.getBoolean(ModConfiguration.enableLoftHouseName, ModConfiguration.OPTIONS, false, "Determines if the loft starter house is enabled. This house contains Nether materials in it's construction. Server configuration overrides client.");
 		Prefab.proxy.proxyConfiguration.includeSpawnersInMasher = config.getBoolean(ModConfiguration.includeSpawnersInMasherName, ModConfiguration.OPTIONS, true, "Determines if the spawners for the Monster Masher building are included. Server configuration overrides client.");
+		Prefab.proxy.proxyConfiguration.enableStructurePreview = config.getBoolean(ModConfiguration.enableStructurePreviewName, ModConfiguration.OPTIONS, true, "Determines if the Preview buttons in structure GUIs and other structure previews functions are enabled. Client side only.");
 		
 		// Make this property require a restart.
 		config.get(ModConfiguration.OPTIONS, ModConfiguration.enableVersionCheckMessageName, true).setRequiresMcRestart(true);
@@ -132,6 +136,8 @@ public class ModConfiguration
 		tag.setInteger(ModConfiguration.maximumHouseSizeName, this.maximumStartingHouseSize);
 		tag.setBoolean(ModConfiguration.enableVersionCheckMessageName, this.enableVersionCheckMessage);
 		tag.setBoolean(ModConfiguration.enableLoftHouseName, this.enableLoftHouse);
+		tag.setBoolean(ModConfiguration.includeSpawnersInMasherName, this.includeSpawnersInMasher);
+		tag.setBoolean(ModConfiguration.enableStructurePreviewName, this.enableStructurePreview);
 		
 		tag.setBoolean(ModConfiguration.addSwordName, this.addSword);
 		tag.setBoolean(ModConfiguration.addAxeName, this.addAxe);
@@ -161,6 +167,8 @@ public class ModConfiguration
 		config.enableVersionCheckMessage = tag.getBoolean(ModConfiguration.enableVersionCheckMessageName);
 		config.enableLoftHouse = tag.getBoolean(ModConfiguration.enableLoftHouseName);
 		config.maximumStartingHouseSize = tag.getInteger(ModConfiguration.maximumHouseSizeName);
+		config.includeSpawnersInMasher = tag.getBoolean(ModConfiguration.includeSpawnersInMasherName);
+		config.enableStructurePreview = tag.getBoolean(ModConfiguration.enableStructurePreviewName);
 		
 		// Make sure the server admin didn't set the maximum starting size to an invalid value from the configuration file.
 		if (config.maximumStartingHouseSize < 5 || config.maximumStartingHouseSize > 16)
