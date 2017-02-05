@@ -195,6 +195,11 @@ public class GuiStartHouseChooser extends GuiTabScreen
 				this.mc.fontRendererObj.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS), grayBoxX + 10, grayBoxY + 10, color);
 			}
 		}
+		
+		if (!Prefab.proxy.proxyConfiguration.enableStructurePreview)
+		{
+			this.btnVisualize.enabled = false;
+		}
 	}
 	
 	/**

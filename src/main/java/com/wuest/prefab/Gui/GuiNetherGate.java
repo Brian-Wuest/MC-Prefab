@@ -78,6 +78,11 @@ public class GuiNetherGate extends GuiScreen
 		// Draw the text here.
 		this.mc.fontRendererObj.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), grayBoxX + 147, grayBoxY + 10, 95, color);
 		this.mc.fontRendererObj.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_FACING_PLAYER), grayBoxX + 147, grayBoxY + 60, 95, color);
+		
+		if (!Prefab.proxy.proxyConfiguration.enableStructurePreview)
+		{
+			this.btnVisualize.enabled = false;
+		}
 	}
 	
 	/**

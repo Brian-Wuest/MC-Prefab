@@ -8,6 +8,7 @@ import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
 
 import com.google.common.base.Throwables;
+import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.StructureConfiguration;
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
@@ -116,7 +117,8 @@ public class StructureRenderHandler
 	 */
 	public static void renderPlayerLook(EntityPlayer player, RayTraceResult src)
 	{
-		if (StructureRenderHandler.currentStructure != null && StructureRenderHandler.dimension == player.worldObj.provider.getDimension() && StructureRenderHandler.currentConfiguration != null)
+		if (StructureRenderHandler.currentStructure != null && StructureRenderHandler.dimension == player.worldObj.provider.getDimension() && StructureRenderHandler.currentConfiguration != null
+				&& Prefab.proxy.proxyConfiguration.enableStructurePreview)
 		{
 			GlStateManager.pushMatrix();
 			GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);

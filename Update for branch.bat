@@ -1,1 +1,3 @@
 gradlew eclipse
+
+pause
