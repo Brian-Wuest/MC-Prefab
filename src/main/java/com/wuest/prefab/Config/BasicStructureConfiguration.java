@@ -59,6 +59,14 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		EnumBasicStructureName.DefenseBunker.getClearShape().setLength(32);
 		EnumBasicStructureName.DefenseBunker.getClearPositionOffset().setSouthOffset(1);
 		EnumBasicStructureName.DefenseBunker.getClearPositionOffset().setEastOffset(15);
+		
+		// Defense bunker.
+		EnumBasicStructureName.MineshaftEntrance.getClearShape().setDirection(EnumFacing.SOUTH);
+		EnumBasicStructureName.MineshaftEntrance.getClearShape().setHeight(6);
+		EnumBasicStructureName.MineshaftEntrance.getClearShape().setWidth(7);
+		EnumBasicStructureName.MineshaftEntrance.getClearShape().setLength(7);
+		EnumBasicStructureName.MineshaftEntrance.getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.MineshaftEntrance.getClearPositionOffset().setEastOffset(3);
 	}
 	
 	/**
@@ -154,7 +162,12 @@ public class BasicStructureConfiguration extends StructureConfiguration
 				"assets/prefab/structures/defense_bunker.zip",
 				"textures/gui/defense_bunker_topdown.png",
 				"item_defense_bunker",
-				153, 175);
+				153, 175),
+		MineshaftEntrance("mineshaft_entrance", "item.prefab.mineshaft.entrance",
+				"assets/prefab/structures/mineshaft_entrance.zip",
+				"textures/gui/mineshaft_entrance_topdown.png",
+				"item_mineshaft_entrance",
+				135, 159);
 		
 		private String name;
 		private String assetLocation;

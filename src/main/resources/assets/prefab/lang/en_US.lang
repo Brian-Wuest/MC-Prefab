@@ -24,6 +24,7 @@ item.prefab:item_string_of_lanterns.name=String of Lanterns
 item.prefab:item_coil_of_lanterns.name=Coil of Lanterns
 item.prefab.defense.bunker=Defense Bunker
 item.prefab:item_villager_houses.name=Villager Houses
+item.prefab.mineshaft.entrance=Mineshaft Entrance
 
 tile.prefab:blockCompressedStone.block_compressed_stone.name=Compressed Stone
 tile.prefab:blockCompressedStone.block_double_compressed_stone.name=Double Compressed Stone
