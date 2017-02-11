@@ -99,7 +99,7 @@ public class StructureBasic extends Structure
 			else if (config.basicStructureName.getName().equals(EnumBasicStructureName.MineshaftEntrance.getName()))
 			{
 				// Build the mineshaft where the trap door exists.
-				StructureAlternateStart.PlaceMineShaft(world, this.customBlockPos.down(), configuration.houseFacing);
+				StructureAlternateStart.PlaceMineShaft(world, this.customBlockPos.down(), configuration.houseFacing, true);
 			}
 			
 			this.customBlockPos = null;

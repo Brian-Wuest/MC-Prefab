@@ -671,6 +671,20 @@ public class ModRegistry
 				'c', new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedObsidianBlock()), 1, BlockCompressedObsidian.EnumType.DOUBLE_COMPRESSED_OBSIDIAN.getMetadata()),
 				'd', Item.getItemFromBlock(Blocks.IRON_BLOCK));
 		
+		// Mineshaft Entrance
+		result = new ItemStack(ModRegistry.BasicStructure());
+		capability = result.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
+		capability.getConfiguration().basicStructureName = EnumBasicStructureName.DefenseBunker;
+		
+		GameRegistry.addRecipe(result, 
+				"dad",
+				"bcb",
+				"ddd",
+				'a', ModRegistry.CoilOfLanterns(),
+				'b', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE),
+				'c', new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedObsidianBlock()), 1, BlockCompressedObsidian.EnumType.DOUBLE_COMPRESSED_OBSIDIAN.getMetadata()),
+				'd', Item.getItemFromBlock(Blocks.IRON_BLOCK));
+		
 		// Instant Bridge.
 		GameRegistry.addRecipe(new ItemStack(ModRegistry.InstantBridge()),
 				"bab",
