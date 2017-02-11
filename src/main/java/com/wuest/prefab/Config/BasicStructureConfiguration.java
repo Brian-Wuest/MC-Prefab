@@ -51,6 +51,14 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		EnumBasicStructureName.MachineryTower.getClearShape().setLength(16);
 		EnumBasicStructureName.MachineryTower.getClearPositionOffset().setSouthOffset(1);
 		EnumBasicStructureName.MachineryTower.getClearPositionOffset().setEastOffset(8);
+		
+		// Defense bunker.
+		EnumBasicStructureName.DefenseBunker.getClearShape().setDirection(EnumFacing.SOUTH);
+		EnumBasicStructureName.DefenseBunker.getClearShape().setHeight(17);
+		EnumBasicStructureName.DefenseBunker.getClearShape().setWidth(32);
+		EnumBasicStructureName.DefenseBunker.getClearShape().setLength(32);
+		EnumBasicStructureName.DefenseBunker.getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.DefenseBunker.getClearPositionOffset().setEastOffset(15);
 	}
 	
 	/**
@@ -141,6 +149,11 @@ public class BasicStructureConfiguration extends StructureConfiguration
 				"assets/prefab/structures/machinery_tower.zip",
 				"textures/gui/machinery_tower_topdown.png",
 				"item_machinery_tower",
+				153, 175),
+		DefenseBunker("defense_bunker", "item.prefab.defense.bunker",
+				"assets/prefab/structures/defense_bunker.zip",
+				"textures/gui/defense_bunker_topdown.png",
+				"item_defense_bunker",
 				153, 175);
 		
 		private String name;

@@ -67,13 +67,14 @@ public class BuildingMethods
 	 */
 	public static void ClearSpaceExact(World world, BlockPos startingPosition, int width, int height, int depth, EnumFacing houseFacing)
 	{
-		BlockPos northSide = startingPosition;
+		BlockPos otherCorner = startingPosition.offset(houseFacing.getOpposite(), depth).offset(houseFacing.rotateYCCW(), width);
 
-		for (int i = 0; i < width; i++)
+		for (BlockPos pos : BlockPos.getAllInBox(startingPosition, otherCorner))
 		{
-			BuildingMethods.CreateWall(world, height, depth, houseFacing.getOpposite(), northSide, Blocks.AIR);
-			
-			northSide = northSide.offset(houseFacing.rotateYCCW());
+			if (!world.isAirBlock(pos))
+			{
+				BuildingMethods.ReplaceBlock(world, pos, Blocks.AIR);
+			}
 		}
 	}
 
