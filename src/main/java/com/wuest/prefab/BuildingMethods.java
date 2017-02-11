@@ -12,6 +12,7 @@ import net.minecraft.block.BlockTorch;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -48,7 +49,7 @@ public class BuildingMethods
 
 		for (int i = 0; i < clearedWidth; i++)
 		{
-			BuildingMethods.CreateWall(world, height, wallLength, houseFacing.getOpposite(), northSide, Blocks.AIR);
+			BuildingMethods.CreateWall(world, height, wallLength, houseFacing.getOpposite(), northSide, Blocks.AIR, null);
 			
 			northSide = northSide.offset(houseFacing.rotateYCCW());
 		}
@@ -78,10 +79,18 @@ public class BuildingMethods
 		}
 	}
 
-	public static ArrayList<ItemStack> ConsolidateDrops(Block block, World world, BlockPos pos, IBlockState state, ArrayList<ItemStack> originalStacks)
+	public static ArrayList<ItemStack> ConsolidateDrops(Block block, World world, BlockPos pos, IBlockState state, ArrayList<ItemStack> originalStacks, ArrayList<Item> itemsToNotAdd)
 	{
 		for (ItemStack stack : block.getDrops(world, pos, state, 1))
 		{
+			if (itemsToNotAdd != null)
+			{
+				if (itemsToNotAdd.contains(stack.getItem()))
+				{
+					continue;
+				}
+			}
+			
 			// Check to see if this stack's item is equal to an existing item
 			// stack. If it is just add the count.
 			Boolean foundStack = false;
@@ -110,7 +119,7 @@ public class BuildingMethods
 		return originalStacks;
 	}
 
-	public static ArrayList<ItemStack> CreateWall(World world, int height, int length, EnumFacing direction, BlockPos startingPosition, Block replacementBlock)
+	public static ArrayList<ItemStack> CreateWall(World world, int height, int length, EnumFacing direction, BlockPos startingPosition, Block replacementBlock, ArrayList<Item> itemsToNotAdd)
 	{
 		ArrayList<ItemStack> itemsDropped = new ArrayList<ItemStack>();
 
@@ -127,6 +136,11 @@ public class BuildingMethods
 			{
 				for (ItemStack stack : world.getBlockState(wallPos).getBlock().getDrops(world, wallPos, world.getBlockState(wallPos), 1))
 				{
+					if (itemsToNotAdd != null && itemsToNotAdd.contains(stack.getItem()))
+					{
+						continue;
+					}
+					
 					itemsDropped.add(stack);
 				}
 
@@ -171,11 +185,11 @@ public class BuildingMethods
 		return itemsDropped;
 	}
 
-	public static ArrayList<ItemStack> SetFloor(World world, BlockPos pos, Block block, int width, int depth, ArrayList<ItemStack> originalStack, EnumFacing facing)
+	public static ArrayList<ItemStack> SetFloor(World world, BlockPos pos, Block block, int width, int depth, ArrayList<ItemStack> originalStack, EnumFacing facing, ArrayList<Item> itemsToNotAdd)
 	{
 		for (int i = 0; i < width; i++)
 		{
-			originalStack.addAll(BuildingMethods.CreateWall(world, 1, depth, facing, pos, block));
+			originalStack.addAll(BuildingMethods.CreateWall(world, 1, depth, facing, pos, block, itemsToNotAdd));
 
 			pos = pos.offset(facing.rotateY());
 		}
@@ -183,12 +197,12 @@ public class BuildingMethods
 		return originalStack;
 	}
 
-	public static void SetCeiling(World world, BlockPos pos, Block block, int width, int depth, Block stairs, HouseConfiguration configuration, EnumFacing houseFacing)
+	public static void SetCeiling(World world, BlockPos pos, Block block, int width, int depth, Block stairs, HouseConfiguration configuration, EnumFacing houseFacing, ArrayList<Item> itemsToNotAdd)
 	{
 		// If the ceiling is flat, call SetFloor since it's laid out the same.
 		if (configuration.isCeilingFlat)
 		{
-			BuildingMethods.SetFloor(world, pos, block, width, depth, new ArrayList<ItemStack>(), houseFacing.getOpposite());
+			BuildingMethods.SetFloor(world, pos, block, width, depth, new ArrayList<ItemStack>(), houseFacing.getOpposite(), itemsToNotAdd);
 			return;
 		}
 

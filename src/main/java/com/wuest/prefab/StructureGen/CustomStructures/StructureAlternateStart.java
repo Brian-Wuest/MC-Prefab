@@ -169,7 +169,7 @@ public class StructureAlternateStart extends Structure
 		if (this.trapDoorPosition != null && this.trapDoorPosition.getY() > 15)
 		{
 			// Build the mineshaft.
-			StructureAlternateStart.PlaceMineShaft(world, this.trapDoorPosition.down(), houseConfig.houseFacing);
+			StructureAlternateStart.PlaceMineShaft(world, this.trapDoorPosition.down(), houseConfig.houseFacing, false);
 		}
 		
 		if (this.signPosition != null)
@@ -315,22 +315,33 @@ public class StructureAlternateStart extends Structure
 		}
 	}
 
-	public static void PlaceMineShaft(World world, BlockPos pos, EnumFacing facing)
+	public static void PlaceMineShaft(World world, BlockPos pos, EnumFacing facing, boolean onlyGatherOres)
 	{
 		// Keep track of all of the items to add to the chest at the end of the
 		// shaft.
 		ArrayList<ItemStack> stacks = new ArrayList<ItemStack>();
 
-		stacks = StructureAlternateStart.CreateLadderShaft(world, pos, stacks, facing);
+		ArrayList<Item> blocksToNotAdd = new ArrayList<Item>();
+
+		if (onlyGatherOres)
+		{
+			blocksToNotAdd.add(Item.getItemFromBlock(Blocks.SAND));
+			blocksToNotAdd.add(Item.getItemFromBlock(Blocks.SANDSTONE));
+			blocksToNotAdd.add(Item.getItemFromBlock(Blocks.COBBLESTONE));
+			blocksToNotAdd.add(Item.getItemFromBlock(Blocks.STONE));
+			blocksToNotAdd.add(Item.getItemFromBlock(Blocks.DIRT));
+		}
+		
+		stacks = StructureAlternateStart.CreateLadderShaft(world, pos, stacks, facing, blocksToNotAdd);
 
 		// Get to Y11;
 		pos = pos.down(pos.getY() - 10);
-
+		
 		ArrayList<ItemStack> tempStacks = new ArrayList<ItemStack>();
 		
 		BlockPos ceilingLevel = pos.up(4);
 		
-		tempStacks = BuildingMethods.SetFloor(world, ceilingLevel.offset(facing, 2).offset(facing.rotateY(), 2).offset(facing.getOpposite()), Blocks.STONE, 4, 4, tempStacks, facing.getOpposite());
+		tempStacks = BuildingMethods.SetFloor(world, ceilingLevel.offset(facing, 2).offset(facing.rotateY(), 2).offset(facing.getOpposite()), Blocks.STONE, 4, 4, tempStacks, facing.getOpposite(), blocksToNotAdd);
 
 		// After setting the floor, make sure to replace the ladder.
 		BuildingMethods.ReplaceBlock(world, ceilingLevel, Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, facing));
@@ -342,13 +353,13 @@ public class StructureAlternateStart extends Structure
 		{
 			IBlockState surroundingState = world.getBlockState(torchPos);
 			Block surroundingBlock = surroundingState.getBlock();
-			tempStacks = BuildingMethods.ConsolidateDrops( surroundingBlock, world, torchPos, surroundingState, tempStacks);
+			tempStacks = BuildingMethods.ConsolidateDrops( surroundingBlock, world, torchPos, surroundingState, tempStacks, blocksToNotAdd);
 			BuildingMethods.ReplaceBlock(world, torchPos, torchState);
 		}
 		
 		// The entire ladder has been created. Create a platform at this level
 		// and place a chest next to the ladder.
-		tempStacks.addAll(BuildingMethods.SetFloor(world, pos.offset(facing).offset(facing.rotateY()), Blocks.STONE, 3, 4, tempStacks, facing.getOpposite()));
+		tempStacks.addAll(BuildingMethods.SetFloor(world, pos.offset(facing).offset(facing.rotateY()), Blocks.STONE, 3, 4, tempStacks, facing.getOpposite(), blocksToNotAdd));
 
 		// Remove the ladder stack since they shouldn't be getting that.
 		for (int i = 0; i < tempStacks.size(); i++)
@@ -358,6 +369,7 @@ public class StructureAlternateStart extends Structure
 			if (stack.getItem() == Item.getItemFromBlock(Blocks.LADDER))
 			{
 				tempStacks.remove(i);
+				i--;
 			}
 		}
 
@@ -371,21 +383,22 @@ public class StructureAlternateStart extends Structure
 
 		// South wall.
 		tempStacks
-				.addAll(BuildingMethods.CreateWall(world, 3, 3, facing.rotateY(), pos.offset(facing.getOpposite(), 2).offset(facing.rotateYCCW()), Blocks.AIR));
+				.addAll(BuildingMethods.CreateWall(world, 3, 3, facing.rotateY(), pos.offset(facing.getOpposite(), 2).offset(facing.rotateYCCW()), Blocks.AIR, blocksToNotAdd));
+		
 		tempStacks.addAll(
-				BuildingMethods.CreateWall(world, 3, 3, facing.rotateY(), pos.offset(facing.getOpposite(), 3).offset(facing.rotateYCCW()), Blocks.STONE));
+				BuildingMethods.CreateWall(world, 3, 3, facing.rotateY(), pos.offset(facing.getOpposite(), 3).offset(facing.rotateYCCW()), Blocks.STONE, blocksToNotAdd));
 
 		// East wall.
-		tempStacks.addAll(BuildingMethods.CreateWall(world, 3, 4, facing, pos.offset(facing.getOpposite(), 2).offset(facing.rotateY()), Blocks.AIR));
-		tempStacks.addAll(BuildingMethods.CreateWall(world, 3, 4, facing, pos.offset(facing.getOpposite(), 2).offset(facing.rotateY(), 2), Blocks.STONE));
+		tempStacks.addAll(BuildingMethods.CreateWall(world, 3, 4, facing, pos.offset(facing.getOpposite(), 2).offset(facing.rotateY()), Blocks.AIR, blocksToNotAdd));
+		tempStacks.addAll(BuildingMethods.CreateWall(world, 3, 4, facing, pos.offset(facing.getOpposite(), 2).offset(facing.rotateY(), 2), Blocks.STONE, blocksToNotAdd));
 
 		// North wall.
-		tempStacks.addAll(BuildingMethods.CreateWall(world, 3, 3, facing.rotateYCCW(), pos.offset(facing).offset(facing.rotateY()), Blocks.AIR));
-		tempStacks.addAll(BuildingMethods.CreateWall(world, 3, 3, facing.rotateYCCW(), pos.offset(facing, 2).offset(facing.rotateY()), Blocks.STONE));
+		tempStacks.addAll(BuildingMethods.CreateWall(world, 3, 3, facing.rotateYCCW(), pos.offset(facing).offset(facing.rotateY()), Blocks.AIR, blocksToNotAdd));
+		tempStacks.addAll(BuildingMethods.CreateWall(world, 3, 3, facing.rotateYCCW(), pos.offset(facing, 2).offset(facing.rotateY()), Blocks.STONE, blocksToNotAdd));
 
 		// West wall.
-		tempStacks.addAll(BuildingMethods.CreateWall(world, 3, 4, facing.getOpposite(), pos.offset(facing).offset(facing.rotateYCCW()), Blocks.AIR));
-		tempStacks.addAll(BuildingMethods.CreateWall(world, 3, 4, facing.getOpposite(), pos.offset(facing, 1).offset(facing.rotateYCCW(), 2), Blocks.STONE));
+		tempStacks.addAll(BuildingMethods.CreateWall(world, 3, 4, facing.getOpposite(), pos.offset(facing).offset(facing.rotateYCCW()), Blocks.AIR, blocksToNotAdd));
+		tempStacks.addAll(BuildingMethods.CreateWall(world, 3, 4, facing.getOpposite(), pos.offset(facing, 1).offset(facing.rotateYCCW(), 2), Blocks.STONE, blocksToNotAdd));
 
 		// Consolidate the stacks.
 		for (ItemStack tempStack : tempStacks)
@@ -467,7 +480,7 @@ public class StructureAlternateStart extends Structure
 		}
 	}
 	
-	private static ArrayList<ItemStack> CreateLadderShaft(World world, BlockPos pos, ArrayList<ItemStack> originalStacks, EnumFacing houseFacing)
+	private static ArrayList<ItemStack> CreateLadderShaft(World world, BlockPos pos, ArrayList<ItemStack> originalStacks, EnumFacing houseFacing, ArrayList<Item> blocksToNotAdd)
 	{
 		int torchCounter = 0;
 
@@ -551,7 +564,7 @@ public class StructureAlternateStart extends Structure
 						if (!(surroundingBlock instanceof BlockStone))
 						{
 							// This is not a stone block. Get the drops then replace it with stone.
-							originalStacks = BuildingMethods.ConsolidateDrops(surroundingBlock, world, tempPos, surroundingState, originalStacks);
+							originalStacks = BuildingMethods.ConsolidateDrops(surroundingBlock, world, tempPos, surroundingState, originalStacks, blocksToNotAdd);
 
 							BuildingMethods.ReplaceBlock(world, tempPos, Blocks.STONE);
 						}
@@ -571,7 +584,7 @@ public class StructureAlternateStart extends Structure
 					{
 						// This is not a solid block. Get the drops then replace
 						// it with stone.
-						originalStacks = BuildingMethods.ConsolidateDrops(surroundingBlock, world, tempPos, surroundingState, originalStacks);
+						originalStacks = BuildingMethods.ConsolidateDrops(surroundingBlock, world, tempPos, surroundingState, originalStacks, blocksToNotAdd);
 
 						BuildingMethods.ReplaceBlock(world, tempPos, Blocks.STONE);
 					}
@@ -579,7 +592,7 @@ public class StructureAlternateStart extends Structure
 			}
 
 			// Get the block drops then replace it with a ladder.
-			originalStacks = BuildingMethods.ConsolidateDrops(block, world, pos, state, originalStacks);
+			originalStacks = BuildingMethods.ConsolidateDrops(block, world, pos, state, originalStacks, blocksToNotAdd);
 
 			// Don't place a ladder at this location since it will be destroyed.
 			if (pos.getY() >= 10)
