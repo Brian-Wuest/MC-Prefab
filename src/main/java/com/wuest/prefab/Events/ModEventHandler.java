@@ -96,7 +96,10 @@ public class ModEventHandler
 						BlockPos currentPos = structure.clearedBlockPos.get(0);
 						structure.clearedBlockPos.remove(0);
 						
-						structure.world.setBlockToAir(currentPos);
+						if (!structure.world.isAirBlock(currentPos))
+						{
+							structure.world.setBlockToAir(currentPos);
+						}
 						
 						continue;
 					}

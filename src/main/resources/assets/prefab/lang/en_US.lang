@@ -23,6 +23,7 @@ item.prefab.barn=Barn
 item.prefab.machinery.tower=Machinery Tower
 item.prefab:item_string_of_lanterns.name=String of Lanterns
 item.prefab:item_coil_of_lanterns.name=Coil of Lanterns
+item.prefab.defense.bunker=Defense Bunker
 
 tile.prefab:block_compressed_stone.block_compressed_stone.name=Compressed Stone
 tile.prefab:block_compressed_stone.block_double_compressed_stone.name=Double Compressed Stone
