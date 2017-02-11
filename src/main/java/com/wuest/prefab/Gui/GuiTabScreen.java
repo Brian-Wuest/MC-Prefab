@@ -84,7 +84,7 @@ public class GuiTabScreen extends GuiScreen
     }
     
     /**
-     * Draws a textured rectangle Args: x, y, z, u, v, width, height, textureWidth, textureHeight
+     * Draws a textured rectangle Args: x, y, z, width, height, textureWidth, textureHeight
      */
     public static void drawModalRectWithCustomSizedTexture(int x, int y, int z, int width, int height, float textureWidth, float textureHeight)
     {

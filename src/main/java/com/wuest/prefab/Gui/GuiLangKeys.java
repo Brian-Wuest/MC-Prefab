@@ -34,7 +34,7 @@ public class GuiLangKeys
 	@Unlocalized(name = "Blocks/Size")
 	public static final String STARTER_TAB_BLOCK = "prefab.gui.starter.tab.block";
 	
-	@Unlocalized(name = "House Tyle")
+	@Unlocalized(name = "House Style")
 	public static final String STARTER_HOUSE_STYLE = "prefab.gui.starter.style.label";
 	
 	@Unlocalized(name = "Floor Block Type")
@@ -228,6 +228,21 @@ public class GuiLangKeys
 	
 	@Unlocalized(name = "black")
 	public static final String GUI_BLACK = "prefab.gui.black";
+	
+	@Unlocalized(name = "Flat Roof")
+	public static final String VILLAGER_HOUSE_FLAT_ROOF = "prefab.gui.villager.house.flat";
+	
+	@Unlocalized(name = "Angled Roof")
+	public static final String VILLAGER_HOUSE_ANGLED_ROOF = "prefab.gui.villager.house.angled";
+	
+	@Unlocalized(name = "Fenced Roof")
+	public static final String VILLAGER_HOUSE_FENCED_ROOF = "prefab.gui.villager.house.fenced";
+	
+	@Unlocalized(name = "Blacksmith")
+	public static final String VILLAGER_HOUSE_BLACKSMITH = "prefab.gui.villager.blacksmith";
+	
+	@Unlocalized(name = "Long House")
+	public static final String VILLAGER_HOUSE_LONGHOUSE = "prefab.gui.villager.long_house";
 	
 
 	/**

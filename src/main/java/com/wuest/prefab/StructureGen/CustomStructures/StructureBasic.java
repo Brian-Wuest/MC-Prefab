@@ -19,7 +19,7 @@ import net.minecraft.world.World;
  */
 public class StructureBasic extends Structure
 {
-	BlockPos chickenCoopBlockPos = null;
+	BlockPos customBlockPos = null;
 			
 	public static void ScanStructure(World world, BlockPos originalPos, EnumFacing playerFacing, BasicStructureConfiguration configuration)
 	{
@@ -59,7 +59,7 @@ public class StructureBasic extends Structure
 		
 		if (foundBlock instanceof BlockHopper && config.basicStructureName.getName().equals(EnumBasicStructureName.AdavancedCoop.getName()))
 		{
-			chickenCoopBlockPos = block.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing);
+			customBlockPos = block.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing);
 		}
 		
 		return false;
@@ -80,17 +80,17 @@ public class StructureBasic extends Structure
 	{
 		BasicStructureConfiguration config = (BasicStructureConfiguration)configuration;
 		
-		if (this.chickenCoopBlockPos != null && config.basicStructureName.getName().equals(EnumBasicStructureName.AdavancedCoop.getName()))
+		if (this.customBlockPos != null && config.basicStructureName.getName().equals(EnumBasicStructureName.AdavancedCoop.getName()))
 		{
 			// For the advanced chicken coop, spawn 4 chickens above the hopper.
 			for (int i = 0; i < 4; i++)
 			{
 				EntityChicken entity = new EntityChicken(world);
-				entity.setPosition(this.chickenCoopBlockPos.getX(), this.chickenCoopBlockPos.up().getY(), this.chickenCoopBlockPos.getZ());
+				entity.setPosition(this.customBlockPos.getX(), this.customBlockPos.up().getY(), this.customBlockPos.getZ());
 				world.spawnEntityInWorld(entity);
 			}
 			
-			this.chickenCoopBlockPos = null;
+			this.customBlockPos = null;
 		}
 	}
 
