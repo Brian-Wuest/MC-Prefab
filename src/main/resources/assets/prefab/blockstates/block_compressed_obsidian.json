@@ -1,0 +1,7 @@
+{
+	"variants": 
+	{
+		"variant=block_compressed_obsidian": { "model": "prefab:block_compressed_obsidian" },
+		"variant=block_double_compressed_obsidian": { "model": "prefab:block_double_compressed_obsidian" }
+	}
+}
