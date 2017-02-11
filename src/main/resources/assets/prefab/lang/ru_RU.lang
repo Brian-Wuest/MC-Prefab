@@ -20,8 +20,11 @@ item.prefab.advanced.chicken.coop=Advanced Chicken Coop
 item.prefab.advanced.horse.stable=Advanced Horse Stable
 item.prefab.barn=Barn
 item.prefab.machinery.tower=Machinery Tower
-item.prefab.item_string_of_lanterns=String of Lanterns
-item.prefab.item_coil_of_lanterns=Coil of Lanterns
+item.prefab:item_string_of_lanterns.name=String of Lanterns
+item.prefab:item_coil_of_lanterns.name=Coil of Lanterns
+item.prefab.defense.bunker=Defense Bunker
+item.prefab:item_villager_houses.name=Villager Houses
+item.prefab.mineshaft.entrance=Mineshaft Entrance
  
 tile.prefab:block_compressed_stone.block_compressed_stone.name=Сжатый Камень
 tile.prefab:block_compressed_stone.block_double_compressed_stone.name=Двойной Сжатый Камень
@@ -32,6 +35,8 @@ tile.prefab:block_compressed_stone.block_compressed_dirt.name=Сжата Гр�
 tile.prefab:block_compressed_stone.block_double_compressed_dirt.name=Двойна�? Сжата�? Гр�?зь
 tile.prefab:blockDrafter.name=Drafter
 tile.prefab:block_paper_lantern.name=Paper Lantern
+tile.prefab:block_compressed_obsidian.block_compressed_obsidian.name=Compressed Obsidian
+tile.prefab:block_compressed_obsidian.block_double_compressed_obsidian.name=Double Compressed Obsidian
  
 prefab.gui.fishpond.structure.facing=Примечание: е�?ли вы лицом к �?еверу, выберите Юг. Бела�? окантовка - �?то про�?то чтобы показать размер.
  
@@ -65,9 +70,15 @@ prefab.gui.starter.addchestcontents=Добавить Содержимое В С�
 prefab.gui.starter.addfarm=Добавить Ферму
 prefab.gui.starter.floorstone=Потолок Каменный тип
 prefab.gui.starter.ceilingtype=Потолок Каменного Типа
-prefab.gui.starter.walltype=Стены Дерев�?нного Типа
-prefab.gui.starter.ceilingflat=Пло�?кий Потолок
-prefab.gui.starter.buildmineshaft=По�?троить Шахту
+prefab.gui.starter.walltype=Стены Деревянного Типа
+prefab.gui.starter.ceilingflat=Плоский Потолок
+prefab.gui.starter.buildmineshaft=Построить Шахту
+
+prefab.gui.villager.house.flat=Flat Roof
+prefab.gui.villager.house.angled=Angled Roof
+prefab.gui.villager.house.fenced=Fenced Roof
+prefab.gui.villager.blacksmith=Blacksmith
+prefab.gui.villager.long_house=Long House
  
 prefab.ceiling.block.type.stone=Каменный Кирпич
 prefab.ceiling.block.type.brick=Кирпич
