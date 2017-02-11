@@ -52,6 +52,7 @@ public class ModRegistry
 	public static final int GuiModularHouse = 11;
 	public static final int GuiDrafter = 12;
 	public static final int GuiBasicStructure = 13;
+	public static final int GuiVillagerHouses = 14;
 	
 	/**
 	 * This capability is used to save the locations where a player spawns when transferring dimensions.
@@ -194,6 +195,11 @@ public class ModRegistry
 		return ModRegistry.GetBlock(BlockCompressedObsidian.class);
 	}
 	
+	public static ItemVillagerHouses VillagerHouses()
+	{
+		return ModRegistry.GetItem(ItemVillagerHouses.class);
+	}
+	
 	/**
 	 * Gets the item from the ModItems collections.
 	 * @param genericClass The class of item to get from the collection.
@@ -317,6 +323,8 @@ public class ModRegistry
 		ItemBlockMeta metaObsidian = new ItemBlockMeta(obsidian);
 		ModRegistry.setItemName(metaObsidian, "block_compressed_obsidian");
 		ModRegistry.registerBlock(obsidian, metaObsidian);
+		
+		ModRegistry.registerItem(new ItemVillagerHouses("item_villager_houses"));
 		
 		//BlockDrafter drafter = new BlockDrafter();
 		//ModRegistry.registerBlock(drafter);
@@ -649,6 +657,20 @@ public class ModRegistry
 				'b', ModRegistry.StringOfLanterns(),
 				'c', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE));
 		
+		// Defense Bunker
+		result = new ItemStack(ModRegistry.BasicStructure());
+		capability = result.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
+		capability.getConfiguration().basicStructureName = EnumBasicStructureName.DefenseBunker;
+		
+		GameRegistry.addRecipe(result, 
+				"dad",
+				"bcb",
+				"ddd",
+				'a', ModRegistry.CoilOfLanterns(),
+				'b', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE),
+				'c', new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedObsidianBlock()), 1, BlockCompressedObsidian.EnumType.DOUBLE_COMPRESSED_OBSIDIAN.getMetadata()),
+				'd', Item.getItemFromBlock(Blocks.IRON_BLOCK));
+		
 		// Instant Bridge.
 		GameRegistry.addRecipe(new ItemStack(ModRegistry.InstantBridge()),
 				"bab",
@@ -678,6 +700,28 @@ public class ModRegistry
 				'a', ModRegistry.StringOfLanterns());
 		
 		GameRegistry.addShapelessRecipe(new ItemStack(ModRegistry.StringOfLanterns(), 9), ModRegistry.CoilOfLanterns());
+		
+		// Compressed Obsidian.
+		GameRegistry.addRecipe(new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedObsidianBlock()), 1, BlockCompressedObsidian.EnumType.COMPRESSED_OBSIDIAN.getMetadata()),
+				"aaa",
+				"aaa",
+				"aaa",
+				'a', Item.getItemFromBlock(Blocks.OBSIDIAN));
+		
+		GameRegistry.addShapelessRecipe(
+				new ItemStack(Item.getItemFromBlock(Blocks.OBSIDIAN), 9), 
+				new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedObsidianBlock()), 1, BlockCompressedObsidian.EnumType.COMPRESSED_OBSIDIAN.getMetadata()));
+		
+		// Double compressed obsidian.
+		GameRegistry.addRecipe(new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedObsidianBlock()), 1, BlockCompressedObsidian.EnumType.DOUBLE_COMPRESSED_OBSIDIAN.getMetadata()),
+				"aaa",
+				"aaa",
+				"aaa",
+				'a', new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedObsidianBlock()), 1, BlockCompressedObsidian.EnumType.COMPRESSED_OBSIDIAN.getMetadata()));
+		
+		GameRegistry.addShapelessRecipe(
+				new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedObsidianBlock()), 9, BlockCompressedObsidian.EnumType.COMPRESSED_OBSIDIAN.getMetadata()), 
+				new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedObsidianBlock()), 1, BlockCompressedObsidian.EnumType.DOUBLE_COMPRESSED_OBSIDIAN.getMetadata()));
 	}
 
 	/**
@@ -697,6 +741,7 @@ public class ModRegistry
 		Prefab.network.registerMessage(NetherGateHandler.class, NetherGateTagMessage.class, 10, Side.SERVER);
 		Prefab.network.registerMessage(ModularHouseHandler.class, ModularHouseTagMessage.class, 11, Side.SERVER);
 		Prefab.network.registerMessage(BasicStructureHandler.class, BasicStructureTagMessage.class, 12, Side.SERVER);
+		Prefab.network.registerMessage(VillagerHousesHandler.class, VillagerHousesTagMessage.class, 13, Side.SERVER);
 	}
 	
 	/**
@@ -826,5 +871,6 @@ public class ModRegistry
 		ModRegistry.ModGuis.put(ModRegistry.GuiModularHouse, GuiModularHouse.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiDrafter, GuiDrafter.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiBasicStructure, GuiBasicStructure.class);
+		ModRegistry.ModGuis.put(ModRegistry.GuiVillagerHouses, GuiVillaerHouses.class);
 	}
 }

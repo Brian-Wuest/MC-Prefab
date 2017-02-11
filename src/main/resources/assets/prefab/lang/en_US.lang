@@ -23,6 +23,7 @@ item.prefab.machinery.tower=Machinery Tower
 item.prefab:item_string_of_lanterns.name=String of Lanterns
 item.prefab:item_coil_of_lanterns.name=Coil of Lanterns
 item.prefab.defense.bunker=Defense Bunker
+item.prefab:item_villager_houses.name=Villager Houses
 
 tile.prefab:blockCompressedStone.block_compressed_stone.name=Compressed Stone
 tile.prefab:blockCompressedStone.block_double_compressed_stone.name=Double Compressed Stone
@@ -71,6 +72,12 @@ prefab.gui.starter.ceilingtype=Ceiling Stone Type
 prefab.gui.starter.walltype=Wall Wood Type
 prefab.gui.starter.ceilingflat=Is Ceiling Flat
 prefab.gui.starter.buildmineshaft=Build Mineshaft
+
+prefab.gui.villager.house.flat=Flat Roof
+prefab.gui.villager.house.angled=Angled Roof
+prefab.gui.villager.house.fenced=Fenced Roof
+prefab.gui.villager.blacksmith=Blacksmith
+prefab.gui.villager.long_house=Long House
 
 prefab.ceiling.block.type.stone=Stonebrick
 prefab.ceiling.block.type.brick=Brick
