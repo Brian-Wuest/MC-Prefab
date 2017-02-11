@@ -206,7 +206,7 @@ public class ItemStartHouse extends Item
 		BlockPos pos = ItemStartHouse.NorthEastCorner;
 
 		BuildingMethods.SetFloor(world, pos.down(2), Blocks.DIRT, configuration.houseWidth + 2, configuration.houseDepth + 2, new ArrayList<ItemStack>(),
-				facing.getOpposite());
+				facing.getOpposite(), null);
 
 		Block floor = null;
 
@@ -233,7 +233,7 @@ public class ItemStartHouse extends Item
 
 		// Create the floor.
 		BuildingMethods.SetFloor(world, pos.down(), floor, configuration.houseWidth + 2, configuration.houseDepth + 2, new ArrayList<ItemStack>(),
-				facing.getOpposite());
+				facing.getOpposite(), null);
 
 		// Create the walls.
 		ItemStartHouse.SetWalls(world, ((BlockPlanks) Blocks.PLANKS).getStateFromMeta(configuration.wallWoodType.getValue()), configuration, facing);
@@ -267,7 +267,7 @@ public class ItemStartHouse extends Item
 
 		// Set the ceiling.
 		pos = pos.up(4);
-		BuildingMethods.SetCeiling(world, pos, ceiling, configuration.houseWidth + 2, configuration.houseDepth + 2, stairs, configuration, facing);
+		BuildingMethods.SetCeiling(world, pos, ceiling, configuration.houseWidth + 2, configuration.houseDepth + 2, stairs, configuration, facing, null);
 	}
 
 	private static void BuildInterior(World world, BlockPos startingPosition, EntityPlayer player, HouseConfiguration configuration, EnumFacing facing)
@@ -781,7 +781,7 @@ public class ItemStartHouse extends Item
 
 		pos = pos.offset(facing.getOpposite(), houseDepth).down();
 
-		StructureAlternateStart.PlaceMineShaft(world, pos, facing);
+		StructureAlternateStart.PlaceMineShaft(world, pos, facing, false);
 	}
 
 }
