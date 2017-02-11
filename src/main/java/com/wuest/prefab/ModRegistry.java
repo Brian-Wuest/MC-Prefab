@@ -189,6 +189,11 @@ public class ModRegistry
 		return ModRegistry.GetItem(ItemCoilOfLanterns.class);
 	}
 	
+	public static BlockCompressedObsidian CompressedObsidianBlock()
+	{
+		return ModRegistry.GetBlock(BlockCompressedObsidian.class);
+	}
+	
 	/**
 	 * Gets the item from the ModItems collections.
 	 * @param genericClass The class of item to get from the collection.
@@ -307,6 +312,11 @@ public class ModRegistry
 		ModRegistry.registerBlock(stone, meta);
 		
 		ModRegistry.registerBlock(new BlockPaperLantern("block_paper_lantern"));
+		
+		BlockCompressedObsidian obsidian = new BlockCompressedObsidian();
+		ItemBlockMeta metaObsidian = new ItemBlockMeta(obsidian);
+		ModRegistry.setItemName(metaObsidian, "block_compressed_obsidian");
+		ModRegistry.registerBlock(obsidian, metaObsidian);
 		
 		//BlockDrafter drafter = new BlockDrafter();
 		//ModRegistry.registerBlock(drafter);
