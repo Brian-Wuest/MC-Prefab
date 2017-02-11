@@ -674,16 +674,16 @@ public class ModRegistry
 		// Mineshaft Entrance
 		result = new ItemStack(ModRegistry.BasicStructure());
 		capability = result.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
-		capability.getConfiguration().basicStructureName = EnumBasicStructureName.DefenseBunker;
+		capability.getConfiguration().basicStructureName = EnumBasicStructureName.MineshaftEntrance;
 		
 		GameRegistry.addRecipe(result, 
 				"dad",
 				"bcb",
-				"ddd",
-				'a', ModRegistry.CoilOfLanterns(),
-				'b', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE),
-				'c', new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedObsidianBlock()), 1, BlockCompressedObsidian.EnumType.DOUBLE_COMPRESSED_OBSIDIAN.getMetadata()),
-				'd', Item.getItemFromBlock(Blocks.IRON_BLOCK));
+				"aaa",
+				'a', ModRegistry.BundleOfTimber(),
+				'b', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_STONE),
+				'c', Items.BED,
+				'd', Items.IRON_PICKAXE);
 		
 		// Instant Bridge.
 		GameRegistry.addRecipe(new ItemStack(ModRegistry.InstantBridge()),
@@ -736,6 +736,14 @@ public class ModRegistry
 		GameRegistry.addShapelessRecipe(
 				new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedObsidianBlock()), 9, BlockCompressedObsidian.EnumType.COMPRESSED_OBSIDIAN.getMetadata()), 
 				new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedObsidianBlock()), 1, BlockCompressedObsidian.EnumType.DOUBLE_COMPRESSED_OBSIDIAN.getMetadata()));
+		
+		// Villager Houses.
+		GameRegistry.addRecipe(new ItemStack(ModRegistry.VillagerHouses()),
+				"aaa",
+				"aaa",
+				"bbb",
+				'a', ModRegistry.BundleOfTimber(),
+				'b', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_STONE));
 	}
 
 	/**
