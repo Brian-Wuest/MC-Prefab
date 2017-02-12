@@ -20,7 +20,7 @@ import net.minecraftforge.fml.client.config.GuiButtonExt;
 
 public class GuiVillaerHouses extends GuiScreen
 {
-	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/defaultBackground.png");
+	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/default_background.png");
 	
 	protected GuiButtonExt btnHouseStyle;
 	protected GuiButtonExt btnCancel;
