@@ -200,6 +200,11 @@ public class ModRegistry
 		return ModRegistry.GetItem(ItemVillagerHouses.class);
 	}
 	
+	public static BlockPhasing PhasingBlock()
+	{
+		return ModRegistry.GetBlock(BlockPhasing.class);
+	}
+	
 	/**
 	 * Gets the item from the ModItems collections.
 	 * @param genericClass The class of item to get from the collection.
@@ -325,6 +330,8 @@ public class ModRegistry
 		ModRegistry.registerBlock(obsidian, metaObsidian);
 		
 		ModRegistry.registerItem(new ItemVillagerHouses("item_villager_houses"));
+		
+		ModRegistry.registerBlock(new BlockPhasing("block_phasing"));
 		
 		//BlockDrafter drafter = new BlockDrafter();
 		//ModRegistry.registerBlock(drafter);
