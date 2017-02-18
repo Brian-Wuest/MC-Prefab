@@ -6,6 +6,7 @@ import javax.annotation.Nullable;
 
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Blocks.BlockPaperLantern.SeeThroughMaterial;
+import com.wuest.prefab.Events.ModEventHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -17,6 +18,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -55,7 +57,7 @@ public class BlockPhasing extends Block
 	}
 	
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ)
 	{
 		if (!world.isRemote) 
 		{
@@ -63,6 +65,8 @@ public class BlockPhasing extends Block
 			
 			if (progress == EnumPhasingProgress.Base)
 			{
+				this.removeBlockAndNeighborsFromList(pos, world);
+				
 				// Only trigger the phasing when this block is not currently phasing.
 				world.scheduleUpdate(pos, this, this.tickRate);
 			}
@@ -70,6 +74,20 @@ public class BlockPhasing extends Block
 
 		return true;
 	}
+	
+    /**
+     * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
+     */
+	@Override
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
+    {
+        super.breakBlock(worldIn, pos, state);
+        
+        if (ModEventHandler.RedstoneAffectedBlockPositions.contains(pos))
+        {
+        	ModEventHandler.RedstoneAffectedBlockPositions.remove(pos);
+        }
+    }
 
 	/**
 	 * How many world ticks before ticking
@@ -80,10 +98,45 @@ public class BlockPhasing extends Block
 		return this.tickRate;
 	}
 	
+    /**
+     * Called when a neighboring block was changed and marks that this state should perform any checks during a neighbor
+     * change. Cases may include when redstone power is updated, cactus blocks popping off due to a neighboring solid
+     * block, etc.
+     */
+	@Override
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn)
+    {
+		if (!worldIn.isRemote)
+		{
+			if (!(blockIn instanceof BlockPhasing))
+			{
+		        boolean poweredSide = worldIn.isBlockPowered(pos);
+		        
+		        EnumPhasingProgress currentState = state.getValue(Phasing_Progress);
+		        
+		        if (poweredSide && currentState == EnumPhasingProgress.Base)
+		        {
+		        	// Set this block and all neighbor Phasic Blocks to transparent. This will cascade to all touching Phasic blocks.
+		        	this.setPoweredStatusAndUpdateNeighbors(true, worldIn, pos, state);
+		        }
+		        else if (!poweredSide && currentState == EnumPhasingProgress.Transparent)
+		        {
+		        	// Set this block and all neighbor Phasic Blocks to base. This will cascade to tall touching Phasic blocks.
+		        	this.setPoweredStatusAndUpdateNeighbors(false, worldIn, pos, state);
+		        }
+			}
+		}
+    }
+	
 	@Override
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
 	{
 		int tickDelay = this.tickRate;
+		
+		if (ModEventHandler.RedstoneAffectedBlockPositions.contains(pos))
+		{
+			return;
+		}
 		
 		EnumPhasingProgress progress = state.getValue(Phasing_Progress);
 		boolean phasingOut = state.getValue(Phasing_Out);
@@ -206,7 +259,7 @@ public class BlockPhasing extends Block
     
     @Nullable
     @Override
-    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos)
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, World worldIn, BlockPos pos)
     {
     	EnumPhasingProgress progress = blockState.getValue(Phasing_Progress);
     	
@@ -311,6 +364,65 @@ public class BlockPhasing extends Block
         }
 
         return !blockAccess.getBlockState(pos.offset(side)).doesSideBlockRendering(blockAccess, pos.offset(side), side.getOpposite());
+    }
+    
+    protected void removeBlockAndNeighborsFromList(BlockPos pos, World worldIn)
+    {
+    	if (ModEventHandler.RedstoneAffectedBlockPositions.contains(pos))
+    	{
+    		ModEventHandler.RedstoneAffectedBlockPositions.remove(pos);
+    	}
+    	
+    	for (EnumFacing facing : EnumFacing.values())
+    	{
+    		// Don't bother if this block pos was already removed.
+    		if (ModEventHandler.RedstoneAffectedBlockPositions.contains(pos.offset(facing)))
+    		{
+    			IBlockState state = worldIn.getBlockState(pos.offset(facing));
+    		
+	    		if (state.getBlock() instanceof BlockPhasing)
+	    		{
+	    			this.removeBlockAndNeighborsFromList(pos.offset(facing), worldIn);
+	    		}
+    		}
+    	}
+    }
+    
+    protected void setPoweredStatusAndUpdateNeighbors(boolean setToTransparent, World worldIn, BlockPos pos, IBlockState currentBlockPosState)
+    {
+    	// Update the current block then go through each of the neighboring blocks to determine if they need to be updated as well.
+    	currentBlockPosState = currentBlockPosState
+    			.withProperty(Phasing_Out, setToTransparent)
+    			.withProperty(Phasing_Progress, setToTransparent ? EnumPhasingProgress.Transparent : EnumPhasingProgress.Base);
+    	
+    	worldIn.setBlockState(pos, currentBlockPosState);
+    	
+    	if (!ModEventHandler.RedstoneAffectedBlockPositions.contains(pos))
+    	{
+    		ModEventHandler.RedstoneAffectedBlockPositions.add(pos);
+    	}
+    	
+    	for (EnumFacing facing : EnumFacing.values())
+    	{
+    		Block neighborBlock = worldIn.getBlockState(pos.offset(facing)).getBlock();
+    		
+    		if (neighborBlock instanceof BlockPhasing)
+    		{
+    			IBlockState blockState = worldIn.getBlockState(pos.offset(facing));
+    			
+    			// If the block is already in the correct state, there is no need to cascade to it's neighbors.
+    			EnumPhasingProgress progress = blockState.getValue(Phasing_Progress);
+    			
+    			if ((setToTransparent && progress == EnumPhasingProgress.Transparent)
+    					|| (!setToTransparent && progress == EnumPhasingProgress.Base))
+    			{
+    				continue;
+    			}
+    			
+    			// running this method for the neighbor block will cascade out to it's other neighbors until there are no more Phasic blocks around.
+    			((BlockPhasing)neighborBlock).setPoweredStatusAndUpdateNeighbors(setToTransparent, worldIn, pos.offset(facing), blockState);
+    		}
+    	}
     }
     
 	public enum EnumPhasingProgress implements IStringSerializable
