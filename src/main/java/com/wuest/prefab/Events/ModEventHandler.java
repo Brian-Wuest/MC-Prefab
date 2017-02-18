@@ -41,6 +41,12 @@ public class ModEventHandler
 	public static final String GIVEN_HOUSEBUILDER_TAG = "givenHousebuilder";
 
 	public static HashMap<EntityPlayer, ArrayList<Structure>> structuresToBuild = new HashMap<EntityPlayer, ArrayList<Structure>>();
+	public static ArrayList<BlockPos> RedstoneAffectedBlockPositions = null;
+	
+	static
+	{
+		ModEventHandler.RedstoneAffectedBlockPositions = new ArrayList<BlockPos>();
+	}
 	
 	@SubscribeEvent
 	public void PlayerJoinedWorld(EntityJoinWorldEvent event)
