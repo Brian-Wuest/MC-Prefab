@@ -20,6 +20,14 @@ build
 # other
 eclipse
 run
+saves
+screenshots
+logs
+crash-reports
+config
+usercache.json
+usernamecache.json
+options.txt
 
 gradle/wrapper/gradle-wrapper.jar
 gradle/wrapper/gradle-wrapper.properties
