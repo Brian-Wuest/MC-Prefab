@@ -49,7 +49,7 @@ public class BlockPhasing extends Block
 	{
 		super(BlockPhasing.BlockMaterial);
 		this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-		this.setSoundType(SoundType.SNOW);
+		this.setSoundType(SoundType.STONE);
 		this.setHardness(0.6F);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(Phasing_Out, false).withProperty(Phasing_Progress, EnumPhasingProgress.Base));
 		
@@ -108,7 +108,8 @@ public class BlockPhasing extends Block
     {
 		if (!worldIn.isRemote)
 		{
-			if (!(blockIn instanceof BlockPhasing))
+			// Only worry about powering blocks.
+			if (blockIn.getDefaultState().canProvidePower())
 			{
 		        boolean poweredSide = worldIn.isBlockPowered(pos);
 		        
@@ -294,13 +295,9 @@ public class BlockPhasing extends Block
     		return null;
     	}
     	
-        Vec3d vec3d = start.subtract((double)pos.getX(), (double)pos.getY(), (double)pos.getZ());
-        Vec3d vec3d1 = end.subtract((double)pos.getX(), (double)pos.getY(), (double)pos.getZ());
-        RayTraceResult raytraceresult = boundingBox.calculateIntercept(vec3d, vec3d1);
-        return raytraceresult == null ? null : new RayTraceResult(raytraceresult.hitVec.addVector((double)pos.getX(), (double)pos.getY(), (double)pos.getZ()), raytraceresult.sideHit, pos);
+        return super.rayTrace(pos, start, end, boundingBox);
     }
     
-    @Deprecated
     @SideOnly(Side.CLIENT)
     @Override
     public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
@@ -313,57 +310,7 @@ public class BlockPhasing extends Block
         	return false;
         }
         
-        switch (side)
-        {
-            case DOWN:
-
-                if (axisalignedbb.minY > 0.0D)
-                {
-                    return true;
-                }
-
-                break;
-            case UP:
-
-                if (axisalignedbb.maxY < 1.0D)
-                {
-                    return true;
-                }
-
-                break;
-            case NORTH:
-
-                if (axisalignedbb.minZ > 0.0D)
-                {
-                    return true;
-                }
-
-                break;
-            case SOUTH:
-
-                if (axisalignedbb.maxZ < 1.0D)
-                {
-                    return true;
-                }
-
-                break;
-            case WEST:
-
-                if (axisalignedbb.minX > 0.0D)
-                {
-                    return true;
-                }
-
-                break;
-            case EAST:
-
-                if (axisalignedbb.maxX < 1.0D)
-                {
-                    return true;
-                }
-        }
-
-        return !blockAccess.getBlockState(pos.offset(side)).doesSideBlockRendering(blockAccess, pos.offset(side), side.getOpposite());
+        return super.shouldSideBeRendered(blockState, blockAccess, pos, side);
     }
     
     protected void removeBlockAndNeighborsFromList(BlockPos pos, World worldIn)

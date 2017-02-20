@@ -1,0 +1,7 @@
+{
+    "variants": 
+    {
+        "powered=false": { "model": "prefab:block_phasing_transparent" },
+        "powered=true": { "model": "prefab:block_smart_glass" }
+    }
+}

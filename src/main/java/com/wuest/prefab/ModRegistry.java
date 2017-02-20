@@ -205,6 +205,11 @@ public class ModRegistry
 		return ModRegistry.GetBlock(BlockPhasing.class);
 	}
 	
+	public static BlockSmartGlass SmartGlassBlock()
+	{
+		return ModRegistry.GetBlock(BlockSmartGlass.class);
+	}
+	
 	/**
 	 * Gets the item from the ModItems collections.
 	 * @param genericClass The class of item to get from the collection.
@@ -332,6 +337,8 @@ public class ModRegistry
 		ModRegistry.registerItem(new ItemVillagerHouses("item_villager_houses"));
 		
 		ModRegistry.registerBlock(new BlockPhasing("block_phasing"));
+		
+		ModRegistry.registerBlock(new BlockSmartGlass("block_smart_glass"));
 		
 		//BlockDrafter drafter = new BlockDrafter();
 		//ModRegistry.registerBlock(drafter);
@@ -751,6 +758,14 @@ public class ModRegistry
 				"bbb",
 				'a', ModRegistry.BundleOfTimber(),
 				'b', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_STONE));
+		
+		// Phasic Block
+		GameRegistry.addRecipe(new ItemStack(ModRegistry.PhasingBlock()),
+				"aaa",
+				"aba",
+				"aaa",
+				'a', Item.getItemFromBlock(Blocks.STONE),
+				'b', Items.ENDER_PEARL);
 	}
 
 	/**
