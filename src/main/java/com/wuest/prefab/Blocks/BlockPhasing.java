@@ -20,6 +20,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.IStringSerializable;
@@ -118,12 +119,12 @@ public class BlockPhasing extends Block
 		        if (poweredSide && currentState == EnumPhasingProgress.Base)
 		        {
 		        	// Set this block and all neighbor Phasic Blocks to transparent. This will cascade to all touching Phasic blocks.
-		        	this.setPoweredStatusAndUpdateNeighbors(true, worldIn, pos, state);
+		        	this.setPoweredStatusAndUpdateNeighbors(true, worldIn, pos, state, 0);
 		        }
 		        else if (!poweredSide && currentState == EnumPhasingProgress.Transparent)
 		        {
 		        	// Set this block and all neighbor Phasic Blocks to base. This will cascade to tall touching Phasic blocks.
-		        	this.setPoweredStatusAndUpdateNeighbors(false, worldIn, pos, state);
+		        	this.setPoweredStatusAndUpdateNeighbors(false, worldIn, pos, state, 0);
 		        }
 			}
 		}
@@ -249,6 +250,24 @@ public class BlockPhasing extends Block
         return false;
     }
     
+	/**
+	* Queries if this block should render in a given layer.
+	* ISmartBlockModel can use {@link MinecraftForgeClient#getRenderLayer()} to alter their model based on layer.
+	*/
+    @Override
+    public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer)
+    {
+    	EnumPhasingProgress progress = state.getValue(Phasing_Progress);
+    	
+    	if ((layer == BlockRenderLayer.TRANSLUCENT && progress != EnumPhasingProgress.Base)
+    			|| (layer == BlockRenderLayer.SOLID && progress == EnumPhasingProgress.Base))
+    	{
+    		return true;
+    	}
+
+    	return false;
+    }
+    
     /**
      * Used to determine ambient occlusion and culling when rebuilding chunks for render
      */
@@ -282,7 +301,11 @@ public class BlockPhasing extends Block
     		return NULL_AABB;
     	}
     	
-    	return super.getBoundingBox(state, source, pos);
+    	AxisAlignedBB aabb = super.getBoundingBox(state, source, pos);
+    	
+    	//aabb = new AxisAlignedBB(aabb.minX, aabb.minY, aabb.minZ, aabb.maxX + 0.001, aabb.maxY + 0.001, aabb.maxZ + 0.001);
+    	
+    	return aabb;
     }
     
     @Nullable
@@ -335,7 +358,7 @@ public class BlockPhasing extends Block
     	}
     }
     
-    protected void setPoweredStatusAndUpdateNeighbors(boolean setToTransparent, World worldIn, BlockPos pos, IBlockState currentBlockPosState)
+    protected void setPoweredStatusAndUpdateNeighbors(boolean setToTransparent, World worldIn, BlockPos pos, IBlockState currentBlockPosState, int cascadeCount)
     {
     	// Update the current block then go through each of the neighboring blocks to determine if they need to be updated as well.
     	currentBlockPosState = currentBlockPosState
@@ -347,6 +370,13 @@ public class BlockPhasing extends Block
     	if (!ModEventHandler.RedstoneAffectedBlockPositions.contains(pos))
     	{
     		ModEventHandler.RedstoneAffectedBlockPositions.add(pos);
+    	}
+    	
+    	cascadeCount++;
+    	
+    	if (cascadeCount > 100)
+    	{
+    		return;
     	}
     	
     	for (EnumFacing facing : EnumFacing.values())
@@ -367,7 +397,7 @@ public class BlockPhasing extends Block
     			}
     			
     			// running this method for the neighbor block will cascade out to it's other neighbors until there are no more Phasic blocks around.
-    			((BlockPhasing)neighborBlock).setPoweredStatusAndUpdateNeighbors(setToTransparent, worldIn, pos.offset(facing), blockState);
+    			((BlockPhasing)neighborBlock).setPoweredStatusAndUpdateNeighbors(setToTransparent, worldIn, pos.offset(facing), blockState, cascadeCount);
     		}
     	}
     }

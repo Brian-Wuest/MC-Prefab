@@ -38,7 +38,7 @@ tile.prefab:block_paper_lantern.name=Paper Lantern
 tile.prefab:block_compressed_obsidian.block_compressed_obsidian.name=Compressed Obsidian
 tile.prefab:block_compressed_obsidian.block_double_compressed_obsidian.name=Double Compressed Obsidian
 tile.prefab:block_phasing.name=Phasing Block
-tile.prefab:block_smart_glass.name=Smart Glass
+tile.prefab:block_boundary.name=Boundary Block
  
 prefab.gui.fishpond.structure.facing=Примечание: е�?ли вы лицом к �?еверу, выберите Юг. Бела�? окантовка - �?то про�?то чтобы показать размер.
  

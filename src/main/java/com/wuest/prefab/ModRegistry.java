@@ -205,9 +205,9 @@ public class ModRegistry
 		return ModRegistry.GetBlock(BlockPhasing.class);
 	}
 	
-	public static BlockSmartGlass SmartGlassBlock()
+	public static BlockBoundary BoundaryBlock()
 	{
-		return ModRegistry.GetBlock(BlockSmartGlass.class);
+		return ModRegistry.GetBlock(BlockBoundary.class);
 	}
 	
 	/**
@@ -338,7 +338,7 @@ public class ModRegistry
 		
 		ModRegistry.registerBlock(new BlockPhasing("block_phasing"));
 		
-		ModRegistry.registerBlock(new BlockSmartGlass("block_smart_glass"));
+		ModRegistry.registerBlock(new BlockBoundary("block_boundary"));
 		
 		//BlockDrafter drafter = new BlockDrafter();
 		//ModRegistry.registerBlock(drafter);
@@ -765,6 +765,14 @@ public class ModRegistry
 				"aba",
 				"aaa",
 				'a', Item.getItemFromBlock(Blocks.STONE),
+				'b', Items.ENDER_PEARL);
+		
+		// Smart Glass
+		GameRegistry.addRecipe(new ItemStack(ModRegistry.BoundaryBlock()),
+				"aaa",
+				"aba",
+				"aaa",
+				'a', Item.getItemFromBlock(Blocks.GLASS),
 				'b', Items.ENDER_PEARL);
 	}
 

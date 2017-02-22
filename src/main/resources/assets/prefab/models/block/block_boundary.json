@@ -1,6 +1,6 @@
 {
     "parent": "block/cube_all",
     "textures": {
-        "all": "prefab:blocks/block_smart_glass"
+        "all": "prefab:blocks/paper_lantern_side"
     }
 }
