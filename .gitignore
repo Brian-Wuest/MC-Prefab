@@ -28,6 +28,7 @@ config
 usercache.json
 usernamecache.json
 options.txt
+mods
 
 gradle/wrapper/gradle-wrapper.jar
 gradle/wrapper/gradle-wrapper.properties
