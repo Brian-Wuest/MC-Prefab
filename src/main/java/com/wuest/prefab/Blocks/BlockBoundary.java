@@ -1,5 +1,8 @@
 package com.wuest.prefab.Blocks;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import javax.annotation.Nullable;
 
 import com.wuest.prefab.ModRegistry;
@@ -15,6 +18,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -24,11 +28,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockSmartGlass extends Block
+public class BlockBoundary extends Block
 {
 	public static final PropertyBool Powered = PropertyBool.create("powered");
 	
-	public BlockSmartGlass(String name)
+	public BlockBoundary(String name)
 	{
 		super(BlockPhasing.BlockMaterial);
 		this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
@@ -53,6 +57,24 @@ public class BlockSmartGlass extends Block
         }
     }
 	
+	/**
+	* Queries if this block should render in a given layer.
+	* ISmartBlockModel can use {@link MinecraftForgeClient#getRenderLayer()} to alter their model based on layer.
+	*/
+    @Override
+    public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer)
+    {
+    	boolean powered = state.getValue(Powered);
+    	
+    	if ((layer == BlockRenderLayer.TRANSLUCENT && !powered)
+    			|| (layer == BlockRenderLayer.SOLID && powered))
+    	{
+    		return true;
+    	}
+
+    	return false;
+    }
+	
     /**
      * Called when a neighboring block was changed and marks that this state should perform any checks during a neighbor
      * change. Cases may include when redstone power is updated, cactus blocks popping off due to a neighboring solid
@@ -68,12 +90,11 @@ public class BlockSmartGlass extends Block
 			{
 		        boolean poweredSide = worldIn.isBlockPowered(pos);
 		        
-		        this.setNeighborGlassBlocksPoweredStatus(worldIn, pos, worldIn.getBlockState(pos).getValue(Powered));
+		        this.setNeighborGlassBlocksPoweredStatus(worldIn, pos, poweredSide, 0, new ArrayList<BlockPos>());
 			}
 		}
     }
 	
-
     /**
      * Convert the given metadata into a BlockState for this Block
      */
@@ -127,6 +148,13 @@ public class BlockSmartGlass extends Block
         return false;
     }
     
+    @Nullable
+    @Override
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, World worldIn, BlockPos pos)
+    {
+    	return FULL_BLOCK_AABB;
+    }
+    
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
     {
@@ -166,30 +194,38 @@ public class BlockSmartGlass extends Block
         return super.shouldSideBeRendered(blockState, blockAccess, pos, side);
     }
     
-    protected void setNeighborGlassBlocksPoweredStatus(World world, BlockPos pos, boolean isPowered)
+    protected void setNeighborGlassBlocksPoweredStatus(World world, BlockPos pos, boolean isPowered, int cascadeCount, ArrayList<BlockPos> cascadedBlockPos)
     {
-    	IBlockState state = world.getBlockState(pos);
+    	cascadeCount++;
     	
+    	if (cascadeCount > 100)
+    	{
+    		return;
+    	}
+    	
+    	IBlockState state = world.getBlockState(pos);
     	world.setBlockState(pos, state.withProperty(Powered, isPowered));
+    	
+    	cascadedBlockPos.add(pos);
     	
     	for (EnumFacing facing : EnumFacing.values())
     	{
     		Block neighborBlock = world.getBlockState(pos.offset(facing)).getBlock();
     		
-    		if (neighborBlock instanceof BlockSmartGlass)
+    		if (neighborBlock instanceof BlockBoundary)
     		{
     			IBlockState blockState = world.getBlockState(pos.offset(facing));
     			
     			// If the block is already in the correct state, there is no need to cascade to it's neighbors.
     			boolean blockPowered = blockState.getValue(Powered);
     			
-    			if (blockPowered == isPowered)
+    			if (cascadedBlockPos.contains(pos.offset(facing)))
     			{
     				continue;
     			}
     			
     			// running this method for the neighbor block will cascade out to it's other neighbors until there are no more Phasic blocks around.
-    			((BlockSmartGlass)neighborBlock).setNeighborGlassBlocksPoweredStatus(world, pos.offset(facing), isPowered);
+    			((BlockBoundary)neighborBlock).setNeighborGlassBlocksPoweredStatus(world, pos.offset(facing), isPowered, cascadeCount, cascadedBlockPos);
     		}
     	}
     }
