@@ -31,9 +31,9 @@ public class ItemAdvancedWareHouse extends ItemWareHouse
 		{
 			if (side == EnumFacing.UP)
 			{
-				if (player.dimension != 0)
+				if (player.dimension == -1 || player.dimension == 1)
 				{
-					player.addChatMessage(new TextComponentString("The Advanced Warehouse can only be placed in the overworld."));
+					player.addChatMessage(new TextComponentString("The Advanced Warehouse cannot be placed in the nether or the end."));
 					return EnumActionResult.FAIL;
 				}
 				

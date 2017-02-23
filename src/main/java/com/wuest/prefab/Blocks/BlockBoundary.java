@@ -16,6 +16,9 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
@@ -31,6 +34,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class BlockBoundary extends Block
 {
 	public static final PropertyBool Powered = PropertyBool.create("powered");
+	public static final AxisAlignedBB Empty_AABB = new AxisAlignedBB(0, 0, 0, 0, 0, 0);
 	
 	public BlockBoundary(String name)
 	{
@@ -55,6 +59,13 @@ public class BlockBoundary extends Block
         {
         	ModEventHandler.RedstoneAffectedBlockPositions.remove(pos);
         }
+        
+        boolean poweredSide = worldIn.isBlockPowered(pos);
+        
+        if (poweredSide)
+        {
+        	this.setNeighborGlassBlocksPoweredStatus(worldIn, pos, !poweredSide, 0, new ArrayList<BlockPos>(), false);
+        }
     }
 	
 	/**
@@ -74,6 +85,36 @@ public class BlockBoundary extends Block
 
     	return false;
     }
+    
+    /**
+     * Gets the {@link IBlockState} to place
+     * @param world The world the block is being placed in
+     * @param pos The position the block is being placed at
+     * @param facing The side the block is being placed on
+     * @param hitX The X coordinate of the hit vector
+     * @param hitY The Y coordinate of the hit vector
+     * @param hitZ The Z coordinate of the hit vector
+     * @param meta The metadata of {@link ItemStack} as processed by {@link Item#getMetadata(int)}
+     * @param placer The entity placing the block
+     * @param stack The stack being used to place this block
+     * @return The state to be placed in the world
+     */
+    @Override
+    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, ItemStack stack)
+    {
+        /**
+         * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
+         * IBlockstate
+         */
+    	boolean poweredSide = world.isBlockPowered(pos);
+    	
+    	if (poweredSide)
+    	{
+    		this.setNeighborGlassBlocksPoweredStatus(world, pos, poweredSide, 0, new ArrayList<BlockPos>(), false);
+    	}
+    	
+    	return this.getDefaultState().withProperty(Powered, poweredSide);
+    }
 	
     /**
      * Called when a neighboring block was changed and marks that this state should perform any checks during a neighbor
@@ -90,7 +131,7 @@ public class BlockBoundary extends Block
 			{
 		        boolean poweredSide = worldIn.isBlockPowered(pos);
 		        
-		        this.setNeighborGlassBlocksPoweredStatus(worldIn, pos, poweredSide, 0, new ArrayList<BlockPos>());
+		        this.setNeighborGlassBlocksPoweredStatus(worldIn, pos, poweredSide, 0, new ArrayList<BlockPos>(), true);
 			}
 		}
     }
@@ -160,7 +201,7 @@ public class BlockBoundary extends Block
     {
     	if (!state.getValue(Powered))
     	{
-    		return NULL_AABB;
+    		return Empty_AABB;
     	}
     	
     	return super.getBoundingBox(state, source, pos);
@@ -171,7 +212,7 @@ public class BlockBoundary extends Block
     protected RayTraceResult rayTrace(BlockPos pos, Vec3d start, Vec3d end, AxisAlignedBB boundingBox)
     {
     	// Make sure to check for NULL_AABB since this can happen when the block is phasing out/in.
-    	if (boundingBox == NULL_AABB)
+    	if (boundingBox == Empty_AABB)
     	{
     		return null;
     	}
@@ -186,7 +227,7 @@ public class BlockBoundary extends Block
         AxisAlignedBB axisalignedbb = blockState.getBoundingBox(blockAccess, pos);
 
         // Make sure to check for NULL_AABB since this can happen when the block is phasing out/in.
-        if (axisalignedbb == NULL_AABB)
+        if (axisalignedbb == Empty_AABB)
         {
         	return false;
         }
@@ -194,7 +235,7 @@ public class BlockBoundary extends Block
         return super.shouldSideBeRendered(blockState, blockAccess, pos, side);
     }
     
-    protected void setNeighborGlassBlocksPoweredStatus(World world, BlockPos pos, boolean isPowered, int cascadeCount, ArrayList<BlockPos> cascadedBlockPos)
+    protected void setNeighborGlassBlocksPoweredStatus(World world, BlockPos pos, boolean isPowered, int cascadeCount, ArrayList<BlockPos> cascadedBlockPos, boolean setCurrentBlock)
     {
     	cascadeCount++;
     	
@@ -203,8 +244,11 @@ public class BlockBoundary extends Block
     		return;
     	}
     	
-    	IBlockState state = world.getBlockState(pos);
-    	world.setBlockState(pos, state.withProperty(Powered, isPowered));
+    	if (setCurrentBlock)
+    	{
+    		IBlockState state = world.getBlockState(pos);
+    		world.setBlockState(pos, state.withProperty(Powered, isPowered));
+    	}
     	
     	cascadedBlockPos.add(pos);
     	
@@ -225,7 +269,7 @@ public class BlockBoundary extends Block
     			}
     			
     			// running this method for the neighbor block will cascade out to it's other neighbors until there are no more Phasic blocks around.
-    			((BlockBoundary)neighborBlock).setNeighborGlassBlocksPoweredStatus(world, pos.offset(facing), isPowered, cascadeCount, cascadedBlockPos);
+    			((BlockBoundary)neighborBlock).setNeighborGlassBlocksPoweredStatus(world, pos.offset(facing), isPowered, cascadeCount, cascadedBlockPos, true);
     		}
     	}
     }

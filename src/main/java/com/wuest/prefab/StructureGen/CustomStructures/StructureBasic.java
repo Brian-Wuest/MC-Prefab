@@ -45,7 +45,7 @@ public class StructureBasic extends Structure
 					originalPos, 
 					cornerPos,
 					cornerPos.south(buildShape.getLength()).west(buildShape.getWidth()).up(buildShape.getHeight()), 
-					"..\\src\\main\\resources\\assets\\prefab\\structures\\" + configuration.basicStructureName.getName()  + ".zip",
+					".\\src\\main\\resources\\assets\\prefab\\structures\\" + configuration.basicStructureName.getName()  + ".zip",
 					clearedSpace,
 					playerFacing);
 		}

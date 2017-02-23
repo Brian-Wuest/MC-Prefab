@@ -179,6 +179,12 @@ public class BuildBlock
 					try
 					{
 						Optional<?> propertyValue  = property.parseValue(buildProperty.getValue());
+						
+						if (!propertyValue.isPresent())
+						{
+							System.out.println("Property value for property name [" + property.getName() + "] for block [" + block.getBlockName() + "] is considered Absent, figure out why.");
+						}
+						
 						Comparable<?> comparable = property.getValueClass().cast(propertyValue.get());
 						
 						if (property.getName().equals("facing") && !(foundBlock instanceof BlockLever))

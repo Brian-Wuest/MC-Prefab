@@ -699,6 +699,19 @@ public class ModRegistry
 				'c', Items.BED,
 				'd', Items.IRON_PICKAXE);
 		
+		// Ender Gateway
+		result = new ItemStack(ModRegistry.BasicStructure());
+		capability = result.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
+		capability.getConfiguration().basicStructureName = EnumBasicStructureName.EnderGateway;
+		GameRegistry.addRecipe(result, 
+				"bdb",
+				"dcd",
+				"bab",
+				'a', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE),
+				'b', new ItemStack(Item.getItemFromBlock(Blocks.PRISMARINE), 1, 1),
+				'c', new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedObsidianBlock()), 1, BlockCompressedObsidian.EnumType.DOUBLE_COMPRESSED_OBSIDIAN.getMetadata()),
+				'd', Item.getItemFromBlock(Blocks.QUARTZ_BLOCK));
+		
 		// Instant Bridge.
 		GameRegistry.addRecipe(new ItemStack(ModRegistry.InstantBridge()),
 				"bab",

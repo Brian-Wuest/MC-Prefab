@@ -60,13 +60,21 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		EnumBasicStructureName.DefenseBunker.getClearPositionOffset().setSouthOffset(1);
 		EnumBasicStructureName.DefenseBunker.getClearPositionOffset().setEastOffset(15);
 		
-		// Defense bunker.
+		// Mineshaft entrance.
 		EnumBasicStructureName.MineshaftEntrance.getClearShape().setDirection(EnumFacing.SOUTH);
 		EnumBasicStructureName.MineshaftEntrance.getClearShape().setHeight(6);
 		EnumBasicStructureName.MineshaftEntrance.getClearShape().setWidth(7);
 		EnumBasicStructureName.MineshaftEntrance.getClearShape().setLength(7);
 		EnumBasicStructureName.MineshaftEntrance.getClearPositionOffset().setSouthOffset(1);
 		EnumBasicStructureName.MineshaftEntrance.getClearPositionOffset().setEastOffset(3);
+		
+		// Ender Gateway.
+		EnumBasicStructureName.EnderGateway.getClearShape().setDirection(EnumFacing.SOUTH);
+		EnumBasicStructureName.EnderGateway.getClearShape().setHeight(26);
+		EnumBasicStructureName.EnderGateway.getClearShape().setWidth(17);
+		EnumBasicStructureName.EnderGateway.getClearShape().setLength(17);
+		EnumBasicStructureName.EnderGateway.getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.EnderGateway.getClearPositionOffset().setEastOffset(8);
 	}
 	
 	/**
@@ -167,7 +175,12 @@ public class BasicStructureConfiguration extends StructureConfiguration
 				"assets/prefab/structures/mineshaft_entrance.zip",
 				"textures/gui/mineshaft_entrance_topdown.png",
 				"item_mineshaft_entrance",
-				135, 159);
+				135, 159),
+		EnderGateway("ender_gateway", "item.prefab.ender_gateway",
+				"assets/prefab/structures/ender_gateway.zip",
+				"textures/gui/ender_gateway_topdown.png",
+				"item_ender_gateway",
+				150, 103);
 		
 		private String name;
 		private String assetLocation;

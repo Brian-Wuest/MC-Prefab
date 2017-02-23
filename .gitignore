@@ -29,6 +29,7 @@ usercache.json
 usernamecache.json
 options.txt
 mods
+journeymap
 
 gradle/wrapper/gradle-wrapper.jar
 gradle/wrapper/gradle-wrapper.properties
