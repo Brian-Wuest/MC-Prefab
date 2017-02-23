@@ -1,5 +1,6 @@
 package com.wuest.prefab.Blocks;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.annotation.Nullable;
@@ -17,7 +18,9 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
@@ -40,9 +43,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 public class BlockPhasing extends Block
 {
-	public static SeeThroughMaterial BlockMaterial = new SeeThroughMaterial(MapColor.AIR).setTranslucent(true);
+	public static SeeThroughMaterial BlockMaterial = new SeeThroughMaterial(MapColor.AIR).setTranslucent(true).setImmovable(true);
 	public static final PropertyEnum<EnumPhasingProgress> Phasing_Progress = PropertyEnum.<EnumPhasingProgress>create("phasing_progress", EnumPhasingProgress.class);
 	public static final PropertyBool Phasing_Out = PropertyBool.create("phasing_out");
+	public static final AxisAlignedBB Empty_AABB = new AxisAlignedBB(0, 0, 0, 0, 0, 0);
 	
 	protected int tickRate = 2;
 	
@@ -52,7 +56,7 @@ public class BlockPhasing extends Block
 		this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
 		this.setSoundType(SoundType.STONE);
 		this.setHardness(0.6F);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(Phasing_Out, false).withProperty(Phasing_Progress, EnumPhasingProgress.Base));
+		this.setDefaultState(this.blockState.getBaseState().withProperty(Phasing_Out, false).withProperty(Phasing_Progress, EnumPhasingProgress.base));
 		
 		ModRegistry.setBlockName(this, name);
 	}
@@ -64,7 +68,7 @@ public class BlockPhasing extends Block
 		{
 			EnumPhasingProgress progress = state.getValue(Phasing_Progress);
 			
-			if (progress == EnumPhasingProgress.Base)
+			if (progress == EnumPhasingProgress.base)
 			{
 				this.removeBlockAndNeighborsFromList(pos, world);
 				
@@ -77,6 +81,36 @@ public class BlockPhasing extends Block
 	}
 	
     /**
+     * Gets the {@link IBlockState} to place
+     * @param world The world the block is being placed in
+     * @param pos The position the block is being placed at
+     * @param facing The side the block is being placed on
+     * @param hitX The X coordinate of the hit vector
+     * @param hitY The Y coordinate of the hit vector
+     * @param hitZ The Z coordinate of the hit vector
+     * @param meta The metadata of {@link ItemStack} as processed by {@link Item#getMetadata(int)}
+     * @param placer The entity placing the block
+     * @param stack The stack being used to place this block
+     * @return The state to be placed in the world
+     */
+    @Override
+    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, ItemStack stack)
+    {
+        /**
+         * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
+         * IBlockstate
+         */
+    	boolean poweredSide = world.isBlockPowered(pos);
+    	
+    	if (poweredSide)
+    	{
+    		this.setPoweredStatusAndUpdateNeighbors(true, world, pos, this.getDefaultState(), 0, new ArrayList<BlockPos>(), false);
+    	}
+    	
+    	return this.getDefaultState().withProperty(Phasing_Out, poweredSide).withProperty(Phasing_Progress, EnumPhasingProgress.base);
+    }
+	
+    /**
      * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
      */
 	@Override
@@ -87,6 +121,15 @@ public class BlockPhasing extends Block
         if (ModEventHandler.RedstoneAffectedBlockPositions.contains(pos))
         {
         	ModEventHandler.RedstoneAffectedBlockPositions.remove(pos);
+        }
+        
+        boolean poweredSide = worldIn.isBlockPowered(pos);
+        EnumPhasingProgress currentState = state.getValue(Phasing_Progress);
+        
+        if (poweredSide && currentState == EnumPhasingProgress.transparent)
+        {
+        	// Set this block and all neighbor Phasic Blocks to base. This will cascade to tall touching Phasic blocks.
+        	this.setPoweredStatusAndUpdateNeighbors(false, worldIn, pos, state, 0, new ArrayList<BlockPos>(), false);
         }
     }
 
@@ -116,15 +159,15 @@ public class BlockPhasing extends Block
 		        
 		        EnumPhasingProgress currentState = state.getValue(Phasing_Progress);
 		        
-		        if (poweredSide && currentState == EnumPhasingProgress.Base)
+		        if (poweredSide && currentState == EnumPhasingProgress.base)
 		        {
 		        	// Set this block and all neighbor Phasic Blocks to transparent. This will cascade to all touching Phasic blocks.
-		        	this.setPoweredStatusAndUpdateNeighbors(true, worldIn, pos, state, 0);
+		        	this.setPoweredStatusAndUpdateNeighbors(true, worldIn, pos, state, 0, new ArrayList<BlockPos>(), true);
 		        }
-		        else if (!poweredSide && currentState == EnumPhasingProgress.Transparent)
+		        else if (!poweredSide && currentState == EnumPhasingProgress.transparent)
 		        {
 		        	// Set this block and all neighbor Phasic Blocks to base. This will cascade to tall touching Phasic blocks.
-		        	this.setPoweredStatusAndUpdateNeighbors(false, worldIn, pos, state, 0);
+		        	this.setPoweredStatusAndUpdateNeighbors(false, worldIn, pos, state, 0, new ArrayList<BlockPos>(), true);
 		        }
 			}
 		}
@@ -144,7 +187,7 @@ public class BlockPhasing extends Block
 		boolean phasingOut = state.getValue(Phasing_Out);
 		
 		// If the state is at base, progress trigger the phasing out to the neighboring blocks.
-		if (progress == EnumPhasingProgress.Base)
+		if (progress == EnumPhasingProgress.base)
 		{
 			for (EnumFacing facing : EnumFacing.VALUES)
 			{
@@ -161,21 +204,21 @@ public class BlockPhasing extends Block
 		
 		int updatedMeta = progress.getMeta();
 		
-		if (updatedMeta == EnumPhasingProgress.Eighty_Percent.getMeta()
+		if (updatedMeta == EnumPhasingProgress.eighty_percent.getMeta()
 				&& phasingOut)
 		{
 			// This next phase should take 100 ticks (5 seconds) since this is the phase out.
 			tickDelay = 100;
 		}
 		
-		if (updatedMeta == EnumPhasingProgress.Transparent.getMeta()
+		if (updatedMeta == EnumPhasingProgress.transparent.getMeta()
 				&& phasingOut)
 		{
 			// set the phasing to in.
 			phasingOut = false;
 		}
 		
-		if (updatedMeta == EnumPhasingProgress.Twenty_Percent.getMeta()
+		if (updatedMeta == EnumPhasingProgress.twenty_percent.getMeta()
 				&& !phasingOut)
 		{
 			// Phasing in for this delay, set the tick delay to -1 and stop the phasing. Reset the phasing out property.
@@ -203,7 +246,7 @@ public class BlockPhasing extends Block
     @Override
 	public int damageDropped(IBlockState state)
     {
-        return EnumPhasingProgress.Base.getMeta();
+        return EnumPhasingProgress.base.getMeta();
     }
 
     /**
@@ -259,8 +302,8 @@ public class BlockPhasing extends Block
     {
     	EnumPhasingProgress progress = state.getValue(Phasing_Progress);
     	
-    	if ((layer == BlockRenderLayer.TRANSLUCENT && progress != EnumPhasingProgress.Base)
-    			|| (layer == BlockRenderLayer.SOLID && progress == EnumPhasingProgress.Base))
+    	if ((layer == BlockRenderLayer.TRANSLUCENT && progress != EnumPhasingProgress.base)
+    			|| (layer == BlockRenderLayer.SOLID && progress == EnumPhasingProgress.base))
     	{
     		return true;
     	}
@@ -283,9 +326,9 @@ public class BlockPhasing extends Block
     {
     	EnumPhasingProgress progress = blockState.getValue(Phasing_Progress);
     	
-    	if (progress == EnumPhasingProgress.Transparent)
+    	if (progress == EnumPhasingProgress.transparent)
     	{
-    		return NULL_AABB;
+    		return Empty_AABB;
     	}
         
     	return super.getCollisionBoundingBox(blockState, worldIn, pos);
@@ -296,9 +339,9 @@ public class BlockPhasing extends Block
     {
     	EnumPhasingProgress progress = state.getValue(Phasing_Progress);
     	
-    	if (progress == EnumPhasingProgress.Transparent)
+    	if (progress == EnumPhasingProgress.transparent)
     	{
-    		return NULL_AABB;
+    		return Empty_AABB;
     	}
     	
     	AxisAlignedBB aabb = super.getBoundingBox(state, source, pos);
@@ -313,7 +356,7 @@ public class BlockPhasing extends Block
     protected RayTraceResult rayTrace(BlockPos pos, Vec3d start, Vec3d end, AxisAlignedBB boundingBox)
     {
     	// Make sure to check for NULL_AABB since this can happen when the block is phasing out/in.
-    	if (boundingBox == NULL_AABB)
+    	if (boundingBox == Empty_AABB)
     	{
     		return null;
     	}
@@ -328,7 +371,7 @@ public class BlockPhasing extends Block
         AxisAlignedBB axisalignedbb = blockState.getBoundingBox(blockAccess, pos);
 
         // Make sure to check for NULL_AABB since this can happen when the block is phasing out/in.
-        if (axisalignedbb == NULL_AABB)
+        if (axisalignedbb == Empty_AABB)
         {
         	return false;
         }
@@ -358,14 +401,17 @@ public class BlockPhasing extends Block
     	}
     }
     
-    protected void setPoweredStatusAndUpdateNeighbors(boolean setToTransparent, World worldIn, BlockPos pos, IBlockState currentBlockPosState, int cascadeCount)
+    protected void setPoweredStatusAndUpdateNeighbors(boolean setToTransparent, World worldIn, BlockPos pos, IBlockState currentBlockPosState, int cascadeCount, ArrayList<BlockPos> cascadedBlockPos, boolean setCurrentBlock)
     {
-    	// Update the current block then go through each of the neighboring blocks to determine if they need to be updated as well.
-    	currentBlockPosState = currentBlockPosState
-    			.withProperty(Phasing_Out, setToTransparent)
-    			.withProperty(Phasing_Progress, setToTransparent ? EnumPhasingProgress.Transparent : EnumPhasingProgress.Base);
-    	
-    	worldIn.setBlockState(pos, currentBlockPosState);
+    	if (setCurrentBlock)
+    	{
+	    	// Update the current block then go through each of the neighboring blocks to determine if they need to be updated as well.
+	    	currentBlockPosState = currentBlockPosState
+	    			.withProperty(Phasing_Out, setToTransparent)
+	    			.withProperty(Phasing_Progress, setToTransparent ? EnumPhasingProgress.transparent : EnumPhasingProgress.base);
+	    	
+	    	worldIn.setBlockState(pos, currentBlockPosState);
+    	}
     	
     	if (!ModEventHandler.RedstoneAffectedBlockPositions.contains(pos))
     	{
@@ -390,26 +436,25 @@ public class BlockPhasing extends Block
     			// If the block is already in the correct state, there is no need to cascade to it's neighbors.
     			EnumPhasingProgress progress = blockState.getValue(Phasing_Progress);
     			
-    			if ((setToTransparent && progress == EnumPhasingProgress.Transparent)
-    					|| (!setToTransparent && progress == EnumPhasingProgress.Base))
+    			if (cascadedBlockPos.contains(pos.offset(facing)))
     			{
     				continue;
     			}
     			
     			// running this method for the neighbor block will cascade out to it's other neighbors until there are no more Phasic blocks around.
-    			((BlockPhasing)neighborBlock).setPoweredStatusAndUpdateNeighbors(setToTransparent, worldIn, pos.offset(facing), blockState, cascadeCount);
+    			((BlockPhasing)neighborBlock).setPoweredStatusAndUpdateNeighbors(setToTransparent, worldIn, pos.offset(facing), blockState, cascadeCount, cascadedBlockPos, true);
     		}
     	}
     }
     
 	public enum EnumPhasingProgress implements IStringSerializable
 	{
-		Base(0, "base"),
-		Twenty_Percent(2, "twenty_percent"),
-		Forty_Percent(4, "forty_percent"),
-		Sixty_Percent(6, "sixty_percent"),
-		Eighty_Percent(8, "eighty_percent"),
-		Transparent(10, "transparent");
+		base(0, "base"),
+		twenty_percent(2, "twenty_percent"),
+		forty_percent(4, "forty_percent"),
+		sixty_percent(6, "sixty_percent"),
+		eighty_percent(8, "eighty_percent"),
+		transparent(10, "transparent");
 		
 		private int meta;
 		private String name;
@@ -435,7 +480,7 @@ public class BlockPhasing extends Block
 				}
 			}
 			
-			return EnumPhasingProgress.Base;
+			return EnumPhasingProgress.base;
 		}
 
 		@Override

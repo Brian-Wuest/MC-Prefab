@@ -164,6 +164,11 @@ public class BlockPaperLantern extends Block
 	    	this.blocksMovement = value;
 	    	return this;
 	    }
+	    
+	    public SeeThroughMaterial setImmovable(boolean value)
+	    {
+	    	return (SeeThroughMaterial)this.setImmovableMobility();
+	    }
 		
 	}
 	

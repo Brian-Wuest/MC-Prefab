@@ -45,9 +45,9 @@ public class ItemProduceFarm extends Item
 		{
 			if (side == EnumFacing.UP)
 			{
-				if (player.dimension != 0)
+				if (player.dimension == -1 || player.dimension == 1)
 				{
-					player.addChatMessage(new TextComponentString("The Produce Farm can only be placed in the overworld."));
+					player.addChatMessage(new TextComponentString("The Produce Farm cannot be placed in the nether or the end."));
 					return EnumActionResult.FAIL;
 				}
 				

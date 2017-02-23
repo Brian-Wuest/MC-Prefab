@@ -44,7 +44,7 @@ public class ItemTreeFarm extends Item
 			{
 				if (player.dimension != 0)
 				{
-					player.addChatMessage(new TextComponentString("The Tree Farm can only be placed in the overworld."));
+					player.addChatMessage(new TextComponentString("The Tree Farm cannot be placed in the nether or the end."));
 					return EnumActionResult.FAIL;
 				}
 				
