@@ -62,7 +62,7 @@ public class BlockPhasing extends Block
 	}
 	
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ)
 	{
 		if (!world.isRemote) 
 		{
@@ -94,7 +94,7 @@ public class BlockPhasing extends Block
      * @return The state to be placed in the world
      */
     @Override
-    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, ItemStack stack)
+    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand)
     {
         /**
          * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
@@ -148,7 +148,7 @@ public class BlockPhasing extends Block
      * block, etc.
      */
 	@Override
-    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn)
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos p_189540_5_)
     {
 		if (!worldIn.isRemote)
 		{
@@ -322,7 +322,7 @@ public class BlockPhasing extends Block
     
     @Nullable
     @Override
-    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, World worldIn, BlockPos pos)
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos)
     {
     	EnumPhasingProgress progress = blockState.getValue(Phasing_Progress);
     	
