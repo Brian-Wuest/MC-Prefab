@@ -33,14 +33,14 @@ public class ItemAdvancedWareHouse extends ItemWareHouse
 			{
 				if (player.dimension == -1 || player.dimension == 1)
 				{
-					player.addChatMessage(new TextComponentString("The Advanced Warehouse cannot be placed in the nether or the end."));
+					player.sendMessage(new TextComponentString("The Advanced Warehouse cannot be placed in the nether or the end."));
 					return EnumActionResult.FAIL;
 				}
 				
 				// Open the client side gui to determine the house options.
 				//StructureWarehouse wareHouse = new StructureWarehouse();
 				//wareHouse.ScanStructure(world, hitBlockPos, player.getHorizontalFacing(), true);
-				player.openGui(Prefab.instance, ModRegistry.GuiAdvancedWareHouse, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+				player.openGui(Prefab.instance, ModRegistry.GuiAdvancedWareHouse, player.world, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
 				return EnumActionResult.PASS;
 			}
 		}

@@ -26,7 +26,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry.Type;
  * @author WuestMan
  *
  */
-@Mod(modid = Prefab.MODID, version = Prefab.VERSION, acceptedMinecraftVersions = "[1.11]", guiFactory = "com.wuest.prefab.Gui.ConfigGuiFactory")
+@Mod(modid = Prefab.MODID, version = Prefab.VERSION, acceptedMinecraftVersions = "[1.11],[1.11.2]", guiFactory = "com.wuest.prefab.Gui.ConfigGuiFactory")
 public class Prefab
 {
 	public static final String MODID = "prefab";

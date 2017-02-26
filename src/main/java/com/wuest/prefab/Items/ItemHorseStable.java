@@ -45,7 +45,7 @@ public class ItemHorseStable extends Item
 				// Open the client side gui to determine the house options.
 				//StructureHorseStable horseStable = new StructureHorseStable();
 				//horseStable.ScanStructure(world, hitBlockPos, player.getHorizontalFacing());
-				player.openGui(Prefab.instance, ModRegistry.GuiHorseStable, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+				player.openGui(Prefab.instance, ModRegistry.GuiHorseStable, player.world, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
 				return EnumActionResult.PASS;
 			}
 		}

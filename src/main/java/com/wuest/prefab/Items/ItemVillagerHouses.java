@@ -56,7 +56,7 @@ public class ItemVillagerHouses extends Item
 				// Open the client side gui to determine the house options.
 				//StructureVillagerHouses structureVillagerHouses = new StructureVillagerHouses();
 				//structureVillagerHouses.ScanStructure(world, hitBlockPos, player.getHorizontalFacing(), VillagerHouseConfiguration.HouseStyle.BLACKSMITH);
-				player.openGui(Prefab.instance, ModRegistry.GuiVillagerHouses, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+				player.openGui(Prefab.instance, ModRegistry.GuiVillagerHouses, player.world, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
 				return EnumActionResult.PASS;
 			}
 		}

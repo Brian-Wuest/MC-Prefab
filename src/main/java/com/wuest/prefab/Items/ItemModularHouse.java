@@ -43,7 +43,7 @@ public class ItemModularHouse extends Item
 				// Open the client side gui to determine the house options.
 				//StructureModularHouse chickenCoop = new StructureModularHouse();
 				//modularHouse.ScanStructure(world, hitBlockPos, player.getHorizontalFacing());
-				player.openGui(Prefab.instance, ModRegistry.GuiModularHouse, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+				player.openGui(Prefab.instance, ModRegistry.GuiModularHouse, player.world, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
 				return EnumActionResult.PASS;
 			}
 		}

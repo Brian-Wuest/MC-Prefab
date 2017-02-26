@@ -161,7 +161,7 @@ public abstract class TileBlockBase<T extends TileEntityBase> extends Block impl
 	{
 		for (EnumFacing enumfacing : EnumFacing.values())
 		{
-			worldIn.func_190524_a(pos.offset(enumfacing), this, pos);
+			worldIn.notifyNeighborsOfStateChange(pos.offset(enumfacing), this, true);
 		}
 
 		worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
@@ -193,7 +193,7 @@ public abstract class TileBlockBase<T extends TileEntityBase> extends Block impl
 	 * IBlockstate
 	 */
 	@Override
-	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
 	{
 		return this.getDefaultState();
 	}

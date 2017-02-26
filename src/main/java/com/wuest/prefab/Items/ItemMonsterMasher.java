@@ -45,14 +45,14 @@ public class ItemMonsterMasher extends Item
 			{
 				if (player.dimension == -1 || player.dimension == 1)
 				{
-					player.addChatMessage(new TextComponentString("The Produce Farm cannot be placed in the nether or the end."));
+					player.sendMessage(new TextComponentString("The Produce Farm cannot be placed in the nether or the end."));
 					return EnumActionResult.FAIL;
 				}
 				
 				// Open the client side gui to determine the house options.
 				//StructureMonsterMasher monsterMasher = new StructureMonsterMasher();
 				//monsterMasher.ScanStructure(world, hitBlockPos, player.getHorizontalFacing());
-				player.openGui(Prefab.instance, ModRegistry.GuiMonsterMasher, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+				player.openGui(Prefab.instance, ModRegistry.GuiMonsterMasher, player.world, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
 				return EnumActionResult.PASS;
 			}
 		}

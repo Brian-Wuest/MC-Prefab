@@ -79,7 +79,7 @@ public class ItemStartHouse extends Item
 			{
 				if (player.dimension == -1 || player.dimension == 1)
 				{
-					player.addChatMessage(new TextComponentString("The Starter House cannot be placed in the nether or the end."));
+					player.sendMessage(new TextComponentString("The Starter House cannot be placed in the nether or the end."));
 					return EnumActionResult.FAIL;
 				}
 				
@@ -87,7 +87,7 @@ public class ItemStartHouse extends Item
 				//StructureAlternateStart alternateStart = new StructureAlternateStart();
 				//alternateStart.ScanLoftStructure(world, hitBlockPos, player.getHorizontalFacing());
 				
-				player.openGui(Prefab.instance, ModRegistry.GuiStartHouseChooser, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+				player.openGui(Prefab.instance, ModRegistry.GuiStartHouseChooser, player.world, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
 				return EnumActionResult.PASS;
 			}
 		}
@@ -153,7 +153,7 @@ public class ItemStartHouse extends Item
 						{
 							// Send a message to the player saying that the structure could not
 							// be built.
-							player.addChatComponentMessage(new TextComponentTranslation(GuiLangKeys.GUI_STRUCTURE_NOBUILD).setStyle(new Style().setColor(TextFormatting.GREEN)), true);
+							player.sendMessage(new TextComponentTranslation(GuiLangKeys.GUI_STRUCTURE_NOBUILD).setStyle(new Style().setColor(TextFormatting.GREEN)));
 							return;
 						}
 						

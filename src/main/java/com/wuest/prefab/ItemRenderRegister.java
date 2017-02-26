@@ -84,7 +84,7 @@ public final class ItemRenderRegister
 	 */
 	public static void regBlock(Block block)
 	{
-		NonNullList<ItemStack> stacks = NonNullList.func_191196_a();
+		NonNullList<ItemStack> stacks = NonNullList.create();
 		
 		Item itemBlock = Item.getItemFromBlock(block);
 		

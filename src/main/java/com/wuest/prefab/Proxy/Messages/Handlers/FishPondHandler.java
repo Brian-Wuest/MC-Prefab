@@ -18,7 +18,7 @@ IMessageHandler<FishPondTagMessage, IMessage>
 			final MessageContext ctx) 
 	{
 		// Or Minecraft.getMinecraft() on the client.
-		IThreadListener mainThread = (WorldServer) ctx.getServerHandler().playerEntity.worldObj; 
+		IThreadListener mainThread = (WorldServer) ctx.getServerHandler().playerEntity.world; 
 
 		mainThread.addScheduledTask(new Runnable() 
 		{
@@ -27,7 +27,7 @@ IMessageHandler<FishPondTagMessage, IMessage>
 			{
 				// This is server side. Build the house.
 				FishPondConfiguration configuration = (new FishPondConfiguration()).ReadFromNBTTagCompound(message.getMessageTag());
-				ItemFishPond.BuildHouse(ctx.getServerHandler().playerEntity, ctx.getServerHandler().playerEntity.worldObj, configuration);
+				ItemFishPond.BuildHouse(ctx.getServerHandler().playerEntity, ctx.getServerHandler().playerEntity.world, configuration);
 			}
 		});
 

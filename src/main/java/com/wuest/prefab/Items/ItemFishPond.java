@@ -44,14 +44,14 @@ public class ItemFishPond extends Item
 			{
 				if (player.dimension == -1 || player.dimension == 1)
 				{
-					player.addChatMessage(new TextComponentString("The Fish Pond cannot be placed in the nether or the end."));
+					player.sendMessage(new TextComponentString("The Fish Pond cannot be placed in the nether or the end."));
 					return EnumActionResult.FAIL;
 				}
 				
 				// Open the client side gui to determine the house options.
 				//StructureFishPond fishPond = new StructureFishPond();
 				//fishPond.ScanStructure(world, hitBlockPos, player.getHorizontalFacing());
-				player.openGui(Prefab.instance, ModRegistry.GuiFishPond, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+				player.openGui(Prefab.instance, ModRegistry.GuiFishPond, player.world, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
 				return EnumActionResult.PASS;
 			}
 		}

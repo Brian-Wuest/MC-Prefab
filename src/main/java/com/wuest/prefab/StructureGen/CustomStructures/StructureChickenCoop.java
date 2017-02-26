@@ -80,7 +80,7 @@ public class StructureChickenCoop extends Structure
 			{
 				EntityChicken entity = new EntityChicken(world);
 				entity.setPosition(this.chickenCoopBlockPos.getX(), this.chickenCoopBlockPos.getY(), this.chickenCoopBlockPos.getZ());
-				world.spawnEntityInWorld(entity);
+				world.spawnEntity(entity);
 			}
 			
 			this.chickenCoopBlockPos = null;

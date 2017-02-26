@@ -44,14 +44,14 @@ public class ItemTreeFarm extends Item
 			{
 				if (player.dimension != 0)
 				{
-					player.addChatMessage(new TextComponentString("The Tree Farm cannot be placed in the nether or the end."));
+					player.sendMessage(new TextComponentString("The Tree Farm cannot be placed in the nether or the end."));
 					return EnumActionResult.FAIL;
 				}
 				
 				// Open the client side gui to determine the house options.
 				//StructureTreeFarm treeFarm = new StructureTreeFarm();
 				//treeFarm.ScanStructure(world, hitBlockPos, player.getHorizontalFacing());
-				player.openGui(Prefab.instance, ModRegistry.GuiTreeFarm, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+				player.openGui(Prefab.instance, ModRegistry.GuiTreeFarm, player.world, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
 				return EnumActionResult.PASS;
 			}
 		}

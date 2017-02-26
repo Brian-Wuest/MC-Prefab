@@ -54,12 +54,12 @@ public class ItemWareHouse extends Item
 			{
 				if (player.dimension == -1 || player.dimension == 1)
 				{
-					player.addChatMessage(new TextComponentString("The Warehouse cannot be placed in the nether or the end."));
+					player.sendMessage(new TextComponentString("The Warehouse cannot be placed in the nether or the end."));
 					return EnumActionResult.FAIL;
 				}
 				
 				// Open the client side gui to determine the house options.
-				player.openGui(Prefab.instance, ModRegistry.GuiWareHouse, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+				player.openGui(Prefab.instance, ModRegistry.GuiWareHouse, player.world, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
 				return EnumActionResult.PASS;
 			}
 		}

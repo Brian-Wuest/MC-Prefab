@@ -107,28 +107,28 @@ public class StructureMonsterMasher extends Structure
 					case 0:
 					{
 						// Zombie.
-						spawner.getSpawnerBaseLogic().func_190894_a(EntityList.func_191306_a(EntityZombie.class));
+						spawner.getSpawnerBaseLogic().setEntityId(EntityList.getKey(EntityZombie.class));
 						break;
 					}
 					
 					case 1:
 					{
 						// Skeleton.
-						spawner.getSpawnerBaseLogic().func_190894_a(EntityList.func_191306_a(EntitySkeleton.class));
+						spawner.getSpawnerBaseLogic().setEntityId(EntityList.getKey(EntitySkeleton.class));
 						break;
 					}
 					
 					case 2:
 					{
 						// Spider.
-						spawner.getSpawnerBaseLogic().func_190894_a(EntityList.func_191306_a(EntitySpider.class));
+						spawner.getSpawnerBaseLogic().setEntityId(EntityList.getKey(EntitySpider.class));
 						break;
 					}
 					
 					default:
 					{
 						// Creeper.
-						spawner.getSpawnerBaseLogic().func_190894_a(EntityList.func_191306_a(EntityCreeper.class));
+						spawner.getSpawnerBaseLogic().setEntityId(EntityList.getKey(EntityCreeper.class));
 						break;
 					}
 				}

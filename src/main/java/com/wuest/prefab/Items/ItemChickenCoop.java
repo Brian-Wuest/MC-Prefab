@@ -42,7 +42,7 @@ public class ItemChickenCoop extends Item
 				// Open the client side gui to determine the house options.
 				//StructureChickenCoop chickenCoop = new StructureChickenCoop();
 				//chickenCoop.ScanStructure(world, hitBlockPos, player.getHorizontalFacing());
-				player.openGui(Prefab.instance, ModRegistry.GuiChickenCoop, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+				player.openGui(Prefab.instance, ModRegistry.GuiChickenCoop, player.world, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
 				return EnumActionResult.PASS;
 			}
 		}

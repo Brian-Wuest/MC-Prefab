@@ -48,7 +48,7 @@ public class ItemNetherGate extends Item
 				// Open the client side gui to determine the house options.
 				//StructureNetherGate netherGate = new StructureNetherGate();
 				//netherGate.ScanStructure(world, hitBlockPos, player.getHorizontalFacing());
-				player.openGui(Prefab.instance, ModRegistry.GuiNetherGate, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+				player.openGui(Prefab.instance, ModRegistry.GuiNetherGate, player.world, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
 				return EnumActionResult.PASS;
 			}
 		}

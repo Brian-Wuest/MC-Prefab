@@ -71,7 +71,7 @@ public class ItemBasicStructure extends Item
 					// Open the client side gui to determine the house options.
 					//StructureBasic basicStructure = new StructureBasic();
 					//basicStructure.ScanStructure(world, hitBlockPos, player.getHorizontalFacing(), structureConfiguration);
-					player.openGui(Prefab.instance, ModRegistry.GuiBasicStructure, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+					player.openGui(Prefab.instance, ModRegistry.GuiBasicStructure, player.world, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
 					return EnumActionResult.PASS;
 				}
 			}
@@ -168,13 +168,13 @@ public class ItemBasicStructure extends Item
 					{
 						ItemStack stack = ItemBasicStructure.getBasicStructureItemInHand(player);
 						
-						if (stack.func_190916_E() == 1)
+						if (stack.getCount() == 1)
 						{
 							player.inventory.deleteStack(stack);
 						}
 						else
 						{
-							stack.func_190920_e(stack.func_190916_E() - 1);
+							stack.setCount(stack.getCount() - 1);
 						}
 						
 						player.inventoryContainer.detectAndSendChanges();
