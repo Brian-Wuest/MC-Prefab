@@ -55,7 +55,6 @@ public class UpdateChecker
 
 			if (Prefab.isDebug)
 			{
-				
 				url = new File("..\\src\\main\\resources\\mcmod.info").toURI().toURL();
 			}
 			else
