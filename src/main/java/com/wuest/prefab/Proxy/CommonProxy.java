@@ -60,6 +60,9 @@ public class CommonProxy implements IGuiHandler
 		
 		// Register the recipes here.
 		ModRegistry.RegisterRecipes();
+		
+		// Make sure that the mod configuration is re-synced after loading all of the recipes.
+		ModConfiguration.syncConfig();
 	}
 	
 	public void init(FMLInitializationEvent event)
