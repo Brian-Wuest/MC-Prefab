@@ -146,14 +146,14 @@ public class ModEventHandler
 					
 					IBlockState state = currentBlock.getBlockState();
 					
-					BuildingMethods.ReplaceBlockNoAir(structure.world, currentBlock.getStartingPosition().getRelativePosition(structure.originalPos, structure.configuration.houseFacing), state);
+					BuildingMethods.ReplaceBlock(structure.world, currentBlock.getStartingPosition().getRelativePosition(structure.originalPos, structure.configuration.houseFacing), state);
 					
 					// After placing the initial block, set the sub-block. This needs to happen as the list isn't always in the correct order.
 					if (currentBlock.getSubBlock() != null)
 					{
 						BuildBlock subBlock = currentBlock.getSubBlock();
 						
-						BuildingMethods.ReplaceBlockNoAir(structure.world, subBlock.getStartingPosition().getRelativePosition(structure.originalPos, structure.configuration.houseFacing), subBlock.getBlockState());
+						BuildingMethods.ReplaceBlock(structure.world, subBlock.getStartingPosition().getRelativePosition(structure.originalPos, structure.configuration.houseFacing), subBlock.getBlockState());
 					}
 				}
 			}

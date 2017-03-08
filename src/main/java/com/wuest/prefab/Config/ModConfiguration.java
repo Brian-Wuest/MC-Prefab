@@ -1,11 +1,19 @@
 package com.wuest.prefab.Config;
 
+import java.util.ArrayList;
+import java.util.Map.Entry;
+
+import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.UpdateChecker;
 import com.wuest.prefab.Gui.GuiLangKeys;
 
+import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import scala.Tuple2;
 
 /**
  * This class is used to hold the mod configuration.
@@ -16,6 +24,7 @@ public class ModConfiguration
 {
 	public static String OPTIONS = "general.options";
 	public static String ChestContentOptions = "general.options.chest contents";
+	public static String RecipeOptions = "general.options.recipes";
 	public static String tagKey = "PrefabConfig";
 	
 	// Config file option names.
@@ -121,6 +130,38 @@ public class ModConfiguration
 		// GUI Options
 		//config.setCategoryComment(WuestConfiguration.GuiOptions, "This category is to configure the various GUI options for this mod.");
 		
+		config.setCategoryComment(ModConfiguration.RecipeOptions, "This category determines if the recipes for the blocks/items in this are enabled");
+		config.setCategoryRequiresMcRestart(ModConfiguration.RecipeOptions, true);
+		
+		// Recipe configuration.
+		for (Entry<String, Tuple2<Boolean, ArrayList<IRecipe>>> set : ModRegistry.SavedRecipes.entrySet())
+		{
+			boolean value = config.getBoolean(set.getKey(), RecipeOptions, true, "Determines if the recipe(s) associated with " + set.getKey() + " are enabled.");
+			boolean originalValue = set.getValue()._1;
+			
+			if (value != originalValue)
+			{
+				set.setValue(new Tuple2<Boolean, ArrayList<IRecipe>>(value, set.getValue()._2));
+				
+				if (value)
+				{
+					// Re-add the recipes to the game registry.
+					for (IRecipe recipe : set.getValue()._2)
+					{
+						GameRegistry.addRecipe(recipe);
+					}
+				}
+				else
+				{
+					// Remove the recipes from the game registry.
+					for (IRecipe recipe :set.getValue()._2)
+					{
+						CraftingManager.getInstance().getRecipeList().remove(recipe);
+					}
+				}
+			}
+		}
+		
 		if (config.hasChanged()) 
 		{
 			config.save();
@@ -154,6 +195,11 @@ public class ModConfiguration
 		
 		tag.setString(ModConfiguration.versionMessageName, UpdateChecker.messageToShow);
 		tag.setBoolean(ModConfiguration.showMessageName, UpdateChecker.showMessage);
+		
+		for (Entry<String, Tuple2<Boolean, ArrayList<IRecipe>>> set : ModRegistry.SavedRecipes.entrySet())
+		{
+			tag.setBoolean(set.getKey(), set.getValue()._1());
+		}
 		
 		return tag;
 	}
@@ -191,6 +237,15 @@ public class ModConfiguration
 		
 		config.versionMessage = tag.getString(ModConfiguration.versionMessageName);
 		config.showMessage = tag.getBoolean(ModConfiguration.showMessageName);
+		
+		for (Entry<String, Tuple2<Boolean, ArrayList<IRecipe>>> set : ModRegistry.SavedRecipes.entrySet())
+		{
+			if (tag.hasKey(set.getKey()))
+			{
+				boolean value = tag.getBoolean(set.getKey());
+				set.setValue(new Tuple2<Boolean, ArrayList<IRecipe>>(value, set.getValue()._2));
+			}
+		}
 		
 		return config;
 	}

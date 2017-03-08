@@ -30,6 +30,7 @@ usernamecache.json
 options.txt
 mods
 journeymap
+realms_persistence.json
 
 gradle/wrapper/gradle-wrapper.jar
 gradle/wrapper/gradle-wrapper.properties
