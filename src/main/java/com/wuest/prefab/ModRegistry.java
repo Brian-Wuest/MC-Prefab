@@ -791,6 +791,20 @@ public class ModRegistry
 				'c', new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedObsidianBlock()), 1, BlockCompressedObsidian.EnumType.DOUBLE_COMPRESSED_OBSIDIAN.getMetadata()),
 				'd', Item.getItemFromBlock(Blocks.QUARTZ_BLOCK));
 		
+		// Aqua base
+		result = new ItemStack(ModRegistry.BasicStructure());
+		capability = result.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
+		capability.getConfiguration().basicStructureName = EnumBasicStructureName.AquaBase;
+		
+		ModRegistry.addShapedRecipe("Aqua Base", result, 
+				"xxx",
+				"yzy",
+				"yay",
+				'x', new ItemStack(Item.getItemFromBlock(Blocks.GLASS)),
+				'y', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE),
+				'z', new ItemStack(Item.getItemFromBlock(Blocks.SEA_LANTERN)),
+				'a', ModRegistry.CoilOfLanterns());
+		
 		// Instant Bridge.
 		ModRegistry.addShapedRecipe("Instant Bridge", 
 				new ItemStack(ModRegistry.InstantBridge()),
@@ -873,18 +887,6 @@ public class ModRegistry
 				"aaa",
 				'a', Item.getItemFromBlock(Blocks.GLASS),
 				'b', Items.ENDER_PEARL);
-		
-		// Aqua base
-		/*
-		 * xxx
-		 * yzy
-		 * yay
-		 * 
-		 *  x = Glass
-		 *  y = Double Compressed Stone
-		 *  z = Sea Lantern
-		 *  a = Coil of Lanterns
-		 */
 	}
 	
 	public static void SaveModRecipe(String displayName, IRecipe recipe)

@@ -75,6 +75,14 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		EnumBasicStructureName.EnderGateway.getClearShape().setLength(17);
 		EnumBasicStructureName.EnderGateway.getClearPositionOffset().setSouthOffset(1);
 		EnumBasicStructureName.EnderGateway.getClearPositionOffset().setEastOffset(8);
+		
+		// Aqua Base.
+		EnumBasicStructureName.AquaBase.getClearShape().setDirection(EnumFacing.SOUTH);
+		EnumBasicStructureName.AquaBase.getClearShape().setHeight(27);
+		EnumBasicStructureName.AquaBase.getClearShape().setWidth(25);
+		EnumBasicStructureName.AquaBase.getClearShape().setLength(38);
+		EnumBasicStructureName.AquaBase.getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.AquaBase.getClearPositionOffset().setEastOffset(12);
 	}
 	
 	/**
@@ -180,7 +188,12 @@ public class BasicStructureConfiguration extends StructureConfiguration
 				"assets/prefab/structures/ender_gateway.zip",
 				"textures/gui/ender_gateway_topdown.png",
 				"item_ender_gateway",
-				150, 103);
+				150, 103),
+		AquaBase("aqua_base", "item.prefab.aqua_base",
+				"assets/prefab/structures/aqua_base.zip",
+				"textures/gui/aqua_base_topdown.png",
+				"item_aqua_base",
+				160, 119);
 		
 		private String name;
 		private String assetLocation;

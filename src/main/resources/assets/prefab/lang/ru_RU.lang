@@ -26,6 +26,7 @@ item.prefab.defense.bunker=Defense Bunker
 item.prefab:item_villager_houses.name=Villager Houses
 item.prefab.mineshaft.entrance=Mineshaft Entrance
 item.prefab.ender_gateway=Ender Gateway
+item.prefab.aqua_base=Aqua Base
  
 tile.prefab:blockCompressedStone.block_compressed_stone.name=Сжатый Камень
 tile.prefab:blockCompressedStone.block_double_compressed_stone.name=Двойной Сжатый Камень

@@ -21,7 +21,7 @@ public class StructureBasic extends Structure
 {
 	BlockPos customBlockPos = null;
 			
-	public static void ScanStructure(World world, BlockPos originalPos, EnumFacing playerFacing, BasicStructureConfiguration configuration)
+	public static void ScanStructure(World world, BlockPos originalPos, EnumFacing playerFacing, BasicStructureConfiguration configuration, boolean includeAir, boolean excludeWater)
 	{
 		BuildClear clearedSpace = new BuildClear();
 		clearedSpace.setShape(configuration.basicStructureName.getClearShape());
@@ -45,9 +45,11 @@ public class StructureBasic extends Structure
 					originalPos, 
 					cornerPos,
 					cornerPos.south(buildShape.getLength()).west(buildShape.getWidth()).up(buildShape.getHeight()), 
-					".\\src\\main\\resources\\assets\\prefab\\structures\\" + configuration.basicStructureName.getName()  + ".zip",
+					"..\\src\\main\\resources\\assets\\prefab\\structures\\" + configuration.basicStructureName.getName()  + ".zip",
 					clearedSpace,
-					playerFacing);
+					playerFacing,
+					includeAir,
+					excludeWater);
 		}
 	}
 	
@@ -103,6 +105,46 @@ public class StructureBasic extends Structure
 			}
 			
 			this.customBlockPos = null;
+		}
+		
+		if (config.basicStructureName.getName().equals(EnumBasicStructureName.AquaBase.getName()))
+		{
+			// Replace the entrance area with air blocks.
+			BlockPos airPos = originalPos.up(4).offset(configuration.houseFacing.getOpposite(), 1);
+
+			// This is the first wall.
+			world.setBlockToAir(airPos.offset(configuration.houseFacing.rotateY()));
+			world.setBlockToAir(airPos);
+			world.setBlockToAir(airPos.offset(configuration.houseFacing.rotateYCCW()));
+			
+			airPos = airPos.down();
+			world.setBlockToAir(airPos.offset(configuration.houseFacing.rotateY()));
+			world.setBlockToAir(airPos);
+			world.setBlockToAir(airPos.offset(configuration.houseFacing.rotateYCCW()));
+			
+			airPos = airPos.down();
+			world.setBlockToAir(airPos.offset(configuration.houseFacing.rotateY()));
+			world.setBlockToAir(airPos);
+			world.setBlockToAir(airPos.offset(configuration.houseFacing.rotateYCCW()));
+			
+			airPos = airPos.down();
+			world.setBlockToAir(airPos.offset(configuration.houseFacing.rotateY()));
+			world.setBlockToAir(airPos);
+			world.setBlockToAir(airPos.offset(configuration.houseFacing.rotateYCCW()));
+			
+			// Second part of the wall.
+			airPos = airPos.offset(configuration.houseFacing.getOpposite()).up();
+			world.setBlockToAir(airPos.offset(configuration.houseFacing.rotateY()));
+			world.setBlockToAir(airPos);
+			world.setBlockToAir(airPos.offset(configuration.houseFacing.rotateYCCW()));
+			
+			airPos = airPos.up();
+			world.setBlockToAir(airPos.offset(configuration.houseFacing.rotateY()));
+			world.setBlockToAir(airPos);
+			world.setBlockToAir(airPos.offset(configuration.houseFacing.rotateYCCW()));
+			
+			airPos = airPos.up();
+			world.setBlockToAir(airPos);
 		}
 	}
 }
