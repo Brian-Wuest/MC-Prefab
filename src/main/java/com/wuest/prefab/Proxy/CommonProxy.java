@@ -41,12 +41,6 @@ public class CommonProxy implements IGuiHandler
 		Prefab.config.load();
 		ModConfiguration.syncConfig();
 		
-		if (this.proxyConfiguration.enableVersionCheckMessage)
-		{
-			// Pull the repository information.
-			UpdateChecker.checkVersion();
-		}
-		
 		// Register messages.
 		ModRegistry.RegisterMessages();
 		
@@ -72,6 +66,10 @@ public class CommonProxy implements IGuiHandler
 	
 	public void postinit(FMLPostInitializationEvent event)
 	{
+		if (this.proxyConfiguration.enableVersionCheckMessage)
+ 		{
+ 			UpdateChecker.checkVersion();
+ 		}
 	}
 	
 	@Override
