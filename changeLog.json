@@ -1,0 +1,13 @@
+{
+  "homepage": "https://minecraft.curseforge.com/projects/prefab",
+  "promos": {
+    "1.10.2-latest": "1.1.1.10",
+	"1.11.2-latest": "1.2.0.5"
+  },
+  "1.10.2": {
+    "1.1.1.10": "New Stuff: Added "Ender Gateway" structure. Added [Phasic Block] and [Boundary Block]\nSome buildings can now be generated in mod-created dimensions.",
+  },
+  "1.11.2": {
+	"1.2.0.5": "New Stuff: Added "Ender Gateway" structure. Added [Phasic Block] and [Boundary Block]\nSome buildings can now be generated in mod-created dimensions."
+  }
+}
