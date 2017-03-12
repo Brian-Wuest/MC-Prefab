@@ -48,7 +48,7 @@ public class StructureMonsterMasher extends Structure
 				originalPos.south(15).west(6).up(18),
 				"C:\\Users\\Brian\\Documents\\GitHub\\MC-Prefab\\src\\main\\resources\\assets\\prefab\\structures\\monster_masher.zip",
 				clearedSpace,
-				playerFacing);	
+				playerFacing, false, false);	
 	}
 	
 	@Override

@@ -29,6 +29,6 @@ public class StructureHorseStable extends Structure
 				originalPos.south(10).west(3).up(7), 
 				"C:\\Users\\Brian\\Documents\\GitHub\\MC-Prefab\\src\\main\\resources\\assets\\prefab\\structures\\horsestable.zip",
 				clearedSpace,
-				playerFacing);	
+				playerFacing, false, false);	
 	}
 }

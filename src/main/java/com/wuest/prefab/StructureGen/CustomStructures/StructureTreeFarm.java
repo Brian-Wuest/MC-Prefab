@@ -28,6 +28,6 @@ public class StructureTreeFarm extends Structure
 				originalPos.south(38).west(19).up(7), 
 				"C:\\Users\\Brian\\Documents\\GitHub\\MC-Prefab\\src\\main\\resources\\assets\\prefab\\structures\\treefarm.zip",
 				clearedSpace,
-				playerFacing);	
+				playerFacing, false, false);	
 	}
 }

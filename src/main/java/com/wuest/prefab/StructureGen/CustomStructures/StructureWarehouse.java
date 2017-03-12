@@ -45,7 +45,7 @@ public class StructureWarehouse extends Structure
 				originalPos.west(8).south(16).up(10), 
 				fileLocation,
 				clearedSpace,
-				playerFacing);	
+				playerFacing, false, false);	
 	}
 	
 	@Override

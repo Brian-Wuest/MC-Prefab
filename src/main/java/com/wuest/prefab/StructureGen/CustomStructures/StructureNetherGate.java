@@ -29,6 +29,6 @@ public class StructureNetherGate extends Structure
 				originalPos.south(26).west(7).up(11), 
 				"C:\\Users\\Brian\\Documents\\GitHub\\MC-Prefab\\src\\main\\resources\\assets\\prefab\\structures\\nethergate.zip",
 				clearedSpace,
-				playerFacing);	
+				playerFacing, false, false);	
 	}
 }

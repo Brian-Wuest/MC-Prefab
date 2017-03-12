@@ -33,6 +33,6 @@ public class StructureModularHouse extends Structure
 				originalPos.south(6).west(3).up(7), 
 				"C:\\Users\\Brian\\Documents\\GitHub\\MC-Prefab\\src\\main\\resources\\assets\\prefab\\structures\\modularHouse.zip",
 				clearedSpace,
-				playerFacing);	
+				playerFacing, false, false);	
 	}
 }

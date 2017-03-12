@@ -37,7 +37,7 @@ public class StructureProduceFarm extends Structure
 				originalPos.south(32).west(3).up(9), 
 				"C:\\Users\\Brian\\Documents\\GitHub\\MC-Prefab\\src\\main\\resources\\assets\\prefab\\structures\\producefarm.zip",
 				clearedSpace,
-				playerFacing);	
+				playerFacing, false, false);	
 	}
 	
 	@Override

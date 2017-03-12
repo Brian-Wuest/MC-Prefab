@@ -29,6 +29,6 @@ public class StructureFishPond extends Structure
 				originalPos.south(32).west(15).up(12),
 				"C:\\Users\\Brian\\Documents\\GitHub\\MC-Prefab\\src\\main\\resources\\assets\\prefab\\structures\\fishpond.zip",
 				clearedSpace,
-				playerFacing);	
+				playerFacing, false, false);	
 	}
 }
