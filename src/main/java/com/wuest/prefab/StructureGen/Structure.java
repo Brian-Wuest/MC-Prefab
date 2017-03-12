@@ -16,6 +16,7 @@ import com.wuest.prefab.Events.ModEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
 
 import net.minecraft.block.*;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.*;
 import net.minecraft.entity.player.EntityPlayer;
@@ -97,20 +98,25 @@ public class Structure
 	}
 
 	public static void ScanStructure(World world, BlockPos originalPos, BlockPos cornerPos1, BlockPos cornerPos2, String fileLocation, BuildClear clearedSpace,
-			EnumFacing playerFacing)
+			EnumFacing playerFacing, boolean includeAir, boolean excludeWater)
 	{
 		Structure scannedStructure = new Structure();
 		scannedStructure.setClearSpace(clearedSpace);
 
 		for (BlockPos currentPos : BlockPos.getAllInBox(cornerPos1, cornerPos2))
 		{
-			if (world.isAirBlock(currentPos))
+			if (world.isAirBlock(currentPos) && !includeAir)
 			{
 				continue;
 			}
 
 			IBlockState currentState = world.getBlockState(currentPos);
 			Block currentBlock = currentState.getBlock();
+			
+			if (currentState.getMaterial() == Material.WATER && excludeWater)
+			{
+				continue;
+			}
 
 			BuildBlock buildBlock = new BuildBlock();
 			buildBlock.setBlockDomain(currentBlock.getRegistryName().getResourceDomain());
@@ -340,12 +346,20 @@ public class Structure
 
 	protected void ClearSpace(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth)
 	{
-		BlockPos startBlockPos = this.clearSpace.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing);
-		BlockPos endBlockPos = startBlockPos.offset(configuration.houseFacing.rotateYCCW(), this.clearSpace.getShape().getWidth() - 1)
-				.offset(configuration.houseFacing.getOpposite(), this.clearSpace.getShape().getLength() - 1)
-				.offset(EnumFacing.UP, this.clearSpace.getShape().getHeight());
-				
-		this.clearedBlockPos = Lists.newArrayList(BlockPos.getAllInBox(startBlockPos, endBlockPos));
+		if (this.clearSpace.getShape().getWidth() > 0 
+				&& this.clearSpace.getShape().getLength() > 0) 
+		{
+			BlockPos startBlockPos = this.clearSpace.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing);
+			BlockPos endBlockPos = startBlockPos.offset(configuration.houseFacing.rotateYCCW(), this.clearSpace.getShape().getWidth() - 1)
+					.offset(configuration.houseFacing.getOpposite(), this.clearSpace.getShape().getLength() - 1)
+					.offset(EnumFacing.UP, this.clearSpace.getShape().getHeight());
+					
+			this.clearedBlockPos = Lists.newArrayList(BlockPos.getAllInBox(startBlockPos, endBlockPos));
+		}
+		else
+		{
+			this.clearedBlockPos = new ArrayList<BlockPos>();
+		}
 	}
 
 	protected Boolean CustomBlockProcessingHandled(StructureConfiguration configuration, BuildBlock block, World world, BlockPos originalPos,

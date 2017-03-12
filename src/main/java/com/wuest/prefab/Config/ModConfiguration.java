@@ -136,7 +136,7 @@ public class ModConfiguration
 		// Recipe configuration.
 		for (Entry<String, Tuple2<Boolean, ArrayList<IRecipe>>> set : ModRegistry.SavedRecipes.entrySet())
 		{
-			boolean value = config.getBoolean(set.getKey(), RecipeOptions, true, "Determines if the recipe(s) associated with " + set.getKey() + " are enabled.");
+			boolean value = config.getBoolean(set.getKey(), RecipeOptions, true, "Determines if the recipe(s) associated with the " + set.getKey() + " are enabled.");
 			boolean originalValue = set.getValue()._1;
 			
 			if (value != originalValue)
