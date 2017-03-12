@@ -33,6 +33,6 @@ public class StructureVillagerHouses extends Structure
 				cornerPos.south(houseStyle.getLength()).west(houseStyle.getWidth()).up(houseStyle.getHeight()), 
 				"../src/main/resources/" + houseStyle.getStructureLocation(),
 				clearedSpace,
-				playerFacing);	
+				playerFacing, false, false);	
 	}
 }
