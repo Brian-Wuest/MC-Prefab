@@ -85,6 +85,7 @@ public class ItemStartHouse extends Item
 				
 				// Open the client side gui to determine the house options.
 				//StructureAlternateStart alternateStart = new StructureAlternateStart();
+				//alternateStart.ScanStructure(world, hitBlockPos, player.getHorizontalFacing(), "desert_house", false, false);
 				//alternateStart.ScanLoftStructure(world, hitBlockPos, player.getHorizontalFacing());
 				
 				player.openGui(Prefab.instance, ModRegistry.GuiStartHouseChooser, player.world, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());

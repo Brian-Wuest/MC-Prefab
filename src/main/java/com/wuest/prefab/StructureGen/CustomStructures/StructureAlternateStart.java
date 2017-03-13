@@ -70,7 +70,7 @@ public class StructureAlternateStart extends Structure
 		clearedSpace.getShape().setDirection(EnumFacing.SOUTH);
 		clearedSpace.getShape().setHeight(12);
 		clearedSpace.getShape().setLength(16);
-		clearedSpace.getShape().setWidth(17);
+		clearedSpace.getShape().setWidth(16);
 		clearedSpace.getStartingPosition().setSouthOffset(1);
 		clearedSpace.getStartingPosition().setEastOffset(8);
 		clearedSpace.getStartingPosition().setHeightOffset(-3);
@@ -78,6 +78,35 @@ public class StructureAlternateStart extends Structure
 		Structure.ScanStructure(world, originalPos, originalPos.east(8).south().down(3), originalPos.south(16).west(8).up(12),
 				"C:\\Users\\Brian\\Documents\\GitHub\\MC-Prefab\\src\\main\\resources\\assets\\prefab\\structures\\hobbit_house.zip", clearedSpace,
 				playerFacing, false, false);
+	}
+	
+	public static void ScanStructure(World world, BlockPos originalPos, EnumFacing playerFacing, String structureFileName, boolean includeAir, boolean excludeWater)
+	{
+		BuildClear clearedSpace = new BuildClear();
+		clearedSpace.getShape().setDirection(EnumFacing.SOUTH);
+		clearedSpace.getShape().setHeight(8);
+		clearedSpace.getShape().setLength(15);
+		clearedSpace.getShape().setWidth(15);
+		clearedSpace.getStartingPosition().setSouthOffset(1);
+		clearedSpace.getStartingPosition().setEastOffset(8);
+		clearedSpace.getStartingPosition().setHeightOffset(-1);
+		
+		BuildShape buildShape = clearedSpace.getShape();
+		PositionOffset offset = clearedSpace.getStartingPosition();
+		
+		int downOffset = offset.getHeightOffset() < 0 ? Math.abs(offset.getHeightOffset()) : 0;
+		BlockPos cornerPos = originalPos.east(offset.getEastOffset()).south(offset.getSouthOffset()).down(downOffset);
+		
+		Structure.ScanStructure(
+				world, 
+				originalPos, 
+				cornerPos,
+				cornerPos.south(buildShape.getLength()).west(buildShape.getWidth()).up(buildShape.getHeight()), 
+				"..\\src\\main\\resources\\assets\\prefab\\structures\\" + structureFileName  + ".zip",
+				clearedSpace,
+				playerFacing,
+				includeAir,
+				excludeWater);
 	}
 
 	@Override

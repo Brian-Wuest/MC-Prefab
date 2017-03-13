@@ -66,6 +66,10 @@ prefab.gui.starter.loft.display=Loft Style
 prefab.gui.starter.loft.notes=A house designed with a lofted area for the chests.
 prefab.gui.starter.hobbit.display=Hobbit Style
 prefab.gui.starter.hobbit.notes=A house designed into the ground like a hobbit.
+prefab.gui.starter.desert.display=Desert Style
+prefab.gui.starter.desert.notes=A house designed like a pyramid.
+prefab.gui.starter.snowy.display=Snowy Style
+prefab.gui.starter.snowy.notes=A house designed like an igloo.
 
 prefab.gui.starter.addtorches=Add Torches
 prefab.gui.starter.addbed=Add Bed
