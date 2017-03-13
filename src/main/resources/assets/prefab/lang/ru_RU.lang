@@ -65,6 +65,10 @@ prefab.gui.starter.loft.display=Лофт Стиль
 prefab.gui.starter.loft.notes=Дом разработанный с чердаком для сундуков.
 prefab.gui.starter.hobbit.display=Стиль Хоббит
 prefab.gui.starter.hobbit.notes=Дом спроектированный под землёй, понравится Хоббитам.
+prefab.gui.starter.desert.display=Desert Style
+prefab.gui.starter.desert.notes=A house designed like a pyramid.
+prefab.gui.starter.snowy.display=Snowy Style
+prefab.gui.starter.snowy.notes=A house designed like an igloo.
  
 prefab.gui.starter.addtorches=Добавить Факелы
 prefab.gui.starter.addbed=Добавить Кровать

@@ -154,7 +154,15 @@ public class GuiStartHouseChooser extends GuiTabScreen
 			}
 			else
 			{
-				this.btnGlassColor.visible = true;
+				if (this.houseStyle == HouseConfiguration.HouseStyle.SNOWY
+						|| this.houseStyle == HouseConfiguration.HouseStyle.DESERT)
+				{
+					this.btnGlassColor.visible = false;
+				}
+				else
+				{
+					this.btnGlassColor.visible = true;
+				}
 			}
 		}
 		
@@ -191,8 +199,16 @@ public class GuiStartHouseChooser extends GuiTabScreen
 			}
 			else
 			{
-				// Color 1:
-				this.mc.fontRendererObj.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS), grayBoxX + 10, grayBoxY + 10, color);
+				if (this.houseStyle == HouseConfiguration.HouseStyle.SNOWY
+						|| this.houseStyle == HouseConfiguration.HouseStyle.DESERT)
+				{
+				
+				}
+				else
+				{
+					// Column 1:
+					this.mc.fontRendererObj.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS), grayBoxX + 10, grayBoxY + 10, color);
+				}
 			}
 		}
 		
@@ -267,6 +283,16 @@ public class GuiStartHouseChooser extends GuiTabScreen
 			{
 				this.houseColor = EnumDyeColor.CYAN;
 				this.btnGlassColor.displayString = GuiLangKeys.translateDye(EnumDyeColor.CYAN);
+			}
+			
+			if (this.houseStyle == HouseConfiguration.HouseStyle.DESERT
+					|| this.houseStyle == HouseConfiguration.HouseStyle.SNOWY)
+			{
+				this.tabBlockTypes.visible = false;
+			}
+			else
+			{
+				this.tabBlockTypes.visible = true;
 			}
 		}
 		else if (button == this.btnHouseFacing)
