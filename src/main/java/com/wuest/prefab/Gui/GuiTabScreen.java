@@ -16,6 +16,11 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 
+/**
+ * 
+ * @author WuestMan
+ *
+ */
 public class GuiTabScreen extends GuiScreen
 {
 	protected GuiTabTray Tabs;
@@ -84,7 +89,18 @@ public class GuiTabScreen extends GuiScreen
     }
     
     /**
+<<<<<<< HEAD
      * Draws a textured rectangle Args: x, y, z, width, height, textureWidth, textureHeight
+=======
+     * Draws a textured rectangle Args: x, y, z, u, v, width, height, textureWidth, textureHeight.
+     * @param x The X-Axis screen coordinate.
+     * @param y The Y-Axis screen coordinate.
+     * @param z The Z-Axis screen coordinate.
+     * @param width The width of the rectangle.
+     * @param height The height of the rectangle.
+     * @param textureWidth The width of the texture.
+     * @param textureHeight The height of the texture.
+>>>>>>> refs/remotes/origin/MC-1.10.2
      */
     public static void drawModalRectWithCustomSizedTexture(int x, int y, int z, int width, int height, float textureWidth, float textureHeight)
     {

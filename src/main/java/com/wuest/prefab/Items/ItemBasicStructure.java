@@ -72,7 +72,6 @@ public class ItemBasicStructure extends Item
 					//StructureBasic basicStructure = new StructureBasic();
 					//basicStructure.ScanStructure(world, hitBlockPos, player.getHorizontalFacing(), structureConfiguration, true, true);
 					player.openGui(Prefab.instance, ModRegistry.GuiBasicStructure, player.world, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
-
 					return EnumActionResult.PASS;
 				}
 			}

@@ -43,13 +43,35 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 public class BlockPhasing extends Block
 {
+	/**
+	 * The see through material for this block.
+	 */
 	public static SeeThroughMaterial BlockMaterial = new SeeThroughMaterial(MapColor.AIR).setTranslucent(true).setImmovable(true);
+	
+	/**
+	 * The phasing progress property.
+	 */
 	public static final PropertyEnum<EnumPhasingProgress> Phasing_Progress = PropertyEnum.<EnumPhasingProgress>create("phasing_progress", EnumPhasingProgress.class);
+	
+	/**
+	 * The phasing out block property.
+	 */
 	public static final PropertyBool Phasing_Out = PropertyBool.create("phasing_out");
+	
+	/**
+	 * The empty collision box value.
+	 */
 	public static final AxisAlignedBB Empty_AABB = new AxisAlignedBB(0, 0, 0, 0, 0, 0);
 	
+	/**
+	 * The tick rage for this block.
+	 */
 	protected int tickRate = 2;
 	
+	/**
+	 * Initializes a new instance of the BlockPhasing class.
+	 * @param name The name to register the block as.
+	 */
 	public BlockPhasing(String name)
 	{
 		super(BlockPhasing.BlockMaterial);
@@ -295,7 +317,11 @@ public class BlockPhasing extends Block
     
 	/**
 	* Queries if this block should render in a given layer.
+<<<<<<< HEAD
 	* ISmartBlockModel can use {@link MinecraftForgeClient#getRenderLayer()} to alter their model based on layer.
+=======
+	* ISmartBlockModel can use MinecraftForgeClient#getRenderLayer() to alter their model based on layer.
+>>>>>>> refs/remotes/origin/MC-1.10.2
 	*/
     @Override
     public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer)
@@ -379,6 +405,11 @@ public class BlockPhasing extends Block
         return super.shouldSideBeRendered(blockState, blockAccess, pos, side);
     }
     
+    /**
+     * Removes the block position from the affected positions static list.
+     * @param pos The position to find.
+     * @param worldIn The world where the position exists.
+     */
     protected void removeBlockAndNeighborsFromList(BlockPos pos, World worldIn)
     {
     	if (ModEventHandler.RedstoneAffectedBlockPositions.contains(pos))
@@ -401,6 +432,16 @@ public class BlockPhasing extends Block
     	}
     }
     
+    /**
+     * Sets the powered status and updates the block's neighbor.
+     * @param setToTransparent Determines if the block should be turned transparent.
+     * @param worldIn The world where the block resides.
+     * @param pos The position of the block.
+     * @param currentBlockPosState The current state of the block at the position.
+     * @param cascadeCount The number of times it has cascaded.
+     * @param cascadedBlockPos The list of cascaded block positions, this is used to determine if this block should be processed again.
+     * @param setCurrentBlock Determines if the current block should be set.
+     */
     protected void setPoweredStatusAndUpdateNeighbors(boolean setToTransparent, World worldIn, BlockPos pos, IBlockState currentBlockPosState, int cascadeCount, ArrayList<BlockPos> cascadedBlockPos, boolean setCurrentBlock)
     {
     	if (setCurrentBlock)
@@ -446,7 +487,12 @@ public class BlockPhasing extends Block
     		}
     	}
     }
-    
+
+    /**
+     * The enum used to determine the meta data for this block. 
+     * @author WuestMan
+     *
+     */
 	public enum EnumPhasingProgress implements IStringSerializable
 	{
 		base(0, "base"),
@@ -470,6 +516,11 @@ public class BlockPhasing extends Block
 			return this.meta;
 		}
 		
+		/**
+		 * Gets a instance based on the meta data.
+		 * @param meta The meta data value to get the enum value for.
+		 * @return An instance of the enum.
+		 */
 		public static EnumPhasingProgress ValueOf(int meta)
 		{
 			for (EnumPhasingProgress progress : EnumPhasingProgress.values())

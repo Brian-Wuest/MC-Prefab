@@ -27,6 +27,9 @@ public abstract class TileEntityBase<T extends BaseConfig> extends TileEntity
 	protected T config;
 	protected ArrayList<Capability> allowedCapabilities;
 	
+	/**
+	 * Initializes a new instance of the TileEntityBase class.
+	 */
 	protected TileEntityBase()
 	{
 	}
@@ -77,7 +80,8 @@ public abstract class TileEntityBase<T extends BaseConfig> extends TileEntity
 	
 	/**
 	 * Transfers capabilities available for transferring to the supplied itemstack.
-	 * @return
+	 * @param stack The item stack to copy capabilities for.
+	 * @return The updated item stack with the original ItemStack's capabilities.
 	 */
 	public ItemStack transferCapabilities(ItemStack stack)
 	{
@@ -99,6 +103,10 @@ public abstract class TileEntityBase<T extends BaseConfig> extends TileEntity
 		return stack;
 	}
 	
+	/**
+	 * Allows this class to get a class of the generic type associated with this class.
+	 * @return A generic class used to create an instance of the generic class.
+	 */
     @SuppressWarnings ("unchecked")
     public Class<T> getTypeParameterClass()
     {
@@ -168,10 +176,10 @@ public abstract class TileEntityBase<T extends BaseConfig> extends TileEntity
 	 * @return true forcing the invalidation of the existing TE, false not to invalidate the existing TE
 	 */
 	@Override
-	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate)
+	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState)
 	{
 		// This tile needs to persist so the data can be saved.
-		return (oldState.getBlock() != newSate.getBlock());
+		return (oldState.getBlock() != newState.getBlock());
 	}
 	
 	@Override
@@ -208,6 +216,10 @@ public abstract class TileEntityBase<T extends BaseConfig> extends TileEntity
 		this.config = this.createConfigInstance().ReadFromNBTTagCompound(compound);
 	}
 	
+	/**
+	 * Creates an instance of the configuration class for this tile entity.
+	 * @return A new instance of the configuration class for this tile entity.
+	 */
 	public T createConfigInstance()
 	{
 		try

@@ -11,6 +11,11 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
+/**
+ * 
+ * @author WuestMan
+ *
+ */
 public class ChickenCoopHandler implements
 IMessageHandler<ChickenCoopTagMessage, IMessage>
 {

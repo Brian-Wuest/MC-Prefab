@@ -4,24 +4,26 @@ import com.wuest.prefab.Config.HouseConfiguration;
 
 import net.minecraftforge.fml.client.config.GuiSlider;
 
+/**
+ * 
+ * @author WuestMan
+ *
+ */
 public class GuiTextSlider extends GuiSlider
 {
 	protected String configName = "";
 
 	/**
 	 * Initializes a new instance of the GuiTextSlider class.
-	 * @param id
-	 * @param xPos
-	 * @param yPos
-	 * @param width
-	 * @param height
-	 * @param prefix
-	 * @param suf
-	 * @param minVal
-	 * @param maxVal
-	 * @param currentVal
-	 * @param showDec
-	 * @param drawStr
+	 * @param id The ID of this slider.
+	 * @param xPos The X-Axis Position of this slider.
+	 * @param yPos The Y-Axis Position of this slider.
+	 * @param width The width of this slider.
+	 * @param height The height of this slider.
+	 * @param minVal The minimum value of this slider.
+	 * @param maxVal The maximum value of this slider.
+	 * @param currentVal The default value of this slider.
+	 * @param name The name of this slider.
 	 */
 	public GuiTextSlider(int id, int xPos, int yPos, int width, int height, double minVal, double maxVal,
 			double currentVal, String name) 

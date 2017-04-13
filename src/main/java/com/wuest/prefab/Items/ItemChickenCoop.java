@@ -18,6 +18,11 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+/**
+ * 
+ * @author WuestMan
+ *
+ */
 public class ItemChickenCoop extends Item
 {
 	public ItemChickenCoop(String name)

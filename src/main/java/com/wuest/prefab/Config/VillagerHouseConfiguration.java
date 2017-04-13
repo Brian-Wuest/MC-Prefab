@@ -19,8 +19,14 @@ public class VillagerHouseConfiguration extends StructureConfiguration
 	
 	private static String houseStyleTag = "houseStyle";
 
+	/**
+	 * The house style.
+	 */
 	public HouseStyle houseStyle;
 	
+	/**
+	 * Initializes a new instance of the VillagerHouseConfiguration class.
+	 */
 	public VillagerHouseConfiguration()
 	{
 		super();
@@ -49,6 +55,11 @@ public class VillagerHouseConfiguration extends StructureConfiguration
 		}
 	}
 	
+	/**
+	 * Custom method to read the NBTTagCompound message.
+	 * @param messageTag The message to create the configuration from.
+	 * @return An new configuration object with the values derived from the NBTTagCompound.
+	 */
 	public VillagerHouseConfiguration ReadFromNBTTagCompound(NBTTagCompound messageTag) 
 	{
 		VillagerHouseConfiguration config = new VillagerHouseConfiguration();
@@ -56,6 +67,11 @@ public class VillagerHouseConfiguration extends StructureConfiguration
 		return (VillagerHouseConfiguration)super.ReadFromNBTTagCompound(messageTag, config);
 	}
 
+	/**
+	 * This house style is used to determine what type of houses are available to the user.
+	 * @author WuestMan
+	 *
+	 */
 	public enum HouseStyle
 	{
 		FLAT_ROOF(0, GuiLangKeys.VILLAGER_HOUSE_FLAT_ROOF, new ResourceLocation("prefab", "textures/gui/village_house_flat.png"), 165, 128, "assets/prefab/structures/villager_house_flat.zip", 5, 6, 5, 2),

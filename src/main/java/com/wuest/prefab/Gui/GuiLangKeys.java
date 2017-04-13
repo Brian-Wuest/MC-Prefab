@@ -12,7 +12,7 @@ import net.minecraft.util.EnumFacing;
 
 /**
  * This class contains the keys for the language files.
- * @author WuestManf
+ * @author WuestMan
  */
 public class GuiLangKeys
 {

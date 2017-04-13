@@ -27,6 +27,12 @@ import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
 
+/**
+ * 
+ * @author WuestMan
+ *
+ */
+
 public class ItemVillagerHouses extends Item
 {
 	private StructureVillagerHouses basic;
@@ -46,6 +52,7 @@ public class ItemVillagerHouses extends Item
 	 * Does something when the item is right-clicked.
 	 */
 	@Override
+
 	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos hitBlockPos, EnumHand hand, EnumFacing side, float hitX,
 			float hitY, float hitZ)
 	{

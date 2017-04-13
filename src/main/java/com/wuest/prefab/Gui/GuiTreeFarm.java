@@ -20,6 +20,11 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 
+/**
+ * 
+ * @author WuestMan
+ *
+ */
 public class GuiTreeFarm extends GuiScreen
 {
 	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/default_background.png");
@@ -154,7 +159,16 @@ public class GuiTreeFarm extends GuiScreen
 	}
 	
     /**
-     * Draws a textured rectangle Args: x, y, z, u, v, width, height, textureWidth, textureHeight
+     * Draws a textured rectangle Args: x, y, z, u, v, width, height, textureWidth, textureHeight.
+     * @param x The X-Axis screen coordinate.
+     * @param y The Y-Axis screen coordinate.
+     * @param z The Z-Axis screen coordinate.
+     * @param u Not sure what this is used for.
+     * @param v Not sure what this used for.
+     * @param width The width of the rectangle.
+     * @param height The height of the rectangle.
+     * @param textureWidth The width of the texture.
+     * @param textureHeight The height of the texture.
      */
     public static void drawModalRectWithCustomSizedTexture(int x, int y, int z, float u, float v, int width, int height, float textureWidth, float textureHeight)
     {

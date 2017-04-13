@@ -18,6 +18,7 @@ public abstract class BaseConfig
 
 	/**
 	 * Reads data from an NBTTagCompound and creates an instance of the configuration class.
+	 * @param <T> The generic type which extends BaseConfig.
 	 * @param compound The compound containing the data to create the configuration class.
 	 * @return An instance containing the data held within the NBTTagCompound
 	 */

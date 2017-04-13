@@ -12,6 +12,11 @@ import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.*;
 
+/**
+ * 
+ * @author WuestMan
+ *
+ */
 public class ClientProxy extends CommonProxy
 {
 	public ModConfiguration serverConfiguration = null;

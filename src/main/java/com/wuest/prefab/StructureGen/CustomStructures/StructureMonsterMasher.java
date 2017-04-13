@@ -18,6 +18,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
+/**
+ * 
+ * @author WuestMan
+ *
+ */
 public class StructureMonsterMasher extends Structure
 {
 	public static final String ASSETLOCATION = "assets/prefab/structures/monster_masher.zip";
@@ -40,7 +45,7 @@ public class StructureMonsterMasher extends Structure
 				originalPos, 
 				originalPos.east(6).south(), 
 				originalPos.south(15).west(6).up(18),
-				"C:\\Users\\Brian\\Documents\\GitHub\\MC-Prefab\\src\\main\\resources\\assets\\prefab\\structures\\monster_masher.zip",
+				"..\\src\\main\\resources\\assets\\prefab\\structures\\monster_masher.zip",
 				clearedSpace,
 				playerFacing, false, false);	
 	}

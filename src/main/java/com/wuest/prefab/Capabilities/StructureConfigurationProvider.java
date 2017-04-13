@@ -16,6 +16,10 @@ public class StructureConfigurationProvider implements ICapabilitySerializable<N
 {
 	private IStructureConfigurationCapability structureConfigurationCapability;
 	
+	/**
+	 * Initializes a new instance of the StructureConfigurationProvider class.
+	 * @param structureConfigurationCapability The {@link IStructureConfigurationCapability} to be used by this class.
+	 */
 	public StructureConfigurationProvider(IStructureConfigurationCapability structureConfigurationCapability)
 	{
 		this.structureConfigurationCapability = structureConfigurationCapability;

@@ -7,6 +7,11 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+/**
+ * 
+ * @author WuestMan
+ *
+ */
 public class StructureNetherGate extends Structure
 {
 	public static final String ASSETLOCATION = "assets/prefab/structures/nethergate.zip";
@@ -27,7 +32,7 @@ public class StructureNetherGate extends Structure
 				originalPos, 
 				originalPos.east(7).down(2).south(), 
 				originalPos.south(26).west(7).up(11), 
-				"C:\\Users\\Brian\\Documents\\GitHub\\MC-Prefab\\src\\main\\resources\\assets\\prefab\\structures\\nethergate.zip",
+				"..\\src\\main\\resources\\assets\\prefab\\structures\\nethergate.zip",
 				clearedSpace,
 				playerFacing, false, false);	
 	}

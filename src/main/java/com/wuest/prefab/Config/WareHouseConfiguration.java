@@ -13,9 +13,20 @@ public class WareHouseConfiguration extends StructureConfiguration
 {
 	private static String dyeColorTag = "dyeColor";
 	private static String advancedTag = "advanced";
+	
+	/**
+	 * Determines the glass color.
+	 */
 	public EnumDyeColor dyeColor;
+	
+	/**
+	 * Determines if the advanced warehouse is generated instead.
+	 */
 	public boolean advanced;
 	
+	/**
+	 * Initializes a new instance of the WareHouseConfiguration class.
+	 */
 	public WareHouseConfiguration()
 	{
 		super();
@@ -44,6 +55,11 @@ public class WareHouseConfiguration extends StructureConfiguration
 		}
 	}
 	
+	/**
+	 * Custom method to read the NBTTagCompound message.
+	 * @param messageTag The message to create the configuration from.
+	 * @return An new configuration object with the values derived from the NBTTagCompound.
+	 */
 	public WareHouseConfiguration ReadFromNBTTagCompound(NBTTagCompound messageTag)
 	{
 		WareHouseConfiguration config = new WareHouseConfiguration();

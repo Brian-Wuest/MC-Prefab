@@ -26,6 +26,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
+/**
+ * 
+ * @author WuestMan
+ *
+ */
 public class StructureAlternateStart extends Structure
 {
 	private BlockPos chestPosition = null;
@@ -46,7 +51,7 @@ public class StructureAlternateStart extends Structure
 		clearedSpace.getStartingPosition().setHeightOffset(-1);
 
 		Structure.ScanStructure(world, originalPos, originalPos.east(8).south().down(), originalPos.south(22).west(3).up(8),
-				"C:\\Users\\Brian\\Documents\\GitHub\\MC-Prefab\\src\\main\\resources\\assets\\prefab\\structures\\ranch_house.zip", clearedSpace,
+				"..\\src\\main\\resources\\assets\\prefab\\structures\\ranch_house.zip", clearedSpace,
 				playerFacing, false, false);
 	}
 
@@ -61,7 +66,7 @@ public class StructureAlternateStart extends Structure
 		clearedSpace.getStartingPosition().setEastOffset(7);
 
 		Structure.ScanStructure(world, originalPos, originalPos.east(7).south(), originalPos.south(14).west(8).up(9),
-				"C:\\Users\\Brian\\Documents\\GitHub\\MC-Prefab\\src\\main\\resources\\assets\\prefab\\structures\\loft_house.zip", clearedSpace, playerFacing, false, false);
+				"..\\src\\main\\resources\\assets\\prefab\\structures\\loft_house.zip", clearedSpace, playerFacing, false, false);
 	}
 
 	public static void ScanHobbitStructure(World world, BlockPos originalPos, EnumFacing playerFacing)
@@ -76,7 +81,7 @@ public class StructureAlternateStart extends Structure
 		clearedSpace.getStartingPosition().setHeightOffset(-3);
 
 		Structure.ScanStructure(world, originalPos, originalPos.east(8).south().down(3), originalPos.south(16).west(8).up(12),
-				"C:\\Users\\Brian\\Documents\\GitHub\\MC-Prefab\\src\\main\\resources\\assets\\prefab\\structures\\hobbit_house.zip", clearedSpace,
+				"..\\src\\main\\resources\\assets\\prefab\\structures\\hobbit_house.zip", clearedSpace,
 				playerFacing, false, false);
 	}
 	

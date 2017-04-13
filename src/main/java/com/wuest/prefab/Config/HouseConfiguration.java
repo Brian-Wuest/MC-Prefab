@@ -63,6 +63,9 @@ public class HouseConfiguration extends StructureConfiguration
 	 */
 	public int houseDepth;
 	
+	/**
+	 * Initializes a new instance of the {@link HouseConfiguration} class.
+	 */
 	public HouseConfiguration()
 	{
 		super();
@@ -105,6 +108,12 @@ public class HouseConfiguration extends StructureConfiguration
 		return tag;
 	}
 
+	/**
+	 * Gets the name used in a text slider.
+	 * @param name The name of the option to get.
+	 * @param value The integer value to associate with the name.
+	 * @return A string representing the value to show in the text slider.
+	 */
 	public static String GetIntegerOptionStringValue(String name, int value)
 	{
 		if (name.equals(GuiLangKeys.STARTER_HOUSE_CEILING_TYPE)
@@ -120,6 +129,11 @@ public class HouseConfiguration extends StructureConfiguration
 		return "";
 	}
 
+	/**
+	 * Custom method to read the NBTTagCompound message.
+	 * @param tag The message to create the configuration from.
+	 * @return An new configuration object with the values derived from the NBTTagCompound.
+	 */
 	public HouseConfiguration ReadFromNBTTagCompound(NBTTagCompound tag)
 	{
 		HouseConfiguration config = null;
@@ -217,6 +231,11 @@ public class HouseConfiguration extends StructureConfiguration
 		return config;
 	}
 
+	/**
+	 * This enum is used to contain the different type of starting houses available to the player.
+	 * @author WuestMan
+	 *
+	 */
 	public enum HouseStyle
 	{
 		BASIC(0, GuiLangKeys.STARTER_HOUSE_BASIC_DISPLAY, new ResourceLocation("prefab", "textures/gui/basic_house.png"), GuiLangKeys.STARTER_HOUSE_BASIC_NOTES, 153, 148, ""),
@@ -245,41 +264,74 @@ public class HouseConfiguration extends StructureConfiguration
 			this.structureLocation = structureLocation;
 		}
 
+		/**
+		 * Gets a unique identifier for this style.
+		 * @return An integer representing the ID of this style.
+		 */
 		public int getValue() 
 		{
 			return value; 
 		}
 		
+		/**
+		 * Gets the display name for this style.
+		 * @return A string representing the name of this style.
+		 */
 		public String getDisplayName() 
 		{
 			return GuiLangKeys.translateString(this.displayName);
 		}
 		
+		/**
+		 * Gets the notes for this house style.
+		 * @return A string representing the translated notes for this style.
+		 */
 		public String getHouseNotes()
 		{
 			return GuiLangKeys.translateString(this.houseNotes);
 		}
 		
+		/**
+		 * Gets the picture used in the GUI for this style.
+		 * @return A resource location representing the image to use for this style.
+		 */
 		public ResourceLocation getHousePicture()
 		{
 			return this.housePicture;
 		}
 		
+		/**
+		 * Gets the width of the image to use with this style.
+		 * @return An integer representing the image width.
+		 */
 		public int getImageWidth()
 		{
 			return this.imageWidth;
 		}
 		
+		/**
+		 * Gets the height of the image to use with this style.
+		 * @return An integer representing the image height.
+		 */
 		public int getImageHeight()
 		{
 			return this.imageHeight;
 		}
 		
+		/**
+		 * Gets a string for the resource location of this style.
+		 * @return A string representing the location of the structure asset in the mod.
+		 */
 		public String getStructureLocation()
 		{
 			return this.structureLocation;
 		}
 
+		/**
+		 * Returns a house style based off of an integer value.
+		 * @param value The integer value representing the house style.
+		 * @return The house style found or HouseStyle.Basic if none found.
+		 */
 		public static HouseStyle ValueOf(int value)
 		{
 			switch (value)

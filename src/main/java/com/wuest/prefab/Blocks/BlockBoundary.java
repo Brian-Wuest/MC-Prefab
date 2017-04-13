@@ -32,11 +32,27 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+/**
+ * 
+ * @author WuestMan
+ *
+ */
 public class BlockBoundary extends Block
 {
+	/**
+	 * The powered meta data property.
+	 */
 	public static final PropertyBool Powered = PropertyBool.create("powered");
+	
+	/**
+	 * An empty collision box.
+	 */
 	public static final AxisAlignedBB Empty_AABB = new AxisAlignedBB(0, 0, 0, 0, 0, 0);
 	
+	/**
+	 * Initializes a new instance of the BlockBoundary class.
+	 * @param name The name of the block to register.
+	 */
 	public BlockBoundary(String name)
 	{
 		super(BlockPhasing.BlockMaterial);
@@ -71,7 +87,11 @@ public class BlockBoundary extends Block
 	
 	/**
 	* Queries if this block should render in a given layer.
+<<<<<<< HEAD
 	* ISmartBlockModel can use {@link MinecraftForgeClient#getRenderLayer()} to alter their model based on layer.
+=======
+	* ISmartBlockModel can use MinecraftForgeClient#getRenderLayer() to alter their model based on layer.
+>>>>>>> refs/remotes/origin/MC-1.10.2
 	*/
     @Override
     public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer)
@@ -97,7 +117,7 @@ public class BlockBoundary extends Block
      * @param hitZ The Z coordinate of the hit vector
      * @param meta The metadata of {@link ItemStack} as processed by {@link Item#getMetadata(int)}
      * @param placer The entity placing the block
-     * @param stack The stack being used to place this block
+     * @param hand The hand used for the placement.
      * @return The state to be placed in the world
      */
     @Override
@@ -236,6 +256,15 @@ public class BlockBoundary extends Block
         return super.shouldSideBeRendered(blockState, blockAccess, pos, side);
     }
     
+    /**
+     * Sets the neighbor powered status
+     * @param world The world where the block resides.
+     * @param pos The position of the block.
+     * @param isPowered Determines if the block is powered.
+     * @param cascadeCount How many times this has been cascaded.
+     * @param cascadedBlockPos All of the block positions which have been cascaded too.
+     * @param setCurrentBlock Determines if the current block should be set.
+     */
     protected void setNeighborGlassBlocksPoweredStatus(World world, BlockPos pos, boolean isPowered, int cascadeCount, ArrayList<BlockPos> cascadedBlockPos, boolean setCurrentBlock)
     {
     	cascadeCount++;

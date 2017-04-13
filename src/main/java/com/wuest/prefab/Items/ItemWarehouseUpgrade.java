@@ -5,6 +5,11 @@ import com.wuest.prefab.ModRegistry;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
+/**
+ * 
+ * @author WuestMan
+ *
+ */
 public class ItemWarehouseUpgrade extends Item
 {
 	public ItemWarehouseUpgrade(String name)

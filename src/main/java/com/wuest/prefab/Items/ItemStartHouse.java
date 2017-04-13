@@ -49,6 +49,11 @@ import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureAlternateStart;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureChickenCoop;
 
+/**
+ * 
+ * @author WuestMan
+ *
+ */
 public class ItemStartHouse extends Item
 {
 	protected static BlockPos NorthEastCorner;

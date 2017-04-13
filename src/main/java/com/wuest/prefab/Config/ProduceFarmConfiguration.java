@@ -4,6 +4,11 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 
+/**
+ * 
+ * @author WuestMan
+ *
+ */
 public class ProduceFarmConfiguration extends StructureConfiguration 
 {
 	private static String dyeColorTag = "dyeColor";
@@ -34,6 +39,11 @@ public class ProduceFarmConfiguration extends StructureConfiguration
 		return tag;
 	}
 	
+	/**
+	 * Custom method to read the NBTTagCompound message.
+	 * @param messageTag The message to create the configuration from.
+	 * @return An new configuration object with the values derived from the NBTTagCompound.
+	 */
 	public ProduceFarmConfiguration ReadFromNBTTagCompound(NBTTagCompound messageTag) 
 	{
 		ProduceFarmConfiguration config = new ProduceFarmConfiguration();

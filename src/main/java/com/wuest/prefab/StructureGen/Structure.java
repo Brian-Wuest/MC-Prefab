@@ -65,9 +65,10 @@ public class Structure
 	 * Creates an instance of the structure after reading from a resource
 	 * location and converting it from JSON.
 	 * 
+	 * @param <T> The type which extends Structure.
 	 * @param resourceLocation The location of the JSON file to load. Example:
 	 *            "assets/prefab/structures/warehouse.json"
-	 * @return
+	 * @param child The child class which extends Structure.
 	 * @return Null if the resource wasn't found or the JSON could not be
 	 *         parsed, otherwise the de-serialized object.
 	 */
@@ -215,8 +216,9 @@ public class Structure
 	 * @param configuration The configuration the user updated.
 	 * @param world The current world.
 	 * @param originalPos The block the user clicked on.
-	 * @param assumedNorth This should always be "NORTH" when the file is based
-	 *            on a scan.
+	 * @param assumedNorth This should always be "NORTH" when the file is based on a scan.
+	 * @param player The player requesting the structure.
+	 * @return True if the build can occur, otherwise false.
 	 */
 	public boolean BuildStructure(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth, EntityPlayer player)
 	{

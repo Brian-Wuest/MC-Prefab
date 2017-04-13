@@ -5,6 +5,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 
+/**
+ * 
+ * @author WuestMan
+ *
+ */
 public class TagMessage implements IMessage
 {
 	private NBTTagCompound tagMessage;

@@ -33,9 +33,15 @@ tile.prefab:block_compressed_stone.block_double_compressed_stone.name=Двойн
 tile.prefab:block_compressed_stone.block_triple_compressed_stone.name=Тройной Сжатый Камень
 tile.prefab:block_compressed_stone.block_compressed_glowstone.name=Сжатый Светокамень
 tile.prefab:block_compressed_stone.block_double_compressed_glowstone.name=Двойной Сжатый Светокамень
+<<<<<<< HEAD
 tile.prefab:block_compressed_stone.block_compressed_dirt.name=Сжата Гр�?зь
 tile.prefab:block_compressed_stone.block_double_compressed_dirt.name=Двойна�? Сжата�? Гр�?зь
 tile.prefab:blockDrafter.name=Drafter
+=======
+tile.prefab:block_compressed_stone.block_compressed_dirt.name=Сжата Грязь
+tile.prefab:block_compressed_stone.block_double_compressed_dirt.name=Двойная Сжатая Грязь
+tile.prefab:block_drafter.name=Drafter
+>>>>>>> refs/remotes/origin/MC-1.10.2
 tile.prefab:block_paper_lantern.name=Paper Lantern
 tile.prefab:block_compressed_obsidian.block_compressed_obsidian.name=Compressed Obsidian
 tile.prefab:block_compressed_obsidian.block_double_compressed_obsidian.name=Double Compressed Obsidian
@@ -105,11 +111,19 @@ prefab.gui.treefarm.structure.size=Эта �?труктура размером 
 prefab.gui.structure.facing=Структура облицовочные
 prefab.gui.structure.glass=Цвет Стекла
 
+<<<<<<< HEAD
 prefab.gui.structure.facing.player=Note: If you're facing north, choose south so the structure is facing you.  
 prefab.gui.structure.block.clicked=В кра�?ной коробке на ри�?унке �?права показывает какой блок вы щелкнули.
 prefab.gui.structure.door.facing=Примечание: Е�?ли вы �?толкнули�?ь на �?евер, юг, так что выбрать двери перед вами.
 prefab.gui.structure.nobuild=Cannot build structure due to protected blocks/area.
 
+=======
+prefab.gui.structure.facing.player=Note: If you're facing north, choose south so the structure is facing you. 
+prefab.gui.structure.block.clicked=В красной коробке на рисунке справа показывает какой блок вы щелкнули.
+prefab.gui.structure.door.facing=Примечание: Если вы столкнулись на север, юг, так что выбрать двери перед вами.
+prefab.gui.structure.nobuild=Cannot build structure due to protected blocks/area.
+ 
+>>>>>>> refs/remotes/origin/MC-1.10.2
 prefab.gui.button.build=Строить!
 prefab.gui.button.cancel=Отмена
 prefab.gui.button.preview=Preview!

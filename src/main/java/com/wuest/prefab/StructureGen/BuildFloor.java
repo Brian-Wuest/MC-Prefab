@@ -1,5 +1,11 @@
 package com.wuest.prefab.StructureGen;
 
+/**
+ * 
+ * @author WuestMan
+ *
+ */
+@Deprecated
 public class BuildFloor extends BuildClear
 {
 	private String blockDomain;

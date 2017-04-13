@@ -1,5 +1,10 @@
 package com.wuest.prefab.Gui;
 
+/**
+ * 
+ * @author WuestMan
+ *
+ */
 public class GuiAdvancedWareHouse extends GuiWareHouse
 {
 

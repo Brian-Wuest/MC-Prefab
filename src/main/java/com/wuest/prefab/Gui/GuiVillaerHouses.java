@@ -18,9 +18,14 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 
+/**
+ * 
+ * @author WuestMan
+ *
+ */
 public class GuiVillaerHouses extends GuiScreen
 {
-	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/default_background.png");
+	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/defaultBackground.png");
 	
 	protected GuiButtonExt btnHouseStyle;
 	protected GuiButtonExt btnCancel;

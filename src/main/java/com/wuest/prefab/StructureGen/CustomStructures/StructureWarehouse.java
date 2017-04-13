@@ -15,6 +15,11 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+/**
+ * 
+ * @author WuestMan
+ *
+ */
 public class StructureWarehouse extends Structure
 {
 	public static final String ASSETLOCATION = "assets/prefab/structures/warehouse.zip"; 
@@ -31,11 +36,11 @@ public class StructureWarehouse extends Structure
 		clearedSpace.getStartingPosition().setHeightOffset(-5);
 		clearedSpace.getStartingPosition().setSouthOffset(1);
 		
-		String fileLocation = "C:\\Users\\Brian\\Documents\\GitHub\\MC-Prefab\\src\\main\\resources\\assets\\prefab\\structures\\warehouse.zip";
+		String fileLocation = "..\\src\\main\\resources\\assets\\prefab\\structures\\warehouse.zip";
 		
 		if (advanced)
 		{
-			fileLocation = "C:\\Users\\Brian\\Documents\\GitHub\\MC-Prefab\\src\\main\\resources\\assets\\prefab\\structures\\advanced_warehouse.zip";
+			fileLocation = "..\\src\\main\\resources\\assets\\prefab\\structures\\advanced_warehouse.zip";
 		}
 		
 		Structure.ScanStructure(

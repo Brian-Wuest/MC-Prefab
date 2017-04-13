@@ -21,6 +21,11 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 
+/**
+ * This class is used to assist in registering blocks/items for rendering.
+ * @author WuestMan
+ *
+ */
 public final class ItemRenderRegister 
 {
 	/**
@@ -50,6 +55,12 @@ public final class ItemRenderRegister
 		ItemRenderRegister.regItem(item, 0, item.getUnlocalizedName().substring(5));
 	}
 	
+	/**
+	 * Registers an item to be rendered. This is needed for textures.
+	 * @param item The item to register.
+	 * @param metaData The meta data for the item to register.
+	 * @param blockName the name of the block.
+	 */
 	public static void regItem(Item item, int metaData, String blockName)
 	{
 		ModelResourceLocation location = new ModelResourceLocation(blockName, "inventory");

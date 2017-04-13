@@ -1,5 +1,10 @@
 package com.wuest.prefab;
 
+/**
+ * This class is used for serialization purposes. 
+ * @author WuestMan
+ * @deprecated This class should not be used. 
+ */
 public class ModInfo
 {
 	public String modid;

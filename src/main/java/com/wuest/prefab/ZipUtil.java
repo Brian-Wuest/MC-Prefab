@@ -24,8 +24,18 @@ import com.google.common.io.CharStreams;
 import com.google.common.io.Files;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureAlternateStart;
 
+/**
+ * 
+ * @author WuestMan
+ *
+ */
 public class ZipUtil
 {
+	/**
+	 * Compresses a string and converts to a byte array for writing.
+	 * @param originalString The string to compress.
+	 * @return A byte array which has ben compressed using GZip.
+	 */
 	public static byte[] compressString(String originalString)
 	{
 		if (originalString == null || originalString.length() == 0)
@@ -53,6 +63,11 @@ public class ZipUtil
 		return null;
 	}
 	
+	/**
+	 * De-compresses a GZip compressed byte array. Expects UTF-8 encoding.
+	 * @param compressedString The byte array to de-compress.
+	 * @return A string of the de-compressed data.
+	 */
 	public static String decompressString(byte[] compressedString)
 	{
 		ByteArrayInputStream bis = new ByteArrayInputStream(compressedString);
@@ -84,6 +99,11 @@ public class ZipUtil
 		return sb.toString();
 	}
 	
+	/**
+	 * De-compresses a GZip compressed byte array. Expects UTF-8 encoding.
+	 * @param compressedBytes The byte array to de-compress.
+	 * @return A byte array of the de-compressed data.
+	 */
 	public static byte[] decompressBytes(byte[] compressedBytes)
 	{
 		try
@@ -116,6 +136,11 @@ public class ZipUtil
 		return null;
 	}
 	
+	/**
+	 * Compresses the resource file to a local computer location.
+	 * @param resourceLocation The resource location to get data from.
+	 * @param fileLocation The file location to save the compressed data too.
+	 */
 	public static void zipResourceToFile(String resourceLocation, String fileLocation)
 	{
 		InputStream stream = Prefab.class.getClassLoader().getResourceAsStream(resourceLocation);
@@ -139,6 +164,11 @@ public class ZipUtil
 		}
 	}
 	
+	/**
+	 * Compresses a string to a file location.
+	 * @param value The string to compress.
+	 * @param fileLocation The location of the file to write the compressed data too.
+	 */
 	public static void zipStringToFile(String value, String fileLocation)
 	{
 		try
@@ -158,6 +188,11 @@ public class ZipUtil
 		}
 	}
 	
+	/**
+	 * De-compresses a resource location into a string.
+	 * @param resourceLocation The resource location to de-compress.
+	 * @return The de-compressed string.
+	 */
 	public static String decompressResource(String resourceLocation)
 	{
 		InputStream stream = Prefab.class.getClassLoader().getResourceAsStream(resourceLocation);
@@ -178,6 +213,11 @@ public class ZipUtil
 		return returnValue;
 	}
 
+	/**
+	 * De-compresses a resource location to a buffered image.
+	 * @param resourceLocation The resource location of the image.
+	 * @return A buffered image for the resource location.
+	 */
 	public static BufferedImage decompressImageResource(String resourceLocation)
 	{
 		InputStream stream = Prefab.class.getClassLoader().getResourceAsStream(resourceLocation);

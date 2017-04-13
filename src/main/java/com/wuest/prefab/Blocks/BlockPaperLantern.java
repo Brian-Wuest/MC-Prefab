@@ -27,8 +27,15 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 public class BlockPaperLantern extends Block
 {
+	/**
+	 * The see through material for this block.
+	 */
 	public static SeeThroughMaterial BlockMaterial = new SeeThroughMaterial(MapColor.AIR).setTranslucent(true);
 	
+	/**
+	 * Initializes a new instance of the BlockPaperLantern class.
+	 * @param name The name to register this block as.
+	 */
 	public BlockPaperLantern(String name)
 	{
 		super(BlockMaterial);
@@ -159,12 +166,22 @@ public class BlockPaperLantern extends Block
 	        return this.blocksMovement;
 	    }
 	    
+	    /**
+	     * Sets the blocks movement field.
+	     * @param value The new value of the field.
+	     * @return This instance for property shortcuts.
+	     */
 	    public SeeThroughMaterial setBlocksMovement(boolean value)
 	    {
 	    	this.blocksMovement = value;
 	    	return this;
 	    }
 	    
+	    /**
+	     * Sets the immovable field.
+	     * @param value The new value of the field.
+	     * @return This instance for property shortcuts.
+	     */
 	    public SeeThroughMaterial setImmovable(boolean value)
 	    {
 	    	return (SeeThroughMaterial)this.setImmovableMobility();
