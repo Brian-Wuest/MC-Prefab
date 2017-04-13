@@ -61,8 +61,9 @@ public class BlockDrafter extends TileBlockBase<TileEntityDrafter> implements IM
 	/**
      * Determines if the player can harvest this block, obtaining it's drops when the block is destroyed.
      *
+     * @param world The world where the block resides.
+     * @param pos The position of the current block.
      * @param player The player damaging the block, may be null
-     * @param meta The block's current metadata
      * @return True to spawn the drops
      */
     @Override

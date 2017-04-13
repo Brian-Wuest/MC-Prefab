@@ -7,6 +7,11 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+/**
+ * 
+ * @author WuestMan
+ *
+ */
 public class StructureHorseStable extends Structure
 {
 	public static final String ASSETLOCATION = "assets/prefab/structures/horsestable.zip";
@@ -27,7 +32,7 @@ public class StructureHorseStable extends Structure
 				originalPos, 
 				originalPos.east(4).down(4), 
 				originalPos.south(10).west(3).up(7), 
-				"C:\\Users\\Brian\\Documents\\GitHub\\MC-Prefab\\src\\main\\resources\\assets\\prefab\\structures\\horsestable.zip",
+				"..\\src\\main\\resources\\assets\\prefab\\structures\\horsestable.zip",
 				clearedSpace,
 				playerFacing, false, false);	
 	}

@@ -39,7 +39,8 @@ public class BuildingMethods
 	 * @param width - The radius x-axis of how wide to clear. (East/West)
 	 * @param height - How high from the starting position to clear (this
 	 *            includes starting position).
-	 * @param depth - The radius z-axis of how deep to clear. (North/South)
+	 * @param depth - The radius z-axis of how deep to clear. (North/South).
+	 * @param houseFacing This is used to determine which direction the clearing should start.
 	 */
 	public static void ClearSpace(World world, BlockPos startingPosition, int width, int height, int depth, EnumFacing houseFacing)
 	{
@@ -65,6 +66,7 @@ public class BuildingMethods
 	 * @param height - How high from the starting position to clear (this
 	 *            includes starting position).
 	 * @param depth - The radius z-axis of how deep to clear. (North/South)
+	 * @param houseFacing This is used to determine which direction the clearing should start.
 	 */
 	public static void ClearSpaceExact(World world, BlockPos startingPosition, int width, int height, int depth, EnumFacing houseFacing)
 	{
@@ -79,6 +81,16 @@ public class BuildingMethods
 		}
 	}
 
+	/**
+	 * This method consolidate drops for the current block into an existing ArrayList
+	 * @param block The block to get the drops from.
+	 * @param world The world which the block resides.
+	 * @param pos The block position.
+	 * @param state The current block state.
+	 * @param originalStacks The original list of stacks.
+	 * @param itemsToNotAdd The items to not add to the list.
+	 * @return An updated list of item stacks.
+	 */
 	public static ArrayList<ItemStack> ConsolidateDrops(Block block, World world, BlockPos pos, IBlockState state, ArrayList<ItemStack> originalStacks, ArrayList<Item> itemsToNotAdd)
 	{
 		for (ItemStack stack : block.getDrops(world, pos, state, 1))
@@ -119,6 +131,17 @@ public class BuildingMethods
 		return originalStacks;
 	}
 
+	/**
+	 * Creates a wall of blocks.
+	 * @param world The world to create the wall.
+	 * @param height The height of the wall.
+	 * @param length The length of the wall.
+	 * @param direction The direction of the wall.
+	 * @param startingPosition Where the wall should start.
+	 * @param replacementBlock The block to create the wall out of.
+	 * @param itemsToNotAdd When consolidating drops, the items to not include in the returned list. 
+	 * @return An Arraylist of Itemstacks which contains the drops from any destroyed blocks.
+	 */
 	public static ArrayList<ItemStack> CreateWall(World world, int height, int length, EnumFacing direction, BlockPos startingPosition, Block replacementBlock, ArrayList<Item> itemsToNotAdd)
 	{
 		ArrayList<ItemStack> itemsDropped = new ArrayList<ItemStack>();
@@ -154,6 +177,17 @@ public class BuildingMethods
 		return itemsDropped;
 	}
 
+	/**
+	 * 
+	 * Creates a wall of blocks.
+	 * @param world The world to create the wall.
+	 * @param height The height of the wall.
+	 * @param length The length of the wall.
+	 * @param direction The direction of the wall.
+	 * @param startingPosition Where the wall should start.
+	 * @param replacementBlock The block to create the wall out of.
+	 * @return An Arraylist of Itemstacks which contains the drops from any destroyed blocks.
+	 */
 	public static ArrayList<ItemStack> CreateWall(World world, int height, int length, EnumFacing direction, BlockPos startingPosition,
 			IBlockState replacementBlock)
 	{
@@ -185,6 +219,18 @@ public class BuildingMethods
 		return itemsDropped;
 	}
 
+	/**
+	 * Creates a square floor of blocks.
+	 * @param world The world to create the floor in.
+	 * @param pos The block position to start creating the floor.
+	 * @param block The Type of block to create the floor out of.
+	 * @param width The width of the floor.
+	 * @param depth The length of the floor.
+	 * @param originalStack The original stack of items from previously harvested blocks.
+	 * @param facing The direction of the floor.
+	 * @param itemsToNotAdd The items to not include in the returned consolidated items.
+	 * @return An ArrayList of Itemstacks which contains the drops from all harvested blocks.
+	 */
 	public static ArrayList<ItemStack> SetFloor(World world, BlockPos pos, Block block, int width, int depth, ArrayList<ItemStack> originalStack, EnumFacing facing, ArrayList<Item> itemsToNotAdd)
 	{
 		for (int i = 0; i < width; i++)
@@ -197,6 +243,18 @@ public class BuildingMethods
 		return originalStack;
 	}
 
+	/**
+	 * Creates a ceiling (floating floor) in the world.
+	 * @param world The world to create the floor in.
+	 * @param pos The block position to start creating the floor.
+	 * @param block The Type of block to create the floor out of.
+	 * @param width The width of the floor.
+	 * @param depth The length of the floor.
+	 * @param stairs The type of block to create the roof out of.
+	 * @param configuration The house configuration object. This is specifically used in the basic house.
+	 * @param houseFacing The direction to start the ceiling.
+	 * @param itemsToNotAdd The items to not include in the harvested blocks.
+	 */
 	public static void SetCeiling(World world, BlockPos pos, Block block, int width, int depth, Block stairs, HouseConfiguration configuration, EnumFacing houseFacing, ArrayList<Item> itemsToNotAdd)
 	{
 		// If the ceiling is flat, call SetFloor since it's laid out the same.
@@ -431,9 +489,8 @@ public class BuildingMethods
 	 * 
 	 * @param configuration The structure configuration.
 	 * @param world The world to build the structure in.
-	 * @param originalPos The original block position.
-	 * @param assumedNorth The assumed north of the structure (usually just
-	 *            EnumFacing.North).
+	 * @param startBlockPos The start location to start checking blocks.
+	 * @param endBlockPos The end location for checking blocks. Combined with the startBlockPos, this should be a cube.
 	 * @param player The player running this build request.
 	 * @return True if all blocks can be replaced. Otherwise false and send a
 	 *         message to the player.

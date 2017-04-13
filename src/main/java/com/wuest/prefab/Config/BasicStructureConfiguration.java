@@ -18,7 +18,14 @@ public class BasicStructureConfiguration extends StructureConfiguration
 	private static String structureEnumNameTag = "structureEnumName";
 	private static String structureDisplayNameTag = "structureDisplayName";
 	
+	/**
+	 * This field is used to contain the {@link EnumBasicStructureName} used by this instance.
+	 */
 	public EnumBasicStructureName basicStructureName;
+	
+	/**
+	 * This field is used t ocontain the display name for the structure.
+	 */
 	public String structureDisplayName;
 	
 	static
@@ -93,6 +100,10 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		super();
 	}
 	
+	/**
+	 * Gets the display name for this structure.
+	 * @return The unlocalized display name for this structure
+	 */
 	public String getDisplayName()
 	{
 		if (this.basicStructureName == EnumBasicStructureName.Custom)
@@ -105,6 +116,10 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		}
 	}
 	
+	/**
+	 * Determines if this is a custom structure.
+	 * @return A value indicating whether this is a custom structure.
+	 */
 	public boolean IsCustomStructure()
 	{
 		return this.basicStructureName == EnumBasicStructureName.Custom;
@@ -147,6 +162,11 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		return tag;
 	}
 	
+	/**
+	 * Reads information from an NBTTagCompound.
+	 * @param messageTag The tag to read the data from.
+	 * @return An instance of {@link BasicStructureConfiguration} with vaules pulled from the NBTTagCompound.
+	 */
 	public BasicStructureConfiguration ReadFromNBTTagCompound(NBTTagCompound messageTag) 
 	{
 		BasicStructureConfiguration config = new BasicStructureConfiguration();
@@ -233,21 +253,37 @@ public class BasicStructureConfiguration extends StructureConfiguration
 			}
 		}
 		
+		/**
+		 * The enum name.
+		 * @return The enum name.
+		 */
 		public String getName()
 		{
 			return this.name;
 		}
 		
+		/**
+		 * The unlocalized name.
+		 * @return The unlocalized name for this structure.
+		 */
 		public String getUnlocalizedName()
 		{
 			return this.unlocalizedName;
 		}
 		
+		/**
+		 * This is the asset location for the compressed structure file in the mod.
+		 * @return The asset location for ths compressed structure in the mod.
+		 */
 		public String getAssetLocation()
 		{
 			return this.assetLocation;
 		}
 		
+		/**
+		 * Gets the picture used in the GUI for this structure.
+		 * @return The resource location for the picture used for this structure.
+		 */
 		public ResourceLocation getTopDownPictureLocation()
 		{
 			if (this.topDownPictureLocation != null)
@@ -258,26 +294,46 @@ public class BasicStructureConfiguration extends StructureConfiguration
 			return null;
 		}
 		
+		/**
+		 * Gets the {@link BuildShape} for the cube to clear when building the structure.
+		 * @return The shape of the space cleared when this structure is built.
+		 */
 		public BuildShape getClearShape()
 		{
 			return this.clearShape;
 		}
 		
+		/**
+		 * The {@link PositionOffset} for the clear shape.
+		 * @return A {@link PositionOffset} which describes where the clearing should start.
+		 */
 		public PositionOffset getClearPositionOffset()
 		{
 			return this.clearPositionOffset;
 		}
 		
+		/**
+		 * This is the resource location for the item's texture when it's in the players and or in inventories/the world.
+		 * @return The resource location for the item texture.
+		 */
 		public ResourceLocation getResourceLocation()
 		{
 			return this.resourceLocation;
 		}
 		
+		/**
+		 * Gets the image height for the image used in the GUI.
+		 * @return An integer representing the image height.
+		 */
 		public int getImageHeight()
 		{
 			return this.imageHeight;
 		}
 		
+		/**
+		 * Gets the image width for the image used in the GUI.
+		 * @return An integer representing the image width.
+		 */
 		public int getImageWidth()
 		{
 			return this.imageWidth;

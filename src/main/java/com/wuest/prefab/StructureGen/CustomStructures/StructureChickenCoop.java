@@ -22,6 +22,11 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+/**
+ * 
+ * @author WuestMan
+ *
+ */
 public class StructureChickenCoop extends Structure
 {
 	public static final String ASSETLOCATION = "assets/prefab/structures/chickencoop.zip";
@@ -43,7 +48,7 @@ public class StructureChickenCoop extends Structure
 				originalPos, 
 				originalPos.east(10), 
 				originalPos.south(6).west(3).up(7), 
-				"C:\\Users\\Brian\\Documents\\GitHub\\MC-Prefab\\src\\main\\resources\\assets\\prefab\\structures\\chickencoop.zip",
+				"..\\src\\main\\resources\\assets\\prefab\\structures\\chickencoop.zip",
 				clearedSpace,
 				playerFacing, false, false);	
 	}

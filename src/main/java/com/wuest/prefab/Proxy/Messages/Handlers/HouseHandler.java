@@ -9,6 +9,11 @@ import com.wuest.prefab.Config.HouseConfiguration;
 import com.wuest.prefab.Items.ItemStartHouse;
 import com.wuest.prefab.Proxy.Messages.HouseTagMessage;
 
+/**
+ * 
+ * @author WuestMan
+ *
+ */
 public class HouseHandler implements
 IMessageHandler<HouseTagMessage, IMessage>
 {

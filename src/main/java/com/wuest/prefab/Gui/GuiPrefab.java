@@ -14,6 +14,11 @@ import net.minecraftforge.fml.client.config.GuiConfigEntries.IConfigEntry;
 import net.minecraftforge.fml.client.config.GuiSlider;
 import net.minecraftforge.fml.client.config.IConfigElement;
 
+/**
+ * 
+ * @author WuestMan
+ *
+ */
 public class GuiPrefab extends GuiConfig
 {
 	public GuiPrefab(GuiScreen parent)

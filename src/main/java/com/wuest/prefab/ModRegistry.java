@@ -109,23 +109,94 @@ import scala.Tuple2;
  */
 public class ModRegistry
 {
+	/**
+	 * The ArrayList of mod registered items.
+	 */
 	public static ArrayList<Item> ModItems = new ArrayList<Item>();
+	
+	/**
+	 * The ArrayList of mod registered blocks.
+	 */
 	public static ArrayList<Block> ModBlocks = new ArrayList<Block>();
+	
+	/**
+	 * The hashmap of mod guis.
+	 */
 	public static HashMap<Integer, Class> ModGuis = new HashMap<Integer, Class>();
+	
+	/**
+	 * The object which contains all recipes for this mod.
+	 */
 	public static HashMap<String, Tuple2<Boolean, ArrayList<IRecipe>>> SavedRecipes = new HashMap<String, Tuple2<Boolean, ArrayList<IRecipe>>>();
+	
+	/**
+	 * The identifier for the WareHouse GUI.
+	 */
 	public static final int GuiWareHouse = 1;
+	
+	/**
+	 * The identifier for the Chicken coop GUI.
+	 */
 	public static final int GuiChickenCoop = 2;
+	
+	/**
+	 * The identifier for the Produce Farm GUI.
+	 */
 	public static final int GuiProduceFarm = 3;
+	
+	/**
+	 * The identifier for the Tree Farm GUI.
+	 */
 	public static final int GuiTreeFarm = 4;
+	
+	/**
+	 * The identifier for the FishPond GUI.
+	 */
 	public static final int GuiFishPond = 5;
+	
+	/**
+	 * The identifier for the Starting House GUI.
+	 */
 	public static final int GuiStartHouseChooser = 6;
+	
+	/**
+	 * The identifier for the Advanced WareHouse GUI.
+	 */
 	public static final int GuiAdvancedWareHouse = 7;
+	
+	/**
+	 * The identifier for the Monster Masher GUI.
+	 */
 	public static final int GuiMonsterMasher = 8;
+	
+	/**
+	 * The identifier for the Horse Stable GUI.
+	 */
 	public static final int GuiHorseStable = 9;
+	
+	/**
+	 * The identifier for the Nether Gate GUI.
+	 */
 	public static final int GuiNetherGate = 10;
+	
+	/**
+	 * The identifier for the Modular House GUI.
+	 */
 	public static final int GuiModularHouse = 11;
+	
+	/**
+	 * The identifier for the Drafter GUI.
+	 */
 	public static final int GuiDrafter = 12;
+	
+	/**
+	 * The identifier for the Basic structure GUI.
+	 */
 	public static final int GuiBasicStructure = 13;
+	
+	/**
+	 * The identifier for the Villaer Houses GUI.
+	 */
 	public static final int GuiVillagerHouses = 14;
 	
 	/**
@@ -134,151 +205,275 @@ public class ModRegistry
 	@CapabilityInject(IStructureConfigurationCapability.class)
 	public static Capability<IStructureConfigurationCapability> StructureConfiguration = null;
 	
+	/**
+	 * The starting house registered item.
+	 * @return An instance of {@link ItemStartHouse}.
+	 */
 	public static ItemStartHouse StartHouse()
 	{
 		return ModRegistry.GetItem(ItemStartHouse.class);
 	}
 	
+	/**
+	 * The warehouse registered item.
+	 * @return An instance of {@link ItemWareHouse}.
+	 */
 	public static ItemWareHouse WareHouse()
 	{
 		return ModRegistry.GetItem(ItemWareHouse.class);
 	}
 	
+	/**
+	 * The advanced ware house registered item.
+	 * @return An instance of {@link ItemAdvancedWareHouse}.
+	 */
 	public static ItemAdvancedWareHouse AdvancedWareHouse()
 	{
 		return ModRegistry.GetItem(ItemAdvancedWareHouse.class);
 	}
 	
+	/**
+	 * The chicken coop registered item.
+	 * @return An instance of {@link ItemAdvancedWareHouse}.
+	 */
 	public static ItemChickenCoop ChickenCoop()
 	{
 		return ModRegistry.GetItem(ItemChickenCoop.class);
 	}
 	
+	/**
+	 * The CompressedStone registered item.
+	 * @return An instance of {@link ItemBlockMeta}.
+	 */
 	public static ItemBlockMeta CompressedStoneItem()
 	{
 		return ModRegistry.GetItem(ItemBlockMeta.class);
 	}
 	
+	/**
+	 * The CompressedStone registered Block.
+	 * @return An instance of {@link BlockCompressedStone}.
+	 */
 	public static BlockCompressedStone CompressedStoneBlock()
 	{
 		return ModRegistry.GetBlock(BlockCompressedStone.class);
 	}
 	
+	
+	/**
+	 * The Compressed Chest registered item.
+	 * @return An instance of {@link ItemCompressedChest}.
+	 */
 	public static ItemCompressedChest CompressedChestItem() 
 	{
 		return ModRegistry.GetItem(ItemCompressedChest.class);
 	}
 	
+	/**
+	 * The Produce Farm registered item.
+	 * @return An instance of {@link ItemProduceFarm}.
+	 */
 	public static ItemProduceFarm ProduceFarm() 
 	{
 		return ModRegistry.GetItem(ItemProduceFarm.class);
 	}
 	
+	/**
+	 * The Tree Farm registered item.
+	 * @return An instance of {@link ItemTreeFarm}.
+	 */
 	public static ItemTreeFarm TreeFarm() 
 	{
 		return ModRegistry.GetItem(ItemTreeFarm.class);
 	}
 	
+	/**
+	 * The Fish Pond registered item.
+	 * @return An instance of {@link ItemFishPond}.
+	 */
 	public static ItemFishPond FishPond()
 	{
 		return ModRegistry.GetItem(ItemFishPond.class);
 	}
 	
+	/**
+	 * The Pile of Bricks registered item.
+	 * @return An instance of {@link ItemPileOfBricks}.
+	 */
 	public static ItemPileOfBricks PileOfBricks() 
 	{
 		return ModRegistry.GetItem(ItemPileOfBricks.class);
 	}
 	
+	/**
+	 * The Pallet of Bricks registered item.
+	 * @return An instance of {@link ItemPalletOfBricks}.
+	 */
 	public static ItemPalletOfBricks PalletOfBricks()
 	{
 		return ModRegistry.GetItem(ItemPalletOfBricks.class);
 	}
 	
+	/**
+	 * The Monster Masher registered item.
+	 * @return An instance of {@link ItemMonsterMasher}.
+	 */
 	public static ItemMonsterMasher MonsterMasher()
 	{
 		return ModRegistry.GetItem(ItemMonsterMasher.class);
 	}
-	
+
+	/**
+	 * The Warehouse Upgrade registered item.
+	 * @return An instance of {@link ItemWarehouseUpgrade}.
+	 */
 	public static ItemWarehouseUpgrade WareHouseUpgrade()
 	{
 		return ModRegistry.GetItem(ItemWarehouseUpgrade.class);
 	}
 	
+	/**
+	 * The Bundle of Timber registered item.
+	 * @return An instance of {@link ItemBundleOfTimber}.
+	 */
 	public static ItemBundleOfTimber BundleOfTimber()
 	{
 		return ModRegistry.GetItem(ItemBundleOfTimber.class);
 	}
 	
+	/**
+	 * The Horse Stable registered item.
+	 * @return An instance of {@link ItemHorseStable}.
+	 */
 	public static ItemHorseStable HorseStable()
 	{
 		return ModRegistry.GetItem(ItemHorseStable.class);
 	}
 	
+	/**
+	 * The Nether Gate registered item.
+	 * @return An instance of {@link ItemNetherGate}.
+	 */
 	public static ItemNetherGate NetherGate()
 	{
 		return ModRegistry.GetItem(ItemNetherGate.class);
 	}
 	
+	/**
+	 * The Modular House registered item.
+	 * @return An instance of {@link ItemModularHouse}.
+	 */
 	public static ItemModularHouse ModularHouse()
 	{
 		return ModRegistry.GetItem(ItemModularHouse.class);
 	}
 	
+	/**
+	 * The Drafter registered block.
+	 * @return An instance of {@link BlockDrafter}.
+	 */
 	public static BlockDrafter Drafter()
 	{
 		return ModRegistry.GetBlock(BlockDrafter.class);
 	}
 	
+	/**
+	 * The Basic Structure registered item.
+	 * @return An instance of {@link ItemBasicStructure}.
+	 */
 	public static ItemBasicStructure BasicStructure()
 	{
 		return ModRegistry.GetItem(ItemBasicStructure.class);
 	}
 	
+	/**
+	 * The Instant Bridge registered item.
+	 * @return An instance of {@link ItemInstantBridge}.
+	 */
 	public static ItemInstantBridge InstantBridge()
 	{
 		return ModRegistry.GetItem(ItemInstantBridge.class);
 	}
 	
+	/**
+	 * This method is used to get an ItemStack for compressed stone.
+	 * @param enumType The type of compressed stone.
+	 * @return An item stack with the appropriate meta data with 1 item in the stack
+	 */
 	public static ItemStack GetCompressedStoneType(BlockCompressedStone.EnumType enumType)
 	{
 		return ModRegistry.GetCompressedStoneType(enumType, 1);
 	}
 	
+	/**
+	 * This method is used to get an ItemStack for compressed stone.
+	 * @param enumType The type of compressed stone.
+	 * @param count The number to have in the returned stack.
+	 * @return An item stack with the appropriate meta data with 1 item in the stack
+	 */
 	public static ItemStack GetCompressedStoneType(BlockCompressedStone.EnumType enumType, int count)
 	{
 		return new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedStoneBlock()), count, enumType.getMetadata());
 	}
 	
+	/**
+	 * The Paper Lantern registered block.
+	 * @return An instance of {@link BlockPaperLantern}.
+	 */
 	public static BlockPaperLantern PaperLantern()
 	{
 		return ModRegistry.GetBlock(BlockPaperLantern.class);
 	}
 	
+	/**
+	 * The String of Lanterns registered item.
+	 * @return An instance of {@link ItemStringOfLanterns}.
+	 */
 	public static ItemStringOfLanterns StringOfLanterns()
 	{
 		return ModRegistry.GetItem(ItemStringOfLanterns.class);
 	}
-	
+
+	/**
+	 * The Coil of Lanterns registered item.
+	 * @return An instance of {@link ItemCoilOfLanterns}.
+	 */
 	public static ItemCoilOfLanterns CoilOfLanterns()
 	{
 		return ModRegistry.GetItem(ItemCoilOfLanterns.class);
 	}
 	
+	/**
+	 * The Compressed Obsidian registered block.
+	 * @return An instance of {@link CompressedObsidianBlock}.
+	 */
 	public static BlockCompressedObsidian CompressedObsidianBlock()
 	{
 		return ModRegistry.GetBlock(BlockCompressedObsidian.class);
 	}
 	
+	/**
+	 * The Villager Houses registered item.
+	 * @return An instance of {@link ItemVillagerHouses}.
+	 */
 	public static ItemVillagerHouses VillagerHouses()
 	{
 		return ModRegistry.GetItem(ItemVillagerHouses.class);
 	}
-	
+
+	/**
+	 * The Phasing Block registered Block.
+	 * @return An instance of {@link BlockPhasing}.
+	 */
 	public static BlockPhasing PhasingBlock()
 	{
 		return ModRegistry.GetBlock(BlockPhasing.class);
 	}
 	
+	/**
+	 * The Boundary Block registered Block.
+	 * @return An instance of {@link BlockBoundary}.
+	 */
 	public static BlockBoundary BoundaryBlock()
 	{
 		return ModRegistry.GetBlock(BlockBoundary.class);
@@ -286,6 +481,7 @@ public class ModRegistry
 	
 	/**
 	 * Gets the item from the ModItems collections.
+	 * @param <T> The type which extends item.
 	 * @param genericClass The class of item to get from the collection.
 	 * @return Null if the item could not be found otherwise the item found.
 	 */
@@ -304,6 +500,7 @@ public class ModRegistry
 	
 	/**
 	 * Gets the block from the ModBlockss collections.
+	 * @param <T> The type which extends Block.
 	 * @param genericClass The class of block to get from the collection.
 	 * @return Null if the block could not be found otherwise the block found.
 	 */
@@ -320,6 +517,14 @@ public class ModRegistry
 		return null;
 	}
 	
+	/**
+	 * Gets the gui screen for the ID and passes position data to it.
+	 * @param id The ID of the screen to get.
+	 * @param x The X-Axis of where this screen was created from, this is used to create a BlockPos.
+	 * @param y The Y-Axis of where this screen was created from, this is used to create a BlockPos.
+	 * @param z The Z-Axis of where this screen was created from, this is used to create a BlockPos.
+	 * @return Null if the screen wasn't found, otherwise the screen found.
+	 */
 	public static GuiScreen GetModGuiByID(int id, int x, int y, int z)
 	{
 		for (Entry<Integer, Class> entry : ModRegistry.ModGuis.entrySet())
@@ -952,6 +1157,11 @@ public class ModRegistry
 				'b', Items.ENDER_PEARL);
 	}
 	
+	/**
+	 * Saves the mod recipe to the field.
+	 * @param displayName The name of the recipe.
+	 * @param recipe The recipe to save.
+	 */
 	public static void SaveModRecipe(String displayName, IRecipe recipe)
 	{
 		// Make a hashmap with a string key and an arraylist of tuples for the value. The tuple will be of IRecipe and boolean
@@ -968,6 +1178,13 @@ public class ModRegistry
 		}
 	}
 	
+	/**
+	 * Adds a shaped recipe to the game registry/mod registry.
+	 * @param displayName The name of the recipe.
+	 * @param stack The output of the recipel
+	 * @param recipeComponents The components of the recipe.
+	 * @return An IRecipe to be used.
+	 */
 	public static IRecipe addShapedRecipe(String displayName, ItemStack stack, Object... recipeComponents)
 	{
 		IRecipe recipe = GameRegistry.addShapedRecipe(stack, recipeComponents);
@@ -979,6 +1196,10 @@ public class ModRegistry
 	
     /**
      * Adds a shapeless crafting recipe to the the game.
+     * @param displayName the display name for this recipe.
+     * @param stack The output of this recipe.
+     * @param recipeComponents The various items/blocks for this recipe.
+     * @return An IRecipe which was registered into the game registry.
      */
     public static IRecipe addShapelessRecipe(String displayName, ItemStack stack, Object... recipeComponents)
     {
@@ -1071,6 +1292,8 @@ public class ModRegistry
 	 *
 	 * @param item The Item instance
 	 * @param <T> The Item type
+	 * @param resourceLocation The resource location for the item to register.
+	 * @param registerInMod Determines if this item should be registered in the mod list of items.
 	 * @return The Item instance
 	 */
 	public static <T extends Item> T registerItem(T item, ResourceLocation resourceLocation, boolean registerInMod)
@@ -1085,11 +1308,24 @@ public class ModRegistry
 		return item;
 	}
 	
+	/**
+	 * Registers a block in the game registry.
+	 * @param <T> The type of block to register.
+	 * @param block The block to register.
+	 * @return The block which was registered.
+	 */
 	public static <T extends Block> T registerBlock(T block)
 	{
 		return ModRegistry.registerBlock(block, true);
 	}
 	
+	/**
+	 * Registers a block in the game registry.
+	 * @param <T> The type of block to register.
+	 * @param block The block to register.
+	 * @param includeItemBlock True to include a default item block.
+	 * @return The block which was registered.
+	 */
 	public static <T extends Block> T registerBlock(T block, boolean includeItemBlock)
 	{
 		GameRegistry.register(block);
@@ -1104,6 +1340,14 @@ public class ModRegistry
 		return block;
 	}
 	
+	/**
+	 * Registers a block in the game registry.
+	 * @param <T> The type of block to register.
+	 * @param <I> The type of item block to register.
+	 * @param block The block to register.
+	 * @param itemBlock The item block to register with the block.
+	 * @return The block which was registered.
+	 */
 	public static <T extends Block, I extends ItemBlock> T registerBlock(T block, I itemBlock)
 	{
 		GameRegistry.register(block);
@@ -1145,6 +1389,9 @@ public class ModRegistry
 		block.setUnlocalizedName(block.getRegistryName().toString());
 	}
 
+	/**
+	 * Adds all of the Mod Guis to the HasMap.
+	 */
 	public static void AddGuis()
 	{
 		ModRegistry.ModGuis.put(ModRegistry.GuiWareHouse, GuiWareHouse.class);

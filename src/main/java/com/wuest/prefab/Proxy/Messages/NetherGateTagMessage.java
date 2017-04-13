@@ -8,7 +8,8 @@ import net.minecraft.nbt.NBTTagCompound;
 public class NetherGateTagMessage extends TagMessage
 {
 	/**
-	 * This class is just here to distinguish the house tag message from other messages in the mod.
+	 * This class is just here to distinguish this tag message from other messages in the mod.
+	 * @param writeToNBTTagCompound The NBTTagCompound to write the data too.
 	 */
 	public NetherGateTagMessage(NBTTagCompound writeToNBTTagCompound) 
 	{

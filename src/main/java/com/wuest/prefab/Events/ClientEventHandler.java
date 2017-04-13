@@ -16,10 +16,22 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 
+/**
+ * 
+ * @author WuestMan
+ *
+ */
 public class ClientEventHandler
 {
+	/**
+	 * Determines how long a shader has been running.
+	 */
 	public static int ticksInGame;
 
+	/**
+	 * The world render last event. This is used for structure rendering.
+	 * @param event The event object.
+	 */
 	@SubscribeEvent
 	public void onWorldRenderLast(RenderWorldLastEvent event)
 	{
@@ -31,6 +43,10 @@ public class ClientEventHandler
 		}
 	}
 
+	/**
+	 * The player right-click block event. This is used to stop the structure rendering for the preview.
+	 * @param event The event object.
+	 */
 	@SubscribeEvent
 	public void onPlayerInteract(PlayerInteractEvent.RightClickBlock event)
 	{
@@ -44,6 +60,10 @@ public class ClientEventHandler
 		}
 	}
 	
+	/**
+	 * This is used to clear out the server configuration on the client side.
+	 * @param event The event object.
+	 */
 	@SubscribeEvent
 	public void OnClientDisconnectEvent(FMLNetworkEvent.ClientDisconnectionFromServerEvent event)
 	{
@@ -52,6 +72,10 @@ public class ClientEventHandler
 	 	((ClientProxy)Prefab.proxy).serverConfiguration = null;
 	}
 	
+	/**
+	 * This is used to increment the ticks in game value.
+	 * @param event The event object.
+	 */
 	@SubscribeEvent
 	public void ClientTickEnd(ClientTickEvent event)
 	{

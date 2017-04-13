@@ -48,9 +48,19 @@ import net.minecraftforge.fml.common.network.FMLNetworkEvent;
  */
 public class ModEventHandler
 {
+	/**
+	 * The tag which determines if the user has been given the starter house.
+	 */
 	public static final String GIVEN_HOUSEBUILDER_TAG = "givenHousebuilder";
 
+	/**
+	 * Contains a hashmap for the structures to build and for whom.
+	 */
 	public static HashMap<EntityPlayer, ArrayList<Structure>> structuresToBuild = new HashMap<EntityPlayer, ArrayList<Structure>>();
+	
+	/**
+	 * Determines the affected blocks by redstone power.
+	 */
 	public static ArrayList<BlockPos> RedstoneAffectedBlockPositions = null;
 	
 	static
@@ -58,6 +68,10 @@ public class ModEventHandler
 		ModEventHandler.RedstoneAffectedBlockPositions = new ArrayList<BlockPos>();
 	}
 	
+	/**
+	 * This event is used to determine if the player should be given the starting house item when they log in.
+	 * @param event The event object.
+	 */
 	@SubscribeEvent
 	public void PlayerJoinedWorld(EntityJoinWorldEvent event)
 	{
@@ -83,6 +97,10 @@ public class ModEventHandler
 		}
 	}
 	
+	/**
+	 * Attaches the structure configuration capability to itemstacks.
+	 * @param event The event object.
+	 */
 	@SubscribeEvent
 	public void AttachItemStackCapabilities(AttachCapabilitiesEvent.Item event)
 	{
@@ -92,6 +110,10 @@ public class ModEventHandler
 		}
 	}
 	
+	/**
+	 * This event is primarily used to build 100 blocks for any queued structures for all players.
+	 * @param event The event object.
+	 */
 	@SubscribeEvent
 	public void onServerTick(ServerTickEvent event)
 	{
@@ -178,6 +200,10 @@ public class ModEventHandler
 		}
 	}
 	
+	/**
+	 * This event occurs when a player logs in. This is used to send server configuration to the client.
+	 * @param event The event object.
+	 */
 	@SubscribeEvent
 	public void onPlayerLoginEvent(PlayerLoggedInEvent event)
 	{
@@ -189,6 +215,10 @@ public class ModEventHandler
 		}
 	}
 	
+	/**
+	 * This event is used to clear out the server configuration for clients that log off the server.
+	 * @param event The event object.
+	 */
 	@SubscribeEvent
 	public void onPlayerLoggedOutEvent(PlayerLoggedOutEvent event)
 	{
@@ -201,6 +231,10 @@ public class ModEventHandler
 		}
 	}
 
+	/**
+	 * This occurs when a player dies and is used to make sure that a player does not get a duplicate starting house.
+	 * @param event
+	 */
 	@SubscribeEvent
 	public void onClone(PlayerEvent.Clone event) 
 	{
@@ -219,6 +253,10 @@ public class ModEventHandler
 		}
 	}
 
+	/**
+	 * This is used to sync up the configuration when it's change by the user.
+	 * @param onConfigChangedEvent The event object.
+	 */
 	@SubscribeEvent
 	public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent onConfigChangedEvent)
 	{

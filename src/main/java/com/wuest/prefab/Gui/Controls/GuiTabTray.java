@@ -14,6 +14,11 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiUtils;
 
+/**
+ * 
+ * @author WuestMan
+ *
+ */
 public class GuiTabTray extends Gui
 {
 	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/defaultBackground.png");

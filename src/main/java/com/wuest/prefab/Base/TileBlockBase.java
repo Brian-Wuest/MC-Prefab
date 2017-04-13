@@ -35,11 +35,20 @@ public abstract class TileBlockBase<T extends TileEntityBase> extends Block impl
 		super(materialIn);
 	}
 	
+	/**
+	 * Initializes a new instance of the TileBlockBase class.
+	 * @param materialIn The material associated with this block.
+	 * @param color The map color for the block.
+	 */
 	public TileBlockBase(Material materialIn, MapColor color)
 	{
 		super(materialIn, color);
 	}
 	
+	/**
+	 * This allows the class to get an generic class.
+	 * @return The generic type class for this block.
+	 */
     @SuppressWarnings ("unchecked")
     public Class<T> getTypeParameterClass()
     {
@@ -66,6 +75,10 @@ public abstract class TileBlockBase<T extends TileEntityBase> extends Block impl
 		return this.canProvidePower(state) && side != null;
 	}
 	
+	/**
+	 * Determines if this block can provide power.
+	 * @param state The block state (not used, can be null).
+	 */
 	@Override
 	public boolean canProvidePower(IBlockState state)
 	{
@@ -75,8 +88,9 @@ public abstract class TileBlockBase<T extends TileEntityBase> extends Block impl
 	/**
      * Determines if the player can harvest this block, obtaining it's drops when the block is destroyed.
      *
+     * @param world The world were the block resides.
+     * @param pos The position of the current block.
      * @param player The player damaging the block, may be null
-     * @param meta The block's current metadata
      * @return True to spawn the drops
      */
     @Override
@@ -85,6 +99,11 @@ public abstract class TileBlockBase<T extends TileEntityBase> extends Block impl
         return true;
     }
     
+    /**
+     * Creates a new tile entity.
+     * @param worldIn The world to create the tile entity in.
+     * @param meta The meta data to create the tile entity.
+     */
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) 
 	{
@@ -121,6 +140,10 @@ public abstract class TileBlockBase<T extends TileEntityBase> extends Block impl
         }
     }
 	
+    /**
+     * Creates a new instance of the tile entity associated with this block.
+     * @return A new instance of the tile entity associatd with this block.
+     */
 	public T createNewTileEntity()
 	{
 		try
@@ -139,12 +162,23 @@ public abstract class TileBlockBase<T extends TileEntityBase> extends Block impl
 		return null;
 	}
 	
+	/**
+	 * Determines if this block has a tile entity.
+	 * @param state Not used.
+	 * @return Returns True.
+	 */
 	@Override
 	public boolean hasTileEntity(IBlockState state)
 	{
 		return true;
 	}
 	
+	/**
+	 * The break block event.
+	 * @param worldIn The world where the block resides.
+	 * @param pos The position of the block.
+	 * @param state the state of the block.
+	 */
 	@Override
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
 	{
@@ -155,7 +189,7 @@ public abstract class TileBlockBase<T extends TileEntityBase> extends Block impl
 		super.breakBlock(worldIn, pos, state);
 		worldIn.removeTileEntity(pos);
 	}
-	
+
 	@Override
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
 	{
@@ -198,6 +232,12 @@ public abstract class TileBlockBase<T extends TileEntityBase> extends Block impl
 		return this.getDefaultState();
 	}
 	
+	/**
+	 * Updates the state of this block.
+	 * @param worldIn The world where the block resides.
+	 * @param pos The position of the block.
+	 * @param state The current state of the block.
+	 */
 	public void updateState(World worldIn, BlockPos pos, IBlockState state)
 	{
 		T tileEntity = this.getLocalTileEntity(worldIn, pos);
@@ -246,5 +286,12 @@ public abstract class TileBlockBase<T extends TileEntityBase> extends Block impl
 	 */
 	public abstract int customUpdateState(World worldIn, BlockPos pos, IBlockState state, T tileEntity);
 	
+	/**
+	 * The custom break block event used by derived classes.
+	 * @param tileEntity The tile entity for this block.
+	 * @param worldIn The world where the block resides.
+	 * @param pos THe position of the block.
+	 * @param state The current state of the block.
+	 */
 	public abstract void customBreakBlock(T tileEntity, World worldIn, BlockPos pos, IBlockState state);
 }

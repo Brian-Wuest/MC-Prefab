@@ -22,18 +22,41 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 @Mod(modid = Prefab.MODID, version = Prefab.VERSION, acceptedMinecraftVersions = "[1.10.2]", guiFactory = "com.wuest.prefab.Gui.ConfigGuiFactory", updateJSON = "https://raw.githubusercontent.com/Brian-Wuest/MC-Prefab/master/changeLog.json")
 public class Prefab
 {
+	/**
+	 * This is the ModID
+	 */
 	public static final String MODID = "prefab";
+	
+	/**
+	 * This is the current mod version.
+	 */
 	public static final String VERSION = "1.1.1.11";
+	
+	/**
+	 * This is used to determine if the mod is currently being debugged.
+	 */
 	public static boolean isDebug = false;
 
+	/**
+	 * This is the static instance of this class.
+	 */
 	@Instance(value = Prefab.MODID)
 	public static Prefab instance;
 
-	// Says where the client and server 'proxy' code is loaded.
+	/**
+	 * Says where the client and server 'proxy' code is loaded.
+	 */
 	@SidedProxy(clientSide = "com.wuest.prefab.Proxy.ClientProxy", serverSide = "com.wuest.prefab.Proxy.CommonProxy")
 	public static CommonProxy proxy;
 
+	/**
+	 * The network class used to send messages.
+	 */
 	public static SimpleNetworkWrapper network;
+	
+	/**
+	 * This is the configuration of the mod.
+	 */
 	public static Configuration config;
 
 	static
@@ -41,18 +64,30 @@ public class Prefab
 		Prefab.isDebug = java.lang.management.ManagementFactory.getRuntimeMXBean().getInputArguments().toString().contains("-agentlib:jdwp");
 	}
 
+	/**
+	 * The pre-initialization event.
+	 * @param event The event from forge.
+	 */
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		Prefab.proxy.preInit(event);
 	}
 
+	/**
+	 * The initialization event.
+	 * @param event The event from forge.
+	 */
 	@EventHandler
 	public void init(FMLInitializationEvent event)
 	{
 		Prefab.proxy.init(event);
 	}
 
+	/**
+	 * The post-initialization event.
+	 * @param event The event from forge.
+	 */
 	@EventHandler
 	public void postinit(FMLPostInitializationEvent event)
 	{

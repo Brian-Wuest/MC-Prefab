@@ -16,12 +16,28 @@ import net.minecraftforge.common.ForgeVersion.Status;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModContainer;
 
+/**
+ * 
+ * @author WuestMan
+ *
+ */
 public class UpdateChecker
 {
 	private static ModInfo modInfo = null;
+	
+	/**
+	 * Determines if a the message is shown to the user when they log into a world.
+	 */
 	public static boolean showMessage = false;
+	
+	/**
+	 * The message to show to the user when they log into a world.
+	 */
 	public static String messageToShow = "";
 
+	/**
+	 * Checks the current version against the git-hub version.
+	 */
 	public static void checkVersion()
 	{
 		// Pull the repository information.

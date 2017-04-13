@@ -23,6 +23,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 import net.minecraftforge.fml.client.config.GuiSlider;
 
+/**
+ * 
+ * @author WuestMan
+ *
+ */
 public class GuiStartHouseChooser extends GuiTabScreen
 {
 	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/defaultBackground.png");

@@ -2,6 +2,11 @@ package com.wuest.prefab.StructureGen;
 
 import com.google.gson.annotations.Expose;
 
+/**
+ * 
+ * @author WuestMan
+ *
+ */
 public class BuildProperty
 {
 	@Expose

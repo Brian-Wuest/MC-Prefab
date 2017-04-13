@@ -22,6 +22,11 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 
+/**
+ * 
+ * @author WuestMan
+ *
+ */
 public class GuiChickenCoop extends GuiScreen
 {
 	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/defaultBackground.png");

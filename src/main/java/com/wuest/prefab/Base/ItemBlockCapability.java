@@ -22,11 +22,15 @@ import net.minecraftforge.common.capabilities.Capability;
  */
 public class ItemBlockCapability extends ItemBlock
 {
+	/**
+	 * The allowed capabilities for this ItemBlock.
+	 */
 	protected ArrayList<Capability> allowedCapabilities;
 	
 	/**
 	 * Initializes a new instance of the ItemBlockCapability class.
 	 * @param block The block associated with this ItemBlock.
+	 * @param allowedCapabilities The capabilities which are allowed for this block.
 	 */
 	public ItemBlockCapability(Block block, ArrayList<Capability> allowedCapabilities)
 	{
@@ -34,6 +38,10 @@ public class ItemBlockCapability extends ItemBlock
 		this.allowedCapabilities = allowedCapabilities;
 	}
 	
+	/**
+	 * Gets the allowed capabilities for this item block.
+	 * @return The allowed capabilities for this item block.
+	 */
 	public ArrayList<Capability> getAllowedCapabilities()
 	{
 		if (this.allowedCapabilities == null)
@@ -45,6 +53,11 @@ public class ItemBlockCapability extends ItemBlock
 		return this.allowedCapabilities;
 	}
 
+	/**
+	 * Sets the allowed capabilities for this Item Block.
+	 * @param value The list of allowed capabilities.
+	 * @return This instance.
+	 */
 	public ItemBlockCapability setAllowedCapabilities(ArrayList<Capability> value)
 	{
 		this.allowedCapabilities = value;
@@ -80,6 +93,8 @@ public class ItemBlockCapability extends ItemBlock
      * @param world The world this is affecting.
      * @param player The controlling player.
      * @param pos The block pos of the placed block.
+     * @param stack The item stack to set the tile entity capability for.
+     * @param side The side for which to get the capability for.
      */
     protected void setTileEntityCapabilities(World world, EntityPlayer player, BlockPos pos, ItemStack stack, EnumFacing side)
     {

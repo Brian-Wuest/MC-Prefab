@@ -7,6 +7,11 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+/**
+ * 
+ * @author WuestMan
+ *
+ */
 public class StructureTreeFarm extends Structure
 {
 	public static final String ASSETLOCATION = "assets/prefab/structures/treefarm.zip";
@@ -26,7 +31,7 @@ public class StructureTreeFarm extends Structure
 				originalPos, 
 				originalPos.east(18).south(), 
 				originalPos.south(38).west(19).up(7), 
-				"C:\\Users\\Brian\\Documents\\GitHub\\MC-Prefab\\src\\main\\resources\\assets\\prefab\\structures\\treefarm.zip",
+				"..\\src\\main\\resources\\assets\\prefab\\structures\\treefarm.zip",
 				clearedSpace,
 				playerFacing, false, false);	
 	}

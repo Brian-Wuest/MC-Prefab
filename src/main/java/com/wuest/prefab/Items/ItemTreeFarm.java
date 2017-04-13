@@ -19,6 +19,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
+/**
+ * 
+ * @author WuestMan
+ *
+ */
 public class ItemTreeFarm extends Item 
 {
 	private TreeFarmConfiguration currentConfiguration = null;

@@ -3,6 +3,11 @@ package com.wuest.prefab.Gui.Controls;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.client.config.GuiUtils;
 
+/**
+ * 
+ * @author WuestMan
+ *
+ */
 public class GuiCheckBox extends net.minecraftforge.fml.client.config.GuiCheckBox
 {
 	protected int boxWidth;

@@ -15,6 +15,11 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.ResourceLocation;
 
+/**
+ * 
+ * @author WuestMan
+ *
+ */
 public class GuiTab extends Gui
 {
 	private GuiTabTray parentTray;
@@ -90,7 +95,7 @@ public class GuiTab extends Gui
 	
 	/**
 	 * This is an internal method used to set the boolean property without triggering the parent tray method.
-	 * @param value
+	 * @param value The new value for the selected property.
 	 */
 	protected void InternalSetSelected(boolean value)
 	{
@@ -99,6 +104,9 @@ public class GuiTab extends Gui
     
     /**
      * Draws this button to the screen.
+     * @param mc The minecraft object.
+     * @param mouseX The location of the mouse X-Axis.
+     * @param mouseY The lcoation of the mouse Y-Axis.
      */
     public void drawTab(Minecraft mc, int mouseX, int mouseY)
     {
@@ -134,6 +142,9 @@ public class GuiTab extends Gui
     
     /**
      * Fired when the mouse button is dragged. Equivalent of MouseListener.mouseDragged(MouseEvent e).
+     * @param mc The minecraft object.
+     * @param mouseX The location of the mouse X-Axis.
+     * @param mouseY The lcoation of the mouse Y-Axis.
      */
     protected void mouseDragged(Minecraft mc, int mouseX, int mouseY)
     {
@@ -141,6 +152,8 @@ public class GuiTab extends Gui
 
     /**
      * Fired when the mouse button is released. Equivalent of MouseListener.mouseReleased(MouseEvent e).
+     * @param mouseX The location of the mouse X-Axis.
+     * @param mouseY The lcoation of the mouse Y-Axis.
      */
     public void mouseReleased(int mouseX, int mouseY)
     {
@@ -149,6 +162,10 @@ public class GuiTab extends Gui
     /**
      * Returns true if the mouse has been pressed on this control. Equivalent of MouseListener.mousePressed(MouseEvent
      * e).
+     * @param mc The minecraft object.
+     * @param mouseX The location of the mouse X-Axis.
+     * @param mouseY The lcoation of the mouse Y-Axis.
+     * @return True if this tab was clicked, otherwise false.
      */
     public boolean mousePressed(Minecraft mc, int mouseX, int mouseY)
     {
@@ -165,6 +182,7 @@ public class GuiTab extends Gui
     
     /**
      * Whether the mouse cursor is currently over the button.
+     * @return True if this tab is being hovered over.
      */
     public boolean isMouseOver()
     {

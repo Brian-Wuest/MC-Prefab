@@ -27,6 +27,11 @@ import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
 
+/**
+ * 
+ * @author WuestMan
+ *
+ */
 public class ItemVillagerHouses extends Item
 {
 	private StructureVillagerHouses basic;

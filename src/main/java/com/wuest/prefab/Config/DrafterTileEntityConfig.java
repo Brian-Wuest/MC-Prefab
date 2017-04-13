@@ -248,6 +248,7 @@ public class DrafterTileEntityConfig extends BaseConfig
 		
 		/**
 		 * Initializes a new instance of the RoomInfo class.
+		 * @param id The identifier for this room.
 		 */
 		public RoomInfo(int id)
 		{

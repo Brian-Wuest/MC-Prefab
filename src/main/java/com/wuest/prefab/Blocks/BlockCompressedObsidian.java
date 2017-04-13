@@ -137,11 +137,21 @@ public class BlockCompressedObsidian extends Block implements IMetaBlock
         return new BlockStateContainer(this, new IProperty[] {VARIANT});
     }
     
+    /**
+     * Gets the variant for the current state.
+     * @param state The state to get the enum type for.
+     * @return A enum type for the current state.
+     */
     public EnumType getVariantFromState(IBlockState state)
     {
     	return (EnumType)state.getValue(VARIANT);
     }
     
+    /**
+     * An enum which contains the various types of block variants.
+     * @author WuestMan
+     *
+     */
 	public static enum EnumType implements IStringSerializable
 	{
 		COMPRESSED_OBSIDIAN(0, "block_compressed_obsidian", "block_compressed_obsidian"),
@@ -167,6 +177,10 @@ public class BlockCompressedObsidian extends Block implements IMetaBlock
             this.unlocalizedName = unlocalizedName;
         }
         
+        /**
+         * A list of resource locations for the names.
+         * @return A list of resource locations for the numerous types in this enum.
+         */
         public static ResourceLocation[] GetNames()
         {
         	List<ResourceLocation> list = Lists.newArrayList();
@@ -180,13 +194,17 @@ public class BlockCompressedObsidian extends Block implements IMetaBlock
         }
         
         /**
-         * Returns the EnumType's metadata value.
+         * The EnumType's meta data value.
+         * @return the meta data for this block. 
          */
         public int getMetadata()
         {
             return this.meta;
         }
         
+        /**
+         * Gets the name of this enum value.
+         */
         public String toString()
         {
             return this.name;
@@ -198,6 +216,10 @@ public class BlockCompressedObsidian extends Block implements IMetaBlock
 			return this.name;
 		}
 		
+		/**
+		 * The unlocalized name of this EnumType.
+		 * @return A string containing the unlocalized name.
+		 */
         public String getUnlocalizedName()
         {
             return this.unlocalizedName;
@@ -205,6 +227,8 @@ public class BlockCompressedObsidian extends Block implements IMetaBlock
 		
         /**
          * Returns an EnumType for the BlockState from a metadata value.
+         * @param meta The meta data value to equate to a {@link BlockCompressedObsidian.EnumType} 
+         * @return If the meta data is invalid the default will be used, otherwise the EnumType found.
          */
         public static BlockCompressedObsidian.EnumType byMetadata(int meta)
         {
