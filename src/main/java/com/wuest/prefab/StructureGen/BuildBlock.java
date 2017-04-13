@@ -19,6 +19,7 @@ import net.minecraft.block.BlockWall;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumFacing.Axis;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -161,6 +162,7 @@ public class BuildBlock
 		{
 			EnumFacing vineFacing = BuildBlock.getVineFacing(configuration, foundBlock, block, assumedNorth);
 			EnumAxis logFacing = BuildBlock.getLogFacing(configuration, foundBlock, block, assumedNorth);
+			Axis boneFacing = BuildBlock.getBoneFacing(configuration, foundBlock, block, assumedNorth);
 			BlockQuartz.EnumType quartzFacing = BuildBlock.getQuartsFacing(configuration, foundBlock, block, assumedNorth);
 			EnumOrientation leverOrientation = BuildBlock.getLeverOrientation(configuration, foundBlock, block, assumedNorth);
 			
@@ -273,12 +275,20 @@ public class BuildBlock
 								}
 							}
 						}
-						else if (foundBlock instanceof BlockLog || foundBlock instanceof BlockBone)
+						else if (foundBlock instanceof BlockLog)
 						{
 							// logs have a special state. There is a property called axis and it only has 3 directions.
 							if (property.getName().equals("axis"))
 							{
 								comparable = logFacing;
+							}
+						}
+						else if (foundBlock instanceof BlockBone)
+						{
+							// bones have a special state. There is a property called axis and it only has 3 directions.
+							if (property.getName().equals("axis"))
+							{
+								comparable = boneFacing;
 							}
 						}
 						else if (foundBlock instanceof BlockQuartz)
@@ -373,7 +383,7 @@ public class BuildBlock
 	{
 		EnumAxis logFacing = EnumAxis.X;
 		
-		if (foundBlock instanceof BlockLog || foundBlock instanceof BlockBone)
+		if (foundBlock instanceof BlockLog)
 		{
 			if (block.getProperty("axis").getValue().equals("x"))
 			{
@@ -399,6 +409,38 @@ public class BuildBlock
 		}
 		
 		return logFacing;
+	}
+	
+	private static Axis getBoneFacing(StructureConfiguration configuration, Block foundBlock, BuildBlock block, EnumFacing assumedNorth)
+	{
+		Axis boneFacing = Axis.X;
+		
+		if (foundBlock instanceof BlockBone)
+		{
+			if (block.getProperty("axis").getValue().equals("x"))
+			{
+				boneFacing = Axis.X;
+			}
+			else if (block.getProperty("axis").getValue().equals("y"))
+			{
+				boneFacing = Axis.Y;
+			}
+			else
+			{
+				boneFacing = Axis.Z;
+			}
+			
+			if (boneFacing != Axis.Y)
+			{
+				boneFacing = 
+						configuration.houseFacing == assumedNorth || configuration.houseFacing == assumedNorth.getOpposite() 
+							? boneFacing : 
+								boneFacing == Axis.X 
+									? Axis.Z : Axis.X; 
+			}
+		}
+		
+		return boneFacing;
 	}
 	
 	private static BlockQuartz.EnumType getQuartsFacing(StructureConfiguration configuration, Block foundBlock, BuildBlock block, EnumFacing assumedNorth)
