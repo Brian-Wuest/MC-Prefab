@@ -37,7 +37,7 @@ public class Prefab
 	/**
 	 * This is the current mod version.
 	 */
-	public static final String VERSION = "1.1.1.11";
+	public static final String VERSION = "@VERSION@";
 	
 	/**
 	 * This is used to determine if the mod is currently being debugged.

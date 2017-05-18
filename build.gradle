@@ -11,7 +11,7 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 //Only edit below this line, the above code adds and enables the nessasary things for Forge to be setup.
 
 
-version = "1.1.1.11"
+version = "${mod_version}"
 group= "com.wuest.prefab" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "prefab"
 
@@ -21,9 +21,11 @@ compileJava {
 }
 
 minecraft {
-    version = "1.10.2-12.18.3.2221"
+    version = "1.10.2-12.18.3.2281"
     runDir = "run"
     
+    replace "@VERSION@", project.version
+    replaceIn "Prefab.java"
     // the mappings can be changed at any time, and must be in the following format.
     // snapshot_YYYYMMDD   snapshot are built nightly.
     // stable_#            stables are built at the discretion of the MCP team.
