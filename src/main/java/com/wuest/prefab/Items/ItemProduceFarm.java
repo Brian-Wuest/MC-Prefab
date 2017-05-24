@@ -49,13 +49,7 @@ public class ItemProduceFarm extends Item
 		if (world.isRemote)
 		{
 			if (side == EnumFacing.UP)
-			{
-				if (player.dimension == -1 || player.dimension == 1)
-				{
-					player.addChatMessage(new TextComponentString("The Produce Farm cannot be placed in the nether or the end."));
-					return EnumActionResult.FAIL;
-				}
-				
+			{				
 				// Open the client side gui to determine the house options.
 				//StructureProduceFarm produceFarm = new StructureProduceFarm();
 				//produceFarm.ScanStructure(world, hitBlockPos, player.getHorizontalFacing());

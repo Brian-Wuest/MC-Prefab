@@ -47,12 +47,6 @@ public class ItemTreeFarm extends Item
 		{
 			if (side == EnumFacing.UP)
 			{
-				if (player.dimension != 0)
-				{
-					player.addChatMessage(new TextComponentString("The Tree Farm cannot be placed in the nether or the end."));
-					return EnumActionResult.FAIL;
-				}
-				
 				// Open the client side gui to determine the house options.
 				//StructureTreeFarm treeFarm = new StructureTreeFarm();
 				//treeFarm.ScanStructure(world, hitBlockPos, player.getHorizontalFacing());

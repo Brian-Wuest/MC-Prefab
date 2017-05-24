@@ -36,12 +36,6 @@ public class ItemAdvancedWareHouse extends ItemWareHouse
 		{
 			if (side == EnumFacing.UP)
 			{
-				if (player.dimension == -1 || player.dimension == 1)
-				{
-					player.addChatMessage(new TextComponentString("The Advanced Warehouse cannot be placed in the nether or the end."));
-					return EnumActionResult.FAIL;
-				}
-				
 				// Open the client side gui to determine the house options.
 				//StructureWarehouse wareHouse = new StructureWarehouse();
 				//wareHouse.ScanStructure(world, hitBlockPos, player.getHorizontalFacing(), true);

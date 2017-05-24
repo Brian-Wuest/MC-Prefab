@@ -253,7 +253,7 @@ public class Structure
 					BuildBlock subBlock = null;
 
 					// Check if water should be replaced with cobble.
-					if (!this.WaterReplacedWithCobbleStone(configuration, subBlock, world, originalPos, assumedNorth, foundBlock, blockState, player) 
+					if (!this.WaterReplacedWithCobbleStone(configuration, block, world, originalPos, assumedNorth, foundBlock, blockState, player) 
 							&& !this.CustomBlockProcessingHandled(configuration, block, world, originalPos, assumedNorth, foundBlock, blockState, player))
 					{
 						block = BuildBlock.SetBlockState(configuration, world, originalPos, assumedNorth, block, foundBlock, blockState);

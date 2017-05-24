@@ -47,12 +47,6 @@ public class ItemFishPond extends Item
 		{
 			if (side == EnumFacing.UP)
 			{
-				if (player.dimension == -1 || player.dimension == 1)
-				{
-					player.addChatMessage(new TextComponentString("The Fish Pond cannot be placed in the nether or the end."));
-					return EnumActionResult.FAIL;
-				}
-				
 				// Open the client side gui to determine the house options.
 				//StructureFishPond fishPond = new StructureFishPond();
 				//fishPond.ScanStructure(world, hitBlockPos, player.getHorizontalFacing());
