@@ -26,6 +26,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.BlockSnapshot;
@@ -251,7 +252,9 @@ public class Structure
 					IBlockState blockState = foundBlock.getDefaultState();
 					BuildBlock subBlock = null;
 
-					if (!this.CustomBlockProcessingHandled(configuration, block, world, originalPos, assumedNorth, foundBlock, blockState, player))
+					// Check if water should be replaced with cobble.
+					if (!this.WaterReplacedWithCobbleStone(configuration, subBlock, world, originalPos, assumedNorth, foundBlock, blockState, player) 
+							&& !this.CustomBlockProcessingHandled(configuration, block, world, originalPos, assumedNorth, foundBlock, blockState, player))
 					{
 						block = BuildBlock.SetBlockState(configuration, world, originalPos, assumedNorth, block, foundBlock, blockState);
 
@@ -367,6 +370,37 @@ public class Structure
 	protected Boolean CustomBlockProcessingHandled(StructureConfiguration configuration, BuildBlock block, World world, BlockPos originalPos,
 			EnumFacing assumedNorth, Block foundBlock, IBlockState blockState, EntityPlayer player)
 	{
+		return false;
+	}
+
+	/**
+	 * Determines if a water block was replaced with cobblestone because this structure was built in the nether or the end.
+	 * @param configuration The structure configuration.
+	 * @param block The build block object.
+	 * @param world The workd object.
+	 * @param originalPos The original block position this structure was built on.
+	 * @param assumedNorth The assumed north direction (typically north).
+	 * @param foundBlock The actual block found at the current location.
+	 * @param blockState The block state to set for the current block.
+	 * @param player The player requesting this build.
+	 * @return Returns true if the water block was replaced by cobblestone, otherwise false.
+	 */
+	protected Boolean WaterReplacedWithCobbleStone(StructureConfiguration configuration, BuildBlock block, World world, BlockPos originalPos,
+			EnumFacing assumedNorth, Block foundBlock, IBlockState blockState, EntityPlayer player)
+	{
+		// Replace water blocks with cobblestone.
+		if (foundBlock instanceof BlockLiquid && blockState.getMaterial() == Material.WATER
+				&& (world.provider.getDimensionType() == DimensionType.NETHER || world.provider.getDimensionType() == DimensionType.THE_END))
+		{
+			block.setBlockDomain(Blocks.COBBLESTONE.getRegistryName().getResourceDomain());
+			block.setBlockName(Blocks.COBBLESTONE.getRegistryName().getResourcePath());
+			block.setBlockState(Blocks.COBBLESTONE.getDefaultState());
+			
+			// Add this as a priority 3 block since it should be done at the end.
+			this.priorityThreeBlocks.add(block);
+			return true;
+		}
+		
 		return false;
 	}
 }
