@@ -42,7 +42,7 @@ public class ItemInstantBridge extends Item
 	}
 	
 	@Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer player, EnumHand hand)
+    public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World worldIn, EntityPlayer player, EnumHand hand)
     {
 		if (!worldIn.isRemote)
 		{
@@ -65,8 +65,6 @@ public class ItemInstantBridge extends Item
 	        	// Found a liquid block for where the player was looking, build the bridge.
 	        	if (this.BuildBridge(worldIn, player, blockPos))
 	        	{
-	        		ItemStack stack = player.getHeldItem(hand);
-	        		
 	        		stack.damageItem(1, player);
 					
 					player.inventoryContainer.detectAndSendChanges();
@@ -168,7 +166,7 @@ public class ItemInstantBridge extends Item
 		
 		if (!BuildingMethods.CheckBuildSpaceForAllowedBlockReplacement(null, worldIn, startingPos, endPos, playerIn))
 		{
-			playerIn.sendMessage(new TextComponentTranslation(GuiLangKeys.GUI_STRUCTURE_NOBUILD).setStyle(new Style().setColor(TextFormatting.GREEN)));
+			playerIn.addChatComponentMessage(new TextComponentTranslation(GuiLangKeys.GUI_STRUCTURE_NOBUILD).setStyle(new Style().setColor(TextFormatting.GREEN)));
 			return false;
 		}
 		

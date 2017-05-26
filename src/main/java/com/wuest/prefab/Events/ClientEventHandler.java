@@ -37,9 +37,9 @@ public class ClientEventHandler
 	{
 		Minecraft mc = Minecraft.getMinecraft();
 
-		if (mc.player != null && mc.objectMouseOver != null && mc.objectMouseOver.getBlockPos() != null && (!mc.player.isSneaking()))
+		if (mc.thePlayer != null && mc.objectMouseOver != null && mc.objectMouseOver.getBlockPos() != null && (!mc.thePlayer.isSneaking()))
 		{
-			StructureRenderHandler.renderPlayerLook(mc.player, mc.objectMouseOver);
+			StructureRenderHandler.renderPlayerLook(mc.thePlayer, mc.objectMouseOver);
 		}
 	}
 
@@ -52,7 +52,7 @@ public class ClientEventHandler
 	{
 		if (event.getWorld().isRemote)
 		{
-			if (StructureRenderHandler.currentStructure != null && event.getEntityPlayer() == Minecraft.getMinecraft().player)
+			if (StructureRenderHandler.currentStructure != null && event.getEntityPlayer() == Minecraft.getMinecraft().thePlayer)
 			{
 				StructureRenderHandler.setStructure(null, EnumFacing.NORTH, null);
 				event.setCanceled(true);

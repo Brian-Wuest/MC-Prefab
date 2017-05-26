@@ -104,9 +104,9 @@ public class StructureRenderHandler
 
 		Minecraft mc = Minecraft.getMinecraft();
 
-		if (mc.world != null)
+		if (mc.theWorld != null)
 		{
-			StructureRenderHandler.dimension = mc.world.provider.getDimension();
+			StructureRenderHandler.dimension = mc.theWorld.provider.getDimension();
 		}
 	}
 
@@ -117,7 +117,7 @@ public class StructureRenderHandler
 	 */
 	public static void renderPlayerLook(EntityPlayer player, RayTraceResult src)
 	{
-		if (StructureRenderHandler.currentStructure != null && StructureRenderHandler.dimension == player.world.provider.getDimension() && StructureRenderHandler.currentConfiguration != null
+		if (StructureRenderHandler.currentStructure != null && StructureRenderHandler.dimension == player.worldObj.provider.getDimension() && StructureRenderHandler.currentConfiguration != null
 				&& Prefab.proxy.proxyConfiguration.enableStructurePreview)
 		{
 			GlStateManager.pushMatrix();
@@ -139,9 +139,9 @@ public class StructureRenderHandler
 				{
 					// Get the unique block state for this block.
 					IBlockState blockState = foundBlock.getDefaultState();
-					buildBlock = BuildBlock.SetBlockState(StructureRenderHandler.currentConfiguration, player.world, StructureRenderHandler.currentConfiguration.pos, StructureRenderHandler.assumedNorth, buildBlock, foundBlock, blockState);
+					buildBlock = BuildBlock.SetBlockState(StructureRenderHandler.currentConfiguration, player.worldObj, StructureRenderHandler.currentConfiguration.pos, StructureRenderHandler.assumedNorth, buildBlock, foundBlock, blockState);
 					
-					if (StructureRenderHandler.renderComponentInWorld(player.world, buildBlock))
+					if (StructureRenderHandler.renderComponentInWorld(player.worldObj, buildBlock))
 					{
 						didAny = true;
 					}
@@ -159,13 +159,13 @@ public class StructureRenderHandler
 			{
 				// Nothing was generated, tell the user this through a chat message and re-set the structure information.
 				StructureRenderHandler.setStructure(null, EnumFacing.NORTH, null);
-				player.sendMessage(
+				player.addChatComponentMessage(
 						new TextComponentTranslation(GuiLangKeys.GUI_PREVIEW_COMPLETE)
 						.setStyle(new Style().setColor(TextFormatting.GREEN)));
 			}
 			else if (!StructureRenderHandler.showedMessage)
 			{
-				player.sendMessage(new TextComponentTranslation(GuiLangKeys.GUI_PREVIEW_NOTICE).setStyle(new Style().setColor(TextFormatting.GREEN)));
+				player.addChatComponentMessage(new TextComponentTranslation(GuiLangKeys.GUI_PREVIEW_NOTICE).setStyle(new Style().setColor(TextFormatting.GREEN)));
 				StructureRenderHandler.showedMessage = true;
 			}
 		}

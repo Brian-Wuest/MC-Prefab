@@ -169,7 +169,7 @@ public class BuildBlock
 			// If this block has custom processing for block state just continue onto the next block. The sub-class is expected to place the block.
 			if (block.getProperties().size() > 0)
 			{
-				Collection<IProperty<?>> properties = blockState.getPropertyKeys();
+				Collection<IProperty<?>> properties = blockState.getPropertyNames();
 				
 				// Go through each property of this block and set it.
 				// The state will be updated as the properties are

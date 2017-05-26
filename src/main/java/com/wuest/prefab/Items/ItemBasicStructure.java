@@ -23,7 +23,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
@@ -53,15 +52,13 @@ public class ItemBasicStructure extends Item
 	 * Does something when the item is right-clicked.
 	 */
 	@Override
-	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos hitBlockPos, EnumHand hand, EnumFacing side, float hitX,
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos hitBlockPos, EnumHand hand, EnumFacing side, float hitX,
 			float hitY, float hitZ)
 	{
 		if (world.isRemote)
 		{
 			if (side == EnumFacing.UP)
 			{
-				ItemStack stack = player.getHeldItem(hand);
-				
 				IStructureConfigurationCapability capability = stack.getCapability(ModRegistry.StructureConfiguration,  EnumFacing.NORTH);
 				
 				if (capability != null)
@@ -71,7 +68,7 @@ public class ItemBasicStructure extends Item
 					// Open the client side gui to determine the house options.
 					//StructureBasic basicStructure = new StructureBasic();
 					//basicStructure.ScanStructure(world, hitBlockPos, player.getHorizontalFacing(), structureConfiguration, true, true);
-					player.openGui(Prefab.instance, ModRegistry.GuiBasicStructure, player.world, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+					player.openGui(Prefab.instance, ModRegistry.GuiBasicStructure, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
 					return EnumActionResult.PASS;
 				}
 			}
@@ -85,7 +82,7 @@ public class ItemBasicStructure extends Item
      */
     @Override
 	@SideOnly(Side.CLIENT)
-    public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems)
+    public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems)
     {
 		for (EnumBasicStructureName value : EnumBasicStructureName.values())
 		{
@@ -168,13 +165,13 @@ public class ItemBasicStructure extends Item
 					{
 						ItemStack stack = ItemBasicStructure.getBasicStructureItemInHand(player);
 						
-						if (stack.getCount() == 1)
+						if (stack.stackSize == 1)
 						{
 							player.inventory.deleteStack(stack);
 						}
 						else
 						{
-							stack.setCount(stack.getCount() - 1);
+							stack.stackSize = stack.stackSize - 1;
 						}
 						
 						player.inventoryContainer.detectAndSendChanges();
@@ -227,7 +224,7 @@ public class ItemBasicStructure extends Item
 	{
 		if (stack.hasCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH))
 		{
-			NBTTagCompound forgeCapabilities = stack.getSubCompound("ForgeCaps");
+			NBTTagCompound forgeCapabilities = stack.getSubCompound("ForgeCaps", false);
 			IStructureConfigurationCapability stackCapability = stack.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
 			
 			if (forgeCapabilities != null)

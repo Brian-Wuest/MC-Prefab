@@ -113,9 +113,9 @@ public class BuildingMethods
 				{
 					// Make sure that this combined stack is at or smaller than
 					// the max.
-					if (existingStack.getCount() + stack.getCount() <= stack.getMaxStackSize())
+					if (existingStack.stackSize + stack.stackSize <= stack.getMaxStackSize())
 					{
-						existingStack.setCount(existingStack.getCount() + stack.getCount());
+						existingStack.stackSize = existingStack.stackSize + stack.stackSize;
 						foundStack = true;
 						break;
 					}

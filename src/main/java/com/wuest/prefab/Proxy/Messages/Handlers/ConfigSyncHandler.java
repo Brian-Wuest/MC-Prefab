@@ -36,7 +36,7 @@ IMessageHandler<ConfigSyncMessage, IMessage>
 		}
 		else
 		{
-			mainThread = (WorldServer) ctx.getServerHandler().playerEntity.world;
+			mainThread = (WorldServer) ctx.getServerHandler().playerEntity.worldObj;
 		} 
 
 		mainThread.addScheduledTask(new Runnable() 
@@ -52,7 +52,7 @@ IMessageHandler<ConfigSyncMessage, IMessage>
 				// Show a message to this player if their version is old.
 				if (config.showMessage && config.enableVersionCheckMessage)
 				{
-					Minecraft.getMinecraft().player.sendMessage(new TextComponentString(config.versionMessage));
+					Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new TextComponentString(config.versionMessage));
 				}
 			}
 		});

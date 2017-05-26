@@ -202,7 +202,7 @@ public class ModEventHandler
 	@SubscribeEvent
 	public void onPlayerLoginEvent(PlayerLoggedInEvent event)
 	{
-		if(!event.player.world.isRemote)
+		if(!event.player.worldObj.isRemote)
 		{
 			NBTTagCompound tag = Prefab.proxy.proxyConfiguration.ToNBTTagCompound();
 			Prefab.network.sendTo(new ConfigSyncMessage(tag), (EntityPlayerMP)event.player);
@@ -219,7 +219,7 @@ public class ModEventHandler
 	{
 		// When the player logs out, make sure to re-set the server configuration. 
 		// This is so a new configuration can be successfully loaded when they switch servers or worlds (on single player.
-		if (event.player.world.isRemote)
+		if (event.player.worldObj.isRemote)
 		{
 			// Make sure to null out the server configuration from the client.
 			((ClientProxy)Prefab.proxy).serverConfiguration = null;

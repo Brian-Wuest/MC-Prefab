@@ -95,7 +95,7 @@ public class StructureBasic extends Structure
 				{
 					EntityChicken entity = new EntityChicken(world);
 					entity.setPosition(this.customBlockPos.getX(), this.customBlockPos.up().getY(), this.customBlockPos.getZ());
-					world.spawnEntity(entity);
+					world.spawnEntityInWorld(entity);
 				}
 			}
 			else if (config.basicStructureName.getName().equals(EnumBasicStructureName.MineshaftEntrance.getName()))

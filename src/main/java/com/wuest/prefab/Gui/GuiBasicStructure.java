@@ -52,7 +52,7 @@ public class GuiBasicStructure extends GuiScreen
 	@Override
 	public void initGui()
 	{
-		this.player = this.mc.player;
+		this.player = this.mc.thePlayer;
 		this.Initialize();
 	}
 	
