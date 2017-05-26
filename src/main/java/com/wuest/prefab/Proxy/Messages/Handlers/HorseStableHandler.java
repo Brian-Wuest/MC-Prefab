@@ -23,7 +23,7 @@ IMessageHandler<HorseStableTagMessage, IMessage>
 			final MessageContext ctx) 
 	{
 		// Or Minecraft.getMinecraft() on the client.
-		IThreadListener mainThread = (WorldServer) ctx.getServerHandler().playerEntity.worldObj; 
+		IThreadListener mainThread = (WorldServer) ctx.getServerHandler().playerEntity.world; 
 
 		mainThread.addScheduledTask(new Runnable() 
 		{
@@ -32,7 +32,7 @@ IMessageHandler<HorseStableTagMessage, IMessage>
 			{
 				// This is server side. Build the house.
 				HorseStableConfiguration configuration = (new HorseStableConfiguration()).ReadFromNBTTagCompound(message.getMessageTag());
-				ItemHorseStable.BuildHouse(ctx.getServerHandler().playerEntity, ctx.getServerHandler().playerEntity.worldObj, configuration);
+				ItemHorseStable.BuildHouse(ctx.getServerHandler().playerEntity, ctx.getServerHandler().playerEntity.world, configuration);
 			}
 		});
 

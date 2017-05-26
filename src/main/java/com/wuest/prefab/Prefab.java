@@ -26,19 +26,19 @@ import net.minecraftforge.fml.common.registry.GameRegistry.Type;
  * @author WuestMan
  *
  */
-@Mod(modid = Prefab.MODID, version = Prefab.VERSION, acceptedMinecraftVersions = "[1.10.2]", guiFactory = "com.wuest.prefab.Gui.ConfigGuiFactory", updateJSON = "https://raw.githubusercontent.com/Brian-Wuest/MC-Prefab/master/changeLog.json")
+@Mod(modid = Prefab.MODID, version = Prefab.VERSION, acceptedMinecraftVersions = "[1.11.2]", guiFactory = "com.wuest.prefab.Gui.ConfigGuiFactory", updateJSON = "https://raw.githubusercontent.com/Brian-Wuest/MC-Prefab/master/changeLog.json")
 public class Prefab
 {
 	/**
 	 * This is the ModID
 	 */
 	public static final String MODID = "prefab";
-	
+
 	/**
 	 * This is the current mod version.
 	 */
 	public static final String VERSION = "@VERSION@";
-	
+
 	/**
 	 * This is used to determine if the mod is currently being debugged.
 	 */
@@ -114,6 +114,7 @@ public class Prefab
 				
 				switch (mapping.resourceLocation.getResourcePath())
 				{
+					case "blockcompressedstone":
 					case "blockCompressedStone":
 					{
 						mappedBlock = ModRegistry.CompressedStoneBlock();
@@ -131,96 +132,112 @@ public class Prefab
 				
 				switch (mapping.resourceLocation.getResourcePath())
 				{
+					case "blockcompressedstone":
 					case "blockCompressedStone":
 					{
 						mappedItem = ModRegistry.ModItems.stream().filter(item -> item.getRegistryName().getResourcePath().equals("block_compressed_stone")).findFirst().get();
 						break;
 					}
 					
+					case "itemproducefarm" :
 					case "itemProduceFarm" :
 					{
 						mappedItem = ModRegistry.ProduceFarm();
 						break;
 					}
 					
+					case "itempileofbricks" :
 					case "itemPileOfBricks" :
 					{
 						mappedItem = ModRegistry.PileOfBricks();
 						break;
 					}
 					
+					case "itemhorsestable" :
 					case "itemHorseStable" :
 					{
 						mappedItem = ModRegistry.HorseStable();
 						break;
 					}
 					
+					case "itemnethergate" :
 					case "itemNetherGate" :
 					{
 						mappedItem = ModRegistry.NetherGate();
 						break;
 					}
 					
+					case "itemwarehouseupgrade" :
 					case "itemWareHouseUpgrade" :
 					{
 						mappedItem = ModRegistry.WareHouseUpgrade();
 						break;
 					}
 					
+					case "itemchickencoop" :
 					case "itemChickenCoop" :
 					{
 						mappedItem = ModRegistry.ChickenCoop();
 						break;
 					}
 					
+					case "itemtreefarm" :
 					case "itemTreeFarm" :
 					{
 						mappedItem = ModRegistry.TreeFarm();
 						break;
 					}
 					
+					case "itemcompressedchest" :
 					case "itemCompressedChest" :
 					{
 						mappedItem = ModRegistry.CompressedChestItem();
 						break;
 					}
 					
+					case "itembundleoftimber" :
 					case "itemBundleOfTimber" :
 					{
 						mappedItem = ModRegistry.BundleOfTimber();
 						break;
 					}
 					
+					case "itemwarehouse" :
 					case "itemWareHouse" :
 					{
 						mappedItem = ModRegistry.WareHouse();
 						break;
 					}
 					
+					case "itempalletofbricks" :
 					case "itemPalletOfBricks" :
 					{
 						mappedItem = ModRegistry.PalletOfBricks();
 						break;
 					}
 					
+					case "itemfishpond" :
 					case "itemFishPond" :
 					{
 						mappedItem = ModRegistry.FishPond();
 						break;
 					}
 					
+					case "itemmonstermasher" :
 					case "itemMonsterMasher" :
 					{
 						mappedItem = ModRegistry.MonsterMasher();
 						break;
 					}
 					
+					case "itemstarthouse" :
 					case "itemStartHouse" :
 					{
 						mappedItem = ModRegistry.StartHouse();
 						break;
 					}
 					
+					case "itemadvancedwarehouse" :
 					case "itemAdvancedWareHouse" :
 					{
 						mappedItem = ModRegistry.AdvancedWareHouse();

@@ -1,15 +1,5 @@
 package com.wuest.prefab;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Scanner;
-
-import com.google.gson.Gson;
-
-import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.ForgeVersion;
 import net.minecraftforge.common.ForgeVersion.CheckResult;
 import net.minecraftforge.common.ForgeVersion.Status;

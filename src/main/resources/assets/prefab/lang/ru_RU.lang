@@ -33,36 +33,42 @@ tile.prefab:block_compressed_stone.block_double_compressed_stone.name=Двойн
 tile.prefab:block_compressed_stone.block_triple_compressed_stone.name=Тройной Сжатый Камень
 tile.prefab:block_compressed_stone.block_compressed_glowstone.name=Сжатый Светокамень
 tile.prefab:block_compressed_stone.block_double_compressed_glowstone.name=Двойной Сжатый Светокамень
+<<<<<<< HEAD
+tile.prefab:block_compressed_stone.block_compressed_dirt.name=Сжата Гр�?зь
+tile.prefab:block_compressed_stone.block_double_compressed_dirt.name=Двойна�? Сжата�? Гр�?зь
+tile.prefab:blockDrafter.name=Drafter
+=======
 tile.prefab:block_compressed_stone.block_compressed_dirt.name=Сжата Грязь
 tile.prefab:block_compressed_stone.block_double_compressed_dirt.name=Двойная Сжатая Грязь
 tile.prefab:block_drafter.name=Drafter
+>>>>>>> refs/remotes/origin/MC-1.10.2
 tile.prefab:block_paper_lantern.name=Paper Lantern
 tile.prefab:block_compressed_obsidian.block_compressed_obsidian.name=Compressed Obsidian
 tile.prefab:block_compressed_obsidian.block_double_compressed_obsidian.name=Double Compressed Obsidian
 tile.prefab:block_phasing.name=Phasic Block
 tile.prefab:block_boundary.name=Boundary Block
  
-prefab.gui.fishpond.structure.facing=Примечание: если вы лицом к северу, выберите Юг. Белая окантовка - это просто чтобы показать размер.
+prefab.gui.fishpond.structure.facing=Примечание: е�?ли вы лицом к �?еверу, выберите Юг. Бела�? окантовка - �?то про�?то чтобы показать размер.
  
-prefab.gui.producefarm.structure.size=Эта структура размером в 32x32 блоков.
+prefab.gui.producefarm.structure.size=Эта �?труктура размером в 32x32 блоков.
  
-prefab.gui.treefarm.structure.size=Эта структура размером в 38x38 блоков.
+prefab.gui.treefarm.structure.size=Эта �?труктура размером в 38x38 блоков.
  
 prefab.gui.starter.tab.general=Общие
-prefab.gui.starter.tab.config=Конфигурация
+prefab.gui.starter.tab.config=Конфигураци�?
 prefab.gui.starter.tab.block=Блоки/Размер
 prefab.gui.starter.style.label=Стиль Дома
 prefab.gui.starter.floortype.label=Пол Каменный тип
 prefab.gui.starter.ceilingtype.label=Потолок Каменный тип
-prefab.gui.starter.walltype.label=Стены Деревянного Типа
+prefab.gui.starter.walltype.label=Стены Дерев�?нного Типа
 prefab.gui.starter.depth.label=Глубина Интерьера
 prefab.gui.starter.width.label=Ширина Интерьера
-prefab.gui.starter.basic.display=Основной Дом
-prefab.gui.starter.basic.notes=Настраиваемый дом, но имеет очень простой дизайн.
+prefab.gui.starter.basic.display=О�?новной Дом
+prefab.gui.starter.basic.notes=�?а�?траиваемый дом, но имеет очень про�?той дизайн.
 prefab.gui.starter.ranch.display=Стиль Ранчо
-prefab.gui.starter.ranch.notes=Дом спроектирован в стиле ранчо.
+prefab.gui.starter.ranch.notes=Дом �?проектирован в �?тиле ранчо.
 prefab.gui.starter.loft.display=Лофт Стиль
-prefab.gui.starter.loft.notes=Дом разработанный с чердаком для сундуков.
+prefab.gui.starter.loft.notes=Дом разработанный �? чердаком дл�? �?ундуков.
 prefab.gui.starter.hobbit.display=Стиль Хоббит
 prefab.gui.starter.hobbit.notes=Дом спроектированный под землёй, понравится Хоббитам.
 prefab.gui.starter.desert.display=Desert Style
@@ -90,26 +96,34 @@ prefab.gui.villager.long_house=Long House
  
 prefab.ceiling.block.type.stone=Каменный Кирпич
 prefab.ceiling.block.type.brick=Кирпич
-prefab.ceiling.block.type.sand=Песчаник
+prefab.ceiling.block.type.sand=Пе�?чаник
  
 prefab.wall.block.type.oak=Дуб
 prefab.wall.block.type.spruce=Ель
 prefab.wall.block.type.birch=Береза
 prefab.wall.block.type.jungle=Джунгли
-prefab.wall.block.type.acacia=Акация
+prefab.wall.block.type.acacia=�?каци�?
 prefab.wall.block.type.darkoak=Темный Дуб
  
-prefab.gui.treefarm.facing=Фасад Фермы Деревьев
-prefab.gui.treefarm.structure.size=Эта структура размером в 38x38 блоков.
+prefab.gui.treefarm.facing=Фа�?ад Фермы Деревьев
+prefab.gui.treefarm.structure.size=Эта �?труктура размером в 38x38 блоков.
  
 prefab.gui.structure.facing=Структура облицовочные
 prefab.gui.structure.glass=Цвет Стекла
 
+<<<<<<< HEAD
+prefab.gui.structure.facing.player=Note: If you're facing north, choose south so the structure is facing you.  
+prefab.gui.structure.block.clicked=В кра�?ной коробке на ри�?унке �?права показывает какой блок вы щелкнули.
+prefab.gui.structure.door.facing=Примечание: Е�?ли вы �?толкнули�?ь на �?евер, юг, так что выбрать двери перед вами.
+prefab.gui.structure.nobuild=Cannot build structure due to protected blocks/area.
+
+=======
 prefab.gui.structure.facing.player=Note: If you're facing north, choose south so the structure is facing you. 
 prefab.gui.structure.block.clicked=В красной коробке на рисунке справа показывает какой блок вы щелкнули.
 prefab.gui.structure.door.facing=Примечание: Если вы столкнулись на север, юг, так что выбрать двери перед вами.
 prefab.gui.structure.nobuild=Cannot build structure due to protected blocks/area.
  
+>>>>>>> refs/remotes/origin/MC-1.10.2
 prefab.gui.button.build=Строить!
 prefab.gui.button.cancel=Отмена
 prefab.gui.button.preview=Preview!
@@ -118,7 +132,7 @@ prefab.gui.preview.complete=Structure Complete!
 prefab.gui.preview.notice=Right-click on any block in the world to remove the preview.
  
 prefab.gui.north=Север
-prefab.gui.east=Восток
+prefab.gui.east=Во�?ток
 prefab.gui.south=Юг
 prefab.gui.west=Запад
  
@@ -130,11 +144,11 @@ prefab.gui.yellow=Жёлтый
 prefab.gui.lime=лайм
 prefab.gui.pink=Розовый
 prefab.gui.gray=Серый
-prefab.gui.silver=Серебрянный
+prefab.gui.silver=Серебр�?нный
 prefab.gui.cyan=Голубой
 prefab.gui.purple=Фиолетовый
 prefab.gui.blue=Синий
 prefab.gui.brown=Коричневый
 prefab.gui.green=Зелёный
-prefab.gui.red=Красный
+prefab.gui.red=Кра�?ный
 prefab.gui.black=Чёрный

@@ -23,7 +23,7 @@ IMessageHandler<MonsterMasherTagMessage, IMessage>
 			final MessageContext ctx) 
 	{
 		// Or Minecraft.getMinecraft() on the client.
-		IThreadListener mainThread = (WorldServer) ctx.getServerHandler().playerEntity.worldObj; 
+		IThreadListener mainThread = (WorldServer) ctx.getServerHandler().playerEntity.world; 
 
 		mainThread.addScheduledTask(new Runnable() 
 		{
@@ -32,7 +32,7 @@ IMessageHandler<MonsterMasherTagMessage, IMessage>
 			{
 				// This is server side. Build the house.
 				MonsterMasherConfiguration configuration = (new MonsterMasherConfiguration()).ReadFromNBTTagCompound(message.getMessageTag());
-				ItemMonsterMasher.BuildHouse(ctx.getServerHandler().playerEntity, ctx.getServerHandler().playerEntity.worldObj, configuration);
+				ItemMonsterMasher.BuildHouse(ctx.getServerHandler().playerEntity, ctx.getServerHandler().playerEntity.world, configuration);
 			}
 		});
 

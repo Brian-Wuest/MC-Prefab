@@ -67,9 +67,9 @@ public class CommonProxy implements IGuiHandler
 	public void postinit(FMLPostInitializationEvent event)
 	{
 		if (this.proxyConfiguration.enableVersionCheckMessage)
- 		{
- 			UpdateChecker.checkVersion();
- 		}
+		{
+			UpdateChecker.checkVersion();
+		}
 	}
 	
 	@Override

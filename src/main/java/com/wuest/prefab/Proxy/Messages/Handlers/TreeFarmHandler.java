@@ -23,7 +23,7 @@ IMessageHandler<TreeFarmTagMessage, IMessage>
 			final MessageContext ctx) 
 	{
 		// Or Minecraft.getMinecraft() on the client.
-		IThreadListener mainThread = (WorldServer) ctx.getServerHandler().playerEntity.worldObj; 
+		IThreadListener mainThread = (WorldServer) ctx.getServerHandler().playerEntity.world; 
 
 		mainThread.addScheduledTask(new Runnable() 
 		{
@@ -32,7 +32,7 @@ IMessageHandler<TreeFarmTagMessage, IMessage>
 			{
 				// This is server side. Build the house.
 				TreeFarmConfiguration configuration = (new TreeFarmConfiguration()).ReadFromNBTTagCompound(message.getMessageTag());
-				ItemTreeFarm.BuildHouse(ctx.getServerHandler().playerEntity, ctx.getServerHandler().playerEntity.worldObj, configuration);
+				ItemTreeFarm.BuildHouse(ctx.getServerHandler().playerEntity, ctx.getServerHandler().playerEntity.world, configuration);
 			}
 		});
 

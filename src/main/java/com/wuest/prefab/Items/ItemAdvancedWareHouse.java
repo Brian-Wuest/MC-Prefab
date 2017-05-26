@@ -29,7 +29,7 @@ public class ItemAdvancedWareHouse extends ItemWareHouse
 	 * Does something when the item is right-clicked.
 	 */
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos hitBlockPos, EnumHand hand, EnumFacing side, float hitX,
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos hitBlockPos, EnumHand hand, EnumFacing side, float hitX,
 			float hitY, float hitZ)
 	{
 		if (world.isRemote)
@@ -39,7 +39,7 @@ public class ItemAdvancedWareHouse extends ItemWareHouse
 				// Open the client side gui to determine the house options.
 				//StructureWarehouse wareHouse = new StructureWarehouse();
 				//wareHouse.ScanStructure(world, hitBlockPos, player.getHorizontalFacing(), true);
-				player.openGui(Prefab.instance, ModRegistry.GuiAdvancedWareHouse, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+				player.openGui(Prefab.instance, ModRegistry.GuiAdvancedWareHouse, player.world, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
 				return EnumActionResult.PASS;
 			}
 		}

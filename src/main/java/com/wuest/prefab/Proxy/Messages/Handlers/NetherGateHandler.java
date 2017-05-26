@@ -22,7 +22,7 @@ IMessageHandler<NetherGateTagMessage, IMessage>
 			final MessageContext ctx) 
 	{
 		// Or Minecraft.getMinecraft() on the client.
-		IThreadListener mainThread = (WorldServer) ctx.getServerHandler().playerEntity.worldObj; 
+		IThreadListener mainThread = (WorldServer) ctx.getServerHandler().playerEntity.world; 
 
 		mainThread.addScheduledTask(new Runnable() 
 		{
@@ -31,7 +31,7 @@ IMessageHandler<NetherGateTagMessage, IMessage>
 			{
 				// This is server side. Build the house.
 				NetherGateConfiguration configuration = (new NetherGateConfiguration()).ReadFromNBTTagCompound(message.getMessageTag());
-				ItemNetherGate.BuildHouse(ctx.getServerHandler().playerEntity, ctx.getServerHandler().playerEntity.worldObj, configuration);
+				ItemNetherGate.BuildHouse(ctx.getServerHandler().playerEntity, ctx.getServerHandler().playerEntity.world, configuration);
 			}
 		});
 

@@ -123,7 +123,7 @@ public class ModRegistry
 	 * The hashmap of mod guis.
 	 */
 	public static HashMap<Integer, Class> ModGuis = new HashMap<Integer, Class>();
-	
+
 	/**
 	 * The object which contains all recipes for this mod.
 	 */
@@ -591,8 +591,8 @@ public class ModRegistry
 		ModRegistry.registerItem(new ItemBundleOfTimber("item_bundle_of_timber"));
 		ModRegistry.registerItem(new ItemHorseStable("item_horse_stable"));
 		ModRegistry.registerItem(new ItemNetherGate("item_nether_gate"));
-		//ModRegistry.registerItem(new ItemModularHouse("item_modular_house"));
 		ModRegistry.registerItem(new ItemInstantBridge("item_instant_bridge"));
+		//ModRegistry.registerItem(new ItemModularHouse("item_modular_house"));
 		ModRegistry.registerItem(new ItemStringOfLanterns("item_string_of_lanterns"));
 		ModRegistry.registerItem(new ItemCoilOfLanterns("item_coil_of_lanterns"));
 		
@@ -861,20 +861,7 @@ public class ModRegistry
 				'f', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE),
 				'g', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE),
 				'h', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE));
-		
-		ModRegistry.addShapedRecipe("Monster Masher", new ItemStack(ModRegistry.MonsterMasher()),
-				"abc",
-				"ede",
-				"fgh",
-				'a', new ItemStack(Items.SKULL, 1, 2),
-				'b', Item.getItemFromBlock(Blocks.REDSTONE_BLOCK),
-				'c', new ItemStack(Items.SKULL, 1, 0),
-				'e', Item.getItemFromBlock(Blocks.IRON_BARS),
-				'd', ModRegistry.CompressedChestItem(),
-				'f', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE),
-				'g', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE),
-				'h', ModRegistry.CoilOfLanterns());		
-		
+
 		// Planks to addShapedRecipe of timber.
 		IRecipe currentRecipe = new ShapedOreRecipe(ModRegistry.BundleOfTimber(), 
 				"aaa", 
@@ -992,15 +979,6 @@ public class ModRegistry
 				"cdc",
 				'a', ModRegistry.PalletOfBricks(),
 				'b', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_GLOWSTONE),
-				'c', ModRegistry.BundleOfTimber(),
-				'd', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_DIRT));
-		
-		ModRegistry.addShapedRecipe("Barn", result,
-				"aba",
-				"ccc",
-				"cdc",
-				'a', ModRegistry.PalletOfBricks(),
-				'b', ModRegistry.StringOfLanterns(),
 				'c', ModRegistry.BundleOfTimber(),
 				'd', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_DIRT));
 		
@@ -1156,7 +1134,7 @@ public class ModRegistry
 				'a', Item.getItemFromBlock(Blocks.GLASS),
 				'b', Items.ENDER_PEARL);
 	}
-	
+
 	/**
 	 * Saves the mod recipe to the field.
 	 * @param displayName The name of the recipe.
@@ -1196,10 +1174,13 @@ public class ModRegistry
 	
     /**
      * Adds a shapeless crafting recipe to the the game.
+<<<<<<< HEAD
+=======
      * @param displayName the display name for this recipe.
      * @param stack The output of this recipe.
      * @param recipeComponents The various items/blocks for this recipe.
      * @return An IRecipe which was registered into the game registry.
+>>>>>>> refs/remotes/origin/MC-1.10.2
      */
     public static IRecipe addShapelessRecipe(String displayName, ItemStack stack, Object... recipeComponents)
     {

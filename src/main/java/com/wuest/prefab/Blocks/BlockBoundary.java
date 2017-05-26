@@ -21,6 +21,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -86,7 +87,11 @@ public class BlockBoundary extends Block
 	
 	/**
 	* Queries if this block should render in a given layer.
+<<<<<<< HEAD
+	* ISmartBlockModel can use {@link MinecraftForgeClient#getRenderLayer()} to alter their model based on layer.
+=======
 	* ISmartBlockModel can use MinecraftForgeClient#getRenderLayer() to alter their model based on layer.
+>>>>>>> refs/remotes/origin/MC-1.10.2
 	*/
     @Override
     public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer)
@@ -112,11 +117,11 @@ public class BlockBoundary extends Block
      * @param hitZ The Z coordinate of the hit vector
      * @param meta The metadata of {@link ItemStack} as processed by {@link Item#getMetadata(int)}
      * @param placer The entity placing the block
-     * @param stack The stack being used to place this block
+     * @param hand The hand used for the placement.
      * @return The state to be placed in the world
      */
     @Override
-    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, ItemStack stack)
+    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand)
     {
         /**
          * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
@@ -138,7 +143,7 @@ public class BlockBoundary extends Block
      * block, etc.
      */
 	@Override
-    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn)
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos p_189540_5_)
     {
 		if (!worldIn.isRemote)
 		{
@@ -207,7 +212,7 @@ public class BlockBoundary extends Block
     
     @Nullable
     @Override
-    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, World worldIn, BlockPos pos)
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos)
     {
     	return FULL_BLOCK_AABB;
     }
