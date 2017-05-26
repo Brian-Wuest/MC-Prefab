@@ -84,67 +84,71 @@ public class ItemInstantBridge extends Item
     @Override
 	public void onUpdate(ItemStack stack, World worldIn, Entity player, int itemSlot, boolean isSelected)
     {
-        if (worldIn.isRemote && isSelected && player instanceof EntityPlayer)
-        {
-        	RayTraceResult result = ItemInstantBridge.RayTrace(worldIn, (EntityPlayer)player, 5.0F, true);	
-        	BlockPos blockPos = null;
-        	
-        	if (result.typeOfHit == Type.MISS)
+    	if (player instanceof EntityPlayer && worldIn.isRemote)
+    	{
+	    	EntityPlayer entityPlayer = (EntityPlayer)player;
+	    	
+	    	ItemStack mainHand = entityPlayer.getHeldItemMainhand();
+	    	ItemStack offHand = entityPlayer.getHeldItemOffhand();
+	    	
+	    	// Check to see if this type of item is in one of the player's hands.
+	    	boolean selected = (mainHand != null && mainHand.getItem() instanceof ItemInstantBridge)
+	    			|| (offHand != null && offHand.getItem() instanceof ItemInstantBridge)? true : false;
+	    	
+	        if (selected)
 	        {
-	        	// The block position is the player's current position.
-	        	blockPos = player.getPosition().down(1);
-	        }
-	        else if (result.typeOfHit == Type.BLOCK)
-	        {
-		        blockPos = result.getBlockPos();
-	        }
-	        
-	        if (blockPos != null && ((result.typeOfHit == Type.BLOCK && worldIn.getBlockState(blockPos).getBlock() instanceof BlockLiquid)
-	        		|| result.typeOfHit == Type.MISS))
-	        {
-	        	if (result.typeOfHit == Type.BLOCK)
-	        	{
-	        		blockPos = blockPos.up();
-	        	}
+	        	RayTraceResult result = ItemInstantBridge.RayTrace(worldIn, entityPlayer, 5.0F, true);	
+	        	BlockPos blockPos = null;
 	        	
-	        	StructureBasic basic = ((ItemInstantBridge)stack.getItem()).basic;
-	        	BasicStructureConfiguration config = ((ItemInstantBridge)stack.getItem()).config;
-	        	
-	        	if (basic == null)
-	        	{
-		        	basic = StructureBasic.CreateInstance("assets/prefab/structures/instant_bridge.zip", StructureBasic.class);
-		        	basic.setName("instant_bridge");
-		        	config = new BasicStructureConfiguration();
+	        	blockPos = result.typeOfHit == Type.MISS ? entityPlayer.getPosition().down(1) : result.getBlockPos();
+
+		        if (blockPos != null && ((result.typeOfHit == Type.BLOCK && worldIn.getBlockState(blockPos).getBlock() instanceof BlockLiquid)
+		        		|| result.typeOfHit == Type.MISS))
+		        {
+		        	if (result.typeOfHit == Type.BLOCK)
+		        	{
+		        		blockPos = blockPos.up();
+		        	}
 		        	
-		        	config.pos = new BlockPos(0, 0, 0);
-		        	((ItemInstantBridge)stack.getItem()).basic = basic;
-		        	((ItemInstantBridge)stack.getItem()).config = config;
-	        	}
-	        	
-	        	if (config.houseFacing != player.getHorizontalFacing().getOpposite()
-	        			|| config.pos.getDistance(blockPos.getX(), blockPos.getY(), blockPos.getZ()) != 0)
-	        	{
-	        		config.pos = blockPos;
-	        		config.houseFacing = player.getHorizontalFacing().getOpposite();
-		        	StructureRenderHandler.setStructure(basic, EnumFacing.NORTH, config);
-		        	StructureRenderHandler.showedMessage = true;
-	        	}
+		        	StructureBasic basic = ((ItemInstantBridge)stack.getItem()).basic;
+		        	BasicStructureConfiguration config = ((ItemInstantBridge)stack.getItem()).config;
+		        	
+		        	if (basic == null)
+		        	{
+			        	basic = StructureBasic.CreateInstance("assets/prefab/structures/instant_bridge.zip", StructureBasic.class);
+			        	basic.setName("instant_bridge");
+			        	config = new BasicStructureConfiguration();
+			        	
+			        	config.pos = new BlockPos(0, 0, 0);
+			        	((ItemInstantBridge)stack.getItem()).basic = basic;
+			        	((ItemInstantBridge)stack.getItem()).config = config;
+		        	}
+		        	
+		        	if (config.houseFacing != entityPlayer.getHorizontalFacing().getOpposite()
+		        			|| config.pos.getDistance(blockPos.getX(), blockPos.getY(), blockPos.getZ()) != 0)
+		        	{
+		        		config.pos = blockPos;
+		        		config.houseFacing = entityPlayer.getHorizontalFacing().getOpposite();
+			        	StructureRenderHandler.setStructure(basic, EnumFacing.NORTH, config);
+			        	StructureRenderHandler.showedMessage = true;
+		        	}
+		        }
+		        else
+		        {
+		        	StructureRenderHandler.setStructure(null, EnumFacing.NORTH, null);
+		        }
 	        }
 	        else
 	        {
-	        	StructureRenderHandler.setStructure(null, EnumFacing.NORTH, null);
+	        	if (StructureRenderHandler.currentStructure != null && StructureRenderHandler.currentStructure instanceof StructureBasic
+	        			&& StructureRenderHandler.currentStructure.getName().equals("instant_bridge"))
+	        	{
+	        		((ItemInstantBridge)stack.getItem()).basic = null;
+	        		((ItemInstantBridge)stack.getItem()).config = null;
+	        		StructureRenderHandler.setStructure(null, EnumFacing.NORTH, null);
+	        	}
 	        }
-        }
-        else if (worldIn.isRemote && player instanceof EntityPlayer)
-        {
-        	if (StructureRenderHandler.currentStructure != null && StructureRenderHandler.currentStructure instanceof StructureBasic
-        			&& StructureRenderHandler.currentStructure.getName().equals("instant_bridge"))
-        	{
-        		((ItemInstantBridge)stack.getItem()).basic = null;
-        		((ItemInstantBridge)stack.getItem()).config = null;
-        		StructureRenderHandler.setStructure(null, EnumFacing.NORTH, null);
-        	}
-        }
+    	}
     }
     
     public static RayTraceResult RayTrace(World world, EntityPlayer player, float distance, boolean includeFluids)
