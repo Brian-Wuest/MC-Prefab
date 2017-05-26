@@ -36,6 +36,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.event.world.BlockEvent;
@@ -82,12 +83,6 @@ public class ItemStartHouse extends Item
 		{
 			if (side == EnumFacing.UP)
 			{
-				if (player.dimension == -1 || player.dimension == 1)
-				{
-					player.sendMessage(new TextComponentString("The Starter House cannot be placed in the nether or the end."));
-					return EnumActionResult.FAIL;
-				}
-				
 				// Open the client side gui to determine the house options.
 				//StructureAlternateStart alternateStart = new StructureAlternateStart();
 				//alternateStart.ScanStructure(world, hitBlockPos, player.getHorizontalFacing(), "desert_house", false, false);
@@ -737,10 +732,13 @@ public class ItemStartHouse extends Item
 		IBlockState state = world.getBlockState(farmStart);
 
 		farmStart = farmStart.down();
-
+		
+		boolean setWaterToCobbleStone = world.provider.getDimensionType() == DimensionType.NETHER || world.provider.getDimensionType() == DimensionType.THE_END;
+		Block waterBlock = setWaterToCobbleStone ? Blocks.COBBLESTONE : Blocks.WATER;
+		
 		// We are now at the surface and this is where the first water source
 		// will be.
-		BuildingMethods.ReplaceBlock(world, farmStart, Blocks.WATER);
+		BuildingMethods.ReplaceBlock(world, farmStart, waterBlock);
 		BuildingMethods.ReplaceBlock(world, farmStart.down(), Blocks.DIRT);
 		BuildingMethods.ReplaceBlock(world, farmStart.up(), Blocks.GLASS);
 		BuildingMethods.ReplaceBlock(world, farmStart.up(2), Blocks.TORCH);
@@ -752,7 +750,7 @@ public class ItemStartHouse extends Item
 
 		farmStart = farmStart.offset(facing.rotateY());
 
-		BuildingMethods.ReplaceBlock(world, farmStart, Blocks.WATER);
+		BuildingMethods.ReplaceBlock(world, farmStart, waterBlock);
 		BuildingMethods.ReplaceBlock(world, farmStart.down(), Blocks.DIRT);
 		BuildingMethods.ReplaceBlock(world, farmStart.up(), Blocks.GLASS);
 		BuildingMethods.ReplaceBlock(world, farmStart.up(2), Blocks.TORCH);
@@ -761,7 +759,7 @@ public class ItemStartHouse extends Item
 
 		farmStart = farmStart.offset(facing.rotateY());
 
-		BuildingMethods.ReplaceBlock(world, farmStart, Blocks.WATER);
+		BuildingMethods.ReplaceBlock(world, farmStart, waterBlock);
 		BuildingMethods.ReplaceBlock(world, farmStart.down(), Blocks.DIRT);
 		BuildingMethods.ReplaceBlock(world, farmStart.up(), Blocks.GLASS);
 		BuildingMethods.ReplaceBlock(world, farmStart.up(2), Blocks.TORCH);

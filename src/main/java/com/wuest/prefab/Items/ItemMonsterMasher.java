@@ -48,12 +48,6 @@ public class ItemMonsterMasher extends Item
 		{
 			if (side == EnumFacing.UP)
 			{
-				if (player.dimension == -1 || player.dimension == 1)
-				{
-					player.sendMessage(new TextComponentString("The Produce Farm cannot be placed in the nether or the end."));
-					return EnumActionResult.FAIL;
-				}
-				
 				// Open the client side gui to determine the house options.
 				//StructureMonsterMasher monsterMasher = new StructureMonsterMasher();
 				//monsterMasher.ScanStructure(world, hitBlockPos, player.getHorizontalFacing());

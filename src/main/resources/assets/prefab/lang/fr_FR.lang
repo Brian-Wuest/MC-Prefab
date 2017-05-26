@@ -1,0 +1,138 @@
+item.prefab:item_start_house.name=Maison de départ
+item.prefab:item_warehouse.name=Entrepôt
+item.prefab:item_chicken_coop.name=Poulailler
+item.prefab:item_produce_farm.name=Ferme alimentaire
+item.prefab:item_tree_farm.name=Ferme d'arbre
+item.prefab:item_fish_pond.name=Étang de poissons
+item.prefab:item_compressed_chest.name=Coffre comprimé
+item.prefab:item_pile_of_bricks.name=Pile de briques
+item.prefab:item_pallet_of_bricks.name=Palette de briques
+item.prefab:item_advanced_warehouse.name=Entrepôt avancé
+item.prefab:item_monster_masher.name=Monster Masher
+item.prefab:item_warehouse_upgrade.name=Mise à niveau de l'entrepôt
+item.prefab:item_bundle_of_timber.name=Faisceau de bois
+item.prefab:item_horse_stable.name=Écurie de cheval
+item.prefab:item_nether_gate.name=Porte du néant
+item.prefab:item_modular_house.name=Maison modulaire
+item.prefab:item_basic_structure.name=Structure de base
+item.prefab:item_instant_bridge.name=Pont instantané
+item.prefab.advanced.chicken.coop=Poulailler avancé
+item.prefab.advanced.horse.stable=Écurie avancée de cheval
+item.prefab.barn=Grange
+item.prefab.machinery.tower=Tour de machines
+item.prefab:item_string_of_lanterns.name=Chaîne de lanternes
+item.prefab:item_coil_of_lanterns.name=Bobine de lanternes
+item.prefab.defense.bunker=Bunker de défense
+item.prefab:item_villager_houses.name=Maisons villageoises
+item.prefab.mineshaft.entrance=Entrée mine
+item.prefab.ender_gateway=Passerelle Ender
+item.prefab.aqua_base=Base Aqua
+
+tile.prefab:block_compressed_stone.block_compressed_stone.name=Pierre comprimée
+tile.prefab:block_compressed_stone.block_double_compressed_stone.name=Double Pierre comprimée
+tile.prefab:block_compressed_stone.block_triple_compressed_stone.name=Triple Pierre comprimée
+tile.prefab:block_compressed_stone.block_compressed_glowstone.name=Glowstone compressé
+tile.prefab:block_compressed_stone.block_double_compressed_glowstone.name=Double glowstone compressé
+tile.prefab:block_compressed_stone.block_compressed_dirt.name=Saleté comprimée
+tile.prefab:block_compressed_stone.block_double_compressed_dirt.name=Double saleté comprimée
+tile.prefab:block_drafter.name=Rédacteur
+tile.prefab:block_paper_lantern.name=Lanterne en papier
+tile.prefab:block_compressed_obsidian.block_compressed_obsidian.name=Obsidienne comprimée
+tile.prefab:block_compressed_obsidian.block_double_compressed_obsidian.name=Double obsidienne comprimée
+tile.prefab:block_phasing.name=Bloc transitoire
+tile.prefab:block_boundary.name=Bloc de limite
+
+prefab.gui.fishpond.structure.facing=Remarque: Si vous êtes face au nord, choisissez Sud pour que la jetée s'éloigne de vous. La frontière blanche est juste pour montrer la taille.
+
+prefab.gui.producefarm.structure.size=Cette structure est 32x32 blocs de taille.
+
+prefab.gui.starter.tab.general=Général
+prefab.gui.starter.tab.config=Config
+prefab.gui.starter.tab.block=Blocs/Taille
+prefab.gui.starter.style.label=Style maison
+prefab.gui.starter.floortype.label=Type de plancher
+prefab.gui.starter.ceilingtype.label=Type de plafond
+prefab.gui.starter.walltype.label=Type de mur
+prefab.gui.starter.depth.label=Profondeur intérieure
+prefab.gui.starter.width.label=Largeur intérieure
+prefab.gui.starter.basic.display=Maison de base
+prefab.gui.starter.basic.notes=Une maison très configurable mais a un design très basique.
+prefab.gui.starter.ranch.display=Style Ranch
+prefab.gui.starter.ranch.notes=Une maison conçue dans un style Ranch.
+prefab.gui.starter.loft.display=Style loft
+prefab.gui.starter.loft.notes=Une maison conçue avec une zone élevée pour les coffres.
+prefab.gui.starter.hobbit.display=Style Hobbit
+prefab.gui.starter.hobbit.notes=Une maison conçue dans le sol comme un Hobbit.
+prefab.gui.starter.desert.display=Style désert
+prefab.gui.starter.desert.notes=Une maison conçue comme une pyramide
+prefab.gui.starter.snowy.display=Style neigeux
+prefab.gui.starter.snowy.notes=Une maison conçue comme un igloo.
+
+prefab.gui.starter.addtorches=Ajouter des torches
+prefab.gui.starter.addbed=Ajouter un lit
+prefab.gui.starter.addcraftingtable=Ajouter une table de bricolage
+prefab.gui.starter.addchest=Ajouter un caisson
+prefab.gui.starter.addchestcontents=Ajouter le contenu du caisson
+prefab.gui.starter.addfarm=Ajouter une batterie
+prefab.gui.starter.floorstone=Type de plancher
+prefab.gui.starter.ceilingtype=Type de plafond
+prefab.gui.starter.walltype=Type de mur
+prefab.gui.starter.ceilingflat=Est plat de plafond
+prefab.gui.starter.buildmineshaft=Build mine
+
+prefab.gui.villager.house.flat=Toit plat
+prefab.gui.villager.house.angled=Toit incliné
+prefab.gui.villager.house.fenced=Toit clôturé
+prefab.gui.villager.blacksmith=Forgeron
+prefab.gui.villager.long_house=Maison longue
+
+prefab.ceiling.block.type.stone=Stonebrick
+prefab.ceiling.block.type.brick=Brique
+prefab.ceiling.block.type.sand=Grès
+
+prefab.wall.block.type.oak=Chêne
+prefab.wall.block.type.spruce=Épinette
+prefab.wall.block.type.birch=Bouleau
+prefab.wall.block.type.jungle=Jungle
+prefab.wall.block.type.acacia=Acacia
+prefab.wall.block.type.darkoak=Chêne foncé
+
+prefab.gui.treefarm.facing=Direction de ferme d'arbre
+prefab.gui.treefarm.structure.size=Cette structure est 38x38 blocs de taille.
+
+prefab.gui.structure.facing=Direction de la structure
+prefab.gui.structure.glass=Couleur de verre
+
+prefab.gui.structure.facing.player=Remarque: Si vous êtes face au nord, choisissez Sud pour que la structure soit face à vous.
+prefab.gui.structure.block.clicked=La case rouge de l'image à droite indique le bloc sur lequel vous avez cliqué.
+prefab.gui.structure.door.facing=Remarque: Si vous êtes face au nord, choisissez Sud pour que les portes vous fassent face.
+prefab.gui.structure.nobuild=Impossible de générer la structure en raison de blocs/zones protégés.
+
+prefab.gui.button.build=Construire!
+prefab.gui.button.cancel=Annuler
+prefab.gui.button.preview=Aperçu!
+
+prefab.gui.preview.complete=Structure terminée!
+prefab.gui.preview.notice=Cliquez avec le bouton droit sur n'importe quel bloc dans le monde pour supprimer l'aperçu.
+
+prefab.gui.north=Nord
+prefab.gui.east=Est
+prefab.gui.south=Sud
+prefab.gui.west=Ouest
+
+prefab.gui.white=Blanc
+prefab.gui.orange=Orange
+prefab.gui.magenta=Magenta
+prefab.gui.lightBlue=Bleu clair
+prefab.gui.yellow=Jaune
+prefab.gui.lime=Chaux
+prefab.gui.pink=Rose
+prefab.gui.gray=Gris
+prefab.gui.silver=Argent
+prefab.gui.cyan=Cyan
+prefab.gui.purple=Violet
+prefab.gui.blue=Bleu
+prefab.gui.brown=Brown
+prefab.gui.green=Vert
+prefab.gui.red=Rouge
+prefab.gui.black=Noir
