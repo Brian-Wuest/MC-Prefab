@@ -227,7 +227,7 @@ public class BasicStructureConfiguration extends StructureConfiguration
 				"assets/prefab/structures/grassy_plain.zip",
 				"textures/gui/grassy_plain_topdown.png",
 				"item_grassy_plain",
-				160, 119);
+				160, 160);
 		
 		private String name;
 		private String assetLocation;
