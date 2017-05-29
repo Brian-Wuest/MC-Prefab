@@ -259,7 +259,6 @@ public class ModRegistry
 		return ModRegistry.GetBlock(BlockCompressedStone.class);
 	}
 	
-	
 	/**
 	 * The Compressed Chest registered item.
 	 * @return An instance of {@link ItemCompressedChest}.
@@ -1051,6 +1050,18 @@ public class ModRegistry
 				'z', new ItemStack(Item.getItemFromBlock(Blocks.SEA_LANTERN)),
 				'a', ModRegistry.CoilOfLanterns());
 		
+		// Grassy Plains
+		result = new ItemStack(ModRegistry.BasicStructure());
+		capability = result.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
+		capability.getConfiguration().basicStructureName = EnumBasicStructureName.GrassyPlain;
+		
+		ModRegistry.addShapedRecipe("Grassy Plains", result, 
+				"   ",
+				"yyy",
+				"xxx",
+				'x', new ItemStack(Item.getItemFromBlock(Blocks.DIRT)),
+				'y', new ItemStack(Item.getItemFromBlock(Blocks.TALLGRASS), 1, 1));
+		
 		// Instant Bridge.
 		ModRegistry.addShapedRecipe("Instant Bridge", 
 				new ItemStack(ModRegistry.InstantBridge()),
@@ -1252,7 +1263,6 @@ public class ModRegistry
 		ModelBakery.registerItemVariants(ModRegistry.CompressedStoneItem(), BlockCompressedStone.EnumType.GetNames());
 	}
 
-	
 	/**
 	 * Register an Item
 	 *

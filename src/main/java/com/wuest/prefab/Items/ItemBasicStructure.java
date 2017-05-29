@@ -67,7 +67,7 @@ public class ItemBasicStructure extends Item
 					
 					// Open the client side gui to determine the house options.
 					//StructureBasic basicStructure = new StructureBasic();
-					//basicStructure.ScanStructure(world, hitBlockPos, player.getHorizontalFacing(), structureConfiguration, true, true);
+					//basicStructure.ScanStructure(world, hitBlockPos, player.getHorizontalFacing(), structureConfiguration, false, false);
 					player.openGui(Prefab.instance, ModRegistry.GuiBasicStructure, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
 					return EnumActionResult.PASS;
 				}
