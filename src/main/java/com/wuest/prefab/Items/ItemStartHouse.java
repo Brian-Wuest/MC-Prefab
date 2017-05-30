@@ -76,7 +76,7 @@ public class ItemStartHouse extends Item
 	 * Does something when the item is right-clicked.
 	 */
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos hitBlockPos, EnumHand hand, EnumFacing side, float hitX,
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos hitBlockPos, EnumHand hand, EnumFacing side, float hitX,
 			float hitY, float hitZ)
 	{
 		if (world.isRemote)
@@ -88,7 +88,7 @@ public class ItemStartHouse extends Item
 				//alternateStart.ScanStructure(world, hitBlockPos, player.getHorizontalFacing(), "desert_house", false, false);
 				//alternateStart.ScanLoftStructure(world, hitBlockPos, player.getHorizontalFacing());
 				
-				player.openGui(Prefab.instance, ModRegistry.GuiStartHouseChooser, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+				player.openGui(Prefab.instance, ModRegistry.GuiStartHouseChooser, player.world, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
 				return EnumActionResult.PASS;
 			}
 		}
@@ -154,7 +154,7 @@ public class ItemStartHouse extends Item
 						{
 							// Send a message to the player saying that the structure could not
 							// be built.
-							player.addChatComponentMessage(new TextComponentTranslation(GuiLangKeys.GUI_STRUCTURE_NOBUILD).setStyle(new Style().setColor(TextFormatting.GREEN)));
+							player.sendMessage(new TextComponentTranslation(GuiLangKeys.GUI_STRUCTURE_NOBUILD).setStyle(new Style().setColor(TextFormatting.GREEN)));
 							return;
 						}
 						

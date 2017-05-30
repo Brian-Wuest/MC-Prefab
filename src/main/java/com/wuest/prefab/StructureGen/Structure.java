@@ -233,7 +233,7 @@ public class Structure
 		{
 			// Send a message to the player saying that the structure could not
 			// be built.
-			player.addChatComponentMessage(new TextComponentTranslation(GuiLangKeys.GUI_STRUCTURE_NOBUILD).setStyle(new Style().setColor(TextFormatting.GREEN)));
+			player.sendMessage(new TextComponentTranslation(GuiLangKeys.GUI_STRUCTURE_NOBUILD).setStyle(new Style().setColor(TextFormatting.GREEN)));
 			return false;
 		}
 

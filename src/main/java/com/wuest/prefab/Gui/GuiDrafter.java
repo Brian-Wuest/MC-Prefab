@@ -387,7 +387,7 @@ public class GuiDrafter extends GuiTabScreen
 		this.serverConfiguration = ((ClientProxy)Prefab.proxy).getServerConfiguration();
 		
 		// Get the power configuration settings.
-		TileEntity entity = this.mc.theWorld.getTileEntity(this.pos);
+		TileEntity entity = this.mc.world.getTileEntity(this.pos);
 
 		if (entity != null && entity.getClass() == TileEntityDrafter.class)
 		{
@@ -397,7 +397,7 @@ public class GuiDrafter extends GuiTabScreen
 		else
 		{
 			this.tileEntity = new TileEntityDrafter();
-			this.mc.theWorld.setTileEntity(pos, this.tileEntity);
+			this.mc.world.setTileEntity(pos, this.tileEntity);
 
 			this.drafterConfig = this.tileEntity.getConfig();
 		}
@@ -726,7 +726,7 @@ public class GuiDrafter extends GuiTabScreen
     			if (stack != null && stack.getItem() == desiredItemStack.getItem() && stack.getMetadata() == desiredItemStack.getMetadata())
     			{
     				// This is an exact match, update the return value with how many items are in this stack.
-    				returnValue += stack.stackSize;
+    				returnValue += stack.getCount();
     			}
         	}
         	

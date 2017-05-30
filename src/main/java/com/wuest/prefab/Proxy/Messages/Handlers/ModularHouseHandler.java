@@ -23,7 +23,7 @@ IMessageHandler<ModularHouseTagMessage, IMessage>
 			final MessageContext ctx) 
 	{
 		// Or Minecraft.getMinecraft() on the client.
-		IThreadListener mainThread = (WorldServer) ctx.getServerHandler().playerEntity.worldObj; 
+		IThreadListener mainThread = (WorldServer) ctx.getServerHandler().playerEntity.world; 
 
 		mainThread.addScheduledTask(new Runnable() 
 		{
@@ -32,7 +32,7 @@ IMessageHandler<ModularHouseTagMessage, IMessage>
 			{
 				// This is server side. Build the house.
 				ModularHouseConfiguration configuration = (new ModularHouseConfiguration()).ReadFromNBTTagCompound(message.getMessageTag());
-				ItemModularHouse.BuildHouse(ctx.getServerHandler().playerEntity, ctx.getServerHandler().playerEntity.worldObj, configuration);
+				ItemModularHouse.BuildHouse(ctx.getServerHandler().playerEntity, ctx.getServerHandler().playerEntity.world, configuration);
 			}
 		});
 

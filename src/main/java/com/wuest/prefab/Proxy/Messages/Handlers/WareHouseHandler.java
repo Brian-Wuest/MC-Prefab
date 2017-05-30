@@ -22,7 +22,7 @@ IMessageHandler<WareHouseTagMessage, IMessage>
 			final MessageContext ctx) 
 	{
 		// Or Minecraft.getMinecraft() on the client.
-		IThreadListener mainThread = (WorldServer) ctx.getServerHandler().playerEntity.worldObj; 
+		IThreadListener mainThread = (WorldServer) ctx.getServerHandler().playerEntity.world; 
 
 		mainThread.addScheduledTask(new Runnable() 
 		{
@@ -31,7 +31,7 @@ IMessageHandler<WareHouseTagMessage, IMessage>
 			{
 				// This is server side. Build the house.
 				WareHouseConfiguration configuration = (new WareHouseConfiguration()).ReadFromNBTTagCompound(message.getMessageTag());
-				ItemWareHouse.BuildHouse(ctx.getServerHandler().playerEntity, ctx.getServerHandler().playerEntity.worldObj, configuration);
+				ItemWareHouse.BuildHouse(ctx.getServerHandler().playerEntity, ctx.getServerHandler().playerEntity.world, configuration);
 			}
 		});
 

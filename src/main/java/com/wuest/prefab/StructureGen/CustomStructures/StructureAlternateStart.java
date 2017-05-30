@@ -460,9 +460,9 @@ public class StructureAlternateStart extends Structure
 				{
 					// Make sure that this combined stack is at or smaller than
 					// the max.
-					if (existingStack.stackSize + tempStack.stackSize <= tempStack.getMaxStackSize())
+					if (existingStack.getCount() + tempStack.getCount() <= tempStack.getMaxStackSize())
 					{
-						existingStack.stackSize = existingStack.stackSize + tempStack.stackSize;
+						existingStack.setCount(existingStack.getCount() + tempStack.getCount());
 						foundStack = true;
 						break;
 					}
