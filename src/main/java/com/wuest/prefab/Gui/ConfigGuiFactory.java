@@ -6,7 +6,6 @@ import com.wuest.prefab.Prefab;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraftforge.fml.client.DefaultGuiFactory;
 import net.minecraftforge.fml.client.IModGuiFactory;
 import net.minecraftforge.fml.client.config.GuiConfig;
 
@@ -15,14 +14,11 @@ import net.minecraftforge.fml.client.config.GuiConfig;
  * @author WuestMan
  *
  */
-public class ConfigGuiFactory extends DefaultGuiFactory 
+public class ConfigGuiFactory implements IModGuiFactory
 {
-	public ConfigGuiFactory() 
+	@Override
+	public void initialize(Minecraft minecraftInstance) 
 	{
-		super("", "");
-		
-		this.modid = Prefab.MODID;
-		this.title = "Prefab";
 	}
 	
 	@Override
@@ -31,9 +27,16 @@ public class ConfigGuiFactory extends DefaultGuiFactory
 		return GuiPrefab.class;
 	}
 	
-    @Override
-    public GuiScreen createConfigGui(GuiScreen parentScreen)
-    {  
-        return new GuiPrefab(parentScreen);
-    }
+
+	@Override
+	public Set<RuntimeOptionCategoryElement> runtimeGuiCategories() 
+	{
+		return null;
+	}
+
+	@Override
+	public RuntimeOptionGuiHandler getHandlerFor(RuntimeOptionCategoryElement element) 
+	{
+		return null;
+	}
 }

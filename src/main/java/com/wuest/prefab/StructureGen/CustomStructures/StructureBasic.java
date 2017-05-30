@@ -34,10 +34,13 @@ public class StructureBasic extends Structure
 		}
 		else
 		{
-			BuildShape buildShape = configuration.basicStructureName.getClearShape();
+			BuildShape buildShape = configuration.basicStructureName.getClearShape().Clone();
 			PositionOffset offset = configuration.basicStructureName.getClearPositionOffset();
 			
-			int downOffset = offset.getHeightOffset() < 0 ? offset.getHeightOffset() : 0;
+			clearedSpace.getShape().setWidth(clearedSpace.getShape().getWidth() + 1);
+			clearedSpace.getShape().setLength(clearedSpace.getShape().getLength() + 1);
+			
+			int downOffset = offset.getHeightOffset() < 0 ? Math.abs(offset.getHeightOffset()) : 0;
 			BlockPos cornerPos = originalPos.east(offset.getEastOffset()).south(offset.getSouthOffset()).down(downOffset);
 			
 			Structure.ScanStructure(
@@ -95,7 +98,7 @@ public class StructureBasic extends Structure
 				{
 					EntityChicken entity = new EntityChicken(world);
 					entity.setPosition(this.customBlockPos.getX(), this.customBlockPos.up().getY(), this.customBlockPos.getZ());
-					world.spawnEntity(entity);
+					world.spawnEntityInWorld(entity);
 				}
 			}
 			else if (config.basicStructureName.getName().equals(EnumBasicStructureName.MineshaftEntrance.getName()))

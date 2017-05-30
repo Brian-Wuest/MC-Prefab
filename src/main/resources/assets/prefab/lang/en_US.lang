@@ -28,6 +28,7 @@ item.prefab:item_villager_houses.name=Villager Houses
 item.prefab.mineshaft.entrance=Mineshaft Entrance
 item.prefab.ender_gateway=Ender Gateway
 item.prefab.aqua_base=Aqua Base
+item.prefab.grassy_plain=Grassy Plain
 
 tile.prefab:block_compressed_stone.block_compressed_stone.name=Compressed Stone
 tile.prefab:block_compressed_stone.block_double_compressed_stone.name=Double Compressed Stone

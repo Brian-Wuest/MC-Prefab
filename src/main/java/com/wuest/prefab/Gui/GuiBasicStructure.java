@@ -52,7 +52,7 @@ public class GuiBasicStructure extends GuiScreen
 	@Override
 	public void initGui()
 	{
-		this.player = this.mc.player;
+		this.player = this.mc.thePlayer;
 		this.Initialize();
 	}
 	
@@ -102,7 +102,7 @@ public class GuiBasicStructure extends GuiScreen
 		
 		// Draw the text here.
 		this.mc.fontRendererObj.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), grayBoxX + 147, grayBoxY + 10, 95, color);
-		this.mc.fontRendererObj.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_DOOR_FACING), grayBoxX + 147, grayBoxY + 60, 95, color);
+		this.mc.fontRendererObj.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_FACING_PLAYER), grayBoxX + 147, grayBoxY + 60, 95, color);
 		
 		if (!Prefab.proxy.proxyConfiguration.enableStructurePreview)
 		{

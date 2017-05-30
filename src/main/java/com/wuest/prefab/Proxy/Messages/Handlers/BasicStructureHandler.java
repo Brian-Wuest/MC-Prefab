@@ -24,7 +24,7 @@ IMessageHandler<BasicStructureTagMessage, IMessage>
 			final MessageContext ctx) 
 	{
 		// Or Minecraft.getMinecraft() on the client.
-		IThreadListener mainThread = (WorldServer) ctx.getServerHandler().playerEntity.world; 
+		IThreadListener mainThread = (WorldServer) ctx.getServerHandler().playerEntity.worldObj; 
 
 		mainThread.addScheduledTask(new Runnable() 
 		{
@@ -33,7 +33,7 @@ IMessageHandler<BasicStructureTagMessage, IMessage>
 			{
 				// This is server side. Build the house.
 				BasicStructureConfiguration configuration = (new BasicStructureConfiguration()).ReadFromNBTTagCompound(message.getMessageTag());
-				ItemBasicStructure.BuildHouse(ctx.getServerHandler().playerEntity, ctx.getServerHandler().playerEntity.world, configuration);
+				ItemBasicStructure.BuildHouse(ctx.getServerHandler().playerEntity, ctx.getServerHandler().playerEntity.worldObj, configuration);
 			}
 		});
 

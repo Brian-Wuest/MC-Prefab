@@ -90,6 +90,15 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		EnumBasicStructureName.AquaBase.getClearShape().setLength(38);
 		EnumBasicStructureName.AquaBase.getClearPositionOffset().setSouthOffset(1);
 		EnumBasicStructureName.AquaBase.getClearPositionOffset().setEastOffset(12);
+		
+		// Grassy Plain.
+		EnumBasicStructureName.GrassyPlain.getClearShape().setDirection(EnumFacing.SOUTH);
+		EnumBasicStructureName.GrassyPlain.getClearShape().setHeight(7);
+		EnumBasicStructureName.GrassyPlain.getClearShape().setWidth(15);
+		EnumBasicStructureName.GrassyPlain.getClearShape().setLength(15);
+		EnumBasicStructureName.GrassyPlain.getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.GrassyPlain.getClearPositionOffset().setEastOffset(8);
+		EnumBasicStructureName.GrassyPlain.getClearPositionOffset().setHeightOffset(-1);
 	}
 	
 	/**
@@ -213,7 +222,12 @@ public class BasicStructureConfiguration extends StructureConfiguration
 				"assets/prefab/structures/aqua_base.zip",
 				"textures/gui/aqua_base_topdown.png",
 				"item_aqua_base",
-				160, 119);
+				160, 119),
+		GrassyPlain("grassy_plain", "item.prefab.grassy_plain",
+				"assets/prefab/structures/grassy_plain.zip",
+				"textures/gui/grassy_plain_topdown.png",
+				"item_grassy_plain",
+				160, 160);
 		
 		private String name;
 		private String assetLocation;

@@ -74,4 +74,19 @@ public class BuildShape
 		this.length = 0;
 		this.direction = EnumFacing.NORTH;
 	}
+	
+	/**
+	 * Clones this instance.
+	 * @return A new instance of this class with the same property values.
+	 */
+	public BuildShape Clone()
+	{
+		BuildShape clone = new BuildShape();
+		clone.setDirection(this.direction);
+		clone.setHeight(this.height);
+		clone.setLength(this.length);
+		clone.setWidth(this.width);
+		
+		return clone;
+	}
 }

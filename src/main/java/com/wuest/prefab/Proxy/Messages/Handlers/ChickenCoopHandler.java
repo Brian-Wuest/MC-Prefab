@@ -24,7 +24,7 @@ IMessageHandler<ChickenCoopTagMessage, IMessage>
 			final MessageContext ctx) 
 	{
 		// Or Minecraft.getMinecraft() on the client.
-		IThreadListener mainThread = (WorldServer) ctx.getServerHandler().playerEntity.world; 
+		IThreadListener mainThread = (WorldServer) ctx.getServerHandler().playerEntity.worldObj; 
 
 		mainThread.addScheduledTask(new Runnable() 
 		{
@@ -33,7 +33,7 @@ IMessageHandler<ChickenCoopTagMessage, IMessage>
 			{
 				// This is server side. Build the house.
 				ChickenCoopConfiguration configuration = (new ChickenCoopConfiguration()).ReadFromNBTTagCompound(message.getMessageTag());
-				ItemChickenCoop.BuildHouse(ctx.getServerHandler().playerEntity, ctx.getServerHandler().playerEntity.world, configuration);
+				ItemChickenCoop.BuildHouse(ctx.getServerHandler().playerEntity, ctx.getServerHandler().playerEntity.worldObj, configuration);
 			}
 		});
 

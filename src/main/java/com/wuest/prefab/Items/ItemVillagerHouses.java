@@ -53,7 +53,7 @@ public class ItemVillagerHouses extends Item
 	 */
 	@Override
 
-	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos hitBlockPos, EnumHand hand, EnumFacing side, float hitX,
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos hitBlockPos, EnumHand hand, EnumFacing side, float hitX,
 			float hitY, float hitZ)
 	{
 		if (world.isRemote)
@@ -63,7 +63,7 @@ public class ItemVillagerHouses extends Item
 				// Open the client side gui to determine the house options.
 				//StructureVillagerHouses structureVillagerHouses = new StructureVillagerHouses();
 				//structureVillagerHouses.ScanStructure(world, hitBlockPos, player.getHorizontalFacing(), VillagerHouseConfiguration.HouseStyle.BLACKSMITH);
-				player.openGui(Prefab.instance, ModRegistry.GuiVillagerHouses, player.world, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+				player.openGui(Prefab.instance, ModRegistry.GuiVillagerHouses, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
 				return EnumActionResult.PASS;
 			}
 		}
