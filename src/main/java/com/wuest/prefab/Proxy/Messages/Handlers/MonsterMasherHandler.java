@@ -1,7 +1,7 @@
 package com.wuest.prefab.Proxy.Messages.Handlers;
 
 import com.wuest.prefab.Config.MonsterMasherConfiguration;
-import com.wuest.prefab.Items.ItemMonsterMasher;
+import com.wuest.prefab.Items.Structures.ItemMonsterMasher;
 import com.wuest.prefab.Proxy.Messages.MonsterMasherTagMessage;
 
 import net.minecraft.util.IThreadListener;

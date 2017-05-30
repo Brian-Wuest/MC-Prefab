@@ -1,4 +1,4 @@
-package com.wuest.prefab.Items;
+package com.wuest.prefab.Items.Structures;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ import net.minecraft.world.World;
  * @author WuestMan
  *
  */
-public class ItemWareHouse extends Item
+public class ItemWareHouse extends StructureItem
 {
 	private WareHouseConfiguration currentConfiguration = null;
 
@@ -37,28 +37,8 @@ public class ItemWareHouse extends Item
 	{
 		super();
 
-		this.setCreativeTab(CreativeTabs.MISC);
+		this.guiId = ModRegistry.GuiWareHouse;
 		ModRegistry.setItemName(this, name);
-	}
-	
-	/**
-	 * Does something when the item is right-clicked.
-	 */
-	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos hitBlockPos, EnumHand hand, EnumFacing side, float hitX,
-			float hitY, float hitZ)
-	{
-		if (world.isRemote)
-		{
-			if (side == EnumFacing.UP)
-			{
-				// Open the client side gui to determine the house options.
-				player.openGui(Prefab.instance, ModRegistry.GuiWareHouse, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
-				return EnumActionResult.PASS;
-			}
-		}
-
-		return EnumActionResult.FAIL;
 	}
 	
 	public static void BuildHouse(EntityPlayer player, World world, WareHouseConfiguration configuration)

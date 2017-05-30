@@ -1,7 +1,7 @@
 package com.wuest.prefab.Proxy.Messages.Handlers;
 
 import com.wuest.prefab.Config.HorseStableConfiguration;
-import com.wuest.prefab.Items.ItemHorseStable;
+import com.wuest.prefab.Items.Structures.ItemHorseStable;
 import com.wuest.prefab.Proxy.Messages.HorseStableTagMessage;
 
 import net.minecraft.util.IThreadListener;

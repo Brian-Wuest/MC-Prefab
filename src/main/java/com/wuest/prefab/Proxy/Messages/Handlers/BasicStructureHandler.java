@@ -1,8 +1,8 @@
 package com.wuest.prefab.Proxy.Messages.Handlers;
 
 import com.wuest.prefab.Config.BasicStructureConfiguration;
-import com.wuest.prefab.Items.ItemBasicStructure;
-import com.wuest.prefab.Items.ItemChickenCoop;
+import com.wuest.prefab.Items.Structures.ItemBasicStructure;
+import com.wuest.prefab.Items.Structures.ItemChickenCoop;
 import com.wuest.prefab.Proxy.Messages.BasicStructureTagMessage;
 
 import net.minecraft.util.IThreadListener;

@@ -8,7 +8,7 @@ import com.google.common.collect.Lists;
 import com.wuest.prefab.Blocks.BlockCompressedStone;
 import com.wuest.prefab.Blocks.IMetaBlock;
 import com.wuest.prefab.Config.BasicStructureConfiguration.EnumBasicStructureName;
-import com.wuest.prefab.Items.ItemBasicStructure;
+import com.wuest.prefab.Items.Structures.ItemBasicStructure;
 import com.wuest.prefab.Render.PrefabModelMesher;
 
 import net.minecraft.block.Block;

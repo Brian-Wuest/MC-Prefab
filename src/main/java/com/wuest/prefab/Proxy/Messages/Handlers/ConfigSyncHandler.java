@@ -3,7 +3,7 @@ package com.wuest.prefab.Proxy.Messages.Handlers;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.HouseConfiguration;
 import com.wuest.prefab.Config.ModConfiguration;
-import com.wuest.prefab.Items.ItemStartHouse;
+import com.wuest.prefab.Items.Structures.ItemStartHouse;
 import com.wuest.prefab.Proxy.ClientProxy;
 import com.wuest.prefab.Proxy.Messages.ConfigSyncMessage;
 

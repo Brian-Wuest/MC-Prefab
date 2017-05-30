@@ -1,9 +1,11 @@
-package com.wuest.prefab.Items;
+package com.wuest.prefab.Items.Structures;
 
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Config.ModularHouseConfiguration;
-import com.wuest.prefab.StructureGen.CustomStructures.StructureModularHouse;
+import com.wuest.prefab.Config.ChickenCoopConfiguration;
+import com.wuest.prefab.Config.HorseStableConfiguration;
+import com.wuest.prefab.StructureGen.CustomStructures.StructureChickenCoop;
+import com.wuest.prefab.StructureGen.CustomStructures.StructureHorseStable;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -22,11 +24,11 @@ import net.minecraft.world.World;
  * @author WuestMan
  *
  */
-public class ItemModularHouse extends Item
+public class ItemHorseStable extends Item
 {
-	private ModularHouseConfiguration currentConfiguration = null;
+	private ChickenCoopConfiguration currentConfiguration = null;
 
-	public ItemModularHouse(String name)
+	public ItemHorseStable(String name)
 	{
 		super();
 
@@ -46,9 +48,9 @@ public class ItemModularHouse extends Item
 			if (side == EnumFacing.UP)
 			{
 				// Open the client side gui to determine the house options.
-				//StructureModularHouse chickenCoop = new StructureModularHouse();
-				//modularHouse.ScanStructure(world, hitBlockPos, player.getHorizontalFacing());
-				player.openGui(Prefab.instance, ModRegistry.GuiModularHouse, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+				//StructureHorseStable horseStable = new StructureHorseStable();
+				//horseStable.ScanStructure(world, hitBlockPos, player.getHorizontalFacing());
+				player.openGui(Prefab.instance, ModRegistry.GuiHorseStable, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
 				return EnumActionResult.PASS;
 			}
 		}
@@ -56,7 +58,7 @@ public class ItemModularHouse extends Item
 		return EnumActionResult.FAIL;
 	}
 	
-	public static void BuildHouse(EntityPlayer player, World world, ModularHouseConfiguration configuration)
+	public static void BuildHouse(EntityPlayer player, World world, HorseStableConfiguration configuration)
 	{
 		// This is always on the server.
 		if (configuration != null)
@@ -72,11 +74,11 @@ public class ItemModularHouse extends Item
  
 				if (hitBlock != null)
 				{
-					StructureModularHouse structure = StructureModularHouse.CreateInstance(StructureModularHouse.ASSETLOCATION, StructureModularHouse.class);
+					StructureHorseStable structure = StructureHorseStable.CreateInstance(StructureHorseStable.ASSETLOCATION, StructureHorseStable.class);
 					
 					if (structure.BuildStructure(configuration, world, hitBlockPos, EnumFacing.NORTH, player))
 					{
-						player.inventory.clearMatchingItems(ModRegistry.ModularHouse(), -1, 1, null);
+						player.inventory.clearMatchingItems(ModRegistry.HorseStable(), -1, 1, null);
 						player.inventoryContainer.detectAndSendChanges();
 					}
 				}

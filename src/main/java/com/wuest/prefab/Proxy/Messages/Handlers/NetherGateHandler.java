@@ -1,7 +1,7 @@
 package com.wuest.prefab.Proxy.Messages.Handlers;
 
 import com.wuest.prefab.Config.NetherGateConfiguration;
-import com.wuest.prefab.Items.ItemNetherGate;
+import com.wuest.prefab.Items.Structures.ItemNetherGate;
 import com.wuest.prefab.Proxy.Messages.NetherGateTagMessage;
 
 import net.minecraft.util.IThreadListener;

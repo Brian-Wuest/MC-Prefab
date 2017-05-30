@@ -1,7 +1,7 @@
 package com.wuest.prefab.Proxy.Messages.Handlers;
 
 import com.wuest.prefab.Config.ProduceFarmConfiguration;
-import com.wuest.prefab.Items.ItemProduceFarm;
+import com.wuest.prefab.Items.Structures.ItemProduceFarm;
 import com.wuest.prefab.Proxy.Messages.ProduceFarmTagMessage;
 
 import net.minecraft.util.IThreadListener;

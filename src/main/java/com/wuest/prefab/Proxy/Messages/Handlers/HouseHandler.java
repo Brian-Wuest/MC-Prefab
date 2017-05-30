@@ -6,7 +6,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import com.wuest.prefab.Config.HouseConfiguration;
-import com.wuest.prefab.Items.ItemStartHouse;
+import com.wuest.prefab.Items.Structures.ItemStartHouse;
 import com.wuest.prefab.Proxy.Messages.HouseTagMessage;
 
 /**

@@ -1,11 +1,10 @@
-package com.wuest.prefab.Items;
+package com.wuest.prefab.Items.Structures;
 
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Config.ChickenCoopConfiguration;
-import com.wuest.prefab.Config.HorseStableConfiguration;
-import com.wuest.prefab.StructureGen.CustomStructures.StructureChickenCoop;
-import com.wuest.prefab.StructureGen.CustomStructures.StructureHorseStable;
+import com.wuest.prefab.Config.FishPondConfiguration;
+import com.wuest.prefab.Gui.GuiFishPond;
+import com.wuest.prefab.StructureGen.CustomStructures.StructureFishPond;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -17,6 +16,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
 /**
@@ -24,11 +24,11 @@ import net.minecraft.world.World;
  * @author WuestMan
  *
  */
-public class ItemHorseStable extends Item
+public class ItemFishPond extends Item
 {
-	private ChickenCoopConfiguration currentConfiguration = null;
+	private FishPondConfiguration currentConfiguration = null;
 
-	public ItemHorseStable(String name)
+	public ItemFishPond(String name)
 	{
 		super();
 
@@ -48,9 +48,9 @@ public class ItemHorseStable extends Item
 			if (side == EnumFacing.UP)
 			{
 				// Open the client side gui to determine the house options.
-				//StructureHorseStable horseStable = new StructureHorseStable();
-				//horseStable.ScanStructure(world, hitBlockPos, player.getHorizontalFacing());
-				player.openGui(Prefab.instance, ModRegistry.GuiHorseStable, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+				//StructureFishPond fishPond = new StructureFishPond();
+				//fishPond.ScanStructure(world, hitBlockPos, player.getHorizontalFacing());
+				player.openGui(Prefab.instance, ModRegistry.GuiFishPond, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
 				return EnumActionResult.PASS;
 			}
 		}
@@ -58,7 +58,7 @@ public class ItemHorseStable extends Item
 		return EnumActionResult.FAIL;
 	}
 	
-	public static void BuildHouse(EntityPlayer player, World world, HorseStableConfiguration configuration)
+	public static void BuildHouse(EntityPlayer player, World world, FishPondConfiguration configuration)
 	{
 		// This is always on the server.
 		if (configuration != null)
@@ -74,11 +74,11 @@ public class ItemHorseStable extends Item
  
 				if (hitBlock != null)
 				{
-					StructureHorseStable structure = StructureHorseStable.CreateInstance(StructureHorseStable.ASSETLOCATION, StructureHorseStable.class);
+					StructureFishPond structure = StructureFishPond.CreateInstance(StructureFishPond.ASSETLOCATION, StructureFishPond.class);
 					
 					if (structure.BuildStructure(configuration, world, hitBlockPos, EnumFacing.NORTH, player))
 					{
-						player.inventory.clearMatchingItems(ModRegistry.HorseStable(), -1, 1, null);
+						player.inventory.clearMatchingItems(ModRegistry.FishPond(), -1, 1, null);
 						player.inventoryContainer.detectAndSendChanges();
 					}
 				}

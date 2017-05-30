@@ -8,7 +8,7 @@ import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Capabilities.IStructureConfigurationCapability;
 import com.wuest.prefab.Config.BasicStructureConfiguration;
 import com.wuest.prefab.Config.BasicStructureConfiguration.EnumBasicStructureName;
-import com.wuest.prefab.Items.ItemBasicStructure;
+import com.wuest.prefab.Items.Structures.ItemBasicStructure;
 import com.wuest.prefab.Proxy.Messages.BasicStructureTagMessage;
 import com.wuest.prefab.Render.StructureRenderHandler;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureBasic;

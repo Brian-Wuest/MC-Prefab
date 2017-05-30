@@ -1,7 +1,7 @@
 package com.wuest.prefab.Proxy.Messages.Handlers;
 
 import com.wuest.prefab.Config.FishPondConfiguration;
-import com.wuest.prefab.Items.ItemFishPond;
+import com.wuest.prefab.Items.Structures.ItemFishPond;
 import com.wuest.prefab.Proxy.Messages.FishPondTagMessage;
 
 import net.minecraft.util.IThreadListener;

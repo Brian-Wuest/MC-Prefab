@@ -1,7 +1,7 @@
 package com.wuest.prefab.Proxy.Messages.Handlers;
 
 import com.wuest.prefab.Config.TreeFarmConfiguration;
-import com.wuest.prefab.Items.ItemTreeFarm;
+import com.wuest.prefab.Items.Structures.ItemTreeFarm;
 import com.wuest.prefab.Proxy.Messages.TreeFarmTagMessage;
 
 import net.minecraft.util.IThreadListener;

@@ -1,7 +1,7 @@
 package com.wuest.prefab.Proxy.Messages.Handlers;
 
 import com.wuest.prefab.Config.VillagerHouseConfiguration;
-import com.wuest.prefab.Items.ItemVillagerHouses;
+import com.wuest.prefab.Items.Structures.ItemVillagerHouses;
 import com.wuest.prefab.Proxy.Messages.VillagerHousesTagMessage;
 
 import net.minecraft.util.IThreadListener;

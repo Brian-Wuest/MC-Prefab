@@ -1,7 +1,7 @@
 package com.wuest.prefab.Proxy.Messages.Handlers;
 
 import com.wuest.prefab.Config.WareHouseConfiguration;
-import com.wuest.prefab.Items.ItemWareHouse;
+import com.wuest.prefab.Items.Structures.ItemWareHouse;
 import com.wuest.prefab.Proxy.Messages.WareHouseTagMessage;
 
 import net.minecraft.util.IThreadListener;

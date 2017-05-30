@@ -1,7 +1,7 @@
 package com.wuest.prefab.Proxy.Messages.Handlers;
 
 import com.wuest.prefab.Config.ModularHouseConfiguration;
-import com.wuest.prefab.Items.ItemModularHouse;
+import com.wuest.prefab.Items.Structures.ItemModularHouse;
 import com.wuest.prefab.Proxy.Messages.ModularHouseTagMessage;
 
 import net.minecraft.util.IThreadListener;

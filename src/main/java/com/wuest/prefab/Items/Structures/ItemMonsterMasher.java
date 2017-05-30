@@ -1,12 +1,10 @@
-package com.wuest.prefab.Items;
+package com.wuest.prefab.Items.Structures;
 
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Config.ChickenCoopConfiguration;
+import com.wuest.prefab.Config.MonsterMasherConfiguration;
 import com.wuest.prefab.Config.ProduceFarmConfiguration;
-import com.wuest.prefab.Gui.GuiChickenCoop;
-import com.wuest.prefab.Gui.GuiProduceFarm;
-import com.wuest.prefab.StructureGen.CustomStructures.StructureChickenCoop;
+import com.wuest.prefab.StructureGen.CustomStructures.StructureMonsterMasher;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureProduceFarm;
 
 import net.minecraft.block.Block;
@@ -27,11 +25,11 @@ import net.minecraft.world.World;
  * @author WuestMan
  *
  */
-public class ItemProduceFarm extends Item 
+public class ItemMonsterMasher extends Item
 {
-	private ProduceFarmConfiguration currentConfiguration = null;
+	private MonsterMasherConfiguration currentConfiguration = null;
 
-	public ItemProduceFarm(String name)
+	public ItemMonsterMasher(String name)
 	{
 		super();
 
@@ -51,9 +49,9 @@ public class ItemProduceFarm extends Item
 			if (side == EnumFacing.UP)
 			{
 				// Open the client side gui to determine the house options.
-				//StructureProduceFarm produceFarm = new StructureProduceFarm();
-				//produceFarm.ScanStructure(world, hitBlockPos, player.getHorizontalFacing());
-				player.openGui(Prefab.instance, ModRegistry.GuiProduceFarm, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+				//StructureMonsterMasher monsterMasher = new StructureMonsterMasher();
+				//monsterMasher.ScanStructure(world, hitBlockPos, player.getHorizontalFacing());
+				player.openGui(Prefab.instance, ModRegistry.GuiMonsterMasher, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
 				return EnumActionResult.PASS;
 			}
 		}
@@ -61,7 +59,7 @@ public class ItemProduceFarm extends Item
 		return EnumActionResult.FAIL;
 	}
 	
-	public static void BuildHouse(EntityPlayer player, World world, ProduceFarmConfiguration configuration)
+	public static void BuildHouse(EntityPlayer player, World world, MonsterMasherConfiguration configuration)
 	{
 		// This is always on the server.
 		if (configuration != null)
@@ -77,11 +75,11 @@ public class ItemProduceFarm extends Item
  
 				if (hitBlock != null)
 				{
-					StructureProduceFarm structure = StructureProduceFarm.CreateInstance(StructureProduceFarm.ASSETLOCATION, StructureProduceFarm.class);
+					StructureMonsterMasher structure = StructureMonsterMasher.CreateInstance(StructureMonsterMasher.ASSETLOCATION, StructureMonsterMasher.class);
 					
 					if (structure.BuildStructure(configuration, world, hitBlockPos, EnumFacing.NORTH, player))
 					{
-						player.inventory.clearMatchingItems(ModRegistry.ProduceFarm(), -1, 1, null);
+						player.inventory.clearMatchingItems(ModRegistry.MonsterMasher(), -1, 1, null);
 						player.inventoryContainer.detectAndSendChanges();
 					}
 				}

@@ -1,11 +1,9 @@
-package com.wuest.prefab.Items;
+package com.wuest.prefab.Items.Structures;
 
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Config.MonsterMasherConfiguration;
-import com.wuest.prefab.Config.ProduceFarmConfiguration;
-import com.wuest.prefab.StructureGen.CustomStructures.StructureMonsterMasher;
-import com.wuest.prefab.StructureGen.CustomStructures.StructureProduceFarm;
+import com.wuest.prefab.Config.ModularHouseConfiguration;
+import com.wuest.prefab.StructureGen.CustomStructures.StructureModularHouse;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -17,7 +15,6 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
 /**
@@ -25,11 +22,11 @@ import net.minecraft.world.World;
  * @author WuestMan
  *
  */
-public class ItemMonsterMasher extends Item
+public class ItemModularHouse extends Item
 {
-	private MonsterMasherConfiguration currentConfiguration = null;
+	private ModularHouseConfiguration currentConfiguration = null;
 
-	public ItemMonsterMasher(String name)
+	public ItemModularHouse(String name)
 	{
 		super();
 
@@ -49,9 +46,9 @@ public class ItemMonsterMasher extends Item
 			if (side == EnumFacing.UP)
 			{
 				// Open the client side gui to determine the house options.
-				//StructureMonsterMasher monsterMasher = new StructureMonsterMasher();
-				//monsterMasher.ScanStructure(world, hitBlockPos, player.getHorizontalFacing());
-				player.openGui(Prefab.instance, ModRegistry.GuiMonsterMasher, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+				//StructureModularHouse chickenCoop = new StructureModularHouse();
+				//modularHouse.ScanStructure(world, hitBlockPos, player.getHorizontalFacing());
+				player.openGui(Prefab.instance, ModRegistry.GuiModularHouse, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
 				return EnumActionResult.PASS;
 			}
 		}
@@ -59,7 +56,7 @@ public class ItemMonsterMasher extends Item
 		return EnumActionResult.FAIL;
 	}
 	
-	public static void BuildHouse(EntityPlayer player, World world, MonsterMasherConfiguration configuration)
+	public static void BuildHouse(EntityPlayer player, World world, ModularHouseConfiguration configuration)
 	{
 		// This is always on the server.
 		if (configuration != null)
@@ -75,11 +72,11 @@ public class ItemMonsterMasher extends Item
  
 				if (hitBlock != null)
 				{
-					StructureMonsterMasher structure = StructureMonsterMasher.CreateInstance(StructureMonsterMasher.ASSETLOCATION, StructureMonsterMasher.class);
+					StructureModularHouse structure = StructureModularHouse.CreateInstance(StructureModularHouse.ASSETLOCATION, StructureModularHouse.class);
 					
 					if (structure.BuildStructure(configuration, world, hitBlockPos, EnumFacing.NORTH, player))
 					{
-						player.inventory.clearMatchingItems(ModRegistry.MonsterMasher(), -1, 1, null);
+						player.inventory.clearMatchingItems(ModRegistry.ModularHouse(), -1, 1, null);
 						player.inventoryContainer.detectAndSendChanges();
 					}
 				}

@@ -1,4 +1,4 @@
-package com.wuest.prefab.Items;
+package com.wuest.prefab.Items.Structures;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.wuest.prefab.Items;
+package com.wuest.prefab.Items.Structures;
 
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
@@ -23,36 +23,14 @@ import net.minecraft.world.World;
  * @author WuestMan
  *
  */
-public class ItemChickenCoop extends Item
+public class ItemChickenCoop extends StructureItem
 {
 	public ItemChickenCoop(String name)
 	{
 		super();
 
-		this.setCreativeTab(CreativeTabs.MISC);
 		ModRegistry.setItemName(this, name);
-	}
-	
-	/**
-	 * Does something when the item is right-clicked.
-	 */
-	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos hitBlockPos, EnumHand hand, EnumFacing side, float hitX,
-			float hitY, float hitZ)
-	{
-		if (world.isRemote)
-		{
-			if (side == EnumFacing.UP)
-			{
-				// Open the client side gui to determine the house options.
-				//StructureChickenCoop chickenCoop = new StructureChickenCoop();
-				//chickenCoop.ScanStructure(world, hitBlockPos, player.getHorizontalFacing());
-				player.openGui(Prefab.instance, ModRegistry.GuiChickenCoop, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
-				return EnumActionResult.PASS;
-			}
-		}
-
-		return EnumActionResult.FAIL;
+		this.guiId = ModRegistry.GuiChickenCoop;
 	}
 	
 	public static void BuildHouse(EntityPlayer player, World world, ChickenCoopConfiguration configuration)

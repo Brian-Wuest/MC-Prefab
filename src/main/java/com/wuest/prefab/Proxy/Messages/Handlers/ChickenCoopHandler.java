@@ -1,8 +1,8 @@
 package com.wuest.prefab.Proxy.Messages.Handlers;
 
 import com.wuest.prefab.Config.ChickenCoopConfiguration;
-import com.wuest.prefab.Items.ItemChickenCoop;
-import com.wuest.prefab.Items.ItemWareHouse;
+import com.wuest.prefab.Items.Structures.ItemChickenCoop;
+import com.wuest.prefab.Items.Structures.ItemWareHouse;
 import com.wuest.prefab.Proxy.Messages.ChickenCoopTagMessage;
 
 import net.minecraft.util.IThreadListener;

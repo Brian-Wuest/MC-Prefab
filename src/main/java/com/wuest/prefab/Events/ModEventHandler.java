@@ -10,7 +10,7 @@ import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Capabilities.StructureConfigurationCapability;
 import com.wuest.prefab.Capabilities.StructureConfigurationProvider;
 import com.wuest.prefab.Config.ModConfiguration;
-import com.wuest.prefab.Items.ItemBasicStructure;
+import com.wuest.prefab.Items.Structures.ItemBasicStructure;
 import com.wuest.prefab.Proxy.ClientProxy;
 import com.wuest.prefab.Proxy.Messages.ConfigSyncMessage;
 import com.wuest.prefab.StructureGen.BuildBlock;
