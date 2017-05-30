@@ -31,30 +31,13 @@ import net.minecraftforge.fml.client.config.GuiButtonExt;
  * @author WuestMan
  *
  */
-public class GuiBasicStructure extends GuiScreen
+public class GuiBasicStructure extends GuiStructure
 {
-	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/default_background.png");
-
-	protected GuiButtonExt btnCancel;
-	protected GuiButtonExt btnBuild;
-	protected GuiButtonExt btnVisualize;
-	
-	public BlockPos pos;
-	
-	protected GuiButtonExt btnHouseFacing;
 	protected BasicStructureConfiguration configuration;
-	protected EntityPlayer player;
 	
 	public GuiBasicStructure(int x, int y, int z)
 	{
-		this.pos = new BlockPos(x, y, z);
-	}
-	
-	@Override
-	public void initGui()
-	{
-		this.player = this.mc.thePlayer;
-		this.Initialize();
+		super(x, y, z, true);
 	}
 	
 	/**
@@ -63,8 +46,8 @@ public class GuiBasicStructure extends GuiScreen
 	@Override
 	public void drawScreen(int x, int y, float f) 
 	{
-		int grayBoxX = (this.width / 2) - 213;
-		int grayBoxY = (this.height / 2) - 83;
+		int grayBoxX = this.centeredXAxis - 213;
+		int grayBoxY = this.centeredYAxis - 83;
 		
 		this.drawDefaultBackground();
 
@@ -72,38 +55,26 @@ public class GuiBasicStructure extends GuiScreen
 		{
 			// Draw the control background.
 			this.mc.getTextureManager().bindTexture(this.configuration.basicStructureName.getTopDownPictureLocation());
-			GuiTabScreen.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 
+			
+			this.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 
 					this.configuration.basicStructureName.getImageWidth(), this.configuration.basicStructureName.getImageHeight(), 
 					this.configuration.basicStructureName.getImageWidth(), this.configuration.basicStructureName.getImageHeight());
 		}
 		else
 		{
 			// This is a completely custom structure created by the user. Reset the center location as there won't be a picture.
-			grayBoxX = this.width / 2;
-			grayBoxY = this.height / 2;
+			grayBoxX = this.centeredXAxis;
+			grayBoxY = this.centeredYAxis;
 		}
 		
-		this.mc.getTextureManager().bindTexture(backgroundTextures);
-		this.drawTexturedModalRect(grayBoxX, grayBoxY, 0, 0, 256, 256);
-
-		for (int i = 0; i < this.buttonList.size(); ++i)
-		{
-			((GuiButton)this.buttonList.get(i)).drawButton(this.mc, x, y);
-		}
-
-		for (int j = 0; j < this.labelList.size(); ++j)
-		{
-			((GuiLabel)this.labelList.get(j)).drawLabel(this.mc, x, y);
-		}
+		this.drawControlBackgroundAndButtonsAndLabels(grayBoxX, grayBoxY, x, y);
 
 		// Draw the text here.
-		int color = Color.DARK_GRAY.getRGB();
-
-		this.mc.fontRendererObj.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_FACING), grayBoxX + 10, grayBoxY + 10, color);
+		this.mc.fontRendererObj.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_FACING), grayBoxX + 10, grayBoxY + 10, this.textColor);
 		
 		// Draw the text here.
-		this.mc.fontRendererObj.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), grayBoxX + 147, grayBoxY + 10, 95, color);
-		this.mc.fontRendererObj.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_FACING_PLAYER), grayBoxX + 147, grayBoxY + 60, 95, color);
+		this.mc.fontRendererObj.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), grayBoxX + 147, grayBoxY + 10, 95, this.textColor);
+		this.mc.fontRendererObj.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_FACING_PLAYER), grayBoxX + 147, grayBoxY + 60, 95, this.textColor);
 		
 		if (!Prefab.proxy.proxyConfiguration.enableStructurePreview)
 		{
@@ -117,16 +88,9 @@ public class GuiBasicStructure extends GuiScreen
 	@Override
 	protected void actionPerformed(GuiButton button) throws IOException
 	{
-		if (button == this.btnCancel)
-		{
-			this.mc.displayGuiScreen(null);
-		}
-		else if (button == this.btnBuild)
-		{
-			Prefab.network.sendToServer(new StructureTagMessage(this.configuration.WriteToNBTTagCompound(), EnumStructureConfiguration.Basic));
-			this.mc.displayGuiScreen(null);
-		}
-		else if (button == this.btnHouseFacing)
+		this.performCancelOrBuild(this.configuration, button);
+		
+		if (button == this.btnHouseFacing)
 		{
 			this.configuration.houseFacing = this.configuration.houseFacing.rotateY();
 			this.btnHouseFacing.displayString = GuiLangKeys.translateFacing(this.configuration.houseFacing);
@@ -139,33 +103,23 @@ public class GuiBasicStructure extends GuiScreen
 		}
 	}
 	
-	/**
-	 * Returns true if this GUI should pause the game when it is displayed in single-player
-	 */
 	@Override
-	public boolean doesGuiPauseGame()
-	{
-		return true;
-	}
-	
-	private void Initialize() 
+	protected void Initialize() 
 	{
 		// Get the structure configuration for this itemstack.
 		ItemStack stack = ItemBasicStructure.getBasicStructureItemInHand(this.player);
 		
 		if (stack != null)
 		{
-			//NBTTagCompound tagCompound = stack.getTagCompound();
 			IStructureConfigurationCapability capability = stack.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
 			this.configuration = capability.getConfiguration();
-			//this.configuration = new BasicStructureConfiguration().ReadFromNBTTagCompound(tagCompound.getCompoundTag("structureConfiguration"));
 		}
 		
 		this.configuration.pos = this.pos;
 
 		// Get the upper left hand corner of the GUI box.
-		int grayBoxX = (this.width / 2) - 213;
-		int grayBoxY = (this.height / 2) - 83;
+		int grayBoxX = this.centeredXAxis - 213;
+		int grayBoxY = this.centeredYAxis - 83;
 
 		// Create the buttons.
 		this.btnHouseFacing = new GuiButtonExt(3, grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateFacing(this.configuration.houseFacing));
