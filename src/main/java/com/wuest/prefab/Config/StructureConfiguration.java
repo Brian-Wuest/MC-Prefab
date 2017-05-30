@@ -1,9 +1,16 @@
 package com.wuest.prefab.Config;
 
+import com.wuest.prefab.ModRegistry;
+import com.wuest.prefab.StructureGen.CustomStructures.StructureChickenCoop;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 /**
  * This is the base configuration class used by all structures.
@@ -94,6 +101,40 @@ public class StructureConfiguration
 		}
 		
 		return config;
+	}
+	
+	/**
+	 * Generic method to start the building of the structure.
+	 * @param player The player which requested the build.
+	 * @param world The world instance where the build will occur.
+	 */
+	public void BuildStructure(EntityPlayer player, World world)
+	{
+		// This is always on the server.
+		BlockPos hitBlockPos = this.pos;
+		BlockPos playerPosition = player.getPosition();
+
+		IBlockState hitBlockState = world.getBlockState(hitBlockPos);
+
+		if (hitBlockState != null)
+		{
+			Block hitBlock = hitBlockState.getBlock();
+ 
+			if (hitBlock != null)
+			{
+				this.ConfigurationSpecificBuildStructure(player, world, hitBlockPos);
+			}
+		}
+	}
+	
+	/**
+	 * This is used to actually build the structure as it creates the structure instance and calls build structure.
+	 * @param player The player which requested the build.
+	 * @param world The world instance where the build will occur.
+	 * @param hitBlockPos This hit block position.
+	 */
+	protected void ConfigurationSpecificBuildStructure(EntityPlayer player, World world, BlockPos hitBlockPos)
+	{
 	}
 	
 	/**

@@ -22,38 +22,14 @@ import net.minecraft.world.World;
  * @author WuestMan
  *
  */
-public class ItemModularHouse extends Item
+public class ItemModularHouse extends StructureItem
 {
-	private ModularHouseConfiguration currentConfiguration = null;
-
 	public ItemModularHouse(String name)
 	{
 		super();
 
-		this.setCreativeTab(CreativeTabs.MISC);
+		this.guiId = ModRegistry.GuiModularHouse;
 		ModRegistry.setItemName(this, name);
-	}
-	
-	/**
-	 * Does something when the item is right-clicked.
-	 */
-	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos hitBlockPos, EnumHand hand, EnumFacing side, float hitX,
-			float hitY, float hitZ)
-	{
-		if (world.isRemote)
-		{
-			if (side == EnumFacing.UP)
-			{
-				// Open the client side gui to determine the house options.
-				//StructureModularHouse chickenCoop = new StructureModularHouse();
-				//modularHouse.ScanStructure(world, hitBlockPos, player.getHorizontalFacing());
-				player.openGui(Prefab.instance, ModRegistry.GuiModularHouse, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
-				return EnumActionResult.PASS;
-			}
-		}
-
-		return EnumActionResult.FAIL;
 	}
 	
 	public static void BuildHouse(EntityPlayer player, World world, ModularHouseConfiguration configuration)

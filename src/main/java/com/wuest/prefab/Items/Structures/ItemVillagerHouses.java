@@ -32,43 +32,16 @@ import net.minecraft.world.gen.structure.StructureVillagePieces;
  * @author WuestMan
  *
  */
-
-public class ItemVillagerHouses extends Item
+public class ItemVillagerHouses extends StructureItem
 {
-	private StructureVillagerHouses basic;
-	private VillagerHouseConfiguration config; 
-	
 	public ItemVillagerHouses(String name)
 	{
 		super();
 
-		this.setCreativeTab(CreativeTabs.MISC);
+		this.guiId = ModRegistry.GuiVillagerHouses;
 		this.setMaxDamage(10);
 		this.setMaxStackSize(1);
 		ModRegistry.setItemName(this, name);
-	}
-	
-	/**
-	 * Does something when the item is right-clicked.
-	 */
-	@Override
-
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos hitBlockPos, EnumHand hand, EnumFacing side, float hitX,
-			float hitY, float hitZ)
-	{
-		if (world.isRemote)
-		{
-			if (side == EnumFacing.UP)
-			{
-				// Open the client side gui to determine the house options.
-				//StructureVillagerHouses structureVillagerHouses = new StructureVillagerHouses();
-				//structureVillagerHouses.ScanStructure(world, hitBlockPos, player.getHorizontalFacing(), VillagerHouseConfiguration.HouseStyle.BLACKSMITH);
-				player.openGui(Prefab.instance, ModRegistry.GuiVillagerHouses, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
-				return EnumActionResult.PASS;
-			}
-		}
-
-		return EnumActionResult.FAIL;
 	}
 	
 	public static void BuildHouse(EntityPlayer player, World world, VillagerHouseConfiguration configuration)

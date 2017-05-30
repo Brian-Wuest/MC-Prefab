@@ -27,38 +27,14 @@ import net.minecraft.world.World;
  * @author WuestMan
  *
  */
-public class ItemProduceFarm extends Item 
+public class ItemProduceFarm extends StructureItem 
 {
-	private ProduceFarmConfiguration currentConfiguration = null;
-
 	public ItemProduceFarm(String name)
 	{
 		super();
 
-		this.setCreativeTab(CreativeTabs.MISC);
+		this.guiId = ModRegistry.GuiProduceFarm;
 		ModRegistry.setItemName(this, name);
-	}
-	
-	/**
-	 * Does something when the item is right-clicked.
-	 */
-	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos hitBlockPos, EnumHand hand, EnumFacing side, float hitX,
-			float hitY, float hitZ)
-	{
-		if (world.isRemote)
-		{
-			if (side == EnumFacing.UP)
-			{
-				// Open the client side gui to determine the house options.
-				//StructureProduceFarm produceFarm = new StructureProduceFarm();
-				//produceFarm.ScanStructure(world, hitBlockPos, player.getHorizontalFacing());
-				player.openGui(Prefab.instance, ModRegistry.GuiProduceFarm, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
-				return EnumActionResult.PASS;
-			}
-		}
-
-		return EnumActionResult.FAIL;
 	}
 	
 	public static void BuildHouse(EntityPlayer player, World world, ProduceFarmConfiguration configuration)

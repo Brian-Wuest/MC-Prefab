@@ -55,7 +55,7 @@ import com.wuest.prefab.StructureGen.CustomStructures.StructureChickenCoop;
  * @author WuestMan
  *
  */
-public class ItemStartHouse extends Item
+public class ItemStartHouse extends StructureItem
 {
 	protected static BlockPos NorthEastCorner;
 	protected static BlockPos SouthEastCorner;
@@ -68,32 +68,8 @@ public class ItemStartHouse extends Item
 	{
 		super();
 
-		this.setCreativeTab(CreativeTabs.MISC);
+		this.guiId = ModRegistry.GuiStartHouseChooser;
 		ModRegistry.setItemName(this, name);
-	}
-
-	/**
-	 * Does something when the item is right-clicked.
-	 */
-	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos hitBlockPos, EnumHand hand, EnumFacing side, float hitX,
-			float hitY, float hitZ)
-	{
-		if (world.isRemote)
-		{
-			if (side == EnumFacing.UP)
-			{
-				// Open the client side gui to determine the house options.
-				//StructureAlternateStart alternateStart = new StructureAlternateStart();
-				//alternateStart.ScanStructure(world, hitBlockPos, player.getHorizontalFacing(), "desert_house", false, false);
-				//alternateStart.ScanLoftStructure(world, hitBlockPos, player.getHorizontalFacing());
-				
-				player.openGui(Prefab.instance, ModRegistry.GuiStartHouseChooser, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
-				return EnumActionResult.PASS;
-			}
-		}
-
-		return EnumActionResult.FAIL;
 	}
 
 	public static void BuildHouse(EntityPlayer player, World world, HouseConfiguration configuration)

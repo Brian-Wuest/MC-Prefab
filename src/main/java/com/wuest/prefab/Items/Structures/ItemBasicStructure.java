@@ -36,45 +36,16 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  * @author WuestMan
  *
  */
-public class ItemBasicStructure extends Item
+public class ItemBasicStructure extends StructureItem
 {
 
 	public ItemBasicStructure(String name)
 	{
 		super();
 
-		this.setCreativeTab(CreativeTabs.MISC);
 		ModRegistry.setItemName(this, name);
 		this.setHasSubtypes(true);
-	}
-	
-	/**
-	 * Does something when the item is right-clicked.
-	 */
-	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos hitBlockPos, EnumHand hand, EnumFacing side, float hitX,
-			float hitY, float hitZ)
-	{
-		if (world.isRemote)
-		{
-			if (side == EnumFacing.UP)
-			{
-				IStructureConfigurationCapability capability = stack.getCapability(ModRegistry.StructureConfiguration,  EnumFacing.NORTH);
-				
-				if (capability != null)
-				{
-					BasicStructureConfiguration structureConfiguration = capability.getConfiguration();
-					
-					// Open the client side gui to determine the house options.
-					//StructureBasic basicStructure = new StructureBasic();
-					//basicStructure.ScanStructure(world, hitBlockPos, player.getHorizontalFacing(), structureConfiguration, false, false);
-					player.openGui(Prefab.instance, ModRegistry.GuiBasicStructure, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
-					return EnumActionResult.PASS;
-				}
-			}
-		}
-
-		return EnumActionResult.FAIL;
+		this.guiId = ModRegistry.GuiBasicStructure;
 	}
 	
     /**
