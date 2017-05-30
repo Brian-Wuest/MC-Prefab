@@ -3,10 +3,17 @@ package com.wuest.prefab.Config;
 import com.wuest.prefab.Config.ModConfiguration.CeilingFloorBlockType;
 import com.wuest.prefab.Config.ModConfiguration.WallBlockType;
 import com.wuest.prefab.Gui.GuiLangKeys;
+import com.wuest.prefab.Items.Structures.ItemVillagerHouses;
+import com.wuest.prefab.StructureGen.CustomStructures.StructureVillagerHouses;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 /**
  * This is the villager house configuration.
@@ -60,11 +67,31 @@ public class VillagerHouseConfiguration extends StructureConfiguration
 	 * @param messageTag The message to create the configuration from.
 	 * @return An new configuration object with the values derived from the NBTTagCompound.
 	 */
+	@Override
 	public VillagerHouseConfiguration ReadFromNBTTagCompound(NBTTagCompound messageTag) 
 	{
 		VillagerHouseConfiguration config = new VillagerHouseConfiguration();
 		
 		return (VillagerHouseConfiguration)super.ReadFromNBTTagCompound(messageTag, config);
+	}
+	
+	/**
+	 * This is used to actually build the structure as it creates the structure instance and calls build structure.
+	 * @param player The player which requested the build.
+	 * @param world The world instance where the build will occur.
+	 * @param hitBlockPos This hit block position.
+	 */
+	@Override
+	protected void ConfigurationSpecificBuildStructure(EntityPlayer player, World world, BlockPos hitBlockPos)
+	{
+		StructureVillagerHouses structure = StructureVillagerHouses.CreateInstance(this.houseStyle.getStructureLocation(), StructureVillagerHouses.class);
+		structure.BuildStructure(this, world, hitBlockPos, EnumFacing.NORTH, player);
+		
+		ItemStack stack = player.getHeldItemMainhand().getItem() instanceof ItemVillagerHouses ? player.getHeldItemMainhand() : player.getHeldItemOffhand();
+		
+		stack.damageItem(1, player);
+
+		player.inventoryContainer.detectAndSendChanges();
 	}
 
 	/**

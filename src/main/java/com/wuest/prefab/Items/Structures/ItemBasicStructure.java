@@ -102,55 +102,6 @@ public class ItemBasicStructure extends StructureItem
     {
         return ("" + I18n.translateToLocal(this.getUnlocalizedNameInefficiently(stack))).trim();
     }
-
-	public static void BuildHouse(EntityPlayer player, World world, BasicStructureConfiguration configuration)
-	{
-		// This is always on the server.
-		if (configuration != null)
-		{
-			BlockPos hitBlockPos = configuration.pos;
-			BlockPos playerPosition = player.getPosition();
-
-			IBlockState hitBlockState = world.getBlockState(hitBlockPos);
-
-			if (hitBlockState != null)
-			{
-				Block hitBlock = hitBlockState.getBlock();
- 
-				if (hitBlock != null)
-				{
-					String assetLocation = "";
-					
-					if (!configuration.IsCustomStructure())
-					{
-						assetLocation = configuration.basicStructureName.getAssetLocation();
-					}
-					else
-					{
-						// TODO: Pull the asset information from the NBTTag from the item stack currently in the player's hand.
-					}
-					
-					StructureBasic structure = StructureBasic.CreateInstance(assetLocation, StructureBasic.class);
-					
-					if (structure.BuildStructure(configuration, world, hitBlockPos, EnumFacing.NORTH, player))
-					{
-						ItemStack stack = ItemBasicStructure.getBasicStructureItemInHand(player);
-						
-						if (stack.stackSize == 1)
-						{
-							player.inventory.deleteStack(stack);
-						}
-						else
-						{
-							stack.stackSize = stack.stackSize - 1;
-						}
-						
-						player.inventoryContainer.detectAndSendChanges();
-					}
-				}
-			}
-		}
-	}
 	
     /**
      * Override this method to change the NBT data being sent to the client.

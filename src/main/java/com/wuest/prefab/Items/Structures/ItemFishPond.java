@@ -35,32 +35,4 @@ public class ItemFishPond extends StructureItem
 		this.guiId = ModRegistry.GuiFishPond;
 		ModRegistry.setItemName(this, name);
 	}
-	
-	public static void BuildHouse(EntityPlayer player, World world, FishPondConfiguration configuration)
-	{
-		// This is always on the server.
-		if (configuration != null)
-		{
-			BlockPos hitBlockPos = configuration.pos;
-			BlockPos playerPosition = player.getPosition();
-
-			IBlockState hitBlockState = world.getBlockState(hitBlockPos);
-
-			if (hitBlockState != null)
-			{
-				Block hitBlock = hitBlockState.getBlock();
- 
-				if (hitBlock != null)
-				{
-					StructureFishPond structure = StructureFishPond.CreateInstance(StructureFishPond.ASSETLOCATION, StructureFishPond.class);
-					
-					if (structure.BuildStructure(configuration, world, hitBlockPos, EnumFacing.NORTH, player))
-					{
-						player.inventory.clearMatchingItems(ModRegistry.FishPond(), -1, 1, null);
-						player.inventoryContainer.detectAndSendChanges();
-					}
-				}
-			}
-		}
-	}
 }

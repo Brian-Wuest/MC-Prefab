@@ -52,7 +52,7 @@ public abstract class TileBlockBase<T extends TileEntityBase> extends Block impl
     @SuppressWarnings ("unchecked")
     public Class<T> getTypeParameterClass()
     {
-        Type type = getClass().getGenericSuperclass();
+        Type type = this.getClass().getGenericSuperclass();
         ParameterizedType paramType = (ParameterizedType) type;
         return (Class<T>) paramType.getActualTypeArguments()[0];
     }

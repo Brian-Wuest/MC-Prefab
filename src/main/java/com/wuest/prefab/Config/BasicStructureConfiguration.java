@@ -1,12 +1,18 @@
 package com.wuest.prefab.Config;
 
+import com.wuest.prefab.Items.Structures.ItemBasicStructure;
 import com.wuest.prefab.StructureGen.BuildShape;
 import com.wuest.prefab.StructureGen.PositionOffset;
+import com.wuest.prefab.StructureGen.CustomStructures.StructureBasic;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 /**
  * This class is used for the basic structures in the mod.
@@ -176,11 +182,51 @@ public class BasicStructureConfiguration extends StructureConfiguration
 	 * @param messageTag The tag to read the data from.
 	 * @return An instance of {@link BasicStructureConfiguration} with vaules pulled from the NBTTagCompound.
 	 */
+	@Override
 	public BasicStructureConfiguration ReadFromNBTTagCompound(NBTTagCompound messageTag) 
 	{
 		BasicStructureConfiguration config = new BasicStructureConfiguration();
 		
 		return (BasicStructureConfiguration)super.ReadFromNBTTagCompound(messageTag, config);
+	}
+	
+	/**
+	 * This is used to actually build the structure as it creates the structure instance and calls build structure.
+	 * @param player The player which requested the build.
+	 * @param world The world instance where the build will occur.
+	 * @param hitBlockPos This hit block position.
+	 */
+	@Override
+	protected void ConfigurationSpecificBuildStructure(EntityPlayer player, World world, BlockPos hitBlockPos)
+	{
+		String assetLocation = "";
+		
+		if (!this.IsCustomStructure())
+		{
+			assetLocation = this.basicStructureName.getAssetLocation();
+		}
+		else
+		{
+			// TODO: Pull the asset information from the NBTTag from the item stack currently in the player's hand.
+		}
+		
+		StructureBasic structure = StructureBasic.CreateInstance(assetLocation, StructureBasic.class);
+		
+		if (structure.BuildStructure(this, world, hitBlockPos, EnumFacing.NORTH, player))
+		{
+			ItemStack stack = ItemBasicStructure.getBasicStructureItemInHand(player);
+			
+			if (stack.stackSize == 1)
+			{
+				player.inventory.deleteStack(stack);
+			}
+			else
+			{
+				stack.stackSize = stack.stackSize - 1;
+			}
+			
+			player.inventoryContainer.detectAndSendChanges();
+		}
 	}
 	
 	/**

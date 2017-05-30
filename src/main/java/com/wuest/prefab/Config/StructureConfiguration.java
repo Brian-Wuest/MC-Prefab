@@ -77,6 +77,16 @@ public class StructureConfiguration
 	/**
 	 * Reads NBTTagCompound to create a StructureConfiguration object from.
 	 * @param messageTag The NBTTagCompound to read the properties from.
+	 * @return The updated StructureConfiguration instance.
+	 */
+	public StructureConfiguration ReadFromNBTTagCompound(NBTTagCompound messageTag)
+	{
+		return null;
+	}
+	
+	/**
+	 * Reads NBTTagCompound to create a StructureConfiguration object from.
+	 * @param messageTag The NBTTagCompound to read the properties from.
 	 * @param config The existing StructureConfiguration instance to fill the properties in for.
 	 * @return The updated StructureConfiguration instance.
 	 */

@@ -40,42 +40,4 @@ public class ItemWareHouse extends StructureItem
 		this.guiId = ModRegistry.GuiWareHouse;
 		ModRegistry.setItemName(this, name);
 	}
-	
-	public static void BuildHouse(EntityPlayer player, World world, WareHouseConfiguration configuration)
-	{
-		// This is always on the server.
-		if (configuration != null)
-		{
-			BlockPos hitBlockPos = configuration.pos;
-			BlockPos playerPosition = player.getPosition();
-
-			IBlockState hitBlockState = world.getBlockState(hitBlockPos);
-
-			if (hitBlockState != null)
-			{
-				Block hitBlock = hitBlockState.getBlock();
- 
-				if (hitBlock != null)
-				{
-					String assetLocation = configuration.advanced ? StructureWarehouse.ADVANCED_ASSET_LOCATION : StructureWarehouse.ASSETLOCATION;
-					
-					StructureWarehouse structure = StructureWarehouse.CreateInstance(assetLocation, StructureWarehouse.class);
-					
-					if (structure.BuildStructure(configuration, world, hitBlockPos, EnumFacing.NORTH, player))
-					{
-						if (configuration.advanced)
-						{
-							player.inventory.clearMatchingItems(ModRegistry.AdvancedWareHouse(), -1, 1, null);
-						}
-						else
-						{
-							player.inventory.clearMatchingItems(ModRegistry.WareHouse(), -1, 1, null);
-						}
-						
-						player.inventoryContainer.detectAndSendChanges();
-					}
-				}
-			}
-		}
-	}
 }

@@ -33,32 +33,4 @@ public class ItemHorseStable extends StructureItem
 		this.guiId = ModRegistry.GuiHorseStable;
 		ModRegistry.setItemName(this, name);
 	}
-	
-	public static void BuildHouse(EntityPlayer player, World world, HorseStableConfiguration configuration)
-	{
-		// This is always on the server.
-		if (configuration != null)
-		{
-			BlockPos hitBlockPos = configuration.pos;
-			BlockPos playerPosition = player.getPosition();
-
-			IBlockState hitBlockState = world.getBlockState(hitBlockPos);
-
-			if (hitBlockState != null)
-			{
-				Block hitBlock = hitBlockState.getBlock();
- 
-				if (hitBlock != null)
-				{
-					StructureHorseStable structure = StructureHorseStable.CreateInstance(StructureHorseStable.ASSETLOCATION, StructureHorseStable.class);
-					
-					if (structure.BuildStructure(configuration, world, hitBlockPos, EnumFacing.NORTH, player))
-					{
-						player.inventory.clearMatchingItems(ModRegistry.HorseStable(), -1, 1, null);
-						player.inventoryContainer.detectAndSendChanges();
-					}
-				}
-			}
-		}
-	}
 }

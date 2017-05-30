@@ -5,7 +5,8 @@ import java.io.IOException;
 
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.WareHouseConfiguration;
-import com.wuest.prefab.Proxy.Messages.WareHouseTagMessage;
+import com.wuest.prefab.Proxy.Messages.StructureTagMessage;
+import com.wuest.prefab.Proxy.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Render.StructureRenderHandler;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureWarehouse;
 
@@ -183,7 +184,7 @@ public class GuiWareHouse extends GuiScreen
 		}
 		else if (button == this.btnBuild)
 		{
-			Prefab.network.sendToServer(new WareHouseTagMessage(this.configuration.WriteToNBTTagCompound()));
+			Prefab.network.sendToServer(new StructureTagMessage(this.configuration.WriteToNBTTagCompound(), EnumStructureConfiguration.WareHouse));
 			
 			this.mc.displayGuiScreen(null);
 		}

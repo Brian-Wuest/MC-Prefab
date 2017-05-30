@@ -5,7 +5,8 @@ import java.io.IOException;
 
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.HorseStableConfiguration;
-import com.wuest.prefab.Proxy.Messages.HorseStableTagMessage;
+import com.wuest.prefab.Proxy.Messages.StructureTagMessage;
+import com.wuest.prefab.Proxy.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Render.StructureRenderHandler;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureHorseStable;
 
@@ -102,7 +103,7 @@ public class GuiHorseStable extends GuiScreen
 		}
 		else if (button == this.btnBuild)
 		{
-			Prefab.network.sendToServer(new HorseStableTagMessage(this.configuration.WriteToNBTTagCompound()));
+			Prefab.network.sendToServer(new StructureTagMessage(this.configuration.WriteToNBTTagCompound(), EnumStructureConfiguration.HorseStable));
 			
 			this.mc.displayGuiScreen(null);
 		}

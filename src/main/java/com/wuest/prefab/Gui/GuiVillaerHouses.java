@@ -5,7 +5,8 @@ import java.io.IOException;
 
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.VillagerHouseConfiguration;
-import com.wuest.prefab.Proxy.Messages.VillagerHousesTagMessage;
+import com.wuest.prefab.Proxy.Messages.StructureTagMessage;
+import com.wuest.prefab.Proxy.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Render.StructureRenderHandler;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureVillagerHouses;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureWarehouse;
@@ -150,7 +151,7 @@ public class GuiVillaerHouses extends GuiScreen
 		else if (button == this.btnBuild)
 		{
 			this.configuration.houseStyle = this.houseStyle;
-			Prefab.network.sendToServer(new VillagerHousesTagMessage(this.configuration.WriteToNBTTagCompound()));
+			Prefab.network.sendToServer(new StructureTagMessage(this.configuration.WriteToNBTTagCompound(), EnumStructureConfiguration.VillagerHouses));
 			
 			this.mc.displayGuiScreen(null);
 		}

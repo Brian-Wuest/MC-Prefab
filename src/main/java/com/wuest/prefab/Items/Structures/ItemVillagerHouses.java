@@ -43,33 +43,4 @@ public class ItemVillagerHouses extends StructureItem
 		this.setMaxStackSize(1);
 		ModRegistry.setItemName(this, name);
 	}
-	
-	public static void BuildHouse(EntityPlayer player, World world, VillagerHouseConfiguration configuration)
-	{
-		// This is always on the server.
-		if (configuration != null)
-		{
-			BlockPos hitBlockPos = configuration.pos;
-			BlockPos playerPosition = player.getPosition();
-
-			IBlockState hitBlockState = world.getBlockState(hitBlockPos);
-
-			if (hitBlockState != null)
-			{
-				Block hitBlock = hitBlockState.getBlock();
- 
-				if (hitBlock != null)
-				{
-					StructureVillagerHouses structure = StructureVillagerHouses.CreateInstance(configuration.houseStyle.getStructureLocation(), StructureVillagerHouses.class);
-					structure.BuildStructure(configuration, world, hitBlockPos, EnumFacing.NORTH, player);
-					
-					ItemStack stack = player.getHeldItemMainhand().getItem() instanceof ItemVillagerHouses ? player.getHeldItemMainhand() : player.getHeldItemOffhand();
-	        		
-	        		stack.damageItem(1, player);
-
-					player.inventoryContainer.detectAndSendChanges();
-				}
-			}
-		}
-	}
 }

@@ -9,7 +9,8 @@ import com.wuest.prefab.Capabilities.IStructureConfigurationCapability;
 import com.wuest.prefab.Config.BasicStructureConfiguration;
 import com.wuest.prefab.Config.BasicStructureConfiguration.EnumBasicStructureName;
 import com.wuest.prefab.Items.Structures.ItemBasicStructure;
-import com.wuest.prefab.Proxy.Messages.BasicStructureTagMessage;
+import com.wuest.prefab.Proxy.Messages.StructureTagMessage;
+import com.wuest.prefab.Proxy.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Render.StructureRenderHandler;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureBasic;
 
@@ -122,7 +123,7 @@ public class GuiBasicStructure extends GuiScreen
 		}
 		else if (button == this.btnBuild)
 		{
-			Prefab.network.sendToServer(new BasicStructureTagMessage(this.configuration.WriteToNBTTagCompound()));
+			Prefab.network.sendToServer(new StructureTagMessage(this.configuration.WriteToNBTTagCompound(), EnumStructureConfiguration.Basic));
 			this.mc.displayGuiScreen(null);
 		}
 		else if (button == this.btnHouseFacing)

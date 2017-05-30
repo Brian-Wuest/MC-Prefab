@@ -5,7 +5,8 @@ import java.io.IOException;
 
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.TreeFarmConfiguration;
-import com.wuest.prefab.Proxy.Messages.TreeFarmTagMessage;
+import com.wuest.prefab.Proxy.Messages.StructureTagMessage;
+import com.wuest.prefab.Proxy.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Render.StructureRenderHandler;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureTreeFarm;
 
@@ -106,7 +107,7 @@ public class GuiTreeFarm extends GuiScreen
 		}
 		else if (button == this.btnBuild)
 		{
-			Prefab.network.sendToServer(new TreeFarmTagMessage(this.configuration.WriteToNBTTagCompound()));
+			Prefab.network.sendToServer(new StructureTagMessage(this.configuration.WriteToNBTTagCompound(), EnumStructureConfiguration.TreeFarm));
 			
 			this.mc.displayGuiScreen(null);
 		}
