@@ -35,13 +35,13 @@ public class GuiStructure extends GuiScreen
 	public final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/default_background.png");
 	public BlockPos pos;
 	protected EntityPlayer player;
+	
 	protected GuiButtonExt btnCancel;
 	protected GuiButtonExt btnBuild;
 	protected GuiButtonExt btnVisualize;
 	protected GuiButtonExt btnHouseFacing;
+	
 	protected int textColor = Color.DARK_GRAY.getRGB();
-	protected int centeredXAxis = 0;
-	protected int centeredYAxis = 0;
 	protected EnumStructureConfiguration structureConfiguration;
 	protected boolean pauseGame;
 	
@@ -55,8 +55,6 @@ public class GuiStructure extends GuiScreen
 	public void initGui()
 	{
 		this.player = this.mc.thePlayer;
-		this.centeredXAxis = this.width / 2;
-		this.centeredYAxis = this.height / 2;
 		this.Initialize();
 	}
 	
@@ -65,6 +63,16 @@ public class GuiStructure extends GuiScreen
 	 */
 	protected void Initialize()
 	{
+	}
+	
+	protected int getCenteredXAxis()
+	{
+		return this.width / 2;
+	}
+	
+	protected int getCenteredYAxis()
+	{
+		return this.height / 2;
 	}
 	
 	/**
@@ -95,7 +103,7 @@ public class GuiStructure extends GuiScreen
 	/**
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
-	protected void performCancelOrBuild(StructureConfiguration configuration, GuiButton button) throws IOException
+	protected void performCancelOrBuildOrHouseFacing(StructureConfiguration configuration, GuiButton button) throws IOException
 	{
 		if (button == this.btnCancel)
 		{
@@ -105,6 +113,11 @@ public class GuiStructure extends GuiScreen
 		{
 			Prefab.network.sendToServer(new StructureTagMessage(configuration.WriteToNBTTagCompound(), EnumStructureConfiguration.Basic));
 			this.mc.displayGuiScreen(null);
+		}
+		else if (button == this.btnHouseFacing)
+		{
+			configuration.houseFacing = configuration.houseFacing.rotateY();
+			this.btnHouseFacing.displayString = GuiLangKeys.translateFacing(configuration.houseFacing);
 		}
 	}
 	

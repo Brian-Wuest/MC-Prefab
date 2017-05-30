@@ -24,34 +24,27 @@ import net.minecraftforge.fml.client.config.GuiButtonExt;
  * @author WuestMan
  *
  */
-public class GuiMonsterMasher extends GuiScreen
+public class GuiMonsterMasher extends GuiStructure
 {
-	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/default_background.png");
 	private static final ResourceLocation houseTopDown = new ResourceLocation("prefab", "textures/gui/monster_masher_top_down.png");
-	
-	protected GuiButtonExt btnCancel;
-	protected GuiButtonExt btnBuild;
-	protected GuiButtonExt btnVisualize;
-	
-	public BlockPos pos;
-	
-	protected GuiButtonExt btnHouseFacing;
 	protected GuiButtonExt btnGlassColor;
 	protected MonsterMasherConfiguration configuration;
 	
 	public GuiMonsterMasher(int x, int y, int z)
 	{
-		this.pos = new BlockPos(x, y, z);
+		super(x, y, z, true);
+		this.structureConfiguration = EnumStructureConfiguration.MonsterMasher;
 	}
 	
+	@Override
 	public void Initialize()
 	{
 		this.configuration = new MonsterMasherConfiguration();
 		this.configuration.pos = this.pos;
 
 		// Get the upper left hand corner of the GUI box.
-		int grayBoxX = (this.width / 2) - 210;
-		int grayBoxY = (this.height / 2) - 83;
+		int grayBoxX = this.getCenteredXAxis() - 210;
+		int grayBoxY = this.getCenteredYAxis() - 83;
 
 		// Create the buttons.
 		this.btnHouseFacing = new GuiButtonExt(3, grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateFacing(this.configuration.houseFacing));
@@ -71,29 +64,14 @@ public class GuiMonsterMasher extends GuiScreen
 		this.buttonList.add(this.btnCancel);
 	}
 
-	@Override
-	public void initGui()
-	{
-		this.Initialize();
-	}
-	
-	/**
-	 * Returns true if this GUI should pause the game when it is displayed in single-player
-	 */
-	@Override
-	public boolean doesGuiPauseGame()
-	{
-		return true;
-	}
-	
 	/**
 	 * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
 	 */
 	@Override
 	public void drawScreen(int x, int y, float f) 
 	{
-		int grayBoxX = (this.width / 2) - 210;
-		int grayBoxY = (this.height / 2) - 83;
+		int grayBoxX = this.getCenteredXAxis() - 210;
+		int grayBoxY = this.getCenteredYAxis() - 83;
 		
 		this.drawDefaultBackground();
 		
@@ -101,29 +79,16 @@ public class GuiMonsterMasher extends GuiScreen
 		this.mc.getTextureManager().bindTexture(houseTopDown);
 		GuiTabScreen.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 108, 156, 108, 156);
 		
-		this.mc.getTextureManager().bindTexture(backgroundTextures);
-		this.drawTexturedModalRect(grayBoxX, grayBoxY, 0, 0, 256, 256);
-
-		for (int i = 0; i < this.buttonList.size(); ++i)
-		{
-			((GuiButton)this.buttonList.get(i)).drawButton(this.mc, x, y);
-		}
-
-		for (int j = 0; j < this.labelList.size(); ++j)
-		{
-			((GuiLabel)this.labelList.get(j)).drawLabel(this.mc, x, y);
-		}
+		this.drawControlBackgroundAndButtonsAndLabels(grayBoxX, grayBoxY, x, y);
 
 		// Draw the text here.
-		int color = Color.DARK_GRAY.getRGB();
+		this.mc.fontRendererObj.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_FACING), grayBoxX + 10, grayBoxY + 10, this.textColor);
 
-		this.mc.fontRendererObj.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_FACING), grayBoxX + 10, grayBoxY + 10, color);
-
-		this.mc.fontRendererObj.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS), grayBoxX + 10, grayBoxY + 50, color);
+		this.mc.fontRendererObj.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS), grayBoxX + 10, grayBoxY + 50, this.textColor);
 		
 		// Draw the text here.
-		this.mc.fontRendererObj.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), grayBoxX + 147, grayBoxY + 10, 100, color);
-		this.mc.fontRendererObj.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_DOOR_FACING), grayBoxX + 147, grayBoxY + 50, 100, color);
+		this.mc.fontRendererObj.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), grayBoxX + 147, grayBoxY + 10, 100, this.textColor);
+		this.mc.fontRendererObj.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_DOOR_FACING), grayBoxX + 147, grayBoxY + 50, 100, this.textColor);
 		
 		if (!Prefab.proxy.proxyConfiguration.enableStructurePreview)
 		{
@@ -137,22 +102,9 @@ public class GuiMonsterMasher extends GuiScreen
 	@Override
 	protected void actionPerformed(GuiButton button) throws IOException
 	{
-		if (button == this.btnCancel)
-		{
-			this.mc.displayGuiScreen(null);
-		}
-		else if (button == this.btnBuild)
-		{
-			Prefab.network.sendToServer(new StructureTagMessage(this.configuration.WriteToNBTTagCompound(), EnumStructureConfiguration.MonsterMasher));
-			
-			this.mc.displayGuiScreen(null);
-		}
-		else if (button == this.btnHouseFacing)
-		{
-			this.configuration.houseFacing = this.configuration.houseFacing.rotateY();
-			this.btnHouseFacing.displayString = GuiLangKeys.translateFacing(this.configuration.houseFacing);
-		}
-		else if (button == this.btnGlassColor)
+		this.performCancelOrBuildOrHouseFacing(this.configuration, button);
+		
+		if (button == this.btnGlassColor)
 		{
 			this.configuration.dyeColor = EnumDyeColor.byMetadata(this.configuration.dyeColor.getMetadata() + 1);
 			this.btnGlassColor.displayString = GuiLangKeys.translateDye(this.configuration.dyeColor);

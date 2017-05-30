@@ -26,29 +26,15 @@ import net.minecraftforge.fml.client.config.GuiButtonExt;
  * @author WuestMan
  *
  */
-public class GuiTreeFarm extends GuiScreen
+public class GuiTreeFarm extends GuiStructure
 {
-	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/default_background.png");
 	private static final ResourceLocation structureTopDown = new ResourceLocation("prefab", "textures/gui/tree_farm_top_down.png");
-	
-	protected GuiButtonExt btnCancel;
-	protected GuiButtonExt btnBuild;
-	protected GuiButtonExt btnVisualize;
-	
-	public BlockPos pos;
-	
-	protected GuiButtonExt btnHouseFacing;
 	protected TreeFarmConfiguration configuration;
 	
 	public GuiTreeFarm(int x, int y, int z)
 	{
-		this.pos = new BlockPos(x, y, z);
-	}
-	
-	@Override
-	public void initGui()
-	{
-		this.Initialize();
+		super(x, y, z, true);
+		this.structureConfiguration = EnumStructureConfiguration.TreeFarm;
 	}
 	
 	/**
@@ -57,37 +43,24 @@ public class GuiTreeFarm extends GuiScreen
 	@Override
 	public void drawScreen(int x, int y, float f) 
 	{
-		int grayBoxX = (this.width / 2) - 213;
-		int grayBoxY = (this.height / 2) - 83;
+		int grayBoxX = this.getCenteredXAxis() - 213;
+		int grayBoxY = this.getCenteredYAxis() - 83;
 		
 		this.drawDefaultBackground();
 		
 		// Draw the control background.
 		this.mc.getTextureManager().bindTexture(structureTopDown);
-		this.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 0, 0, 177, 175, 177, 175);
+		this.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 177, 175, 177, 175);
 		
-		this.mc.getTextureManager().bindTexture(backgroundTextures);
-		this.drawTexturedModalRect(grayBoxX, grayBoxY, 0, 0, 256, 256);
-
-		for (int i = 0; i < this.buttonList.size(); ++i)
-		{
-			((GuiButton)this.buttonList.get(i)).drawButton(this.mc, x, y);
-		}
-
-		for (int j = 0; j < this.labelList.size(); ++j)
-		{
-			((GuiLabel)this.labelList.get(j)).drawLabel(this.mc, x, y);
-		}
+		this.drawControlBackgroundAndButtonsAndLabels(grayBoxX, grayBoxY, x, y);
 
 		// Draw the text here.
-		int color = Color.DARK_GRAY.getRGB();
-
-		this.mc.fontRendererObj.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_FACING), grayBoxX + 10, grayBoxY + 10, color);
+		this.mc.fontRendererObj.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_FACING), grayBoxX + 10, grayBoxY + 10, this.textColor);
 		
 		// Draw the text here.
-		this.mc.fontRendererObj.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), grayBoxX + 147, grayBoxY + 10, 100, color);
-		this.mc.fontRendererObj.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_DOOR_FACING), grayBoxX + 147, grayBoxY + 50, 100, color);
-		this.mc.fontRendererObj.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.TREE_FARM_SIZE), grayBoxX + 147, grayBoxY + 105, 100, color);
+		this.mc.fontRendererObj.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), grayBoxX + 147, grayBoxY + 10, 100, this.textColor);
+		this.mc.fontRendererObj.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_DOOR_FACING), grayBoxX + 147, grayBoxY + 50, 100, this.textColor);
+		this.mc.fontRendererObj.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.TREE_FARM_SIZE), grayBoxX + 147, grayBoxY + 105, 100, this.textColor);
 		
 		if (!Prefab.proxy.proxyConfiguration.enableStructurePreview)
 		{
@@ -101,22 +74,9 @@ public class GuiTreeFarm extends GuiScreen
 	@Override
 	protected void actionPerformed(GuiButton button) throws IOException
 	{
-		if (button == this.btnCancel)
-		{
-			this.mc.displayGuiScreen(null);
-		}
-		else if (button == this.btnBuild)
-		{
-			Prefab.network.sendToServer(new StructureTagMessage(this.configuration.WriteToNBTTagCompound(), EnumStructureConfiguration.TreeFarm));
-			
-			this.mc.displayGuiScreen(null);
-		}
-		else if (button == this.btnHouseFacing)
-		{
-			this.configuration.houseFacing = this.configuration.houseFacing.rotateY();
-			this.btnHouseFacing.displayString = GuiLangKeys.translateFacing(this.configuration.houseFacing);
-		}
-		else if (button == this.btnVisualize)
+		this.performCancelOrBuildOrHouseFacing(this.configuration, button);
+		
+		if (button == this.btnVisualize)
 		{
 			StructureTreeFarm structure = StructureTreeFarm.CreateInstance(StructureTreeFarm.ASSETLOCATION, StructureTreeFarm.class);
 			StructureRenderHandler.setStructure(structure, EnumFacing.NORTH, this.configuration);
@@ -124,24 +84,16 @@ public class GuiTreeFarm extends GuiScreen
 		}
 	}
 	
-	/**
-	 * Returns true if this GUI should pause the game when it is displayed in single-player
-	 */
 	@Override
-	public boolean doesGuiPauseGame()
-	{
-		return true;
-	}
-	
-	private void Initialize() 
+	protected void Initialize() 
 	{
 		this.configuration = new TreeFarmConfiguration();
 		this.configuration.pos = this.pos;
 		this.configuration.houseFacing = EnumFacing.NORTH;
 
 		// Get the upper left hand corner of the GUI box.
-		int grayBoxX = (this.width / 2) - 213;
-		int grayBoxY = (this.height / 2) - 83;
+		int grayBoxX = this.getCenteredXAxis() - 213;
+		int grayBoxY = this.getCenteredYAxis() - 83;
 
 		// Create the buttons.
 		this.btnHouseFacing = new GuiButtonExt(3, grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateFacing(this.configuration.houseFacing));
@@ -158,41 +110,4 @@ public class GuiTreeFarm extends GuiScreen
 		this.btnCancel = new GuiButtonExt(2, grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_CANCEL));
 		this.buttonList.add(this.btnCancel);
 	}
-	
-    /**
-     * Draws a textured rectangle Args: x, y, z, u, v, width, height, textureWidth, textureHeight.
-     * @param x The X-Axis screen coordinate.
-     * @param y The Y-Axis screen coordinate.
-     * @param z The Z-Axis screen coordinate.
-     * @param u Not sure what this is used for.
-     * @param v Not sure what this used for.
-     * @param width The width of the rectangle.
-     * @param height The height of the rectangle.
-     * @param textureWidth The width of the texture.
-     * @param textureHeight The height of the texture.
-     */
-    public static void drawModalRectWithCustomSizedTexture(int x, int y, int z, float u, float v, int width, int height, float textureWidth, float textureHeight)
-    {
-        float f = 1.0F / textureWidth;
-        float f1 = 1.0F / textureHeight;
-        Tessellator tessellator = Tessellator.getInstance();
-        VertexBuffer vertexbuffer = tessellator.getBuffer();
-        
-        vertexbuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
-        
-        vertexbuffer.pos((double)x, (double)(y + height), (double)z)
-        	.tex((double)(u * f), (double)((v + (float)height) * f1)).endVertex();
-        
-        vertexbuffer.pos((double)(x + width), (double)(y + height), (double)z)
-        	.tex((double)((u + (float)width) * f), (double)((v + (float)height) * f1)).endVertex();
-        
-        vertexbuffer.pos((double)(x + width), (double)y, (double)z)
-        	.tex((double)((u + (float)width) * f), (double)(v * f1)).endVertex();
-        
-        vertexbuffer.pos((double)x, (double)y, (double)z)
-        	.tex((double)(u * f), (double)(v * f1)).endVertex();
-        
-        tessellator.draw();
-    }
-
 }

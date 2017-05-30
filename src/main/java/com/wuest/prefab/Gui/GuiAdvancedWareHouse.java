@@ -1,5 +1,7 @@
 package com.wuest.prefab.Gui;
 
+import com.wuest.prefab.Proxy.Messages.StructureTagMessage.EnumStructureConfiguration;
+
 /**
  * 
  * @author WuestMan
@@ -18,6 +20,7 @@ public class GuiAdvancedWareHouse extends GuiWareHouse
 	{
 		super.Initialize();
 		this.configuration.advanced = true;
+		this.structureConfiguration = EnumStructureConfiguration.AdvancedWareHouse;
 	}
 
 }

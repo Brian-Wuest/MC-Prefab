@@ -38,6 +38,7 @@ public class GuiBasicStructure extends GuiStructure
 	public GuiBasicStructure(int x, int y, int z)
 	{
 		super(x, y, z, true);
+		this.structureConfiguration = EnumStructureConfiguration.Basic;
 	}
 	
 	/**
@@ -46,8 +47,8 @@ public class GuiBasicStructure extends GuiStructure
 	@Override
 	public void drawScreen(int x, int y, float f) 
 	{
-		int grayBoxX = this.centeredXAxis - 213;
-		int grayBoxY = this.centeredYAxis - 83;
+		int grayBoxX = this.getCenteredXAxis() - 213;
+		int grayBoxY = this.getCenteredYAxis() - 83;
 		
 		this.drawDefaultBackground();
 
@@ -63,8 +64,8 @@ public class GuiBasicStructure extends GuiStructure
 		else
 		{
 			// This is a completely custom structure created by the user. Reset the center location as there won't be a picture.
-			grayBoxX = this.centeredXAxis;
-			grayBoxY = this.centeredYAxis;
+			grayBoxX = this.getCenteredXAxis();
+			grayBoxY = this.getCenteredYAxis();
 		}
 		
 		this.drawControlBackgroundAndButtonsAndLabels(grayBoxX, grayBoxY, x, y);
@@ -88,14 +89,9 @@ public class GuiBasicStructure extends GuiStructure
 	@Override
 	protected void actionPerformed(GuiButton button) throws IOException
 	{
-		this.performCancelOrBuild(this.configuration, button);
+		this.performCancelOrBuildOrHouseFacing(this.configuration, button);
 		
-		if (button == this.btnHouseFacing)
-		{
-			this.configuration.houseFacing = this.configuration.houseFacing.rotateY();
-			this.btnHouseFacing.displayString = GuiLangKeys.translateFacing(this.configuration.houseFacing);
-		}
-		else if (button == this.btnVisualize)
+		if (button == this.btnVisualize)
 		{
 			StructureBasic structure = StructureBasic.CreateInstance(this.configuration.basicStructureName.getAssetLocation(), StructureBasic.class);
 			StructureRenderHandler.setStructure(structure, EnumFacing.NORTH, this.configuration);
@@ -118,8 +114,8 @@ public class GuiBasicStructure extends GuiStructure
 		this.configuration.pos = this.pos;
 
 		// Get the upper left hand corner of the GUI box.
-		int grayBoxX = this.centeredXAxis - 213;
-		int grayBoxY = this.centeredYAxis - 83;
+		int grayBoxX = this.getCenteredXAxis() - 213;
+		int grayBoxY = this.getCenteredYAxis() - 83;
 
 		// Create the buttons.
 		this.btnHouseFacing = new GuiButtonExt(3, grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateFacing(this.configuration.houseFacing));
