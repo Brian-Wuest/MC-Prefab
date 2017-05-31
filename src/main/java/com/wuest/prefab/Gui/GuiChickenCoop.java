@@ -36,7 +36,7 @@ public class GuiChickenCoop extends GuiStructure
 	public GuiChickenCoop(int x, int y, int z)
 	{
 		super(x, y, z, true);
-		this.structureConfiguration = EnumStructureConfiguration.FishPond;
+		this.structureConfiguration = EnumStructureConfiguration.ChickenCoop;
 	}
 
 	/**
