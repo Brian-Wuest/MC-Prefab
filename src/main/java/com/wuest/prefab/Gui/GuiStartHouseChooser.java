@@ -11,7 +11,8 @@ import com.wuest.prefab.Gui.Controls.GuiCheckBox;
 import com.wuest.prefab.Gui.Controls.GuiTab;
 import com.wuest.prefab.Gui.Controls.GuiTextSlider;
 import com.wuest.prefab.Proxy.ClientProxy;
-import com.wuest.prefab.Proxy.Messages.HouseTagMessage;
+import com.wuest.prefab.Proxy.Messages.StructureTagMessage;
+import com.wuest.prefab.Proxy.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Render.StructureRenderHandler;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureAlternateStart;
 
@@ -254,7 +255,7 @@ public class GuiStartHouseChooser extends GuiTabScreen
 			houseConfiguration.houseStyle = this.houseStyle;
 			houseConfiguration.glassColor = this.houseColor;
 			
-			Prefab.network.sendToServer(new HouseTagMessage(houseConfiguration.WriteToNBTTagCompound()));
+			Prefab.network.sendToServer(new StructureTagMessage(houseConfiguration.WriteToNBTTagCompound(), EnumStructureConfiguration.StartHouse));
 			
 			this.mc.displayGuiScreen(null);
 		}

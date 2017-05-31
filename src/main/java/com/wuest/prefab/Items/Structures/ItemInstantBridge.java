@@ -1,4 +1,4 @@
-package com.wuest.prefab.Items;
+package com.wuest.prefab.Items.Structures;
 
 import com.wuest.prefab.*;
 import com.wuest.prefab.Config.BasicStructureConfiguration;

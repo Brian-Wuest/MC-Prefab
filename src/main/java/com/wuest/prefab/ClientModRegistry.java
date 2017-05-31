@@ -1,6 +1,6 @@
 package com.wuest.prefab;
 
-import com.wuest.prefab.Items.ItemBasicStructure;
+import com.wuest.prefab.Items.Structures.ItemBasicStructure;
 import com.wuest.prefab.Render.PrefabModelMesher;
 
 import net.minecraft.client.Minecraft;

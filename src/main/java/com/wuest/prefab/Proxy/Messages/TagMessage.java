@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
  */
 public class TagMessage implements IMessage
 {
-	private NBTTagCompound tagMessage;
+	protected NBTTagCompound tagMessage;
 
 	public TagMessage() 
 	{

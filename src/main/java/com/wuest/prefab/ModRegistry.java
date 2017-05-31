@@ -16,6 +16,8 @@ import com.wuest.prefab.Blocks.BlockPhasing;
 import com.wuest.prefab.Capabilities.IStructureConfigurationCapability;
 import com.wuest.prefab.Capabilities.StructureConfigurationCapability;
 import com.wuest.prefab.Capabilities.Storage.StructureConfigurationStorage;
+import com.wuest.prefab.Config.ChickenCoopConfiguration;
+import com.wuest.prefab.Config.StructureConfiguration;
 import com.wuest.prefab.Config.BasicStructureConfiguration.EnumBasicStructureName;
 import com.wuest.prefab.Gui.GuiAdvancedWareHouse;
 import com.wuest.prefab.Gui.GuiBasicStructure;
@@ -31,54 +33,32 @@ import com.wuest.prefab.Gui.GuiStartHouseChooser;
 import com.wuest.prefab.Gui.GuiTreeFarm;
 import com.wuest.prefab.Gui.GuiVillaerHouses;
 import com.wuest.prefab.Gui.GuiWareHouse;
-import com.wuest.prefab.Items.ItemAdvancedWareHouse;
-import com.wuest.prefab.Items.ItemBasicStructure;
 import com.wuest.prefab.Items.ItemBlockMeta;
 import com.wuest.prefab.Items.ItemBundleOfTimber;
-import com.wuest.prefab.Items.ItemChickenCoop;
 import com.wuest.prefab.Items.ItemCoilOfLanterns;
 import com.wuest.prefab.Items.ItemCompressedChest;
-import com.wuest.prefab.Items.ItemFishPond;
-import com.wuest.prefab.Items.ItemHorseStable;
-import com.wuest.prefab.Items.ItemInstantBridge;
-import com.wuest.prefab.Items.ItemModularHouse;
-import com.wuest.prefab.Items.ItemMonsterMasher;
-import com.wuest.prefab.Items.ItemNetherGate;
 import com.wuest.prefab.Items.ItemPalletOfBricks;
 import com.wuest.prefab.Items.ItemPileOfBricks;
-import com.wuest.prefab.Items.ItemProduceFarm;
-import com.wuest.prefab.Items.ItemStartHouse;
 import com.wuest.prefab.Items.ItemStringOfLanterns;
-import com.wuest.prefab.Items.ItemTreeFarm;
-import com.wuest.prefab.Items.ItemVillagerHouses;
-import com.wuest.prefab.Items.ItemWareHouse;
 import com.wuest.prefab.Items.ItemWarehouseUpgrade;
-import com.wuest.prefab.Proxy.Messages.BasicStructureTagMessage;
-import com.wuest.prefab.Proxy.Messages.ChickenCoopTagMessage;
+import com.wuest.prefab.Items.Structures.ItemAdvancedWareHouse;
+import com.wuest.prefab.Items.Structures.ItemBasicStructure;
+import com.wuest.prefab.Items.Structures.ItemChickenCoop;
+import com.wuest.prefab.Items.Structures.ItemFishPond;
+import com.wuest.prefab.Items.Structures.ItemHorseStable;
+import com.wuest.prefab.Items.Structures.ItemInstantBridge;
+import com.wuest.prefab.Items.Structures.ItemModularHouse;
+import com.wuest.prefab.Items.Structures.ItemMonsterMasher;
+import com.wuest.prefab.Items.Structures.ItemNetherGate;
+import com.wuest.prefab.Items.Structures.ItemProduceFarm;
+import com.wuest.prefab.Items.Structures.ItemStartHouse;
+import com.wuest.prefab.Items.Structures.ItemTreeFarm;
+import com.wuest.prefab.Items.Structures.ItemVillagerHouses;
+import com.wuest.prefab.Items.Structures.ItemWareHouse;
 import com.wuest.prefab.Proxy.Messages.ConfigSyncMessage;
-import com.wuest.prefab.Proxy.Messages.FishPondTagMessage;
-import com.wuest.prefab.Proxy.Messages.HorseStableTagMessage;
-import com.wuest.prefab.Proxy.Messages.HouseTagMessage;
-import com.wuest.prefab.Proxy.Messages.ModularHouseTagMessage;
-import com.wuest.prefab.Proxy.Messages.MonsterMasherTagMessage;
-import com.wuest.prefab.Proxy.Messages.NetherGateTagMessage;
-import com.wuest.prefab.Proxy.Messages.ProduceFarmTagMessage;
-import com.wuest.prefab.Proxy.Messages.TreeFarmTagMessage;
-import com.wuest.prefab.Proxy.Messages.VillagerHousesTagMessage;
-import com.wuest.prefab.Proxy.Messages.WareHouseTagMessage;
-import com.wuest.prefab.Proxy.Messages.Handlers.BasicStructureHandler;
-import com.wuest.prefab.Proxy.Messages.Handlers.ChickenCoopHandler;
+import com.wuest.prefab.Proxy.Messages.StructureTagMessage;
 import com.wuest.prefab.Proxy.Messages.Handlers.ConfigSyncHandler;
-import com.wuest.prefab.Proxy.Messages.Handlers.FishPondHandler;
-import com.wuest.prefab.Proxy.Messages.Handlers.HorseStableHandler;
-import com.wuest.prefab.Proxy.Messages.Handlers.HouseHandler;
-import com.wuest.prefab.Proxy.Messages.Handlers.ModularHouseHandler;
-import com.wuest.prefab.Proxy.Messages.Handlers.MonsterMasherHandler;
-import com.wuest.prefab.Proxy.Messages.Handlers.NetherGateHandler;
-import com.wuest.prefab.Proxy.Messages.Handlers.ProduceFarmHandler;
-import com.wuest.prefab.Proxy.Messages.Handlers.TreeFarmHandler;
-import com.wuest.prefab.Proxy.Messages.Handlers.VillagerHousesHandler;
-import com.wuest.prefab.Proxy.Messages.Handlers.WareHouseHandler;
+import com.wuest.prefab.Proxy.Messages.Handlers.StructureHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPlanks;
@@ -96,6 +76,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.OreDictionary;
@@ -1185,13 +1167,10 @@ public class ModRegistry
 	
     /**
      * Adds a shapeless crafting recipe to the the game.
-<<<<<<< HEAD
-=======
      * @param displayName the display name for this recipe.
      * @param stack The output of this recipe.
      * @param recipeComponents The various items/blocks for this recipe.
      * @return An IRecipe which was registered into the game registry.
->>>>>>> refs/remotes/origin/MC-1.10.2
      */
     public static IRecipe addShapelessRecipe(String displayName, ItemStack stack, Object... recipeComponents)
     {
@@ -1231,19 +1210,9 @@ public class ModRegistry
 	 */
 	public static void RegisterMessages()
 	{
-		Prefab.network.registerMessage(HouseHandler.class, HouseTagMessage.class, 1, Side.SERVER);
-		Prefab.network.registerMessage(WareHouseHandler.class, WareHouseTagMessage.class, 2, Side.SERVER);
-		Prefab.network.registerMessage(ConfigSyncHandler.class, ConfigSyncMessage.class, 3, Side.CLIENT);
-		Prefab.network.registerMessage(ChickenCoopHandler.class, ChickenCoopTagMessage.class, 4, Side.SERVER);
-		Prefab.network.registerMessage(ProduceFarmHandler.class, ProduceFarmTagMessage.class, 5, Side.SERVER);
-		Prefab.network.registerMessage(TreeFarmHandler.class, TreeFarmTagMessage.class, 6, Side.SERVER);
-		Prefab.network.registerMessage(FishPondHandler.class, FishPondTagMessage.class, 7, Side.SERVER);
-		Prefab.network.registerMessage(MonsterMasherHandler.class, MonsterMasherTagMessage.class, 8, Side.SERVER);
-		Prefab.network.registerMessage(HorseStableHandler.class, HorseStableTagMessage.class, 9, Side.SERVER );
-		Prefab.network.registerMessage(NetherGateHandler.class, NetherGateTagMessage.class, 10, Side.SERVER);
-		Prefab.network.registerMessage(ModularHouseHandler.class, ModularHouseTagMessage.class, 11, Side.SERVER);
-		Prefab.network.registerMessage(BasicStructureHandler.class, BasicStructureTagMessage.class, 12, Side.SERVER);
-		Prefab.network.registerMessage(VillagerHousesHandler.class, VillagerHousesTagMessage.class, 13, Side.SERVER);
+		Prefab.network.registerMessage(ConfigSyncHandler.class, ConfigSyncMessage.class, 1, Side.CLIENT);
+		
+		Prefab.network.registerMessage(StructureHandler.class, StructureTagMessage.class, 2, Side.SERVER);
 	}
 	
 	/**

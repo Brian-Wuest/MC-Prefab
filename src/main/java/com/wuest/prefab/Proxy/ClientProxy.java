@@ -4,7 +4,7 @@ import com.wuest.prefab.*;
 import com.wuest.prefab.Blocks.BlockCompressedStone;
 import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Events.ClientEventHandler;
-import com.wuest.prefab.Items.ItemBasicStructure;
+import com.wuest.prefab.Items.Structures.ItemBasicStructure;
 import com.wuest.prefab.Render.*;
 
 import net.minecraft.client.Minecraft;
