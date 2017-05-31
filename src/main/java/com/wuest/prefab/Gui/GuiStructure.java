@@ -111,7 +111,7 @@ public class GuiStructure extends GuiScreen
 		}
 		else if (button == this.btnBuild)
 		{
-			Prefab.network.sendToServer(new StructureTagMessage(configuration.WriteToNBTTagCompound(), EnumStructureConfiguration.Basic));
+			Prefab.network.sendToServer(new StructureTagMessage(configuration.WriteToNBTTagCompound(), this.structureConfiguration));
 			this.mc.displayGuiScreen(null);
 		}
 		else if (button == this.btnHouseFacing)
