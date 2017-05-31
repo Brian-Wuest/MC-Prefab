@@ -31,9 +31,6 @@ public class ItemProduceFarm extends StructureItem
 {
 	public ItemProduceFarm(String name)
 	{
-		super();
-
-		this.guiId = ModRegistry.GuiProduceFarm;
-		ModRegistry.setItemName(this, name);
+		super(name, ModRegistry.GuiProduceFarm);
 	}
 }

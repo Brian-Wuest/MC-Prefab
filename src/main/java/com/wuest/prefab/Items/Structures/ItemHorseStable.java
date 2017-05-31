@@ -28,9 +28,6 @@ public class ItemHorseStable extends StructureItem
 {
 	public ItemHorseStable(String name)
 	{
-		super();
-
-		this.guiId = ModRegistry.GuiHorseStable;
-		ModRegistry.setItemName(this, name);
+		super(name, ModRegistry.GuiHorseStable);
 	}
 }

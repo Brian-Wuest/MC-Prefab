@@ -28,9 +28,6 @@ public class ItemTreeFarm extends StructureItem
 {
 	public ItemTreeFarm(String name)
 	{
-		super();
-
-		this.guiId = ModRegistry.GuiTreeFarm;
-		ModRegistry.setItemName(this, name);
+		super(name, ModRegistry.GuiTreeFarm);
 	}
 }

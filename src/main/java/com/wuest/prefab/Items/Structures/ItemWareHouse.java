@@ -35,9 +35,6 @@ public class ItemWareHouse extends StructureItem
 
 	public ItemWareHouse(String name)
 	{
-		super();
-
-		this.guiId = ModRegistry.GuiWareHouse;
-		ModRegistry.setItemName(this, name);
+		super(name, ModRegistry.GuiWareHouse);
 	}
 }

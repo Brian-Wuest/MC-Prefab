@@ -29,11 +29,11 @@ public class StructureItem extends Item
 	/**
 	 * Initializes a new instance of the StructureItem class.
 	 */
-	public StructureItem()
+	public StructureItem(String name, int guiId)
 	{
 		super();
 		
-		this.Initialize();
+		this.Initialize(name, guiId);
 	}
 	
 	/**
@@ -59,8 +59,10 @@ public class StructureItem extends Item
 	/**
 	 * Initializes common fields/properties for this structure item.
 	 */
-	protected void Initialize()
+	protected void Initialize(String name, int guiId)
 	{
+		ModRegistry.setItemName(this, name);
+		this.guiId = guiId;
 		this.setCreativeTab(CreativeTabs.MISC);
 	}
 }

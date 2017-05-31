@@ -41,11 +41,9 @@ public class ItemBasicStructure extends StructureItem
 
 	public ItemBasicStructure(String name)
 	{
-		super();
+		super(name, ModRegistry.GuiBasicStructure);
 
-		ModRegistry.setItemName(this, name);
 		this.setHasSubtypes(true);
-		this.guiId = ModRegistry.GuiBasicStructure;
 	}
 	
     /**

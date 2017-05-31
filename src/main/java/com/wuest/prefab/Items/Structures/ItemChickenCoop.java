@@ -27,38 +27,6 @@ public class ItemChickenCoop extends StructureItem
 {
 	public ItemChickenCoop(String name)
 	{
-		super();
-
-		ModRegistry.setItemName(this, name);
-		this.guiId = ModRegistry.GuiChickenCoop;
+		super(name, ModRegistry.GuiChickenCoop);
 	}
-	
-	public static void BuildHouse(EntityPlayer player, World world, ChickenCoopConfiguration configuration)
-	{
-		// This is always on the server.
-		if (configuration != null)
-		{
-			BlockPos hitBlockPos = configuration.pos;
-			BlockPos playerPosition = player.getPosition();
-
-			IBlockState hitBlockState = world.getBlockState(hitBlockPos);
-
-			if (hitBlockState != null)
-			{
-				Block hitBlock = hitBlockState.getBlock();
- 
-				if (hitBlock != null)
-				{
-					StructureChickenCoop structure = StructureChickenCoop.CreateInstance(StructureChickenCoop.ASSETLOCATION, StructureChickenCoop.class);
-					
-					if (structure.BuildStructure(configuration, world, hitBlockPos, EnumFacing.NORTH, player))
-					{
-						player.inventory.clearMatchingItems(ModRegistry.ChickenCoop(), -1, 1, null);
-						player.inventoryContainer.detectAndSendChanges();
-					}
-				}
-			}
-		}
-	}
-
 }

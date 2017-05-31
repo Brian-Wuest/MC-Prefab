@@ -61,9 +61,6 @@ public class ItemStartHouse extends StructureItem
 
 	public ItemStartHouse(String name)
 	{
-		super();
-
-		this.guiId = ModRegistry.GuiStartHouseChooser;
-		ModRegistry.setItemName(this, name);
+		super(name, ModRegistry.GuiStartHouseChooser);
 	}
 }

@@ -29,9 +29,6 @@ public class ItemMonsterMasher extends StructureItem
 {
 	public ItemMonsterMasher(String name)
 	{
-		super();
-
-		this.guiId = ModRegistry.GuiMonsterMasher;
-		ModRegistry.setItemName(this, name);
+		super(name, ModRegistry.GuiMonsterMasher);
 	}
 }

@@ -26,9 +26,6 @@ public class ItemNetherGate extends StructureItem
 {
 	public ItemNetherGate(String name)
 	{
-		super();
-
-		this.guiId = ModRegistry.GuiNetherGate;
-		ModRegistry.setItemName(this, name);
+		super(name, ModRegistry.GuiNetherGate);
 	}
 }

@@ -26,9 +26,6 @@ public class ItemModularHouse extends StructureItem
 {
 	public ItemModularHouse(String name)
 	{
-		super();
-
-		this.guiId = ModRegistry.GuiModularHouse;
-		ModRegistry.setItemName(this, name);
+		super(name, ModRegistry.GuiModularHouse);
 	}
 }

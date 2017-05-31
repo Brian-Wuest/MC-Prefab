@@ -23,7 +23,6 @@ public class ItemAdvancedWareHouse extends ItemWareHouse
 	public ItemAdvancedWareHouse(String name)
 	{
 		super(name);
-		
 		this.guiId = ModRegistry.GuiAdvancedWareHouse;
 	}
 }

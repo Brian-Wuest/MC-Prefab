@@ -36,11 +36,9 @@ public class ItemVillagerHouses extends StructureItem
 {
 	public ItemVillagerHouses(String name)
 	{
-		super();
+		super(name, ModRegistry.GuiVillagerHouses);
 
-		this.guiId = ModRegistry.GuiVillagerHouses;
 		this.setMaxDamage(10);
 		this.setMaxStackSize(1);
-		ModRegistry.setItemName(this, name);
 	}
 }

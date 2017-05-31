@@ -30,9 +30,6 @@ public class ItemFishPond extends StructureItem
 
 	public ItemFishPond(String name)
 	{
-		super();
-
-		this.guiId = ModRegistry.GuiFishPond;
-		ModRegistry.setItemName(this, name);
+		super(name, ModRegistry.GuiFishPond);
 	}
 }
