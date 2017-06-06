@@ -11,16 +11,19 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
+import net.minecraftforge.fml.relauncher.Side;
 
 /**
  * 
  * @author WuestMan
  *
  */
+@EventBusSubscriber(value = { Side.CLIENT })
 public class ClientEventHandler
 {
 	/**
@@ -33,7 +36,7 @@ public class ClientEventHandler
 	 * @param event The event object.
 	 */
 	@SubscribeEvent
-	public void onWorldRenderLast(RenderWorldLastEvent event)
+	public static void onWorldRenderLast(RenderWorldLastEvent event)
 	{
 		Minecraft mc = Minecraft.getMinecraft();
 
@@ -48,7 +51,7 @@ public class ClientEventHandler
 	 * @param event The event object.
 	 */
 	@SubscribeEvent
-	public void onPlayerInteract(PlayerInteractEvent.RightClickBlock event)
+	public static void onPlayerInteract(PlayerInteractEvent.RightClickBlock event)
 	{
 		if (event.getWorld().isRemote)
 		{
@@ -65,7 +68,7 @@ public class ClientEventHandler
 	 * @param event The event object.
 	 */
 	@SubscribeEvent
-	public void OnClientDisconnectEvent(FMLNetworkEvent.ClientDisconnectionFromServerEvent event)
+	public static void OnClientDisconnectEvent(FMLNetworkEvent.ClientDisconnectionFromServerEvent event)
 	{
 		// When the player logs out, make sure to re-set the server configuration. 
 	 	// This is so a new configuration can be successfully loaded when they switch servers or worlds (on single player.
@@ -77,7 +80,7 @@ public class ClientEventHandler
 	 * @param event The event object.
 	 */
 	@SubscribeEvent
-	public void ClientTickEnd(ClientTickEvent event)
+	public static void ClientTickEnd(ClientTickEvent event)
 	{
 		if (event.phase == Phase.END)
 		{

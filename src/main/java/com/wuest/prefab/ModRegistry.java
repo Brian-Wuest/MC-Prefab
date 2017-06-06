@@ -461,6 +461,14 @@ public class ModRegistry
 	}
 	
 	/**
+	 * Static constructor for the mod registry.
+	 */
+	static
+	{
+		ModRegistry.RegisterModComponents();
+	}
+	
+	/**
 	 * Gets the item from the ModItems collections.
 	 * @param <T> The type which extends item.
 	 * @param genericClass The class of item to get from the collection.
@@ -1241,30 +1249,8 @@ public class ModRegistry
 	 */
 	public static <T extends Item> T registerItem(T item)
 	{
-		GameRegistry.register(item);
 		ModRegistry.ModItems.add(item);
 
-		return item;
-	}
-	
-	/**
-	 * Register an Item
-	 *
-	 * @param item The Item instance
-	 * @param <T> The Item type
-	 * @param resourceLocation The resource location for the item to register.
-	 * @param registerInMod Determines if this item should be registered in the mod list of items.
-	 * @return The Item instance
-	 */
-	public static <T extends Item> T registerItem(T item, ResourceLocation resourceLocation, boolean registerInMod)
-	{
-		GameRegistry.register(item, resourceLocation);
-		
-		if (registerInMod)
-		{
-			ModRegistry.ModItems.add(item);
-		}
-		
 		return item;
 	}
 	
@@ -1288,11 +1274,9 @@ public class ModRegistry
 	 */
 	public static <T extends Block> T registerBlock(T block, boolean includeItemBlock)
 	{
-		GameRegistry.register(block);
-		
 		if (includeItemBlock)
 		{
-			GameRegistry.register(new ItemBlock(block).setRegistryName(block.getRegistryName()));
+			ModItems.add(new ItemBlock(block).setRegistryName(block.getRegistryName()));
 		}
 		
 		ModRegistry.ModBlocks.add(block);
@@ -1310,12 +1294,10 @@ public class ModRegistry
 	 */
 	public static <T extends Block, I extends ItemBlock> T registerBlock(T block, I itemBlock)
 	{
-		GameRegistry.register(block);
 		ModRegistry.ModBlocks.add(block);
 		
 		if (itemBlock != null)
 		{
-			GameRegistry.register(itemBlock);
 			ModRegistry.ModItems.add(itemBlock);
 		}
 		
