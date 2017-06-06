@@ -1231,14 +1231,7 @@ public class ModRegistry
 		// Register the dimension home capability.
 		CapabilityManager.INSTANCE.register(IStructureConfigurationCapability.class, new StructureConfigurationStorage(), StructureConfigurationCapability.class);
 	}
-	
-	/**
-	 * This method is used to register item variants for the blocks for this mod.
-	 */
-	public static void RegisterItemVariants()
-	{
-		ModelBakery.registerItemVariants(ModRegistry.CompressedStoneItem(), BlockCompressedStone.EnumType.GetNames());
-	}
+
 
 	/**
 	 * Register an Item

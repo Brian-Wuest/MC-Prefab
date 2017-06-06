@@ -31,8 +31,6 @@ public class ClientProxy extends CommonProxy
 		
 		// After all items have been registered and all recipes loaded, register any necessary renderer.
 		Prefab.proxy.registerRenderers();
-		
-		ModRegistry.RegisterItemVariants();
 	}
 
 	@Override
@@ -52,7 +50,6 @@ public class ClientProxy extends CommonProxy
 	@Override
 	public void registerRenderers() 
 	{
-		ItemRenderRegister.registerItemRenderer();
 		ShaderHelper.Initialize();
 	}
 	

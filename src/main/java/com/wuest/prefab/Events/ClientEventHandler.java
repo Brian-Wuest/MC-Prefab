@@ -1,14 +1,29 @@
 package com.wuest.prefab.Events;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.google.common.collect.Lists;
+import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
+import com.wuest.prefab.Blocks.IMetaBlock;
 import com.wuest.prefab.Config.ModConfiguration;
+import com.wuest.prefab.Config.BasicStructureConfiguration.EnumBasicStructureName;
+import com.wuest.prefab.Items.Structures.ItemBasicStructure;
 import com.wuest.prefab.Proxy.ClientProxy;
 import com.wuest.prefab.Render.StructureRenderHandler;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -95,6 +110,104 @@ public class ClientEventHandler
 				}
 				
 				ClientEventHandler.ticksInGame++;
+			}
+		}
+	}
+	
+	@SubscribeEvent
+	public static void registerModels(ModelRegistryEvent event)
+	{
+		for (Block block: ModRegistry.ModBlocks)
+		{
+			ClientEventHandler.regBlock(block);
+		}
+		
+		for (Item item: ModRegistry.ModItems)
+		{
+			ClientEventHandler.regItem(item);
+		}
+	}
+	
+	/**
+	 * Registers an item to be rendered. This is needed for textures.
+	 * @param item The item to register.
+	 */
+	public static void regItem(Item item) 
+	{
+		ClientEventHandler.regItem(item, 0, item.getUnlocalizedName().substring(5));
+	}
+	
+	/**
+	 * Registers an item to be rendered. This is needed for textures.
+	 * @param item The item to register.
+	 * @param metaData The meta data for the item to register.
+	 * @param blockName the name of the block.
+	 */
+	public static void regItem(Item item, int metaData, String blockName)
+	{
+		ModelResourceLocation location = new ModelResourceLocation(blockName, "inventory");
+		//System.out.println("Registering Item: " + location.getResourceDomain() + "[" + location.getResourcePath() + "]");
+		
+		if (!(item instanceof ItemBasicStructure))
+		{
+			ModelLoader.setCustomModelResourceLocation(item, metaData, location);
+		}
+		else
+		{
+			ArrayList<ResourceLocation> names = new ArrayList<ResourceLocation>();
+			
+			for (EnumBasicStructureName value : EnumBasicStructureName.values())
+			{
+				if (value.getResourceLocation() != null)
+				{
+					names.add(value.getResourceLocation());
+				}
+			}
+			
+			ResourceLocation[] resources = new ResourceLocation[names.size()];
+			resources = names.toArray(resources);
+			
+			ModelLoader.registerItemVariants(item, resources);
+		}
+	}
+
+	/**
+	 * Registers a block to be rendered. This is needed for textures.
+	 * @param block The block to register.
+	 */
+	public static void regBlock(Block block)
+	{
+		List<ItemStack> stacks = Lists.<ItemStack>newArrayList();
+		
+		Item itemBlock = Item.getItemFromBlock(block);
+		
+		// If there are sub-blocks for this block, register each of them.
+		block.getSubBlocks(itemBlock, null, stacks);
+		
+		if (itemBlock != null)
+		{
+			if (stacks.size() > 0)
+			{
+				for (ItemStack stack : stacks)
+				{
+					Block subBlock = block.getStateFromMeta(stack.getMetadata()).getBlock();
+					String name = "";
+					
+					if (block instanceof IMetaBlock)
+					{
+						name = "prefab:" + ((IMetaBlock)block).getMetaDataUnLocalizedName(stack.getMetadata());
+					}
+					else
+					{
+						name = subBlock.getRegistryName().toString();
+					}
+					
+					ClientEventHandler.regItem(stack.getItem(), stack.getMetadata(), name);
+				}
+			}
+			else
+			{
+				ClientEventHandler.regItem(itemBlock);
 			}
 		}
 	}
