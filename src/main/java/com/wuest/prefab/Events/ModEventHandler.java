@@ -17,9 +17,11 @@ import com.wuest.prefab.StructureGen.BuildBlock;
 import com.wuest.prefab.StructureGen.Structure;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -132,9 +134,18 @@ public class ModEventHandler
 						BlockPos currentPos = structure.clearedBlockPos.get(0);
 						structure.clearedBlockPos.remove(0);
 						
-						if (!structure.world.isAirBlock(currentPos))
+						IBlockState clearBlockState = structure.world.getBlockState(currentPos);
+						
+						// If this block is not specifically air then set it to air.
+						// This will also break other mod's logic blocks but they would probably be broken due to structure generation anyways.
+						if (clearBlockState.getBlock() != Blocks.AIR)
 						{
 							structure.world.setBlockToAir(currentPos);
+						}
+						else
+						{
+							// This is just an air block, move onto the next block don't need to wait fo rthe next tick.
+							i--;
 						}
 						
 						continue;
