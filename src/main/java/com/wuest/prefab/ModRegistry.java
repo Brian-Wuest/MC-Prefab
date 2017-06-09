@@ -1052,6 +1052,20 @@ public class ModRegistry
 				'x', new ItemStack(Item.getItemFromBlock(Blocks.DIRT)),
 				'y', new ItemStack(Item.getItemFromBlock(Blocks.TALLGRASS), 1, 1));
 		
+		// Magic Temple
+		result = new ItemStack(ModRegistry.BasicStructure());
+		capability = result.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
+		capability.getConfiguration().basicStructureName = EnumBasicStructureName.MagicTemple;
+		
+		ModRegistry.addShapedRecipe("Magic Temple", result, 
+				"aaa",
+				"cbd",
+				"aaa",
+				'a', new ItemStack(ModRegistry.BundleOfTimber()),
+				'b', new ItemStack(Item.getItemFromBlock(Blocks.ENCHANTING_TABLE)),
+				'c', new ItemStack(Items.BREWING_STAND),
+				'd', new ItemStack(Items.BLAZE_ROD));
+		
 		// Instant Bridge.
 		ModRegistry.addShapedRecipe("Instant Bridge", 
 				new ItemStack(ModRegistry.InstantBridge()),
@@ -1231,7 +1245,6 @@ public class ModRegistry
 		// Register the dimension home capability.
 		CapabilityManager.INSTANCE.register(IStructureConfigurationCapability.class, new StructureConfigurationStorage(), StructureConfigurationCapability.class);
 	}
-
 
 	/**
 	 * Register an Item

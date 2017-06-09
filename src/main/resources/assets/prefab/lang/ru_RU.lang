@@ -16,6 +16,7 @@ item.prefab:item_nether_gate.name=Nether Gate
 item.prefab:item_modular_house.name=Modular House
 item.prefab:item_basic_structure.name=Basic Structure
 item.prefab:item_instant_bridge.name=Instant Bridge
+
 item.prefab.advanced.chicken.coop=Advanced Chicken Coop
 item.prefab.advanced.horse.stable=Advanced Horse Stable
 item.prefab.barn=Barn
@@ -28,21 +29,16 @@ item.prefab.mineshaft.entrance=Mineshaft Entrance
 item.prefab.ender_gateway=Ender Gateway
 item.prefab.aqua_base=Aqua Base
 item.prefab.grassy_plain=Травянистые равнины
+item.prefab.magic_temple=Волшебный храм
  
 tile.prefab:block_compressed_stone.block_compressed_stone.name=Сжатый Камень
 tile.prefab:block_compressed_stone.block_double_compressed_stone.name=Двойной Сжатый Камень
 tile.prefab:block_compressed_stone.block_triple_compressed_stone.name=Тройной Сжатый Камень
 tile.prefab:block_compressed_stone.block_compressed_glowstone.name=Сжатый Светокамень
 tile.prefab:block_compressed_stone.block_double_compressed_glowstone.name=Двойной Сжатый Светокамень
-<<<<<<< HEAD
-tile.prefab:block_compressed_stone.block_compressed_dirt.name=Сжата Гр�?зь
-tile.prefab:block_compressed_stone.block_double_compressed_dirt.name=Двойна�? Сжата�? Гр�?зь
-tile.prefab:blockDrafter.name=Drafter
-=======
 tile.prefab:block_compressed_stone.block_compressed_dirt.name=Сжата Грязь
 tile.prefab:block_compressed_stone.block_double_compressed_dirt.name=Двойная Сжатая Грязь
 tile.prefab:block_drafter.name=Drafter
->>>>>>> refs/remotes/origin/MC-1.10.2
 tile.prefab:block_paper_lantern.name=Paper Lantern
 tile.prefab:block_compressed_obsidian.block_compressed_obsidian.name=Compressed Obsidian
 tile.prefab:block_compressed_obsidian.block_double_compressed_obsidian.name=Double Compressed Obsidian
@@ -52,8 +48,6 @@ tile.prefab:block_boundary.name=Boundary Block
 prefab.gui.fishpond.structure.facing=Примечание: е�?ли вы лицом к �?еверу, выберите Юг. Бела�? окантовка - �?то про�?то чтобы показать размер.
  
 prefab.gui.producefarm.structure.size=Эта �?труктура размером в 32x32 блоков.
- 
-prefab.gui.treefarm.structure.size=Эта �?труктура размером в 38x38 блоков.
  
 prefab.gui.starter.tab.general=Общие
 prefab.gui.starter.tab.config=Конфигураци�?
@@ -112,19 +106,11 @@ prefab.gui.treefarm.structure.size=Эта �?труктура размером 
 prefab.gui.structure.facing=Структура облицовочные
 prefab.gui.structure.glass=Цвет Стекла
 
-<<<<<<< HEAD
-prefab.gui.structure.facing.player=Note: If you're facing north, choose south so the structure is facing you.  
-prefab.gui.structure.block.clicked=В кра�?ной коробке на ри�?унке �?права показывает какой блок вы щелкнули.
-prefab.gui.structure.door.facing=Примечание: Е�?ли вы �?толкнули�?ь на �?евер, юг, так что выбрать двери перед вами.
-prefab.gui.structure.nobuild=Cannot build structure due to protected blocks/area.
-
-=======
 prefab.gui.structure.facing.player=Note: If you're facing north, choose south so the structure is facing you. 
 prefab.gui.structure.block.clicked=В красной коробке на рисунке справа показывает какой блок вы щелкнули.
 prefab.gui.structure.door.facing=Примечание: Если вы столкнулись на север, юг, так что выбрать двери перед вами.
 prefab.gui.structure.nobuild=Cannot build structure due to protected blocks/area.
  
->>>>>>> refs/remotes/origin/MC-1.10.2
 prefab.gui.button.build=Строить!
 prefab.gui.button.cancel=Отмена
 prefab.gui.button.preview=Preview!

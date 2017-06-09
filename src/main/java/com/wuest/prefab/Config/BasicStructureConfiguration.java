@@ -105,6 +105,14 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		EnumBasicStructureName.GrassyPlain.getClearPositionOffset().setSouthOffset(1);
 		EnumBasicStructureName.GrassyPlain.getClearPositionOffset().setEastOffset(8);
 		EnumBasicStructureName.GrassyPlain.getClearPositionOffset().setHeightOffset(-1);
+		
+		// Magic Temple.
+		EnumBasicStructureName.MagicTemple.getClearShape().setDirection(EnumFacing.SOUTH);
+		EnumBasicStructureName.MagicTemple.getClearShape().setHeight(13);
+		EnumBasicStructureName.MagicTemple.getClearShape().setWidth(12);
+		EnumBasicStructureName.MagicTemple.getClearShape().setLength(13);
+		EnumBasicStructureName.MagicTemple.getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.MagicTemple.getClearPositionOffset().setEastOffset(6);
 	}
 	
 	/**
@@ -273,7 +281,12 @@ public class BasicStructureConfiguration extends StructureConfiguration
 				"assets/prefab/structures/grassy_plain.zip",
 				"textures/gui/grassy_plain_topdown.png",
 				"item_grassy_plain",
-				160, 160);
+				160, 160),
+		MagicTemple("magic_temple", "item.prefab.magic_temple",
+				"assets/prefab/structures/magic_temple.zip",
+				"textures/gui/magic_temple_topdown.png",
+				"item_magic_temple",
+				146, 156);
 		
 		private String name;
 		private String assetLocation;

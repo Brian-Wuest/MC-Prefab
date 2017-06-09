@@ -144,7 +144,7 @@ public class ModEventHandler
 						}
 						else
 						{
-							// This is just an air block, move onto the next block don't need to wait fo rthe next tick.
+							// This is just an air block, move onto the next block don't need to wait for the next tick.
 							i--;
 						}
 						

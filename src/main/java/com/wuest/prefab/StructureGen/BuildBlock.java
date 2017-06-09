@@ -18,6 +18,10 @@ import net.minecraft.block.BlockVine;
 import net.minecraft.block.BlockWall;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.nbt.JsonToNBT;
+import net.minecraft.nbt.NBTException;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumFacing.Axis;
 import net.minecraft.util.ResourceLocation;
@@ -50,6 +54,9 @@ public class BuildBlock
 	
 	@Expose
 	private IBlockState state;
+	
+	@Expose
+	private String blockStateData;
 	
 	public BuildBlock()
 	{
@@ -145,6 +152,58 @@ public class BuildBlock
 		this.state = value;
 	}
 	
+	public String getBlockStateData()
+	{
+		return this.blockStateData;
+	}
+	
+	public void setBlockStateData(String value)
+	{
+		this.blockStateData = value;
+	}
+	
+	public void setBlockStateData(NBTTagCompound tagCompound)
+	{
+		this.blockStateData = tagCompound.toString();
+	}
+	
+	public NBTTagCompound getBlockStateDataTag()
+	{
+		NBTTagCompound tag = null;
+		
+		if (!this.blockStateData.equals(""))
+		{
+			try
+			{
+				tag = JsonToNBT.getTagFromJson(this.blockStateData);
+			}
+			catch (NBTException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return tag;
+	}
+	
+	public IBlockState getBlockStateFromDataTag()
+	{
+		IBlockState state = null;
+		
+		if (!this.blockStateData.equals(""))
+		{
+			NBTTagCompound tag = this.getBlockStateDataTag();
+			
+			if (tag != null)
+			{
+				state = NBTUtil.readBlockState(tag.getCompoundTag("tag"));
+			}
+		}
+		
+		return state;
+	}
+	
 	public void Initialize()
 	{
 		this.blockDomain = "";
@@ -154,12 +213,18 @@ public class BuildBlock
 		this.state = null;
 		this.subBlock = null;
 		this.startingPosition = new PositionOffset();
+		this.blockStateData = "";
 	}
 	
 	public static BuildBlock SetBlockState(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth, BuildBlock block, Block foundBlock, IBlockState blockState)
 	{
 		try
 		{
+			if (!block.blockStateData.equals(""))
+			{
+				return BuildBlock.SetBlockStateFromTagData(configuration, world, originalPos, assumedNorth, block, foundBlock, blockState);
+			}
+			
 			EnumFacing vineFacing = BuildBlock.getVineFacing(configuration, foundBlock, block, assumedNorth);
 			EnumAxis logFacing = BuildBlock.getLogFacing(configuration, foundBlock, block, assumedNorth);
 			Axis boneFacing = BuildBlock.getBoneFacing(configuration, foundBlock, block, assumedNorth);
@@ -334,6 +399,7 @@ public class BuildBlock
 		}
 	}
 	
+	
 	private static EnumFacing getVineFacing(StructureConfiguration configuration, Block foundBlock, BuildBlock block, EnumFacing assumedNorth)
 	{
 		EnumFacing vineFacing = EnumFacing.UP;
@@ -379,6 +445,7 @@ public class BuildBlock
 		return vineFacing;
 	}
 	
+	
 	private static EnumAxis getLogFacing(StructureConfiguration configuration, Block foundBlock, BuildBlock block, EnumFacing assumedNorth)
 	{
 		EnumAxis logFacing = EnumAxis.X;
@@ -410,6 +477,7 @@ public class BuildBlock
 		
 		return logFacing;
 	}
+	
 	
 	private static Axis getBoneFacing(StructureConfiguration configuration, Block foundBlock, BuildBlock block, EnumFacing assumedNorth)
 	{
@@ -443,6 +511,7 @@ public class BuildBlock
 		return boneFacing;
 	}
 	
+	
 	private static BlockQuartz.EnumType getQuartsFacing(StructureConfiguration configuration, Block foundBlock, BuildBlock block, EnumFacing assumedNorth)
 	{
 		BlockQuartz.EnumType quartzFacing = BlockQuartz.EnumType.DEFAULT;
@@ -474,6 +543,7 @@ public class BuildBlock
 		
 		return quartzFacing;
 	}
+	
 	
 	private static EnumOrientation getLeverOrientation(StructureConfiguration configuration, Block foundBlock, BuildBlock block, EnumFacing assumedNorth)
 	{
@@ -535,9 +605,27 @@ public class BuildBlock
 		return leverOrientation;
 	}
 	
+	
 	private static IBlockState setProperty(IBlockState state, IProperty property, Comparable comparable)
 	{
 		// This method is required since the properties and comparables have a <?> in them and it doesn't work properly when that is there. There is a compilation error since it's not hard typed.
 		return state.withProperty(property, comparable);
+	}
+
+	private static BuildBlock SetBlockStateFromTagData(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth, BuildBlock block, Block foundBlock, IBlockState blockState)
+	{
+		IBlockState tagState = block.getBlockStateFromDataTag();
+		
+		if (tagState != null)
+		{
+			block.setBlockState(block.getBlockStateFromDataTag());
+		}
+		else
+		{
+			block.setBlockStateData("");
+			return BuildBlock.SetBlockState(configuration, world, originalPos, assumedNorth, block, foundBlock, blockState);
+		}
+		
+		return block;
 	}
 }
