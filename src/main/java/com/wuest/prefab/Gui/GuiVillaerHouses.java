@@ -103,6 +103,8 @@ public class GuiVillaerHouses extends GuiStructure
 	@Override
 	protected void actionPerformed(GuiButton button) throws IOException
 	{
+		this.configuration.houseStyle = this.houseStyle;
+		
 		this.performCancelOrBuildOrHouseFacing(this.configuration, button);
 		
 		if (button == this.btnHouseStyle)
