@@ -34,6 +34,7 @@ import com.wuest.prefab.Gui.GuiTreeFarm;
 import com.wuest.prefab.Gui.GuiVillaerHouses;
 import com.wuest.prefab.Gui.GuiWareHouse;
 import com.wuest.prefab.Items.ItemBlockMeta;
+import com.wuest.prefab.Items.ItemBogus;
 import com.wuest.prefab.Items.ItemBundleOfTimber;
 import com.wuest.prefab.Items.ItemCoilOfLanterns;
 import com.wuest.prefab.Items.ItemCompressedChest;
@@ -584,6 +585,7 @@ public class ModRegistry
 		//ModRegistry.registerItem(new ItemModularHouse("item_modular_house"));
 		ModRegistry.registerItem(new ItemStringOfLanterns("item_string_of_lanterns"));
 		ModRegistry.registerItem(new ItemCoilOfLanterns("item_coil_of_lanterns"));
+		//ModRegistry.registerItem(new ItemBogus("item_bogus"));
 		
 		// Register all the basic structures here. The resource location is used for the item models and textures.
 		// Only the first one in this list should have the last variable set to true.

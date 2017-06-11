@@ -3,12 +3,15 @@ package com.wuest.prefab.Events;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.lwjgl.opengl.GL11;
+
 import com.google.common.collect.Lists;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Blocks.IMetaBlock;
 import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Config.BasicStructureConfiguration.EnumBasicStructureName;
+import com.wuest.prefab.Items.ItemBogus;
 import com.wuest.prefab.Items.Structures.ItemBasicStructure;
 import com.wuest.prefab.Proxy.ClientProxy;
 import com.wuest.prefab.Render.StructureRenderHandler;
@@ -16,11 +19,19 @@ import com.wuest.prefab.Render.StructureRenderHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.client.model.ModelLoader;
@@ -58,6 +69,11 @@ public class ClientEventHandler
 		if (mc.thePlayer != null && mc.objectMouseOver != null && mc.objectMouseOver.getBlockPos() != null && (!mc.thePlayer.isSneaking()))
 		{
 			StructureRenderHandler.renderPlayerLook(mc.thePlayer, mc.objectMouseOver);
+		}
+		
+		if (ItemBogus.renderTest)
+		{
+			ClientEventHandler.RenderTest(mc.theWorld, mc.thePlayer);
 		}
 	}
 
@@ -211,4 +227,74 @@ public class ClientEventHandler
 			}
 		}
 	}
+
+    private static void RenderTest(World worldIn, EntityPlayer playerIn)
+    {
+    	float partialTicks = Minecraft.getMinecraft().getRenderPartialTicks();
+        EntityPlayer entityplayer = playerIn;
+        Tessellator tessellator = Tessellator.getInstance();
+        VertexBuffer vertexbuffer = tessellator.getBuffer();
+        BlockPos playerPosition = new BlockPos(entityplayer.posX, entityplayer.posY, entityplayer.posZ);
+        BlockPos blockPos = playerPosition.offset(entityplayer.getHorizontalFacing().getOpposite());
+        
+        double playerVertical = entityplayer.lastTickPosY + (entityplayer.posY - entityplayer.lastTickPosY) * (double)partialTicks;
+        
+        double playerLevelYCoordinate = blockPos.getY() - Math.abs(playerPosition.getY()) + (playerPosition.getY() - entityplayer.posY);
+        double playerLevelUpOneYCoordinate = blockPos.getY() - Math.abs(playerPosition.getY()) + 1 + (playerPosition.getY() - entityplayer.posY);
+        
+        // This makes the block north and in-line with the player's line of sight.
+        double blockXOffset = (playerPosition.getX() - blockPos.getX()) + (playerPosition.getX() - entityplayer.posX);
+        double blocZOffset = (playerPosition.getZ() - blockPos.getZ()) + (playerPosition.getZ() - entityplayer.posZ);
+        
+        GlStateManager.disableTexture2D();
+        GlStateManager.disableBlend();
+        
+        GlStateManager.glLineWidth(3.0F);
+        vertexbuffer.begin(3, DefaultVertexFormats.POSITION_COLOR);
+
+        // Draw the verticals of the box.
+        for (int k = 1; k < 2; k += 1)
+        {
+        	// Green
+        	vertexbuffer.pos(blockXOffset, playerLevelYCoordinate, blocZOffset).color(0.6F, 1.0F, 0.0F, 0.0F).endVertex();
+            vertexbuffer.pos(blockXOffset, playerLevelUpOneYCoordinate, blocZOffset).color(0.6F, 1.0F, 0.0F, 1.0F).endVertex();
+        	
+            // Orange
+            vertexbuffer.pos(blockXOffset + (double)k, playerLevelYCoordinate, blocZOffset).color(1.0F, 0.6F, 0.0F, 0.0F).endVertex();
+            vertexbuffer.pos(blockXOffset + (double)k, playerLevelUpOneYCoordinate, blocZOffset).color(1.0F, 0.6F, 0.0F, 1.0F).endVertex();
+            
+            vertexbuffer.pos(blockXOffset, playerLevelYCoordinate, blocZOffset + (double)k).color(1.0F, 1.0F, 0.0F, 0.0F).endVertex();
+            vertexbuffer.pos(blockXOffset, playerLevelUpOneYCoordinate, blocZOffset + (double)k).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+            
+            vertexbuffer.pos(blockXOffset + 1.0D, playerLevelYCoordinate, blocZOffset + (double)k).color(1.0F, 1.0F, 0.0F, 0.0F).endVertex();
+            vertexbuffer.pos(blockXOffset + 1.0D, playerLevelUpOneYCoordinate, blocZOffset + (double)k).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+        }
+        
+        // All horizontals.
+        for (int i1 = playerPosition.getY(); i1 <= playerPosition.getY() + 1; i1 += 1)
+        {
+            double d7 = i1- playerVertical;
+            vertexbuffer.pos(blockXOffset, d7, blocZOffset).color(1.0F, 1.0F, 0.0F, 0.0F).endVertex();
+            vertexbuffer.pos(blockXOffset, d7, blocZOffset + 1.0D).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+            vertexbuffer.pos(blockXOffset + 1.0D, d7, blocZOffset + 1.0D).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+            vertexbuffer.pos(blockXOffset + 1.0D, d7, blocZOffset).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+            vertexbuffer.pos(blockXOffset, d7, blocZOffset).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+        }
+
+        tessellator.draw();
+        GlStateManager.enableBlend();
+        GlStateManager.enableTexture2D();
+    }
+    
+    private static void drawLineWithGL(Vec3d blockA, Vec3d blockB) 
+    {
+    	GL11.glColor4f(1F, 0F, 1F, 0F);  // change color an set alpha
+
+    	GL11.glBegin(GL11.GL_LINE_STRIP);
+
+    	GL11.glVertex3d(blockA.xCoord, blockA.yCoord, blockA.zCoord);
+    	GL11.glVertex3d(blockB.xCoord, blockB.yCoord, blockB.zCoord);
+
+    	GL11.glEnd();
+    }
 }
