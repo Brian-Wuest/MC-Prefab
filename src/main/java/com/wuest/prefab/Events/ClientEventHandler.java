@@ -28,6 +28,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -73,7 +74,7 @@ public class ClientEventHandler
 		
 		if (ItemBogus.renderTest)
 		{
-			ClientEventHandler.RenderTest(mc.theWorld, mc.thePlayer);
+			ClientEventHandler.RenderTest(mc.world, mc.player);
 		}
 	}
 
@@ -193,7 +194,7 @@ public class ClientEventHandler
 	 */
 	public static void regBlock(Block block)
 	{
-		List<ItemStack> stacks = Lists.<ItemStack>newArrayList();
+		NonNullList<ItemStack> stacks = NonNullList.create();
 		
 		Item itemBlock = Item.getItemFromBlock(block);
 		

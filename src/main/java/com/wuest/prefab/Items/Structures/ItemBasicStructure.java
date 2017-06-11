@@ -51,7 +51,7 @@ public class ItemBasicStructure extends StructureItem
 	 * Does something when the item is right-clicked.
 	 */
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos hitBlockPos, EnumHand hand, EnumFacing side, float hitX,
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos hitBlockPos, EnumHand hand, EnumFacing side, float hitX,
 			float hitY, float hitZ)
 	{
 		if (world.isRemote)
@@ -64,7 +64,7 @@ public class ItemBasicStructure extends StructureItem
 				//BasicStructureConfiguration structureConfiguration = capability.getConfiguration();
 				//basicStructure.ScanStructure(world, hitBlockPos, player.getHorizontalFacing(), structureConfiguration, false, false);
 				
-				player.openGui(Prefab.instance, this.guiId, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+				player.openGui(Prefab.instance, this.guiId, player.world, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
 				return EnumActionResult.PASS;
 			}
 		}
