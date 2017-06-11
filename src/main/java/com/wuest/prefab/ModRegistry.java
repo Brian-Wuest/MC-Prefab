@@ -34,6 +34,7 @@ import com.wuest.prefab.Gui.GuiTreeFarm;
 import com.wuest.prefab.Gui.GuiVillaerHouses;
 import com.wuest.prefab.Gui.GuiWareHouse;
 import com.wuest.prefab.Items.ItemBlockMeta;
+import com.wuest.prefab.Items.ItemBogus;
 import com.wuest.prefab.Items.ItemBundleOfTimber;
 import com.wuest.prefab.Items.ItemCoilOfLanterns;
 import com.wuest.prefab.Items.ItemCompressedChest;
@@ -461,6 +462,14 @@ public class ModRegistry
 	}
 	
 	/**
+	 * Static constructor for the mod registry.
+	 */
+	static
+	{
+		ModRegistry.RegisterModComponents();
+	}
+	
+	/**
 	 * Gets the item from the ModItems collections.
 	 * @param <T> The type which extends item.
 	 * @param genericClass The class of item to get from the collection.
@@ -576,6 +585,7 @@ public class ModRegistry
 		//ModRegistry.registerItem(new ItemModularHouse("item_modular_house"));
 		ModRegistry.registerItem(new ItemStringOfLanterns("item_string_of_lanterns"));
 		ModRegistry.registerItem(new ItemCoilOfLanterns("item_coil_of_lanterns"));
+		//ModRegistry.registerItem(new ItemBogus("item_bogus"));
 		
 		// Register all the basic structures here. The resource location is used for the item models and textures.
 		// Only the first one in this list should have the last variable set to true.
@@ -1044,6 +1054,20 @@ public class ModRegistry
 				'x', new ItemStack(Item.getItemFromBlock(Blocks.DIRT)),
 				'y', new ItemStack(Item.getItemFromBlock(Blocks.TALLGRASS), 1, 1));
 		
+		// Magic Temple
+		result = new ItemStack(ModRegistry.BasicStructure());
+		capability = result.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
+		capability.getConfiguration().basicStructureName = EnumBasicStructureName.MagicTemple;
+		
+		ModRegistry.addShapedRecipe("Magic Temple", result, 
+				"aaa",
+				"cbd",
+				"aaa",
+				'a', new ItemStack(ModRegistry.BundleOfTimber()),
+				'b', new ItemStack(Item.getItemFromBlock(Blocks.ENCHANTING_TABLE)),
+				'c', new ItemStack(Items.BREWING_STAND),
+				'd', new ItemStack(Items.BLAZE_ROD));
+		
 		// Instant Bridge.
 		ModRegistry.addShapedRecipe("Instant Bridge", 
 				new ItemStack(ModRegistry.InstantBridge()),
@@ -1223,14 +1247,6 @@ public class ModRegistry
 		// Register the dimension home capability.
 		CapabilityManager.INSTANCE.register(IStructureConfigurationCapability.class, new StructureConfigurationStorage(), StructureConfigurationCapability.class);
 	}
-	
-	/**
-	 * This method is used to register item variants for the blocks for this mod.
-	 */
-	public static void RegisterItemVariants()
-	{
-		ModelBakery.registerItemVariants(ModRegistry.CompressedStoneItem(), BlockCompressedStone.EnumType.GetNames());
-	}
 
 	/**
 	 * Register an Item
@@ -1241,30 +1257,8 @@ public class ModRegistry
 	 */
 	public static <T extends Item> T registerItem(T item)
 	{
-		GameRegistry.register(item);
 		ModRegistry.ModItems.add(item);
 
-		return item;
-	}
-	
-	/**
-	 * Register an Item
-	 *
-	 * @param item The Item instance
-	 * @param <T> The Item type
-	 * @param resourceLocation The resource location for the item to register.
-	 * @param registerInMod Determines if this item should be registered in the mod list of items.
-	 * @return The Item instance
-	 */
-	public static <T extends Item> T registerItem(T item, ResourceLocation resourceLocation, boolean registerInMod)
-	{
-		GameRegistry.register(item, resourceLocation);
-		
-		if (registerInMod)
-		{
-			ModRegistry.ModItems.add(item);
-		}
-		
 		return item;
 	}
 	
@@ -1288,11 +1282,9 @@ public class ModRegistry
 	 */
 	public static <T extends Block> T registerBlock(T block, boolean includeItemBlock)
 	{
-		GameRegistry.register(block);
-		
 		if (includeItemBlock)
 		{
-			GameRegistry.register(new ItemBlock(block).setRegistryName(block.getRegistryName()));
+			ModItems.add(new ItemBlock(block).setRegistryName(block.getRegistryName()));
 		}
 		
 		ModRegistry.ModBlocks.add(block);
@@ -1310,12 +1302,10 @@ public class ModRegistry
 	 */
 	public static <T extends Block, I extends ItemBlock> T registerBlock(T block, I itemBlock)
 	{
-		GameRegistry.register(block);
 		ModRegistry.ModBlocks.add(block);
 		
 		if (itemBlock != null)
 		{
-			GameRegistry.register(itemBlock);
 			ModRegistry.ModItems.add(itemBlock);
 		}
 		

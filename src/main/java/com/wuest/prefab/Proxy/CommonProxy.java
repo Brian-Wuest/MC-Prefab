@@ -9,7 +9,6 @@ import com.wuest.prefab.Gui.GuiCustomContainer;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -46,11 +45,6 @@ public class CommonProxy implements IGuiHandler
 		
 		// Register the capabilities.
 		ModRegistry.RegisterCapabilities();
-		
-		// Register items here.
-		ModRegistry.RegisterModComponents();
-		
-		this.RegisterEventListeners();
 		
 		// Register the recipes here.
 		ModRegistry.RegisterRecipes();
@@ -89,14 +83,6 @@ public class CommonProxy implements IGuiHandler
 		return ModRegistry.GetModGuiByID(ID, x, y, z);
 	}
 
-	
-	protected void RegisterEventListeners()
-	{
-		// DEBUG
-		System.out.println("Registering server event listeners");
-		MinecraftForge.EVENT_BUS.register(eventHandler);
-	}
-	
 	public ModConfiguration getServerConfiguration()
 	{
 		return CommonProxy.proxyConfiguration;

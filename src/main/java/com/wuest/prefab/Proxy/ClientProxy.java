@@ -26,15 +26,11 @@ public class ClientProxy extends CommonProxy
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		super.preInit(event);
-		
-		this.RegisterEventListeners();
 
 		ModRegistry.AddGuis();
 		
 		// After all items have been registered and all recipes loaded, register any necessary renderer.
 		Prefab.proxy.registerRenderers();
-		
-		ModRegistry.RegisterItemVariants();
 	}
 
 	@Override
@@ -54,18 +50,7 @@ public class ClientProxy extends CommonProxy
 	@Override
 	public void registerRenderers() 
 	{
-		ItemRenderRegister.registerItemRenderer();
 		ShaderHelper.Initialize();
-	}
-	
-	@Override
-	protected void RegisterEventListeners()
-	{
-		super.RegisterEventListeners();
-		
-		System.out.println("Registering client event listeners");
-
-		MinecraftForge.EVENT_BUS.register(clientEventHandler);
 	}
 	
 	@Override

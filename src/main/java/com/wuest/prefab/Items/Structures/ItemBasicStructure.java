@@ -47,6 +47,31 @@ public class ItemBasicStructure extends StructureItem
 		this.setHasSubtypes(true);
 	}
 	
+	/**
+	 * Does something when the item is right-clicked.
+	 */
+	@Override
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos hitBlockPos, EnumHand hand, EnumFacing side, float hitX,
+			float hitY, float hitZ)
+	{
+		if (world.isRemote)
+		{
+			if (side == EnumFacing.UP)
+			{
+				// Open the client side gui to determine the house options.
+				//StructureBasic basicStructure = new StructureBasic();
+				//IStructureConfigurationCapability capability = stack.getCapability(ModRegistry.StructureConfiguration,  EnumFacing.NORTH);
+				//BasicStructureConfiguration structureConfiguration = capability.getConfiguration();
+				//basicStructure.ScanStructure(world, hitBlockPos, player.getHorizontalFacing(), structureConfiguration, false, false);
+				
+				player.openGui(Prefab.instance, this.guiId, player.worldObj, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+				return EnumActionResult.PASS;
+			}
+		}
+
+		return EnumActionResult.FAIL;
+	}
+	
     /**
      * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
      */

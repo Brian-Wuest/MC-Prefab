@@ -16,6 +16,7 @@ item.prefab:item_nether_gate.name=Porte inférieure
 item.prefab:item_modular_house.name=Maison modulaire
 item.prefab:item_basic_structure.name=Structure de base
 item.prefab:item_instant_bridge.name=Pont instantané
+
 item.prefab.advanced.chicken.coop=Collier de poulet avancé
 item.prefab.advanced.horse.stable=École avancée de chevaux
 item.prefab.barn=Grange
@@ -28,6 +29,7 @@ item.prefab.mineshaft.entrance=Entrée Mineshaft
 item.prefab.ender_gateway=Passerelle Ender
 item.prefab.aqua_base=Base Aqua
 item.prefab.grassy_plain=Plaines herbeuses
+item.prefab.magic_temple=temple magique
 
 tile.prefab:block_compressed_stone.block_compressed_stone.name=Pierre compressée
 tile.prefab:block_compressed_stone.block_double_compressed_stone.name=Double Pierre compressée

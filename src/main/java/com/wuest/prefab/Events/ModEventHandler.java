@@ -16,26 +16,36 @@ import com.wuest.prefab.Proxy.Messages.ConfigSyncMessage;
 import com.wuest.prefab.StructureGen.BuildBlock;
 import com.wuest.prefab.StructureGen.Structure;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ServerTickEvent;
+import net.minecraftforge.fml.relauncher.Side;
 
 /**
  * This is the server side event hander.
  * @author WuestMan
  */
+@EventBusSubscriber(value = {Side.SERVER, Side.CLIENT })
 public class ModEventHandler
 {
 	/**
@@ -58,24 +68,19 @@ public class ModEventHandler
 	 */
 	public static ArrayList<BlockPos> RedstoneAffectedBlockPositions = null;
 	
-	static
-	{
-		ModEventHandler.RedstoneAffectedBlockPositions = new ArrayList<BlockPos>();
-	}
-	
 	/**
 	 * This event is used to determine if the player should be given the starting house item when they log in.
 	 * @param event The event object.
 	 */
 	@SubscribeEvent
-	public void PlayerJoinedWorld(EntityJoinWorldEvent event)
+	public static void PlayerJoinedWorld(EntityJoinWorldEvent event)
 	{
 		if (!event.getWorld().isRemote && event.getEntity() instanceof EntityPlayer) 
 		{
 			System.out.println("Player joined world, checking to see if the house builder should be provided.");
 
 			EntityPlayer player = (EntityPlayer)event.getEntity();
-			NBTTagCompound persistTag = this.getModIsPlayerNewTag(player);
+			NBTTagCompound persistTag = ModEventHandler.getModIsPlayerNewTag(player);
 
 			// Get the opposite of the value, if the bool doesn't exist then we can add the house to the inventory, otherwise the player isn't new and shouldn't get the item.
 			boolean shouldGiveHousebuilder = !persistTag.getBoolean(ModEventHandler.GIVEN_HOUSEBUILDER_TAG);
@@ -97,7 +102,7 @@ public class ModEventHandler
 	 * @param event The event object.
 	 */
 	@SubscribeEvent
-	public void AttachItemStackCapabilities(AttachCapabilitiesEvent.Item event)
+	public static void AttachItemStackCapabilities(AttachCapabilitiesEvent.Item event)
 	{
 		if (event.getItem() instanceof ItemBasicStructure)
 		{
@@ -110,7 +115,7 @@ public class ModEventHandler
 	 * @param event The event object.
 	 */
 	@SubscribeEvent
-	public void onServerTick(ServerTickEvent event)
+	public static void onServerTick(ServerTickEvent event)
 	{
 		ArrayList<EntityPlayer> playersToRemove = new ArrayList<EntityPlayer>();
 		
@@ -129,9 +134,18 @@ public class ModEventHandler
 						BlockPos currentPos = structure.clearedBlockPos.get(0);
 						structure.clearedBlockPos.remove(0);
 						
-						if (!structure.world.isAirBlock(currentPos))
+						IBlockState clearBlockState = structure.world.getBlockState(currentPos);
+						
+						// If this block is not specifically air then set it to air.
+						// This will also break other mod's logic blocks but they would probably be broken due to structure generation anyways.
+						if (clearBlockState.getBlock() != Blocks.AIR)
 						{
 							structure.world.setBlockToAir(currentPos);
+						}
+						else
+						{
+							// This is just an air block, move onto the next block don't need to wait for the next tick.
+							i--;
 						}
 						
 						continue;
@@ -200,7 +214,7 @@ public class ModEventHandler
 	 * @param event The event object.
 	 */
 	@SubscribeEvent
-	public void onPlayerLoginEvent(PlayerLoggedInEvent event)
+	public static void onPlayerLoginEvent(PlayerLoggedInEvent event)
 	{
 		if(!event.player.world.isRemote)
 		{
@@ -215,7 +229,7 @@ public class ModEventHandler
 	 * @param event The event object.
 	 */
 	@SubscribeEvent
-	public void onPlayerLoggedOutEvent(PlayerLoggedOutEvent event)
+	public static void onPlayerLoggedOutEvent(PlayerLoggedOutEvent event)
 	{
 		// When the player logs out, make sure to re-set the server configuration. 
 		// This is so a new configuration can be successfully loaded when they switch servers or worlds (on single player.
@@ -231,7 +245,7 @@ public class ModEventHandler
 	 * @param event
 	 */
 	@SubscribeEvent
-	public void onClone(PlayerEvent.Clone event) 
+	public static void onClone(PlayerEvent.Clone event) 
 	{
 		// Don't add the tag unless the house item was added. This way it can be added if the feature is turned on.
 		// When the player is cloned, make sure to copy the tag. If this is not done the item can be given to the player again if they die before the log out and log back in.
@@ -253,7 +267,7 @@ public class ModEventHandler
 	 * @param onConfigChangedEvent The event object.
 	 */
 	@SubscribeEvent
-	public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent onConfigChangedEvent)
+	public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent onConfigChangedEvent)
 	{
 		if(onConfigChangedEvent.getModID().equals(Prefab.MODID))
 		{
@@ -261,7 +275,7 @@ public class ModEventHandler
 		}
 	}
 	
-	private NBTTagCompound getModIsPlayerNewTag(EntityPlayer player)
+	private static NBTTagCompound getModIsPlayerNewTag(EntityPlayer player)
 	{
 		NBTTagCompound tag = player.getEntityData();
 
@@ -281,4 +295,15 @@ public class ModEventHandler
 		return newPlayerTag;
 	}
 
+	@SubscribeEvent
+	public static void registerBlocks(RegistryEvent.Register<Block> event)
+	{	
+		event.getRegistry().registerAll(ModRegistry.ModBlocks.toArray(new Block[ModRegistry.ModBlocks.size()]));
+	}
+	
+	@SubscribeEvent
+	public static void registerItems(RegistryEvent.Register<Item> event)
+	{	
+		event.getRegistry().registerAll(ModRegistry.ModItems.toArray(new Item[ModRegistry.ModItems.size()]));
+	}
 }
