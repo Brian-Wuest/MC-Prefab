@@ -19,9 +19,9 @@ import com.wuest.prefab.Render.StructureRenderHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.EntityPlayer;
@@ -199,7 +199,7 @@ public class ClientEventHandler
 		Item itemBlock = Item.getItemFromBlock(block);
 		
 		// If there are sub-blocks for this block, register each of them.
-		block.getSubBlocks(itemBlock, null, stacks);
+		block.getSubBlocks(null, stacks);
 		
 		if (itemBlock != null)
 		{
@@ -234,7 +234,7 @@ public class ClientEventHandler
     	float partialTicks = Minecraft.getMinecraft().getRenderPartialTicks();
         EntityPlayer entityplayer = playerIn;
         Tessellator tessellator = Tessellator.getInstance();
-        VertexBuffer vertexbuffer = tessellator.getBuffer();
+        BufferBuilder vertexbuffer = tessellator.getBuffer();
         BlockPos playerPosition = new BlockPos(entityplayer.posX, entityplayer.posY, entityplayer.posZ);
         BlockPos blockPos = playerPosition.offset(entityplayer.getHorizontalFacing().getOpposite());
         

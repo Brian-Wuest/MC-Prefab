@@ -13,8 +13,6 @@ import net.minecraftforge.fml.common.ModContainer;
  */
 public class UpdateChecker
 {
-	private static ModInfo modInfo = null;
-	
 	/**
 	 * Determines if a the message is shown to the user when they log into a world.
 	 */

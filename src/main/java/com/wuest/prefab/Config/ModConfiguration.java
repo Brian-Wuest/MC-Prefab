@@ -148,7 +148,8 @@ public class ModConfiguration
 					// Re-add the recipes to the game registry.
 					for (IRecipe recipe : set.getValue()._2)
 					{
-						GameRegistry.addRecipe(recipe);
+						// TODO: Figure out a good way to re-add recipes.
+						// GameRegistry.addRecipe(recipe);
 					}
 				}
 				else
@@ -156,7 +157,8 @@ public class ModConfiguration
 					// Remove the recipes from the game registry.
 					for (IRecipe recipe :set.getValue()._2)
 					{
-						CraftingManager.getInstance().getRecipeList().remove(recipe);
+						// TODO: Figure out how to remove recipes.
+						// CraftingManager.getInstance().getRecipeList().remove(recipe);
 					}
 				}
 			}

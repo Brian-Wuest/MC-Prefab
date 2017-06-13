@@ -2,13 +2,9 @@ package com.wuest.prefab.Gui;
 
 import java.awt.Color;
 import java.io.IOException;
-import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Blocks.BlockDrafter;
 import com.wuest.prefab.Config.DrafterTileEntityConfig;
 import com.wuest.prefab.Config.DrafterTileEntityConfig.AvailableRoomType;
 import com.wuest.prefab.Config.DrafterTileEntityConfig.RoomInfo;
@@ -19,29 +15,24 @@ import com.wuest.prefab.Gui.Controls.GuiTab;
 import com.wuest.prefab.Proxy.ClientProxy;
 import com.wuest.prefab.TileEntities.TileEntityDrafter;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiCreateFlatWorld;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.inventory.IInventory;
+import net.minecraft.client.renderer.vertex.VertexBuffer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.client.GuiScrollingList;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 import net.minecraftforge.fml.client.config.HoverChecker;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
  * This screen is used for the modular house to build the additional rooms.
@@ -708,7 +699,7 @@ public class GuiDrafter extends GuiTabScreen
             int i = 18;
             int j = 18;
             Tessellator tessellator = Tessellator.getInstance();
-            VertexBuffer vertexbuffer = tessellator.getBuffer();
+            BufferBuilder vertexbuffer = tessellator.getBuffer();
             vertexbuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
             vertexbuffer.pos((double)(x + 0), (double)(z + 18), (double)this.parent.zLevel).tex((double)((float)(textureX + 0) * 0.0078125F), (double)((float)(textureY + 18) * 0.0078125F)).endVertex();
             vertexbuffer.pos((double)(x + 18), (double)(z + 18), (double)this.parent.zLevel).tex((double)((float)(textureX + 18) * 0.0078125F), (double)((float)(textureY + 18) * 0.0078125F)).endVertex();

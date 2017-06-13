@@ -104,7 +104,7 @@ public class ModEventHandler
 	@SubscribeEvent
 	public static void AttachItemStackCapabilities(AttachCapabilitiesEvent.Item event)
 	{
-		if (event.getItem() instanceof ItemBasicStructure)
+		if (event.getItemStack().getItem() instanceof ItemBasicStructure)
 		{
 			event.addCapability(new ResourceLocation(Prefab.MODID, "structuresconfiguration"), new StructureConfigurationProvider(new StructureConfigurationCapability()));
 		}

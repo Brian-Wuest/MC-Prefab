@@ -166,11 +166,11 @@ public class BlockCompressedStone extends Block implements IMetaBlock
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public void getSubBlocks(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> list)
+    public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list)
     {
         for (BlockCompressedStone.EnumType enumType : BlockCompressedStone.EnumType.values())
         {
-            list.add(new ItemStack(itemIn, 1, enumType.getMetadata()));
+            list.add(new ItemStack(this, 1, enumType.getMetadata()));
         }
     }
 

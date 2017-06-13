@@ -4,9 +4,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.wuest.prefab.Blocks.BlockBoundary;
 import com.wuest.prefab.Blocks.BlockCompressedObsidian;
 import com.wuest.prefab.Blocks.BlockCompressedStone;
@@ -70,9 +72,13 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
@@ -854,13 +860,13 @@ public class ModRegistry
 				'h', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE));
 
 		// Planks to addShapedRecipe of timber.
-		IRecipe currentRecipe = new ShapedOreRecipe(ModRegistry.BundleOfTimber(), 
+		IRecipe currentRecipe = new ShapedOreRecipe(ModRegistry.BundleOfTimber().getRegistryName(), ModRegistry.BundleOfTimber(), 
 				"aaa", 
 				"aaa", 
 				"aaa", 
 				'a', "logWood");
 		
-		GameRegistry.addRecipe(currentRecipe);
+		CraftingManager.func_193379_a(ModRegistry.BundleOfTimber().getRegistryName().toString(), currentRecipe);
 		
 		ModRegistry.SaveModRecipe("Bundle of Timber", currentRecipe);
 
@@ -1182,7 +1188,7 @@ public class ModRegistry
 	 */
 	public static IRecipe addShapedRecipe(String displayName, ItemStack stack, Object... recipeComponents)
 	{
-		IRecipe recipe = GameRegistry.addShapedRecipe(stack, recipeComponents);
+		IRecipe recipe = ModRegistry.AddShapedRecipe(displayName, stack, recipeComponents);
 		
 		ModRegistry.SaveModRecipe(displayName, recipe);
 		
@@ -1198,31 +1204,7 @@ public class ModRegistry
      */
     public static IRecipe addShapelessRecipe(String displayName, ItemStack stack, Object... recipeComponents)
     {
-        List<ItemStack> list = Lists.<ItemStack>newArrayList();
-
-        for (Object object : recipeComponents)
-        {
-            if (object instanceof ItemStack)
-            {
-                list.add(((ItemStack)object).copy());
-            }
-            else if (object instanceof Item)
-            {
-                list.add(new ItemStack((Item)object));
-            }
-            else
-            {
-                if (!(object instanceof Block))
-                {
-                    throw new IllegalArgumentException("Invalid shapeless recipe: unknown type " + object.getClass().getName() + "!");
-                }
-
-                list.add(new ItemStack((Block)object));
-            }
-        }
-
-        ShapelessRecipes returnValue = new ShapelessRecipes(stack, list); 
-        GameRegistry.addRecipe(returnValue);
+        ShapelessRecipes returnValue = ModRegistry.AddShapelessRecipe(displayName, stack, recipeComponents);
         
         ModRegistry.SaveModRecipe(displayName, returnValue);
         
@@ -1359,4 +1341,122 @@ public class ModRegistry
 		ModRegistry.ModGuis.put(ModRegistry.GuiBasicStructure, GuiBasicStructure.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiVillagerHouses, GuiVillaerHouses.class);
 	}
+
+	/**
+	 * This should only be used for registering recipes for vanilla objects and not mod-specific objects.
+	 * @param name The name of the recipe. ModID is pre-pended to it.
+	 * @param stack The output of the recipe.
+	 * @param recipeComponents The recipe components.
+	 */
+	public static ShapedRecipes AddShapedRecipe(String name, ItemStack stack, Object... recipeComponents)
+	{	
+        name = Prefab.MODID.toLowerCase() + ":" + name;
+        String s = "";
+        int i = 0;
+        int j = 0;
+        int k = 0;
+
+        if (recipeComponents[i] instanceof String[])
+        {
+            String[] astring = (String[])((String[])recipeComponents[i++]);
+
+            for (String s2 : astring)
+            {
+                ++k;
+                j = s2.length();
+                s = s + s2;
+            }
+        }
+        else
+        {
+            while (recipeComponents[i] instanceof String)
+            {
+                String s1 = (String)recipeComponents[i++];
+                ++k;
+                j = s1.length();
+                s = s + s1;
+            }
+        }
+
+        Map<Character, ItemStack> map;
+
+        for (map = Maps.<Character, ItemStack>newHashMap(); i < recipeComponents.length; i += 2)
+        {
+            Character character = (Character)recipeComponents[i];
+            ItemStack itemstack = ItemStack.EMPTY;
+
+            if (recipeComponents[i + 1] instanceof Item)
+            {
+                itemstack = new ItemStack((Item)recipeComponents[i + 1]);
+            }
+            else if (recipeComponents[i + 1] instanceof Block)
+            {
+                itemstack = new ItemStack((Block)recipeComponents[i + 1], 1, 32767);
+            }
+            else if (recipeComponents[i + 1] instanceof ItemStack)
+            {
+                itemstack = (ItemStack)recipeComponents[i + 1];
+            }
+
+            map.put(character, itemstack);
+        }
+
+        NonNullList<Ingredient> aitemstack = NonNullList.withSize(j * k, Ingredient.field_193370_a);
+
+        for (int l = 0; l < j * k; ++l)
+        {
+            char c0 = s.charAt(l);
+
+            if (map.containsKey(Character.valueOf(c0)))
+            {
+                aitemstack.set(l, Ingredient.func_193369_a(((ItemStack)map.get(Character.valueOf(c0))).copy()));
+            }
+        }
+
+        ShapedRecipes shapedrecipes = new ShapedRecipes(name, j, k, aitemstack, stack);
+		
+		CraftingManager.func_193379_a(name, shapedrecipes);
+		
+		return shapedrecipes;
+	}
+	
+    /**
+     * This should only be used for registering recipes for vanilla objects and not mod-specific objects.
+     * @param name The name of the recipe.
+     * @param stack The output stack.
+     * @param recipeComponents The recipe components.
+     */
+    public static ShapelessRecipes AddShapelessRecipe(String name, ItemStack stack, Object... recipeComponents)
+    {
+        name = Prefab.MODID.toLowerCase() + ":" + name;
+        NonNullList<Ingredient> list = NonNullList.create();
+
+        for (Object object : recipeComponents)
+        {
+            if (object instanceof ItemStack)
+            {
+                list.add(Ingredient.func_193369_a(((ItemStack)object).copy()));
+            }
+            else if (object instanceof Item)
+            {
+                list.add(Ingredient.func_193369_a(new ItemStack((Item)object)));
+            }
+            else
+            {
+                if (!(object instanceof Block))
+                {
+                    throw new IllegalArgumentException("Invalid shapeless recipe: unknown type " + object.getClass().getName() + "!");
+                }
+
+                list.add(Ingredient.func_193369_a(new ItemStack((Block)object)));
+            }
+        }
+
+        ShapelessRecipes shapelessRecipes = new ShapelessRecipes(name, stack, list);
+		
+		CraftingManager.func_193379_a(name, shapelessRecipes);
+		
+		return shapelessRecipes;
+    }
+    
 }

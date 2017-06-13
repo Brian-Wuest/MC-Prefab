@@ -9,18 +9,16 @@ import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.StructureConfiguration;
 import com.wuest.prefab.Proxy.Messages.StructureTagMessage;
 import com.wuest.prefab.Proxy.Messages.StructureTagMessage.EnumStructureConfiguration;
-import com.wuest.prefab.Render.StructureRenderHandler;
-import com.wuest.prefab.StructureGen.CustomStructures.StructureBasic;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiLabel;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.renderer.vertex.VertexBuffer;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
@@ -91,7 +89,7 @@ public class GuiStructure extends GuiScreen
 
 		for (int i = 0; i < this.buttonList.size(); ++i)
 		{
-			((GuiButton)this.buttonList.get(i)).drawButton(this.mc, mouseX, mouseY);
+			((GuiButton)this.buttonList.get(i)).func_191745_a(this.mc, mouseX, mouseY, 0);
 		}
 
 		for (int j = 0; j < this.labelList.size(); ++j)
@@ -142,7 +140,7 @@ public class GuiStructure extends GuiScreen
         float f = 1.0F / textureWidth;
         float f1 = 1.0F / textureHeight;
         Tessellator tessellator = Tessellator.getInstance();
-        VertexBuffer vertexbuffer = tessellator.getBuffer();
+        BufferBuilder vertexbuffer = tessellator.getBuffer();
         
         vertexbuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
         

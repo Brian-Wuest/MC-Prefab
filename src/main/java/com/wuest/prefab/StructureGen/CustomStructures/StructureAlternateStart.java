@@ -30,7 +30,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.AchievementList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.tileentity.TileEntityFurnace;
@@ -266,7 +265,8 @@ public class StructureAlternateStart extends Structure
 				chestTile.setInventorySlotContents(itemSlot++, new ItemStack(Items.STONE_HOE));
 
 				// Trigger the "Time to Farm!" achievement.
-				player.addStat(AchievementList.BUILD_HOE);
+				// TODO: Figure out how to push this advancement.
+				//player.addStat(AchievementList.BUILD_HOE);
 			}
 
 			if (Prefab.proxy.proxyConfiguration.addPickAxe)
@@ -275,14 +275,15 @@ public class StructureAlternateStart extends Structure
 				// pick axe achievement.
 				chestTile.setInventorySlotContents(itemSlot++, new ItemStack(Items.STONE_PICKAXE));
 
-				player.addStat(AchievementList.BUILD_PICKAXE);
-				player.addStat(AchievementList.BUILD_BETTER_PICKAXE);
+				// TODO: Figure out how to push this advancement.
+				//player.addStat(AchievementList.BUILD_PICKAXE);
+				//player.addStat(AchievementList.BUILD_BETTER_PICKAXE);
 
 				if (configuration.addCraftingTable)
 				{
 					// If the furnace/crafting table was created, trigger
 					// the "Hot Topic" achievement.
-					player.addStat(AchievementList.BUILD_FURNACE);
+					//player.addStat(AchievementList.BUILD_FURNACE);
 				}
 			}
 
@@ -306,7 +307,8 @@ public class StructureAlternateStart extends Structure
 				chestTile.setInventorySlotContents(itemSlot++, new ItemStack(sword));
 
 				// Trigger the "Time to Strike" achievement.
-				player.addStat(AchievementList.BUILD_SWORD);
+				// TODO: Figure out how to push this advancement.
+				//player.addStat(AchievementList.BUILD_SWORD);
 			}
 
 			if (Prefab.proxy.proxyConfiguration.addArmor)
@@ -323,7 +325,8 @@ public class StructureAlternateStart extends Structure
 				// Add some bread.
 				chestTile.setInventorySlotContents(itemSlot++, new ItemStack(Items.BREAD, 20));
 				
-				player.addStat(AchievementList.MAKE_BREAD);
+				// TODO: Figure out how to push this advancement.
+				//player.addStat(AchievementList.MAKE_BREAD);
 			}
 
 			if (Prefab.proxy.proxyConfiguration.addCrops)

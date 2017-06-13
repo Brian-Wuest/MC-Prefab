@@ -27,7 +27,6 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemDoor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.stats.AchievementList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.tileentity.TileEntitySign;
@@ -759,7 +758,8 @@ public class HouseConfiguration extends StructureConfiguration
 		BuildingMethods.ReplaceBlock(world, itemPosition, Blocks.CRAFTING_TABLE);
 
 		// Trigger the workbench achievement.
-		player.addStat(AchievementList.BUILD_WORK_BENCH);
+		// TODO: Figure out how to trigger this advancement.
+		//player.addStat(AchievementList.BUILD_WORK_BENCH);
 
 		// Place a furnace next to the crafting table and fill it with 20 coal.
 		itemPosition = itemPosition.offset(facing.rotateY());
