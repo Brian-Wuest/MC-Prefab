@@ -66,7 +66,7 @@ public class ModEventHandler
 	/**
 	 * Determines the affected blocks by redstone power.
 	 */
-	public static ArrayList<BlockPos> RedstoneAffectedBlockPositions = null;
+	public static ArrayList<BlockPos> RedstoneAffectedBlockPositions = new ArrayList<BlockPos>();
 	
 	/**
 	 * This event is used to determine if the player should be given the starting house item when they log in.
