@@ -1,6 +1,6 @@
 package com.wuest.prefab.Capabilities;
 
-import com.wuest.prefab.Config.BasicStructureConfiguration;
+import com.wuest.prefab.Config.Structures.BasicStructureConfiguration;
 
 /**
  * This is the initial class for the structure configuration capability.

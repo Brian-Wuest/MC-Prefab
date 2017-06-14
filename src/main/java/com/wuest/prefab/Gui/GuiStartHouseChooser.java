@@ -4,9 +4,9 @@ import java.awt.Color;
 import java.io.IOException;
 
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Config.HouseConfiguration;
 import com.wuest.prefab.Config.ModConfiguration;
-import com.wuest.prefab.Config.HouseConfiguration.HouseStyle;
+import com.wuest.prefab.Config.Structures.HouseConfiguration;
+import com.wuest.prefab.Config.Structures.HouseConfiguration.HouseStyle;
 import com.wuest.prefab.Events.ModEventHandler;
 import com.wuest.prefab.Gui.Controls.GuiCheckBox;
 import com.wuest.prefab.Gui.Controls.GuiTab;

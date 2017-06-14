@@ -6,7 +6,7 @@ import java.io.IOException;
 import org.lwjgl.opengl.GL11;
 
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Config.StructureConfiguration;
+import com.wuest.prefab.Config.Structures.StructureConfiguration;
 import com.wuest.prefab.Proxy.Messages.StructureTagMessage;
 import com.wuest.prefab.Proxy.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Render.StructureRenderHandler;

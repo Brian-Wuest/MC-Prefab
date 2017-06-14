@@ -1,6 +1,6 @@
 package com.wuest.prefab.StructureGen.CustomStructures;
 
-import com.wuest.prefab.Config.VillagerHouseConfiguration;
+import com.wuest.prefab.Config.Structures.VillagerHouseConfiguration;
 import com.wuest.prefab.StructureGen.BuildClear;
 import com.wuest.prefab.StructureGen.Structure;
 

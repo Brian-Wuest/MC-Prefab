@@ -5,7 +5,7 @@ import java.util.Collection;
 
 import com.google.common.base.Optional;
 import com.google.gson.annotations.Expose;
-import com.wuest.prefab.Config.StructureConfiguration;
+import com.wuest.prefab.Config.Structures.StructureConfiguration;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBone;

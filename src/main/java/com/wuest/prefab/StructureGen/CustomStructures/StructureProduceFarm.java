@@ -1,7 +1,7 @@
 package com.wuest.prefab.StructureGen.CustomStructures;
 
-import com.wuest.prefab.Config.ProduceFarmConfiguration;
-import com.wuest.prefab.Config.StructureConfiguration;
+import com.wuest.prefab.Config.Structures.ProduceFarmConfiguration;
+import com.wuest.prefab.Config.Structures.StructureConfiguration;
 import com.wuest.prefab.StructureGen.BuildBlock;
 import com.wuest.prefab.StructureGen.BuildClear;
 import com.wuest.prefab.StructureGen.Structure;

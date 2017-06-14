@@ -1,8 +1,8 @@
 package com.wuest.prefab.Gui;
 
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Config.HouseConfiguration;
 import com.wuest.prefab.Config.ModConfiguration;
+import com.wuest.prefab.Config.Structures.HouseConfiguration;
 
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.common.config.ConfigCategory;

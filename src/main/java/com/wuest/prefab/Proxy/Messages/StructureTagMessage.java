@@ -1,6 +1,19 @@
 package com.wuest.prefab.Proxy.Messages;
 
 import com.wuest.prefab.Config.*;
+import com.wuest.prefab.Config.Structures.BasicStructureConfiguration;
+import com.wuest.prefab.Config.Structures.ChickenCoopConfiguration;
+import com.wuest.prefab.Config.Structures.FishPondConfiguration;
+import com.wuest.prefab.Config.Structures.HorseStableConfiguration;
+import com.wuest.prefab.Config.Structures.HouseConfiguration;
+import com.wuest.prefab.Config.Structures.ModularHouseConfiguration;
+import com.wuest.prefab.Config.Structures.MonsterMasherConfiguration;
+import com.wuest.prefab.Config.Structures.NetherGateConfiguration;
+import com.wuest.prefab.Config.Structures.ProduceFarmConfiguration;
+import com.wuest.prefab.Config.Structures.StructureConfiguration;
+import com.wuest.prefab.Config.Structures.TreeFarmConfiguration;
+import com.wuest.prefab.Config.Structures.VillagerHouseConfiguration;
+import com.wuest.prefab.Config.Structures.WareHouseConfiguration;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.nbt.NBTTagCompound;

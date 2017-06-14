@@ -44,7 +44,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import com.wuest.prefab.BuildingMethods;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Config.HouseConfiguration;
+import com.wuest.prefab.Config.Structures.HouseConfiguration;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureAlternateStart;

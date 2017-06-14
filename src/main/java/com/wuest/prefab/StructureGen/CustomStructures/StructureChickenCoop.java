@@ -1,8 +1,8 @@
 package com.wuest.prefab.StructureGen.CustomStructures;
 
-import com.wuest.prefab.Config.BasicStructureConfiguration;
-import com.wuest.prefab.Config.StructureConfiguration;
-import com.wuest.prefab.Config.BasicStructureConfiguration.EnumBasicStructureName;
+import com.wuest.prefab.Config.Structures.BasicStructureConfiguration;
+import com.wuest.prefab.Config.Structures.StructureConfiguration;
+import com.wuest.prefab.Config.Structures.BasicStructureConfiguration.EnumBasicStructureName;
 import com.wuest.prefab.StructureGen.BuildBlock;
 import com.wuest.prefab.StructureGen.BuildClear;
 import com.wuest.prefab.StructureGen.Structure;

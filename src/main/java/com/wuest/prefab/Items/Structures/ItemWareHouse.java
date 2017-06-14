@@ -7,7 +7,7 @@ import java.util.Map.Entry;
 import com.google.common.collect.ImmutableMap;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Config.WareHouseConfiguration;
+import com.wuest.prefab.Config.Structures.WareHouseConfiguration;
 import com.wuest.prefab.Gui.GuiWareHouse;
 import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.StructureGen.*;
