@@ -7,6 +7,7 @@ import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.HouseConfiguration;
 import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Config.HouseConfiguration.HouseStyle;
+import com.wuest.prefab.Events.ModEventHandler;
 import com.wuest.prefab.Gui.Controls.GuiCheckBox;
 import com.wuest.prefab.Gui.Controls.GuiTab;
 import com.wuest.prefab.Gui.Controls.GuiTextSlider;
@@ -16,8 +17,10 @@ import com.wuest.prefab.Proxy.Messages.StructureTagMessage.EnumStructureConfigur
 import com.wuest.prefab.Render.StructureRenderHandler;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureAlternateStart;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.item.EnumDyeColor;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -68,6 +71,7 @@ public class GuiStartHouseChooser extends GuiTabScreen
 	protected EnumDyeColor houseColor = EnumDyeColor.CYAN;
 	public BlockPos pos;
 	protected ModConfiguration serverConfiguration;
+	protected boolean allowItemsInChestAndFurnace = true;
 	
 	public GuiStartHouseChooser(int x, int y, int z)
 	{
@@ -80,6 +84,13 @@ public class GuiStartHouseChooser extends GuiTabScreen
 	public void initGui()
 	{
 		super.initGui();
+		
+		if (!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
+		{
+			NBTTagCompound tag = ModEventHandler.getModIsPlayerNewTag(Minecraft.getMinecraft().thePlayer);
+			this.allowItemsInChestAndFurnace = !tag.getBoolean(ModEventHandler.Built_Starter_house_Tag);
+		}
+		
 		this.Initialize();
 	}
 	
@@ -138,7 +149,7 @@ public class GuiStartHouseChooser extends GuiTabScreen
 			this.btnAddTorches.visible = true;
 			this.btnAddBed.visible = true;
 			this.btnAddChest.visible = true;
-			this.btnAddChestContents.visible = true;
+			this.btnAddChestContents.visible = this.allowItemsInChestAndFurnace;
 			this.btnAddCraftingTable.visible = true;
 			this.btnAddMineShaft.visible = true;
 			
@@ -240,7 +251,7 @@ public class GuiStartHouseChooser extends GuiTabScreen
 			houseConfiguration.pos = this.pos;
 			houseConfiguration.addBed = this.btnAddBed.isChecked();
 			houseConfiguration.addChest = this.btnAddChest.isChecked();
-			houseConfiguration.addChestContents = this.btnAddChestContents.isChecked();
+			houseConfiguration.addChestContents = this.btnAddChestContents.visible ? this.btnAddChestContents.isChecked() : false;
 			houseConfiguration.addCraftingTable = this.btnAddCraftingTable.isChecked();
 			houseConfiguration.addFarm = this.btnAddFarm.isChecked();
 			houseConfiguration.addMineShaft = this.btnAddMineShaft.isChecked();
@@ -378,13 +389,6 @@ public class GuiStartHouseChooser extends GuiTabScreen
 		this.buttonList.add(this.btnAddChest);
 		y += 15;
 
-		this.btnAddChestContents = new GuiCheckBox(4, x, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_CHEST_CONTENTS), true);
-		this.btnAddChestContents.setStringColor(color);
-		this.btnAddChestContents.setWithShadow(false);
-		this.btnAddChestContents.visible = false;
-		this.buttonList.add(this.btnAddChestContents);
-		y += 15;
-
 		this.btnAddCraftingTable = new GuiCheckBox(5, x, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_CRAFTING_TABLE), true);
 		this.btnAddCraftingTable.setStringColor(color);
 		this.btnAddCraftingTable.setWithShadow(false);
@@ -398,6 +402,17 @@ public class GuiStartHouseChooser extends GuiTabScreen
 		this.btnAddMineShaft.visible = false;
 		this.buttonList.add(this.btnAddMineShaft);
 		y += 15;
+		
+		this.btnAddChestContents = new GuiCheckBox(4, x, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_CHEST_CONTENTS), true);
+		this.btnAddChestContents.setStringColor(color);
+		this.btnAddChestContents.setWithShadow(false);
+		this.btnAddChestContents.visible = false;
+		this.buttonList.add(this.btnAddChestContents);
+		
+		if (this.allowItemsInChestAndFurnace)
+		{
+			y += 15;
+		}
 
 		this.btnAddFarm = new GuiCheckBox(6,  x, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_FARM), true);
 		this.btnAddFarm.setStringColor(color);

@@ -57,14 +57,17 @@ import com.wuest.prefab.Items.Structures.ItemTreeFarm;
 import com.wuest.prefab.Items.Structures.ItemVillagerHouses;
 import com.wuest.prefab.Items.Structures.ItemWareHouse;
 import com.wuest.prefab.Proxy.Messages.ConfigSyncMessage;
+import com.wuest.prefab.Proxy.Messages.PlayerEntityTagMessage;
 import com.wuest.prefab.Proxy.Messages.StructureTagMessage;
 import com.wuest.prefab.Proxy.Messages.Handlers.ConfigSyncHandler;
+import com.wuest.prefab.Proxy.Messages.Handlers.PlayerEntityHandler;
 import com.wuest.prefab.Proxy.Messages.Handlers.StructureHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.block.model.ModelBakery;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -610,6 +613,8 @@ public class ModRegistry
 		
 		ModRegistry.registerBlock(new BlockBoundary("block_boundary"));
 		
+		Blocks.STRUCTURE_BLOCK.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+		
 		//BlockDrafter drafter = new BlockDrafter();
 		//ModRegistry.registerBlock(drafter);
 		//GameRegistry.registerTileEntity(TileEntityDrafter.class, "Drafter");
@@ -1150,6 +1155,18 @@ public class ModRegistry
 				"aaa",
 				'a', Item.getItemFromBlock(Blocks.GLASS),
 				'b', Items.ENDER_PEARL);
+		
+		// Starting House.
+		ModRegistry.addShapedRecipe("Starting House",  new ItemStack(ModRegistry.StartHouse()), 
+				"abc",
+				"ded",
+				"fff",
+				'a', Item.getItemFromBlock(Blocks.CRAFTING_TABLE),
+				'b', Items.CLOCK,
+				'c', Item.getItemFromBlock(Blocks.FURNACE),
+				'd', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_STONE),
+				'e', Items.BED,
+				'f', ModRegistry.BundleOfTimber());
 	}
 
 	/**
@@ -1237,6 +1254,8 @@ public class ModRegistry
 		Prefab.network.registerMessage(ConfigSyncHandler.class, ConfigSyncMessage.class, 1, Side.CLIENT);
 		
 		Prefab.network.registerMessage(StructureHandler.class, StructureTagMessage.class, 2, Side.SERVER);
+		
+		Prefab.network.registerMessage(PlayerEntityHandler.class, PlayerEntityTagMessage.class, 3, Side.CLIENT);
 	}
 	
 	/**

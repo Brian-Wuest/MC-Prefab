@@ -209,13 +209,13 @@ public class StructureAlternateStart extends Structure
 			}
 		}
 
-		if (this.chestPosition != null)
+		if (this.chestPosition != null && houseConfig.addChestContents)
 		{
 			// Fill the chest.
 			StructureAlternateStart.FillChest(world, this.chestPosition, houseConfig, player);
 		}
 
-		if (this.trapDoorPosition != null && this.trapDoorPosition.getY() > 15)
+		if (this.trapDoorPosition != null && this.trapDoorPosition.getY() > 15 && houseConfig.addMineShaft)
 		{
 			// Build the mineshaft.
 			StructureAlternateStart.PlaceMineShaft(world, this.trapDoorPosition.down(), houseConfig.houseFacing, false);
