@@ -8,7 +8,7 @@ import com.google.common.collect.ImmutableMap;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.Structures.WareHouseConfiguration;
-import com.wuest.prefab.Gui.GuiWareHouse;
+import com.wuest.prefab.Gui.Structures.GuiWareHouse;
 import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.StructureGen.*;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureWarehouse;

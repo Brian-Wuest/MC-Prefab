@@ -1,21 +1,20 @@
-package com.wuest.prefab.Gui;
+package com.wuest.prefab.Gui.Structures;
 
 import java.awt.Color;
 import java.io.IOException;
 
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Config.Structures.ModularHouseConfiguration;
+import com.wuest.prefab.Config.Structures.HorseStableConfiguration;
+import com.wuest.prefab.Gui.GuiLangKeys;
+import com.wuest.prefab.Gui.GuiTabScreen;
 import com.wuest.prefab.Proxy.Messages.StructureTagMessage;
 import com.wuest.prefab.Proxy.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Render.StructureRenderHandler;
-import com.wuest.prefab.StructureGen.CustomStructures.StructureModularHouse;
+import com.wuest.prefab.StructureGen.CustomStructures.StructureHorseStable;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiLabel;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -26,15 +25,15 @@ import net.minecraftforge.fml.client.config.GuiButtonExt;
  * @author WuestMan
  *
  */
-public class GuiModularHouse extends GuiStructure
+public class GuiHorseStable extends GuiStructure
 {
-	private static final ResourceLocation structureTopDown = new ResourceLocation("prefab", "textures/gui/modular_house_top_down.png");
-	protected ModularHouseConfiguration configuration;
+	private static final ResourceLocation structureTopDown = new ResourceLocation("prefab", "textures/gui/horse_stable_top_down.png");
+	protected HorseStableConfiguration configuration;
 	
-	public GuiModularHouse(int x, int y, int z)
+	public GuiHorseStable(int x, int y, int z)
 	{
 		super(x, y, z, true);
-		this.structureConfiguration = EnumStructureConfiguration.ModularHouse;
+		this.structureConfiguration = EnumStructureConfiguration.HorseStable;
 	}
 	
 	/**
@@ -50,7 +49,7 @@ public class GuiModularHouse extends GuiStructure
 		
 		// Draw the control background.
 		this.mc.getTextureManager().bindTexture(structureTopDown);
-		GuiTabScreen.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 171, 87, 171, 87);
+		GuiTabScreen.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 104, 166, 104, 166);
 		
 		this.drawControlBackgroundAndButtonsAndLabels(grayBoxX, grayBoxY, x, y);
 
@@ -77,7 +76,7 @@ public class GuiModularHouse extends GuiStructure
 		
 		if (button == this.btnVisualize)
 		{
-			StructureModularHouse structure = StructureModularHouse.CreateInstance(StructureModularHouse.ASSETLOCATION, StructureModularHouse.class);
+			StructureHorseStable structure = StructureHorseStable.CreateInstance(StructureHorseStable.ASSETLOCATION, StructureHorseStable.class);
 			StructureRenderHandler.setStructure(structure, EnumFacing.NORTH, this.configuration);
 			this.mc.displayGuiScreen(null);
 		}
@@ -86,7 +85,7 @@ public class GuiModularHouse extends GuiStructure
 	@Override
 	protected void Initialize() 
 	{
-		this.configuration = new ModularHouseConfiguration();
+		this.configuration = new HorseStableConfiguration();
 		this.configuration.pos = this.pos;
 
 		// Get the upper left hand corner of the GUI box.

@@ -3,7 +3,7 @@ package com.wuest.prefab.Items.Structures;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.Structures.FishPondConfiguration;
-import com.wuest.prefab.Gui.GuiFishPond;
+import com.wuest.prefab.Gui.Structures.GuiFishPond;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureFishPond;
 
 import net.minecraft.block.Block;

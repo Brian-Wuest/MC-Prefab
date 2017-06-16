@@ -3,7 +3,7 @@ package com.wuest.prefab.Items.Structures;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.Structures.TreeFarmConfiguration;
-import com.wuest.prefab.Gui.GuiTreeFarm;
+import com.wuest.prefab.Gui.Structures.GuiTreeFarm;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureTreeFarm;
 
 import net.minecraft.block.Block;

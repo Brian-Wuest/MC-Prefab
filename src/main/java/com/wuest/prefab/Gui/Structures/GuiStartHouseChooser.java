@@ -1,4 +1,4 @@
-package com.wuest.prefab.Gui;
+package com.wuest.prefab.Gui.Structures;
 
 import java.awt.Color;
 import java.io.IOException;
@@ -9,6 +9,8 @@ import com.wuest.prefab.Config.Structures.HouseConfiguration;
 import com.wuest.prefab.Config.Structures.HouseConfiguration.HouseStyle;
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Events.ModEventHandler;
+import com.wuest.prefab.Gui.GuiLangKeys;
+import com.wuest.prefab.Gui.GuiTabScreen;
 import com.wuest.prefab.Gui.Controls.GuiCheckBox;
 import com.wuest.prefab.Gui.Controls.GuiTab;
 import com.wuest.prefab.Gui.Controls.GuiTextSlider;

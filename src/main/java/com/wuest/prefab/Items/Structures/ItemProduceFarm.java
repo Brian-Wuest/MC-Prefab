@@ -4,8 +4,8 @@ import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.Structures.ChickenCoopConfiguration;
 import com.wuest.prefab.Config.Structures.ProduceFarmConfiguration;
-import com.wuest.prefab.Gui.GuiChickenCoop;
-import com.wuest.prefab.Gui.GuiProduceFarm;
+import com.wuest.prefab.Gui.Structures.GuiChickenCoop;
+import com.wuest.prefab.Gui.Structures.GuiProduceFarm;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureChickenCoop;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureProduceFarm;
 
