@@ -9,6 +9,7 @@ import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Capabilities.StructureConfigurationCapability;
 import com.wuest.prefab.Capabilities.StructureConfigurationProvider;
+import com.wuest.prefab.Config.EntityPlayerConfiguration;
 import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Items.Structures.ItemBasicStructure;
 import com.wuest.prefab.Proxy.ClientProxy;
@@ -47,15 +48,6 @@ import net.minecraftforge.fml.relauncher.Side;
 public class ModEventHandler
 {
 	/**
-	 * The tag which determines if the user has been given the starter house.
-	 */
-	public static final String GIVEN_HOUSEBUILDER_TAG = "givenHousebuilder";
-	
-	public static final String Built_Starter_house_Tag = "builtStarterHouse";
-	
-	public static final String PLAYER_ENTITY_TAG = "IsPlayerNew";
-
-	/**
 	 * Contains a hashmap for the structures to build and for whom.
 	 */
 	public static HashMap<EntityPlayer, ArrayList<Structure>> structuresToBuild = new HashMap<EntityPlayer, ArrayList<Structure>>();
@@ -82,23 +74,21 @@ public class ModEventHandler
 			System.out.println("Player joined world, checking to see if the house builder should be provided.");
 
 			EntityPlayerMP player = (EntityPlayerMP)event.getEntity();
-			NBTTagCompound persistTag = ModEventHandler.getModIsPlayerNewTag(player);
-
-			// Get the opposite of the value, if the bool doesn't exist then we can add the house to the inventory, otherwise the player isn't new and shouldn't get the item.
-			boolean shouldGiveHousebuilder = !persistTag.getBoolean(ModEventHandler.GIVEN_HOUSEBUILDER_TAG);
-
-			if (shouldGiveHousebuilder && Prefab.proxy.proxyConfiguration.addHouseItem)
+			EntityPlayerConfiguration playerConfig = EntityPlayerConfiguration.loadFromEntityData((EntityPlayerMP)event.getEntity());
+			
+			if (playerConfig.givenHouseBuilder && Prefab.proxy.proxyConfiguration.addHouseItem)
 			{
 				ItemStack stack = new ItemStack(ModRegistry.StartHouse());
 				player.inventory.addItemStackToInventory(stack);
 				player.inventoryContainer.detectAndSendChanges();
 
 				// Make sure to set the tag for this player so they don't get the item again.
-				persistTag.setBoolean(ModEventHandler.GIVEN_HOUSEBUILDER_TAG, true);
+				playerConfig.givenHouseBuilder = true;
+				playerConfig.saveToPlayer(player);
 			}
 			
 			// Send the persist tag to the client.
-			Prefab.network.sendTo(new PlayerEntityTagMessage(persistTag), player);
+			Prefab.network.sendTo(new PlayerEntityTagMessage(playerConfig.getModIsPlayerNewTag(player)), player);
 		}
 	}
 	
@@ -244,7 +234,7 @@ public class ModEventHandler
 			((ClientProxy)Prefab.proxy).serverConfiguration = null;
 		}
 	}
-
+	
 	/**
 	 * This occurs when a player dies and is used to make sure that a player does not get a duplicate starting house.
 	 * @param event
@@ -261,13 +251,13 @@ public class ModEventHandler
 			// Use the server configuration to determine if the house should be added for this player.
 			if (Prefab.proxy.proxyConfiguration.addHouseItem)
 			{
-				if (originalTag.hasKey(ModEventHandler.PLAYER_ENTITY_TAG))
+				if (originalTag.hasKey(EntityPlayerConfiguration.PLAYER_ENTITY_TAG))
 				{
 					NBTTagCompound newPlayerTag = event.getEntityPlayer().getEntityData();
-					newPlayerTag.setTag(ModEventHandler.PLAYER_ENTITY_TAG, originalTag.getTag(ModEventHandler.PLAYER_ENTITY_TAG));
+					newPlayerTag.setTag(EntityPlayerConfiguration.PLAYER_ENTITY_TAG, originalTag.getTag(EntityPlayerConfiguration.PLAYER_ENTITY_TAG));
 					
 					// Send the persist tag to the client.
-					Prefab.network.sendTo(new PlayerEntityTagMessage(originalTag.getCompoundTag(ModEventHandler.PLAYER_ENTITY_TAG)), (EntityPlayerMP)event.getEntityPlayer());
+					Prefab.network.sendTo(new PlayerEntityTagMessage(originalTag.getCompoundTag(EntityPlayerConfiguration.PLAYER_ENTITY_TAG)), (EntityPlayerMP)event.getEntityPlayer());
 				}
 			}
 		}
@@ -285,26 +275,7 @@ public class ModEventHandler
 			ModConfiguration.syncConfig();
 		}
 	}
-	
-	public static NBTTagCompound getModIsPlayerNewTag(EntityPlayer player)
-	{
-		NBTTagCompound tag = player.getEntityData();
 
-		// Get/create a tag used to determine if this is a new player.
-		NBTTagCompound newPlayerTag = null;
-
-		if (tag.hasKey(ModEventHandler.PLAYER_ENTITY_TAG))
-		{
-			newPlayerTag = tag.getCompoundTag(ModEventHandler.PLAYER_ENTITY_TAG);
-		}
-		else
-		{
-			newPlayerTag = new NBTTagCompound();
-			tag.setTag(ModEventHandler.PLAYER_ENTITY_TAG, newPlayerTag);
-		}
-
-		return newPlayerTag;
-	}
 
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> event)

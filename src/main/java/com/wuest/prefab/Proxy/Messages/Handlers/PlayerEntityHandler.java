@@ -1,6 +1,8 @@
 package com.wuest.prefab.Proxy.Messages.Handlers;
 
+import com.wuest.prefab.Config.EntityPlayerConfiguration;
 import com.wuest.prefab.Config.Structures.StructureConfiguration;
+import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Events.ModEventHandler;
 import com.wuest.prefab.Proxy.Messages.PlayerEntityTagMessage;
 import com.wuest.prefab.Proxy.Messages.StructureTagMessage;
@@ -41,7 +43,8 @@ public class PlayerEntityHandler implements IMessageHandler<PlayerEntityTagMessa
 			{
 				// This is client side.
 				NBTTagCompound newPlayerTag = Minecraft.getMinecraft().thePlayer.getEntityData();
-				newPlayerTag.setTag(ModEventHandler.PLAYER_ENTITY_TAG, message.getMessageTag());
+				newPlayerTag.setTag(EntityPlayerConfiguration.PLAYER_ENTITY_TAG, message.getMessageTag());
+				ClientEventHandler.playerConfig.loadFromNBTTagCompound(message.getMessageTag());
 			}
 		});
 

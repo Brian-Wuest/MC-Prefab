@@ -9,6 +9,7 @@ import com.google.common.collect.Lists;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Blocks.IMetaBlock;
+import com.wuest.prefab.Config.EntityPlayerConfiguration;
 import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Config.Structures.BasicStructureConfiguration.EnumBasicStructureName;
 import com.wuest.prefab.Items.ItemBogus;
@@ -56,6 +57,11 @@ public class ClientEventHandler
 	 * Determines how long a shader has been running.
 	 */
 	public static int ticksInGame;
+	
+	/**
+	 * This client event handler is used to store player specific data.
+	 */
+	public static EntityPlayerConfiguration playerConfig = new EntityPlayerConfiguration();
 
 	/**
 	 * The world render last event. This is used for structure rendering.
@@ -104,6 +110,7 @@ public class ClientEventHandler
 		// When the player logs out, make sure to re-set the server configuration. 
 	 	// This is so a new configuration can be successfully loaded when they switch servers or worlds (on single player.
 	 	((ClientProxy)Prefab.proxy).serverConfiguration = null;
+	 	ClientEventHandler.playerConfig.clearNonPersistedObjects();
 	}
 	
 	/**
