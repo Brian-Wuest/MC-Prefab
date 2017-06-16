@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.Structures.ChickenCoopConfiguration;
+import com.wuest.prefab.Config.Structures.WareHouseConfiguration;
+import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Gui.GuiTabScreen;
 import com.wuest.prefab.Proxy.Messages.StructureTagMessage;
@@ -89,7 +91,7 @@ public class GuiChickenCoop extends GuiStructure
 	@Override
 	protected void Initialize() 
 	{
-		this.configuration = new ChickenCoopConfiguration();
+		this.configuration = ClientEventHandler.playerConfig.getClientConfig("Chicken Coop", ChickenCoopConfiguration.class);
 		this.configuration.pos = this.pos;
 
 		// Get the upper left hand corner of the GUI box.

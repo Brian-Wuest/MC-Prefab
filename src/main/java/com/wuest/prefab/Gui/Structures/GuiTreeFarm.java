@@ -4,7 +4,9 @@ import java.awt.Color;
 import java.io.IOException;
 
 import com.wuest.prefab.Prefab;
+import com.wuest.prefab.Config.Structures.ProduceFarmConfiguration;
 import com.wuest.prefab.Config.Structures.TreeFarmConfiguration;
+import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Proxy.Messages.StructureTagMessage;
 import com.wuest.prefab.Proxy.Messages.StructureTagMessage.EnumStructureConfiguration;
@@ -88,7 +90,7 @@ public class GuiTreeFarm extends GuiStructure
 	@Override
 	protected void Initialize() 
 	{
-		this.configuration = new TreeFarmConfiguration();
+		this.configuration = ClientEventHandler.playerConfig.getClientConfig("Tree Farm", TreeFarmConfiguration.class);
 		this.configuration.pos = this.pos;
 		this.configuration.houseFacing = EnumFacing.NORTH;
 

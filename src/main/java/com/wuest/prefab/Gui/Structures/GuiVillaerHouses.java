@@ -4,7 +4,9 @@ import java.awt.Color;
 import java.io.IOException;
 
 import com.wuest.prefab.Prefab;
+import com.wuest.prefab.Config.Structures.TreeFarmConfiguration;
 import com.wuest.prefab.Config.Structures.VillagerHouseConfiguration;
+import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Gui.GuiTabScreen;
 import com.wuest.prefab.Proxy.Messages.StructureTagMessage;
@@ -42,7 +44,7 @@ public class GuiVillaerHouses extends GuiStructure
 	@Override
 	public void Initialize()
 	{
-		this.configuration = new VillagerHouseConfiguration();
+		this.configuration = ClientEventHandler.playerConfig.getClientConfig("Villager Houses", VillagerHouseConfiguration.class);
 		this.configuration.pos = this.pos;
 		this.configuration.houseFacing = EnumFacing.NORTH;
 		this.houseStyle = this.configuration.houseStyle;

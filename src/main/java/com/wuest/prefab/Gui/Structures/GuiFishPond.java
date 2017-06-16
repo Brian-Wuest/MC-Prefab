@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.Structures.FishPondConfiguration;
+import com.wuest.prefab.Config.Structures.WareHouseConfiguration;
+import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Proxy.Messages.StructureTagMessage;
 import com.wuest.prefab.Proxy.Messages.StructureTagMessage.EnumStructureConfiguration;
@@ -92,7 +94,7 @@ public class GuiFishPond extends GuiStructure
 	@Override
 	protected void Initialize() 
 	{
-		this.configuration = new FishPondConfiguration();
+		this.configuration = ClientEventHandler.playerConfig.getClientConfig("Fish Pond", FishPondConfiguration.class);
 		this.configuration.pos = this.pos;
 
 		// Get the upper left hand corner of the GUI box.
