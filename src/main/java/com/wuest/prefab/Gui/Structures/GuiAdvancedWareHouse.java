@@ -13,6 +13,7 @@ public class GuiAdvancedWareHouse extends GuiWareHouse
 	public GuiAdvancedWareHouse(int x, int y, int z)
 	{
 		super(x, y, z);
+		this.clientGUIIdentifier = "Advanced Warehouse";
 	}
 	
 	@Override

@@ -4,7 +4,9 @@ import java.awt.Color;
 import java.io.IOException;
 
 import com.wuest.prefab.Prefab;
+import com.wuest.prefab.Config.Structures.HouseConfiguration;
 import com.wuest.prefab.Config.Structures.WareHouseConfiguration;
+import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Proxy.Messages.StructureTagMessage;
 import com.wuest.prefab.Proxy.Messages.StructureTagMessage.EnumStructureConfiguration;
@@ -33,17 +35,19 @@ public class GuiWareHouse extends GuiStructure
 	private static final ResourceLocation wareHouseTopDown = new ResourceLocation("prefab", "textures/gui/warehouse_top_down.png");
 	protected GuiButtonExt btnGlassColor;
 	protected WareHouseConfiguration configuration;
+	protected String clientGUIIdentifier;
 	
 	public GuiWareHouse(int x, int y, int z)
 	{
 		super(x, y, z, true);
 		this.structureConfiguration = EnumStructureConfiguration.WareHouse;
+		this.clientGUIIdentifier = "Warehouse";
 	}
 	
 	@Override
 	public void Initialize()
 	{
-		this.configuration = new WareHouseConfiguration();
+		this.configuration = ClientEventHandler.playerConfig.getClientConfig(this.clientGUIIdentifier, WareHouseConfiguration.class);
 		this.configuration.pos = this.pos;
 		this.configuration.houseFacing = EnumFacing.NORTH;
 
