@@ -21,7 +21,7 @@ compileJava {
 }
 
 minecraft {
-    version = "1.10.2-12.18.3.2297"
+    version = "1.10.2-12.18.3.2316"
     runDir = "run"
     
     replace "@VERSION@", project.version
@@ -73,7 +73,7 @@ processResources
         expand 'version':project.version, 'mcversion':project.minecraft.version
     }
         
-    // copy everything else except the mcmod.info
+    // copy everything else, thats not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
