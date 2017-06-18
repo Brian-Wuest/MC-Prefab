@@ -286,6 +286,11 @@ public class BasicStructureConfiguration extends StructureConfiguration
 				"assets/prefab/structures/magic_temple.zip",
 				"textures/gui/magic_temple_topdown.png",
 				"item_magic_temple",
+				146, 156),
+		GreenHouse("green_house", "item.prefab.green_house",
+				"assets/prefab/structures/green_house.zip",
+				"textures/gui/green_house_topdown.png",
+				"item_green_house",
 				146, 156);
 		
 		private String name;

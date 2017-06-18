@@ -811,7 +811,7 @@ public class ModRegistry
 				'd', new ItemStack(Items.WATER_BUCKET),
 				'e', new ItemStack(Items.FISHING_ROD, 1, 0),
 				'f', new ItemStack(Item.getItemFromBlock(Blocks.SAND)),
-				'g', new ItemStack(Items.FISH, 1, 0));
+				'g', new ItemStack(Items.FISH, 1, OreDictionary.WILDCARD_VALUE));
 		
 		// Warehouse Upgrade
 		ModRegistry.addShapedRecipe("Warehouse Upgrade", new ItemStack(ModRegistry.WareHouseUpgrade()),
@@ -1072,6 +1072,21 @@ public class ModRegistry
 				'b', new ItemStack(Item.getItemFromBlock(Blocks.ENCHANTING_TABLE)),
 				'c', new ItemStack(Items.BREWING_STAND),
 				'd', new ItemStack(Items.BLAZE_ROD));
+		
+		// Greenhouse
+		result = new ItemStack(ModRegistry.BasicStructure());
+		capability = result.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
+		capability.getConfiguration().basicStructureName = EnumBasicStructureName.GreenHouse;
+		
+		ModRegistry.addShapedRecipe("Green House", result, 
+				"bab",
+				"bcb",
+				"ded",
+				'a', new ItemStack(Items.WATER_BUCKET),
+				'b', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE),
+				'c', new ItemStack(Item.getItemFromBlock(Blocks.GLASS_PANE)),
+				'd', new ItemStack(ModRegistry.StringOfLanterns()),
+				'e', new ItemStack(ModRegistry.BundleOfTimber()));
 		
 		// Instant Bridge.
 		ModRegistry.addShapedRecipe("Instant Bridge", 
