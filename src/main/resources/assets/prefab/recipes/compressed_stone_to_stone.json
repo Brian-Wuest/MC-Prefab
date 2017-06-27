@@ -1,0 +1,16 @@
+{
+	"_comment": [
+		"Compressed Stone to normal stone"
+	],
+	"type": "minecraft:crafting_shapeless",
+	"ingredients": [{
+			"item": "prefab:block_compressed_stone",
+			"data": 0
+		}
+	],
+	"result": {
+		"item": "minecraft:stone",
+		"count": 9,
+		"data": 0
+	}
+}

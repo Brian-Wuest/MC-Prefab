@@ -28,7 +28,7 @@ public class StructureHandler implements IMessageHandler<StructureTagMessage, IM
 	public IMessage onMessage(final StructureTagMessage message, final MessageContext ctx) 
 	{
 		// Or Minecraft.getMinecraft() on the client.
-		IThreadListener mainThread = (WorldServer) ctx.getServerHandler().playerEntity.world; 
+		IThreadListener mainThread = (WorldServer) ctx.getServerHandler().player.world; 
 
 		mainThread.addScheduledTask(new Runnable()
 		{
@@ -39,7 +39,7 @@ public class StructureHandler implements IMessageHandler<StructureTagMessage, IM
 				EnumStructureConfiguration structureConfig = message.getStructureConfig();
 				
 				StructureConfiguration configuration = structureConfig.structureConfig.ReadFromNBTTagCompound(message.getMessageTag());
-				configuration.BuildStructure(ctx.getServerHandler().playerEntity, ctx.getServerHandler().playerEntity.world);
+				configuration.BuildStructure(ctx.getServerHandler().player, ctx.getServerHandler().player.world);
 			}
 		});
 

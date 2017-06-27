@@ -52,11 +52,11 @@ public class GuiFishPond extends GuiStructure
 		
 		this.drawControlBackgroundAndButtonsAndLabels(grayBoxX, grayBoxY, x, y);
 
-		this.mc.fontRendererObj.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_FACING), grayBoxX + 10, grayBoxY + 10, this.textColor);
+		this.mc.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_FACING), grayBoxX + 10, grayBoxY + 10, this.textColor);
 		
 		// Draw the text here.
-		this.mc.fontRendererObj.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), grayBoxX + 147, grayBoxY + 10, 95, this.textColor);
-		this.mc.fontRendererObj.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.FISH_POND_STRUCTURE_FACING), grayBoxX + 147, grayBoxY + 60, 95, this.textColor);
+		this.mc.fontRenderer.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), grayBoxX + 147, grayBoxY + 10, 95, this.textColor);
+		this.mc.fontRenderer.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.FISH_POND_STRUCTURE_FACING), grayBoxX + 147, grayBoxY + 60, 95, this.textColor);
 		
 		if (!Prefab.proxy.proxyConfiguration.enableStructurePreview)
 		{

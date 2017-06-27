@@ -47,7 +47,7 @@ public class CommonProxy implements IGuiHandler
 		ModRegistry.RegisterCapabilities();
 		
 		// Register the recipes here.
-		ModRegistry.RegisterRecipes();
+		//ModRegistry.RegisterRecipes();
 		
 		// Make sure that the mod configuration is re-synced after loading all of the recipes.
 		ModConfiguration.syncConfig();

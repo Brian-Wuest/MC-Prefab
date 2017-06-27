@@ -179,7 +179,7 @@ public class GuiDrafter extends GuiTabScreen
 						hoverText = "Room Name: " + (i + 1) + "\nRoom Coordinates:\n X: BlahX Y: BlahY Z: BlahZ";
 					}
 					
-					this.drawHoveringText(this.mc.fontRendererObj.listFormattedStringToWidth(button.getHoverText(), 300), x, y);
+					this.drawHoveringText(this.mc.fontRenderer.listFormattedStringToWidth(button.getHoverText(), 300), x, y);
 				}
 			}
 		}
@@ -191,7 +191,7 @@ public class GuiDrafter extends GuiTabScreen
 		
 		if (this.getSelectedTab() == this.tabGeneral)
 		{
-			this.mc.fontRendererObj.drawString("Level", grayBoxX + 7, grayBoxY + 20, color);
+			this.mc.fontRenderer.drawString("Level", grayBoxX + 7, grayBoxY + 20, color);
 			
 			if (this.selectedRoom != null && !this.selectedRoom.roomInfo.StructureName.getName().equals(AvailableRoomType.Empty.getName()))
 			{
@@ -200,8 +200,8 @@ public class GuiDrafter extends GuiTabScreen
 		}
 		else if (this.getSelectedTab() == this.tabDesignRoom)
 		{
-			this.mc.fontRendererObj.drawString("Available Room Styles", grayBoxX + 7, grayBoxY + 5, color);
-			this.mc.fontRendererObj.drawString("Room Materials", grayBoxX + 125, grayBoxY + 5, color);
+			this.mc.fontRenderer.drawString("Available Room Styles", grayBoxX + 7, grayBoxY + 5, color);
+			this.mc.fontRenderer.drawString("Room Materials", grayBoxX + 125, grayBoxY + 5, color);
 		}
 	}
 	
@@ -573,7 +573,7 @@ public class GuiDrafter extends GuiTabScreen
 		@Override
 		protected void drawSlot(int slotIdx, int entryRight, int slotTop, int slotBuffer, Tessellator tess)
 		{
-			FontRenderer font = this.parent.fontRendererObj;
+			FontRenderer font = this.parent.fontRenderer;
 			AvailableRoomType room = AvailableRoomType.ValueOf(slotIdx);
 			
             font.drawString(font.trimStringToWidth(room.getName(), listWidth - 5), this.left + 3 , slotTop +  2, 0xFFFFFF);
@@ -617,7 +617,7 @@ public class GuiDrafter extends GuiTabScreen
 		@Override
 		protected void drawSlot(int slotIdx, int entryRight, int slotTop, int slotBuffer, Tessellator tess)
 		{
-			FontRenderer font = this.parent.fontRendererObj;
+			FontRenderer font = this.parent.fontRenderer;
 			AvailableRoomType room = AvailableRoomType.ValueOf(slotIdx);
 			
 			ArrayList<RoomMaterial> selectedRoomMaterials = this.parent.selectedRoomType.getRoomMaterials();

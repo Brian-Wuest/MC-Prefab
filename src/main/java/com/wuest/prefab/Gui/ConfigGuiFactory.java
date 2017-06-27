@@ -25,12 +25,6 @@ public class ConfigGuiFactory extends DefaultGuiFactory
 		this.title = "Prefab";
 	}
 	
-	@Override
-	public Class<? extends GuiScreen> mainConfigGuiClass() 
-	{
-		return GuiPrefab.class;
-	}
-	
     @Override
     public GuiScreen createConfigGui(GuiScreen parentScreen)
     {  

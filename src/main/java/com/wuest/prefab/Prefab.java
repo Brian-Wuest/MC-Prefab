@@ -2,22 +2,22 @@ package com.wuest.prefab;
 
 import java.util.List;
 
+import com.google.common.collect.ImmutableList;
 import com.wuest.prefab.Proxy.CommonProxy;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.event.RegistryEvent.MissingMappings;
+import net.minecraftforge.event.RegistryEvent.MissingMappings.Mapping;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLMissingMappingsEvent;
-import net.minecraftforge.fml.common.event.FMLMissingMappingsEvent.MissingMapping;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import net.minecraftforge.fml.common.registry.GameRegistry.Type;
 
 /**
  * The starting point to load all of the blocks, items and other objects
@@ -102,17 +102,13 @@ public class Prefab
 	}
 	
 	@EventHandler
-	public void OnMissingMapping(FMLMissingMappingsEvent event) 
+	public void OnMissingBlockMapping(MissingMappings<Block> event) 
 	{
-		List<MissingMapping> missingMappings = event.get();
-		
-		for(MissingMapping mapping : missingMappings) 
+		for (MissingMappings.Mapping<Block> entry : event.getMappings())
 		{
-			if (mapping.type == Type.BLOCK)
-			{
 				Block mappedBlock = null;
 				
-				switch (mapping.resourceLocation.getResourcePath())
+				switch (entry.key.getResourcePath())
 				{
 					case "blockcompressedstone":
 					case "blockCompressedStone":
@@ -123,132 +119,138 @@ public class Prefab
 				
 				if (mappedBlock != null)
 				{
-					mapping.remap(mappedBlock);
+					entry.remap(mappedBlock);
+				}
+		}
+	}
+	
+	@EventHandler
+	public void OnMissingMapping(MissingMappings<Item> event) 
+	{
+		ImmutableList missingMappings = event.getMappings();
+		
+		for (MissingMappings.Mapping<Item> mapping : event.getMappings())
+		{
+			Item mappedItem = null;
+			
+			switch (mapping.key.getResourcePath())
+			{
+				case "blockcompressedstone":
+				case "blockCompressedStone":
+				{
+					mappedItem = ModRegistry.ModItems.stream().filter(item -> item.getRegistryName().getResourcePath().equals("block_compressed_stone")).findFirst().get();
+					break;
+				}
+				
+				case "itemproducefarm" :
+				case "itemProduceFarm" :
+				{
+					mappedItem = ModRegistry.ProduceFarm();
+					break;
+				}
+				
+				case "itempileofbricks" :
+				case "itemPileOfBricks" :
+				{
+					mappedItem = ModRegistry.PileOfBricks();
+					break;
+				}
+				
+				case "itemhorsestable" :
+				case "itemHorseStable" :
+				{
+					mappedItem = ModRegistry.HorseStable();
+					break;
+				}
+				
+				case "itemnethergate" :
+				case "itemNetherGate" :
+				{
+					mappedItem = ModRegistry.NetherGate();
+					break;
+				}
+				
+				case "itemwarehouseupgrade" :
+				case "itemWareHouseUpgrade" :
+				{
+					mappedItem = ModRegistry.WareHouseUpgrade();
+					break;
+				}
+				
+				case "itemchickencoop" :
+				case "itemChickenCoop" :
+				{
+					mappedItem = ModRegistry.ChickenCoop();
+					break;
+				}
+				
+				case "itemtreefarm" :
+				case "itemTreeFarm" :
+				{
+					mappedItem = ModRegistry.TreeFarm();
+					break;
+				}
+				
+				case "itemcompressedchest" :
+				case "itemCompressedChest" :
+				{
+					mappedItem = ModRegistry.CompressedChestItem();
+					break;
+				}
+				
+				case "itembundleoftimber" :
+				case "itemBundleOfTimber" :
+				{
+					mappedItem = ModRegistry.BundleOfTimber();
+					break;
+				}
+				
+				case "itemwarehouse" :
+				case "itemWareHouse" :
+				{
+					mappedItem = ModRegistry.WareHouse();
+					break;
+				}
+				
+				case "itempalletofbricks" :
+				case "itemPalletOfBricks" :
+				{
+					mappedItem = ModRegistry.PalletOfBricks();
+					break;
+				}
+				
+				case "itemfishpond" :
+				case "itemFishPond" :
+				{
+					mappedItem = ModRegistry.FishPond();
+					break;
+				}
+				
+				case "itemmonstermasher" :
+				case "itemMonsterMasher" :
+				{
+					mappedItem = ModRegistry.MonsterMasher();
+					break;
+				}
+				
+				case "itemstarthouse" :
+				case "itemStartHouse" :
+				{
+					mappedItem = ModRegistry.StartHouse();
+					break;
+				}
+				
+				case "itemadvancedwarehouse" :
+				case "itemAdvancedWareHouse" :
+				{
+					mappedItem = ModRegistry.AdvancedWareHouse();
+					break;
 				}
 			}
-			else
+			
+			if (mappedItem != null)
 			{
-				Item mappedItem = null;
-				
-				switch (mapping.resourceLocation.getResourcePath())
-				{
-					case "blockcompressedstone":
-					case "blockCompressedStone":
-					{
-						mappedItem = ModRegistry.ModItems.stream().filter(item -> item.getRegistryName().getResourcePath().equals("block_compressed_stone")).findFirst().get();
-						break;
-					}
-					
-					case "itemproducefarm" :
-					case "itemProduceFarm" :
-					{
-						mappedItem = ModRegistry.ProduceFarm();
-						break;
-					}
-					
-					case "itempileofbricks" :
-					case "itemPileOfBricks" :
-					{
-						mappedItem = ModRegistry.PileOfBricks();
-						break;
-					}
-					
-					case "itemhorsestable" :
-					case "itemHorseStable" :
-					{
-						mappedItem = ModRegistry.HorseStable();
-						break;
-					}
-					
-					case "itemnethergate" :
-					case "itemNetherGate" :
-					{
-						mappedItem = ModRegistry.NetherGate();
-						break;
-					}
-					
-					case "itemwarehouseupgrade" :
-					case "itemWareHouseUpgrade" :
-					{
-						mappedItem = ModRegistry.WareHouseUpgrade();
-						break;
-					}
-					
-					case "itemchickencoop" :
-					case "itemChickenCoop" :
-					{
-						mappedItem = ModRegistry.ChickenCoop();
-						break;
-					}
-					
-					case "itemtreefarm" :
-					case "itemTreeFarm" :
-					{
-						mappedItem = ModRegistry.TreeFarm();
-						break;
-					}
-					
-					case "itemcompressedchest" :
-					case "itemCompressedChest" :
-					{
-						mappedItem = ModRegistry.CompressedChestItem();
-						break;
-					}
-					
-					case "itembundleoftimber" :
-					case "itemBundleOfTimber" :
-					{
-						mappedItem = ModRegistry.BundleOfTimber();
-						break;
-					}
-					
-					case "itemwarehouse" :
-					case "itemWareHouse" :
-					{
-						mappedItem = ModRegistry.WareHouse();
-						break;
-					}
-					
-					case "itempalletofbricks" :
-					case "itemPalletOfBricks" :
-					{
-						mappedItem = ModRegistry.PalletOfBricks();
-						break;
-					}
-					
-					case "itemfishpond" :
-					case "itemFishPond" :
-					{
-						mappedItem = ModRegistry.FishPond();
-						break;
-					}
-					
-					case "itemmonstermasher" :
-					case "itemMonsterMasher" :
-					{
-						mappedItem = ModRegistry.MonsterMasher();
-						break;
-					}
-					
-					case "itemstarthouse" :
-					case "itemStartHouse" :
-					{
-						mappedItem = ModRegistry.StartHouse();
-						break;
-					}
-					
-					case "itemadvancedwarehouse" :
-					case "itemAdvancedWareHouse" :
-					{
-						mappedItem = ModRegistry.AdvancedWareHouse();
-						break;
-					}
-				}
-				
-				if (mappedItem != null)
-				{
-					mapping.remap(mappedItem);
-				}
+				mapping.remap(mappedItem);
 			}
 		}
 	}

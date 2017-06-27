@@ -293,8 +293,8 @@ public class ClientEventHandler
 
     	GL11.glBegin(GL11.GL_LINE_STRIP);
 
-    	GL11.glVertex3d(blockA.xCoord, blockA.yCoord, blockA.zCoord);
-    	GL11.glVertex3d(blockB.xCoord, blockB.yCoord, blockB.zCoord);
+    	GL11.glVertex3d(blockA.x, blockA.y, blockA.z);
+    	GL11.glVertex3d(blockB.x, blockB.y, blockB.z);
 
     	GL11.glEnd();
     }

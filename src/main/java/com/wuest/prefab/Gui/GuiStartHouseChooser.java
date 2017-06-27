@@ -181,10 +181,10 @@ public class GuiStartHouseChooser extends GuiTabScreen
 		// Draw the appropriate text based on the selected tab.
 		if (this.getSelectedTab() == this.tabGeneral)
 		{
-			this.mc.fontRendererObj.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), grayBoxX + 10, grayBoxY + 10, color);
-			this.mc.fontRendererObj.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_FACING), grayBoxX + 10, grayBoxY + 50, color);
+			this.mc.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), grayBoxX + 10, grayBoxY + 10, color);
+			this.mc.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_FACING), grayBoxX + 10, grayBoxY + 50, color);
 			
-			this.mc.fontRendererObj.drawSplitString(this.houseStyle.getHouseNotes(), grayBoxX + 147, grayBoxY + 10, 95, color);
+			this.mc.fontRenderer.drawSplitString(this.houseStyle.getHouseNotes(), grayBoxX + 147, grayBoxY + 10, 95, color);
 			
 			this.mc.getTextureManager().bindTexture(this.houseStyle.getHousePicture());
 			GuiTabScreen.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 
@@ -195,13 +195,13 @@ public class GuiStartHouseChooser extends GuiTabScreen
 			if (this.houseStyle == HouseConfiguration.HouseStyle.BASIC)
 			{
 				// Column 1:
-				this.mc.fontRendererObj.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_FLOOR_LABEL), grayBoxX + 10, grayBoxY + 10, color);
-				this.mc.fontRendererObj.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_CEILING_LABEL), grayBoxX + 10, grayBoxY + 50, color);
-				this.mc.fontRendererObj.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_WALL_LABEL), grayBoxX + 10, grayBoxY + 90, color);
+				this.mc.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_FLOOR_LABEL), grayBoxX + 10, grayBoxY + 10, color);
+				this.mc.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_CEILING_LABEL), grayBoxX + 10, grayBoxY + 50, color);
+				this.mc.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_WALL_LABEL), grayBoxX + 10, grayBoxY + 90, color);
 				
 				// Column 3:
-				this.mc.fontRendererObj.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_DEPTH_LABEL), grayBoxX + 147, grayBoxY + 10, color);
-				this.mc.fontRendererObj.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_WIDTH_LABEL), grayBoxX + 147, grayBoxY + 50, color);
+				this.mc.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_DEPTH_LABEL), grayBoxX + 147, grayBoxY + 10, color);
+				this.mc.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_WIDTH_LABEL), grayBoxX + 147, grayBoxY + 50, color);
 			}
 			else
 			{
@@ -213,7 +213,7 @@ public class GuiStartHouseChooser extends GuiTabScreen
 				else
 				{
 					// Column 1:
-					this.mc.fontRendererObj.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS), grayBoxX + 10, grayBoxY + 10, color);
+					this.mc.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS), grayBoxX + 10, grayBoxY + 10, color);
 				}
 			}
 		}

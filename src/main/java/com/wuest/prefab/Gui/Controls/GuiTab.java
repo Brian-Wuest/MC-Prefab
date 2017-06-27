@@ -115,7 +115,7 @@ public class GuiTab extends Gui
     		return;
     	}
     	
-        FontRenderer fontrenderer = mc.fontRendererObj;
+        FontRenderer fontrenderer = mc.fontRenderer;
         this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
         
         if (this.selected || this.hovered)

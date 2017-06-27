@@ -65,12 +65,12 @@ public class GuiCheckBox extends net.minecraftforge.fml.client.config.GuiCheckBo
      * Draws this button to the screen.
      */
     @Override
-    public void func_191745_a(Minecraft mc, int mouseX, int mouseY, float partial)
+    public void drawButton(Minecraft mc, int mouseX, int mouseY, float partial)
     {
         if (this.visible)
         {
-            this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.boxWidth && mouseY < this.yPosition + this.height;
-            GuiUtils.drawContinuousTexturedBox(BUTTON_TEXTURES, this.xPosition, this.yPosition, 0, 46, this.boxWidth, this.height, 200, 20, 2, 3, 2, 2, this.zLevel);
+            this.hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.boxWidth && mouseY < this.y + this.height;
+            GuiUtils.drawContinuousTexturedBox(BUTTON_TEXTURES, this.x, this.y, 0, 46, this.boxWidth, this.height, 200, 20, 2, 3, 2, 2, this.zLevel);
             this.mouseDragged(mc, mouseX, mouseY);
             int color = this.stringColor;
 
@@ -85,16 +85,16 @@ public class GuiCheckBox extends net.minecraftforge.fml.client.config.GuiCheckBo
 
             if (this.isChecked())
             {
-                this.drawCenteredString(mc.fontRendererObj, "x", this.xPosition + this.boxWidth / 2 + 1, this.yPosition + 1, 14737632);
+                this.drawCenteredString(mc.fontRenderer, "x", this.x + this.boxWidth / 2 + 1, this.y + 1, 14737632);
             }
             
             if (this.withShadow)
             {
-            	this.drawString(mc.fontRendererObj, displayString, xPosition + this.boxWidth + 2, yPosition + 2, color);
+            	this.drawString(mc.fontRenderer, displayString, x + this.boxWidth + 2, y + 2, color);
             }
             else
             {
-            	mc.fontRendererObj.drawString(displayString, xPosition + this.boxWidth + 2, yPosition + 2, color);
+            	mc.fontRenderer.drawString(displayString, x + this.boxWidth + 2, y + 2, color);
             }
         }
     }

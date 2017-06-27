@@ -83,8 +83,11 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.common.crafting.CraftingHelper.ShapedPrimer;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.OreDictionary;
@@ -626,17 +629,6 @@ public class ModRegistry
 	 */
 	public static void RegisterRecipes()
 	{
-		// Compressed Stone.
-		ModRegistry.addShapedRecipe("Compressed Stone", ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_STONE),
-				"xxx",
-				"xxx",
-				"xxx",
-				'x', new ItemStack(Blocks.STONE, 1, OreDictionary.WILDCARD_VALUE));
-		
-		ModRegistry.addShapedRecipe("Compressed Stone", new ItemStack(Item.getItemFromBlock(Blocks.STONE), 9), 
-				"x",
-				'x', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_STONE));
-		
 		// Double Compressed Stone.
 		ModRegistry.addShapedRecipe("Compressed Stone", ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE),
 				"xxx",
@@ -866,7 +858,9 @@ public class ModRegistry
 				"aaa", 
 				'a', "logWood");
 		
-		CraftingManager.func_193379_a(ModRegistry.BundleOfTimber().getRegistryName().toString(), currentRecipe);
+		currentRecipe.setRegistryName(ModRegistry.BundleOfTimber().getRegistryName());
+		ForgeRegistries.RECIPES.register(currentRecipe);
+		//CraftingManager.REGISTRY.putObject(ModRegistry.BundleOfTimber().getRegistryName(), currentRecipe);
 		
 		ModRegistry.SaveModRecipe("Bundle of Timber", currentRecipe);
 
@@ -1351,71 +1345,11 @@ public class ModRegistry
 	public static ShapedRecipes AddShapedRecipe(String name, ItemStack stack, Object... recipeComponents)
 	{	
         name = Prefab.MODID.toLowerCase() + ":" + name;
-        String s = "";
-        int i = 0;
-        int j = 0;
-        int k = 0;
 
-        if (recipeComponents[i] instanceof String[])
-        {
-            String[] astring = (String[])((String[])recipeComponents[i++]);
-
-            for (String s2 : astring)
-            {
-                ++k;
-                j = s2.length();
-                s = s + s2;
-            }
-        }
-        else
-        {
-            while (recipeComponents[i] instanceof String)
-            {
-                String s1 = (String)recipeComponents[i++];
-                ++k;
-                j = s1.length();
-                s = s + s1;
-            }
-        }
-
-        Map<Character, ItemStack> map;
-
-        for (map = Maps.<Character, ItemStack>newHashMap(); i < recipeComponents.length; i += 2)
-        {
-            Character character = (Character)recipeComponents[i];
-            ItemStack itemstack = ItemStack.EMPTY;
-
-            if (recipeComponents[i + 1] instanceof Item)
-            {
-                itemstack = new ItemStack((Item)recipeComponents[i + 1]);
-            }
-            else if (recipeComponents[i + 1] instanceof Block)
-            {
-                itemstack = new ItemStack((Block)recipeComponents[i + 1], 1, 32767);
-            }
-            else if (recipeComponents[i + 1] instanceof ItemStack)
-            {
-                itemstack = (ItemStack)recipeComponents[i + 1];
-            }
-
-            map.put(character, itemstack);
-        }
-
-        NonNullList<Ingredient> aitemstack = NonNullList.withSize(j * k, Ingredient.field_193370_a);
-
-        for (int l = 0; l < j * k; ++l)
-        {
-            char c0 = s.charAt(l);
-
-            if (map.containsKey(Character.valueOf(c0)))
-            {
-                aitemstack.set(l, Ingredient.func_193369_a(((ItemStack)map.get(Character.valueOf(c0))).copy()));
-            }
-        }
-
-        ShapedRecipes shapedrecipes = new ShapedRecipes(name, j, k, aitemstack, stack);
-		
-		CraftingManager.func_193379_a(name, shapedrecipes);
+        ShapedPrimer primer = CraftingHelper.parseShaped(recipeComponents);
+        ShapedRecipes shapedrecipes = new ShapedRecipes("", primer.width, primer.height, primer.input, stack);
+		shapedrecipes.setRegistryName(name);
+        ForgeRegistries.RECIPES.register(shapedrecipes);
 		
 		return shapedrecipes;
 	}
@@ -1435,11 +1369,11 @@ public class ModRegistry
         {
             if (object instanceof ItemStack)
             {
-                list.add(Ingredient.func_193369_a(((ItemStack)object).copy()));
+                list.add(Ingredient.fromStacks(((ItemStack)object).copy()));
             }
             else if (object instanceof Item)
             {
-                list.add(Ingredient.func_193369_a(new ItemStack((Item)object)));
+                list.add(Ingredient.fromStacks(new ItemStack((Item)object)));
             }
             else
             {
@@ -1448,13 +1382,13 @@ public class ModRegistry
                     throw new IllegalArgumentException("Invalid shapeless recipe: unknown type " + object.getClass().getName() + "!");
                 }
 
-                list.add(Ingredient.func_193369_a(new ItemStack((Block)object)));
+                list.add(Ingredient.fromStacks(new ItemStack((Block)object)));
             }
         }
 
-        ShapelessRecipes shapelessRecipes = new ShapelessRecipes(name, stack, list);
-		
-		CraftingManager.func_193379_a(name, shapelessRecipes);
+        ShapelessRecipes shapelessRecipes = new ShapelessRecipes("", stack, list);
+        shapelessRecipes.setRegistryName(name);
+        ForgeRegistries.RECIPES.register(shapelessRecipes);
 		
 		return shapelessRecipes;
     }

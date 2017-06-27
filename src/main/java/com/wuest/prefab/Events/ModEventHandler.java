@@ -25,6 +25,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -102,9 +103,9 @@ public class ModEventHandler
 	 * @param event The event object.
 	 */
 	@SubscribeEvent
-	public static void AttachItemStackCapabilities(AttachCapabilitiesEvent.Item event)
+	public static void AttachItemStackCapabilities(AttachCapabilitiesEvent<ItemStack> event)
 	{
-		if (event.getItemStack().getItem() instanceof ItemBasicStructure)
+		if (event.getObject().getItem() instanceof ItemBasicStructure)
 		{
 			event.addCapability(new ResourceLocation(Prefab.MODID, "structuresconfiguration"), new StructureConfigurationProvider(new StructureConfigurationCapability()));
 		}
@@ -305,5 +306,12 @@ public class ModEventHandler
 	public static void registerItems(RegistryEvent.Register<Item> event)
 	{	
 		event.getRegistry().registerAll(ModRegistry.ModItems.toArray(new Item[ModRegistry.ModItems.size()]));
+	}
+	
+	@SubscribeEvent
+	public static void registerRecipes(RegistryEvent.Register<IRecipe> event)
+	{
+		// Only register capability recipes here.
+		ModRegistry.RegisterRecipes();
 	}
 }
