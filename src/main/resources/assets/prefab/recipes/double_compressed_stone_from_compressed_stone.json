@@ -1,0 +1,23 @@
+{
+    "_comment": [
+        "double compressed stone from compressed stone"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "group": "prefab:compressed stone",
+    "pattern": [
+        "###",
+        "###",
+        "###"
+    ],
+    "key": {
+        "#": [{
+                "item": "#compressed_stone"
+            }
+        ]
+    },
+    "result": {
+        "item": "prefab:block_compressed_stone",
+        "count": 1,
+        "data": 1
+    }
+}

@@ -1,16 +1,16 @@
 {
 	"_comment": [
-		"Compressed Stone to normal stone"
+		"Double compressed glowstone to compressed glowstone"
 	],
 	"type": "minecraft:crafting_shapeless",
 	"group": "prefab:compressed stone",
 	"ingredients": [{
-			"item": "#compressed_stone"
+			"item": "#double_compressed_glowstone"
 		}
 	],
 	"result": {
-		"item": "minecraft:stone",
+		"item": "prefab:block_compressed_stone",
 		"count": 9,
-		"data": 0
+		"data": 3
 	}
 }

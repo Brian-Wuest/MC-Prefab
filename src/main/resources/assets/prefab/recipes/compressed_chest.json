@@ -1,0 +1,21 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"group": "prefab:compressed chest",
+	"pattern": [
+		"###",
+		"#a#",
+		"###"
+	],
+	"key": {
+		"#": {
+			"item": "minecraft:chest"
+		},
+		"a": {
+			"item": "minecraft:ender_chest"
+		}
+	},
+	"result": {
+		"item": "prefab:item_compressed_chest",
+		"count": 1
+	}
+}

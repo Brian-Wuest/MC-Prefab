@@ -1,6 +1,7 @@
 package com.wuest.prefab.Config;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map.Entry;
 
 import com.wuest.prefab.ModRegistry;
@@ -77,6 +78,75 @@ public class ModConfiguration
 	public boolean addSaplings;
 	public boolean addTorches;
 	
+	public HashMap<String, Boolean> recipeConfiguration;
+	
+	// Recipe Options
+	public static String compressedStoneKey = "Compressed Stone";
+	public static String compressedGlowStoneKey = "Compressed Glowstone";
+	public static String compressedDirteKey = "Compressed Dirt";
+	public static String compressedChestKey = "Compressed Chest";
+	public static String pileOfBricksKey = "Pile of Bricks";
+	public static String warehouseKey = "Warehouse";
+	public static String produceFarmKey = "Produce Farm";
+	public static String treeFarmKey = "Tree Farm";
+	public static String chickenCoopKey = "Chicken Coop";
+	public static String fishFarmKey = "Fish Farm";
+	public static String warehouseUpgradeKey = "Warehouse Upgrade";
+	public static String advancedWarehouseKey = "Advanced Warehouse";
+	public static String monsterMasherKey = "Monster Masher";
+	public static String bundleofTimberKey = "Bundle of Timber";
+	public static String horseStableKey = "Horse Stable";
+	public static String netherGateKey = "Nether Gate";
+	public static String advancedChickenCoopKey = "Advanced Chicken Coop";
+	public static String advancedHorseStableKey = "Advanced Horse Stable";
+	public static String barnKey = "Barn";
+	public static String machineryTowerKey = "Machinery Tower";
+	public static String defenseBunkerKey = "Defense Bunker";
+	public static String mineshaftEntranceKey = "Mineshaft Entrance";
+	public static String enderGatewayKey = "Ender Gateway";
+	public static String aquaBaseKey = "Aqua Base";
+	public static String grassyPlainsKey = "Grassy Plains";
+	public static String magicTempleKey = "Magic Temple";
+	public static String instantBridgeKey = "Instant Bridge";
+	public static String paperLanternKey = "Paper Lantern";
+	public static String compressedObsidianKey = "Compressed Obsidian";
+	public static String villagerHousesKey = "Villager Houses";
+	public static String phasicBlockKey = "Phasic Block";
+	public static String smartGlassKey = "Smart Glass";
+	public static String[] recipeKeys = new String[] 
+			{ 
+				compressedStoneKey,
+				compressedGlowStoneKey,
+				compressedDirteKey,
+				compressedChestKey,
+				pileOfBricksKey,
+				warehouseKey,
+				produceFarmKey,
+				treeFarmKey,
+				chickenCoopKey,
+				fishFarmKey,
+				warehouseUpgradeKey,
+				advancedWarehouseKey,
+				monsterMasherKey,
+				bundleofTimberKey,
+				horseStableKey,
+				netherGateKey,
+				advancedChickenCoopKey,
+				advancedHorseStableKey,
+				barnKey,
+				machineryTowerKey,
+				defenseBunkerKey,
+				mineshaftEntranceKey,
+				enderGatewayKey,
+				magicTempleKey,
+				instantBridgeKey,
+				paperLanternKey,
+				compressedObsidianKey,
+				villagerHousesKey,
+				phasicBlockKey,
+				smartGlassKey
+			};
+	
 	// Version Check Message Info
 	public String versionMessage = "";
 	public boolean showMessage = false;
@@ -88,6 +158,7 @@ public class ModConfiguration
 		this.enableVersionCheckMessage = true;
 		this.includeSpawnersInMasher = true;
 		this.enableStructurePreview = true;
+		this.recipeConfiguration = new HashMap<String, Boolean>();
 	}
 	
 	public static void syncConfig()
@@ -127,41 +198,14 @@ public class ModConfiguration
 		Prefab.proxy.proxyConfiguration.addSaplings = config.getBoolean(ModConfiguration.addSaplingsName, ModConfiguration.ChestContentOptions, true, "Determines if a set of oak saplings are added the the chest when the house is created.");
 		Prefab.proxy.proxyConfiguration.addTorches = config.getBoolean(ModConfiguration.addTorchesName, ModConfiguration.ChestContentOptions, true, "Determines if a set of torches are added the the chest when the house is created.");
 
-		// GUI Options
-		//config.setCategoryComment(WuestConfiguration.GuiOptions, "This category is to configure the various GUI options for this mod.");
-		
 		config.setCategoryComment(ModConfiguration.RecipeOptions, "This category determines if the recipes for the blocks/items in this are enabled");
 		config.setCategoryRequiresMcRestart(ModConfiguration.RecipeOptions, true);
 		
 		// Recipe configuration.
-		for (Entry<String, Tuple2<Boolean, ArrayList<IRecipe>>> set : ModRegistry.SavedRecipes.entrySet())
+		for (String key : ModConfiguration.recipeKeys)
 		{
-			boolean value = config.getBoolean(set.getKey(), RecipeOptions, true, "Determines if the recipe(s) associated with the " + set.getKey() + " are enabled.");
-			boolean originalValue = set.getValue()._1;
-			
-			if (value != originalValue)
-			{
-				set.setValue(new Tuple2<Boolean, ArrayList<IRecipe>>(value, set.getValue()._2));
-				
-				if (value)
-				{
-					// Re-add the recipes to the game registry.
-					for (IRecipe recipe : set.getValue()._2)
-					{
-						// TODO: Figure out a good way to re-add recipes.
-						// GameRegistry.addRecipe(recipe);
-					}
-				}
-				else
-				{
-					// Remove the recipes from the game registry.
-					for (IRecipe recipe :set.getValue()._2)
-					{
-						// TODO: Figure out how to remove recipes.
-						// CraftingManager.getInstance().getRecipeList().remove(recipe);
-					}
-				}
-			}
+			boolean value = config.getBoolean(key, RecipeOptions, true, "Determines if the recipe(s) associated with the " + key + " are enabled.");
+			Prefab.proxy.proxyConfiguration.recipeConfiguration.put(key, value);
 		}
 		
 		if (config.hasChanged()) 
@@ -198,9 +242,9 @@ public class ModConfiguration
 		tag.setString(ModConfiguration.versionMessageName, UpdateChecker.messageToShow);
 		tag.setBoolean(ModConfiguration.showMessageName, UpdateChecker.showMessage);
 		
-		for (Entry<String, Tuple2<Boolean, ArrayList<IRecipe>>> set : ModRegistry.SavedRecipes.entrySet())
+		for (Entry<String, Boolean> entry : this.recipeConfiguration.entrySet())
 		{
-			tag.setBoolean(set.getKey(), set.getValue()._1());
+			tag.setBoolean(entry.getKey(), entry.getValue());
 		}
 		
 		return tag;
@@ -240,13 +284,9 @@ public class ModConfiguration
 		config.versionMessage = tag.getString(ModConfiguration.versionMessageName);
 		config.showMessage = tag.getBoolean(ModConfiguration.showMessageName);
 		
-		for (Entry<String, Tuple2<Boolean, ArrayList<IRecipe>>> set : ModRegistry.SavedRecipes.entrySet())
+		for (String key : ModConfiguration.recipeKeys)
 		{
-			if (tag.hasKey(set.getKey()))
-			{
-				boolean value = tag.getBoolean(set.getKey());
-				set.setValue(new Tuple2<Boolean, ArrayList<IRecipe>>(value, set.getValue()._2));
-			}
+			config.recipeConfiguration.put(key, tag.getBoolean(key));
 		}
 		
 		return config;

@@ -15,13 +15,13 @@ version = "${mod_version}"
 group= "com.wuest.prefab" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "prefab"
 
-sourceCompatibility = targetCompatibility = "1.8" // Need this here so eclipse task generates correctly.
+sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 compileJava {
-    sourceCompatibility = targetCompatibility = "1.8"
+    sourceCompatibility = targetCompatibility = '1.8'
 }
 
 minecraft {
-    version = "1.12-14.21.0.2373"
+    version = "1.12-14.21.1.2387"
     runDir = "run"
     
     replace "@VERSION@", project.version

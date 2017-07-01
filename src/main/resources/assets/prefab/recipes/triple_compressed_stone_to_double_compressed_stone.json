@@ -1,16 +1,16 @@
 {
 	"_comment": [
-		"Compressed Stone to normal stone"
+		"Triple compressed Stone to double compressed stone"
 	],
 	"type": "minecraft:crafting_shapeless",
 	"group": "prefab:compressed stone",
 	"ingredients": [{
-			"item": "#compressed_stone"
+			"item": "#triple_compressed_stone"
 		}
 	],
 	"result": {
-		"item": "minecraft:stone",
+		"item": "prefab:block_compressed_stone",
 		"count": 9,
-		"data": 0
+		"data": 1
 	}
 }

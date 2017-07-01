@@ -1,6 +1,6 @@
 {
 	"_comment": [
-		"Any Stone to Compressed Stone"
+		"Compressed Dirt from dirt"
 	],
 	"type": "minecraft:crafting_shaped",
 	"group": "prefab:compressed stone",
@@ -11,7 +11,7 @@
 	],
 	"key": {
 		"#": [{
-				"item": "minecraft:stone",
+				"item": "minecraft:dirt",
 				"data": 32767
 			}
 		]
@@ -19,6 +19,6 @@
 	"result": {
 		"item": "prefab:block_compressed_stone",
 		"count": 1,
-		"data": 0
+		"data": 5
 	}
 }
