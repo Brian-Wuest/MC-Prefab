@@ -1,0 +1,36 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "Chicken Coop",
+    "pattern": [
+        "aaa",
+        "bcb",
+        "ded"
+    ],
+    "key": {
+        "a": {
+            "item": "minecraft:brick_block",
+            "data": 32767
+        },
+        "b": {
+            "item": "minecraft:log",
+            "data": 1
+        },
+        "c": {
+            "item": "minecraft:egg",
+            "data": 32767
+        },
+        "d": {
+            "item": "prefab:block_compressed_stone",
+            "data": 5
+        },
+        "e": {
+            "item": "minecraft:hay_block",
+            "data": 32767
+        }
+    },
+    "result": {
+        "item": "prefab:item_chicken_coop",
+        "data": 0,
+        "count": 1
+    }
+}

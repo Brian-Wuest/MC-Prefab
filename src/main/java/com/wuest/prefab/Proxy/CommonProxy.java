@@ -1,17 +1,30 @@
 package com.wuest.prefab.Proxy;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import com.google.common.io.Files;
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.UpdateChecker;
 import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Events.ModEventHandler;
 import com.wuest.prefab.Gui.GuiCustomContainer;
+import com.wuest.prefab.crafting.ShapedRecipeForFile;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.config.Configuration;
@@ -134,9 +147,64 @@ public class CommonProxy implements IGuiHandler
 				{
 					registry.remove(recipeKey);
 				}
+				
+/*				if (entry.getValue().getClass() == ShapedRecipes.class && !entry.getValue().getGroup().equals("Bundle of Timber"))
+				{
+					//ExclusionStrategy strategy = new CustomExclusionStrategy();
+					
+					//Gson converter = new GsonBuilder().setExclusionStrategies(strategy).setPrettyPrinting().create();
+					Gson converter = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
+					StringWriter stringWriter = new StringWriter();
+					
+					ShapedRecipeForFile fileShape = ShapedRecipeForFile.createFromShapedRecipe((ShapedRecipes)entry.getValue());
+					converter.toJson(fileShape, stringWriter);
+					
+					
+					String jsonValue = stringWriter.toString();
+					String fileLocation = "C:\\Temp\\" + entry.getValue().getRegistryName().getResourcePath().toLowerCase().replaceAll(" ", "_") + ".json";
+					
+					try
+					{
+						Files.write(jsonValue, new File(fileLocation), Charset.defaultCharset());
+					}
+					catch (IOException e)
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}*/
 			}
 		}
 		
 		FMLCommonHandler.instance().resetClientRecipeBook();
+	}
+	
+	public class CustomExclusionStrategy implements ExclusionStrategy
+	{
+
+		private ArrayList<String> allowedNames = new ArrayList<String>(Arrays.asList("group", "recipeWidth", "recipeHeight", "recipeItems", "recipeOutput", "matchingStacks"));
+
+		@Override
+		public boolean shouldSkipField(FieldAttributes f)
+		{
+			if (this.allowedNames.contains(f.getName()))
+			{
+				return false;
+			}
+			
+			return true;
+		}
+
+		@Override
+		public boolean shouldSkipClass(Class<?> clazz)
+		{
+			if (clazz == EntityPlayer.class)
+			{
+				return true;
+			}
+			
+			return false;
+		}
+		
 	}
 }

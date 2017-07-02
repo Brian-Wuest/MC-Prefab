@@ -1,0 +1,14 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "group": "Compressed Obsidian",
+    "ingredients": [
+        {
+            "item": "prefab:block_compressed_obsidian",
+            "data": 0
+        }
+    ],
+    "result": {
+        "item": "minecraft:obsidian",
+        "count": 9
+    }
+}

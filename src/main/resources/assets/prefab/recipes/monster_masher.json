@@ -1,0 +1,48 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "Monster Masher",
+    "pattern": [
+        "abe",
+        "cdc",
+        "fgh"
+    ],
+    "key": {
+        "a": {
+            "item": "minecraft:skull",
+            "data": 2
+        },
+        "b": {
+            "item": "minecraft:redstone_block",
+            "data": 32767
+        },
+        "c": {
+            "item": "minecraft:iron_bars",
+            "data": 32767
+        },
+        "d": {
+            "item": "prefab:item_compressed_chest",
+            "data": 32767
+        },
+        "e": {
+            "item": "minecraft:skull",
+            "data": 0
+        },
+        "f": {
+            "item": "prefab:block_compressed_stone",
+            "data": 1
+        },
+        "g": {
+            "item": "prefab:block_compressed_stone",
+            "data": 2
+        },
+        "h": {
+            "item": "prefab:block_compressed_stone",
+            "data": 4
+        }
+    },
+    "result": {
+        "item": "prefab:item_monster_masher",
+        "data": 0,
+        "count": 1
+    }
+}

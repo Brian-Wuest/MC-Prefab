@@ -1,0 +1,24 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "Smart Glass",
+    "pattern": [
+        "aaa",
+        "aba",
+        "aaa"
+    ],
+    "key": {
+        "a": {
+            "item": "minecraft:glass",
+            "data": 32767
+        },
+        "b": {
+            "item": "minecraft:ender_pearl",
+            "data": 32767
+        }
+    },
+    "result": {
+        "item": "prefab:block_boundary",
+        "data": 0,
+        "count": 1
+    }
+}

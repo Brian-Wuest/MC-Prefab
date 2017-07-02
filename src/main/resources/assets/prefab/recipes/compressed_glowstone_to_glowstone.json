@@ -1,15 +1,16 @@
 {
-	"_comment": [
-		"Compressed Glowstone to glowstone"
-	],
-	"type": "minecraft:crafting_shapeless",
-	"group": "prefab:compressed stone",
-	"ingredients": [{
-			"item": "#compressed_glowstone"
-		}
-	],
-	"result": {
-		"item": "minecraft:glowstone",
-		"count": 9
-	}
+    "_comment": [
+        "Compressed Glowstone to glowstone"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "group": "Compressed Glowstone",
+    "ingredients": [
+        {
+            "item": "#compressed_glowstone"
+        }
+    ],
+    "result": {
+        "item": "minecraft:glowstone",
+        "count": 9
+    }
 }

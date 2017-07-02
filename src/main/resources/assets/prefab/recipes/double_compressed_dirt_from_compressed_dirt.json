@@ -1,23 +1,24 @@
 {
-	"_comment": [
-		"Double Compressed Dirt from compressed dirt"
-	],
-	"type": "minecraft:crafting_shaped",
-	"group": "prefab:compressed stone",
-	"pattern": [
-		"###",
-		"###",
-		"###"
-	],
-	"key": {
-		"#": [{
-				"item": "#compressed_dirt"
-			}
-		]
-	},
-	"result": {
-		"item": "prefab:block_compressed_stone",
-		"count": 1,
-		"data": 6
-	}
+    "_comment": [
+        "Double Compressed Dirt from compressed dirt"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "group": "Compressed Dirt",
+    "pattern": [
+        "###",
+        "###",
+        "###"
+    ],
+    "key": {
+        "#": [
+            {
+                "item": "#compressed_dirt"
+            }
+        ]
+    },
+    "result": {
+        "item": "prefab:block_compressed_stone",
+        "count": 1,
+        "data": 6
+    }
 }

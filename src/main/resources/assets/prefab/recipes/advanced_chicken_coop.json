@@ -1,0 +1,27 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "group": "Chicken Coop",
+    "ingredients": [
+        {
+            "item": "prefab:item_chicken_coop"
+        },
+        {
+            "item": "prefab:item_pallet_of_bricks"
+        }
+    ],
+    "result": {
+        "item": "prefab:item_basic_structure",
+        "data": 0,
+        "nbt": {
+            "ForgeCaps": {
+                "prefab:structuresconfiguration": {
+                    "configuration": {
+                        "structureEnumName": "AdvancedCoop",
+                        "structureDisplayName": "Advanced Chicken Coop"
+                    }
+                }
+            }
+        },
+        "count": 1
+    }
+}

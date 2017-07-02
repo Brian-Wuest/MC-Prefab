@@ -1,0 +1,13 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "group": "prefab:pile of bricks",
+    "ingredients": [
+        {
+            "item": "#pile_of_bricks"
+        }
+    ],
+    "result": {
+        "item": "minecraft:brick",
+        "count": 9
+    }
+}

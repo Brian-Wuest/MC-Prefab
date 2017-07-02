@@ -1,0 +1,44 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "Fish Farm",
+    "pattern": [
+        "abc",
+        "ded",
+        "fgf"
+    ],
+    "key": {
+        "a": {
+            "item": "minecraft:tallgrass",
+            "data": 1
+        },
+        "b": {
+            "item": "minecraft:reeds",
+            "data": 0
+        },
+        "c": {
+            "item": "minecraft:sapling",
+            "data": 0
+        },
+        "d": {
+            "item": "minecraft:water_bucket",
+            "data": 0
+        },
+        "e": {
+            "item": "minecraft:fishing_rod",
+            "data": 0
+        },
+        "f": {
+            "item": "minecraft:sand",
+            "data": 0
+        },
+        "g": {
+            "item": "minecraft:fish",
+            "data": 32767
+        }
+    },
+    "result": {
+        "item": "prefab:item_fish_pond",
+        "data": 0,
+        "count": 1
+    }
+}

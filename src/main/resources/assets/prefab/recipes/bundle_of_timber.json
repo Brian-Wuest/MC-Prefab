@@ -1,0 +1,21 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "Bundle of Timber",
+    "pattern": [
+        "###",
+        "###",
+        "###"
+    ],
+    "key": {
+        "#": [
+            {
+                "type": "forge:ore_dict",
+                "ore": "logWood"
+            }
+        ]
+    },
+    "result": {
+        "item": "prefab:item_bundle_of_timber",
+        "count": 1
+    }
+}

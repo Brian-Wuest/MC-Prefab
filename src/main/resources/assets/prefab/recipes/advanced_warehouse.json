@@ -1,0 +1,36 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "Advanced Warehouse",
+    "pattern": [
+        "aba",
+        "aca",
+        "ded"
+    ],
+    "key": {
+        "a": {
+            "item": "prefab:block_compressed_stone",
+            "data": 1
+        },
+        "b": {
+            "item": "prefab:item_warehouse_upgrade",
+            "data": 32767
+        },
+        "c": {
+            "item": "prefab:item_compressed_chest",
+            "data": 32767
+        },
+        "d": {
+            "item": "prefab:block_compressed_stone",
+            "data": 4
+        },
+        "e": {
+            "item": "prefab:block_compressed_stone",
+            "data": 2
+        }
+    },
+    "result": {
+        "item": "prefab:item_advanced_warehouse",
+        "data": 0,
+        "count": 1
+    }
+}

@@ -1,0 +1,36 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "Horse Stable",
+    "pattern": [
+        "aaa",
+        "bcb",
+        "ded"
+    ],
+    "key": {
+        "a": {
+            "item": "minecraft:brick_block",
+            "data": 32767
+        },
+        "b": {
+            "item": "prefab:item_bundle_of_timber",
+            "data": 32767
+        },
+        "c": {
+            "item": "minecraft:hay_block",
+            "data": 32767
+        },
+        "d": {
+            "item": "minecraft:spruce_fence",
+            "data": 32767
+        },
+        "e": {
+            "item": "minecraft:spruce_fence_gate",
+            "data": 32767
+        }
+    },
+    "result": {
+        "item": "prefab:item_horse_stable",
+        "data": 0,
+        "count": 1
+    }
+}

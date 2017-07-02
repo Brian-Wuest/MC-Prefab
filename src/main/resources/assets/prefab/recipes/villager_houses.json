@@ -1,0 +1,24 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "Villager Houses",
+    "pattern": [
+        "aaa",
+        "aaa",
+        "bbb"
+    ],
+    "key": {
+        "a": {
+            "item": "prefab:item_bundle_of_timber",
+            "data": 32767
+        },
+        "b": {
+            "item": "prefab:block_compressed_stone",
+            "data": 0
+        }
+    },
+    "result": {
+        "item": "prefab:item_villager_houses",
+        "data": 0,
+        "count": 1
+    }
+}

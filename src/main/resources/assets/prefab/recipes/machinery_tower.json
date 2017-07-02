@@ -1,0 +1,38 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "Machinery Tower",
+    "pattern": [
+        "aaa",
+        " b ",
+        " c "
+    ],
+    "key": {
+        "a": {
+            "item": "minecraft:golden_rail",
+            "data": 32767
+        },
+        "b": {
+            "item": "prefab:item_string_of_lanterns",
+            "data": 32767
+        },
+        "c": {
+            "item": "prefab:block_compressed_stone",
+            "data": 2
+        }
+    },
+    "result": {
+        "item": "prefab:item_basic_structure",
+        "data": 0,
+        "nbt": {
+            "ForgeCaps": {
+                "prefab:structuresconfiguration": {
+                    "configuration": {
+                        "structureEnumName": "MachineryTower",
+                        "structureDisplayName": "Machinery Tower"
+                    }
+                }
+            }
+        },
+        "count": 1
+    }
+}

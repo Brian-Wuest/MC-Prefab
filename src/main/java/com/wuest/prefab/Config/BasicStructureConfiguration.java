@@ -37,12 +37,12 @@ public class BasicStructureConfiguration extends StructureConfiguration
 	static
 	{
 		// This static method is used to set up the clear shapes for the basic structure names.
-		EnumBasicStructureName.AdavancedCoop.getClearShape().setDirection(EnumFacing.SOUTH);
-		EnumBasicStructureName.AdavancedCoop.getClearShape().setHeight(10);
-		EnumBasicStructureName.AdavancedCoop.getClearShape().setWidth(11);
-		EnumBasicStructureName.AdavancedCoop.getClearShape().setLength(11);
-		EnumBasicStructureName.AdavancedCoop.getClearPositionOffset().setSouthOffset(1);
-		EnumBasicStructureName.AdavancedCoop.getClearPositionOffset().setEastOffset(5);
+		EnumBasicStructureName.AdvancedCoop.getClearShape().setDirection(EnumFacing.SOUTH);
+		EnumBasicStructureName.AdvancedCoop.getClearShape().setHeight(10);
+		EnumBasicStructureName.AdvancedCoop.getClearShape().setWidth(11);
+		EnumBasicStructureName.AdvancedCoop.getClearShape().setLength(11);
+		EnumBasicStructureName.AdvancedCoop.getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.AdvancedCoop.getClearPositionOffset().setEastOffset(5);
 		
 		EnumBasicStructureName.AdvancedHorseStable.getClearShape().setDirection(EnumFacing.SOUTH);
 		EnumBasicStructureName.AdvancedHorseStable.getClearShape().setHeight(8);
@@ -245,7 +245,7 @@ public class BasicStructureConfiguration extends StructureConfiguration
 	public enum EnumBasicStructureName
 	{
 		Custom("custom", null, null, null, null, 0, 0),
-		AdavancedCoop("advancedcoop", "item.prefab.advanced.chicken.coop", 
+		AdvancedCoop("advancedcoop", "item.prefab.advanced.chicken.coop", 
 				"assets/prefab/structures/advancedcoop.zip", "textures/gui/advanced_chicken_coop_topdown.png", "item_advanced_chicken_coop", 
 				156, 121),
 		AdvancedHorseStable("advanced_horse_stable", "item.prefab.advanced.horse.stable", 

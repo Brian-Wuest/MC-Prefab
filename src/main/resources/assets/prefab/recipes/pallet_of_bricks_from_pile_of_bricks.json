@@ -1,0 +1,18 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "prefab:pile of bricks",
+    "pattern": [
+        "###",
+        "###",
+        "###"
+    ],
+    "key": {
+        "#": {
+            "item": "#pile_of_bricks"
+        }
+    },
+    "result": {
+        "item": "prefab:item_pallet_of_bricks",
+        "count": 1
+    }
+}

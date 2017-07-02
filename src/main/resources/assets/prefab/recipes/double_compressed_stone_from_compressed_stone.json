@@ -10,7 +10,8 @@
         "###"
     ],
     "key": {
-        "#": [{
+        "#": [
+            {
                 "item": "#compressed_stone"
             }
         ]

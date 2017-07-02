@@ -1,0 +1,34 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "Grassy Plains",
+    "pattern": [
+        "   ",
+        "bbb",
+        "aaa"
+    ],
+    "key": {
+        "a": {
+            "item": "minecraft:dirt",
+            "data": 32767
+        },
+        "b": {
+            "item": "minecraft:tallgrass",
+            "data": 1
+        }
+    },
+    "result": {
+        "item": "prefab:item_basic_structure",
+        "data": 0,
+        "nbt": {
+            "ForgeCaps": {
+                "prefab:structuresconfiguration": {
+                    "configuration": {
+                        "structureEnumName": "GrassyPlain",
+                        "structureDisplayName": "Grassy Plains"
+                    }
+                }
+            }
+        },
+        "count": 1
+    }
+}

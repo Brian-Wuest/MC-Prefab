@@ -36,7 +36,7 @@ public class PrefabModelMesher implements ItemMeshDefinition
 		
 		if (resourceLocation == null)
 		{
-			resourceLocation = EnumBasicStructureName.AdavancedCoop.getResourceLocation();
+			resourceLocation = EnumBasicStructureName.AdvancedCoop.getResourceLocation();
 		}
 		
 		return new ModelResourceLocation(resourceLocation, "inventory");

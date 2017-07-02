@@ -1,0 +1,24 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "Instant Bridge",
+    "pattern": [
+        "aba",
+        "aba",
+        "aba"
+    ],
+    "key": {
+        "a": {
+            "item": "minecraft:torch",
+            "data": 32767
+        },
+        "b": {
+            "item": "prefab:block_compressed_stone",
+            "data": 1
+        }
+    },
+    "result": {
+        "item": "prefab:item_instant_bridge",
+        "data": 0,
+        "count": 1
+    }
+}

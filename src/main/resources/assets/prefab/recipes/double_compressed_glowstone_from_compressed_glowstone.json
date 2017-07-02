@@ -3,16 +3,17 @@
         "double compressed glowstone from compressed glowstone"
     ],
     "type": "minecraft:crafting_shaped",
-    "group": "prefab:compressed stone",
+    "group": "Compressed Glowstone",
     "pattern": [
         "###",
         "###",
         "###"
     ],
     "key": {
-        "#": [{
+        "#": [
+            {
                 "item": "#compressed_glowstone"
-              }
+            }
         ]
     },
     "result": {

@@ -1,0 +1,42 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "Mineshaft Entrance",
+    "pattern": [
+        "aba",
+        "cdc",
+        "bbb"
+    ],
+    "key": {
+        "a": {
+            "item": "minecraft:iron_pickaxe",
+            "data": 32767
+        },
+        "b": {
+            "item": "prefab:item_bundle_of_timber",
+            "data": 32767
+        },
+        "c": {
+            "item": "prefab:block_compressed_stone",
+            "data": 0
+        },
+        "d": {
+            "item": "minecraft:bed",
+            "data": 32767
+        }
+    },
+    "result": {
+        "item": "prefab:item_basic_structure",
+        "data": 0,
+        "nbt": {
+            "ForgeCaps": {
+                "prefab:structuresconfiguration": {
+                    "configuration": {
+                        "structureEnumName": "MineshaftEntrance",
+                        "structureDisplayName": "Mineshaft Entrance"
+                    }
+                }
+            }
+        },
+        "count": 1
+    }
+}

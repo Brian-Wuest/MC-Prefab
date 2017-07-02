@@ -1,0 +1,13 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "group": "Paper Lantern",
+    "ingredients": [
+        {
+            "item": "prefab:item_string_of_lanterns"
+        }
+    ],
+    "result": {
+        "item": "prefab:block_paper_lantern",
+        "count": 9
+    }
+}

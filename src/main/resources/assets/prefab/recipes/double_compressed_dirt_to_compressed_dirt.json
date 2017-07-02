@@ -1,16 +1,17 @@
 {
-	"_comment": [
-		"Double compressed dirt to compressed dirt"
-	],
-	"type": "minecraft:crafting_shapeless",
-	"group": "prefab:compressed stone",
-	"ingredients": [{
-			"item": "#double_compressed_dirt"
-		}
-	],
-	"result": {
-		"item": "prefab:block_compressed_stone",
-		"count": 9,
-		"data": 5
-	}
+    "_comment": [
+        "Double compressed dirt to compressed dirt"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "group": "Compressed Dirt",
+    "ingredients": [
+        {
+            "item": "#double_compressed_dirt"
+        }
+    ],
+    "result": {
+        "item": "prefab:block_compressed_stone",
+        "count": 9,
+        "data": 5
+    }
 }

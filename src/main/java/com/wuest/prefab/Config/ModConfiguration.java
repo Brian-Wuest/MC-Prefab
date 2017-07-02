@@ -27,7 +27,7 @@ public class ModConfiguration
 	public static String ChestContentOptions = "general.options.chest contents";
 	public static String RecipeOptions = "general.options.recipes";
 	public static String tagKey = "PrefabConfig";
-	
+
 	// Config file option names.
 	private static String addHouseItemName = "Add House Item On New Player Join";
 	private static String enableHouseGenerationRestrictionName = "Enable House Generation Restrictions";
@@ -36,7 +36,7 @@ public class ModConfiguration
 	private static String enableLoftHouseName = "Enable Loft House";
 	private static String includeSpawnersInMasherName = "Include Spawners in Monster Masher";
 	private static String enableStructurePreviewName = "Include Structure Previews";
-	
+
 	// Chest content option names.
 	private static String addSwordName = "Add Sword";
 	private static String addAxeName = "Add Axe";
@@ -50,10 +50,10 @@ public class ModConfiguration
 	private static String addCobbleName = "Add Cobblestone";
 	private static String addSaplingsName = "Add Saplings";
 	private static String addTorchesName = "Add Torches";
-	
+
 	private static String versionMessageName = "Version Message";
 	private static String showMessageName = "Show Message";
-	
+
 	// Configuration Options.
 	public boolean addHouseItem;
 	public boolean enableHouseGenerationRestrictions;
@@ -62,7 +62,7 @@ public class ModConfiguration
 	public boolean enableLoftHouse;
 	public boolean includeSpawnersInMasher;
 	public boolean enableStructurePreview;
-	
+
 	// Chest content options.
 	public boolean addSword;
 	public boolean addAxe;
@@ -77,9 +77,9 @@ public class ModConfiguration
 	public boolean addCobble;
 	public boolean addSaplings;
 	public boolean addTorches;
-	
+
 	public HashMap<String, Boolean> recipeConfiguration;
-	
+
 	// Recipe Options
 	public static String compressedStoneKey = "Compressed Stone";
 	public static String compressedGlowStoneKey = "Compressed Glowstone";
@@ -114,43 +114,43 @@ public class ModConfiguration
 	public static String phasicBlockKey = "Phasic Block";
 	public static String smartGlassKey = "Smart Glass";
 	public static String[] recipeKeys = new String[] 
-			{ 
-				compressedStoneKey,
-				compressedGlowStoneKey,
-				compressedDirteKey,
-				compressedChestKey,
-				pileOfBricksKey,
-				warehouseKey,
-				produceFarmKey,
-				treeFarmKey,
-				chickenCoopKey,
-				fishFarmKey,
-				warehouseUpgradeKey,
-				advancedWarehouseKey,
-				monsterMasherKey,
-				bundleofTimberKey,
-				horseStableKey,
-				netherGateKey,
-				advancedChickenCoopKey,
-				advancedHorseStableKey,
-				barnKey,
-				machineryTowerKey,
-				defenseBunkerKey,
-				mineshaftEntranceKey,
-				enderGatewayKey,
-				magicTempleKey,
-				instantBridgeKey,
-				paperLanternKey,
-				compressedObsidianKey,
-				villagerHousesKey,
-				phasicBlockKey,
-				smartGlassKey
-			};
-	
+	{ 
+			compressedStoneKey,
+			compressedGlowStoneKey,
+			compressedDirteKey,
+			compressedChestKey,
+			pileOfBricksKey,
+			warehouseKey,
+			produceFarmKey,
+			treeFarmKey,
+			chickenCoopKey,
+			fishFarmKey,
+			warehouseUpgradeKey,
+			advancedWarehouseKey,
+			monsterMasherKey,
+			bundleofTimberKey,
+			horseStableKey,
+			netherGateKey,
+			advancedChickenCoopKey,
+			advancedHorseStableKey,
+			barnKey,
+			machineryTowerKey,
+			defenseBunkerKey,
+			mineshaftEntranceKey,
+			enderGatewayKey,
+			magicTempleKey,
+			instantBridgeKey,
+			paperLanternKey,
+			compressedObsidianKey,
+			villagerHousesKey,
+			phasicBlockKey,
+			smartGlassKey
+	};
+
 	// Version Check Message Info
 	public String versionMessage = "";
 	public boolean showMessage = false;
-	
+
 	public ModConfiguration()
 	{
 		this.addHouseItem = true;
@@ -160,7 +160,7 @@ public class ModConfiguration
 		this.enableStructurePreview = true;
 		this.recipeConfiguration = new HashMap<String, Boolean>();
 	}
-	
+
 	public static void syncConfig()
 	{
 		Configuration config = Prefab.config;
@@ -178,11 +178,11 @@ public class ModConfiguration
 		Prefab.proxy.proxyConfiguration.enableLoftHouse = config.getBoolean(ModConfiguration.enableLoftHouseName, ModConfiguration.OPTIONS, false, "Determines if the loft starter house is enabled. This house contains Nether materials in it's construction. Server configuration overrides client.");
 		Prefab.proxy.proxyConfiguration.includeSpawnersInMasher = config.getBoolean(ModConfiguration.includeSpawnersInMasherName, ModConfiguration.OPTIONS, true, "Determines if the spawners for the Monster Masher building are included. Server configuration overrides client.");
 		Prefab.proxy.proxyConfiguration.enableStructurePreview = config.getBoolean(ModConfiguration.enableStructurePreviewName, ModConfiguration.OPTIONS, true, "Determines if the Preview buttons in structure GUIs and other structure previews functions are enabled. Client side only.");
-		
+
 		// Make this property require a restart.
 		config.get(ModConfiguration.OPTIONS, ModConfiguration.enableVersionCheckMessageName, true).setRequiresMcRestart(true);
 		config.get(ModConfiguration.OPTIONS, ModConfiguration.enableLoftHouseName, false).setRequiresMcRestart(true);
-		
+
 		config.setCategoryComment(ModConfiguration.ChestContentOptions, "This category is to determine the contents of the chest created by the house item. When playing on a server, the server configuration is used.");
 
 		Prefab.proxy.proxyConfiguration.addSword = config.getBoolean(ModConfiguration.addSwordName, ModConfiguration.ChestContentOptions, true, "Determines if a Stone Sword is added the the chest when the house is created.");
@@ -200,14 +200,14 @@ public class ModConfiguration
 
 		config.setCategoryComment(ModConfiguration.RecipeOptions, "This category determines if the recipes for the blocks/items in this are enabled");
 		config.setCategoryRequiresMcRestart(ModConfiguration.RecipeOptions, true);
-		
+
 		// Recipe configuration.
 		for (String key : ModConfiguration.recipeKeys)
 		{
 			boolean value = config.getBoolean(key, RecipeOptions, true, "Determines if the recipe(s) associated with the " + key + " are enabled.");
 			Prefab.proxy.proxyConfiguration.recipeConfiguration.put(key, value);
 		}
-		
+
 		if (config.hasChanged()) 
 		{
 			config.save();
@@ -217,7 +217,7 @@ public class ModConfiguration
 	public NBTTagCompound ToNBTTagCompound()
 	{
 		NBTTagCompound tag = new NBTTagCompound();
-		
+
 		tag.setBoolean(ModConfiguration.addHouseItemName, this.addHouseItem);
 		tag.setBoolean(ModConfiguration.enableHouseGenerationRestrictionName, this.enableHouseGenerationRestrictions);
 		tag.setInteger(ModConfiguration.maximumHouseSizeName, this.maximumStartingHouseSize);
@@ -225,7 +225,7 @@ public class ModConfiguration
 		tag.setBoolean(ModConfiguration.enableLoftHouseName, this.enableLoftHouse);
 		tag.setBoolean(ModConfiguration.includeSpawnersInMasherName, this.includeSpawnersInMasher);
 		tag.setBoolean(ModConfiguration.enableStructurePreviewName, this.enableStructurePreview);
-		
+
 		tag.setBoolean(ModConfiguration.addSwordName, this.addSword);
 		tag.setBoolean(ModConfiguration.addAxeName, this.addAxe);
 		tag.setBoolean(ModConfiguration.addShovelName, this.addShovel);
@@ -238,22 +238,22 @@ public class ModConfiguration
 		tag.setBoolean(ModConfiguration.addCobbleName, this.addCobble);
 		tag.setBoolean(ModConfiguration.addSaplingsName, this.addSaplings);
 		tag.setBoolean(ModConfiguration.addTorchesName, this.addTorches);
-		
+
 		tag.setString(ModConfiguration.versionMessageName, UpdateChecker.messageToShow);
 		tag.setBoolean(ModConfiguration.showMessageName, UpdateChecker.showMessage);
-		
+
 		for (Entry<String, Boolean> entry : this.recipeConfiguration.entrySet())
 		{
 			tag.setBoolean(entry.getKey(), entry.getValue());
 		}
-		
+
 		return tag;
 	}
-	
+
 	public static ModConfiguration getFromNBTTagCompound(NBTTagCompound tag)
 	{
 		ModConfiguration config = new ModConfiguration();
-		
+
 		config.addHouseItem = tag.getBoolean(ModConfiguration.addHouseItemName);
 		config.enableHouseGenerationRestrictions = tag.getBoolean(ModConfiguration.enableHouseGenerationRestrictionName);
 		config.enableVersionCheckMessage = tag.getBoolean(ModConfiguration.enableVersionCheckMessageName);
@@ -261,13 +261,13 @@ public class ModConfiguration
 		config.maximumStartingHouseSize = tag.getInteger(ModConfiguration.maximumHouseSizeName);
 		config.includeSpawnersInMasher = tag.getBoolean(ModConfiguration.includeSpawnersInMasherName);
 		config.enableStructurePreview = tag.getBoolean(ModConfiguration.enableStructurePreviewName);
-		
+
 		// Make sure the server admin didn't set the maximum starting size to an invalid value from the configuration file.
 		if (config.maximumStartingHouseSize < 5 || config.maximumStartingHouseSize > 16)
 		{
 			config.maximumStartingHouseSize = 16;
 		}
-		
+
 		config.addSword = tag.getBoolean(ModConfiguration.addSwordName);
 		config.addAxe = tag.getBoolean(ModConfiguration.addAxeName);
 		config.addShovel = tag.getBoolean(ModConfiguration.addShovelName);
@@ -280,18 +280,18 @@ public class ModConfiguration
 		config.addCobble = tag.getBoolean(ModConfiguration.addCobbleName);
 		config.addSaplings = tag.getBoolean(ModConfiguration.addSaplingsName);
 		config.addTorches = tag.getBoolean(ModConfiguration.addTorchesName);
-		
+
 		config.versionMessage = tag.getString(ModConfiguration.versionMessageName);
 		config.showMessage = tag.getBoolean(ModConfiguration.showMessageName);
-		
+
 		for (String key : ModConfiguration.recipeKeys)
 		{
 			config.recipeConfiguration.put(key, tag.getBoolean(key));
 		}
-		
+
 		return config;
 	}
-	
+
 	public enum CeilingFloorBlockType
 	{
 		StoneBrick(0, GuiLangKeys.CEILING_BLOCK_TYPE_STONE),
@@ -308,7 +308,7 @@ public class ModConfiguration
 		}
 
 		public int getValue() { return value; }
-		
+
 		public String getName()
 		{
 			return GuiLangKeys.translateString(this.langKey);
@@ -318,20 +318,20 @@ public class ModConfiguration
 		{
 			switch (value)
 			{
-			case 1:
-			{
-				return CeilingFloorBlockType.Brick;
-			}
+				case 1:
+				{
+					return CeilingFloorBlockType.Brick;
+				}
 
-			case 2:
-			{
-				return CeilingFloorBlockType.SandStone;
-			}
+				case 2:
+				{
+					return CeilingFloorBlockType.SandStone;
+				}
 
-			default:
-			{
-				return CeilingFloorBlockType.StoneBrick;
-			}
+				default:
+				{
+					return CeilingFloorBlockType.StoneBrick;
+				}
 			}
 		}
 	}
@@ -360,40 +360,40 @@ public class ModConfiguration
 		{
 			return GuiLangKeys.translateString(this.langKey);
 		}
-		
+
 		public static WallBlockType ValueOf(int value)
 		{
 			switch (value)
 			{
-			case 1:
-			{
-				return WallBlockType.Spruce;
-			}
+				case 1:
+				{
+					return WallBlockType.Spruce;
+				}
 
-			case 2:
-			{
-				return WallBlockType.Birch;
-			}
+				case 2:
+				{
+					return WallBlockType.Birch;
+				}
 
-			case 3:
-			{
-				return WallBlockType.Jungle;
-			}
+				case 3:
+				{
+					return WallBlockType.Jungle;
+				}
 
-			case 4:
-			{
-				return WallBlockType.Acacia;
-			}
+				case 4:
+				{
+					return WallBlockType.Acacia;
+				}
 
-			case 5:
-			{
-				return WallBlockType.DarkOak;
-			}
+				case 5:
+				{
+					return WallBlockType.DarkOak;
+				}
 
-			default:
-			{
-				return WallBlockType.Oak;
-			}
+				default:
+				{
+					return WallBlockType.Oak;
+				}
 			}
 		}
 	}

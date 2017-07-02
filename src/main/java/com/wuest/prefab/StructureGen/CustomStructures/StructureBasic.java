@@ -62,7 +62,7 @@ public class StructureBasic extends Structure
 	{
 		BasicStructureConfiguration config = (BasicStructureConfiguration)configuration;
 		
-		if (foundBlock instanceof BlockHopper && config.basicStructureName.getName().equals(EnumBasicStructureName.AdavancedCoop.getName()))
+		if (foundBlock instanceof BlockHopper && config.basicStructureName.getName().equals(EnumBasicStructureName.AdvancedCoop.getName()))
 		{
 			customBlockPos = block.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing);
 		}
@@ -91,7 +91,7 @@ public class StructureBasic extends Structure
 		
 		if (this.customBlockPos != null)
 		{
-			if (config.basicStructureName.getName().equals(EnumBasicStructureName.AdavancedCoop.getName()))
+			if (config.basicStructureName.getName().equals(EnumBasicStructureName.AdvancedCoop.getName()))
 			{
 				// For the advanced chicken coop, spawn 4 chickens above the hopper.
 				for (int i = 0; i < 4; i++)

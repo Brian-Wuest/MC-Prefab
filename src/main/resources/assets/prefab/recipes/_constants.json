@@ -47,5 +47,17 @@
             "item": "prefab:block_compressed_stone",
             "data": 6
         }
+    },
+    {
+        "name": "pile_of_bricks",
+        "ingredient": {
+            "item": "prefab:item_pile_of_bricks"
+        }
+    },
+    {
+        "name": "pallet_of_bricks",
+        "ingredient": {
+            "item": "prefab:item_pallet_of_bricks"
+        }
     }
 ]

@@ -1,23 +1,24 @@
 {
-	"_comment": [
-		"Glowstone to Compressed Glowstone"
-	],
-	"type": "minecraft:crafting_shaped",
-	"group": "prefab:compressed stone",
-	"pattern": [
-		"###",
-		"###",
-		"###"
-	],
-	"key": {
-		"#": [{
-				"item": "minecraft:glowstone"
-			}
-		]
-	},
-	"result": {
-		"item": "prefab:block_compressed_stone",
-		"count": 1,
-		"data": 3
-	}
+    "_comment": [
+        "Glowstone to Compressed Glowstone"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "group": "Compressed Glowstone",
+    "pattern": [
+        "###",
+        "###",
+        "###"
+    ],
+    "key": {
+        "#": [
+            {
+                "item": "minecraft:glowstone"
+            }
+        ]
+    },
+    "result": {
+        "item": "prefab:block_compressed_stone",
+        "count": 1,
+        "data": 3
+    }
 }

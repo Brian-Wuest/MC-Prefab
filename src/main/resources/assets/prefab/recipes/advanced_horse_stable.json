@@ -1,0 +1,36 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "group": "Horse Stable",
+    "ingredients": [
+        {
+            "item": "prefab:item_horse_stable"
+        },
+        {
+            "item": "prefab:item_horse_stable"
+        },
+        {
+            "item": "prefab:item_horse_stable"
+        },
+        {
+            "item": "prefab:item_horse_stable"
+        },
+        {
+            "item": "#double_compressed_glowstone"
+        }
+    ],
+    "result": {
+        "item": "prefab:item_basic_structure",
+        "data": 0,
+        "nbt": {
+            "ForgeCaps": {
+                "prefab:structuresconfiguration": {
+                    "configuration": {
+                        "structureEnumName": "AdvancedHorseStable",
+                        "structureDisplayName": "Advanced Horse Stable"
+                    }
+                }
+            }
+        },
+        "count": 1
+    }
+}

@@ -107,7 +107,6 @@ public abstract class TileEntityBase<T extends BaseConfig> extends TileEntity
 	 * Allows this class to get a class of the generic type associated with this class.
 	 * @return A generic class used to create an instance of the generic class.
 	 */
-    @SuppressWarnings ("unchecked")
     public Class<T> getTypeParameterClass()
     {
         Type type = getClass().getGenericSuperclass();

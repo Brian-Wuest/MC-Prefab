@@ -49,7 +49,6 @@ public abstract class TileBlockBase<T extends TileEntityBase> extends Block impl
 	 * This allows the class to get an generic class.
 	 * @return The generic type class for this block.
 	 */
-    @SuppressWarnings ("unchecked")
     public Class<T> getTypeParameterClass()
     {
         Type type = this.getClass().getGenericSuperclass();

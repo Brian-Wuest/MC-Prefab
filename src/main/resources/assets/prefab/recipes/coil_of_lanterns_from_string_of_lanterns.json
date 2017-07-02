@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "Paper Lantern",
+    "pattern": [
+        "aaa",
+        "aaa",
+        "aaa"
+    ],
+    "key": {
+        "a": {
+            "item": "prefab:item_string_of_lanterns",
+            "data": 32767
+        }
+    },
+    "result": {
+        "item": "prefab:item_coil_of_lanterns",
+        "data": 0,
+        "count": 1
+    }
+}

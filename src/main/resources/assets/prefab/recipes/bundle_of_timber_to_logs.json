@@ -1,0 +1,14 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "group": "Bundle of Timber",
+    "ingredients": [
+        {
+            "item": "prefab:item_bundle_of_timber"
+        }
+    ],
+    "result": {
+        "item": "minecraft:log",
+        "data": 0,
+        "count": 9
+    }
+}
