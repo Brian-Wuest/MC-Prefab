@@ -9,7 +9,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.google.common.base.Throwables;
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Config.StructureConfiguration;
+import com.wuest.prefab.Config.Structures.StructureConfiguration;
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.StructureGen.*;

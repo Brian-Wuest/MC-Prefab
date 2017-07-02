@@ -1,9 +1,15 @@
 package com.wuest.prefab.Proxy.Messages.Handlers;
 
+import com.wuest.prefab.Config.EntityPlayerConfiguration;
 import com.wuest.prefab.Config.Structures.StructureConfiguration;
+import com.wuest.prefab.Events.ClientEventHandler;
+import com.wuest.prefab.Events.ModEventHandler;
+import com.wuest.prefab.Proxy.Messages.PlayerEntityTagMessage;
 import com.wuest.prefab.Proxy.Messages.StructureTagMessage;
 import com.wuest.prefab.Proxy.Messages.StructureTagMessage.EnumStructureConfiguration;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IThreadListener;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -15,36 +21,34 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
  * @author WuestMan
  *
  */
-public class StructureHandler implements IMessageHandler<StructureTagMessage, IMessage>
+public class PlayerEntityHandler implements IMessageHandler<PlayerEntityTagMessage, IMessage>
 {
 	/**
 	 * Initializes a new instance of the StructureHandler class.
 	 */
-	public StructureHandler()
+	public PlayerEntityHandler()
 	{
 	}
 	
 	@Override
-	public IMessage onMessage(final StructureTagMessage message, final MessageContext ctx) 
+	public IMessage onMessage(final PlayerEntityTagMessage message, final MessageContext ctx) 
 	{
 		// Or Minecraft.getMinecraft() on the client.
-		IThreadListener mainThread = (WorldServer) ctx.getServerHandler().player.world; 
+		IThreadListener mainThread = Minecraft.getMinecraft();
 
 		mainThread.addScheduledTask(new Runnable()
 		{
 			@Override
 			public void run() 
 			{
-				// This is server side. Build the structure.
-				EnumStructureConfiguration structureConfig = message.getStructureConfig();
-				
-				StructureConfiguration configuration = structureConfig.structureConfig.ReadFromNBTTagCompound(message.getMessageTag());
-				configuration.BuildStructure(ctx.getServerHandler().player, ctx.getServerHandler().player.world);
+				// This is client side.
+				NBTTagCompound newPlayerTag = Minecraft.getMinecraft().player.getEntityData();
+				newPlayerTag.setTag(EntityPlayerConfiguration.PLAYER_ENTITY_TAG, message.getMessageTag());
+				ClientEventHandler.playerConfig.loadFromNBTTagCompound(message.getMessageTag());
 			}
 		});
 
 		// no response in this case
 		return null;
 	}
-
 }

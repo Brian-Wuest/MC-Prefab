@@ -113,6 +113,8 @@ public class ModConfiguration
 	public static String villagerHousesKey = "Villager Houses";
 	public static String phasicBlockKey = "Phasic Block";
 	public static String smartGlassKey = "Smart Glass";
+	public static String greenHouseKey = "Green House";
+	
 	public static String[] recipeKeys = new String[] 
 	{ 
 			compressedStoneKey,
@@ -144,7 +146,8 @@ public class ModConfiguration
 			compressedObsidianKey,
 			villagerHousesKey,
 			phasicBlockKey,
-			smartGlassKey
+			smartGlassKey,
+			greenHouseKey
 	};
 
 	// Version Check Message Info

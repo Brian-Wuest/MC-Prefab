@@ -1,7 +1,7 @@
 package com.wuest.prefab.Items.Structures;
 
 import com.wuest.prefab.*;
-import com.wuest.prefab.Config.BasicStructureConfiguration;
+import com.wuest.prefab.Config.Structures.BasicStructureConfiguration;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Render.StructureRenderHandler;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureBasic;

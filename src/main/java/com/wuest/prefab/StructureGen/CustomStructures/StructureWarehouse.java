@@ -1,7 +1,7 @@
 package com.wuest.prefab.StructureGen.CustomStructures;
 
-import com.wuest.prefab.Config.StructureConfiguration;
-import com.wuest.prefab.Config.WareHouseConfiguration;
+import com.wuest.prefab.Config.Structures.StructureConfiguration;
+import com.wuest.prefab.Config.Structures.WareHouseConfiguration;
 import com.wuest.prefab.StructureGen.BuildBlock;
 import com.wuest.prefab.StructureGen.BuildClear;
 import com.wuest.prefab.StructureGen.Structure;

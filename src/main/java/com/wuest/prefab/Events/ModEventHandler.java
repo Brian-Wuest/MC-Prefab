@@ -10,21 +10,21 @@ import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Capabilities.StructureConfigurationCapability;
 import com.wuest.prefab.Capabilities.StructureConfigurationProvider;
+import com.wuest.prefab.Config.EntityPlayerConfiguration;
 import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Items.Structures.ItemBasicStructure;
 import com.wuest.prefab.Proxy.ClientProxy;
 import com.wuest.prefab.Proxy.Messages.ConfigSyncMessage;
+import com.wuest.prefab.Proxy.Messages.PlayerEntityTagMessage;
 import com.wuest.prefab.StructureGen.BuildBlock;
 import com.wuest.prefab.StructureGen.Structure;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
@@ -36,7 +36,6 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
@@ -55,11 +54,6 @@ import net.minecraftforge.registries.IForgeRegistry;
 public class ModEventHandler
 {
 	/**
-	 * The tag which determines if the user has been given the starter house.
-	 */
-	public static final String GIVEN_HOUSEBUILDER_TAG = "givenHousebuilder";
-
-	/**
 	 * Contains a hashmap for the structures to build and for whom.
 	 */
 	public static HashMap<EntityPlayer, ArrayList<Structure>> structuresToBuild = new HashMap<EntityPlayer, ArrayList<Structure>>();
@@ -72,7 +66,7 @@ public class ModEventHandler
 	/**
 	 * Determines the affected blocks by redstone power.
 	 */
-	public static ArrayList<BlockPos> RedstoneAffectedBlockPositions = null;
+	public static ArrayList<BlockPos> RedstoneAffectedBlockPositions = new ArrayList<BlockPos>();
 	
 	/**
 	 * This event is used to determine if the player should be given the starting house item when they log in.
@@ -81,25 +75,26 @@ public class ModEventHandler
 	@SubscribeEvent
 	public static void PlayerJoinedWorld(EntityJoinWorldEvent event)
 	{
-		if (!event.getWorld().isRemote && event.getEntity() instanceof EntityPlayer) 
+		if (!event.getWorld().isRemote && event.getEntity() instanceof EntityPlayerMP) 
 		{
 			System.out.println("Player joined world, checking to see if the house builder should be provided.");
 
-			EntityPlayer player = (EntityPlayer)event.getEntity();
-			NBTTagCompound persistTag = ModEventHandler.getModIsPlayerNewTag(player);
-
-			// Get the opposite of the value, if the bool doesn't exist then we can add the house to the inventory, otherwise the player isn't new and shouldn't get the item.
-			boolean shouldGiveHousebuilder = !persistTag.getBoolean(ModEventHandler.GIVEN_HOUSEBUILDER_TAG);
-
-			if (shouldGiveHousebuilder && Prefab.proxy.proxyConfiguration.addHouseItem)
+			EntityPlayerMP player = (EntityPlayerMP)event.getEntity();
+			EntityPlayerConfiguration playerConfig = EntityPlayerConfiguration.loadFromEntityData((EntityPlayerMP)event.getEntity());
+			
+			if (playerConfig.givenHouseBuilder && Prefab.proxy.proxyConfiguration.addHouseItem)
 			{
 				ItemStack stack = new ItemStack(ModRegistry.StartHouse());
 				player.inventory.addItemStackToInventory(stack);
 				player.inventoryContainer.detectAndSendChanges();
 
 				// Make sure to set the tag for this player so they don't get the item again.
-				persistTag.setBoolean(ModEventHandler.GIVEN_HOUSEBUILDER_TAG, true);
+				playerConfig.givenHouseBuilder = true;
+				playerConfig.saveToPlayer(player);
 			}
+			
+			// Send the persist tag to the client.
+			Prefab.network.sendTo(new PlayerEntityTagMessage(playerConfig.getModIsPlayerNewTag(player)), player);
 		}
 	}
 	
@@ -245,7 +240,7 @@ public class ModEventHandler
 			((ClientProxy)Prefab.proxy).serverConfiguration = null;
 		}
 	}
-
+	
 	/**
 	 * This occurs when a player dies and is used to make sure that a player does not get a duplicate starting house.
 	 * @param event
@@ -253,17 +248,23 @@ public class ModEventHandler
 	@SubscribeEvent
 	public static void onClone(PlayerEvent.Clone event) 
 	{
-		// Don't add the tag unless the house item was added. This way it can be added if the feature is turned on.
-		// When the player is cloned, make sure to copy the tag. If this is not done the item can be given to the player again if they die before the log out and log back in.
-		NBTTagCompound originalTag = event.getOriginal().getEntityData();
-
-		// Use the server configuration to determine if the house should be added for this player.
-		if (Prefab.proxy.proxyConfiguration.addHouseItem)
+		if (event.getEntityPlayer() instanceof EntityPlayerMP)
 		{
-			if (originalTag.hasKey("IsPlayerNew"))
+			// Don't add the tag unless the house item was added. This way it can be added if the feature is turned on.
+			// When the player is cloned, make sure to copy the tag. If this is not done the item can be given to the player again if they die before the log out and log back in.
+			NBTTagCompound originalTag = event.getOriginal().getEntityData();
+	
+			// Use the server configuration to determine if the house should be added for this player.
+			if (Prefab.proxy.proxyConfiguration.addHouseItem)
 			{
-				NBTTagCompound newPlayerTag = event.getEntityPlayer().getEntityData();
-				newPlayerTag.setTag("IsPlayerNew", originalTag.getTag("IsPlayerNew"));
+				if (originalTag.hasKey(EntityPlayerConfiguration.PLAYER_ENTITY_TAG))
+				{
+					NBTTagCompound newPlayerTag = event.getEntityPlayer().getEntityData();
+					newPlayerTag.setTag(EntityPlayerConfiguration.PLAYER_ENTITY_TAG, originalTag.getTag(EntityPlayerConfiguration.PLAYER_ENTITY_TAG));
+					
+					// Send the persist tag to the client.
+					Prefab.network.sendTo(new PlayerEntityTagMessage(originalTag.getCompoundTag(EntityPlayerConfiguration.PLAYER_ENTITY_TAG)), (EntityPlayerMP)event.getEntityPlayer());
+				}
 			}
 		}
 	}
@@ -280,26 +281,7 @@ public class ModEventHandler
 			ModConfiguration.syncConfig();
 		}
 	}
-	
-	private static NBTTagCompound getModIsPlayerNewTag(EntityPlayer player)
-	{
-		NBTTagCompound tag = player.getEntityData();
 
-		// Get/create a tag used to determine if this is a new player.
-		NBTTagCompound newPlayerTag = null;
-
-		if (tag.hasKey("IsPlayerNew"))
-		{
-			newPlayerTag = tag.getCompoundTag("IsPlayerNew");
-		}
-		else
-		{
-			newPlayerTag = new NBTTagCompound();
-			tag.setTag("IsPlayerNew", newPlayerTag);
-		}
-
-		return newPlayerTag;
-	}
 
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> event)

@@ -2,8 +2,8 @@ package com.wuest.prefab.Items.Structures;
 
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Config.MonsterMasherConfiguration;
-import com.wuest.prefab.Config.ProduceFarmConfiguration;
+import com.wuest.prefab.Config.Structures.MonsterMasherConfiguration;
+import com.wuest.prefab.Config.Structures.ProduceFarmConfiguration;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureMonsterMasher;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureProduceFarm;
 

@@ -24,7 +24,6 @@ saves
 screenshots
 logs
 crash-reports
-config
 usercache.json
 usernamecache.json
 options.txt
@@ -37,3 +36,4 @@ gradle/wrapper/gradle-wrapper.jar
 gradle/wrapper/gradle-wrapper.properties
 gradlew
 gradlew.bat
+src/main/java/com/wuest/prefab/Gui/GuiFishPond.java

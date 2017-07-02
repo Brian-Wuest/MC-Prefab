@@ -2,8 +2,8 @@ package com.wuest.prefab.Items.Structures;
 
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Config.ChickenCoopConfiguration;
-import com.wuest.prefab.Config.HorseStableConfiguration;
+import com.wuest.prefab.Config.Structures.ChickenCoopConfiguration;
+import com.wuest.prefab.Config.Structures.HorseStableConfiguration;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureChickenCoop;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureHorseStable;
 

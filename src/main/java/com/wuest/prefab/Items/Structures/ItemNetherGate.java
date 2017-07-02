@@ -2,7 +2,7 @@ package com.wuest.prefab.Items.Structures;
 
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Config.NetherGateConfiguration;
+import com.wuest.prefab.Config.Structures.NetherGateConfiguration;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureNetherGate;
 
 import net.minecraft.block.Block;

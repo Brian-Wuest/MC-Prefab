@@ -1,0 +1,41 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "Green House",
+    "pattern": [
+        "bab",
+        "bcb",
+        "ded"
+    ],
+    "key": {
+        "a": {
+            "item": "minecraft:water_bucket"
+        },
+        "b": {
+            "item": "#double_compressed_stone"
+        },
+        "c": {
+            "item": "minecraft:glass_pane"
+        },
+        "d": {
+            "item": "prefab:item_string_of_lanterns"
+        },
+        "e": {
+            "item": "prefab:item_bundle_of_timber"
+        }
+    },
+    "result": {
+        "item": "prefab:item_basic_structure",
+        "data": 0,
+        "nbt": {
+            "ForgeCaps": {
+                "prefab:structuresconfiguration": {
+                    "configuration": {
+                        "structureEnumName": "GreenHouse",
+                        "structureDisplayName": "Green House"
+                    }
+                }
+            }
+        },
+        "count": 1
+    }
+}
