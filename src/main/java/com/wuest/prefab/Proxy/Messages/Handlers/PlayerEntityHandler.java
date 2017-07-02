@@ -42,7 +42,7 @@ public class PlayerEntityHandler implements IMessageHandler<PlayerEntityTagMessa
 			public void run() 
 			{
 				// This is client side.
-				NBTTagCompound newPlayerTag = Minecraft.getMinecraft().thePlayer.getEntityData();
+				NBTTagCompound newPlayerTag = Minecraft.getMinecraft().player.getEntityData();
 				newPlayerTag.setTag(EntityPlayerConfiguration.PLAYER_ENTITY_TAG, message.getMessageTag());
 				ClientEventHandler.playerConfig.loadFromNBTTagCompound(message.getMessageTag());
 			}

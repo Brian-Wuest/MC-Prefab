@@ -86,7 +86,7 @@ public class GuiStartHouseChooser extends GuiTabScreen
 	{
 		super.initGui();
 
-		if (!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
+		if (!Minecraft.getMinecraft().player.capabilities.isCreativeMode)
 		{
 			this.allowItemsInChestAndFurnace = !ClientEventHandler.playerConfig.builtStarterHouse;
 		}
