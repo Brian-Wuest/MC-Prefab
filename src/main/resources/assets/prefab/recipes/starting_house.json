@@ -1,0 +1,35 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "Starting House",
+    "pattern": [
+        "abc",
+        "ded",
+        "fff"
+    ],
+    "key": {
+        "a": {
+            "item": "minecraft:crafting_table"
+        },
+        "b": {
+            "item": "minecraft:clock"
+        },
+        "c": {
+            "item": "minecraft:furnace"
+        },
+        "d": {
+            "item": "#compressed_stone"
+        },
+        "e": {
+            "item": "minecraft:bed",
+            "data": 32767
+        },
+        "f": {
+            "item": "prefab:item_bundle_of_timber"
+        }
+        
+    },
+    "result": {
+        "item": "prefab:item_start_house",
+        "count": 1
+    }
+}

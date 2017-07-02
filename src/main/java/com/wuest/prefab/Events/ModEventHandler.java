@@ -82,7 +82,7 @@ public class ModEventHandler
 			EntityPlayerMP player = (EntityPlayerMP)event.getEntity();
 			EntityPlayerConfiguration playerConfig = EntityPlayerConfiguration.loadFromEntityData((EntityPlayerMP)event.getEntity());
 			
-			if (playerConfig.givenHouseBuilder && Prefab.proxy.proxyConfiguration.addHouseItem)
+			if (!playerConfig.givenHouseBuilder && Prefab.proxy.proxyConfiguration.addHouseItem)
 			{
 				ItemStack stack = new ItemStack(ModRegistry.StartHouse());
 				player.inventory.addItemStackToInventory(stack);
