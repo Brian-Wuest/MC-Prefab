@@ -3,8 +3,8 @@ package com.wuest.prefab;
 import java.lang.*;
 import java.util.ArrayList;
 
-import com.wuest.prefab.Config.HouseConfiguration;
-import com.wuest.prefab.Config.StructureConfiguration;
+import com.wuest.prefab.Config.Structures.HouseConfiguration;
+import com.wuest.prefab.Config.Structures.StructureConfiguration;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStairs;

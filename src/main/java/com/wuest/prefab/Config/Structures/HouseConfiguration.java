@@ -1,14 +1,18 @@
-package com.wuest.prefab.Config;
+package com.wuest.prefab.Config.Structures;
 
 import java.util.ArrayList;
 
 import com.wuest.prefab.BuildingMethods;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
+import com.wuest.prefab.Config.EntityPlayerConfiguration;
+import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Config.ModConfiguration.CeilingFloorBlockType;
 import com.wuest.prefab.Config.ModConfiguration.WallBlockType;
+import com.wuest.prefab.Events.ModEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Items.Structures.ItemStartHouse;
+import com.wuest.prefab.Proxy.Messages.PlayerEntityTagMessage;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureAlternateStart;
 
 import net.minecraft.block.Block;
@@ -21,6 +25,7 @@ import net.minecraft.block.BlockSign;
 import net.minecraft.block.BlockTorch;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumDyeColor;
@@ -109,6 +114,21 @@ public class HouseConfiguration extends StructureConfiguration
 	public void Initialize()
 	{
 		super.Initialize();
+		this.houseStyle = HouseStyle.BASIC;
+		this.glassColor = EnumDyeColor.CYAN;
+		this.floorBlock = CeilingFloorBlockType.StoneBrick;
+		this.ceilingBlock = CeilingFloorBlockType.StoneBrick;
+		this.wallWoodType = WallBlockType.Oak;
+		this.houseDepth = 9;
+		this.houseWidth = 9;
+		this.addTorches = true;
+		this.addBed = true;
+		this.addCraftingTable = true;
+		this.addChest = true;
+		this.addChestContents = true;
+		this.addFarm = true;
+		this.isCeilingFlat = false;
+		this.addMineShaft = true;
 	}
 
 	@Override
@@ -276,7 +296,7 @@ public class HouseConfiguration extends StructureConfiguration
 	protected void ConfigurationSpecificBuildStructure(EntityPlayer player, World world, BlockPos hitBlockPos)
 	{
 		boolean houseBuilt = true;
-		
+				
 		if (this.houseStyle == HouseConfiguration.HouseStyle.BASIC)
 		{
 			// We hit a block, let's start building!!!!!
@@ -340,6 +360,8 @@ public class HouseConfiguration extends StructureConfiguration
 				// Set up the mineshaft.
 				HouseConfiguration.PlaceMineShaft(world, startingPosition, this.houseDepth, northFace);
 			}
+			
+			houseBuilt = true;
 		}
 		else
 		{
@@ -351,8 +373,14 @@ public class HouseConfiguration extends StructureConfiguration
 		// The house was successfully built, remove the item from the inventory.
 		if (houseBuilt)
 		{
+			EntityPlayerConfiguration playerConfig = EntityPlayerConfiguration.loadFromEntityData((EntityPlayerMP)player);
+			playerConfig.builtStarterHouse = true;
+			playerConfig.saveToPlayer(player);
 			player.inventory.clearMatchingItems(ModRegistry.StartHouse(), -1, 1, null);
 			player.inventoryContainer.detectAndSendChanges();
+			
+			// Make sure to send a message to the client to sync up the server player information and the client player information.
+			Prefab.network.sendTo(new PlayerEntityTagMessage(playerConfig.getModIsPlayerNewTag(player)), (EntityPlayerMP)player);
 		}
 	}
 	

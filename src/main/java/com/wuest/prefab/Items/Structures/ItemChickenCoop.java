@@ -2,8 +2,8 @@ package com.wuest.prefab.Items.Structures;
 
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Config.ChickenCoopConfiguration;
-import com.wuest.prefab.Gui.GuiChickenCoop;
+import com.wuest.prefab.Config.Structures.ChickenCoopConfiguration;
+import com.wuest.prefab.Gui.Structures.GuiChickenCoop;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureChickenCoop;
 
 import net.minecraft.block.Block;

@@ -1,7 +1,7 @@
 package com.wuest.prefab.Capabilities.Storage;
 
 import com.wuest.prefab.Capabilities.IStructureConfigurationCapability;
-import com.wuest.prefab.Config.BasicStructureConfiguration;
+import com.wuest.prefab.Config.Structures.BasicStructureConfiguration;
 
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;

@@ -11,7 +11,7 @@ import com.google.common.collect.Lists;
 import com.google.gson.*;
 import com.google.gson.annotations.Expose;
 import com.wuest.prefab.*;
-import com.wuest.prefab.Config.StructureConfiguration;
+import com.wuest.prefab.Config.Structures.StructureConfiguration;
 import com.wuest.prefab.Events.ModEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
 
@@ -390,7 +390,7 @@ public class Structure
 	{
 		// Replace water blocks with cobblestone.
 		if (foundBlock instanceof BlockLiquid && blockState.getMaterial() == Material.WATER
-				&& (world.provider.getDimensionType() == DimensionType.NETHER || world.provider.getDimensionType() == DimensionType.THE_END))
+				&& (world.provider.getDimensionType() == DimensionType.NETHER))
 		{
 			block.setBlockDomain(Blocks.COBBLESTONE.getRegistryName().getResourceDomain());
 			block.setBlockName(Blocks.COBBLESTONE.getRegistryName().getResourcePath());

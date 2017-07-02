@@ -1,6 +1,6 @@
 package com.wuest.prefab.Gui.Controls;
 
-import com.wuest.prefab.Config.HouseConfiguration;
+import com.wuest.prefab.Config.Structures.HouseConfiguration;
 
 import net.minecraftforge.fml.client.config.GuiSlider;
 

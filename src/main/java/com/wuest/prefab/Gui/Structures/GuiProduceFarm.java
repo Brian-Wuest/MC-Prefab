@@ -1,10 +1,13 @@
-package com.wuest.prefab.Gui;
+package com.wuest.prefab.Gui.Structures;
 
 import java.awt.Color;
 import java.io.IOException;
 
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Config.ProduceFarmConfiguration;
+import com.wuest.prefab.Config.Structures.NetherGateConfiguration;
+import com.wuest.prefab.Config.Structures.ProduceFarmConfiguration;
+import com.wuest.prefab.Events.ClientEventHandler;
+import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Proxy.Messages.StructureTagMessage;
 import com.wuest.prefab.Proxy.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Render.StructureRenderHandler;
@@ -42,7 +45,7 @@ public class GuiProduceFarm extends GuiStructure
 	@Override
 	public void Initialize()
 	{
-		this.configuration = new ProduceFarmConfiguration();
+		this.configuration = ClientEventHandler.playerConfig.getClientConfig("Produce Farm", ProduceFarmConfiguration.class);
 		this.configuration.pos = this.pos;
 
 		// Get the upper left hand corner of the GUI box.

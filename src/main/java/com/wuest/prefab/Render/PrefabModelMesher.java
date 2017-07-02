@@ -5,7 +5,7 @@ import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Capabilities.IStructureConfigurationCapability;
 import com.wuest.prefab.Capabilities.StructureConfigurationCapability;
 import com.wuest.prefab.Capabilities.Storage.StructureConfigurationStorage;
-import com.wuest.prefab.Config.BasicStructureConfiguration.EnumBasicStructureName;
+import com.wuest.prefab.Config.Structures.BasicStructureConfiguration.EnumBasicStructureName;
 import com.wuest.prefab.Items.Structures.ItemBasicStructure;
 
 import net.minecraft.client.renderer.ItemMeshDefinition;

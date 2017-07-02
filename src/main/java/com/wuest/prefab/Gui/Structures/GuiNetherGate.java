@@ -1,21 +1,22 @@
-package com.wuest.prefab.Gui;
+package com.wuest.prefab.Gui.Structures;
 
 import java.awt.Color;
 import java.io.IOException;
 
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Config.FishPondConfiguration;
+import com.wuest.prefab.Config.Structures.MonsterMasherConfiguration;
+import com.wuest.prefab.Config.Structures.NetherGateConfiguration;
+import com.wuest.prefab.Events.ClientEventHandler;
+import com.wuest.prefab.Gui.GuiLangKeys;
+import com.wuest.prefab.Gui.GuiTabScreen;
 import com.wuest.prefab.Proxy.Messages.StructureTagMessage;
 import com.wuest.prefab.Proxy.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Render.StructureRenderHandler;
-import com.wuest.prefab.StructureGen.CustomStructures.StructureFishPond;
+import com.wuest.prefab.StructureGen.CustomStructures.StructureNetherGate;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiLabel;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -26,15 +27,15 @@ import net.minecraftforge.fml.client.config.GuiButtonExt;
  * @author WuestMan
  *
  */
-public class GuiFishPond extends GuiStructure
+public class GuiNetherGate extends GuiStructure
 {
-	private static final ResourceLocation structureTopDown = new ResourceLocation("prefab", "textures/gui/fish_pond_top_down.png");
-	protected FishPondConfiguration configuration;
+	private static final ResourceLocation structureTopDown = new ResourceLocation("prefab", "textures/gui/nether_gate_top_down.png");
+	protected NetherGateConfiguration configuration;
 	
-	public GuiFishPond(int x, int y, int z)
+	public GuiNetherGate(int x, int y, int z)
 	{
 		super(x, y, z, true);
-		this.structureConfiguration = EnumStructureConfiguration.FishPond;
+		this.structureConfiguration = EnumStructureConfiguration.NetherGate;
 	}
 	
 	/**
@@ -43,28 +44,23 @@ public class GuiFishPond extends GuiStructure
 	@Override
 	public void drawScreen(int x, int y, float f) 
 	{
-		int grayBoxX = this.getCenteredXAxis() - 188;
+		int grayBoxX = this.getCenteredXAxis() - 213;
 		int grayBoxY = this.getCenteredYAxis() - 83;
 		
 		this.drawDefaultBackground();
 		
 		// Draw the control background.
-		// Create class to de-compress image from resource path.
-		// This class should inherit from "SimpleTexture" and override it's loadTexture method
-		// After the buffered image has been loaded, the GlStateManager.bindTexture class should be called.
-		// Will probably want to keep the buffered image around in a class so the resources aren't constantly being de-compressed as this happens on every tick.
-		//BufferedImage image = ZipUtil.decompressImageResource(structureTopDown.getResourcePath());
 		this.mc.getTextureManager().bindTexture(structureTopDown);
-		
-		this.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 151, 149, 151, 149);
+		GuiTabScreen.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 164, 108, 164, 108);
 		
 		this.drawControlBackgroundAndButtonsAndLabels(grayBoxX, grayBoxY, x, y);
 
+		// Draw the text here.
 		this.mc.fontRendererObj.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_FACING), grayBoxX + 10, grayBoxY + 10, this.textColor);
 		
 		// Draw the text here.
 		this.mc.fontRendererObj.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), grayBoxX + 147, grayBoxY + 10, 95, this.textColor);
-		this.mc.fontRendererObj.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.FISH_POND_STRUCTURE_FACING), grayBoxX + 147, grayBoxY + 60, 95, this.textColor);
+		this.mc.fontRendererObj.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_FACING_PLAYER), grayBoxX + 147, grayBoxY + 60, 95, this.textColor);
 		
 		if (!Prefab.proxy.proxyConfiguration.enableStructurePreview)
 		{
@@ -82,7 +78,7 @@ public class GuiFishPond extends GuiStructure
 		
 		if (button == this.btnVisualize)
 		{
-			StructureFishPond structure = StructureFishPond.CreateInstance(StructureFishPond.ASSETLOCATION, StructureFishPond.class);
+			StructureNetherGate structure = StructureNetherGate.CreateInstance(StructureNetherGate.ASSETLOCATION, StructureNetherGate.class);
 			StructureRenderHandler.setStructure(structure, EnumFacing.NORTH, this.configuration);
 			this.mc.displayGuiScreen(null);
 		}
@@ -91,20 +87,20 @@ public class GuiFishPond extends GuiStructure
 	@Override
 	protected void Initialize() 
 	{
-		this.configuration = new FishPondConfiguration();
+		this.configuration = ClientEventHandler.playerConfig.getClientConfig("Nether Gate", NetherGateConfiguration.class);
 		this.configuration.pos = this.pos;
 
 		// Get the upper left hand corner of the GUI box.
-		int grayBoxX = (this.width / 2) - 188;
-		int grayBoxY = (this.height / 2) - 83;
+		int grayBoxX = this.getCenteredXAxis() - 213;
+		int grayBoxY = this.getCenteredYAxis() - 83;
 
 		// Create the buttons.
 		this.btnHouseFacing = new GuiButtonExt(3, grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateFacing(this.configuration.houseFacing));
 		this.buttonList.add(this.btnHouseFacing);
-		
+
 		this.btnVisualize = new GuiButtonExt(4, grayBoxX + 10, grayBoxY + 50, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW));
 		this.buttonList.add(this.btnVisualize);
-
+		
 		// Create the done and cancel buttons.
 		this.btnBuild = new GuiButtonExt(1, grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_BUILD));
 		this.buttonList.add(this.btnBuild);

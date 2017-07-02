@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.*;
+import com.wuest.prefab.Config.Structures.MonsterMasherConfiguration;
+import com.wuest.prefab.Config.Structures.StructureConfiguration;
 import com.wuest.prefab.StructureGen.*;
 
 import net.minecraft.block.*;

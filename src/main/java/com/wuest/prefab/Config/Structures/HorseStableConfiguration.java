@@ -1,7 +1,7 @@
-package com.wuest.prefab.Config;
+package com.wuest.prefab.Config.Structures;
 
 import com.wuest.prefab.ModRegistry;
-import com.wuest.prefab.StructureGen.CustomStructures.StructureFishPond;
+import com.wuest.prefab.StructureGen.CustomStructures.StructureHorseStable;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -10,11 +10,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 /**
- * 
+ * The horse stable configuration.
  * @author WuestMan
- *
  */
-public class FishPondConfiguration extends StructureConfiguration
+public class HorseStableConfiguration extends StructureConfiguration
 {
 	/**
 	 * Custom method to read the NBTTagCompound message.
@@ -22,11 +21,11 @@ public class FishPondConfiguration extends StructureConfiguration
 	 * @return An new configuration object with the values derived from the NBTTagCompound.
 	 */
 	@Override
-	public FishPondConfiguration ReadFromNBTTagCompound(NBTTagCompound messageTag) 
+	public HorseStableConfiguration ReadFromNBTTagCompound(NBTTagCompound messageTag) 
 	{
-		FishPondConfiguration config = new FishPondConfiguration();
+		HorseStableConfiguration config = new HorseStableConfiguration();
 		
-		return (FishPondConfiguration)super.ReadFromNBTTagCompound(messageTag, config);
+		return (HorseStableConfiguration)super.ReadFromNBTTagCompound(messageTag, config);
 	}
 	
 	/**
@@ -38,11 +37,11 @@ public class FishPondConfiguration extends StructureConfiguration
 	@Override
 	protected void ConfigurationSpecificBuildStructure(EntityPlayer player, World world, BlockPos hitBlockPos)
 	{
-		StructureFishPond structure = StructureFishPond.CreateInstance(StructureFishPond.ASSETLOCATION, StructureFishPond.class);
+		StructureHorseStable structure = StructureHorseStable.CreateInstance(StructureHorseStable.ASSETLOCATION, StructureHorseStable.class);
 		
 		if (structure.BuildStructure(this, world, hitBlockPos, EnumFacing.NORTH, player))
 		{
-			player.inventory.clearMatchingItems(ModRegistry.FishPond(), -1, 1, null);
+			player.inventory.clearMatchingItems(ModRegistry.HorseStable(), -1, 1, null);
 			player.inventoryContainer.detectAndSendChanges();
 		}
 	}

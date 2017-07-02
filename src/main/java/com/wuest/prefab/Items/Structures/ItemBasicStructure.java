@@ -6,8 +6,8 @@ import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Capabilities.*;
 import com.wuest.prefab.Capabilities.Storage.StructureConfigurationStorage;
-import com.wuest.prefab.Config.BasicStructureConfiguration;
-import com.wuest.prefab.Config.BasicStructureConfiguration.EnumBasicStructureName;
+import com.wuest.prefab.Config.Structures.BasicStructureConfiguration;
+import com.wuest.prefab.Config.Structures.BasicStructureConfiguration.EnumBasicStructureName;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureBasic;
 
 import net.minecraft.block.Block;

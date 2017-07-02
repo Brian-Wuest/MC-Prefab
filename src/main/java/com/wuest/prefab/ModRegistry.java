@@ -16,23 +16,23 @@ import com.wuest.prefab.Blocks.BlockPhasing;
 import com.wuest.prefab.Capabilities.IStructureConfigurationCapability;
 import com.wuest.prefab.Capabilities.StructureConfigurationCapability;
 import com.wuest.prefab.Capabilities.Storage.StructureConfigurationStorage;
-import com.wuest.prefab.Config.ChickenCoopConfiguration;
-import com.wuest.prefab.Config.StructureConfiguration;
-import com.wuest.prefab.Config.BasicStructureConfiguration.EnumBasicStructureName;
-import com.wuest.prefab.Gui.GuiAdvancedWareHouse;
-import com.wuest.prefab.Gui.GuiBasicStructure;
-import com.wuest.prefab.Gui.GuiChickenCoop;
+import com.wuest.prefab.Config.Structures.ChickenCoopConfiguration;
+import com.wuest.prefab.Config.Structures.StructureConfiguration;
+import com.wuest.prefab.Config.Structures.BasicStructureConfiguration.EnumBasicStructureName;
 import com.wuest.prefab.Gui.GuiDrafter;
-import com.wuest.prefab.Gui.GuiFishPond;
-import com.wuest.prefab.Gui.GuiHorseStable;
-import com.wuest.prefab.Gui.GuiModularHouse;
-import com.wuest.prefab.Gui.GuiMonsterMasher;
-import com.wuest.prefab.Gui.GuiNetherGate;
-import com.wuest.prefab.Gui.GuiProduceFarm;
-import com.wuest.prefab.Gui.GuiStartHouseChooser;
-import com.wuest.prefab.Gui.GuiTreeFarm;
-import com.wuest.prefab.Gui.GuiVillaerHouses;
-import com.wuest.prefab.Gui.GuiWareHouse;
+import com.wuest.prefab.Gui.Structures.GuiAdvancedWareHouse;
+import com.wuest.prefab.Gui.Structures.GuiBasicStructure;
+import com.wuest.prefab.Gui.Structures.GuiChickenCoop;
+import com.wuest.prefab.Gui.Structures.GuiFishPond;
+import com.wuest.prefab.Gui.Structures.GuiHorseStable;
+import com.wuest.prefab.Gui.Structures.GuiModularHouse;
+import com.wuest.prefab.Gui.Structures.GuiMonsterMasher;
+import com.wuest.prefab.Gui.Structures.GuiNetherGate;
+import com.wuest.prefab.Gui.Structures.GuiProduceFarm;
+import com.wuest.prefab.Gui.Structures.GuiStartHouseChooser;
+import com.wuest.prefab.Gui.Structures.GuiTreeFarm;
+import com.wuest.prefab.Gui.Structures.GuiVillaerHouses;
+import com.wuest.prefab.Gui.Structures.GuiWareHouse;
 import com.wuest.prefab.Items.ItemBlockMeta;
 import com.wuest.prefab.Items.ItemBogus;
 import com.wuest.prefab.Items.ItemBundleOfTimber;
@@ -57,14 +57,17 @@ import com.wuest.prefab.Items.Structures.ItemTreeFarm;
 import com.wuest.prefab.Items.Structures.ItemVillagerHouses;
 import com.wuest.prefab.Items.Structures.ItemWareHouse;
 import com.wuest.prefab.Proxy.Messages.ConfigSyncMessage;
+import com.wuest.prefab.Proxy.Messages.PlayerEntityTagMessage;
 import com.wuest.prefab.Proxy.Messages.StructureTagMessage;
 import com.wuest.prefab.Proxy.Messages.Handlers.ConfigSyncHandler;
+import com.wuest.prefab.Proxy.Messages.Handlers.PlayerEntityHandler;
 import com.wuest.prefab.Proxy.Messages.Handlers.StructureHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.block.model.ModelBakery;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -610,6 +613,8 @@ public class ModRegistry
 		
 		ModRegistry.registerBlock(new BlockBoundary("block_boundary"));
 		
+		Blocks.STRUCTURE_BLOCK.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+		
 		//BlockDrafter drafter = new BlockDrafter();
 		//ModRegistry.registerBlock(drafter);
 		//GameRegistry.registerTileEntity(TileEntityDrafter.class, "Drafter");
@@ -806,7 +811,7 @@ public class ModRegistry
 				'd', new ItemStack(Items.WATER_BUCKET),
 				'e', new ItemStack(Items.FISHING_ROD, 1, 0),
 				'f', new ItemStack(Item.getItemFromBlock(Blocks.SAND)),
-				'g', new ItemStack(Items.FISH, 1, 0));
+				'g', new ItemStack(Items.FISH, 1, OreDictionary.WILDCARD_VALUE));
 		
 		// Warehouse Upgrade
 		ModRegistry.addShapedRecipe("Warehouse Upgrade", new ItemStack(ModRegistry.WareHouseUpgrade()),
@@ -1068,6 +1073,21 @@ public class ModRegistry
 				'c', new ItemStack(Items.BREWING_STAND),
 				'd', new ItemStack(Items.BLAZE_ROD));
 		
+		// Greenhouse
+		result = new ItemStack(ModRegistry.BasicStructure());
+		capability = result.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
+		capability.getConfiguration().basicStructureName = EnumBasicStructureName.GreenHouse;
+		
+		ModRegistry.addShapedRecipe("Green House", result, 
+				"bab",
+				"bcb",
+				"ded",
+				'a', new ItemStack(Items.WATER_BUCKET),
+				'b', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE),
+				'c', new ItemStack(Item.getItemFromBlock(Blocks.GLASS_PANE)),
+				'd', new ItemStack(ModRegistry.StringOfLanterns()),
+				'e', new ItemStack(ModRegistry.BundleOfTimber()));
+		
 		// Instant Bridge.
 		ModRegistry.addShapedRecipe("Instant Bridge", 
 				new ItemStack(ModRegistry.InstantBridge()),
@@ -1150,6 +1170,18 @@ public class ModRegistry
 				"aaa",
 				'a', Item.getItemFromBlock(Blocks.GLASS),
 				'b', Items.ENDER_PEARL);
+		
+		// Starting House.
+		ModRegistry.addShapedRecipe("Starting House",  new ItemStack(ModRegistry.StartHouse()), 
+				"abc",
+				"ded",
+				"fff",
+				'a', Item.getItemFromBlock(Blocks.CRAFTING_TABLE),
+				'b', Items.CLOCK,
+				'c', Item.getItemFromBlock(Blocks.FURNACE),
+				'd', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_STONE),
+				'e', Items.BED,
+				'f', ModRegistry.BundleOfTimber());
 	}
 
 	/**
@@ -1237,6 +1269,8 @@ public class ModRegistry
 		Prefab.network.registerMessage(ConfigSyncHandler.class, ConfigSyncMessage.class, 1, Side.CLIENT);
 		
 		Prefab.network.registerMessage(StructureHandler.class, StructureTagMessage.class, 2, Side.SERVER);
+		
+		Prefab.network.registerMessage(PlayerEntityHandler.class, PlayerEntityTagMessage.class, 3, Side.CLIENT);
 	}
 	
 	/**

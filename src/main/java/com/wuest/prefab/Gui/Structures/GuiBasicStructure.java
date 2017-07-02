@@ -1,4 +1,4 @@
-package com.wuest.prefab.Gui;
+package com.wuest.prefab.Gui.Structures;
 
 import java.awt.Color;
 import java.io.IOException;
@@ -6,8 +6,11 @@ import java.io.IOException;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Capabilities.IStructureConfigurationCapability;
-import com.wuest.prefab.Config.BasicStructureConfiguration;
-import com.wuest.prefab.Config.BasicStructureConfiguration.EnumBasicStructureName;
+import com.wuest.prefab.Config.Structures.BasicStructureConfiguration;
+import com.wuest.prefab.Config.Structures.VillagerHouseConfiguration;
+import com.wuest.prefab.Config.Structures.BasicStructureConfiguration.EnumBasicStructureName;
+import com.wuest.prefab.Events.ClientEventHandler;
+import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Items.Structures.ItemBasicStructure;
 import com.wuest.prefab.Proxy.Messages.StructureTagMessage;
 import com.wuest.prefab.Proxy.Messages.StructureTagMessage.EnumStructureConfiguration;
@@ -109,6 +112,15 @@ public class GuiBasicStructure extends GuiStructure
 		{
 			IStructureConfigurationCapability capability = stack.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
 			this.configuration = capability.getConfiguration();
+			
+			if (!ClientEventHandler.playerConfig.clientConfigurations.containsKey(this.configuration.basicStructureName.getName()))
+			{
+				ClientEventHandler.playerConfig.clientConfigurations.put(this.configuration.basicStructureName.getName(), this.configuration);
+			}
+			else
+			{
+				this.configuration = ClientEventHandler.playerConfig.getClientConfig(this.configuration.basicStructureName.getName(), BasicStructureConfiguration.class);
+			}
 		}
 		
 		this.configuration.pos = this.pos;

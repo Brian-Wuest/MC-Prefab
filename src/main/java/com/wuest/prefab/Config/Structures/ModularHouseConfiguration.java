@@ -1,7 +1,7 @@
-package com.wuest.prefab.Config;
+package com.wuest.prefab.Config.Structures;
 
 import com.wuest.prefab.ModRegistry;
-import com.wuest.prefab.StructureGen.CustomStructures.StructureTreeFarm;
+import com.wuest.prefab.StructureGen.CustomStructures.StructureModularHouse;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -10,11 +10,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 /**
- * 
+ * The configuration class for the modular house.
  * @author WuestMan
  *
  */
-public class TreeFarmConfiguration extends StructureConfiguration 
+public class ModularHouseConfiguration extends StructureConfiguration
 {
 	/**
 	 * Custom method to read the NBTTagCompound message.
@@ -22,11 +22,11 @@ public class TreeFarmConfiguration extends StructureConfiguration
 	 * @return An new configuration object with the values derived from the NBTTagCompound.
 	 */
 	@Override
-	public TreeFarmConfiguration ReadFromNBTTagCompound(NBTTagCompound messageTag) 
+	public ModularHouseConfiguration ReadFromNBTTagCompound(NBTTagCompound messageTag) 
 	{
-		TreeFarmConfiguration config = new TreeFarmConfiguration();
+		ModularHouseConfiguration config = new ModularHouseConfiguration();
 		
-		return (TreeFarmConfiguration)super.ReadFromNBTTagCompound(messageTag, config);
+		return (ModularHouseConfiguration)super.ReadFromNBTTagCompound(messageTag, config);
 	}
 	
 	/**
@@ -38,10 +38,12 @@ public class TreeFarmConfiguration extends StructureConfiguration
 	@Override
 	protected void ConfigurationSpecificBuildStructure(EntityPlayer player, World world, BlockPos hitBlockPos)
 	{
-		StructureTreeFarm structure = StructureTreeFarm.CreateInstance(StructureTreeFarm.ASSETLOCATION, StructureTreeFarm.class);
-		structure.BuildStructure(this, world, hitBlockPos, EnumFacing.NORTH, player);
+		StructureModularHouse structure = StructureModularHouse.CreateInstance(StructureModularHouse.ASSETLOCATION, StructureModularHouse.class);
 		
-		player.inventory.clearMatchingItems(ModRegistry.TreeFarm(), -1, 1, null);
-		player.inventoryContainer.detectAndSendChanges();
+		if (structure.BuildStructure(this, world, hitBlockPos, EnumFacing.NORTH, player))
+		{
+			player.inventory.clearMatchingItems(ModRegistry.ModularHouse(), -1, 1, null);
+			player.inventoryContainer.detectAndSendChanges();
+		}
 	}
 }

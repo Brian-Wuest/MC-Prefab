@@ -1,4 +1,4 @@
-package com.wuest.prefab.Config;
+package com.wuest.prefab.Config.Structures;
 
 import com.wuest.prefab.Config.ModConfiguration.CeilingFloorBlockType;
 import com.wuest.prefab.Config.ModConfiguration.WallBlockType;

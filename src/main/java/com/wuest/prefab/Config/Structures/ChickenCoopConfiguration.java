@@ -1,4 +1,4 @@
-package com.wuest.prefab.Config;
+package com.wuest.prefab.Config.Structures;
 
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureChickenCoop;

@@ -1,4 +1,4 @@
-package com.wuest.prefab.Gui;
+package com.wuest.prefab.Gui.Structures;
 
 import com.wuest.prefab.Proxy.Messages.StructureTagMessage.EnumStructureConfiguration;
 
@@ -13,6 +13,7 @@ public class GuiAdvancedWareHouse extends GuiWareHouse
 	public GuiAdvancedWareHouse(int x, int y, int z)
 	{
 		super(x, y, z);
+		this.clientGUIIdentifier = "Advanced Warehouse";
 	}
 	
 	@Override
