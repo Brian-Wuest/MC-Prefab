@@ -1,6 +1,6 @@
 {
     "type": "minecraft:crafting_shapeless",
-    "group": "Horse Stable",
+    "group": "Advanced Horse Stable",
     "ingredients": [
         {
             "item": "prefab:item_horse_stable"

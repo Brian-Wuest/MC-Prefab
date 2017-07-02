@@ -1,6 +1,6 @@
 {
     "type": "minecraft:crafting_shapeless",
-    "group": "Chicken Coop",
+    "group": "Advanced Chicken Coop",
     "ingredients": [
         {
             "item": "prefab:item_chicken_coop"
