@@ -30,6 +30,7 @@ item.prefab.ender_gateway=Ender Gateway
 item.prefab.aqua_base=Aqua Base
 item.prefab.grassy_plain=Травянистые равнины
 item.prefab.magic_temple=Волшебный храм
+item.prefab.green_house=консерватория
  
 tile.prefab:block_compressed_stone.block_compressed_stone.name=Сжатый Камень
 tile.prefab:block_compressed_stone.block_double_compressed_stone.name=Двойной Сжатый Камень

@@ -30,6 +30,7 @@ item.prefab.ender_gateway=Pasarela de Ender
 item.prefab.aqua_base=Base Aqua
 item.prefab.grassy_plain=Grassy Plain
 item.prefab.magic_temple=templo magico
+item.prefab.green_house=Conservatorio
 
 tile.prefab:block_compressed_stone.block_compressed_stone.name=Piedra comprimida
 tile.prefab:block_compressed_stone.block_double_compressed_stone.name=Doble piedra comprimida

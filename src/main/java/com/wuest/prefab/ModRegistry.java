@@ -1079,14 +1079,14 @@ public class ModRegistry
 		capability.getConfiguration().basicStructureName = EnumBasicStructureName.GreenHouse;
 		
 		ModRegistry.addShapedRecipe("Green House", result, 
-				"bab",
 				"bcb",
+				"bab",
 				"ded",
 				'a', new ItemStack(Items.WATER_BUCKET),
 				'b', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE),
 				'c', new ItemStack(Item.getItemFromBlock(Blocks.GLASS_PANE)),
 				'd', new ItemStack(ModRegistry.StringOfLanterns()),
-				'e', new ItemStack(ModRegistry.BundleOfTimber()));
+				'e', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_DIRT));
 		
 		// Instant Bridge.
 		ModRegistry.addShapedRecipe("Instant Bridge", 
