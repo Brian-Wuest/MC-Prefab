@@ -45,6 +45,10 @@ tile.prefab:block_compressed_obsidian.block_compressed_obsidian.name=Compressed 
 tile.prefab:block_compressed_obsidian.block_double_compressed_obsidian.name=Double Compressed Obsidian
 tile.prefab:block_phasing.name=Phasic Block
 tile.prefab:block_boundary.name=Boundary Block
+tile.prefab:block_glass_stairs.name=Стеклянная лестница
+tile.prefab:block_andesite_stairs.name=Андезитовая лестница
+tile.prefab:block_diorite_stairs.name=Диоритная лестница
+tile.prefab:block_granite_stairs.name=Гранитная лестница
  
 prefab.gui.fishpond.structure.facing=Примечание: е�?ли вы лицом к �?еверу, выберите Юг. Бела�? окантовка - �?то про�?то чтобы показать размер.
  

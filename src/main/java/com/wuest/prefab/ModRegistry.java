@@ -7,10 +7,14 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import com.google.common.collect.Lists;
+import com.wuest.prefab.Blocks.BlockAndesiteStairs;
 import com.wuest.prefab.Blocks.BlockBoundary;
 import com.wuest.prefab.Blocks.BlockCompressedObsidian;
 import com.wuest.prefab.Blocks.BlockCompressedStone;
+import com.wuest.prefab.Blocks.BlockDioriteStairs;
 import com.wuest.prefab.Blocks.BlockDrafter;
+import com.wuest.prefab.Blocks.BlockGlassStairs;
+import com.wuest.prefab.Blocks.BlockGraniteStairs;
 import com.wuest.prefab.Blocks.BlockPaperLantern;
 import com.wuest.prefab.Blocks.BlockPhasing;
 import com.wuest.prefab.Capabilities.IStructureConfigurationCapability;
@@ -65,6 +69,7 @@ import com.wuest.prefab.Proxy.Messages.Handlers.StructureHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPlanks;
+import net.minecraft.block.BlockStone;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.creativetab.CreativeTabs;
@@ -456,6 +461,42 @@ public class ModRegistry
 	}
 	
 	/**
+	 * The Glass Stairs registered Block.
+	 * @return An instance of {@link BlockGlassStairs}.
+	 */
+	public static BlockGlassStairs GlassStairs()
+	{
+		return ModRegistry.GetBlock(BlockGlassStairs.class);
+	}
+	
+	/**
+	 * The Andesite Stairs registered Block.
+	 * @return An instance of {@link BlockAndesiteStairs}.
+	 */
+	public static BlockAndesiteStairs AndesiteStairs()
+	{
+		return ModRegistry.GetBlock(BlockAndesiteStairs.class);
+	}
+	
+	/**
+	 * The Diorite Stairs registered Block.
+	 * @return An instance of {@link BlockDioriteStairs}.
+	 */
+	public static BlockDioriteStairs DioriteStairs()
+	{
+		return ModRegistry.GetBlock(BlockDioriteStairs.class);
+	}
+	
+	/**
+	 * The Granite Stairs registered Block.
+	 * @return An instance of {@link BlockGraniteStairs}.
+	 */
+	public static BlockGraniteStairs GraniteStairs()
+	{
+		return ModRegistry.GetBlock(BlockGraniteStairs.class);
+	}
+	
+	/**
 	 * The Boundary Block registered Block.
 	 * @return An instance of {@link BlockBoundary}.
 	 */
@@ -612,6 +653,14 @@ public class ModRegistry
 		ModRegistry.registerBlock(new BlockPhasing("block_phasing"));
 		
 		ModRegistry.registerBlock(new BlockBoundary("block_boundary"));
+		
+		ModRegistry.registerBlock(new BlockGlassStairs("block_glass_stairs"));
+		
+		ModRegistry.registerBlock(new BlockAndesiteStairs("block_andesite_stairs"));
+		
+		ModRegistry.registerBlock(new BlockDioriteStairs("block_diorite_stairs"));
+		
+		ModRegistry.registerBlock(new BlockGraniteStairs("block_granite_stairs"));
 		
 		Blocks.STRUCTURE_BLOCK.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
 		
@@ -1182,6 +1231,55 @@ public class ModRegistry
 				'd', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_STONE),
 				'e', Items.BED,
 				'f', ModRegistry.BundleOfTimber());
+		
+		// Glass Stairs
+		ModRegistry.addShapedRecipe("Glass Stairs", new ItemStack(ModRegistry.GlassStairs(), 4),
+				"a  ",
+				"aa ",
+				"aaa",
+				'a', Item.getItemFromBlock(Blocks.GLASS));
+		
+		// Andesite Stairs
+		ModRegistry.addShapedRecipe("Andesite Stairs",new ItemStack(ModRegistry.AndesiteStairs(), 4),
+				"a  ",
+				"aa ",
+				"aaa",
+				'a', new ItemStack(Item.getItemFromBlock(Blocks.STONE), 1, BlockStone.EnumType.ANDESITE_SMOOTH.getMetadata()));
+		
+		// Andesite Stairs
+		ModRegistry.addShapedRecipe("Andesite Stairs",new ItemStack(ModRegistry.AndesiteStairs(), 4),
+				"a  ",
+				"aa ",
+				"aaa",
+				'a', new ItemStack(Item.getItemFromBlock(Blocks.STONE), 1, BlockStone.EnumType.ANDESITE.getMetadata()));
+		
+		// Diorite Stairs
+		ModRegistry.addShapedRecipe("Diorite Stairs",new ItemStack(ModRegistry.DioriteStairs(), 4),
+				"a  ",
+				"aa ",
+				"aaa",
+				'a', new ItemStack(Item.getItemFromBlock(Blocks.STONE), 1, BlockStone.EnumType.DIORITE_SMOOTH.getMetadata()));
+		
+		// Diorite Stairs
+		ModRegistry.addShapedRecipe("Diorite Stairs",new ItemStack(ModRegistry.DioriteStairs(), 4),
+				"a  ",
+				"aa ",
+				"aaa",
+				'a', new ItemStack(Item.getItemFromBlock(Blocks.STONE), 1, BlockStone.EnumType.DIORITE.getMetadata()));
+		
+		// Granite Stairs
+		ModRegistry.addShapedRecipe("Granite Stairs",new ItemStack(ModRegistry.GraniteStairs(), 4),
+				"a  ",
+				"aa ",
+				"aaa",
+				'a', new ItemStack(Item.getItemFromBlock(Blocks.STONE), 1, BlockStone.EnumType.GRANITE_SMOOTH.getMetadata()));
+		
+		// Granite Stairs
+		ModRegistry.addShapedRecipe("Granite Stairs",new ItemStack(ModRegistry.GraniteStairs(), 4),
+				"a  ",
+				"aa ",
+				"aaa",
+				'a', new ItemStack(Item.getItemFromBlock(Blocks.STONE), 1, BlockStone.EnumType.GRANITE.getMetadata()));
 	}
 
 	/**

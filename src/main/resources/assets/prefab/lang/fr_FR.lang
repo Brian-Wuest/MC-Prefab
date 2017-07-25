@@ -45,6 +45,10 @@ tile.prefab:block_compressed_obsidian.block_compressed_obsidian.name=Obsidienne 
 tile.prefab:block_compressed_obsidian.block_double_compressed_obsidian.name=Double obsidienne compressée
 tile.prefab:block_phasing.name=Bloc transitoire
 tile.prefab:block_boundary.name=Bloc de limite
+tile.prefab:block_glass_stairs.name=Escalier en verre
+tile.prefab:block_andesite_stairs.name=Escalier andesite
+tile.prefab:block_diorite_stairs.name=Escalier diorite
+tile.prefab:block_granite_stairs.name=Escalier en granit
 
 prefab.gui.fishpond.structure.facing=Remarque: Si vous êtes face au nord, choisissez le sud pour que la jetée s'éloigne de vous. La bordure blanche est juste pour montrer la taille.
 
