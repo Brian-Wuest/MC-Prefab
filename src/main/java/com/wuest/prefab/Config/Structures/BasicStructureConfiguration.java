@@ -299,7 +299,7 @@ public class BasicStructureConfiguration extends StructureConfiguration
 				"assets/prefab/structures/green_house.zip",
 				"textures/gui/green_house_topdown.png",
 				"item_green_house",
-				73, 164);
+				104, 173);
 		
 		private String name;
 		private String assetLocation;

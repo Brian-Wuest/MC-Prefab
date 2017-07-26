@@ -1,0 +1,16 @@
+{
+    "variants": {
+        "variant=false": [
+            { "model": "granite_smooth" },
+            { "model": "granite_smooth", "y": 90 },
+            { "model": "granite_smooth", "y": 180 },
+            { "model": "granite_smooth", "y": 270 }
+        ],
+        "variant=true": [
+            { "model": "granite_smooth" },
+            { "model": "granite_smooth", "y": 90 },
+            { "model": "granite_smooth", "y": 180 },
+            { "model": "granite_smooth", "y": 270 }
+        ]
+    }
+}

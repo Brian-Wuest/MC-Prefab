@@ -1,0 +1,16 @@
+{
+    "variants": {
+        "variant=false": [
+            { "model": "andesite_smooth" },
+            { "model": "andesite_smooth", "y": 90 },
+            { "model": "andesite_smooth", "y": 180 },
+            { "model": "andesite_smooth", "y": 270 }
+        ],
+        "variant=true": [
+            { "model": "andesite_smooth" },
+            { "model": "andesite_smooth", "y": 90 },
+            { "model": "andesite_smooth", "y": 180 },
+            { "model": "andesite_smooth", "y": 270 }
+        ]
+    }
+}

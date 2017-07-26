@@ -12,9 +12,18 @@ import com.wuest.prefab.Blocks.BlockBoundary;
 import com.wuest.prefab.Blocks.BlockCompressedObsidian;
 import com.wuest.prefab.Blocks.BlockCompressedStone;
 import com.wuest.prefab.Blocks.BlockDioriteStairs;
+import com.wuest.prefab.Blocks.BlockDoubleAndesiteSlab;
+import com.wuest.prefab.Blocks.BlockDoubleDioriteSlab;
+import com.wuest.prefab.Blocks.BlockDoubleGlassSlab;
+import com.wuest.prefab.Blocks.BlockDoubleGraniteSlab;
 import com.wuest.prefab.Blocks.BlockDrafter;
+import com.wuest.prefab.Blocks.BlockGlassSlab;
 import com.wuest.prefab.Blocks.BlockGlassStairs;
 import com.wuest.prefab.Blocks.BlockGraniteStairs;
+import com.wuest.prefab.Blocks.BlockHalfAndesiteSlab;
+import com.wuest.prefab.Blocks.BlockHalfDioriteSlab;
+import com.wuest.prefab.Blocks.BlockHalfGlassSlab;
+import com.wuest.prefab.Blocks.BlockHalfGraniteSlab;
 import com.wuest.prefab.Blocks.BlockPaperLantern;
 import com.wuest.prefab.Blocks.BlockPhasing;
 import com.wuest.prefab.Capabilities.IStructureConfigurationCapability;
@@ -37,6 +46,10 @@ import com.wuest.prefab.Gui.Structures.GuiStartHouseChooser;
 import com.wuest.prefab.Gui.Structures.GuiTreeFarm;
 import com.wuest.prefab.Gui.Structures.GuiVillaerHouses;
 import com.wuest.prefab.Gui.Structures.GuiWareHouse;
+import com.wuest.prefab.Items.ItemBlockAndesiteSlab;
+import com.wuest.prefab.Items.ItemBlockDioriteSlab;
+import com.wuest.prefab.Items.ItemBlockGlassSlab;
+import com.wuest.prefab.Items.ItemBlockGraniteSlab;
 import com.wuest.prefab.Items.ItemBlockMeta;
 import com.wuest.prefab.Items.ItemBogus;
 import com.wuest.prefab.Items.ItemBundleOfTimber;
@@ -497,6 +510,42 @@ public class ModRegistry
 	}
 	
 	/**
+	 * The Glass Slab registered Block.
+	 * @return An instance of {@link BlockHalfGlassSlab}.
+	 */
+	public static BlockHalfGlassSlab GlassSlab()
+	{
+		return ModRegistry.GetBlock(BlockHalfGlassSlab.class);
+	}
+	
+	/**
+	 * The Andesite Slab registered Block.
+	 * @return An instance of {@link BlockHalfAndesiteSlab}.
+	 */
+	public static BlockHalfAndesiteSlab AndesiteSlab()
+	{
+		return ModRegistry.GetBlock(BlockHalfAndesiteSlab.class);
+	}
+	
+	/**
+	 * The Diorite Slab registered Block.
+	 * @return An instance of {@link BlockHalfDioriteSlab}.
+	 */
+	public static BlockHalfDioriteSlab DioriteSlab()
+	{
+		return ModRegistry.GetBlock(BlockHalfDioriteSlab.class);
+	}
+	
+	/**
+	 * The Granite Slab registered Block.
+	 * @return An instance of {@link BlockHalfGraniteSlab}.
+	 */
+	public static BlockHalfGraniteSlab GraniteSlab()
+	{
+		return ModRegistry.GetBlock(BlockHalfGraniteSlab.class);
+	}
+	
+	/**
 	 * The Boundary Block registered Block.
 	 * @return An instance of {@link BlockBoundary}.
 	 */
@@ -661,6 +710,50 @@ public class ModRegistry
 		ModRegistry.registerBlock(new BlockDioriteStairs("block_diorite_stairs"));
 		
 		ModRegistry.registerBlock(new BlockGraniteStairs("block_granite_stairs"));
+		
+		// Glass Slab.
+		BlockHalfGlassSlab registeredHalfGlassBlock = new BlockHalfGlassSlab();
+		BlockDoubleGlassSlab registeredDoubleGlassSlab = new BlockDoubleGlassSlab();
+
+		ItemBlockGlassSlab itemHalfGlassSlab = new ItemBlockGlassSlab(registeredHalfGlassBlock, registeredHalfGlassBlock, registeredDoubleGlassSlab, true);
+
+		itemHalfGlassSlab = (ItemBlockGlassSlab) itemHalfGlassSlab.setRegistryName("block_half_glass_slab");
+
+		ModRegistry.registerBlock(registeredHalfGlassBlock, itemHalfGlassSlab);
+		ModRegistry.registerBlock(registeredDoubleGlassSlab, false);
+		
+		// Andesite slab.
+		BlockHalfAndesiteSlab registeredHalfAndesiteBlock = new BlockHalfAndesiteSlab();
+		BlockDoubleAndesiteSlab registeredDoubleAndesiteSlab = new BlockDoubleAndesiteSlab();
+
+		ItemBlockAndesiteSlab itemHalfAndesiteSlab = new ItemBlockAndesiteSlab(registeredHalfAndesiteBlock, registeredHalfAndesiteBlock, registeredDoubleAndesiteSlab, true);
+
+		itemHalfAndesiteSlab = (ItemBlockAndesiteSlab) itemHalfAndesiteSlab.setRegistryName("block_half_andesite_slab");
+
+		ModRegistry.registerBlock(registeredHalfAndesiteBlock, itemHalfAndesiteSlab);
+		ModRegistry.registerBlock(registeredDoubleAndesiteSlab, false);
+		
+		// Diorite slab.
+		BlockHalfDioriteSlab registeredHalfDioriteBlock = new BlockHalfDioriteSlab();
+		BlockDoubleDioriteSlab registeredDoubleDioriteSlab = new BlockDoubleDioriteSlab();
+
+		ItemBlockDioriteSlab itemHalfDioriteSlab = new ItemBlockDioriteSlab(registeredHalfDioriteBlock, registeredHalfDioriteBlock, registeredDoubleDioriteSlab, true);
+
+		itemHalfDioriteSlab = (ItemBlockDioriteSlab) itemHalfDioriteSlab.setRegistryName("block_half_diorite_slab");
+
+		ModRegistry.registerBlock(registeredHalfDioriteBlock, itemHalfDioriteSlab);
+		ModRegistry.registerBlock(registeredDoubleDioriteSlab, false);
+		
+		// Granite slab.
+		BlockHalfGraniteSlab registeredHalfGraniteBlock = new BlockHalfGraniteSlab();
+		BlockDoubleGraniteSlab registeredDoubleGraniteSlab = new BlockDoubleGraniteSlab();
+
+		ItemBlockGraniteSlab itemHalfGraniteSlab = new ItemBlockGraniteSlab(registeredHalfGraniteBlock, registeredHalfGraniteBlock, registeredDoubleGraniteSlab, true);
+
+		itemHalfGraniteSlab = (ItemBlockGraniteSlab) itemHalfGraniteSlab.setRegistryName("block_half_granite_slab");
+
+		ModRegistry.registerBlock(registeredHalfGraniteBlock, itemHalfGraniteSlab);
+		ModRegistry.registerBlock(registeredDoubleGraniteSlab, false);
 		
 		Blocks.STRUCTURE_BLOCK.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
 		
@@ -1280,6 +1373,48 @@ public class ModRegistry
 				"aa ",
 				"aaa",
 				'a', new ItemStack(Item.getItemFromBlock(Blocks.STONE), 1, BlockStone.EnumType.GRANITE.getMetadata()));
+		
+		// Glass Slabs
+		ModRegistry.addShapedRecipe("Glass Slabs", new ItemStack(ModRegistry.GlassSlab(), 2),
+				"a",
+				"a",
+				'a', Item.getItemFromBlock(Blocks.GLASS));
+		
+		// Andesite Slabs
+		ModRegistry.addShapedRecipe("Andesite Slabs", new ItemStack(ModRegistry.AndesiteSlab(), 2),
+				"a",
+				"a",
+				'a', new ItemStack(Item.getItemFromBlock(Blocks.STONE), 1, BlockStone.EnumType.ANDESITE_SMOOTH.getMetadata()));
+		
+		// Andesite Slabs
+		ModRegistry.addShapedRecipe("Andesite Slabs", new ItemStack(ModRegistry.AndesiteSlab(), 2),
+				"a",
+				"a",
+				'a', new ItemStack(Item.getItemFromBlock(Blocks.STONE), 1, BlockStone.EnumType.ANDESITE.getMetadata()));
+		
+		// Diorite Slabs
+		ModRegistry.addShapedRecipe("Diorite Slabs", new ItemStack(ModRegistry.DioriteSlab(), 2),
+				"a",
+				"a",
+				'a', new ItemStack(Item.getItemFromBlock(Blocks.STONE), 1, BlockStone.EnumType.DIORITE_SMOOTH.getMetadata()));
+		
+		// Diorite Slabs
+		ModRegistry.addShapedRecipe("Diorite Slabs", new ItemStack(ModRegistry.DioriteSlab(), 2),
+				"a",
+				"a",
+				'a', new ItemStack(Item.getItemFromBlock(Blocks.STONE), 1, BlockStone.EnumType.DIORITE.getMetadata()));
+		
+		// Granite Slabs
+		ModRegistry.addShapedRecipe("Granite Slabs", new ItemStack(ModRegistry.GraniteSlab(), 2),
+				"a",
+				"a",
+				'a', new ItemStack(Item.getItemFromBlock(Blocks.STONE), 1, BlockStone.EnumType.GRANITE_SMOOTH.getMetadata()));
+		
+		// Granite Slabs
+		ModRegistry.addShapedRecipe("Granite Slabs", new ItemStack(ModRegistry.GraniteSlab(), 2),
+				"a",
+				"a",
+				'a', new ItemStack(Item.getItemFromBlock(Blocks.STONE), 1, BlockStone.EnumType.GRANITE.getMetadata()));
 	}
 
 	/**
@@ -1491,4 +1626,6 @@ public class ModRegistry
 		ModRegistry.ModGuis.put(ModRegistry.GuiBasicStructure, GuiBasicStructure.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiVillagerHouses, GuiVillaerHouses.class);
 	}
+
+
 }

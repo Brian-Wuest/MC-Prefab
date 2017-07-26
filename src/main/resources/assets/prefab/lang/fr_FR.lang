@@ -49,6 +49,10 @@ tile.prefab:block_glass_stairs.name=Escalier en verre
 tile.prefab:block_andesite_stairs.name=Escalier andesite
 tile.prefab:block_diorite_stairs.name=Escalier diorite
 tile.prefab:block_granite_stairs.name=Escalier en granit
+tile.prefab:block_half_glass_slab.name=Dalle de verre
+tile.prefab:block_half_andesite_slab.name=Dalle andesite
+tile.prefab:block_half_diorite_slab.name=Dalle de diorite
+tile.prefab:block_half_granite_slab.name=Dalle de granit
 
 prefab.gui.fishpond.structure.facing=Remarque: Si vous êtes face au nord, choisissez le sud pour que la jetée s'éloigne de vous. La bordure blanche est juste pour montrer la taille.
 

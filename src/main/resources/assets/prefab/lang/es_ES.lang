@@ -49,6 +49,10 @@ tile.prefab:block_glass_stairs.name=Escaleras de vidrio
 tile.prefab:block_andesite_stairs.name=Andesita escaleras
 tile.prefab:block_diorite_stairs.name=Escaleras de diorita
 tile.prefab:block_granite_stairs.name=Escaleras de granito
+tile.prefab:block_half_glass_slab.name=Losa de vidrio
+tile.prefab:block_half_andesite_slab.name=Losa de andesita
+tile.prefab:block_half_diorite_slab.name=Losa de diorita
+tile.prefab:block_half_granite_slab.name=Losa de granito
 
 prefab.gui.fishpond.structure.facing=Nota: Si usted está mirando hacia el norte, elija el sur por lo que el muelle se va lejos de ti. El borde blanco es sólo para mostrar el tamaño.
 
