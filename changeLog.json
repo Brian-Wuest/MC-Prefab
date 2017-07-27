@@ -1,8 +1,8 @@
 {
   "homepage": "https://minecraft.curseforge.com/projects/prefab",
   "promos": {
-	  "1.10.2-latest": "1.1.1.13",
-	  "1.10.2-recommended": "1.1.1.13",
+	  "1.10.2-latest": "1.1.1.15",
+	  "1.10.2-recommended": "1.1.1.15",
 	  "1.11.2-latest": "1.2.0.8",
 	  "1.11.2-recommended": "1.2.0.8"
   },
@@ -11,7 +11,8 @@
 	  "1.1.1.11": "New Stuff: Added [Aqua Base] structure. Added Desert and Snowy style starting houses.",
 	  "1.1.1.12": "Fixes: Instant Bridge not showing preview. New Stuff: Added new language files. Starter Hosue can now be in the nether.",
 	  "1.1.1.13": "New Stuff: Added Grassy Plain structure.",
-	  "1.1.1.14": "New Stuff: Added Magic Temple structure. Fixes: Made structure generation faster, fixed villager houses."
+	  "1.1.1.14": "New Stuff: Added Magic Temple structure. Fixes: Made structure generation faster, fixed villager houses.",
+	  "1.1.1.15": "New Stuff: Added Greenhouse, various new stairs/slabs, added starting house crafting.",
   },
   "1.11.2": {
 	  "1.2.0.5": "New Stuff: Added [Ender Gateway] structure. Added [Phasic Block] and [Boundary Block]\nSome buildings can now be generated in mod-created dimensions.",
