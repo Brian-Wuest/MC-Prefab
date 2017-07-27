@@ -190,15 +190,6 @@ public abstract class BlockGlassSlab extends BlockSlab
     }
 
     /**
-     * Checks if an IBlockState represents a block that is opaque and a full cube.
-     */
-    @Override
-    public boolean isFullyOpaque(IBlockState state)
-    {
-        return false;
-    }
-    
-    /**
      * Used to determine ambient occlusion and culling when rebuilding chunks for render
      */
     public boolean isOpaqueCube(IBlockState state)
@@ -262,9 +253,9 @@ public abstract class BlockGlassSlab extends BlockSlab
 	 * Get the MapColor for this Block and the given BlockState
 	 */
 	@Override
-	public MapColor getMapColor(IBlockState state)
+	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos)
 	{
-		return ((BlockGlass)Blocks.GLASS).getMapColor(Blocks.GLASS.getDefaultState());
+		return ((BlockGlass)Blocks.GLASS).getMapColor(Blocks.GLASS.getDefaultState(), worldIn, pos);
 	}
 
 	/**

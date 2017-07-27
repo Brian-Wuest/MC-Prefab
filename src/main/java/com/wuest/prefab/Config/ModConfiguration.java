@@ -115,6 +115,14 @@ public class ModConfiguration
 	public static String smartGlassKey = "Smart Glass";
 	public static String greenHouseKey = "Green House";
 	public static String startingHouseKey = "Starting House";
+	public static String glassStairsKey = "Glass Stairs";
+	public static String andesiteStairsKey = "Andesite Stairs";
+	public static String dioriteStairsKey = "Diorite Stairs";
+	public static String graniteStairsKey = "Granite Stairs";
+	public static String glassSlabsKey = "Glass Slab";
+	public static String andesiteSlabsKey = "Andesite Slab";
+	public static String dioriteSlabKey = "Diorite Slab";
+	public static String grantiteSlabKey = "Granite Slab";
 	
 	public static String[] recipeKeys = new String[] 
 	{ 
@@ -149,7 +157,15 @@ public class ModConfiguration
 			phasicBlockKey,
 			smartGlassKey,
 			greenHouseKey,
-			startingHouseKey
+			startingHouseKey,
+			glassStairsKey,
+			glassSlabsKey,
+			andesiteStairsKey,
+			andesiteSlabsKey,
+			dioriteStairsKey,
+			dioriteSlabKey,
+			graniteStairsKey,
+			grantiteSlabKey
 	};
 
 	// Version Check Message Info

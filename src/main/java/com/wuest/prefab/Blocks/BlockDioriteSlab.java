@@ -147,9 +147,9 @@ public abstract class BlockDioriteSlab extends BlockSlab
 	 * Get the MapColor for this Block and the given BlockState
 	 */
 	@Override
-	public MapColor getMapColor(IBlockState state)
+	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos)
 	{
-		return ((BlockStone)Blocks.STONE).getMapColor(Blocks.STONE.getStateFromMeta(BlockStone.EnumType.DIORITE_SMOOTH.getMetadata()));
+		return ((BlockStone)Blocks.STONE).getMapColor(Blocks.STONE.getStateFromMeta(BlockStone.EnumType.DIORITE_SMOOTH.getMetadata()), worldIn, pos);
 	}
 
 	/**

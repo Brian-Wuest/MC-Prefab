@@ -54,15 +54,6 @@ public class BlockGlassStairs extends BlockStairs
         return EnumBlockRenderType.MODEL;
     }
     
-    /**
-     * Checks if an IBlockState represents a block that is opaque and a full cube.
-     */
-    @Override
-    public boolean isFullyOpaque(IBlockState state)
-    {
-        return false;
-    }
-    
     @Override
     public boolean isFullCube(IBlockState state)
     {

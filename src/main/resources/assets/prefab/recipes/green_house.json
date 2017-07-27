@@ -2,8 +2,8 @@
     "type": "minecraft:crafting_shaped",
     "group": "Green House",
     "pattern": [
-        "bab",
         "bcb",
+        "bab",
         "ded"
     ],
     "key": {
@@ -20,7 +20,7 @@
             "item": "prefab:item_string_of_lanterns"
         },
         "e": {
-            "item": "prefab:item_bundle_of_timber"
+            "item": "#double_compressed_dirt"
         }
     },
     "result": {

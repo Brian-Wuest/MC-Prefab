@@ -1,0 +1,21 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "prefab:granite stairs",
+    "pattern": [
+        "#  ",
+        "## ",
+        "###"
+    ],
+    "key": {
+        "#": [
+            {
+                "item": "minecraft:stone",
+                "data": 2
+            }
+        ]
+    },
+    "result": {
+        "item": "prefab:block_granite_stairs",
+        "count": 4
+    }
+}
