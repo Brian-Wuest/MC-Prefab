@@ -3,8 +3,8 @@
   "promos": {
 	  "1.10.2-latest": "1.1.1.15",
 	  "1.10.2-recommended": "1.1.1.15",
-	  "1.11.2-latest": "1.2.0.8",
-	  "1.11.2-recommended": "1.2.0.8"
+	  "1.11.2-latest": "1.2.0.9",
+	  "1.11.2-recommended": "1.2.0.9"
   },
   "1.10.2": {
 	  "1.1.1.10": "New Stuff: Added [Ender Gateway] structure. Added [Phasic Block] and [Boundary Block]\nSome buildings can now be generated in mod-created dimensions.",
