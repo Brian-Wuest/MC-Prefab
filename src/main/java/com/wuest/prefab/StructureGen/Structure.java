@@ -300,6 +300,10 @@ public class Structure
 
 			if (ModEventHandler.structuresToBuild.containsKey(player))
 			{
+				this.configuration = configuration;
+				this.world = world;
+				this.assumedNorth = assumedNorth;
+				this.originalPos = originalPos;
 				ModEventHandler.structuresToBuild.get(player).add(this);
 			}
 			else
