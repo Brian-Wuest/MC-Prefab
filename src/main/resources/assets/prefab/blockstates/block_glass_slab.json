@@ -1,0 +1,16 @@
+{
+    "variants": {
+        "variant=false": [
+            { "model": "glass" },
+            { "model": "glass", "y": 90 },
+            { "model": "glass", "y": 180 },
+            { "model": "glass", "y": 270 }
+        ],
+        "variant=true": [
+            { "model": "glass" },
+            { "model": "glass", "y": 90 },
+            { "model": "glass", "y": 180 },
+            { "model": "glass", "y": 270 }
+        ]
+    }
+}
