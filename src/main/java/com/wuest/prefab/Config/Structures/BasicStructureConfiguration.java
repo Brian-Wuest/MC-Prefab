@@ -113,6 +113,14 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		EnumBasicStructureName.MagicTemple.getClearShape().setLength(13);
 		EnumBasicStructureName.MagicTemple.getClearPositionOffset().setSouthOffset(1);
 		EnumBasicStructureName.MagicTemple.getClearPositionOffset().setEastOffset(6);
+		
+		// Greenhouse.
+		EnumBasicStructureName.GreenHouse.getClearShape().setDirection(EnumFacing.SOUTH);
+		EnumBasicStructureName.GreenHouse.getClearShape().setHeight(10);
+		EnumBasicStructureName.GreenHouse.getClearShape().setWidth(15);
+		EnumBasicStructureName.GreenHouse.getClearShape().setLength(31);
+		EnumBasicStructureName.GreenHouse.getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.GreenHouse.getClearPositionOffset().setEastOffset(8);
 	}
 	
 	/**
@@ -291,7 +299,7 @@ public class BasicStructureConfiguration extends StructureConfiguration
 				"assets/prefab/structures/green_house.zip",
 				"textures/gui/green_house_topdown.png",
 				"item_green_house",
-				146, 156);
+				104, 173);
 		
 		private String name;
 		private String assetLocation;

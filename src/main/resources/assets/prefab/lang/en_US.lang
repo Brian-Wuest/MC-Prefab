@@ -45,6 +45,14 @@ tile.prefab:block_compressed_obsidian.block_compressed_obsidian.name=Compressed 
 tile.prefab:block_compressed_obsidian.block_double_compressed_obsidian.name=Double Compressed Obsidian
 tile.prefab:block_phasing.name=Phasic Block
 tile.prefab:block_boundary.name=Boundary Block
+tile.prefab:block_glass_stairs.name=Glass Stairs
+tile.prefab:block_andesite_stairs.name=Andesite Stairs
+tile.prefab:block_diorite_stairs.name=Diorite Stairs
+tile.prefab:block_granite_stairs.name=Granite Stairs
+tile.prefab:block_half_glass_slab.name=Glass Slab
+tile.prefab:block_half_andesite_slab.name=Andesite Slab
+tile.prefab:block_half_diorite_slab.name=Diorite Slab
+tile.prefab:block_half_granite_slab.name=Granite Slab
 
 prefab.gui.fishpond.structure.facing=Note: If you're facing north, choose south so the pier is going away from you. The white border is just to show the size.
 

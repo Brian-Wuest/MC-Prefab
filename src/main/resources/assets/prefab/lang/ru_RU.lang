@@ -30,6 +30,7 @@ item.prefab.ender_gateway=Ender Gateway
 item.prefab.aqua_base=Aqua Base
 item.prefab.grassy_plain=Травянистые равнины
 item.prefab.magic_temple=Волшебный храм
+item.prefab.green_house=консерватория
  
 tile.prefab:block_compressed_stone.block_compressed_stone.name=Сжатый Камень
 tile.prefab:block_compressed_stone.block_double_compressed_stone.name=Двойной Сжатый Камень
@@ -44,6 +45,14 @@ tile.prefab:block_compressed_obsidian.block_compressed_obsidian.name=Compressed 
 tile.prefab:block_compressed_obsidian.block_double_compressed_obsidian.name=Double Compressed Obsidian
 tile.prefab:block_phasing.name=Phasic Block
 tile.prefab:block_boundary.name=Boundary Block
+tile.prefab:block_glass_stairs.name=Стеклянная лестница
+tile.prefab:block_andesite_stairs.name=Андезитовая лестница
+tile.prefab:block_diorite_stairs.name=Диоритная лестница
+tile.prefab:block_granite_stairs.name=Гранитная лестница
+tile.prefab:block_half_glass_slab.name=Стеклянная плита
+tile.prefab:block_half_andesite_slab.name=Андезитовая плита
+tile.prefab:block_half_diorite_slab.name=Диоритовая плита
+tile.prefab:block_half_granite_slab.name=Гранитная плита
  
 prefab.gui.fishpond.structure.facing=Примечание: е�?ли вы лицом к �?еверу, выберите Юг. Бела�? окантовка - �?то про�?то чтобы показать размер.
  
