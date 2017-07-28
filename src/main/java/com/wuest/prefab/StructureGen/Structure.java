@@ -298,22 +298,19 @@ public class Structure
 				}
 			}
 
+			this.configuration = configuration;
+			this.world = world;
+			this.assumedNorth = assumedNorth;
+			this.originalPos = originalPos;
+			
 			if (ModEventHandler.structuresToBuild.containsKey(player))
 			{
-				this.configuration = configuration;
-				this.world = world;
-				this.assumedNorth = assumedNorth;
-				this.originalPos = originalPos;
 				ModEventHandler.structuresToBuild.get(player).add(this);
 			}
 			else
 			{
 				ArrayList<Structure> structures = new ArrayList<Structure>();
 				structures.add(this);
-				this.configuration = configuration;
-				this.world = world;
-				this.assumedNorth = assumedNorth;
-				this.originalPos = originalPos;
 				ModEventHandler.structuresToBuild.put(player, structures);
 			}
 		}
