@@ -38,6 +38,7 @@ import com.wuest.prefab.Gui.Structures.GuiBasicStructure;
 import com.wuest.prefab.Gui.Structures.GuiChickenCoop;
 import com.wuest.prefab.Gui.Structures.GuiFishPond;
 import com.wuest.prefab.Gui.Structures.GuiHorseStable;
+import com.wuest.prefab.Gui.Structures.GuiModerateHouse;
 import com.wuest.prefab.Gui.Structures.GuiModularHouse;
 import com.wuest.prefab.Gui.Structures.GuiMonsterMasher;
 import com.wuest.prefab.Gui.Structures.GuiNetherGate;
@@ -65,6 +66,7 @@ import com.wuest.prefab.Items.Structures.ItemChickenCoop;
 import com.wuest.prefab.Items.Structures.ItemFishPond;
 import com.wuest.prefab.Items.Structures.ItemHorseStable;
 import com.wuest.prefab.Items.Structures.ItemInstantBridge;
+import com.wuest.prefab.Items.Structures.ItemModerateHouse;
 import com.wuest.prefab.Items.Structures.ItemModularHouse;
 import com.wuest.prefab.Items.Structures.ItemMonsterMasher;
 import com.wuest.prefab.Items.Structures.ItemNetherGate;
@@ -202,6 +204,11 @@ public class ModRegistry
 	 * The identifier for the Villaer Houses GUI.
 	 */
 	public static final int GuiVillagerHouses = 14;
+	
+	/**
+	 * THe identifier for the moderate house GUI.
+	 */
+	public static final int GuiModerateHouse = 15;
 	
 	/**
 	 * This capability is used to save the locations where a player spawns when transferring dimensions.
@@ -447,6 +454,15 @@ public class ModRegistry
 	}
 	
 	/**
+	 * The {@link ItemModerateHouse} registered item.
+	 * @return An instance of the registered item.
+	 */
+	public static ItemModerateHouse ModerateHouse()
+	{
+		return ModRegistry.GetItem(ItemModerateHouse.class);
+	}
+	
+	/**
 	 * The Compressed Obsidian registered block.
 	 * @return An instance of {@link CompressedObsidianBlock}.
 	 */
@@ -678,6 +694,7 @@ public class ModRegistry
 		//ModRegistry.registerItem(new ItemModularHouse("item_modular_house"));
 		ModRegistry.registerItem(new ItemStringOfLanterns("item_string_of_lanterns"));
 		ModRegistry.registerItem(new ItemCoilOfLanterns("item_coil_of_lanterns"));
+		ModRegistry.registerItem(new ItemModerateHouse("item_moderate_house"));
 		//ModRegistry.registerItem(new ItemBogus("item_bogus"));
 		
 		// Register all the basic structures here. The resource location is used for the item models and textures.
@@ -760,6 +777,27 @@ public class ModRegistry
 		//BlockDrafter drafter = new BlockDrafter();
 		//ModRegistry.registerBlock(drafter);
 		//GameRegistry.registerTileEntity(TileEntityDrafter.class, "Drafter");
+	}
+	
+	/**
+	 * Registers records into the ore dictionary.
+	 */
+	public static void RegisterOreDictionaryRecords()
+	{
+		// Register certain blocks into the ore dictionary.
+		OreDictionary.registerOre("compressedDirt1", ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_DIRT));
+		OreDictionary.registerOre("compressedDirt2", ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_DIRT));
+		OreDictionary.registerOre("compressedStone1", ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_STONE));
+		OreDictionary.registerOre("compressedStone2", ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE));
+		OreDictionary.registerOre("compressedStone3", ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE));
+		OreDictionary.registerOre("compressedGlowstone1", ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_GLOWSTONE));
+		OreDictionary.registerOre("compressedGlowstone2", ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE));
+		OreDictionary.registerOre(
+				"compressedObsidian1", 
+				new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedObsidianBlock()), 1, BlockCompressedObsidian.EnumType.COMPRESSED_OBSIDIAN.getMetadata()));
+		OreDictionary.registerOre(
+				"compressedObsidian2", 
+				new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedObsidianBlock()), 1, BlockCompressedObsidian.EnumType.DOUBLE_COMPRESSED_OBSIDIAN.getMetadata()));
 	}
 	
 	/**
@@ -1415,6 +1453,12 @@ public class ModRegistry
 				"a",
 				"a",
 				'a', new ItemStack(Item.getItemFromBlock(Blocks.STONE), 1, BlockStone.EnumType.GRANITE.getMetadata()));
+		
+		// Moderate House.
+		ModRegistry.addShapelessRecipe("Moderate House", new ItemStack(ModRegistry.ModerateHouse()), 
+				new ItemStack(ModRegistry.StartHouse()),
+				new ItemStack(ModRegistry.StartHouse()),
+				new ItemStack(ModRegistry.StartHouse()));
 	}
 
 	/**
@@ -1625,7 +1669,7 @@ public class ModRegistry
 		ModRegistry.ModGuis.put(ModRegistry.GuiDrafter, GuiDrafter.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiBasicStructure, GuiBasicStructure.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiVillagerHouses, GuiVillaerHouses.class);
+		ModRegistry.ModGuis.put(ModRegistry.GuiModerateHouse, GuiModerateHouse.class);
 	}
-
 
 }

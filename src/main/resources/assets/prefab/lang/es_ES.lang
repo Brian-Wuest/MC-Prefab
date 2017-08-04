@@ -16,6 +16,7 @@ item.prefab:item_nether_gate.name=Puerta abisal
 item.prefab:item_modular_house.name=Casa modular
 item.prefab:item_basic_structure.name=Estructura basica
 item.prefab:item_instant_bridge.name=Puente instantáneo
+item.prefab:item_moderate_house.name=Casa moderada
 
 item.prefab.advanced.chicken.coop=Gallinero avanzado
 item.prefab.advanced.horse.stable=Casa de caballos avanzada
@@ -28,7 +29,7 @@ item.prefab:item_villager_houses.name=Casas del aldeano
 item.prefab.mineshaft.entrance=Entrada pozo
 item.prefab.ender_gateway=Pasarela de Ender
 item.prefab.aqua_base=Base Aqua
-item.prefab.grassy_pain=Llanuras cubiertas de hierba
+item.prefab.grassy_plain=Llanuras cubiertas de hierba
 item.prefab.magic_temple=templo magico
 item.prefab.green_house=Conservatorio
 
@@ -91,6 +92,8 @@ prefab.gui.starter.ceilingtype=Tipo de techo
 prefab.gui.starter.walltype=Madera de la pared
 prefab.gui.starter.ceilingflat=Es techo plano
 prefab.gui.starter.buildmineshaft=Construir pozo
+
+prefab.gui.moderate_house.spruce=Casa de abeto
 
 prefab.gui.villager.house.flat=Azotea plana
 prefab.gui.villager.house.angled=Cubierta inclinada

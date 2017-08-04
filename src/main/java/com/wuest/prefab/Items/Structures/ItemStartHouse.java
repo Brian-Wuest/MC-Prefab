@@ -57,8 +57,6 @@ import com.wuest.prefab.StructureGen.CustomStructures.StructureChickenCoop;
  */
 public class ItemStartHouse extends StructureItem
 {
-	private HouseConfiguration currentConfiguration = null;
-
 	public ItemStartHouse(String name)
 	{
 		super(name, ModRegistry.GuiStartHouseChooser);

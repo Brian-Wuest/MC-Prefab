@@ -16,6 +16,7 @@ import com.wuest.prefab.Events.ModEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
 
 import net.minecraft.block.*;
+import net.minecraft.block.BlockDoor.EnumDoorHalf;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.*;
@@ -120,58 +121,95 @@ public class Structure
 				continue;
 			}
 
-			BuildBlock buildBlock = new BuildBlock();
-			buildBlock.setBlockDomain(currentBlock.getRegistryName().getResourceDomain());
-			buildBlock.setBlockName(currentBlock.getRegistryName().getResourcePath());
-
-			// if (currentPos.getX() > originalPos.getX()). currentPos is "East"
-			// of hitBlock
-			// if (currentPos.getZ() > originalPos.getZ()). currentPos is
-			// "South" of hitBlock
-
-			if (currentPos.getX() > originalPos.getX())
+			BuildBlock buildBlock = Structure.createBuildBlockFromBlockState(currentState, currentBlock, currentPos, originalPos);
+			
+			if (currentBlock instanceof BlockDoor)
 			{
-				buildBlock.getStartingPosition().setEastOffset(currentPos.getX() - originalPos.getX());
-			}
-			else
-			{
-				buildBlock.getStartingPosition().setWestOffset(originalPos.getX() - currentPos.getX());
-			}
-
-			if (currentPos.getZ() > originalPos.getZ())
-			{
-				buildBlock.getStartingPosition().setSouthOffset(currentPos.getZ() - originalPos.getZ());
-			}
-			else
-			{
-				buildBlock.getStartingPosition().setNorthOffset(originalPos.getZ() - currentPos.getZ());
-			}
-
-			buildBlock.getStartingPosition().setHeightOffset(currentPos.getY() - originalPos.getY());
-
-			ImmutableMap<IProperty<?>, Comparable<?>> properties = currentState.getProperties();
-
-			for (Entry<IProperty<?>, Comparable<?>> entry : properties.entrySet())
-			{
-				BuildProperty property = new BuildProperty();
-				property.setName(entry.getKey().getName());
-
-				if (currentBlock instanceof BlockQuartz && property.getName().equals("variant"))
+				EnumDoorHalf blockHalf = currentState.getValue(BlockDoor.HALF);
+				
+				if (blockHalf == EnumDoorHalf.LOWER)
 				{
-					property.setValue(((BlockQuartz.EnumType) entry.getValue()).getName());
+					IBlockState upperHalfState = world.getBlockState(currentPos.up());
+					
+					if (upperHalfState != null && upperHalfState.getBlock() instanceof BlockDoor)
+					{
+						Block upperBlock = upperHalfState.getBlock();
+						BuildBlock upperHalf = Structure.createBuildBlockFromBlockState(upperHalfState, upperBlock, currentPos.up(), originalPos);
+						
+						buildBlock.setSubBlock(upperHalf);
+					}
 				}
 				else
 				{
-					property.setValue(entry.getValue().toString());
+					// Don't process upper door halves. These were already done.
+					continue;
 				}
-
-				buildBlock.getProperties().add(property);
 			}
 
 			scannedStructure.getBlocks().add(buildBlock);
 		}
 
 		Structure.CreateStructureFile(scannedStructure, fileLocation);
+	}
+	
+	/**
+	 * Creates a build block from the current block state.
+	 * @param currentState The block state.
+	 * @param currentBlock The current block.
+	 * @param currentPos The current position.
+	 * @return A new Build block object.
+	 */
+	public static BuildBlock createBuildBlockFromBlockState(IBlockState currentState, Block currentBlock, BlockPos currentPos, BlockPos originalPos)
+	{
+		BuildBlock buildBlock = new BuildBlock();
+		buildBlock.setBlockDomain(currentBlock.getRegistryName().getResourceDomain());
+		buildBlock.setBlockName(currentBlock.getRegistryName().getResourcePath());
+
+		// if (currentPos.getX() > originalPos.getX()). currentPos is "East"
+		// of hitBlock
+		// if (currentPos.getZ() > originalPos.getZ()). currentPos is
+		// "South" of hitBlock
+
+		if (currentPos.getX() > originalPos.getX())
+		{
+			buildBlock.getStartingPosition().setEastOffset(currentPos.getX() - originalPos.getX());
+		}
+		else
+		{
+			buildBlock.getStartingPosition().setWestOffset(originalPos.getX() - currentPos.getX());
+		}
+
+		if (currentPos.getZ() > originalPos.getZ())
+		{
+			buildBlock.getStartingPosition().setSouthOffset(currentPos.getZ() - originalPos.getZ());
+		}
+		else
+		{
+			buildBlock.getStartingPosition().setNorthOffset(originalPos.getZ() - currentPos.getZ());
+		}
+
+		buildBlock.getStartingPosition().setHeightOffset(currentPos.getY() - originalPos.getY());
+
+		ImmutableMap<IProperty<?>, Comparable<?>> properties = currentState.getProperties();
+
+		for (Entry<IProperty<?>, Comparable<?>> entry : properties.entrySet())
+		{
+			BuildProperty property = new BuildProperty();
+			property.setName(entry.getKey().getName());
+
+			if (currentBlock instanceof BlockQuartz && property.getName().equals("variant"))
+			{
+				property.setValue(((BlockQuartz.EnumType) entry.getValue()).getName());
+			}
+			else
+			{
+				property.setValue(entry.getValue().toString());
+			}
+
+			buildBlock.getProperties().add(property);
+		}
+		
+		return buildBlock;
 	}
 
 	public String getName()
@@ -278,7 +316,14 @@ public class Structure
 								block.setSubBlock(subBlock);
 							}
 
-							this.priorityOneBlocks.add(block);
+							if (foundBlock instanceof BlockFlowerPot)
+							{
+								this.priorityThreeBlocks.add(block);
+							}
+							else
+							{
+								this.priorityOneBlocks.add(block);
+							}
 						}
 						else
 						{

@@ -256,6 +256,9 @@ public class GuiLangKeys
 	@Unlocalized(name = "Long House")
 	public static final String VILLAGER_HOUSE_LONGHOUSE = "prefab.gui.villager.long_house";
 	
+	@Unlocalized(name = "Spruce House")
+	public static final String MODERATE_HOUSE_SPRUCE = "prefab.gui.moderate_house.spruce";
+	
 
 	/**
 	 * Translates the specified language key for the current language.
