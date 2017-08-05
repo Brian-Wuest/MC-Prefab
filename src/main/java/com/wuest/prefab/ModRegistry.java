@@ -106,6 +106,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 import scala.Tuple2;
 
 /**
@@ -115,6 +116,51 @@ import scala.Tuple2;
  */
 public class ModRegistry
 {
+	/**
+	 * The compressed dirt ore dictionary name.
+	 */
+	public static final String CompressedDirt = "compressedDirt1";
+	
+	/**
+	 * The double compressed dirt ore dictionary name.
+	 */
+	public static final String DoubleCompressedDirt = "compressedDirt2";
+	
+	/**
+	 * The compressed stone ore dictionary name.
+	 */
+	public static final String CompressedStone = "compressedStone1";
+	
+	/**
+	 * The double compressed stone ore dictionary name.
+	 */
+	public static final String DoubleCompressedStone = "compressedStone2";
+	
+	/**
+	 * The triple compressed stone ore dictionary name.
+	 */
+	public static final String TripleCompressedStone = "compressedStone3";
+	
+	/**
+	 * The compressed glowstone ore dictionary name.
+	 */
+	public static final String CompressedGlowstone = "compressedGlowstone1";
+	
+	/**
+	 * The double compressed glowstone ore dictionary name.
+	 */
+	public static final String DoubleCompressedGlowstone = "compressedGlowstone2";
+	
+	/**
+	 * The compressed obsidian ore dictionary name.
+	 */
+	public static final String CompressedObsidian = "compressedObsidian1";
+	
+	/**
+	 * The double compressed obsidian ore dictionary name
+	 */
+	public static final String DoubleCompressedObsidian = "compressedObsidian2";
+	
 	/**
 	 * The ArrayList of mod registered items.
 	 */
@@ -913,70 +959,70 @@ public class ModRegistry
 				'x', ModRegistry.PalletOfBricks());
 		
 		// Warehouse
-		ModRegistry.addShapedRecipe("Warehouse", new ItemStack(ModRegistry.WareHouse()),
+		ModRegistry.addShapedOreRecipe("Warehouse", new ItemStack(ModRegistry.WareHouse()),
 				"x x",
 				"xyx",
 				"zaz",
-				'x', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE),
+				'x', ModRegistry.DoubleCompressedStone,
 				'y', ModRegistry.CompressedChestItem(),
-				'z', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE),
-				'a', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE));
+				'z', ModRegistry.DoubleCompressedGlowstone,
+				'a', ModRegistry.TripleCompressedStone);
 		
-		ModRegistry.addShapedRecipe("Warehouse", new ItemStack(ModRegistry.WareHouse()),
+		ModRegistry.addShapedOreRecipe("Warehouse", new ItemStack(ModRegistry.WareHouse()),
 				"x x",
 				"xyx",
 				"zaz",
-				'x', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE),
+				'x', ModRegistry.DoubleCompressedStone,
 				'y', ModRegistry.CompressedChestItem(),
 				'z', ModRegistry.CoilOfLanterns(),
-				'a', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE));
+				'a', ModRegistry.TripleCompressedStone);
 		
 		// Produce Farm.
-		ModRegistry.addShapedRecipe("Produce Farm", new ItemStack(ModRegistry.ProduceFarm()),
+		ModRegistry.addShapedOreRecipe("Produce Farm", new ItemStack(ModRegistry.ProduceFarm()),
 				"aba",
 				"cdc",
 				"aba",
 				'a', ModRegistry.PalletOfBricks(),
-				'b', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_DIRT),
+				'b', ModRegistry.DoubleCompressedDirt,
 				'c', Items.WATER_BUCKET,
-				'd', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE));
+				'd', ModRegistry.DoubleCompressedGlowstone);
 		
-		ModRegistry.addShapedRecipe("Produce Farm", new ItemStack(ModRegistry.ProduceFarm()),
+		ModRegistry.addShapedOreRecipe("Produce Farm", new ItemStack(ModRegistry.ProduceFarm()),
 				"aba",
 				"cdc",
 				"aba",
 				'a', ModRegistry.PalletOfBricks(),
-				'b', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_DIRT),
+				'b', ModRegistry.DoubleCompressedDirt,
 				'c', Items.WATER_BUCKET,
 				'd', ModRegistry.CoilOfLanterns());
 		
 		// Tree Farm/Park
-		ModRegistry.addShapedRecipe("Tree Farm", new ItemStack(ModRegistry.TreeFarm()),
+		ModRegistry.addShapedOreRecipe("Tree Farm", new ItemStack(ModRegistry.TreeFarm()),
 				"aba",
 				"cdc",
 				"aba",
 				'a', ModRegistry.PalletOfBricks(),
-				'b', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_DIRT),
+				'b', ModRegistry.DoubleCompressedDirt,
 				'c', Items.FLOWER_POT,
-				'd', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE));
+				'd', ModRegistry.DoubleCompressedGlowstone);
 		
-		ModRegistry.addShapedRecipe("Tree Farm", new ItemStack(ModRegistry.TreeFarm()),
+		ModRegistry.addShapedOreRecipe("Tree Farm", new ItemStack(ModRegistry.TreeFarm()),
 				"aba",
 				"cdc",
 				"aba",
 				'a', ModRegistry.PalletOfBricks(),
-				'b', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_DIRT),
+				'b', ModRegistry.DoubleCompressedDirt,
 				'c', Items.FLOWER_POT,
 				'd', ModRegistry.CoilOfLanterns());
 		
 		// Chicken Coop
-		ModRegistry.addShapedRecipe("Chicken Coop", new ItemStack(ModRegistry.ChickenCoop()),
+		ModRegistry.addShapedOreRecipe("Chicken Coop", new ItemStack(ModRegistry.ChickenCoop()),
 				"eee",
 				"aba",
 				"cdc",
 				'a', new ItemStack(Item.getItemFromBlock(Blocks.LOG), 1, BlockPlanks.EnumType.SPRUCE.getMetadata()),
 				'b', Items.EGG,
-				'c', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_DIRT),
+				'c', ModRegistry.CompressedStone,
 				'd', Item.getItemFromBlock(Blocks.HAY_BLOCK),
 				'e', Item.getItemFromBlock(Blocks.BRICK_BLOCK));
 		
@@ -1004,28 +1050,28 @@ public class ModRegistry
 				'd', Item.getItemFromBlock(Blocks.ANVIL));
 		
 		// Advanced Warehouse
-		ModRegistry.addShapedRecipe("Advanced Warehouse", new ItemStack(ModRegistry.AdvancedWareHouse()),
+		ModRegistry.addShapedOreRecipe("Advanced Warehouse", new ItemStack(ModRegistry.AdvancedWareHouse()),
 				"xbx",
 				"xyx",
 				"zaz",
-				'x', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE),
+				'x', ModRegistry.DoubleCompressedStone,
 				'y', ModRegistry.CompressedChestItem(),
-				'z', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE),
-				'a', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE),
+				'z', ModRegistry.DoubleCompressedGlowstone,
+				'a', ModRegistry.TripleCompressedStone,
 				'b', ModRegistry.WareHouseUpgrade());
 		
-		ModRegistry.addShapedRecipe("Advanced Warehouse", new ItemStack(ModRegistry.AdvancedWareHouse()),
+		ModRegistry.addShapedOreRecipe("Advanced Warehouse", new ItemStack(ModRegistry.AdvancedWareHouse()),
 				"xbx",
 				"xyx",
 				"zaz",
-				'x', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE),
+				'x', ModRegistry.DoubleCompressedStone,
 				'y', ModRegistry.CompressedChestItem(),
 				'z', ModRegistry.CoilOfLanterns(),
-				'a', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE),
+				'a', ModRegistry.TripleCompressedStone,
 				'b', ModRegistry.WareHouseUpgrade());
 		
 		// Monster Masher.
-		ModRegistry.addShapedRecipe("Monster Masher", new ItemStack(ModRegistry.MonsterMasher()),
+		ModRegistry.addShapedOreRecipe("Monster Masher", new ItemStack(ModRegistry.MonsterMasher()),
 				"abc",
 				"ede",
 				"fgh",
@@ -1034,20 +1080,16 @@ public class ModRegistry
 				'c', new ItemStack(Items.SKULL, 1, 0),
 				'e', Item.getItemFromBlock(Blocks.IRON_BARS),
 				'd', ModRegistry.CompressedChestItem(),
-				'f', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE),
-				'g', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE),
-				'h', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE));
+				'f', ModRegistry.DoubleCompressedStone,
+				'g', ModRegistry.TripleCompressedStone,
+				'h', ModRegistry.DoubleCompressedGlowstone);
 
 		// Planks to addShapedRecipe of timber.
-		IRecipe currentRecipe = new ShapedOreRecipe(ModRegistry.BundleOfTimber(), 
+		ModRegistry.addShapedOreRecipe("Bundle of Timber", new ItemStack(ModRegistry.BundleOfTimber()), 
 				"aaa", 
 				"aaa", 
 				"aaa", 
 				'a', "logWood");
-		
-		GameRegistry.addRecipe(currentRecipe);
-		
-		ModRegistry.SaveModRecipe("Bundle of Timber", currentRecipe);
 
 		// Bundle of timber to oak planks.
 		ModRegistry.addShapedRecipe("Bundle of Timber", new ItemStack(Item.getItemFromBlock(Blocks.LOG), 9), 
@@ -1135,10 +1177,10 @@ public class ModRegistry
 		result = new ItemStack(ModRegistry.BasicStructure());
 		capability = result.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
 		capability.getConfiguration().basicStructureName = EnumBasicStructureName.AdvancedHorseStable;
-		
-		ModRegistry.addShapelessRecipe("Advanced Horse Stable", result, 
+
+		ModRegistry.addShapelessOreRecipe("Advanced Horse Stable", result, 
 				ModRegistry.HorseStable(), ModRegistry.HorseStable(), ModRegistry.HorseStable(), ModRegistry.HorseStable(),
-				ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE));
+				ModRegistry.DoubleCompressedGlowstone);
 		
 		ModRegistry.addShapelessRecipe("Advanced Horse Stable", result, 
 				ModRegistry.HorseStable(), ModRegistry.HorseStable(), ModRegistry.HorseStable(), ModRegistry.HorseStable(),
@@ -1149,40 +1191,40 @@ public class ModRegistry
 		capability = result.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
 		capability.getConfiguration().basicStructureName = EnumBasicStructureName.Barn;
 		
-		ModRegistry.addShapedRecipe("Barn", result,
+		ModRegistry.addShapedOreRecipe("Barn", result,
 				"aba",
 				"ccc",
 				"cdc",
 				'a', ModRegistry.PalletOfBricks(),
-				'b', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_GLOWSTONE),
+				'b', ModRegistry.CompressedGlowstone,
 				'c', ModRegistry.BundleOfTimber(),
-				'd', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_DIRT));
+				'd', ModRegistry.DoubleCompressedDirt);
 		
 		// Machinery Tower
 		result = new ItemStack(ModRegistry.BasicStructure());
 		capability = result.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
 		capability.getConfiguration().basicStructureName = EnumBasicStructureName.MachineryTower;
 		
-		ModRegistry.addShapedRecipe("Machinery Tower", result, 
+		ModRegistry.addShapedOreRecipe("Machinery Tower", result, 
 				"aaa",
 				" b ",
 				" c ",
 				'a', Item.getItemFromBlock(Blocks.GOLDEN_RAIL),
 				'b', ModRegistry.StringOfLanterns(),
-				'c', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE));
+				'c', ModRegistry.TripleCompressedStone);
 		
 		// Defense Bunker
 		result = new ItemStack(ModRegistry.BasicStructure());
 		capability = result.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
 		capability.getConfiguration().basicStructureName = EnumBasicStructureName.DefenseBunker;
 		
-		ModRegistry.addShapedRecipe("Defense Bunker", result, 
+		ModRegistry.addShapedOreRecipe("Defense Bunker", result, 
 				"dad",
 				"bcb",
 				"ddd",
 				'a', ModRegistry.CoilOfLanterns(),
-				'b', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE),
-				'c', new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedObsidianBlock()), 1, BlockCompressedObsidian.EnumType.DOUBLE_COMPRESSED_OBSIDIAN.getMetadata()),
+				'b', ModRegistry.TripleCompressedStone,
+				'c', ModRegistry.DoubleCompressedObsidian,
 				'd', Item.getItemFromBlock(Blocks.IRON_BLOCK));
 		
 		// Mineshaft Entrance
@@ -1190,12 +1232,12 @@ public class ModRegistry
 		capability = result.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
 		capability.getConfiguration().basicStructureName = EnumBasicStructureName.MineshaftEntrance;
 		
-		ModRegistry.addShapedRecipe("Mineshaft Entrance", result, 
+		ModRegistry.addShapedOreRecipe("Mineshaft Entrance", result, 
 				"dad",
 				"bcb",
 				"aaa",
 				'a', ModRegistry.BundleOfTimber(),
-				'b', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_STONE),
+				'b', ModRegistry.CompressedStone,
 				'c', Items.BED,
 				'd', Items.IRON_PICKAXE);
 		
@@ -1204,13 +1246,13 @@ public class ModRegistry
 		capability = result.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
 		capability.getConfiguration().basicStructureName = EnumBasicStructureName.EnderGateway;
 		
-		ModRegistry.addShapedRecipe("Ender Gateway", result, 
+		ModRegistry.addShapedOreRecipe("Ender Gateway", result, 
 				"bdb",
 				"dcd",
 				"bab",
-				'a', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE),
+				'a', ModRegistry.TripleCompressedStone,
 				'b', new ItemStack(Item.getItemFromBlock(Blocks.PRISMARINE), 1, 1),
-				'c', new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedObsidianBlock()), 1, BlockCompressedObsidian.EnumType.DOUBLE_COMPRESSED_OBSIDIAN.getMetadata()),
+				'c', ModRegistry.DoubleCompressedObsidian,
 				'd', Item.getItemFromBlock(Blocks.QUARTZ_BLOCK));
 		
 		// Aqua base
@@ -1218,12 +1260,12 @@ public class ModRegistry
 		capability = result.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
 		capability.getConfiguration().basicStructureName = EnumBasicStructureName.AquaBase;
 		
-		ModRegistry.addShapedRecipe("Aqua Base", result, 
+		ModRegistry.addShapedOreRecipe("Aqua Base", result, 
 				"xxx",
 				"yzy",
 				"yay",
 				'x', new ItemStack(Item.getItemFromBlock(Blocks.GLASS)),
-				'y', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE),
+				'y', ModRegistry.DoubleCompressedStone,
 				'z', new ItemStack(Item.getItemFromBlock(Blocks.SEA_LANTERN)),
 				'a', ModRegistry.CoilOfLanterns());
 		
@@ -1258,23 +1300,23 @@ public class ModRegistry
 		capability = result.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
 		capability.getConfiguration().basicStructureName = EnumBasicStructureName.GreenHouse;
 		
-		ModRegistry.addShapedRecipe("Green House", result, 
+		ModRegistry.addShapedOreRecipe("Green House", result, 
 				"bcb",
 				"bab",
 				"ded",
 				'a', new ItemStack(Items.WATER_BUCKET),
-				'b', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE),
+				'b', ModRegistry.DoubleCompressedStone,
 				'c', new ItemStack(Item.getItemFromBlock(Blocks.GLASS_PANE)),
 				'd', new ItemStack(ModRegistry.StringOfLanterns()),
-				'e', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_DIRT));
+				'e', ModRegistry.DoubleCompressedDirt);
 		
 		// Instant Bridge.
-		ModRegistry.addShapedRecipe("Instant Bridge", 
+		ModRegistry.addShapedOreRecipe("Instant Bridge", 
 				new ItemStack(ModRegistry.InstantBridge()),
 				"bab",
 				"bab",
 				"bab",
-				'a', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE),
+				'a', ModRegistry.DoubleCompressedStone,
 				'b', Item.getItemFromBlock(Blocks.TORCH));
 		
 		// Paper Lantern.
@@ -1328,12 +1370,12 @@ public class ModRegistry
 				new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedObsidianBlock()), 1, BlockCompressedObsidian.EnumType.DOUBLE_COMPRESSED_OBSIDIAN.getMetadata()));
 		
 		// Villager Houses.
-		ModRegistry.addShapedRecipe("Villager Houses", new ItemStack(ModRegistry.VillagerHouses()),
+		ModRegistry.addShapedOreRecipe("Villager Houses", new ItemStack(ModRegistry.VillagerHouses()),
 				"aaa",
 				"aaa",
 				"bbb",
 				'a', ModRegistry.BundleOfTimber(),
-				'b', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_STONE));
+				'b', ModRegistry.CompressedStone);
 		
 		// Phasic Block
 		ModRegistry.addShapedRecipe("Phasic Block", new ItemStack(ModRegistry.PhasingBlock()),
@@ -1352,14 +1394,14 @@ public class ModRegistry
 				'b', Items.ENDER_PEARL);
 		
 		// Starting House.
-		ModRegistry.addShapedRecipe("Starting House",  new ItemStack(ModRegistry.StartHouse()), 
+		ModRegistry.addShapedOreRecipe("Starting House",  new ItemStack(ModRegistry.StartHouse()), 
 				"abc",
 				"ded",
 				"fff",
 				'a', Item.getItemFromBlock(Blocks.CRAFTING_TABLE),
 				'b', Items.CLOCK,
 				'c', Item.getItemFromBlock(Blocks.FURNACE),
-				'd', ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_STONE),
+				'd', ModRegistry.CompressedStone,
 				'e', Items.BED,
 				'f', ModRegistry.BundleOfTimber());
 		
@@ -1538,6 +1580,32 @@ public class ModRegistry
         return returnValue;
     }
 
+    /**
+     * Adds a shaped ore recipe to the game.
+     * @param displayName The display name.
+     * @param stack The output of the recipe
+     * @param recipeComponents The components of the recipe.
+     * @return Returns the IRecipe.
+     */
+    public static IRecipe addShapedOreRecipe(String displayName, ItemStack stack, Object... recipeComponents)
+    {
+		IRecipe currentRecipe = new ShapedOreRecipe(stack, recipeComponents);
+		
+		GameRegistry.addRecipe(currentRecipe);
+		
+		ModRegistry.SaveModRecipe(displayName, currentRecipe);
+		
+		return currentRecipe;
+    }
+    
+    public static IRecipe addShapelessOreRecipe(String displayName, ItemStack stack, Object... recipeComponents)
+    {
+    	IRecipe currentRecipe = new ShapelessOreRecipe(stack, recipeComponents);
+    	GameRegistry.addRecipe(currentRecipe);
+    	ModRegistry.SaveModRecipe(displayName, currentRecipe);
+    	return currentRecipe;
+    }
+    
 	/**
 	 * This is where the mod messages are registered.
 	 */
