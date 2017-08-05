@@ -16,6 +16,7 @@ item.prefab:item_nether_gate.name=Porte inférieure
 item.prefab:item_modular_house.name=Maison modulaire
 item.prefab:item_basic_structure.name=Structure de base
 item.prefab:item_instant_bridge.name=Pont instantané
+item.prefab:item_moderate_house.name=Maison modérée
 
 item.prefab.advanced.chicken.coop=Collier de poulet avancé
 item.prefab.advanced.horse.stable=École avancée de chevaux
@@ -91,6 +92,8 @@ prefab.gui.starter.ceilingtype=Type de plafond
 prefab.gui.starter.walltype=Type de mur
 prefab.gui.starter.ceilingflat=Est plat de plafond
 prefab.gui.starter.buildmineshaft=Build mine
+
+prefab.gui.moderate_house.spruce=Épinette maison
 
 prefab.gui.villager.house.flat=Toit plat
 prefab.gui.villager.house.angled=Toit en angle

@@ -16,6 +16,7 @@ item.prefab:item_nether_gate.name=Nether Gate
 item.prefab:item_modular_house.name=Modular House
 item.prefab:item_basic_structure.name=Basic Structure
 item.prefab:item_instant_bridge.name=Instant Bridge
+item.prefab:item_moderate_house.name=Дом умеренный
 
 item.prefab.advanced.chicken.coop=Advanced Chicken Coop
 item.prefab.advanced.horse.stable=Advanced Horse Stable
@@ -91,6 +92,8 @@ prefab.gui.starter.ceilingtype=Потолок Каменного Типа
 prefab.gui.starter.walltype=Стены Деревянного Типа
 prefab.gui.starter.ceilingflat=Плоский Потолок
 prefab.gui.starter.buildmineshaft=Построить Шахту
+
+prefab.gui.moderate_house.spruce=Еловая ель
 
 prefab.gui.villager.house.flat=Flat Roof
 prefab.gui.villager.house.angled=Angled Roof

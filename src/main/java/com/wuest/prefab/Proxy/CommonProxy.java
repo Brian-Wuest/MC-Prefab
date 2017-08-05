@@ -17,6 +17,8 @@ import com.google.gson.GsonBuilder;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.UpdateChecker;
+import com.wuest.prefab.Blocks.BlockCompressedObsidian;
+import com.wuest.prefab.Blocks.BlockCompressedStone;
 import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Events.ModEventHandler;
 import com.wuest.prefab.Gui.GuiCustomContainer;
@@ -26,6 +28,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -36,6 +40,7 @@ import net.minecraftforge.fml.common.network.IGuiHandler;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 
 /**
  * This is the server side proxy.
@@ -67,6 +72,8 @@ public class CommonProxy implements IGuiHandler
 		// Register the capabilities.
 		ModRegistry.RegisterCapabilities();
 		
+		ModRegistry.RegisterOreDictionaryRecords();
+		
 		// Register the recipes here.
 		//ModRegistry.RegisterRecipes();
 		
@@ -75,7 +82,7 @@ public class CommonProxy implements IGuiHandler
 	}
 	
 	public void init(FMLInitializationEvent event)
-	{
+	{	
 		NetworkRegistry.INSTANCE.registerGuiHandler(Prefab.instance, Prefab.proxy);
 		this.UpdateRegisteredRecipes();
 	}

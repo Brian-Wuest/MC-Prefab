@@ -36,6 +36,7 @@ public class ModConfiguration
 	private static String enableLoftHouseName = "Enable Loft House";
 	private static String includeSpawnersInMasherName = "Include Spawners in Monster Masher";
 	private static String enableStructurePreviewName = "Include Structure Previews";
+	private static String addModerateHouseInsteadName = "Add Moderate House on World Join";
 
 	// Chest content option names.
 	private static String addSwordName = "Add Sword";
@@ -62,7 +63,8 @@ public class ModConfiguration
 	public boolean enableLoftHouse;
 	public boolean includeSpawnersInMasher;
 	public boolean enableStructurePreview;
-
+	public boolean addModerateHouseInstead;
+	
 	// Chest content options.
 	public boolean addSword;
 	public boolean addAxe;
@@ -199,7 +201,8 @@ public class ModConfiguration
 		Prefab.proxy.proxyConfiguration.enableLoftHouse = config.getBoolean(ModConfiguration.enableLoftHouseName, ModConfiguration.OPTIONS, false, "Determines if the loft starter house is enabled. This house contains Nether materials in it's construction. Server configuration overrides client.");
 		Prefab.proxy.proxyConfiguration.includeSpawnersInMasher = config.getBoolean(ModConfiguration.includeSpawnersInMasherName, ModConfiguration.OPTIONS, true, "Determines if the spawners for the Monster Masher building are included. Server configuration overrides client.");
 		Prefab.proxy.proxyConfiguration.enableStructurePreview = config.getBoolean(ModConfiguration.enableStructurePreviewName, ModConfiguration.OPTIONS, true, "Determines if the Preview buttons in structure GUIs and other structure previews functions are enabled. Client side only.");
-
+		Prefab.proxy.proxyConfiguration.addModerateHouseInstead = config.getBoolean(ModConfiguration.addModerateHouseInsteadName, ModConfiguration.OPTIONS, false, "Determines if the moderate house item is provided to the player instead of the starting house.");
+		
 		// Make this property require a restart.
 		config.get(ModConfiguration.OPTIONS, ModConfiguration.enableVersionCheckMessageName, true).setRequiresMcRestart(true);
 		config.get(ModConfiguration.OPTIONS, ModConfiguration.enableLoftHouseName, false).setRequiresMcRestart(true);
@@ -246,7 +249,8 @@ public class ModConfiguration
 		tag.setBoolean(ModConfiguration.enableLoftHouseName, this.enableLoftHouse);
 		tag.setBoolean(ModConfiguration.includeSpawnersInMasherName, this.includeSpawnersInMasher);
 		tag.setBoolean(ModConfiguration.enableStructurePreviewName, this.enableStructurePreview);
-
+		tag.setBoolean(ModConfiguration.addModerateHouseInsteadName, this.addModerateHouseInstead);
+		
 		tag.setBoolean(ModConfiguration.addSwordName, this.addSword);
 		tag.setBoolean(ModConfiguration.addAxeName, this.addAxe);
 		tag.setBoolean(ModConfiguration.addShovelName, this.addShovel);
@@ -282,7 +286,8 @@ public class ModConfiguration
 		config.maximumStartingHouseSize = tag.getInteger(ModConfiguration.maximumHouseSizeName);
 		config.includeSpawnersInMasher = tag.getBoolean(ModConfiguration.includeSpawnersInMasherName);
 		config.enableStructurePreview = tag.getBoolean(ModConfiguration.enableStructurePreviewName);
-
+		config.addModerateHouseInstead = tag.getBoolean(ModConfiguration.addModerateHouseInsteadName);
+		
 		// Make sure the server admin didn't set the maximum starting size to an invalid value from the configuration file.
 		if (config.maximumStartingHouseSize < 5 || config.maximumStartingHouseSize > 16)
 		{
@@ -419,3 +424,4 @@ public class ModConfiguration
 		}
 	}
 }
+

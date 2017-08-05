@@ -84,7 +84,7 @@ public class ModEventHandler
 			
 			if (!playerConfig.givenHouseBuilder && Prefab.proxy.proxyConfiguration.addHouseItem)
 			{
-				ItemStack stack = new ItemStack(ModRegistry.StartHouse());
+				ItemStack stack = Prefab.proxy.proxyConfiguration.addModerateHouseInstead ? new ItemStack(ModRegistry.ModerateHouse()) : new ItemStack(ModRegistry.StartHouse());
 				player.inventory.addItemStackToInventory(stack);
 				player.inventoryContainer.detectAndSendChanges();
 
