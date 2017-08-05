@@ -1,4 +1,10 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Chicken Coop"
+        }
+    ],
     "type": "minecraft:crafting_shaped",
     "group": "Chicken Coop",
     "pattern": [
@@ -20,8 +26,8 @@
             "data": 32767
         },
         "d": {
-            "item": "prefab:block_compressed_stone",
-            "data": 5
+                "type": "forge:ore_dict",
+                "ore": "compressedDirt1"
         },
         "e": {
             "item": "minecraft:hay_block",

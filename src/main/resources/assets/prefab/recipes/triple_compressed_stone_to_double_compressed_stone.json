@@ -1,9 +1,15 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Compressed Stone"
+        }
+    ],
     "_comment": [
         "Triple compressed Stone to double compressed stone"
     ],
     "type": "minecraft:crafting_shapeless",
-    "group": "prefab:compressed stone",
+    "group": "Compressed Stone",
     "ingredients": [
         {
             "item": "#triple_compressed_stone"

@@ -1,4 +1,10 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Bundle of Timber"
+        }
+    ],
     "type": "minecraft:crafting_shapeless",
     "group": "Bundle of Timber",
     "ingredients": [

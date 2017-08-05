@@ -1,4 +1,10 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Aqua Base"
+        }
+    ],
     "type": "minecraft:crafting_shaped",
     "group": "Aqua Base",
     "pattern": [
@@ -11,8 +17,8 @@
             "item": "minecraft:glass"
         },
         "b": {
-            "item": "prefab:block_compressed_stone",
-            "data": 1
+                "type": "forge:ore_dict",
+                "ore": "compressedStone1"
         },
         "c": {
             "item": "minecraft:sea_lantern"

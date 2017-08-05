@@ -1,4 +1,10 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Grassy Plains"
+        }
+    ],
     "type": "minecraft:crafting_shaped",
     "group": "Grassy Plains",
     "pattern": [

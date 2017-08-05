@@ -1,4 +1,10 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Advanced Horse Stable"
+        }
+    ],
     "type": "minecraft:crafting_shapeless",
     "group": "Advanced Horse Stable",
     "ingredients": [

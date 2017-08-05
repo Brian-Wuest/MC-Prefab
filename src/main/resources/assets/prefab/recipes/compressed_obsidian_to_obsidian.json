@@ -1,4 +1,10 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Compressed Obsidian"
+        }
+    ],
     "type": "minecraft:crafting_shapeless",
     "group": "Compressed Obsidian",
     "ingredients": [

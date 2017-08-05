@@ -1,4 +1,10 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Horse Stable"
+        }
+    ],
     "type": "minecraft:crafting_shaped",
     "group": "Horse Stable",
     "pattern": [

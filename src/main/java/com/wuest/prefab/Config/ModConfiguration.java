@@ -121,10 +121,11 @@ public class ModConfiguration
 	public static String andesiteStairsKey = "Andesite Stairs";
 	public static String dioriteStairsKey = "Diorite Stairs";
 	public static String graniteStairsKey = "Granite Stairs";
-	public static String glassSlabsKey = "Glass Slab";
-	public static String andesiteSlabsKey = "Andesite Slab";
-	public static String dioriteSlabKey = "Diorite Slab";
-	public static String grantiteSlabKey = "Granite Slab";
+	public static String glassSlabsKey = "Glass Slabs";
+	public static String andesiteSlabsKey = "Andesite Slabs";
+	public static String dioriteSlabKey = "Diorite Slabs";
+	public static String grantiteSlabKey = "Granite Slabs";
+	public static String moderateHouseKey = "Moderate House";
 	
 	public static String[] recipeKeys = new String[] 
 	{ 
@@ -167,7 +168,8 @@ public class ModConfiguration
 			dioriteStairsKey,
 			dioriteSlabKey,
 			graniteStairsKey,
-			grantiteSlabKey
+			grantiteSlabKey,
+			moderateHouseKey
 	};
 
 	// Version Check Message Info

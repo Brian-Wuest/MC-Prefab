@@ -1,4 +1,4 @@
-package com.wuest.prefab.craftingz;
+package com.wuest.prefab.Crafting;
 
 import java.util.ArrayList;
 import java.util.HashMap;

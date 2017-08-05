@@ -1,4 +1,10 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Villager Houses"
+        }
+    ],
     "type": "minecraft:crafting_shaped",
     "group": "Villager Houses",
     "pattern": [
@@ -12,8 +18,8 @@
             "data": 32767
         },
         "b": {
-            "item": "prefab:block_compressed_stone",
-            "data": 0
+                "type": "forge:ore_dict",
+                "ore": "compressedStone1"
         }
     },
     "result": {

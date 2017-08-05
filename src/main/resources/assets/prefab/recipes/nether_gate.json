@@ -1,4 +1,10 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Nether Gate"
+        }
+    ],
     "type": "minecraft:crafting_shaped",
     "group": "Nether Gate",
     "pattern": [
@@ -8,8 +14,8 @@
     ],
     "key": {
         "a": {
-            "item": "prefab:block_compressed_stone",
-            "data": 1
+                "type": "forge:ore_dict",
+                "ore": "compressedStone2"
         },
         "b": {
             "item": "minecraft:obsidian",

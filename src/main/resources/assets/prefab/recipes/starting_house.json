@@ -1,4 +1,10 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Starting House"
+        }
+    ],
     "type": "minecraft:crafting_shaped",
     "group": "Starting House",
     "pattern": [

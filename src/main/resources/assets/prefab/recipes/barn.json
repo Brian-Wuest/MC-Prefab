@@ -1,4 +1,10 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Barn"
+        }
+    ],
     "type": "minecraft:crafting_shaped",
     "group": "Barn",
     "pattern": [
@@ -11,15 +17,15 @@
             "item": "prefab:item_pallet_of_bricks"
         },
         "b": {
-            "item": "prefab:block_compressed_stone",
-            "data": 3
+                "type": "forge:ore_dict",
+                "ore": "compressedGlowstone1"
         },
         "c": {
             "item": "prefab:item_bundle_of_timber"
         },
         "d": {
-            "item": "prefab:block_compressed_stone",
-            "data": 5
+                "type": "forge:ore_dict",
+                "ore": "compressedDirt1"
         }
     },
     "result": {

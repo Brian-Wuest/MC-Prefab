@@ -1,6 +1,12 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Pile of Bricks"
+        }
+    ],
     "type": "minecraft:crafting_shapeless",
-    "group": "prefab:pile of bricks",
+    "group": "Pile of Bricks",
     "ingredients": [
         {
             "item": "#pile_of_bricks"

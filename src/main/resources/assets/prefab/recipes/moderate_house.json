@@ -1,0 +1,26 @@
+{
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Moderate House"
+        }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "group": "Moderate House",
+    "ingredients": [
+        {
+            "item": "prefab:item_start_house"
+        },
+        {
+            "item": "prefab:item_start_house"
+        },
+        {
+            "item": "prefab:item_start_house"
+        }
+    ],
+    "result": {
+        "item": "prefab:item_moderate_house",
+        "data": 0,
+        "count": 1
+    }
+}

@@ -1,6 +1,12 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Andesite Slabs"
+        }
+    ],
     "type": "minecraft:crafting_shaped",
-    "group": "prefab:andesite slab",
+    "group": "Andesite Slabs",
     "pattern": [
         "#",
         "#"

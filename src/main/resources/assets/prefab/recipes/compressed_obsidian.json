@@ -1,4 +1,10 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Compressed Obsidian"
+        }
+    ],
     "type": "minecraft:crafting_shaped",
     "group": "Compressed Obsidian",
     "pattern": [

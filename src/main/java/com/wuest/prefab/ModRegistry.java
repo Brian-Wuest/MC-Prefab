@@ -187,11 +187,6 @@ public class ModRegistry
 	public static HashMap<Integer, Class> ModGuis = new HashMap<Integer, Class>();
 
 	/**
-	 * The object which contains all recipes for this mod.
-	 */
-	public static HashMap<String, ArrayList<ResourceLocation>> SavedRecipes = new HashMap<String, ArrayList<ResourceLocation>>();
-
-	/**
 	 * The identifier for the WareHouse GUI.
 	 */
 	public static final int GuiWareHouse = 1;
@@ -856,111 +851,6 @@ public class ModRegistry
 				new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedObsidianBlock()), 1, BlockCompressedObsidian.EnumType.DOUBLE_COMPRESSED_OBSIDIAN.getMetadata()));
 	}
 	
-	/**
-	 * This is where the mod recipes are registered.
-	 */
-	public static void RegisterRecipes()
-	{
-		for (String group : ModConfiguration.recipeKeys)
-		{
-			ModRegistry.SavedRecipes.put(group, new ArrayList<ResourceLocation>());
-		}
-	}
-
-	/**
-	 * Saves the mod recipe to the field.
-	 * @param groupName The name of the recipe group.
-	 * @param recipe The recipe to save.
-	 */
-	public static void SaveModRecipe(String groupName, ResourceLocation recipe)
-	{
-		// Make a hashmap with a string key and an arraylist of tuples for the value. The tuple will be of IRecipe and boolean
-		if (ModRegistry.SavedRecipes.containsKey(groupName))
-		{
-			ArrayList<ResourceLocation> recipes = ModRegistry.SavedRecipes.get(groupName);
-			recipes.add(recipe);
-		}
-		else
-		{
-			ArrayList<ResourceLocation> recipes = new ArrayList<ResourceLocation>();
-			recipes.add(recipe);
-			ModRegistry.SavedRecipes.put(groupName, recipes);
-		}
-	}
-
-	/**
-	 * Adds a shaped recipe to the game registry/mod registry.
-	 * @param displayName The name of the recipe.
-	 * @param stack The output of the recipel
-	 * @param recipeComponents The components of the recipe.
-	 * @return An IRecipe to be used.
-	 */
-	public static void addShapedRecipe(String displayName, String groupName, ItemStack stack, Object... recipeComponents)
-	{
-		ResourceLocation resourceLocation = null;
-
-		if (Prefab.proxy.getServerConfiguration().recipeConfiguration.containsKey(groupName))
-		{
-			IRecipe recipe = ModRegistry.AddShapedRecipe(displayName, groupName, stack, recipeComponents);
-			resourceLocation = recipe.getRegistryName();
-		}
-		else
-		{
-			resourceLocation = new ResourceLocation(Prefab.MODID, displayName);
-		}
-
-		ModRegistry.SaveModRecipe(groupName, resourceLocation);
-	}
-
-	/**
-	 * Adds a shapeless crafting recipe to the the game.
-	 * @param displayName the display name for this recipe.
-	 * @param stack The output of this recipe.
-	 * @param recipeComponents The various items/blocks for this recipe.
-	 * @return An IRecipe which was registered into the game registry.
-	 */
-	public static void addShapelessRecipe(String displayName, String groupName, ItemStack stack, Object... recipeComponents)
-	{
-		ResourceLocation resourceLocation = null;
-
-		if (Prefab.proxy.getServerConfiguration().recipeConfiguration.containsKey(groupName))
-		{
-			ShapelessRecipes returnValue = ModRegistry.AddShapelessRecipe(displayName, groupName, stack, recipeComponents);
-		}
-		else
-		{
-			resourceLocation = new ResourceLocation(Prefab.MODID, displayName);
-		}
-
-		ModRegistry.SaveModRecipe(groupName, resourceLocation);
-	}
-
-    /**
-     * Adds a shaped ore recipe to the game.
-     * @param displayName The display name.
-     * @param stack The output of the recipe
-     * @param recipeComponents The components of the recipe.
-     * @return Returns the IRecipe.
-     */
-    public static IRecipe addShapedOreRecipe(String displayName, ItemStack stack, Object... recipeComponents)
-    {
-		IRecipe currentRecipe = new ShapedOreRecipe(stack, recipeComponents);
-		
-		GameRegistry.addRecipe(currentRecipe);
-		
-		ModRegistry.SaveModRecipe(displayName, currentRecipe);
-		
-		return currentRecipe;
-    }
-    
-    public static IRecipe addShapelessOreRecipe(String displayName, ItemStack stack, Object... recipeComponents)
-    {
-    	IRecipe currentRecipe = new ShapelessOreRecipe(stack, recipeComponents);
-    	GameRegistry.addRecipe(currentRecipe);
-    	ModRegistry.SaveModRecipe(displayName, currentRecipe);
-    	return currentRecipe;
-    }
-    
 	/**
 	 * This is where the mod messages are registered.
 	 */

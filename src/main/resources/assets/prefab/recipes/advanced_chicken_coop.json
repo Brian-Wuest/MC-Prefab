@@ -1,4 +1,10 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Advanced Chicken Coop"
+        }
+    ],
     "type": "minecraft:crafting_shapeless",
     "group": "Advanced Chicken Coop",
     "ingredients": [

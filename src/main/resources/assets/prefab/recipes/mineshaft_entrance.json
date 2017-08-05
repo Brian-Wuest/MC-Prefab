@@ -1,4 +1,10 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Mineshaft Entrance"
+        }
+    ],
     "type": "minecraft:crafting_shaped",
     "group": "Mineshaft Entrance",
     "pattern": [
@@ -16,8 +22,8 @@
             "data": 32767
         },
         "c": {
-            "item": "prefab:block_compressed_stone",
-            "data": 0
+                "type": "forge:ore_dict",
+                "ore": "compressedStone1"
         },
         "d": {
             "item": "minecraft:bed",

@@ -282,7 +282,6 @@ public class ModEventHandler
 		}
 	}
 
-
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> event)
 	{	
@@ -298,7 +297,7 @@ public class ModEventHandler
 	@SubscribeEvent
 	public static void registerRecipes(RegistryEvent.Register<IRecipe> event)
 	{		
-		// Only register capability recipes here.
-		ModRegistry.RegisterRecipes();
+		// Register the ore dictionary blocks.
+		ModRegistry.RegisterOreDictionaryRecords();
 	}
 }

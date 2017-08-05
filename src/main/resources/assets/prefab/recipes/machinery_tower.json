@@ -1,4 +1,10 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Machinery Tower"
+        }
+    ],
     "type": "minecraft:crafting_shaped",
     "group": "Machinery Tower",
     "pattern": [
@@ -16,8 +22,8 @@
             "data": 32767
         },
         "c": {
-            "item": "prefab:block_compressed_stone",
-            "data": 2
+                "type": "forge:ore_dict",
+                "ore": "compressedStone3"
         }
     },
     "result": {

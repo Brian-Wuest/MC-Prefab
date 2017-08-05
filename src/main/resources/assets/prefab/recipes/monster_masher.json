@@ -1,4 +1,10 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Monster Masher"
+        }
+    ],
     "type": "minecraft:crafting_shaped",
     "group": "Monster Masher",
     "pattern": [
@@ -28,16 +34,16 @@
             "data": 0
         },
         "f": {
-            "item": "prefab:block_compressed_stone",
-            "data": 1
+                "type": "forge:ore_dict",
+                "ore": "compressedStone2"
         },
         "g": {
-            "item": "prefab:block_compressed_stone",
-            "data": 2
+                "type": "forge:ore_dict",
+                "ore": "compressedStone3"
         },
         "h": {
-            "item": "prefab:block_compressed_stone",
-            "data": 4
+                "type": "forge:ore_dict",
+                "ore": "compressedGlowstone2"
         }
     },
     "result": {

@@ -1,0 +1,5 @@
+{
+    "conditions": {
+        "config_recipe": "com.wuest.prefab.Crafting.RecipeCondition"
+    }
+}

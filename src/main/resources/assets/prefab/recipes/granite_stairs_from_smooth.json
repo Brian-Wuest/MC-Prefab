@@ -1,6 +1,12 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Granite Stairs"
+        }
+    ],
     "type": "minecraft:crafting_shaped",
-    "group": "prefab:granite stairs",
+    "group": "Granite Stairs",
     "pattern": [
         "#  ",
         "## ",

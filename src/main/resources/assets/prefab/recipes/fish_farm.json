@@ -1,4 +1,10 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Fish Farm"
+        }
+    ],
     "type": "minecraft:crafting_shaped",
     "group": "Fish Farm",
     "pattern": [

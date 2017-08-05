@@ -1,6 +1,12 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Granite Slabs"
+        }
+    ],
     "type": "minecraft:crafting_shaped",
-    "group": "prefab:granite slab",
+    "group": "Granite Slabs",
     "pattern": [
         "#",
         "#"

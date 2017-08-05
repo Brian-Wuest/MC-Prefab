@@ -1,4 +1,10 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Advanced Warehouse"
+        }
+    ],
     "type": "minecraft:crafting_shaped",
     "group": "Advanced Warehouse",
     "pattern": [
@@ -8,8 +14,8 @@
     ],
     "key": {
         "a": {
-            "item": "prefab:block_compressed_stone",
-            "data": 1
+                "type": "forge:ore_dict",
+                "ore": "compressedStone1"
         },
         "b": {
             "item": "prefab:item_warehouse_upgrade",
@@ -20,12 +26,12 @@
             "data": 32767
         },
         "d": {
-            "item": "prefab:block_compressed_stone",
-            "data": 4
+                "type": "forge:ore_dict",
+                "ore": "compressedGlowstone2"
         },
         "e": {
-            "item": "prefab:block_compressed_stone",
-            "data": 2
+                "type": "forge:ore_dict",
+                "ore": "compressedStone3"
         }
     },
     "result": {

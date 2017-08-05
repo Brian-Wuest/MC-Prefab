@@ -1,6 +1,12 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Diorite Stairs"
+        }
+    ],
     "type": "minecraft:crafting_shaped",
-    "group": "prefab:diorite stairs",
+    "group": "Diorite Stairs",
     "pattern": [
         "#  ",
         "## ",

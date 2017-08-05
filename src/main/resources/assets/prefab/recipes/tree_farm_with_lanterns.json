@@ -1,4 +1,10 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Tree Farm"
+        }
+    ],
     "type": "minecraft:crafting_shaped",
     "group": "Tree Farm",
     "pattern": [

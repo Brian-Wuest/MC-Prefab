@@ -1,4 +1,10 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Advanced Horse Stable"
+        }
+    ],
     "type": "minecraft:crafting_shapeless",
     "group": "Advanced Horse Stable",
     "ingredients": [
@@ -15,7 +21,8 @@
             "item": "prefab:item_horse_stable"
         },
         {
-            "item": "#double_compressed_glowstone"
+            "type": "forge:ore_dict",
+            "ore": "compressedGlowstone2"
         }
     ],
     "result": {

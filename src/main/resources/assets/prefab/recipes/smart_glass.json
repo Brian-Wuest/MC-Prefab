@@ -1,4 +1,10 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Smart Glass"
+        }
+    ],
     "type": "minecraft:crafting_shaped",
     "group": "Smart Glass",
     "pattern": [

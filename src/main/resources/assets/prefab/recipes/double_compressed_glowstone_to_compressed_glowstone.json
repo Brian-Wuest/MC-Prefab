@@ -1,4 +1,10 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Compressed Glowstone"
+        }
+    ],
     "_comment": [
         "Double compressed glowstone to compressed glowstone"
     ],

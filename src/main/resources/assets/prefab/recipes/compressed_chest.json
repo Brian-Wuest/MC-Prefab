@@ -1,6 +1,12 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Compressed Chest"
+        }
+    ],
     "type": "minecraft:crafting_shaped",
-    "group": "prefab:compressed chest",
+    "group": "Compressed Chest",
     "pattern": [
         "###",
         "#a#",

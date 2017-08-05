@@ -1,4 +1,10 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Phasic Block"
+        }
+    ],
     "type": "minecraft:crafting_shaped",
     "group": "Phasic Block",
     "pattern": [

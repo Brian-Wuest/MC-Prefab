@@ -1,4 +1,10 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Compressed Dirt"
+        }
+    ],
     "_comment": [
         "Double compressed dirt to compressed dirt"
     ],

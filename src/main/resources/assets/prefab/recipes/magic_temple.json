@@ -1,4 +1,10 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Magic Temple"
+        }
+    ],
     "type": "minecraft:crafting_shaped",
     "group": "Magic Temple",
     "pattern": [

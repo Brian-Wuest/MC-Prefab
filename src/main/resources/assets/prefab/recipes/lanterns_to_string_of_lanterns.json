@@ -1,4 +1,10 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Paper Lantern"
+        }
+    ],
     "type": "minecraft:crafting_shaped",
     "group": "Paper Lantern",
     "pattern": [

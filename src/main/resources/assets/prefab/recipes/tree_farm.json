@@ -1,4 +1,10 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Tree Farm"
+        }
+    ],
     "type": "minecraft:crafting_shaped",
     "group": "Tree Farm",
     "pattern": [
@@ -12,16 +18,16 @@
             "data": 32767
         },
         "b": {
-            "item": "prefab:block_compressed_stone",
-            "data": 6
+                "type": "forge:ore_dict",
+                "ore": "compressedDirt2"
         },
         "c": {
             "item": "minecraft:flower_pot",
             "data": 32767
         },
         "d": {
-            "item": "prefab:block_compressed_stone",
-            "data": 4
+                "type": "forge:ore_dict",
+                "ore": "compressedGlowstone2"
         }
     },
     "result": {

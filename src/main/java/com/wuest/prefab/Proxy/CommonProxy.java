@@ -20,9 +20,9 @@ import com.wuest.prefab.UpdateChecker;
 import com.wuest.prefab.Blocks.BlockCompressedObsidian;
 import com.wuest.prefab.Blocks.BlockCompressedStone;
 import com.wuest.prefab.Config.ModConfiguration;
+import com.wuest.prefab.Crafting.ShapedRecipeForFile;
 import com.wuest.prefab.Events.ModEventHandler;
 import com.wuest.prefab.Gui.GuiCustomContainer;
-import com.wuest.prefab.crafting.ShapedRecipeForFile;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.crafting.IRecipe;
@@ -72,11 +72,6 @@ public class CommonProxy implements IGuiHandler
 		// Register the capabilities.
 		ModRegistry.RegisterCapabilities();
 		
-		ModRegistry.RegisterOreDictionaryRecords();
-		
-		// Register the recipes here.
-		//ModRegistry.RegisterRecipes();
-		
 		// Make sure that the mod configuration is re-synced after loading all of the recipes.
 		ModConfiguration.syncConfig();
 	}
@@ -84,7 +79,6 @@ public class CommonProxy implements IGuiHandler
 	public void init(FMLInitializationEvent event)
 	{	
 		NetworkRegistry.INSTANCE.registerGuiHandler(Prefab.instance, Prefab.proxy);
-		this.UpdateRegisteredRecipes();
 	}
 	
 	public void postinit(FMLPostInitializationEvent event)
@@ -115,75 +109,6 @@ public class CommonProxy implements IGuiHandler
 	public ModConfiguration getServerConfiguration()
 	{
 		return CommonProxy.proxyConfiguration;
-	}
-	
-	public void UpdateRegisteredRecipes()
-	{
-		// Remove recipes which are configured to not be set.
-		ForgeRegistry<IRecipe> registry = (ForgeRegistry<IRecipe>) ForgeRegistries.RECIPES;
-		HashMap<String, Boolean> recipeConfiguration = Prefab.proxy.getServerConfiguration().recipeConfiguration;
-		
-		for (Entry<ResourceLocation, IRecipe> entry : registry.getEntries())
-		{
-			if (entry.getKey().getResourceDomain().equals(Prefab.MODID))
-			{
-				// Check for normal case or lower-case situations.
-				ResourceLocation recipeKey = recipeConfiguration.containsKey(entry.getValue().getGroup()) ? entry.getKey() : null;
-				boolean shouldRemove = false;
-				
-				if (recipeKey == null)
-				{
-					String modifiedGroupName = entry.getValue().getGroup().replaceAll("prefab:", "").replaceAll("_", "");
-					
-					for (String recipeConfigurationKey : recipeConfiguration.keySet())
-					{
-						if (recipeConfigurationKey.toLowerCase().equals(modifiedGroupName))
-						{
-							recipeKey = entry.getKey();
-							shouldRemove = !recipeConfiguration.get(recipeConfigurationKey);
-							break;
-						}
-					}
-				}
-				else
-				{
-					shouldRemove = !recipeConfiguration.get(entry.getValue().getGroup());
-				}
-				
-				if (recipeKey != null && shouldRemove)
-				{
-					registry.remove(recipeKey);
-				}
-				
-/*				if (entry.getValue().getClass() == ShapedRecipes.class && !entry.getValue().getGroup().equals("Bundle of Timber"))
-				{
-					//ExclusionStrategy strategy = new CustomExclusionStrategy();
-					
-					//Gson converter = new GsonBuilder().setExclusionStrategies(strategy).setPrettyPrinting().create();
-					Gson converter = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
-					StringWriter stringWriter = new StringWriter();
-					
-					ShapedRecipeForFile fileShape = ShapedRecipeForFile.createFromShapedRecipe((ShapedRecipes)entry.getValue());
-					converter.toJson(fileShape, stringWriter);
-					
-					
-					String jsonValue = stringWriter.toString();
-					String fileLocation = "C:\\Temp\\" + entry.getValue().getRegistryName().getResourcePath().toLowerCase().replaceAll(" ", "_") + ".json";
-					
-					try
-					{
-						Files.write(jsonValue, new File(fileLocation), Charset.defaultCharset());
-					}
-					catch (IOException e)
-					{
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}*/
-			}
-		}
-		
-		FMLCommonHandler.instance().resetClientRecipeBook();
 	}
 	
 	public class CustomExclusionStrategy implements ExclusionStrategy

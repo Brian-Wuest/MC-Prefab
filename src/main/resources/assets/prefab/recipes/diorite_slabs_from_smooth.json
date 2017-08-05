@@ -1,6 +1,12 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Diorite Slabs"
+        }
+    ],
     "type": "minecraft:crafting_shaped",
-    "group": "prefab:diorite slab",
+    "group": "Diorite Slabs",
     "pattern": [
         "#",
         "#"

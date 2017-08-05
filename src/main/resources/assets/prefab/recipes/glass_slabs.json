@@ -1,6 +1,12 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Glass Slabs"
+        }
+    ],
     "type": "minecraft:crafting_shaped",
-    "group": "prefab:glass slab",
+    "group": "Glass Slabs",
     "pattern": [
         "#",
         "#"

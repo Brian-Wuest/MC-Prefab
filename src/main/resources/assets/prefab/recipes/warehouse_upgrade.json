@@ -1,4 +1,10 @@
 {
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Warehouse Upgrade"
+        }
+    ],
     "type": "minecraft:crafting_shaped",
     "group": "Warehouse Upgrade",
     "pattern": [
