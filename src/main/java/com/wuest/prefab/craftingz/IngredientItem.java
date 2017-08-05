@@ -1,4 +1,4 @@
-package com.wuest.prefab.crafting;
+package com.wuest.prefab.craftingz;
 
 import com.google.gson.annotations.Expose;
 
