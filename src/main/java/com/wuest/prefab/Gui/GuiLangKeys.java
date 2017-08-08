@@ -259,6 +259,9 @@ public class GuiLangKeys
 	@Unlocalized(name = "Spruce House")
 	public static final String MODERATE_HOUSE_SPRUCE = "prefab.gui.moderate_house.spruce";
 	
+	@Unlocalized(name = "Acacia House")
+	public static final String MODERATE_HOUSE_ACACIA = "prefab.gui.moderate_house.acacia";
+	
 
 	/**
 	 * Translates the specified language key for the current language.
@@ -307,7 +310,7 @@ public class GuiLangKeys
 				e.printStackTrace();
 			}
 			
-			if (name.equals(value))
+			if (translateKey.equals(value))
 			{
 				Annotation[] annotations = field.getDeclaredAnnotations();
 				

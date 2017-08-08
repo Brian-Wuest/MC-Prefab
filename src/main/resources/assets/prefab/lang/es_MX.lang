@@ -94,6 +94,7 @@ prefab.gui.starter.ceilingflat=Es techo plano
 prefab.gui.starter.buildmineshaft=Construir pozo
 
 prefab.gui.moderate_house.spruce=Casa de abeto
+prefab.gui.moderate_house.acacia=Casa de acacia
 
 prefab.gui.villager.house.flat=Azotea plana
 prefab.gui.villager.house.angled=Cubierta inclinada

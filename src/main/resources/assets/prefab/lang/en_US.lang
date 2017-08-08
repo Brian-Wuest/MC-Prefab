@@ -100,6 +100,7 @@ prefab.gui.villager.blacksmith=Blacksmith
 prefab.gui.villager.long_house=Long House
 
 prefab.gui.moderate_house.spruce=Spruce House
+prefab.gui.moderate_house.acacia=Acacia House
 
 prefab.ceiling.block.type.stone=Stonebrick
 prefab.ceiling.block.type.brick=Brick
