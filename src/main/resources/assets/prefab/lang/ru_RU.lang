@@ -94,6 +94,7 @@ prefab.gui.starter.ceilingflat=Плоский Потолок
 prefab.gui.starter.buildmineshaft=Построить Шахту
 
 prefab.gui.moderate_house.spruce=Еловая ель
+prefab.gui.moderate_house.acacia=Дом из акации
 
 prefab.gui.villager.house.flat=Flat Roof
 prefab.gui.villager.house.angled=Angled Roof

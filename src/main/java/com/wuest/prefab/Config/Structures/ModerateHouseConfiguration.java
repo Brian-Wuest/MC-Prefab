@@ -99,7 +99,9 @@ public class ModerateHouseConfiguration extends StructureConfiguration
 	public enum HouseStyle
 	{
 		SPRUCE_HOME(0, GuiLangKeys.MODERATE_HOUSE_SPRUCE, new ResourceLocation("prefab", "textures/gui/moderate_house_spruce_topdown.png"), 176, 154, 
-				"assets/prefab/structures/moderate_house_spruce.zip", 31, 31, 23, 8);
+				"assets/prefab/structures/moderate_house_spruce.zip", 31, 31, 23, 8, 1),
+		ACACIA_HOME(1, GuiLangKeys.MODERATE_HOUSE_ACACIA, new ResourceLocation("prefab", "textures/gui/moderate_house_acacia_topdown.png"), 176, 154, 
+				"assets/prefab/structures/moderate_house_acacia.zip", 31, 31, 21, 12, 6);
 
 		private final int value;
 		private final String displayName;
@@ -111,8 +113,9 @@ public class ModerateHouseConfiguration extends StructureConfiguration
 		private final int length;
 		private final int height;
 		private final int eastOffSet;
+		private final int downOffSet;
 		
-		HouseStyle(int newValue, String displayName, ResourceLocation housePicture, int imageWidth, int imageHeight, String structureLocation, int width, int length, int height, int eastOffSet) 
+		HouseStyle(int newValue, String displayName, ResourceLocation housePicture, int imageWidth, int imageHeight, String structureLocation, int width, int length, int height, int eastOffSet, int downOffSet) 
 		{
 			this.value = newValue;
 			this.displayName = displayName;
@@ -124,6 +127,7 @@ public class ModerateHouseConfiguration extends StructureConfiguration
 			this.length = length;
 			this.height = height;
 			this.eastOffSet = eastOffSet;
+			this.downOffSet = downOffSet;
 		}
 
 		public int getValue() 
@@ -171,6 +175,11 @@ public class ModerateHouseConfiguration extends StructureConfiguration
 			return this.eastOffSet;
 		}
 		
+		public int getDownOffSet()
+		{
+			return this.downOffSet;
+		}
+		
 		public String getStructureLocation()
 		{
 			return this.structureLocation;
@@ -183,6 +192,11 @@ public class ModerateHouseConfiguration extends StructureConfiguration
 				case 0:
 				{
 					return HouseStyle.SPRUCE_HOME;
+				}
+				
+				case 1:
+				{
+					return HouseStyle.ACACIA_HOME;
 				}
 	
 				default:

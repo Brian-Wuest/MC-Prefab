@@ -94,6 +94,7 @@ prefab.gui.starter.ceilingflat=Est plat de plafond
 prefab.gui.starter.buildmineshaft=Build mine
 
 prefab.gui.moderate_house.spruce=Épinette maison
+prefab.gui.moderate_house.acacia=Maison de l'acacia
 
 prefab.gui.villager.house.flat=Toit plat
 prefab.gui.villager.house.angled=Toit en angle
