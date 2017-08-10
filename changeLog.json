@@ -5,8 +5,8 @@
 	  "1.10.2-recommended": "1.1.1.16",
 	  "1.11.2-latest": "1.2.0.12",
 	  "1.11.2-recommended": "1.2.0.12",
-	  "1.12-latest": "1.3.0.3",
-	  "1.12-recommended": "1.3.0.1"
+	  "1.12-latest": "1.3.0.4",
+	  "1.12-recommended": "1.3.0.4"
   },
   "1.10.2": {
 	  "1.1.1.10": "New Stuff: Added [Ender Gateway] structure. Added [Phasic Block] and [Boundary Block]\nSome buildings can now be generated in mod-created dimensions.",
@@ -31,6 +31,7 @@
 	  "1.3.0.0": "Initial release containing latest updates from 1.2.0.10.",
 	  "1.3.0.1": "Fixes: A player can generate 2 structures at same time now.",
 	  "1.3.0.2": "Adds moderate houses. Adds compressed blocks to Ore Dictionary",
-	  "1.3.0.3": "Fixes game crashing issue."
+	  "1.3.0.3": "Fixes game crashing issue.",
+	  "1.3.0.4": "Updates Language files. Fixes issues with carpet generation in Acacia house."
   }
 }
