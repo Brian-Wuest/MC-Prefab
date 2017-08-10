@@ -33,7 +33,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.AchievementList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.tileentity.TileEntityFurnace;
@@ -173,9 +172,6 @@ public class StructureModerateHouse extends Structure
 			if (Prefab.proxy.proxyConfiguration.addHoe)
 			{
 				chestTile.setInventorySlotContents(itemSlot++, new ItemStack(Items.STONE_HOE));
-
-				// Trigger the "Time to Farm!" achievement.
-				player.addStat(AchievementList.BUILD_HOE);
 			}
 
 			if (Prefab.proxy.proxyConfiguration.addPickAxe)
@@ -183,13 +179,6 @@ public class StructureModerateHouse extends Structure
 				// Trigger the "Time to Mine" achievement and the better
 				// pick axe achievement.
 				chestTile.setInventorySlotContents(itemSlot++, new ItemStack(Items.STONE_PICKAXE));
-
-				player.addStat(AchievementList.BUILD_PICKAXE);
-				player.addStat(AchievementList.BUILD_BETTER_PICKAXE);
-
-				// If the furnace/crafting table was created, trigger
-				// the "Hot Topic" achievement.
-				player.addStat(AchievementList.BUILD_FURNACE);
 			}
 
 			if (Prefab.proxy.proxyConfiguration.addShovel)
@@ -210,9 +199,6 @@ public class StructureModerateHouse extends Structure
 				}
 
 				chestTile.setInventorySlotContents(itemSlot++, new ItemStack(sword));
-
-				// Trigger the "Time to Strike" achievement.
-				player.addStat(AchievementList.BUILD_SWORD);
 			}
 
 			if (Prefab.proxy.proxyConfiguration.addArmor)
@@ -228,8 +214,6 @@ public class StructureModerateHouse extends Structure
 			{
 				// Add some bread.
 				chestTile.setInventorySlotContents(itemSlot++, new ItemStack(Items.BREAD, 20));
-				
-				player.addStat(AchievementList.MAKE_BREAD);
 			}
 
 			if (Prefab.proxy.proxyConfiguration.addCrops)
