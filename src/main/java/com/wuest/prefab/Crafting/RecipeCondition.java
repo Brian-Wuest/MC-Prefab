@@ -10,7 +10,7 @@ import net.minecraftforge.common.crafting.JsonContext;
 
 /**
  * 
- * @author redkn
+ * @author WuestMan
  *
  */
 public class RecipeCondition implements IConditionFactory
