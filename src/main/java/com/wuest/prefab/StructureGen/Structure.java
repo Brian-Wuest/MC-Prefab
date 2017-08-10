@@ -316,7 +316,8 @@ public class Structure
 								block.setSubBlock(subBlock);
 							}
 
-							if (foundBlock instanceof BlockFlowerPot)
+							if (foundBlock instanceof BlockFlowerPot
+									|| foundBlock instanceof BlockCarpet)
 							{
 								this.priorityThreeBlocks.add(block);
 							}
