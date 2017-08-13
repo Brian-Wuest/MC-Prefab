@@ -60,6 +60,7 @@ public class ItemBasicStructure extends StructureItem
 			{
 				// Open the client side gui to determine the house options.
 				//StructureBasic basicStructure = new StructureBasic();
+				//ItemStack stack = player.getHeldItem(hand);
 				//IStructureConfigurationCapability capability = stack.getCapability(ModRegistry.StructureConfiguration,  EnumFacing.NORTH);
 				//BasicStructureConfiguration structureConfiguration = capability.getConfiguration();
 				//basicStructure.ScanStructure(world, hitBlockPos, player.getHorizontalFacing(), structureConfiguration, false, false);
