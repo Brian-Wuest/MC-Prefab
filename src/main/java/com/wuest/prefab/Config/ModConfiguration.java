@@ -169,7 +169,8 @@ public class ModConfiguration
 			dioriteSlabKey,
 			graniteStairsKey,
 			grantiteSlabKey,
-			moderateHouseKey
+			moderateHouseKey,
+			grassyPlainsKey
 	};
 
 	// Version Check Message Info

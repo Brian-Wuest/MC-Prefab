@@ -131,6 +131,7 @@ public class ItemBasicStructure extends StructureItem
 		return this.getUnlocalizedName();
 	}
 
+	@Override
 	public String getItemStackDisplayName(ItemStack stack)
 	{
 		return ("" + I18n
@@ -149,7 +150,8 @@ public class ItemBasicStructure extends StructureItem
 	@Override
 	public NBTTagCompound getNBTShareTag(ItemStack stack)
 	{
-		if (stack.getTagCompound() == null)
+		if (stack.getTagCompound() == null
+				|| stack.getTagCompound().hasNoTags())
 		{
 			// Make sure to serialize the NBT for this stack so the information
 			// is pushed to the client and the appropriate Icon is displayed for
