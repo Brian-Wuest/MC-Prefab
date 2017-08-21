@@ -5,8 +5,10 @@
 	  "1.10.2-recommended": "1.1.1.16",
 	  "1.11.2-latest": "1.2.0.13",
 	  "1.11.2-recommended": "1.2.0.13",
-	  "1.12-latest": "1.3.0.5",
-	  "1.12-recommended": "1.3.0.5"
+	  "1.12-latest": "1.3.0.6",
+	  "1.12-recommended": "1.3.0.6",
+	  "1.12.1-latest": "1.3.0.6",
+	  "1.12.1-recommended": "1.3.0.6"
   },
   "1.10.2": {
 	  "1.1.1.10": "New Stuff: Added [Ender Gateway] structure. Added [Phasic Block] and [Boundary Block]\nSome buildings can now be generated in mod-created dimensions.",
@@ -34,6 +36,7 @@
 	  "1.3.0.2": "Adds moderate houses. Adds compressed blocks to Ore Dictionary",
 	  "1.3.0.3": "Fixes game crashing issue.",
 	  "1.3.0.4": "Updates Language files. Fixes issues with carpet generation in Acacia house.",
-	  "1.3.0.5": "Fixes the green house to have more light for crops."
+	  "1.3.0.5": "Fixes the green house to have more light for crops.",
+	  "1.3.0.6": "Fixes grassy plains crafting. Fixes crafting of certain items when playing on a server"
   }
 }
