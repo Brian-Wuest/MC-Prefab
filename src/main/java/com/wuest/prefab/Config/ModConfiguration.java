@@ -170,7 +170,8 @@ public class ModConfiguration
 			graniteStairsKey,
 			grantiteSlabKey,
 			moderateHouseKey,
-			grassyPlainsKey
+			grassyPlainsKey,
+			aquaBaseKey
 	};
 
 	// Version Check Message Info
