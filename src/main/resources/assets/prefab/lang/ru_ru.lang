@@ -128,6 +128,9 @@ prefab.gui.button.build=Строить!
 prefab.gui.button.cancel=Отмена
 prefab.gui.button.preview=Preview!
 
+prefab.gui.tooltip.shift=Нажмите§9 shift §7для получения дополнительной информации.
+prefab.gui.tooltip.boundary_block=Первоначально невидимый, становится видимым при приеме сигнала красного камня.
+
 prefab.gui.preview.complete=Structure Complete!
 prefab.gui.preview.notice=Right-click on any block in the world to remove the preview.
  

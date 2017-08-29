@@ -128,6 +128,9 @@ prefab.gui.button.build=Construir!
 prefab.gui.button.cancel=Cancelar
 prefab.gui.button.preview=¡Avance!
 
+prefab.gui.tooltip.shift=Presione§9 shift §7para obtener más información.
+prefab.gui.tooltip.boundary_block=Inicialmente invisible, se hace visible cuando se recibe una señal redstone.
+
 prefab.gui.preview.complete=¡Estructura completa!
 prefab.gui.preview.notice=Haga clic con el botón derecho en cualquier bloque del mundo para eliminar la vista previa.
 
