@@ -85,10 +85,12 @@ public class ModerateHouseConfiguration extends StructureConfiguration
 	protected void ConfigurationSpecificBuildStructure(EntityPlayer player, World world, BlockPos hitBlockPos)
 	{
 		StructureModerateHouse structure = StructureModerateHouse.CreateInstance(this.houseStyle.getStructureLocation(), StructureModerateHouse.class);
-		structure.BuildStructure(this, world, hitBlockPos, EnumFacing.NORTH, player);
 		
-		player.inventory.clearMatchingItems(ModRegistry.ModerateHouse(), -1, 1, null);
-		player.inventoryContainer.detectAndSendChanges();
+		if (structure.BuildStructure(this, world, hitBlockPos, EnumFacing.NORTH, player))
+		{
+			player.inventory.clearMatchingItems(ModRegistry.ModerateHouse(), -1, 1, null);
+			player.inventoryContainer.detectAndSendChanges();
+		}
 	}
 	
 	/**

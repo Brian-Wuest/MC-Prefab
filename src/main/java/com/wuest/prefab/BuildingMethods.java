@@ -519,6 +519,13 @@ public class BuildingMethods
 			{
 				return false;
 			}
+			
+			// A hardness of less than 0 is unbreakable.
+			if (blockState.getBlockHardness(world, currentPos) < 0.0f)
+			{
+				// This is bedrock or some other type of unbreakable block. Don't allow this block to be broken by a structure.
+				return false;
+			}
 		}
 
 		return true;

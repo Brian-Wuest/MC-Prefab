@@ -163,7 +163,7 @@ public class GuiLangKeys
 	@Unlocalized(name = "Note: If you're facing north, choose south so the structure is facing you.")
 	public static final String GUI_STRUCTURE_FACING_PLAYER="prefab.gui.structure.facing.player";
 	
-	@Unlocalized(name = "Cannot build structure due to protected blocks/area.")
+	@Unlocalized(name = "Cannot build structure due to protected blocks/area or unbreakable blocks are in the area.")
 	public static final String GUI_STRUCTURE_NOBUILD = "prefab.gui.structure.nobuild";
 	
 	@Unlocalized(name = "Build!")

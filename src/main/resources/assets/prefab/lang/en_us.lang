@@ -122,7 +122,7 @@ prefab.gui.structure.glass=Glass Color
 prefab.gui.structure.facing.player=Note: If you're facing north, choose south so the structure is facing you.
 prefab.gui.structure.block.clicked=The red box in the image on the right shows the block you clicked on.
 prefab.gui.structure.door.facing=Note: If you're facing north, choose south so the doors are facing you.
-prefab.gui.structure.nobuild=Cannot build structure due to protected blocks/area.
+prefab.gui.structure.nobuild=Cannot build structure due to protected blocks/area or unbreakable blocks are in the area.
 
 prefab.gui.button.build=Build!
 prefab.gui.button.cancel=Cancel

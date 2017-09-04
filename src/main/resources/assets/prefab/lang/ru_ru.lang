@@ -122,7 +122,7 @@ prefab.gui.structure.glass=Цвет Стекла
 prefab.gui.structure.facing.player=Note: If you're facing north, choose south so the structure is facing you. 
 prefab.gui.structure.block.clicked=В красной коробке на рисунке справа показывает какой блок вы щелкнули.
 prefab.gui.structure.door.facing=Примечание: Если вы столкнулись на север, юг, так что выбрать двери перед вами.
-prefab.gui.structure.nobuild=Cannot build structure due to protected blocks/area.
+prefab.gui.structure.nobuild=Невозможно построить структуру из-за защищенных блоков / областей или нерушимых блоков в этой области.
  
 prefab.gui.button.build=Строить!
 prefab.gui.button.cancel=Отмена
