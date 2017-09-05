@@ -45,6 +45,8 @@ public class GuiModerateHouse extends GuiStructure
 	{
 		super(x, y, z, true);
 		
+		this.structureConfiguration = EnumStructureConfiguration.ModerateHouse;
+		
 		if (!Minecraft.getMinecraft().player.capabilities.isCreativeMode)
 		{
 			this.allowItemsInChestAndFurnace = !ClientEventHandler.playerConfig.builtStarterHouse;

@@ -94,7 +94,7 @@ public class StructureTagMessage extends TagMessage
 			this.structureConfig = structureConfig;
 		}
 		
-		private int identifier;
+		public int identifier;
 		public StructureConfiguration structureConfig;
 		
 		public static EnumStructureConfiguration getFromIdentifier(int identifier)
