@@ -91,6 +91,10 @@ public class StructureModerateHouse extends Structure
 			
 			this.furnacePosition.add(block.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing));
 		}
+		else if (foundBlock instanceof BlockChest && !((ModerateHouseConfiguration)configuration).addChests)
+		{
+			return true;
+		}
 		else if (foundBlock instanceof BlockChest && this.chestPosition == null)
 		{
 			this.chestPosition = block.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing);
@@ -101,6 +105,7 @@ public class StructureModerateHouse extends Structure
 			// built.
 			this.trapDoorPosition = block.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing);
 		}
+		
 		return false;
 	}
 	
@@ -135,13 +140,13 @@ public class StructureModerateHouse extends Structure
 			}
 		}
 
-		if (this.chestPosition != null  && !playerConfig.builtStarterHouse)
+		if (this.chestPosition != null  && !playerConfig.builtStarterHouse && houseConfig.addChestContents)
 		{
 			// Fill the chest if the player hasn't generated the starting house yet.
 			StructureModerateHouse.FillChest(world, this.chestPosition, houseConfig, player);
 		}
 
-		if (this.trapDoorPosition != null && this.trapDoorPosition.getY() > 15)
+		if (this.trapDoorPosition != null && this.trapDoorPosition.getY() > 15 && houseConfig.addMineshaft)
 		{
 			// Build the mineshaft.
 			StructureAlternateStart.PlaceMineShaft(world, this.trapDoorPosition.down(), houseConfig.houseFacing, false);

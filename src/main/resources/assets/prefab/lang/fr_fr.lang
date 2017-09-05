@@ -122,11 +122,14 @@ prefab.gui.structure.glass=Couleur de verre
 prefab.gui.structure.facing.player=Remarque: Si vous faites face au nord, choisissez le sud pour que la structure soit face à vous.
 prefab.gui.structure.block.clicked=La boîte rouge de l'image à droite montre le bloc sur lequel vous avez cliqué.
 prefab.gui.structure.door.facing=Remarque: Si vous faites face au nord, choisissez le sud pour que les portes soient face à vous.
-prefab.gui.structure.nobuild=Impossible de construire une structure en raison de blocs / zones protégées.
+prefab.gui.structure.nobuild=Impossible de construire une structure en raison de blocs protégés / zone ou blocs incassables dans la zone.
 
 prefab.gui.button.build=Construire!
 prefab.gui.button.cancel=Annuler
 prefab.gui.button.preview=Aperçu!
+
+prefab.gui.tooltip.shift=§9Changement §7de presse pour plus d'informations.
+prefab.gui.tooltip.boundary_block=Initialement invisible, devient visible lors de la réception d'un signal redstone.
 
 prefab.gui.preview.complete=Structure terminée!
 prefab.gui.preview.notice=Cliquez avec le bouton droit de la souris sur n'importe quel bloc dans le monde pour supprimer l'aperçu.

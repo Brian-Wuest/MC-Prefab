@@ -39,9 +39,10 @@ public class TreeFarmConfiguration extends StructureConfiguration
 	protected void ConfigurationSpecificBuildStructure(EntityPlayer player, World world, BlockPos hitBlockPos)
 	{
 		StructureTreeFarm structure = StructureTreeFarm.CreateInstance(StructureTreeFarm.ASSETLOCATION, StructureTreeFarm.class);
-		structure.BuildStructure(this, world, hitBlockPos, EnumFacing.NORTH, player);
-		
-		player.inventory.clearMatchingItems(ModRegistry.TreeFarm(), -1, 1, null);
-		player.inventoryContainer.detectAndSendChanges();
+		if (structure.BuildStructure(this, world, hitBlockPos, EnumFacing.NORTH, player))
+		{
+			player.inventory.clearMatchingItems(ModRegistry.TreeFarm(), -1, 1, null);
+			player.inventoryContainer.detectAndSendChanges();
+		}
 	}
 }

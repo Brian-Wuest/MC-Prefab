@@ -163,7 +163,7 @@ public class GuiLangKeys
 	@Unlocalized(name = "Note: If you're facing north, choose south so the structure is facing you.")
 	public static final String GUI_STRUCTURE_FACING_PLAYER="prefab.gui.structure.facing.player";
 	
-	@Unlocalized(name = "Cannot build structure due to protected blocks/area.")
+	@Unlocalized(name = "Cannot build structure due to protected blocks/area or unbreakable blocks are in the area.")
 	public static final String GUI_STRUCTURE_NOBUILD = "prefab.gui.structure.nobuild";
 	
 	@Unlocalized(name = "Build!")
@@ -262,7 +262,12 @@ public class GuiLangKeys
 	@Unlocalized(name = "Acacia House")
 	public static final String MODERATE_HOUSE_ACACIA = "prefab.gui.moderate_house.acacia";
 	
+	@Unlocalized(name = "Press§9 Shift §7for more information.")
+	public static final String SHIFT_TOOLTIP = "prefab.gui.tooltip.shift";
 
+	@Unlocalized(name = "Initially invisible, becomes visible when receiving a redstone signal.")
+	public static final String BOUNDARY_TOOLTIP = "prefab.gui.tooltip.boundary_block";
+	
 	/**
 	 * Translates the specified language key for the current language.
 	 * 

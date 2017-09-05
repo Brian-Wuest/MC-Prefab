@@ -25,6 +25,9 @@ public class ModerateHouseConfiguration extends StructureConfiguration
 {
 	public static String tagKey = "houseConfig";
 	private static String houseStyleTag = "houseStyle";
+	private static String addChestTag = "addChests";
+	private static String addChestContentsTag = "addChestContents";
+	private static String addMineshaftTag = "addMineshaft";
 	
 	/**
 	 * The house style.
@@ -32,11 +35,31 @@ public class ModerateHouseConfiguration extends StructureConfiguration
 	public HouseStyle houseStyle;
 	
 	/**
+	 * Determines if the chests are included in the structure generation.
+	 */
+	public boolean addChests;
+	
+	/**
+	 * Determines if the chest items are included in the structure generation.
+	 */
+	public boolean addChestContents;
+	
+	/**
+	 * Determines if the mineshaft is generated in the structure generation.
+	 */
+	public boolean addMineshaft;
+	
+	/**
 	 * Initliazes a new instance of the {@link ModerateHouseConfiguration} class.
 	 */
 	public ModerateHouseConfiguration()
 	{
 		super();
+		
+		this.addChests = true;
+		this.addChestContents = true;
+		this.addMineshaft = true;
+		this.houseStyle = HouseStyle.SPRUCE_HOME;
 	}
 
 	@Override
@@ -50,15 +73,36 @@ public class ModerateHouseConfiguration extends StructureConfiguration
 	protected NBTTagCompound CustomWriteToNBTTagCompound(NBTTagCompound tag)
 	{
 		tag.setInteger(ModerateHouseConfiguration.houseStyleTag, this.houseStyle.value);
+		tag.setBoolean(ModerateHouseConfiguration.addChestTag, this.addChests);
+		tag.setBoolean(ModerateHouseConfiguration.addChestContentsTag, this.addChestContents);
+		tag.setBoolean(ModerateHouseConfiguration.addMineshaftTag, this.addMineshaft);
+		
 		return tag;
 	}
 
 	@Override
 	protected void CustomReadFromNBTTag(NBTTagCompound messageTag, StructureConfiguration config)
 	{
+		ModerateHouseConfiguration houseConfiguration = ((ModerateHouseConfiguration)config);
+		
 		if (messageTag.hasKey(ModerateHouseConfiguration.houseStyleTag))
 		{
-			((ModerateHouseConfiguration)config).houseStyle = HouseStyle.ValueOf(messageTag.getInteger(ModerateHouseConfiguration.houseStyleTag));
+			houseConfiguration.houseStyle = HouseStyle.ValueOf(messageTag.getInteger(ModerateHouseConfiguration.houseStyleTag));
+		}
+		
+		if (messageTag.hasKey(ModerateHouseConfiguration.addChestTag))
+		{
+			houseConfiguration.addChests = messageTag.getBoolean(ModerateHouseConfiguration.addChestTag);
+		}
+		
+		if (messageTag.hasKey(ModerateHouseConfiguration.addChestContentsTag))
+		{
+			houseConfiguration.addChestContents = messageTag.getBoolean(ModerateHouseConfiguration.addChestContentsTag);
+		}
+		
+		if (messageTag.hasKey(ModerateHouseConfiguration.addMineshaftTag))
+		{
+			houseConfiguration.addMineshaft = messageTag.getBoolean(ModerateHouseConfiguration.addMineshaftTag);
 		}
 	}
 	
@@ -85,10 +129,12 @@ public class ModerateHouseConfiguration extends StructureConfiguration
 	protected void ConfigurationSpecificBuildStructure(EntityPlayer player, World world, BlockPos hitBlockPos)
 	{
 		StructureModerateHouse structure = StructureModerateHouse.CreateInstance(this.houseStyle.getStructureLocation(), StructureModerateHouse.class);
-		structure.BuildStructure(this, world, hitBlockPos, EnumFacing.NORTH, player);
 		
-		player.inventory.clearMatchingItems(ModRegistry.ModerateHouse(), -1, 1, null);
-		player.inventoryContainer.detectAndSendChanges();
+		if (structure.BuildStructure(this, world, hitBlockPos, EnumFacing.NORTH, player))
+		{
+			player.inventory.clearMatchingItems(ModRegistry.ModerateHouse(), -1, 1, null);
+			player.inventoryContainer.detectAndSendChanges();
+		}
 	}
 	
 	/**

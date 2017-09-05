@@ -85,13 +85,12 @@ public class VillagerHouseConfiguration extends StructureConfiguration
 	protected void ConfigurationSpecificBuildStructure(EntityPlayer player, World world, BlockPos hitBlockPos)
 	{
 		StructureVillagerHouses structure = StructureVillagerHouses.CreateInstance(this.houseStyle.getStructureLocation(), StructureVillagerHouses.class);
-		structure.BuildStructure(this, world, hitBlockPos, EnumFacing.NORTH, player);
-		
-		ItemStack stack = player.getHeldItemMainhand().getItem() instanceof ItemVillagerHouses ? player.getHeldItemMainhand() : player.getHeldItemOffhand();
-		
-		stack.damageItem(1, player);
-
-		player.inventoryContainer.detectAndSendChanges();
+		if (structure.BuildStructure(this, world, hitBlockPos, EnumFacing.NORTH, player))
+		{
+			ItemStack stack = player.getHeldItemMainhand().getItem() instanceof ItemVillagerHouses ? player.getHeldItemMainhand() : player.getHeldItemOffhand();
+			stack.damageItem(1, player);
+			player.inventoryContainer.detectAndSendChanges();
+		}
 	}
 
 	/**
