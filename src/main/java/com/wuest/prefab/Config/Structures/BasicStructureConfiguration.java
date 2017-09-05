@@ -129,6 +129,7 @@ public class BasicStructureConfiguration extends StructureConfiguration
 	public BasicStructureConfiguration()
 	{
 		super();
+		this.basicStructureName = EnumBasicStructureName.AdvancedCoop;
 	}
 	
 	/**

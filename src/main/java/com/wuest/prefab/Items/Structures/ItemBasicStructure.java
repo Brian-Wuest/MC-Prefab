@@ -120,8 +120,7 @@ public class ItemBasicStructure extends StructureItem
 	@Override
 	public String getUnlocalizedName(ItemStack stack)
 	{
-		IStructureConfigurationCapability capability = ItemBasicStructure
-				.getStackCapability(stack);
+		IStructureConfigurationCapability capability = ItemBasicStructure.getStackCapability(stack);
 
 		if (capability != null)
 		{
@@ -150,12 +149,11 @@ public class ItemBasicStructure extends StructureItem
 	@Override
 	public NBTTagCompound getNBTShareTag(ItemStack stack)
 	{
-		if (stack.getTagCompound() == null
-				|| stack.getTagCompound().hasNoTags())
+		if (stack.getTagCompound() == null || stack.getTagCompound().hasNoTags())
 		{
-			// Make sure to serialize the NBT for this stack so the information
-			// is pushed to the client and the appropriate Icon is displayed for
-			// this stack.
+			IStructureConfigurationCapability capability = ItemBasicStructure.getStackCapability(stack);
+			
+			// Make sure to serialize the NBT for this stack so the information is pushed to the client and the appropriate Icon is displayed for this stack.
 			return stack.serializeNBT();
 		}
 
