@@ -127,6 +127,24 @@ public class ItemBasicStructure extends StructureItem
     {
         return ("" + I18n.translateToLocal(this.getUnlocalizedNameInefficiently(stack))).trim();
     }
+    
+    /**
+     * This used to be 'display damage' but its really just 'aux' data in the ItemStack, usually shares the same variable as damage.
+     * @param stack
+     * @return
+     */
+    @Override
+    public int getMetadata(ItemStack stack)
+    {
+    	if (stack.getTagCompound() == null
+    			|| stack.getTagCompound().hasNoTags())
+    	{
+    		// Make sure to serialize the NBT for this stack so the information is pushed to the client and the appropriate Icon is displayed for this stack.
+    		stack.setTagCompound(stack.serializeNBT());
+    	}
+    	
+        return 0;
+    }
 	
     /**
      * Override this method to change the NBT data being sent to the client.
@@ -138,10 +156,11 @@ public class ItemBasicStructure extends StructureItem
     @Override
 	public NBTTagCompound getNBTShareTag(ItemStack stack)
     {
-    	if (stack.getTagCompound() == null)
+    	if (stack.getTagCompound() == null
+    			|| stack.getTagCompound().hasNoTags())
     	{
     		// Make sure to serialize the NBT for this stack so the information is pushed to the client and the appropriate Icon is displayed for this stack.
-    		return stack.serializeNBT();
+    		stack.setTagCompound(stack.serializeNBT());
     	}
     	
         return stack.getTagCompound();
