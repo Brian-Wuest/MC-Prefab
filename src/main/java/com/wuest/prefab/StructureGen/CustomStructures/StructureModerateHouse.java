@@ -206,7 +206,7 @@ public class StructureModerateHouse extends Structure
 			{
 				// Include the swift blade if WuestUtilities has registered the
 				// swift blades.
-				ResourceLocation name = new ResourceLocation("repurpose", "itemSwiftBladeStone");
+				ResourceLocation name = new ResourceLocation("wuestutilities", "itemSwiftBladeStone");
 				Item sword = Item.REGISTRY.getObject(name);
 
 				if (sword == null)
