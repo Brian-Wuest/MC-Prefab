@@ -119,46 +119,59 @@ public class ItemBasicStructure extends StructureItem
 	 */
 	@Override
 	public String getUnlocalizedName(ItemStack stack)
-	{
-		IStructureConfigurationCapability capability = ItemBasicStructure.getStackCapability(stack);
+    {
+    	IStructureConfigurationCapability capability = ItemBasicStructure.getStackCapability(stack);
 
-		if (capability != null)
-		{
-			return capability.getConfiguration().getDisplayName();
-		}
+    	if (capability != null)
+    	{
+    		return capability.getConfiguration().getDisplayName();
+    	}
 
-		return this.getUnlocalizedName();
-	}
-
-	@Override
-	public String getItemStackDisplayName(ItemStack stack)
-	{
-		return ("" + I18n
-				.translateToLocal(this.getUnlocalizedNameInefficiently(stack)))
-						.trim();
-	}
-
-	/**
-	 * Override this method to change the NBT data being sent to the client. You
-	 * should ONLY override this when you have no other choice, as this might
-	 * change behavior client side!
-	 *
-	 * @param stack The stack to send the NBT tag for
-	 * @return The NBT tag
-	 */
-	@Override
+        return this.getUnlocalizedName();
+    }
+    
+    public String getItemStackDisplayName(ItemStack stack)
+    {
+        return ("" + I18n.translateToLocal(this.getUnlocalizedNameInefficiently(stack))).trim();
+    }
+    
+    /**
+     * This used to be 'display damage' but its really just 'aux' data in the ItemStack, usually shares the same variable as damage.
+     * @param stack
+     * @return
+     */
+    @Override
+    public int getMetadata(ItemStack stack)
+    {
+    	if (stack.getTagCompound() == null
+    			|| stack.getTagCompound().hasNoTags())
+    	{
+    		// Make sure to serialize the NBT for this stack so the information is pushed to the client and the appropriate Icon is displayed for this stack.
+    		stack.setTagCompound(stack.serializeNBT());
+    	}
+    	
+        return 0;
+    }
+	
+    /**
+     * Override this method to change the NBT data being sent to the client.
+     * You should ONLY override this when you have no other choice, as this might change behavior client side!
+     *
+     * @param stack The stack to send the NBT tag for
+     * @return The NBT tag
+     */
+    @Override
 	public NBTTagCompound getNBTShareTag(ItemStack stack)
-	{
-		if (stack.getTagCompound() == null || stack.getTagCompound().hasNoTags())
-		{
-			IStructureConfigurationCapability capability = ItemBasicStructure.getStackCapability(stack);
-			
-			// Make sure to serialize the NBT for this stack so the information is pushed to the client and the appropriate Icon is displayed for this stack.
-			return stack.serializeNBT();
-		}
-
-		return stack.getTagCompound();
-	}
+    {
+    	if (stack.getTagCompound() == null
+    			|| stack.getTagCompound().hasNoTags())
+    	{
+    		// Make sure to serialize the NBT for this stack so the information is pushed to the client and the appropriate Icon is displayed for this stack.
+    		stack.setTagCompound(stack.serializeNBT());
+    	}
+    	
+        return stack.getTagCompound();
+    }
 
 	public static ItemStack getBasicStructureItemInHand(EntityPlayer player)
 	{
