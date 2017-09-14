@@ -482,7 +482,8 @@ public class StructureAlternateStart extends Structure
 		IBlockState blockState = Blocks.TORCH.getStateFromMeta(5);
 		BuildingMethods.ReplaceBlock(world, pos.offset(facing.rotateYCCW()), blockState);
 
-		if (!Prefab.proxy.proxyConfiguration.enableHouseGenerationRestrictions)
+		if (!Prefab.proxy.proxyConfiguration.enableHouseGenerationRestrictions
+				&& Prefab.proxy.proxyConfiguration.includeMineshaftChest)
 		{
 			// Place a chest to the right of the ladder.
 			IBlockState chestState = Blocks.CHEST.getDefaultState().withProperty(BlockChest.FACING, facing);
