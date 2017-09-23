@@ -5,8 +5,8 @@
 	  "1.10.2-recommended": "1.1.1.16",
 	  "1.11.2-latest": "1.2.0.15",
 	  "1.11.2-recommended": "1.2.0.15",
-	  "1.12-latest": "1.3.0.9",
-	  "1.12-recommended": "1.3.0.9"
+	  "1.12-latest": "1.3.0.10",
+	  "1.12-recommended": "1.3.0.10"
   },
   "1.10.2": {
 	  "1.1.1.10": "New Stuff: Added [Ender Gateway] structure. Added [Phasic Block] and [Boundary Block]\nSome buildings can now be generated in mod-created dimensions.",
@@ -40,6 +40,7 @@
 	  "1.3.0.6": "Fixes grassy plains crafting. Fixes crafting of certain items when playing on a server",
 	  "1.3.0.7": "Fixed an issue where the AquaBase wasn't craftable",
 	  "1.3.0.8": "Added options to Moderate House. Fixed issue with structures replacing bedrock",
-	  "1.3.0.9": "Added option to not include chest in mineshaft."
+	  "1.3.0.9": "Added option to not include chest in mineshaft.",
+	  "1.3.0.10": "Updated to work for MC 1.12.2"
   }
 }
