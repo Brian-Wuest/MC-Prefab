@@ -1310,6 +1310,17 @@ public class ModRegistry
 				'd', new ItemStack(ModRegistry.StringOfLanterns()),
 				'e', ModRegistry.DoubleCompressedDirt);
 		
+		// Watch tower
+		result = new ItemStack(ModRegistry.BasicStructure());
+		capability = result.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
+		capability.getConfiguration().basicStructureName = EnumBasicStructureName.WatchTower;
+		
+		ModRegistry.addShapedOreRecipe("Watch Tower", result, 
+				"aaa",
+				" a ",
+				" a ",
+				'a', ModRegistry.CompressedStone);
+		
 		// Instant Bridge.
 		ModRegistry.addShapedOreRecipe("Instant Bridge", 
 				new ItemStack(ModRegistry.InstantBridge()),
