@@ -1,0 +1,40 @@
+{
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Watch Tower"
+        }
+    ],
+    "type": "minecraft:crafting_shaped",
+    "group": "Watch Tower",
+    "pattern": [
+        "bbb",
+        " b ",
+        " a "
+    ],
+    "key": {
+        "a": {
+                "type": "forge:ore_dict",
+                "ore": "compressedStone1"
+        },
+        "b": {
+                "type": "forge:ore_dict",
+                "ore": "compressedStone2"
+        }
+    },
+    "result": {
+        "item": "prefab:item_basic_structure",
+        "data": 0,
+        "nbt": {
+            "ForgeCaps": {
+                "prefab:structuresconfiguration": {
+                    "configuration": {
+                        "structureEnumName": "WatchTower",
+                        "structureDisplayName": "Watch Tower"
+                    }
+                }
+            }
+        },
+        "count": 1
+    }
+}
