@@ -32,6 +32,7 @@ item.prefab.aqua_base=Aqua Base
 item.prefab.grassy_plain=Grassy Plain
 item.prefab.magic_temple=Magic Temple
 item.prefab.green_house=Greenhouse
+item.prefab.watch_tower=Watch Tower
 
 tile.prefab:block_compressed_stone.block_compressed_stone.name=Compressed Stone
 tile.prefab:block_compressed_stone.block_double_compressed_stone.name=Double Compressed Stone

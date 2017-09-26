@@ -121,6 +121,14 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		EnumBasicStructureName.GreenHouse.getClearShape().setLength(31);
 		EnumBasicStructureName.GreenHouse.getClearPositionOffset().setSouthOffset(1);
 		EnumBasicStructureName.GreenHouse.getClearPositionOffset().setEastOffset(8);
+		
+		// Watch Tower
+		EnumBasicStructureName.WatchTower.getClearShape().setDirection(EnumFacing.SOUTH);
+		EnumBasicStructureName.WatchTower.getClearShape().setHeight(16);
+		EnumBasicStructureName.WatchTower.getClearShape().setWidth(9);
+		EnumBasicStructureName.WatchTower.getClearShape().setLength(9);
+		EnumBasicStructureName.WatchTower.getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.WatchTower.getClearPositionOffset().setEastOffset(4);
 	}
 	
 	/**
@@ -300,7 +308,12 @@ public class BasicStructureConfiguration extends StructureConfiguration
 				"assets/prefab/structures/green_house.zip",
 				"textures/gui/green_house_topdown.png",
 				"item_green_house",
-				104, 173);
+				104, 173),
+		WatchTower("watch_tower", "item.prefab.watch_tower",
+				"assets/prefab/structures/watch_tower.zip",
+				"textures/gui/watch_tower_topdown.png",
+				"item_watch_tower",
+				176, 133);
 		
 		private String name;
 		private String assetLocation;
