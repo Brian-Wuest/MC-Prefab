@@ -1316,10 +1316,11 @@ public class ModRegistry
 		capability.getConfiguration().basicStructureName = EnumBasicStructureName.WatchTower;
 		
 		ModRegistry.addShapedOreRecipe("Watch Tower", result, 
-				"aaa",
+				"bbb",
+				" b ",
 				" a ",
-				" a ",
-				'a', ModRegistry.CompressedStone);
+				'a', ModRegistry.CompressedStone, 
+				'b', ModRegistry.DoubleCompressedStone);
 		
 		// Instant Bridge.
 		ModRegistry.addShapedOreRecipe("Instant Bridge", 
