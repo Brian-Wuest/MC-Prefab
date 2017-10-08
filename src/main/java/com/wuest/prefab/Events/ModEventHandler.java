@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.google.common.collect.ImmutableList;
 import com.wuest.prefab.BuildingMethods;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
@@ -33,6 +34,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.RegistryEvent.MissingMappings;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
@@ -300,4 +302,159 @@ public class ModEventHandler
 		// Register the ore dictionary blocks.
 		ModRegistry.RegisterOreDictionaryRecords();
 	}
+
+	@SubscribeEvent
+	public static void OnMissingBlockMapping(MissingMappings<Block> event) 
+	{
+		for (MissingMappings.Mapping<Block> entry : event.getMappings())
+		{
+				Block mappedBlock = null;
+				
+				switch (entry.key.getResourcePath())
+				{
+					case "blockcompressedstone":
+					case "blockCompressedStone":
+					{
+						mappedBlock = ModRegistry.CompressedStoneBlock();
+					}
+				}
+				
+				if (mappedBlock != null)
+				{
+					entry.remap(mappedBlock);
+				}
+		}
+	}
+	
+	@SubscribeEvent
+	public static void OnMissingMapping(MissingMappings<Item> event) 
+	{
+		ImmutableList missingMappings = event.getMappings();
+		
+		for (MissingMappings.Mapping<Item> mapping : event.getMappings())
+		{
+			Item mappedItem = null;
+			
+			switch (mapping.key.getResourcePath())
+			{
+				case "blockcompressedstone":
+				case "blockCompressedStone":
+				{
+					mappedItem = ModRegistry.ModItems.stream().filter(item -> item.getRegistryName().getResourcePath().equals("block_compressed_stone")).findFirst().get();
+					break;
+				}
+				
+				case "itemproducefarm" :
+				case "itemProduceFarm" :
+				{
+					mappedItem = ModRegistry.ProduceFarm();
+					break;
+				}
+				
+				case "itempileofbricks" :
+				case "itemPileOfBricks" :
+				{
+					mappedItem = ModRegistry.PileOfBricks();
+					break;
+				}
+				
+				case "itemhorsestable" :
+				case "itemHorseStable" :
+				{
+					mappedItem = ModRegistry.HorseStable();
+					break;
+				}
+				
+				case "itemnethergate" :
+				case "itemNetherGate" :
+				{
+					mappedItem = ModRegistry.NetherGate();
+					break;
+				}
+				
+				case "itemwarehouseupgrade" :
+				case "itemWareHouseUpgrade" :
+				{
+					mappedItem = ModRegistry.WareHouseUpgrade();
+					break;
+				}
+				
+				case "itemchickencoop" :
+				case "itemChickenCoop" :
+				{
+					mappedItem = ModRegistry.ChickenCoop();
+					break;
+				}
+				
+				case "itemtreefarm" :
+				case "itemTreeFarm" :
+				{
+					mappedItem = ModRegistry.TreeFarm();
+					break;
+				}
+				
+				case "itemcompressedchest" :
+				case "itemCompressedChest" :
+				{
+					mappedItem = ModRegistry.CompressedChestItem();
+					break;
+				}
+				
+				case "itembundleoftimber" :
+				case "itemBundleOfTimber" :
+				{
+					mappedItem = ModRegistry.BundleOfTimber();
+					break;
+				}
+				
+				case "itemwarehouse" :
+				case "itemWareHouse" :
+				{
+					mappedItem = ModRegistry.WareHouse();
+					break;
+				}
+				
+				case "itempalletofbricks" :
+				case "itemPalletOfBricks" :
+				{
+					mappedItem = ModRegistry.PalletOfBricks();
+					break;
+				}
+				
+				case "itemfishpond" :
+				case "itemFishPond" :
+				{
+					mappedItem = ModRegistry.FishPond();
+					break;
+				}
+				
+				case "itemmonstermasher" :
+				case "itemMonsterMasher" :
+				{
+					mappedItem = ModRegistry.MonsterMasher();
+					break;
+				}
+				
+				case "itemstarthouse" :
+				case "itemStartHouse" :
+				{
+					mappedItem = ModRegistry.StartHouse();
+					break;
+				}
+				
+				case "itemadvancedwarehouse" :
+				case "itemAdvancedWareHouse" :
+				{
+					mappedItem = ModRegistry.AdvancedWareHouse();
+					break;
+				}
+			}
+			
+			if (mappedItem != null)
+			{
+				mapping.remap(mappedItem);
+			}
+		}
+	}
+
 }
