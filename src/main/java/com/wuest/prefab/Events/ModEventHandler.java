@@ -13,6 +13,7 @@ import com.wuest.prefab.Capabilities.StructureConfigurationProvider;
 import com.wuest.prefab.Config.EntityPlayerConfiguration;
 import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Items.Structures.ItemBasicStructure;
+import com.wuest.prefab.Items.Structures.ItemBulldozer;
 import com.wuest.prefab.Proxy.ClientProxy;
 import com.wuest.prefab.Proxy.Messages.ConfigSyncMessage;
 import com.wuest.prefab.Proxy.Messages.PlayerEntityTagMessage;
@@ -293,7 +294,9 @@ public class ModEventHandler
 			if (rightItem.getItem() == ModRegistry.Bulldozer() || leftItem.getItem() == ModRegistry.Bulldozer())
 			{
 				event.setCost(4);
-				int damage = rightItem.getItem() == ModRegistry.Bulldozer() ? rightItem.getItemDamage() : leftItem.getItemDamage();
+				ItemStack bulldozer = rightItem.getItem() == ModRegistry.Bulldozer() ? rightItem : leftItem;
+				int damage = bulldozer.getMaxDamage();
+								
 				ItemStack outputStack = new ItemStack(ModRegistry.Bulldozer());
 				ModRegistry.Bulldozer().setPoweredValue(outputStack, true);
 				outputStack.setItemDamage(damage);
