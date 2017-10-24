@@ -148,7 +148,7 @@ public class GuiLangKeys
 	@Unlocalized(name = "Dark Oak")
 	public static final String WALL_BLOCK_TYPE_DARK_OAK = "prefab.wall.block.type.darkoak";
 	
-	@Unlocalized(name = "Structure Facing")
+	@Unlocalized(name = "Facing")
 	public static final String GUI_STRUCTURE_FACING = "prefab.gui.structure.facing";
 	
 	@Unlocalized(name = "Glass Color")
@@ -267,6 +267,18 @@ public class GuiLangKeys
 
 	@Unlocalized(name = "Initially invisible, becomes visible when receiving a redstone signal.")
 	public static final String BOUNDARY_TOOLTIP = "prefab.gui.tooltip.boundary_block";
+	
+	@Unlocalized(name = "This item will clear out a 16x16x16 space and provide the drops from each block.")
+	public static final String GUI_BULLDOZER_DESCRIPTION = "prefab.gui.bulldozer_desc";
+	
+	@Unlocalized(name = "The area cleared will be in the direction you are facing.")
+	public static final String GUI_CLEARED_AREA = "prefab.gui.cleared_area";
+	
+	@Unlocalized(name = "Needs to be imbued with the power of the earth and magic. Try combining with tripple compressed stone in an anvil.")
+	public static final String BULLDOZER_UNPOWERED_TOOLTIP = "prefab.gui.tooltip.bulldozer_unpowered";
+	
+	@Unlocalized(name = "Powered with the strength of the earth and magic, you believe a large area can be cleared.")
+	public static final String BULLDOZER_POWERED_TOOLTIP = "prefab.gui.tooltip.bulldozer_powered";
 	
 	/**
 	 * Translates the specified language key for the current language.

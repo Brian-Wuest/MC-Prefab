@@ -17,6 +17,7 @@ item.prefab:item_modular_house.name=Casa modular
 item.prefab:item_basic_structure.name=Estructura basica
 item.prefab:item_instant_bridge.name=Puente instantáneo
 item.prefab:item_moderate_house.name=Casa moderada
+item.prefab:item_bulldozer.name=Excavadora
 
 item.prefab.advanced.chicken.coop=Gallinero avanzado
 item.prefab.advanced.horse.stable=Casa de caballos avanzada
@@ -97,6 +98,9 @@ prefab.gui.starter.buildmineshaft=Construir pozo
 prefab.gui.moderate_house.spruce=Casa de abeto
 prefab.gui.moderate_house.acacia=Casa de acacia
 
+prefab.gui.bulldozer_desc=Este artículo limpiará un espacio de 16x16x16 y proporcionará las gotas de cada bloque.
+prefab.gui.cleared_area=El área despejada será en la dirección que estás enfrentando.
+
 prefab.gui.villager.house.flat=Azotea plana
 prefab.gui.villager.house.angled=Cubierta inclinada
 prefab.gui.villager.house.fenced=Techo vallado
@@ -131,6 +135,8 @@ prefab.gui.button.preview=¡Avance!
 
 prefab.gui.tooltip.shift=Presione§9 shift §7para obtener más información.
 prefab.gui.tooltip.boundary_block=Inicialmente invisible, se hace visible cuando se recibe una señal redstone.
+prefab.gui.tooltip.bulldozer_unpowered=Necesita estar imbuido del poder de la tierra y la magia. Intente combinar con piedra triple comprimida en un yunque.
+prefab.gui.tooltip.bulldozer_powered=Alimentado con la fuerza de la tierra y la magia, crees que se puede despejar una gran área.
 
 prefab.gui.preview.complete=¡Estructura completa!
 prefab.gui.preview.notice=Haga clic con el botón derecho en cualquier bloque del mundo para eliminar la vista previa.

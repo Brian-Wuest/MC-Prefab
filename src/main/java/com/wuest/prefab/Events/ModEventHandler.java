@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 import com.wuest.prefab.BuildingMethods;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
+import com.wuest.prefab.Blocks.BlockCompressedStone;
 import com.wuest.prefab.Capabilities.StructureConfigurationCapability;
 import com.wuest.prefab.Capabilities.StructureConfigurationProvider;
 import com.wuest.prefab.Config.EntityPlayerConfiguration;
@@ -28,6 +29,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -135,6 +137,7 @@ public class ModEventHandler
 						// This will also break other mod's logic blocks but they would probably be broken due to structure generation anyways.
 						if (clearBlockState.getBlock() != Blocks.AIR)
 						{
+							structure.BeforeClearSpaceBlockReplaced(currentPos);
 							structure.world.setBlockToAir(currentPos);
 						}
 						else
@@ -276,7 +279,29 @@ public class ModEventHandler
 		}
 	}
 
-
+	@SubscribeEvent
+	public static void AnvilUpdate(AnvilUpdateEvent event)
+	{
+		ItemStack rightItem = event.getRight();
+		ItemStack leftItem = event.getLeft();
+		
+		if ((rightItem.getItem() == Item.getItemFromBlock(ModRegistry.CompressedStoneBlock())
+				&& rightItem.getMetadata() == BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE.getMetadata())
+			|| (leftItem.getItem() == Item.getItemFromBlock(ModRegistry.CompressedStoneBlock())
+				&& leftItem.getMetadata() == BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE.getMetadata()))
+		{
+			if (rightItem.getItem() == ModRegistry.Bulldozer() || leftItem.getItem() == ModRegistry.Bulldozer())
+			{
+				event.setCost(4);
+				int damage = rightItem.getItem() == ModRegistry.Bulldozer() ? rightItem.getItemDamage() : leftItem.getItemDamage();
+				ItemStack outputStack = new ItemStack(ModRegistry.Bulldozer());
+				ModRegistry.Bulldozer().setPoweredValue(outputStack, true);
+				outputStack.setItemDamage(damage);
+				event.setOutput(outputStack);
+			}
+		}
+	}
+	
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> event)
 	{	

@@ -86,7 +86,8 @@ public class StructureTagMessage extends TagMessage
 		TreeFarm(10, new TreeFarmConfiguration()),
 		VillagerHouses(11, new VillagerHouseConfiguration()),
 		WareHouse(12, new WareHouseConfiguration()),
-		ModerateHouse(13, new ModerateHouseConfiguration());
+		ModerateHouse(13, new ModerateHouseConfiguration()),
+		Bulldozer(14, new BulldozerConfiguration());
 		
 		private <T extends StructureConfiguration> EnumStructureConfiguration(int identifier, T structureConfig)
 		{
