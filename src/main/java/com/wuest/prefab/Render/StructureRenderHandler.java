@@ -265,7 +265,18 @@ public class StructureRenderHandler
                 	
                     IBakedModel ibakedmodel = brd.getModelForState(state);
                     BlockModelRenderer renderer = brd.getBlockModelRenderer();
-                    renderer.renderModelBrightness(ibakedmodel, state, brightness, true);
+                    
+                    try
+                    {
+                    	renderer.renderModelBrightness(ibakedmodel, state, brightness, true);
+                    }
+                    catch(Exception ex)
+                    {
+                    	// Don't do anything if a mod broke this vanilla block rendering. It just won't show up during the preview then.
+                    	int test = 1;
+                    	test = 2;
+                    }
+                    
                     break;
                 }
 				default:
