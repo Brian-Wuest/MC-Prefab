@@ -863,21 +863,7 @@ public class ModRegistry
 				"compressedObsidian2", 
 				new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedObsidianBlock()), 1, BlockCompressedObsidian.EnumType.DOUBLE_COMPRESSED_OBSIDIAN.getMetadata()));
 	}
-	
-	/**
-	 * This is where the mod recipes are registered.
-	 */
-	public static void RegisterRecipes()
-	{
-		// Bulldozer.
-		//ModRegistry.addShapedRecipe("Bulldozer", new ItemStack(ModRegistry.Bulldozer()), 
-				//"a a",
-				//"bab",
-				//" b ",
-				//'a', Items.DIAMOND_PICKAXE,
-				//'b', Items.DIAMOND_SHOVEL);
-	}
-    
+
 	/**
 	 * This is where the mod messages are registered.
 	 */

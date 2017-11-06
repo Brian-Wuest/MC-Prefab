@@ -129,6 +129,7 @@ public class ModConfiguration
 	public static String grantiteSlabKey = "Granite Slabs";
 	public static String moderateHouseKey = "Moderate House";
 	public static String watchTowerKey = "Watch Tower";
+	public static String bulldozerKey = "Bulldozer";
 	
 	public static String[] recipeKeys = new String[] 
 	{ 
@@ -175,7 +176,8 @@ public class ModConfiguration
 			moderateHouseKey,
 			grassyPlainsKey,
 			aquaBaseKey,
-			watchTowerKey
+			watchTowerKey,
+			bulldozerKey
 	};
 
 	// Version Check Message Info

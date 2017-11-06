@@ -1,0 +1,30 @@
+{
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Bulldozer"
+        }
+    ],
+    "type": "minecraft:crafting_shaped",
+    "group": "Bulldozer",
+    "pattern": [
+        "a a",
+        "bab",
+        " b "
+    ],
+    "key": {
+        "a": {
+            "item": "minecraft:diamond_pickaxe",
+            "data": 32767
+        },
+        "b": {
+            "item": "minecraft:diamond_shovel",
+            "data": 32767
+        }
+    },
+    "result": {
+        "item": "prefab:item_bulldozer",
+        "data": 0,
+        "count": 1
+    }
+}

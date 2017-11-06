@@ -7,6 +7,7 @@ import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Gui.GuiLangKeys;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -61,9 +62,9 @@ public class ItemBulldozer extends StructureItem
      */
     @SideOnly(Side.CLIENT)
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced)
+    public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag advanced)
     {
-    	super.addInformation(stack, player, tooltip, advanced);
+    	super.addInformation(stack, world, tooltip, advanced);
     	
     	boolean advancedKeyDown = Minecraft.getMinecraft().currentScreen.isShiftKeyDown();
     	
