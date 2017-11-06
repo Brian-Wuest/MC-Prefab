@@ -18,6 +18,7 @@ import net.minecraft.block.BlockVine;
 import net.minecraft.block.BlockWall;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTException;
 import net.minecraft.nbt.NBTTagCompound;
@@ -243,148 +244,56 @@ public class BuildBlock
 				{
 					BuildProperty buildProperty = block.getProperty(property.getName());
 					
-					try
+					// Make sure that this property exists in our file. The only way it wouldn't be there would be if a mod adds properties to vanilla blocks.
+					if (buildProperty != null)
 					{
-						Optional<?> propertyValue  = property.parseValue(buildProperty.getValue());
-						
-						if (!propertyValue.isPresent())
-						{
-							System.out.println("Property value for property name [" + property.getName() + "] for block [" + block.getBlockName() + "] is considered Absent, figure out why.");
-						}
-						
-						Comparable<?> comparable = property.getValueClass().cast(propertyValue.get());
-						
-						if (property.getName().equals("facing") && !(foundBlock instanceof BlockLever))
-						{
-							// Facing properties should be relative to the configuration facing.
-							EnumFacing facing = EnumFacing.byName(propertyValue.get().toString());
-							
-							// Cannot rotate verticals.
-							if (facing != null && facing != EnumFacing.UP && facing != EnumFacing.DOWN)
-							{
-								if (configuration.houseFacing == assumedNorth.rotateY())
-								{				
-									facing = facing.rotateY();
-								}
-								else if (configuration.houseFacing == assumedNorth.getOpposite())
-								{
-									facing = facing.getOpposite();
-								}
-								else if (configuration.houseFacing == assumedNorth.rotateYCCW())
-								{
-									facing = facing.rotateYCCW();
-								}
-							}
-							
-							comparable = facing;
-							
-							block.setHasFacing(true);
-						}
-						else if (property.getName().equals("facing") && foundBlock instanceof BlockLever)
-						{
-							comparable = leverOrientation;
-							block.setHasFacing(true);
-						}
-						else if (property.getName().equals("rotation"))
-						{
-							// 0 = South
-							// 4 = West
-							// 8 = North
-							// 12 = East
-							int rotation = (Integer)propertyValue.get();
-							EnumFacing facing = rotation == 0 ? EnumFacing.SOUTH : rotation == 4 ? EnumFacing.WEST : rotation == 8 ? EnumFacing.NORTH : EnumFacing.EAST;
-							
-							if (configuration.houseFacing == assumedNorth.rotateY())
-							{
-								facing = facing.rotateY();
-							}
-							else if (configuration.houseFacing == assumedNorth.getOpposite())
-							{
-								facing = facing.getOpposite();
-							}
-							else if (configuration.houseFacing == assumedNorth.rotateYCCW())
-							{
-								facing = facing.rotateYCCW();
-							}
-							
-							rotation = facing == EnumFacing.SOUTH ? 0 : facing == EnumFacing.WEST ? 4 : facing == EnumFacing.NORTH ? 8 : 12;
-							comparable = rotation;
-							block.setHasFacing(true);
-						}
-						else if (foundBlock instanceof BlockVine)
-						{
-							// Vines have a special state. There is 1 property for each "facing".
-							if (property.getName().equals(vineFacing.getName2()))
-							{
-								comparable = true;
-								block.setHasFacing(true);
-							}
-							else
-							{
-								comparable = false;
-							}
-						}
-						else if (foundBlock instanceof BlockWall)
-						{
-							if (!property.getName().equals("variant"))
-							{
-								if (property.getName().equals(vineFacing.getName2())
-										|| property.getName().equals(vineFacing.getOpposite().getName2()))
-								{
-									comparable = true;
-									block.setHasFacing(true);
-								}
-								else
-								{
-									comparable = false;
-								}
-							}
-						}
-						else if (foundBlock instanceof BlockLog)
-						{
-							// logs have a special state. There is a property called axis and it only has 3 directions.
-							if (property.getName().equals("axis"))
-							{
-								comparable = logFacing;
-							}
-						}
-						else if (foundBlock instanceof BlockBone)
-						{
-							// bones have a special state. There is a property called axis and it only has 3 directions.
-							if (property.getName().equals("axis"))
-							{
-								comparable = boneFacing;
-							}
-						}
-						else if (foundBlock instanceof BlockQuartz)
-						{
-							if (property.getName().equals("variant") && quartzFacing != BlockQuartz.EnumType.DEFAULT)
-							{
-								comparable = quartzFacing;
-							}
-						}
-						
-						if (comparable == null)
-						{
-							continue;
-						}
-		
 						try
 						{
-							if (blockState.getValue(property) != comparable)
+							Optional<?> propertyValue  = property.parseValue(buildProperty.getValue());
+							
+							if (!propertyValue.isPresent())
 							{
-								blockState = BuildBlock.setProperty(blockState, property, comparable);
+								System.out.println("Property value for property name [" + property.getName() + "] for block [" + block.getBlockName() + "] is considered Absent, figure out why.");
+							}
+							
+							Comparable<?> comparable = property.getValueClass().cast(propertyValue.get());
+							
+							if (comparable == null)
+							{
+								continue;
+							}
+							
+							comparable = BuildBlock.setComparable(comparable, foundBlock, property, configuration, block, assumedNorth, propertyValue, vineFacing, logFacing, boneFacing, quartzFacing, leverOrientation);
+			
+							if (comparable == null)
+							{
+								continue;
+							}
+							
+							try
+							{
+								if (blockState.getValue(property) != comparable)
+								{
+									blockState = BuildBlock.setProperty(blockState, property, comparable);
+								}
+							}
+							catch (Exception ex)
+							{
+								System.out.println("Error setting properly value for property name [" + property.getName() + "] property value [" + buildProperty.getValue() + "] for block [" + block.getBlockName() + "] The default value will be used.");
 							}
 						}
 						catch (Exception ex)
 						{
-							System.out.println("Error getting properly value for property name [" + property.getName() + "] property value [" + buildProperty.getValue() + "] for block [" + block.getBlockName() + "] The default value will be used.");
+							if (property != null && buildProperty != null)
+							{
+								System.out.println("Error getting properly value for property name [" + property.getName() + "] property value [" + buildProperty.getValue() + "] for block [" + block.getBlockName() + "]");
+								throw ex;
+							}
 						}
 					}
-					catch (Exception ex)
+					else
 					{
-						System.out.println("Error getting properly value for property name [" + property.getName() + "] property value [" + buildProperty.getValue() + "] for block [" + block.getBlockName() + "]");
-						throw ex;
+						//System.out.println("Property: [" + property.getName() + "] does not exist for Block: [" + block.getBlockName() + "] this is usually due to mods adding properties to vanilla blocks.");
 					}
 				}
 			}
@@ -399,6 +308,121 @@ public class BuildBlock
 		}
 	}
 	
+	private static Comparable setComparable(Comparable<?> comparable, Block foundBlock, IProperty<?> property, StructureConfiguration configuration, BuildBlock block, EnumFacing assumedNorth, Optional<?> propertyValue
+			, EnumFacing vineFacing, EnumAxis logFacing, Axis boneFacing, BlockQuartz.EnumType quartzFacing, EnumOrientation leverOrientation)
+	{
+		if (property.getName().equals("facing") && !(foundBlock instanceof BlockLever))
+		{
+			// Facing properties should be relative to the configuration facing.
+			EnumFacing facing = EnumFacing.byName(propertyValue.get().toString());
+			
+			// Cannot rotate verticals.
+			if (facing != null && facing != EnumFacing.UP && facing != EnumFacing.DOWN)
+			{
+				if (configuration.houseFacing == assumedNorth.rotateY())
+				{				
+					facing = facing.rotateY();
+				}
+				else if (configuration.houseFacing == assumedNorth.getOpposite())
+				{
+					facing = facing.getOpposite();
+				}
+				else if (configuration.houseFacing == assumedNorth.rotateYCCW())
+				{
+					facing = facing.rotateYCCW();
+				}
+			}
+			
+			comparable = facing;
+			
+			block.setHasFacing(true);
+		}
+		else if (property.getName().equals("facing") && foundBlock instanceof BlockLever)
+		{
+			comparable = leverOrientation;
+			block.setHasFacing(true);
+		}
+		else if (property.getName().equals("rotation"))
+		{
+			// 0 = South
+			// 4 = West
+			// 8 = North
+			// 12 = East
+			int rotation = (Integer)propertyValue.get();
+			EnumFacing facing = rotation == 0 ? EnumFacing.SOUTH : rotation == 4 ? EnumFacing.WEST : rotation == 8 ? EnumFacing.NORTH : EnumFacing.EAST;
+			
+			if (configuration.houseFacing == assumedNorth.rotateY())
+			{
+				facing = facing.rotateY();
+			}
+			else if (configuration.houseFacing == assumedNorth.getOpposite())
+			{
+				facing = facing.getOpposite();
+			}
+			else if (configuration.houseFacing == assumedNorth.rotateYCCW())
+			{
+				facing = facing.rotateYCCW();
+			}
+			
+			rotation = facing == EnumFacing.SOUTH ? 0 : facing == EnumFacing.WEST ? 4 : facing == EnumFacing.NORTH ? 8 : 12;
+			comparable = rotation;
+			block.setHasFacing(true);
+		}
+		else if (foundBlock instanceof BlockVine)
+		{
+			// Vines have a special state. There is 1 property for each "facing".
+			if (property.getName().equals(vineFacing.getName2()))
+			{
+				comparable = true;
+				block.setHasFacing(true);
+			}
+			else
+			{
+				comparable = false;
+			}
+		}
+		else if (foundBlock instanceof BlockWall)
+		{
+			if (!property.getName().equals("variant"))
+			{
+				if (property.getName().equals(vineFacing.getName2())
+						|| property.getName().equals(vineFacing.getOpposite().getName2()))
+				{
+					comparable = true;
+					block.setHasFacing(true);
+				}
+				else
+				{
+					comparable = false;
+				}
+			}
+		}
+		else if (foundBlock instanceof BlockLog)
+		{
+			// logs have a special state. There is a property called axis and it only has 3 directions.
+			if (property.getName().equals("axis"))
+			{
+				comparable = logFacing;
+			}
+		}
+		else if (foundBlock instanceof BlockBone)
+		{
+			// bones have a special state. There is a property called axis and it only has 3 directions.
+			if (property.getName().equals("axis"))
+			{
+				comparable = boneFacing;
+			}
+		}
+		else if (foundBlock instanceof BlockQuartz)
+		{
+			if (property.getName().equals("variant") && quartzFacing != BlockQuartz.EnumType.DEFAULT)
+			{
+				comparable = quartzFacing;
+			}
+		}
+		
+		return comparable;
+	}
 	
 	private static EnumFacing getVineFacing(StructureConfiguration configuration, Block foundBlock, BuildBlock block, EnumFacing assumedNorth)
 	{
