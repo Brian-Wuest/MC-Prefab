@@ -295,11 +295,10 @@ public class ModEventHandler
 			{
 				event.setCost(4);
 				ItemStack bulldozer = rightItem.getItem() == ModRegistry.Bulldozer() ? rightItem : leftItem;
-				int damage = bulldozer.getMaxDamage();
 								
 				ItemStack outputStack = new ItemStack(ModRegistry.Bulldozer());
 				ModRegistry.Bulldozer().setPoweredValue(outputStack, true);
-				outputStack.setItemDamage(damage);
+				outputStack.setItemDamage(0);
 				event.setOutput(outputStack);
 			}
 		}
