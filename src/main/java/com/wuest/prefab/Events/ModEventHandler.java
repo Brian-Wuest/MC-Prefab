@@ -9,11 +9,13 @@ import com.google.common.collect.ImmutableList;
 import com.wuest.prefab.BuildingMethods;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
+import com.wuest.prefab.Blocks.BlockCompressedStone;
 import com.wuest.prefab.Capabilities.StructureConfigurationCapability;
 import com.wuest.prefab.Capabilities.StructureConfigurationProvider;
 import com.wuest.prefab.Config.EntityPlayerConfiguration;
 import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Items.Structures.ItemBasicStructure;
+import com.wuest.prefab.Items.Structures.ItemBulldozer;
 import com.wuest.prefab.Proxy.ClientProxy;
 import com.wuest.prefab.Proxy.Messages.ConfigSyncMessage;
 import com.wuest.prefab.Proxy.Messages.PlayerEntityTagMessage;
@@ -32,6 +34,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.RegistryEvent.MissingMappings;
@@ -143,6 +146,7 @@ public class ModEventHandler
 						// This will also break other mod's logic blocks but they would probably be broken due to structure generation anyways.
 						if (clearBlockState.getBlock() != Blocks.AIR)
 						{
+							structure.BeforeClearSpaceBlockReplaced(currentPos);
 							structure.world.setBlockToAir(currentPos);
 						}
 						else
@@ -284,6 +288,30 @@ public class ModEventHandler
 		}
 	}
 
+	@SubscribeEvent
+	public static void AnvilUpdate(AnvilUpdateEvent event)
+	{
+		ItemStack rightItem = event.getRight();
+		ItemStack leftItem = event.getLeft();
+		
+		if ((rightItem.getItem() == Item.getItemFromBlock(ModRegistry.CompressedStoneBlock())
+				&& rightItem.getMetadata() == BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE.getMetadata())
+			|| (leftItem.getItem() == Item.getItemFromBlock(ModRegistry.CompressedStoneBlock())
+				&& leftItem.getMetadata() == BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE.getMetadata()))
+		{
+			if (rightItem.getItem() == ModRegistry.Bulldozer() || leftItem.getItem() == ModRegistry.Bulldozer())
+			{
+				event.setCost(4);
+				ItemStack bulldozer = rightItem.getItem() == ModRegistry.Bulldozer() ? rightItem : leftItem;
+								
+				ItemStack outputStack = new ItemStack(ModRegistry.Bulldozer());
+				ModRegistry.Bulldozer().setPoweredValue(outputStack, true);
+				outputStack.setItemDamage(0);
+				event.setOutput(outputStack);
+			}
+		}
+	}
+	
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> event)
 	{	

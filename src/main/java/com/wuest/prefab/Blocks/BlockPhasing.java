@@ -92,8 +92,6 @@ public class BlockPhasing extends Block
 			
 			if (progress == EnumPhasingProgress.base)
 			{
-				this.removeBlockAndNeighborsFromList(pos, world);
-				
 				// Only trigger the phasing when this block is not currently phasing.
 				world.scheduleUpdate(pos, this, this.tickRate);
 			}
@@ -126,7 +124,7 @@ public class BlockPhasing extends Block
     	
     	if (poweredSide)
     	{
-    		this.setPoweredStatusAndUpdateNeighbors(true, world, pos, this.getDefaultState(), 0, new ArrayList<BlockPos>(), false);
+    		this.updateNeighborPhasicBlocks(true, world, pos, this.getDefaultState(), false, false);
     	}
     	
     	return this.getDefaultState().withProperty(Phasing_Out, poweredSide).withProperty(Phasing_Progress, EnumPhasingProgress.base);
@@ -151,7 +149,7 @@ public class BlockPhasing extends Block
         if (poweredSide && currentState == EnumPhasingProgress.transparent)
         {
         	// Set this block and all neighbor Phasic Blocks to base. This will cascade to tall touching Phasic blocks.
-        	this.setPoweredStatusAndUpdateNeighbors(false, worldIn, pos, state, 0, new ArrayList<BlockPos>(), false);
+        	this.updateNeighborPhasicBlocks(false, worldIn, pos, state, false, false);
         }
     }
 
@@ -178,18 +176,17 @@ public class BlockPhasing extends Block
 			if (blockIn.getDefaultState().canProvidePower())
 			{
 		        boolean poweredSide = worldIn.isBlockPowered(pos);
-		        
 		        EnumPhasingProgress currentState = state.getValue(Phasing_Progress);
+		        boolean setToTransparent = false;
 		        
 		        if (poweredSide && currentState == EnumPhasingProgress.base)
 		        {
-		        	// Set this block and all neighbor Phasic Blocks to transparent. This will cascade to all touching Phasic blocks.
-		        	this.setPoweredStatusAndUpdateNeighbors(true, worldIn, pos, state, 0, new ArrayList<BlockPos>(), true);
+		        	setToTransparent = true;
 		        }
-		        else if (!poweredSide && currentState == EnumPhasingProgress.transparent)
+		        
+		        if (currentState == EnumPhasingProgress.base || currentState == EnumPhasingProgress.transparent)
 		        {
-		        	// Set this block and all neighbor Phasic Blocks to base. This will cascade to tall touching Phasic blocks.
-		        	this.setPoweredStatusAndUpdateNeighbors(false, worldIn, pos, state, 0, new ArrayList<BlockPos>(), true);
+		        	this.updateNeighborPhasicBlocks(setToTransparent, worldIn, pos, state, true, true);
 		        }
 			}
 		}
@@ -215,7 +212,7 @@ public class BlockPhasing extends Block
 			{
 				Block currentBlock = worldIn.getBlockState(pos.offset(facing)).getBlock();
 				
-				if (currentBlock instanceof BlockPhasing)
+				if (currentBlock instanceof BlockPhasing && !ModEventHandler.RedstoneAffectedBlockPositions.contains(pos.offset(facing)))
 				{
 					worldIn.scheduleUpdate(pos.offset(facing), currentBlock, tickDelay);
 				}
@@ -405,29 +402,30 @@ public class BlockPhasing extends Block
         return super.shouldSideBeRendered(blockState, blockAccess, pos, side);
     }
     
-    /**
-     * Removes the block position from the affected positions static list.
-     * @param pos The position to find.
-     * @param worldIn The world where the position exists.
-     */
-    protected void removeBlockAndNeighborsFromList(BlockPos pos, World worldIn)
+    protected void updateNeighborPhasicBlocks(boolean setToTransparent, World worldIn, BlockPos pos, IBlockState phasicBlockState, boolean setCurrentBlock, boolean triggeredByRedstone)
     {
-    	if (ModEventHandler.RedstoneAffectedBlockPositions.contains(pos))
-    	{
-    		ModEventHandler.RedstoneAffectedBlockPositions.remove(pos);
-    	}
+    	ArrayList<BlockPos> blocksToUpdate = new ArrayList<BlockPos>();
+    	IBlockState updatedBlockState = phasicBlockState
+    			.withProperty(Phasing_Out, setToTransparent)
+    			.withProperty(Phasing_Progress, setToTransparent ? EnumPhasingProgress.transparent : EnumPhasingProgress.base);
     	
-    	for (EnumFacing facing : EnumFacing.values())
+    	// Set this block and all neighbor Phasic Blocks to transparent. This will cascade to all touching Phasic blocks.
+    	this.findNeighborPhasicBlocks(setToTransparent, worldIn, pos, updatedBlockState, 0, blocksToUpdate, setCurrentBlock);
+    	
+    	for (BlockPos positionToUpdate : blocksToUpdate)
     	{
-    		// Don't bother if this block pos was already removed.
-    		if (ModEventHandler.RedstoneAffectedBlockPositions.contains(pos.offset(facing)))
-    		{
-    			IBlockState state = worldIn.getBlockState(pos.offset(facing));
+    		worldIn.setBlockState(positionToUpdate, updatedBlockState);
     		
-	    		if (state.getBlock() instanceof BlockPhasing)
-	    		{
-	    			this.removeBlockAndNeighborsFromList(pos.offset(facing), worldIn);
-	    		}
+    		if (triggeredByRedstone)
+    		{
+    			if (ModEventHandler.RedstoneAffectedBlockPositions.contains(positionToUpdate) && !setToTransparent)
+    			{
+    				ModEventHandler.RedstoneAffectedBlockPositions.remove(positionToUpdate);
+    			}
+    			else if (!ModEventHandler.RedstoneAffectedBlockPositions.contains(positionToUpdate) && setToTransparent)
+    			{
+    				ModEventHandler.RedstoneAffectedBlockPositions.add(positionToUpdate);
+    			}
     		}
     	}
     }
@@ -442,28 +440,18 @@ public class BlockPhasing extends Block
      * @param cascadedBlockPos The list of cascaded block positions, this is used to determine if this block should be processed again.
      * @param setCurrentBlock Determines if the current block should be set.
      */
-    protected void setPoweredStatusAndUpdateNeighbors(boolean setToTransparent, World worldIn, BlockPos pos, IBlockState currentBlockPosState, int cascadeCount, ArrayList<BlockPos> cascadedBlockPos, boolean setCurrentBlock)
+    protected int findNeighborPhasicBlocks(boolean setToTransparent, World worldIn, BlockPos pos, IBlockState desiredBlockState, int cascadeCount, ArrayList<BlockPos> cascadedBlockPos, boolean setCurrentBlock)
     {
-    	if (setCurrentBlock)
-    	{
-	    	// Update the current block then go through each of the neighboring blocks to determine if they need to be updated as well.
-	    	currentBlockPosState = currentBlockPosState
-	    			.withProperty(Phasing_Out, setToTransparent)
-	    			.withProperty(Phasing_Progress, setToTransparent ? EnumPhasingProgress.transparent : EnumPhasingProgress.base);
-	    	
-	    	worldIn.setBlockState(pos, currentBlockPosState);
-    	}
-    	
-    	if (!ModEventHandler.RedstoneAffectedBlockPositions.contains(pos))
-    	{
-    		ModEventHandler.RedstoneAffectedBlockPositions.add(pos);
-    	}
-    	
     	cascadeCount++;
     	
     	if (cascadeCount > 100)
     	{
-    		return;
+    		return cascadeCount;
+    	}
+    	
+    	if (setCurrentBlock)
+    	{
+    		cascadedBlockPos.add(pos);
     	}
     	
     	for (EnumFacing facing : EnumFacing.values())
@@ -474,18 +462,25 @@ public class BlockPhasing extends Block
     		{
     			IBlockState blockState = worldIn.getBlockState(pos.offset(facing));
     			
-    			// If the block is already in the correct state, there is no need to cascade to it's neighbors.
+    			// If the block is already in the correct state or was already checked, there is no need to cascade to it's neighbors.
     			EnumPhasingProgress progress = blockState.getValue(Phasing_Progress);
     			
-    			if (cascadedBlockPos.contains(pos.offset(facing)))
+    			if (cascadedBlockPos.contains(pos.offset(facing)) || progress == desiredBlockState.getValue(Phasing_Progress))
     			{
     				continue;
     			}
     			
-    			// running this method for the neighbor block will cascade out to it's other neighbors until there are no more Phasic blocks around.
-    			((BlockPhasing)neighborBlock).setPoweredStatusAndUpdateNeighbors(setToTransparent, worldIn, pos.offset(facing), blockState, cascadeCount, cascadedBlockPos, true);
+    			setCurrentBlock = true;
+    			cascadeCount = this.findNeighborPhasicBlocks(setToTransparent, worldIn, pos.offset(facing), desiredBlockState, cascadeCount, cascadedBlockPos, setCurrentBlock);
+    			
+    			if (cascadeCount > 100)
+    			{
+    				break;
+    			}
     		}
     	}
+    	
+    	return cascadeCount;
     }
 
     /**

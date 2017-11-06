@@ -365,6 +365,15 @@ public class Structure
 	}
 
 	/**
+	 * This method is to process before a clear space block is set to air.
+	 * @param pos The block position being processed.
+	 */
+	public void BeforeClearSpaceBlockReplaced(BlockPos pos)
+	{
+		
+	}
+	
+	/**
 	 * This method is used before any building occurs to check for things or
 	 * possibly pre-build locations. Note: This is even done before blocks are
 	 * cleared.

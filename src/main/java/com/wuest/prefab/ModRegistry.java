@@ -38,6 +38,7 @@ import com.wuest.prefab.Config.Structures.BasicStructureConfiguration.EnumBasicS
 import com.wuest.prefab.Gui.GuiDrafter;
 import com.wuest.prefab.Gui.Structures.GuiAdvancedWareHouse;
 import com.wuest.prefab.Gui.Structures.GuiBasicStructure;
+import com.wuest.prefab.Gui.Structures.GuiBulldozer;
 import com.wuest.prefab.Gui.Structures.GuiChickenCoop;
 import com.wuest.prefab.Gui.Structures.GuiFishPond;
 import com.wuest.prefab.Gui.Structures.GuiHorseStable;
@@ -65,6 +66,7 @@ import com.wuest.prefab.Items.ItemStringOfLanterns;
 import com.wuest.prefab.Items.ItemWarehouseUpgrade;
 import com.wuest.prefab.Items.Structures.ItemAdvancedWareHouse;
 import com.wuest.prefab.Items.Structures.ItemBasicStructure;
+import com.wuest.prefab.Items.Structures.ItemBulldozer;
 import com.wuest.prefab.Items.Structures.ItemChickenCoop;
 import com.wuest.prefab.Items.Structures.ItemFishPond;
 import com.wuest.prefab.Items.Structures.ItemHorseStable;
@@ -260,6 +262,11 @@ public class ModRegistry
 	 * THe identifier for the moderate house GUI.
 	 */
 	public static final int GuiModerateHouse = 15;
+	
+	 /** 
+	  * THe identifier for the bulldozer GUI.
+	 */
+	public static final int GuiBulldozer = 16;
 	
 	/**
 	 * This capability is used to save the locations where a player spawns when transferring dimensions.
@@ -620,6 +627,11 @@ public class ModRegistry
 	{
 		return ModRegistry.GetBlock(BlockBoundary.class);
 	}
+	
+	public static ItemBulldozer Bulldozer()
+	{
+		return ModRegistry.GetItem(ItemBulldozer.class);
+	}
 
 	/**
 	 * Static constructor for the mod registry.
@@ -746,6 +758,7 @@ public class ModRegistry
 		ModRegistry.registerItem(new ItemStringOfLanterns("item_string_of_lanterns"));
 		ModRegistry.registerItem(new ItemCoilOfLanterns("item_coil_of_lanterns"));
 		ModRegistry.registerItem(new ItemModerateHouse("item_moderate_house"));
+		ModRegistry.registerItem(new ItemBulldozer("item_bulldozer"));
 		//ModRegistry.registerItem(new ItemBogus("item_bogus"));
 
 		// Register all the basic structures here. The resource location is used for the item models and textures.
@@ -851,6 +864,20 @@ public class ModRegistry
 				new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedObsidianBlock()), 1, BlockCompressedObsidian.EnumType.DOUBLE_COMPRESSED_OBSIDIAN.getMetadata()));
 	}
 	
+	/**
+	 * This is where the mod recipes are registered.
+	 */
+	public static void RegisterRecipes()
+	{
+		// Bulldozer.
+		//ModRegistry.addShapedRecipe("Bulldozer", new ItemStack(ModRegistry.Bulldozer()), 
+				//"a a",
+				//"bab",
+				//" b ",
+				//'a', Items.DIAMOND_PICKAXE,
+				//'b', Items.DIAMOND_SHOVEL);
+	}
+    
 	/**
 	 * This is where the mod messages are registered.
 	 */
@@ -983,6 +1010,7 @@ public class ModRegistry
 		ModRegistry.ModGuis.put(ModRegistry.GuiBasicStructure, GuiBasicStructure.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiVillagerHouses, GuiVillaerHouses.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiModerateHouse, GuiModerateHouse.class);
+		ModRegistry.ModGuis.put(ModRegistry.GuiBulldozer, GuiBulldozer.class);
 	}
 
 	/**

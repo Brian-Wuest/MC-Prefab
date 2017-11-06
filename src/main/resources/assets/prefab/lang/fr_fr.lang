@@ -17,6 +17,7 @@ item.prefab:item_modular_house.name=Maison modulaire
 item.prefab:item_basic_structure.name=Structure de base
 item.prefab:item_instant_bridge.name=Pont instantané
 item.prefab:item_moderate_house.name=Maison modérée
+item.prefab:item_bulldozer.name=Bulldozer
 
 item.prefab.advanced.chicken.coop=Collier de poulet avancé
 item.prefab.advanced.horse.stable=École avancée de chevaux
@@ -97,6 +98,9 @@ prefab.gui.starter.buildmineshaft=Build mine
 prefab.gui.moderate_house.spruce=Épinette maison
 prefab.gui.moderate_house.acacia=Maison de l'acacia
 
+prefab.gui.bulldozer_desc=Cet objet va nettoyer un espace 16x16x16 et fournir les gouttes de chaque bloc.
+prefab.gui.cleared_area=La zone dégagée sera dans la direction que vous affrontez.
+
 prefab.gui.villager.house.flat=Toit plat
 prefab.gui.villager.house.angled=Toit en angle
 prefab.gui.villager.house.fenced=Toit clôturé
@@ -131,6 +135,8 @@ prefab.gui.button.preview=Aperçu!
 
 prefab.gui.tooltip.shift=§9Changement §7de presse pour plus d'informations.
 prefab.gui.tooltip.boundary_block=Initialement invisible, devient visible lors de la réception d'un signal redstone.
+prefab.gui.tooltip.bulldozer_unpowered=Doit être imprégné de la puissance de la terre et de la magie. Essayez de combiner avec de la pierre triple compressée dans une enclume.
+prefab.gui.tooltip.bulldozer_powered=Propulsé avec la force de la terre et de la magie, vous croyez qu'une grande surface peut être nettoyée.
 
 prefab.gui.preview.complete=Structure terminée!
 prefab.gui.preview.notice=Cliquez avec le bouton droit de la souris sur n'importe quel bloc dans le monde pour supprimer l'aperçu.

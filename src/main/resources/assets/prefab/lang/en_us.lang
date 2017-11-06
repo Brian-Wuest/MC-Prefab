@@ -17,6 +17,7 @@ item.prefab:item_modular_house.name=Modular House
 item.prefab:item_basic_structure.name=Basic Structure
 item.prefab:item_instant_bridge.name=Instant Bridge
 item.prefab:item_moderate_house.name=Moderate House
+item.prefab:item_bulldozer.name=Bulldozer
 
 item.prefab.advanced.chicken.coop=Advanced Chicken Coop
 item.prefab.advanced.horse.stable=Advanced Horse Stable
@@ -57,6 +58,7 @@ tile.prefab:block_half_diorite_slab.name=Diorite Slab
 tile.prefab:block_half_granite_slab.name=Granite Slab
 
 prefab.gui.fishpond.structure.facing=Note: If you're facing north, choose south so the pier is going away from you. The white border is just to show the size.
+prefab.gui.cleared_area=The area cleared will be in the direction you are facing.
 
 prefab.gui.producefarm.structure.size=This structure is 32x32 blocks in size.
 
@@ -103,6 +105,8 @@ prefab.gui.villager.long_house=Long House
 prefab.gui.moderate_house.spruce=Spruce House
 prefab.gui.moderate_house.acacia=Acacia House
 
+prefab.gui.bulldozer_desc=This item will clear out a 16x16x16 space and provide the drops from each block.
+
 prefab.ceiling.block.type.stone=Stonebrick
 prefab.ceiling.block.type.brick=Brick
 prefab.ceiling.block.type.sand=Sandstone
@@ -131,6 +135,8 @@ prefab.gui.button.preview=Preview!
 
 prefab.gui.tooltip.shift=Press§9 Shift §7for more information.
 prefab.gui.tooltip.boundary_block=Initially invisible, becomes visible when receiving a redstone signal.
+prefab.gui.tooltip.bulldozer_unpowered=Needs to be imbued with the power of the earth and magic. Try combining with triple compressed stone in an anvil.
+prefab.gui.tooltip.bulldozer_powered=Powered with the strength of the earth and magic, you believe a large area can be cleared.
 
 prefab.gui.preview.complete=Structure Complete!
 prefab.gui.preview.notice=Right-click on any block in the world to remove the preview.
