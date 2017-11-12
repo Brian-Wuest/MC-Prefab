@@ -469,7 +469,6 @@ public class BuildBlock
 		return vineFacing;
 	}
 	
-	
 	private static EnumAxis getLogFacing(StructureConfiguration configuration, Block foundBlock, BuildBlock block, EnumFacing assumedNorth)
 	{
 		EnumAxis logFacing = EnumAxis.X;
@@ -501,7 +500,6 @@ public class BuildBlock
 		
 		return logFacing;
 	}
-	
 	
 	private static Axis getBoneFacing(StructureConfiguration configuration, Block foundBlock, BuildBlock block, EnumFacing assumedNorth)
 	{
@@ -535,7 +533,6 @@ public class BuildBlock
 		return boneFacing;
 	}
 	
-	
 	private static BlockQuartz.EnumType getQuartsFacing(StructureConfiguration configuration, Block foundBlock, BuildBlock block, EnumFacing assumedNorth)
 	{
 		BlockQuartz.EnumType quartzFacing = BlockQuartz.EnumType.DEFAULT;
@@ -567,7 +564,6 @@ public class BuildBlock
 		
 		return quartzFacing;
 	}
-	
 	
 	private static EnumOrientation getLeverOrientation(StructureConfiguration configuration, Block foundBlock, BuildBlock block, EnumFacing assumedNorth)
 	{
@@ -628,7 +624,6 @@ public class BuildBlock
 		
 		return leverOrientation;
 	}
-	
 	
 	private static IBlockState setProperty(IBlockState state, IProperty property, Comparable comparable)
 	{

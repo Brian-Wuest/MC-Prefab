@@ -3,6 +3,9 @@ package com.wuest.prefab.Events;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
+import java.util.UUID;
+
+import org.apache.logging.log4j.core.helpers.UUIDUtil;
 
 import com.wuest.prefab.BuildingMethods;
 import com.wuest.prefab.ModRegistry;
@@ -18,17 +21,23 @@ import com.wuest.prefab.Proxy.ClientProxy;
 import com.wuest.prefab.Proxy.Messages.ConfigSyncMessage;
 import com.wuest.prefab.Proxy.Messages.PlayerEntityTagMessage;
 import com.wuest.prefab.StructureGen.BuildBlock;
+import com.wuest.prefab.StructureGen.BuildEntity;
+import com.wuest.prefab.StructureGen.BuildTileEntity;
 import com.wuest.prefab.StructureGen.Structure;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -120,6 +129,7 @@ public class ModEventHandler
 		for (Entry<EntityPlayer, ArrayList<Structure>> entry : ModEventHandler.structuresToBuild.entrySet())
 		{
 			ArrayList<Structure> structuresToRemove = new ArrayList<Structure>();
+			EntityPlayer player = entry.getKey();
 			
 			// Build the first 100 blocks of each structure for this player.
 			for (Structure structure : entry.getValue())
@@ -185,6 +195,59 @@ public class ModEventHandler
 						
 						BuildingMethods.ReplaceBlock(structure.world, subBlock.getStartingPosition().getRelativePosition(structure.originalPos, structure.configuration.houseFacing), subBlock.getBlockState());
 					}
+				}
+				
+				for (BuildTileEntity buildTileEntity : structure.tileEntities)
+				{
+					BlockPos tileEntityPos = buildTileEntity.getStartingPosition().getRelativePosition(structure.originalPos, structure.configuration.houseFacing);
+					TileEntity tileEntity = structure.world.getTileEntity(tileEntityPos);
+					
+					if (tileEntity == null)
+					{
+						TileEntity.create(structure.world, buildTileEntity.getEntityDataTag());
+					}
+					else
+					{
+						structure.world.removeTileEntity(tileEntityPos);
+						tileEntity = TileEntity.create(structure.world, buildTileEntity.getEntityDataTag());
+						structure.world.setTileEntity(tileEntityPos, tileEntity);
+						//tileEntity.readFromNBT(buildTileEntity.getEntityDataTag());
+					}
+				}
+				
+				for (BuildEntity buildEntity : structure.entities)
+				{
+					Entity entity = EntityList.createEntityByID(buildEntity.getEntityId(), structure.world);
+					NBTTagCompound tagCompound = buildEntity.getEntityDataTag();
+					BlockPos entityPos = buildEntity.getStartingPosition().getRelativePosition(structure.originalPos, structure.configuration.houseFacing);
+					
+					if (tagCompound.hasUniqueId("UUID"))
+					{
+						tagCompound.setUniqueId("UUID", UUID.randomUUID());
+					}
+					
+					entity.readFromNBT(tagCompound);
+					entity.forceSpawn = true;
+					float yaw = entity.rotationYaw;
+					Rotation rotation = Rotation.NONE;
+					
+					if (structure.configuration.houseFacing == structure.assumedNorth.getOpposite())
+					{
+						rotation = Rotation.CLOCKWISE_180;
+					}
+					else if (structure.configuration.houseFacing == structure.assumedNorth.rotateY())
+					{
+						rotation = rotation.CLOCKWISE_90;
+					}
+					else if (structure.configuration.houseFacing == structure.assumedNorth.rotateYCCW())
+					{
+						rotation = rotation.COUNTERCLOCKWISE_90;
+					}
+					
+					yaw = entity.getRotatedYaw(rotation);
+					
+					entity.setPositionAndRotation(entityPos.getX(), entityPos.getY(), entityPos.getZ(), yaw, entity.rotationPitch);
+					structure.world.spawnEntity(entity);
 				}
 			}
 			

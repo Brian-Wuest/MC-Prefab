@@ -37,6 +37,9 @@ import net.minecraftforge.fml.client.config.GuiButtonExt;
 public class GuiBasicStructure extends GuiStructure
 {
 	protected BasicStructureConfiguration configuration;
+	protected boolean includePicture = true;
+	protected int modifiedInitialXAxis = 213;
+	protected int modifiedINitialYAxis = 83;
 	
 	public GuiBasicStructure(int x, int y, int z)
 	{
@@ -50,12 +53,12 @@ public class GuiBasicStructure extends GuiStructure
 	@Override
 	public void drawScreen(int x, int y, float f) 
 	{
-		int grayBoxX = this.getCenteredXAxis() - 213;
-		int grayBoxY = this.getCenteredYAxis() - 83;
+		int grayBoxX = this.getCenteredXAxis() - this.modifiedInitialXAxis;
+		int grayBoxY = this.getCenteredYAxis() - this.modifiedINitialYAxis;
 		
 		this.drawDefaultBackground();
 
-		if (this.configuration.basicStructureName != EnumBasicStructureName.Custom)
+		if (this.includePicture)
 		{
 			// Draw the control background.
 			this.mc.getTextureManager().bindTexture(this.configuration.basicStructureName.getTopDownPictureLocation());
@@ -63,12 +66,6 @@ public class GuiBasicStructure extends GuiStructure
 			this.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 
 					this.configuration.basicStructureName.getImageWidth(), this.configuration.basicStructureName.getImageHeight(), 
 					this.configuration.basicStructureName.getImageWidth(), this.configuration.basicStructureName.getImageHeight());
-		}
-		else
-		{
-			// This is a completely custom structure created by the user. Reset the center location as there won't be a picture.
-			grayBoxX = this.getCenteredXAxis();
-			grayBoxY = this.getCenteredYAxis();
 		}
 		
 		this.drawControlBackgroundAndButtonsAndLabels(grayBoxX, grayBoxY, x, y);
@@ -121,13 +118,20 @@ public class GuiBasicStructure extends GuiStructure
 			{
 				this.configuration = ClientEventHandler.playerConfig.getClientConfig(this.configuration.basicStructureName.getName(), BasicStructureConfiguration.class);
 			}
+			
+			this.includePicture = this.doesPictureExist();
 		}
 		
 		this.configuration.pos = this.pos;
+		
+		if (!this.includePicture)
+		{
+			this.modifiedInitialXAxis = 125;
+		}
 
 		// Get the upper left hand corner of the GUI box.
-		int grayBoxX = this.getCenteredXAxis() - 213;
-		int grayBoxY = this.getCenteredYAxis() - 83;
+		int grayBoxX = this.getCenteredXAxis() - this.modifiedInitialXAxis;
+		int grayBoxY = this.getCenteredYAxis() - this.modifiedINitialYAxis;
 
 		// Create the buttons.
 		this.btnHouseFacing = new GuiButtonExt(3, grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateFacing(this.configuration.houseFacing));
@@ -142,5 +146,22 @@ public class GuiBasicStructure extends GuiStructure
 
 		this.btnCancel = new GuiButtonExt(2, grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_CANCEL));
 		this.buttonList.add(this.btnCancel);
+	}
+	
+	/**
+	 * Determines if the picture for this screen exists in the resources.
+	 * @return A value indicating whether the picture exists.
+	 */
+	protected boolean doesPictureExist()
+	{
+		try
+		{
+			this.mc.getResourceManager().getResource(this.configuration.basicStructureName.getTopDownPictureLocation());
+			return true;
+		}
+		catch (IOException e)
+		{
+			return false;
+		}
 	}
 }
