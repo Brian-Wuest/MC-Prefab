@@ -21,6 +21,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.*;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityHanging;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -194,6 +195,15 @@ public class Structure
 				BuildEntity buildEntity = new BuildEntity();
 				buildEntity.setEntityId(EntityList.getID(entity.getClass()));
 				buildEntity.setStartingPosition(Structure.getStartingPositionFromOriginalAndCurrentPosition(entityPos, originalPos));
+				buildEntity.entityXAxisOffset = entityPos.getX() - entity.posX;
+				buildEntity.entityYAxisOffset = entityPos.getY() - entity.posY;
+				buildEntity.entityZAxisOffset = entityPos.getZ() - entity.posZ;
+				
+				if (entity instanceof EntityHanging)
+				{
+					buildEntity.entityYAxisOffset = buildEntity.entityYAxisOffset * -1;
+				}
+				
 				NBTTagCompound entityTagCompound = new NBTTagCompound();
 				entity.writeToNBT(entityTagCompound);
 				buildEntity.setEntityNBTData(entityTagCompound);

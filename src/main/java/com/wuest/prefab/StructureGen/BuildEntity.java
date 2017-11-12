@@ -22,6 +22,15 @@ public class BuildEntity
 	@Expose
 	private String entityNBTData;
 	
+	@Expose
+	public double entityXAxisOffset;
+	
+	@Expose
+	public double entityYAxisOffset;
+	
+	@Expose
+	public double entityZAxisOffset;
+	
 	/**
 	 * Initializes a new instance of the BuildEntity class.
 	 */
@@ -73,6 +82,9 @@ public class BuildEntity
 		this.entityId = 0;
 		this.startingPosition = new PositionOffset();
 		this.entityNBTData = "";
+		this.entityXAxisOffset = 0;
+		this.entityYAxisOffset = 0;
+		this.entityZAxisOffset = 0;
 	}
 	
 	public NBTTagCompound getEntityDataTag()
