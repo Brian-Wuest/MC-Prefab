@@ -80,7 +80,7 @@ public class ItemBasicStructure extends StructureItem
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems)
 	{
-		if (tab == this.getCreativeTab())
+		if (this.isInCreativeTab(tab))
 		{
 			for (EnumBasicStructureName value : EnumBasicStructureName.values())
 			{
