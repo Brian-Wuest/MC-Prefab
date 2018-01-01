@@ -217,20 +217,20 @@ public class BuildBlock
 		this.blockStateData = "";
 	}
 	
-	public static BuildBlock SetBlockState(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth, BuildBlock block, Block foundBlock, IBlockState blockState)
+	public static BuildBlock SetBlockState(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth, BuildBlock block, Block foundBlock, IBlockState blockState, Structure structure)
 	{
 		try
 		{
 			if (!block.blockStateData.equals(""))
 			{
-				return BuildBlock.SetBlockStateFromTagData(configuration, world, originalPos, assumedNorth, block, foundBlock, blockState);
+				return BuildBlock.SetBlockStateFromTagData(configuration, world, originalPos, assumedNorth, block, foundBlock, blockState, structure);
 			}
 			
-			EnumFacing vineFacing = BuildBlock.getVineFacing(configuration, foundBlock, block, assumedNorth);
-			EnumAxis logFacing = BuildBlock.getLogFacing(configuration, foundBlock, block, assumedNorth);
-			Axis boneFacing = BuildBlock.getBoneFacing(configuration, foundBlock, block, assumedNorth);
-			BlockQuartz.EnumType quartzFacing = BuildBlock.getQuartsFacing(configuration, foundBlock, block, assumedNorth);
-			EnumOrientation leverOrientation = BuildBlock.getLeverOrientation(configuration, foundBlock, block, assumedNorth);
+			EnumFacing vineFacing = BuildBlock.getVineFacing(configuration, foundBlock, block, structure.getClearSpace().getShape().getDirection());
+			EnumAxis logFacing = BuildBlock.getLogFacing(configuration, foundBlock, block, structure.getClearSpace().getShape().getDirection());
+			Axis boneFacing = BuildBlock.getBoneFacing(configuration, foundBlock, block, structure.getClearSpace().getShape().getDirection());
+			BlockQuartz.EnumType quartzFacing = BuildBlock.getQuartsFacing(configuration, foundBlock, block, structure.getClearSpace().getShape().getDirection());
+			EnumOrientation leverOrientation = BuildBlock.getLeverOrientation(configuration, foundBlock, block, structure.getClearSpace().getShape().getDirection());
 			
 			// If this block has custom processing for block state just continue onto the next block. The sub-class is expected to place the block.
 			if (block.getProperties().size() > 0)
@@ -263,7 +263,7 @@ public class BuildBlock
 								continue;
 							}
 							
-							comparable = BuildBlock.setComparable(comparable, foundBlock, property, configuration, block, assumedNorth, propertyValue, vineFacing, logFacing, boneFacing, quartzFacing, leverOrientation);
+							comparable = BuildBlock.setComparable(comparable, foundBlock, property, configuration, block, assumedNorth, propertyValue, vineFacing, logFacing, boneFacing, quartzFacing, leverOrientation, structure);
 			
 							if (comparable == null)
 							{
@@ -309,7 +309,7 @@ public class BuildBlock
 	}
 	
 	private static Comparable setComparable(Comparable<?> comparable, Block foundBlock, IProperty<?> property, StructureConfiguration configuration, BuildBlock block, EnumFacing assumedNorth, Optional<?> propertyValue
-			, EnumFacing vineFacing, EnumAxis logFacing, Axis boneFacing, BlockQuartz.EnumType quartzFacing, EnumOrientation leverOrientation)
+			, EnumFacing vineFacing, EnumAxis logFacing, Axis boneFacing, BlockQuartz.EnumType quartzFacing, EnumOrientation leverOrientation, Structure structure)
 	{
 		if (property.getName().equals("facing") && !(foundBlock instanceof BlockLever))
 		{
@@ -319,15 +319,15 @@ public class BuildBlock
 			// Cannot rotate verticals.
 			if (facing != null && facing != EnumFacing.UP && facing != EnumFacing.DOWN)
 			{
-				if (configuration.houseFacing == assumedNorth.rotateY())
+				if (configuration.houseFacing.getOpposite() == structure.getClearSpace().getShape().getDirection().rotateY())
 				{				
 					facing = facing.rotateY();
 				}
-				else if (configuration.houseFacing == assumedNorth.getOpposite())
+				else if (configuration.houseFacing.getOpposite() == structure.getClearSpace().getShape().getDirection().getOpposite())
 				{
 					facing = facing.getOpposite();
 				}
-				else if (configuration.houseFacing == assumedNorth.rotateYCCW())
+				else if (configuration.houseFacing.getOpposite() == structure.getClearSpace().getShape().getDirection().rotateYCCW())
 				{
 					facing = facing.rotateYCCW();
 				}
@@ -351,15 +351,15 @@ public class BuildBlock
 			int rotation = (Integer)propertyValue.get();
 			EnumFacing facing = rotation == 0 ? EnumFacing.SOUTH : rotation == 4 ? EnumFacing.WEST : rotation == 8 ? EnumFacing.NORTH : EnumFacing.EAST;
 			
-			if (configuration.houseFacing == assumedNorth.rotateY())
+			if (configuration.houseFacing.getOpposite() == structure.getClearSpace().getShape().getDirection().rotateY())
 			{
 				facing = facing.rotateY();
 			}
-			else if (configuration.houseFacing == assumedNorth.getOpposite())
+			else if (configuration.houseFacing.getOpposite() == structure.getClearSpace().getShape().getDirection().getOpposite())
 			{
 				facing = facing.getOpposite();
 			}
-			else if (configuration.houseFacing == assumedNorth.rotateYCCW())
+			else if (configuration.houseFacing.getOpposite() == structure.getClearSpace().getShape().getDirection().rotateYCCW())
 			{
 				facing = facing.rotateYCCW();
 			}
@@ -451,24 +451,26 @@ public class BuildBlock
 			
 			if (vineFacing != EnumFacing.UP)
 			{
-				if (configuration.houseFacing == assumedNorth.rotateY())
+				if (configuration.houseFacing.rotateY() == assumedNorth)
 				{
 					vineFacing = vineFacing.rotateY();
 				}
-				else if (configuration.houseFacing == assumedNorth.getOpposite())
+				else if (configuration.houseFacing.getOpposite() == assumedNorth)
 				{
-					vineFacing = vineFacing.getOpposite();
 				}
-				else if (configuration.houseFacing == assumedNorth.rotateYCCW())
+				else if (configuration.houseFacing.rotateYCCW() == assumedNorth)
 				{
 					vineFacing = vineFacing.rotateYCCW();
+				}
+				else
+				{
+					vineFacing = vineFacing.getOpposite();
 				}
 			}
 		}
 		
 		return vineFacing;
 	}
-	
 	
 	private static EnumAxis getLogFacing(StructureConfiguration configuration, Block foundBlock, BuildBlock block, EnumFacing assumedNorth)
 	{
@@ -502,7 +504,6 @@ public class BuildBlock
 		return logFacing;
 	}
 	
-	
 	private static Axis getBoneFacing(StructureConfiguration configuration, Block foundBlock, BuildBlock block, EnumFacing assumedNorth)
 	{
 		Axis boneFacing = Axis.X;
@@ -535,7 +536,6 @@ public class BuildBlock
 		return boneFacing;
 	}
 	
-	
 	private static BlockQuartz.EnumType getQuartsFacing(StructureConfiguration configuration, Block foundBlock, BuildBlock block, EnumFacing assumedNorth)
 	{
 		BlockQuartz.EnumType quartzFacing = BlockQuartz.EnumType.DEFAULT;
@@ -557,7 +557,7 @@ public class BuildBlock
 						|| quartzFacing == BlockQuartz.EnumType.LINES_Z)
 				{
 					quartzFacing = 
-							configuration.houseFacing == assumedNorth || configuration.houseFacing == assumedNorth.getOpposite() 
+							configuration.houseFacing == assumedNorth || configuration.houseFacing.getOpposite() == assumedNorth 
 								? quartzFacing : 
 									quartzFacing == BlockQuartz.EnumType.LINES_X 
 								? BlockQuartz.EnumType.LINES_Z : BlockQuartz.EnumType.LINES_X;
@@ -567,7 +567,6 @@ public class BuildBlock
 		
 		return quartzFacing;
 	}
-	
 	
 	private static EnumOrientation getLeverOrientation(StructureConfiguration configuration, Block foundBlock, BuildBlock block, EnumFacing assumedNorth)
 	{
@@ -602,17 +601,20 @@ public class BuildBlock
 			{
 				EnumFacing facing = leverOrientation.getFacing();
 				
-				if (configuration.houseFacing == assumedNorth.rotateY())
+				if (configuration.houseFacing.rotateY() == assumedNorth)
 				{				
 					facing = facing.rotateY();
 				}
-				else if (configuration.houseFacing == assumedNorth.getOpposite())
+				else if (configuration.houseFacing.getOpposite() == assumedNorth)
 				{
-					facing = facing.getOpposite();
 				}
-				else if (configuration.houseFacing == assumedNorth.rotateYCCW())
+				else if (configuration.houseFacing.rotateYCCW() == assumedNorth)
 				{
 					facing = facing.rotateYCCW();
+				}
+				else
+				{
+					facing = facing.getOpposite();
 				}
 				
 				for (EnumOrientation tempOrientation : EnumOrientation.values())
@@ -629,14 +631,13 @@ public class BuildBlock
 		return leverOrientation;
 	}
 	
-	
 	private static IBlockState setProperty(IBlockState state, IProperty property, Comparable comparable)
 	{
 		// This method is required since the properties and comparables have a <?> in them and it doesn't work properly when that is there. There is a compilation error since it's not hard typed.
 		return state.withProperty(property, comparable);
 	}
 
-	private static BuildBlock SetBlockStateFromTagData(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth, BuildBlock block, Block foundBlock, IBlockState blockState)
+	private static BuildBlock SetBlockStateFromTagData(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth, BuildBlock block, Block foundBlock, IBlockState blockState, Structure structure)
 	{
 		IBlockState tagState = block.getBlockStateFromDataTag();
 		
@@ -647,7 +648,7 @@ public class BuildBlock
 		else
 		{
 			block.setBlockStateData("");
-			return BuildBlock.SetBlockState(configuration, world, originalPos, assumedNorth, block, foundBlock, blockState);
+			return BuildBlock.SetBlockState(configuration, world, originalPos, assumedNorth, block, foundBlock, blockState, structure);
 		}
 		
 		return block;

@@ -26,7 +26,7 @@ public class StructureBasic extends Structure
 		BuildClear clearedSpace = new BuildClear();
 		clearedSpace.setShape(configuration.basicStructureName.getClearShape());
 		clearedSpace.setStartingPosition(configuration.basicStructureName.getClearPositionOffset());
-		clearedSpace.getShape().setDirection(EnumFacing.SOUTH);
+		clearedSpace.getShape().setDirection(playerFacing);
 		
 		if (configuration.IsCustomStructure())
 		{
@@ -37,17 +37,25 @@ public class StructureBasic extends Structure
 			BuildShape buildShape = configuration.basicStructureName.getClearShape().Clone();
 			PositionOffset offset = configuration.basicStructureName.getClearPositionOffset();
 			
-			clearedSpace.getShape().setWidth(clearedSpace.getShape().getWidth() + 1);
-			clearedSpace.getShape().setLength(clearedSpace.getShape().getLength() + 1);
+			clearedSpace.getShape().setWidth(clearedSpace.getShape().getWidth() - 1);
+			clearedSpace.getShape().setLength(clearedSpace.getShape().getLength() - 1);
 			
 			int downOffset = offset.getHeightOffset() < 0 ? Math.abs(offset.getHeightOffset()) : 0;
-			BlockPos cornerPos = originalPos.east(offset.getEastOffset()).south(offset.getSouthOffset()).down(downOffset);
+			BlockPos cornerPos = originalPos
+					.offset(playerFacing.rotateYCCW(), offset.getOffSetValueForFacing(playerFacing.rotateYCCW()))
+					.offset(playerFacing, offset.getOffSetValueForFacing(playerFacing))
+					.down(downOffset);
+			
+			BlockPos otherCorner = cornerPos
+					.offset(playerFacing, buildShape.getLength())
+					.offset(playerFacing.rotateY(), buildShape.getWidth())
+					.up(buildShape.getHeight());
 			
 			Structure.ScanStructure(
 					world, 
 					originalPos, 
 					cornerPos,
-					cornerPos.south(buildShape.getLength()).west(buildShape.getWidth()).up(buildShape.getHeight()), 
+					otherCorner, 
 					"..\\src\\main\\resources\\assets\\prefab\\structures\\" + configuration.basicStructureName.getName()  + ".zip",
 					clearedSpace,
 					playerFacing,
@@ -64,11 +72,17 @@ public class StructureBasic extends Structure
 		
 		if (foundBlock instanceof BlockHopper && config.basicStructureName.getName().equals(EnumBasicStructureName.AdvancedCoop.getName()))
 		{
-			customBlockPos = block.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing);
+			customBlockPos = block.getStartingPosition().getRelativePosition(
+					originalPos, 
+					this.getClearSpace().getShape().getDirection(),
+					configuration.houseFacing);
 		}
 		else if (foundBlock instanceof BlockTrapDoor && config.basicStructureName.getName().equals(EnumBasicStructureName.MineshaftEntrance.getName()))
 		{
-			customBlockPos = block.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing);
+			customBlockPos = block.getStartingPosition().getRelativePosition(
+					originalPos, 
+					this.getClearSpace().getShape().getDirection(),
+					configuration.houseFacing);
 		}
 		
 		return false;

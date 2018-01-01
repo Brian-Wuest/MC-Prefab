@@ -145,21 +145,33 @@ public class StructureAlternateStart extends Structure
 
 		if (foundBlock instanceof BlockFurnace)
 		{
-			this.furnacePosition = block.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing);
+			this.furnacePosition = block.getStartingPosition().getRelativePosition(
+					originalPos,
+					this.getClearSpace().getShape().getDirection(),
+					configuration.houseFacing);
 		}
 		else if (foundBlock instanceof BlockTrapDoor && houseConfig.addMineShaft)
 		{
 			// The trap door will still be added, but the mine shaft may not be
 			// built.
-			this.trapDoorPosition = block.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing);
+			this.trapDoorPosition = block.getStartingPosition().getRelativePosition(
+					originalPos,
+					this.getClearSpace().getShape().getDirection(),
+					configuration.houseFacing);
 		}
 		else if (foundBlock instanceof BlockChest && this.chestPosition == null)
 		{
-			this.chestPosition = block.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing);
+			this.chestPosition = block.getStartingPosition().getRelativePosition(
+					originalPos,
+					this.getClearSpace().getShape().getDirection(),
+					configuration.houseFacing);
 		}
 		else if (foundBlock instanceof BlockStandingSign)
 		{
-			this.signPosition = block.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing);
+			this.signPosition = block.getStartingPosition().getRelativePosition(
+					originalPos,
+					this.getClearSpace().getShape().getDirection(),
+					configuration.houseFacing);
 		}
 
 		if (foundBlock.getRegistryName().getResourceDomain().equals(Blocks.STAINED_GLASS.getRegistryName().getResourceDomain())

@@ -129,6 +129,14 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		EnumBasicStructureName.WatchTower.getClearShape().setLength(9);
 		EnumBasicStructureName.WatchTower.getClearPositionOffset().setSouthOffset(1);
 		EnumBasicStructureName.WatchTower.getClearPositionOffset().setEastOffset(4);
+		
+		// Test
+		EnumBasicStructureName.Test.getClearShape().setDirection(EnumFacing.SOUTH);
+		EnumBasicStructureName.Test.getClearShape().setHeight(4);
+		EnumBasicStructureName.Test.getClearShape().setWidth(6);
+		EnumBasicStructureName.Test.getClearShape().setLength(4);
+		EnumBasicStructureName.Test.getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.Test.getClearPositionOffset().setWestOffset(1);
 	}
 	
 	/**
@@ -313,6 +321,11 @@ public class BasicStructureConfiguration extends StructureConfiguration
 				"assets/prefab/structures/watch_tower.zip",
 				"textures/gui/watch_tower_topdown.png",
 				"item_watch_tower",
+				176, 133),
+		Test("test", "item.prefab.test",
+				"assets/prefab/structures/test.zip",
+				"textures/gui/watch_tower_topdown.png",
+				"item_test",
 				176, 133);
 		
 		private String name;

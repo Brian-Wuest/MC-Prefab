@@ -72,7 +72,10 @@ public class StructureMonsterMasher extends Structure
 		{
 			if (Prefab.proxy.proxyConfiguration.includeSpawnersInMasher)
 			{
-				this.mobSpawnerPos.add(block.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing));
+				this.mobSpawnerPos.add(block.getStartingPosition().getRelativePosition(
+						originalPos, 
+						this.getClearSpace().getShape().getDirection(),
+						configuration.houseFacing));
 			}
 			else
 			{
@@ -81,7 +84,10 @@ public class StructureMonsterMasher extends Structure
 		}
 		else if (foundBlock instanceof BlockSign)
 		{
-			this.signPosition = block.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing);
+			this.signPosition = block.getStartingPosition().getRelativePosition(
+					originalPos, 
+					this.getClearSpace().getShape().getDirection(),
+					configuration.houseFacing);
 		}
 		
 		return false;

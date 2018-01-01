@@ -139,7 +139,15 @@ public class StructureRenderHandler
 				{
 					// Get the unique block state for this block.
 					IBlockState blockState = foundBlock.getDefaultState();
-					buildBlock = BuildBlock.SetBlockState(StructureRenderHandler.currentConfiguration, player.world, StructureRenderHandler.currentConfiguration.pos, StructureRenderHandler.assumedNorth, buildBlock, foundBlock, blockState);
+					buildBlock = BuildBlock.SetBlockState(
+							StructureRenderHandler.currentConfiguration, 
+							player.world, 
+							StructureRenderHandler.currentConfiguration.pos, 
+							StructureRenderHandler.assumedNorth, 
+							buildBlock, 
+							foundBlock, 
+							blockState,
+							StructureRenderHandler.currentStructure);
 					
 					if (StructureRenderHandler.renderComponentInWorld(player.world, buildBlock))
 					{
@@ -186,7 +194,11 @@ public class StructureRenderHandler
 			return true;
 		}
 		
-		BlockPos pos = buildBlock.getStartingPosition().getRelativePosition(StructureRenderHandler.currentConfiguration.pos, StructureRenderHandler.currentConfiguration.houseFacing);
+		// In order to get the proper relative position I also need the structure's original facing.
+		BlockPos pos = buildBlock.getStartingPosition().getRelativePosition(
+				StructureRenderHandler.currentConfiguration.pos, 
+				StructureRenderHandler.currentStructure.getClearSpace().getShape().getDirection(), 
+				StructureRenderHandler.currentConfiguration.houseFacing);
 
 		// Don't render this block if it's going to overlay a non-air block.
 		if (!world.isAirBlock(pos))
@@ -211,7 +223,8 @@ public class StructureRenderHandler
 					assumedNorth, 
 					buildBlock.getSubBlock(), 
 					foundBlock, 
-					blockState);
+					blockState,
+					StructureRenderHandler.currentStructure);
 			
 			return StructureRenderHandler.renderComponentInWorld(world, subBlock);
 		}

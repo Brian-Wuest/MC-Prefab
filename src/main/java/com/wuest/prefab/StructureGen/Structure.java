@@ -261,7 +261,7 @@ public class Structure
 	 */
 	public boolean BuildStructure(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth, EntityPlayer player)
 	{
-		BlockPos startBlockPos = this.clearSpace.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing);
+		BlockPos startBlockPos = this.clearSpace.getStartingPosition().getRelativePosition(originalPos, this.clearSpace.getShape().getDirection(), configuration.houseFacing);
 		BlockPos endBlockPos = startBlockPos.offset(configuration.houseFacing.rotateYCCW(), this.clearSpace.getShape().getWidth() - 1)
 				.offset(configuration.houseFacing.getOpposite(), this.clearSpace.getShape().getWidth() - 1)
 				.offset(EnumFacing.UP, this.clearSpace.getShape().getHeight());
@@ -294,14 +294,14 @@ public class Structure
 					if (!this.WaterReplacedWithCobbleStone(configuration, block, world, originalPos, assumedNorth, foundBlock, blockState, player) 
 							&& !this.CustomBlockProcessingHandled(configuration, block, world, originalPos, assumedNorth, foundBlock, blockState, player))
 					{
-						block = BuildBlock.SetBlockState(configuration, world, originalPos, assumedNorth, block, foundBlock, blockState);
+						block = BuildBlock.SetBlockState(configuration, world, originalPos, assumedNorth, block, foundBlock, blockState, this);
 
 						if (block.getSubBlock() != null)
 						{
 							foundBlock = Block.REGISTRY.getObject(block.getSubBlock().getResourceLocation());
 							blockState = foundBlock.getDefaultState();
 
-							subBlock = BuildBlock.SetBlockState(configuration, world, originalPos, assumedNorth, block.getSubBlock(), foundBlock, blockState);
+							subBlock = BuildBlock.SetBlockState(configuration, world, originalPos, assumedNorth, block.getSubBlock(), foundBlock, blockState, this);
 						}
 
 						if (subBlock != null)
@@ -410,8 +410,10 @@ public class Structure
 		if (this.clearSpace.getShape().getWidth() > 0 
 				&& this.clearSpace.getShape().getLength() > 0) 
 		{
-			BlockPos startBlockPos = this.clearSpace.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing);
-			BlockPos endBlockPos = startBlockPos.offset(configuration.houseFacing.rotateYCCW(), this.clearSpace.getShape().getWidth() - 1)
+			BlockPos startBlockPos = this.clearSpace.getStartingPosition().getRelativePosition(originalPos, this.clearSpace.getShape().getDirection(), configuration.houseFacing);
+			
+			BlockPos endBlockPos = startBlockPos
+					.offset(configuration.houseFacing.getOpposite().rotateY(), this.clearSpace.getShape().getWidth() - 1)
 					.offset(configuration.houseFacing.getOpposite(), this.clearSpace.getShape().getLength() - 1)
 					.offset(EnumFacing.UP, this.clearSpace.getShape().getHeight());
 					

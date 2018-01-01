@@ -89,7 +89,10 @@ public class StructureModerateHouse extends Structure
 				this.furnacePosition = new ArrayList<BlockPos>();
 			}
 			
-			this.furnacePosition.add(block.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing));
+			this.furnacePosition.add(block.getStartingPosition().getRelativePosition(
+					originalPos, 
+					this.getClearSpace().getShape().getDirection(),
+					configuration.houseFacing));
 		}
 		else if (foundBlock instanceof BlockChest && !((ModerateHouseConfiguration)configuration).addChests)
 		{
@@ -97,13 +100,19 @@ public class StructureModerateHouse extends Structure
 		}
 		else if (foundBlock instanceof BlockChest && this.chestPosition == null)
 		{
-			this.chestPosition = block.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing);
+			this.chestPosition = block.getStartingPosition().getRelativePosition(
+					originalPos, 
+					this.getClearSpace().getShape().getDirection(),
+					configuration.houseFacing);
 		}
 		else if (foundBlock instanceof BlockTrapDoor)
 		{
 			// The trap door will still be added, but the mine shaft may not be
 			// built.
-			this.trapDoorPosition = block.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing);
+			this.trapDoorPosition = block.getStartingPosition().getRelativePosition(
+					originalPos, 
+					this.getClearSpace().getShape().getDirection(),
+					configuration.houseFacing);
 		}
 		
 		return false;

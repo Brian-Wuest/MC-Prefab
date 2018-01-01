@@ -5,7 +5,9 @@ import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Capabilities.IStructureConfigurationCapability;
 import com.wuest.prefab.Capabilities.StructureConfigurationCapability;
 import com.wuest.prefab.Capabilities.Storage.StructureConfigurationStorage;
+import com.wuest.prefab.Config.Structures.BasicStructureConfiguration;
 import com.wuest.prefab.Config.Structures.BasicStructureConfiguration.EnumBasicStructureName;
+import com.wuest.prefab.StructureGen.CustomStructures.StructureBasic;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -52,19 +54,19 @@ public class ItemBasicStructure extends StructureItem
 			if (side == EnumFacing.UP)
 			{
 				// Open the client side gui to determine the house options.
-				// StructureBasic basicStructure = new StructureBasic();
-				// IStructureConfigurationCapability capability =
-				// stack.getCapability(ModRegistry.StructureConfiguration,
-				// EnumFacing.NORTH);
-				// BasicStructureConfiguration structureConfiguration =
-				// capability.getConfiguration();
-				// basicStructure.ScanStructure(world, hitBlockPos,
-				// player.getHorizontalFacing(), structureConfiguration, false,
-				// false);
+//				StructureBasic basicStructure = new StructureBasic();
+//				ItemStack stack = player.getHeldItem(hand);
+//				 
+//				IStructureConfigurationCapability capability = stack.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
+//				 
+//				BasicStructureConfiguration structureConfiguration = capability.getConfiguration();
+//				 
+//				basicStructure.ScanStructure(world, hitBlockPos, player.getHorizontalFacing(), structureConfiguration, false, false);
 
 				player.openGui(Prefab.instance, this.guiId, player.world,
 						hitBlockPos.getX(), hitBlockPos.getY(),
 						hitBlockPos.getZ());
+				
 				return EnumActionResult.PASS;
 			}
 		}

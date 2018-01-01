@@ -59,7 +59,10 @@ public class StructureChickenCoop extends Structure
 	{
 		if (foundBlock instanceof BlockFenceGate && this.chickenCoopBlockPos == null)
 		{ 
-			chickenCoopBlockPos = block.getStartingPosition().getRelativePosition(originalPos, configuration.houseFacing).offset(configuration.houseFacing.getOpposite(), 2);
+			chickenCoopBlockPos = block.getStartingPosition().getRelativePosition(
+					originalPos,
+					this.getClearSpace().getShape().getDirection(),
+					configuration.houseFacing).offset(configuration.houseFacing.getOpposite(), 2);
 		}
 		
 		return false;
