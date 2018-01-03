@@ -46,10 +46,7 @@ public class GuiProduceFarm extends GuiStructure
 		int grayBoxY = this.getCenteredYAxis() - 83;
 
 		// Create the buttons.
-		this.btnHouseFacing = new GuiButtonExt(3, grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateFacing(this.configuration.houseFacing));
-		this.buttonList.add(this.btnHouseFacing);
-
-		this.btnGlassColor = new GuiButtonExt(10, grayBoxX + 10, grayBoxY + 60, 90, 20, GuiLangKeys.translateDye(this.configuration.dyeColor));
+		this.btnGlassColor = new GuiButtonExt(10, grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateDye(this.configuration.dyeColor));
 		this.buttonList.add(this.btnGlassColor);
 
 		this.btnVisualize = new GuiButtonExt(4, grayBoxX + 10, grayBoxY + 90, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW));

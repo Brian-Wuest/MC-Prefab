@@ -32,6 +32,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fml.common.FMLLog;
 
 /**
  * Each structure represents a building which is pre-defined in a JSON file.
@@ -280,6 +281,8 @@ public class Structure
 			// First, clear the area where the structure will be built.
 			this.ClearSpace(configuration, world, originalPos, assumedNorth);
 
+			boolean blockPlacedWithCobbleStoneInstead = false;
+			
 			// Now place all of the blocks.
 			for (BuildBlock block : this.getBlocks())
 			{
@@ -340,6 +343,20 @@ public class Structure
 								this.priorityTwoBlocks.add(block);
 							}
 						}
+					}
+				}
+				else
+				{
+					// Cannot find this block in the registry. This can happen if a structure file has a mod block that no longer exists.
+					// In this case, print an informational message and replace it with cobblestone.
+					String blockTypeNotFound = block.getResourceLocation().toString();
+					block = BuildBlock.SetBlockState(configuration, world, originalPos, assumedNorth, block, Blocks.COBBLESTONE, Blocks.COBBLESTONE.getDefaultState(), this);
+					this.priorityOneBlocks.add(block);
+					
+					if (!blockPlacedWithCobbleStoneInstead)
+					{
+						blockPlacedWithCobbleStoneInstead = true;
+						FMLLog.log.warn("A Block was in the structure, but it is not registred. This block was replaced with vanilla cobblestone instead. Block type not found: [" + blockTypeNotFound + "]");
 					}
 				}
 			}

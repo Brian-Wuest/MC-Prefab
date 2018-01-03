@@ -20,6 +20,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexBuffer;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
@@ -34,11 +35,11 @@ public class GuiStructure extends GuiScreen
 	public final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/default_background.png");
 	public BlockPos pos;
 	protected EntityPlayer player;
+	protected EnumFacing structureFacing;
 	
 	protected GuiButtonExt btnCancel;
 	protected GuiButtonExt btnBuild;
 	protected GuiButtonExt btnVisualize;
-	protected GuiButtonExt btnHouseFacing;
 	
 	protected int textColor = Color.DARK_GRAY.getRGB();
 	protected EnumStructureConfiguration structureConfiguration;
@@ -54,6 +55,7 @@ public class GuiStructure extends GuiScreen
 	public void initGui()
 	{
 		this.player = this.mc.player;
+		this.structureFacing = this.player.getHorizontalFacing().getOpposite();
 		this.Initialize();
 	}
 	
@@ -112,11 +114,6 @@ public class GuiStructure extends GuiScreen
 		{
 			Prefab.network.sendToServer(new StructureTagMessage(configuration.WriteToNBTTagCompound(), this.structureConfiguration));
 			this.mc.displayGuiScreen(null);
-		}
-		else if (button == this.btnHouseFacing)
-		{
-			configuration.houseFacing = configuration.houseFacing.rotateY();
-			this.btnHouseFacing.displayString = GuiLangKeys.translateFacing(configuration.houseFacing);
 		}
 	}
 	

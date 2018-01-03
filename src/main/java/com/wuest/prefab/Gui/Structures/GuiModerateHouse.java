@@ -68,10 +68,7 @@ public class GuiModerateHouse extends GuiStructure
 		this.buttonList.add(this.btnHouseStyle);
 		
 		// Create the buttons.
-		this.btnHouseFacing = new GuiButtonExt(3, grayBoxX + 10, grayBoxY + 60, 90, 20, GuiLangKeys.translateFacing(this.configuration.houseFacing));
-		this.buttonList.add(this.btnHouseFacing);
-		
-		this.btnVisualize = new GuiButtonExt(4, grayBoxX + 10, grayBoxY + 90, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW));
+		this.btnVisualize = new GuiButtonExt(4, grayBoxX + 10, grayBoxY + 60, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW));
 		this.buttonList.add(this.btnVisualize);
 
 		// Create the done and cancel buttons.
