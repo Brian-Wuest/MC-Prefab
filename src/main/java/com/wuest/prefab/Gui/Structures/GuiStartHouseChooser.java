@@ -146,16 +146,16 @@ public class GuiStartHouseChooser extends GuiTabScreen
 		}
 		else if (this.getSelectedTab() == this.tabConfig)
 		{
-			this.btnAddTorches.visible = true;
-			this.btnAddBed.visible = true;
-			this.btnAddChest.visible = true;
-			this.btnAddChestContents.visible = this.allowItemsInChestAndFurnace;
-			this.btnAddCraftingTable.visible = true;
-			this.btnAddMineShaft.visible = true;
+			this.btnAddTorches.visible = this.serverConfiguration.addTorches;
+			this.btnAddBed.visible = this.serverConfiguration.addBed;
+			this.btnAddChest.visible = this.serverConfiguration.addChests;
+			this.btnAddChestContents.visible = this.allowItemsInChestAndFurnace && this.serverConfiguration.addChestContents;
+			this.btnAddCraftingTable.visible = this.serverConfiguration.addCrafting;
+			this.btnAddMineShaft.visible = this.serverConfiguration.addMineshaft;
 			
 			if (this.houseConfiguration.houseStyle == HouseConfiguration.HouseStyle.BASIC)
 			{
-				this.btnAddFarm.visible = true;
+				this.btnAddFarm.visible = this.serverConfiguration.addFarm;
 				this.btnIsCeilingFlat.visible = true;
 			}
 		}
@@ -244,13 +244,13 @@ public class GuiStartHouseChooser extends GuiTabScreen
 		if (button == this.btnCancel || button == this.btnVisualize
 				|| button == this.btnBuild)
 		{
-			this.houseConfiguration.addBed = this.btnAddBed.isChecked();
-			this.houseConfiguration.addChest = this.btnAddChest.isChecked();
-			this.houseConfiguration.addChestContents = this.allowItemsInChestAndFurnace ? this.btnAddChestContents.isChecked() : false;
-			this.houseConfiguration.addCraftingTable = this.btnAddCraftingTable.isChecked();
-			this.houseConfiguration.addFarm = this.btnAddFarm.isChecked();
-			this.houseConfiguration.addMineShaft = this.btnAddMineShaft.isChecked();
-			this.houseConfiguration.addTorches = this.btnAddTorches.isChecked();
+			this.houseConfiguration.addBed = this.btnAddBed.visible && this.btnAddBed.isChecked();
+			this.houseConfiguration.addChest = this.btnAddChest.visible && this.btnAddChest.isChecked();
+			this.houseConfiguration.addChestContents = this.allowItemsInChestAndFurnace ? this.btnAddChestContents.visible && this.btnAddChestContents.isChecked() : false;
+			this.houseConfiguration.addCraftingTable = this.btnAddCraftingTable.visible && this.btnAddCraftingTable.isChecked();
+			this.houseConfiguration.addFarm = this.btnAddFarm.visible && this.btnAddFarm.isChecked();
+			this.houseConfiguration.addMineShaft = this.btnAddMineShaft.visible && this.btnAddMineShaft.isChecked();
+			this.houseConfiguration.addTorches = this.btnAddTorches.visible && this.btnAddTorches.isChecked();
 			this.houseConfiguration.isCeilingFlat = this.btnIsCeilingFlat.isChecked();
 			this.houseConfiguration.ceilingBlock = ModConfiguration.CeilingFloorBlockType.ValueOf(this.btnCeilingBlock.getValueInt());
 			this.houseConfiguration.floorBlock = ModConfiguration.CeilingFloorBlockType.ValueOf(this.btnFloorBlock.getValueInt());

@@ -26,11 +26,11 @@ public class ModConfiguration
 	public static String OPTIONS = "general.options";
 	public static String ChestContentOptions = "general.options.chest contents";
 	public static String RecipeOptions = "general.options.recipes";
+	public static String starterHouseOptions = "general.options.starter house";
 	public static String tagKey = "PrefabConfig";
 
 	// Config file option names.
 	private static String addHouseItemName = "Add House Item On New Player Join";
-	private static String enableHouseGenerationRestrictionName = "Enable House Generation Restrictions";
 	private static String maximumHouseSizeName = "Maximum Starting House Size";
 	private static String enableVersionCheckMessageName = "Enable Version Checking";
 	private static String enableLoftHouseName = "Enable Loft House";
@@ -52,6 +52,14 @@ public class ModConfiguration
 	private static String addCobbleName = "Add Cobblestone";
 	private static String addSaplingsName = "Add Saplings";
 	private static String addTorchesName = "Add Torches";
+	
+	// Starter House option names.
+	private static String addBedName = "Add Bed";
+	private static String addCraftingName = "Add Crafting Table/Furnace";
+	private static String addChestsName = "Add Chests";
+	private static String addChestContentsName = "Add Chest Contents";
+	private static String addFarmName = "Add Farm";
+	private static String addMineshaftName = "Add Mineshaft";
 
 	private static String versionMessageName = "Version Message";
 	private static String showMessageName = "Show Message";
@@ -73,7 +81,6 @@ public class ModConfiguration
 	public boolean addHoe;
 	public boolean addShovel;
 	public boolean addPickAxe;
-
 	public boolean addArmor;
 	public boolean addFood;
 	public boolean addCrops;
@@ -81,6 +88,14 @@ public class ModConfiguration
 	public boolean addCobble;
 	public boolean addSaplings;
 	public boolean addTorches;
+	
+	// Start House options.
+	public boolean addBed;
+	public boolean addCrafting;
+	public boolean addChests;
+	public boolean addChestContents;
+	public boolean addFarm;
+	public boolean addMineshaft;
 
 	public HashMap<String, Boolean> recipeConfiguration;
 
@@ -205,7 +220,6 @@ public class ModConfiguration
 
 		// General settings.
 		Prefab.proxy.proxyConfiguration.addHouseItem = config.getBoolean(ModConfiguration.addHouseItemName, ModConfiguration.OPTIONS, true, "Determines if the house item is added to player inventory when joining the world for the first time. Server configuration overrides client.");
-		Prefab.proxy.proxyConfiguration.enableHouseGenerationRestrictions = config.getBoolean(ModConfiguration.enableHouseGenerationRestrictionName, ModConfiguration.OPTIONS, false, "When true this option causes the Crafting Table, Furnace and Chest to not be added when creating a house, regardless of options chosen. Server Configuration overrides client.");
 		Prefab.proxy.proxyConfiguration.maximumStartingHouseSize = config.getInt(ModConfiguration.maximumHouseSizeName, ModConfiguration.OPTIONS, 16, 5, 16, "Determines the maximum size the starting house can be generated as. Server configuration overrides client.");
 		Prefab.proxy.proxyConfiguration.enableVersionCheckMessage = config.getBoolean(ModConfiguration.enableVersionCheckMessageName, ModConfiguration.OPTIONS, true, "Determines if version checking is enabled when application starts. Also determines if the chat message about old versions is shown when joining a world. Server configuration overrides client.");
 		Prefab.proxy.proxyConfiguration.enableLoftHouse = config.getBoolean(ModConfiguration.enableLoftHouseName, ModConfiguration.OPTIONS, false, "Determines if the loft starter house is enabled. This house contains Nether materials in it's construction. Server configuration overrides client.");
@@ -233,8 +247,17 @@ public class ModConfiguration
 		Prefab.proxy.proxyConfiguration.addSaplings = config.getBoolean(ModConfiguration.addSaplingsName, ModConfiguration.ChestContentOptions, true, "Determines if a set of oak saplings are added the the chest when the house is created.");
 		Prefab.proxy.proxyConfiguration.addTorches = config.getBoolean(ModConfiguration.addTorchesName, ModConfiguration.ChestContentOptions, true, "Determines if a set of torches are added the the chest when the house is created.");
 
+		config.setCategoryComment(ModConfiguration.starterHouseOptions, "This category is to determine which starter house options are enabled in the starter house item screen. Certain options also affect the moderate house as well.");
+		Prefab.proxy.proxyConfiguration.addBed = config.getBoolean(ModConfiguration.addBedName, ModConfiguration.starterHouseOptions, true, "Determines if the bed is included in the starter house. When playing on a server, the server configuration is used");
+		Prefab.proxy.proxyConfiguration.addCrafting = config.getBoolean(ModConfiguration.addCraftingName, ModConfiguration.starterHouseOptions, true, "Determines if the crafting table and furnace are included in the starter house. When playing on a server, the server configuration is used");
+		Prefab.proxy.proxyConfiguration.addChests = config.getBoolean(ModConfiguration.addChestsName, ModConfiguration.starterHouseOptions, true, "Determines if chests are included in the starter house. When playing on a server, the server configuration is used");
+		Prefab.proxy.proxyConfiguration.addChestContents = config.getBoolean(ModConfiguration.addChestContentsName, ModConfiguration.starterHouseOptions, true, "Determines if the chest contents is included in the starter house. When playing on a server, the server configuration is used");
+		Prefab.proxy.proxyConfiguration.addFarm = config.getBoolean(ModConfiguration.addFarmName, ModConfiguration.starterHouseOptions, true, "Determines if the farm is included in the basic starter house. When playing on a server, the server configuration is used");
+		Prefab.proxy.proxyConfiguration.addMineshaft = config.getBoolean(ModConfiguration.addMineshaftName, ModConfiguration.starterHouseOptions, true, "Determines if the mineshaft is included in the starter house. When playing on a server, the server configuration is used");
+		
 		config.setCategoryComment(ModConfiguration.RecipeOptions, "This category determines if the recipes for the blocks/items in this are enabled");
 		config.setCategoryRequiresMcRestart(ModConfiguration.RecipeOptions, true);
+		config.setCategoryRequiresMcRestart(ModConfiguration.starterHouseOptions, true);
 
 		// Recipe configuration.
 		for (String key : ModConfiguration.recipeKeys)
@@ -254,7 +277,6 @@ public class ModConfiguration
 		NBTTagCompound tag = new NBTTagCompound();
 
 		tag.setBoolean(ModConfiguration.addHouseItemName, this.addHouseItem);
-		tag.setBoolean(ModConfiguration.enableHouseGenerationRestrictionName, this.enableHouseGenerationRestrictions);
 		tag.setInteger(ModConfiguration.maximumHouseSizeName, this.maximumStartingHouseSize);
 		tag.setBoolean(ModConfiguration.enableVersionCheckMessageName, this.enableVersionCheckMessage);
 		tag.setBoolean(ModConfiguration.enableLoftHouseName, this.enableLoftHouse);
@@ -275,6 +297,13 @@ public class ModConfiguration
 		tag.setBoolean(ModConfiguration.addCobbleName, this.addCobble);
 		tag.setBoolean(ModConfiguration.addSaplingsName, this.addSaplings);
 		tag.setBoolean(ModConfiguration.addTorchesName, this.addTorches);
+		
+		tag.setBoolean(ModConfiguration.addBedName, this.addBed);
+		tag.setBoolean(ModConfiguration.addCraftingName, this.addCrafting);
+		tag.setBoolean(ModConfiguration.addChestsName, this.addChests);
+		tag.setBoolean(ModConfiguration.addChestContentsName, this.addChestContents);
+		tag.setBoolean(ModConfiguration.addFarmName, this.addFarm);
+		tag.setBoolean(ModConfiguration.addMineshaftName, this.addMineshaft);
 
 		tag.setString(ModConfiguration.versionMessageName, UpdateChecker.messageToShow);
 		tag.setBoolean(ModConfiguration.showMessageName, UpdateChecker.showMessage);
@@ -292,7 +321,6 @@ public class ModConfiguration
 		ModConfiguration config = new ModConfiguration();
 
 		config.addHouseItem = tag.getBoolean(ModConfiguration.addHouseItemName);
-		config.enableHouseGenerationRestrictions = tag.getBoolean(ModConfiguration.enableHouseGenerationRestrictionName);
 		config.enableVersionCheckMessage = tag.getBoolean(ModConfiguration.enableVersionCheckMessageName);
 		config.enableLoftHouse = tag.getBoolean(ModConfiguration.enableLoftHouseName);
 		config.maximumStartingHouseSize = tag.getInteger(ModConfiguration.maximumHouseSizeName);
@@ -319,6 +347,13 @@ public class ModConfiguration
 		config.addCobble = tag.getBoolean(ModConfiguration.addCobbleName);
 		config.addSaplings = tag.getBoolean(ModConfiguration.addSaplingsName);
 		config.addTorches = tag.getBoolean(ModConfiguration.addTorchesName);
+		
+		config.addBed = tag.getBoolean(ModConfiguration.addBedName);
+		config.addCrafting = tag.getBoolean(ModConfiguration.addCraftingName);
+		config.addChests = tag.getBoolean(ModConfiguration.addChestsName);
+		config.addChestContents = tag.getBoolean(ModConfiguration.addChestContentsName);
+		config.addFarm = tag.getBoolean(ModConfiguration.addFarmName);
+		config.addMineshaft = tag.getBoolean(ModConfiguration.addMineshaftName);
 
 		config.versionMessage = tag.getString(ModConfiguration.versionMessageName);
 		config.showMessage = tag.getBoolean(ModConfiguration.showMessageName);

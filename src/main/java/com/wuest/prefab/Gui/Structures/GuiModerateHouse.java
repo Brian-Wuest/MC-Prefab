@@ -6,6 +6,7 @@ import java.io.IOException;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Capabilities.IStructureConfigurationCapability;
+import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Config.Structures.BasicStructureConfiguration;
 import com.wuest.prefab.Config.Structures.HouseConfiguration;
 import com.wuest.prefab.Config.Structures.BasicStructureConfiguration.EnumBasicStructureName;
@@ -15,6 +16,7 @@ import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Gui.GuiTabScreen;
 import com.wuest.prefab.Gui.Controls.GuiCheckBox;
 import com.wuest.prefab.Items.Structures.ItemBasicStructure;
+import com.wuest.prefab.Proxy.ClientProxy;
 import com.wuest.prefab.Proxy.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Render.StructureRenderHandler;
 import com.wuest.prefab.StructureGen.CustomStructures.StructureBasic;
@@ -40,6 +42,7 @@ public class GuiModerateHouse extends GuiStructure
 	protected GuiCheckBox btnAddChestContents;
 	protected GuiCheckBox btnAddMineShaft;
 	protected boolean allowItemsInChestAndFurnace = true;
+	protected ModConfiguration serverConfiguration;
 	
 	public GuiModerateHouse(int x, int y, int z)
 	{
@@ -56,6 +59,7 @@ public class GuiModerateHouse extends GuiStructure
 	@Override
 	protected void Initialize() 
 	{
+		this.serverConfiguration = ((ClientProxy)Prefab.proxy).getServerConfiguration();
 		this.configuration = ClientEventHandler.playerConfig.getClientConfig("Moderate Houses", ModerateHouseConfiguration.class);
 		this.configuration.pos = this.pos;
 		int color = Color.DARK_GRAY.getRGB();
@@ -118,7 +122,9 @@ public class GuiModerateHouse extends GuiStructure
 		
 		this.drawControlBackgroundAndButtonsAndLabels(grayBoxX, grayBoxY, x, y);
 
-		this.btnAddChestContents.visible = this.allowItemsInChestAndFurnace;
+		this.btnAddChest.visible = this.serverConfiguration.addChests;
+		this.btnAddChestContents.visible = this.allowItemsInChestAndFurnace && this.serverConfiguration.addChestContents;
+		this.btnAddMineShaft.visible = this.serverConfiguration.addMineshaft;
 		
 		// Draw the text here.
 		this.mc.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), grayBoxX + 10, grayBoxY + 10, this.textColor);
@@ -136,9 +142,9 @@ public class GuiModerateHouse extends GuiStructure
 	@Override
 	protected void actionPerformed(GuiButton button) throws IOException
 	{
-		this.configuration.addChests = this.btnAddChest.isChecked();
-		this.configuration.addChestContents = this.allowItemsInChestAndFurnace ? this.btnAddChestContents.isChecked() : false;
-		this.configuration.addMineshaft = this.btnAddMineShaft.isChecked();
+		this.configuration.addChests = this.btnAddChest.visible && this.btnAddChest.isChecked();
+		this.configuration.addChestContents = this.allowItemsInChestAndFurnace ? this.btnAddChestContents.visible && this.btnAddChestContents.isChecked() : false;
+		this.configuration.addMineshaft = this.btnAddMineShaft.visible && this.btnAddMineShaft.isChecked();
 		
 		this.performCancelOrBuildOrHouseFacing(this.configuration, button);
 		
