@@ -86,6 +86,7 @@ prefab.gui.starter.snowy.notes=A house designed like an igloo.
 prefab.gui.starter.addtorches=Добавить Факелы
 prefab.gui.starter.addbed=Добавить Кровать
 prefab.gui.starter.addcraftingtable=Добавить Стол Крафта
+prefab.gui.starter.addfurnace=Добавить печь
 prefab.gui.starter.addchest=Добавить Сундук
 prefab.gui.starter.addchestcontents=Добавить Содержимое В Сундук
 prefab.gui.starter.addfarm=Добавить Ферму

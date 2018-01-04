@@ -86,6 +86,7 @@ prefab.gui.starter.snowy.notes=Una casa diseñada como un iglú.
 prefab.gui.starter.addtorches=Añadir antorchas
 prefab.gui.starter.addbed=Añadir camaa
 prefab.gui.starter.addcraftingtable=Añadir mesa de elaboración
+prefab.gui.starter.addfurnace=Añadir horno
 prefab.gui.starter.addchest=Agregue el cofre
 prefab.gui.starter.addchestcontents=Agregar contenido del cofre
 prefab.gui.starter.addfarm=Agregar granja

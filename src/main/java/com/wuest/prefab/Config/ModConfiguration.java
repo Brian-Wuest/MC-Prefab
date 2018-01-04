@@ -55,7 +55,8 @@ public class ModConfiguration
 	
 	// Starter House option names.
 	private static String addBedName = "Add Bed";
-	private static String addCraftingName = "Add Crafting Table/Furnace";
+	private static String addCraftingTableName = "Add Crafting Table";
+	private static String addFurnaceName = "Add Furnace";
 	private static String addChestsName = "Add Chests";
 	private static String addChestContentsName = "Add Chest Contents";
 	private static String addFarmName = "Add Farm";
@@ -66,7 +67,6 @@ public class ModConfiguration
 
 	// Configuration Options.
 	public boolean addHouseItem;
-	public boolean enableHouseGenerationRestrictions;
 	public int maximumStartingHouseSize;
 	public boolean enableVersionCheckMessage;
 	public boolean enableLoftHouse;
@@ -91,7 +91,8 @@ public class ModConfiguration
 	
 	// Start House options.
 	public boolean addBed;
-	public boolean addCrafting;
+	public boolean addCraftingTable;
+	public boolean addFurnace;
 	public boolean addChests;
 	public boolean addChestContents;
 	public boolean addFarm;
@@ -249,7 +250,8 @@ public class ModConfiguration
 
 		config.setCategoryComment(ModConfiguration.starterHouseOptions, "This category is to determine which starter house options are enabled in the starter house item screen. Certain options also affect the moderate house as well.");
 		Prefab.proxy.proxyConfiguration.addBed = config.getBoolean(ModConfiguration.addBedName, ModConfiguration.starterHouseOptions, true, "Determines if the bed is included in the starter house. When playing on a server, the server configuration is used");
-		Prefab.proxy.proxyConfiguration.addCrafting = config.getBoolean(ModConfiguration.addCraftingName, ModConfiguration.starterHouseOptions, true, "Determines if the crafting table and furnace are included in the starter house. When playing on a server, the server configuration is used");
+		Prefab.proxy.proxyConfiguration.addCraftingTable = config.getBoolean(ModConfiguration.addCraftingTableName, ModConfiguration.starterHouseOptions, true, "Determines if the crafting table is included in the starter house. When playing on a server, the server configuration is used");
+		Prefab.proxy.proxyConfiguration.addFurnace = config.getBoolean(ModConfiguration.addFurnaceName, ModConfiguration.starterHouseOptions, true, "Determines if the furnace is included in the starter house. When playing on a server, the server configuration is used");
 		Prefab.proxy.proxyConfiguration.addChests = config.getBoolean(ModConfiguration.addChestsName, ModConfiguration.starterHouseOptions, true, "Determines if chests are included in the starter house. When playing on a server, the server configuration is used");
 		Prefab.proxy.proxyConfiguration.addChestContents = config.getBoolean(ModConfiguration.addChestContentsName, ModConfiguration.starterHouseOptions, true, "Determines if the chest contents is included in the starter house. When playing on a server, the server configuration is used");
 		Prefab.proxy.proxyConfiguration.addFarm = config.getBoolean(ModConfiguration.addFarmName, ModConfiguration.starterHouseOptions, true, "Determines if the farm is included in the basic starter house. When playing on a server, the server configuration is used");
@@ -299,7 +301,8 @@ public class ModConfiguration
 		tag.setBoolean(ModConfiguration.addTorchesName, this.addTorches);
 		
 		tag.setBoolean(ModConfiguration.addBedName, this.addBed);
-		tag.setBoolean(ModConfiguration.addCraftingName, this.addCrafting);
+		tag.setBoolean(ModConfiguration.addCraftingTableName, this.addCraftingTable);
+		tag.setBoolean(ModConfiguration.addFurnaceName, this.addFurnace);
 		tag.setBoolean(ModConfiguration.addChestsName, this.addChests);
 		tag.setBoolean(ModConfiguration.addChestContentsName, this.addChestContents);
 		tag.setBoolean(ModConfiguration.addFarmName, this.addFarm);
@@ -349,7 +352,8 @@ public class ModConfiguration
 		config.addTorches = tag.getBoolean(ModConfiguration.addTorchesName);
 		
 		config.addBed = tag.getBoolean(ModConfiguration.addBedName);
-		config.addCrafting = tag.getBoolean(ModConfiguration.addCraftingName);
+		config.addCraftingTable = tag.getBoolean(ModConfiguration.addCraftingTableName);
+		config.addFurnace = tag.getBoolean(ModConfiguration.addFurnaceName);
 		config.addChests = tag.getBoolean(ModConfiguration.addChestsName);
 		config.addChestContents = tag.getBoolean(ModConfiguration.addChestContentsName);
 		config.addFarm = tag.getBoolean(ModConfiguration.addFarmName);
@@ -472,4 +476,5 @@ public class ModConfiguration
 		}
 	}
 }
+
 

@@ -106,6 +106,8 @@ public class GuiStructure extends GuiScreen
 	 */
 	protected void performCancelOrBuildOrHouseFacing(StructureConfiguration configuration, GuiButton button) throws IOException
 	{
+		configuration.houseFacing = this.structureFacing;
+		
 		if (button == this.btnCancel)
 		{
 			this.mc.displayGuiScreen(null);

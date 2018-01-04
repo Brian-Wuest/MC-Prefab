@@ -97,6 +97,9 @@ public class GuiLangKeys
 	@Unlocalized(name = "Add Crafting Table")
 	public static final String STARTER_HOUSE_ADD_CRAFTING_TABLE = "prefab.gui.starter.addcraftingtable";
 	
+	@Unlocalized(name = "Add Furnace")
+	public static final String STARTER_HOUSE_ADD_FURNACE = "prefab.gui.starter.addfurnace";
+	
 	@Unlocalized(name = "Add Chest")
 	public static final String STARTER_HOUSE_ADD_CHEST = "prefab.gui.starter.addchest";
 	

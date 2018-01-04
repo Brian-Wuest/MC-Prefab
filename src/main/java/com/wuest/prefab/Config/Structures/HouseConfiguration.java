@@ -60,6 +60,7 @@ public class HouseConfiguration extends StructureConfiguration
 	private static String addTorchesTag = "addTorches";
 	private static String addBedTag = "addBed";
 	private static String addCraftingTableTag = "addCraftingTable";
+	private static String addFurnaceTag = "addFurnace";
 	private static String addChestTag = "addChest";
 	private static String addChestContentsTag = "addChestContents";
 	private static String addFarmTag = "addFarm";
@@ -80,6 +81,7 @@ public class HouseConfiguration extends StructureConfiguration
 	public boolean addTorches;
 	public boolean addBed;
 	public boolean addCraftingTable;
+	public boolean addFurnace;
 	public boolean addChest;
 	public boolean addChestContents;
 	public boolean addFarm;
@@ -123,6 +125,7 @@ public class HouseConfiguration extends StructureConfiguration
 		this.addTorches = true;
 		this.addBed = true;
 		this.addCraftingTable = true;
+		this.addFurnace = true;
 		this.addChest = true;
 		this.addChestContents = true;
 		this.addFarm = true;
@@ -141,6 +144,7 @@ public class HouseConfiguration extends StructureConfiguration
 		tag.setBoolean(HouseConfiguration.addTorchesTag, this.addTorches);
 		tag.setBoolean(HouseConfiguration.addBedTag, this.addBed);
 		tag.setBoolean(HouseConfiguration.addCraftingTableTag, this.addCraftingTable);
+		tag.setBoolean(HouseConfiguration.addFurnaceTag, this.addFurnace);
 		tag.setBoolean(HouseConfiguration.addChestTag, this.addChest);
 		tag.setBoolean(HouseConfiguration.addChestContentsTag, this.addChestContents);
 		tag.setBoolean(HouseConfiguration.addFarmTag, this.addFarm);
@@ -209,6 +213,11 @@ public class HouseConfiguration extends StructureConfiguration
 			if (tag.hasKey(HouseConfiguration.addCraftingTableTag))
 			{
 				config.addCraftingTable = tag.getBoolean(HouseConfiguration.addCraftingTableTag);
+			}
+			
+			if (tag.hasKey(HouseConfiguration.addFurnaceTag))
+			{
+				config.addFurnace = tag.getBoolean(HouseConfiguration.addFurnaceTag);
 			}
 
 			if (tag.hasKey(HouseConfiguration.addChestTag))
@@ -480,13 +489,10 @@ public class HouseConfiguration extends StructureConfiguration
 			HouseConfiguration.PlaceBed(world, northWestCornerPosition, facing);
 		}
 
-		if (configuration.addCraftingTable && !Prefab.proxy.proxyConfiguration.enableHouseGenerationRestrictions)
-		{
-			// Place a crafting table in the south west corner.
-			HouseConfiguration.PlaceAndFillCraftingMachines(player, world, southWestCornerPosition, facing);
-		}
+		// Place a crafting table in the south west corner.
+		HouseConfiguration.PlaceAndFillCraftingMachines(player, world, southWestCornerPosition, facing, configuration.addCraftingTable, configuration.addFurnace);
 
-		if (configuration.addChest && !Prefab.proxy.proxyConfiguration.enableHouseGenerationRestrictions)
+		if (configuration.addChest)
 		{
 			// Place a double chest in the south east corner.
 			HouseConfiguration.PlaceAndFillChest(player, world, southEastCornerPosition, configuration, facing);
@@ -780,25 +786,32 @@ public class HouseConfiguration extends StructureConfiguration
 		}
 	}
 
-	private static void PlaceAndFillCraftingMachines(EntityPlayer player, World world, BlockPos cornerPosition, EnumFacing facing)
+	private static void PlaceAndFillCraftingMachines(EntityPlayer player, World world, BlockPos cornerPosition, EnumFacing facing, boolean addCraftingTable, boolean addFurnace)
 	{
 		BlockPos itemPosition = cornerPosition.offset(facing.rotateY()).offset(facing).down();
-		BuildingMethods.ReplaceBlock(world, itemPosition, Blocks.CRAFTING_TABLE);
-
+		
+		if (addCraftingTable)
+		{
+			BuildingMethods.ReplaceBlock(world, itemPosition, Blocks.CRAFTING_TABLE);
+		}
+		
 		// Trigger the workbench achievement.
 		// TODO: Figure out how to trigger this advancement.
 		//player.addStat(AchievementList.BUILD_WORK_BENCH);
 
 		// Place a furnace next to the crafting table and fill it with 20 coal.
-		itemPosition = itemPosition.offset(facing.rotateY());
-		BuildingMethods.ReplaceBlock(world, itemPosition, Blocks.FURNACE.getDefaultState().withProperty(BlockFurnace.FACING, facing));
-
-		TileEntity tileEntity = world.getTileEntity(itemPosition);
-
-		if (tileEntity instanceof TileEntityFurnace)
+		if (addFurnace)
 		{
-			TileEntityFurnace furnaceTile = (TileEntityFurnace) tileEntity;
-			furnaceTile.setInventorySlotContents(1, new ItemStack(Items.COAL, 20));
+			itemPosition = itemPosition.offset(facing.rotateY());
+			BuildingMethods.ReplaceBlock(world, itemPosition, Blocks.FURNACE.getDefaultState().withProperty(BlockFurnace.FACING, facing));
+	
+			TileEntity tileEntity = world.getTileEntity(itemPosition);
+	
+			if (tileEntity instanceof TileEntityFurnace)
+			{
+				TileEntityFurnace furnaceTile = (TileEntityFurnace) tileEntity;
+				furnaceTile.setInventorySlotContents(1, new ItemStack(Items.COAL, 20));
+			}
 		}
 	}
 

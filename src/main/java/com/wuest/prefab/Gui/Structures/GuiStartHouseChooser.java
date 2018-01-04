@@ -56,6 +56,7 @@ public class GuiStartHouseChooser extends GuiTabScreen
 	protected GuiCheckBox btnAddTorches;
 	protected GuiCheckBox btnAddBed;
 	protected GuiCheckBox btnAddCraftingTable;
+	protected GuiCheckBox btnAddFurnace;
 	protected GuiCheckBox btnAddChest;
 	protected GuiCheckBox btnAddChestContents;
 	protected GuiCheckBox btnAddFarm;
@@ -125,6 +126,7 @@ public class GuiStartHouseChooser extends GuiTabScreen
 		this.btnAddChest.visible = false;
 		this.btnAddChestContents.visible = false;
 		this.btnAddCraftingTable.visible = false;
+		this.btnAddFurnace.visible = false;
 		this.btnAddFarm.visible = false;
 		this.btnAddMineShaft.visible = false;
 		this.btnIsCeilingFlat.visible = false;
@@ -150,7 +152,8 @@ public class GuiStartHouseChooser extends GuiTabScreen
 			this.btnAddBed.visible = this.serverConfiguration.addBed;
 			this.btnAddChest.visible = this.serverConfiguration.addChests;
 			this.btnAddChestContents.visible = this.allowItemsInChestAndFurnace && this.serverConfiguration.addChestContents;
-			this.btnAddCraftingTable.visible = this.serverConfiguration.addCrafting;
+			this.btnAddCraftingTable.visible = this.serverConfiguration.addCraftingTable;
+			this.btnAddFurnace.visible = this.serverConfiguration.addFurnace;
 			this.btnAddMineShaft.visible = this.serverConfiguration.addMineshaft;
 			
 			if (this.houseConfiguration.houseStyle == HouseConfiguration.HouseStyle.BASIC)
@@ -388,6 +391,13 @@ public class GuiStartHouseChooser extends GuiTabScreen
 		this.btnAddCraftingTable.setWithShadow(false);
 		this.btnAddCraftingTable.visible = false;
 		this.buttonList.add(this.btnAddCraftingTable);
+		y += 15;
+		
+		this.btnAddFurnace = new GuiCheckBox(5, x + 137, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_FURNACE), this.houseConfiguration.addFurnace);
+		this.btnAddFurnace.setStringColor(color);
+		this.btnAddFurnace.setWithShadow(false);
+		this.btnAddFurnace.visible = false;
+		this.buttonList.add(this.btnAddFurnace);
 		y += 15;
 
 		this.btnAddMineShaft = new GuiCheckBox(7, x, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_BUILD_MINESHAFT), this.houseConfiguration.addMineShaft);

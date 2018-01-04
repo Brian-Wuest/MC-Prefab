@@ -86,6 +86,7 @@ prefab.gui.starter.snowy.notes=Une maison conçue comme un igloo.
 prefab.gui.starter.addtorches=Ajouter des torches
 prefab.gui.starter.addbed=Ajouter un lit
 prefab.gui.starter.addcraftingtable=Ajouter une table de bricolage
+prefab.gui.starter.addfurnace=Ajouter un four
 prefab.gui.starter.addchest=Ajouter un caisson
 prefab.gui.starter.addchestcontents=Ajouter le contenu du caisson
 prefab.gui.starter.addfarm=Ajouter une batterie
