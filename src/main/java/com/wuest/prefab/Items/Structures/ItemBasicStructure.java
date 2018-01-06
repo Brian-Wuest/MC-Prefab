@@ -49,6 +49,18 @@ public class ItemBasicStructure extends StructureItem
 			BlockPos hitBlockPos, EnumHand hand, EnumFacing side, float hitX,
 			float hitY, float hitZ)
 	{
+		if (!world.isRemote)
+		{
+			if (side == EnumFacing.UP)
+			{
+/*				StructureBasic basicStructure = new StructureBasic();
+				ItemStack stack = player.getHeldItem(hand);
+				IStructureConfigurationCapability capability = stack.getCapability(ModRegistry.StructureConfiguration,  EnumFacing.NORTH);
+				BasicStructureConfiguration structureConfiguration = capability.getConfiguration();
+				basicStructure.ScanStructure(world, hitBlockPos, player.getHorizontalFacing(), structureConfiguration, false, false);*/
+			}
+		}
+		
 		if (world.isRemote)
 		{
 			if (side == EnumFacing.UP)
@@ -62,11 +74,9 @@ public class ItemBasicStructure extends StructureItem
 //				BasicStructureConfiguration structureConfiguration = capability.getConfiguration();
 //				 
 //				basicStructure.ScanStructure(world, hitBlockPos, player.getHorizontalFacing(), structureConfiguration, false, false);
-
-				player.openGui(Prefab.instance, this.guiId, player.world,
-						hitBlockPos.getX(), hitBlockPos.getY(),
-						hitBlockPos.getZ());
 				
+				player.openGui(Prefab.instance, this.guiId, player.world, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+
 				return EnumActionResult.PASS;
 			}
 		}

@@ -137,6 +137,14 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		EnumBasicStructureName.Test.getClearShape().setLength(4);
 		EnumBasicStructureName.Test.getClearPositionOffset().setSouthOffset(1);
 		EnumBasicStructureName.Test.getClearPositionOffset().setWestOffset(1);
+
+		// Welcome Center
+		EnumBasicStructureName.WelcomeCenter.getClearShape().setDirection(EnumFacing.SOUTH);
+		EnumBasicStructureName.WelcomeCenter.getClearShape().setHeight(3);
+		EnumBasicStructureName.WelcomeCenter.getClearShape().setWidth(4);
+		EnumBasicStructureName.WelcomeCenter.getClearShape().setLength(4);
+		EnumBasicStructureName.WelcomeCenter.getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.WelcomeCenter.getClearPositionOffset().setEastOffset(2);
 	}
 	
 	/**
@@ -326,6 +334,11 @@ public class BasicStructureConfiguration extends StructureConfiguration
 				"assets/prefab/structures/test.zip",
 				"textures/gui/watch_tower_topdown.png",
 				"item_test",
+				176, 133),
+		WelcomeCenter("welcome_center", "item.prefab.welcome_center",
+				"assets/prefab/structures/welcome_center.zip",
+				"textures/gui/welcome_center_topdown.png",
+				"item_welcome_center",
 				176, 133);
 		
 		private String name;

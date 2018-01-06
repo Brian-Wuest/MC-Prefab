@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.UUID;
 
 import com.google.common.collect.ImmutableList;
 import com.wuest.prefab.BuildingMethods;
@@ -20,10 +21,15 @@ import com.wuest.prefab.Proxy.ClientProxy;
 import com.wuest.prefab.Proxy.Messages.ConfigSyncMessage;
 import com.wuest.prefab.Proxy.Messages.PlayerEntityTagMessage;
 import com.wuest.prefab.StructureGen.BuildBlock;
+import com.wuest.prefab.StructureGen.BuildEntity;
+import com.wuest.prefab.StructureGen.BuildTileEntity;
 import com.wuest.prefab.StructureGen.Structure;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityHanging;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -32,8 +38,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Rotation;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent;
@@ -128,6 +139,7 @@ public class ModEventHandler
 		for (Entry<EntityPlayer, ArrayList<Structure>> entry : ModEventHandler.structuresToBuild.entrySet())
 		{
 			ArrayList<Structure> structuresToRemove = new ArrayList<Structure>();
+			EntityPlayer player = entry.getKey();
 			
 			// Build the first 100 blocks of each structure for this player.
 			for (Structure structure : entry.getValue())
@@ -210,6 +222,90 @@ public class ModEventHandler
 			
 			for (Structure structure : structuresToRemove)
 			{
+				for (BuildTileEntity buildTileEntity : structure.tileEntities)
+				{
+					BlockPos tileEntityPos = buildTileEntity.getStartingPosition().getRelativePosition(structure.originalPos, structure.getClearSpace().getShape().getDirection(), structure.configuration.houseFacing);
+					TileEntity tileEntity = structure.world.getTileEntity(tileEntityPos);
+					
+					if (tileEntity == null)
+					{
+						TileEntity.create(structure.world, buildTileEntity.getEntityDataTag());
+					}
+					else
+					{
+						structure.world.removeTileEntity(tileEntityPos);
+						tileEntity = TileEntity.create(structure.world, buildTileEntity.getEntityDataTag());
+						structure.world.setTileEntity(tileEntityPos, tileEntity);
+						//tileEntity.readFromNBT(buildTileEntity.getEntityDataTag());
+					}
+				}
+				
+				for (BuildEntity buildEntity : structure.entities)
+				{
+					Entity entity = EntityList.createEntityByID(buildEntity.getEntityId(), structure.world);
+					NBTTagCompound tagCompound = buildEntity.getEntityDataTag();
+					BlockPos entityPos = buildEntity.getStartingPosition().getRelativePosition(structure.originalPos, structure.getClearSpace().getShape().getDirection(), structure.configuration.houseFacing);
+					
+					if (tagCompound.hasUniqueId("UUID"))
+					{
+						tagCompound.setUniqueId("UUID", UUID.randomUUID());
+					}
+					
+					entity.readFromNBT(tagCompound);
+					entity.forceSpawn = true;
+					float yaw = entity.rotationYaw;
+					Rotation rotation = Rotation.NONE;
+					double x_axis_offset = buildEntity.entityXAxisOffset;
+					double z_axis_offset = buildEntity.entityZAxisOffset;
+					EnumFacing facing = entity instanceof EntityHanging ? ((EntityHanging)entity).facingDirection : structure.assumedNorth;
+					double y_axis_offset = entity instanceof EntityHanging ? buildEntity.entityYAxisOffset * -1 : buildEntity.entityYAxisOffset;
+					
+					if (structure.configuration.houseFacing == structure.assumedNorth.getOpposite())
+					{
+						rotation = Rotation.CLOCKWISE_180;
+						facing = facing.getOpposite();
+					}
+					else if (structure.configuration.houseFacing == structure.assumedNorth.rotateY())
+					{
+						rotation = rotation.CLOCKWISE_90;
+						x_axis_offset = x_axis_offset * -1;
+						z_axis_offset = z_axis_offset * -1;
+						facing = facing.rotateY();
+					}
+					else if (structure.configuration.houseFacing == structure.assumedNorth.rotateYCCW())
+					{
+						rotation = rotation.COUNTERCLOCKWISE_90;
+						x_axis_offset = x_axis_offset * -1;
+						z_axis_offset = z_axis_offset * -1;
+						facing = facing.rotateYCCW();
+					}
+					
+					yaw = entity.getRotatedYaw(rotation);
+					
+					if (entity instanceof EntityHanging)
+					{
+						((EntityHanging)entity).facingDirection = facing;
+						ModEventHandler.updateEntityHangingBoundingBox((EntityHanging)entity);
+					}
+					
+					entity.setPositionAndRotation(
+							entityPos.getX() + x_axis_offset, 
+							entityPos.getY() + y_axis_offset, 
+							entityPos.getZ() + z_axis_offset, 
+							yaw, 
+							entity.rotationPitch);
+					
+					if (entity instanceof EntityHanging)
+					{
+						ModEventHandler.updateEntityHangingBoundingBox((EntityHanging)entity);
+						Chunk chunk = structure.world.getChunkFromBlockCoords(entityPos);
+						
+						chunk.markDirty();
+					}
+					
+					structure.world.spawnEntity(entity);
+				}
+				
 				// This structure is done building. Do any post-building operations.
 				structure.AfterBuilding(structure.configuration, structure.world, structure.originalPos, structure.assumedNorth, entry.getKey());
 				entry.getValue().remove(structure);
@@ -497,4 +593,39 @@ public class ModEventHandler
 		}
 	}
 
+	private static void updateEntityHangingBoundingBox (EntityHanging entity)
+	{
+        double d0 = (double)entity.getHangingPosition().getX() + 0.5D;
+        double d1 = (double)entity.getHangingPosition().getY() + 0.5D;
+        double d2 = (double)entity.getHangingPosition().getZ() + 0.5D;
+        double d3 = 0.46875D;
+        double d4 = entity.getWidthPixels() % 32 == 0 ? 0.5D : 0.0D;;
+        double d5 = entity.getHeightPixels() % 32 == 0 ? 0.5D : 0.0D;;
+        d0 = d0 - (double)entity.facingDirection.getFrontOffsetX() * 0.46875D;
+        d2 = d2 - (double)entity.facingDirection.getFrontOffsetZ() * 0.46875D;
+        d1 = d1 + d5;
+        EnumFacing enumfacing = entity.facingDirection.rotateYCCW();
+        d0 = d0 + d4 * (double)enumfacing.getFrontOffsetX();
+        d2 = d2 + d4 * (double)enumfacing.getFrontOffsetZ();
+        entity.posX = d0;
+        entity.posY = d1;
+        entity.posZ = d2;
+        double d6 = (double)entity.getWidthPixels();
+        double d7 = (double)entity.getHeightPixels();
+        double d8 = (double)entity.getWidthPixels();
+
+        if (entity.facingDirection.getAxis() == EnumFacing.Axis.Z)
+        {
+            d8 = 1.0D;
+        }
+        else
+        {
+            d6 = 1.0D;
+        }
+
+        d6 = d6 / 32.0D;
+        d7 = d7 / 32.0D;
+        d8 = d8 / 32.0D;
+        entity.setEntityBoundingBox(new AxisAlignedBB(d0 - d6, d1 - d7, d2 - d8, d0 + d6, d1 + d7, d2 + d8));
+	}
 }
