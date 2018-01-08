@@ -89,7 +89,6 @@ public class GuiVillaerHouses extends GuiStructure
 
 		// Draw the text here.
 		this.mc.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), grayBoxX + 10, grayBoxY + 10, this.textColor);
-		this.mc.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_FACING), grayBoxX + 10, grayBoxY + 50, this.textColor);
 
 		if (!Prefab.proxy.proxyConfiguration.enableStructurePreview)
 		{

@@ -474,11 +474,8 @@ public class HouseConfiguration extends StructureConfiguration
 		// Use a separate position for each item.
 		BlockPos itemPosition = northEastCornerPosition;
 
-		if (configuration.addTorches)
-		{
-			// Set the torch locations so it's not dark in the house.
-			HouseConfiguration.PlaceInsideTorches(world, configuration, facing);
-		}
+		// Set the torch locations so it's not dark in the house.
+		HouseConfiguration.PlaceInsideTorches(world, configuration, facing);
 
 		// Create an oak door in the north east corner
 		HouseConfiguration.DecorateDoor(world, northEastCornerPosition, player, configuration, facing);
@@ -508,11 +505,8 @@ public class HouseConfiguration extends StructureConfiguration
 		BlockPos northWestCornerPosition = HouseConfiguration.NorthWestCorner.up();
 		BlockPos southWestCornerPosition = HouseConfiguration.SouthWestCorner.up();
 
-		if (configuration.addTorches)
-		{
-			HouseConfiguration.PlaceOutsideTorches(world, northEastCornerPosition, configuration, facing);
-		}
-
+		HouseConfiguration.PlaceOutsideTorches(world, northEastCornerPosition, configuration, facing);
+		
 		if (configuration.addFarm)
 		{
 			HouseConfiguration.PlaceSmallFarm(world, northEastCornerPosition.down(), facing);

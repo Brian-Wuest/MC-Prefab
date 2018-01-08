@@ -53,12 +53,9 @@ public class GuiFishPond extends GuiStructure
 		this.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 151, 149, 151, 149);
 		
 		this.drawControlBackgroundAndButtonsAndLabels(grayBoxX, grayBoxY, x, y);
-
-		this.mc.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_FACING), grayBoxX + 10, grayBoxY + 10, this.textColor);
 		
 		// Draw the text here.
 		this.mc.fontRenderer.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), grayBoxX + 147, grayBoxY + 10, 95, this.textColor);
-		this.mc.fontRenderer.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.FISH_POND_STRUCTURE_FACING), grayBoxX + 147, grayBoxY + 60, 95, this.textColor);
 		
 		if (!Prefab.proxy.proxyConfiguration.enableStructurePreview)
 		{
@@ -93,7 +90,7 @@ public class GuiFishPond extends GuiStructure
 		int grayBoxY = (this.height / 2) - 83;
 
 		// Create the buttons.	
-		this.btnVisualize = new GuiButtonExt(4, grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW));
+		this.btnVisualize = new GuiButtonExt(4, grayBoxX + 10, grayBoxY + 90, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW));
 		this.buttonList.add(this.btnVisualize);
 
 		// Create the done and cancel buttons.

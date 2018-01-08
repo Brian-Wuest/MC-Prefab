@@ -248,6 +248,7 @@ public class GuiStartHouseChooser extends GuiTabScreen
 			this.houseConfiguration.addChest = this.serverConfiguration.addChests && this.btnAddChest.isChecked();
 			this.houseConfiguration.addChestContents = this.allowItemsInChestAndFurnace ? this.serverConfiguration.addChestContents && this.btnAddChestContents.isChecked() : false;
 			this.houseConfiguration.addCraftingTable = this.serverConfiguration.addCraftingTable && this.btnAddCraftingTable.isChecked();
+			this.houseConfiguration.addFurnace = this.serverConfiguration.addFurnace && this.btnAddFurnace.isChecked();
 			this.houseConfiguration.addFarm = this.serverConfiguration.addFarm && this.btnAddFarm.isChecked();
 			this.houseConfiguration.addMineShaft = this.serverConfiguration.addMineshaft && this.btnAddMineShaft.isChecked();
 			this.houseConfiguration.addTorches = this.serverConfiguration.addTorches && this.btnAddTorches.isChecked();

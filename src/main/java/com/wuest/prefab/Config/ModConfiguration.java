@@ -259,7 +259,7 @@ public class ModConfiguration
 		
 		config.setCategoryComment(ModConfiguration.RecipeOptions, "This category determines if the recipes for the blocks/items in this are enabled");
 		config.setCategoryRequiresMcRestart(ModConfiguration.RecipeOptions, true);
-		config.setCategoryRequiresMcRestart(ModConfiguration.starterHouseOptions, true);
+		config.setCategoryRequiresWorldRestart(ModConfiguration.starterHouseOptions, true);
 
 		// Recipe configuration.
 		for (String key : ModConfiguration.recipeKeys)
