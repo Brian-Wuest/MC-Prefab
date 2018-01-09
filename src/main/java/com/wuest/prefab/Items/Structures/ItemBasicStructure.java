@@ -48,8 +48,8 @@ public class ItemBasicStructure extends StructureItem
 	public EnumActionResult onItemUse(EntityPlayer player, World world,
 			BlockPos hitBlockPos, EnumHand hand, EnumFacing side, float hitX,
 			float hitY, float hitZ)
-	{
-		if (!world.isRemote)
+	{	
+		if (world.isRemote)
 		{
 			if (side == EnumFacing.UP)
 			{
@@ -58,13 +58,7 @@ public class ItemBasicStructure extends StructureItem
 				IStructureConfigurationCapability capability = stack.getCapability(ModRegistry.StructureConfiguration,  EnumFacing.NORTH);
 				BasicStructureConfiguration structureConfiguration = capability.getConfiguration();
 				basicStructure.ScanStructure(world, hitBlockPos, player.getHorizontalFacing(), structureConfiguration, false, false);*/
-			}
-		}
-		
-		if (world.isRemote)
-		{
-			if (side == EnumFacing.UP)
-			{
+				
 				// Open the client side gui to determine the house options.
 //				StructureBasic basicStructure = new StructureBasic();
 //				ItemStack stack = player.getHeldItem(hand);
