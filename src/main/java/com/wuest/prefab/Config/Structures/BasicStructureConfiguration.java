@@ -132,11 +132,12 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		
 		// Welcome Center
 		EnumBasicStructureName.WelcomeCenter.getClearShape().setDirection(EnumFacing.SOUTH);
-		EnumBasicStructureName.WelcomeCenter.getClearShape().setHeight(3);
-		EnumBasicStructureName.WelcomeCenter.getClearShape().setWidth(4);
-		EnumBasicStructureName.WelcomeCenter.getClearShape().setLength(4);
+		EnumBasicStructureName.WelcomeCenter.getClearShape().setHeight(24);
+		EnumBasicStructureName.WelcomeCenter.getClearShape().setWidth(18);
+		EnumBasicStructureName.WelcomeCenter.getClearShape().setLength(48);
 		EnumBasicStructureName.WelcomeCenter.getClearPositionOffset().setSouthOffset(1);
-		EnumBasicStructureName.WelcomeCenter.getClearPositionOffset().setEastOffset(2);
+		EnumBasicStructureName.WelcomeCenter.getClearPositionOffset().setEastOffset(4);
+		EnumBasicStructureName.WelcomeCenter.getClearPositionOffset().setHeightOffset(-5);
 	}
 	
 	/**
@@ -325,7 +326,7 @@ public class BasicStructureConfiguration extends StructureConfiguration
 				"assets/prefab/structures/welcome_center.zip",
 				"textures/gui/welcome_center_topdown.png",
 				"item_welcome_center",
-				176, 133);
+				121, 168);
 		
 		private String name;
 		private String assetLocation;

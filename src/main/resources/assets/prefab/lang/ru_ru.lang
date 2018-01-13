@@ -34,6 +34,7 @@ item.prefab.grassy_plain=Травянистые равнины
 item.prefab.magic_temple=Волшебный храм
 item.prefab.green_house=консерватория
 item.prefab.watch_tower=сторожевая башня
+item.prefab.welcome_center=Приветственный центр
  
 tile.prefab:block_compressed_stone.block_compressed_stone.name=Сжатый Камень
 tile.prefab:block_compressed_stone.block_double_compressed_stone.name=Двойной Сжатый Камень

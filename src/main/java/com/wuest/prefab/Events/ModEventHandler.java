@@ -36,6 +36,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
@@ -218,7 +219,14 @@ public class ModEventHandler
 						structure.world.removeTileEntity(tileEntityPos);
 						tileEntity = TileEntity.create(structure.world, buildTileEntity.getEntityDataTag());
 						structure.world.setTileEntity(tileEntityPos, tileEntity);
-						//tileEntity.readFromNBT(buildTileEntity.getEntityDataTag());
+						structure.world.getChunkFromBlockCoords(tileEntityPos).setChunkModified();
+						tileEntity.markDirty();
+						SPacketUpdateTileEntity packet = tileEntity.getUpdatePacket();
+						
+						if (packet != null)
+						{
+							structure.world.getMinecraftServer().getPlayerList().sendPacketToAllPlayers(tileEntity.getUpdatePacket());
+						}
 					}
 				}
 				
