@@ -232,7 +232,7 @@ public class ModEventHandler
 				
 				for (BuildEntity buildEntity : structure.entities)
 				{
-					Entity entity = EntityList.createEntityByID(buildEntity.getEntityId(), structure.world);
+					Entity entity = EntityList.createEntityByIDFromName(buildEntity.getEntityResource(), structure.world);
 					NBTTagCompound tagCompound = buildEntity.getEntityDataTag();
 					BlockPos entityPos = buildEntity.getStartingPosition().getRelativePosition(structure.originalPos, structure.configuration.houseFacing);
 					

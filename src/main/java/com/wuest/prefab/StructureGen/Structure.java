@@ -27,6 +27,7 @@ import net.minecraft.entity.EntityList;
 import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
@@ -247,6 +248,7 @@ public class Structure
 			{
 				BuildEntity buildEntity = new BuildEntity();
 				buildEntity.setEntityId(EntityList.getID(entity.getClass()));
+				buildEntity.setEntityResourceString(EntityList.getKey(entity));
 				buildEntity.setStartingPosition(Structure.getStartingPositionFromOriginalAndCurrentPosition(entityPos, originalPos));
 				buildEntity.entityXAxisOffset = entityPos.getX() - entity.posX;
 				buildEntity.entityYAxisOffset = entityPos.getY() - entity.posY;
@@ -291,6 +293,11 @@ public class Structure
 			if (currentBlock instanceof BlockQuartz && property.getName().equals("variant"))
 			{
 				property.setValue(((BlockQuartz.EnumType) entry.getValue()).getName());
+			}
+			else if (currentBlock instanceof BlockColored || currentBlock instanceof BlockCarpet && property.getName().equals("color"))
+			{
+				EnumDyeColor dyeColor = (EnumDyeColor)entry.getValue();
+				property.setValue(dyeColor.getName());
 			}
 			else
 			{
