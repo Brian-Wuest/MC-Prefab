@@ -254,12 +254,16 @@ public class ModEventHandler
 					NBTTagCompound tagCompound = buildEntity.getEntityDataTag();
 					BlockPos entityPos = buildEntity.getStartingPosition().getRelativePosition(structure.originalPos, structure.getClearSpace().getShape().getDirection(), structure.configuration.houseFacing);
 					
-					if (tagCompound.hasUniqueId("UUID"))
+					if (tagCompound != null)
 					{
-						tagCompound.setUniqueId("UUID", UUID.randomUUID());
+						if (tagCompound.hasUniqueId("UUID"))
+						{
+							tagCompound.setUniqueId("UUID", UUID.randomUUID());
+						}
+						
+						entity.readFromNBT(tagCompound);
 					}
 					
-					entity.readFromNBT(tagCompound);
 					entity.forceSpawn = true;
 					float yaw = entity.rotationYaw;
 					Rotation rotation = Rotation.NONE;
