@@ -28,6 +28,7 @@ import net.minecraft.util.EnumFacing.Axis;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLLog;
 
 /**
  * This class defines a single block and where it will be in the structure.
@@ -251,9 +252,11 @@ public class BuildBlock
 						{
 							Optional<?> propertyValue  = property.parseValue(buildProperty.getValue());
 							
-							if (!propertyValue.isPresent())
+							if (!propertyValue.isPresent()
+									|| propertyValue.getClass().getName().equals("com.google.common.base.Absent"))
 							{
-								System.out.println("Property value for property name [" + property.getName() + "] for block [" + block.getBlockName() + "] is considered Absent, figure out why.");
+								FMLLog.log.warn("Property value for property name [" + property.getName() + "] for block [" + block.getBlockName() + "] is considered Absent, figure out why.");
+								continue;
 							}
 							
 							Comparable<?> comparable = property.getValueClass().cast(propertyValue.get());

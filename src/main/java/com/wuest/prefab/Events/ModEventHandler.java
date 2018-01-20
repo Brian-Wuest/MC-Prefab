@@ -38,6 +38,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
@@ -236,13 +237,20 @@ public class ModEventHandler
 						structure.world.removeTileEntity(tileEntityPos);
 						tileEntity = TileEntity.create(structure.world, buildTileEntity.getEntityDataTag());
 						structure.world.setTileEntity(tileEntityPos, tileEntity);
-						//tileEntity.readFromNBT(buildTileEntity.getEntityDataTag());
+						structure.world.getChunkFromBlockCoords(tileEntityPos).setChunkModified();
+						tileEntity.markDirty();
+						SPacketUpdateTileEntity packet = tileEntity.getUpdatePacket();
+						
+						if (packet != null)
+						{
+							structure.world.getMinecraftServer().getPlayerList().sendPacketToAllPlayers(tileEntity.getUpdatePacket());
+						}
 					}
 				}
 				
 				for (BuildEntity buildEntity : structure.entities)
 				{
-					Entity entity = EntityList.createEntityByID(buildEntity.getEntityId(), structure.world);
+					Entity entity = EntityList.createEntityByIDFromName(buildEntity.getEntityResource(), structure.world);
 					NBTTagCompound tagCompound = buildEntity.getEntityDataTag();
 					BlockPos entityPos = buildEntity.getStartingPosition().getRelativePosition(structure.originalPos, structure.getClearSpace().getShape().getDirection(), structure.configuration.houseFacing);
 					
@@ -263,6 +271,8 @@ public class ModEventHandler
 					if (structure.configuration.houseFacing == structure.assumedNorth.getOpposite())
 					{
 						rotation = Rotation.CLOCKWISE_180;
+						x_axis_offset = x_axis_offset * -1;
+						z_axis_offset = z_axis_offset * -1;
 						facing = facing.getOpposite();
 					}
 					else if (structure.configuration.houseFacing == structure.assumedNorth.rotateY())
@@ -278,6 +288,11 @@ public class ModEventHandler
 						x_axis_offset = x_axis_offset * -1;
 						z_axis_offset = z_axis_offset * -1;
 						facing = facing.rotateYCCW();
+					}
+					else
+					{
+						x_axis_offset = 0;
+						z_axis_offset = 0;
 					}
 					
 					yaw = entity.getRotatedYaw(rotation);

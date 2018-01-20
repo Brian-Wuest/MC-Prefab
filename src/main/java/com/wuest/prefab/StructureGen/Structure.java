@@ -16,6 +16,7 @@ import com.wuest.prefab.Events.ModEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
 
 import net.minecraft.block.*;
+import net.minecraft.block.BlockBed.EnumPartType;
 import net.minecraft.block.BlockDoor.EnumDoorHalf;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -23,10 +24,14 @@ import net.minecraft.block.state.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityHanging;
 import net.minecraft.entity.EntityList;
+import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityChest;
+import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -158,6 +163,48 @@ public class Structure
 					continue;
 				}
 			}
+			else if (currentBlock instanceof BlockBed)
+			{
+				EnumPartType bedPart = currentState.getValue(BlockBed.PART);
+				
+				if (bedPart == EnumPartType.HEAD)
+				{
+					IBlockState bedFoot = null;
+					boolean foundFoot = false;
+					EnumFacing facing = EnumFacing.NORTH;
+					
+					while (foundFoot == false)
+					{
+						bedFoot = world.getBlockState(currentPos.offset(facing));
+						
+						if (bedFoot.getBlock() instanceof BlockBed && bedFoot.getValue(BlockBed.PART) == EnumPartType.FOOT)
+						{
+							foundFoot = true;
+							break;
+						}
+						
+						facing = facing.rotateY();
+						
+						if (facing == EnumFacing.NORTH)
+						{
+							// Got back to north, break out to avoid infinite loop.
+							break;
+						}
+					}
+					
+					if (foundFoot)
+					{
+						Block footBedBlock = bedFoot.getBlock();
+						BuildBlock bed = Structure.createBuildBlockFromBlockState(bedFoot, footBedBlock, currentPos.offset(facing), originalPos);
+						buildBlock.setSubBlock(bed);
+					}
+				}
+				else
+				{
+					// Don't process foot of bed, it was already done.
+					continue;
+				}
+			}
 
 			scannedStructure.getBlocks().add(buildBlock);
 			
@@ -165,6 +212,13 @@ public class Structure
 			
 			if (tileEntity != null)
 			{
+				// Don't write data for empty tile entities.
+				if ((tileEntity instanceof TileEntityChest && ((TileEntityChest)tileEntity).isEmpty())
+						|| (tileEntity instanceof TileEntityFurnace && ((TileEntityFurnace)tileEntity).isEmpty()))
+				{
+					continue;
+				}
+				
 				ResourceLocation resourceLocation = TileEntity.getKey(tileEntity.getClass());
 				NBTTagCompound tagCompound = new NBTTagCompound();
 				tileEntity.writeToNBT(tagCompound);
@@ -195,12 +249,13 @@ public class Structure
 			{
 				BuildEntity buildEntity = new BuildEntity();
 				buildEntity.setEntityId(EntityList.getID(entity.getClass()));
+				buildEntity.setEntityResourceString(EntityList.getKey(entity));
 				buildEntity.setStartingPosition(Structure.getStartingPositionFromOriginalAndCurrentPosition(entityPos, originalPos));
 				buildEntity.entityXAxisOffset = entityPos.getX() - entity.posX;
 				buildEntity.entityYAxisOffset = entityPos.getY() - entity.posY;
 				buildEntity.entityZAxisOffset = entityPos.getZ() - entity.posZ;
 				
-				if (entity instanceof EntityHanging)
+				if (entity instanceof EntityItemFrame)
 				{
 					buildEntity.entityYAxisOffset = buildEntity.entityYAxisOffset * -1;
 				}
@@ -239,6 +294,11 @@ public class Structure
 			if (currentBlock instanceof BlockQuartz && property.getName().equals("variant"))
 			{
 				property.setValue(((BlockQuartz.EnumType) entry.getValue()).getName());
+			}
+			else if (currentBlock instanceof BlockColored || currentBlock instanceof BlockCarpet && property.getName().equals("color"))
+			{
+				EnumDyeColor dyeColor = (EnumDyeColor)entry.getValue();
+				property.setValue(dyeColor.getName());
 			}
 			else
 			{
@@ -389,7 +449,8 @@ public class Structure
 							}
 
 							if (foundBlock instanceof BlockFlowerPot
-									|| foundBlock instanceof BlockCarpet)
+									|| foundBlock instanceof BlockCarpet
+									|| foundBlock instanceof BlockBed)
 							{
 								this.priorityThreeBlocks.add(block);
 							}
@@ -400,10 +461,10 @@ public class Structure
 						}
 						else
 						{
-							// These blocks may be attached to other facing
-							// blocks and must be done later.
+							// These blocks may be attached to other facing blocks and must be done later.
 							if (foundBlock instanceof BlockTorch || foundBlock instanceof BlockSign || foundBlock instanceof BlockLever
-									|| foundBlock instanceof BlockButton)
+									|| foundBlock instanceof BlockButton
+									|| foundBlock instanceof BlockBed)
 							{
 								this.priorityThreeBlocks.add(block);
 							}
