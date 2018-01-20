@@ -1,13 +1,10 @@
-Please provide answers to the following questions when submitting an issue.
-
-This helps me figure out the issue faster. If answers are not provided, I may ask them again.
-
-1. What version of Minecraft and forge are you running?
-1. What version of the mod are you running? (Make sure you are running the latest for the version of Minecraft you are running.)
-1. If you're having an issue with a recipe not being craftable or just not working:
-    1. Did you check the configuration file to determine if the recipe got disabled? 
-        1. All recipes are enabled by default unless you or a modpack developer disabled them.
-    1. Does the recipe show up in JEI (Just Enough Items)?
-    1. If you are using Extra Utilities and cannot craft certain blueprints, make sure you aren't using their version of Compressed Stone/Dirt.
-    1. Which blueprints are working (if any)?
-1. Are you running a specific modpack on CurseForge that I can use to test it out? Personal modpacks and modpacks from other distribution sites are hard for me to test with.
+1. What version of Minecraft, Forge and Mod are you running?
+    1. Minecraft Version:
+    1. Forge Version:
+    1. Mod Version:
+1. What type of issue is this? Choose one of the following:
+    1. **Bug** (Something doesn't work the way you expect or the game crashes/has an issue)
+    1. **Enhancement** (Add/Change something)
+1. If this is an **enhancement**, please provide as much detail as possible for what you would like to see changed or added. This will reduce the amount of questions we have later and provides you with what you need.
+    1. Details:
+1. If this is a **bug**, please provide as much detail as possible for the issue that you are running into. If possible post a log file to PasteBin or another similar site.
