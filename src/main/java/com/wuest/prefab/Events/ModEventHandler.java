@@ -237,7 +237,7 @@ public class ModEventHandler
 						structure.world.removeTileEntity(tileEntityPos);
 						tileEntity = TileEntity.create(structure.world, buildTileEntity.getEntityDataTag());
 						structure.world.setTileEntity(tileEntityPos, tileEntity);
-						structure.world.getChunkFromBlockCoords(tileEntityPos).setChunkModified();
+						structure.world.getChunkFromBlockCoords(tileEntityPos).markDirty();
 						tileEntity.markDirty();
 						SPacketUpdateTileEntity packet = tileEntity.getUpdatePacket();
 						

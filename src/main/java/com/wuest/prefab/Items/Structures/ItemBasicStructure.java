@@ -59,16 +59,7 @@ public class ItemBasicStructure extends StructureItem
 				BasicStructureConfiguration structureConfiguration = capability.getConfiguration();
 				basicStructure.ScanStructure(world, hitBlockPos, player.getHorizontalFacing(), structureConfiguration, false, false);*/
 				
-				// Open the client side gui to determine the house options.
-//				StructureBasic basicStructure = new StructureBasic();
-//				ItemStack stack = player.getHeldItem(hand);
-//				 
-//				IStructureConfigurationCapability capability = stack.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
-//				 
-//				BasicStructureConfiguration structureConfiguration = capability.getConfiguration();
-//				 
-//				basicStructure.ScanStructure(world, hitBlockPos, player.getHorizontalFacing(), structureConfiguration, false, false);
-				
+				// Open the client side gui to determine the house options.				
 				player.openGui(Prefab.instance, this.guiId, player.world, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
 
 				return EnumActionResult.PASS;

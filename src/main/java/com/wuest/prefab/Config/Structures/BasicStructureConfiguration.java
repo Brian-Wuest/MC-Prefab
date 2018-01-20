@@ -131,12 +131,12 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		EnumBasicStructureName.WatchTower.getClearPositionOffset().setEastOffset(4);
 		
 		// Test
-		EnumBasicStructureName.Test.getClearShape().setDirection(EnumFacing.SOUTH);
+/*		EnumBasicStructureName.Test.getClearShape().setDirection(EnumFacing.SOUTH);
 		EnumBasicStructureName.Test.getClearShape().setHeight(4);
 		EnumBasicStructureName.Test.getClearShape().setWidth(6);
 		EnumBasicStructureName.Test.getClearShape().setLength(4);
 		EnumBasicStructureName.Test.getClearPositionOffset().setSouthOffset(1);
-		EnumBasicStructureName.Test.getClearPositionOffset().setWestOffset(1);
+		EnumBasicStructureName.Test.getClearPositionOffset().setWestOffset(1);*/
 
 		// Welcome Center
 		EnumBasicStructureName.WelcomeCenter.getClearShape().setDirection(EnumFacing.SOUTH);
@@ -331,11 +331,11 @@ public class BasicStructureConfiguration extends StructureConfiguration
 				"textures/gui/watch_tower_topdown.png",
 				"item_watch_tower",
 				176, 133),
-		Test("test", "item.prefab.test",
+/*		Test("test", "item.prefab.test",
 				"assets/prefab/structures/test.zip",
 				"textures/gui/watch_tower_topdown.png",
 				"item_test",
-				176, 133),
+				176, 133),*/
 		WelcomeCenter("welcome_center", "item.prefab.welcome_center",
 				"assets/prefab/structures/welcome_center.zip",
 				"textures/gui/welcome_center_topdown.png",
