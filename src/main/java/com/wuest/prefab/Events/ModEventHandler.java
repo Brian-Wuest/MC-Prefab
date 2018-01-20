@@ -253,6 +253,8 @@ public class ModEventHandler
 					if (structure.configuration.houseFacing == structure.assumedNorth.getOpposite())
 					{
 						rotation = Rotation.CLOCKWISE_180;
+						x_axis_offset = x_axis_offset * -1;
+						z_axis_offset = z_axis_offset * -1;
 						facing = facing.getOpposite();
 					}
 					else if (structure.configuration.houseFacing == structure.assumedNorth.rotateY())
@@ -268,6 +270,11 @@ public class ModEventHandler
 						x_axis_offset = x_axis_offset * -1;
 						z_axis_offset = z_axis_offset * -1;
 						facing = facing.rotateYCCW();
+					}
+					else
+					{
+						x_axis_offset = 0;
+						z_axis_offset = 0;
 					}
 					
 					yaw = entity.getRotatedYaw(rotation);
