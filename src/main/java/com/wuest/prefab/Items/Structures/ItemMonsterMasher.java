@@ -31,4 +31,27 @@ public class ItemMonsterMasher extends StructureItem
 	{
 		super(name, ModRegistry.GuiMonsterMasher);
 	}
+	
+	/**
+	 * Does something when the item is right-clicked.
+	 */
+	@Override
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos hitBlockPos, EnumHand hand, EnumFacing side, float hitX,
+			float hitY, float hitZ)
+	{
+		if (world.isRemote)
+		{
+			if (side == EnumFacing.UP)
+			{
+				//StructureMonsterMasher monsterMasher = new StructureMonsterMasher();
+				//monsterMasher.ScanStructure(world, hitBlockPos, player.getHorizontalFacing());
+				
+				// Open the client side gui to determine the house options.
+				player.openGui(Prefab.instance, this.guiId, player.world, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+				return EnumActionResult.PASS;
+			}
+		}
+
+		return EnumActionResult.FAIL;
+	}
 }
