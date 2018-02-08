@@ -163,3 +163,19 @@ prefab.gui.brown=Коричневый
 prefab.gui.green=Зелёный
 prefab.gui.red=Кра�?ный
 prefab.gui.black=Чёрный
+
+prefab.gui.bridge_length=Длина моста
+prefab.gui.bridge_material=Материал моста
+prefab.gui.bridge_include_roof=Включить крышу
+
+prefab.gui.material.cobble_stone=булыжник
+prefab.gui.material.stone=Камень
+prefab.gui.material.stone_brick=Каменный кирпич
+prefab.gui.material.brick=Кирпич
+prefab.gui.material.chiseled_stone=Кирпичный каменный кирпич
+prefab.gui.material.granite=гранит
+prefab.gui.material.smooth_granite=Гладкий гранит
+prefab.gui.material.andesite=андезит
+prefab.gui.material.smooth_andesite=Плавный андезит
+prefab.gui.material.diorite=диорит
+prefab.gui.material.smooth_diorite=Гладкий диорит

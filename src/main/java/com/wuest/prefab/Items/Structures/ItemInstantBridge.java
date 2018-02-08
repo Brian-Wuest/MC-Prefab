@@ -31,6 +31,11 @@ public class ItemInstantBridge extends Item
 	private StructureBasic basic;
 	private BasicStructureConfiguration config; 
 	
+	/**
+	 * Get's the GuiId to show to the user when this item is used.
+	 */
+	protected int guiId = 17;
+	
 	public ItemInstantBridge(String name)
 	{
 		super();
@@ -41,40 +46,25 @@ public class ItemInstantBridge extends Item
 		ModRegistry.setItemName(this, name);
 	}
 	
+	/**
+	 * Does something when the item is right-clicked.
+	 */
 	@Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer player, EnumHand hand)
-    {
-		if (!worldIn.isRemote)
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos hitBlockPos, EnumHand hand, EnumFacing side, float hitX,
+			float hitY, float hitZ)
+	{
+		if (world.isRemote)
 		{
-	        RayTraceResult result = ItemInstantBridge.RayTrace(worldIn, player, 5.0F, true);	
-	        BlockPos blockPos = null;
-	        
-	        if (result.typeOfHit == Type.MISS)
-	        {
-	        	// The block position is the player's current position.
-	        	blockPos = player.getPosition().down(2);
-	        }
-	        else if (result.typeOfHit == Type.BLOCK)
-	        {
-		        blockPos = result.getBlockPos();
-	        }
-	        
-	        if (blockPos != null && ((result.typeOfHit == Type.BLOCK && worldIn.getBlockState(blockPos).getBlock() instanceof BlockLiquid)
-	        		|| result.typeOfHit == Type.MISS))
-	        {
-	        	// Found a liquid block for where the player was looking, build the bridge.
-	        	if (this.BuildBridge(worldIn, player, blockPos))
-	        	{
-	        		ItemStack stack = player.getHeldItem(hand);
-	        		stack.damageItem(1, player);
-					
-					player.inventoryContainer.detectAndSendChanges();
-	        	}
-	        }
+			if (side == EnumFacing.UP)
+			{
+				// Open the client side gui to determine the house options.
+				player.openGui(Prefab.instance, this.guiId, player.world, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+				return EnumActionResult.PASS;
+			}
 		}
-        
-        return new ActionResult(EnumActionResult.PASS, player.getHeldItem(hand));
-    }
+
+		return EnumActionResult.FAIL;
+	}
 	
     /**
      * Called each tick as long the item is on a player inventory. Uses by maps to check if is on a player hand and
@@ -83,7 +73,7 @@ public class ItemInstantBridge extends Item
     @Override
 	public void onUpdate(ItemStack stack, World worldIn, Entity player, int itemSlot, boolean isSelected)
     {
-    	if (player instanceof EntityPlayer && worldIn.isRemote)
+/*    	if (player instanceof EntityPlayer && worldIn.isRemote)
     	{
 	    	EntityPlayer entityPlayer = (EntityPlayer)player;
 	    	
@@ -147,7 +137,7 @@ public class ItemInstantBridge extends Item
 	        		StructureRenderHandler.setStructure(null, EnumFacing.NORTH, null);
 	        	}
 	        }
-    	}
+    	}*/
     }
     
     public static RayTraceResult RayTrace(World world, EntityPlayer player, float distance, boolean includeFluids)

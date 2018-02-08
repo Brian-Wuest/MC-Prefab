@@ -92,12 +92,22 @@ public class GuiStructure extends GuiScreen
 
 		for (int i = 0; i < this.buttonList.size(); ++i)
 		{
-			((GuiButton)this.buttonList.get(i)).drawButton(this.mc, mouseX, mouseY);
+			GuiButton currentButton = this.buttonList.get(i);
+			
+			if (currentButton != null)
+			{
+				currentButton.drawButton(this.mc, mouseX, mouseY);
+			}
 		}
 
 		for (int j = 0; j < this.labelList.size(); ++j)
 		{
-			((GuiLabel)this.labelList.get(j)).drawLabel(this.mc, mouseX, mouseY);
+			GuiLabel currentLabel = this.labelList.get(j);
+			
+			if (currentLabel != null)
+			{
+				currentLabel.drawLabel(this.mc, mouseX, mouseY);
+			}
 		}
 	}
 	
