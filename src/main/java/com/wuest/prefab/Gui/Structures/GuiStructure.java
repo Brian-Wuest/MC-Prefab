@@ -96,7 +96,7 @@ public class GuiStructure extends GuiScreen
 			
 			if (currentButton != null)
 			{
-				currentButton.drawButton(this.mc, mouseX, mouseY);
+				currentButton.drawButton(this.mc, mouseX, mouseY, this.mc.getRenderPartialTicks());
 			}
 		}
 

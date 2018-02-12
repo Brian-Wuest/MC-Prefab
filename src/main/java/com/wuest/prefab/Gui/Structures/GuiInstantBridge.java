@@ -90,9 +90,9 @@ public class GuiInstantBridge extends GuiStructure
 		this.drawControlBackgroundAndButtonsAndLabels(grayBoxX, grayBoxY, x, y);
 
 		// Draw the text here.
-		this.mc.fontRendererObj.drawString(GuiLangKeys.translateString(GuiLangKeys.BRIDGE_MATERIAL), grayBoxX + 10, grayBoxY + 10, this.textColor);
-		this.mc.fontRendererObj.drawString(GuiLangKeys.translateString(GuiLangKeys.INTERIOR_HEIGHT), grayBoxX + 147, grayBoxY + 80, this.textColor);
-		this.mc.fontRendererObj.drawString(GuiLangKeys.translateString(GuiLangKeys.BRIDGE_LENGTH), grayBoxX + 147, grayBoxY + 10, this.textColor);
+		this.mc.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.BRIDGE_MATERIAL), grayBoxX + 10, grayBoxY + 10, this.textColor);
+		this.mc.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.INTERIOR_HEIGHT), grayBoxX + 147, grayBoxY + 80, this.textColor);
+		this.mc.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.BRIDGE_LENGTH), grayBoxX + 147, grayBoxY + 10, this.textColor);
 		
 		if (!Prefab.proxy.proxyConfiguration.enableStructurePreview)
 		{
