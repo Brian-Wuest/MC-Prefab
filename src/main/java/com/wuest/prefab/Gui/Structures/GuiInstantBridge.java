@@ -150,10 +150,10 @@ public class GuiInstantBridge extends GuiStructure
 		else if (button == this.btnVisualize)
 		{
 			StructureInstantBridge structure = new StructureInstantBridge();
-			structure.getClearSpace().getShape().setDirection(EnumFacing.NORTH);
+			structure.getClearSpace().getShape().setDirection(EnumFacing.SOUTH);
 			structure.setupStructure(this.configuration, this.pos);
 			
-			StructureRenderHandler.setStructure(structure, EnumFacing.NORTH, this.configuration);
+			StructureRenderHandler.setStructure(structure, EnumFacing.SOUTH, this.configuration);
 			this.mc.displayGuiScreen(null);
 		}
 	}
