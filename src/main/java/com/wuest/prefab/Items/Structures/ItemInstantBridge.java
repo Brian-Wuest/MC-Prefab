@@ -31,6 +31,11 @@ public class ItemInstantBridge extends Item
 	private StructureBasic basic;
 	private BasicStructureConfiguration config; 
 	
+	/**
+	 * Get's the GuiId to show to the user when this item is used.
+	 */
+	protected int guiId = 17;
+	
 	public ItemInstantBridge(String name)
 	{
 		super();
@@ -41,115 +46,26 @@ public class ItemInstantBridge extends Item
 		ModRegistry.setItemName(this, name);
 	}
 	
+	/**
+	 * Does something when the item is right-clicked.
+	 */
 	@Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer player, EnumHand hand)
-    {
-		if (!worldIn.isRemote)
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos hitBlockPos, EnumHand hand, EnumFacing side, float hitX,
+			float hitY, float hitZ)
+	{
+		if (world.isRemote)
 		{
-	        RayTraceResult result = ItemInstantBridge.RayTrace(worldIn, player, 5.0F, true);	
-	        BlockPos blockPos = null;
-	        
-	        if (result.typeOfHit == Type.MISS)
-	        {
-	        	// The block position is the player's current position.
-	        	blockPos = player.getPosition().down(2);
-	        }
-	        else if (result.typeOfHit == Type.BLOCK)
-	        {
-		        blockPos = result.getBlockPos();
-	        }
-	        
-	        if (blockPos != null && ((result.typeOfHit == Type.BLOCK && worldIn.getBlockState(blockPos).getBlock() instanceof BlockLiquid)
-	        		|| result.typeOfHit == Type.MISS))
-	        {
-	        	// Found a liquid block for where the player was looking, build the bridge.
-	        	if (this.BuildBridge(worldIn, player, blockPos))
-	        	{
-	        		ItemStack stack = player.getHeldItem(hand);
-	        		stack.damageItem(1, player);
-					
-					player.inventoryContainer.detectAndSendChanges();
-	        	}
-	        }
+			if (side == EnumFacing.UP)
+			{
+				// Open the client side gui to determine the house options.
+				player.openGui(Prefab.instance, this.guiId, player.world, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+				return EnumActionResult.PASS;
+			}
 		}
-        
-        return new ActionResult(EnumActionResult.PASS, player.getHeldItem(hand));
-    }
-	
-    /**
-     * Called each tick as long the item is on a player inventory. Uses by maps to check if is on a player hand and
-     * update it's contents.
-     */
-    @Override
-	public void onUpdate(ItemStack stack, World worldIn, Entity player, int itemSlot, boolean isSelected)
-    {
-    	if (player instanceof EntityPlayer && worldIn.isRemote)
-    	{
-	    	EntityPlayer entityPlayer = (EntityPlayer)player;
-	    	
-	    	ItemStack mainHand = entityPlayer.getHeldItemMainhand();
-	    	ItemStack offHand = entityPlayer.getHeldItemOffhand();
-	    	
-	    	// Check to see if this type of item is in one of the player's hands.
-	    	boolean selected = (mainHand != null && mainHand.getItem() instanceof ItemInstantBridge)
-	    			|| (offHand != null && offHand.getItem() instanceof ItemInstantBridge)? true : false;
-	    	
-	        if (selected)
-	        {
-	        	RayTraceResult result = ItemInstantBridge.RayTrace(worldIn, entityPlayer, 5.0F, true);	
-	        	BlockPos blockPos = null;
-	        	
-	        	blockPos = result.typeOfHit == Type.MISS ? entityPlayer.getPosition().down(1) : result.getBlockPos();
 
-		        if (blockPos != null && ((result.typeOfHit == Type.BLOCK && worldIn.getBlockState(blockPos).getBlock() instanceof BlockLiquid)
-		        		|| result.typeOfHit == Type.MISS))
-		        {
-		        	if (result.typeOfHit == Type.BLOCK)
-		        	{
-		        		blockPos = blockPos.up();
-		        	}
-		        	
-		        	StructureBasic basic = ((ItemInstantBridge)stack.getItem()).basic;
-		        	BasicStructureConfiguration config = ((ItemInstantBridge)stack.getItem()).config;
-		        	
-		        	if (basic == null)
-		        	{
-			        	basic = StructureBasic.CreateInstance("assets/prefab/structures/instant_bridge.zip", StructureBasic.class);
-			        	basic.setName("instant_bridge");
-			        	config = new BasicStructureConfiguration();
-			        	
-			        	config.pos = new BlockPos(0, 0, 0);
-			        	((ItemInstantBridge)stack.getItem()).basic = basic;
-			        	((ItemInstantBridge)stack.getItem()).config = config;
-		        	}
-		        	
-		        	if (config.houseFacing != entityPlayer.getHorizontalFacing().getOpposite()
-		        			|| config.pos.getDistance(blockPos.getX(), blockPos.getY(), blockPos.getZ()) != 0)
-		        	{
-		        		config.pos = blockPos;
-		        		config.houseFacing = entityPlayer.getHorizontalFacing().getOpposite();
-			        	StructureRenderHandler.setStructure(basic, EnumFacing.NORTH, config);
-			        	StructureRenderHandler.showedMessage = true;
-		        	}
-		        }
-		        else
-		        {
-		        	StructureRenderHandler.setStructure(null, EnumFacing.NORTH, null);
-		        }
-	        }
-	        else
-	        {
-	        	if (StructureRenderHandler.currentStructure != null && StructureRenderHandler.currentStructure instanceof StructureBasic
-	        			&& StructureRenderHandler.currentStructure.getName().equals("instant_bridge"))
-	        	{
-	        		((ItemInstantBridge)stack.getItem()).basic = null;
-	        		((ItemInstantBridge)stack.getItem()).config = null;
-	        		StructureRenderHandler.setStructure(null, EnumFacing.NORTH, null);
-	        	}
-	        }
-    	}
-    }
-    
+		return EnumActionResult.FAIL;
+	}
+	
     public static RayTraceResult RayTrace(World world, EntityPlayer player, float distance, boolean includeFluids)
     {
         Vec3d vec3d = new Vec3d(player.posX, player.posY + (double)player.getEyeHeight(), player.posZ);

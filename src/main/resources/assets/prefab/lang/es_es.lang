@@ -164,3 +164,20 @@ prefab.gui.brown=Marrón
 prefab.gui.green=Verde
 prefab.gui.red=Rojo
 prefab.gui.black=Negro
+
+prefab.gui.bridge_length=Longitud del puente
+prefab.gui.bridge_material=Material del puente
+prefab.gui.bridge_include_roof=Incluye techo
+prefab.gui.bridge_interior_height=Altura interior
+
+prefab.gui.material.cobble_stone=Guijarro
+prefab.gui.material.stone=Piedra
+prefab.gui.material.stone_brick=Ladrillo de piedra
+prefab.gui.material.brick=Ladrillo
+prefab.gui.material.chiseled_stone=Ladrillo de piedra cincelada
+prefab.gui.material.granite=Granito
+prefab.gui.material.smooth_granite=Granito liso
+prefab.gui.material.andesite=Andesita
+prefab.gui.material.smooth_andesite=Andesita lisa
+prefab.gui.material.diorite=Diorita
+prefab.gui.material.smooth_diorite=Diorita suave

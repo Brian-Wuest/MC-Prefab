@@ -164,3 +164,20 @@ prefab.gui.brown=Brown
 prefab.gui.green=Green
 prefab.gui.red=Red
 prefab.gui.black=Black
+
+prefab.gui.bridge_length=Bridge Length
+prefab.gui.bridge_material=Bridge Material
+prefab.gui.bridge_include_roof=Include Roof
+prefab.gui.bridge_interior_height=Interior Height
+
+prefab.gui.material.cobble_stone=Cobble Stone
+prefab.gui.material.stone=Stone
+prefab.gui.material.stone_brick=Stone Brick
+prefab.gui.material.brick=Brick
+prefab.gui.material.chiseled_stone=Chiseled Stone
+prefab.gui.material.granite=Granite
+prefab.gui.material.smooth_granite=Smooth Granite
+prefab.gui.material.andesite=Andesite
+prefab.gui.material.smooth_andesite=Smooth Andesite
+prefab.gui.material.diorite=Diorite
+prefab.gui.material.smooth_diorite=Smooth Diorite

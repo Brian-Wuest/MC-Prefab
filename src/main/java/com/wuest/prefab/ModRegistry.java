@@ -42,6 +42,7 @@ import com.wuest.prefab.Gui.Structures.GuiBulldozer;
 import com.wuest.prefab.Gui.Structures.GuiChickenCoop;
 import com.wuest.prefab.Gui.Structures.GuiFishPond;
 import com.wuest.prefab.Gui.Structures.GuiHorseStable;
+import com.wuest.prefab.Gui.Structures.GuiInstantBridge;
 import com.wuest.prefab.Gui.Structures.GuiModerateHouse;
 import com.wuest.prefab.Gui.Structures.GuiModularHouse;
 import com.wuest.prefab.Gui.Structures.GuiMonsterMasher;
@@ -259,14 +260,19 @@ public class ModRegistry
 	public static final int GuiVillagerHouses = 14;
 
 	/**
-	 * THe identifier for the moderate house GUI.
+	 * The identifier for the moderate house GUI.
 	 */
 	public static final int GuiModerateHouse = 15;
 	
 	 /** 
-	  * THe identifier for the bulldozer GUI.
+	  * The identifier for the bulldozer GUI.
 	 */
 	public static final int GuiBulldozer = 16;
+	
+	/**
+	 * The identifier for the instant bridge gui.
+	 */
+	public static final int GuiInstantBridge = 17;
 	
 	/**
 	 * This capability is used to save the locations where a player spawns when transferring dimensions.
@@ -997,6 +1003,7 @@ public class ModRegistry
 		ModRegistry.ModGuis.put(ModRegistry.GuiVillagerHouses, GuiVillaerHouses.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiModerateHouse, GuiModerateHouse.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiBulldozer, GuiBulldozer.class);
+		ModRegistry.ModGuis.put(ModRegistry.GuiInstantBridge, GuiInstantBridge.class);
 	}
 
 	/**

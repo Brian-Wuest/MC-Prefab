@@ -87,7 +87,8 @@ public class StructureTagMessage extends TagMessage
 		VillagerHouses(11, new VillagerHouseConfiguration()),
 		WareHouse(12, new WareHouseConfiguration()),
 		ModerateHouse(13, new ModerateHouseConfiguration()),
-		Bulldozer(14, new BulldozerConfiguration());
+		Bulldozer(14, new BulldozerConfiguration()),
+		InstantBridge(15, new InstantBridgeConfiguration());
 		
 		private <T extends StructureConfiguration> EnumStructureConfiguration(int identifier, T structureConfig)
 		{

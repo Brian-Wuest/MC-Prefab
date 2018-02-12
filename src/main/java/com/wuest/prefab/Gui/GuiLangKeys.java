@@ -283,6 +283,18 @@ public class GuiLangKeys
 	@Unlocalized(name = "Powered with the strength of the earth and magic, you believe a large area can be cleared.")
 	public static final String BULLDOZER_POWERED_TOOLTIP = "prefab.gui.tooltip.bulldozer_powered";
 	
+	@Unlocalized(name = "Bridge Length")
+	public static final String BRIDGE_LENGTH = "prefab.gui.bridge_length";
+	
+	@Unlocalized(name = "Bridge Material")
+	public static final String BRIDGE_MATERIAL = "prefab.gui.bridge_material";
+	
+	@Unlocalized(name = "Include Roof")
+	public static final String INCLUDE_ROOF = "prefab.gui.bridge_include_roof";
+	
+	@Unlocalized(name = "Interior Height")
+	public static final String INTERIOR_HEIGHT = "prefab.gui.bridge_interior_height";
+	
 	/**
 	 * Translates the specified language key for the current language.
 	 * 
