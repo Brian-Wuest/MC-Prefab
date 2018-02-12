@@ -289,6 +289,9 @@ public class GuiLangKeys
 	@Unlocalized(name = "Include Roof")
 	public static final String INCLUDE_ROOF = "prefab.gui.bridge_include_roof";
 	
+	@Unlocalized(name = "Interior Height")
+	public static final String INTERIOR_HEIGHT = "prefab.gui.bridge_interior_height";
+	
 	/**
 	 * Translates the specified language key for the current language.
 	 * 

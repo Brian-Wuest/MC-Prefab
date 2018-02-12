@@ -167,6 +167,7 @@ prefab.gui.black=Black
 prefab.gui.bridge_length=Bridge Length
 prefab.gui.bridge_material=Bridge Material
 prefab.gui.bridge_include_roof=Include Roof
+prefab.gui.bridge_interior_height=Interior Height
 
 prefab.gui.material.cobble_stone=Cobble Stone
 prefab.gui.material.stone=Stone

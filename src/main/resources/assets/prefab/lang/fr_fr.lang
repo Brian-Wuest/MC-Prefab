@@ -167,6 +167,7 @@ prefab.gui.black=Noir
 prefab.gui.bridge_length=Longueur du pont
 prefab.gui.bridge_material=Matériau de pont
 prefab.gui.bridge_include_roof=Inclure le toit
+prefab.gui.bridge_interior_height=Hauteur intérieure
 
 prefab.gui.material.cobble_stone=PGuijarroavé
 prefab.gui.material.stone=Pierre

@@ -40,6 +40,11 @@ public class InstantBridgeConfiguration extends StructureConfiguration
 	public boolean includeRoof;
 	
 	/**
+	 * Determines how tall the inside of the bridge is if there is a roof.
+	 */
+	public int interiorHeight;
+	
+	/**
 	 * Initializes any properties for this class.
 	 */
 	@Override
@@ -48,6 +53,7 @@ public class InstantBridgeConfiguration extends StructureConfiguration
 		super.Initialize();
 		this.bridgeLength = 25;
 		this.bridgeMaterial = EnumBridgeMaterial.Cobblestone;
+		this.interiorHeight = 3;
 		this.includeRoof = true;
 	}
 	
@@ -94,6 +100,7 @@ public class InstantBridgeConfiguration extends StructureConfiguration
 		tag.setInteger("bridgeLength", this.bridgeLength);
 		tag.setInteger("bridgeMaterial", this.bridgeMaterial.getNumber());
 		tag.setBoolean("includeRoof", this.includeRoof);
+		tag.setInteger("interiorHeight", this.interiorHeight);
 		return tag;
 	}	
 	
@@ -118,6 +125,11 @@ public class InstantBridgeConfiguration extends StructureConfiguration
 		if (messageTag.hasKey("includeRoof"))
 		{
 			((InstantBridgeConfiguration)config).includeRoof = messageTag.getBoolean("includeRoof");
+		}
+		
+		if (messageTag.hasKey("interiorHeight"))
+		{
+			((InstantBridgeConfiguration)config).interiorHeight	 = messageTag.getInteger("interiorHeight");
 		}
 	}
 

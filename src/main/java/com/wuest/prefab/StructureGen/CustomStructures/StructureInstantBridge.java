@@ -75,6 +75,8 @@ public class StructureInstantBridge extends Structure
 		IBlockState torchState = Blocks.TORCH.getDefaultState();
 		IBlockState glassState = Blocks.GLASS_PANE.getDefaultState();
 		
+		int interiorHeightOffSet = configuration.interiorHeight - 3;
+		
 		for (int i = 1; i <= configuration.bridgeLength; i++)
 		{
 			BlockPos currentPos = originalPos.offset(facing, i);			
@@ -93,24 +95,27 @@ public class StructureInstantBridge extends Structure
 			if (configuration.includeRoof)
 			{
 				// Build the roof.
-				buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), currentPos.offset(facing.rotateYCCW(), 2).up(3), originalPos));
-				buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), currentPos.offset(facing.rotateYCCW()).up(4), originalPos));
-				buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), currentPos.up(4), originalPos));
-				buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), currentPos.offset(facing.rotateY()).up(4), originalPos));
-				buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), currentPos.offset(facing.rotateY(), 2).up(3), originalPos));
+				buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), currentPos.offset(facing.rotateYCCW(), 2).up(3 + interiorHeightOffSet), originalPos));
+				buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), currentPos.offset(facing.rotateYCCW()).up(4 + interiorHeightOffSet), originalPos));
+				buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), currentPos.up(4 + interiorHeightOffSet), originalPos));
+				buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), currentPos.offset(facing.rotateY()).up(4 + interiorHeightOffSet), originalPos));
+				buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), currentPos.offset(facing.rotateY(), 2).up(3 + interiorHeightOffSet), originalPos));
 			}
 			
-			if (i % 6 == 0)
+			for (int j = 0; j <= interiorHeightOffSet; j++)
 			{
-				// Place torches.
-				buildingBlocks.add(Structure.createBuildBlockFromBlockState(torchState, torchState.getBlock(), currentPos.offset(facing.rotateYCCW(), 2).up(2), originalPos));
-				buildingBlocks.add(Structure.createBuildBlockFromBlockState(torchState, torchState.getBlock(), currentPos.offset(facing.rotateY(), 2).up(2), originalPos));
-			}
-			else
-			{
-				// Place Glass panes
-				buildingBlocks.add(Structure.createBuildBlockFromBlockState(glassState, glassState.getBlock(), currentPos.offset(facing.rotateYCCW(), 2).up(2), originalPos));
-				buildingBlocks.add(Structure.createBuildBlockFromBlockState(glassState, glassState.getBlock(), currentPos.offset(facing.rotateY(), 2).up(2), originalPos));
+				if ((i == 1 || i % 6 == 0) && j == 0)
+				{
+					// Place torches.
+					buildingBlocks.add(Structure.createBuildBlockFromBlockState(torchState, torchState.getBlock(), currentPos.offset(facing.rotateYCCW(), 2).up(2), originalPos));
+					buildingBlocks.add(Structure.createBuildBlockFromBlockState(torchState, torchState.getBlock(), currentPos.offset(facing.rotateY(), 2).up(2), originalPos));
+				}
+				else if (configuration.includeRoof)
+				{
+					// Place Glass panes
+					buildingBlocks.add(Structure.createBuildBlockFromBlockState(glassState, glassState.getBlock(), currentPos.offset(facing.rotateYCCW(), 2).up(2 + j), originalPos));
+					buildingBlocks.add(Structure.createBuildBlockFromBlockState(glassState, glassState.getBlock(), currentPos.offset(facing.rotateY(), 2).up(2 + j), originalPos));
+				}
 			}
 		}
 		
@@ -119,13 +124,20 @@ public class StructureInstantBridge extends Structure
 	
 	private void setupClearSpace(InstantBridgeConfiguration configuration)
 	{
+		int clearHeight = 3;
+		
+		if (configuration.includeRoof)
+		{
+			clearHeight = (configuration.interiorHeight - clearHeight) + clearHeight + 2; 
+		}
+		
 		BuildClear clear = new BuildClear();
 		clear.getStartingPosition().setSouthOffset(1);
 		clear.getStartingPosition().setEastOffset(2);
 		clear.getShape().setDirection(EnumFacing.SOUTH);
-		clear.getShape().setHeight(5);
+		clear.getShape().setHeight(clearHeight - 1);
 		clear.getShape().setWidth(5);
-		clear.getShape().setLength(configuration.bridgeLength - 1);
+		clear.getShape().setLength(configuration.bridgeLength);
 		
 		this.setClearSpace(clear);
 	}

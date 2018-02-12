@@ -167,6 +167,7 @@ prefab.gui.black=Чёрный
 prefab.gui.bridge_length=Длина моста
 prefab.gui.bridge_material=Материал моста
 prefab.gui.bridge_include_roof=Включить крышу
+prefab.gui.bridge_interior_height=Внутренняя высота
 
 prefab.gui.material.cobble_stone=булыжник
 prefab.gui.material.stone=Камень

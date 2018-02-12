@@ -28,6 +28,7 @@ public class GuiInstantBridge extends GuiStructure
 	protected GuiButtonExt btnMaterialType;
 	protected GuiSlider sldrBridgeLength;
 	protected GuiCheckBox chckIncludeRoof;
+	protected GuiSlider sldrInteriorHeight;
 	
 	public GuiInstantBridge(int x, int y, int z)
 	{
@@ -51,9 +52,14 @@ public class GuiInstantBridge extends GuiStructure
 		
 		this.sldrBridgeLength = new GuiSlider(5, grayBoxX + 147, grayBoxY + 20, 90, 20, "", "", 25, 75, this.configuration.bridgeLength, false, true);
 		this.buttonList.add(this.sldrBridgeLength);
-
-		this.chckIncludeRoof = new GuiCheckBox(6, grayBoxX + 147, grayBoxY + 60, GuiLangKeys.translateString(GuiLangKeys.INCLUDE_ROOF), true);
+		
+		this.chckIncludeRoof = new GuiCheckBox(6, grayBoxX + 147, grayBoxY + 55, GuiLangKeys.translateString(GuiLangKeys.INCLUDE_ROOF), this.configuration.includeRoof);
 		this.buttonList.add(this.chckIncludeRoof);
+		
+		this.sldrInteriorHeight = new GuiSlider(7, grayBoxX + 147, grayBoxY + 90, 90, 20, "", "", 3, 8, this.configuration.interiorHeight, false, true);
+		this.buttonList.add(this.sldrInteriorHeight);
+		
+		this.sldrInteriorHeight.enabled = this.chckIncludeRoof.isChecked();
 		
 		this.btnVisualize = new GuiButtonExt(4, grayBoxX + 10, grayBoxY + 90, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW));
 		this.buttonList.add(this.btnVisualize);
@@ -85,6 +91,7 @@ public class GuiInstantBridge extends GuiStructure
 
 		// Draw the text here.
 		this.mc.fontRendererObj.drawString(GuiLangKeys.translateString(GuiLangKeys.BRIDGE_MATERIAL), grayBoxX + 10, grayBoxY + 10, this.textColor);
+		this.mc.fontRendererObj.drawString(GuiLangKeys.translateString(GuiLangKeys.INTERIOR_HEIGHT), grayBoxX + 147, grayBoxY + 80, this.textColor);
 		this.mc.fontRendererObj.drawString(GuiLangKeys.translateString(GuiLangKeys.BRIDGE_LENGTH), grayBoxX + 147, grayBoxY + 10, this.textColor);
 		
 		if (!Prefab.proxy.proxyConfiguration.enableStructurePreview)
@@ -111,6 +118,19 @@ public class GuiInstantBridge extends GuiStructure
 		}
 		
 		this.configuration.bridgeLength = sliderValue;
+		
+		sliderValue = this.sldrInteriorHeight.getValueInt();
+		if (sliderValue > 8)
+		{
+			sliderValue = 8;
+		}
+		else if (sliderValue < 3)
+		{
+			sliderValue = 3;
+		}
+		
+		this.configuration.interiorHeight = sliderValue;
+		
 		this.configuration.houseFacing = player.getHorizontalFacing().getOpposite();
 		this.configuration.pos = this.pos;
 		
@@ -119,6 +139,8 @@ public class GuiInstantBridge extends GuiStructure
 		if (button == this.chckIncludeRoof)
 		{
 			this.configuration.includeRoof = this.chckIncludeRoof.isChecked();
+			
+			this.sldrInteriorHeight.enabled = this.configuration.includeRoof;
 		}
 		if (button == this.btnMaterialType)
 		{
