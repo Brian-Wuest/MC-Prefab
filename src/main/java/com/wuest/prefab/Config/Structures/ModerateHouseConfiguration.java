@@ -147,7 +147,9 @@ public class ModerateHouseConfiguration extends StructureConfiguration
 		SPRUCE_HOME(0, GuiLangKeys.MODERATE_HOUSE_SPRUCE, new ResourceLocation("prefab", "textures/gui/moderate_house_spruce_topdown.png"), 176, 154, 
 				"assets/prefab/structures/moderate_house_spruce.zip", 31, 31, 23, 8, 1),
 		ACACIA_HOME(1, GuiLangKeys.MODERATE_HOUSE_ACACIA, new ResourceLocation("prefab", "textures/gui/moderate_house_acacia_topdown.png"), 176, 154, 
-				"assets/prefab/structures/moderate_house_acacia.zip", 31, 31, 21, 12, 6);
+				"assets/prefab/structures/moderate_house_acacia.zip", 31, 31, 21, 12, 6),
+		EARTHEN_HOME(2, GuiLangKeys.MODERATE_EARTHEN_HOME, new ResourceLocation("prefab", "textures/gui/moderate_house_earthen_topdown.png"), 174, 146, 
+				"assets/prefab/structures/moderate_house_earthen.zip", 16, 16, 16, 8, 7);;
 
 		private final int value;
 		private final String displayName;
@@ -243,6 +245,10 @@ public class ModerateHouseConfiguration extends StructureConfiguration
 				case 1:
 				{
 					return HouseStyle.ACACIA_HOME;
+				}
+				case 2:
+				{
+					return HouseStyle.EARTHEN_HOME;
 				}
 	
 				default:

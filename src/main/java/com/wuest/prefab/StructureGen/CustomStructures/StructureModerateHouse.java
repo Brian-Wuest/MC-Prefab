@@ -60,8 +60,8 @@ public class StructureModerateHouse extends Structure
 		BuildClear clearedSpace = new BuildClear();
 		clearedSpace.getShape().setDirection(EnumFacing.SOUTH);
 		clearedSpace.getShape().setHeight(houseStyle.getHeight());
-		clearedSpace.getShape().setLength(houseStyle.getLength() + 1);
-		clearedSpace.getShape().setWidth(houseStyle.getWidth() + 1);
+		clearedSpace.getShape().setLength(houseStyle.getLength());
+		clearedSpace.getShape().setWidth(houseStyle.getWidth());
 		clearedSpace.getStartingPosition().setSouthOffset(1);
 		clearedSpace.getStartingPosition().setEastOffset(houseStyle.getEastOffSet());
 		clearedSpace.getStartingPosition().setHeightOffset(houseStyle.getDownOffSet() * -1);

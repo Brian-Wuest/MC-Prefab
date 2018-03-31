@@ -41,7 +41,7 @@ public class ItemModerateHouse extends StructureItem
 			{
 				// Open the client side gui to determine the house options.
 				//StructureModerateHouse structure = new StructureModerateHouse();
-				//structure.ScanStructure(world, hitBlockPos, player.getHorizontalFacing(), ModerateHouseConfiguration.HouseStyle.ACACIA_HOME);
+				//structure.ScanStructure(world, hitBlockPos, player.getHorizontalFacing(), ModerateHouseConfiguration.HouseStyle.EARTHEN_HOME);
 				
 				player.openGui(Prefab.instance, this.guiId, player.world, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
 				return EnumActionResult.PASS;
