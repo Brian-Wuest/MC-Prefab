@@ -100,6 +100,7 @@ prefab.gui.starter.buildmineshaft=Build mine
 prefab.gui.moderate_house.spruce=Épinette maison
 prefab.gui.moderate_house.acacia=Maison de l'acacia
 prefab.gui.moderate_house.earthen=Terre Accueil
+prefab.gui.moderate_house.jungle=Maison de la jungle
 
 prefab.gui.bulldozer_desc=Cet objet va nettoyer un espace 16x16x16 et fournir les gouttes de chaque bloc.
 prefab.gui.cleared_area=La zone dégagée sera dans la direction que vous affrontez.

@@ -100,6 +100,7 @@ prefab.gui.starter.buildmineshaft=Построить Шахту
 prefab.gui.moderate_house.spruce=Еловая ель
 prefab.gui.moderate_house.acacia=Дом из акации
 prefab.gui.moderate_house.earthen=Земля Главная
+prefab.gui.moderate_house.jungle=Дом Джунглей
 
 prefab.gui.bulldozer_desc=Этот элемент очистит пространство 16x16x16 и предоставит капли из каждого блока.
 prefab.gui.cleared_area=Очищенная область будет в том направлении, в котором вы находитесь.

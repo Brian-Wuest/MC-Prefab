@@ -107,6 +107,7 @@ prefab.gui.villager.long_house=Long House
 prefab.gui.moderate_house.spruce=Spruce House
 prefab.gui.moderate_house.acacia=Acacia House
 prefab.gui.moderate_house.earthen=Earthen Home
+prefab.gui.moderate_house.jungle=Jungle House
 
 prefab.gui.bulldozer_desc=This item will clear out a 16x16x16 space and provide the drops from each block.
 

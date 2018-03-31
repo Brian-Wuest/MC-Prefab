@@ -100,6 +100,7 @@ prefab.gui.starter.buildmineshaft=Construir pozo
 prefab.gui.moderate_house.spruce=Casa de abeto
 prefab.gui.moderate_house.acacia=Casa de acacia
 prefab.gui.moderate_house.earthen=Tierra en casa
+prefab.gui.moderate_house.jungle=Casa en la selva
 
 prefab.gui.bulldozer_desc=Este artículo limpiará un espacio de 16x16x16 y proporcionará las gotas de cada bloque.
 prefab.gui.cleared_area=El área despejada será en la dirección que estás enfrentando.
