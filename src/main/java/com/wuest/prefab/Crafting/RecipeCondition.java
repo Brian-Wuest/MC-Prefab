@@ -17,7 +17,7 @@ public class RecipeCondition implements IConditionFactory
 {
 	private String recipeKeyName = "recipeKey";
 	public String recipeKey;
-	
+
 	/**
 	 * Initializes a new instance of the recipe condition class.
 	 */
@@ -27,20 +27,21 @@ public class RecipeCondition implements IConditionFactory
 
 	@Override
 	public BooleanSupplier parse(JsonContext context, JsonObject json)
-	{	
+	{
 		this.recipeKey = json.get(recipeKeyName).getAsString();
-		
+
 		return () -> this.determineActiveRecipe();
 	}
-	
+
 	/**
 	 * Determines if the recipe is active.
+	 * 
 	 * @return True if the recipe is active, otherwise false.
 	 */
 	public boolean determineActiveRecipe()
 	{
 		boolean result = false;
-		
+
 		if (this.recipeKey != null)
 		{
 			if (Prefab.proxy.getServerConfiguration().recipeConfiguration.containsKey(this.recipeKey))
@@ -48,7 +49,7 @@ public class RecipeCondition implements IConditionFactory
 				result = Prefab.proxy.getServerConfiguration().recipeConfiguration.get(this.recipeKey);
 			}
 		}
-		
+
 		return result;
 	}
 

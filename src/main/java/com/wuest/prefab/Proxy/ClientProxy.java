@@ -1,16 +1,16 @@
 package com.wuest.prefab.Proxy;
 
-import com.wuest.prefab.*;
-import com.wuest.prefab.Blocks.BlockCompressedStone;
+import com.wuest.prefab.ClientModRegistry;
+import com.wuest.prefab.ModRegistry;
+import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Events.ClientEventHandler;
-import com.wuest.prefab.Items.Structures.ItemBasicStructure;
-import com.wuest.prefab.Render.*;
+import com.wuest.prefab.Structures.Events.StructureClientEventHandler;
+import com.wuest.prefab.Structures.Render.ShaderHelper;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.ModelBakery;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 /**
  * 
@@ -21,14 +21,15 @@ public class ClientProxy extends CommonProxy
 {
 	public ModConfiguration serverConfiguration = null;
 	public static ClientEventHandler clientEventHandler = new ClientEventHandler();
-	
+	public static StructureClientEventHandler structureClientEventHandler = new StructureClientEventHandler();
+
 	@Override
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		super.preInit(event);
 
 		ModRegistry.AddGuis();
-		
+
 		// After all items have been registered and all recipes loaded, register any necessary renderer.
 		Prefab.proxy.registerRenderers();
 	}
@@ -37,7 +38,7 @@ public class ClientProxy extends CommonProxy
 	public void init(FMLInitializationEvent event)
 	{
 		super.init(event);
-		
+
 		ClientModRegistry.RegisterModelMeshers();
 	}
 
@@ -46,13 +47,13 @@ public class ClientProxy extends CommonProxy
 	{
 		super.postinit(event);
 	}
-	
+
 	@Override
-	public void registerRenderers() 
+	public void registerRenderers()
 	{
 		ShaderHelper.Initialize();
 	}
-	
+
 	@Override
 	public ModConfiguration getServerConfiguration()
 	{

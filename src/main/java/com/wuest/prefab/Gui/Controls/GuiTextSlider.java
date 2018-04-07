@@ -1,6 +1,6 @@
 package com.wuest.prefab.Gui.Controls;
 
-import com.wuest.prefab.Config.Structures.HouseConfiguration;
+import com.wuest.prefab.Structures.Config.HouseConfiguration;
 
 import net.minecraftforge.fml.client.config.GuiSlider;
 
@@ -15,6 +15,7 @@ public class GuiTextSlider extends GuiSlider
 
 	/**
 	 * Initializes a new instance of the GuiTextSlider class.
+	 * 
 	 * @param id The ID of this slider.
 	 * @param xPos The X-Axis Position of this slider.
 	 * @param yPos The Y-Axis Position of this slider.
@@ -25,11 +26,9 @@ public class GuiTextSlider extends GuiSlider
 	 * @param currentVal The default value of this slider.
 	 * @param name The name of this slider.
 	 */
-	public GuiTextSlider(int id, int xPos, int yPos, int width, int height, double minVal, double maxVal,
-			double currentVal, String name) 
+	public GuiTextSlider(int id, int xPos, int yPos, int width, int height, double minVal, double maxVal, double currentVal, String name)
 	{
-		super(id, xPos, yPos, width, height, "", "", minVal, maxVal, currentVal,
-				false, true);
+		super(id, xPos, yPos, width, height, "", "", minVal, maxVal, currentVal, false, true);
 
 		this.configName = name;
 		this.updateSlider();
@@ -49,14 +48,14 @@ public class GuiTextSlider extends GuiSlider
 	@Override
 	public int getValueInt()
 	{
-		int temp =(int)Math.round(sliderValue * (maxValue - minValue) + minValue);
+		int temp = (int) Math.round(sliderValue * (maxValue - minValue) + minValue);
 
 		if (temp > this.maxValue)
 		{
 			temp = (int) Math.round(this.maxValue);
 		}
 
-		return temp; 
+		return temp;
 	}
 
 	public void SetSuffix()

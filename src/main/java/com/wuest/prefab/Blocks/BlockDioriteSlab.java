@@ -43,8 +43,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public abstract class BlockDioriteSlab extends BlockSlab
 {
 	/**
-	 * The property used for the variant.
-	 * Needed for interactions with ItemSlab.
+	 * The property used for the variant. Needed for interactions with ItemSlab.
 	 */
 	private static final PropertyBool VARIANT_PROPERTY = PropertyBool.create("variant");
 
@@ -55,7 +54,7 @@ public abstract class BlockDioriteSlab extends BlockSlab
 		this.setSoundType(SoundType.STONE);
 		IBlockState iblockstate = this.blockState.getBaseState();
 		this.setHardness(0.5F);
-		
+
 		if (!this.isDouble())
 		{
 			iblockstate = iblockstate.withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM);
@@ -66,7 +65,7 @@ public abstract class BlockDioriteSlab extends BlockSlab
 		{
 			ModRegistry.setBlockName(this, "block_diorite_slab");
 		}
-		
+
 		iblockstate = iblockstate.withProperty(VARIANT_PROPERTY, false);
 
 		this.setDefaultState(iblockstate);
@@ -105,12 +104,12 @@ public abstract class BlockDioriteSlab extends BlockSlab
 	{
 		IBlockState blockState = this.getDefaultState();
 		blockState = blockState.withProperty(VARIANT_PROPERTY, false);
-		
-		if (!this.isDouble()) 
+
+		if (!this.isDouble())
 		{
 			EnumBlockHalf value = EnumBlockHalf.BOTTOM;
 
-			if ((meta & 8) != 0) 
+			if ((meta & 8) != 0)
 			{
 				value = EnumBlockHalf.TOP;
 			}
@@ -140,7 +139,9 @@ public abstract class BlockDioriteSlab extends BlockSlab
 	@Override
 	protected BlockStateContainer createBlockState()
 	{
-		return this.isDouble() ? new BlockStateContainer(this, new IProperty[] {VARIANT_PROPERTY}): new BlockStateContainer(this, new IProperty[] {HALF, VARIANT_PROPERTY});
+		return this.isDouble() ? new BlockStateContainer(this, new IProperty[]
+		{ VARIANT_PROPERTY }) : new BlockStateContainer(this, new IProperty[]
+		{ HALF, VARIANT_PROPERTY });
 	}
 
 	/**
@@ -149,7 +150,7 @@ public abstract class BlockDioriteSlab extends BlockSlab
 	@Override
 	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos)
 	{
-		return ((BlockStone)Blocks.STONE).getMapColor(Blocks.STONE.getStateFromMeta(BlockStone.EnumType.DIORITE_SMOOTH.getMetadata()), worldIn, pos);
+		return ((BlockStone) Blocks.STONE).getMapColor(Blocks.STONE.getStateFromMeta(BlockStone.EnumType.DIORITE_SMOOTH.getMetadata()), worldIn, pos);
 	}
 
 	/**

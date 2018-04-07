@@ -4,35 +4,24 @@ import java.util.Random;
 
 import com.wuest.prefab.ModRegistry;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockGlass;
-import net.minecraft.block.BlockPlanks;
-import net.minecraft.block.BlockSand;
 import net.minecraft.block.BlockSlab;
-import net.minecraft.block.BlockStoneSlabNew;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.BlockSlab.EnumBlockHalf;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -44,8 +33,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public abstract class BlockGlassSlab extends BlockSlab
 {
 	/**
-	 * The property used for the variant.
-	 * Needed for interactions with ItemSlab.
+	 * The property used for the variant. Needed for interactions with ItemSlab.
 	 */
 	private static final PropertyBool VARIANT_PROPERTY = PropertyBool.create("variant");
 
@@ -56,7 +44,7 @@ public abstract class BlockGlassSlab extends BlockSlab
 		this.setSoundType(SoundType.GLASS);
 		IBlockState iblockstate = this.blockState.getBaseState();
 		this.setHardness(0.5F);
-		
+
 		if (!this.isDouble())
 		{
 			iblockstate = iblockstate.withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM);
@@ -67,96 +55,96 @@ public abstract class BlockGlassSlab extends BlockSlab
 		{
 			ModRegistry.setBlockName(this, "block_glass_slab");
 		}
-		
+
 		iblockstate = iblockstate.withProperty(VARIANT_PROPERTY, false);
 
 		this.setDefaultState(iblockstate);
 		this.useNeighborBrightness = !this.isDouble();
 	}
-	
+
 	@Override
-    @SideOnly(Side.CLIENT)
-    public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
-    {
-        if (this.isDouble())
-        {
-            return this.originalShouldSideBeRendered(blockState, blockAccess, pos, side);
-        }
-        else if (side != EnumFacing.UP && side != EnumFacing.DOWN && !super.shouldSideBeRendered(blockState, blockAccess, pos, side))
-        {
-            return false;
-        }
+	@SideOnly(Side.CLIENT)
+	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
+	{
+		if (this.isDouble())
+		{
+			return this.originalShouldSideBeRendered(blockState, blockAccess, pos, side);
+		}
+		else if (side != EnumFacing.UP && side != EnumFacing.DOWN && !super.shouldSideBeRendered(blockState, blockAccess, pos, side))
+		{
+			return false;
+		}
 
-        return this.originalShouldSideBeRendered(blockState, blockAccess, pos, side);
-    }
-	
-    @SideOnly(Side.CLIENT)
-    public boolean originalShouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
-    {
-        AxisAlignedBB axisalignedbb = blockState.getBoundingBox(blockAccess, pos);
+		return this.originalShouldSideBeRendered(blockState, blockAccess, pos, side);
+	}
 
-        switch (side)
-        {
-            case DOWN:
+	@SideOnly(Side.CLIENT)
+	public boolean originalShouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
+	{
+		AxisAlignedBB axisalignedbb = blockState.getBoundingBox(blockAccess, pos);
 
-                if (axisalignedbb.minY > 0.0D)
-                {
-                    return true;
-                }
+		switch (side)
+		{
+			case DOWN:
 
-                break;
-            case UP:
+				if (axisalignedbb.minY > 0.0D)
+				{
+					return true;
+				}
 
-                if (axisalignedbb.maxY < 1.0D)
-                {
-                    return true;
-                }
+				break;
+			case UP:
 
-                break;
-            case NORTH:
+				if (axisalignedbb.maxY < 1.0D)
+				{
+					return true;
+				}
 
-                if (axisalignedbb.minZ > 0.0D)
-                {
-                    return true;
-                }
+				break;
+			case NORTH:
 
-                break;
-            case SOUTH:
+				if (axisalignedbb.minZ > 0.0D)
+				{
+					return true;
+				}
 
-                if (axisalignedbb.maxZ < 1.0D)
-                {
-                    return true;
-                }
+				break;
+			case SOUTH:
 
-                break;
-            case WEST:
+				if (axisalignedbb.maxZ < 1.0D)
+				{
+					return true;
+				}
 
-                if (axisalignedbb.minX > 0.0D)
-                {
-                    return true;
-                }
+				break;
+			case WEST:
 
-                break;
-            case EAST:
+				if (axisalignedbb.minX > 0.0D)
+				{
+					return true;
+				}
 
-                if (axisalignedbb.maxX < 1.0D)
-                {
-                    return true;
-                }
-        }
+				break;
+			case EAST:
 
-        IBlockState sideBlockState = blockAccess.getBlockState(pos.offset(side));
-        
-        Material material = sideBlockState.getMaterial();
-        
-        // Glass and other transparent materials force this side to be transparent.
-        if (!material.isOpaque() && material != Material.AIR)
-        {
-        	return false;
-        }
-        
-        return !sideBlockState.doesSideBlockRendering(blockAccess, pos.offset(side), side.getOpposite());
-    }
+				if (axisalignedbb.maxX < 1.0D)
+				{
+					return true;
+				}
+		}
+
+		IBlockState sideBlockState = blockAccess.getBlockState(pos.offset(side));
+
+		Material material = sideBlockState.getMaterial();
+
+		// Glass and other transparent materials force this side to be transparent.
+		if (!material.isOpaque() && material != Material.AIR)
+		{
+			return false;
+		}
+
+		return !sideBlockState.doesSideBlockRendering(blockAccess, pos.offset(side), side.getOpposite());
+	}
 
 	@Override
 	public String getUnlocalizedName(int meta)
@@ -181,28 +169,28 @@ public abstract class BlockGlassSlab extends BlockSlab
 	{
 		return false;
 	}
-	
-	@Override
-    @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer()
-    {
-        return BlockRenderLayer.CUTOUT;
-    }
 
-    /**
-     * Used to determine ambient occlusion and culling when rebuilding chunks for render
-     */
-    public boolean isOpaqueCube(IBlockState state)
-    {
-        return false;
-    }
-    
-    @Override
-    public boolean doesSideBlockRendering(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing face)
-    {
-        return false;
-    }
-    
+	@Override
+	@SideOnly(Side.CLIENT)
+	public BlockRenderLayer getBlockLayer()
+	{
+		return BlockRenderLayer.CUTOUT;
+	}
+
+	/**
+	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
+	 */
+	public boolean isOpaqueCube(IBlockState state)
+	{
+		return false;
+	}
+
+	@Override
+	public boolean doesSideBlockRendering(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing face)
+	{
+		return false;
+	}
+
 	/**
 	 * Convert the given metadata into a BlockState for this Block
 	 */
@@ -211,12 +199,12 @@ public abstract class BlockGlassSlab extends BlockSlab
 	{
 		IBlockState blockState = this.getDefaultState();
 		blockState = blockState.withProperty(VARIANT_PROPERTY, false);
-		
-		if (!this.isDouble()) 
+
+		if (!this.isDouble())
 		{
 			EnumBlockHalf value = EnumBlockHalf.BOTTOM;
 
-			if ((meta & 8) != 0) 
+			if ((meta & 8) != 0)
 			{
 				value = EnumBlockHalf.TOP;
 			}
@@ -246,7 +234,9 @@ public abstract class BlockGlassSlab extends BlockSlab
 	@Override
 	protected BlockStateContainer createBlockState()
 	{
-		return this.isDouble() ? new BlockStateContainer(this, new IProperty[] {VARIANT_PROPERTY}): new BlockStateContainer(this, new IProperty[] {HALF, VARIANT_PROPERTY});
+		return this.isDouble() ? new BlockStateContainer(this, new IProperty[]
+		{ VARIANT_PROPERTY }) : new BlockStateContainer(this, new IProperty[]
+		{ HALF, VARIANT_PROPERTY });
 	}
 
 	/**
@@ -255,7 +245,7 @@ public abstract class BlockGlassSlab extends BlockSlab
 	@Override
 	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos)
 	{
-		return ((BlockGlass)Blocks.GLASS).getMapColor(Blocks.GLASS.getDefaultState(), worldIn, pos);
+		return ((BlockGlass) Blocks.GLASS).getMapColor(Blocks.GLASS.getDefaultState(), worldIn, pos);
 	}
 
 	/**

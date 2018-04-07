@@ -2,7 +2,7 @@ package com.wuest.prefab.Gui;
 
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.ModConfiguration;
-import com.wuest.prefab.Config.Structures.HouseConfiguration;
+import com.wuest.prefab.Structures.Config.HouseConfiguration;
 
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.common.config.ConfigCategory;
@@ -23,9 +23,8 @@ public class GuiPrefab extends GuiConfig
 {
 	public GuiPrefab(GuiScreen parent)
 	{
-		super(parent,
-				new ConfigElement(Prefab.config.getCategory(ModConfiguration.OPTIONS)).getChildElements(),
-				Prefab.MODID, null, false, false, GuiConfig.getAbridgedConfigPath(Prefab.config.toString()), null);
+		super(parent, new ConfigElement(Prefab.config.getCategory(ModConfiguration.OPTIONS)).getChildElements(), Prefab.MODID, null, false, false,
+			GuiConfig.getAbridgedConfigPath(Prefab.config.toString()), null);
 
 		ConfigCategory category = Prefab.config.getCategory(ModConfiguration.OPTIONS);
 		String abridgedConfigPath = GuiConfig.getAbridgedConfigPath(Prefab.config.toString());
@@ -68,14 +67,14 @@ public class GuiPrefab extends GuiConfig
 	{
 		protected final double beforeValue;
 
-		public TextNumberSliderEntry(GuiConfig owningScreen,
-				GuiConfigEntries owningEntryList, IConfigElement configElement) 
+		public TextNumberSliderEntry(GuiConfig owningScreen, GuiConfigEntries owningEntryList, IConfigElement configElement)
 		{
-			super(owningScreen, owningEntryList, configElement, new GuiTextSlider(0, owningEntryList.controlX, 0, owningEntryList.controlWidth, 18,
-					"", "", Double.valueOf(configElement.getMinValue().toString()), Double.valueOf(configElement.getMaxValue().toString()),
+			super(owningScreen, owningEntryList, configElement,
+				new GuiTextSlider(0, owningEntryList.controlX, 0, owningEntryList.controlWidth, 18, "", "",
+					Double.valueOf(configElement.getMinValue().toString()), Double.valueOf(configElement.getMaxValue().toString()),
 					Double.valueOf(configElement.get().toString()), configElement.getType() == ConfigGuiType.DOUBLE, true));
 
-			((GuiTextSlider)this.btnValue).parentEntry = this;
+			((GuiTextSlider) this.btnValue).parentEntry = this;
 
 			if (configElement.getType() == ConfigGuiType.INTEGER)
 			{
@@ -107,7 +106,9 @@ public class GuiPrefab extends GuiConfig
 		}
 
 		@Override
-		public void valueButtonPressed(int slotIndex) {}
+		public void valueButtonPressed(int slotIndex)
+		{
+		}
 
 		@Override
 		public boolean isDefault()
@@ -164,7 +165,8 @@ public class GuiPrefab extends GuiConfig
 		@Override
 		public Object[] getCurrentValues()
 		{
-			return new Object[] { getCurrentValue() };
+			return new Object[]
+			{ getCurrentValue() };
 		}
 	}
 
@@ -172,7 +174,8 @@ public class GuiPrefab extends GuiConfig
 	{
 		TextNumberSliderEntry parentEntry = null;
 
-		public GuiTextSlider(int id, int xPos, int yPos, int width, int height, String prefix, String suf, double minVal, double maxVal, double currentVal, boolean showDec, boolean drawStr)
+		public GuiTextSlider(int id, int xPos, int yPos, int width, int height, String prefix, String suf, double minVal, double maxVal, double currentVal,
+			boolean showDec, boolean drawStr)
 		{
 			super(id, xPos, yPos, width, height, prefix, suf, minVal, maxVal, currentVal, showDec, drawStr, null);
 		}
@@ -215,10 +218,10 @@ public class GuiPrefab extends GuiConfig
 			}
 			else
 			{
-				val = Integer.toString((int)Math.round(sliderValue * (maxValue - minValue) + minValue));
+				val = Integer.toString((int) Math.round(sliderValue * (maxValue - minValue) + minValue));
 			}
 
-			if(drawString)
+			if (drawString)
 			{
 				if (this.parentEntry != null)
 				{

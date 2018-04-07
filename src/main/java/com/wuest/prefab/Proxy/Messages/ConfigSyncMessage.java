@@ -11,9 +11,10 @@ public class ConfigSyncMessage extends TagMessage
 {
 	/**
 	 * This class is just here to distinguish the configuration sync message from other messages in the mod.
+	 * 
 	 * @param writeToNBTTagCompound The NBTTagCompound to write the data too.
 	 */
-	public ConfigSyncMessage(NBTTagCompound writeToNBTTagCompound) 
+	public ConfigSyncMessage(NBTTagCompound writeToNBTTagCompound)
 	{
 		super(writeToNBTTagCompound);
 	}

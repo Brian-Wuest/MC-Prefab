@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 public class ItemBogus extends Item
 {
 	public static boolean renderTest = false;
-	
+
 	public ItemBogus(String name)
 	{
 		super();
@@ -24,46 +24,47 @@ public class ItemBogus extends Item
 		ModRegistry.setItemName(this, name);
 	}
 
-    /**
-     * Called when the equipped item is right clicked.
-     */
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
-    {
-    	if (worldIn.isRemote)
-    	{
-    		ItemBogus.renderTest = !ItemBogus.renderTest;
-    	}
-    	
-        return new ActionResult(EnumActionResult.PASS, itemStackIn);
-    }
-    
-    /**
-     * Called each tick as long the item is on a player inventory. Uses by maps to check if is on a player hand and
-     * update it's contents.
-     */
-    @Override
+	/**
+	 * Called when the equipped item is right clicked.
+	 */
+	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
+	{
+		if (worldIn.isRemote)
+		{
+			ItemBogus.renderTest = !ItemBogus.renderTest;
+		}
+
+		return new ActionResult(EnumActionResult.PASS, itemStackIn);
+	}
+
+	/**
+	 * Called each tick as long the item is on a player inventory. Uses by maps to check if is on a player hand and
+	 * update it's contents.
+	 */
+	@Override
 	public void onUpdate(ItemStack stack, World worldIn, Entity player, int itemSlot, boolean isSelected)
-    {
-    	if (player instanceof EntityPlayer && worldIn.isRemote)
-    	{
-	    	EntityPlayer entityPlayer = (EntityPlayer)player;
-	    	
-	    	ItemStack mainHand = entityPlayer.getHeldItemMainhand();
-	    	ItemStack offHand = entityPlayer.getHeldItemOffhand();
-	    	
-	    	// Check to see if this type of item is in one of the player's hands.
-	    	boolean selected = (mainHand != null && mainHand.getItem() instanceof ItemBogus)
-	    			|| (offHand != null && offHand.getItem() instanceof ItemBogus)? true : false;
-	    	
-	        if (selected)
-	        {
-	        	ItemBogus.renderTest = true;
-	    		//this.RenderTest(worldIn, entityPlayer);
-	        }
-	        else
-	        {
-	        	ItemBogus.renderTest = false;
-	        }
-    	}
-    }
+	{
+		if (player instanceof EntityPlayer && worldIn.isRemote)
+		{
+			EntityPlayer entityPlayer = (EntityPlayer) player;
+
+			ItemStack mainHand = entityPlayer.getHeldItemMainhand();
+			ItemStack offHand = entityPlayer.getHeldItemOffhand();
+
+			// Check to see if this type of item is in one of the player's hands.
+			boolean selected = (mainHand != null && mainHand.getItem() instanceof ItemBogus) || (offHand != null && offHand.getItem() instanceof ItemBogus)
+				? true
+				: false;
+
+			if (selected)
+			{
+				ItemBogus.renderTest = true;
+				// this.RenderTest(worldIn, entityPlayer);
+			}
+			else
+			{
+				ItemBogus.renderTest = false;
+			}
+		}
+	}
 }

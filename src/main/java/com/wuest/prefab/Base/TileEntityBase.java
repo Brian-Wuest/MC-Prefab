@@ -18,6 +18,7 @@ import net.minecraftforge.common.capabilities.Capability;
 
 /**
  * This is the base tile entity used by the mod.
+ * 
  * @author WuestMan
  *
  * @param <T> The base configuration used by this tile entity.
@@ -26,14 +27,14 @@ public abstract class TileEntityBase<T extends BaseConfig> extends TileEntity
 {
 	protected T config;
 	protected ArrayList<Capability> allowedCapabilities;
-	
+
 	/**
 	 * Initializes a new instance of the TileEntityBase class.
 	 */
 	protected TileEntityBase()
 	{
 	}
-	
+
 	/**
 	 * @return Gets the configuration class used by this tile entity.
 	 */
@@ -41,9 +42,10 @@ public abstract class TileEntityBase<T extends BaseConfig> extends TileEntity
 	{
 		return this.config;
 	}
-	
+
 	/**
 	 * Sets the configuration class used by this tile entity.
+	 * 
 	 * @param value The updated tile entity.
 	 */
 	public void setConfig(T value)
@@ -51,9 +53,10 @@ public abstract class TileEntityBase<T extends BaseConfig> extends TileEntity
 		this.config = value;
 		this.markDirty();
 	}
-	
+
 	/**
 	 * Gets the list of allowed capabilities.
+	 * 
 	 * @return The list of allowed capabilities if any.
 	 */
 	public ArrayList<Capability> getAllowedCapabilities()
@@ -61,15 +64,16 @@ public abstract class TileEntityBase<T extends BaseConfig> extends TileEntity
 		if (this.allowedCapabilities == null)
 		{
 			this.allowedCapabilities = new ArrayList<Capability>();
-			
+
 			this.addAllowedCapabilities();
 		}
-		
+
 		return this.allowedCapabilities;
 	}
-	
+
 	/**
 	 * Sets the allowed capabilities for this TileEntity.
+	 * 
 	 * @param allowedCapabilities The list of allowed capabilities.
 	 */
 	public void setAllowedCapabilities(ArrayList<Capability> allowedCapabilities)
@@ -77,43 +81,45 @@ public abstract class TileEntityBase<T extends BaseConfig> extends TileEntity
 		this.allowedCapabilities = allowedCapabilities;
 		this.markDirty();
 	}
-	
+
 	/**
 	 * Transfers capabilities available for transferring to the supplied itemstack.
+	 * 
 	 * @param stack The item stack to copy capabilities for.
 	 * @return The updated item stack with the original ItemStack's capabilities.
 	 */
 	public ItemStack transferCapabilities(ItemStack stack)
 	{
 		// Transfer each transferable capability to the itemstack.
-		for(Capability allowedCapability : this.getAllowedCapabilities())
+		for (Capability allowedCapability : this.getAllowedCapabilities())
 		{
 			// Get the interfaces for this capability.
 			Object stackCapability = stack.getCapability(allowedCapability, EnumFacing.NORTH);
 			Object tileEntityCapability = this.getCapability(allowedCapability, EnumFacing.NORTH);
-			
-			if (stackCapability != null && tileEntityCapability != null
-					&& stackCapability instanceof ITransferable && tileEntityCapability instanceof ITransferable)
+
+			if (stackCapability != null && tileEntityCapability != null && stackCapability instanceof ITransferable
+				&& tileEntityCapability instanceof ITransferable)
 			{
 				// transfer the capability data, it's up to the capability to transfer the data.
-				((ITransferable)stackCapability).Transfer((ITransferable)tileEntityCapability);
+				((ITransferable) stackCapability).Transfer((ITransferable) tileEntityCapability);
 			}
 		}
-		
+
 		return stack;
 	}
-	
+
 	/**
 	 * Allows this class to get a class of the generic type associated with this class.
+	 * 
 	 * @return A generic class used to create an instance of the generic class.
 	 */
-    public Class<T> getTypeParameterClass()
-    {
-        Type type = getClass().getGenericSuperclass();
-        ParameterizedType paramType = (ParameterizedType) type;
-        return (Class<T>) paramType.getActualTypeArguments()[0];
-    }
-	
+	public Class<T> getTypeParameterClass()
+	{
+		Type type = getClass().getGenericSuperclass();
+		ParameterizedType paramType = (ParameterizedType) type;
+		return (Class<T>) paramType.getActualTypeArguments()[0];
+	}
+
 	/**
 	 * Allows for a specialized description packet to be created. This is often used to sync tile entity data from the
 	 * server to the client easily. For example this is used by signs to synchronize the text to be displayed.
@@ -142,11 +148,10 @@ public abstract class TileEntityBase<T extends BaseConfig> extends TileEntity
 		// Make sure to write the tile to the tag.
 		this.writeToNBT(this.getTileData());
 	}
-	
+
 	/**
-	 * Called when you receive a TileEntityData packet for the location this
-	 * TileEntity is currently in. On the client, the NetworkManager will always
-	 * be the remote server. On the server, it will be whomever is responsible for
+	 * Called when you receive a TileEntityData packet for the location this TileEntity is currently in. On the client,
+	 * the NetworkManager will always be the remote server. On the server, it will be whomever is responsible for
 	 * sending the packet.
 	 *
 	 * @param net The NetworkManager the packet originated from
@@ -157,16 +162,17 @@ public abstract class TileEntityBase<T extends BaseConfig> extends TileEntity
 	{
 		this.readFromNBT(pkt.getNbtCompound());
 	}
-	
+
 	@Override
 	public boolean receiveClientEvent(int id, int type)
 	{
 		return true;
 	}
-	
+
 	/**
-	 * Called from Chunk.setBlockIDWithMetadata and Chunk.fillChunk, determines if this tile entity should be re-created when the ID, or Metadata changes.
-	 * Use with caution as this will leave straggler TileEntities, or create conflicts with other TileEntities if not used properly.
+	 * Called from Chunk.setBlockIDWithMetadata and Chunk.fillChunk, determines if this tile entity should be re-created
+	 * when the ID, or Metadata changes. Use with caution as this will leave straggler TileEntities, or create conflicts
+	 * with other TileEntities if not used properly.
 	 *
 	 * @param world Current world
 	 * @param pos Tile's world position
@@ -180,43 +186,44 @@ public abstract class TileEntityBase<T extends BaseConfig> extends TileEntity
 		// This tile needs to persist so the data can be saved.
 		return (oldState.getBlock() != newState.getBlock());
 	}
-	
+
 	@Override
 	public void updateContainingBlockInfo()
 	{
 	}
-	
+
 	@Override
-    public NBTTagCompound getUpdateTag()
-    {
-        return this.writeToNBT(new NBTTagCompound());
-    }
-	
-	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound compound) 
+	public NBTTagCompound getUpdateTag()
 	{
-		//System.out.println("Writing Tag Data.");
+		return this.writeToNBT(new NBTTagCompound());
+	}
+
+	@Override
+	public NBTTagCompound writeToNBT(NBTTagCompound compound)
+	{
+		// System.out.println("Writing Tag Data.");
 		super.writeToNBT(compound);
 
 		if (this.config != null)
 		{
 			this.config.WriteToNBTCompound(compound);
 		}
-		
+
 		return compound;
 	}
-	
+
 	@Override
-	public void readFromNBT(NBTTagCompound compound) 
+	public void readFromNBT(NBTTagCompound compound)
 	{
-		//System.out.println("Reading Tag Data.");
+		// System.out.println("Reading Tag Data.");
 		super.readFromNBT(compound);
 
 		this.config = this.createConfigInstance().ReadFromNBTTagCompound(compound);
 	}
-	
+
 	/**
 	 * Creates an instance of the configuration class for this tile entity.
+	 * 
 	 * @return A new instance of the configuration class for this tile entity.
 	 */
 	public T createConfigInstance()
@@ -233,7 +240,7 @@ public abstract class TileEntityBase<T extends BaseConfig> extends TileEntity
 		{
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
 
@@ -243,5 +250,5 @@ public abstract class TileEntityBase<T extends BaseConfig> extends TileEntity
 	protected void addAllowedCapabilities()
 	{
 	}
-	
+
 }

@@ -4,36 +4,21 @@ import java.util.Random;
 
 import com.wuest.prefab.ModRegistry;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockPlanks;
-import net.minecraft.block.BlockSand;
 import net.minecraft.block.BlockSlab;
-import net.minecraft.block.BlockStoneSlabNew;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.BlockSlab.EnumBlockHalf;
 import net.minecraft.block.BlockStone;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * 
@@ -43,8 +28,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public abstract class BlockGraniteSlab extends BlockSlab
 {
 	/**
-	 * The property used for the variant.
-	 * Needed for interactions with ItemSlab.
+	 * The property used for the variant. Needed for interactions with ItemSlab.
 	 */
 	private static final PropertyBool VARIANT_PROPERTY = PropertyBool.create("variant");
 
@@ -55,7 +39,7 @@ public abstract class BlockGraniteSlab extends BlockSlab
 		this.setSoundType(SoundType.STONE);
 		IBlockState iblockstate = this.blockState.getBaseState();
 		this.setHardness(0.5F);
-		
+
 		if (!this.isDouble())
 		{
 			iblockstate = iblockstate.withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM);
@@ -66,7 +50,7 @@ public abstract class BlockGraniteSlab extends BlockSlab
 		{
 			ModRegistry.setBlockName(this, "block_granite_slab");
 		}
-		
+
 		iblockstate = iblockstate.withProperty(VARIANT_PROPERTY, false);
 
 		this.setDefaultState(iblockstate);
@@ -105,12 +89,12 @@ public abstract class BlockGraniteSlab extends BlockSlab
 	{
 		IBlockState blockState = this.getDefaultState();
 		blockState = blockState.withProperty(VARIANT_PROPERTY, false);
-		
-		if (!this.isDouble()) 
+
+		if (!this.isDouble())
 		{
 			EnumBlockHalf value = EnumBlockHalf.BOTTOM;
 
-			if ((meta & 8) != 0) 
+			if ((meta & 8) != 0)
 			{
 				value = EnumBlockHalf.TOP;
 			}
@@ -140,7 +124,9 @@ public abstract class BlockGraniteSlab extends BlockSlab
 	@Override
 	protected BlockStateContainer createBlockState()
 	{
-		return this.isDouble() ? new BlockStateContainer(this, new IProperty[] {VARIANT_PROPERTY}): new BlockStateContainer(this, new IProperty[] {HALF, VARIANT_PROPERTY});
+		return this.isDouble() ? new BlockStateContainer(this, new IProperty[]
+		{ VARIANT_PROPERTY }) : new BlockStateContainer(this, new IProperty[]
+		{ HALF, VARIANT_PROPERTY });
 	}
 
 	/**
@@ -149,7 +135,7 @@ public abstract class BlockGraniteSlab extends BlockSlab
 	@Override
 	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos)
 	{
-		return ((BlockStone)Blocks.STONE).getMapColor(Blocks.STONE.getStateFromMeta(BlockStone.EnumType.GRANITE_SMOOTH.getMetadata()), worldIn, pos);
+		return ((BlockStone) Blocks.STONE).getMapColor(Blocks.STONE.getStateFromMeta(BlockStone.EnumType.GRANITE_SMOOTH.getMetadata()), worldIn, pos);
 	}
 
 	/**

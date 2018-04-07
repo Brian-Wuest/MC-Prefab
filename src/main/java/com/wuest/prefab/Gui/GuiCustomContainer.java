@@ -4,7 +4,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 
 /**
- * This class is used for the BlockDrafter as it needs to open the GUI on the server side and this placeholder class is needed to accomplish that.
+ * This class is used for the BlockDrafter as it needs to open the GUI on the server side and this placeholder class is
+ * needed to accomplish that.
+ * 
  * @author WuestMan
  *
  */
@@ -14,7 +16,7 @@ public class GuiCustomContainer extends Container
 	{
 		super();
 	}
-	
+
 	@Override
 	public boolean canInteractWith(EntityPlayer playerIn)
 	{

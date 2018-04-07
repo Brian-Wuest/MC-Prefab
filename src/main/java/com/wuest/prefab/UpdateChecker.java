@@ -17,7 +17,7 @@ public class UpdateChecker
 	 * Determines if a the message is shown to the user when they log into a world.
 	 */
 	public static boolean showMessage = false;
-	
+
 	/**
 	 * The message to show to the user when they log into a world.
 	 */
@@ -30,7 +30,7 @@ public class UpdateChecker
 	{
 		// Pull the repository information.
 		ModContainer prefabMod = null;
-		
+
 		for (ModContainer modContainer : Loader.instance().getModList())
 		{
 			if (modContainer.getName().toLowerCase().equals(Prefab.MODID.toLowerCase()))
@@ -39,17 +39,17 @@ public class UpdateChecker
 				break;
 			}
 		}
-		
+
 		if (prefabMod != null)
 		{
 			CheckResult result = ForgeVersion.getResult(prefabMod);
-			
+
 			if (result != null && result.status == Status.OUTDATED)
 			{
 				// Current version is out dated, show the message when the user is logged in.
 				UpdateChecker.messageToShow = "[Prefab] There is a new version available! New Version: [" + result.target.toString() + "] Your Version: ["
-						+ Prefab.VERSION + "]";
-				
+					+ Prefab.VERSION + "]";
+
 				UpdateChecker.showMessage = true;
 			}
 		}

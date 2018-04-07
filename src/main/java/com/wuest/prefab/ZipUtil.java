@@ -8,8 +8,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.StringBufferInputStream;
-import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.util.zip.DataFormatException;
 import java.util.zip.GZIPInputStream;
@@ -22,7 +20,6 @@ import com.google.common.base.Charsets;
 import com.google.common.io.ByteStreams;
 import com.google.common.io.CharStreams;
 import com.google.common.io.Files;
-import com.wuest.prefab.StructureGen.CustomStructures.StructureAlternateStart;
 
 /**
  * 
@@ -33,6 +30,7 @@ public class ZipUtil
 {
 	/**
 	 * Compresses a string and converts to a byte array for writing.
+	 * 
 	 * @param originalString The string to compress.
 	 * @return A byte array which has ben compressed using GZip.
 	 */
@@ -42,29 +40,30 @@ public class ZipUtil
 		{
 			return null;
 		}
-		
+
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-        GZIPOutputStream gzip;
+		GZIPOutputStream gzip;
 		try
 		{
 			gzip = new GZIPOutputStream(out);
-	        gzip.write(originalString.getBytes());
-	        gzip.close();
-	        
-	        byte[] compressed = out.toByteArray();
-	        out.close();
-	        return compressed;
+			gzip.write(originalString.getBytes());
+			gzip.close();
+
+			byte[] compressed = out.toByteArray();
+			out.close();
+			return compressed;
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
-	
+
 	/**
 	 * De-compresses a GZip compressed byte array. Expects UTF-8 encoding.
+	 * 
 	 * @param compressedString The byte array to de-compress.
 	 * @return A string of the de-compressed data.
 	 */
@@ -73,19 +72,19 @@ public class ZipUtil
 		ByteArrayInputStream bis = new ByteArrayInputStream(compressedString);
 		GZIPInputStream gis;
 		StringBuilder sb = new StringBuilder();
-		
+
 		try
 		{
 			gis = new GZIPInputStream(bis);
 			BufferedReader br = new BufferedReader(new InputStreamReader(gis, "UTF-8"));
-			
+
 			String line;
-			
-			while((line = br.readLine()) != null) 
+
+			while ((line = br.readLine()) != null)
 			{
 				sb.append(line);
 			}
-			
+
 			br.close();
 			gis.close();
 			bis.close();
@@ -98,9 +97,10 @@ public class ZipUtil
 
 		return sb.toString();
 	}
-	
+
 	/**
 	 * De-compresses a GZip compressed byte array. Expects UTF-8 encoding.
+	 * 
 	 * @param compressedBytes The byte array to de-compress.
 	 * @return A byte array of the de-compressed data.
 	 */
@@ -108,19 +108,19 @@ public class ZipUtil
 	{
 		try
 		{
-		    Inflater decompressor = new Inflater();
-		    decompressor.setInput(compressedBytes);
-		    ByteArrayOutputStream bos = new ByteArrayOutputStream(compressedBytes.length);
-		    byte[] buf = new byte[1024];
-		    
-		    while (!decompressor.finished()) 
-		    {
-		      int count = decompressor.inflate(buf);
-		      bos.write(buf, 0, count);
-		    }
-		    
-		    bos.close();
-		    return bos.toByteArray();
+			Inflater decompressor = new Inflater();
+			decompressor.setInput(compressedBytes);
+			ByteArrayOutputStream bos = new ByteArrayOutputStream(compressedBytes.length);
+			byte[] buf = new byte[1024];
+
+			while (!decompressor.finished())
+			{
+				int count = decompressor.inflate(buf);
+				bos.write(buf, 0, count);
+			}
+
+			bos.close();
+			return bos.toByteArray();
 		}
 		catch (IOException e)
 		{
@@ -135,9 +135,10 @@ public class ZipUtil
 
 		return null;
 	}
-	
+
 	/**
 	 * Compresses the resource file to a local computer location.
+	 * 
 	 * @param resourceLocation The resource location to get data from.
 	 * @param fileLocation The file location to save the compressed data too.
 	 */
@@ -145,7 +146,7 @@ public class ZipUtil
 	{
 		InputStream stream = Prefab.class.getClassLoader().getResourceAsStream(resourceLocation);
 		String temp;
-		
+
 		try
 		{
 			temp = CharStreams.toString(new InputStreamReader(stream, Charsets.UTF_8.name()));
@@ -163,9 +164,10 @@ public class ZipUtil
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Compresses a string to a file location.
+	 * 
 	 * @param value The string to compress.
 	 * @param fileLocation The location of the file to write the compressed data too.
 	 */
@@ -187,9 +189,10 @@ public class ZipUtil
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * De-compresses a resource location into a string.
+	 * 
 	 * @param resourceLocation The resource location to de-compress.
 	 * @return The de-compressed string.
 	 */
@@ -198,7 +201,7 @@ public class ZipUtil
 		InputStream stream = Prefab.class.getClassLoader().getResourceAsStream(resourceLocation);
 		byte[] buf;
 		String returnValue = "";
-		
+
 		try
 		{
 			buf = ByteStreams.toByteArray(stream);
@@ -209,12 +212,13 @@ public class ZipUtil
 		{
 			e.printStackTrace();
 		}
-		
+
 		return returnValue;
 	}
 
 	/**
 	 * De-compresses a resource location to a buffered image.
+	 * 
 	 * @param resourceLocation The resource location of the image.
 	 * @return A buffered image for the resource location.
 	 */
@@ -223,13 +227,13 @@ public class ZipUtil
 		InputStream stream = Prefab.class.getClassLoader().getResourceAsStream(resourceLocation);
 		byte[] buf;
 		BufferedImage returnValue = null;
-		
+
 		try
 		{
 			buf = ByteStreams.toByteArray(stream);
 			buf = ZipUtil.decompressBytes(buf);
 			stream.close();
-			
+
 			// The file has been decompressed, convert those bytes to a BufferedImage.
 			returnValue = ImageIO.read(new ByteArrayInputStream(buf));
 		}
@@ -237,7 +241,7 @@ public class ZipUtil
 		{
 			e.printStackTrace();
 		}
-		
+
 		return returnValue;
 	}
 }

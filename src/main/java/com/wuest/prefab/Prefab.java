@@ -1,20 +1,8 @@
 package com.wuest.prefab;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map.Entry;
-
-import com.google.common.collect.ImmutableList;
 import com.wuest.prefab.Proxy.CommonProxy;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.event.RegistryEvent.MissingMappings;
-import net.minecraftforge.event.RegistryEvent.MissingMappings.Mapping;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -22,14 +10,10 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.registries.ForgeRegistry;
 
 /**
- * The starting point to load all of the blocks, items and other objects
- * associated with this mod.
+ * The starting point to load all of the blocks, items and other objects associated with this mod.
  * 
  * @author WuestMan
  *
@@ -68,7 +52,7 @@ public class Prefab
 	 * The network class used to send messages.
 	 */
 	public static SimpleNetworkWrapper network;
-	
+
 	/**
 	 * This is the configuration of the mod.
 	 */
@@ -81,6 +65,7 @@ public class Prefab
 
 	/**
 	 * The pre-initialization event.
+	 * 
 	 * @param event The event from forge.
 	 */
 	@EventHandler
@@ -91,6 +76,7 @@ public class Prefab
 
 	/**
 	 * The initialization event.
+	 * 
 	 * @param event The event from forge.
 	 */
 	@EventHandler
@@ -101,6 +87,7 @@ public class Prefab
 
 	/**
 	 * The post-initialization event.
+	 * 
 	 * @param event The event from forge.
 	 */
 	@EventHandler

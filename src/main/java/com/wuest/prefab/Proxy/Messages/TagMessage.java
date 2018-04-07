@@ -14,11 +14,11 @@ public class TagMessage implements IMessage
 {
 	protected NBTTagCompound tagMessage;
 
-	public TagMessage() 
+	public TagMessage()
 	{
 	}
 
-	public TagMessage(NBTTagCompound tagMessage) 
+	public TagMessage(NBTTagCompound tagMessage)
 	{
 		this.tagMessage = tagMessage;
 	}
@@ -34,7 +34,7 @@ public class TagMessage implements IMessage
 	}
 
 	@Override
-	public void fromBytes(ByteBuf buf) 
+	public void fromBytes(ByteBuf buf)
 	{
 		// This class is very useful in general for writing more complex
 		// objects.
@@ -42,7 +42,7 @@ public class TagMessage implements IMessage
 	}
 
 	@Override
-	public void toBytes(ByteBuf buf) 
+	public void toBytes(ByteBuf buf)
 	{
 		ByteBufUtils.writeTag(buf, this.tagMessage);
 	}

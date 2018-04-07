@@ -10,7 +10,7 @@ import net.minecraft.item.Item;
  * @author WuestMan
  *
  */
-public class ItemPileOfBricks extends Item 
+public class ItemPileOfBricks extends Item
 {
 	public ItemPileOfBricks(String name)
 	{
