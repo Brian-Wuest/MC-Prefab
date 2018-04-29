@@ -5,8 +5,8 @@
 	  "1.10.2-recommended": "1.1.1.16",
 	  "1.11.2-latest": "1.2.0.19",
 	  "1.11.2-recommended": "1.2.0.19",
-	  "1.12-latest": "1.3.0.19",
-	  "1.12-recommended": "1.3.0.19"
+	  "1.12-latest": "1.3.0.20",
+	  "1.12-recommended": "1.3.0.20"
   },
   "1.10.2": {
 	  "1.1.1.10": "New Stuff: Added [Ender Gateway] structure. Added [Phasic Block] and [Boundary Block]\nSome buildings can now be generated in mod-created dimensions.",
@@ -54,6 +54,7 @@
 	  "1.3.0.16": "Enhanced the Instant Bridge to have variable length, height and materials.",
 	  "1.3.0.17": "Added Earthen Home for the Moderate House item.",
 	  "1.3.0.18": "Added Jungle Tree House for the Moderate House item.",
-	  "1.3.0.19": "Removed ores from Acacia House basement. Fixed clear space for Earthen House."
+	  "1.3.0.19": "Removed ores from Acacia House basement. Fixed clear space for Earthen House.",
+	  "1.3.0.20": "Fixed an issue with the furnace being included in a starter house when configured not to do so."
   }
 }
