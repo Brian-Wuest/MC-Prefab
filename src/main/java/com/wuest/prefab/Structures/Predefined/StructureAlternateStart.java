@@ -136,7 +136,8 @@ public class StructureAlternateStart extends Structure
 
 		if ((!houseConfig.addBed && foundBlock instanceof BlockBed) || (!houseConfig.addChest && foundBlock instanceof BlockChest)
 				|| (!houseConfig.addTorches && foundBlock instanceof BlockTorch)
-				|| (!houseConfig.addCraftingTable && (foundBlock instanceof BlockWorkbench || foundBlock instanceof BlockFurnace)))
+				|| (!houseConfig.addCraftingTable && foundBlock instanceof BlockWorkbench)
+				|| (!houseConfig.addFurnace && foundBlock instanceof BlockFurnace))
 		{
 			// Don't place the block, returning true means that this has been
 			// "handled"

@@ -656,14 +656,6 @@ public class ModRegistry
 	}
 
 	/**
-	 * Static constructor for the mod registry.
-	 */
-	static
-	{
-		ModRegistry.RegisterModComponents();
-	}
-
-	/**
 	 * Gets the item from the ModItems collections.
 	 * 
 	 * @param <T> The type which extends item.

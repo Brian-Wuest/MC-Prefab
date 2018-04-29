@@ -43,6 +43,8 @@ public class CommonProxy implements IGuiHandler
 
 	public void preInit(FMLPreInitializationEvent event)
 	{
+		ModRegistry.RegisterModComponents();
+		
 		Prefab.network = NetworkRegistry.INSTANCE.newSimpleChannel("PrefabChannel");
 		Prefab.config = new Configuration(event.getSuggestedConfigurationFile());
 		Prefab.config.load();

@@ -266,7 +266,7 @@ public class GuiStartHouseChooser extends GuiTabScreen
 		}
 		else if (button == this.btnBuild)
 		{			
-			Prefab.network.sendToServer(new StructureTagMessage(houseConfiguration.WriteToNBTTagCompound(), EnumStructureConfiguration.StartHouse));
+			Prefab.network.sendToServer(new StructureTagMessage(this.houseConfiguration.WriteToNBTTagCompound(), EnumStructureConfiguration.StartHouse));
 			
 			this.mc.displayGuiScreen(null);
 		}
