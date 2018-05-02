@@ -1,185 +1,185 @@
-item.prefab:item_start_house.name=Стартовый Дом
+item.prefab:item_start_house.name=Стартовый дом
 item.prefab:item_warehouse.name=Склад
-item.prefab:item_chicken_coop.name=Кур�?тник
-item.prefab:item_produce_farm.name=Создание Фермы
-item.prefab:item_tree_farm.name=Ферма Деревьев
-item.prefab:item_fish_pond.name=Пруд Дл�? Разведени�? Рыбы
-item.prefab:item_compressed_chest.name=Сжатый Сундук
-item.prefab:item_pile_of_bricks.name=Груда Кирпичей
-item.prefab:item_pallet_of_bricks.name=Поддон Кирпичей
-item.prefab:item_advanced_warehouse.name=Ра�?ширенный Склад
-item.prefab:item_monster_masher.name=Мон�?тр Сердцеед
-item.prefab:item_warehouse_upgrade.name=Улучшение Дл�? Склада
-item.prefab:item_bundle_of_timber.name=Bundle of Timber
-item.prefab:item_horse_stable.name=Horse Stable
-item.prefab:item_nether_gate.name=Nether Gate
-item.prefab:item_modular_house.name=Modular House
-item.prefab:item_basic_structure.name=Basic Structure
-item.prefab:item_instant_bridge.name=Instant Bridge
-item.prefab:item_moderate_house.name=Дом умеренный
-item.prefab:item_bulldozer.name=бульдозер
+item.prefab:item_chicken_coop.name=Курятник
+item.prefab:item_produce_farm.name=Производственная ферма
+item.prefab:item_tree_farm.name=Ферма деревьев
+item.prefab:item_fish_pond.name=Рыбный пруд
+item.prefab:item_compressed_chest.name=Сжатый сундук
+item.prefab:item_pile_of_bricks.name=Груда кирпичей
+item.prefab:item_pallet_of_bricks.name=Поддон кирпичей
+item.prefab:item_advanced_warehouse.name=Расширенный склад
+item.prefab:item_monster_masher.name=Ферма монстров
+item.prefab:item_warehouse_upgrade.name=Улучшение для склада
+item.prefab:item_bundle_of_timber.name=Связка древесины
+item.prefab:item_horse_stable.name=Конюшня для лошади
+item.prefab:item_nether_gate.name=Врата в преисподню
+item.prefab:item_modular_house.name=Модульный дом
+item.prefab:item_basic_structure.name=Базовая структура
+item.prefab:item_instant_bridge.name=Мгновенный мост
+item.prefab:item_moderate_house.name=Умеренный дом
+item.prefab:item_bulldozer.name=Бульдозер
 
-item.prefab.advanced.chicken.coop=Advanced Chicken Coop
-item.prefab.advanced.horse.stable=Advanced Horse Stable
-item.prefab.barn=Barn
-item.prefab.machinery.tower=Machinery Tower
-item.prefab:item_string_of_lanterns.name=String of Lanterns
-item.prefab:item_coil_of_lanterns.name=Coil of Lanterns
-item.prefab.defense.bunker=Defense Bunker
-item.prefab:item_villager_houses.name=Villager Houses
-item.prefab.mineshaft.entrance=Mineshaft Entrance
-item.prefab.ender_gateway=Ender Gateway
-item.prefab.aqua_base=Aqua Base
-item.prefab.grassy_plain=Травянистые равнины
-item.prefab.magic_temple=Волшебный храм
-item.prefab.green_house=консерватория
-item.prefab.watch_tower=сторожевая башня
+item.prefab.advanced.chicken.coop=Расширенный курятник
+item.prefab.advanced.horse.stable=Расширенная конюшня для лошади
+item.prefab.barn=Амбар
+item.prefab.machinery.tower=Механическая башня
+item.prefab:item_string_of_lanterns.name=Ряд фонарей
+item.prefab:item_coil_of_lanterns.name=Катушка фонарей
+item.prefab.defense.bunker=Защитный бункер
+item.prefab:item_villager_houses.name=Деревенский дом
+item.prefab.mineshaft.entrance=Вход в шахту
+item.prefab.ender_gateway=Шлюз края
+item.prefab.aqua_base=Аква база
+item.prefab.grassy_plain=Травянистая равнина
+item.prefab.magic_temple=Магический храм
+item.prefab.green_house=Оранжерея
+item.prefab.watch_tower=Сторожевая башня
 item.prefab.welcome_center=Приветственный центр
- 
-tile.prefab:block_compressed_stone.block_compressed_stone.name=Сжатый Камень
-tile.prefab:block_compressed_stone.block_double_compressed_stone.name=Двойной Сжатый Камень
-tile.prefab:block_compressed_stone.block_triple_compressed_stone.name=Тройной Сжатый Камень
-tile.prefab:block_compressed_stone.block_compressed_glowstone.name=Сжатый Светокамень
-tile.prefab:block_compressed_stone.block_double_compressed_glowstone.name=Двойной Сжатый Светокамень
-tile.prefab:block_compressed_stone.block_compressed_dirt.name=Сжата Грязь
-tile.prefab:block_compressed_stone.block_double_compressed_dirt.name=Двойная Сжатая Грязь
-tile.prefab:block_drafter.name=Drafter
-tile.prefab:block_paper_lantern.name=Paper Lantern
-tile.prefab:block_compressed_obsidian.block_compressed_obsidian.name=Compressed Obsidian
-tile.prefab:block_compressed_obsidian.block_double_compressed_obsidian.name=Double Compressed Obsidian
-tile.prefab:block_phasing.name=Phasic Block
-tile.prefab:block_boundary.name=Boundary Block
-tile.prefab:block_glass_stairs.name=Стеклянная лестница
-tile.prefab:block_andesite_stairs.name=Андезитовая лестница
-tile.prefab:block_diorite_stairs.name=Диоритная лестница
-tile.prefab:block_granite_stairs.name=Гранитная лестница
+
+tile.prefab:block_compressed_stone.block_compressed_stone.name=Сжатый камень
+tile.prefab:block_compressed_stone.block_double_compressed_stone.name=Двойной сжатый камень
+tile.prefab:block_compressed_stone.block_triple_compressed_stone.name=Тройной сжатый камень
+tile.prefab:block_compressed_stone.block_compressed_glowstone.name=Сжатый светокамень
+tile.prefab:block_compressed_stone.block_double_compressed_glowstone.name=Двойной сжатый светокамень
+tile.prefab:block_compressed_stone.block_compressed_dirt.name=Сжатая земля
+tile.prefab:block_compressed_stone.block_double_compressed_dirt.name=Двойная сжатая земля
+tile.prefab:block_drafter.name=Составитель
+tile.prefab:block_paper_lantern.name=Бумажный фонарик
+tile.prefab:block_compressed_obsidian.block_compressed_obsidian.name=Сжатый обсидиан
+tile.prefab:block_compressed_obsidian.block_double_compressed_obsidian.name=Двойной сжатый обсидиан
+tile.prefab:block_phasing.name=Фазовый блок
+tile.prefab:block_boundary.name=Граничный блок
+tile.prefab:block_glass_stairs.name=Стеклянные ступеньки
+tile.prefab:block_andesite_stairs.name=Андезитовые ступеньки
+tile.prefab:block_diorite_stairs.name=Диоритовые ступеньки
+tile.prefab:block_granite_stairs.name=Гранитные ступеньки
 tile.prefab:block_half_glass_slab.name=Стеклянная плита
 tile.prefab:block_half_andesite_slab.name=Андезитовая плита
 tile.prefab:block_half_diorite_slab.name=Диоритовая плита
 tile.prefab:block_half_granite_slab.name=Гранитная плита
- 
-prefab.gui.fishpond.structure.facing=Примечание: е�?ли вы лицом к �?еверу, выберите Юг. Бела�? окантовка - �?то про�?то чтобы показать размер.
- 
-prefab.gui.producefarm.structure.size=Эта �?труктура размером в 32x32 блоков.
- 
+
+prefab.gui.fishpond.structure.facing=Примечание: если Вы лицом к северу, выберите юг. Белая окантовка - это просто, чтобы показать размер.
+prefab.gui.cleared_area=Очищенная область будет находиться в направлении, в которое смотрите.
+
+prefab.gui.producefarm.structure.size=Это структура в размере 32x32 блока.
+
 prefab.gui.starter.tab.general=Общие
-prefab.gui.starter.tab.config=Конфигураци�?
+prefab.gui.starter.tab.config=Конфиг-ия
 prefab.gui.starter.tab.block=Блоки/Размер
-prefab.gui.starter.style.label=Стиль Дома
-prefab.gui.starter.floortype.label=Пол Каменный тип
-prefab.gui.starter.ceilingtype.label=Потолок Каменный тип
-prefab.gui.starter.walltype.label=Стены Дерев�?нного Типа
-prefab.gui.starter.depth.label=Глубина Интерьера
-prefab.gui.starter.width.label=Ширина Интерьера
-prefab.gui.starter.basic.display=О�?новной Дом
-prefab.gui.starter.basic.notes=�?а�?траиваемый дом, но имеет очень про�?той дизайн.
-prefab.gui.starter.ranch.display=Стиль Ранчо
-prefab.gui.starter.ranch.notes=Дом �?проектирован в �?тиле ранчо.
-prefab.gui.starter.loft.display=Лофт Стиль
-prefab.gui.starter.loft.notes=Дом разработанный �? чердаком дл�? �?ундуков.
-prefab.gui.starter.hobbit.display=Стиль Хоббит
-prefab.gui.starter.hobbit.notes=Дом спроектированный под землёй, понравится Хоббитам.
-prefab.gui.starter.desert.display=Desert Style
-prefab.gui.starter.desert.notes=A house designed like a pyramid.
-prefab.gui.starter.snowy.display=Snowy Style
-prefab.gui.starter.snowy.notes=A house designed like an igloo.
- 
-prefab.gui.starter.addtorches=Добавить Факелы
-prefab.gui.starter.addbed=Добавить Кровать
-prefab.gui.starter.addcraftingtable=Добавить Стол Крафта
+prefab.gui.starter.style.label=Стиль дома
+prefab.gui.starter.floortype.label=Тип напольного блока
+prefab.gui.starter.ceilingtype.label=Тип потолочного блока
+prefab.gui.starter.walltype.label=Тип древесины стены
+prefab.gui.starter.depth.label=Внутренняя глубина
+prefab.gui.starter.width.label=Внутренняя ширина
+prefab.gui.starter.basic.display=Базовый дом
+prefab.gui.starter.basic.notes=Высоко настраиваемый дом, но имеет очень простой дизайн.
+prefab.gui.starter.ranch.display=Ранчо стиль
+prefab.gui.starter.ranch.notes=Дом, спроектированный в стиле ранчо.
+prefab.gui.starter.loft.display=Стиль лофта
+prefab.gui.starter.loft.notes=Дом, спроектированный с лофтовой зоной для сундуков.
+prefab.gui.starter.hobbit.display=Хоббит стиль
+prefab.gui.starter.hobbit.notes=Дом, спроектированный под землю, как у хоббитов.
+prefab.gui.starter.desert.display=Пустынный стиль
+prefab.gui.starter.desert.notes=Дом, спроектированный как пирамида.
+prefab.gui.starter.snowy.display=Снежный стиль
+prefab.gui.starter.snowy.notes=Дом, спроектированный как "иглу".
+
+prefab.gui.starter.addtorches=Добавить факелы
+prefab.gui.starter.addbed=Добавить кровать
+prefab.gui.starter.addcraftingtable=Добавить верстак
 prefab.gui.starter.addfurnace=Добавить печь
-prefab.gui.starter.addchest=Добавить Сундук
-prefab.gui.starter.addchestcontents=Добавить Содержимое В Сундук
-prefab.gui.starter.addfarm=Добавить Ферму
-prefab.gui.starter.floorstone=Потолок Каменный тип
-prefab.gui.starter.ceilingtype=Потолок Каменного Типа
-prefab.gui.starter.walltype=Стены Деревянного Типа
-prefab.gui.starter.ceilingflat=Плоский Потолок
-prefab.gui.starter.buildmineshaft=Построить Шахту
+prefab.gui.starter.addchest=Добавить сундук
+prefab.gui.starter.addchestcontents=Добавить содержимое в сундук
+prefab.gui.starter.addfarm=Добавить ферму
+prefab.gui.starter.floorstone=Тип напольного камня
+prefab.gui.starter.ceilingtype=Тип потолочного камня
+prefab.gui.starter.walltype=Тип древесины стены 
+prefab.gui.starter.ceilingflat=Плоский потолок
+prefab.gui.starter.buildmineshaft=Построить шахту
 
-prefab.gui.moderate_house.spruce=Еловая ель
-prefab.gui.moderate_house.acacia=Дом из акации
-prefab.gui.moderate_house.earthen=Земля Главная
-prefab.gui.moderate_house.jungle=Дом Джунглей
+prefab.gui.villager.house.flat=Плоская крыша
+prefab.gui.villager.house.angled=Угловая крыша
+prefab.gui.villager.house.fenced=Огороженная крыша
+prefab.gui.villager.blacksmith=Кузница
+prefab.gui.villager.long_house=Длинный дом
 
-prefab.gui.bulldozer_desc=Этот элемент очистит пространство 16x16x16 и предоставит капли из каждого блока.
-prefab.gui.cleared_area=Очищенная область будет в том направлении, в котором вы находитесь.
+prefab.gui.moderate_house.spruce=Домик из ели
+prefab.gui.moderate_house.acacia=Домик из акации
+prefab.gui.moderate_house.earthen=Домик из земли
+prefab.gui.moderate_house.jungle=Домик из тропического дерева
 
-prefab.gui.villager.house.flat=Flat Roof
-prefab.gui.villager.house.angled=Angled Roof
-prefab.gui.villager.house.fenced=Fenced Roof
-prefab.gui.villager.blacksmith=Blacksmith
-prefab.gui.villager.long_house=Long House
- 
-prefab.ceiling.block.type.stone=Каменный Кирпич
+prefab.gui.bulldozer_desc=Этот предмет очистит пространство 16x16x16 и обеспечит дропы из каждого блока.
+
+prefab.ceiling.block.type.stone=Каменный кирпич
 prefab.ceiling.block.type.brick=Кирпич
-prefab.ceiling.block.type.sand=Пе�?чаник
- 
+prefab.ceiling.block.type.sand=Песчаник
+
 prefab.wall.block.type.oak=Дуб
 prefab.wall.block.type.spruce=Ель
 prefab.wall.block.type.birch=Береза
-prefab.wall.block.type.jungle=Джунгли
-prefab.wall.block.type.acacia=�?каци�?
-prefab.wall.block.type.darkoak=Темный Дуб
- 
-prefab.gui.treefarm.facing=Фа�?ад Фермы Деревьев
-prefab.gui.treefarm.structure.size=Эта �?труктура размером в 38x38 блоков.
- 
-prefab.gui.structure.facing=Структура облицовочные
-prefab.gui.structure.glass=Цвет Стекла
+prefab.wall.block.type.jungle=Тропич. дерево
+prefab.wall.block.type.acacia=Акация
+prefab.wall.block.type.darkoak=Темный дуб
 
-prefab.gui.structure.facing.player=Note: If you're facing north, choose south so the structure is facing you. 
-prefab.gui.structure.block.clicked=В красной коробке на рисунке справа показывает какой блок вы щелкнули.
-prefab.gui.structure.door.facing=Примечание: Если вы столкнулись на север, юг, так что выбрать двери перед вами.
-prefab.gui.structure.nobuild=Невозможно построить структуру из-за защищенных блоков / областей или нерушимых блоков в этой области.
- 
+prefab.gui.treefarm.facing=Фасад фермы деревьев
+prefab.gui.treefarm.structure.size=Это структура в размере 38x38 блока.
+
+prefab.gui.structure.facing=Фасад структуры
+prefab.gui.structure.glass=Цвет стекла
+
+prefab.gui.structure.facing.player=Примечание: Если Вы обращены на север, выберите юг, чтобы структура была обращена к Вам.
+prefab.gui.structure.block.clicked=Красный прямоугольник на изображении справа показывает блок, на котором вы нажали.
+prefab.gui.structure.door.facing=Примечание: Если Вы обращены на север, выберите юг, чтобы двери были обращены к Вам.
+prefab.gui.structure.nobuild=Не удается построить структуру из-за охраняемых блоков/области или неразрывныех блоков в этой области.
+
 prefab.gui.button.build=Строить!
 prefab.gui.button.cancel=Отмена
-prefab.gui.button.preview=Preview!
+prefab.gui.button.preview=Предпросмотр!
 
-prefab.gui.tooltip.shift=Нажмите§9 shift §7для получения дополнительной информации.
-prefab.gui.tooltip.boundary_block=Первоначально невидимый, становится видимым при приеме сигнала красного камня.
-prefab.gui.tooltip.bulldozer_unpowered=Нужно проникнуться силой земли и магии. Попробуйте комбинировать с тройным сжатым камнем в наковальне.
-prefab.gui.tooltip.bulldozer_powered=Работайте с силой земли и магии, вы считаете, что большая площадь может быть очищена.
+prefab.gui.tooltip.shift=Нажмите§9 Shift §7для большей информации.
+prefab.gui.tooltip.boundary_block=Первоначально невидимый, становится видимым при получении сигнала красного камня.
+prefab.gui.tooltip.bulldozer_unpowered=Нужно проникнуться силой земли и магии. Попробуйте совместить с втройне обжатым камнем в наковальне.
+prefab.gui.tooltip.bulldozer_powered=Работайте с силой земли и магии, большая площадь может быть очищена.
 
-prefab.gui.preview.complete=Structure Complete!
-prefab.gui.preview.notice=Right-click on any block in the world to remove the preview.
- 
+prefab.gui.preview.complete=Структура завершена!
+prefab.gui.preview.notice=ПКМ на любом блоке в мире, чтобы удалить предпросмотр.
+
 prefab.gui.north=Север
-prefab.gui.east=Во�?ток
+prefab.gui.east=Восток
 prefab.gui.south=Юг
 prefab.gui.west=Запад
- 
+
 prefab.gui.white=Белый
 prefab.gui.orange=Оранжевый
 prefab.gui.magenta=Пурпурный
-prefab.gui.lightBlue=Светло-Голубой
-prefab.gui.yellow=Жёлтый
-prefab.gui.lime=лайм
+prefab.gui.lightBlue=Светло-синий
+prefab.gui.yellow=Желтый
+prefab.gui.lime=Лаймовый
 prefab.gui.pink=Розовый
 prefab.gui.gray=Серый
-prefab.gui.silver=Серебр�?нный
+prefab.gui.silver=Серебряный
 prefab.gui.cyan=Голубой
 prefab.gui.purple=Фиолетовый
 prefab.gui.blue=Синий
 prefab.gui.brown=Коричневый
-prefab.gui.green=Зелёный
-prefab.gui.red=Кра�?ный
-prefab.gui.black=Чёрный
+prefab.gui.green=Зеленый
+prefab.gui.red=Красный
+prefab.gui.black=Черный
 
 prefab.gui.bridge_length=Длина моста
 prefab.gui.bridge_material=Материал моста
 prefab.gui.bridge_include_roof=Включить крышу
 prefab.gui.bridge_interior_height=Внутренняя высота
 
-prefab.gui.material.cobble_stone=булыжник
+prefab.gui.material.cobble_stone=Булыжник
 prefab.gui.material.stone=Камень
 prefab.gui.material.stone_brick=Каменный кирпич
 prefab.gui.material.brick=Кирпич
-prefab.gui.material.chiseled_stone=Кирпичный каменный кирпич
-prefab.gui.material.granite=гранит
+prefab.gui.material.chiseled_stone=Точеный камень
+prefab.gui.material.granite=Гранит
 prefab.gui.material.smooth_granite=Гладкий гранит
-prefab.gui.material.andesite=андезит
-prefab.gui.material.smooth_andesite=Плавный андезит
-prefab.gui.material.diorite=диорит
+prefab.gui.material.andesite=Андезит
+prefab.gui.material.smooth_andesite=Гладкий андезит
+prefab.gui.material.diorite=Диорит
 prefab.gui.material.smooth_diorite=Гладкий диорит
