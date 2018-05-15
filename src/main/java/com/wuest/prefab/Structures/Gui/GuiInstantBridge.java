@@ -7,7 +7,7 @@ import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Gui.Controls.GuiCheckBox;
 import com.wuest.prefab.Structures.Config.InstantBridgeConfiguration;
-import com.wuest.prefab.Structures.Config.InstantBridgeConfiguration.EnumBridgeMaterial;
+import com.wuest.prefab.Structures.Config.InstantBridgeConfiguration.EnumStructureMaterial;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Structures.Predefined.StructureInstantBridge;
 import com.wuest.prefab.Structures.Render.StructureRenderHandler;
@@ -141,7 +141,7 @@ public class GuiInstantBridge extends GuiStructure
 		}
 		if (button == this.btnMaterialType)
 		{
-			this.configuration.bridgeMaterial = EnumBridgeMaterial.getMaterialByNumber(this.configuration.bridgeMaterial.getNumber() + 1);
+			this.configuration.bridgeMaterial = EnumStructureMaterial.getMaterialByNumber(this.configuration.bridgeMaterial.getNumber() + 1);
 			this.btnMaterialType.displayString = this.configuration.bridgeMaterial.getTranslatedName();
 		}
 		else if (button == this.btnVisualize)

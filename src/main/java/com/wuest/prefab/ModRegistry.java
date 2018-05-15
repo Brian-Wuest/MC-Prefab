@@ -72,6 +72,7 @@ import com.wuest.prefab.Structures.Items.ItemMonsterMasher;
 import com.wuest.prefab.Structures.Items.ItemNetherGate;
 import com.wuest.prefab.Structures.Items.ItemProduceFarm;
 import com.wuest.prefab.Structures.Items.ItemStartHouse;
+import com.wuest.prefab.Structures.Items.ItemStructurePart;
 import com.wuest.prefab.Structures.Items.ItemTreeFarm;
 import com.wuest.prefab.Structures.Items.ItemVillagerHouses;
 import com.wuest.prefab.Structures.Items.ItemWareHouse;
@@ -250,6 +251,11 @@ public class ModRegistry
 	 * The identifier for the instant bridge gui.
 	 */
 	public static final int GuiInstantBridge = 17;
+	
+	/**
+	 * The identifier for the structure part gui.
+	 */
+	public static final int GuiStructurePart = 18;
 
 	/**
 	 * This capability is used to save the locations where a player spawns when transferring dimensions.
@@ -465,6 +471,15 @@ public class ModRegistry
 	public static ItemInstantBridge InstantBridge()
 	{
 		return ModRegistry.GetItem(ItemInstantBridge.class);
+	}
+	
+	/**
+	 * The structure part registered item.
+	 * @return An instance of {@link ItemStructurePart}.
+	 */
+	public static ItemStructurePart StructurePart()
+	{
+		return ModRegistry.GetItem(ItemStructurePart.class);
 	}
 
 	/**
@@ -771,11 +786,11 @@ public class ModRegistry
 		ModRegistry.registerItem(new ItemHorseStable("item_horse_stable"));
 		ModRegistry.registerItem(new ItemNetherGate("item_nether_gate"));
 		ModRegistry.registerItem(new ItemInstantBridge("item_instant_bridge"));
-		// ModRegistry.registerItem(new ItemModularHouse("item_modular_house"));
 		ModRegistry.registerItem(new ItemStringOfLanterns("item_string_of_lanterns"));
 		ModRegistry.registerItem(new ItemCoilOfLanterns("item_coil_of_lanterns"));
 		ModRegistry.registerItem(new ItemModerateHouse("item_moderate_house"));
 		ModRegistry.registerItem(new ItemBulldozer("item_bulldozer"));
+		ModRegistry.registerItem(new ItemStructurePart("item_structure_part"));
 		// ModRegistry.registerItem(new ItemBogus("item_bogus"));
 
 		// Register all the basic structures here. The resource location is used for the item models and textures.
@@ -857,10 +872,6 @@ public class ModRegistry
 		ModRegistry.registerBlock(registeredDoubleGraniteSlab, false);
 
 		Blocks.STRUCTURE_BLOCK.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-
-		// BlockDrafter drafter = new BlockDrafter();
-		// ModRegistry.registerBlock(drafter);
-		// GameRegistry.registerTileEntity(TileEntityDrafter.class, "Drafter");
 	}
 
 	/**
