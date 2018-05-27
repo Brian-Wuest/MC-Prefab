@@ -72,12 +72,6 @@ public class StructurePart extends Structure
 
 		switch (configuration.style)
 		{
-			case Circle:
-			{
-				buildingBlocks = this.setupCircle(configuration, originalPos, materialState, facing);
-				break;
-			}
-
 			case Frame:
 			{
 				buildingBlocks = this.setupFrame(configuration, originalPos, materialState, facing);
@@ -101,6 +95,11 @@ public class StructurePart extends Structure
 				buildingBlocks = this.setupWall(configuration, originalPos, materialState, facing);
 				break;
 			}
+			
+			case DoorWay:
+			{
+				buildingBlocks = this.setupDoorway(configuration, originalPos, materialState, facing);
+			}
 
 			default:
 			{
@@ -111,34 +110,40 @@ public class StructurePart extends Structure
 		this.setBlocks(buildingBlocks);
 	}
 
-	private ArrayList<BuildBlock> setupCircle(StructurePartConfiguration configuration, BlockPos originalPos, IBlockState materialState, EnumFacing facing)
-	{
-		ArrayList<BuildBlock> buildingBlocks = new ArrayList<BuildBlock>();
-
-		return buildingBlocks;
-	}
-
 	private ArrayList<BuildBlock> setupFrame(StructurePartConfiguration configuration, BlockPos originalPos, IBlockState materialState, EnumFacing facing)
 	{
 		ArrayList<BuildBlock> buildingBlocks = new ArrayList<BuildBlock>();
+		
+		// Create the floor
+		
+		// Create the roof
+		
+		// Create the connectors.
 
 		return buildingBlocks;
 	}
-
+	
 	private ArrayList<BuildBlock> setupGate(StructurePartConfiguration configuration, BlockPos originalPos, IBlockState materialState, EnumFacing facing)
 	{
 		ArrayList<BuildBlock> buildingBlocks = new ArrayList<BuildBlock>();
 
-		BlockPos gatePos = null;
-		BlockPos gateOriginalPos = originalPos.west((int) (configuration.dimensions.width) / 2).up();
+		return buildingBlocks;
+	}
 
-		for (int i = 0; i < configuration.dimensions.height; i++)
+	private ArrayList<BuildBlock> setupDoorway(StructurePartConfiguration configuration, BlockPos originalPos, IBlockState materialState, EnumFacing facing)
+	{
+		ArrayList<BuildBlock> buildingBlocks = new ArrayList<BuildBlock>();
+
+		BlockPos gatePos = null;
+		BlockPos gateOriginalPos = originalPos.west((int) (configuration.generalWidth) / 2).up();
+
+		for (int i = 0; i < configuration.generalHeight; i++)
 		{
 			// Reset gate building position to the starting position up by the
 			// height counter.
 			gatePos = gateOriginalPos.up(i);
 
-			for (int j = 0; j < configuration.dimensions.width; j++)
+			for (int j = 0; j < configuration.generalWidth; j++)
 			{
 				if (gatePos.toLong() == originalPos.up().toLong()
 					|| gatePos.toLong() == originalPos.up(2).toLong())
@@ -191,15 +196,15 @@ public class StructurePart extends Structure
 	{
 		ArrayList<BuildBlock> buildingBlocks = new ArrayList<BuildBlock>();
 		BlockPos wallPos = null;
-		BlockPos wallOriginalPos = originalPos.west((int) (configuration.dimensions.width) / 2).up();
+		BlockPos wallOriginalPos = originalPos.west((int) (configuration.generalWidth) / 2).up();
 
-		for (int i = 0; i < configuration.dimensions.height; i++)
+		for (int i = 0; i < configuration.generalHeight; i++)
 		{
 			// Reset wall building position to the starting position up by the
 			// height counter.
 			wallPos = wallOriginalPos.up(i);
 
-			for (int j = 0; j < configuration.dimensions.width; j++)
+			for (int j = 0; j < configuration.generalWidth; j++)
 			{
 				// j is the north/south counter.
 				buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), wallPos, originalPos));

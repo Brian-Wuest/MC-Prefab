@@ -24,9 +24,14 @@ public class StructurePartConfiguration extends StructureConfiguration
 	public EnumStructureMaterial partMaterial;
 
 	/**
-	 * The wall\Gate dimension chosen by the player.
+	 * The height for this non-stairs style.
 	 */
-	public EnumDimensions dimensions;
+	public int generalWidth;
+
+	/**
+	 * The width for this non-stairs style.
+	 */
+	public int generalHeight;
 
 	/**
 	 * The width of stairs when the style is set to Stairs.
@@ -52,10 +57,11 @@ public class StructurePartConfiguration extends StructureConfiguration
 		super.Initialize();
 
 		this.partMaterial = EnumStructureMaterial.Cobblestone;
-		this.dimensions = EnumDimensions.ThreeXThree;
 		this.style = EnumStyle.Wall;
 		this.stairHeight = 3;
 		this.stairWidth = 2;
+		this.generalHeight = 3;
+		this.generalWidth = 3;
 	}
 
 	/**
@@ -102,10 +108,11 @@ public class StructurePartConfiguration extends StructureConfiguration
 	protected NBTTagCompound CustomWriteToNBTTagCompound(NBTTagCompound tag)
 	{
 		tag.setString("material", this.partMaterial.name());
-		tag.setString("dimensions", this.dimensions.name());
 		tag.setString("style", this.style.name());
 		tag.setInteger("stair_height", this.stairHeight);
 		tag.setInteger("stair_width", this.stairWidth);
+		tag.setInteger("general_height", this.generalHeight);
+		tag.setInteger("general_width", this.generalWidth);
 		return tag;
 	}
 
@@ -120,80 +127,32 @@ public class StructurePartConfiguration extends StructureConfiguration
 	{
 		if (messageTag.hasKey("material"))
 		{
-			((StructurePartConfiguration)config).partMaterial = EnumStructureMaterial.valueOf(messageTag.getString("material"));
-		}
-
-		if (messageTag.hasKey("dimensions"))
-		{
-			((StructurePartConfiguration)config).dimensions = EnumDimensions.valueOf(messageTag.getString("dimensions"));
+			((StructurePartConfiguration) config).partMaterial = EnumStructureMaterial.valueOf(messageTag.getString("material"));
 		}
 
 		if (messageTag.hasKey("style"))
 		{
-			((StructurePartConfiguration)config).style = EnumStyle.valueOf(messageTag.getString("style"));
+			((StructurePartConfiguration) config).style = EnumStyle.valueOf(messageTag.getString("style"));
 		}
 
 		if (messageTag.hasKey("stair_height"))
 		{
-			((StructurePartConfiguration)config).stairHeight = messageTag.getInteger("stair_height");
+			((StructurePartConfiguration) config).stairHeight = messageTag.getInteger("stair_height");
 		}
 
 		if (messageTag.hasKey("stair_width"))
 		{
-			((StructurePartConfiguration)config).stairWidth = messageTag.getInteger("stair_width");
-		}
-	}
-
-	/**
-	 * 
-	 * @author WuestMan
-	 *
-	 */
-	public enum EnumDimensions
-	{
-		ThreeXThree("3x3", 3, 3), FivexFive("5x5", 5, 5), SevenxSeven("7x7", 7, 7), NinexNine("9x9", 9, 9);
-
-		public final String diaplayName;
-		public final int height;
-		public final int width;
-
-		private EnumDimensions(String displayName, int height, int width)
-		{
-			this.height = height;
-			this.width = width;
-			this.diaplayName = displayName;
+			((StructurePartConfiguration) config).stairWidth = messageTag.getInteger("stair_width");
 		}
 
-		@Override
-		public String toString()
+		if (messageTag.hasKey("general_height"))
 		{
-			return this.diaplayName;
+			((StructurePartConfiguration) config).generalHeight = messageTag.getInteger("general_height");
 		}
-		
-		public static EnumDimensions getByDisplayName(String displayName)
+
+		if (messageTag.hasKey("general_width"))
 		{
-			for (EnumDimensions dimension : EnumDimensions.values())
-			{
-				if (dimension.diaplayName.equals(displayName))
-				{
-					return dimension;
-				}
-			}
-			
-			return EnumDimensions.ThreeXThree;
-		}
-		
-		public static EnumDimensions getByOrdinal(int ordinal)
-		{
-			for (EnumDimensions dimension : EnumDimensions.values())
-			{
-				if (dimension.ordinal() == ordinal)
-				{
-					return dimension;
-				}
-			}
-			
-			return EnumDimensions.ThreeXThree;
+			((StructurePartConfiguration) config).generalWidth = messageTag.getInteger("general_width");
 		}
 	}
 
@@ -204,20 +163,24 @@ public class StructurePartConfiguration extends StructureConfiguration
 	 */
 	public enum EnumStyle
 	{
-		Wall("prefab.gui.part_style.wall"), Gate("prefab.gui.part_style.gate"), Frame("prefab.gui.part_style.frame"), Stairs("prefab.gui.part_style.stairs"), Circle("prefab.gui.part_style.circle");
+		Wall("prefab.gui.part_style.wall"),
+		Gate("prefab.gui.part_style.gate"),
+		Frame("prefab.gui.part_style.frame"),
+		Stairs("prefab.gui.part_style.stairs"),
+		DoorWay("prefab.gui.part_style.door_way");
 
 		private String translateKey = "";
-		
+
 		private EnumStyle(String translateKey)
 		{
 			this.translateKey = translateKey;
 		}
-		
+
 		public String getTranslateKey()
 		{
 			return this.translateKey;
 		}
-		
+
 		public static EnumStyle getByOrdinal(int ordinal)
 		{
 			for (EnumStyle dimension : EnumStyle.values())
@@ -227,7 +190,7 @@ public class StructurePartConfiguration extends StructureConfiguration
 					return dimension;
 				}
 			}
-			
+
 			return EnumStyle.Wall;
 		}
 	}

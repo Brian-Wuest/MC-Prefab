@@ -190,3 +190,11 @@ prefab.gui.part_style.gate=Ворота
 prefab.gui.part_style.frame=Рамка
 prefab.gui.part_style.stairs=Лестница
 prefab.gui.part_style.circle=Круг
+prefab.gui.part_style.door_way=дверной проем
+
+prefab.gui.style=Стиль
+prefab.gui.material=материал
+prefab.gui.height=Высота
+prefab.gui.width=Ширина
+prefab.gui.stairs_height=Высота лестницы
+prefab.gui.stairs_width=Ширина лестницы

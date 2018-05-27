@@ -190,3 +190,11 @@ prefab.gui.part_style.gate=Portón
 prefab.gui.part_style.frame=Marco
 prefab.gui.part_style.stairs=Escalera
 prefab.gui.part_style.circle=Circulo
+prefab.gui.part_style.door_way=Puerta
+
+prefab.gui.style=Estilo
+prefab.gui.material=Material
+prefab.gui.height=Altura
+prefab.gui.width=Anchura
+prefab.gui.stairs_height=Altura de las escaleras
+prefab.gui.stairs_width=Ancho de la escalera

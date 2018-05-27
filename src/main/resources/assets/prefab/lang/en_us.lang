@@ -190,3 +190,11 @@ prefab.gui.part_style.gate=Gate
 prefab.gui.part_style.frame=Frame
 prefab.gui.part_style.stairs=Stairs
 prefab.gui.part_style.circle=Circle
+prefab.gui.part_style.door_way=Doorway
+
+prefab.gui.style=Style
+prefab.gui.material=Material
+prefab.gui.height=Height
+prefab.gui.width=Width
+prefab.gui.stairs_height=Stairs Height
+prefab.gui.stairs_width=Stairs Width

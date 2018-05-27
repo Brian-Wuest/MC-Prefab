@@ -316,6 +316,27 @@ public class GuiLangKeys
 	
 	@Unlocalized(name = "Circle")
 	public static final String CIRCLE = "prefab.gui.part_style.circle";
+	
+	@Unlocalized(name = "Style")
+	public static final String STYLE = "prefab.gui.style";
+	
+	@Unlocalized(name = "Material")
+	public static final String MATERIAL = "prefab.gui.material";
+	
+	@Unlocalized(name = "Height")
+	public static final String HEIGHT = "prefab.gui.height";
+	
+	@Unlocalized(name = "Width")
+	public static final String WIDTH = "prefab.gui.width";
+	
+	@Unlocalized(name = "Stairs Height")
+	public static final String STAIRS_HEIGHT = "prefab.gui.stairs_height";
+	
+	@Unlocalized(name = "Stairs Width")
+	public static final String STAIRS_WIDTH = "prefab.gui.stairs_width";
+	
+	@Unlocalized(name = "Doorway")
+	public static final String DOOR_WAY = "prefab.gui.part_style.door_way";
 
 	/**
 	 * Translates the specified language key for the current language.
