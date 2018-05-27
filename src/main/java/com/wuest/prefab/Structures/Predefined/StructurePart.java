@@ -4,15 +4,14 @@ import java.util.ArrayList;
 
 import com.wuest.prefab.Structures.Base.BuildBlock;
 import com.wuest.prefab.Structures.Base.BuildClear;
-import com.wuest.prefab.Structures.Base.BuildingMethods;
 import com.wuest.prefab.Structures.Base.Structure;
-import com.wuest.prefab.Structures.Config.InstantBridgeConfiguration;
 import com.wuest.prefab.Structures.Config.StructureConfiguration;
 import com.wuest.prefab.Structures.Config.StructurePartConfiguration;
 
+import net.minecraft.block.BlockDoor;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -130,6 +129,37 @@ public class StructurePart extends Structure
 	{
 		ArrayList<BuildBlock> buildingBlocks = new ArrayList<BuildBlock>();
 
+		BlockPos gatePos = null;
+		BlockPos gateOriginalPos = originalPos.west((int) (configuration.dimensions.width) / 2).up();
+
+		for (int i = 0; i < configuration.dimensions.height; i++)
+		{
+			// Reset gate building position to the starting position up by the
+			// height counter.
+			gatePos = gateOriginalPos.up(i);
+
+			for (int j = 0; j < configuration.dimensions.width; j++)
+			{
+				if (gatePos.toLong() == originalPos.up().toLong()
+					|| gatePos.toLong() == originalPos.up(2).toLong())
+				{
+					gatePos = gatePos.offset(facing.rotateYCCW());
+					continue;
+				}
+				
+				// j is the north/south counter.
+				buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), gatePos, originalPos));
+
+				gatePos = gatePos.offset(facing.rotateYCCW());
+			}
+		}
+		
+		BlockDoor door = Blocks.OAK_DOOR;
+		BuildBlock doorBlockBottom = Structure.createBuildBlockFromBlockState(door.getDefaultState(), door, originalPos.up(), originalPos);
+		BuildBlock doorBlockTop = Structure.createBuildBlockFromBlockState(door.getDefaultState().withProperty(BlockDoor.HALF, BlockDoor.EnumDoorHalf.UPPER), door, originalPos.up(2), originalPos);
+		doorBlockBottom.setSubBlock(doorBlockTop);
+		buildingBlocks.add(doorBlockBottom);
+		
 		return buildingBlocks;
 	}
 
