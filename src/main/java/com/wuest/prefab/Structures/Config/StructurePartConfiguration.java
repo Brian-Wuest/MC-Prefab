@@ -120,27 +120,27 @@ public class StructurePartConfiguration extends StructureConfiguration
 	{
 		if (messageTag.hasKey("material"))
 		{
-			this.partMaterial = EnumStructureMaterial.valueOf(messageTag.getString("material"));
+			((StructurePartConfiguration)config).partMaterial = EnumStructureMaterial.valueOf(messageTag.getString("material"));
 		}
 
 		if (messageTag.hasKey("dimensions"))
 		{
-			this.dimensions = EnumDimensions.valueOf(messageTag.getString("dimensions"));
+			((StructurePartConfiguration)config).dimensions = EnumDimensions.valueOf(messageTag.getString("dimensions"));
 		}
 
 		if (messageTag.hasKey("style"))
 		{
-			this.style = EnumStyle.valueOf(messageTag.getString("style"));
+			((StructurePartConfiguration)config).style = EnumStyle.valueOf(messageTag.getString("style"));
 		}
 
 		if (messageTag.hasKey("stair_height"))
 		{
-			this.stairHeight = messageTag.getInteger("stair_height");
+			((StructurePartConfiguration)config).stairHeight = messageTag.getInteger("stair_height");
 		}
 
 		if (messageTag.hasKey("stair_width"))
 		{
-			this.stairWidth = messageTag.getInteger("stair_witdth");
+			((StructurePartConfiguration)config).stairWidth = messageTag.getInteger("stair_width");
 		}
 	}
 
@@ -169,6 +169,32 @@ public class StructurePartConfiguration extends StructureConfiguration
 		{
 			return this.diaplayName;
 		}
+		
+		public static EnumDimensions getByDisplayName(String displayName)
+		{
+			for (EnumDimensions dimension : EnumDimensions.values())
+			{
+				if (dimension.diaplayName.equals(displayName))
+				{
+					return dimension;
+				}
+			}
+			
+			return EnumDimensions.ThreeXThree;
+		}
+		
+		public static EnumDimensions getByOrdinal(int ordinal)
+		{
+			for (EnumDimensions dimension : EnumDimensions.values())
+			{
+				if (dimension.ordinal() == ordinal)
+				{
+					return dimension;
+				}
+			}
+			
+			return EnumDimensions.ThreeXThree;
+		}
 	}
 
 	/**
@@ -178,10 +204,31 @@ public class StructurePartConfiguration extends StructureConfiguration
 	 */
 	public enum EnumStyle
 	{
-		Wall(), Gate(), Frame(), Stairs(), Circle();
+		Wall("prefab.gui.part_style.wall"), Gate("prefab.gui.part_style.gate"), Frame("prefab.gui.part_style.frame"), Stairs("prefab.gui.part_style.stairs"), Circle("prefab.gui.part_style.circle");
 
-		private EnumStyle()
+		private String translateKey = "";
+		
+		private EnumStyle(String translateKey)
 		{
+			this.translateKey = translateKey;
+		}
+		
+		public String getTranslateKey()
+		{
+			return this.translateKey;
+		}
+		
+		public static EnumStyle getByOrdinal(int ordinal)
+		{
+			for (EnumStyle dimension : EnumStyle.values())
+			{
+				if (dimension.ordinal() == ordinal)
+				{
+					return dimension;
+				}
+			}
+			
+			return EnumStyle.Wall;
 		}
 	}
 }

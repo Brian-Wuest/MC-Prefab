@@ -301,6 +301,21 @@ public class GuiLangKeys
 
 	@Unlocalized(name = "Interior Height")
 	public static final String INTERIOR_HEIGHT = "prefab.gui.bridge_interior_height";
+	
+	@Unlocalized(name = "Wall")
+	public static final String WALL = "prefab.gui.part_style.wall";
+	
+	@Unlocalized(name = "Gate")
+	public static final String GATE = "prefab.gui.part_style.gate";
+	
+	@Unlocalized(name = "Frame")
+	public static final String FRAME = "prefab.gui.part_style.frame";
+	
+	@Unlocalized(name = "Stairs")
+	public static final String STAIRS = "prefab.gui.part_style.stairs";
+	
+	@Unlocalized(name = "Circle")
+	public static final String CIRCLE = "prefab.gui.part_style.circle";
 
 	/**
 	 * Translates the specified language key for the current language.

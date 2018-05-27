@@ -18,6 +18,7 @@ item.prefab:item_basic_structure.name=Structure de base
 item.prefab:item_instant_bridge.name=Pont instantané
 item.prefab:item_moderate_house.name=Maison modérée
 item.prefab:item_bulldozer.name=Bulldozer
+item.prefab:item_structure_part.name=Partie de la structure
 
 item.prefab.advanced.chicken.coop=Collier de poulet avancé
 item.prefab.advanced.horse.stable=École avancée de chevaux
@@ -183,3 +184,9 @@ prefab.gui.material.andesite=Andésite
 prefab.gui.material.smooth_andesite=Andésite lisse
 prefab.gui.material.diorite=Diorite
 prefab.gui.material.smooth_diorite=Diorite lisse
+
+prefab.gui.part_style.wall=Mur
+prefab.gui.part_style.gate=Porte
+prefab.gui.part_style.frame=Cadre
+prefab.gui.part_style.stairs=Escaliers
+prefab.gui.part_style.circle=Cercle

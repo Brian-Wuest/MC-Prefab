@@ -56,6 +56,7 @@ import com.wuest.prefab.Structures.Gui.GuiMonsterMasher;
 import com.wuest.prefab.Structures.Gui.GuiNetherGate;
 import com.wuest.prefab.Structures.Gui.GuiProduceFarm;
 import com.wuest.prefab.Structures.Gui.GuiStartHouseChooser;
+import com.wuest.prefab.Structures.Gui.GuiStructurePart;
 import com.wuest.prefab.Structures.Gui.GuiTreeFarm;
 import com.wuest.prefab.Structures.Gui.GuiVillaerHouses;
 import com.wuest.prefab.Structures.Gui.GuiWareHouse;
@@ -1031,6 +1032,7 @@ public class ModRegistry
 		ModRegistry.ModGuis.put(ModRegistry.GuiModerateHouse, GuiModerateHouse.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiBulldozer, GuiBulldozer.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiInstantBridge, GuiInstantBridge.class);
+		ModRegistry.ModGuis.put(ModRegistry.GuiStructurePart,  GuiStructurePart.class);
 	}
 
 	/**

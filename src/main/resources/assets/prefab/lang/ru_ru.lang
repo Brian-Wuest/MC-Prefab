@@ -18,6 +18,7 @@ item.prefab:item_basic_structure.name=Базовая структура
 item.prefab:item_instant_bridge.name=Мгновенный мост
 item.prefab:item_moderate_house.name=Умеренный дом
 item.prefab:item_bulldozer.name=Бульдозер
+item.prefab:item_structure_part.name=Составная часть
 
 item.prefab.advanced.chicken.coop=Расширенный курятник
 item.prefab.advanced.horse.stable=Расширенная конюшня для лошади
@@ -183,3 +184,9 @@ prefab.gui.material.andesite=Андезит
 prefab.gui.material.smooth_andesite=Гладкий андезит
 prefab.gui.material.diorite=Диорит
 prefab.gui.material.smooth_diorite=Гладкий диорит
+
+prefab.gui.part_style.wall=стена
+prefab.gui.part_style.gate=Ворота
+prefab.gui.part_style.frame=Рамка
+prefab.gui.part_style.stairs=Лестница
+prefab.gui.part_style.circle=Круг

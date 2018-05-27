@@ -34,6 +34,7 @@ public class StructurePart extends Structure
 
 	/**
 	 * Creates an instance of the structure after reading from a resource location and converting it from JSON.
+	 * 
 	 * @return A new instance of this class.
 	 */
 	public static StructurePart CreateInstance()
@@ -41,7 +42,7 @@ public class StructurePart extends Structure
 		StructurePart structure = new StructurePart();
 		return structure;
 	}
-	
+
 	/**
 	 * This is the main building method for this structure.
 	 * 
@@ -55,21 +56,21 @@ public class StructurePart extends Structure
 	@Override
 	public boolean BuildStructure(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth, EntityPlayer player)
 	{
-		StructurePartConfiguration specificConfig = (StructurePartConfiguration)configuration;
-		
+		StructurePartConfiguration specificConfig = (StructurePartConfiguration) configuration;
+
 		this.setClearSpace(new BuildClear());
-		
+
 		this.setupStructure(specificConfig, originalPos);
-		
+
 		return super.BuildStructure(specificConfig, world, originalPos, assumedNorth, player);
 	}
-	
+
 	private void setupStructure(StructurePartConfiguration configuration, BlockPos originalPos)
 	{
 		ArrayList<BuildBlock> buildingBlocks = new ArrayList<BuildBlock>();
 		IBlockState materialState = configuration.partMaterial.getBlockType();
 		EnumFacing facing = EnumFacing.SOUTH;
-		
+
 		switch (configuration.style)
 		{
 			case Circle:
@@ -77,88 +78,106 @@ public class StructurePart extends Structure
 				buildingBlocks = this.setupCircle(configuration, originalPos, materialState, facing);
 				break;
 			}
-				
+
 			case Frame:
 			{
 				buildingBlocks = this.setupFrame(configuration, originalPos, materialState, facing);
 				break;
 			}
-			
+
 			case Gate:
 			{
 				buildingBlocks = this.setupGate(configuration, originalPos, materialState, facing);
 				break;
 			}
-			
+
 			case Stairs:
 			{
 				buildingBlocks = this.setupStairs(configuration, originalPos, materialState, facing);
 				break;
 			}
-			
+
 			case Wall:
 			{
 				buildingBlocks = this.setupWall(configuration, originalPos, materialState, facing);
 				break;
 			}
-			
+
 			default:
 			{
 				break;
 			}
 		}
-		
+
 		this.setBlocks(buildingBlocks);
 	}
-	
+
 	private ArrayList<BuildBlock> setupCircle(StructurePartConfiguration configuration, BlockPos originalPos, IBlockState materialState, EnumFacing facing)
 	{
 		ArrayList<BuildBlock> buildingBlocks = new ArrayList<BuildBlock>();
-		
+
 		return buildingBlocks;
 	}
-	
+
 	private ArrayList<BuildBlock> setupFrame(StructurePartConfiguration configuration, BlockPos originalPos, IBlockState materialState, EnumFacing facing)
 	{
 		ArrayList<BuildBlock> buildingBlocks = new ArrayList<BuildBlock>();
-		
+
 		return buildingBlocks;
 	}
-	
+
 	private ArrayList<BuildBlock> setupGate(StructurePartConfiguration configuration, BlockPos originalPos, IBlockState materialState, EnumFacing facing)
 	{
 		ArrayList<BuildBlock> buildingBlocks = new ArrayList<BuildBlock>();
-		
+
 		return buildingBlocks;
 	}
-	
+
 	private ArrayList<BuildBlock> setupStairs(StructurePartConfiguration configuration, BlockPos originalPos, IBlockState materialState, EnumFacing facing)
 	{
 		ArrayList<BuildBlock> buildingBlocks = new ArrayList<BuildBlock>();
-		
+		BlockPos stepPos = null;
+		BlockPos stepOriginalPos = originalPos.west((int) (configuration.stairWidth - .2) / 2).up();
+
+		for (int i = 0; i < configuration.stairHeight; i++)
+		{
+			// Reset step building position to the starting position up by the
+			// height counter.
+			stepPos = stepOriginalPos.up(i).north(i);
+
+			for (int j = 0; j < configuration.stairWidth; j++)
+			{
+				// j is the north/south counter.
+				buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), stepPos, originalPos));
+
+				stepPos = stepPos.offset(facing.rotateYCCW());
+			}
+		}
+
 		return buildingBlocks;
 	}
-	
+
 	private ArrayList<BuildBlock> setupWall(StructurePartConfiguration configuration, BlockPos originalPos, IBlockState materialState, EnumFacing facing)
 	{
 		ArrayList<BuildBlock> buildingBlocks = new ArrayList<BuildBlock>();
 		BlockPos wallPos = null;
-		
+		BlockPos wallOriginalPos = originalPos.west((int) (configuration.dimensions.width) / 2).up();
+
 		for (int i = 0; i < configuration.dimensions.height; i++)
 		{
 			// Reset wall building position to the starting position up by the
 			// height counter.
-			wallPos = originalPos.up(i);
+			wallPos = wallOriginalPos.up(i);
 
 			for (int j = 0; j < configuration.dimensions.width; j++)
 			{
 				// j is the north/south counter.
 				buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), wallPos, originalPos));
 
-				wallPos = wallPos.offset(facing);
+				wallPos = wallPos.offset(facing.rotateYCCW());
 			}
 		}
-		
+
 		return buildingBlocks;
 	}
 }

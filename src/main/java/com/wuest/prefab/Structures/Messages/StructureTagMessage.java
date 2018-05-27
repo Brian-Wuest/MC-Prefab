@@ -14,6 +14,7 @@ import com.wuest.prefab.Structures.Config.MonsterMasherConfiguration;
 import com.wuest.prefab.Structures.Config.NetherGateConfiguration;
 import com.wuest.prefab.Structures.Config.ProduceFarmConfiguration;
 import com.wuest.prefab.Structures.Config.StructureConfiguration;
+import com.wuest.prefab.Structures.Config.StructurePartConfiguration;
 import com.wuest.prefab.Structures.Config.TreeFarmConfiguration;
 import com.wuest.prefab.Structures.Config.VillagerHouseConfiguration;
 import com.wuest.prefab.Structures.Config.WareHouseConfiguration;
@@ -102,7 +103,8 @@ public class StructureTagMessage extends TagMessage
 		WareHouse(12, new WareHouseConfiguration()),
 		ModerateHouse(13, new ModerateHouseConfiguration()),
 		Bulldozer(14, new BulldozerConfiguration()),
-		InstantBridge(15, new InstantBridgeConfiguration());
+		InstantBridge(15, new InstantBridgeConfiguration()),
+		Parts(16, new StructurePartConfiguration());
 		
 		private <T extends StructureConfiguration> EnumStructureConfiguration(int identifier, T structureConfig)
 		{
