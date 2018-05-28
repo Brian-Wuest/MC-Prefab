@@ -8,6 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -57,7 +58,7 @@ public class StructurePartConfiguration extends StructureConfiguration
 		super.Initialize();
 
 		this.partMaterial = EnumStructureMaterial.Cobblestone;
-		this.style = EnumStyle.Wall;
+		this.style = EnumStyle.DoorWay;
 		this.stairHeight = 3;
 		this.stairWidth = 2;
 		this.generalHeight = 3;
@@ -163,22 +164,23 @@ public class StructurePartConfiguration extends StructureConfiguration
 	 */
 	public enum EnumStyle
 	{
-		Wall("prefab.gui.part_style.wall"),
-		Gate("prefab.gui.part_style.gate"),
-		Frame("prefab.gui.part_style.frame"),
-		Stairs("prefab.gui.part_style.stairs"),
-		DoorWay("prefab.gui.part_style.door_way");
+		DoorWay("prefab.gui.part_style.door_way", "textures/gui/doorway_topdown.png", 164, 141),
+		Frame("prefab.gui.part_style.frame", "textures/gui/frame_topdown.png", 167, 145),
+		Gate("prefab.gui.part_style.gate", "textures/gui/gate_topdown.png", 162, 141),
+		Stairs("prefab.gui.part_style.stairs", "textures/gui/stairs_topdown.png", 142, 169),
+		Wall("prefab.gui.part_style.wall", "textures/gui/wall_topdown.png", 166, 154);
 
-		private String translateKey = "";
+		public final String translateKey;
+		public final String resourceLocation;
+		public final int imageWidth;
+		public final int imageHeight;
 
-		private EnumStyle(String translateKey)
+		private EnumStyle(String translateKey, String resourceLocation, int imageWidth, int imageHeight)
 		{
 			this.translateKey = translateKey;
-		}
-
-		public String getTranslateKey()
-		{
-			return this.translateKey;
+			this.resourceLocation = resourceLocation;
+			this.imageHeight = imageHeight;
+			this.imageWidth = imageWidth;
 		}
 
 		public static EnumStyle getByOrdinal(int ordinal)
@@ -191,7 +193,17 @@ public class StructurePartConfiguration extends StructureConfiguration
 				}
 			}
 
-			return EnumStyle.Wall;
+			return EnumStyle.DoorWay;
+		}
+		
+		public ResourceLocation getPictureLocation()
+		{
+			if (this.resourceLocation != null)
+			{
+				return new ResourceLocation("prefab", this.resourceLocation);
+			}
+			
+			return null; 
 		}
 	}
 }

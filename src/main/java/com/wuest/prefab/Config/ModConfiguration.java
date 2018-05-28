@@ -141,6 +141,7 @@ public class ModConfiguration
 	public static String moderateHouseKey = "Moderate House";
 	public static String watchTowerKey = "Watch Tower";
 	public static String bulldozerKey = "Bulldozer";
+	public static String structurePartKey = "StructurePart";
 
 	public static String[] recipeKeys = new String[]
 	{ compressedStoneKey, compressedGlowStoneKey, compressedDirteKey, compressedChestKey, pileOfBricksKey, warehouseKey, produceFarmKey, treeFarmKey,
@@ -148,7 +149,7 @@ public class ModConfiguration
 		advancedChickenCoopKey, advancedHorseStableKey, barnKey, machineryTowerKey, defenseBunkerKey, mineshaftEntranceKey, enderGatewayKey, magicTempleKey,
 		instantBridgeKey, paperLanternKey, compressedObsidianKey, villagerHousesKey, phasicBlockKey, smartGlassKey, greenHouseKey, startingHouseKey,
 		glassStairsKey, glassSlabsKey, andesiteStairsKey, andesiteSlabsKey, dioriteStairsKey, dioriteSlabKey, graniteStairsKey, grantiteSlabKey,
-		moderateHouseKey, grassyPlainsKey, aquaBaseKey, watchTowerKey, bulldozerKey };
+		moderateHouseKey, grassyPlainsKey, aquaBaseKey, watchTowerKey, bulldozerKey, structurePartKey };
 
 	// Version Check Message Info
 	public String versionMessage = "";

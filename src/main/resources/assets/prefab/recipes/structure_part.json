@@ -1,0 +1,34 @@
+{
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "StructurePart"
+        }
+    ],
+    "type": "minecraft:crafting_shaped",
+    "group": "StructurePart",
+    "pattern": [
+        "ccc",
+        "bbc",
+        "abc"
+    ],
+    "key": {
+        "a": {
+            "type": "forge:ore_dict",
+            "ore": "compressedStone2"
+        },
+        "b": {
+            "type": "forge:ore_dict",
+            "ore": "compressedStone1"
+        },
+        "c": {
+            "item": "minecraft:cobblestone",
+            "data": 32767
+        }
+    },
+    "result": {
+        "item": "prefab:item_structure_part",
+        "data": 0,
+        "count": 1
+    }
+}

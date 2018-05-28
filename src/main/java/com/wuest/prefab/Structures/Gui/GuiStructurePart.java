@@ -10,9 +10,13 @@ import com.wuest.prefab.Structures.Base.EnumStructureMaterial;
 import com.wuest.prefab.Structures.Config.StructurePartConfiguration;
 import com.wuest.prefab.Structures.Config.StructurePartConfiguration.EnumStyle;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
+import com.wuest.prefab.Structures.Predefined.StructureInstantBridge;
+import com.wuest.prefab.Structures.Predefined.StructurePart;
+import com.wuest.prefab.Structures.Render.StructureRenderHandler;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 import net.minecraftforge.fml.client.config.GuiSlider;
 
@@ -31,6 +35,8 @@ public class GuiStructurePart extends GuiStructure
 	protected GuiSlider sldrGeneralHeight;
 	protected GuiButtonExt btnPartStyle;
 	protected GuiButtonExt btnMaterialType;
+	protected int modifiedInitialXAxis = 213;
+	protected int modifiedInitialYAxis = 83;
 	
 	public GuiStructurePart(int x, int y, int z)
 	{
@@ -46,8 +52,8 @@ public class GuiStructurePart extends GuiStructure
 		int color = Color.DARK_GRAY.getRGB();
 
 		// Get the upper left hand corner of the GUI box.
-		int grayBoxX = this.getCenteredXAxis() - 125;
-		int grayBoxY = this.getCenteredYAxis() - 83;
+		int grayBoxX = this.getCenteredXAxis() - this.modifiedInitialXAxis;
+		int grayBoxY = this.getCenteredYAxis() - this.modifiedInitialYAxis;
 
 		// Create the done and cancel buttons.
 		this.btnBuild = new GuiButtonExt(1, grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_BUILD));
@@ -59,10 +65,10 @@ public class GuiStructurePart extends GuiStructure
 		this.btnVisualize = new GuiButtonExt(3, grayBoxX + 10, grayBoxY + 90, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW));
 		this.buttonList.add(this.btnVisualize);
 
-		this.sldrStairHeight = new GuiSlider(4, grayBoxX + 147, grayBoxY + 20, 90, 20, "", "", 1, 5, this.configuration.stairHeight, false, true);
+		this.sldrStairHeight = new GuiSlider(4, grayBoxX + 147, grayBoxY + 20, 90, 20, "", "", 1, 9, this.configuration.stairHeight, false, true);
 		this.buttonList.add(this.sldrStairHeight);
 
-		this.sldrStairWidth = new GuiSlider(5, grayBoxX + 147, grayBoxY + 60, 90, 20, "", "", 1, 5, this.configuration.stairWidth, false, true);
+		this.sldrStairWidth = new GuiSlider(5, grayBoxX + 147, grayBoxY + 60, 90, 20, "", "", 1, 9, this.configuration.stairWidth, false, true);
 		this.buttonList.add(this.sldrStairWidth);
 
 		this.sldrGeneralHeight = new GuiSlider(6, grayBoxX + 147, grayBoxY + 20, 90, 20, "", "", 3, 9, this.configuration.generalHeight, false, true);
@@ -71,7 +77,7 @@ public class GuiStructurePart extends GuiStructure
 		this.sldrGeneralWidth = new GuiSlider(7, grayBoxX + 147, grayBoxY + 60, 90, 20, "", "", 3, 9, this.configuration.generalWidth, false, true);
 		this.buttonList.add(this.sldrGeneralWidth);
 
-		this.btnPartStyle = new GuiButtonExt(8, grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateString(this.configuration.style.getTranslateKey()));
+		this.btnPartStyle = new GuiButtonExt(8, grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateString(this.configuration.style.translateKey));
 		this.buttonList.add(this.btnPartStyle);
 		
 		this.btnMaterialType = new GuiButtonExt(9, grayBoxX + 10, grayBoxY + 60, 90, 20, this.configuration.partMaterial.getTranslatedName());
@@ -84,10 +90,16 @@ public class GuiStructurePart extends GuiStructure
 	@Override
 	public void drawScreen(int x, int y, float f)
 	{
-		int grayBoxX = this.getCenteredXAxis() - 125;
-		int grayBoxY = this.getCenteredYAxis() - 83;
+		int grayBoxX = this.getCenteredXAxis() - this.modifiedInitialXAxis;
+		int grayBoxY = this.getCenteredYAxis() - this.modifiedInitialYAxis;
 
 		this.drawDefaultBackground();
+		
+		this.mc.getTextureManager().bindTexture(this.configuration.style.getPictureLocation());
+		
+		this.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 
+				this.configuration.style.imageWidth, this.configuration.style.imageHeight, 
+				this.configuration.style.imageWidth, this.configuration.style.imageHeight);
 
 		this.drawControlBackgroundAndButtonsAndLabels(grayBoxX, grayBoxY, x, y);
 		
@@ -142,7 +154,16 @@ public class GuiStructurePart extends GuiStructure
 		else if (button == this.btnPartStyle)
 		{
 			this.configuration.style = EnumStyle.getByOrdinal(this.configuration.style.ordinal() + 1);
-			this.btnPartStyle.displayString = GuiLangKeys.translateString(this.configuration.style.getTranslateKey());
+			this.btnPartStyle.displayString = GuiLangKeys.translateString(this.configuration.style.translateKey);
+		}
+		else if (button == this.btnVisualize)
+		{
+			StructurePart structure = new StructurePart();
+			structure.getClearSpace().getShape().setDirection(EnumFacing.NORTH);
+			structure.setupStructure(this.configuration, this.pos);
+			
+			StructureRenderHandler.setStructure(structure, EnumFacing.SOUTH, this.configuration);
+			this.mc.displayGuiScreen(null);
 		}
 	}
 }

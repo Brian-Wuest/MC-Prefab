@@ -64,7 +64,7 @@ public class StructurePart extends Structure
 		return super.BuildStructure(specificConfig, world, originalPos, assumedNorth, player);
 	}
 
-	private void setupStructure(StructurePartConfiguration configuration, BlockPos originalPos)
+	public void setupStructure(StructurePartConfiguration configuration, BlockPos originalPos)
 	{
 		ArrayList<BuildBlock> buildingBlocks = new ArrayList<BuildBlock>();
 		IBlockState materialState = configuration.partMaterial.getBlockType();
@@ -95,7 +95,7 @@ public class StructurePart extends Structure
 				buildingBlocks = this.setupWall(configuration, originalPos, materialState, facing);
 				break;
 			}
-			
+
 			case DoorWay:
 			{
 				buildingBlocks = this.setupDoorway(configuration, originalPos, materialState, facing);
@@ -113,19 +113,89 @@ public class StructurePart extends Structure
 	private ArrayList<BuildBlock> setupFrame(StructurePartConfiguration configuration, BlockPos originalPos, IBlockState materialState, EnumFacing facing)
 	{
 		ArrayList<BuildBlock> buildingBlocks = new ArrayList<BuildBlock>();
-		
-		// Create the floor
-		
-		// Create the roof
-		
-		// Create the connectors.
+		int width = configuration.generalWidth - 1;
+		int height = configuration.generalHeight - 1;
+
+		// Get all 8 Corners
+		BlockPos lowerNearLeft = originalPos.west((int) (configuration.generalWidth) / 2);
+		BlockPos upperNearLeft = lowerNearLeft.up(height);
+		BlockPos lowerFarLeft = lowerNearLeft.north(width);
+		BlockPos upperFarLeft = lowerNearLeft.north(width).up(height);
+		BlockPos lowerNearRight = lowerNearLeft.east(width);
+		BlockPos upperNearRight = lowerNearRight.up(height);
+		BlockPos lowerFarRight = lowerNearRight.north(width);
+		BlockPos upperFarRight = lowerNearRight.north(width).up(height);
+
+		// Now make ALL connections.
+		this.makeBlockListForPositions(buildingBlocks, configuration, originalPos, materialState, facing, lowerNearLeft, lowerFarLeft);
+		this.makeBlockListForPositions(buildingBlocks, configuration, originalPos, materialState, facing, lowerNearLeft, lowerNearRight);
+		this.makeBlockListForPositions(buildingBlocks, configuration, originalPos, materialState, facing, lowerNearLeft, upperNearLeft);
+		this.makeBlockListForPositions(buildingBlocks, configuration, originalPos, materialState, facing, lowerFarLeft, lowerFarRight);
+		this.makeBlockListForPositions(buildingBlocks, configuration, originalPos, materialState, facing, lowerFarLeft, upperFarLeft);
+		this.makeBlockListForPositions(buildingBlocks, configuration, originalPos, materialState, facing, lowerNearRight, lowerFarRight);
+		this.makeBlockListForPositions(buildingBlocks, configuration, originalPos, materialState, facing, lowerNearRight, upperNearRight);
+		this.makeBlockListForPositions(buildingBlocks, configuration, originalPos, materialState, facing, lowerFarRight, upperFarRight);
+		this.makeBlockListForPositions(buildingBlocks, configuration, originalPos, materialState, facing, upperNearLeft, upperNearRight);
+		this.makeBlockListForPositions(buildingBlocks, configuration, originalPos, materialState, facing, upperNearLeft, upperFarLeft);
+		this.makeBlockListForPositions(buildingBlocks, configuration, originalPos, materialState, facing, upperFarRight, upperFarLeft);
+		this.makeBlockListForPositions(buildingBlocks, configuration, originalPos, materialState, facing, upperFarRight, upperNearRight);
 
 		return buildingBlocks;
 	}
-	
+
+	private void makeBlockListForPositions(ArrayList<BuildBlock> buildingBlocks, StructurePartConfiguration configuration,
+		BlockPos originalPos, IBlockState materialState, EnumFacing facing, BlockPos position1, BlockPos position2)
+	{
+		for (BlockPos pos : BlockPos.getAllInBox(position1, position2))
+		{
+			buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), pos, originalPos));
+		}
+	}
+
 	private ArrayList<BuildBlock> setupGate(StructurePartConfiguration configuration, BlockPos originalPos, IBlockState materialState, EnumFacing facing)
 	{
 		ArrayList<BuildBlock> buildingBlocks = new ArrayList<BuildBlock>();
+
+		BlockPos gatePos = null;
+		BlockPos gateOriginalPos = originalPos.west((int) (configuration.generalWidth) / 2).up();
+
+		ArrayList<Long> ignoredPositions = new ArrayList<Long>();
+		ignoredPositions.add(originalPos.up().toLong());
+		ignoredPositions.add(originalPos.up(2).toLong());
+
+		// Only create a 3x3 opening if there are enough blocks for it. Otherwise we are essentially doing nothing.
+		if (configuration.generalWidth > 3 && configuration.generalHeight > 3)
+		{
+			ignoredPositions.add(originalPos.up(3).toLong());
+			ignoredPositions.add(originalPos.up().west().toLong());
+			ignoredPositions.add(originalPos.up(2).west().toLong());
+			ignoredPositions.add(originalPos.up(3).west().toLong());
+
+			ignoredPositions.add(originalPos.up().east().toLong());
+			ignoredPositions.add(originalPos.up(2).east().toLong());
+			ignoredPositions.add(originalPos.up(3).east().toLong());
+		}
+
+		for (int i = 0; i < configuration.generalHeight; i++)
+		{
+			// Reset gate building position to the starting position up by the
+			// height counter.
+			gatePos = gateOriginalPos.up(i);
+
+			for (int j = 0; j < configuration.generalWidth; j++)
+			{
+				if (ignoredPositions.contains(gatePos.toLong()))
+				{
+					gatePos = gatePos.offset(facing.rotateYCCW());
+					continue;
+				}
+
+				// j is the north/south counter.
+				buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), gatePos, originalPos));
+
+				gatePos = gatePos.offset(facing.rotateYCCW());
+			}
+		}
 
 		return buildingBlocks;
 	}
@@ -145,26 +215,26 @@ public class StructurePart extends Structure
 
 			for (int j = 0; j < configuration.generalWidth; j++)
 			{
-				if (gatePos.toLong() == originalPos.up().toLong()
-					|| gatePos.toLong() == originalPos.up(2).toLong())
+				if (gatePos.toLong() == originalPos.up().toLong() || gatePos.toLong() == originalPos.up(2).toLong())
 				{
 					gatePos = gatePos.offset(facing.rotateYCCW());
 					continue;
 				}
-				
+
 				// j is the north/south counter.
 				buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), gatePos, originalPos));
 
 				gatePos = gatePos.offset(facing.rotateYCCW());
 			}
 		}
-		
+
 		BlockDoor door = Blocks.OAK_DOOR;
 		BuildBlock doorBlockBottom = Structure.createBuildBlockFromBlockState(door.getDefaultState(), door, originalPos.up(), originalPos);
-		BuildBlock doorBlockTop = Structure.createBuildBlockFromBlockState(door.getDefaultState().withProperty(BlockDoor.HALF, BlockDoor.EnumDoorHalf.UPPER), door, originalPos.up(2), originalPos);
+		BuildBlock doorBlockTop = Structure.createBuildBlockFromBlockState(door.getDefaultState().withProperty(BlockDoor.HALF, BlockDoor.EnumDoorHalf.UPPER),
+			door, originalPos.up(2), originalPos);
 		doorBlockBottom.setSubBlock(doorBlockTop);
 		buildingBlocks.add(doorBlockBottom);
-		
+
 		return buildingBlocks;
 	}
 
