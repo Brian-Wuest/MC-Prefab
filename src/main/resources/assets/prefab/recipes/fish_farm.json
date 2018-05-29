@@ -34,8 +34,8 @@
             "data": 0
         },
         "f": {
-            "item": "minecraft:sand",
-            "data": 0
+            "type": "forge:ore_dict",
+            "ore": "compressedDirt2"
         },
         "g": {
             "item": "minecraft:fish",

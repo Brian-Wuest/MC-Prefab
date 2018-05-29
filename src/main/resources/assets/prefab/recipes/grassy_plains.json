@@ -8,18 +8,22 @@
     "type": "minecraft:crafting_shaped",
     "group": "Grassy Plains",
     "pattern": [
-        "   ",
+        "aaa",
         "bbb",
-        "aaa"
+        "ccc"
     ],
     "key": {
         "a": {
-            "item": "minecraft:dirt",
-            "data": 32767
-        },
-        "b": {
             "item": "minecraft:tallgrass",
             "data": 1
+        },
+        "b": {
+            "type": "forge:ore_dict",
+            "ore": "compressedDirt1"
+        },
+        "c": {
+            "type": "forge:ore_dict",
+            "ore": "compressedDirt2"
         }
     },
     "result": {
