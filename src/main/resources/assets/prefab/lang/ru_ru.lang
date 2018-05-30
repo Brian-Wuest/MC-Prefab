@@ -191,6 +191,8 @@ prefab.gui.part_style.frame=Рамка
 prefab.gui.part_style.stairs=Лестница
 prefab.gui.part_style.circle=Круг
 prefab.gui.part_style.door_way=дверной проем
+prefab.gui.part_style.floor=крыша
+prefab.gui.part_style.roof=Пол
 
 prefab.gui.style=Стиль
 prefab.gui.material=материал

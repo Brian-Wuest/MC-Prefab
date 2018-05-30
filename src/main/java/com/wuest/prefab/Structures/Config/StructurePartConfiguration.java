@@ -165,8 +165,10 @@ public class StructurePartConfiguration extends StructureConfiguration
 	public enum EnumStyle
 	{
 		DoorWay("prefab.gui.part_style.door_way", "textures/gui/doorway_topdown.png", 164, 141),
+		Floor("prefab.gui.part_style.floor", "textures/gui/wall_topdown.png", 166, 154),
 		Frame("prefab.gui.part_style.frame", "textures/gui/frame_topdown.png", 167, 145),
 		Gate("prefab.gui.part_style.gate", "textures/gui/gate_topdown.png", 162, 141),
+		Roof("prefab.gui.part_style.roof", "textures/gui/stairs_topdown.png", 142, 169),
 		Stairs("prefab.gui.part_style.stairs", "textures/gui/stairs_topdown.png", 142, 169),
 		Wall("prefab.gui.part_style.wall", "textures/gui/wall_topdown.png", 166, 154);
 

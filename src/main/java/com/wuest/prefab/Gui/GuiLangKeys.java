@@ -337,6 +337,12 @@ public class GuiLangKeys
 	
 	@Unlocalized(name = "Doorway")
 	public static final String DOOR_WAY = "prefab.gui.part_style.door_way";
+	
+	@Unlocalized(name = "Roof")
+	public static final String ROOF = "prefab.gui.part_style.roof";
+	
+	@Unlocalized(name = "Floor")
+	public static final String FLOOR = "prefab.gui.part_style.floor";
 
 	/**
 	 * Translates the specified language key for the current language.

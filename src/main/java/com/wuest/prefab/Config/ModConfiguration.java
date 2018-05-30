@@ -25,13 +25,11 @@ public class ModConfiguration
 	public static String tagKey = "PrefabConfig";
 
 	// Config file option names.
-	private static String addHouseItemName = "Add House Item On New Player Join";
 	private static String maximumHouseSizeName = "Maximum Starting House Size";
 	private static String enableVersionCheckMessageName = "Enable Version Checking";
 	private static String enableLoftHouseName = "Enable Loft House";
 	private static String includeSpawnersInMasherName = "Include Spawners in Monster Masher";
 	private static String enableStructurePreviewName = "Include Structure Previews";
-	private static String addModerateHouseInsteadName = "Add Moderate House on World Join";
 	private static String includeMineshaftChestName = "Include Mineshaft Chest";
 
 	// Chest content option names.
@@ -47,6 +45,7 @@ public class ModConfiguration
 	private static String addCobbleName = "Add Cobblestone";
 	private static String addSaplingsName = "Add Saplings";
 	private static String addTorchesName = "Add Torches";
+	private static String startingItemName = "Starting Item";
 
 	// Starter House option names.
 	private static String addBedName = "Add Bed";
@@ -61,13 +60,11 @@ public class ModConfiguration
 	private static String showMessageName = "Show Message";
 
 	// Configuration Options.
-	public boolean addHouseItem;
 	public int maximumStartingHouseSize;
 	public boolean enableVersionCheckMessage;
 	public boolean enableLoftHouse;
 	public boolean includeSpawnersInMasher;
 	public boolean enableStructurePreview;
-	public boolean addModerateHouseInstead;
 	public boolean includeMineshaftChest;
 
 	// Chest content options.
@@ -92,6 +89,9 @@ public class ModConfiguration
 	public boolean addChestContents;
 	public boolean addFarm;
 	public boolean addMineshaft;
+	
+	public String startingItem;
+	public static String[] validStartingItems = new String[] { "Starter House", "Moderate House", "Structure Part", "Nothing" };
 
 	public HashMap<String, Boolean> recipeConfiguration;
 
@@ -157,7 +157,6 @@ public class ModConfiguration
 
 	public ModConfiguration()
 	{
-		this.addHouseItem = true;
 		this.maximumStartingHouseSize = 16;
 		this.enableVersionCheckMessage = true;
 		this.includeSpawnersInMasher = true;
@@ -175,8 +174,8 @@ public class ModConfiguration
 		}
 
 		// General settings.
-		Prefab.proxy.proxyConfiguration.addHouseItem = config.getBoolean(ModConfiguration.addHouseItemName, ModConfiguration.OPTIONS, true,
-			"Determines if the house item is added to player inventory when joining the world for the first time. Server configuration overrides client.");
+		Prefab.proxy.proxyConfiguration.startingItem = config.getString(ModConfiguration.startingItemName, ModConfiguration.OPTIONS, "Starting House", "Determines which starting item a player gets on first world join. Server configuration overrides client.", validStartingItems);
+		
 		Prefab.proxy.proxyConfiguration.maximumStartingHouseSize = config.getInt(ModConfiguration.maximumHouseSizeName, ModConfiguration.OPTIONS, 16, 5, 16,
 			"Determines the maximum size the starting house can be generated as. Server configuration overrides client.");
 		Prefab.proxy.proxyConfiguration.enableVersionCheckMessage = config.getBoolean(ModConfiguration.enableVersionCheckMessageName, ModConfiguration.OPTIONS,
@@ -188,8 +187,6 @@ public class ModConfiguration
 			true, "Determines if the spawners for the Monster Masher building are included. Server configuration overrides client.");
 		Prefab.proxy.proxyConfiguration.enableStructurePreview = config.getBoolean(ModConfiguration.enableStructurePreviewName, ModConfiguration.OPTIONS, true,
 			"Determines if the Preview buttons in structure GUIs and other structure previews functions are enabled. Client side only.");
-		Prefab.proxy.proxyConfiguration.addModerateHouseInstead = config.getBoolean(ModConfiguration.addModerateHouseInsteadName, ModConfiguration.OPTIONS,
-			false, "Determines if the moderate house item is provided to the player instead of the starting house.");
 		Prefab.proxy.proxyConfiguration.includeMineshaftChest = config.getBoolean(ModConfiguration.includeMineshaftChestName, ModConfiguration.OPTIONS, true,
 			"Determines if the mineshaft chest is included when building mineshafts for various structures.");
 
@@ -246,6 +243,7 @@ public class ModConfiguration
 		config.setCategoryRequiresMcRestart(ModConfiguration.RecipeOptions, true);
 		config.setCategoryRequiresWorldRestart(ModConfiguration.starterHouseOptions, true);
 
+		
 		// Recipe configuration.
 		for (String key : ModConfiguration.recipeKeys)
 		{
@@ -263,13 +261,12 @@ public class ModConfiguration
 	{
 		NBTTagCompound tag = new NBTTagCompound();
 
-		tag.setBoolean(ModConfiguration.addHouseItemName, this.addHouseItem);
+		tag.setString(ModConfiguration.startingItemName, this.startingItem);
 		tag.setInteger(ModConfiguration.maximumHouseSizeName, this.maximumStartingHouseSize);
 		tag.setBoolean(ModConfiguration.enableVersionCheckMessageName, this.enableVersionCheckMessage);
 		tag.setBoolean(ModConfiguration.enableLoftHouseName, this.enableLoftHouse);
 		tag.setBoolean(ModConfiguration.includeSpawnersInMasherName, this.includeSpawnersInMasher);
 		tag.setBoolean(ModConfiguration.enableStructurePreviewName, this.enableStructurePreview);
-		tag.setBoolean(ModConfiguration.addModerateHouseInsteadName, this.addModerateHouseInstead);
 		tag.setBoolean(ModConfiguration.includeMineshaftChestName, this.includeMineshaftChest);
 
 		tag.setBoolean(ModConfiguration.addSwordName, this.addSword);
@@ -308,13 +305,12 @@ public class ModConfiguration
 	{
 		ModConfiguration config = new ModConfiguration();
 
-		config.addHouseItem = tag.getBoolean(ModConfiguration.addHouseItemName);
+		config.startingItem = tag.getString(ModConfiguration.startingItemName);
 		config.enableVersionCheckMessage = tag.getBoolean(ModConfiguration.enableVersionCheckMessageName);
 		config.enableLoftHouse = tag.getBoolean(ModConfiguration.enableLoftHouseName);
 		config.maximumStartingHouseSize = tag.getInteger(ModConfiguration.maximumHouseSizeName);
 		config.includeSpawnersInMasher = tag.getBoolean(ModConfiguration.includeSpawnersInMasherName);
 		config.enableStructurePreview = tag.getBoolean(ModConfiguration.enableStructurePreviewName);
-		config.addModerateHouseInstead = tag.getBoolean(ModConfiguration.addModerateHouseInsteadName);
 		config.includeMineshaftChest = tag.getBoolean(ModConfiguration.includeMineshaftChestName);
 
 		// Make sure the server admin didn't set the maximum starting size to an

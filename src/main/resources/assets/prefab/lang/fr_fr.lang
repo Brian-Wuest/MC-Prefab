@@ -191,6 +191,8 @@ prefab.gui.part_style.frame=Cadre
 prefab.gui.part_style.stairs=Escaliers
 prefab.gui.part_style.circle=Cercle
 prefab.gui.part_style.door_way=Porte
+prefab.gui.part_style.floor=Toit
+prefab.gui.part_style.roof=Sol
 
 prefab.gui.style=Style
 prefab.gui.material=Matériel

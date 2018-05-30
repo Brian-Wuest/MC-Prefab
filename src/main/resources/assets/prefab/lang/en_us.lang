@@ -191,6 +191,8 @@ prefab.gui.part_style.frame=Frame
 prefab.gui.part_style.stairs=Stairs
 prefab.gui.part_style.circle=Circle
 prefab.gui.part_style.door_way=Doorway
+prefab.gui.part_style.floor=Floor
+prefab.gui.part_style.roof=Roof
 
 prefab.gui.style=Style
 prefab.gui.material=Material

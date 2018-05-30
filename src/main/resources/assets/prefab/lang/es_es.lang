@@ -191,6 +191,8 @@ prefab.gui.part_style.frame=Marco
 prefab.gui.part_style.stairs=Escalera
 prefab.gui.part_style.circle=Circulo
 prefab.gui.part_style.door_way=Puerta
+prefab.gui.part_style.floor=Techo
+prefab.gui.part_style.roof=Piso
 
 prefab.gui.style=Estilo
 prefab.gui.material=Material
