@@ -1,5 +1,6 @@
 package com.wuest.prefab.Structures.Config;
 
+import com.wuest.prefab.Structures.Base.EnumStairsMaterial;
 import com.wuest.prefab.Structures.Base.EnumStructureMaterial;
 import com.wuest.prefab.Structures.Items.ItemStructurePart;
 import com.wuest.prefab.Structures.Predefined.StructurePart;
@@ -23,6 +24,11 @@ public class StructurePartConfiguration extends StructureConfiguration
 	 * Determines the type of material to build the part with.
 	 */
 	public EnumStructureMaterial partMaterial;
+
+	/**
+	 * Determines the material used for stairs and roofs.
+	 */
+	public EnumStairsMaterial stairsMaterial;
 
 	/**
 	 * The height for this non-stairs style.
@@ -58,6 +64,7 @@ public class StructurePartConfiguration extends StructureConfiguration
 		super.Initialize();
 
 		this.partMaterial = EnumStructureMaterial.Cobblestone;
+		this.stairsMaterial = EnumStairsMaterial.Cobblestone;
 		this.style = EnumStyle.DoorWay;
 		this.stairHeight = 3;
 		this.stairWidth = 2;
@@ -114,6 +121,7 @@ public class StructurePartConfiguration extends StructureConfiguration
 		tag.setInteger("stair_width", this.stairWidth);
 		tag.setInteger("general_height", this.generalHeight);
 		tag.setInteger("general_width", this.generalWidth);
+		tag.setString("stairs_material", this.stairsMaterial.name());
 		return tag;
 	}
 
@@ -129,6 +137,11 @@ public class StructurePartConfiguration extends StructureConfiguration
 		if (messageTag.hasKey("material"))
 		{
 			((StructurePartConfiguration) config).partMaterial = EnumStructureMaterial.valueOf(messageTag.getString("material"));
+		}
+
+		if (messageTag.hasKey("stairs_material"))
+		{
+			((StructurePartConfiguration) config).stairsMaterial = EnumStairsMaterial.valueOf(messageTag.getString("stairs_material"));
 		}
 
 		if (messageTag.hasKey("style"))
@@ -165,10 +178,10 @@ public class StructurePartConfiguration extends StructureConfiguration
 	public enum EnumStyle
 	{
 		DoorWay("prefab.gui.part_style.door_way", "textures/gui/doorway_topdown.png", 164, 141),
-		Floor("prefab.gui.part_style.floor", "textures/gui/wall_topdown.png", 166, 154),
+		Floor("prefab.gui.part_style.floor", "textures/gui/floor_topdown.png", 166, 121),
 		Frame("prefab.gui.part_style.frame", "textures/gui/frame_topdown.png", 167, 145),
 		Gate("prefab.gui.part_style.gate", "textures/gui/gate_topdown.png", 162, 141),
-		Roof("prefab.gui.part_style.roof", "textures/gui/stairs_topdown.png", 142, 169),
+		Roof("prefab.gui.part_style.roof", "textures/gui/roof_topdown.png", 167, 113),
 		Stairs("prefab.gui.part_style.stairs", "textures/gui/stairs_topdown.png", 142, 169),
 		Wall("prefab.gui.part_style.wall", "textures/gui/wall_topdown.png", 166, 154);
 
@@ -197,15 +210,15 @@ public class StructurePartConfiguration extends StructureConfiguration
 
 			return EnumStyle.DoorWay;
 		}
-		
+
 		public ResourceLocation getPictureLocation()
 		{
 			if (this.resourceLocation != null)
 			{
 				return new ResourceLocation("prefab", this.resourceLocation);
 			}
-			
-			return null; 
+
+			return null;
 		}
 	}
 }

@@ -198,5 +198,6 @@ prefab.gui.style=Estilo
 prefab.gui.material=Material
 prefab.gui.height=Altura
 prefab.gui.width=Anchura
+prefab.gui.length=Longitud
 prefab.gui.stairs_height=Altura de las escaleras
 prefab.gui.stairs_width=Ancho de la escalera

@@ -198,5 +198,6 @@ prefab.gui.style=Стиль
 prefab.gui.material=материал
 prefab.gui.height=Высота
 prefab.gui.width=Ширина
+prefab.gui.length=длина
 prefab.gui.stairs_height=Высота лестницы
 prefab.gui.stairs_width=Ширина лестницы

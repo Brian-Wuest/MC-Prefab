@@ -329,6 +329,9 @@ public class GuiLangKeys
 	@Unlocalized(name = "Width")
 	public static final String WIDTH = "prefab.gui.width";
 	
+	@Unlocalized(name = "Length")
+	public static final String LENGTH = "prefab.gui.length";
+	
 	@Unlocalized(name = "Stairs Height")
 	public static final String STAIRS_HEIGHT = "prefab.gui.stairs_height";
 	

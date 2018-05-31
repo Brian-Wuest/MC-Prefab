@@ -61,12 +61,12 @@ public class StructurePart extends Structure
 
 		this.setClearSpace(new BuildClear());
 
-		this.setupStructure(specificConfig, originalPos);
+		this.setupStructure(world, specificConfig, originalPos);
 
 		return super.BuildStructure(specificConfig, world, originalPos, assumedNorth, player);
 	}
 
-	public void setupStructure(StructurePartConfiguration configuration, BlockPos originalPos)
+	public void setupStructure(World world, StructurePartConfiguration configuration, BlockPos originalPos)
 	{
 		ArrayList<BuildBlock> buildingBlocks = new ArrayList<BuildBlock>();
 		IBlockState materialState = configuration.partMaterial.getBlockType();
@@ -88,7 +88,7 @@ public class StructurePart extends Structure
 
 			case Stairs:
 			{
-				buildingBlocks = this.setupStairs(configuration, originalPos, materialState, facing);
+				buildingBlocks = this.setupStairs(configuration, originalPos, configuration.stairsMaterial.stairsState, facing);
 				break;
 			}
 
@@ -101,16 +101,19 @@ public class StructurePart extends Structure
 			case DoorWay:
 			{
 				buildingBlocks = this.setupDoorway(configuration, originalPos, materialState, facing);
+				break;
 			}
-			
+
 			case Floor:
 			{
 				buildingBlocks = this.setupFloor(configuration, originalPos, materialState, facing);
+				break;
 			}
-			
+
 			case Roof:
 			{
-				buildingBlocks = this.setupRoof(configuration, originalPos, configuration.partMaterial.getStairsBlock(), facing);
+				buildingBlocks = this.setupRoof(configuration, originalPos, configuration.stairsMaterial.stairsState, facing);
+				break;
 			}
 
 			default:
@@ -155,8 +158,8 @@ public class StructurePart extends Structure
 		return buildingBlocks;
 	}
 
-	private void makeBlockListForPositions(ArrayList<BuildBlock> buildingBlocks, StructurePartConfiguration configuration,
-		BlockPos originalPos, IBlockState materialState, EnumFacing facing, BlockPos position1, BlockPos position2)
+	private void makeBlockListForPositions(ArrayList<BuildBlock> buildingBlocks, StructurePartConfiguration configuration, BlockPos originalPos,
+		IBlockState materialState, EnumFacing facing, BlockPos position1, BlockPos position2)
 	{
 		for (BlockPos pos : BlockPos.getAllInBox(position1, position2))
 		{
@@ -297,7 +300,7 @@ public class StructurePart extends Structure
 
 		return buildingBlocks;
 	}
-	
+
 	private ArrayList<BuildBlock> setupFloor(StructurePartConfiguration configuration, BlockPos originalPos, IBlockState materialState, EnumFacing facing)
 	{
 		ArrayList<BuildBlock> buildingBlocks = new ArrayList<BuildBlock>();
@@ -321,27 +324,29 @@ public class StructurePart extends Structure
 
 		return buildingBlocks;
 	}
-	
+
 	private ArrayList<BuildBlock> setupRoof(StructurePartConfiguration configuration, BlockPos originalPos, IBlockState materialState, EnumFacing facing)
 	{
 		ArrayList<BuildBlock> buildingBlocks = new ArrayList<BuildBlock>();
 		BlockPos wallPos = null;
-		BlockPos wallOriginalPos = originalPos.west((int) (configuration.generalWidth) / 2).up();
+		BlockPos wallOriginalPos = originalPos.west((int) (configuration.stairWidth) / 2).up();
 
 		// Get the stairs state without the facing since it will change.
-		IBlockState stateWithoutFacing = materialState.withProperty(BlockStairs.HALF, BlockStairs.EnumHalf.BOTTOM)
-				.withProperty(BlockStairs.SHAPE, BlockStairs.EnumShape.STRAIGHT);
+		IBlockState stateWithoutFacing = materialState.withProperty(BlockStairs.HALF, BlockStairs.EnumHalf.BOTTOM).withProperty(BlockStairs.SHAPE,
+			BlockStairs.EnumShape.STRAIGHT);
 
-		int wallWidth = configuration.generalWidth;
-		int wallDepth = configuration.generalWidth;
+		int wallWidth = configuration.stairWidth;
+		int wallDepth = configuration.stairWidth;
 		int height = wallWidth / 2;
 		boolean isWider = false;
-		
+
 		if (wallWidth > wallDepth)
 		{
 			height = wallDepth / 2;
 			isWider = true;
 		}
+
+		wallPos = wallOriginalPos;
 
 		for (int i = 0; i <= height; i++)
 		{
@@ -383,7 +388,8 @@ public class StructurePart extends Structure
 				for (int k = 0; k <= wallSize; k++)
 				{
 					// j is the north/south counter.
-					buildingBlocks.add(Structure.createBuildBlockFromBlockState(stateWithoutFacing.withProperty(BlockStairs.FACING, tempFacing), materialState.getBlock(), wallPos, originalPos));
+					buildingBlocks.add(Structure.createBuildBlockFromBlockState(stateWithoutFacing.withProperty(BlockStairs.FACING, tempFacing),
+						materialState.getBlock(), wallPos, originalPos));
 
 					wallPos = wallPos.offset(flowDirection);
 				}
@@ -393,39 +399,45 @@ public class StructurePart extends Structure
 			wallWidth = wallWidth - 2;
 			wallDepth = wallDepth - 2;
 		}
-		
-		// Create final blocks.
-		int finalStoneCount = wallDepth;
-		
-		if (isWider)
+
+		long wallPosLong = wallPos.down().toLong();
+
+		if (!buildingBlocks.stream().anyMatch(x -> x.blockPos.toLong() == wallPosLong))
 		{
-			finalStoneCount = wallWidth;
-		}
-		
-		// Add the number of blocks based on the depth/width (minimum 1);
-		if (finalStoneCount < 1)
-		{
-			finalStoneCount = 1;
-		}
-		else
-		{
-			finalStoneCount = finalStoneCount + 2;
-		}
-		
-		for (int i = 0; i < finalStoneCount; i++)
-		{
-			buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, configuration.partMaterial.getBlockType().getBlock(), wallPos, originalPos));
-			
+			// Create final blocks.
+			int finalStoneCount = wallDepth;
+
 			if (isWider)
 			{
-				wallPos = wallPos.offset(facing.rotateYCCW());
+				finalStoneCount = wallWidth;
+			}
+
+			// Add the number of blocks based on the depth/width (minimum 1);
+			if (finalStoneCount < 1)
+			{
+				finalStoneCount = 1;
 			}
 			else
 			{
-				wallPos = wallPos.offset(facing.getOpposite());	
+				finalStoneCount = finalStoneCount + 2;
+			}
+
+			for (int i = 0; i < finalStoneCount; i++)
+			{
+				buildingBlocks.add(Structure.createBuildBlockFromBlockState(configuration.stairsMaterial.getFullBlock(),
+					configuration.stairsMaterial.getFullBlock().getBlock(), wallPos, originalPos));
+
+				if (isWider)
+				{
+					wallPos = wallPos.offset(facing.rotateYCCW());
+				}
+				else
+				{
+					wallPos = wallPos.offset(facing.getOpposite());
+				}
 			}
 		}
-		
+
 		return buildingBlocks;
 	}
 }

@@ -60,6 +60,8 @@ public class BuildBlock
 	@Expose
 	private String blockStateData;
 	
+	public BlockPos blockPos;
+	
 	public BuildBlock()
 	{
 		this.Initialize();

@@ -6,6 +6,7 @@ import java.io.IOException;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
+import com.wuest.prefab.Structures.Base.EnumStairsMaterial;
 import com.wuest.prefab.Structures.Base.EnumStructureMaterial;
 import com.wuest.prefab.Structures.Config.StructurePartConfiguration;
 import com.wuest.prefab.Structures.Config.StructurePartConfiguration.EnumStyle;
@@ -35,6 +36,7 @@ public class GuiStructurePart extends GuiStructure
 	protected GuiSlider sldrGeneralHeight;
 	protected GuiButtonExt btnPartStyle;
 	protected GuiButtonExt btnMaterialType;
+	protected GuiButtonExt btnStairsMaterialType;
 	protected int modifiedInitialXAxis = 213;
 	protected int modifiedInitialYAxis = 83;
 	
@@ -65,13 +67,13 @@ public class GuiStructurePart extends GuiStructure
 		this.btnVisualize = new GuiButtonExt(3, grayBoxX + 10, grayBoxY + 90, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW));
 		this.buttonList.add(this.btnVisualize);
 
-		this.sldrStairHeight = new GuiSlider(4, grayBoxX + 147, grayBoxY + 20, 90, 20, "", "", 1, 9, this.configuration.stairHeight, false, true);
+		this.sldrStairHeight = new GuiSlider(4, grayBoxX + 147, grayBoxY + 100, 90, 20, "", "", 1, 9, this.configuration.stairHeight, false, true);
 		this.buttonList.add(this.sldrStairHeight);
 
 		this.sldrStairWidth = new GuiSlider(5, grayBoxX + 147, grayBoxY + 60, 90, 20, "", "", 1, 9, this.configuration.stairWidth, false, true);
 		this.buttonList.add(this.sldrStairWidth);
 
-		this.sldrGeneralHeight = new GuiSlider(6, grayBoxX + 147, grayBoxY + 20, 90, 20, "", "", 3, 9, this.configuration.generalHeight, false, true);
+		this.sldrGeneralHeight = new GuiSlider(6, grayBoxX + 147, grayBoxY + 100, 90, 20, "", "", 3, 9, this.configuration.generalHeight, false, true);
 		this.buttonList.add(this.sldrGeneralHeight);
 		
 		this.sldrGeneralWidth = new GuiSlider(7, grayBoxX + 147, grayBoxY + 60, 90, 20, "", "", 3, 9, this.configuration.generalWidth, false, true);
@@ -80,8 +82,11 @@ public class GuiStructurePart extends GuiStructure
 		this.btnPartStyle = new GuiButtonExt(8, grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateString(this.configuration.style.translateKey));
 		this.buttonList.add(this.btnPartStyle);
 		
-		this.btnMaterialType = new GuiButtonExt(9, grayBoxX + 10, grayBoxY + 60, 90, 20, this.configuration.partMaterial.getTranslatedName());
+		this.btnMaterialType = new GuiButtonExt(9, grayBoxX + 147, grayBoxY + 20, 90, 20, this.configuration.partMaterial.getTranslatedName());
 		this.buttonList.add(this.btnMaterialType);
+		
+		this.btnStairsMaterialType = new GuiButtonExt(10, grayBoxX + 147, grayBoxY + 20, 90, 20, this.configuration.stairsMaterial.getTranslatedName());
+		this.buttonList.add(this.btnStairsMaterialType);
 	}
 
 	/**
@@ -104,25 +109,46 @@ public class GuiStructurePart extends GuiStructure
 		this.drawControlBackgroundAndButtonsAndLabels(grayBoxX, grayBoxY, x, y);
 		
 		this.mc.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.STYLE), grayBoxX + 10, grayBoxY + 10, this.textColor);
-		this.mc.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.MATERIAL), grayBoxX + 10, grayBoxY + 50, this.textColor);
+		this.mc.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.MATERIAL), grayBoxX + 147, grayBoxY + 10, this.textColor);
 		
-		if (this.configuration.style == EnumStyle.Stairs)
+		if (this.configuration.style == EnumStyle.Stairs
+			|| this.configuration.style == EnumStyle.Roof)
 		{
-			this.sldrStairHeight.visible = true;
+			this.sldrStairHeight.visible = this.configuration.style != EnumStyle.Roof;			
 			this.sldrStairWidth.visible = true;
 			this.sldrGeneralHeight.visible = false;
 			this.sldrGeneralWidth.visible = false;
-			
-			this.mc.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.STAIRS_HEIGHT), grayBoxX + 147, grayBoxY + 10, this.textColor);
-			this.mc.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.STAIRS_WIDTH), grayBoxX + 147, grayBoxY + 50, this.textColor);
+			this.btnStairsMaterialType.visible = true;
+			this.btnMaterialType.visible = false;
 		}
 		else
 		{
+			this.btnStairsMaterialType.visible = false;
+			this.btnMaterialType.visible = true;
 			this.sldrStairHeight.visible = false;
 			this.sldrStairWidth.visible = false;
 			this.sldrGeneralHeight.visible = true;
 			this.sldrGeneralWidth.visible = true;
-			this.mc.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.HEIGHT), grayBoxX + 147, grayBoxY + 10, this.textColor);
+		}
+		
+		if (this.configuration.style != EnumStyle.Roof)
+		{
+			if (this.configuration.style == EnumStyle.Floor)
+			{
+				this.mc.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.LENGTH), grayBoxX + 147, grayBoxY + 90, this.textColor);
+			}
+			else
+			{
+				this.mc.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.HEIGHT), grayBoxX + 147, grayBoxY + 90, this.textColor);
+			}
+		}
+		
+		if (this.configuration.style == EnumStyle.Roof)
+		{
+			this.mc.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.HEIGHT), grayBoxX + 147, grayBoxY + 50, this.textColor);
+		}
+		else
+		{
 			this.mc.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.WIDTH), grayBoxX + 147, grayBoxY + 50, this.textColor);
 		}
 		
@@ -151,6 +177,11 @@ public class GuiStructurePart extends GuiStructure
 			this.configuration.partMaterial = EnumStructureMaterial.getMaterialByNumber(this.configuration.partMaterial.getNumber() + 1);
 			this.btnMaterialType.displayString = this.configuration.partMaterial.getTranslatedName();
 		}
+		if (button == this.btnStairsMaterialType)
+		{
+			this.configuration.stairsMaterial = EnumStairsMaterial.getByOrdinal(this.configuration.stairsMaterial.ordinal() + 1);
+			this.btnStairsMaterialType.displayString = this.configuration.stairsMaterial.getTranslatedName();
+		}
 		else if (button == this.btnPartStyle)
 		{
 			this.configuration.style = EnumStyle.getByOrdinal(this.configuration.style.ordinal() + 1);
@@ -160,7 +191,7 @@ public class GuiStructurePart extends GuiStructure
 		{
 			StructurePart structure = new StructurePart();
 			structure.getClearSpace().getShape().setDirection(EnumFacing.NORTH);
-			structure.setupStructure(this.configuration, this.pos);
+			structure.setupStructure(this.mc.world, this.configuration, this.pos);
 			
 			StructureRenderHandler.setStructure(structure, EnumFacing.SOUTH, this.configuration);
 			this.mc.displayGuiScreen(null);

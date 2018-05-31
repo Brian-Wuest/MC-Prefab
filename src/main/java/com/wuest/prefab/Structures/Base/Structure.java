@@ -289,6 +289,7 @@ public class Structure
 		buildBlock.setBlockDomain(currentBlock.getRegistryName().getResourceDomain());
 		buildBlock.setBlockName(currentBlock.getRegistryName().getResourcePath());
 		buildBlock.setStartingPosition(Structure.getStartingPositionFromOriginalAndCurrentPosition(currentPos, originalPos));
+		buildBlock.blockPos = currentPos;
 
 		ImmutableMap<IProperty<?>, Comparable<?>> properties = currentState.getProperties();
 

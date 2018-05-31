@@ -8,7 +8,9 @@ import com.wuest.prefab.UpdateChecker;
 import com.wuest.prefab.Gui.GuiLangKeys;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.config.Property;
 
 /**
  * This class is used to hold the mod configuration.
@@ -172,9 +174,12 @@ public class ModConfiguration
 		{
 			Prefab.proxy.proxyConfiguration = new ModConfiguration();
 		}
+		
+		ConfigCategory mainCategory = config.getCategory(ModConfiguration.OPTIONS);
 
-		// General settings.
+		// General settings. 
 		Prefab.proxy.proxyConfiguration.startingItem = config.getString(ModConfiguration.startingItemName, ModConfiguration.OPTIONS, "Starting House", "Determines which starting item a player gets on first world join. Server configuration overrides client.", validStartingItems);
+		Property startingItemProperty = mainCategory.get(ModConfiguration.startingItemName);
 		
 		Prefab.proxy.proxyConfiguration.maximumStartingHouseSize = config.getInt(ModConfiguration.maximumHouseSizeName, ModConfiguration.OPTIONS, 16, 5, 16,
 			"Determines the maximum size the starting house can be generated as. Server configuration overrides client.");
@@ -193,6 +198,41 @@ public class ModConfiguration
 		// Make this property require a restart.
 		config.get(ModConfiguration.OPTIONS, ModConfiguration.enableVersionCheckMessageName, true).setRequiresMcRestart(true);
 		config.get(ModConfiguration.OPTIONS, ModConfiguration.enableLoftHouseName, false).setRequiresMcRestart(true);
+		
+		Property startingHouseProperty = null;
+		Property moderateHouseProperty = null;
+		
+		
+		if (mainCategory.containsKey("Add House Item On New Player Join"))
+		{
+			startingHouseProperty = mainCategory.remove("Add House Item On New Player Join");
+		}
+		
+		if (mainCategory.containsKey("Add Moderate House on World Join"))
+		{
+			moderateHouseProperty = mainCategory.remove("Add Moderate House on World Join");
+		}
+		
+		if (startingHouseProperty != null)
+		{
+			if (moderateHouseProperty == null)
+			{
+				startingItemProperty.set(startingHouseProperty.getBoolean() ? "Starting House" : "Nothing");
+			}
+			else
+			{
+				if (startingHouseProperty.getBoolean())
+				{
+					startingItemProperty.set(moderateHouseProperty.getBoolean() ? "Moderate House" : "Starting Hosue");
+				}
+				else
+				{
+					startingItemProperty.set("Nothing");
+				}
+			}
+			
+			Prefab.proxy.proxyConfiguration.startingItem = startingItemProperty.getString();
+		}
 
 		config.setCategoryComment(ModConfiguration.ChestContentOptions,
 			"This category is to determine the contents of the chest created by the house item. When playing on a server, the server configuration is used.");
