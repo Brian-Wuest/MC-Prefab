@@ -915,6 +915,15 @@ public class ModRegistry
 		CapabilityManager.INSTANCE.register(IStructureConfigurationCapability.class, new StructureConfigurationStorage(),
 			StructureConfigurationCapability.class);
 	}
+	
+	/**
+	 * Register data fixers for updated blocks.
+	 */
+	public static void RegisterFixers()
+	{
+		CompoundDataFixer fixer = FMLCommonHandler.instance().getDataFixer();
+		ModFixs fixes = fixer.init(Prefab.MODID, 1);
+	}
 
 	/**
 	 * Register an Item

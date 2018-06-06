@@ -63,6 +63,8 @@ public class CommonProxy implements IGuiHandler
 	public void init(FMLInitializationEvent event)
 	{
 		NetworkRegistry.INSTANCE.registerGuiHandler(Prefab.instance, Prefab.proxy);
+		
+		ModRegistry.RegisterFixers();
 	}
 
 	public void postinit(FMLPostInitializationEvent event)
