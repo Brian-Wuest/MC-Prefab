@@ -223,7 +223,7 @@ public class ModConfiguration
 			{
 				if (startingHouseProperty.getBoolean())
 				{
-					startingItemProperty.set(moderateHouseProperty.getBoolean() ? "Moderate House" : "Starting Hosue");
+					startingItemProperty.set(moderateHouseProperty.getBoolean() ? "Moderate House" : "Starting House");
 				}
 				else
 				{
