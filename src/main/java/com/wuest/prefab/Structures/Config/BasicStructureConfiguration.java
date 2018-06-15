@@ -145,6 +145,15 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		EnumBasicStructureName.WelcomeCenter.getClearPositionOffset().setSouthOffset(1);
 		EnumBasicStructureName.WelcomeCenter.getClearPositionOffset().setEastOffset(4);
 		EnumBasicStructureName.WelcomeCenter.getClearPositionOffset().setHeightOffset(-5);
+		
+		// Jail
+		EnumBasicStructureName.Jail.getClearShape().setDirection(EnumFacing.SOUTH);
+		EnumBasicStructureName.Jail.getClearShape().setHeight(14);
+		EnumBasicStructureName.Jail.getClearShape().setWidth(27);
+		EnumBasicStructureName.Jail.getClearShape().setLength(32);
+		EnumBasicStructureName.Jail.getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.Jail.getClearPositionOffset().setEastOffset(25);
+		EnumBasicStructureName.Jail.getClearPositionOffset().setHeightOffset(-3);
 	}
 	
 	/**
@@ -339,7 +348,12 @@ public class BasicStructureConfiguration extends StructureConfiguration
 				"assets/prefab/structures/welcome_center.zip",
 				"textures/gui/welcome_center_topdown.png",
 				"item_welcome_center",
-				121, 168);
+				121, 168),
+		Jail("jail", "item.prefab.jail",
+				"assets/prefab/structures/jail.zip",
+				"textures/gui/jail_topdown.png",
+				"item_jail",
+				131, 175);
 		
 		private String name;
 		private String assetLocation;

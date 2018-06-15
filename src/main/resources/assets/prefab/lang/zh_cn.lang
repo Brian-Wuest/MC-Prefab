@@ -36,6 +36,7 @@ item.prefab.magic_temple=魔法寺庙
 item.prefab.green_house=温室
 item.prefab.watch_tower=瞭望塔
 item.prefab.welcome_center=迎宾中心
+item.prefab.jail=监狱
 
 tile.prefab:block_compressed_stone.block_compressed_stone.name=压缩石头
 tile.prefab:block_compressed_stone.block_double_compressed_stone.name=双倍压缩石头

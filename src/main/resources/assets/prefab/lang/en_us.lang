@@ -36,6 +36,7 @@ item.prefab.magic_temple=Magic Temple
 item.prefab.green_house=Greenhouse
 item.prefab.watch_tower=Watch Tower
 item.prefab.welcome_center=Welcome Center
+item.prefab.jail=Jail
 
 tile.prefab:block_compressed_stone.block_compressed_stone.name=Compressed Stone
 tile.prefab:block_compressed_stone.block_double_compressed_stone.name=Double Compressed Stone
