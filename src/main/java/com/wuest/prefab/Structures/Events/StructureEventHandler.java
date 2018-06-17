@@ -2,13 +2,12 @@ package com.wuest.prefab.Structures.Events;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.UUID;
 import java.util.Map.Entry;
+import java.util.UUID;
 
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.EntityPlayerConfiguration;
-import com.wuest.prefab.Events.ModEventHandler;
 import com.wuest.prefab.Proxy.Messages.PlayerEntityTagMessage;
 import com.wuest.prefab.Structures.Base.BuildBlock;
 import com.wuest.prefab.Structures.Base.BuildEntity;
@@ -32,10 +31,10 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.chunk.Chunk;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ServerTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
@@ -59,14 +58,12 @@ public class StructureEventHandler
 	 * @param event The event object.
 	 */
 	@SubscribeEvent
-	public static void PlayerJoinedWorld(EntityJoinWorldEvent event)
+	public static void PlayerLoggedIn(PlayerLoggedInEvent event)
 	{
-		if (!event.getWorld().isRemote && event.getEntity() instanceof EntityPlayerMP)
+		if (!event.player.world.isRemote && event.player instanceof EntityPlayerMP)
 		{
-			System.out.println("Player joined world, checking to see if the house builder should be provided.");
-
-			EntityPlayerMP player = (EntityPlayerMP) event.getEntity();
-			EntityPlayerConfiguration playerConfig = EntityPlayerConfiguration.loadFromEntityData((EntityPlayerMP) event.getEntity());
+			EntityPlayerMP player = (EntityPlayerMP) event.player;
+			EntityPlayerConfiguration playerConfig = EntityPlayerConfiguration.loadFromEntityData(player);
 
 			String startingItem = Prefab.proxy.proxyConfiguration.startingItem;
 
@@ -97,6 +94,8 @@ public class StructureEventHandler
 
 				if (!stack.isEmpty())
 				{
+					System.out.println(player.getDisplayNameString() + " joined the game for the first time. Giving them starting item.");
+					
 					player.inventory.addItemStackToInventory(stack);
 					player.inventoryContainer.detectAndSendChanges();
 

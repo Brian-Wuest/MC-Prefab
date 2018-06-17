@@ -78,7 +78,7 @@ public class ModEventHandler
 		{
 			NBTTagCompound tag = Prefab.proxy.proxyConfiguration.ToNBTTagCompound();
 			Prefab.network.sendTo(new ConfigSyncMessage(tag), (EntityPlayerMP) event.player);
-			System.out.println("Sent config to '" + event.player.getDisplayNameString() + ".'");
+			System.out.println("Sent config to '" + event.player.getDisplayNameString() + "'.");
 		}
 	}
 
