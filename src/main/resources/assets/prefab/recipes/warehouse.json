@@ -14,20 +14,20 @@
     ],
     "key": {
         "a": {
-                "type": "forge:ore_dict",
-                "ore": "compressedStone2"
+            "type": "forge:ore_dict",
+            "ore": "compressedStone2"
         },
         "b": {
             "item": "prefab:item_compressed_chest",
             "data": 32767
         },
         "c": {
-                "type": "forge:ore_dict",
-                "ore": "compressedGlowstone2"
+            "type": "forge:ore_dict",
+            "ore": "compressedGlowstone2"
         },
         "d": {
-                "type": "forge:ore_dict",
-                "ore": "compressedStone3"
+            "type": "forge:ore_dict",
+            "ore": "compressedStone3"
         }
     },
     "result": {

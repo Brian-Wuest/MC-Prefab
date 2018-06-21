@@ -2,50 +2,43 @@
     {
         "name": "compressed_stone",
         "ingredient": {
-            "item": "prefab:block_compressed_stone",
-            "data": 0
+            "item": "prefab:block_compressed_stone"
         }
     },
     {
         "name": "double_compressed_stone",
         "ingredient": {
-            "item": "prefab:block_compressed_stone",
-            "data": 1
+            "item": "prefab:block_double_compressed_stone"
         }
     },
     {
         "name": "triple_compressed_stone",
         "ingredient": {
-            "item": "prefab:block_compressed_stone",
-            "data": 2
+            "item": "prefab:block_triple_compressed_stone"
         }
     },
     {
         "name": "compressed_glowstone",
         "ingredient": {
-            "item": "prefab:block_compressed_stone",
-            "data": 3
+            "item": "prefab:block_compressed_glowstone"
         }
     },
     {
         "name": "double_compressed_glowstone",
         "ingredient": {
-            "item": "prefab:block_compressed_stone",
-            "data": 4
+            "item": "prefab:block_double_compressed_glowstone"
         }
     },
     {
         "name": "compressed_dirt",
         "ingredient": {
-            "item": "prefab:block_compressed_stone",
-            "data": 5
+            "item": "prefab:block_compressed_dirt"
         }
     },
     {
         "name": "double_compressed_dirt",
         "ingredient": {
-            "item": "prefab:block_compressed_stone",
-            "data": 6
+            "item": "prefab:block_double_compressed_dirt"
         }
     },
     {

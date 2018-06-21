@@ -18,8 +18,8 @@
             "data": 32767
         },
         "b": {
-            "item": "prefab:block_compressed_stone",
-            "data": 6
+            "type": "forge:ore_dict",
+            "ore": "compressedDirt2"
         },
         "c": {
             "item": "minecraft:water_bucket",

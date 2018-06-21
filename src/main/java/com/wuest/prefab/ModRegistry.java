@@ -266,6 +266,9 @@ public class ModRegistry
 	 */
 	@CapabilityInject(IStructureConfigurationCapability.class)
 	public static Capability<IStructureConfigurationCapability> StructureConfiguration = null;
+	
+	private static ArrayList<BlockCompressedStone> CompressedStones = new ArrayList<BlockCompressedStone>();
+	private static ArrayList<BlockCompressedObsidian> CompressedObsidians = new ArrayList<BlockCompressedObsidian>();
 
 	/**
 	 * The starting house registered item.
@@ -305,26 +308,6 @@ public class ModRegistry
 	public static ItemChickenCoop ChickenCoop()
 	{
 		return ModRegistry.GetItem(ItemChickenCoop.class);
-	}
-
-	/**
-	 * The CompressedStone registered item.
-	 * 
-	 * @return An instance of {@link ItemBlockMeta}.
-	 */
-	public static ItemBlockMeta CompressedStoneItem()
-	{
-		return ModRegistry.GetItem(ItemBlockMeta.class);
-	}
-
-	/**
-	 * The CompressedStone registered Block.
-	 * 
-	 * @return An instance of {@link BlockCompressedStone}.
-	 */
-	public static BlockCompressedStone CompressedStoneBlock()
-	{
-		return ModRegistry.GetBlock(BlockCompressedStone.class);
 	}
 
 	/**
@@ -506,7 +489,46 @@ public class ModRegistry
 	 */
 	public static ItemStack GetCompressedStoneType(BlockCompressedStone.EnumType enumType, int count)
 	{
-		return new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedStoneBlock()), count, enumType.getMetadata());
+		for (BlockCompressedStone stoneType : ModRegistry.CompressedStones)
+		{
+			if (enumType.getMetadata() == stoneType.typeofStone.getMetadata())
+			{
+				return new ItemStack(Item.getItemFromBlock(stoneType), count);
+			}
+		}
+		
+		return ItemStack.EMPTY;
+	}
+	
+	/**
+	 * This method is used to get an ItemStack for compressed stone.
+	 * 
+	 * @param enumType The type of compressed stone.
+	 * @return An item stack with the appropriate meta data with 1 item in the stack
+	 */
+	public static ItemStack GetCompressedObsidianType(BlockCompressedObsidian.EnumType enumType)
+	{
+		return ModRegistry.GetCompressedObsidianType(enumType, 1);
+	}
+
+	/**
+	 * This method is used to get an ItemStack for compressed stone.
+	 * 
+	 * @param enumType The type of compressed stone.
+	 * @param count The number to have in the returned stack.
+	 * @return An item stack with the appropriate meta data with 1 item in the stack
+	 */
+	public static ItemStack GetCompressedObsidianType(BlockCompressedObsidian.EnumType enumType, int count)
+	{
+		for (BlockCompressedObsidian stoneType : ModRegistry.CompressedObsidians)
+		{
+			if (enumType.getMetadata() == stoneType.typeofStone.getMetadata())
+			{
+				return new ItemStack(Item.getItemFromBlock(stoneType), count);
+			}
+		}
+		
+		return ItemStack.EMPTY;
 	}
 
 	/**
@@ -547,16 +569,6 @@ public class ModRegistry
 	public static ItemModerateHouse ModerateHouse()
 	{
 		return ModRegistry.GetItem(ItemModerateHouse.class);
-	}
-
-	/**
-	 * The Compressed Obsidian registered block.
-	 * 
-	 * @return An instance of {@link CompressedObsidianBlock}.
-	 */
-	public static BlockCompressedObsidian CompressedObsidianBlock()
-	{
-		return ModRegistry.GetBlock(BlockCompressedObsidian.class);
 	}
 
 	/**
@@ -801,18 +813,19 @@ public class ModRegistry
 		// Only the first one in this list should have the last variable set to true.
 		ModRegistry.registerItem(new ItemBasicStructure("item_basic_structure"));
 
-		// Create/register the item block with this block as it's needed due to this being a meta data block.
-		BlockCompressedStone stone = new BlockCompressedStone();
-		ItemBlockMeta meta = new ItemBlockMeta(stone);
-		ModRegistry.setItemName(meta, "block_compressed_stone");
-		ModRegistry.registerBlock(stone, meta);
+		for (BlockCompressedStone.EnumType stoneType : BlockCompressedStone.EnumType.values())
+		{
+			BlockCompressedStone stone = new BlockCompressedStone(stoneType);
+			ModRegistry.CompressedStones.add(ModRegistry.registerBlock(stone));
+		}
 
 		ModRegistry.registerBlock(new BlockPaperLantern("block_paper_lantern"));
 
-		BlockCompressedObsidian obsidian = new BlockCompressedObsidian();
-		ItemBlockMeta metaObsidian = new ItemBlockMeta(obsidian);
-		ModRegistry.setItemName(metaObsidian, "block_compressed_obsidian");
-		ModRegistry.registerBlock(obsidian, metaObsidian);
+		for (BlockCompressedObsidian.EnumType stoneType : BlockCompressedObsidian.EnumType.values())
+		{
+			BlockCompressedObsidian stone = new BlockCompressedObsidian(stoneType);
+			ModRegistry.CompressedObsidians.add(ModRegistry.registerBlock(stone));
+		}
 
 		ModRegistry.registerItem(new ItemVillagerHouses("item_villager_houses"));
 
@@ -891,10 +904,8 @@ public class ModRegistry
 		OreDictionary.registerOre("compressedStone3", ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE));
 		OreDictionary.registerOre("compressedGlowstone1", ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_GLOWSTONE));
 		OreDictionary.registerOre("compressedGlowstone2", ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE));
-		OreDictionary.registerOre("compressedObsidian1",
-			new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedObsidianBlock()), 1, BlockCompressedObsidian.EnumType.COMPRESSED_OBSIDIAN.getMetadata()));
-		OreDictionary.registerOre("compressedObsidian2", new ItemStack(Item.getItemFromBlock(ModRegistry.CompressedObsidianBlock()), 1,
-			BlockCompressedObsidian.EnumType.DOUBLE_COMPRESSED_OBSIDIAN.getMetadata()));
+		OreDictionary.registerOre("compressedObsidian1", ModRegistry.GetCompressedObsidianType(BlockCompressedObsidian.EnumType.COMPRESSED_OBSIDIAN));
+		OreDictionary.registerOre("compressedObsidian2", ModRegistry.GetCompressedObsidianType(BlockCompressedObsidian.EnumType.DOUBLE_COMPRESSED_OBSIDIAN));
 	}
 
 	/**

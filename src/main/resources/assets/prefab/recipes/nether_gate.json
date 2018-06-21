@@ -14,12 +14,12 @@
     ],
     "key": {
         "a": {
-                "type": "forge:ore_dict",
-                "ore": "compressedStone2"
+            "type": "forge:ore_dict",
+            "ore": "compressedStone2"
         },
         "b": {
-            "item": "minecraft:obsidian",
-            "data": 32767
+            "type": "forge:ore_dict",
+            "ore": "compressedObsidian1"
         },
         "c": {
             "item": "minecraft:flint_and_steel",

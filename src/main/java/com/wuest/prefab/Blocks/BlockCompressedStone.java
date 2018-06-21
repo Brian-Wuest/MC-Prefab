@@ -35,15 +35,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  * 
  * @author WuestMan
  */
-public class BlockCompressedStone extends Block implements IMetaBlock
+public class BlockCompressedStone extends Block
 {
-	public static final PropertyEnum<BlockCompressedStone.EnumType> VARIANT = PropertyEnum.<BlockCompressedStone.EnumType> create("variant",
-		BlockCompressedStone.EnumType.class);
-
+	public final EnumType typeofStone;
+	
 	/**
 	 * Initializes a new instance of the CompressedStone class.
 	 */
-	public BlockCompressedStone()
+	public BlockCompressedStone(EnumType typeOfStone)
 	{
 		super(Material.ROCK);
 		this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
@@ -51,17 +50,8 @@ public class BlockCompressedStone extends Block implements IMetaBlock
 		this.setResistance(10.0F);
 		this.setHarvestLevel(null, 0);
 		this.setSoundType(SoundType.STONE);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, EnumType.COMPRESSED_STONE));
-		ModRegistry.setBlockName(this, "block_compressed_stone");
-	}
-
-	/**
-	 * Gets the localized name of this block. Used for the statistics page.
-	 */
-	@Override
-	public String getLocalizedName()
-	{
-		return I18n.translateToLocal("tile.prefab" + BlockCompressedStone.EnumType.COMPRESSED_STONE.getUnlocalizedName() + ".name");
+		ModRegistry.setBlockName(this, typeOfStone.unlocalizedName);
+		this.typeofStone = typeOfStone;
 	}
 
 	/**
@@ -82,7 +72,7 @@ public class BlockCompressedStone extends Block implements IMetaBlock
 			return other.getLightValue(world, pos);
 		}
 
-		EnumType meta = this.getVariantFromState(state);
+		EnumType meta = this.typeofStone;
 
 		if (meta == EnumType.COMPRESSED_GLOWSTONE || meta == EnumType.DOUBLE_COMPRESSED_GLOWSTONE)
 		{
@@ -90,16 +80,6 @@ public class BlockCompressedStone extends Block implements IMetaBlock
 		}
 
 		return state.getLightValue();
-	}
-
-	/**
-	 * Get the Item that this Block should drop when harvested.
-	 */
-	@Nullable
-	@Override
-	public Item getItemDropped(IBlockState state, Random rand, int fortune)
-	{
-		return Item.getItemFromBlock(ModRegistry.CompressedStoneBlock());
 	}
 
 	/**
@@ -114,99 +94,6 @@ public class BlockCompressedStone extends Block implements IMetaBlock
 	public boolean canHarvestBlock(IBlockAccess world, BlockPos pos, EntityPlayer player)
 	{
 		return true;
-	}
-
-	/**
-	 * Gets the metadata of the item this Block can drop. This method is called when the block gets destroyed. It
-	 * returns the metadata of the dropped item based on the old metadata of the block.
-	 */
-	@Override
-	public int damageDropped(IBlockState state)
-	{
-		return this.getMetaFromState(state);
-	}
-
-	@Override
-	/**
-	 * Called when a user uses the creative pick block button on this block
-	 *
-	 * @param target The full target the player is looking at
-	 * @return A ItemStack to add to the player's inventory, Null if nothing should be added.
-	 */
-	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player)
-	{
-		return new ItemStack(Item.getItemFromBlock(this), 1, this.getMetaFromState(world.getBlockState(pos)));
-	}
-
-	@Override
-	public String getSpecialName(ItemStack stack)
-	{
-		for (BlockCompressedStone.EnumType enumType : BlockCompressedStone.EnumType.values())
-		{
-			if (enumType.meta == stack.getItemDamage())
-			{
-				return enumType.name;
-			}
-		}
-
-		return "";
-	}
-
-	@Override
-	public String getMetaDataUnLocalizedName(int metaData)
-	{
-		EnumType type = EnumType.byMetadata(metaData);
-
-		return type.unlocalizedName;
-	}
-
-	/**
-	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
-	 */
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list)
-	{
-		for (BlockCompressedStone.EnumType enumType : BlockCompressedStone.EnumType.values())
-		{
-			list.add(new ItemStack(this, 1, enumType.getMetadata()));
-		}
-	}
-
-	/**
-	 * Convert the given metadata into a BlockState for this Block
-	 */
-	@Override
-	public IBlockState getStateFromMeta(int meta)
-	{
-		return this.getDefaultState().withProperty(VARIANT, BlockCompressedStone.EnumType.byMetadata(meta));
-	}
-
-	/**
-	 * Convert the BlockState into the correct metadata value
-	 */
-	@Override
-	public int getMetaFromState(IBlockState state)
-	{
-		return ((BlockCompressedStone.EnumType) state.getValue(VARIANT)).getMetadata();
-	}
-
-	@Override
-	protected BlockStateContainer createBlockState()
-	{
-		return new BlockStateContainer(this, new IProperty[]
-		{ VARIANT });
-	}
-
-	/**
-	 * Gets the variant for the current state.
-	 * 
-	 * @param state The state to get the enum type for.
-	 * @return A enum type for the current state.
-	 */
-	public EnumType getVariantFromState(IBlockState state)
-	{
-		return (EnumType) state.getValue(VARIANT);
 	}
 
 	/**

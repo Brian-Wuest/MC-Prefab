@@ -14,8 +14,8 @@
     ],
     "key": {
         "a": {
-            "item": "prefab:block_compressed_stone",
-            "data": 1
+            "type": "forge:ore_dict",
+            "ore": "compressedStone2"
         },
         "b": {
             "item": "prefab:item_compressed_chest",
@@ -26,8 +26,8 @@
             "data": 32767
         },
         "d": {
-            "item": "prefab:block_compressed_stone",
-            "data": 2
+            "type": "forge:ore_dict",
+            "ore": "compressedStone3"
         }
     },
     "result": {

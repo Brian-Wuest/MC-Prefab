@@ -18,8 +18,8 @@
             "data": 32767
         },
         "b": {
-                "type": "forge:ore_dict",
-                "ore": "compressedStone1"
+            "type": "forge:ore_dict",
+            "ore": "compressedStone1"
         }
     },
     "result": {

@@ -18,16 +18,16 @@
             "data": 32767
         },
         "b": {
-                "type": "forge:ore_dict",
-                "ore": "compressedDirt2"
+            "type": "forge:ore_dict",
+            "ore": "compressedDirt2"
         },
         "c": {
             "item": "minecraft:flower_pot",
             "data": 32767
         },
         "d": {
-                "type": "forge:ore_dict",
-                "ore": "compressedGlowstone2"
+            "type": "forge:ore_dict",
+            "ore": "compressedGlowstone2"
         }
     },
     "result": {
