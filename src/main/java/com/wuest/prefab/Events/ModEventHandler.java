@@ -119,11 +119,9 @@ public class ModEventHandler
 	{
 		ItemStack rightItem = event.getRight();
 		ItemStack leftItem = event.getLeft();
+		Item tripleCompressedStone = ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE).getItem();
 
-		if ((rightItem.getItem() == Item.getItemFromBlock(ModRegistry.CompressedStoneBlock())
-			&& rightItem.getMetadata() == BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE.getMetadata())
-			|| (leftItem.getItem() == Item.getItemFromBlock(ModRegistry.CompressedStoneBlock())
-				&& leftItem.getMetadata() == BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE.getMetadata()))
+		if (rightItem.getItem() == tripleCompressedStone || leftItem.getItem() == tripleCompressedStone)
 		{
 			if (rightItem.getItem() == ModRegistry.Bulldozer() || leftItem.getItem() == ModRegistry.Bulldozer())
 			{
@@ -169,7 +167,7 @@ public class ModEventHandler
 				case "blockcompressedstone":
 				case "blockCompressedStone":
 				{
-					mappedBlock = ModRegistry.CompressedStoneBlock();
+					mappedBlock = ModRegistry.GetCompressedStoneBlock(BlockCompressedStone.EnumType.COMPRESSED_STONE);
 				}
 			}
 

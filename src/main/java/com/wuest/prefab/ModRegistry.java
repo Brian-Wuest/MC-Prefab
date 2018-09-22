@@ -501,6 +501,24 @@ public class ModRegistry
 	}
 	
 	/**
+	 * Gets a compressed stone block based on the stype.
+	 * @param enumType The type of block to get.
+	 * @return The appropriate stone block type or if none was found, air.
+	 */
+	public static Block GetCompressedStoneBlock(BlockCompressedStone.EnumType enumType)
+	{
+		for (BlockCompressedStone stoneType : ModRegistry.CompressedStones)
+		{
+			if (enumType.getMetadata() == stoneType.typeofStone.getMetadata())
+			{
+				return stoneType;
+			}
+		}
+		
+		return Blocks.AIR;
+	}
+	
+	/**
 	 * This method is used to get an ItemStack for compressed stone.
 	 * 
 	 * @param enumType The type of compressed stone.
