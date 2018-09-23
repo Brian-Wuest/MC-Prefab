@@ -15,7 +15,7 @@
     "key": {
         "a": {
                 "type": "forge:ore_dict",
-                "ore": "compressedStone1"
+                "ore": "compressedStone2"
         },
         "b": {
             "item": "prefab:item_warehouse_upgrade",
