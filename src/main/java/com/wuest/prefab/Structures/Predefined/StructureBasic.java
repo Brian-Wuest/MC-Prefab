@@ -42,6 +42,11 @@ public class StructureBasic extends Structure
 		else
 		{
 			BuildShape buildShape = configuration.basicStructureName.getClearShape().Clone();
+			
+			// Scanning the structure doesn't contain the starting corner block but the clear does.
+			buildShape.setWidth(buildShape.getWidth() - 1);
+			buildShape.setLength(buildShape.getLength() - 1);
+			
 			PositionOffset offset = configuration.basicStructureName.getClearPositionOffset();
 			
 			clearedSpace.getShape().setWidth(clearedSpace.getShape().getWidth());
