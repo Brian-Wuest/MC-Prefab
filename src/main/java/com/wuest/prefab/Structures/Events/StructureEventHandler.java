@@ -19,11 +19,15 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityHanging;
 import net.minecraft.entity.EntityList;
+import net.minecraft.entity.item.EntityItemFrame;
+import net.minecraft.entity.item.EntityPainting;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagDouble;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -294,64 +298,33 @@ public class StructureEventHandler
 					{
 						tagCompound.setUniqueId("UUID", UUID.randomUUID());
 					}
+					
+	                NBTTagList nbttaglist = new NBTTagList();
+	                nbttaglist.appendTag(new NBTTagDouble(entityPos.getX()));
+	                nbttaglist.appendTag(new NBTTagDouble(entityPos.getY()));
+	                nbttaglist.appendTag(new NBTTagDouble(entityPos.getZ()));
+	                tagCompound.setTag("Pos", nbttaglist);
 
 					entity.readFromNBT(tagCompound);
 				}
 
 				entity.forceSpawn = true;
-				float yaw = entity.rotationYaw;
-				Rotation rotation = Rotation.NONE;
-				double x_axis_offset = buildEntity.entityXAxisOffset;
-				double z_axis_offset = buildEntity.entityZAxisOffset;
-				EnumFacing facing = entity instanceof EntityHanging ? ((EntityHanging) entity).facingDirection : structure.assumedNorth;
-				double y_axis_offset = entity instanceof EntityHanging ? buildEntity.entityYAxisOffset * -1 : buildEntity.entityYAxisOffset;
-
-				if (structure.configuration.houseFacing == structure.assumedNorth.getOpposite())
+				
+				// Set item frame facing and rotation here.
+				if (entity instanceof EntityItemFrame)
 				{
-					rotation = Rotation.CLOCKWISE_180;
-					x_axis_offset = x_axis_offset * -1;
-					z_axis_offset = z_axis_offset * -1;
-					facing = facing.getOpposite();
+					entity = StructureEventHandler.setItemFrameFacingAndRotation((EntityItemFrame)entity, buildEntity, entityPos, structure);
 				}
-				else if (structure.configuration.houseFacing == structure.assumedNorth.rotateY())
+				else if (entity instanceof EntityPainting)
 				{
-					rotation = rotation.CLOCKWISE_90;
-					x_axis_offset = x_axis_offset * -1;
-					z_axis_offset = z_axis_offset * -1;
-					facing = facing.rotateY();
-				}
-				else if (structure.configuration.houseFacing == structure.assumedNorth.rotateYCCW())
-				{
-					rotation = rotation.COUNTERCLOCKWISE_90;
-					x_axis_offset = x_axis_offset * -1;
-					z_axis_offset = z_axis_offset * -1;
-					facing = facing.rotateYCCW();
+					entity = StructureEventHandler.setPaintingFacingAndRotation((EntityPainting)entity, buildEntity, entityPos, structure);
 				}
 				else
 				{
-					x_axis_offset = 0;
-					z_axis_offset = 0;
+					// All other entities
+					entity = StructureEventHandler.setEntityFacingAndRotation(entity, buildEntity, entityPos, structure);
 				}
-
-				yaw = entity.getRotatedYaw(rotation);
-
-				if (entity instanceof EntityHanging)
-				{
-					((EntityHanging) entity).facingDirection = facing;
-					StructureEventHandler.updateEntityHangingBoundingBox((EntityHanging) entity);
-				}
-
-				entity.setPositionAndRotation(entityPos.getX() + x_axis_offset, entityPos.getY() + y_axis_offset, entityPos.getZ() + z_axis_offset, yaw,
-					entity.rotationPitch);
-
-				if (entity instanceof EntityHanging)
-				{
-					StructureEventHandler.updateEntityHangingBoundingBox((EntityHanging) entity);
-					Chunk chunk = structure.world.getChunkFromBlockCoords(entityPos);
-
-					chunk.markDirty();
-				}
-
+					
 				structure.world.spawnEntity(entity);
 			}
 
@@ -359,6 +332,188 @@ public class StructureEventHandler
 			structure.AfterBuilding(structure.configuration, structure.world, structure.originalPos, structure.assumedNorth, entry.getKey());
 			entry.getValue().remove(structure);
 		}
+	}
+
+	private static Entity setPaintingFacingAndRotation(EntityPainting entity, BuildEntity buildEntity, BlockPos entityPos, Structure structure)
+	{
+		float yaw = entity.rotationYaw;
+		Rotation rotation = Rotation.NONE;
+		double x_axis_offset = buildEntity.entityXAxisOffset;
+		double z_axis_offset = buildEntity.entityZAxisOffset;
+		EnumFacing facing =  entity.facingDirection;
+		double y_axis_offset = buildEntity.entityYAxisOffset * -1;
+
+		if (structure.configuration.houseFacing == structure.assumedNorth.getOpposite())
+		{
+			rotation = Rotation.CLOCKWISE_180;
+			x_axis_offset = x_axis_offset * -1;
+			z_axis_offset = z_axis_offset * -1;
+			facing = facing.getOpposite();
+		}
+		else if (structure.configuration.houseFacing == structure.assumedNorth.rotateY())
+		{
+			rotation = rotation.CLOCKWISE_90;
+			x_axis_offset = x_axis_offset * -1;
+			z_axis_offset = z_axis_offset * -1;
+			
+			if (structure.getClearSpace().getShape().getDirection() == EnumFacing.NORTH)
+			{
+				facing = facing.rotateYCCW();	
+			}
+			else if (structure.getClearSpace().getShape().getDirection() == EnumFacing.SOUTH)
+			{
+				facing = facing.rotateY();
+			}
+		}
+		else if (structure.configuration.houseFacing == structure.assumedNorth.rotateYCCW())
+		{
+			rotation = rotation.COUNTERCLOCKWISE_90;
+			x_axis_offset = x_axis_offset * -1;
+			z_axis_offset = z_axis_offset * -1;
+			
+			if (structure.getClearSpace().getShape().getDirection() == EnumFacing.NORTH)
+			{
+				facing = facing.rotateY();
+			}
+			else if (structure.getClearSpace().getShape().getDirection() == EnumFacing.SOUTH)
+			{
+				facing = facing.rotateYCCW();	
+			}
+		}
+		else
+		{
+			x_axis_offset = 0;
+			z_axis_offset = 0;
+		}
+		
+		if (entity.art.sizeY > entity.art.sizeX
+			|| entity.art.sizeY > 16)
+		{
+			y_axis_offset--;
+		}
+
+		yaw = entity.getRotatedYaw(rotation);
+
+		((EntityHanging) entity).facingDirection = facing;
+		StructureEventHandler.updateEntityHangingBoundingBox((EntityHanging) entity);
+
+		entity.setLocationAndAngles(entityPos.getX() + x_axis_offset, entityPos.getY() + y_axis_offset, entityPos.getZ() + z_axis_offset, yaw,
+			entity.rotationPitch);
+
+		StructureEventHandler.updateEntityHangingBoundingBox((EntityHanging) entity);
+		Chunk chunk = structure.world.getChunkFromBlockCoords(entityPos);
+
+		chunk.markDirty();
+		
+		return entity;
+	}
+	
+	private static Entity setItemFrameFacingAndRotation(EntityItemFrame frame, BuildEntity buildEntity, BlockPos entityPos, Structure structure)
+	{
+		float yaw = frame.rotationYaw;
+		Rotation rotation = Rotation.NONE;
+		double x_axis_offset = buildEntity.entityXAxisOffset;
+		double z_axis_offset = buildEntity.entityZAxisOffset;
+		EnumFacing facing =  frame.facingDirection;
+		double y_axis_offset = buildEntity.entityYAxisOffset;
+		x_axis_offset = x_axis_offset * -1;
+		z_axis_offset = z_axis_offset * -1;
+		
+		if (structure.configuration.houseFacing == structure.assumedNorth.getOpposite())
+		{
+			rotation = Rotation.CLOCKWISE_180;
+			facing = facing.getOpposite();
+		}
+		else if (structure.configuration.houseFacing == structure.assumedNorth.rotateY())
+		{	
+			if (structure.getClearSpace().getShape().getDirection() == EnumFacing.NORTH)
+			{
+				rotation = rotation.CLOCKWISE_90;
+				facing = facing.rotateYCCW();	
+			}
+			else if (structure.getClearSpace().getShape().getDirection() == EnumFacing.SOUTH)
+			{
+				facing = facing.rotateY();
+				rotation = rotation.COUNTERCLOCKWISE_90;
+			}
+		}
+		else if (structure.configuration.houseFacing == structure.assumedNorth.rotateYCCW())
+		{			
+			if (structure.getClearSpace().getShape().getDirection() == EnumFacing.NORTH)
+			{
+				rotation = rotation.COUNTERCLOCKWISE_90;
+				facing = facing.rotateY();
+			}
+			else if (structure.getClearSpace().getShape().getDirection() == EnumFacing.SOUTH)
+			{
+				facing = facing.rotateYCCW();
+				rotation = rotation.CLOCKWISE_90;
+			}
+		}
+		else
+		{
+			x_axis_offset = 0;
+			z_axis_offset = 0;
+		}
+
+		yaw = frame.getRotatedYaw(rotation);
+
+		((EntityHanging) frame).facingDirection = facing;
+		StructureEventHandler.updateEntityHangingBoundingBox((EntityHanging) frame);
+
+		frame.setLocationAndAngles(entityPos.getX() + x_axis_offset, entityPos.getY() + y_axis_offset, entityPos.getZ() + z_axis_offset, yaw,
+			frame.rotationPitch);
+
+		StructureEventHandler.updateEntityHangingBoundingBox((EntityHanging) frame);
+		Chunk chunk = structure.world.getChunkFromBlockCoords(entityPos);
+
+		chunk.markDirty();
+		
+		return frame;
+	}
+
+	private static Entity setEntityFacingAndRotation(Entity entity, BuildEntity buildEntity, BlockPos entityPos, Structure structure)
+	{
+		float yaw = entity.rotationYaw;
+		Rotation rotation = Rotation.NONE;
+		double x_axis_offset = buildEntity.entityXAxisOffset;
+		double z_axis_offset = buildEntity.entityZAxisOffset;
+		EnumFacing facing = structure.assumedNorth;
+		double y_axis_offset = buildEntity.entityYAxisOffset;
+
+		if (structure.configuration.houseFacing == structure.assumedNorth.getOpposite())
+		{
+			rotation = Rotation.CLOCKWISE_180;
+			x_axis_offset = x_axis_offset * -1;
+			z_axis_offset = z_axis_offset * -1;
+			facing = facing.getOpposite();
+		}
+		else if (structure.configuration.houseFacing == structure.assumedNorth.rotateY())
+		{
+			rotation = rotation.CLOCKWISE_90;
+			x_axis_offset = x_axis_offset * -1;
+			z_axis_offset = z_axis_offset * -1;
+			facing = facing.rotateY();
+		}
+		else if (structure.configuration.houseFacing == structure.assumedNorth.rotateYCCW())
+		{
+			rotation = rotation.COUNTERCLOCKWISE_90;
+			x_axis_offset = x_axis_offset * -1;
+			z_axis_offset = z_axis_offset * -1;
+			facing = facing.rotateYCCW();
+		}
+		else
+		{
+			x_axis_offset = 0;
+			z_axis_offset = 0;
+		}
+
+		yaw = entity.getRotatedYaw(rotation);
+
+		entity.setPositionAndRotation(entityPos.getX() + x_axis_offset, entityPos.getY() + y_axis_offset, entityPos.getZ() + z_axis_offset, yaw,
+			entity.rotationPitch);
+		
+		return entity;
 	}
 
 	private static void updateEntityHangingBoundingBox(EntityHanging entity)

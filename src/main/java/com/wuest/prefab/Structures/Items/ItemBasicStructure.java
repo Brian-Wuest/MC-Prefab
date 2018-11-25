@@ -44,19 +44,20 @@ public class ItemBasicStructure extends StructureItem
 	 * Does something when the item is right-clicked.
 	 */
 	@Override
-	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos hitBlockPos, EnumHand hand, EnumFacing side, float hitX, float hitY,
-		float hitZ)
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos hitBlockPos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ)
 	{
 		if (world.isRemote)
 		{
 			if (side == EnumFacing.UP)
 			{
-/*				StructureBasic basicStructure = new StructureBasic();
-				ItemStack stack = player.getHeldItem(hand);
-				IStructureConfigurationCapability capability = stack.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
+				
+				/*StructureBasic basicStructure = new StructureBasic(); ItemStack stack = player.getHeldItem(hand);
+				IStructureConfigurationCapability capability =
+				stack.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
 				BasicStructureConfiguration structureConfiguration = capability.getConfiguration();
-				basicStructure.ScanStructure(world, hitBlockPos, player.getHorizontalFacing(), structureConfiguration, false, false);
-*/
+				basicStructure.ScanStructure(world, hitBlockPos, player.getHorizontalFacing(),
+				structureConfiguration, false, false);*/
+					 
 				// Open the client side gui to determine the house options.
 				player.openGui(Prefab.instance, this.guiId, player.world, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
 

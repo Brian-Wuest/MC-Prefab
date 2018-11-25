@@ -37,6 +37,7 @@ item.prefab.green_house=Conservatoire
 item.prefab.watch_tower=Tour de guet
 item.prefab.welcome_center=Centre d'accueil
 item.prefab.jail=Prison
+item.prefab.saloon=Salon
 
 tile.prefab:block_compressed_stone.block_compressed_stone.name=Pierre compressée
 tile.prefab:block_compressed_stone.block_double_compressed_stone.name=Double Pierre compressée

@@ -313,6 +313,27 @@ public class BuildBlock
 		}
 	}
 	
+	public static EnumFacing getHorizontalFacing(EnumFacing currentFacing, EnumFacing configurationFacing, EnumFacing structureDirection)
+	{
+		if (currentFacing != null && currentFacing != EnumFacing.UP && currentFacing != EnumFacing.DOWN)
+		{
+			if (configurationFacing.getOpposite() == structureDirection.rotateY())
+			{				
+				currentFacing = currentFacing.rotateY();
+			}
+			else if (configurationFacing.getOpposite() == structureDirection.getOpposite())
+			{
+				currentFacing = currentFacing.getOpposite();
+			}
+			else if (configurationFacing.getOpposite() == structureDirection.rotateYCCW())
+			{
+				currentFacing = currentFacing.rotateYCCW();
+			}
+		}
+		
+		return currentFacing;
+	}
+	
 	private static Comparable setComparable(Comparable<?> comparable, Block foundBlock, IProperty<?> property, StructureConfiguration configuration, BuildBlock block, EnumFacing assumedNorth, Optional<?> propertyValue
 			, EnumFacing vineFacing, EnumAxis logFacing, Axis boneFacing, BlockQuartz.EnumType quartzFacing, EnumOrientation leverOrientation, Structure structure)
 	{
@@ -322,21 +343,7 @@ public class BuildBlock
 			EnumFacing facing = EnumFacing.byName(propertyValue.get().toString());
 			
 			// Cannot rotate verticals.
-			if (facing != null && facing != EnumFacing.UP && facing != EnumFacing.DOWN)
-			{
-				if (configuration.houseFacing.getOpposite() == structure.getClearSpace().getShape().getDirection().rotateY())
-				{				
-					facing = facing.rotateY();
-				}
-				else if (configuration.houseFacing.getOpposite() == structure.getClearSpace().getShape().getDirection().getOpposite())
-				{
-					facing = facing.getOpposite();
-				}
-				else if (configuration.houseFacing.getOpposite() == structure.getClearSpace().getShape().getDirection().rotateYCCW())
-				{
-					facing = facing.rotateYCCW();
-				}
-			}
+			facing = BuildBlock.getHorizontalFacing(facing, configuration.houseFacing, structure.getClearSpace().getShape().getDirection());
 			
 			comparable = facing;
 			

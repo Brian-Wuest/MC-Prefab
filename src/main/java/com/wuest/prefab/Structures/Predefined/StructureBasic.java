@@ -44,8 +44,8 @@ public class StructureBasic extends Structure
 			BuildShape buildShape = configuration.basicStructureName.getClearShape().Clone();
 			PositionOffset offset = configuration.basicStructureName.getClearPositionOffset();
 			
-			clearedSpace.getShape().setWidth(clearedSpace.getShape().getWidth() - 1);
-			clearedSpace.getShape().setLength(clearedSpace.getShape().getLength() - 1);
+			clearedSpace.getShape().setWidth(clearedSpace.getShape().getWidth());
+			clearedSpace.getShape().setLength(clearedSpace.getShape().getLength());
 			
 			int downOffset = offset.getHeightOffset() < 0 ? Math.abs(offset.getHeightOffset()) : 0;
 			BlockPos cornerPos = originalPos

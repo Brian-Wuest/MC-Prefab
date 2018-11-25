@@ -37,6 +37,7 @@ item.prefab.green_house=Conservatorio
 item.prefab.watch_tower=Torre de vigilancia
 item.prefab.welcome_center=Centro de Bienvenida
 item.prefab.jail=Cárcel
+item.prefab.saloon=Salón
 
 tile.prefab:block_compressed_stone.block_compressed_stone.name=Piedra comprimida
 tile.prefab:block_compressed_stone.block_double_compressed_stone.name=Doble piedra comprimida
