@@ -162,9 +162,10 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		EnumBasicStructureName.Saloon.getClearShape().setDirection(EnumFacing.SOUTH);
 		EnumBasicStructureName.Saloon.getClearShape().setHeight(14);
 		EnumBasicStructureName.Saloon.getClearShape().setWidth(18);
-		EnumBasicStructureName.Saloon.getClearShape().setLength(15);
+		EnumBasicStructureName.Saloon.getClearShape().setLength(16);
 		EnumBasicStructureName.Saloon.getClearPositionOffset().setSouthOffset(1);
 		EnumBasicStructureName.Saloon.getClearPositionOffset().setEastOffset(10);
+		EnumBasicStructureName.Saloon.getClearPositionOffset().setHeightOffset(-1);
 		
 		/*EnumBasicStructureName.Saloon.getClearShape().setDirection(EnumFacing.SOUTH);
 		EnumBasicStructureName.Saloon.getClearShape().setHeight(4);
@@ -337,7 +338,7 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		WelcomeCenter("welcome_center", "item.prefab.welcome_center", "assets/prefab/structures/welcome_center.zip", "textures/gui/welcome_center_topdown.png",
 			"item_welcome_center", 121, 168),
 		Jail("jail", "item.prefab.jail", "assets/prefab/structures/jail.zip", "textures/gui/jail_topdown.png", "item_jail", 131, 175),
-		Saloon("saloon", "item.prefab.saloon", "assets/prefab/structures/saloon.zip", "textures/gui/saloon_topdown.png", "item_saloon", 131, 175);
+		Saloon("saloon", "item.prefab.saloon", "assets/prefab/structures/saloon.zip", "textures/gui/saloon_topdown.png", "item_saloon", 130, 170);
 
 		private String name;
 		private String assetLocation;
