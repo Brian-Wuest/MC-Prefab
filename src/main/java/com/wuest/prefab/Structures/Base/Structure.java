@@ -32,11 +32,13 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityHanging;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
@@ -264,6 +266,11 @@ public class Structure
 				if (entity instanceof EntityItemFrame)
 				{
 					buildEntity.entityYAxisOffset = buildEntity.entityYAxisOffset * -1;
+				}
+				
+				if (entity instanceof EntityHanging)
+				{
+					buildEntity.entityFacing = ((EntityHanging)entity).facingDirection;
 				}
 				
 				NBTTagCompound entityTagCompound = new NBTTagCompound();

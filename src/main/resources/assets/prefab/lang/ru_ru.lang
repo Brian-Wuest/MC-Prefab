@@ -37,6 +37,7 @@ item.prefab.green_house=Оранжерея
 item.prefab.watch_tower=Сторожевая башня
 item.prefab.welcome_center=Приветственный центр
 item.prefab.jail=тюрьма
+item.prefab.saloon=салон
 
 tile.prefab:block_compressed_stone.name=Сжатый камень
 tile.prefab:block_double_compressed_stone.name=Двойной сжатый камень

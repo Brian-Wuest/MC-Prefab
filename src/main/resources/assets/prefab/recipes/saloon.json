@@ -1,0 +1,48 @@
+{
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Saloon"
+        }
+    ],
+    "type": "minecraft:crafting_shaped",
+    "group": "Saloon",
+    "pattern": [
+        "aaa",
+        "bcd",
+        "aaa"
+    ],
+    "key": {
+        "a": {
+            "item": "prefab:item_bundle_of_timber",
+            "data": 0
+        },
+        "b": {
+            "item": "minecraft:glass",
+            "data": 0
+        },
+        "c": {
+            "item": "minecraft:brewing_stand",
+            "data": 0
+        },
+        "d": {
+            "item": "minecraft:noteblock",
+            "data": 0
+        }
+    },
+    "result": {
+        "item": "prefab:item_basic_structure",
+        "data": 0,
+        "nbt": {
+            "ForgeCaps": {
+                "prefab:structuresconfiguration": {
+                    "configuration": {
+                        "structureEnumName": "Saloon",
+                        "structureDisplayName": "Saloon"
+                    }
+                }
+            }
+        },
+        "count": 1
+    }
+}

@@ -5,6 +5,7 @@ import com.google.gson.annotations.Expose;
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTException;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 
 /**
@@ -34,6 +35,9 @@ public class BuildEntity
 	
 	@Expose
 	public double entityZAxisOffset;
+	
+	@Expose
+	public EnumFacing entityFacing;
 	
 	/**
 	 * Initializes a new instance of the BuildEntity class.
@@ -109,6 +113,7 @@ public class BuildEntity
 		this.entityXAxisOffset = 0;
 		this.entityYAxisOffset = 0;
 		this.entityZAxisOffset = 0;
+		this.entityFacing = EnumFacing.NORTH;
 	}
 	
 	public NBTTagCompound getEntityDataTag()

@@ -91,9 +91,10 @@ public class ModConfiguration
 	public boolean addChestContents;
 	public boolean addFarm;
 	public boolean addMineshaft;
-	
+
 	public String startingItem;
-	public static String[] validStartingItems = new String[] { "Starter House", "Moderate House", "Structure Part", "Nothing" };
+	public static String[] validStartingItems = new String[]
+	{ "Starter House", "Moderate House", "Structure Part", "Nothing" };
 
 	public HashMap<String, Boolean> recipeConfiguration;
 
@@ -145,14 +146,14 @@ public class ModConfiguration
 	public static String bulldozerKey = "Bulldozer";
 	public static String structurePartKey = "StructurePart";
 	public static String jailKey = "Jail";
+	public static String saloonKey = "Saloon";
 
 	public static String[] recipeKeys = new String[]
-	{ compressedStoneKey, compressedGlowStoneKey, compressedDirteKey, compressedChestKey, pileOfBricksKey, warehouseKey, produceFarmKey, treeFarmKey,
-		chickenCoopKey, fishFarmKey, warehouseUpgradeKey, advancedWarehouseKey, monsterMasherKey, bundleofTimberKey, horseStableKey, netherGateKey,
-		advancedChickenCoopKey, advancedHorseStableKey, barnKey, machineryTowerKey, defenseBunkerKey, mineshaftEntranceKey, enderGatewayKey, magicTempleKey,
-		instantBridgeKey, paperLanternKey, compressedObsidianKey, villagerHousesKey, phasicBlockKey, smartGlassKey, greenHouseKey, startingHouseKey,
-		glassStairsKey, glassSlabsKey, andesiteStairsKey, andesiteSlabsKey, dioriteStairsKey, dioriteSlabKey, graniteStairsKey, grantiteSlabKey,
-		moderateHouseKey, grassyPlainsKey, aquaBaseKey, watchTowerKey, bulldozerKey, structurePartKey, jailKey };
+	{ compressedStoneKey, compressedGlowStoneKey, compressedDirteKey, compressedChestKey, pileOfBricksKey, warehouseKey, produceFarmKey, treeFarmKey, chickenCoopKey, fishFarmKey,
+		warehouseUpgradeKey, advancedWarehouseKey, monsterMasherKey, bundleofTimberKey, horseStableKey, netherGateKey, advancedChickenCoopKey, advancedHorseStableKey, barnKey,
+		machineryTowerKey, defenseBunkerKey, mineshaftEntranceKey, enderGatewayKey, magicTempleKey, instantBridgeKey, paperLanternKey, compressedObsidianKey, villagerHousesKey,
+		phasicBlockKey, smartGlassKey, greenHouseKey, startingHouseKey, glassStairsKey, glassSlabsKey, andesiteStairsKey, andesiteSlabsKey, dioriteStairsKey, dioriteSlabKey,
+		graniteStairsKey, grantiteSlabKey, moderateHouseKey, grassyPlainsKey, aquaBaseKey, watchTowerKey, bulldozerKey, structurePartKey, jailKey, saloonKey };
 
 	// Version Check Message Info
 	public String versionMessage = "";
@@ -175,22 +176,22 @@ public class ModConfiguration
 		{
 			Prefab.proxy.proxyConfiguration = new ModConfiguration();
 		}
-		
+
 		ConfigCategory mainCategory = config.getCategory(ModConfiguration.OPTIONS);
 
-		// General settings. 
-		Prefab.proxy.proxyConfiguration.startingItem = config.getString(ModConfiguration.startingItemName, ModConfiguration.OPTIONS, "Starting House", "Determines which starting item a player gets on first world join. Server configuration overrides client.", validStartingItems);
+		// General settings.
+		Prefab.proxy.proxyConfiguration.startingItem = config.getString(ModConfiguration.startingItemName, ModConfiguration.OPTIONS, "Starting House",
+			"Determines which starting item a player gets on first world join. Server configuration overrides client.", validStartingItems);
 		Property startingItemProperty = mainCategory.get(ModConfiguration.startingItemName);
-		
+
 		Prefab.proxy.proxyConfiguration.maximumStartingHouseSize = config.getInt(ModConfiguration.maximumHouseSizeName, ModConfiguration.OPTIONS, 16, 5, 16,
 			"Determines the maximum size the starting house can be generated as. Server configuration overrides client.");
-		Prefab.proxy.proxyConfiguration.enableVersionCheckMessage = config.getBoolean(ModConfiguration.enableVersionCheckMessageName, ModConfiguration.OPTIONS,
-			true,
+		Prefab.proxy.proxyConfiguration.enableVersionCheckMessage = config.getBoolean(ModConfiguration.enableVersionCheckMessageName, ModConfiguration.OPTIONS, true,
 			"Determines if version checking is enabled when application starts. Also determines if the chat message about old versions is shown when joining a world. Server configuration overrides client.");
 		Prefab.proxy.proxyConfiguration.enableLoftHouse = config.getBoolean(ModConfiguration.enableLoftHouseName, ModConfiguration.OPTIONS, false,
 			"Determines if the loft starter house is enabled. This house contains Nether materials in it's construction. Server configuration overrides client.");
-		Prefab.proxy.proxyConfiguration.includeSpawnersInMasher = config.getBoolean(ModConfiguration.includeSpawnersInMasherName, ModConfiguration.OPTIONS,
-			true, "Determines if the spawners for the Monster Masher building are included. Server configuration overrides client.");
+		Prefab.proxy.proxyConfiguration.includeSpawnersInMasher = config.getBoolean(ModConfiguration.includeSpawnersInMasherName, ModConfiguration.OPTIONS, true,
+			"Determines if the spawners for the Monster Masher building are included. Server configuration overrides client.");
 		Prefab.proxy.proxyConfiguration.enableStructurePreview = config.getBoolean(ModConfiguration.enableStructurePreviewName, ModConfiguration.OPTIONS, true,
 			"Determines if the Preview buttons in structure GUIs and other structure previews functions are enabled. Client side only.");
 		Prefab.proxy.proxyConfiguration.includeMineshaftChest = config.getBoolean(ModConfiguration.includeMineshaftChestName, ModConfiguration.OPTIONS, true,
@@ -199,21 +200,20 @@ public class ModConfiguration
 		// Make this property require a restart.
 		config.get(ModConfiguration.OPTIONS, ModConfiguration.enableVersionCheckMessageName, true).setRequiresMcRestart(true);
 		config.get(ModConfiguration.OPTIONS, ModConfiguration.enableLoftHouseName, false).setRequiresMcRestart(true);
-		
+
 		Property startingHouseProperty = null;
 		Property moderateHouseProperty = null;
-		
-		
+
 		if (mainCategory.containsKey("Add House Item On New Player Join"))
 		{
 			startingHouseProperty = mainCategory.remove("Add House Item On New Player Join");
 		}
-		
+
 		if (mainCategory.containsKey("Add Moderate House on World Join"))
 		{
 			moderateHouseProperty = mainCategory.remove("Add Moderate House on World Join");
 		}
-		
+
 		if (startingHouseProperty != null)
 		{
 			if (moderateHouseProperty == null)
@@ -231,7 +231,7 @@ public class ModConfiguration
 					startingItemProperty.set("Nothing");
 				}
 			}
-			
+
 			Prefab.proxy.proxyConfiguration.startingItem = startingItemProperty.getString();
 		}
 
@@ -284,7 +284,6 @@ public class ModConfiguration
 		config.setCategoryRequiresMcRestart(ModConfiguration.RecipeOptions, true);
 		config.setCategoryRequiresWorldRestart(ModConfiguration.starterHouseOptions, true);
 
-		
 		// Recipe configuration.
 		for (String key : ModConfiguration.recipeKeys)
 		{
@@ -440,12 +439,8 @@ public class ModConfiguration
 
 	public enum WallBlockType
 	{
-		Oak(0, GuiLangKeys.WALL_BLOCK_TYPE_OAK),
-		Spruce(1, GuiLangKeys.WALL_BLOCK_TYPE_SPRUCE),
-		Birch(2, GuiLangKeys.WALL_BLOCK_TYPE_BIRCH),
-		Jungle(3, GuiLangKeys.WALL_BLOCK_TYPE_JUNGLE),
-		Acacia(4, GuiLangKeys.WALL_BLOCK_TYPE_ACACIA),
-		DarkOak(5, GuiLangKeys.WALL_BLOCK_TYPE_DARK_OAK);
+		Oak(0, GuiLangKeys.WALL_BLOCK_TYPE_OAK), Spruce(1, GuiLangKeys.WALL_BLOCK_TYPE_SPRUCE), Birch(2, GuiLangKeys.WALL_BLOCK_TYPE_BIRCH), Jungle(3,
+			GuiLangKeys.WALL_BLOCK_TYPE_JUNGLE), Acacia(4, GuiLangKeys.WALL_BLOCK_TYPE_ACACIA), DarkOak(5, GuiLangKeys.WALL_BLOCK_TYPE_DARK_OAK);
 
 		private final int value;
 		private final String langKey;
