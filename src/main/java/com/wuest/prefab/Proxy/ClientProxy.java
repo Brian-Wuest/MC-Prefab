@@ -1,6 +1,5 @@
 package com.wuest.prefab.Proxy;
 
-import com.wuest.prefab.ClientModRegistry;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.ModConfiguration;
@@ -8,9 +7,7 @@ import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Structures.Events.StructureClientEventHandler;
 import com.wuest.prefab.Structures.Render.ShaderHelper;
 
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 /**
  * 
@@ -24,7 +21,7 @@ public class ClientProxy extends CommonProxy
 	public static StructureClientEventHandler structureClientEventHandler = new StructureClientEventHandler();
 
 	@Override
-	public void preInit(FMLPreInitializationEvent event)
+	public void preInit(FMLCommonSetupEvent event)
 	{
 		super.preInit(event);
 
@@ -35,15 +32,13 @@ public class ClientProxy extends CommonProxy
 	}
 
 	@Override
-	public void init(FMLInitializationEvent event)
+	public void init(FMLCommonSetupEvent event)
 	{
 		super.init(event);
-
-		ClientModRegistry.RegisterModelMeshers();
 	}
 
 	@Override
-	public void postinit(FMLPostInitializationEvent event)
+	public void postinit(FMLCommonSetupEvent event)
 	{
 		super.postinit(event);
 	}

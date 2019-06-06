@@ -169,97 +169,97 @@ public class ModRegistry
 	/**
 	 * The hashmap of mod guis.
 	 */
-	public static HashMap<Integer, Class> ModGuis = new HashMap<Integer, Class>();
+	public static HashMap<String, Class> ModGuis = new HashMap<String, Class>();
 
 	/**
 	 * The identifier for the WareHouse GUI.
 	 */
-	public static final int GuiWareHouse = 1;
+	public static final String GuiWareHouse = "Warehouse";
 
 	/**
 	 * The identifier for the Chicken coop GUI.
 	 */
-	public static final int GuiChickenCoop = 2;
+	public static final String GuiChickenCoop = "ChickenCoop";
 
 	/**
 	 * The identifier for the Produce Farm GUI.
 	 */
-	public static final int GuiProduceFarm = 3;
+	public static final String GuiProduceFarm = "ProduceFarm";
 
 	/**
 	 * The identifier for the Tree Farm GUI.
 	 */
-	public static final int GuiTreeFarm = 4;
+	public static final String GuiTreeFarm = "TreeFarm";
 
 	/**
 	 * The identifier for the FishPond GUI.
 	 */
-	public static final int GuiFishPond = 5;
+	public static final String GuiFishPond = "FishPond";
 
 	/**
 	 * The identifier for the Starting House GUI.
 	 */
-	public static final int GuiStartHouseChooser = 6;
+	public static final String GuiStartHouseChooser = "StartHouseChooser";
 
 	/**
 	 * The identifier for the Advanced WareHouse GUI.
 	 */
-	public static final int GuiAdvancedWareHouse = 7;
+	public static final String GuiAdvancedWareHouse = "AdvancedWarehouse";
 
 	/**
 	 * The identifier for the Monster Masher GUI.
 	 */
-	public static final int GuiMonsterMasher = 8;
+	public static final String GuiMonsterMasher = "MonsterMasher";
 
 	/**
 	 * The identifier for the Horse Stable GUI.
 	 */
-	public static final int GuiHorseStable = 9;
+	public static final String GuiHorseStable = "HorseStable";
 
 	/**
 	 * The identifier for the Nether Gate GUI.
 	 */
-	public static final int GuiNetherGate = 10;
+	public static final String GuiNetherGate = "NetherGate";
 
 	/**
 	 * The identifier for the Modular House GUI.
 	 */
-	public static final int GuiModularHouse = 11;
+	public static final String GuiModularHouse = "ModularHouse";
 
 	/**
 	 * The identifier for the Drafter GUI.
 	 */
-	public static final int GuiDrafter = 12;
+	public static final String GuiDrafter = "Drafter";
 
 	/**
 	 * The identifier for the Basic structure GUI.
 	 */
-	public static final int GuiBasicStructure = 13;
+	public static final String GuiBasicStructure = "BasicStructure";
 
 	/**
 	 * The identifier for the Villaer Houses GUI.
 	 */
-	public static final int GuiVillagerHouses = 14;
+	public static final String GuiVillagerHouses = "VillagerHouses";
 
 	/**
 	 * The identifier for the moderate house GUI.
 	 */
-	public static final int GuiModerateHouse = 15;
+	public static final String GuiModerateHouse = "ModerateHouse";
 
 	/**
 	 * The identifier for the bulldozer GUI.
 	 */
-	public static final int GuiBulldozer = 16;
+	public static final String GuiBulldozer = "Bulldozer";
 
 	/**
 	 * The identifier for the instant bridge gui.
 	 */
-	public static final int GuiInstantBridge = 17;
+	public static final String GuiInstantBridge = "InstantBridge";
 	
 	/**
 	 * The identifier for the structure part gui.
 	 */
-	public static final int GuiStructurePart = 18;
+	public static final String GuiStructurePart = "StructurePart";
 
 	/**
 	 * This capability is used to save the locations where a player spawns when transferring dimensions.
@@ -753,11 +753,11 @@ public class ModRegistry
 	 * @param z The Z-Axis of where this screen was created from, this is used to create a BlockPos.
 	 * @return Null if the screen wasn't found, otherwise the screen found.
 	 */
-	public static GuiScreen GetModGuiByID(int id, int x, int y, int z)
+	public static GuiScreen GetModGuiByID(String id, int x, int y, int z)
 	{
-		for (Entry<Integer, Class> entry : ModRegistry.ModGuis.entrySet())
+		for (Entry<String, Class> entry : ModRegistry.ModGuis.entrySet())
 		{
-			if (entry.getKey() == id)
+			if (entry.getKey().equals(id))
 			{
 				try
 				{
@@ -946,15 +946,6 @@ public class ModRegistry
 		// Register the dimension home capability.
 		CapabilityManager.INSTANCE.register(IStructureConfigurationCapability.class, new StructureConfigurationStorage(),
 			StructureConfigurationCapability.class);
-	}
-	
-	/**
-	 * Register data fixers for updated blocks.
-	 */
-	public static void RegisterFixers()
-	{
-		CompoundDataFixer fixer = FMLCommonHandler.instance().getDataFixer();
-		ModFixs fixes = fixer.init(Prefab.MODID, 1);
 	}
 
 	/**

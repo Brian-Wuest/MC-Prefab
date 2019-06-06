@@ -21,7 +21,7 @@ public class ConfigGuiFactory extends DefaultGuiFactory
 	}
 
 	@Override
-	public GuiScreen createConfigGui(GuiScreen parentScreen)
+	public GuiPrefab createConfigGui(GuiScreen parentScreen)
 	{
 		return new GuiPrefab(parentScreen);
 	}

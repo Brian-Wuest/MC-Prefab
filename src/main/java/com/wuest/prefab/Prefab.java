@@ -1,16 +1,21 @@
 package com.wuest.prefab;
 
+import com.wuest.prefab.Gui.ConfigGuiFactory;
+import com.wuest.prefab.Gui.GuiPrefab;
+import com.wuest.prefab.Proxy.ClientProxy;
 import com.wuest.prefab.Proxy.CommonProxy;
 
-import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ExtensionPoint;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.Mod.Instance;
-import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.network.simple.SimpleChannel;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * The starting point to load all of the blocks, items and other objects associated with this mod.
@@ -18,7 +23,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
  * @author WuestMan
  *
  */
-@Mod(modid = Prefab.MODID, version = Prefab.VERSION, acceptedMinecraftVersions = "[1.12]", guiFactory = "com.wuest.prefab.Gui.ConfigGuiFactory", updateJSON = "https://raw.githubusercontent.com/Brian-Wuest/MC-Prefab/master/changeLog.json")
+@Mod(Prefab.MODID)
 public class Prefab
 {
 	/**
@@ -39,60 +44,44 @@ public class Prefab
 	/**
 	 * This is the static instance of this class.
 	 */
-	@Instance(value = Prefab.MODID)
 	public static Prefab instance;
 
 	/**
 	 * Says where the client and server 'proxy' code is loaded.
 	 */
-	@SidedProxy(clientSide = "com.wuest.prefab.Proxy.ClientProxy", serverSide = "com.wuest.prefab.Proxy.CommonProxy")
 	public static CommonProxy proxy;
 
 	/**
 	 * The network class used to send messages.
 	 */
-	public static SimpleNetworkWrapper network;
+	public static SimpleChannel network;
 
-	/**
-	 * This is the configuration of the mod.
-	 */
-	public static Configuration config;
-
+    // Directly reference a log4j logger.
+    public static final Logger LOGGER = LogManager.getLogger();
+    
+    public static final String PROTOCOL_VERSION = Integer.toString(1);
+	
 	static
 	{
 		Prefab.isDebug = java.lang.management.ManagementFactory.getRuntimeMXBean().getInputArguments().toString().contains("-agentlib:jdwp");
 	}
+	
+    public Prefab() {
+        // Register the setup method for mod-loading
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
 
-	/**
-	 * The pre-initialization event.
-	 * 
-	 * @param event The event from forge.
-	 */
-	@EventHandler
-	public void preInit(FMLPreInitializationEvent event)
-	{
-		Prefab.proxy.preInit(event);
-	}
+        // Register the doClientStuff method for mod-loading
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
+        this.proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
+    }
+    
+    private void setup(final FMLCommonSetupEvent event)
+    {
+        this.proxy.preInit(event);
+        this.proxy.init(event);
+        this.proxy.postinit(event);
+    }
 
-	/**
-	 * The initialization event.
-	 * 
-	 * @param event The event from forge.
-	 */
-	@EventHandler
-	public void init(FMLInitializationEvent event)
-	{
-		Prefab.proxy.init(event);
-	}
-
-	/**
-	 * The post-initialization event.
-	 * 
-	 * @param event The event from forge.
-	 */
-	@EventHandler
-	public void postinit(FMLPostInitializationEvent event)
-	{
-		Prefab.proxy.postinit(event);
-	}
+    private void doClientStuff(final FMLClientSetupEvent event) {
+    }
 }

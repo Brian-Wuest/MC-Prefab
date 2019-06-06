@@ -3,24 +3,32 @@ package com.wuest.prefab.Proxy;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.UpdateChecker;
 import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Events.ModEventHandler;
 import com.wuest.prefab.Gui.GuiCustomContainer;
 import com.wuest.prefab.Structures.Events.StructureEventHandler;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.fml.ExtensionPoint;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.network.IGuiHandler;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.network.FMLPlayMessages;
+import net.minecraftforge.fml.network.NetworkRegistry;
 
 /**
  * This is the server side proxy.
@@ -28,12 +36,13 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
  * @author WuestMan
  *
  */
-public class CommonProxy implements IGuiHandler
+public class CommonProxy
 {
 	public static ModEventHandler eventHandler = new ModEventHandler();
 	public static StructureEventHandler structureEventHandler = new StructureEventHandler();
 	public static ModConfiguration proxyConfiguration;
-
+	public static ForgeConfigSpec COMMON_SPEC;
+	
 	/*
 	 * Methods for ClientProxy to Override
 	 */
@@ -41,56 +50,44 @@ public class CommonProxy implements IGuiHandler
 	{
 	}
 
-	public void preInit(FMLPreInitializationEvent event)
+	public void preInit(FMLCommonSetupEvent event)
 	{
 		ModRegistry.RegisterModComponents();
 		
-		Prefab.network = NetworkRegistry.INSTANCE.newSimpleChannel("PrefabChannel");
-		Prefab.config = new Configuration(event.getSuggestedConfigurationFile());
-		Prefab.config.load();
-		ModConfiguration.syncConfig();
+		Prefab.network = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(Prefab.MODID, "main_channel"))
+            .clientAcceptedVersions(Prefab.PROTOCOL_VERSION::equals)
+            .serverAcceptedVersions(Prefab.PROTOCOL_VERSION::equals)
+            .networkProtocolVersion(() -> Prefab.PROTOCOL_VERSION)
+            .simpleChannel();
+		
+        Pair<ModConfiguration, ForgeConfigSpec> commonPair = new ForgeConfigSpec.Builder().configure(ModConfiguration::new);
+        COMMON_SPEC = commonPair.getRight();
+        proxyConfiguration = commonPair.getLeft();
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, COMMON_SPEC);
 
 		// Register messages.
 		ModRegistry.RegisterMessages();
 
 		// Register the capabilities.
 		ModRegistry.RegisterCapabilities();
-
-		// Make sure that the mod configuration is re-synced after loading all of the recipes.
-		ModConfiguration.syncConfig();
 	}
 
-	public void init(FMLInitializationEvent event)
+	public void init(FMLCommonSetupEvent event)
 	{
-		NetworkRegistry.INSTANCE.registerGuiHandler(Prefab.instance, Prefab.proxy);
-		
-		ModRegistry.RegisterFixers();
+		ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.GUIFACTORY, () -> CommonProxy::openGui);
 	}
 
-	public void postinit(FMLPostInitializationEvent event)
+	public void postinit(FMLCommonSetupEvent event)
 	{
-		if (this.proxyConfiguration.enableVersionCheckMessage)
-		{
-			UpdateChecker.checkVersion();
-		}
 	}
+	
+    public static GuiScreen openGui(FMLPlayMessages.OpenContainer openContainer)
+    {
+        BlockPos pos = openContainer.getAdditionalData().readBlockPos();
+        ModRegistry.GetModGuiByID(openContainer.getId().getPath(), pos.getX(), pos.getY(), pos.getZ());
 
-	@Override
-	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
-	{
-		if (ID == ModRegistry.GuiDrafter)
-		{
-			return new GuiCustomContainer();
-		}
-
-		return ModRegistry.GetModGuiByID(ID, x, y, z);
-	}
-
-	@Override
-	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
-	{
-		return ModRegistry.GetModGuiByID(ID, x, y, z);
-	}
+        return null;
+    }
 
 	public ModConfiguration getServerConfiguration()
 	{
@@ -99,7 +96,6 @@ public class CommonProxy implements IGuiHandler
 
 	public class CustomExclusionStrategy implements ExclusionStrategy
 	{
-
 		private ArrayList<String> allowedNames = new ArrayList<String>(
 			Arrays.asList("group", "recipeWidth", "recipeHeight", "recipeItems", "recipeOutput", "matchingStacks"));
 

@@ -5,12 +5,7 @@ import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Structures.Config.HouseConfiguration;
 
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraftforge.common.config.ConfigCategory;
-import net.minecraftforge.common.config.ConfigElement;
 import net.minecraftforge.fml.client.config.ConfigGuiType;
-import net.minecraftforge.fml.client.config.GuiConfig;
-import net.minecraftforge.fml.client.config.GuiConfigEntries;
-import net.minecraftforge.fml.client.config.GuiConfigEntries.IConfigEntry;
 import net.minecraftforge.fml.client.config.GuiSlider;
 import net.minecraftforge.fml.client.config.IConfigElement;
 
@@ -19,7 +14,7 @@ import net.minecraftforge.fml.client.config.IConfigElement;
  * @author WuestMan
  *
  */
-public class GuiPrefab extends GuiConfig
+public class GuiPrefab extends GuiScreen
 {
 	public GuiPrefab(GuiScreen parent)
 	{
