@@ -4,8 +4,8 @@ import java.util.HashMap;
 
 import com.wuest.prefab.Structures.Config.StructureConfiguration;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
 
 /**
  * @author WuestMan This class serves as configuration data for the current player. It is expected that this lives on
@@ -32,10 +32,10 @@ public class EntityPlayerConfiguration
 	 * @param player The player to create the instance from.
 	 * @return A new instance of EntityPlayerConfiguration.
 	 */
-	public static EntityPlayerConfiguration loadFromEntityData(EntityPlayer player)
+	public static EntityPlayerConfiguration loadFromEntityData(PlayerEntity player)
 	{
 		EntityPlayerConfiguration config = new EntityPlayerConfiguration();
-		NBTTagCompound compoundTag = config.getModIsPlayerNewTag(player);
+		CompoundNBT compoundTag = config.getModIsPlayerNewTag(player);
 
 		config.loadFromNBTTagCompound(compoundTag);
 
@@ -47,7 +47,7 @@ public class EntityPlayerConfiguration
 	 * 
 	 * @param tag The tag to load the data from.
 	 */
-	public void loadFromNBTTagCompound(NBTTagCompound tag)
+	public void loadFromNBTTagCompound(CompoundNBT tag)
 	{
 		this.givenHouseBuilder = tag.getBoolean(EntityPlayerConfiguration.GIVEN_HOUSEBUILDER_TAG);
 		this.builtStarterHouse = tag.getBoolean(EntityPlayerConfiguration.Built_Starter_house_Tag);
@@ -59,21 +59,21 @@ public class EntityPlayerConfiguration
 	 * @param player The player to get the tag for.
 	 * @return An NBTTagCompound to save data too.
 	 */
-	public NBTTagCompound getModIsPlayerNewTag(EntityPlayer player)
+	public CompoundNBT getModIsPlayerNewTag(PlayerEntity player)
 	{
-		NBTTagCompound tag = player.getEntityData();
+		CompoundNBT tag = player.getEntityData();
 
 		// Get/create a tag used to determine if this is a new player.
-		NBTTagCompound newPlayerTag = null;
-
-		if (tag.hasKey(EntityPlayerConfiguration.PLAYER_ENTITY_TAG))
+		CompoundNBT newPlayerTag = null;
+		
+		if (tag.contains(EntityPlayerConfiguration.PLAYER_ENTITY_TAG))
 		{
-			newPlayerTag = tag.getCompoundTag(EntityPlayerConfiguration.PLAYER_ENTITY_TAG);
+			newPlayerTag = tag.getCompound(EntityPlayerConfiguration.PLAYER_ENTITY_TAG);
 		}
 		else
 		{
-			newPlayerTag = new NBTTagCompound();
-			tag.setTag(EntityPlayerConfiguration.PLAYER_ENTITY_TAG, newPlayerTag);
+			newPlayerTag = new CompoundNBT();
+			tag.put(EntityPlayerConfiguration.PLAYER_ENTITY_TAG, newPlayerTag);
 		}
 
 		return newPlayerTag;
@@ -84,12 +84,12 @@ public class EntityPlayerConfiguration
 	 * 
 	 * @param player The player to save the data too.
 	 */
-	public void saveToPlayer(EntityPlayer player)
+	public void saveToPlayer(PlayerEntity player)
 	{
-		NBTTagCompound compoundTag = this.getModIsPlayerNewTag(player);
+		CompoundNBT compoundTag = this.getModIsPlayerNewTag(player);
 
-		compoundTag.setBoolean(EntityPlayerConfiguration.Built_Starter_house_Tag, this.builtStarterHouse);
-		compoundTag.setBoolean(EntityPlayerConfiguration.GIVEN_HOUSEBUILDER_TAG, this.givenHouseBuilder);
+		compoundTag.putBoolean(EntityPlayerConfiguration.Built_Starter_house_Tag, this.builtStarterHouse);
+		compoundTag.putBoolean(EntityPlayerConfiguration.GIVEN_HOUSEBUILDER_TAG, this.givenHouseBuilder);
 	}
 
 	/**

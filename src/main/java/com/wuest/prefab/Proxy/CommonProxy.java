@@ -11,23 +11,14 @@ import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Events.ModEventHandler;
-import com.wuest.prefab.Gui.GuiCustomContainer;
 import com.wuest.prefab.Structures.Events.StructureEventHandler;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.fml.ExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.network.IGuiHandler;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.network.FMLPlayMessages;
 import net.minecraftforge.fml.network.NetworkRegistry;
 
 /**
@@ -74,21 +65,12 @@ public class CommonProxy
 
 	public void init(FMLCommonSetupEvent event)
 	{
-		ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.GUIFACTORY, () -> CommonProxy::openGui);
 	}
 
 	public void postinit(FMLCommonSetupEvent event)
 	{
 	}
 	
-    public static GuiScreen openGui(FMLPlayMessages.OpenContainer openContainer)
-    {
-        BlockPos pos = openContainer.getAdditionalData().readBlockPos();
-        ModRegistry.GetModGuiByID(openContainer.getId().getPath(), pos.getX(), pos.getY(), pos.getZ());
-
-        return null;
-    }
-
 	public ModConfiguration getServerConfiguration()
 	{
 		return CommonProxy.proxyConfiguration;
@@ -113,7 +95,7 @@ public class CommonProxy
 		@Override
 		public boolean shouldSkipClass(Class<?> clazz)
 		{
-			if (clazz == EntityPlayer.class)
+			if (clazz == PlayerEntity.class)
 			{
 				return true;
 			}

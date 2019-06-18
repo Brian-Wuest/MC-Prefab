@@ -9,7 +9,6 @@ import java.util.Map.Entry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Gui.GuiLangKeys;
 
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.Builder;
