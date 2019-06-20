@@ -2,15 +2,18 @@ package com.wuest.prefab.Base;
 
 import java.util.ArrayList;
 
+import javax.annotation.Nullable;
+
 import com.wuest.prefab.Capabilities.ITransferable;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemBlock;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
@@ -21,8 +24,10 @@ import net.minecraftforge.common.capabilities.Capability;
  * @author WuestMan
  *
  */
-public class ItemBlockCapability extends ItemBlock
+public class ItemBlockCapability extends BlockItem
 {
+	protected Block block;
+	
 	/**
 	 * The allowed capabilities for this ItemBlock.
 	 */
@@ -32,11 +37,13 @@ public class ItemBlockCapability extends ItemBlock
 	 * Initializes a new instance of the ItemBlockCapability class.
 	 * 
 	 * @param block The block associated with this ItemBlock.
+	 * @param properties The item properties.
 	 * @param allowedCapabilities The capabilities which are allowed for this block.
 	 */
-	public ItemBlockCapability(Block block, ArrayList<Capability> allowedCapabilities)
+	public ItemBlockCapability(Block block, Item.Properties properties, ArrayList<Capability> allowedCapabilities)
 	{
-		super(block);
+		super(block, properties);
+		this.block = block;
 		this.allowedCapabilities = allowedCapabilities;
 	}
 
@@ -77,20 +84,12 @@ public class ItemBlockCapability extends ItemBlock
 	 * @param side The side the player (or machine) right-clicked on.
 	 */
 	@Override
-	public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ,
-		IBlockState newState)
+	protected boolean onBlockPlaced(BlockPos pos, World worldIn, @Nullable PlayerEntity player, ItemStack stack, BlockState state)
 	{
-		if (!world.setBlockState(pos, newState, 3))
-			return false;
-
-		IBlockState state = world.getBlockState(pos);
-		if (state.getBlock() == this.block)
-		{
-			setTileEntityNBT(world, player, pos, stack);
-			this.block.onBlockPlacedBy(world, pos, state, player, stack);
-		}
-
-		return true;
+		boolean tileEntitySet = setTileEntityNBT(worldIn, player, pos, stack);
+		this.block.onBlockPlacedBy(worldIn, pos, state, player, stack);
+		
+		return tileEntitySet;
 	}
 
 	/**
@@ -102,7 +101,7 @@ public class ItemBlockCapability extends ItemBlock
 	 * @param stack The item stack to set the tile entity capability for.
 	 * @param side The side for which to get the capability for.
 	 */
-	protected void setTileEntityCapabilities(World world, EntityPlayer player, BlockPos pos, ItemStack stack, EnumFacing side)
+	protected void setTileEntityCapabilities(World world, PlayerEntity player, BlockPos pos, ItemStack stack, Direction side)
 	{
 		if (world.isRemote)
 		{

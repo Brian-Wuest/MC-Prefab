@@ -5,6 +5,9 @@ import com.wuest.prefab.Gui.GuiPrefab;
 import com.wuest.prefab.Proxy.ClientProxy;
 import com.wuest.prefab.Proxy.CommonProxy;
 
+import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
+import net.minecraft.block.material.PushReaction;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -26,6 +29,16 @@ import org.apache.logging.log4j.Logger;
 @Mod(Prefab.MODID)
 public class Prefab
 {
+	/**
+	 * Simulates an air block but one that blocks movement.
+	 */
+	public static final Material SeeThrough = new Material(MaterialColor.AIR, false, true, true, false, true, false, false, PushReaction.NORMAL);
+	
+	/**
+	 * Simulates an air block that blocks movement and cannot be moved.
+	 */
+	public static final Material SeeThroughImmovable = new Material(MaterialColor.AIR, false, true, true, false, true, false, false, PushReaction.IGNORE);
+	
 	/**
 	 * This is the ModID
 	 */

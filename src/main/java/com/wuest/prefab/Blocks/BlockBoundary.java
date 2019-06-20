@@ -6,33 +6,36 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.wuest.prefab.ModRegistry;
+import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Events.ModEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.IFluidState;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.BooleanProperty;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.MinecraftForgeClient;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * 
@@ -44,12 +47,14 @@ public class BlockBoundary extends Block
 	/**
 	 * The powered meta data property.
 	 */
-	public static final PropertyBool Powered = PropertyBool.create("powered");
+	public static final BooleanProperty Powered = BooleanProperty.create("powered");
 
 	/**
 	 * An empty collision box.
 	 */
 	public static final AxisAlignedBB Empty_AABB = new AxisAlignedBB(0, 0, 0, 0, 0, 0);
+
+	public final ItemGroup itemGroup;
 
 	/**
 	 * Initializes a new instance of the BlockBoundary class.
@@ -58,34 +63,51 @@ public class BlockBoundary extends Block
 	 */
 	public BlockBoundary(String name)
 	{
-		super(BlockPhasing.BlockMaterial);
-		this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-		this.setSoundType(SoundType.STONE);
-		this.setHardness(0.6F);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(Powered, false));
+		super(Block.Properties.create(Prefab.SeeThroughImmovable)
+			.sound(SoundType.STONE)
+			.hardnessAndResistance(0.6F));
+
+		this.itemGroup = ItemGroup.BUILDING_BLOCKS;
+		this.setDefaultState(this.stateContainer.getBaseState().with(Powered, false));
 
 		ModRegistry.setBlockName(this, name);
 	}
 
 	/**
-	 * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
+	 * Called when a player removes a block. This is responsible for actually destroying the block, and the block is
+	 * intact at time of call. This is called regardless of whether the player can harvest the block or not.
+	 *
+	 * Return true if the block is actually destroyed.
+	 *
+	 * Note: When used in multi-player, this is called on both client and server sides!
+	 *
+	 * @param state       The current state.
+	 * @param world       The current world
+	 * @param player      The player damaging the block, may be null
+	 * @param pos         Block position in world
+	 * @param willHarvest True if Block.harvestBlock will be called after this, if the return in true. Can be useful to
+	 *                        delay the destruction of tile entities till after harvestBlock
+	 * @param fluid       The current fluid state at current position
+	 * @return True if the block is actually destroyed.
 	 */
 	@Override
-	public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
+	public boolean removedByPlayer(BlockState state, World world, BlockPos pos, PlayerEntity player, boolean willHarvest, IFluidState fluid)
 	{
-		super.breakBlock(worldIn, pos, state);
+		boolean returnValue = super.removedByPlayer(state, world, pos, player, willHarvest, fluid);
 
 		if (ModEventHandler.RedstoneAffectedBlockPositions.contains(pos))
 		{
 			ModEventHandler.RedstoneAffectedBlockPositions.remove(pos);
 		}
 
-		boolean poweredSide = worldIn.isBlockPowered(pos);
+		boolean poweredSide = world.isBlockPowered(pos);
 
 		if (poweredSide)
 		{
-			this.setNeighborGlassBlocksPoweredStatus(worldIn, pos, !poweredSide, 0, new ArrayList<BlockPos>(), false);
+			this.setNeighborGlassBlocksPoweredStatus(world, pos, !poweredSide, 0, new ArrayList<BlockPos>(), false);
 		}
+
+		return returnValue;
 	}
 
 	/**
@@ -93,9 +115,9 @@ public class BlockBoundary extends Block
 	 * {@link MinecraftForgeClient#getRenderLayer()} to alter their model based on layer.
 	 */
 	@Override
-	public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer)
+	public boolean canRenderInLayer(BlockState state, BlockRenderLayer layer)
 	{
-		boolean powered = state.getValue(Powered);
+		boolean powered = state.get(Powered);
 
 		if ((layer == BlockRenderLayer.TRANSLUCENT && !powered) || (layer == BlockRenderLayer.SOLID && powered))
 		{
@@ -106,35 +128,34 @@ public class BlockBoundary extends Block
 	}
 
 	/**
-	 * Gets the {@link IBlockState} to place
+	 * Gets the {@link BlockState} to place
 	 * 
-	 * @param world The world the block is being placed in
-	 * @param pos The position the block is being placed at
+	 * @param world  The world the block is being placed in
+	 * @param pos    The position the block is being placed at
 	 * @param facing The side the block is being placed on
-	 * @param hitX The X coordinate of the hit vector
-	 * @param hitY The Y coordinate of the hit vector
-	 * @param hitZ The Z coordinate of the hit vector
-	 * @param meta The metadata of {@link ItemStack} as processed by {@link Item#getMetadata(int)}
+	 * @param hitX   The X coordinate of the hit vector
+	 * @param hitY   The Y coordinate of the hit vector
+	 * @param hitZ   The Z coordinate of the hit vector
+	 * @param meta   The metadata of {@link ItemStack} as processed by {@link Item#getMetadata(int)}
 	 * @param placer The entity placing the block
-	 * @param hand The hand used for the placement.
+	 * @param hand   The hand used for the placement.
 	 * @return The state to be placed in the world
 	 */
 	@Override
-	public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer,
-		EnumHand hand)
+	public BlockState getStateForPlacement(BlockItemUseContext context)
 	{
 		/**
 		 * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
-		 * IBlockstate
+		 * BlockState
 		 */
-		boolean poweredSide = world.isBlockPowered(pos);
+		boolean poweredSide = context.getWorld().isBlockPowered(context.getPos());
 
 		if (poweredSide)
 		{
-			this.setNeighborGlassBlocksPoweredStatus(world, pos, poweredSide, 0, new ArrayList<BlockPos>(), false);
+			this.setNeighborGlassBlocksPoweredStatus(context.getWorld(), context.getPos(), poweredSide, 0, new ArrayList<BlockPos>(), false);
 		}
 
-		return this.getDefaultState().withProperty(Powered, poweredSide);
+		return this.getDefaultState().with(Powered, poweredSide);
 	}
 
 	/**
@@ -143,7 +164,7 @@ public class BlockBoundary extends Block
 	 * block, etc.
 	 */
 	@Override
-	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos p_189540_5_)
+	public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos p_189540_5_, boolean p_220069_6_)
 	{
 		if (!worldIn.isRemote)
 		{
@@ -157,41 +178,9 @@ public class BlockBoundary extends Block
 		}
 	}
 
-	/**
-	 * Convert the given metadata into a BlockState for this Block
-	 */
 	@Override
-	public IBlockState getStateFromMeta(int meta)
-	{
-		if (meta % 2 == 0)
-		{
-			// Not Powered.
-			return this.getDefaultState().withProperty(Powered, false);
-		}
-
-		return this.getDefaultState().withProperty(Powered, true);
-	}
-
-	/**
-	 * Convert the BlockState into the correct metadata value
-	 */
-	@Override
-	public int getMetaFromState(IBlockState state)
-	{
-		boolean powered = state.getValue(Powered);
-		return powered ? 1 : 0;
-	}
-
-	@Override
-	protected BlockStateContainer createBlockState()
-	{
-		return new BlockStateContainer(this, new IProperty[]
-		{ Powered });
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public BlockRenderLayer getBlockLayer()
+	@OnlyIn(Dist.CLIENT)
+	public BlockRenderLayer getRenderLayer()
 	{
 		return BlockRenderLayer.TRANSLUCENT;
 	}
@@ -199,94 +188,70 @@ public class BlockBoundary extends Block
 	/**
 	 * allows items to add custom lines of information to the mouseover description
 	 */
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, @Nullable World world, List<String> tooltip, ITooltipFlag advanced)
+	public void addInformation(ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, ITooltipFlag advanced)
 	{
-		super.addInformation(stack, world, tooltip, advanced);
+		super.addInformation(stack, worldIn, tooltip, advanced);
 
-		boolean advancedKeyDown = Minecraft.getMinecraft().currentScreen.isShiftKeyDown();
+		boolean advancedKeyDown = Minecraft.getInstance().field_71462_r.hasShiftDown();
 
 		if (!advancedKeyDown)
 		{
-			tooltip.add(GuiLangKeys.translateString(GuiLangKeys.SHIFT_TOOLTIP));
+			tooltip.add(new StringTextComponent(GuiLangKeys.translateString(GuiLangKeys.SHIFT_TOOLTIP)));
 		}
 		else
 		{
-			tooltip.add(GuiLangKeys.translateString(GuiLangKeys.BOUNDARY_TOOLTIP));
+			tooltip.add(new StringTextComponent(GuiLangKeys.translateString(GuiLangKeys.BOUNDARY_TOOLTIP)));
 		}
-	}
-
-	@Override
-	public boolean isFullCube(IBlockState state)
-	{
-		return false;
 	}
 
 	/**
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	@Override
-	public boolean isOpaqueCube(IBlockState state)
+	public boolean isSolid(BlockState state)
 	{
 		return false;
 	}
 
 	@Nullable
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos)
+	public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context)
 	{
-		return FULL_BLOCK_AABB;
+		return VoxelShapes.fullCube();
 	}
 
+	@Deprecated
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
+	public VoxelShape getRaytraceShape(BlockState state, IBlockReader worldIn, BlockPos pos)
 	{
-		if (!state.getValue(Powered))
+		if (!state.get(Powered).booleanValue())
 		{
-			return Empty_AABB;
+			return VoxelShapes.empty();
 		}
-
-		return super.getBoundingBox(state, source, pos);
+		else
+		{
+			return VoxelShapes.fullCube();
+		}
 	}
 
-	@Nullable
+	@OnlyIn(Dist.CLIENT)
 	@Override
-	protected RayTraceResult rayTrace(BlockPos pos, Vec3d start, Vec3d end, AxisAlignedBB boundingBox)
+	public boolean isSideInvisible(BlockState state, BlockState adjacentBlockState, Direction side)
 	{
-		// Make sure to check for NULL_AABB since this can happen when the block is phasing out/in.
-		if (boundingBox == Empty_AABB)
-		{
-			return null;
-		}
-
-		return super.rayTrace(pos, start, end, boundingBox);
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
-	{
-		AxisAlignedBB axisalignedbb = blockState.getBoundingBox(blockAccess, pos);
-
-		// Make sure to check for NULL_AABB since this can happen when the block is phasing out/in.
-		if (axisalignedbb == Empty_AABB)
-		{
-			return false;
-		}
-
-		return super.shouldSideBeRendered(blockState, blockAccess, pos, side);
+		return !state.get(Powered).booleanValue();
 	}
 
 	/**
 	 * Sets the neighbor powered status
 	 * 
-	 * @param world The world where the block resides.
-	 * @param pos The position of the block.
-	 * @param isPowered Determines if the block is powered.
-	 * @param cascadeCount How many times this has been cascaded.
+	 * @param world            The world where the block resides.
+	 * @param pos              The position of the block.
+	 * @param isPowered        Determines if the block is powered.
+	 * @param cascadeCount     How many times this has been cascaded.
 	 * @param cascadedBlockPos All of the block positions which have been cascaded too.
-	 * @param setCurrentBlock Determines if the current block should be set.
+	 * @param setCurrentBlock  Determines if the current block should be set.
 	 */
 	protected void setNeighborGlassBlocksPoweredStatus(World world, BlockPos pos, boolean isPowered, int cascadeCount, ArrayList<BlockPos> cascadedBlockPos,
 		boolean setCurrentBlock)
@@ -300,22 +265,22 @@ public class BlockBoundary extends Block
 
 		if (setCurrentBlock)
 		{
-			IBlockState state = world.getBlockState(pos);
-			world.setBlockState(pos, state.withProperty(Powered, isPowered));
+			BlockState state = world.getBlockState(pos);
+			world.setBlockState(pos, state.with(Powered, isPowered));
 		}
 
 		cascadedBlockPos.add(pos);
 
-		for (EnumFacing facing : EnumFacing.values())
+		for (Direction facing : Direction.values())
 		{
 			Block neighborBlock = world.getBlockState(pos.offset(facing)).getBlock();
 
 			if (neighborBlock instanceof BlockBoundary)
 			{
-				IBlockState blockState = world.getBlockState(pos.offset(facing));
+				BlockState blockState = world.getBlockState(pos.offset(facing));
 
 				// If the block is already in the correct state, there is no need to cascade to it's neighbors.
-				boolean blockPowered = blockState.getValue(Powered);
+				boolean blockPowered = blockState.get(Powered);
 
 				if (cascadedBlockPos.contains(pos.offset(facing)))
 				{

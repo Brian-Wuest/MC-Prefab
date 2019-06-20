@@ -6,12 +6,13 @@ import java.util.ArrayList;
 
 import com.wuest.prefab.Capabilities.ITransferable;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
@@ -31,8 +32,9 @@ public abstract class TileEntityBase<T extends BaseConfig> extends TileEntity
 	/**
 	 * Initializes a new instance of the TileEntityBase class.
 	 */
-	protected TileEntityBase()
+	public TileEntityBase(TileEntityType<?> tileEntityTypeIn)
 	{
+		super(tileEntityTypeIn);
 	}
 
 	/**
@@ -94,8 +96,8 @@ public abstract class TileEntityBase<T extends BaseConfig> extends TileEntity
 		for (Capability allowedCapability : this.getAllowedCapabilities())
 		{
 			// Get the interfaces for this capability.
-			Object stackCapability = stack.getCapability(allowedCapability, EnumFacing.NORTH);
-			Object tileEntityCapability = this.getCapability(allowedCapability, EnumFacing.NORTH);
+			Object stackCapability = stack.getCapability(allowedCapability, Direction.NORTH);
+			Object tileEntityCapability = this.getCapability(allowedCapability, Direction.NORTH);
 
 			if (stackCapability != null && tileEntityCapability != null && stackCapability instanceof ITransferable
 				&& tileEntityCapability instanceof ITransferable)
@@ -125,7 +127,7 @@ public abstract class TileEntityBase<T extends BaseConfig> extends TileEntity
 	 * server to the client easily. For example this is used by signs to synchronize the text to be displayed.
 	 */
 	@Override
-	public SPacketUpdateTileEntity getUpdatePacket()
+	public SUpdateTileEntityPacket getUpdatePacket()
 	{
 		// Don't send the packet until the position has been set.
 		if (this.pos.getX() == 0 && this.pos.getY() == 0 && this.pos.getZ() == 0)
@@ -133,20 +135,20 @@ public abstract class TileEntityBase<T extends BaseConfig> extends TileEntity
 			return super.getUpdatePacket();
 		}
 
-		NBTTagCompound tag = new NBTTagCompound();
-		this.writeToNBT(tag);
+		CompoundNBT tag = new CompoundNBT();
+		this.write(tag);
 
-		return new SPacketUpdateTileEntity(this.getPos(), 1, tag);
+		return new SUpdateTileEntityPacket(this.getPos(), 1, tag);
 	}
 
 	/**
 	 * Called when the chunk this TileEntity is on is Unloaded.
 	 */
 	@Override
-	public void onChunkUnload()
+	public void onChunkUnloaded()
 	{
 		// Make sure to write the tile to the tag.
-		this.writeToNBT(this.getTileData());
+		this.write(this.getTileData());
 	}
 
 	/**
@@ -158,9 +160,9 @@ public abstract class TileEntityBase<T extends BaseConfig> extends TileEntity
 	 * @param pkt The data packet
 	 */
 	@Override
-	public void onDataPacket(net.minecraft.network.NetworkManager net, net.minecraft.network.play.server.SPacketUpdateTileEntity pkt)
+	public void onDataPacket(net.minecraft.network.NetworkManager net, net.minecraft.network.play.server.SUpdateTileEntityPacket pkt)
 	{
-		this.readFromNBT(pkt.getNbtCompound());
+		this.read(pkt.getNbtCompound());
 	}
 
 	@Override
@@ -169,40 +171,22 @@ public abstract class TileEntityBase<T extends BaseConfig> extends TileEntity
 		return true;
 	}
 
-	/**
-	 * Called from Chunk.setBlockIDWithMetadata and Chunk.fillChunk, determines if this tile entity should be re-created
-	 * when the ID, or Metadata changes. Use with caution as this will leave straggler TileEntities, or create conflicts
-	 * with other TileEntities if not used properly.
-	 *
-	 * @param world Current world
-	 * @param pos Tile's world position
-	 * @param oldState The old ID of the block
-	 * @param newState The new ID of the block (May be the same)
-	 * @return true forcing the invalidation of the existing TE, false not to invalidate the existing TE
-	 */
-	@Override
-	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState)
-	{
-		// This tile needs to persist so the data can be saved.
-		return (oldState.getBlock() != newState.getBlock());
-	}
-
 	@Override
 	public void updateContainingBlockInfo()
 	{
 	}
 
 	@Override
-	public NBTTagCompound getUpdateTag()
+	public CompoundNBT getUpdateTag()
 	{
-		return this.writeToNBT(new NBTTagCompound());
+		return this.write(new CompoundNBT());
 	}
 
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound compound)
+	public CompoundNBT write(CompoundNBT compound)
 	{
 		// System.out.println("Writing Tag Data.");
-		super.writeToNBT(compound);
+		super.write(compound);
 
 		if (this.config != null)
 		{
@@ -213,10 +197,10 @@ public abstract class TileEntityBase<T extends BaseConfig> extends TileEntity
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound compound)
+	public void read(CompoundNBT compound)
 	{
 		// System.out.println("Reading Tag Data.");
-		super.readFromNBT(compound);
+		super.read(compound);
 
 		this.config = this.createConfigInstance().ReadFromNBTTagCompound(compound);
 	}
