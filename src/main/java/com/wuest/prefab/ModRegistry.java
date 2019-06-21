@@ -5,22 +5,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import com.wuest.prefab.Blocks.BlockAndesiteStairs;
 import com.wuest.prefab.Blocks.BlockBoundary;
 import com.wuest.prefab.Blocks.BlockCompressedObsidian;
 import com.wuest.prefab.Blocks.BlockCompressedStone;
-import com.wuest.prefab.Blocks.BlockDioriteStairs;
-import com.wuest.prefab.Blocks.BlockDoubleAndesiteSlab;
-import com.wuest.prefab.Blocks.BlockDoubleDioriteSlab;
-import com.wuest.prefab.Blocks.BlockDoubleGlassSlab;
-import com.wuest.prefab.Blocks.BlockDoubleGraniteSlab;
-import com.wuest.prefab.Blocks.BlockDrafter;
-import com.wuest.prefab.Blocks.BlockGlassStairs;
-import com.wuest.prefab.Blocks.BlockGraniteStairs;
-import com.wuest.prefab.Blocks.BlockHalfAndesiteSlab;
-import com.wuest.prefab.Blocks.BlockHalfDioriteSlab;
-import com.wuest.prefab.Blocks.BlockHalfGlassSlab;
-import com.wuest.prefab.Blocks.BlockHalfGraniteSlab;
 import com.wuest.prefab.Blocks.BlockPaperLantern;
 import com.wuest.prefab.Blocks.BlockPhasing;
 import com.wuest.prefab.Gui.GuiDrafter;
@@ -81,27 +68,20 @@ import com.wuest.prefab.Structures.Messages.StructureHandler;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.Blocks;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapedRecipes;
-import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.util.NonNullList;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.common.crafting.CraftingHelper.ShapedPrimer;
-import net.minecraftforge.common.util.CompoundDataFixer;
-import net.minecraftforge.common.util.ModFixs;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.oredict.OreDictionary;
 
 /**
  * This is the mod registry so there is a way to get to all instances of the blocks/items created by this mod.
@@ -431,16 +411,6 @@ public class ModRegistry
 	}
 
 	/**
-	 * The Drafter registered block.
-	 * 
-	 * @return An instance of {@link BlockDrafter}.
-	 */
-	public static BlockDrafter Drafter()
-	{
-		return ModRegistry.GetBlock(BlockDrafter.class);
-	}
-
-	/**
 	 * The Basic Structure registered item.
 	 * 
 	 * @return An instance of {@link ItemBasicStructure}.
@@ -610,86 +580,6 @@ public class ModRegistry
 	}
 
 	/**
-	 * The Glass Stairs registered Block.
-	 * 
-	 * @return An instance of {@link BlockGlassStairs}.
-	 */
-	public static BlockGlassStairs GlassStairs()
-	{
-		return ModRegistry.GetBlock(BlockGlassStairs.class);
-	}
-
-	/**
-	 * The Andesite Stairs registered Block.
-	 * 
-	 * @return An instance of {@link BlockAndesiteStairs}.
-	 */
-	public static BlockAndesiteStairs AndesiteStairs()
-	{
-		return ModRegistry.GetBlock(BlockAndesiteStairs.class);
-	}
-
-	/**
-	 * The Diorite Stairs registered Block.
-	 * 
-	 * @return An instance of {@link BlockDioriteStairs}.
-	 */
-	public static BlockDioriteStairs DioriteStairs()
-	{
-		return ModRegistry.GetBlock(BlockDioriteStairs.class);
-	}
-
-	/**
-	 * The Granite Stairs registered Block.
-	 * 
-	 * @return An instance of {@link BlockGraniteStairs}.
-	 */
-	public static BlockGraniteStairs GraniteStairs()
-	{
-		return ModRegistry.GetBlock(BlockGraniteStairs.class);
-	}
-
-	/**
-	 * The Glass Slab registered Block.
-	 * 
-	 * @return An instance of {@link BlockHalfGlassSlab}.
-	 */
-	public static BlockHalfGlassSlab GlassSlab()
-	{
-		return ModRegistry.GetBlock(BlockHalfGlassSlab.class);
-	}
-
-	/**
-	 * The Andesite Slab registered Block.
-	 * 
-	 * @return An instance of {@link BlockHalfAndesiteSlab}.
-	 */
-	public static BlockHalfAndesiteSlab AndesiteSlab()
-	{
-		return ModRegistry.GetBlock(BlockHalfAndesiteSlab.class);
-	}
-
-	/**
-	 * The Diorite Slab registered Block.
-	 * 
-	 * @return An instance of {@link BlockHalfDioriteSlab}.
-	 */
-	public static BlockHalfDioriteSlab DioriteSlab()
-	{
-		return ModRegistry.GetBlock(BlockHalfDioriteSlab.class);
-	}
-
-	/**
-	 * The Granite Slab registered Block.
-	 * 
-	 * @return An instance of {@link BlockHalfGraniteSlab}.
-	 */
-	public static BlockHalfGraniteSlab GraniteSlab()
-	{
-		return ModRegistry.GetBlock(BlockHalfGraniteSlab.class);
-	}
-
-	/**
 	 * The Boundary Block registered Block.
 	 * 
 	 * @return An instance of {@link BlockBoundary}.
@@ -753,7 +643,7 @@ public class ModRegistry
 	 * @param z The Z-Axis of where this screen was created from, this is used to create a BlockPos.
 	 * @return Null if the screen wasn't found, otherwise the screen found.
 	 */
-	public static GuiScreen GetModGuiByID(String id, int x, int y, int z)
+	public static Screen GetModGuiByID(String id, int x, int y, int z)
 	{
 		for (Entry<String, Class> entry : ModRegistry.ModGuis.entrySet())
 		{
@@ -761,7 +651,7 @@ public class ModRegistry
 			{
 				try
 				{
-					return (GuiScreen) entry.getValue().getConstructor(int.class, int.class, int.class).newInstance(x, y, z);
+					return (Screen) entry.getValue().getConstructor(int.class, int.class, int.class).newInstance(x, y, z);
 				}
 				catch (InstantiationException e)
 				{
@@ -853,12 +743,6 @@ public class ModRegistry
 
 		ModRegistry.registerBlock(new BlockGlassStairs("block_glass_stairs"));
 
-		ModRegistry.registerBlock(new BlockAndesiteStairs("block_andesite_stairs"));
-
-		ModRegistry.registerBlock(new BlockDioriteStairs("block_diorite_stairs"));
-
-		ModRegistry.registerBlock(new BlockGraniteStairs("block_granite_stairs"));
-
 		// Glass Slab.
 		BlockHalfGlassSlab registeredHalfGlassBlock = new BlockHalfGlassSlab();
 		BlockDoubleGlassSlab registeredDoubleGlassSlab = new BlockDoubleGlassSlab();
@@ -869,44 +753,6 @@ public class ModRegistry
 
 		ModRegistry.registerBlock(registeredHalfGlassBlock, itemHalfGlassSlab);
 		ModRegistry.registerBlock(registeredDoubleGlassSlab, false);
-
-		// Andesite slab.
-		BlockHalfAndesiteSlab registeredHalfAndesiteBlock = new BlockHalfAndesiteSlab();
-		BlockDoubleAndesiteSlab registeredDoubleAndesiteSlab = new BlockDoubleAndesiteSlab();
-
-		ItemBlockAndesiteSlab itemHalfAndesiteSlab = new ItemBlockAndesiteSlab(registeredHalfAndesiteBlock, registeredHalfAndesiteBlock,
-			registeredDoubleAndesiteSlab, true);
-
-		itemHalfAndesiteSlab = (ItemBlockAndesiteSlab) itemHalfAndesiteSlab.setRegistryName("block_half_andesite_slab");
-
-		ModRegistry.registerBlock(registeredHalfAndesiteBlock, itemHalfAndesiteSlab);
-		ModRegistry.registerBlock(registeredDoubleAndesiteSlab, false);
-
-		// Diorite slab.
-		BlockHalfDioriteSlab registeredHalfDioriteBlock = new BlockHalfDioriteSlab();
-		BlockDoubleDioriteSlab registeredDoubleDioriteSlab = new BlockDoubleDioriteSlab();
-
-		ItemBlockDioriteSlab itemHalfDioriteSlab = new ItemBlockDioriteSlab(registeredHalfDioriteBlock, registeredHalfDioriteBlock, registeredDoubleDioriteSlab,
-			true);
-
-		itemHalfDioriteSlab = (ItemBlockDioriteSlab) itemHalfDioriteSlab.setRegistryName("block_half_diorite_slab");
-
-		ModRegistry.registerBlock(registeredHalfDioriteBlock, itemHalfDioriteSlab);
-		ModRegistry.registerBlock(registeredDoubleDioriteSlab, false);
-
-		// Granite slab.
-		BlockHalfGraniteSlab registeredHalfGraniteBlock = new BlockHalfGraniteSlab();
-		BlockDoubleGraniteSlab registeredDoubleGraniteSlab = new BlockDoubleGraniteSlab();
-
-		ItemBlockGraniteSlab itemHalfGraniteSlab = new ItemBlockGraniteSlab(registeredHalfGraniteBlock, registeredHalfGraniteBlock, registeredDoubleGraniteSlab,
-			true);
-
-		itemHalfGraniteSlab = (ItemBlockGraniteSlab) itemHalfGraniteSlab.setRegistryName("block_half_granite_slab");
-
-		ModRegistry.registerBlock(registeredHalfGraniteBlock, itemHalfGraniteSlab);
-		ModRegistry.registerBlock(registeredDoubleGraniteSlab, false);
-
-		Blocks.STRUCTURE_BLOCK.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
 	}
 
 	/**
@@ -931,11 +777,11 @@ public class ModRegistry
 	 */
 	public static void RegisterMessages()
 	{
-		Prefab.network.registerMessage(ConfigSyncHandler.class, ConfigSyncMessage.class, 1, Side.CLIENT);
+		Prefab.network.registerMessage(ConfigSyncHandler.class, ConfigSyncMessage.class, 1, Dist.CLIENT);
 
-		Prefab.network.registerMessage(StructureHandler.class, StructureTagMessage.class, 2, Side.SERVER);
+		Prefab.network.registerMessage(StructureHandler.class, StructureTagMessage.class, 2, Dist.DEDICATED_SERVER);
 
-		Prefab.network.registerMessage(PlayerEntityHandler.class, PlayerEntityTagMessage.class, 3, Side.CLIENT);
+		Prefab.network.registerMessage(PlayerEntityHandler.class, PlayerEntityTagMessage.class, 3, Dist.CLIENT);
 	}
 
 	/**
@@ -984,9 +830,22 @@ public class ModRegistry
 	 */
 	public static <T extends Block> T registerBlock(T block, boolean includeItemBlock)
 	{
+		return ModRegistry.registerBlock(block, includeItemBlock, block.getRegistryName());
+	}
+	
+	/**
+	 * Registers a block in the game registry.
+	 * 
+	 * @param <T> The type of block to register.
+	 * @param block The block to register.
+	 * @param includeItemBlock True to include a default item block.
+	 * @return The block which was registered.
+	 */
+	public static <T extends Block> T registerBlock(T block, boolean includeItemBlock, String name)
+	{
 		if (includeItemBlock)
 		{
-			ModItems.add(new ItemBlock(block).setRegistryName(block.getRegistryName()));
+			ModItems.add(new BlockItem(block).setRegistryName(name));
 		}
 
 		ModRegistry.ModBlocks.add(block);
@@ -1003,7 +862,7 @@ public class ModRegistry
 	 * @param itemBlock The item block to register with the block.
 	 * @return The block which was registered.
 	 */
-	public static <T extends Block, I extends ItemBlock> T registerBlock(T block, I itemBlock)
+	public static <T extends Block, I extends BlockItem> T registerBlock(T block, I itemBlock)
 	{
 		ModRegistry.ModBlocks.add(block);
 
@@ -1026,7 +885,6 @@ public class ModRegistry
 		if (itemName != null)
 		{
 			item.setRegistryName(itemName);
-			item.setUnlocalizedName(item.getRegistryName().toString());
 		}
 	}
 
@@ -1039,7 +897,6 @@ public class ModRegistry
 	public static void setBlockName(Block block, String blockName)
 	{
 		block.setRegistryName(blockName);
-		block.setUnlocalizedName(block.getRegistryName().toString());
 	}
 
 	/**
@@ -1065,64 +922,5 @@ public class ModRegistry
 		ModRegistry.ModGuis.put(ModRegistry.GuiBulldozer, GuiBulldozer.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiInstantBridge, GuiInstantBridge.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiStructurePart,  GuiStructurePart.class);
-	}
-
-	/**
-	 * This should only be used for registering recipes for vanilla objects and not mod-specific objects.
-	 * 
-	 * @param name The name of the recipe. ModID is pre-pended to it.
-	 * @param stack The output of the recipe.
-	 * @param recipeComponents The recipe components.
-	 */
-	public static ShapedRecipes AddShapedRecipe(String name, String groupName, ItemStack stack, Object... recipeComponents)
-	{
-		name = Prefab.MODID.toLowerCase().replace(' ', '_') + ":" + name;
-
-		ShapedPrimer primer = CraftingHelper.parseShaped(recipeComponents);
-		ShapedRecipes shapedrecipes = new ShapedRecipes(groupName, primer.width, primer.height, primer.input, stack);
-		shapedrecipes.setRegistryName(name);
-		ForgeRegistries.RECIPES.register(shapedrecipes);
-
-		return shapedrecipes;
-	}
-
-	/**
-	 * This should only be used for registering recipes for vanilla objects and not mod-specific objects.
-	 * 
-	 * @param name The name of the recipe.
-	 * @param stack The output stack.
-	 * @param recipeComponents The recipe components.
-	 */
-	public static ShapelessRecipes AddShapelessRecipe(String name, String groupName, ItemStack stack, Object... recipeComponents)
-	{
-		name = Prefab.MODID.toLowerCase().replace(' ', '_') + ":" + name;
-		NonNullList<Ingredient> list = NonNullList.create();
-
-		for (Object object : recipeComponents)
-		{
-			if (object instanceof ItemStack)
-			{
-				list.add(Ingredient.fromStacks(((ItemStack) object).copy()));
-			}
-			else if (object instanceof Item)
-			{
-				list.add(Ingredient.fromStacks(new ItemStack((Item) object)));
-			}
-			else
-			{
-				if (!(object instanceof Block))
-				{
-					throw new IllegalArgumentException("Invalid shapeless recipe: unknown type " + object.getClass().getName() + "!");
-				}
-
-				list.add(Ingredient.fromStacks(new ItemStack((Block) object)));
-			}
-		}
-
-		ShapelessRecipes shapelessRecipes = new ShapelessRecipes(groupName, stack, list);
-		shapelessRecipes.setRegistryName(name);
-		ForgeRegistries.RECIPES.register(shapelessRecipes);
-
-		return shapelessRecipes;
 	}
 }

@@ -3,18 +3,19 @@ package com.wuest.prefab.Blocks;
 import java.util.Random;
 
 import com.wuest.prefab.ModRegistry;
+import com.wuest.prefab.Prefab;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
-import net.minecraft.block.material.PushReaction;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.apache.commons.lang3.reflect.FieldUtils;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * This block is used as an alternate light source to be used in the structures created in this mod.
@@ -23,7 +24,9 @@ import org.apache.commons.lang3.reflect.FieldUtils;
  *
  */
 public class BlockPaperLantern extends Block
-{		
+{
+	public final ItemGroup itemGroup;
+	
 	/**
 	 * Initializes a new instance of the BlockPaperLantern class.
 	 * 
@@ -31,13 +34,13 @@ public class BlockPaperLantern extends Block
 	 */
 	public BlockPaperLantern(String name)
 	{
-		super(SeeThrough);
-		this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-		this.setSoundType(SoundType.SNOW);
-		this.setHardness(0.6F);
+		super(Properties.create(Prefab.SeeThroughImmovable)
+			.sound(SoundType.SNOW)
+			.hardnessAndResistance(0.6f)
+			.lightValue(14));
+		
+		this.itemGroup = ItemGroup.BUILDING_BLOCKS;
 
-		// Use same light level as a torch.
-		this.setLightLevel(0.9375F);
 		ModRegistry.setBlockName(this, name);
 	}
 
@@ -45,53 +48,37 @@ public class BlockPaperLantern extends Block
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	@Override
-	public boolean isOpaqueCube(BlockState state)
+	public boolean isSolid(BlockState state)
 	{
 		return false;
 	}
 
 	@Override
-	public boolean isFullCube(BlockState state)
-	{
-		return false;
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public BlockRenderLayer getBlockLayer()
+	@OnlyIn(Dist.CLIENT)
+	public BlockRenderLayer getRenderLayer()
 	{
 		return BlockRenderLayer.CUTOUT;
 	}
 
 	@Override
-	public EnumBlockRenderType getRenderType(BlockState state)
+	public BlockRenderType getRenderType(BlockState state)
 	{
-		return EnumBlockRenderType.MODEL;
+		return BlockRenderType.MODEL;
 	}
 
-	@SideOnly(Side.CLIENT)
+	/**
+	 * Called periodically clientside on blocks near the player to show effects (like furnace fire particles). Note that
+	 * this method is unrelated to {@link randomTick} and {@link #needsRandomTick}, and will always be called regardless
+	 * of whether the block can receive random update ticks
+	*/
+	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void randomDisplayTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand)
+	public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand)
 	{
-		Direction Direction = Direction.DOWN;
-		double d0 = (double) pos.getX() + 0.5D;
-		double d1 = (double) pos.getY() + 0.7D;
-		double d2 = (double) pos.getZ() + 0.5D;
-		double d3 = 0.22D;
-		double d4 = 0.27D;
-
-		if (Direction.getAxis().isHorizontal())
-		{
-			Direction Direction1 = Direction.getOpposite();
-			worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + 0.27D * (double) Direction1.getFrontOffsetX(), d1 + 0.22D,
-				d2 + 0.27D * (double) Direction1.getFrontOffsetZ(), 0.0D, 0.0D, 0.0D, new int[0]);
-			worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 + 0.27D * (double) Direction1.getFrontOffsetX(), d1 + 0.22D,
-				d2 + 0.27D * (double) Direction1.getFrontOffsetZ(), 0.0D, 0.0D, 0.0D, new int[0]);
-		}
-		else
-		{
-			worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0.0D, 0.0D, 0.0D, new int[0]);
-			worldIn.spawnParticle(EnumParticleTypes.FLAME, d0, d1, d2, 0.0D, 0.0D, 0.0D, new int[0]);
-		}
+	      double d0 = (double)pos.getX() + 0.5D;
+	      double d1 = (double)pos.getY() + 0.7D;
+	      double d2 = (double)pos.getZ() + 0.5D;
+	      worldIn.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+	      worldIn.addParticle(ParticleTypes.FLAME, d0, d1, d2, 0.0D, 0.0D, 0.0D);
 	}
 }
