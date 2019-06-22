@@ -20,7 +20,8 @@ import com.wuest.prefab.Structures.Config.VillagerHouseConfiguration;
 import com.wuest.prefab.Structures.Config.WareHouseConfiguration;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 
 /**
@@ -43,7 +44,7 @@ public class StructureTagMessage extends TagMessage
 	 * Initializes a new instance of the StructureTagMessage class.
 	 * @param tagMessage The message to send.
 	 */
-	public StructureTagMessage(NBTTagCompound tagMessage, EnumStructureConfiguration structureConfig)
+	public StructureTagMessage(CompoundNBT tagMessage, EnumStructureConfiguration structureConfig)
 	{
 		super(tagMessage);
 		
@@ -60,25 +61,26 @@ public class StructureTagMessage extends TagMessage
 		this.structureConfig = value;
 	}
 	
-	@Override
-	public void fromBytes(ByteBuf buf) 
+	public static StructureTagMessage decode(PacketBuffer buf)
 	{
 		// This class is very useful in general for writing more complex objects.
-		NBTTagCompound tag = ByteBufUtils.readTag(buf);
+		CompoundNBT tag = buf.readCompoundTag();
+		StructureTagMessage returnValue = new StructureTagMessage();
 		
-		this.structureConfig = EnumStructureConfiguration.getFromIdentifier(tag.getInteger("config"));
+		returnValue.structureConfig = EnumStructureConfiguration.getFromIdentifier(tag.getInt("config"));
 		
-		this.tagMessage = tag.getCompoundTag("dataTag");
+		returnValue.tagMessage = tag.getCompound("dataTag");
+		
+		return returnValue;
 	}
 
-	@Override
-	public void toBytes(ByteBuf buf) 
+	public static void encode (StructureTagMessage message, PacketBuffer buf)
 	{
-		NBTTagCompound tag = new NBTTagCompound();
-		tag.setInteger("config", this.structureConfig.identifier);
-		tag.setTag("dataTag", this.tagMessage);
+		CompoundNBT tag = new CompoundNBT();
+		tag.putInt("config", message.structureConfig.identifier);
+		tag.put("dataTag", message.tagMessage);
 		
-		ByteBufUtils.writeTag(buf, tag);
+		buf.writeCompoundTag(tag);
 	}
 	
 	/**

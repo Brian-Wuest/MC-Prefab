@@ -1,20 +1,18 @@
 package com.wuest.prefab.Structures.Messages;
 
+import java.util.function.Supplier;
+
 import com.wuest.prefab.Structures.Config.StructureConfiguration;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 
-import net.minecraft.util.IThreadListener;
-import net.minecraft.world.WorldServer;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.network.NetworkEvent;
 
 /**
  * 
  * @author WuestMan
  *
  */
-public class StructureHandler implements IMessageHandler<StructureTagMessage, IMessage>
+public class StructureHandler
 {
 	/**
 	 * Initializes a new instance of the StructureHandler class.
@@ -23,13 +21,11 @@ public class StructureHandler implements IMessageHandler<StructureTagMessage, IM
 	{
 	}
 	
-	@Override
-	public IMessage onMessage(final StructureTagMessage message, final MessageContext ctx) 
+	public static void handle(final StructureTagMessage message, Supplier<NetworkEvent.Context> ctx) 
 	{
-		// Or Minecraft.getMinecraft() on the client.
-		IThreadListener mainThread = (WorldServer) ctx.getServerHandler().player.world; 
-
-		mainThread.addScheduledTask(new Runnable()
+		NetworkEvent.Context context = ctx.get();
+		
+		context.enqueueWork(new Runnable()
 		{
 			@Override
 			public void run() 
@@ -37,13 +33,12 @@ public class StructureHandler implements IMessageHandler<StructureTagMessage, IM
 				// This is server side. Build the structure.
 				EnumStructureConfiguration structureConfig = message.getStructureConfig();
 				
-				StructureConfiguration configuration = structureConfig.structureConfig.ReadFromNBTTagCompound(message.getMessageTag());
-				configuration.BuildStructure(ctx.getServerHandler().player, ctx.getServerHandler().player.world);
+				StructureConfiguration configuration = structureConfig.structureConfig.ReadFromCompoundNBT(message.getMessageTag());
+				configuration.BuildStructure(context.getSender(), context.getSender().world);
 			}
 		});
 
-		// no response in this case
-		return null;
+		context.setPacketHandled(true);
 	}
 
 }

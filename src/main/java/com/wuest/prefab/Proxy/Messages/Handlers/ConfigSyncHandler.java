@@ -1,59 +1,53 @@
 package com.wuest.prefab.Proxy.Messages.Handlers;
 
+import java.util.function.Supplier;
+
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.ModConfiguration;
+import com.wuest.prefab.Config.ServerModConfiguration;
 import com.wuest.prefab.Proxy.ClientProxy;
 import com.wuest.prefab.Proxy.Messages.ConfigSyncMessage;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.IThreadListener;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.world.WorldServer;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraft.world.ServerWorld;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkDirection;
+import net.minecraftforge.fml.network.NetworkEvent;
 
 /**
  * 
  * @author WuestMan
  *
  */
-public class ConfigSyncHandler implements IMessageHandler<ConfigSyncMessage, IMessage>
+public class ConfigSyncHandler
 {
-	@Override
-	public IMessage onMessage(final ConfigSyncMessage message, final MessageContext ctx)
+	public static void handle(final ConfigSyncMessage message, Supplier<NetworkEvent.Context> ctx)
 	{
-		// Or Minecraft.getMinecraft() on the client.
-		IThreadListener mainThread = null;
+		World recipientWorld = null;
 
-		if (ctx.side.isClient())
+		NetworkEvent.Context context = ctx.get();
+		
+		if (context.getDirection() == NetworkDirection.PLAY_TO_CLIENT)
 		{
-			mainThread = Minecraft.getMinecraft();
+			recipientWorld = Minecraft.getInstance().world;
 		}
-		else
+		else if (context.getDirection() == NetworkDirection.PLAY_TO_SERVER)
 		{
-			mainThread = (WorldServer) ctx.getServerHandler().player.world;
+			recipientWorld = (ServerWorld) context.getSender().getServerWorld();
 		}
 
-		mainThread.addScheduledTask(new Runnable()
+		context.enqueueWork(new Runnable()
 		{
 			@Override
 			public void run()
 			{
 				// This is client side. Update the configuration.
-				((ClientProxy) Prefab.proxy).serverConfiguration = ModConfiguration.getFromNBTTagCompound(message.getMessageTag());
+				((ClientProxy) Prefab.proxy).serverConfiguration = ServerModConfiguration.getFromNBTTagCompound(message.getMessageTag());
 
-				ModConfiguration config = ((ClientProxy) Prefab.proxy).getServerConfiguration();
-
-				// Show a message to this player if their version is old.
-				if (config.showMessage && config.enableVersionCheckMessage)
-				{
-					Minecraft.getMinecraft().player.sendMessage(new TextComponentString(config.versionMessage));
-				}
+				ServerModConfiguration config = ((ClientProxy) Prefab.proxy).getServerConfiguration();
 			}
 		});
 
-		// no response in this case
-		return null;
+		context.setPacketHandled(true);
 	}
 }

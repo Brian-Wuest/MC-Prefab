@@ -1,10 +1,10 @@
 package com.wuest.prefab.Structures.Config;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -25,7 +25,7 @@ public class StructureConfiguration
 	/**
 	 * The structure facing property.
 	 */
-	public EnumFacing houseFacing;
+	public Direction houseFacing;
 	
 	/**
 	 * The position of the structure.
@@ -45,62 +45,62 @@ public class StructureConfiguration
 	 */
 	public void Initialize()
 	{
-		this.houseFacing = EnumFacing.NORTH;
+		this.houseFacing = Direction.NORTH;
 	}
 	
 	/**
-	 * Writes the properties to an NBTTagCompound.
-	 * @return An NBTTagCompound with the updated properties.
+	 * Writes the properties to an CompoundNBT.
+	 * @return An CompoundNBT with the updated properties.
 	 */
-	public NBTTagCompound WriteToNBTTagCompound()
+	public CompoundNBT WriteToCompoundNBT()
 	{
-		NBTTagCompound tag = new NBTTagCompound();
+		CompoundNBT tag = new CompoundNBT();
 		
 		if (this.pos != null)
 		{
-			tag.setInteger(StructureConfiguration.hitXTag, this.pos.getX());
-			tag.setInteger(StructureConfiguration.hitYTag, this.pos.getY());
-			tag.setInteger(StructureConfiguration.hitZTag, this.pos.getZ());
+			tag.putInt(StructureConfiguration.hitXTag, this.pos.getX());
+			tag.putInt(StructureConfiguration.hitYTag, this.pos.getY());
+			tag.putInt(StructureConfiguration.hitZTag, this.pos.getZ());
 		}
 		
-		tag.setString(StructureConfiguration.houseFacingTag, this.houseFacing.getName());
+		tag.putString(StructureConfiguration.houseFacingTag, this.houseFacing.getName());
 		
-		tag = this.CustomWriteToNBTTagCompound(tag);
+		tag = this.CustomWriteToCompoundNBT(tag);
 		
 		return tag;
 	}
 	
 	/**
-	 * Reads NBTTagCompound to create a StructureConfiguration object from.
-	 * @param messageTag The NBTTagCompound to read the properties from.
+	 * Reads CompoundNBT to create a StructureConfiguration object from.
+	 * @param messageTag The CompoundNBT to read the properties from.
 	 * @return The updated StructureConfiguration instance.
 	 */
-	public StructureConfiguration ReadFromNBTTagCompound(NBTTagCompound messageTag)
+	public StructureConfiguration ReadFromCompoundNBT(CompoundNBT messageTag)
 	{
 		return null;
 	}
 	
 	/**
-	 * Reads NBTTagCompound to create a StructureConfiguration object from.
-	 * @param messageTag The NBTTagCompound to read the properties from.
+	 * Reads CompoundNBT to create a StructureConfiguration object from.
+	 * @param messageTag The CompoundNBT to read the properties from.
 	 * @param config The existing StructureConfiguration instance to fill the properties in for.
 	 * @return The updated StructureConfiguration instance.
 	 */
-	public StructureConfiguration ReadFromNBTTagCompound(NBTTagCompound messageTag, StructureConfiguration config)
+	public StructureConfiguration ReadFromCompoundNBT(CompoundNBT messageTag, StructureConfiguration config)
 	{
 		if (messageTag != null)
 		{
-			if (messageTag.hasKey(StructureConfiguration.hitXTag))
+			if (messageTag.contains(StructureConfiguration.hitXTag))
 			{
 				config.pos = new BlockPos(
-						messageTag.getInteger(StructureConfiguration.hitXTag), 
-						messageTag.getInteger(StructureConfiguration.hitYTag),
-						messageTag.getInteger(StructureConfiguration.hitZTag));
+						messageTag.getInt(StructureConfiguration.hitXTag), 
+						messageTag.getInt(StructureConfiguration.hitYTag),
+						messageTag.getInt(StructureConfiguration.hitZTag));
 			}
 			
-			if (messageTag.hasKey(StructureConfiguration.houseFacingTag))
+			if (messageTag.contains(StructureConfiguration.houseFacingTag))
 			{
-				config.houseFacing = EnumFacing.byName(messageTag.getString(StructureConfiguration.houseFacingTag));
+				config.houseFacing = Direction.byName(messageTag.getString(StructureConfiguration.houseFacingTag));
 			}
 			
 			this.CustomReadFromNBTTag(messageTag, config);
@@ -114,13 +114,13 @@ public class StructureConfiguration
 	 * @param player The player which requested the build.
 	 * @param world The world instance where the build will occur.
 	 */
-	public void BuildStructure(EntityPlayer player, World world)
+	public void BuildStructure(PlayerEntity player, World world)
 	{
 		// This is always on the server.
 		BlockPos hitBlockPos = this.pos;
 		BlockPos playerPosition = player.getPosition();
 
-		IBlockState hitBlockState = world.getBlockState(hitBlockPos);
+		BlockState hitBlockState = world.getBlockState(hitBlockPos);
 
 		if (hitBlockState != null)
 		{
@@ -139,26 +139,26 @@ public class StructureConfiguration
 	 * @param world The world instance where the build will occur.
 	 * @param hitBlockPos This hit block position.
 	 */
-	protected void ConfigurationSpecificBuildStructure(EntityPlayer player, World world, BlockPos hitBlockPos)
+	protected void ConfigurationSpecificBuildStructure(PlayerEntity player, World world, BlockPos hitBlockPos)
 	{
 	}
 	
 	/**
 	 * Custom method which can be overridden to write custom properties to the tag.
-	 * @param tag The NBTTagCompound to write the custom properties too.
+	 * @param tag The CompoundNBT to write the custom properties too.
 	 * @return The updated tag.
 	 */
-	protected NBTTagCompound CustomWriteToNBTTagCompound(NBTTagCompound tag)
+	protected CompoundNBT CustomWriteToCompoundNBT(CompoundNBT tag)
 	{
 		return tag;
 	}	
 	
 	/**
-	 * Custom method to read the NBTTagCompound message.
+	 * Custom method to read the CompoundNBT message.
 	 * @param messageTag The message to create the configuration from.
 	 * @param config The configuration to read the settings into.
 	 */
-	protected void CustomReadFromNBTTag(NBTTagCompound messageTag, StructureConfiguration config)
+	protected void CustomReadFromNBTTag(CompoundNBT messageTag, StructureConfiguration config)
 	{
 	}
 }

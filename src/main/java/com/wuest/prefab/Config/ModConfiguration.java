@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Gui.GuiLangKeys;
 
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.Builder;
@@ -30,39 +31,39 @@ public class ModConfiguration
 	public static String tagKey = "PrefabConfig";
 
 	// Config file option names.
-	private static String maximumHouseSizeName = "Maximum Starting House Size";
-	private static String enableVersionCheckMessageName = "Enable Version Checking";
-	private static String enableLoftHouseName = "Enable Loft House";
-	private static String includeSpawnersInMasherName = "Include Spawners in Monster Masher";
-	private static String enableStructurePreviewName = "Include Structure Previews";
-	private static String includeMineshaftChestName = "Include Mineshaft Chest";
+	static String maximumHouseSizeName = "Maximum Starting House Size";
+	static String enableVersionCheckMessageName = "Enable Version Checking";
+	static String enableLoftHouseName = "Enable Loft House";
+	static String includeSpawnersInMasherName = "Include Spawners in Monster Masher";
+	static String enableStructurePreviewName = "Include Structure Previews";
+	static String includeMineshaftChestName = "Include Mineshaft Chest";
 
 	// Chest content option names.
-	private static String addSwordName = "Add Sword";
-	private static String addAxeName = "Add Axe";
-	private static String addHoeName = "Add Hoe";
-	private static String addShovelName = "Add Shovel";
-	private static String addPickAxeName = "Add Pickaxe";
-	private static String addArmorName = "Add Armor";
-	private static String addFoodName = "Add Food";
-	private static String addCropsName = "Add Crops";
-	private static String addDirtName = "Add Dirt";
-	private static String addCobbleName = "Add Cobblestone";
-	private static String addSaplingsName = "Add Saplings";
-	private static String addTorchesName = "Add Torches";
-	private static String startingItemName = "Starting Item";
+	static String addSwordName = "Add Sword";
+	static String addAxeName = "Add Axe";
+	static String addHoeName = "Add Hoe";
+	static String addShovelName = "Add Shovel";
+	static String addPickAxeName = "Add Pickaxe";
+	static String addArmorName = "Add Armor";
+	static String addFoodName = "Add Food";
+	static String addCropsName = "Add Crops";
+	static String addDirtName = "Add Dirt";
+	static String addCobbleName = "Add Cobblestone";
+	static String addSaplingsName = "Add Saplings";
+	static String addTorchesName = "Add Torches";
+	static String startingItemName = "Starting Item";
 
 	// Starter House option names.
-	private static String addBedName = "Add Bed";
-	private static String addCraftingTableName = "Add Crafting Table";
-	private static String addFurnaceName = "Add Furnace";
-	private static String addChestsName = "Add Chests";
-	private static String addChestContentsName = "Add Chest Contents";
-	private static String addFarmName = "Add Farm";
-	private static String addMineshaftName = "Add Mineshaft";
+	static String addBedName = "Add Bed";
+	static String addCraftingTableName = "Add Crafting Table";
+	static String addFurnaceName = "Add Furnace";
+	static String addChestsName = "Add Chests";
+	static String addChestContentsName = "Add Chest Contents";
+	static String addFarmName = "Add Farm";
+	static String addMineshaftName = "Add Mineshaft";
 
-	private static String versionMessageName = "Version Message";
-	private static String showMessageName = "Show Message";
+	static String versionMessageName = "Version Message";
+	static String showMessageName = "Show Message";
 
 	// Configuration Options.
 	public IntValue maximumStartingHouseSize;
@@ -99,6 +100,8 @@ public class ModConfiguration
 	public static ArrayList<String> validStartingItems = new ArrayList<String>(Arrays.asList("Starter House", "Moderate House", "Structure Part", "Nothing"));
 
 	public HashMap<String, BooleanValue> recipeConfiguration;
+	
+	public ServerModConfiguration serverConfiguration;
 
 	// Recipe Options
 	public static String compressedStoneKey = "Compressed Stone";
@@ -173,11 +176,13 @@ public class ModConfiguration
 	public ModConfiguration()
 	{
 		this.recipeConfiguration = new HashMap<String, BooleanValue>();
+		this.serverConfiguration = new ServerModConfiguration();
 	}
 	
 	public ModConfiguration(ForgeConfigSpec.Builder builder)
 	{
 		this.recipeConfiguration = new HashMap<String, BooleanValue>();
+		this.serverConfiguration = new ServerModConfiguration();
 		ModConfiguration.BUILDER = builder;
 		ModConfiguration.buildOptions(this, builder);
 	}
@@ -190,87 +195,135 @@ public class ModConfiguration
 		Prefab.proxy.proxyConfiguration.startingItem = builder
 			.comment("Determines which starting item a player gets on first world join. Server configuration overrides client.")
 			.defineInList(OPTIONS + ModConfiguration.startingItemName, "Starting House", validStartingItems);
+		Prefab.proxy.proxyConfiguration.serverConfiguration.startingItem = Prefab.proxy.proxyConfiguration.startingItem.get();
 
 		Prefab.proxy.proxyConfiguration.maximumStartingHouseSize = builder
 			.comment("Determines the maximum size the starting house can be generated as. Server configuration overrides client.")
 			.defineInRange(OPTIONS + ModConfiguration.maximumHouseSizeName, 16, 5, 16);
+		Prefab.proxy.proxyConfiguration.serverConfiguration.maximumStartingHouseSize = Prefab.proxy.proxyConfiguration.maximumStartingHouseSize.get();
 		
 		Prefab.proxy.proxyConfiguration.enableLoftHouse = builder
 			.comment("Determines if the loft starter house is enabled. This house contains Nether materials in it's construction. Server configuration overrides client.")
 			.define(OPTIONS + ModConfiguration.enableLoftHouseName, false);
 		
+		Prefab.proxy.proxyConfiguration.serverConfiguration.enableLoftHouse = Prefab.proxy.proxyConfiguration.enableLoftHouse.get();
+		
 		Prefab.proxy.proxyConfiguration.includeSpawnersInMasher = builder
 			.comment("Determines if the spawners for the Monster Masher building are included. Server configuration overrides client.")
 			.define(OPTIONS + ModConfiguration.includeSpawnersInMasherName, true);
+		
+		Prefab.proxy.proxyConfiguration.serverConfiguration.includeSpawnersInMasher = Prefab.proxy.proxyConfiguration.includeSpawnersInMasher.get();
 		
 		Prefab.proxy.proxyConfiguration.enableStructurePreview = builder
 			.comment("Determines if the Preview buttons in structure GUIs and other structure previews functions are enabled. Client side only.")
 			.define(OPTIONS + ModConfiguration.enableStructurePreviewName, true);
 		
+		Prefab.proxy.proxyConfiguration.serverConfiguration.enableStructurePreview = Prefab.proxy.proxyConfiguration.enableStructurePreview.get();
+		
 		Prefab.proxy.proxyConfiguration.includeMineshaftChest = builder
 			.comment("Determines if the mineshaft chest is included when building mineshafts for various structures.")
 			.define(OPTIONS + ModConfiguration.includeMineshaftChestName, true);
+		
+		Prefab.proxy.proxyConfiguration.serverConfiguration.includeMineshaftChest = Prefab.proxy.proxyConfiguration.includeMineshaftChest.get();
 
 		builder.comment("Chest Options");
 		
 		Prefab.proxy.proxyConfiguration.addSword = builder.comment("Determines if a Stone Sword is added the the chest when the house is created.")
 			.define(ModConfiguration.ChestContentOptions + ModConfiguration.addSwordName, true);
 		
+		Prefab.proxy.proxyConfiguration.serverConfiguration.addSword = Prefab.proxy.proxyConfiguration.addSword.get();
+		
 		Prefab.proxy.proxyConfiguration.addAxe = builder.comment("Determines if a Stone Axe is added the the chest when the house is created.")
 			.define(ModConfiguration.ChestContentOptions + ModConfiguration.addAxeName, true);
+		
+		Prefab.proxy.proxyConfiguration.serverConfiguration.addAxe = Prefab.proxy.proxyConfiguration.addAxe.get();
 		
 		Prefab.proxy.proxyConfiguration.addShovel = builder.comment("Determines if a Stone Shovel is added the the chest when the house is created.")
 			.define(ModConfiguration.ChestContentOptions + ModConfiguration.addShovelName, true);
 		
+		Prefab.proxy.proxyConfiguration.serverConfiguration.addShovel = Prefab.proxy.proxyConfiguration.addShovel.get();
+		
 		Prefab.proxy.proxyConfiguration.addHoe = builder.comment("Determines if a Stone Hoe is added the the chest when the house is created.")
 			.define(ModConfiguration.ChestContentOptions + ModConfiguration.addHoeName, true);
+		
+		Prefab.proxy.proxyConfiguration.serverConfiguration.addHoe = Prefab.proxy.proxyConfiguration.addHoe.get();
 		
 		Prefab.proxy.proxyConfiguration.addPickAxe = builder.comment("Determines if a Stone Pickaxe is added the the chest when the house is created.")
 			.define(ModConfiguration.ChestContentOptions + ModConfiguration.addPickAxeName, true);
 		
+		Prefab.proxy.proxyConfiguration.serverConfiguration.addPickAxe = Prefab.proxy.proxyConfiguration.addPickAxe.get();
+		
 		Prefab.proxy.proxyConfiguration.addArmor = builder.comment("Determines if Leather Armor is added the the chest when the house is created.")
 			.define(ModConfiguration.ChestContentOptions + ModConfiguration.addArmorName, true);
+		
+		Prefab.proxy.proxyConfiguration.serverConfiguration.addArmor = Prefab.proxy.proxyConfiguration.addArmor.get();
 		
 		Prefab.proxy.proxyConfiguration.addFood = builder.comment("Determines if Bread is added the the chest when the house is created.")
 			.define(ModConfiguration.ChestContentOptions + ModConfiguration.addFoodName, true);
 		
+		Prefab.proxy.proxyConfiguration.serverConfiguration.addFood = Prefab.proxy.proxyConfiguration.addFood.get();
+		
 		Prefab.proxy.proxyConfiguration.addCrops = builder.comment("Determines if seeds, potatoes and carrots are added the the chest when the house is created.")
 			.define(ModConfiguration.ChestContentOptions + ModConfiguration.addCropsName, true);
+		
+		Prefab.proxy.proxyConfiguration.serverConfiguration.addCrops = Prefab.proxy.proxyConfiguration.addCrops.get();
 		
 		Prefab.proxy.proxyConfiguration.addDirt = builder.comment("Determines if a stack of dirt is added the the chest when the house is created.")
 			.define(ModConfiguration.ChestContentOptions + ModConfiguration.addDirtName, true);
 		
+		Prefab.proxy.proxyConfiguration.serverConfiguration.addDirt = Prefab.proxy.proxyConfiguration.addDirt.get();
+		
 		Prefab.proxy.proxyConfiguration.addCobble = builder.comment("Determines if a stack of cobble is added the the chest when the house is created.")
 			.define(ModConfiguration.ChestContentOptions + ModConfiguration.addCobbleName, true);
+		
+		Prefab.proxy.proxyConfiguration.serverConfiguration.addCobble = Prefab.proxy.proxyConfiguration.addCobble.get();
 		
 		Prefab.proxy.proxyConfiguration.addSaplings = builder.comment("Determines if a set of oak saplings are added the the chest when the house is created.")
 			.define(ModConfiguration.ChestContentOptions + ModConfiguration.addSaplingsName, true);
 		
+		Prefab.proxy.proxyConfiguration.serverConfiguration.addSaplings = Prefab.proxy.proxyConfiguration.addSaplings.get();
+		
 		Prefab.proxy.proxyConfiguration.addTorches = builder.comment("Determines if a set of torches are added the the chest when the house is created.")
 			.define(ModConfiguration.ChestContentOptions + ModConfiguration.addTorchesName, true);
+		
+		Prefab.proxy.proxyConfiguration.serverConfiguration.addTorches = Prefab.proxy.proxyConfiguration.addTorches.get();
 		
 		builder.comment("Starter House Options");
 		
 		Prefab.proxy.proxyConfiguration.addBed = builder.comment("Determines if the bed is included in the starter house. When playing on a server, the server configuration is used")
 			.define(ModConfiguration.starterHouseOptions + ModConfiguration.addBedName, true);
 		
+		Prefab.proxy.proxyConfiguration.serverConfiguration.addBed = Prefab.proxy.proxyConfiguration.addBed.get();
+		
 		Prefab.proxy.proxyConfiguration.addCraftingTable = builder.comment("Determines if the crafting table is included in the starter house. When playing on a server, the server configuration is used")
 			.define(ModConfiguration.starterHouseOptions + ModConfiguration.addCraftingTableName, true);
+		
+		Prefab.proxy.proxyConfiguration.serverConfiguration.addCraftingTable = Prefab.proxy.proxyConfiguration.addCraftingTable.get();
 		
 		Prefab.proxy.proxyConfiguration.addFurnace = builder.comment("Determines if the furnace is included in the starter house. When playing on a server, the server configuration is used")
 			.define(ModConfiguration.starterHouseOptions + ModConfiguration.addFurnaceName, true);
 		
+		Prefab.proxy.proxyConfiguration.serverConfiguration.addFurnace = Prefab.proxy.proxyConfiguration.addFurnace.get();
+		
 		Prefab.proxy.proxyConfiguration.addChests = builder.comment("Determines if chests are included in the starter house. When playing on a server, the server configuration is used")
 			.define(ModConfiguration.starterHouseOptions + ModConfiguration.addChestsName, true);
+		
+		Prefab.proxy.proxyConfiguration.serverConfiguration.addChests = Prefab.proxy.proxyConfiguration.addChests.get();
 		
 		Prefab.proxy.proxyConfiguration.addChestContents = builder.comment("Determines if the chest contents is included in the starter house. When playing on a server, the server configuration is used")
 			.define(ModConfiguration.starterHouseOptions + ModConfiguration.addChestContentsName, true);
 		
+		Prefab.proxy.proxyConfiguration.serverConfiguration.addChestContents = Prefab.proxy.proxyConfiguration.addChestContents.get();
+		
 		Prefab.proxy.proxyConfiguration.addFarm = builder.comment("Determines if the farm is included in the basic starter house. When playing on a server, the server configuration is used")
 			.define(ModConfiguration.starterHouseOptions + ModConfiguration.addFarmName, true);
 		
+		Prefab.proxy.proxyConfiguration.serverConfiguration.addFarm = Prefab.proxy.proxyConfiguration.addFarm.get();
+		
 		Prefab.proxy.proxyConfiguration.addMineshaft = builder.comment("Determines if the mineshaft is included in the starter house. When playing on a server, the server configuration is used")
 			.define(ModConfiguration.starterHouseOptions + ModConfiguration.addMineshaftName, true);
+		
+		Prefab.proxy.proxyConfiguration.serverConfiguration.addMineshaft = Prefab.proxy.proxyConfiguration.addMineshaft.get();
 		
 		// Recipe configuration.
 		for (String key : ModConfiguration.recipeKeys)
@@ -280,6 +333,7 @@ public class ModConfiguration
 				.define(ModConfiguration.RecipeOptions + key, true);
 			
 			Prefab.proxy.proxyConfiguration.recipeConfiguration.put(key, value);
+			Prefab.proxy.proxyConfiguration.serverConfiguration.recipeConfiguration.put(key,  value.get());
 		}
 		
 		builder.worldRestart();
@@ -390,4 +444,6 @@ public class ModConfiguration
 			}
 		}
 	}
+
+
 }

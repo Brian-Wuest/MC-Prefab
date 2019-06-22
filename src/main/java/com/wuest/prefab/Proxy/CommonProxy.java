@@ -10,6 +10,7 @@ import com.google.gson.FieldAttributes;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.ModConfiguration;
+import com.wuest.prefab.Config.ServerModConfiguration;
 import com.wuest.prefab.Events.ModEventHandler;
 import com.wuest.prefab.Structures.Events.StructureEventHandler;
 
@@ -71,9 +72,9 @@ public class CommonProxy
 	{
 	}
 	
-	public ModConfiguration getServerConfiguration()
+	public ServerModConfiguration getServerConfiguration()
 	{
-		return CommonProxy.proxyConfiguration;
+		return CommonProxy.proxyConfiguration.serverConfiguration;
 	}
 
 	public class CustomExclusionStrategy implements ExclusionStrategy

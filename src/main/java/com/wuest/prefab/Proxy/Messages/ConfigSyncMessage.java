@@ -1,6 +1,7 @@
 package com.wuest.prefab.Proxy.Messages;
 
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.PacketBuffer;
 
 /**
  * 
@@ -14,7 +15,7 @@ public class ConfigSyncMessage extends TagMessage
 	 * 
 	 * @param writeToNBTTagCompound The NBTTagCompound to write the data too.
 	 */
-	public ConfigSyncMessage(NBTTagCompound writeToNBTTagCompound)
+	public ConfigSyncMessage(CompoundNBT writeToNBTTagCompound)
 	{
 		super(writeToNBTTagCompound);
 	}
@@ -22,5 +23,10 @@ public class ConfigSyncMessage extends TagMessage
 	public ConfigSyncMessage()
 	{
 		super();
+	}
+	
+	public static ConfigSyncMessage decode(PacketBuffer buf)
+	{
+		return TagMessage.decode(buf, ConfigSyncMessage.class);
 	}
 }

@@ -3,6 +3,7 @@ package com.wuest.prefab.Proxy;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.ModConfiguration;
+import com.wuest.prefab.Config.ServerModConfiguration;
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Structures.Events.StructureClientEventHandler;
 import com.wuest.prefab.Structures.Render.ShaderHelper;
@@ -16,7 +17,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
  */
 public class ClientProxy extends CommonProxy
 {
-	public ModConfiguration serverConfiguration = null;
+	public ServerModConfiguration serverConfiguration = null;
 	public static ClientEventHandler clientEventHandler = new ClientEventHandler();
 	public static StructureClientEventHandler structureClientEventHandler = new StructureClientEventHandler();
 
@@ -50,12 +51,12 @@ public class ClientProxy extends CommonProxy
 	}
 
 	@Override
-	public ModConfiguration getServerConfiguration()
+	public ServerModConfiguration getServerConfiguration()
 	{
 		if (this.serverConfiguration == null)
 		{
 			// Get the server configuration.
-			return CommonProxy.proxyConfiguration;
+			return CommonProxy.proxyConfiguration.serverConfiguration;
 		}
 		else
 		{

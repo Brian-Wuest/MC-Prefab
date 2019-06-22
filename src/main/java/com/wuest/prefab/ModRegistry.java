@@ -82,6 +82,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.fml.network.simple.SimpleChannel;
 
 /**
  * This is the mod registry so there is a way to get to all instances of the blocks/items created by this mod.
@@ -761,7 +762,7 @@ public class ModRegistry
 	public static void RegisterOreDictionaryRecords()
 	{
 		// Register certain blocks into the ore dictionary.
-		OreDictionary.registerOre("compressedDirt1", ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_DIRT));
+/*		OreDictionary.registerOre("compressedDirt1", ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_DIRT));
 		OreDictionary.registerOre("compressedDirt2", ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_DIRT));
 		OreDictionary.registerOre("compressedStone1", ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_STONE));
 		OreDictionary.registerOre("compressedStone2", ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE));
@@ -769,7 +770,7 @@ public class ModRegistry
 		OreDictionary.registerOre("compressedGlowstone1", ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_GLOWSTONE));
 		OreDictionary.registerOre("compressedGlowstone2", ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE));
 		OreDictionary.registerOre("compressedObsidian1", ModRegistry.GetCompressedObsidianType(BlockCompressedObsidian.EnumType.COMPRESSED_OBSIDIAN));
-		OreDictionary.registerOre("compressedObsidian2", ModRegistry.GetCompressedObsidianType(BlockCompressedObsidian.EnumType.DOUBLE_COMPRESSED_OBSIDIAN));
+		OreDictionary.registerOre("compressedObsidian2", ModRegistry.GetCompressedObsidianType(BlockCompressedObsidian.EnumType.DOUBLE_COMPRESSED_OBSIDIAN));*/
 	}
 
 	/**
@@ -777,11 +778,24 @@ public class ModRegistry
 	 */
 	public static void RegisterMessages()
 	{
-		Prefab.network.registerMessage(ConfigSyncHandler.class, ConfigSyncMessage.class, 1, Dist.CLIENT);
-
-		Prefab.network.registerMessage(StructureHandler.class, StructureTagMessage.class, 2, Dist.DEDICATED_SERVER);
-
-		Prefab.network.registerMessage(PlayerEntityHandler.class, PlayerEntityTagMessage.class, 3, Dist.CLIENT);
+		int index = 0;
+		Prefab.network.messageBuilder(ConfigSyncMessage.class, index++)
+			.encoder(ConfigSyncMessage::encode)
+			.decoder(ConfigSyncMessage::decode)
+			.consumer(ConfigSyncHandler::handle)
+			.add();
+		
+		Prefab.network.messageBuilder(PlayerEntityTagMessage.class, index++)
+			.encoder(PlayerEntityTagMessage::encode)
+			.decoder(PlayerEntityTagMessage::decode)
+			.consumer(PlayerEntityHandler::handle)
+			.add();
+			
+		Prefab.network.messageBuilder(StructureTagMessage.class, index++)
+			.encoder(StructureTagMessage::encode)
+			.decoder(StructureTagMessage::decode)
+			.consumer(StructureHandler::handle)
+			.add();
 	}
 
 	/**
@@ -791,7 +805,7 @@ public class ModRegistry
 	{
 		// Register the dimension home capability.
 		CapabilityManager.INSTANCE.register(IStructureConfigurationCapability.class, new StructureConfigurationStorage(),
-			StructureConfigurationCapability.class);
+			() -> new StructureConfigurationCapability());
 	}
 
 	/**
@@ -830,7 +844,7 @@ public class ModRegistry
 	 */
 	public static <T extends Block> T registerBlock(T block, boolean includeItemBlock)
 	{
-		return ModRegistry.registerBlock(block, includeItemBlock, block.getRegistryName());
+		return ModRegistry.registerBlock(block, includeItemBlock, block.getRegistryName().getPath());
 	}
 	
 	/**
@@ -845,7 +859,7 @@ public class ModRegistry
 	{
 		if (includeItemBlock)
 		{
-			ModItems.add(new BlockItem(block).setRegistryName(name));
+			ModItems.add(new BlockItem(block, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS)).setRegistryName(name));
 		}
 
 		ModRegistry.ModBlocks.add(block);

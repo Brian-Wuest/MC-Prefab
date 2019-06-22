@@ -1,49 +1,60 @@
 package com.wuest.prefab.Proxy.Messages;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 
 /**
  * 
  * @author WuestMan
  *
  */
-public class TagMessage implements IMessage
+public class TagMessage
 {
-	protected NBTTagCompound tagMessage;
+	protected CompoundNBT tagMessage;
 
 	public TagMessage()
 	{
 	}
 
-	public TagMessage(NBTTagCompound tagMessage)
+	public TagMessage(CompoundNBT tagMessage)
 	{
 		this.tagMessage = tagMessage;
 	}
-
-	public NBTTagCompound getMessageTag()
+	
+	public CompoundNBT getMessageTag()
 	{
 		return this.tagMessage;
 	}
 
-	public void setMessageTag(NBTTagCompound value)
+	public void setMessageTag(CompoundNBT value)
 	{
 		this.tagMessage = value;
 	}
-
-	@Override
-	public void fromBytes(ByteBuf buf)
+	
+	public static <T extends TagMessage> T decode(PacketBuffer buf, Class<T> clazz)
 	{
-		// This class is very useful in general for writing more complex
-		// objects.
-		this.tagMessage = ByteBufUtils.readTag(buf);
+		T message = null;
+		
+		try
+		{
+			message = clazz.newInstance();
+		}
+		catch (InstantiationException | IllegalAccessException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		message.tagMessage = buf.readCompoundTag();
+		return message;
 	}
 
-	@Override
-	public void toBytes(ByteBuf buf)
+	public static <T extends TagMessage>  void encode (T message, PacketBuffer buf)
 	{
-		ByteBufUtils.writeTag(buf, this.tagMessage);
+		buf.writeCompoundTag(message.tagMessage);
 	}
 }

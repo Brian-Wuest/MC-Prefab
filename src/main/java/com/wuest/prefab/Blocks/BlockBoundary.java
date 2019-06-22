@@ -194,7 +194,7 @@ public class BlockBoundary extends Block
 	{
 		super.addInformation(stack, worldIn, tooltip, advanced);
 
-		boolean advancedKeyDown = Minecraft.getInstance().field_71462_r.hasShiftDown();
+		boolean advancedKeyDown = Minecraft.getInstance().currentScreen.hasShiftDown();
 
 		if (!advancedKeyDown)
 		{

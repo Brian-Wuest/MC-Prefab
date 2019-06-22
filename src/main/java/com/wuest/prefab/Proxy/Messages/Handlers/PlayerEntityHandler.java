@@ -1,22 +1,25 @@
 package com.wuest.prefab.Proxy.Messages.Handlers;
 
+import java.util.function.Supplier;
+
 import com.wuest.prefab.Config.EntityPlayerConfiguration;
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Proxy.Messages.PlayerEntityTagMessage;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.IThreadListener;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.world.ServerWorld;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkDirection;
+import net.minecraftforge.fml.network.NetworkEvent;
+
 
 /**
  * 
  * @author WuestMan
  *
  */
-public class PlayerEntityHandler implements IMessageHandler<PlayerEntityTagMessage, IMessage>
+public class PlayerEntityHandler
 {
 	/**
 	 * Initializes a new instance of the StructureHandler class.
@@ -25,25 +28,22 @@ public class PlayerEntityHandler implements IMessageHandler<PlayerEntityTagMessa
 	{
 	}
 
-	@Override
-	public IMessage onMessage(final PlayerEntityTagMessage message, final MessageContext ctx)
+	public static void handle(final PlayerEntityTagMessage message, Supplier<NetworkEvent.Context> ctx)
 	{
-		// Or Minecraft.getMinecraft() on the client.
-		IThreadListener mainThread = Minecraft.getMinecraft();
-
-		mainThread.addScheduledTask(new Runnable()
+		NetworkEvent.Context context = ctx.get();
+		
+		context.enqueueWork(new Runnable()
 		{
 			@Override
 			public void run()
 			{
 				// This is client side.
-				NBTTagCompound newPlayerTag = Minecraft.getMinecraft().player.getEntityData();
-				newPlayerTag.setTag(EntityPlayerConfiguration.PLAYER_ENTITY_TAG, message.getMessageTag());
+				CompoundNBT newPlayerTag = Minecraft.getInstance().player.getEntityData();
+				newPlayerTag.put(EntityPlayerConfiguration.PLAYER_ENTITY_TAG, message.getMessageTag());
 				ClientEventHandler.playerConfig.loadFromNBTTagCompound(message.getMessageTag());
 			}
 		});
 
-		// no response in this case
-		return null;
+		context.setPacketHandled(true);
 	}
 }
