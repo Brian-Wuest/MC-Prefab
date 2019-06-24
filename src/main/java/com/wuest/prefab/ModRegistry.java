@@ -751,23 +751,6 @@ public class ModRegistry
 	}
 
 	/**
-	 * Registers records into the ore dictionary.
-	 */
-	public static void RegisterOreDictionaryRecords()
-	{
-		// Register certain blocks into the ore dictionary.
-/*		OreDictionary.registerOre("compressedDirt1", ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_DIRT));
-		OreDictionary.registerOre("compressedDirt2", ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_DIRT));
-		OreDictionary.registerOre("compressedStone1", ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_STONE));
-		OreDictionary.registerOre("compressedStone2", ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE));
-		OreDictionary.registerOre("compressedStone3", ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE));
-		OreDictionary.registerOre("compressedGlowstone1", ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.COMPRESSED_GLOWSTONE));
-		OreDictionary.registerOre("compressedGlowstone2", ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE));
-		OreDictionary.registerOre("compressedObsidian1", ModRegistry.GetCompressedObsidianType(BlockCompressedObsidian.EnumType.COMPRESSED_OBSIDIAN));
-		OreDictionary.registerOre("compressedObsidian2", ModRegistry.GetCompressedObsidianType(BlockCompressedObsidian.EnumType.DOUBLE_COMPRESSED_OBSIDIAN));*/
-	}
-
-	/**
 	 * This is where the mod messages are registered.
 	 */
 	public static void RegisterMessages()

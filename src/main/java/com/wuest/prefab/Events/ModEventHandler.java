@@ -78,21 +78,6 @@ public class ModEventHandler
 		}
 	}
 
-	/**
-	 * This is used to sync up the configuration when it's change by the user.
-	 * 
-	 * @param onConfigChangedEvent The event object.
-	 */
-	@SubscribeEvent
-	public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent onConfigChangedEvent)
-	{
-		if (onConfigChangedEvent.getModID().equals(Prefab.MODID))
-		{
-			onConfigChangedEvent.
-			ModConfiguration.syncConfig();
-		}
-	}
-
 	@SubscribeEvent
 	public static void AnvilUpdate(AnvilUpdateEvent event)
 	{
@@ -125,12 +110,5 @@ public class ModEventHandler
 	public static void registerItems(RegistryEvent.Register<Item> event)
 	{
 		event.getRegistry().registerAll(ModRegistry.ModItems.toArray(new Item[ModRegistry.ModItems.size()]));
-	}
-
-	@SubscribeEvent
-	public static void registerRecipes(RegistryEvent.Register<IRecipe> event)
-	{
-		// Register the ore dictionary blocks.
-		ModRegistry.RegisterOreDictionaryRecords();
 	}
 }

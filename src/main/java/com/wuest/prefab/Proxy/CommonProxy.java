@@ -17,6 +17,7 @@ import com.wuest.prefab.Structures.Events.StructureEventHandler;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -45,6 +46,8 @@ public class CommonProxy
 		ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, COMMON_SPEC);
 
 		ModConfiguration.loadConfig(CommonProxy.COMMON_SPEC, FMLPaths.CONFIGDIR.get().resolve("prefab.toml"));
+		
+		this.RegisterEventHandler();
 	}
 
 	/*
@@ -52,6 +55,11 @@ public class CommonProxy
 	 */
 	public void registerRenderers()
 	{
+	}
+	
+	public void RegisterEventHandler()
+	{
+		MinecraftForge.EVENT_BUS.register(new ModEventHandler());
 	}
 
 	public void preInit(FMLCommonSetupEvent event)

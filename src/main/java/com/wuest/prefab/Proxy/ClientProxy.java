@@ -4,9 +4,11 @@ import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.ServerModConfiguration;
 import com.wuest.prefab.Events.ClientEventHandler;
+import com.wuest.prefab.Events.ModEventHandler;
 import com.wuest.prefab.Structures.Events.StructureClientEventHandler;
 import com.wuest.prefab.Structures.Render.ShaderHelper;
 
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 /**
@@ -46,6 +48,12 @@ public class ClientProxy extends CommonProxy
 	public void postinit(FMLCommonSetupEvent event)
 	{
 		super.postinit(event);
+	}
+	
+	@Override
+	public void RegisterEventHandler()
+	{
+		MinecraftForge.EVENT_BUS.register(new ClientEventHandler());
 	}
 
 	@Override
