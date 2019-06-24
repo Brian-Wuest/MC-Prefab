@@ -12,11 +12,6 @@ import com.wuest.prefab.Blocks.BlockPaperLantern;
 import com.wuest.prefab.Blocks.BlockPhasing;
 import com.wuest.prefab.Blocks.BlockStairs;
 import com.wuest.prefab.Gui.GuiDrafter;
-import com.wuest.prefab.Items.ItemBlockAndesiteSlab;
-import com.wuest.prefab.Items.ItemBlockDioriteSlab;
-import com.wuest.prefab.Items.ItemBlockGlassSlab;
-import com.wuest.prefab.Items.ItemBlockGraniteSlab;
-import com.wuest.prefab.Items.ItemBlockMeta;
 import com.wuest.prefab.Items.ItemBundleOfTimber;
 import com.wuest.prefab.Items.ItemCoilOfLanterns;
 import com.wuest.prefab.Items.ItemCompressedChest;
@@ -71,21 +66,14 @@ import com.wuest.prefab.Structures.Messages.StructureTagMessage;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SlabBlock;
-import net.minecraft.block.StairsBlock;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.NonNullList;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.fml.network.simple.SimpleChannel;
 
 /**
  * This is the mod registry so there is a way to get to all instances of the blocks/items created by this mod.
@@ -239,7 +227,7 @@ public class ModRegistry
 	 * The identifier for the instant bridge gui.
 	 */
 	public static final String GuiInstantBridge = "InstantBridge";
-	
+
 	/**
 	 * The identifier for the structure part gui.
 	 */
@@ -250,7 +238,7 @@ public class ModRegistry
 	 */
 	@CapabilityInject(IStructureConfigurationCapability.class)
 	public static Capability<IStructureConfigurationCapability> StructureConfiguration = null;
-	
+
 	private static ArrayList<BlockCompressedStone> CompressedStones = new ArrayList<BlockCompressedStone>();
 	private static ArrayList<BlockCompressedObsidian> CompressedObsidians = new ArrayList<BlockCompressedObsidian>();
 
@@ -433,9 +421,10 @@ public class ModRegistry
 	{
 		return ModRegistry.GetItem(ItemInstantBridge.class);
 	}
-	
+
 	/**
 	 * The structure part registered item.
+	 * 
 	 * @return An instance of {@link ItemStructurePart}.
 	 */
 	public static ItemStructurePart StructurePart()
@@ -458,7 +447,7 @@ public class ModRegistry
 	 * This method is used to get an ItemStack for compressed stone.
 	 * 
 	 * @param enumType The type of compressed stone.
-	 * @param count The number to have in the returned stack.
+	 * @param count    The number to have in the returned stack.
 	 * @return An item stack with the appropriate meta data with 1 item in the stack
 	 */
 	public static ItemStack GetCompressedStoneType(BlockCompressedStone.EnumType enumType, int count)
@@ -470,12 +459,13 @@ public class ModRegistry
 				return new ItemStack(Item.getItemFromBlock(stoneType), count);
 			}
 		}
-		
+
 		return ItemStack.EMPTY;
 	}
-	
+
 	/**
 	 * Gets a compressed stone block based on the stype.
+	 * 
 	 * @param enumType The type of block to get.
 	 * @return The appropriate stone block type or if none was found, air.
 	 */
@@ -488,10 +478,10 @@ public class ModRegistry
 				return stoneType;
 			}
 		}
-		
+
 		return Blocks.AIR;
 	}
-	
+
 	/**
 	 * This method is used to get an ItemStack for compressed stone.
 	 * 
@@ -507,7 +497,7 @@ public class ModRegistry
 	 * This method is used to get an ItemStack for compressed stone.
 	 * 
 	 * @param enumType The type of compressed stone.
-	 * @param count The number to have in the returned stack.
+	 * @param count    The number to have in the returned stack.
 	 * @return An item stack with the appropriate meta data with 1 item in the stack
 	 */
 	public static ItemStack GetCompressedObsidianType(BlockCompressedObsidian.EnumType enumType, int count)
@@ -519,7 +509,7 @@ public class ModRegistry
 				return new ItemStack(Item.getItemFromBlock(stoneType), count);
 			}
 		}
-		
+
 		return ItemStack.EMPTY;
 	}
 
@@ -601,7 +591,7 @@ public class ModRegistry
 	/**
 	 * Gets the item from the ModItems collections.
 	 * 
-	 * @param <T> The type which extends item.
+	 * @param              <T> The type which extends item.
 	 * @param genericClass The class of item to get from the collection.
 	 * @return Null if the item could not be found otherwise the item found.
 	 */
@@ -621,7 +611,7 @@ public class ModRegistry
 	/**
 	 * Gets the block from the ModBlockss collections.
 	 * 
-	 * @param <T> The type which extends Block.
+	 * @param              <T> The type which extends Block.
 	 * @param genericClass The class of block to get from the collection.
 	 * @return Null if the block could not be found otherwise the block found.
 	 */
@@ -632,61 +622,6 @@ public class ModRegistry
 			if (entry.getClass() == genericClass)
 			{
 				return (T) entry;
-			}
-		}
-
-		return null;
-	}
-
-	/**
-	 * Gets the gui screen for the ID and passes position data to it.
-	 * 
-	 * @param id The ID of the screen to get.
-	 * @param x The X-Axis of where this screen was created from, this is used to create a BlockPos.
-	 * @param y The Y-Axis of where this screen was created from, this is used to create a BlockPos.
-	 * @param z The Z-Axis of where this screen was created from, this is used to create a BlockPos.
-	 * @return Null if the screen wasn't found, otherwise the screen found.
-	 */
-	public static Screen GetModGuiByID(String id, int x, int y, int z)
-	{
-		for (Entry<String, Class> entry : ModRegistry.ModGuis.entrySet())
-		{
-			if (entry.getKey().equals(id))
-			{
-				try
-				{
-					return (Screen) entry.getValue().getConstructor(int.class, int.class, int.class).newInstance(x, y, z);
-				}
-				catch (InstantiationException e)
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				catch (IllegalAccessException e)
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				catch (IllegalArgumentException e)
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				catch (InvocationTargetException e)
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				catch (NoSuchMethodException e)
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				catch (SecurityException e)
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 			}
 		}
 
@@ -746,7 +681,7 @@ public class ModRegistry
 		ModRegistry.registerBlock(new BlockBoundary("block_boundary"));
 
 		ModRegistry.registerBlock(new BlockStairs(Blocks.GLASS.getDefaultState(), Block.Properties.from(Blocks.GLASS)), true, "block_glass_stairs");
-		
+
 		ModRegistry.registerBlock(new SlabBlock(Block.Properties.from(Blocks.GLASS)), true, "block_glass_slab");
 	}
 
@@ -761,13 +696,13 @@ public class ModRegistry
 			.decoder(ConfigSyncMessage::decode)
 			.consumer(ConfigSyncHandler::handle)
 			.add();
-		
+
 		Prefab.network.messageBuilder(PlayerEntityTagMessage.class, index++)
 			.encoder(PlayerEntityTagMessage::encode)
 			.decoder(PlayerEntityTagMessage::decode)
 			.consumer(PlayerEntityHandler::handle)
 			.add();
-			
+
 		Prefab.network.messageBuilder(StructureTagMessage.class, index++)
 			.encoder(StructureTagMessage::encode)
 			.decoder(StructureTagMessage::decode)
@@ -789,7 +724,7 @@ public class ModRegistry
 	 * Register an Item
 	 *
 	 * @param item The Item instance
-	 * @param <T> The Item type
+	 * @param      <T> The Item type
 	 * @return The Item instance
 	 */
 	public static <T extends Item> T registerItem(T item)
@@ -802,7 +737,7 @@ public class ModRegistry
 	/**
 	 * Registers a block in the game registry.
 	 * 
-	 * @param <T> The type of block to register.
+	 * @param       <T> The type of block to register.
 	 * @param block The block to register.
 	 * @return The block which was registered.
 	 */
@@ -814,8 +749,8 @@ public class ModRegistry
 	/**
 	 * Registers a block in the game registry.
 	 * 
-	 * @param <T> The type of block to register.
-	 * @param block The block to register.
+	 * @param                  <T> The type of block to register.
+	 * @param block            The block to register.
 	 * @param includeItemBlock True to include a default item block.
 	 * @return The block which was registered.
 	 */
@@ -823,12 +758,12 @@ public class ModRegistry
 	{
 		return ModRegistry.registerBlock(block, includeItemBlock, block.getRegistryName().getPath());
 	}
-	
+
 	/**
 	 * Registers a block in the game registry.
 	 * 
-	 * @param <T> The type of block to register.
-	 * @param block The block to register.
+	 * @param                  <T> The type of block to register.
+	 * @param block            The block to register.
 	 * @param includeItemBlock True to include a default item block.
 	 * @return The block which was registered.
 	 */
@@ -847,9 +782,9 @@ public class ModRegistry
 	/**
 	 * Registers a block in the game registry.
 	 * 
-	 * @param <T> The type of block to register.
-	 * @param <I> The type of item block to register.
-	 * @param block The block to register.
+	 * @param           <T> The type of block to register.
+	 * @param           <I> The type of item block to register.
+	 * @param block     The block to register.
 	 * @param itemBlock The item block to register with the block.
 	 * @return The block which was registered.
 	 */
@@ -868,7 +803,7 @@ public class ModRegistry
 	/**
 	 * Set the registry name of {@code item} to {@code itemName} and the un-localised name to the full registry name.
 	 *
-	 * @param item The item
+	 * @param item     The item
 	 * @param itemName The item's name
 	 */
 	public static void setItemName(Item item, String itemName)
@@ -882,7 +817,7 @@ public class ModRegistry
 	/**
 	 * Set the registry name of {@code block} to {@code blockName} and the un-localised name to the full registry name.
 	 *
-	 * @param block The block
+	 * @param block     The block
 	 * @param blockName The block's name
 	 */
 	public static void setBlockName(Block block, String blockName)
@@ -912,6 +847,6 @@ public class ModRegistry
 		ModRegistry.ModGuis.put(ModRegistry.GuiModerateHouse, GuiModerateHouse.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiBulldozer, GuiBulldozer.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiInstantBridge, GuiInstantBridge.class);
-		ModRegistry.ModGuis.put(ModRegistry.GuiStructurePart,  GuiStructurePart.class);
+		ModRegistry.ModGuis.put(ModRegistry.GuiStructurePart, GuiStructurePart.class);
 	}
 }

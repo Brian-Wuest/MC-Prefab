@@ -2,14 +2,14 @@ package com.wuest.prefab.Items;
 
 import com.wuest.prefab.ModRegistry;
 
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
 public class ItemBogus extends Item
@@ -18,23 +18,23 @@ public class ItemBogus extends Item
 
 	public ItemBogus(String name)
 	{
-		super();
+		super(new Item.Properties().group(ItemGroup.MATERIALS));
 
-		this.setCreativeTab(CreativeTabs.MATERIALS);
 		ModRegistry.setItemName(this, name);
 	}
 
 	/**
 	 * Called when the equipped item is right clicked.
 	 */
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
+	@Override
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn)
 	{
 		if (worldIn.isRemote)
 		{
 			ItemBogus.renderTest = !ItemBogus.renderTest;
 		}
 
-		return new ActionResult(EnumActionResult.PASS, itemStackIn);
+		return new ActionResult(ActionResultType.PASS, this);
 	}
 
 	/**
@@ -42,11 +42,11 @@ public class ItemBogus extends Item
 	 * update it's contents.
 	 */
 	@Override
-	public void onUpdate(ItemStack stack, World worldIn, Entity player, int itemSlot, boolean isSelected)
+	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
 	{
-		if (player instanceof EntityPlayer && worldIn.isRemote)
+		if (entityIn instanceof PlayerEntity && worldIn.isRemote)
 		{
-			EntityPlayer entityPlayer = (EntityPlayer) player;
+			PlayerEntity entityPlayer = (PlayerEntity) entityIn;
 
 			ItemStack mainHand = entityPlayer.getHeldItemMainhand();
 			ItemStack offHand = entityPlayer.getHeldItemOffhand();

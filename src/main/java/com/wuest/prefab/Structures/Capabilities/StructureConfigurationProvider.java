@@ -36,7 +36,7 @@ public class StructureConfigurationProvider implements ICapabilitySerializable<C
 	public <T> LazyOptional<T> getCapability(@Nonnull final Capability<T> cap, final @Nullable Direction side)
 	{
 		LazyOptional<IStructureConfigurationCapability> optionalOfCurrentCapability = LazyOptional.of(() -> structureConfigurationCapability);
-		
+
 		return cap == ModRegistry.StructureConfiguration ? optionalOfCurrentCapability.cast() : LazyOptional.empty();
 	}
 
