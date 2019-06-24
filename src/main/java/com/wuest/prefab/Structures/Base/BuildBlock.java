@@ -8,27 +8,17 @@ import com.google.gson.annotations.Expose;
 import com.wuest.prefab.Structures.Config.StructureConfiguration;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockBone;
-import net.minecraft.block.BlockLever;
-import net.minecraft.block.BlockLever.EnumOrientation;
-import net.minecraft.block.BlockLog;
-import net.minecraft.block.BlockLog.EnumAxis;
-import net.minecraft.block.BlockQuartz;
-import net.minecraft.block.BlockVine;
-import net.minecraft.block.BlockWall;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.LeverBlock;
+import net.minecraft.client.renderer.BlockModelRenderer.Orientation;
 import net.minecraft.nbt.JsonToNBT;
-import net.minecraft.nbt.NBTException;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumFacing.Axis;
+import net.minecraft.state.IProperty;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction.Axis;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.FMLLog;
 
 /**
  * This class defines a single block and where it will be in the structure.
@@ -55,7 +45,7 @@ public class BuildBlock
 	private boolean hasFacing;
 	
 	@Expose
-	private IBlockState state;
+	private BlockState state;
 	
 	@Expose
 	private String blockStateData;
@@ -146,12 +136,12 @@ public class BuildBlock
 		this.hasFacing = value;
 	}
 	
-	public IBlockState getBlockState()
+	public BlockState getBlockState()
 	{
 		return this.state;
 	}
 	
-	public void setBlockState(IBlockState value)
+	public void setBlockState(BlockState value)
 	{
 		this.state = value;
 	}
@@ -191,9 +181,9 @@ public class BuildBlock
 		return tag;
 	}
 	
-	public IBlockState getBlockStateFromDataTag()
+	public BlockState getBlockStateFromDataTag()
 	{
-		IBlockState state = null;
+		BlockState state = null;
 		
 		if (!this.blockStateData.equals(""))
 		{
@@ -220,7 +210,7 @@ public class BuildBlock
 		this.blockStateData = "";
 	}
 	
-	public static BuildBlock SetBlockState(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth, BuildBlock block, Block foundBlock, IBlockState blockState, Structure structure)
+	public static BuildBlock SetBlockState(StructureConfiguration configuration, World world, BlockPos originalPos, Direction assumedNorth, BuildBlock block, Block foundBlock, BlockState blockState, Structure structure)
 	{
 		try
 		{
@@ -229,7 +219,7 @@ public class BuildBlock
 				return BuildBlock.SetBlockStateFromTagData(configuration, world, originalPos, assumedNorth, block, foundBlock, blockState, structure);
 			}
 			
-			EnumFacing vineFacing = BuildBlock.getVineFacing(configuration, foundBlock, block, structure.getClearSpace().getShape().getDirection());
+			Direction vineFacing = BuildBlock.getVineFacing(configuration, foundBlock, block, structure.getClearSpace().getShape().getDirection());
 			EnumAxis logFacing = BuildBlock.getLogFacing(configuration, foundBlock, block, structure.getClearSpace().getShape().getDirection());
 			Axis boneFacing = BuildBlock.getBoneFacing(configuration, foundBlock, block, structure.getClearSpace().getShape().getDirection());
 			BlockQuartz.EnumType quartzFacing = BuildBlock.getQuartsFacing(configuration, foundBlock, block, structure.getClearSpace().getShape().getDirection());
@@ -313,9 +303,9 @@ public class BuildBlock
 		}
 	}
 	
-	public static EnumFacing getHorizontalFacing(EnumFacing currentFacing, EnumFacing configurationFacing, EnumFacing structureDirection)
+	public static Direction getHorizontalFacing(Direction currentFacing, Direction configurationFacing, Direction structureDirection)
 	{
-		if (currentFacing != null && currentFacing != EnumFacing.UP && currentFacing != EnumFacing.DOWN)
+		if (currentFacing != null && currentFacing != Direction.UP && currentFacing != Direction.DOWN)
 		{
 			if (configurationFacing.getOpposite() == structureDirection.rotateY())
 			{				
@@ -334,13 +324,13 @@ public class BuildBlock
 		return currentFacing;
 	}
 	
-	private static Comparable setComparable(Comparable<?> comparable, Block foundBlock, IProperty<?> property, StructureConfiguration configuration, BuildBlock block, EnumFacing assumedNorth, Optional<?> propertyValue
-			, EnumFacing vineFacing, EnumAxis logFacing, Axis boneFacing, BlockQuartz.EnumType quartzFacing, EnumOrientation leverOrientation, Structure structure)
+	private static Comparable setComparable(Comparable<?> comparable, Block foundBlock, IProperty<?> property, StructureConfiguration configuration, BuildBlock block, Direction assumedNorth, Optional<?> propertyValue
+			, Direction vineFacing, EnumAxis logFacing, Axis boneFacing, BlockQuartz.EnumType quartzFacing, EnumOrientation leverOrientation, Structure structure)
 	{
 		if (property.getName().equals("facing") && !(foundBlock instanceof BlockLever))
 		{
 			// Facing properties should be relative to the configuration facing.
-			EnumFacing facing = EnumFacing.byName(propertyValue.get().toString());
+			Direction facing = Direction.byName(propertyValue.get().toString());
 			
 			// Cannot rotate verticals.
 			facing = BuildBlock.getHorizontalFacing(facing, configuration.houseFacing, structure.getClearSpace().getShape().getDirection());
@@ -361,7 +351,7 @@ public class BuildBlock
 			// 8 = North
 			// 12 = East
 			int rotation = (Integer)propertyValue.get();
-			EnumFacing facing = rotation == 0 ? EnumFacing.SOUTH : rotation == 4 ? EnumFacing.WEST : rotation == 8 ? EnumFacing.NORTH : EnumFacing.EAST;
+			Direction facing = rotation == 0 ? Direction.SOUTH : rotation == 4 ? Direction.WEST : rotation == 8 ? Direction.NORTH : Direction.EAST;
 			
 			if (configuration.houseFacing.getOpposite() == structure.getClearSpace().getShape().getDirection().rotateY())
 			{
@@ -376,7 +366,7 @@ public class BuildBlock
 				facing = facing.rotateYCCW();
 			}
 			
-			rotation = facing == EnumFacing.SOUTH ? 0 : facing == EnumFacing.WEST ? 4 : facing == EnumFacing.NORTH ? 8 : 12;
+			rotation = facing == Direction.SOUTH ? 0 : facing == Direction.WEST ? 4 : facing == Direction.NORTH ? 8 : 12;
 			comparable = rotation;
 			block.setHasFacing(true);
 		}
@@ -436,9 +426,9 @@ public class BuildBlock
 		return comparable;
 	}
 	
-	private static EnumFacing getVineFacing(StructureConfiguration configuration, Block foundBlock, BuildBlock block, EnumFacing assumedNorth)
+	private static Direction getVineFacing(StructureConfiguration configuration, Block foundBlock, BuildBlock block, Direction assumedNorth)
 	{
-		EnumFacing vineFacing = EnumFacing.UP;
+		Direction vineFacing = Direction.UP;
 		
 		// Vines have a special property for it's "facing"
 		if (foundBlock instanceof BlockVine
@@ -446,22 +436,22 @@ public class BuildBlock
 		{
 			if (block.getProperty("east").getValue().equals("true"))
 			{
-				vineFacing = EnumFacing.EAST;
+				vineFacing = Direction.EAST;
 			}
 			else if (block.getProperty("west").getValue().equals("true"))
 			{
-				vineFacing = EnumFacing.WEST;
+				vineFacing = Direction.WEST;
 			}
 			else if (block.getProperty("south").getValue().equals("true"))
 			{
-				vineFacing = EnumFacing.SOUTH;
+				vineFacing = Direction.SOUTH;
 			}
 			else if (block.getProperty("north").getValue().equals("true"))
 			{
-				vineFacing = EnumFacing.NORTH;
+				vineFacing = Direction.NORTH;
 			}
 			
-			if (vineFacing != EnumFacing.UP)
+			if (vineFacing != Direction.UP)
 			{
 				if (configuration.houseFacing.rotateY() == assumedNorth)
 				{
@@ -484,7 +474,7 @@ public class BuildBlock
 		return vineFacing;
 	}
 	
-	private static EnumAxis getLogFacing(StructureConfiguration configuration, Block foundBlock, BuildBlock block, EnumFacing assumedNorth)
+	private static EnumAxis getLogFacing(StructureConfiguration configuration, Block foundBlock, BuildBlock block, Direction assumedNorth)
 	{
 		EnumAxis logFacing = EnumAxis.X;
 		
@@ -516,7 +506,7 @@ public class BuildBlock
 		return logFacing;
 	}
 	
-	private static Axis getBoneFacing(StructureConfiguration configuration, Block foundBlock, BuildBlock block, EnumFacing assumedNorth)
+	private static Axis getBoneFacing(StructureConfiguration configuration, Block foundBlock, BuildBlock block, Direction assumedNorth)
 	{
 		Axis boneFacing = Axis.X;
 		
@@ -548,7 +538,7 @@ public class BuildBlock
 		return boneFacing;
 	}
 	
-	private static BlockQuartz.EnumType getQuartsFacing(StructureConfiguration configuration, Block foundBlock, BuildBlock block, EnumFacing assumedNorth)
+	private static BlockQuartz.EnumType getQuartsFacing(StructureConfiguration configuration, Block foundBlock, BuildBlock block, Direction assumedNorth)
 	{
 		BlockQuartz.EnumType quartzFacing = BlockQuartz.EnumType.DEFAULT;
 		
@@ -580,38 +570,38 @@ public class BuildBlock
 		return quartzFacing;
 	}
 	
-	private static EnumOrientation getLeverOrientation(StructureConfiguration configuration, Block foundBlock, BuildBlock block, EnumFacing assumedNorth)
+	private static Direction getLeverOrientation(StructureConfiguration configuration, Block foundBlock, BuildBlock block, Direction assumedNorth)
 	{
-		EnumOrientation leverOrientation = EnumOrientation.NORTH;
+		Direction leverOrientation = Direction.NORTH;
 		
-		if (foundBlock instanceof BlockLever)
+		if (foundBlock instanceof LeverBlock)
 		{
 			// Levers have a special facing.
-			leverOrientation = BlockLever.EnumOrientation.valueOf(block.getProperty("facing").getValue().toUpperCase());
+			leverOrientation = LeverBlock.HORIZONTAL_FACING.parseValue(block.getProperty("facing").getValue().toUpperCase());
 			
-			if (leverOrientation.getFacing() == EnumFacing.DOWN
-					|| leverOrientation.getFacing() == EnumFacing.UP)
+			if (leverOrientation == Direction.DOWN
+					|| leverOrientation == Direction.UP)
 			{
-				if (leverOrientation.getFacing() == EnumFacing.DOWN)
+				if (leverOrientation == Direction.DOWN)
 				{
 					leverOrientation = 
 							configuration.houseFacing == assumedNorth || configuration.houseFacing == assumedNorth.getOpposite() 
 								? leverOrientation : 
-									leverOrientation == EnumOrientation.DOWN_X 
-								? EnumOrientation.DOWN_Z : EnumOrientation.DOWN_X;
+									leverOrientation == Orientation.DOWN_X 
+								? Orientation.DOWN_Z : Orientation.DOWN_X;
 				}
 				else
 				{
 					leverOrientation = 
 							configuration.houseFacing == assumedNorth || configuration.houseFacing == assumedNorth.getOpposite() 
 								? leverOrientation : 
-									leverOrientation == EnumOrientation.UP_X 
-								? EnumOrientation.UP_Z : EnumOrientation.UP_X;
+									leverOrientation == Orientation.UP_X 
+								? Orientation.UP_Z : Orientation.UP_X;
 				}
 			}
 			else
 			{
-				EnumFacing facing = leverOrientation.getFacing();
+				Direction facing = leverOrientation;
 				
 				if (configuration.houseFacing.rotateY() == assumedNorth)
 				{				
@@ -629,7 +619,7 @@ public class BuildBlock
 					facing = facing.getOpposite();
 				}
 				
-				for (EnumOrientation tempOrientation : EnumOrientation.values())
+				for (Orientation tempOrientation : Orientation.values())
 				{
 					if (tempOrientation.getFacing() == facing)
 					{
@@ -643,15 +633,15 @@ public class BuildBlock
 		return leverOrientation;
 	}
 	
-	private static IBlockState setProperty(IBlockState state, IProperty property, Comparable comparable)
+	private static BlockState setProperty(BlockState state, IProperty property, Comparable comparable)
 	{
 		// This method is required since the properties and comparables have a <?> in them and it doesn't work properly when that is there. There is a compilation error since it's not hard typed.
-		return state.withProperty(property, comparable);
+		return state.with(property, comparable);
 	}
 
-	private static BuildBlock SetBlockStateFromTagData(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth, BuildBlock block, Block foundBlock, IBlockState blockState, Structure structure)
+	private static BuildBlock SetBlockStateFromTagData(StructureConfiguration configuration, World world, BlockPos originalPos, Direction assumedNorth, BuildBlock block, Block foundBlock, BlockState blockState, Structure structure)
 	{
-		IBlockState tagState = block.getBlockStateFromDataTag();
+		BlockState tagState = block.getBlockStateFromDataTag();
 		
 		if (tagState != null)
 		{

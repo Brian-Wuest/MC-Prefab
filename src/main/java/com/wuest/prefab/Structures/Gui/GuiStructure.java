@@ -46,6 +46,7 @@ public class GuiStructure extends Screen
 	public GuiStructure(String title)
 	{
 		super(new StringTextComponent(title));
+		this.pauseGame = true;
 	}
 
 	@Override

@@ -71,11 +71,10 @@ public class GuiStartHouseChooser extends GuiTabScreen
 	protected ModConfiguration serverConfiguration;
 	protected boolean allowItemsInChestAndFurnace = true;
 	
-	public GuiStartHouseChooser(int x, int y, int z)
+	public GuiStartHouseChooser()
 	{
 		super();
 		this.houseConfiguration = ClientEventHandler.playerConfig.getClientConfig("Starter House", HouseConfiguration.class);
-		this.houseConfiguration.pos = new BlockPos(x, y, z);
 		this.Tabs.trayWidth = 256;
 	}
 	

@@ -27,9 +27,9 @@ public class GuiInstantBridge extends GuiStructure
 	protected GuiCheckBox chckIncludeRoof;
 	protected GuiSlider sldrInteriorHeight;
 	
-	public GuiInstantBridge(int x, int y, int z)
+	public GuiInstantBridge()
 	{
-		super(x, y, z, true);
+		super("Instant Bridge");
 		this.structureConfiguration = EnumStructureConfiguration.InstantBridge;
 	}
 

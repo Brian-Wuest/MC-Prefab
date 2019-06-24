@@ -26,9 +26,9 @@ public class GuiChickenCoop extends GuiStructure
 	private static final ResourceLocation structureTopDown = new ResourceLocation("prefab", "textures/gui/chicken_coop_top_down.png");
 	protected ChickenCoopConfiguration configuration;
 	
-	public GuiChickenCoop(int x, int y, int z)
+	public GuiChickenCoop()
 	{
-		super(x, y, z, true);
+		super("Chicken Coop");
 		this.structureConfiguration = EnumStructureConfiguration.ChickenCoop;
 	}
 

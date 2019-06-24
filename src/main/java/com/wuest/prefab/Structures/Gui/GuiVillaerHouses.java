@@ -28,9 +28,9 @@ public class GuiVillaerHouses extends GuiStructure
 	protected VillagerHouseConfiguration configuration;
 	protected VillagerHouseConfiguration.HouseStyle houseStyle;
 	
-	public GuiVillaerHouses(int x, int y, int z)
+	public GuiVillaerHouses()
 	{
-		super(x, y, z, true);
+		super("Villager Houses");
 		this.structureConfiguration = EnumStructureConfiguration.VillagerHouses;
 	}
 	

@@ -7,8 +7,8 @@ import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 
 import net.minecraft.client.resources.I18n;
-import net.minecraft.item.EnumDyeColor;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.item.DyeColor;
+import net.minecraft.util.Direction;
 
 /**
  * This class contains the keys for the language files.
@@ -413,14 +413,14 @@ public class GuiLangKeys
 		return translateKey;
 	}
 
-	public static String translateFacing(EnumFacing facing)
+	public static String translateFacing(Direction facing)
 	{
 		return GuiLangKeys.translateString("prefab.gui." + facing.getName2());
 	}
 
-	public static String translateDye(EnumDyeColor dyeColor)
+	public static String translateDye(DyeColor dyeColor)
 	{
-		return GuiLangKeys.translateString("prefab.gui." + dyeColor.getUnlocalizedName());
+		return GuiLangKeys.translateString("prefab.gui." + dyeColor.getTranslationKey());
 	}
 
 	/**

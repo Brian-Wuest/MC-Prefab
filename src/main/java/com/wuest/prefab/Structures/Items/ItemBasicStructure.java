@@ -7,7 +7,9 @@ import com.wuest.prefab.Structures.Capabilities.StructureConfigurationCapability
 import com.wuest.prefab.Structures.Capabilities.Storage.StructureConfigurationStorage;
 import com.wuest.prefab.Structures.Config.BasicStructureConfiguration;
 import com.wuest.prefab.Structures.Config.BasicStructureConfiguration.EnumBasicStructureName;
+import com.wuest.prefab.Structures.Gui.GuiAdvancedWareHouse;
 import com.wuest.prefab.Structures.Gui.GuiBasicStructure;
+import com.wuest.prefab.Structures.Gui.GuiStructure;
 import com.wuest.prefab.Structures.Predefined.StructureBasic;
 
 import net.minecraft.client.Minecraft;
@@ -21,6 +23,8 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.LazyOptional;
 
 /**
@@ -34,7 +38,7 @@ public class ItemBasicStructure extends StructureItem
 
 	public ItemBasicStructure(String name)
 	{
-		super(name, new GuiBasicStructure());
+		super(name);
 	}
 
 	/**
@@ -56,9 +60,10 @@ public class ItemBasicStructure extends StructureItem
 				structureConfiguration, false, false);*/
 					 
 				// Open the client side gui to determine the house options.
-				this.screen.pos = context.getPos();
+				GuiStructure screen = this.getScreen();
+				screen.pos = context.getPos();
 				
-				Minecraft.getInstance().displayGuiScreen(this.screen);
+				Minecraft.getInstance().displayGuiScreen(screen);
 				// context.getPlayer().openGui(Prefab.instance, this.guiId, context.getPlayer().world, context.getPos().getX(), context.getPos().getY(), context.getPos().getZ());
 
 				return ActionResultType.PASS;
@@ -88,6 +93,12 @@ public class ItemBasicStructure extends StructureItem
 		return stack.getTag();
 	}
 
+	@Override
+	@OnlyIn(Dist.CLIENT)
+	public GuiStructure getScreen() {
+		return new GuiBasicStructure();
+	}
+	
 	public static ItemStack getBasicStructureItemInHand(PlayerEntity player)
 	{
 		ItemStack stack = player.getHeldItemOffhand();

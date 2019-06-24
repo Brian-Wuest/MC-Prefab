@@ -1,56 +1,35 @@
 package com.wuest.prefab.Structures.Items;
 
 import com.wuest.prefab.ModRegistry;
-import com.wuest.prefab.Prefab;
+import com.wuest.prefab.Structures.Gui.GuiStructure;
+import com.wuest.prefab.Structures.Gui.GuiStructurePart;
 
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.item.ItemGroup;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * 
  * @author WuestMan
  *
  */
-public class ItemStructurePart extends Item
+public class ItemStructurePart extends StructureItem
 {
-	/**
-	 * Get's the GuiId to show to the user when this item is used.
-	 */
-	protected int guiId = ModRegistry.GuiStructurePart;
-
 	public ItemStructurePart(String name)
 	{
-		super();
+		super("Structure Part", new Item.Properties()
+			.group(ItemGroup.MISC)
+			.maxDamage(10)
+			.maxStackSize(1));
 
-		this.setCreativeTab(CreativeTabs.MISC);
-		this.setMaxDamage(10);
-		this.setMaxStackSize(1);
 		ModRegistry.setItemName(this, name);
 	}
 
-	/**
-	 * Does something when the item is right-clicked.
-	 */
 	@Override
-	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos hitBlockPos, EnumHand hand, EnumFacing side, float hitX, float hitY,
-		float hitZ)
+	@OnlyIn(Dist.CLIENT)
+	public GuiStructure getScreen()
 	{
-		if (world.isRemote)
-		{
-			if (side == EnumFacing.UP)
-			{
-				// Open the client side gui to determine the house options.
-				player.openGui(Prefab.instance, this.guiId, player.world, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
-				return EnumActionResult.PASS;
-			}
-		}
-
-		return EnumActionResult.FAIL;
+		return new GuiStructurePart();
 	}
 }

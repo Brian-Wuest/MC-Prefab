@@ -28,9 +28,9 @@ public class GuiWareHouse extends GuiStructure
 	protected WareHouseConfiguration configuration;
 	protected String clientGUIIdentifier;
 	
-	public GuiWareHouse(int x, int y, int z)
+	public GuiWareHouse()
 	{
-		super(x, y, z, true);
+		super("Warehouse");
 		this.structureConfiguration = EnumStructureConfiguration.WareHouse;
 		this.clientGUIIdentifier = "Warehouse";
 	}

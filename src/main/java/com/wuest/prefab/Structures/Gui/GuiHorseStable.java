@@ -26,9 +26,9 @@ public class GuiHorseStable extends GuiStructure
 	private static final ResourceLocation structureTopDown = new ResourceLocation("prefab", "textures/gui/horse_stable_top_down.png");
 	protected HorseStableConfiguration configuration;
 	
-	public GuiHorseStable(int x, int y, int z)
+	public GuiHorseStable()
 	{
-		super(x, y, z, true);
+		super("Horse Stable");
 		this.structureConfiguration = EnumStructureConfiguration.HorseStable;
 	}
 	

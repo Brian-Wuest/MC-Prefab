@@ -28,9 +28,9 @@ public class GuiBulldozer extends GuiStructure
 	 * @param y The y-axis location.
 	 * @param z the z-axis location.
 	 */
-	public GuiBulldozer(int x, int y, int z)
+	public GuiBulldozer()
 	{
-		super(x, y, z, true);
+		super("Bulldozer");
 		
 		this.structureConfiguration = EnumStructureConfiguration.Bulldozer;
 	}

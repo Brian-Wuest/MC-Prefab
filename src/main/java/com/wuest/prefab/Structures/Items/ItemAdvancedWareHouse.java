@@ -1,6 +1,11 @@
 package com.wuest.prefab.Structures.Items;
 
 import com.wuest.prefab.ModRegistry;
+import com.wuest.prefab.Structures.Gui.GuiAdvancedWareHouse;
+import com.wuest.prefab.Structures.Gui.GuiStructure;
+
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * 
@@ -12,6 +17,12 @@ public class ItemAdvancedWareHouse extends ItemWareHouse
 	public ItemAdvancedWareHouse(String name)
 	{
 		super(name);
-		this.guiId = ModRegistry.GuiAdvancedWareHouse;
+	}
+
+	@Override
+	@OnlyIn(Dist.CLIENT)
+	public GuiStructure getScreen()
+	{
+		return new GuiAdvancedWareHouse();
 	}
 }

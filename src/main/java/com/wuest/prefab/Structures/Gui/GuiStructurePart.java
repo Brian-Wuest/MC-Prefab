@@ -40,9 +40,9 @@ public class GuiStructurePart extends GuiStructure
 	protected int modifiedInitialXAxis = 213;
 	protected int modifiedInitialYAxis = 83;
 	
-	public GuiStructurePart(int x, int y, int z)
+	public GuiStructurePart()
 	{
-		super(x, y, z, true);
+		super("Structure Part");
 		this.structureConfiguration = EnumStructureConfiguration.Parts;
 	}
 

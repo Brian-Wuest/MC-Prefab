@@ -2,8 +2,8 @@ package com.wuest.prefab.Items;
 
 import com.wuest.prefab.ModRegistry;
 
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 
 /**
  * 
@@ -14,9 +14,8 @@ public class ItemPileOfBricks extends Item
 {
 	public ItemPileOfBricks(String name)
 	{
-		super();
+		super(new Item.Properties().group(ItemGroup.MATERIALS));
 
-		this.setCreativeTab(CreativeTabs.MATERIALS);
 		ModRegistry.setItemName(this, name);
 	}
 }

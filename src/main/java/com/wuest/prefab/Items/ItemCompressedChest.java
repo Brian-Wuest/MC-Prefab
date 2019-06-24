@@ -2,14 +2,19 @@ package com.wuest.prefab.Items;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import com.wuest.prefab.ModRegistry;
 
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * This is a condensed chest used in the construction of the warehouse.
@@ -26,18 +31,18 @@ public class ItemCompressedChest extends Item
 	 */
 	public ItemCompressedChest(String name)
 	{
-		super();
+		super(new Item.Properties().group(ItemGroup.MATERIALS));
 
-		this.setCreativeTab(CreativeTabs.MISC);
 		ModRegistry.setItemName(this, name);
 	}
 
 	/**
 	 * allows items to add custom lines of information to the mouse-over description
 	 */
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
+	@OnlyIn(Dist.CLIENT)
+	@Override
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
 	{
-		tooltip.add("Used in the recipes for structures, not for direct storage");
+		tooltip.add(new StringTextComponent("Used in the recipes for structures, not for direct storage"));
 	}
 }

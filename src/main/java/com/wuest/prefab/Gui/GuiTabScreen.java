@@ -9,6 +9,7 @@ import com.wuest.prefab.Gui.Controls.GuiTab;
 import com.wuest.prefab.Gui.Controls.GuiTabTray;
 
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -19,7 +20,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
  * @author WuestMan
  *
  */
-public class GuiTabScreen extends GuiScreen
+public class GuiTabScreen extends Screen
 {
 	protected GuiTabTray Tabs;
 

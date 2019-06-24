@@ -27,9 +27,9 @@ public class GuiProduceFarm extends GuiStructure
 	protected GuiButtonExt btnGlassColor;
 	protected ProduceFarmConfiguration configuration;
 	
-	public GuiProduceFarm(int x, int y, int z)
+	public GuiProduceFarm()
 	{
-		super(x, y, z, true);
+		super("Produce Farm");
 		this.structureConfiguration = EnumStructureConfiguration.ProduceFarm;
 	}
 	

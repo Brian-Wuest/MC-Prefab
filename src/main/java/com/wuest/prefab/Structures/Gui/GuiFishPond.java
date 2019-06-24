@@ -25,9 +25,9 @@ public class GuiFishPond extends GuiStructure
 	private static final ResourceLocation structureTopDown = new ResourceLocation("prefab", "textures/gui/fish_pond_top_down.png");
 	protected FishPondConfiguration configuration;
 	
-	public GuiFishPond(int x, int y, int z)
+	public GuiFishPond()
 	{
-		super(x, y, z, true);
+		super("Fish Pond");
 		this.structureConfiguration = EnumStructureConfiguration.FishPond;
 	}
 	

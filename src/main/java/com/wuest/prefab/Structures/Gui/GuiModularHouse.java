@@ -26,9 +26,9 @@ public class GuiModularHouse extends GuiStructure
 	private static final ResourceLocation structureTopDown = new ResourceLocation("prefab", "textures/gui/modular_house_top_down.png");
 	protected ModularHouseConfiguration configuration;
 	
-	public GuiModularHouse(int x, int y, int z)
+	public GuiModularHouse()
 	{
-		super(x, y, z, true);
+		super("Modular House");
 		this.structureConfiguration = EnumStructureConfiguration.ModularHouse;
 	}
 	

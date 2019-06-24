@@ -25,9 +25,9 @@ public class GuiTreeFarm extends GuiStructure
 	private static final ResourceLocation structureTopDown = new ResourceLocation("prefab", "textures/gui/tree_farm_top_down.png");
 	protected TreeFarmConfiguration configuration;
 	
-	public GuiTreeFarm(int x, int y, int z)
+	public GuiTreeFarm()
 	{
-		super(x, y, z, true);
+		super("Tree Farm");
 		this.structureConfiguration = EnumStructureConfiguration.TreeFarm;
 	}
 	

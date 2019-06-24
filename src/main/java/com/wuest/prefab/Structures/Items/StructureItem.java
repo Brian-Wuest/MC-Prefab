@@ -13,6 +13,8 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * 
@@ -26,15 +28,20 @@ public class StructureItem extends Item
 	 * Get's the GuiId to show to the user when this item is used.
 	 */
 	protected int guiId = 0;
-	protected GuiStructure screen = null;
 	
 	/**
 	 * Initializes a new instance of the StructureItem class.
 	 */
-	public StructureItem(String name, GuiStructure screen)
+	public StructureItem(String name)
 	{
 		super(new Item.Properties().group(ItemGroup.MISC));
-		this.Initialize(name, screen);
+		this.Initialize(name);
+	}
+	
+	public StructureItem(String name, Item.Properties properties)
+	{
+		super(properties);
+		this.Initialize(name);
 	}
 	
 	/**
@@ -48,8 +55,9 @@ public class StructureItem extends Item
 			if (context.getFace() == Direction.UP)
 			{
 				// Open the client side gui to determine the house options.
-				this.screen.pos = context.getPos();
-				Minecraft.getInstance().displayGuiScreen(this.screen);
+				GuiStructure screen = this.getScreen();
+				screen.pos = context.getPos();
+				Minecraft.getInstance().displayGuiScreen(screen);
 				return ActionResultType.PASS;
 			}
 		}
@@ -57,12 +65,16 @@ public class StructureItem extends Item
 		return ActionResultType.FAIL;
 	}
 	
+	@OnlyIn(Dist.CLIENT)
+	public GuiStructure getScreen() {
+		return new GuiStructure("Generic Screen");
+	}
+	
 	/**
 	 * Initializes common fields/properties for this structure item.
 	 */
-	protected void Initialize(String name, GuiStructure screen)
+	protected void Initialize(String name)
 	{
 		ModRegistry.setItemName(this, name);
-		this.screen = screen;
 	}
 }

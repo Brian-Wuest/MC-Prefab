@@ -26,9 +26,9 @@ public class GuiNetherGate extends GuiStructure
 	private static final ResourceLocation structureTopDown = new ResourceLocation("prefab", "textures/gui/nether_gate_top_down.png");
 	protected NetherGateConfiguration configuration;
 	
-	public GuiNetherGate(int x, int y, int z)
+	public GuiNetherGate()
 	{
-		super(x, y, z, true);
+		super("Nether Gate");
 		this.structureConfiguration = EnumStructureConfiguration.NetherGate;
 	}
 	

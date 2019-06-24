@@ -28,9 +28,9 @@ public class GuiMonsterMasher extends GuiStructure
 	protected GuiButtonExt btnGlassColor;
 	protected MonsterMasherConfiguration configuration;
 	
-	public GuiMonsterMasher(int x, int y, int z)
+	public GuiMonsterMasher()
 	{
-		super(x, y, z, true);
+		super("Monster Masher");
 		this.structureConfiguration = EnumStructureConfiguration.MonsterMasher;
 	}
 	

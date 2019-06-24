@@ -36,9 +36,9 @@ public class GuiModerateHouse extends GuiStructure
 	protected boolean allowItemsInChestAndFurnace = true;
 	protected ModConfiguration serverConfiguration;
 	
-	public GuiModerateHouse(int x, int y, int z)
+	public GuiModerateHouse()
 	{
-		super(x, y, z, true);
+		super("Moderate House");
 		
 		this.structureConfiguration = EnumStructureConfiguration.ModerateHouse;
 		

@@ -10,9 +10,9 @@ import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureCon
 public class GuiAdvancedWareHouse extends GuiWareHouse
 {
 
-	public GuiAdvancedWareHouse(int x, int y, int z)
+	public GuiAdvancedWareHouse()
 	{
-		super(x, y, z);
+		super();
 		this.clientGUIIdentifier = "Advanced Warehouse";
 	}
 	

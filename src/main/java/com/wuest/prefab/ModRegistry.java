@@ -51,7 +51,6 @@ import com.wuest.prefab.Structures.Items.ItemFishPond;
 import com.wuest.prefab.Structures.Items.ItemHorseStable;
 import com.wuest.prefab.Structures.Items.ItemInstantBridge;
 import com.wuest.prefab.Structures.Items.ItemModerateHouse;
-import com.wuest.prefab.Structures.Items.ItemModularHouse;
 import com.wuest.prefab.Structures.Items.ItemMonsterMasher;
 import com.wuest.prefab.Structures.Items.ItemNetherGate;
 import com.wuest.prefab.Structures.Items.ItemProduceFarm;
@@ -390,16 +389,6 @@ public class ModRegistry
 	public static ItemNetherGate NetherGate()
 	{
 		return ModRegistry.GetItem(ItemNetherGate.class);
-	}
-
-	/**
-	 * The Modular House registered item.
-	 * 
-	 * @return An instance of {@link ItemModularHouse}.
-	 */
-	public static ItemModularHouse ModularHouse()
-	{
-		return ModRegistry.GetItem(ItemModularHouse.class);
 	}
 
 	/**
