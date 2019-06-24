@@ -2,12 +2,10 @@ package com.wuest.prefab.Events;
 
 import java.util.ArrayList;
 
-import com.google.common.collect.ImmutableList;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Blocks.BlockCompressedStone;
 import com.wuest.prefab.Config.ModConfiguration;
-import com.wuest.prefab.Proxy.ClientProxy;
 import com.wuest.prefab.Proxy.Messages.ConfigSyncMessage;
 import com.wuest.prefab.Structures.Capabilities.StructureConfigurationCapability;
 import com.wuest.prefab.Structures.Capabilities.StructureConfigurationProvider;
@@ -25,13 +23,10 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.event.RegistryEvent.MissingMappings;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent;
 import net.minecraftforge.fml.network.NetworkDirection;
 
 /**
@@ -93,6 +88,7 @@ public class ModEventHandler
 	{
 		if (onConfigChangedEvent.getModID().equals(Prefab.MODID))
 		{
+			onConfigChangedEvent.
 			ModConfiguration.syncConfig();
 		}
 	}
@@ -113,7 +109,7 @@ public class ModEventHandler
 
 				ItemStack outputStack = new ItemStack(ModRegistry.Bulldozer());
 				ModRegistry.Bulldozer().setPoweredValue(outputStack, true);
-				outputStack.setItemDamage(0);
+				outputStack.setDamage(0);
 				event.setOutput(outputStack);
 			}
 		}

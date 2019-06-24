@@ -20,6 +20,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.fml.network.NetworkRegistry;
 
 /**
@@ -34,7 +35,18 @@ public class CommonProxy
 	public static StructureEventHandler structureEventHandler = new StructureEventHandler();
 	public static ModConfiguration proxyConfiguration;
 	public static ForgeConfigSpec COMMON_SPEC;
-	
+
+	public CommonProxy()
+	{
+		// Builder.build is called during this method.
+		Pair<ModConfiguration, ForgeConfigSpec> commonPair = new ForgeConfigSpec.Builder().configure(ModConfiguration::new);
+		COMMON_SPEC = commonPair.getRight();
+		proxyConfiguration = commonPair.getLeft();
+		ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, COMMON_SPEC);
+
+		ModConfiguration.loadConfig(CommonProxy.COMMON_SPEC, FMLPaths.CONFIGDIR.get().resolve("prefab.toml"));
+	}
+
 	/*
 	 * Methods for ClientProxy to Override
 	 */
@@ -45,17 +57,12 @@ public class CommonProxy
 	public void preInit(FMLCommonSetupEvent event)
 	{
 		ModRegistry.RegisterModComponents();
-		
+
 		Prefab.network = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(Prefab.MODID, "main_channel"))
-            .clientAcceptedVersions(Prefab.PROTOCOL_VERSION::equals)
-            .serverAcceptedVersions(Prefab.PROTOCOL_VERSION::equals)
-            .networkProtocolVersion(() -> Prefab.PROTOCOL_VERSION)
-            .simpleChannel();
-		
-        Pair<ModConfiguration, ForgeConfigSpec> commonPair = new ForgeConfigSpec.Builder().configure(ModConfiguration::new);
-        COMMON_SPEC = commonPair.getRight();
-        proxyConfiguration = commonPair.getLeft();
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, COMMON_SPEC);
+			.clientAcceptedVersions(Prefab.PROTOCOL_VERSION::equals)
+			.serverAcceptedVersions(Prefab.PROTOCOL_VERSION::equals)
+			.networkProtocolVersion(() -> Prefab.PROTOCOL_VERSION)
+			.simpleChannel();
 
 		// Register messages.
 		ModRegistry.RegisterMessages();
@@ -71,7 +78,7 @@ public class CommonProxy
 	public void postinit(FMLCommonSetupEvent event)
 	{
 	}
-	
+
 	public ServerModConfiguration getServerConfiguration()
 	{
 		return CommonProxy.proxyConfiguration.serverConfiguration;

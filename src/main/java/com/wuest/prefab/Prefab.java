@@ -1,7 +1,8 @@
 package com.wuest.prefab;
 
-import com.wuest.prefab.Gui.ConfigGuiFactory;
-import com.wuest.prefab.Gui.GuiPrefab;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.wuest.prefab.Proxy.ClientProxy;
 import com.wuest.prefab.Proxy.CommonProxy;
 
@@ -9,16 +10,11 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.material.PushReaction;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.ExtensionPoint;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
  * The starting point to load all of the blocks, items and other objects associated with this mod.
@@ -33,12 +29,12 @@ public class Prefab
 	 * Simulates an air block but one that blocks movement.
 	 */
 	public static final Material SeeThrough = new Material(MaterialColor.AIR, false, true, true, false, true, false, false, PushReaction.NORMAL);
-	
+
 	/**
 	 * Simulates an air block that blocks movement and cannot be moved.
 	 */
 	public static final Material SeeThroughImmovable = new Material(MaterialColor.AIR, false, true, true, false, true, false, false, PushReaction.IGNORE);
-	
+
 	/**
 	 * This is the ModID
 	 */
@@ -69,32 +65,35 @@ public class Prefab
 	 */
 	public static SimpleChannel network;
 
-    // Directly reference a log4j logger.
-    public static final Logger LOGGER = LogManager.getLogger();
-    
-    public static final String PROTOCOL_VERSION = Integer.toString(1);
-	
+	// Directly reference a log4j logger.
+	public static final Logger LOGGER = LogManager.getLogger();
+
+	public static final String PROTOCOL_VERSION = Integer.toString(1);
+
 	static
 	{
 		Prefab.isDebug = java.lang.management.ManagementFactory.getRuntimeMXBean().getInputArguments().toString().contains("-agentlib:jdwp");
 	}
-	
-    public Prefab() {
-        // Register the setup method for mod-loading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
 
-        // Register the doClientStuff method for mod-loading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
-        this.proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
-    }
-    
-    private void setup(final FMLCommonSetupEvent event)
-    {
-        this.proxy.preInit(event);
-        this.proxy.init(event);
-        this.proxy.postinit(event);
-    }
+	public Prefab()
+	{
+		// Register the setup method for mod-loading
+		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
 
-    private void doClientStuff(final FMLClientSetupEvent event) {
-    }
+		// Register the doClientStuff method for mod-loading
+		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
+
+		this.proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
+	}
+
+	private void setup(final FMLCommonSetupEvent event)
+	{
+		this.proxy.preInit(event);
+		this.proxy.init(event);
+		this.proxy.postinit(event);
+	}
+
+	private void doClientStuff(final FMLClientSetupEvent event)
+	{
+	}
 }

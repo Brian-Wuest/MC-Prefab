@@ -2,7 +2,6 @@ package com.wuest.prefab.Proxy;
 
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Config.ServerModConfiguration;
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Structures.Events.StructureClientEventHandler;
@@ -20,6 +19,11 @@ public class ClientProxy extends CommonProxy
 	public ServerModConfiguration serverConfiguration = null;
 	public static ClientEventHandler clientEventHandler = new ClientEventHandler();
 	public static StructureClientEventHandler structureClientEventHandler = new StructureClientEventHandler();
+
+	public ClientProxy()
+	{
+		super();
+	}
 
 	@Override
 	public void preInit(FMLCommonSetupEvent event)
