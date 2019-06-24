@@ -2,7 +2,7 @@ package com.wuest.prefab.Structures.Base;
 
 import com.google.gson.annotations.Expose;
 
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 
 /**
  * This class holds the general shape of the structure.
@@ -20,7 +20,7 @@ public class BuildShape
 	private int length;
 	
 	@Expose
-	private EnumFacing direction;
+	private Direction direction;
 	
 	public BuildShape()
 	{
@@ -57,12 +57,12 @@ public class BuildShape
 		this.length = value;
 	}
 	
-	public EnumFacing getDirection()
+	public Direction getDirection()
 	{
 		return this.direction;
 	}
 	
-	public void setDirection(EnumFacing value)
+	public void setDirection(Direction value)
 	{
 		this.direction = value;
 	}
@@ -72,7 +72,7 @@ public class BuildShape
 		this.width = 0;
 		this.height = 0;
 		this.length = 0;
-		this.direction = EnumFacing.NORTH;
+		this.direction = Direction.NORTH;
 	}
 	
 	/**

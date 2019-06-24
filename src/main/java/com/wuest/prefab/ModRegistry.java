@@ -10,6 +10,7 @@ import com.wuest.prefab.Blocks.BlockCompressedObsidian;
 import com.wuest.prefab.Blocks.BlockCompressedStone;
 import com.wuest.prefab.Blocks.BlockPaperLantern;
 import com.wuest.prefab.Blocks.BlockPhasing;
+import com.wuest.prefab.Blocks.BlockStairs;
 import com.wuest.prefab.Gui.GuiDrafter;
 import com.wuest.prefab.Items.ItemBlockAndesiteSlab;
 import com.wuest.prefab.Items.ItemBlockDioriteSlab;
@@ -69,6 +70,8 @@ import com.wuest.prefab.Structures.Messages.StructureTagMessage;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.SlabBlock;
+import net.minecraft.block.StairsBlock;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -742,18 +745,9 @@ public class ModRegistry
 
 		ModRegistry.registerBlock(new BlockBoundary("block_boundary"));
 
-		ModRegistry.registerBlock(new BlockGlassStairs("block_glass_stairs"));
-
-		// Glass Slab.
-		BlockHalfGlassSlab registeredHalfGlassBlock = new BlockHalfGlassSlab();
-		BlockDoubleGlassSlab registeredDoubleGlassSlab = new BlockDoubleGlassSlab();
-
-		ItemBlockGlassSlab itemHalfGlassSlab = new ItemBlockGlassSlab(registeredHalfGlassBlock, registeredHalfGlassBlock, registeredDoubleGlassSlab, true);
-
-		itemHalfGlassSlab = (ItemBlockGlassSlab) itemHalfGlassSlab.setRegistryName("block_half_glass_slab");
-
-		ModRegistry.registerBlock(registeredHalfGlassBlock, itemHalfGlassSlab);
-		ModRegistry.registerBlock(registeredDoubleGlassSlab, false);
+		ModRegistry.registerBlock(new BlockStairs(Blocks.GLASS.getDefaultState(), Block.Properties.from(Blocks.GLASS)), true, "block_glass_stairs");
+		
+		ModRegistry.registerBlock(new SlabBlock(Block.Properties.from(Blocks.GLASS)), true, "block_glass_slab");
 	}
 
 	/**

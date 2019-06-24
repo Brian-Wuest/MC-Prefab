@@ -1,54 +1,42 @@
 package com.wuest.prefab.Events;
 
-import java.util.ArrayList;
-
 import org.lwjgl.opengl.GL11;
 
-import com.wuest.prefab.ModRegistry;
+import com.mojang.blaze3d.platform.GlStateManager;
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Blocks.IMetaBlock;
 import com.wuest.prefab.Config.EntityPlayerConfiguration;
 import com.wuest.prefab.Items.ItemBogus;
 import com.wuest.prefab.Proxy.ClientProxy;
-import com.wuest.prefab.Structures.Config.BasicStructureConfiguration.EnumBasicStructureName;
-import com.wuest.prefab.Structures.Items.ItemBasicStructure;
 import com.wuest.prefab.Structures.Render.StructureRenderHandler;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
-import net.minecraftforge.fml.common.network.FMLNetworkEvent;
-import net.minecraftforge.fml.relauncher.Side;
 
 /**
  * 
  * @author WuestMan
  *
  */
-@EventBusSubscriber(value =
-{ Side.CLIENT })
+@Mod.EventBusSubscriber(
+{ Dist.CLIENT })
 public class ClientEventHandler
 {
+	public static ClientEventHandler instance = new ClientEventHandler();
+
 	/**
 	 * Determines how long a shader has been running.
 	 */
@@ -65,18 +53,18 @@ public class ClientEventHandler
 	 * @param event The event object.
 	 */
 	@SubscribeEvent
-	public static void onWorldRenderLast(RenderWorldLastEvent event)
+	public void onWorldRenderLast(RenderWorldLastEvent event)
 	{
-		Minecraft mc = Minecraft.getMinecraft();
+		Minecraft mc = Minecraft.getInstance();
 
-		if (mc.player != null && mc.objectMouseOver != null && mc.objectMouseOver.getBlockPos() != null && (!mc.player.isSneaking()))
+		if (mc.player != null && mc.objectMouseOver != null && mc.objectMouseOver.hitInfo != null && (!mc.player.isSneaking()))
 		{
 			StructureRenderHandler.renderPlayerLook(mc.player, mc.objectMouseOver);
 		}
 
 		if (ItemBogus.renderTest)
 		{
-			ClientEventHandler.RenderTest(mc.world, mc.player);
+			ClientEventHandler.instance.RenderTest(mc.world, mc.player);
 		}
 	}
 
@@ -86,13 +74,16 @@ public class ClientEventHandler
 	 * @param event The event object.
 	 */
 	@SubscribeEvent
-	public static void OnClientDisconnectEvent(FMLNetworkEvent.ClientDisconnectionFromServerEvent event)
+	public void EntityJoinWorldEvent(EntityJoinWorldEvent event)
 	{
-		// When the player logs out, make sure to re-set the server configuration.
-		// This is so a new configuration can be successfully loaded when they switch servers or worlds (on single
-		// player.
-		((ClientProxy) Prefab.proxy).serverConfiguration = null;
-		ClientEventHandler.playerConfig.clearNonPersistedObjects();
+		if (event.getWorld().isRemote && event.getEntity() instanceof PlayerEntity)
+		{
+			// When the player logs out, make sure to re-set the server configuration.
+			// This is so a new configuration can be successfully loaded when they switch servers or worlds (on single
+			// player.
+			((ClientProxy) Prefab.proxy).serverConfiguration = null;
+			ClientEventHandler.playerConfig.clearNonPersistedObjects();
+		}
 	}
 
 	/**
@@ -101,13 +92,13 @@ public class ClientEventHandler
 	 * @param event The event object.
 	 */
 	@SubscribeEvent
-	public static void ClientTickEnd(ClientTickEvent event)
+	public void ClientTickEnd(ClientTickEvent event)
 	{
 		if (event.phase == Phase.END)
 		{
-			GuiScreen gui = Minecraft.getMinecraft().currentScreen;
+			Screen gui = Minecraft.getInstance().currentScreen;
 
-			if (gui == null || !gui.doesGuiPauseGame())
+			if (gui == null || !gui.isPauseScreen())
 			{
 				// Reset the ticks in game if we are getting close to the maximum value of an integer.
 				if (Integer.MAX_VALUE - 100 == ClientEventHandler.ticksInGame)
@@ -120,112 +111,10 @@ public class ClientEventHandler
 		}
 	}
 
-	@SubscribeEvent
-	public static void registerModels(ModelRegistryEvent event)
+	private void RenderTest(World worldIn, PlayerEntity playerIn)
 	{
-		for (Block block : ModRegistry.ModBlocks)
-		{
-			ClientEventHandler.regBlock(block);
-		}
-
-		for (Item item : ModRegistry.ModItems)
-		{
-			ClientEventHandler.regItem(item);
-		}
-	}
-
-	/**
-	 * Registers an item to be rendered. This is needed for textures.
-	 * 
-	 * @param item The item to register.
-	 */
-	public static void regItem(Item item)
-	{
-		ClientEventHandler.regItem(item, 0, item.getUnlocalizedName().substring(5));
-	}
-
-	/**
-	 * Registers an item to be rendered. This is needed for textures.
-	 * 
-	 * @param item The item to register.
-	 * @param metaData The meta data for the item to register.
-	 * @param blockName the name of the block.
-	 */
-	public static void regItem(Item item, int metaData, String blockName)
-	{
-		ModelResourceLocation location = new ModelResourceLocation(blockName, "inventory");
-		// System.out.println("Registering Item: " + location.getResourceDomain() + "[" + location.getResourcePath() +
-		// "]");
-
-		if (!(item instanceof ItemBasicStructure))
-		{
-			ModelLoader.setCustomModelResourceLocation(item, metaData, location);
-		}
-		else
-		{
-			ArrayList<ResourceLocation> names = new ArrayList<ResourceLocation>();
-
-			for (EnumBasicStructureName value : EnumBasicStructureName.values())
-			{
-				if (value.getResourceLocation() != null)
-				{
-					names.add(value.getResourceLocation());
-				}
-			}
-
-			ResourceLocation[] resources = new ResourceLocation[names.size()];
-			resources = names.toArray(resources);
-
-			ModelLoader.registerItemVariants(item, resources);
-		}
-	}
-
-	/**
-	 * Registers a block to be rendered. This is needed for textures.
-	 * 
-	 * @param block The block to register.
-	 */
-	public static void regBlock(Block block)
-	{
-		NonNullList<ItemStack> stacks = NonNullList.create();
-
-		Item itemBlock = Item.getItemFromBlock(block);
-
-		// If there are sub-blocks for this block, register each of them.
-		block.getSubBlocks(null, stacks);
-
-		if (itemBlock != null)
-		{
-			if (stacks.size() > 0)
-			{
-				for (ItemStack stack : stacks)
-				{
-					Block subBlock = block.getStateFromMeta(stack.getMetadata()).getBlock();
-					String name = "";
-
-					if (block instanceof IMetaBlock)
-					{
-						name = "prefab:" + ((IMetaBlock) block).getMetaDataUnLocalizedName(stack.getMetadata());
-					}
-					else
-					{
-						name = subBlock.getRegistryName().toString();
-					}
-
-					ClientEventHandler.regItem(stack.getItem(), stack.getMetadata(), name);
-				}
-			}
-			else
-			{
-				ClientEventHandler.regItem(itemBlock);
-			}
-		}
-	}
-
-	private static void RenderTest(World worldIn, EntityPlayer playerIn)
-	{
-		float partialTicks = Minecraft.getMinecraft().getRenderPartialTicks();
-		EntityPlayer entityplayer = playerIn;
+		float partialTicks = Minecraft.getInstance().getRenderPartialTicks();
+		PlayerEntity entityplayer = playerIn;
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder vertexbuffer = tessellator.getBuffer();
 		BlockPos playerPosition = new BlockPos(entityplayer.posX, entityplayer.posY, entityplayer.posZ);
@@ -240,10 +129,10 @@ public class ClientEventHandler
 		double blockXOffset = (playerPosition.getX() - blockPos.getX()) + (playerPosition.getX() - entityplayer.posX);
 		double blocZOffset = (playerPosition.getZ() - blockPos.getZ()) + (playerPosition.getZ() - entityplayer.posZ);
 
-		GlStateManager.disableTexture2D();
+		GlStateManager.disableTexture();
 		GlStateManager.disableBlend();
 
-		GlStateManager.glLineWidth(3.0F);
+		GlStateManager.lineWidth(3.0F);
 		vertexbuffer.begin(3, DefaultVertexFormats.POSITION_COLOR);
 
 		// Draw the verticals of the box.
@@ -277,10 +166,10 @@ public class ClientEventHandler
 
 		tessellator.draw();
 		GlStateManager.enableBlend();
-		GlStateManager.enableTexture2D();
+		GlStateManager.enableTexture();
 	}
 
-	private static void drawLineWithGL(Vec3d blockA, Vec3d blockB)
+	private void drawLineWithGL(Vec3d blockA, Vec3d blockB)
 	{
 		GL11.glColor4f(1F, 0F, 1F, 0F); // change color an set alpha
 

@@ -2,13 +2,15 @@ package com.wuest.prefab.Structures.Items;
 
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
+import com.wuest.prefab.Structures.Gui.GuiStructure;
 
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.item.Item;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemUseContext;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -24,44 +26,43 @@ public class StructureItem extends Item
 	 * Get's the GuiId to show to the user when this item is used.
 	 */
 	protected int guiId = 0;
+	protected GuiStructure screen = null;
 	
 	/**
 	 * Initializes a new instance of the StructureItem class.
 	 */
-	public StructureItem(String name, int guiId)
+	public StructureItem(String name, GuiStructure screen)
 	{
-		super();
-		
-		this.Initialize(name, guiId);
+		super(new Item.Properties().group(ItemGroup.MISC));
+		this.Initialize(name, screen);
 	}
 	
 	/**
 	 * Does something when the item is right-clicked.
 	 */
 	@Override
-	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos hitBlockPos, EnumHand hand, EnumFacing side, float hitX,
-			float hitY, float hitZ)
+	public ActionResultType onItemUse(ItemUseContext context)
 	{
-		if (world.isRemote)
+		if (context.getWorld().isRemote)
 		{
-			if (side == EnumFacing.UP)
+			if (context.getFace() == Direction.UP)
 			{
 				// Open the client side gui to determine the house options.
-				player.openGui(Prefab.instance, this.guiId, player.world, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
-				return EnumActionResult.PASS;
+				this.screen.pos = context.getPos();
+				Minecraft.getInstance().displayGuiScreen(this.screen);
+				return ActionResultType.PASS;
 			}
 		}
 
-		return EnumActionResult.FAIL;
+		return ActionResultType.FAIL;
 	}
 	
 	/**
 	 * Initializes common fields/properties for this structure item.
 	 */
-	protected void Initialize(String name, int guiId)
+	protected void Initialize(String name, GuiStructure screen)
 	{
 		ModRegistry.setItemName(this, name);
-		this.guiId = guiId;
-		this.setCreativeTab(CreativeTabs.MISC);
+		this.screen = screen;
 	}
 }

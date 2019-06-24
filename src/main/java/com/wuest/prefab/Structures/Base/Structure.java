@@ -14,44 +14,24 @@ import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Structures.Config.StructureConfiguration;
 import com.wuest.prefab.Structures.Events.StructureEventHandler;
 
+import net.minecraft.block.BedBlock;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockBed;
-import net.minecraft.block.BlockBed.EnumPartType;
-import net.minecraft.block.BlockButton;
-import net.minecraft.block.BlockCarpet;
-import net.minecraft.block.BlockColored;
-import net.minecraft.block.BlockDoor;
-import net.minecraft.block.BlockDoor.EnumDoorHalf;
-import net.minecraft.block.BlockFlowerPot;
-import net.minecraft.block.BlockLever;
-import net.minecraft.block.BlockLiquid;
-import net.minecraft.block.BlockQuartz;
-import net.minecraft.block.BlockSign;
-import net.minecraft.block.BlockTorch;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.DoorBlock;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityHanging;
-import net.minecraft.entity.EntityList;
-import net.minecraft.entity.item.EntityItemFrame;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.state.properties.BedPart;
+import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityChest;
-import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.Style;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.FMLLog;
 
 /**
  * Each structure represents a building which is pre-defined in a JSON file.
@@ -76,7 +56,7 @@ public class Structure
 	public StructureConfiguration configuration;
 	public World world;
 	public BlockPos originalPos;
-	public EnumFacing assumedNorth;
+	public Direction assumedNorth;
 	
 	@Expose
 	public ArrayList<BuildTileEntity> tileEntities = new ArrayList<BuildTileEntity>();
@@ -127,19 +107,19 @@ public class Structure
 	}
 
 	public static void ScanStructure(World world, BlockPos originalPos, BlockPos cornerPos1, BlockPos cornerPos2, String fileLocation, BuildClear clearedSpace,
-			EnumFacing playerFacing, boolean includeAir, boolean excludeWater)
+			Direction playerFacing, boolean includeAir, boolean excludeWater)
 	{
 		Structure scannedStructure = new Structure();
 		scannedStructure.setClearSpace(clearedSpace);
 
-		for (BlockPos currentPos : BlockPos.getAllInBox(cornerPos1, cornerPos2))
+		for (BlockPos currentPos : BlockPos.getAllInBoxMutable(cornerPos1, cornerPos2))
 		{
 			if (world.isAirBlock(currentPos) && !includeAir)
 			{
 				continue;
 			}
 
-			IBlockState currentState = world.getBlockState(currentPos);
+			BlockState currentState = world.getBlockState(currentPos);
 			Block currentBlock = currentState.getBlock();
 			
 			if (currentState.getMaterial() == Material.WATER && excludeWater)
@@ -149,15 +129,15 @@ public class Structure
 
 			BuildBlock buildBlock = Structure.createBuildBlockFromBlockState(currentState, currentBlock, currentPos, originalPos);
 			
-			if (currentBlock instanceof BlockDoor)
+			if (currentBlock instanceof DoorBlock)
 			{
-				EnumDoorHalf blockHalf = currentState.getValue(BlockDoor.HALF);
+				DoubleBlockHalf blockHalf = currentState.get(DoorBlock.HALF);
 				
-				if (blockHalf == EnumDoorHalf.LOWER)
+				if (blockHalf == DoubleBlockHalf.LOWER)
 				{
-					IBlockState upperHalfState = world.getBlockState(currentPos.up());
+					BlockState upperHalfState = world.getBlockState(currentPos.up());
 					
-					if (upperHalfState != null && upperHalfState.getBlock() instanceof BlockDoor)
+					if (upperHalfState != null && upperHalfState.getBlock() instanceof DoorBlock)
 					{
 						Block upperBlock = upperHalfState.getBlock();
 						BuildBlock upperHalf = Structure.createBuildBlockFromBlockState(upperHalfState, upperBlock, currentPos.up(), originalPos);
@@ -171,21 +151,21 @@ public class Structure
 					continue;
 				}
 			}
-			else if (currentBlock instanceof BlockBed)
+			else if (currentBlock instanceof BedBlock)
 			{
-				EnumPartType bedPart = currentState.getValue(BlockBed.PART);
+				BedPart bedPart = currentState.get(BedBlock.PART);
 				
-				if (bedPart == EnumPartType.HEAD)
+				if (bedPart == BedPart.HEAD)
 				{
-					IBlockState bedFoot = null;
+					BlockState bedFoot = null;
 					boolean foundFoot = false;
-					EnumFacing facing = EnumFacing.NORTH;
+					Direction facing = Direction.NORTH;
 					
 					while (foundFoot == false)
 					{
 						bedFoot = world.getBlockState(currentPos.offset(facing));
 						
-						if (bedFoot.getBlock() instanceof BlockBed && bedFoot.getValue(BlockBed.PART) == EnumPartType.FOOT)
+						if (bedFoot.getBlock() instanceof BedBlock && bedFoot.get(BedBlock.PART) == BedPart.FOOT)
 						{
 							foundFoot = true;
 							break;
@@ -193,7 +173,7 @@ public class Structure
 						
 						facing = facing.rotateY();
 						
-						if (facing == EnumFacing.NORTH)
+						if (facing == Direction.NORTH)
 						{
 							// Got back to north, break out to avoid infinite loop.
 							break;
@@ -290,7 +270,7 @@ public class Structure
 	 * @param currentPos The current position.
 	 * @return A new Build block object.
 	 */
-	public static BuildBlock createBuildBlockFromBlockState(IBlockState currentState, Block currentBlock, BlockPos currentPos, BlockPos originalPos)
+	public static BuildBlock createBuildBlockFromBlockState(BlockState currentState, Block currentBlock, BlockPos currentPos, BlockPos originalPos)
 	{
 		BuildBlock buildBlock = new BuildBlock();
 		buildBlock.setBlockDomain(currentBlock.getRegistryName().getResourceDomain());
@@ -403,12 +383,12 @@ public class Structure
 	 * @param player The player requesting the structure.
 	 * @return True if the build can occur, otherwise false.
 	 */
-	public boolean BuildStructure(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth, EntityPlayer player)
+	public boolean BuildStructure(StructureConfiguration configuration, World world, BlockPos originalPos, Direction assumedNorth, PlayerEntity player)
 	{
 		BlockPos startBlockPos = this.clearSpace.getStartingPosition().getRelativePosition(originalPos, this.clearSpace.getShape().getDirection(), configuration.houseFacing);
 		BlockPos endBlockPos = startBlockPos.offset(configuration.houseFacing.rotateYCCW(), this.clearSpace.getShape().getWidth() - 1)
 				.offset(configuration.houseFacing.getOpposite(), this.clearSpace.getShape().getWidth() - 1)
-				.offset(EnumFacing.UP, this.clearSpace.getShape().getHeight());
+				.offset(Direction.UP, this.clearSpace.getShape().getHeight());
 		
 		// Make sure this structure can be placed here.
 		if (!BuildingMethods.CheckBuildSpaceForAllowedBlockReplacement(configuration, world, startBlockPos, endBlockPos, player))
@@ -433,7 +413,7 @@ public class Structure
 
 				if (foundBlock != null)
 				{
-					IBlockState blockState = foundBlock.getDefaultState();
+					BlockState blockState = foundBlock.getDefaultState();
 					BuildBlock subBlock = null;
 
 					// Check if water should be replaced with cobble.
@@ -547,7 +527,7 @@ public class Structure
 	 * @return False if processing should continue, otherwise true to cancel
 	 *         processing.
 	 */
-	protected boolean BeforeBuilding(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth, EntityPlayer player)
+	protected boolean BeforeBuilding(StructureConfiguration configuration, World world, BlockPos originalPos, Direction assumedNorth, PlayerEntity player)
 	{
 		return false;
 	}
@@ -562,11 +542,11 @@ public class Structure
 	 * @param assumedNorth The assumed northern direction.
 	 * @param player The player which initiated the construction.
 	 */
-	public void AfterBuilding(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth, EntityPlayer player)
+	public void AfterBuilding(StructureConfiguration configuration, World world, BlockPos originalPos, Direction assumedNorth, PlayerEntity player)
 	{
 	}
 
-	protected void ClearSpace(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth)
+	protected void ClearSpace(StructureConfiguration configuration, World world, BlockPos originalPos, Direction assumedNorth)
 	{
 		if (this.clearSpace.getShape().getWidth() > 0 
 				&& this.clearSpace.getShape().getLength() > 0) 
@@ -576,7 +556,7 @@ public class Structure
 			BlockPos endBlockPos = startBlockPos
 					.offset(configuration.houseFacing.getOpposite().rotateY(), this.clearSpace.getShape().getWidth() - 1)
 					.offset(configuration.houseFacing.getOpposite(), this.clearSpace.getShape().getLength() - 1)
-					.offset(EnumFacing.UP, this.clearSpace.getShape().getHeight());
+					.offset(Direction.UP, this.clearSpace.getShape().getHeight());
 					
 			this.clearedBlockPos = Lists.newArrayList(BlockPos.getAllInBox(startBlockPos, endBlockPos));
 		}
@@ -587,7 +567,7 @@ public class Structure
 	}
 
 	protected Boolean CustomBlockProcessingHandled(StructureConfiguration configuration, BuildBlock block, World world, BlockPos originalPos,
-			EnumFacing assumedNorth, Block foundBlock, IBlockState blockState, EntityPlayer player)
+			Direction assumedNorth, Block foundBlock, BlockState blockState, PlayerEntity player)
 	{
 		return false;
 	}
@@ -605,7 +585,7 @@ public class Structure
 	 * @return Returns true if the water block was replaced by cobblestone, otherwise false.
 	 */
 	protected Boolean WaterReplacedWithCobbleStone(StructureConfiguration configuration, BuildBlock block, World world, BlockPos originalPos,
-			EnumFacing assumedNorth, Block foundBlock, IBlockState blockState, EntityPlayer player)
+			Direction assumedNorth, Block foundBlock, BlockState blockState, PlayerEntity player)
 	{
 		// Replace water blocks with cobblestone.
 		if (foundBlock instanceof BlockLiquid && blockState.getMaterial() == Material.WATER

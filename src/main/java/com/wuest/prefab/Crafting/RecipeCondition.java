@@ -5,15 +5,15 @@ import java.util.function.BooleanSupplier;
 import com.google.gson.JsonObject;
 import com.wuest.prefab.Prefab;
 
-import net.minecraftforge.common.crafting.IConditionFactory;
-import net.minecraftforge.common.crafting.JsonContext;
+import net.minecraftforge.common.crafting.IConditionSerializer;
+
 
 /**
  * 
  * @author WuestMan
  *
  */
-public class RecipeCondition implements IConditionFactory
+public class RecipeCondition implements IConditionSerializer
 {
 	private String recipeKeyName = "recipeKey";
 	public String recipeKey;
@@ -26,7 +26,7 @@ public class RecipeCondition implements IConditionFactory
 	}
 
 	@Override
-	public BooleanSupplier parse(JsonContext context, JsonObject json)
+	public BooleanSupplier parse(JsonObject json)
 	{
 		this.recipeKey = json.get(recipeKeyName).getAsString();
 

@@ -5,10 +5,10 @@ import com.wuest.prefab.Structures.Base.PositionOffset;
 import com.wuest.prefab.Structures.Items.ItemBasicStructure;
 import com.wuest.prefab.Structures.Predefined.StructureBasic;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -37,28 +37,28 @@ public class BasicStructureConfiguration extends StructureConfiguration
 	static
 	{
 		// This static method is used to set up the clear shapes for the basic structure names.
-		EnumBasicStructureName.AdvancedCoop.getClearShape().setDirection(EnumFacing.SOUTH);
+		EnumBasicStructureName.AdvancedCoop.getClearShape().setDirection(Direction.SOUTH);
 		EnumBasicStructureName.AdvancedCoop.getClearShape().setHeight(10);
 		EnumBasicStructureName.AdvancedCoop.getClearShape().setWidth(11);
 		EnumBasicStructureName.AdvancedCoop.getClearShape().setLength(11);
 		EnumBasicStructureName.AdvancedCoop.getClearPositionOffset().setSouthOffset(1);
 		EnumBasicStructureName.AdvancedCoop.getClearPositionOffset().setEastOffset(5);
 
-		EnumBasicStructureName.AdvancedHorseStable.getClearShape().setDirection(EnumFacing.SOUTH);
+		EnumBasicStructureName.AdvancedHorseStable.getClearShape().setDirection(Direction.SOUTH);
 		EnumBasicStructureName.AdvancedHorseStable.getClearShape().setHeight(8);
 		EnumBasicStructureName.AdvancedHorseStable.getClearShape().setWidth(17);
 		EnumBasicStructureName.AdvancedHorseStable.getClearShape().setLength(34);
 		EnumBasicStructureName.AdvancedHorseStable.getClearPositionOffset().setSouthOffset(1);
 		EnumBasicStructureName.AdvancedHorseStable.getClearPositionOffset().setEastOffset(8);
 
-		EnumBasicStructureName.Barn.getClearShape().setDirection(EnumFacing.SOUTH);
+		EnumBasicStructureName.Barn.getClearShape().setDirection(Direction.SOUTH);
 		EnumBasicStructureName.Barn.getClearShape().setHeight(10);
 		EnumBasicStructureName.Barn.getClearShape().setWidth(30);
 		EnumBasicStructureName.Barn.getClearShape().setLength(35);
 		EnumBasicStructureName.Barn.getClearPositionOffset().setSouthOffset(1);
 		EnumBasicStructureName.Barn.getClearPositionOffset().setEastOffset(15);
 
-		EnumBasicStructureName.MachineryTower.getClearShape().setDirection(EnumFacing.SOUTH);
+		EnumBasicStructureName.MachineryTower.getClearShape().setDirection(Direction.SOUTH);
 		EnumBasicStructureName.MachineryTower.getClearShape().setHeight(12);
 		EnumBasicStructureName.MachineryTower.getClearShape().setWidth(16);
 		EnumBasicStructureName.MachineryTower.getClearShape().setLength(16);
@@ -66,7 +66,7 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		EnumBasicStructureName.MachineryTower.getClearPositionOffset().setEastOffset(8);
 
 		// Defense bunker.
-		EnumBasicStructureName.DefenseBunker.getClearShape().setDirection(EnumFacing.SOUTH);
+		EnumBasicStructureName.DefenseBunker.getClearShape().setDirection(Direction.SOUTH);
 		EnumBasicStructureName.DefenseBunker.getClearShape().setHeight(17);
 		EnumBasicStructureName.DefenseBunker.getClearShape().setWidth(32);
 		EnumBasicStructureName.DefenseBunker.getClearShape().setLength(32);
@@ -74,7 +74,7 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		EnumBasicStructureName.DefenseBunker.getClearPositionOffset().setEastOffset(15);
 
 		// Mineshaft entrance.
-		EnumBasicStructureName.MineshaftEntrance.getClearShape().setDirection(EnumFacing.SOUTH);
+		EnumBasicStructureName.MineshaftEntrance.getClearShape().setDirection(Direction.SOUTH);
 		EnumBasicStructureName.MineshaftEntrance.getClearShape().setHeight(6);
 		EnumBasicStructureName.MineshaftEntrance.getClearShape().setWidth(7);
 		EnumBasicStructureName.MineshaftEntrance.getClearShape().setLength(7);
@@ -82,7 +82,7 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		EnumBasicStructureName.MineshaftEntrance.getClearPositionOffset().setEastOffset(3);
 
 		// Ender Gateway.
-		EnumBasicStructureName.EnderGateway.getClearShape().setDirection(EnumFacing.SOUTH);
+		EnumBasicStructureName.EnderGateway.getClearShape().setDirection(Direction.SOUTH);
 		EnumBasicStructureName.EnderGateway.getClearShape().setHeight(26);
 		EnumBasicStructureName.EnderGateway.getClearShape().setWidth(17);
 		EnumBasicStructureName.EnderGateway.getClearShape().setLength(17);
@@ -90,7 +90,7 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		EnumBasicStructureName.EnderGateway.getClearPositionOffset().setEastOffset(8);
 
 		// Aqua Base.
-		EnumBasicStructureName.AquaBase.getClearShape().setDirection(EnumFacing.SOUTH);
+		EnumBasicStructureName.AquaBase.getClearShape().setDirection(Direction.SOUTH);
 		EnumBasicStructureName.AquaBase.getClearShape().setHeight(27);
 		EnumBasicStructureName.AquaBase.getClearShape().setWidth(25);
 		EnumBasicStructureName.AquaBase.getClearShape().setLength(38);
@@ -98,7 +98,7 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		EnumBasicStructureName.AquaBase.getClearPositionOffset().setEastOffset(12);
 
 		// Grassy Plain.
-		EnumBasicStructureName.GrassyPlain.getClearShape().setDirection(EnumFacing.SOUTH);
+		EnumBasicStructureName.GrassyPlain.getClearShape().setDirection(Direction.SOUTH);
 		EnumBasicStructureName.GrassyPlain.getClearShape().setHeight(4);
 		EnumBasicStructureName.GrassyPlain.getClearShape().setWidth(15);
 		EnumBasicStructureName.GrassyPlain.getClearShape().setLength(15);
@@ -107,7 +107,7 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		EnumBasicStructureName.GrassyPlain.getClearPositionOffset().setHeightOffset(-1);
 
 		// Magic Temple.
-		EnumBasicStructureName.MagicTemple.getClearShape().setDirection(EnumFacing.SOUTH);
+		EnumBasicStructureName.MagicTemple.getClearShape().setDirection(Direction.SOUTH);
 		EnumBasicStructureName.MagicTemple.getClearShape().setHeight(13);
 		EnumBasicStructureName.MagicTemple.getClearShape().setWidth(12);
 		EnumBasicStructureName.MagicTemple.getClearShape().setLength(13);
@@ -115,7 +115,7 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		EnumBasicStructureName.MagicTemple.getClearPositionOffset().setEastOffset(6);
 
 		// Greenhouse.
-		EnumBasicStructureName.GreenHouse.getClearShape().setDirection(EnumFacing.SOUTH);
+		EnumBasicStructureName.GreenHouse.getClearShape().setDirection(Direction.SOUTH);
 		EnumBasicStructureName.GreenHouse.getClearShape().setHeight(10);
 		EnumBasicStructureName.GreenHouse.getClearShape().setWidth(15);
 		EnumBasicStructureName.GreenHouse.getClearShape().setLength(31);
@@ -123,7 +123,7 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		EnumBasicStructureName.GreenHouse.getClearPositionOffset().setEastOffset(8);
 
 		// Watch Tower
-		EnumBasicStructureName.WatchTower.getClearShape().setDirection(EnumFacing.SOUTH);
+		EnumBasicStructureName.WatchTower.getClearShape().setDirection(Direction.SOUTH);
 		EnumBasicStructureName.WatchTower.getClearShape().setHeight(16);
 		EnumBasicStructureName.WatchTower.getClearShape().setWidth(9);
 		EnumBasicStructureName.WatchTower.getClearShape().setLength(9);
@@ -132,7 +132,7 @@ public class BasicStructureConfiguration extends StructureConfiguration
 
 		// Test
 		/*
-		 * EnumBasicStructureName.Test.getClearShape().setDirection(EnumFacing.SOUTH);
+		 * EnumBasicStructureName.Test.getClearShape().setDirection(Direction.SOUTH);
 		 * EnumBasicStructureName.Test.getClearShape().setHeight(4);
 		 * EnumBasicStructureName.Test.getClearShape().setWidth(6);
 		 * EnumBasicStructureName.Test.getClearShape().setLength(4);
@@ -141,7 +141,7 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		 */
 
 		// Welcome Center
-		EnumBasicStructureName.WelcomeCenter.getClearShape().setDirection(EnumFacing.SOUTH);
+		EnumBasicStructureName.WelcomeCenter.getClearShape().setDirection(Direction.SOUTH);
 		EnumBasicStructureName.WelcomeCenter.getClearShape().setHeight(24);
 		EnumBasicStructureName.WelcomeCenter.getClearShape().setWidth(18);
 		EnumBasicStructureName.WelcomeCenter.getClearShape().setLength(48);
@@ -150,7 +150,7 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		EnumBasicStructureName.WelcomeCenter.getClearPositionOffset().setHeightOffset(-5);
 
 		// Jail
-		EnumBasicStructureName.Jail.getClearShape().setDirection(EnumFacing.SOUTH);
+		EnumBasicStructureName.Jail.getClearShape().setDirection(Direction.SOUTH);
 		EnumBasicStructureName.Jail.getClearShape().setHeight(14);
 		EnumBasicStructureName.Jail.getClearShape().setWidth(27);
 		EnumBasicStructureName.Jail.getClearShape().setLength(32);
@@ -159,20 +159,22 @@ public class BasicStructureConfiguration extends StructureConfiguration
 		EnumBasicStructureName.Jail.getClearPositionOffset().setHeightOffset(-3);
 
 		// Saloon
-		EnumBasicStructureName.Saloon.getClearShape().setDirection(EnumFacing.SOUTH);
+		EnumBasicStructureName.Saloon.getClearShape().setDirection(Direction.SOUTH);
 		EnumBasicStructureName.Saloon.getClearShape().setHeight(14);
 		EnumBasicStructureName.Saloon.getClearShape().setWidth(18);
 		EnumBasicStructureName.Saloon.getClearShape().setLength(16);
 		EnumBasicStructureName.Saloon.getClearPositionOffset().setSouthOffset(1);
 		EnumBasicStructureName.Saloon.getClearPositionOffset().setEastOffset(10);
 		EnumBasicStructureName.Saloon.getClearPositionOffset().setHeightOffset(-1);
-		
-		/*EnumBasicStructureName.Saloon.getClearShape().setDirection(EnumFacing.SOUTH);
-		EnumBasicStructureName.Saloon.getClearShape().setHeight(4);
-		EnumBasicStructureName.Saloon.getClearShape().setWidth(5);
-		EnumBasicStructureName.Saloon.getClearShape().setLength(12);
-		EnumBasicStructureName.Saloon.getClearPositionOffset().setSouthOffset(1);
-		EnumBasicStructureName.Saloon.getClearPositionOffset().setEastOffset(2);*/
+
+		/*
+		 * EnumBasicStructureName.Saloon.getClearShape().setDirection(Direction.SOUTH);
+		 * EnumBasicStructureName.Saloon.getClearShape().setHeight(4);
+		 * EnumBasicStructureName.Saloon.getClearShape().setWidth(5);
+		 * EnumBasicStructureName.Saloon.getClearShape().setLength(12);
+		 * EnumBasicStructureName.Saloon.getClearPositionOffset().setSouthOffset(1);
+		 * EnumBasicStructureName.Saloon.getClearPositionOffset().setEastOffset(2);
+		 */
 	}
 
 	/**
@@ -215,34 +217,34 @@ public class BasicStructureConfiguration extends StructureConfiguration
 	public void Initialize()
 	{
 		super.Initialize();
-		this.houseFacing = EnumFacing.NORTH;
+		this.houseFacing = Direction.NORTH;
 		this.basicStructureName = EnumBasicStructureName.Custom;
 	}
 
 	@Override
-	protected void CustomReadFromNBTTag(NBTTagCompound messageTag, StructureConfiguration config)
+	protected void CustomReadFromNBTTag(CompoundNBT messageTag, StructureConfiguration config)
 	{
 		BasicStructureConfiguration basicConfig = (BasicStructureConfiguration) config;
 
-		if (messageTag.hasKey(BasicStructureConfiguration.structureEnumNameTag))
+		if (messageTag.contains(BasicStructureConfiguration.structureEnumNameTag))
 		{
 			basicConfig.basicStructureName = EnumBasicStructureName.valueOf(messageTag.getString(BasicStructureConfiguration.structureEnumNameTag));
 		}
 
-		if (messageTag.hasKey(BasicStructureConfiguration.structureDisplayNameTag))
+		if (messageTag.contains(BasicStructureConfiguration.structureDisplayNameTag))
 		{
 			basicConfig.structureDisplayName = messageTag.getString(BasicStructureConfiguration.structureDisplayNameTag);
 		}
 	}
 
 	@Override
-	protected NBTTagCompound CustomWriteToNBTTagCompound(NBTTagCompound tag)
+	protected CompoundNBT CustomWriteToCompoundNBT(CompoundNBT tag)
 	{
-		tag.setString(BasicStructureConfiguration.structureEnumNameTag, this.basicStructureName.name());
+		tag.putString(BasicStructureConfiguration.structureEnumNameTag, this.basicStructureName.name());
 
 		if (this.structureDisplayName != null)
 		{
-			tag.setString(BasicStructureConfiguration.structureDisplayNameTag, this.structureDisplayName);
+			tag.putString(BasicStructureConfiguration.structureDisplayNameTag, this.structureDisplayName);
 		}
 
 		return tag;
@@ -255,11 +257,11 @@ public class BasicStructureConfiguration extends StructureConfiguration
 	 * @return An instance of {@link BasicStructureConfiguration} with vaules pulled from the NBTTagCompound.
 	 */
 	@Override
-	public BasicStructureConfiguration ReadFromNBTTagCompound(NBTTagCompound messageTag)
+	public BasicStructureConfiguration ReadFromCompoundNBT(CompoundNBT messageTag)
 	{
 		BasicStructureConfiguration config = new BasicStructureConfiguration();
 
-		return (BasicStructureConfiguration) super.ReadFromNBTTagCompound(messageTag, config);
+		return (BasicStructureConfiguration) super.ReadFromCompoundNBT(messageTag, config);
 	}
 
 	/**
@@ -270,7 +272,7 @@ public class BasicStructureConfiguration extends StructureConfiguration
 	 * @param hitBlockPos This hit block position.
 	 */
 	@Override
-	protected void ConfigurationSpecificBuildStructure(EntityPlayer player, World world, BlockPos hitBlockPos)
+	protected void ConfigurationSpecificBuildStructure(PlayerEntity player, World world, BlockPos hitBlockPos)
 	{
 		String assetLocation = "";
 
@@ -285,7 +287,7 @@ public class BasicStructureConfiguration extends StructureConfiguration
 
 		StructureBasic structure = StructureBasic.CreateInstance(assetLocation, StructureBasic.class);
 
-		if (structure.BuildStructure(this, world, hitBlockPos, EnumFacing.NORTH, player))
+		if (structure.BuildStructure(this, world, hitBlockPos, Direction.NORTH, player))
 		{
 			ItemStack stack = ItemBasicStructure.getBasicStructureItemInHand(player);
 
@@ -298,7 +300,7 @@ public class BasicStructureConfiguration extends StructureConfiguration
 				stack.setCount(stack.getCount() - 1);
 			}
 
-			player.inventoryContainer.detectAndSendChanges();
+			player.openContainer.detectAndSendChanges();
 		}
 	}
 

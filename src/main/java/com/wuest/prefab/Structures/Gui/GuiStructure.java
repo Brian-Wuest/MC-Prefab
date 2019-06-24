@@ -5,22 +5,22 @@ import java.io.IOException;
 
 import org.lwjgl.opengl.GL11;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Structures.Config.StructureConfiguration;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiLabel;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 
 /**
@@ -28,12 +28,12 @@ import net.minecraftforge.fml.client.config.GuiButtonExt;
  * @author WuestMan
  *
  */
-public class GuiStructure extends GuiScreen
+public class GuiStructure extends Screen
 {
 	public final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/default_background.png");
 	public BlockPos pos;
-	protected EntityPlayer player;
-	protected EnumFacing structureFacing;
+	protected PlayerEntity player;
+	protected Direction structureFacing;
 	
 	protected GuiButtonExt btnCancel;
 	protected GuiButtonExt btnBuild;
@@ -43,16 +43,15 @@ public class GuiStructure extends GuiScreen
 	protected EnumStructureConfiguration structureConfiguration;
 	protected boolean pauseGame;
 	
-	public GuiStructure(int x, int y, int z, boolean pauseGame)
+	public GuiStructure(String title)
 	{
-		this.pos = new BlockPos(x, y, z);
-		this.pauseGame = pauseGame;
+		super(new StringTextComponent(title));
 	}
 
 	@Override
-	public void initGui()
+	public void init()
 	{
-		this.player = this.mc.player;
+		this.player = this.getMinecraft().player;
 		this.structureFacing = this.player.getHorizontalFacing().getOpposite();
 		this.Initialize();
 	}
@@ -78,33 +77,23 @@ public class GuiStructure extends GuiScreen
 	 * Returns true if this GUI should pause the game when it is displayed in single-player
 	 */
 	@Override
-	public boolean doesGuiPauseGame()
+	public boolean isPauseScreen()
 	{
 		return this.pauseGame;
 	}
 	
 	protected void drawControlBackgroundAndButtonsAndLabels(int grayBoxX, int grayBoxY, int mouseX, int mouseY)
 	{
-		this.mc.getTextureManager().bindTexture(this.backgroundTextures);
-		this.drawTexturedModalRect(grayBoxX, grayBoxY, 0, 0, 256, 256);
+		this.getMinecraft().getTextureManager().bindTexture(this.backgroundTextures);
+		this.blit(grayBoxX, grayBoxY, 0, 0, 256, 256);
 
-		for (int i = 0; i < this.buttonList.size(); ++i)
+		for (int i = 0; i < this.buttons.size(); ++i)
 		{
-			GuiButton currentButton = this.buttonList.get(i);
+			Button currentButton = (Button) this.buttons.get(i);
 			
 			if (currentButton != null && currentButton.visible)
 			{
-				currentButton.drawButton(this.mc, mouseX, mouseY, this.mc.getRenderPartialTicks());
-			}
-		}
-
-		for (int j = 0; j < this.labelList.size(); ++j)
-		{
-			GuiLabel currentLabel = this.labelList.get(j);
-			
-			if (currentLabel != null)
-			{
-				currentLabel.drawLabel(this.mc, mouseX, mouseY);
+				currentButton.renderButton(mouseX, mouseY, this.getMinecraft().getRenderPartialTicks());
 			}
 		}
 	}
@@ -112,18 +101,18 @@ public class GuiStructure extends GuiScreen
 	/**
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
-	protected void performCancelOrBuildOrHouseFacing(StructureConfiguration configuration, GuiButton button) throws IOException
+	protected void performCancelOrBuildOrHouseFacing(StructureConfiguration configuration, Button button)
 	{
 		configuration.houseFacing = this.structureFacing;
 		
 		if (button == this.btnCancel)
 		{
-			this.mc.displayGuiScreen(null);
+			this.getMinecraft().displayGuiScreen(null);
 		}
 		else if (button == this.btnBuild)
 		{
-			Prefab.network.sendToServer(new StructureTagMessage(configuration.WriteToNBTTagCompound(), this.structureConfiguration));
-			this.mc.displayGuiScreen(null);
+			Prefab.network.sendToServer(new StructureTagMessage(configuration.WriteToCompoundNBT(), this.structureConfiguration));
+			this.getMinecraft().displayGuiScreen(null);
 		}
 	}
 	
@@ -139,9 +128,9 @@ public class GuiStructure extends GuiScreen
      */
     public void drawModalRectWithCustomSizedTexture(int x, int y, int z, int width, int height, float textureWidth, float textureHeight)
     {
-    	GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+    	GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		GlStateManager.enableBlend();
-        GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
+        GlStateManager.blendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
         
     	float u = 0;
     	float v = 0;

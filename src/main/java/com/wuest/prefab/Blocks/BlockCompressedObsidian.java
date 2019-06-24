@@ -1,30 +1,20 @@
 package com.wuest.prefab.Blocks;
 
 import java.util.List;
-import java.util.Random;
 
 import javax.annotation.Nullable;
 
 import com.google.common.collect.Lists;
 import com.wuest.prefab.ModRegistry;
-import com.wuest.prefab.Blocks.BlockCompressedStone.EnumType;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.common.ToolType;
 
 /**
  * This is the compressed Obsidian block class.
@@ -36,21 +26,32 @@ public class BlockCompressedObsidian extends Block
 {
 	public final EnumType typeofStone;
 
+	public final ItemGroup itemGroup;
+	
 	/**
 	 * Initializes a new instance of the BlockCompressedObsidian class.
 	 */
 	public BlockCompressedObsidian(EnumType stoneType)
 	{
-		super(Material.ROCK);
-		this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-		this.setHardness(50.0F);
-		this.setResistance(2000.0F);
-		this.setHarvestLevel(null, 0);
-		this.setSoundType(SoundType.STONE);
-		this.setHarvestLevel("pickaxe", 3);
+		super(Block.Properties.create(Material.ROCK)
+			.hardnessAndResistance(50.0f, 2000.0f)
+			.sound(SoundType.STONE));
+		
+		this.itemGroup = ItemGroup.BUILDING_BLOCKS;
 		this.typeofStone = stoneType;
 		ModRegistry.setBlockName(this, stoneType.unlocalizedName);
 	}
+	
+	   @Nullable
+	   @Override
+	   public ToolType getHarvestTool(BlockState state) {
+	      return ToolType.PICKAXE;
+	   }
+
+	   @Override
+	   public int getHarvestLevel(BlockState state) {
+	      return 3;
+	   }
 
 	/**
 	 * An enum which contains the various types of block variants.

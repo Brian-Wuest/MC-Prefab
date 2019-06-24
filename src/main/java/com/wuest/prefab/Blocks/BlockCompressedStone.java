@@ -1,7 +1,6 @@
 package com.wuest.prefab.Blocks;
 
 import java.util.List;
-import java.util.Random;
 
 import javax.annotation.Nullable;
 
@@ -9,26 +8,13 @@ import com.google.common.collect.Lists;
 import com.wuest.prefab.ModRegistry;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.text.translation.I18n;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.common.ToolType;
 
 /**
  * Provides a way to store large amounts of stone.
@@ -38,62 +24,35 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class BlockCompressedStone extends Block
 {
 	public final EnumType typeofStone;
-	
+
+	public final ItemGroup itemGroup;
+
 	/**
 	 * Initializes a new instance of the CompressedStone class.
 	 */
 	public BlockCompressedStone(EnumType typeOfStone)
 	{
-		super(Material.ROCK);
-		this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-		this.setHardness(1.5F);
-		this.setResistance(10.0F);
-		this.setHarvestLevel(null, 0);
-		this.setSoundType(SoundType.STONE);
+		super(Block.Properties.create(Material.ROCK)
+			.hardnessAndResistance(1.5F, 10.0F)
+			.sound(SoundType.STONE)
+			.lightValue(typeOfStone == EnumType.COMPRESSED_GLOWSTONE || typeOfStone == EnumType.DOUBLE_COMPRESSED_GLOWSTONE ? 15 : 0));
+		
+		this.itemGroup = ItemGroup.BUILDING_BLOCKS;
 		ModRegistry.setBlockName(this, typeOfStone.unlocalizedName);
 		this.typeofStone = typeOfStone;
 	}
 
-	/**
-	 * Get a light value for the block at the specified coordinates, normal ranges are between 0 and 15
-	 *
-	 * @param state Block state
-	 * @param world The current world
-	 * @param pos Block position in world
-	 * @return The light value
-	 */
+	@Nullable
 	@Override
-	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos)
+	public ToolType getHarvestTool(BlockState state)
 	{
-		IBlockState other = world.getBlockState(pos);
-
-		if (other.getBlock() != this)
-		{
-			return other.getLightValue(world, pos);
-		}
-
-		EnumType meta = this.typeofStone;
-
-		if (meta == EnumType.COMPRESSED_GLOWSTONE || meta == EnumType.DOUBLE_COMPRESSED_GLOWSTONE)
-		{
-			return 15;
-		}
-
-		return state.getLightValue();
+		return null;
 	}
 
-	/**
-	 * Determines if the player can harvest this block, obtaining it's drops when the block is destroyed.
-	 *
-	 * @param world The world where the block resides.
-	 * @param pos The block position.
-	 * @param player The player damaging the block, may be null.
-	 * @return True to spawn the drops.
-	 */
 	@Override
-	public boolean canHarvestBlock(IBlockAccess world, BlockPos pos, EntityPlayer player)
+	public int getHarvestLevel(BlockState state)
 	{
-		return true;
+		return 0;
 	}
 
 	/**

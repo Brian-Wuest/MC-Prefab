@@ -7,22 +7,21 @@ import com.wuest.prefab.Structures.Capabilities.StructureConfigurationCapability
 import com.wuest.prefab.Structures.Capabilities.Storage.StructureConfigurationStorage;
 import com.wuest.prefab.Structures.Config.BasicStructureConfiguration;
 import com.wuest.prefab.Structures.Config.BasicStructureConfiguration.EnumBasicStructureName;
+import com.wuest.prefab.Structures.Gui.GuiBasicStructure;
 import com.wuest.prefab.Structures.Predefined.StructureBasic;
 
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.item.ItemUseContext;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.common.util.LazyOptional;
 
 /**
  * This class is used for basic structures to show the basic GUI.
@@ -35,115 +34,38 @@ public class ItemBasicStructure extends StructureItem
 
 	public ItemBasicStructure(String name)
 	{
-		super(name, ModRegistry.GuiBasicStructure);
-
-		this.setHasSubtypes(true);
+		super(name, new GuiBasicStructure());
 	}
 
 	/**
 	 * Does something when the item is right-clicked.
 	 */
 	@Override
-	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos hitBlockPos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ)
+	public ActionResultType onItemUse(ItemUseContext context)
 	{
-		if (world.isRemote)
+		if (context.getWorld().isRemote)
 		{
-			if (side == EnumFacing.UP)
+			if (context.getFace() == Direction.UP)
 			{
 				
 				/*StructureBasic basicStructure = new StructureBasic(); ItemStack stack = player.getHeldItem(hand);
 				IStructureConfigurationCapability capability =
-				stack.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
+				stack.getCapability(ModRegistry.StructureConfiguration, Direction.NORTH);
 				BasicStructureConfiguration structureConfiguration = capability.getConfiguration();
 				basicStructure.ScanStructure(world, hitBlockPos, player.getHorizontalFacing(),
 				structureConfiguration, false, false);*/
 					 
 				// Open the client side gui to determine the house options.
-				player.openGui(Prefab.instance, this.guiId, player.world, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+				this.screen.pos = context.getPos();
+				
+				Minecraft.getInstance().displayGuiScreen(this.screen);
+				// context.getPlayer().openGui(Prefab.instance, this.guiId, context.getPlayer().world, context.getPos().getX(), context.getPos().getY(), context.getPos().getZ());
 
-				return EnumActionResult.PASS;
+				return ActionResultType.PASS;
 			}
 		}
 
-		return EnumActionResult.FAIL;
-	}
-
-	/**
-	 * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
-	 */
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems)
-	{
-		if (this.isInCreativeTab(tab))
-		{
-			for (EnumBasicStructureName value : EnumBasicStructureName.values())
-			{
-				if (value.getResourceLocation() != null)
-				{
-					ItemStack stack = new ItemStack(this);
-					IStructureConfigurationCapability capability = stack.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
-					capability.getConfiguration().basicStructureName = value;
-
-					subItems.add(stack);
-				}
-			}
-		}
-	}
-
-	/**
-	 * Called each tick as long the item is on a player inventory. Uses by maps to check if is on a player hand and
-	 * update it's contents.
-	 */
-	@Override
-	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
-	{
-		if (entityIn instanceof EntityPlayer)
-		{
-			ItemBasicStructure.getStackCapability(stack);
-		}
-	}
-
-	/**
-	 * Returns the unlocalized name of this item. This version accepts an ItemStack so different stacks can have
-	 * different names based on their damage or NBT.
-	 */
-	@Override
-	public String getUnlocalizedName(ItemStack stack)
-	{
-		IStructureConfigurationCapability capability = ItemBasicStructure.getStackCapability(stack);
-
-		if (capability != null)
-		{
-			return capability.getConfiguration().getDisplayName();
-		}
-
-		return this.getUnlocalizedName();
-	}
-
-	public String getItemStackDisplayName(ItemStack stack)
-	{
-		return ("" + I18n.translateToLocal(this.getUnlocalizedNameInefficiently(stack))).trim();
-	}
-
-	/**
-	 * This used to be 'display damage' but its really just 'aux' data in the ItemStack, usually shares the same
-	 * variable as damage.
-	 * 
-	 * @param stack
-	 * @return
-	 */
-	@Override
-	public int getMetadata(ItemStack stack)
-	{
-		if (stack.getTagCompound() == null || stack.getTagCompound().hasNoTags())
-		{
-			// Make sure to serialize the NBT for this stack so the information is pushed to the client and the
-			// appropriate Icon is displayed for this stack.
-			stack.setTagCompound(stack.serializeNBT());
-		}
-
-		return 0;
+		return ActionResultType.FAIL;
 	}
 
 	/**
@@ -154,19 +76,19 @@ public class ItemBasicStructure extends StructureItem
 	 * @return The NBT tag
 	 */
 	@Override
-	public NBTTagCompound getNBTShareTag(ItemStack stack)
+	public CompoundNBT getShareTag(ItemStack stack)
 	{
-		if (stack.getTagCompound() == null || stack.getTagCompound().hasNoTags())
+		if (stack.getTag() == null || stack.getTag().isEmpty())
 		{
 			// Make sure to serialize the NBT for this stack so the information is pushed to the client and the
 			// appropriate Icon is displayed for this stack.
-			stack.setTagCompound(stack.serializeNBT());
+			stack.setTag(stack.serializeNBT());
 		}
 
-		return stack.getTagCompound();
+		return stack.getTag();
 	}
 
-	public static ItemStack getBasicStructureItemInHand(EntityPlayer player)
+	public static ItemStack getBasicStructureItemInHand(PlayerEntity player)
 	{
 		ItemStack stack = player.getHeldItemOffhand();
 
@@ -189,29 +111,32 @@ public class ItemBasicStructure extends StructureItem
 
 	public static IStructureConfigurationCapability getStackCapability(ItemStack stack)
 	{
-		if (stack.hasCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH))
+		LazyOptional<IStructureConfigurationCapability> stackCapability = stack.getCapability(ModRegistry.StructureConfiguration);
+		
+		if (stackCapability.isPresent())
 		{
-			NBTTagCompound forgeCapabilities = stack.getSubCompound("ForgeCaps");
-			IStructureConfigurationCapability stackCapability = stack.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
-
-			if (forgeCapabilities != null)
-			{
-				if (stackCapability.getDirty() && forgeCapabilities.hasKey(Prefab.MODID + ":structuresconfiguration"))
+			return stackCapability.map(capability -> {
+			
+				CompoundNBT forgeCapabilities = stack.getChildTag("ForgeCaps");
+				if (forgeCapabilities != null)
 				{
-					StructureConfigurationCapability capabilityTemp = new StructureConfigurationCapability();
-					StructureConfigurationStorage storage = new StructureConfigurationStorage();
-					storage.readNBT(ModRegistry.StructureConfiguration, capabilityTemp, EnumFacing.NORTH,
-						forgeCapabilities.getCompoundTag(Prefab.MODID + ":structuresconfiguration"));
-
-					if (!capabilityTemp.getConfiguration().basicStructureName.getName().equals(stackCapability.getConfiguration().basicStructureName.getName()))
+					if (capability.getDirty() && forgeCapabilities.contains(Prefab.MODID + ":structuresconfiguration"))
 					{
-						stackCapability.setConfiguration(capabilityTemp.getConfiguration());
-						stackCapability.setDirty(false);
+						StructureConfigurationCapability capabilityTemp = new StructureConfigurationCapability();
+						StructureConfigurationStorage storage = new StructureConfigurationStorage();
+						storage.readNBT(ModRegistry.StructureConfiguration, capabilityTemp, Direction.NORTH,
+							forgeCapabilities.get(Prefab.MODID + ":structuresconfiguration"));
+
+						if (!capabilityTemp.getConfiguration().basicStructureName.getName().equals(capability.getConfiguration().basicStructureName.getName()))
+						{
+							capability.setConfiguration(capabilityTemp.getConfiguration());
+							capability.setDirty(false);
+						}
 					}
 				}
-			}
-
-			return stackCapability;
+				
+				return capability;
+			}).orElse(null);
 		}
 
 		return null;

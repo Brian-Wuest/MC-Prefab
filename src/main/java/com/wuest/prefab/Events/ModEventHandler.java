@@ -14,31 +14,32 @@ import com.wuest.prefab.Structures.Capabilities.StructureConfigurationProvider;
 import com.wuest.prefab.Structures.Items.ItemBasicStructure;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.RegistryEvent.MissingMappings;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent;
-import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.network.NetworkDirection;
 
 /**
  * This is the server side event hander.
  * 
  * @author WuestMan
  */
-@EventBusSubscriber(value =
-{ Side.SERVER, Side.CLIENT })
+@Mod.EventBusSubscriber({ Dist.DEDICATED_SERVER })
 public class ModEventHandler
 {
 	static
@@ -74,29 +75,11 @@ public class ModEventHandler
 	@SubscribeEvent
 	public static void onPlayerLoginEvent(PlayerLoggedInEvent event)
 	{
-		if (!event.player.world.isRemote)
+		if (!event.getPlayer().world.isRemote)
 		{
-			NBTTagCompound tag = Prefab.proxy.proxyConfiguration.ToNBTTagCompound();
-			Prefab.network.sendTo(new ConfigSyncMessage(tag), (EntityPlayerMP) event.player);
-			System.out.println("Sent config to '" + event.player.getDisplayNameString() + "'.");
-		}
-	}
-
-	/**
-	 * This event is used to clear out the server configuration for clients that log off the server.
-	 * 
-	 * @param event The event object.
-	 */
-	@SubscribeEvent
-	public static void onPlayerLoggedOutEvent(PlayerLoggedOutEvent event)
-	{
-		// When the player logs out, make sure to re-set the server configuration.
-		// This is so a new configuration can be successfully loaded when they switch servers or worlds (on single
-		// player.
-		if (event.player.world.isRemote)
-		{
-			// Make sure to null out the server configuration from the client.
-			((ClientProxy) Prefab.proxy).serverConfiguration = null;
+			CompoundNBT tag = Prefab.proxy.proxyConfiguration.serverConfiguration.ToNBTTagCompound();
+			Prefab.network.sendTo(new ConfigSyncMessage(tag), ((ServerPlayerEntity) event.getPlayer()).connection.netManager, NetworkDirection.PLAY_TO_CLIENT);
+			System.out.println("Sent config to '" + event.getPlayer().getDisplayName().getString() + "'.");
 		}
 	}
 
@@ -153,160 +136,5 @@ public class ModEventHandler
 	{
 		// Register the ore dictionary blocks.
 		ModRegistry.RegisterOreDictionaryRecords();
-	}
-
-	@SubscribeEvent
-	public static void OnMissingBlockMapping(MissingMappings<Block> event)
-	{
-		for (MissingMappings.Mapping<Block> entry : event.getMappings())
-		{
-			Block mappedBlock = null;
-
-			switch (entry.key.getResourcePath())
-			{
-				case "blockcompressedstone":
-				case "blockCompressedStone":
-				{
-					mappedBlock = ModRegistry.GetCompressedStoneBlock(BlockCompressedStone.EnumType.COMPRESSED_STONE);
-				}
-			}
-
-			if (mappedBlock != null)
-			{
-				entry.remap(mappedBlock);
-			}
-		}
-	}
-
-	@SubscribeEvent
-	public static void OnMissingMapping(MissingMappings<Item> event)
-	{
-		ImmutableList missingMappings = event.getMappings();
-
-		for (MissingMappings.Mapping<Item> mapping : event.getMappings())
-		{
-			Item mappedItem = null;
-
-			switch (mapping.key.getResourcePath())
-			{
-				case "blockcompressedstone":
-				case "blockCompressedStone":
-				{
-					mappedItem = ModRegistry.ModItems.stream().filter(item -> item.getRegistryName().getResourcePath().equals("block_compressed_stone"))
-						.findFirst().get();
-					break;
-				}
-
-				case "itemproducefarm":
-				case "itemProduceFarm":
-				{
-					mappedItem = ModRegistry.ProduceFarm();
-					break;
-				}
-
-				case "itempileofbricks":
-				case "itemPileOfBricks":
-				{
-					mappedItem = ModRegistry.PileOfBricks();
-					break;
-				}
-
-				case "itemhorsestable":
-				case "itemHorseStable":
-				{
-					mappedItem = ModRegistry.HorseStable();
-					break;
-				}
-
-				case "itemnethergate":
-				case "itemNetherGate":
-				{
-					mappedItem = ModRegistry.NetherGate();
-					break;
-				}
-
-				case "itemwarehouseupgrade":
-				case "itemWareHouseUpgrade":
-				{
-					mappedItem = ModRegistry.WareHouseUpgrade();
-					break;
-				}
-
-				case "itemchickencoop":
-				case "itemChickenCoop":
-				{
-					mappedItem = ModRegistry.ChickenCoop();
-					break;
-				}
-
-				case "itemtreefarm":
-				case "itemTreeFarm":
-				{
-					mappedItem = ModRegistry.TreeFarm();
-					break;
-				}
-
-				case "itemcompressedchest":
-				case "itemCompressedChest":
-				{
-					mappedItem = ModRegistry.CompressedChestItem();
-					break;
-				}
-
-				case "itembundleoftimber":
-				case "itemBundleOfTimber":
-				{
-					mappedItem = ModRegistry.BundleOfTimber();
-					break;
-				}
-
-				case "itemwarehouse":
-				case "itemWareHouse":
-				{
-					mappedItem = ModRegistry.WareHouse();
-					break;
-				}
-
-				case "itempalletofbricks":
-				case "itemPalletOfBricks":
-				{
-					mappedItem = ModRegistry.PalletOfBricks();
-					break;
-				}
-
-				case "itemfishpond":
-				case "itemFishPond":
-				{
-					mappedItem = ModRegistry.FishPond();
-					break;
-				}
-
-				case "itemmonstermasher":
-				case "itemMonsterMasher":
-				{
-					mappedItem = ModRegistry.MonsterMasher();
-					break;
-				}
-
-				case "itemstarthouse":
-				case "itemStartHouse":
-				{
-					mappedItem = ModRegistry.StartHouse();
-					break;
-				}
-
-				case "itemadvancedwarehouse":
-				case "itemAdvancedWareHouse":
-				{
-					mappedItem = ModRegistry.AdvancedWareHouse();
-					break;
-				}
-			}
-
-			if (mappedItem != null)
-			{
-				mapping.remap(mappedItem);
-			}
-		}
 	}
 }

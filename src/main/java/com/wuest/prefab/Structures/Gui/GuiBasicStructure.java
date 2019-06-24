@@ -7,15 +7,16 @@ import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Structures.Capabilities.IStructureConfigurationCapability;
+import com.wuest.prefab.Structures.Capabilities.StructureConfigurationCapability;
 import com.wuest.prefab.Structures.Config.BasicStructureConfiguration;
 import com.wuest.prefab.Structures.Items.ItemBasicStructure;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Structures.Predefined.StructureBasic;
 import com.wuest.prefab.Structures.Render.StructureRenderHandler;
 
-import net.minecraft.client.gui.GuiButton;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 
 /**
@@ -30,9 +31,9 @@ public class GuiBasicStructure extends GuiStructure
 	protected int modifiedInitialXAxis = 213;
 	protected int modifiedINitialYAxis = 83;
 	
-	public GuiBasicStructure(int x, int y, int z)
+	public GuiBasicStructure()
 	{
-		super(x, y, z, true);
+		super("Basic Structure");
 		this.structureConfiguration = EnumStructureConfiguration.Basic;
 	}
 	
@@ -40,17 +41,17 @@ public class GuiBasicStructure extends GuiStructure
 	 * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
 	 */
 	@Override
-	public void drawScreen(int x, int y, float f) 
+	public void render(int x, int y, float f) 
 	{
 		int grayBoxX = this.getCenteredXAxis() - this.modifiedInitialXAxis;
 		int grayBoxY = this.getCenteredYAxis() - this.modifiedINitialYAxis;
 		
-		this.drawDefaultBackground();
+		this.renderBackground();
 
 		if (this.includePicture)
 		{
 			// Draw the control background.
-			this.mc.getTextureManager().bindTexture(this.configuration.basicStructureName.getTopDownPictureLocation());
+			this.getMinecraft().getTextureManager().bindTexture(this.configuration.basicStructureName.getTopDownPictureLocation());
 			
 			this.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 
 					this.configuration.basicStructureName.getImageWidth(), this.configuration.basicStructureName.getImageHeight(), 
@@ -60,27 +61,11 @@ public class GuiBasicStructure extends GuiStructure
 		this.drawControlBackgroundAndButtonsAndLabels(grayBoxX, grayBoxY, x, y);
 		
 		// Draw the text here.
-		this.mc.fontRenderer.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), grayBoxX + 147, grayBoxY + 10, 95, this.textColor);
+		this.getMinecraft().fontRenderer.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), grayBoxX + 147, grayBoxY + 10, 95, this.textColor);
 		
-		if (!Prefab.proxy.proxyConfiguration.enableStructurePreview)
+		if (!Prefab.proxy.proxyConfiguration.serverConfiguration.enableStructurePreview)
 		{
-			this.btnVisualize.enabled = false;
-		}
-	}
-	
-	/**
-	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
-	 */
-	@Override
-	protected void actionPerformed(GuiButton button) throws IOException
-	{
-		this.performCancelOrBuildOrHouseFacing(this.configuration, button);
-		
-		if (button == this.btnVisualize)
-		{
-			StructureBasic structure = StructureBasic.CreateInstance(this.configuration.basicStructureName.getAssetLocation(), StructureBasic.class);
-			StructureRenderHandler.setStructure(structure, EnumFacing.NORTH, this.configuration);
-			this.mc.displayGuiScreen(null);
+			this.btnVisualize.visible = false;
 		}
 	}
 	
@@ -92,8 +77,9 @@ public class GuiBasicStructure extends GuiStructure
 		
 		if (stack != null)
 		{
-			IStructureConfigurationCapability capability = stack.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
-			this.configuration = capability.getConfiguration();
+			LazyOptional<IStructureConfigurationCapability> optionalCapability = stack.getCapability(ModRegistry.StructureConfiguration, Direction.NORTH);
+			
+			this.configuration = optionalCapability.orElse(new StructureConfigurationCapability()).getConfiguration();
 			
 			if (!ClientEventHandler.playerConfig.clientConfigurations.containsKey(this.configuration.basicStructureName.getName()))
 			{
@@ -119,15 +105,26 @@ public class GuiBasicStructure extends GuiStructure
 		int grayBoxY = this.getCenteredYAxis() - this.modifiedINitialYAxis;
 
 		// Create the buttons.
-		this.btnVisualize = new GuiButtonExt(4, grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW));
-		this.buttonList.add(this.btnVisualize);
+		this.btnVisualize = new GuiButtonExt(grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW), (button) ->  {
+			StructureBasic structure = StructureBasic.CreateInstance(this.configuration.basicStructureName.getAssetLocation(), StructureBasic.class);
+			StructureRenderHandler.setStructure(structure, Direction.NORTH, this.configuration);
+			this.getMinecraft().displayGuiScreen(null);
+		});
+		
+		this.buttons.add(this.btnVisualize);
 		
 		// Create the done and cancel buttons.
-		this.btnBuild = new GuiButtonExt(1, grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_BUILD));
-		this.buttonList.add(this.btnBuild);
+		this.btnBuild = new GuiButtonExt(grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_BUILD), (button) ->  {
+			this.performCancelOrBuildOrHouseFacing(this.configuration, button);
+		});
+		
+		this.buttons.add(this.btnBuild);
 
-		this.btnCancel = new GuiButtonExt(2, grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_CANCEL));
-		this.buttonList.add(this.btnCancel);
+		this.btnCancel = new GuiButtonExt(grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_CANCEL), (button) ->  {
+			this.performCancelOrBuildOrHouseFacing(this.configuration, button);
+		});
+		
+		this.buttons.add(this.btnCancel);
 	}
 	
 	/**
@@ -138,7 +135,7 @@ public class GuiBasicStructure extends GuiStructure
 	{
 		try
 		{
-			this.mc.getResourceManager().getResource(this.configuration.basicStructureName.getTopDownPictureLocation());
+			this.getMinecraft().getResourceManager().getResource(this.configuration.basicStructureName.getTopDownPictureLocation());
 			return true;
 		}
 		catch (IOException e)
