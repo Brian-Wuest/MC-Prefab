@@ -9,12 +9,15 @@ import com.wuest.prefab.Structures.Base.Structure;
 import com.wuest.prefab.Structures.Config.StructureConfiguration;
 import com.wuest.prefab.Structures.Config.StructurePartConfiguration;
 
-import net.minecraft.block.BlockDoor;
-import net.minecraft.block.BlockStairs;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.DoorBlock;
+import net.minecraft.block.StairsBlock;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.state.properties.DoubleBlockHalf;
+import net.minecraft.state.properties.Half;
+import net.minecraft.state.properties.StairsShape;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -55,7 +58,7 @@ public class StructurePart extends Structure
 	 * @return True if the build can occur, otherwise false.
 	 */
 	@Override
-	public boolean BuildStructure(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth, EntityPlayer player)
+	public boolean BuildStructure(StructureConfiguration configuration, World world, BlockPos originalPos, Direction assumedNorth, PlayerEntity player)
 	{
 		StructurePartConfiguration specificConfig = (StructurePartConfiguration) configuration;
 
@@ -69,8 +72,8 @@ public class StructurePart extends Structure
 	public void setupStructure(World world, StructurePartConfiguration configuration, BlockPos originalPos)
 	{
 		ArrayList<BuildBlock> buildingBlocks = new ArrayList<BuildBlock>();
-		IBlockState materialState = configuration.partMaterial.getBlockType();
-		EnumFacing facing = EnumFacing.SOUTH;
+		BlockState materialState = configuration.partMaterial.getBlockType();
+		Direction facing = Direction.SOUTH;
 
 		switch (configuration.style)
 		{
@@ -125,7 +128,7 @@ public class StructurePart extends Structure
 		this.setBlocks(buildingBlocks);
 	}
 
-	private ArrayList<BuildBlock> setupFrame(StructurePartConfiguration configuration, BlockPos originalPos, IBlockState materialState, EnumFacing facing)
+	private ArrayList<BuildBlock> setupFrame(StructurePartConfiguration configuration, BlockPos originalPos, BlockState materialState, Direction facing)
 	{
 		ArrayList<BuildBlock> buildingBlocks = new ArrayList<BuildBlock>();
 		int width = configuration.generalWidth - 1;
@@ -159,15 +162,15 @@ public class StructurePart extends Structure
 	}
 
 	private void makeBlockListForPositions(ArrayList<BuildBlock> buildingBlocks, StructurePartConfiguration configuration, BlockPos originalPos,
-		IBlockState materialState, EnumFacing facing, BlockPos position1, BlockPos position2)
+		BlockState materialState, Direction facing, BlockPos position1, BlockPos position2)
 	{
-		for (BlockPos pos : BlockPos.getAllInBox(position1, position2))
+		for (BlockPos pos : BlockPos.getAllInBoxMutable(position1, position2))
 		{
 			buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), pos, originalPos));
 		}
 	}
 
-	private ArrayList<BuildBlock> setupGate(StructurePartConfiguration configuration, BlockPos originalPos, IBlockState materialState, EnumFacing facing)
+	private ArrayList<BuildBlock> setupGate(StructurePartConfiguration configuration, BlockPos originalPos, BlockState materialState, Direction facing)
 	{
 		ArrayList<BuildBlock> buildingBlocks = new ArrayList<BuildBlock>();
 
@@ -215,7 +218,7 @@ public class StructurePart extends Structure
 		return buildingBlocks;
 	}
 
-	private ArrayList<BuildBlock> setupDoorway(StructurePartConfiguration configuration, BlockPos originalPos, IBlockState materialState, EnumFacing facing)
+	private ArrayList<BuildBlock> setupDoorway(StructurePartConfiguration configuration, BlockPos originalPos, BlockState materialState, Direction facing)
 	{
 		ArrayList<BuildBlock> buildingBlocks = new ArrayList<BuildBlock>();
 
@@ -243,9 +246,9 @@ public class StructurePart extends Structure
 			}
 		}
 
-		BlockDoor door = Blocks.OAK_DOOR;
+		DoorBlock door = (DoorBlock) Blocks.OAK_DOOR;
 		BuildBlock doorBlockBottom = Structure.createBuildBlockFromBlockState(door.getDefaultState(), door, originalPos.up(), originalPos);
-		BuildBlock doorBlockTop = Structure.createBuildBlockFromBlockState(door.getDefaultState().withProperty(BlockDoor.HALF, BlockDoor.EnumDoorHalf.UPPER),
+		BuildBlock doorBlockTop = Structure.createBuildBlockFromBlockState(door.getDefaultState().with(DoorBlock.HALF, DoubleBlockHalf.UPPER),
 			door, originalPos.up(2), originalPos);
 		doorBlockBottom.setSubBlock(doorBlockTop);
 		buildingBlocks.add(doorBlockBottom);
@@ -253,7 +256,7 @@ public class StructurePart extends Structure
 		return buildingBlocks;
 	}
 
-	private ArrayList<BuildBlock> setupStairs(StructurePartConfiguration configuration, BlockPos originalPos, IBlockState materialState, EnumFacing facing)
+	private ArrayList<BuildBlock> setupStairs(StructurePartConfiguration configuration, BlockPos originalPos, BlockState materialState, Direction facing)
 	{
 		ArrayList<BuildBlock> buildingBlocks = new ArrayList<BuildBlock>();
 		BlockPos stepPos = null;
@@ -277,7 +280,7 @@ public class StructurePart extends Structure
 		return buildingBlocks;
 	}
 
-	private ArrayList<BuildBlock> setupWall(StructurePartConfiguration configuration, BlockPos originalPos, IBlockState materialState, EnumFacing facing)
+	private ArrayList<BuildBlock> setupWall(StructurePartConfiguration configuration, BlockPos originalPos, BlockState materialState, Direction facing)
 	{
 		ArrayList<BuildBlock> buildingBlocks = new ArrayList<BuildBlock>();
 		BlockPos wallPos = null;
@@ -301,7 +304,7 @@ public class StructurePart extends Structure
 		return buildingBlocks;
 	}
 
-	private ArrayList<BuildBlock> setupFloor(StructurePartConfiguration configuration, BlockPos originalPos, IBlockState materialState, EnumFacing facing)
+	private ArrayList<BuildBlock> setupFloor(StructurePartConfiguration configuration, BlockPos originalPos, BlockState materialState, Direction facing)
 	{
 		ArrayList<BuildBlock> buildingBlocks = new ArrayList<BuildBlock>();
 		BlockPos floorPos = null;
@@ -325,15 +328,15 @@ public class StructurePart extends Structure
 		return buildingBlocks;
 	}
 
-	private ArrayList<BuildBlock> setupRoof(StructurePartConfiguration configuration, BlockPos originalPos, IBlockState materialState, EnumFacing facing)
+	private ArrayList<BuildBlock> setupRoof(StructurePartConfiguration configuration, BlockPos originalPos, BlockState materialState, Direction facing)
 	{
 		ArrayList<BuildBlock> buildingBlocks = new ArrayList<BuildBlock>();
 		BlockPos wallPos = null;
 		BlockPos wallOriginalPos = originalPos.west((int) (configuration.stairWidth) / 2).up();
 
 		// Get the stairs state without the facing since it will change.
-		IBlockState stateWithoutFacing = materialState.withProperty(BlockStairs.HALF, BlockStairs.EnumHalf.BOTTOM).withProperty(BlockStairs.SHAPE,
-			BlockStairs.EnumShape.STRAIGHT);
+		BlockState stateWithoutFacing = materialState.with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.SHAPE,
+			StairsShape.STRAIGHT);
 
 		int wallWidth = configuration.stairWidth;
 		int wallDepth = configuration.stairWidth;
@@ -354,8 +357,8 @@ public class StructurePart extends Structure
 			for (int j = 0; j < 4; j++)
 			{
 				// Default is depth.
-				EnumFacing tempFacing = facing.rotateYCCW();
-				EnumFacing flowDirection = facing.getOpposite();
+				Direction tempFacing = facing.rotateYCCW();
+				Direction flowDirection = facing.getOpposite();
 				int wallSize = wallDepth;
 
 				switch (j)
@@ -388,7 +391,7 @@ public class StructurePart extends Structure
 				for (int k = 0; k <= wallSize; k++)
 				{
 					// j is the north/south counter.
-					buildingBlocks.add(Structure.createBuildBlockFromBlockState(stateWithoutFacing.withProperty(BlockStairs.FACING, tempFacing),
+					buildingBlocks.add(Structure.createBuildBlockFromBlockState(stateWithoutFacing.with(StairsBlock.FACING, tempFacing),
 						materialState.getBlock(), wallPos, originalPos));
 
 					wallPos = wallPos.offset(flowDirection);

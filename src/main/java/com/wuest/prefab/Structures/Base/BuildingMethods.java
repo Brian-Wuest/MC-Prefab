@@ -7,20 +7,24 @@ import com.wuest.prefab.Structures.Config.HouseConfiguration;
 import com.wuest.prefab.Structures.Config.StructureConfiguration;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockStairs;
-import net.minecraft.block.BlockTorch;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.TorchBlock;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.ServerWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.LootContext;
+import net.minecraft.world.storage.loot.LootParameterSets;
+import net.minecraft.world.storage.loot.LootParameters;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.event.world.BlockEvent.EntityPlaceEvent;
 
 /**
  * This class is used to hold he generalized building methods used by the
@@ -43,7 +47,7 @@ public class BuildingMethods
 	 * @param depth - The radius z-axis of how deep to clear. (North/South).
 	 * @param houseFacing This is used to determine which direction the clearing should start.
 	 */
-	public static void ClearSpace(World world, BlockPos startingPosition, int width, int height, int depth, EnumFacing houseFacing)
+	public static void ClearSpace(ServerWorld world, BlockPos startingPosition, int width, int height, int depth, Direction houseFacing)
 	{
 		BlockPos northSide = startingPosition.offset(houseFacing, 5).offset(houseFacing.rotateY(), 5);
 		int clearedWidth = width + 12;
@@ -69,11 +73,11 @@ public class BuildingMethods
 	 * @param depth - The radius z-axis of how deep to clear. (North/South)
 	 * @param houseFacing This is used to determine which direction the clearing should start.
 	 */
-	public static void ClearSpaceExact(World world, BlockPos startingPosition, int width, int height, int depth, EnumFacing houseFacing)
+	public static void ClearSpaceExact(World world, BlockPos startingPosition, int width, int height, int depth, Direction houseFacing)
 	{
 		BlockPos otherCorner = startingPosition.offset(houseFacing.getOpposite(), depth).offset(houseFacing.rotateYCCW(), width);
 
-		for (BlockPos pos : BlockPos.getAllInBox(startingPosition, otherCorner))
+		for (BlockPos pos : BlockPos.getAllInBoxMutable(startingPosition, otherCorner))
 		{
 			if (!world.isAirBlock(pos))
 			{
@@ -92,9 +96,9 @@ public class BuildingMethods
 	 * @param itemsToNotAdd The items to not add to the list.
 	 * @return An updated list of item stacks.
 	 */
-	public static ArrayList<ItemStack> ConsolidateDrops(Block block, World world, BlockPos pos, IBlockState state, ArrayList<ItemStack> originalStacks, ArrayList<Item> itemsToNotAdd)
+	public static ArrayList<ItemStack> ConsolidateDrops(Block block, ServerWorld world, BlockPos pos, BlockState state, ArrayList<ItemStack> originalStacks, ArrayList<Item> itemsToNotAdd)
 	{
-		for (ItemStack stack : block.getDrops(world, pos, state, 1))
+		for (ItemStack stack : Block.getDrops(state, world, pos, null))
 		{
 			if (itemsToNotAdd != null)
 			{
@@ -143,7 +147,7 @@ public class BuildingMethods
 	 * @param itemsToNotAdd When consolidating drops, the items to not include in the returned list. 
 	 * @return An Arraylist of Itemstacks which contains the drops from any destroyed blocks.
 	 */
-	public static ArrayList<ItemStack> CreateWall(World world, int height, int length, EnumFacing direction, BlockPos startingPosition, Block replacementBlock, ArrayList<Item> itemsToNotAdd)
+	public static ArrayList<ItemStack> CreateWall(ServerWorld world, int height, int length, Direction direction, BlockPos startingPosition, Block replacementBlock, ArrayList<Item> itemsToNotAdd)
 	{
 		ArrayList<ItemStack> itemsDropped = new ArrayList<ItemStack>();
 
@@ -158,7 +162,9 @@ public class BuildingMethods
 
 			for (int j = 0; j < length; j++)
 			{
-				for (ItemStack stack : world.getBlockState(wallPos).getBlock().getDrops(world, wallPos, world.getBlockState(wallPos), 1))
+				BlockState currentBlockPosState = world.getBlockState(wallPos);
+				
+				for (ItemStack stack : Block.getDrops(currentBlockPosState, world, wallPos, null))
 				{
 					if (itemsToNotAdd != null && itemsToNotAdd.contains(stack.getItem()))
 					{
@@ -189,8 +195,8 @@ public class BuildingMethods
 	 * @param replacementBlock The block to create the wall out of.
 	 * @return An Arraylist of Itemstacks which contains the drops from any destroyed blocks.
 	 */
-	public static ArrayList<ItemStack> CreateWall(World world, int height, int length, EnumFacing direction, BlockPos startingPosition,
-			IBlockState replacementBlock)
+	public static ArrayList<ItemStack> CreateWall(ServerWorld world, int height, int length, Direction direction, BlockPos startingPosition,
+			BlockState replacementBlock)
 	{
 		ArrayList<ItemStack> itemsDropped = new ArrayList<ItemStack>();
 
@@ -205,7 +211,9 @@ public class BuildingMethods
 
 			for (int j = 0; j < length; j++)
 			{
-				for (ItemStack stack : world.getBlockState(wallPos).getBlock().getDrops(world, wallPos, world.getBlockState(wallPos), 1))
+				BlockState currentBlockPosState = world.getBlockState(wallPos);
+				
+				for (ItemStack stack : Block.getDrops(currentBlockPosState, world, wallPos, null))
 				{
 					itemsDropped.add(stack);
 				}
@@ -232,7 +240,7 @@ public class BuildingMethods
 	 * @param itemsToNotAdd The items to not include in the returned consolidated items.
 	 * @return An ArrayList of Itemstacks which contains the drops from all harvested blocks.
 	 */
-	public static ArrayList<ItemStack> SetFloor(World world, BlockPos pos, Block block, int width, int depth, ArrayList<ItemStack> originalStack, EnumFacing facing, ArrayList<Item> itemsToNotAdd)
+	public static ArrayList<ItemStack> SetFloor(ServerWorld world, BlockPos pos, Block block, int width, int depth, ArrayList<ItemStack> originalStack, Direction facing, ArrayList<Item> itemsToNotAdd)
 	{
 		for (int i = 0; i < width; i++)
 		{
@@ -256,7 +264,7 @@ public class BuildingMethods
 	 * @param houseFacing The direction to start the ceiling.
 	 * @param itemsToNotAdd The items to not include in the harvested blocks.
 	 */
-	public static void SetCeiling(World world, BlockPos pos, Block block, int width, int depth, Block stairs, HouseConfiguration configuration, EnumFacing houseFacing, ArrayList<Item> itemsToNotAdd)
+	public static void SetCeiling(ServerWorld world, BlockPos pos, Block block, int width, int depth, Block stairs, HouseConfiguration configuration, Direction houseFacing, ArrayList<Item> itemsToNotAdd)
 	{
 		// If the ceiling is flat, call SetFloor since it's laid out the same.
 		if (configuration.isCeilingFlat)
@@ -266,7 +274,7 @@ public class BuildingMethods
 		}
 
 		// Get the stairs state without the facing since it will change.
-		IBlockState stateWithoutFacing = stairs.getBlockState().getBaseState().withProperty(BlockStairs.HALF, BlockStairs.EnumHalf.BOTTOM)
+		BlockState stateWithoutFacing = stairs.getBlockState().getBaseState().with(BlockStairs.HALF, BlockStairs.EnumHalf.BOTTOM)
 				.withProperty(BlockStairs.SHAPE, BlockStairs.EnumShape.STRAIGHT);
 
 		int wallWidth = configuration.houseWidth;
@@ -286,8 +294,8 @@ public class BuildingMethods
 			for (int j = 0; j < 4; j++)
 			{
 				// Default is depth.
-				EnumFacing facing = houseFacing.rotateYCCW();
-				EnumFacing flowDirection = houseFacing.getOpposite();
+				Direction facing = houseFacing.rotateYCCW();
+				Direction flowDirection = houseFacing.getOpposite();
 				int wallSize = wallDepth;
 
 				switch (j)
@@ -366,11 +374,11 @@ public class BuildingMethods
 				}
 			}
 			
-			IBlockState torchLocation = world.getBlockState(torchPos);
+			BlockState torchLocation = world.getBlockState(torchPos);
 			
 			if (torchLocation.getBlock().canPlaceTorchOnTop(torchLocation, world, torchPos))
 			{
-				IBlockState blockState = ((BlockTorch)Blocks.TORCH).getStateFromMeta(5);
+				BlockState blockState = ((TorchBlock)Blocks.TORCH).getDefaultState();
 				BuildingMethods.ReplaceBlock(world, torchPos.up(), blockState);
 			}
 		}
@@ -404,7 +412,7 @@ public class BuildingMethods
 	 * @param pos The position to update.
 	 * @param replacementBlockState The block state to place at this position.
 	 */
-	public static void ReplaceBlock(World world, BlockPos pos, IBlockState replacementBlockState)
+	public static void ReplaceBlock(World world, BlockPos pos, BlockState replacementBlockState)
 	{
 		BuildingMethods.ReplaceBlock(world, pos, replacementBlockState, 3);
 	}
@@ -415,7 +423,7 @@ public class BuildingMethods
 	 * @param pos The position to update.
 	 * @param replacementBlockState The block state to place at this position.
 	 */
-	public static void ReplaceBlockNoAir(World world, BlockPos pos, IBlockState replacementBlockState)
+	public static void ReplaceBlockNoAir(World world, BlockPos pos, BlockState replacementBlockState)
 	{
 		BuildingMethods.ReplaceBlockNoAir(world, pos, replacementBlockState, 3);
 	}
@@ -428,9 +436,9 @@ public class BuildingMethods
 	 * @param replacementBlockState The block state to place at this position.
 	 * @param flags The trigger flags, this should always be set to 3 so the clients are updated.
 	 */
-	public static void ReplaceBlock(World world, BlockPos pos, IBlockState replacementBlockState, int flags)
+	public static void ReplaceBlock(World world, BlockPos pos, BlockState replacementBlockState, int flags)
 	{
-		world.setBlockToAir(pos);
+		world.removeBlock(pos, false);
 		world.setBlockState(pos, replacementBlockState, flags);
 	}
 	
@@ -441,7 +449,7 @@ public class BuildingMethods
 	 * @param replacementBlockState The block state to place at this position.
 	 * @param flags The trigger flags, this should always be set to 3 so the clients are updated.
 	 */
-	public static void ReplaceBlockNoAir(World world, BlockPos pos, IBlockState replacementBlockState, int flags)
+	public static void ReplaceBlockNoAir(World world, BlockPos pos, BlockState replacementBlockState, int flags)
 	{
 		world.setBlockState(pos, replacementBlockState, flags);
 	}
@@ -451,7 +459,7 @@ public class BuildingMethods
 	 * @param facing The facing that the torch should look.
 	 * @return The integer used for the block state of a BlockTorch object.
 	 */
-	public static int GetTorchFacing(EnumFacing facing)
+	public static int GetTorchFacing(Direction facing)
 	{
 		/*
 		 * Torch Facings: 1 = East, 2 = West, 3 = South, 4 = North, 5 = Up
@@ -496,13 +504,13 @@ public class BuildingMethods
 	 * @return True if all blocks can be replaced. Otherwise false and send a
 	 *         message to the player.
 	 */
-	public static boolean CheckBuildSpaceForAllowedBlockReplacement(StructureConfiguration configuration, World world, BlockPos startBlockPos, BlockPos endBlockPos, EntityPlayer player)
+	public static boolean CheckBuildSpaceForAllowedBlockReplacement(StructureConfiguration configuration, World world, BlockPos startBlockPos, BlockPos endBlockPos, PlayerEntity player)
 	{
 		// Check each block in the space to be cleared if it's protected from
 		// breaking or placing, if it is return false.
-		for (BlockPos currentPos : BlockPos.getAllInBox(startBlockPos, endBlockPos))
+		for (BlockPos currentPos : BlockPos.getAllInBoxMutable(startBlockPos, endBlockPos))
 		{
-			IBlockState blockState = world.getBlockState(currentPos);
+			BlockState blockState = world.getBlockState(currentPos);
 			
 			if (!blockState.getBlock().isAir(blockState, world, currentPos))
 			{
@@ -514,7 +522,7 @@ public class BuildingMethods
 				}
 			}
 			 
-			BlockEvent.PlaceEvent placeEvent = new BlockEvent.PlaceEvent(new BlockSnapshot(world, currentPos, blockState), Blocks.AIR.getDefaultState(), player, EnumHand.MAIN_HAND);
+			EntityPlaceEvent placeEvent = new EntityPlaceEvent(new BlockSnapshot(world, currentPos, blockState), Blocks.AIR.getDefaultState(), player);
 
 			if (MinecraftForge.EVENT_BUS.post(placeEvent))
 			{

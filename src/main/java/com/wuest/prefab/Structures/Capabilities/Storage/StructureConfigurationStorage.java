@@ -1,15 +1,15 @@
 package com.wuest.prefab.Structures.Capabilities.Storage;
 
 import com.wuest.prefab.Structures.Capabilities.IStructureConfigurationCapability;
-import com.wuest.prefab.Structures.Config.BasicStructureConfiguration;
 
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.INBT;
+import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 
 /**
  * This is the storage class for the structure configuration capability.
+ * 
  * @author WuestMan
  *
  */
@@ -17,25 +17,25 @@ public class StructureConfigurationStorage implements Capability.IStorage<IStruc
 {
 
 	@Override
-	public NBTBase writeNBT(
-			Capability<IStructureConfigurationCapability> capability,
-			IStructureConfigurationCapability instance, EnumFacing side)
+	public INBT writeNBT(
+		Capability<IStructureConfigurationCapability> capability,
+		IStructureConfigurationCapability instance, Direction side)
 	{
-		NBTTagCompound tag = new NBTTagCompound();
-		
-		tag.setTag("configuration", instance.getConfiguration().WriteToNBTTagCompound());
-		
+		CompoundNBT tag = new CompoundNBT();
+
+		tag.put("configuration", instance.getConfiguration().WriteToCompoundNBT());
+
 		return tag;
 	}
 
 	@Override
 	public void readNBT(
-			Capability<IStructureConfigurationCapability> capability,
-			IStructureConfigurationCapability instance, EnumFacing side,
-			NBTBase nbt)
+		Capability<IStructureConfigurationCapability> capability,
+		IStructureConfigurationCapability instance, Direction side,
+		INBT nbt)
 	{
-		NBTTagCompound tag = (NBTTagCompound) nbt;
-		instance.setConfiguration(instance.getConfiguration().ReadFromNBTTagCompound(tag.getCompoundTag("configuration")));
+		CompoundNBT tag = (CompoundNBT) nbt;
+		instance.setConfiguration(instance.getConfiguration().ReadFromCompoundNBT(tag.getCompound("configuration")));
 	}
 
 }
