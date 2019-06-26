@@ -53,7 +53,8 @@ public class ClientProxy extends CommonProxy
 	@Override
 	public void RegisterEventHandler()
 	{
-		MinecraftForge.EVENT_BUS.register(new ClientEventHandler());
+		MinecraftForge.EVENT_BUS.register(ClientProxy.clientEventHandler);
+		MinecraftForge.EVENT_BUS.register(ClientProxy.structureClientEventHandler);
 	}
 
 	@Override

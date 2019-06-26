@@ -10,13 +10,13 @@ import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.ARBVertexShader;
 import org.lwjgl.opengl.GL11;
 
+import com.mojang.blaze3d.platform.GLX;
 import com.wuest.prefab.Events.ClientEventHandler;
 
-import net.minecraft.client.renderer.OpenGlHelper;
-
 /**
- * This class we derived from Botania's ShaderHelper. The only real change was to change the location of the assets when initializing the shader.
- * http://botaniamod.net/license.php
+ * This class we derived from Botania's ShaderHelper. The only real change was to change the location of the assets when
+ * initializing the shader. http://botaniamod.net/license.php
+ * 
  * @author WuestMan
  *
  */
@@ -34,7 +34,7 @@ public class ShaderHelper
 
 	public static void useShader(int shader)
 	{
-		if (!OpenGlHelper.shadersSupported)
+		if (!GLX.usePostProcess)
 		{
 			return;
 		}
@@ -50,8 +50,8 @@ public class ShaderHelper
 			ARBShaderObjects.glUniform1fARB(alpha, 0.4F);
 		}
 	}
-	
-	public static void releaseShader() 
+
+	public static void releaseShader()
 	{
 		ShaderHelper.useShader(0);
 	}

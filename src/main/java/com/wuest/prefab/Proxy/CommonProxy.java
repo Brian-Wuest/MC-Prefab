@@ -59,7 +59,8 @@ public class CommonProxy
 	
 	public void RegisterEventHandler()
 	{
-		MinecraftForge.EVENT_BUS.register(new ModEventHandler());
+		MinecraftForge.EVENT_BUS.register(CommonProxy.eventHandler);
+		MinecraftForge.EVENT_BUS.register(CommonProxy.structureEventHandler);
 	}
 
 	public void preInit(FMLCommonSetupEvent event)
