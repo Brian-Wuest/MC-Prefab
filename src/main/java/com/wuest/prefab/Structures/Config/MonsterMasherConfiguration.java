@@ -3,10 +3,10 @@ package com.wuest.prefab.Structures.Config;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Structures.Predefined.StructureMonsterMasher;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumDyeColor;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.DyeColor;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -18,61 +18,62 @@ import net.minecraft.world.World;
 public class MonsterMasherConfiguration extends StructureConfiguration
 {
 	private static String dyeColorTag = "dyeColor";
-	public EnumDyeColor dyeColor;
-	
+	public DyeColor dyeColor;
+
 	@Override
 	public void Initialize()
 	{
 		super.Initialize();
-		this.houseFacing = EnumFacing.NORTH;
-		this.dyeColor = EnumDyeColor.CYAN;
+		this.houseFacing = Direction.NORTH;
+		this.dyeColor = DyeColor.CYAN;
 	}
-	
+
 	@Override
-	protected void CustomReadFromNBTTag(NBTTagCompound messageTag, StructureConfiguration config)
+	protected void CustomReadFromNBTTag(CompoundNBT messageTag, StructureConfiguration config)
 	{
-		if (messageTag.hasKey(MonsterMasherConfiguration.dyeColorTag))
+		if (messageTag.contains(MonsterMasherConfiguration.dyeColorTag))
 		{
-			((MonsterMasherConfiguration)config).dyeColor = EnumDyeColor.byMetadata(messageTag.getInteger(MonsterMasherConfiguration.dyeColorTag));
-		}		
+			((MonsterMasherConfiguration) config).dyeColor = DyeColor.byId(messageTag.getInt(MonsterMasherConfiguration.dyeColorTag));
+		}
 	}
-	
+
 	@Override
-	protected NBTTagCompound CustomWriteToNBTTagCompound(NBTTagCompound tag)
+	protected CompoundNBT CustomWriteToCompoundNBT(CompoundNBT tag)
 	{
-		tag.setInteger(MonsterMasherConfiguration.dyeColorTag, this.dyeColor.getMetadata());
-		
+		tag.putInt(MonsterMasherConfiguration.dyeColorTag, this.dyeColor.getId());
+
 		return tag;
 	}
-	
+
 	/**
-	 * Custom method to read the NBTTagCompound message.
+	 * Custom method to read the CompoundNBT message.
+	 * 
 	 * @param messageTag The message to create the configuration from.
-	 * @return An new configuration object with the values derived from the NBTTagCompound.
+	 * @return An new configuration object with the values derived from the CompoundNBT.
 	 */
 	@Override
-	public MonsterMasherConfiguration ReadFromNBTTagCompound(NBTTagCompound messageTag) 
+	public MonsterMasherConfiguration ReadFromCompoundNBT(CompoundNBT messageTag)
 	{
 		MonsterMasherConfiguration config = new MonsterMasherConfiguration();
-		
-		return (MonsterMasherConfiguration)super.ReadFromNBTTagCompound(messageTag, config);
+
+		return (MonsterMasherConfiguration) super.ReadFromCompoundNBT(messageTag, config);
 	}
-	
+
 	/**
 	 * This is used to actually build the structure as it creates the structure instance and calls build structure.
-	 * @param player The player which requested the build.
-	 * @param world The world instance where the build will occur.
+	 * 
+	 * @param player      The player which requested the build.
+	 * @param world       The world instance where the build will occur.
 	 * @param hitBlockPos This hit block position.
 	 */
 	@Override
-	protected void ConfigurationSpecificBuildStructure(EntityPlayer player, World world, BlockPos hitBlockPos)
+	protected void ConfigurationSpecificBuildStructure(PlayerEntity player, World world, BlockPos hitBlockPos)
 	{
 		StructureMonsterMasher structure = StructureMonsterMasher.CreateInstance(StructureMonsterMasher.ASSETLOCATION, StructureMonsterMasher.class);
-		
-		if (structure.BuildStructure(this, world, hitBlockPos, EnumFacing.NORTH, player))
+
+		if (structure.BuildStructure(this, world, hitBlockPos, Direction.NORTH, player))
 		{
-			player.inventory.clearMatchingItems(ModRegistry.MonsterMasher(), -1, 1, null);
-			player.inventoryContainer.detectAndSendChanges();
+			this.RemoveStructureItemFromPlayer(player, ModRegistry.MonsterMasher());
 		}
 	}
 }

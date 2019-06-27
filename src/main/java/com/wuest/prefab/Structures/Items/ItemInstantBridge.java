@@ -19,42 +19,20 @@ import net.minecraftforge.api.distmarker.OnlyIn;
  * @author WuestMan
  *
  */
-public class ItemInstantBridge extends Item
+public class ItemInstantBridge extends StructureItem
 {
 	public ItemInstantBridge(String name)
 	{
-		super(new Item.Properties()
+		super(name, new Item.Properties()
 			.group(ItemGroup.MISC)
 			.maxDamage(10)
 			.maxStackSize(1));
-
-		ModRegistry.setItemName(this, name);
 	}
 
+	@Override
 	@OnlyIn(Dist.CLIENT)
 	public GuiStructure getScreen()
 	{
 		return new GuiInstantBridge();
-	}
-
-	/**
-	 * Does something when the item is right-clicked.
-	 */
-	@Override
-	public ActionResultType onItemUse(ItemUseContext context)
-	{
-		if (context.getWorld().isRemote)
-		{
-			if (context.getFace() == Direction.UP)
-			{
-				// Open the client side gui to determine the house options.
-				GuiStructure screen = this.getScreen();
-				screen.pos = context.getPos();
-				Minecraft.getInstance().displayGuiScreen(screen);
-				return ActionResultType.PASS;
-			}
-		}
-
-		return ActionResultType.FAIL;
 	}
 }

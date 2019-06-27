@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Config.EntityPlayerConfiguration;
 import com.wuest.prefab.Config.ModConfiguration.CeilingFloorBlockType;
 import com.wuest.prefab.Config.ModConfiguration.WallBlockType;
 import com.wuest.prefab.Gui.GuiLangKeys;
@@ -13,33 +12,22 @@ import com.wuest.prefab.Structures.Base.BuildingMethods;
 import com.wuest.prefab.Structures.Predefined.StructureAlternateStart;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockBed;
-import net.minecraft.block.BlockChest;
-import net.minecraft.block.BlockFurnace;
-import net.minecraft.block.BlockHorizontal;
-import net.minecraft.block.BlockPlanks;
-import net.minecraft.block.BlockSign;
-import net.minecraft.block.BlockTorch;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.ItemDoor;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.DoorBlock;
+import net.minecraft.block.TorchBlock;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.item.TallBlockItem;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraft.tileentity.TileEntitySign;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.Style;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.DimensionType;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 /**
@@ -88,7 +76,7 @@ public class HouseConfiguration extends StructureConfiguration
 	public boolean isCeilingFlat;
 	public boolean addMineShaft;
 	public HouseStyle houseStyle;
-	public EnumDyeColor glassColor;
+	public DyeColor glassColor;
 	
 	/**
 	 * When the house is facing north, this would be the east/west direction.
@@ -113,7 +101,7 @@ public class HouseConfiguration extends StructureConfiguration
 	{
 		super.Initialize();
 		this.houseStyle = HouseStyle.BASIC;
-		this.glassColor = EnumDyeColor.CYAN;
+		this.glassColor = DyeColor.CYAN;
 		this.floorBlock = CeilingFloorBlockType.StoneBrick;
 		this.ceilingBlock = CeilingFloorBlockType.StoneBrick;
 		this.wallWoodType = WallBlockType.Oak;
@@ -131,33 +119,33 @@ public class HouseConfiguration extends StructureConfiguration
 	}
 
 	@Override
-	public NBTTagCompound WriteToNBTTagCompound()
+	public CompoundNBT WriteToCompoundNBT()
 	{
-		NBTTagCompound tag = new NBTTagCompound();
+		CompoundNBT tag = new CompoundNBT();
 
 		// This tag should only be written for options which will NOT be overwritten by server options.
 		// Server configuration settings will be used for all other options.
 		// This is so the server admin can force a player to not use something.
-		tag.setBoolean(HouseConfiguration.addTorchesTag, this.addTorches);
-		tag.setBoolean(HouseConfiguration.addBedTag, this.addBed);
-		tag.setBoolean(HouseConfiguration.addCraftingTableTag, this.addCraftingTable);
-		tag.setBoolean(HouseConfiguration.addFurnaceTag, this.addFurnace);
-		tag.setBoolean(HouseConfiguration.addChestTag, this.addChest);
-		tag.setBoolean(HouseConfiguration.addChestContentsTag, this.addChestContents);
-		tag.setBoolean(HouseConfiguration.addFarmTag, this.addFarm);
-		tag.setInteger(HouseConfiguration.floorBlockTag, this.floorBlock.getValue());
-		tag.setInteger(HouseConfiguration.ceilingBlockTag, this.ceilingBlock.getValue());
-		tag.setInteger(HouseConfiguration.wallWoodTypeTag, this.wallWoodType.getValue());
-		tag.setBoolean(HouseConfiguration.isCeilingFlatTag, this.isCeilingFlat);
-		tag.setBoolean(HouseConfiguration.addMineShaftTag, this.addMineShaft);
-		tag.setInteger(HouseConfiguration.hitXTag, this.pos.getX());
-		tag.setInteger(HouseConfiguration.hitYTag, this.pos.getY());
-		tag.setInteger(HouseConfiguration.hitZTag, this.pos.getZ());
-		tag.setInteger(HouseConfiguration.houseDepthTag, this.houseDepth);
-		tag.setInteger(HouseConfiguration.houseWidthTag, this.houseWidth);
-		tag.setString(HouseConfiguration.houseFacingTag, this.houseFacing.getName());
-		tag.setInteger(HouseConfiguration.houseStyleTag, this.houseStyle.value);
-		tag.setString(HouseConfiguration.glassColorTag, this.glassColor.getName().toUpperCase());
+		tag.putBoolean(HouseConfiguration.addTorchesTag, this.addTorches);
+		tag.putBoolean(HouseConfiguration.addBedTag, this.addBed);
+		tag.putBoolean(HouseConfiguration.addCraftingTableTag, this.addCraftingTable);
+		tag.putBoolean(HouseConfiguration.addFurnaceTag, this.addFurnace);
+		tag.putBoolean(HouseConfiguration.addChestTag, this.addChest);
+		tag.putBoolean(HouseConfiguration.addChestContentsTag, this.addChestContents);
+		tag.putBoolean(HouseConfiguration.addFarmTag, this.addFarm);
+		tag.putInt(HouseConfiguration.floorBlockTag, this.floorBlock.getValue());
+		tag.putInt(HouseConfiguration.ceilingBlockTag, this.ceilingBlock.getValue());
+		tag.putInt(HouseConfiguration.wallWoodTypeTag, this.wallWoodType.getValue());
+		tag.putBoolean(HouseConfiguration.isCeilingFlatTag, this.isCeilingFlat);
+		tag.putBoolean(HouseConfiguration.addMineShaftTag, this.addMineShaft);
+		tag.putInt(HouseConfiguration.hitXTag, this.pos.getX());
+		tag.putInt(HouseConfiguration.hitYTag, this.pos.getY());
+		tag.putInt(HouseConfiguration.hitZTag, this.pos.getZ());
+		tag.putInt(HouseConfiguration.houseDepthTag, this.houseDepth);
+		tag.putInt(HouseConfiguration.houseWidthTag, this.houseWidth);
+		tag.putString(HouseConfiguration.houseFacingTag, this.houseFacing.getName());
+		tag.putInt(HouseConfiguration.houseStyleTag, this.houseStyle.value);
+		tag.putString(HouseConfiguration.glassColorTag, this.glassColor.getName().toUpperCase());
 		
 		return tag;
 	}
@@ -184,12 +172,12 @@ public class HouseConfiguration extends StructureConfiguration
 	}
 
 	/**
-	 * Custom method to read the NBTTagCompound message.
+	 * Custom method to read the CompoundNBT message.
 	 * @param tag The message to create the configuration from.
-	 * @return An new configuration object with the values derived from the NBTTagCompound.
+	 * @return An new configuration object with the values derived from the CompoundNBT.
 	 */
 	@Override
-	public HouseConfiguration ReadFromNBTTagCompound(NBTTagCompound tag)
+	public HouseConfiguration ReadFromCompoundNBT(CompoundNBT tag)
 	{
 		HouseConfiguration config = null;
 
@@ -197,94 +185,94 @@ public class HouseConfiguration extends StructureConfiguration
 		{
 			config = new HouseConfiguration();
 
-			if (tag.hasKey(HouseConfiguration.addTorchesTag))
+			if (tag.contains(HouseConfiguration.addTorchesTag))
 			{
 				config.addTorches = tag.getBoolean(HouseConfiguration.addTorchesTag);
 			}
 
-			if (tag.hasKey(HouseConfiguration.addBedTag))
+			if (tag.contains(HouseConfiguration.addBedTag))
 			{
 				config.addBed = tag.getBoolean(HouseConfiguration.addBedTag);
 			}
 
-			if (tag.hasKey(HouseConfiguration.addCraftingTableTag))
+			if (tag.contains(HouseConfiguration.addCraftingTableTag))
 			{
 				config.addCraftingTable = tag.getBoolean(HouseConfiguration.addCraftingTableTag);
 			}
 			
-			if (tag.hasKey(HouseConfiguration.addFurnaceTag))
+			if (tag.contains(HouseConfiguration.addFurnaceTag))
 			{
 				config.addFurnace = tag.getBoolean(HouseConfiguration.addFurnaceTag);
 			}
 
-			if (tag.hasKey(HouseConfiguration.addChestTag))
+			if (tag.contains(HouseConfiguration.addChestTag))
 			{
 				config.addChest = tag.getBoolean(HouseConfiguration.addChestTag);
 			}
 
-			if (tag.hasKey(HouseConfiguration.addChestContentsTag))
+			if (tag.contains(HouseConfiguration.addChestContentsTag))
 			{
 				config.addChestContents = tag.getBoolean(HouseConfiguration.addChestContentsTag);
 			}
 
-			if (tag.hasKey(HouseConfiguration.addFarmTag))
+			if (tag.contains(HouseConfiguration.addFarmTag))
 			{
 				config.addFarm = tag.getBoolean(HouseConfiguration.addFarmTag);
 			}
 
-			if (tag.hasKey(HouseConfiguration.floorBlockTag))
+			if (tag.contains(HouseConfiguration.floorBlockTag))
 			{
-				config.floorBlock = CeilingFloorBlockType.ValueOf(tag.getInteger(HouseConfiguration.floorBlockTag));
+				config.floorBlock = CeilingFloorBlockType.ValueOf(tag.getInt(HouseConfiguration.floorBlockTag));
 			}
 
-			if (tag.hasKey(HouseConfiguration.ceilingBlockTag))
+			if (tag.contains(HouseConfiguration.ceilingBlockTag))
 			{
-				config.ceilingBlock = CeilingFloorBlockType.ValueOf(tag.getInteger(HouseConfiguration.ceilingBlockTag));
+				config.ceilingBlock = CeilingFloorBlockType.ValueOf(tag.getInt(HouseConfiguration.ceilingBlockTag));
 			}
 
-			if (tag.hasKey(HouseConfiguration.wallWoodTypeTag))
+			if (tag.contains(HouseConfiguration.wallWoodTypeTag))
 			{
-				config.wallWoodType = WallBlockType.ValueOf(tag.getInteger(HouseConfiguration.wallWoodTypeTag));
+				config.wallWoodType = WallBlockType.ValueOf(tag.getInt(HouseConfiguration.wallWoodTypeTag));
 			}
 
-			if (tag.hasKey(HouseConfiguration.isCeilingFlatTag))
+			if (tag.contains(HouseConfiguration.isCeilingFlatTag))
 			{
 				config.isCeilingFlat = tag.getBoolean(HouseConfiguration.isCeilingFlatTag);
 			}
 
-			if (tag.hasKey(HouseConfiguration.addMineShaftTag))
+			if (tag.contains(HouseConfiguration.addMineShaftTag))
 			{
 				config.addMineShaft = tag.getBoolean(HouseConfiguration.addMineShaftTag);
 			}
 
-			if (tag.hasKey(HouseConfiguration.hitXTag))
+			if (tag.contains(HouseConfiguration.hitXTag))
 			{
-				config.pos = new BlockPos(tag.getInteger(HouseConfiguration.hitXTag), tag.getInteger(HouseConfiguration.hitYTag), tag.getInteger(HouseConfiguration.hitZTag)); 
+				config.pos = new BlockPos(tag.getInt(HouseConfiguration.hitXTag), tag.getInt(HouseConfiguration.hitYTag), tag.getInt(HouseConfiguration.hitZTag)); 
 			}
 			
-			if (tag.hasKey(HouseConfiguration.houseDepthTag))
+			if (tag.contains(HouseConfiguration.houseDepthTag))
 			{
-				config.houseDepth = tag.getInteger(HouseConfiguration.houseDepthTag);
+				config.houseDepth = tag.getInt(HouseConfiguration.houseDepthTag);
 			}
 			
-			if (tag.hasKey(HouseConfiguration.houseWidthTag))
+			if (tag.contains(HouseConfiguration.houseWidthTag))
 			{
-				config.houseWidth = tag.getInteger(HouseConfiguration.houseWidthTag);
+				config.houseWidth = tag.getInt(HouseConfiguration.houseWidthTag);
 			}
 			
-			if (tag.hasKey(HouseConfiguration.houseFacingTag))
+			if (tag.contains(HouseConfiguration.houseFacingTag))
 			{
-				config.houseFacing = EnumFacing.byName(tag.getString(HouseConfiguration.houseFacingTag));
+				config.houseFacing = Direction.byName(tag.getString(HouseConfiguration.houseFacingTag));
 			}
 			
-			if (tag.hasKey(HouseConfiguration.houseStyleTag))
+			if (tag.contains(HouseConfiguration.houseStyleTag))
 			{
-				config.houseStyle = HouseStyle.ValueOf(tag.getInteger(HouseConfiguration.houseStyleTag));
+				config.houseStyle = HouseStyle.ValueOf(tag.getInt(HouseConfiguration.houseStyleTag));
 			}
 			
-			if (tag.hasKey(HouseConfiguration.glassColorTag))
+			if (tag.contains(HouseConfiguration.glassColorTag))
 			{
-				config.glassColor = EnumDyeColor.valueOf(tag.getString(HouseConfiguration.glassColorTag));
+				config.glassColor = DyeColor.valueOf(tag.getString(HouseConfiguration.glassColorTag));
 			}
 		}
 
@@ -298,7 +286,7 @@ public class HouseConfiguration extends StructureConfiguration
 	 * @param hitBlockPos This hit block position.
 	 */
 	@Override
-	protected void ConfigurationSpecificBuildStructure(EntityPlayer player, World world, BlockPos hitBlockPos)
+	protected void ConfigurationSpecificBuildStructure(PlayerEntity player, World world, BlockPos hitBlockPos)
 	{
 		boolean houseBuilt = true;
 				
@@ -309,11 +297,11 @@ public class HouseConfiguration extends StructureConfiguration
 
 			// Get the new "North" facing. This is the orientation of
 			// the house and all building will be based on this.
-			EnumFacing northFace = this.houseFacing;
+			Direction northFace = this.houseFacing;
 
 			// Get the "South" facing of the house to make rotating
 			// easier.
-			EnumFacing southFace = northFace.getOpposite();
+			Direction southFace = northFace.getOpposite();
 
 			// Set the "North East" corner.
 			/*ItemStartHouse.NorthEastCorner = startingPosition.offset(northFace, (int) Math.floor(configuration.houseDepth / 2) + 1)
@@ -335,14 +323,14 @@ public class HouseConfiguration extends StructureConfiguration
 			
 			BlockPos endBlockPos = startingPosition.offset(northFace.rotateYCCW(), this.houseWidth + 11)
 					.offset(southFace, this.houseDepth + 11)
-					.offset(EnumFacing.UP, 15);
+					.offset(Direction.UP, 15);
 			
 			// Make sure this structure can be placed here.
 			if (!BuildingMethods.CheckBuildSpaceForAllowedBlockReplacement(this, world, startingPosition, endBlockPos, player))
 			{
 				// Send a message to the player saying that the structure could not
 				// be built.
-				player.sendMessage(new TextComponentTranslation(GuiLangKeys.GUI_STRUCTURE_NOBUILD).setStyle(new Style().setColor(TextFormatting.GREEN)));
+				player.sendMessage(new TranslationTextComponent(GuiLangKeys.GUI_STRUCTURE_NOBUILD).setStyle(new Style().setColor(TextFormatting.GREEN)));
 				return;
 			}
 			
@@ -372,24 +360,24 @@ public class HouseConfiguration extends StructureConfiguration
 		{
 			// Build the alternate starter house instead.
 			StructureAlternateStart structure = StructureAlternateStart.CreateInstance(this.houseStyle.getStructureLocation(), StructureAlternateStart.class);
-			houseBuilt = structure.BuildStructure(this, world, hitBlockPos, EnumFacing.NORTH, player);
+			houseBuilt = structure.BuildStructure(this, world, hitBlockPos, Direction.NORTH, player);
 		}
 
 		// The house was successfully built, remove the item from the inventory.
 		if (houseBuilt)
 		{
-			EntityPlayerConfiguration playerConfig = EntityPlayerConfiguration.loadFromEntityData((EntityPlayerMP)player);
+			PlayerEntityConfiguration playerConfig = PlayerEntityConfiguration.loadFromEntityData((PlayerEntityMP)player);
 			playerConfig.builtStarterHouse = true;
 			playerConfig.saveToPlayer(player);
 			player.inventory.clearMatchingItems(ModRegistry.StartHouse(), -1, 1, null);
 			player.inventoryContainer.detectAndSendChanges();
 			
 			// Make sure to send a message to the client to sync up the server player information and the client player information.
-			Prefab.network.sendTo(new PlayerEntityTagMessage(playerConfig.getModIsPlayerNewTag(player)), (EntityPlayerMP)player);
+			Prefab.network.sendTo(new PlayerEntityTagMessage(playerConfig.getModIsPlayerNewTag(player)), (PlayerEntityMP)player);
 		}
 	}
 	
-	private static void BuildStructure(World world, BlockPos startingPosition, HouseConfiguration configuration, EnumFacing facing)
+	private static void BuildStructure(World world, BlockPos startingPosition, HouseConfiguration configuration, Direction facing)
 	{
 		// Make sure that the area beneath the house is all there. Don't want
 		// the house to be hanging in the air.
@@ -404,7 +392,7 @@ public class HouseConfiguration extends StructureConfiguration
 		{
 			case Brick:
 			{
-				floor = Blocks.BRICK_BLOCK;
+				floor = Blocks.BRICKS;
 				break;
 			}
 
@@ -416,7 +404,7 @@ public class HouseConfiguration extends StructureConfiguration
 
 			default:
 			{
-				floor = Blocks.STONEBRICK;
+				floor = Blocks.STONE_BRICKS;
 				break;
 			}
 		}
@@ -426,7 +414,7 @@ public class HouseConfiguration extends StructureConfiguration
 				facing.getOpposite(), null);
 
 		// Create the walls.
-		HouseConfiguration.SetWalls(world, ((BlockPlanks) Blocks.PLANKS).getStateFromMeta(configuration.wallWoodType.getValue()), configuration, facing);
+		HouseConfiguration.SetWalls(world, ((PlankBlock) Blocks.PLANKS).getStateFromMeta(configuration.wallWoodType.getValue()), configuration, facing);
 
 		Block ceiling = null;
 		Block stairs = null;
@@ -435,7 +423,7 @@ public class HouseConfiguration extends StructureConfiguration
 		{
 			case Brick:
 			{
-				ceiling = Blocks.BRICK_BLOCK;
+				ceiling = Blocks.BRICKS;
 				stairs = Blocks.BRICK_STAIRS;
 				break;
 			}
@@ -449,7 +437,7 @@ public class HouseConfiguration extends StructureConfiguration
 
 			default:
 			{
-				ceiling = Blocks.STONEBRICK;
+				ceiling = Blocks.STONE_BRICKS;
 				stairs = Blocks.STONE_BRICK_STAIRS;
 				break;
 			}
@@ -460,7 +448,7 @@ public class HouseConfiguration extends StructureConfiguration
 		BuildingMethods.SetCeiling(world, pos, ceiling, configuration.houseWidth + 2, configuration.houseDepth + 2, stairs, configuration, facing, null);
 	}
 
-	private static void BuildInterior(World world, BlockPos startingPosition, EntityPlayer player, HouseConfiguration configuration, EnumFacing facing)
+	private static void BuildInterior(World world, BlockPos startingPosition, PlayerEntity player, HouseConfiguration configuration, Direction facing)
 	{
 		// Keep the corner positions since they are important.
 		BlockPos northEastCornerPosition = HouseConfiguration.NorthEastCorner.up();
@@ -493,7 +481,7 @@ public class HouseConfiguration extends StructureConfiguration
 		}
 	}
 
-	private static void BuildExterior(World world, BlockPos startingPosition, EntityPlayer player, HouseConfiguration configuration, EnumFacing facing)
+	private static void BuildExterior(World world, BlockPos startingPosition, PlayerEntity player, HouseConfiguration configuration, Direction facing)
 	{
 		// Keep the corner positions since they are important.
 		// These positions are level with 1 block above the floor.
@@ -510,7 +498,7 @@ public class HouseConfiguration extends StructureConfiguration
 		}
 	}
 
-	private static void SetWalls(World world, IBlockState block, HouseConfiguration configuration, EnumFacing facing)
+	private static void SetWalls(World world, BlockState block, HouseConfiguration configuration, Direction facing)
 	{
 		// Get the north east corner.
 		BlockPos pos = HouseConfiguration.NorthEastCorner;
@@ -539,7 +527,7 @@ public class HouseConfiguration extends StructureConfiguration
 		BuildingMethods.CreateWall(world, 4, configuration.houseWidth + 2, facing, pos, block);
 	}
 
-	private static void PlaceInsideTorches(World world, HouseConfiguration configuration, EnumFacing facing)
+	private static void PlaceInsideTorches(World world, HouseConfiguration configuration, Direction facing)
 	{
 		// Use a separate position for each item.
 		BlockPos itemPosition = null;
@@ -552,7 +540,7 @@ public class HouseConfiguration extends StructureConfiguration
 
 		// North Wall torches.
 		itemPosition = HouseConfiguration.NorthEastCorner.offset(facing.rotateYCCW(), torchWidthOffset).offset(facing.getOpposite()).up();
-		IBlockState blockState = Blocks.TORCH.getDefaultState().withProperty(BlockTorch.FACING, facing.getOpposite());
+		BlockState blockState = Blocks.TORCH.getDefaultState();
 		BuildingMethods.ReplaceBlock(world, itemPosition, blockState);
 
 		int blocksMoved = torchWidthOffset;
@@ -571,7 +559,7 @@ public class HouseConfiguration extends StructureConfiguration
 
 		// East wall torches.
 		itemPosition = HouseConfiguration.NorthEastCorner.offset(facing.getOpposite(), torchDepthOffset).offset(facing.rotateYCCW()).up();
-		blockState = Blocks.TORCH.getDefaultState().withProperty(BlockTorch.FACING, facing.rotateYCCW());
+		blockState = Blocks.TORCH.getDefaultState();
 		BuildingMethods.ReplaceBlock(world, itemPosition, blockState);
 
 		blocksMoved = torchDepthOffset;
@@ -590,7 +578,7 @@ public class HouseConfiguration extends StructureConfiguration
 
 		// West wall torches.
 		itemPosition = HouseConfiguration.NorthWestCorner.offset(facing.getOpposite(), torchDepthOffset).offset(facing.rotateY()).up();
-		blockState = Blocks.TORCH.getDefaultState().withProperty(BlockTorch.FACING, facing.rotateY());
+		blockState = Blocks.TORCH.getDefaultState();
 		BuildingMethods.ReplaceBlock(world, itemPosition, blockState);
 
 		blocksMoved = torchDepthOffset;
@@ -609,7 +597,7 @@ public class HouseConfiguration extends StructureConfiguration
 
 		// South wall torches.
 		itemPosition = HouseConfiguration.SouthEastCorner.offset(facing.rotateYCCW(), torchWidthOffset).offset(facing).up();
-		blockState = Blocks.TORCH.getDefaultState().withProperty(BlockTorch.FACING, facing);
+		blockState = Blocks.TORCH.getDefaultState();
 		BuildingMethods.ReplaceBlock(world, itemPosition, blockState);
 
 		blocksMoved = torchDepthOffset;
@@ -627,11 +615,11 @@ public class HouseConfiguration extends StructureConfiguration
 		}
 	}
 
-	private static void DecorateDoor(World world, BlockPos cornerPosition, EntityPlayer player, HouseConfiguration configuration, EnumFacing facing)
+	private static void DecorateDoor(World world, BlockPos cornerPosition, PlayerEntity player, HouseConfiguration configuration, Direction facing)
 	{
 		BlockPos itemPosition = cornerPosition.offset(facing.rotateYCCW());
 
-		world.setBlockToAir(itemPosition);
+		world.removeBlock(itemPosition, false)
 
 		Block door = null;
 		Block stairs = null;
@@ -681,7 +669,7 @@ public class HouseConfiguration extends StructureConfiguration
 			}
 		}
 
-		ItemDoor.placeDoor(world, itemPosition.down(), facing, door, true);
+		TallBlockItem.placeBlock(world, itemPosition.down(), facing, door, true);
 
 		// Put a glass pane above the door.
 		BuildingMethods.ReplaceBlock(world, itemPosition.up(), Blocks.GLASS_PANE);
@@ -745,27 +733,27 @@ public class HouseConfiguration extends StructureConfiguration
 		}
 	}
 
-	private static void PlaceBed(World world, BlockPos cornerPosition, EnumFacing facing)
+	private static void PlaceBed(World world, BlockPos cornerPosition, Direction facing)
 	{
 		// This is the "north west" corner.
 		BlockPos itemPosition = cornerPosition.offset(facing.rotateY(), 1).offset(facing.getOpposite(), 2).down();
 
-		IBlockState bedFootState = Blocks.BED.getDefaultState().withProperty(BlockHorizontal.FACING, facing)
+		BlockState bedFootState = Blocks.BED.getDefaultState().withProperty(BlockHorizontal.FACING, facing)
 				.withProperty(BlockBed.OCCUPIED, Boolean.valueOf(false)).withProperty(BlockBed.PART, BlockBed.EnumPartType.FOOT);
 
 		if (world.setBlockState(itemPosition, bedFootState, 3))
 		{
-			IBlockState bedHeadState = bedFootState.withProperty(BlockBed.PART, BlockBed.EnumPartType.HEAD);
+			BlockState bedHeadState = bedFootState.withProperty(BlockBed.PART, BlockBed.EnumPartType.HEAD);
 			world.setBlockState(itemPosition.offset(facing), bedHeadState, 3);
 		}
 
 	}
 
-	private static void PlaceAndFillChest(EntityPlayer player, World world, BlockPos cornerPosition, HouseConfiguration configuration, EnumFacing facing)
+	private static void PlaceAndFillChest(PlayerEntity player, World world, BlockPos cornerPosition, HouseConfiguration configuration, Direction facing)
 	{
 		// Create a double wide chest.
 		BlockPos itemPosition = cornerPosition.offset(facing).offset(facing.rotateYCCW()).down();
-		IBlockState chestState = Blocks.CHEST.getDefaultState().withProperty(BlockChest.FACING, facing);
+		BlockState chestState = Blocks.CHEST.getDefaultState().withProperty(BlockChest.FACING, facing);
 		BuildingMethods.ReplaceBlock(world, itemPosition, chestState);
 
 		itemPosition = itemPosition.offset(facing.rotateYCCW());
@@ -777,7 +765,7 @@ public class HouseConfiguration extends StructureConfiguration
 		}
 	}
 
-	private static void PlaceAndFillCraftingMachines(EntityPlayer player, World world, BlockPos cornerPosition, EnumFacing facing, boolean addCraftingTable, boolean addFurnace)
+	private static void PlaceAndFillCraftingMachines(PlayerEntity player, World world, BlockPos cornerPosition, Direction facing, boolean addCraftingTable, boolean addFurnace)
 	{
 		BlockPos itemPosition = cornerPosition.offset(facing.rotateY()).offset(facing).down();
 		
@@ -806,7 +794,7 @@ public class HouseConfiguration extends StructureConfiguration
 		}
 	}
 
-	private static void PlaceOutsideTorches(World world, BlockPos cornerPosition, HouseConfiguration configuration, EnumFacing facing)
+	private static void PlaceOutsideTorches(World world, BlockPos cornerPosition, HouseConfiguration configuration, Direction facing)
 	{
 		BlockPos itemPosition = HouseConfiguration.NorthEastCorner.offset(facing);
 		int houseDepth = configuration.houseDepth + 2;
@@ -815,7 +803,7 @@ public class HouseConfiguration extends StructureConfiguration
 		int torchDepthOffset = configuration.houseDepth < 9 ? 3 : 4;
 
 		// North Wall torches going west.
-		IBlockState blockState = Blocks.TORCH.getDefaultState().withProperty(BlockTorch.FACING, facing);
+		BlockState blockState = Blocks.TORCH.getDefaultState().withProperty(BlockTorch.FACING, facing);
 		BuildingMethods.ReplaceBlock(world, itemPosition, blockState);
 
 		int blocksMoved = torchWidthOffset;
@@ -894,7 +882,7 @@ public class HouseConfiguration extends StructureConfiguration
 			// Roof Torches
 			// North east corner.
 			cornerPosition = cornerPosition.up(4);
-			blockState = Blocks.TORCH.getStateFromMeta(BuildingMethods.GetTorchFacing(EnumFacing.UP));
+			blockState = Blocks.TORCH.getStateFromMeta(BuildingMethods.GetTorchFacing(Direction.UP));
 
 			for (int i = 0; i <= houseDepth; i += torchDepthOffset)
 			{
@@ -914,10 +902,10 @@ public class HouseConfiguration extends StructureConfiguration
 		}
 	}
 
-	private static void PlaceSmallFarm(World world, BlockPos cornerPosition, EnumFacing facing)
+	private static void PlaceSmallFarm(World world, BlockPos cornerPosition, Direction facing)
 	{
 		BlockPos farmStart = cornerPosition.offset(facing, 4).offset(facing.rotateYCCW(), 5);
-		IBlockState state = world.getBlockState(farmStart);
+		BlockState state = world.getBlockState(farmStart);
 
 		farmStart = farmStart.down();
 		
@@ -958,7 +946,7 @@ public class HouseConfiguration extends StructureConfiguration
 		BuildingMethods.ReplaceBlock(world, farmStart.offset(facing.getOpposite()).offset(facing.rotateY()), Blocks.FARMLAND);
 	}
 
-	private static void PlaceMineShaft(World world, BlockPos pos, int houseDepth, EnumFacing facing)
+	private static void PlaceMineShaft(World world, BlockPos pos, int houseDepth, Direction facing)
 	{
 		// The initial position is where the character was teleported too, go
 		// back X blocks and start building the mine shaft.

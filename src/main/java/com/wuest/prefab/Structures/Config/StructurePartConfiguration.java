@@ -1,14 +1,13 @@
 package com.wuest.prefab.Structures.Config;
 
+import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Structures.Base.EnumStairsMaterial;
 import com.wuest.prefab.Structures.Base.EnumStructureMaterial;
-import com.wuest.prefab.Structures.Items.ItemStructurePart;
 import com.wuest.prefab.Structures.Predefined.StructurePart;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -73,100 +72,91 @@ public class StructurePartConfiguration extends StructureConfiguration
 	}
 
 	/**
-	 * Custom method to read the NBTTagCompound message.
+	 * Custom method to read the CompoundNBT message.
 	 * 
 	 * @param messageTag The message to create the configuration from.
-	 * @return An new configuration object with the values derived from the NBTTagCompound.
+	 * @return An new configuration object with the values derived from the CompoundNBT.
 	 */
 	@Override
-	public StructurePartConfiguration ReadFromNBTTagCompound(NBTTagCompound messageTag)
+	public StructurePartConfiguration ReadFromCompoundNBT(CompoundNBT messageTag)
 	{
 		StructurePartConfiguration config = new StructurePartConfiguration();
 
-		return (StructurePartConfiguration) super.ReadFromNBTTagCompound(messageTag, config);
+		return (StructurePartConfiguration) super.ReadFromCompoundNBT(messageTag, config);
 	}
 
 	@Override
-	protected void ConfigurationSpecificBuildStructure(EntityPlayer player, World world, BlockPos hitBlockPos)
+	protected void ConfigurationSpecificBuildStructure(PlayerEntity player, World world, BlockPos hitBlockPos)
 	{
 		StructurePart structure = StructurePart.CreateInstance();
 
-		if (structure.BuildStructure(this, world, hitBlockPos, EnumFacing.NORTH, player))
+		if (structure.BuildStructure(this, world, hitBlockPos, Direction.NORTH, player))
 		{
-			ItemStack usedItemStack = player.getHeldItemMainhand();
-
-			if (!(usedItemStack.getItem() instanceof ItemStructurePart))
-			{
-				usedItemStack = player.getHeldItemOffhand();
-			}
-
-			usedItemStack.damageItem(1, player);
-			player.inventoryContainer.detectAndSendChanges();
+			this.DamageHeldItem(player, ModRegistry.StructurePart());
 		}
-
 	}
 
 	/**
 	 * Custom method which can be overridden to write custom properties to the tag.
 	 * 
-	 * @param tag The NBTTagCompound to write the custom properties too.
+	 * @param tag The CompoundNBT to write the custom properties too.
 	 * @return The updated tag.
 	 */
 	@Override
-	protected NBTTagCompound CustomWriteToNBTTagCompound(NBTTagCompound tag)
+	protected CompoundNBT CustomWriteToCompoundNBT(CompoundNBT tag)
 	{
-		tag.setString("material", this.partMaterial.name());
-		tag.setString("style", this.style.name());
-		tag.setInteger("stair_height", this.stairHeight);
-		tag.setInteger("stair_width", this.stairWidth);
-		tag.setInteger("general_height", this.generalHeight);
-		tag.setInteger("general_width", this.generalWidth);
-		tag.setString("stairs_material", this.stairsMaterial.name());
+		tag.putString("material", this.partMaterial.name());
+		tag.putString("style", this.style.name());
+		tag.putInt("stair_height", this.stairHeight);
+		tag.putInt("stair_width", this.stairWidth);
+		tag.putInt("general_height", this.generalHeight);
+		tag.putInt("general_width", this.generalWidth);
+		tag.putString("stairs_material", this.stairsMaterial.name());
 		return tag;
 	}
 
 	/**
-	 * Custom method to read the NBTTagCompound message.
+	 * Custom method to read the CompoundNBT message.
 	 * 
 	 * @param messageTag The message to create the configuration from.
-	 * @param config The configuration to read the settings into.
+	 * @param config     The configuration to read the settings into.
 	 */
 	@Override
-	protected void CustomReadFromNBTTag(NBTTagCompound messageTag, StructureConfiguration config)
+	protected void CustomReadFromNBTTag(CompoundNBT messageTag, StructureConfiguration config)
 	{
-		if (messageTag.hasKey("material"))
+		if (messageTag.contains("material"))
 		{
 			((StructurePartConfiguration) config).partMaterial = EnumStructureMaterial.valueOf(messageTag.getString("material"));
 		}
 
-		if (messageTag.hasKey("stairs_material"))
+		if (messageTag.contains("stairs_material"))
 		{
 			((StructurePartConfiguration) config).stairsMaterial = EnumStairsMaterial.valueOf(messageTag.getString("stairs_material"));
 		}
 
-		if (messageTag.hasKey("style"))
+		if (messageTag.contains("style"))
 		{
 			((StructurePartConfiguration) config).style = EnumStyle.valueOf(messageTag.getString("style"));
 		}
 
-		if (messageTag.hasKey("stair_height"))
+		if (messageTag.contains("stair_height"))
 		{
-			((StructurePartConfiguration) config).stairHeight = messageTag.getInteger("stair_height");
+			((StructurePartConfiguration) config).stairHeight = messageTag.getInt("stair_height");
 		}
 
-		if (messageTag.hasKey("stair_width"))
+		if (messageTag.contains("stair_width"))
 		{
-			((StructurePartConfiguration) config).stairWidth = messageTag.getInteger("stair_width");
+			((StructurePartConfiguration) config).stairWidth = messageTag.getInt("stair_width");
 		}
 
-		if (messageTag.hasKey("general_height"))
+		if (messageTag.contains("general_height"))
 		{
-			((StructurePartConfiguration) config).generalHeight = messageTag.getInteger("general_height");
+			((StructurePartConfiguration) config).generalHeight = messageTag.getInt("general_height");
 		}
 
-		if (messageTag.hasKey("general_width"))
+		if (messageTag.contains("general_width"))
 		{
-			((StructurePartConfiguration) config).generalWidth = messageTag.getInteger("general_width");
+			((StructurePartConfiguration) config).generalWidth = messageTag.getInt("general_width");
 		}
 	}
 

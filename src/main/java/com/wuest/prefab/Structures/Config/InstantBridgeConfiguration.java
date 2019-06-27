@@ -1,13 +1,14 @@
 package com.wuest.prefab.Structures.Config;
 
+import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Structures.Base.EnumStructureMaterial;
 import com.wuest.prefab.Structures.Items.ItemInstantBridge;
 import com.wuest.prefab.Structures.Predefined.StructureInstantBridge;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -52,78 +53,70 @@ public class InstantBridgeConfiguration extends StructureConfiguration
 	}
 	
 	/**
-	 * Custom method to read the NBTTagCompound message.
+	 * Custom method to read the CompoundNBT message.
 	 * @param messageTag The message to create the configuration from.
-	 * @return An new configuration object with the values derived from the NBTTagCompound.
+	 * @return An new configuration object with the values derived from the CompoundNBT.
 	 */
 	@Override
-	public InstantBridgeConfiguration ReadFromNBTTagCompound(NBTTagCompound messageTag) 
+	public InstantBridgeConfiguration ReadFromCompoundNBT(CompoundNBT messageTag) 
 	{
 		InstantBridgeConfiguration config = new InstantBridgeConfiguration();
 		
-		return (InstantBridgeConfiguration)super.ReadFromNBTTagCompound(messageTag, config);
+		return (InstantBridgeConfiguration)super.ReadFromCompoundNBT(messageTag, config);
 	}
 	
 	@Override
-	protected void ConfigurationSpecificBuildStructure(EntityPlayer player, World world, BlockPos hitBlockPos)
+	protected void ConfigurationSpecificBuildStructure(PlayerEntity player, World world, BlockPos hitBlockPos)
 	{
 		StructureInstantBridge structure = StructureInstantBridge.CreateInstance();
 		
-		if (structure.BuildStructure(this, world, hitBlockPos, EnumFacing.NORTH, player))
+		if (structure.BuildStructure(this, world, hitBlockPos, Direction.NORTH, player))
 		{
-			ItemStack usedItemStack = player.getHeldItemMainhand();
-			
-			if (!(usedItemStack.getItem() instanceof ItemInstantBridge))
-			{
-				usedItemStack = player.getHeldItemOffhand();
-			}
-			
-			usedItemStack.damageItem(1, player);
-			player.inventoryContainer.detectAndSendChanges();
+			this.DamageHeldItem(player, ModRegistry.InstantBridge());
 		}
 	}
 	
 	/**
 	 * Custom method which can be overridden to write custom properties to the tag.
-	 * @param tag The NBTTagCompound to write the custom properties too.
+	 * @param tag The CompoundNBT to write the custom properties too.
 	 * @return The updated tag.
 	 */
 	@Override
-	protected NBTTagCompound CustomWriteToNBTTagCompound(NBTTagCompound tag)
+	protected CompoundNBT CustomWriteToCompoundNBT(CompoundNBT tag)
 	{
-		tag.setInteger("bridgeLength", this.bridgeLength);
-		tag.setInteger("bridgeMaterial", this.bridgeMaterial.getNumber());
-		tag.setBoolean("includeRoof", this.includeRoof);
-		tag.setInteger("interiorHeight", this.interiorHeight);
+		tag.putInt("bridgeLength", this.bridgeLength);
+		tag.putInt("bridgeMaterial", this.bridgeMaterial.getNumber());
+		tag.putBoolean("includeRoof", this.includeRoof);
+		tag.putInt("interiorHeight", this.interiorHeight);
 		return tag;
 	}	
 	
 	/**
-	 * Custom method to read the NBTTagCompound message.
+	 * Custom method to read the CompoundNBT message.
 	 * @param messageTag The message to create the configuration from.
 	 * @param config The configuration to read the settings into.
 	 */
 	@Override
-	protected void CustomReadFromNBTTag(NBTTagCompound messageTag, StructureConfiguration config)
+	protected void CustomReadFromNBTTag(CompoundNBT messageTag, StructureConfiguration config)
 	{
-		if (messageTag.hasKey("bridgeLength"))
+		if (messageTag.contains("bridgeLength"))
 		{
-			((InstantBridgeConfiguration)config).bridgeLength = messageTag.getInteger("bridgeLength");
+			((InstantBridgeConfiguration)config).bridgeLength = messageTag.getInt("bridgeLength");
 		}
 		
-		if (messageTag.hasKey("bridgeMaterial"))
+		if (messageTag.contains("bridgeMaterial"))
 		{
-			((InstantBridgeConfiguration)config).bridgeMaterial = EnumStructureMaterial.getMaterialByNumber(messageTag.getInteger("bridgeMaterial"));
+			((InstantBridgeConfiguration)config).bridgeMaterial = EnumStructureMaterial.getMaterialByNumber(messageTag.getInt("bridgeMaterial"));
 		}
 		
-		if (messageTag.hasKey("includeRoof"))
+		if (messageTag.contains("includeRoof"))
 		{
 			((InstantBridgeConfiguration)config).includeRoof = messageTag.getBoolean("includeRoof");
 		}
 		
-		if (messageTag.hasKey("interiorHeight"))
+		if (messageTag.contains("interiorHeight"))
 		{
-			((InstantBridgeConfiguration)config).interiorHeight	 = messageTag.getInteger("interiorHeight");
+			((InstantBridgeConfiguration)config).interiorHeight	 = messageTag.getInt("interiorHeight");
 		}
 	}
 }
