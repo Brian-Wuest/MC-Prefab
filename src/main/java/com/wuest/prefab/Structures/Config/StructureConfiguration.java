@@ -12,6 +12,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.ServerWorld;
 import net.minecraft.world.World;
 
 /**
@@ -125,7 +126,7 @@ public class StructureConfiguration
 	 * @param player The player which requested the build.
 	 * @param world  The world instance where the build will occur.
 	 */
-	public void BuildStructure(PlayerEntity player, World world)
+	public void BuildStructure(PlayerEntity player, ServerWorld world)
 	{
 		// This is always on the server.
 		BlockPos hitBlockPos = this.pos;
@@ -151,7 +152,7 @@ public class StructureConfiguration
 	 * @param world       The world instance where the build will occur.
 	 * @param hitBlockPos This hit block position.
 	 */
-	protected void ConfigurationSpecificBuildStructure(PlayerEntity player, World world, BlockPos hitBlockPos)
+	protected void ConfigurationSpecificBuildStructure(PlayerEntity player, ServerWorld world, BlockPos hitBlockPos)
 	{
 	}
 

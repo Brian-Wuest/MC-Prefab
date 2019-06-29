@@ -26,6 +26,7 @@ import net.minecraft.block.BlockTrapDoor;
 import net.minecraft.block.BlockWorkbench;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -34,7 +35,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.tileentity.TileEntitySign;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
@@ -53,10 +54,10 @@ public class StructureAlternateStart extends Structure
 	private BlockPos signPosition = null;
 	private static ArrayList<BlockPos> torchPositions = null;
 
-	public static void ScanRanchStructure(World world, BlockPos originalPos, EnumFacing playerFacing)
+	public static void ScanRanchStructure(World world, BlockPos originalPos, Direction playerFacing)
 	{
 		BuildClear clearedSpace = new BuildClear();
-		clearedSpace.getShape().setDirection(EnumFacing.SOUTH);
+		clearedSpace.getShape().setDirection(Direction.SOUTH);
 		clearedSpace.getShape().setHeight(7);
 		clearedSpace.getShape().setLength(21);
 		clearedSpace.getShape().setWidth(11);
@@ -69,10 +70,10 @@ public class StructureAlternateStart extends Structure
 				playerFacing, false, false);
 	}
 
-	public static void ScanLoftStructure(World world, BlockPos originalPos, EnumFacing playerFacing)
+	public static void ScanLoftStructure(World world, BlockPos originalPos, Direction playerFacing)
 	{
 		BuildClear clearedSpace = new BuildClear();
-		clearedSpace.getShape().setDirection(EnumFacing.SOUTH);
+		clearedSpace.getShape().setDirection(Direction.SOUTH);
 		clearedSpace.getShape().setHeight(9);
 		clearedSpace.getShape().setLength(13);
 		clearedSpace.getShape().setWidth(16);
@@ -83,10 +84,10 @@ public class StructureAlternateStart extends Structure
 				"..\\src\\main\\resources\\assets\\prefab\\structures\\loft_house.zip", clearedSpace, playerFacing, false, false);
 	}
 
-	public static void ScanHobbitStructure(World world, BlockPos originalPos, EnumFacing playerFacing)
+	public static void ScanHobbitStructure(World world, BlockPos originalPos, Direction playerFacing)
 	{
 		BuildClear clearedSpace = new BuildClear();
-		clearedSpace.getShape().setDirection(EnumFacing.SOUTH);
+		clearedSpace.getShape().setDirection(Direction.SOUTH);
 		clearedSpace.getShape().setHeight(12);
 		clearedSpace.getShape().setLength(16);
 		clearedSpace.getShape().setWidth(16);
@@ -99,10 +100,10 @@ public class StructureAlternateStart extends Structure
 				playerFacing, false, false);
 	}
 	
-	public static void ScanStructure(World world, BlockPos originalPos, EnumFacing playerFacing, String structureFileName, boolean includeAir, boolean excludeWater)
+	public static void ScanStructure(World world, BlockPos originalPos, Direction playerFacing, String structureFileName, boolean includeAir, boolean excludeWater)
 	{
 		BuildClear clearedSpace = new BuildClear();
-		clearedSpace.getShape().setDirection(EnumFacing.SOUTH);
+		clearedSpace.getShape().setDirection(Direction.SOUTH);
 		clearedSpace.getShape().setHeight(8);
 		clearedSpace.getShape().setLength(15);
 		clearedSpace.getShape().setWidth(15);
@@ -130,7 +131,7 @@ public class StructureAlternateStart extends Structure
 
 	@Override
 	protected Boolean CustomBlockProcessingHandled(StructureConfiguration configuration, BuildBlock block, World world, BlockPos originalPos,
-			EnumFacing assumedNorth, Block foundBlock, IBlockState blockState, EntityPlayer player)
+			Direction assumedNorth, Block foundBlock, IBlockState blockState, EntityPlayer player)
 	{
 		HouseConfiguration houseConfig = (HouseConfiguration) configuration;
 
@@ -206,7 +207,7 @@ public class StructureAlternateStart extends Structure
 	 * @param player The player which initiated the construction.
 	 */
 	@Override
-	public void AfterBuilding(StructureConfiguration configuration, World world, BlockPos originalPos, EnumFacing assumedNorth, EntityPlayer player)
+	public void AfterBuilding(StructureConfiguration configuration, World world, BlockPos originalPos, Direction assumedNorth, EntityPlayer player)
 	{
 		HouseConfiguration houseConfig = (HouseConfiguration) configuration;
 
@@ -256,7 +257,7 @@ public class StructureAlternateStart extends Structure
 		}
 	}
 
-	public static void FillChest(World world, BlockPos itemPosition, HouseConfiguration configuration, EntityPlayer player)
+	public static void FillChest(World world, BlockPos itemPosition, HouseConfiguration configuration, PlayerEntity player)
 	{
 		// Add each stone tool to the chest and leather armor.
 		TileEntity tileEntity = world.getTileEntity(itemPosition);
@@ -380,7 +381,7 @@ public class StructureAlternateStart extends Structure
 		}
 	}
 
-	public static void PlaceMineShaft(World world, BlockPos pos, EnumFacing facing, boolean onlyGatherOres)
+	public static void PlaceMineShaft(World world, BlockPos pos, Direction facing, boolean onlyGatherOres)
 	{
 		// Keep track of all of the items to add to the chest at the end of the
 		// shaft.
@@ -545,12 +546,12 @@ public class StructureAlternateStart extends Structure
 		}
 	}
 	
-	private static ArrayList<ItemStack> CreateLadderShaft(World world, BlockPos pos, ArrayList<ItemStack> originalStacks, EnumFacing houseFacing, ArrayList<Item> blocksToNotAdd)
+	private static ArrayList<ItemStack> CreateLadderShaft(World world, BlockPos pos, ArrayList<ItemStack> originalStacks, Direction houseFacing, ArrayList<Item> blocksToNotAdd)
 	{
 		int torchCounter = 0;
 
 		// Keep the "west" facing.
-		EnumFacing westWall = houseFacing.rotateYCCW();
+		Direction westWall = houseFacing.rotateYCCW();
 
 		// Get the ladder state based on the house facing.
 		IBlockState ladderState = Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, houseFacing);
@@ -569,7 +570,7 @@ public class StructureAlternateStart extends Structure
 			// replace them with stone.
 			for (int i = 0; i < 4; i++)
 			{
-				EnumFacing facing = houseFacing;
+				Direction facing = houseFacing;
 
 				switch (i)
 				{

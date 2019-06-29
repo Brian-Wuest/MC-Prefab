@@ -10,6 +10,8 @@ import com.electronwill.nightconfig.core.io.WritingMode;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Gui.GuiLangKeys;
 
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
@@ -408,6 +410,42 @@ public class ModConfiguration
 		public String getName()
 		{
 			return GuiLangKeys.translateString(this.langKey);
+		}
+		
+		public BlockState getBlockState()
+		{
+			switch (this.value)
+			{
+				case 1:
+				{
+					return Blocks.SPRUCE_PLANKS.getDefaultState();
+				}
+
+				case 2:
+				{
+					return Blocks.BIRCH_PLANKS.getDefaultState();
+				}
+
+				case 3:
+				{
+					return Blocks.JUNGLE_PLANKS.getDefaultState();
+				}
+
+				case 4:
+				{
+					return Blocks.ACACIA_PLANKS.getDefaultState();
+				}
+
+				case 5:
+				{
+					return Blocks.DARK_OAK_PLANKS.getDefaultState();
+				}
+
+				default:
+				{
+					return Blocks.OAK_PLANKS.getDefaultState();
+				}
+			}
 		}
 
 		public static WallBlockType ValueOf(int value)
