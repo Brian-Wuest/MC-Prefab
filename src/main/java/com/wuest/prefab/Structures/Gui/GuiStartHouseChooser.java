@@ -1,10 +1,10 @@
 package com.wuest.prefab.Structures.Gui;
 
 import java.awt.Color;
-import java.io.IOException;
 
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.ModConfiguration;
+import com.wuest.prefab.Config.ServerModConfiguration;
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Gui.GuiTabScreen;
@@ -19,12 +19,11 @@ import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureCon
 import com.wuest.prefab.Structures.Predefined.StructureAlternateStart;
 import com.wuest.prefab.Structures.Render.StructureRenderHandler;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.item.EnumDyeColor;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.client.gui.widget.Widget;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.item.DyeColor;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 import net.minecraftforge.fml.client.config.GuiSlider;
 
@@ -38,17 +37,17 @@ public class GuiStartHouseChooser extends GuiTabScreen
 	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/default_background.png");
 	protected GuiButtonExt btnCancel;
 	protected GuiButtonExt btnBuild;
-	
+
 	// Tabs
 	protected GuiTab tabGeneral;
 	protected GuiTab tabConfig;
 	protected GuiTab tabBlockTypes;
-	
+
 	// General:
 	protected GuiButtonExt btnHouseStyle;
 	protected GuiButtonExt btnGlassColor;
 	protected GuiButtonExt btnVisualize;
-	
+
 	// Config:
 	protected GuiCheckBox btnAddTorches;
 	protected GuiCheckBox btnAddBed;
@@ -66,49 +65,49 @@ public class GuiStartHouseChooser extends GuiTabScreen
 	protected GuiTextSlider btnFloorBlock;
 	protected GuiTextSlider btnCeilingBlock;
 	protected GuiTextSlider btnWallWoodType;
-	
+
 	protected HouseConfiguration houseConfiguration;
-	protected ModConfiguration serverConfiguration;
+	protected ServerModConfiguration serverConfiguration;
 	protected boolean allowItemsInChestAndFurnace = true;
-	
+
 	public GuiStartHouseChooser()
 	{
 		super();
 		this.houseConfiguration = ClientEventHandler.playerConfig.getClientConfig("Starter House", HouseConfiguration.class);
 		this.Tabs.trayWidth = 256;
 	}
-	
-	@Override
-	public void initGui()
-	{
-		super.initGui();
 
-		if (!Minecraft.getMinecraft().player.capabilities.isCreativeMode)
+	@Override
+	public void init()
+	{
+		super.init();
+
+		if (!this.minecraft.player.isCreative())
 		{
 			this.allowItemsInChestAndFurnace = !ClientEventHandler.playerConfig.builtStarterHouse;
 		}
-		
+
 		this.Initialize();
 	}
-	
+
 	/**
 	 * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
 	 */
 	@Override
-	public void drawScreen(int x, int y, float f) 
+	public void render(int x, int y, float f)
 	{
 		int grayBoxX = (this.width / 2) - 188;
 		int grayBoxY = (this.height / 2) - 83;
 		this.Tabs.trayX = grayBoxX;
 		this.Tabs.trayY = grayBoxY - 21;
-		
-		this.drawDefaultBackground();
-		
-		// Draw the control background.
-		this.mc.getTextureManager().bindTexture(backgroundTextures);
-		this.drawTexturedModalRect(grayBoxX, grayBoxY, 0, 0, 256, 256);
 
-		for (GuiButton button : this.buttonList)
+		this.renderBackground();
+
+		// Draw the control background.
+		this.minecraft.getTextureManager().bindTexture(backgroundTextures);
+		this.blit(grayBoxX, grayBoxY, 0, 0, 256, 256);
+
+		for (Widget button : this.buttons)
 		{
 			// Make all buttons invisible.
 			if (button != this.btnCancel && button != this.btnBuild)
@@ -116,7 +115,7 @@ public class GuiStartHouseChooser extends GuiTabScreen
 				button.visible = false;
 			}
 		}
-		
+
 		this.btnAddTorches.visible = false;
 		this.btnAddBed.visible = false;
 		this.btnAddChest.visible = false;
@@ -126,12 +125,12 @@ public class GuiStartHouseChooser extends GuiTabScreen
 		this.btnAddFarm.visible = false;
 		this.btnAddMineShaft.visible = false;
 		this.btnIsCeilingFlat.visible = false;
-		
+
 		// Update visibility on controls based on the selected tab.
 		if (this.getSelectedTab() == this.tabGeneral)
 		{
 			this.btnHouseStyle.visible = true;
-			
+
 			if (this.houseConfiguration.houseStyle == HouseConfiguration.HouseStyle.BASIC)
 			{
 				this.btnVisualize.visible = false;
@@ -150,7 +149,7 @@ public class GuiStartHouseChooser extends GuiTabScreen
 			this.btnAddCraftingTable.visible = this.serverConfiguration.addCraftingTable;
 			this.btnAddFurnace.visible = this.serverConfiguration.addFurnace;
 			this.btnAddMineShaft.visible = this.serverConfiguration.addMineshaft;
-			
+
 			if (this.houseConfiguration.houseStyle == HouseConfiguration.HouseStyle.BASIC)
 			{
 				this.btnAddFarm.visible = this.serverConfiguration.addFarm;
@@ -170,7 +169,7 @@ public class GuiStartHouseChooser extends GuiTabScreen
 			else
 			{
 				if (this.houseConfiguration.houseStyle == HouseConfiguration.HouseStyle.SNOWY
-						|| this.houseConfiguration.houseStyle == HouseConfiguration.HouseStyle.DESERT)
+					|| this.houseConfiguration.houseStyle == HouseConfiguration.HouseStyle.DESERT)
 				{
 					this.btnGlassColor.visible = false;
 				}
@@ -180,66 +179,65 @@ public class GuiStartHouseChooser extends GuiTabScreen
 				}
 			}
 		}
-		
+
 		// Draw the buttons, labels and tabs.
-		super.drawScreen(x, y, f);
+		super.render(x, y, f);
 
 		// Draw the text here.
 		int color = Color.DARK_GRAY.getRGB();
-		
+
 		// Draw the appropriate text based on the selected tab.
 		if (this.getSelectedTab() == this.tabGeneral)
 		{
-			this.mc.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), grayBoxX + 10, grayBoxY + 10, color);
-			this.mc.fontRenderer.drawSplitString(this.houseConfiguration.houseStyle.getHouseNotes(), grayBoxX + 147, grayBoxY + 10, 95, color);
-			
-			this.mc.getTextureManager().bindTexture(this.houseConfiguration.houseStyle.getHousePicture());
-			GuiTabScreen.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 
-					this.houseConfiguration.houseStyle.getImageWidth(), this.houseConfiguration.houseStyle.getImageHeight(), 
-					this.houseConfiguration.houseStyle.getImageWidth(), this.houseConfiguration.houseStyle.getImageHeight());
+			this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), grayBoxX + 10, grayBoxY + 10, color);
+			this.minecraft.fontRenderer.drawSplitString(this.houseConfiguration.houseStyle.getHouseNotes(), grayBoxX + 147, grayBoxY + 10, 95, color);
+
+			this.minecraft.getTextureManager().bindTexture(this.houseConfiguration.houseStyle.getHousePicture());
+			GuiTabScreen.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1,
+				this.houseConfiguration.houseStyle.getImageWidth(), this.houseConfiguration.houseStyle.getImageHeight(),
+				this.houseConfiguration.houseStyle.getImageWidth(), this.houseConfiguration.houseStyle.getImageHeight());
 		}
 		else if (this.getSelectedTab() == this.tabBlockTypes)
 		{
 			if (this.houseConfiguration.houseStyle == HouseConfiguration.HouseStyle.BASIC)
 			{
 				// Column 1:
-				this.mc.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_FLOOR_LABEL), grayBoxX + 10, grayBoxY + 10, color);
-				this.mc.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_CEILING_LABEL), grayBoxX + 10, grayBoxY + 50, color);
-				this.mc.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_WALL_LABEL), grayBoxX + 10, grayBoxY + 90, color);
-				
+				this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_FLOOR_LABEL), grayBoxX + 10, grayBoxY + 10, color);
+				this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_CEILING_LABEL), grayBoxX + 10, grayBoxY + 50, color);
+				this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_WALL_LABEL), grayBoxX + 10, grayBoxY + 90, color);
+
 				// Column 3:
-				this.mc.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_DEPTH_LABEL), grayBoxX + 147, grayBoxY + 10, color);
-				this.mc.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_WIDTH_LABEL), grayBoxX + 147, grayBoxY + 50, color);
+				this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_DEPTH_LABEL), grayBoxX + 147, grayBoxY + 10, color);
+				this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_WIDTH_LABEL), grayBoxX + 147, grayBoxY + 50, color);
 			}
 			else
 			{
 				if (this.houseConfiguration.houseStyle == HouseConfiguration.HouseStyle.SNOWY
-						|| this.houseConfiguration.houseStyle == HouseConfiguration.HouseStyle.DESERT)
+					|| this.houseConfiguration.houseStyle == HouseConfiguration.HouseStyle.DESERT)
 				{
-				
+
 				}
 				else
 				{
 					// Column 1:
-					this.mc.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS), grayBoxX + 10, grayBoxY + 10, color);
+					this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS), grayBoxX + 10, grayBoxY + 10, color);
 				}
 			}
 		}
-		
-		if (!Prefab.proxy.proxyConfiguration.enableStructurePreview)
+
+		if (!Prefab.proxy.proxyConfiguration.serverConfiguration.enableStructurePreview)
 		{
-			this.btnVisualize.enabled = false;
+			this.btnVisualize.visible = false;
 		}
 	}
-	
+
 	/**
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
-	@Override
-	protected void actionPerformed(GuiButton button) throws IOException
+	public void actionPerformed(Button button)
 	{
 		if (button == this.btnCancel || button == this.btnVisualize
-				|| button == this.btnBuild)
+			|| button == this.btnBuild)
 		{
 			this.houseConfiguration.addBed = this.serverConfiguration.addBed && this.btnAddBed.isChecked();
 			this.houseConfiguration.addChest = this.serverConfiguration.addChests && this.btnAddChest.isChecked();
@@ -256,53 +254,53 @@ public class GuiStartHouseChooser extends GuiTabScreen
 			this.houseConfiguration.houseDepth = this.btnHouseDepth.getValueInt();
 			this.houseConfiguration.houseWidth = this.btnHouseWidth.getValueInt();
 			this.houseConfiguration.houseStyle = this.houseConfiguration.houseStyle;
-			this.houseConfiguration.houseFacing = this.mc.player.getHorizontalFacing().getOpposite();
+			this.houseConfiguration.houseFacing = this.minecraft.player.getHorizontalFacing().getOpposite();
 		}
-		
+
 		if (button == this.btnCancel)
 		{
-			this.mc.displayGuiScreen(null);
+			this.minecraft.displayGuiScreen(null);
 		}
 		else if (button == this.btnBuild)
-		{			
-			Prefab.network.sendToServer(new StructureTagMessage(this.houseConfiguration.WriteToNBTTagCompound(), EnumStructureConfiguration.StartHouse));
-			
-			this.mc.displayGuiScreen(null);
+		{
+			Prefab.network.sendToServer(new StructureTagMessage(this.houseConfiguration.WriteToCompoundNBT(), EnumStructureConfiguration.StartHouse));
+
+			this.minecraft.displayGuiScreen(null);
 		}
 		else if (button == this.btnHouseStyle)
 		{
 			int id = this.houseConfiguration.houseStyle.getValue() + 1;
 			this.houseConfiguration.houseStyle = HouseConfiguration.HouseStyle.ValueOf(id);
-			
+
 			// Skip the loft if it's not enabled.
 			if (this.houseConfiguration.houseStyle == HouseStyle.LOFT
-					&& !this.serverConfiguration.enableLoftHouse)
+				&& !this.serverConfiguration.enableLoftHouse)
 			{
 				id = this.houseConfiguration.houseStyle.getValue() + 1;
 				this.houseConfiguration.houseStyle = HouseConfiguration.HouseStyle.ValueOf(id);
 			}
-			
-			this.btnHouseStyle.displayString = this.houseConfiguration.houseStyle.getDisplayName();
-			
+
+			this.btnHouseStyle.setMessage(this.houseConfiguration.houseStyle.getDisplayName());
+
 			// Set the default glass colors for this style.
 			if (this.houseConfiguration.houseStyle == HouseConfiguration.HouseStyle.HOBBIT)
 			{
-				this.houseConfiguration.glassColor = EnumDyeColor.GREEN;
-				this.btnGlassColor.displayString = GuiLangKeys.translateDye(EnumDyeColor.GREEN);
+				this.houseConfiguration.glassColor = DyeColor.GREEN;
+				this.btnGlassColor.setMessage(GuiLangKeys.translateDye(DyeColor.GREEN));
 			}
 			else if (this.houseConfiguration.houseStyle == HouseConfiguration.HouseStyle.LOFT)
 			{
-				this.houseConfiguration.glassColor = EnumDyeColor.BLACK;
-				this.btnGlassColor.displayString = GuiLangKeys.translateDye(EnumDyeColor.BLACK);
+				this.houseConfiguration.glassColor = DyeColor.BLACK;
+				this.btnGlassColor.setMessage(GuiLangKeys.translateDye(DyeColor.BLACK));
 			}
 			else
 			{
-				this.houseConfiguration.glassColor = EnumDyeColor.CYAN;
-				this.btnGlassColor.displayString = GuiLangKeys.translateDye(EnumDyeColor.CYAN);
+				this.houseConfiguration.glassColor = DyeColor.CYAN;
+				this.btnGlassColor.setMessage(GuiLangKeys.translateDye(DyeColor.CYAN));
 			}
-			
+
 			if (this.houseConfiguration.houseStyle == HouseConfiguration.HouseStyle.DESERT
-					|| this.houseConfiguration.houseStyle == HouseConfiguration.HouseStyle.SNOWY)
+				|| this.houseConfiguration.houseStyle == HouseConfiguration.HouseStyle.SNOWY)
 			{
 				this.tabBlockTypes.visible = false;
 			}
@@ -313,179 +311,215 @@ public class GuiStartHouseChooser extends GuiTabScreen
 		}
 		else if (button == this.btnGlassColor)
 		{
-			this.houseConfiguration.glassColor = EnumDyeColor.byMetadata(this.houseConfiguration.glassColor.getMetadata() + 1);
-			this.btnGlassColor.displayString = GuiLangKeys.translateDye(this.houseConfiguration.glassColor);
+			this.houseConfiguration.glassColor = DyeColor.byId(this.houseConfiguration.glassColor.getId() + 1);
+			this.btnGlassColor.setMessage(GuiLangKeys.translateDye(this.houseConfiguration.glassColor));
 		}
 		else if (button == this.btnVisualize)
 		{
 			StructureAlternateStart structure = StructureAlternateStart.CreateInstance(this.houseConfiguration.houseStyle.getStructureLocation(), StructureAlternateStart.class);
-			
-			StructureRenderHandler.setStructure(structure, EnumFacing.NORTH, this.houseConfiguration);
-			this.mc.displayGuiScreen(null);
+
+			StructureRenderHandler.setStructure(structure, Direction.NORTH, this.houseConfiguration);
+			this.minecraft.displayGuiScreen(null);
 		}
 	}
-	
+
 	/**
 	 * Returns true if this GUI should pause the game when it is displayed in single-player
 	 */
 	@Override
-	public boolean doesGuiPauseGame()
+	public boolean isPauseScreen()
 	{
 		return true;
 	}
-	
-	private void Initialize() 
+
+	private void Initialize()
 	{
 		// Get the upper left hand corner of the GUI box.
 		int grayBoxX = (this.width / 2) - 188;
 		int grayBoxY = (this.height / 2) - 83;
 		int color = Color.DARK_GRAY.getRGB();
-		this.serverConfiguration = ((ClientProxy)Prefab.proxy).getServerConfiguration();
+		this.serverConfiguration = ((ClientProxy) Prefab.proxy).getServerConfiguration();
 
 		// Create the Controls.
 		// Column 1:
-		this.btnHouseStyle = new GuiButtonExt(4, grayBoxX + 10, grayBoxY + 20, 90, 20, this.houseConfiguration.houseStyle.getDisplayName());
-		this.buttonList.add(this.btnHouseStyle);
-		
-		this.btnVisualize = new GuiButtonExt(4, grayBoxX + 10, grayBoxY + 60, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW));
-		this.buttonList.add(this.btnVisualize);
-		
+		this.btnHouseStyle = new GuiButtonExt(grayBoxX + 10, grayBoxY + 20, 90, 20, this.houseConfiguration.houseStyle.getDisplayName(), (button) ->
+		{
+			this.actionPerformed(button);
+		});
+
+		this.addButton(this.btnHouseStyle);
+
+		this.btnVisualize = new GuiButtonExt(grayBoxX + 10, grayBoxY + 60, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW), (button) ->
+		{
+			this.actionPerformed(button);
+		});
+		this.addButton(this.btnVisualize);
+
 		int x = grayBoxX + 10;
 		int y = grayBoxY + 10;
 		int secondColumnY = y;
 		int secondColumnX = x + 137;
-		
-		this.btnAddFurnace = new GuiCheckBox(5, secondColumnX, secondColumnY, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_FURNACE), this.houseConfiguration.addFurnace);
-		this.btnAddFurnace.setStringColor(color);
+
+		this.btnAddFurnace = new GuiCheckBox(secondColumnX, secondColumnY, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_FURNACE), this.houseConfiguration.addFurnace);
+		this.btnAddFurnace.setFGColor(color);
 		this.btnAddFurnace.setWithShadow(false);
 		this.btnAddFurnace.visible = false;
-		this.buttonList.add(this.btnAddFurnace);
-		
+		this.addButton(this.btnAddFurnace);
+
 		if (this.serverConfiguration.addFurnace)
 		{
 			secondColumnY += 15;
 		}
-		
-		this.btnAddBed = new GuiCheckBox(2, secondColumnX, secondColumnY, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_BED), this.houseConfiguration.addBed);
-		this.btnAddBed.setStringColor(color);
+
+		this.btnAddBed = new GuiCheckBox(secondColumnX, secondColumnY, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_BED), this.houseConfiguration.addBed);
+		this.btnAddBed.setFGColor(color);
 		this.btnAddBed.setWithShadow(false);
 		this.btnAddBed.visible = false;
-		this.buttonList.add(this.btnAddBed);
-		
+		this.addButton(this.btnAddBed);
+
 		if (this.serverConfiguration.addBed)
 		{
 			secondColumnY += 15;
 		}
-		
-		this.btnAddFarm = new GuiCheckBox(6,  secondColumnX, secondColumnY, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_FARM), this.houseConfiguration.addFarm);
-		this.btnAddFarm.setStringColor(color);
+
+		this.btnAddFarm = new GuiCheckBox(secondColumnX, secondColumnY, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_FARM), this.houseConfiguration.addFarm);
+		this.btnAddFarm.setFGColor(color);
 		this.btnAddFarm.setWithShadow(false);
 		this.btnAddFarm.visible = false;
-		this.buttonList.add(this.btnAddFarm);
-		
+		this.addButton(this.btnAddFarm);
+
 		if (this.serverConfiguration.addFarm)
 		{
 			secondColumnY += 15;
 		}
-		
-		this.btnAddCraftingTable = new GuiCheckBox(5, x, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_CRAFTING_TABLE), this.houseConfiguration.addCraftingTable);
-		this.btnAddCraftingTable.setStringColor(color);
+
+		this.btnAddCraftingTable = new GuiCheckBox(x, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_CRAFTING_TABLE), this.houseConfiguration.addCraftingTable);
+		this.btnAddCraftingTable.setFGColor(color);
 		this.btnAddCraftingTable.setWithShadow(false);
 		this.btnAddCraftingTable.visible = false;
-		this.buttonList.add(this.btnAddCraftingTable);
-		
+		this.addButton(this.btnAddCraftingTable);
+
 		if (this.serverConfiguration.addCraftingTable)
 		{
 			y += 15;
 		}
-		
-		this.btnAddTorches = new GuiCheckBox(1, x, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_TORCHES), this.houseConfiguration.addTorches);
-		this.btnAddTorches.setStringColor(color);
+
+		this.btnAddTorches = new GuiCheckBox(x, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_TORCHES), this.houseConfiguration.addTorches);
+		this.btnAddTorches.setFGColor(color);
 		this.btnAddTorches.setWithShadow(false);
 		this.btnAddTorches.visible = false;
-		this.buttonList.add(this.btnAddTorches);
-		
+		this.addButton(this.btnAddTorches);
+
 		if (this.serverConfiguration.addTorches)
 		{
 			y += 15;
 		}
 
-		this.btnAddChest = new GuiCheckBox(3, x, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_CHEST), this.houseConfiguration.addChest);
-		this.btnAddChest.setStringColor(color);
+		this.btnAddChest = new GuiCheckBox(x, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_CHEST), this.houseConfiguration.addChest);
+		this.btnAddChest.setFGColor(color);
 		this.btnAddChest.setWithShadow(false);
 		this.btnAddChest.visible = false;
-		this.buttonList.add(this.btnAddChest);
-		
+		this.addButton(this.btnAddChest);
+
 		if (this.serverConfiguration.addChests)
 		{
 			y += 15;
 		}
 
-		this.btnAddMineShaft = new GuiCheckBox(7, x, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_BUILD_MINESHAFT), this.houseConfiguration.addMineShaft);
-		this.btnAddMineShaft.setStringColor(color);
+		this.btnAddMineShaft = new GuiCheckBox(x, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_BUILD_MINESHAFT), this.houseConfiguration.addMineShaft);
+		this.btnAddMineShaft.setFGColor(color);
 		this.btnAddMineShaft.setWithShadow(false);
 		this.btnAddMineShaft.visible = false;
-		this.buttonList.add(this.btnAddMineShaft);
-		
+		this.addButton(this.btnAddMineShaft);
+
 		if (this.serverConfiguration.addMineshaft)
 		{
 			y += 15;
 		}
-		
-		this.btnAddChestContents = new GuiCheckBox(4, x, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_CHEST_CONTENTS), this.houseConfiguration.addChestContents);
-		this.btnAddChestContents.setStringColor(color);
+
+		this.btnAddChestContents = new GuiCheckBox(x, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_CHEST_CONTENTS), this.houseConfiguration.addChestContents);
+		this.btnAddChestContents.setFGColor(color);
 		this.btnAddChestContents.setWithShadow(false);
 		this.btnAddChestContents.visible = false;
-		this.buttonList.add(this.btnAddChestContents);
-		
+		this.addButton(this.btnAddChestContents);
+
 		if (this.allowItemsInChestAndFurnace)
 		{
 			y += 15;
 		}
-		
-		this.btnIsCeilingFlat = new GuiCheckBox(8, x, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_CEILING_FLAT), this.houseConfiguration.isCeilingFlat);
-		this.btnIsCeilingFlat.setStringColor(color);
+
+		this.btnIsCeilingFlat = new GuiCheckBox(x, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_CEILING_FLAT), this.houseConfiguration.isCeilingFlat);
+		this.btnIsCeilingFlat.setFGColor(color);
 		this.btnIsCeilingFlat.setWithShadow(false);
 		this.btnIsCeilingFlat.visible = false;
-		this.buttonList.add(this.btnIsCeilingFlat);
-		
-		this.btnFloorBlock = new GuiTextSlider(11, grayBoxX + 10, grayBoxY + 20, 90, 20, 0, 2, this.houseConfiguration.floorBlock.getValue(), GuiLangKeys.STARTER_HOUSE_FLOOR_STONE);
-		this.buttonList.add(this.btnFloorBlock);
+		this.addButton(this.btnIsCeilingFlat);
 
-		this.btnCeilingBlock = new GuiTextSlider(12, grayBoxX + 10, grayBoxY + 60, 90, 20, 0, 2, this.houseConfiguration.ceilingBlock.getValue(), GuiLangKeys.STARTER_HOUSE_CEILING_TYPE);
-		this.buttonList.add(this.btnCeilingBlock);
+		this.btnFloorBlock = new GuiTextSlider(grayBoxX + 10, grayBoxY + 20, 90, 20, 0, 2, this.houseConfiguration.floorBlock.getValue(), GuiLangKeys.STARTER_HOUSE_FLOOR_STONE,
+			(button) ->
+			{
+				this.actionPerformed(button);
+			});
+		this.addButton(this.btnFloorBlock);
 
-		this.btnWallWoodType = new GuiTextSlider(13, grayBoxX + 10, grayBoxY + 100, 90, 20, 0, 5, this.houseConfiguration.wallWoodType.getValue(), GuiLangKeys.STARTER_HOUSE_WALL_TYPE);
-		this.buttonList.add(this.btnWallWoodType);
-		
-		this.btnGlassColor = new GuiButtonExt(17, grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateDye(this.houseConfiguration.glassColor));
-		this.buttonList.add(this.btnGlassColor);
-		
+		this.btnCeilingBlock = new GuiTextSlider(grayBoxX + 10, grayBoxY + 60, 90, 20, 0, 2, this.houseConfiguration.ceilingBlock.getValue(),
+			GuiLangKeys.STARTER_HOUSE_CEILING_TYPE, (button) ->
+			{
+				this.actionPerformed(button);
+			});
+		this.addButton(this.btnCeilingBlock);
+
+		this.btnWallWoodType = new GuiTextSlider(grayBoxX + 10, grayBoxY + 100, 90, 20, 0, 5, this.houseConfiguration.wallWoodType.getValue(), GuiLangKeys.STARTER_HOUSE_WALL_TYPE,
+			(button) ->
+			{
+				this.actionPerformed(button);
+			});
+		this.addButton(this.btnWallWoodType);
+
+		this.btnGlassColor = new GuiButtonExt(grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateDye(this.houseConfiguration.glassColor), (button) ->
+		{
+			this.actionPerformed(button);
+		});
+		this.addButton(this.btnGlassColor);
+
 		// Column 2:
-		
+
 		// Column 3:
-		this.btnHouseDepth = new GuiSlider(15, grayBoxX + 147, grayBoxY + 20, 90, 20, "", "", 5, serverConfiguration.maximumStartingHouseSize, this.houseConfiguration.houseDepth, false, true);
-		this.buttonList.add(this.btnHouseDepth);
-		
-		this.btnHouseWidth = new GuiSlider(16, grayBoxX + 147, grayBoxY + 60, 90, 20, "", "", 5, serverConfiguration.maximumStartingHouseSize, this.houseConfiguration.houseWidth, false, true);
-		this.buttonList.add(this.btnHouseWidth);		
-		
+		this.btnHouseDepth = new GuiSlider(grayBoxX + 147, grayBoxY + 20, 90, 20, "", "", 5, serverConfiguration.maximumStartingHouseSize, this.houseConfiguration.houseDepth,
+			false, true, (button) ->
+			{
+				this.actionPerformed(button);
+			});
+		this.addButton(this.btnHouseDepth);
+
+		this.btnHouseWidth = new GuiSlider(grayBoxX + 147, grayBoxY + 60, 90, 20, "", "", 5, serverConfiguration.maximumStartingHouseSize, this.houseConfiguration.houseWidth,
+			false, true, (button) ->
+			{
+				this.actionPerformed(button);
+			});
+		this.addButton(this.btnHouseWidth);
+
 		// Tabs:
 		this.tabGeneral = new GuiTab(this.Tabs, GuiLangKeys.translateString(GuiLangKeys.STARTER_TAB_GENERAL), grayBoxX + 3, grayBoxY - 20);
 		this.Tabs.AddTab(this.tabGeneral);
-		
+
 		this.tabConfig = new GuiTab(this.Tabs, GuiLangKeys.translateString(GuiLangKeys.STARTER_TAB_CONFIG), grayBoxX + 54, grayBoxY - 20);
 		this.Tabs.AddTab(this.tabConfig);
-		
-		this.tabBlockTypes = new GuiTab(this.Tabs, GuiLangKeys.translateString(GuiLangKeys.STARTER_TAB_BLOCK), grayBoxX + 105, grayBoxY - 20);
-		this.tabBlockTypes.width = 70;
-		this.Tabs.AddTab(this.tabBlockTypes);
-		
-		// Create the done and cancel buttons.
-		this.btnBuild = new GuiButtonExt(1, grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_BUILD));
-		this.buttonList.add(this.btnBuild);
 
-		this.btnCancel = new GuiButtonExt(2, grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_CANCEL));
-		this.buttonList.add(this.btnCancel);
+		this.tabBlockTypes = new GuiTab(this.Tabs, GuiLangKeys.translateString(GuiLangKeys.STARTER_TAB_BLOCK), grayBoxX + 105, grayBoxY - 20);
+		this.tabBlockTypes.setWidth(70);
+		this.Tabs.AddTab(this.tabBlockTypes);
+
+		// Create the done and cancel buttons.
+		this.btnBuild = new GuiButtonExt(grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_BUILD), (button) ->
+		{
+			this.actionPerformed(button);
+		});
+		this.addButton(this.btnBuild);
+
+		this.btnCancel = new GuiButtonExt(grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_CANCEL), (button) ->
+		{
+			this.actionPerformed(button);
+		});
+		this.addButton(this.btnCancel);
 	}
 }

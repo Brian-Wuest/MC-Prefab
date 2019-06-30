@@ -31,7 +31,6 @@ import com.wuest.prefab.Structures.Gui.GuiFishPond;
 import com.wuest.prefab.Structures.Gui.GuiHorseStable;
 import com.wuest.prefab.Structures.Gui.GuiInstantBridge;
 import com.wuest.prefab.Structures.Gui.GuiModerateHouse;
-import com.wuest.prefab.Structures.Gui.GuiModularHouse;
 import com.wuest.prefab.Structures.Gui.GuiMonsterMasher;
 import com.wuest.prefab.Structures.Gui.GuiNetherGate;
 import com.wuest.prefab.Structures.Gui.GuiProduceFarm;
@@ -825,7 +824,6 @@ public class ModRegistry
 		ModRegistry.ModGuis.put(ModRegistry.GuiMonsterMasher, GuiMonsterMasher.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiHorseStable, GuiHorseStable.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiNetherGate, GuiNetherGate.class);
-		ModRegistry.ModGuis.put(ModRegistry.GuiModularHouse, GuiModularHouse.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiBasicStructure, GuiBasicStructure.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiVillagerHouses, GuiVillaerHouses.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiModerateHouse, GuiModerateHouse.class);

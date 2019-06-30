@@ -10,8 +10,8 @@ import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureCon
 import com.wuest.prefab.Structures.Predefined.StructureFishPond;
 import com.wuest.prefab.Structures.Render.StructureRenderHandler;
 
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 
@@ -35,12 +35,12 @@ public class GuiFishPond extends GuiStructure
 	 * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
 	 */
 	@Override
-	public void drawScreen(int x, int y, float f) 
+	public void render(int x, int y, float f) 
 	{
 		int grayBoxX = this.getCenteredXAxis() - 188;
 		int grayBoxY = this.getCenteredYAxis() - 83;
 		
-		this.drawDefaultBackground();
+		this.renderBackground();
 		
 		// Draw the control background.
 		// Create class to de-compress image from resource path.
@@ -48,34 +48,31 @@ public class GuiFishPond extends GuiStructure
 		// After the buffered image has been loaded, the GlStateManager.bindTexture class should be called.
 		// Will probably want to keep the buffered image around in a class so the resources aren't constantly being de-compressed as this happens on every tick.
 		//BufferedImage image = ZipUtil.decompressImageResource(structureTopDown.getResourcePath());
-		this.mc.getTextureManager().bindTexture(structureTopDown);
+		this.minecraft.getTextureManager().bindTexture(structureTopDown);
 		
 		this.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 151, 149, 151, 149);
 		
 		this.drawControlBackgroundAndButtonsAndLabels(grayBoxX, grayBoxY, x, y);
 		
 		// Draw the text here.
-		this.mc.fontRenderer.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), grayBoxX + 147, grayBoxY + 10, 95, this.textColor);
+		this.minecraft.fontRenderer.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), grayBoxX + 147, grayBoxY + 10, 95, this.textColor);
 		
-		if (!Prefab.proxy.proxyConfiguration.enableStructurePreview)
-		{
-			this.btnVisualize.enabled = false;
-		}
+		this.checkVisualizationSetting();
 	}
 	
 	/**
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	@Override
-	protected void actionPerformed(GuiButton button) throws IOException
+	public void buttonClicked(Button button)
 	{
 		this.performCancelOrBuildOrHouseFacing(this.configuration, button);
 		
 		if (button == this.btnVisualize)
 		{
 			StructureFishPond structure = StructureFishPond.CreateInstance(StructureFishPond.ASSETLOCATION, StructureFishPond.class);
-			StructureRenderHandler.setStructure(structure, EnumFacing.NORTH, this.configuration);
-			this.mc.displayGuiScreen(null);
+			StructureRenderHandler.setStructure(structure, Direction.NORTH, this.configuration);
+			this.minecraft.displayGuiScreen(null);
 		}
 	}
 	
@@ -90,14 +87,11 @@ public class GuiFishPond extends GuiStructure
 		int grayBoxY = (this.height / 2) - 83;
 
 		// Create the buttons.	
-		this.btnVisualize = new GuiButtonExt(4, grayBoxX + 10, grayBoxY + 90, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW));
-		this.buttonList.add(this.btnVisualize);
+		this.btnVisualize = this.createAndAddButton(grayBoxX + 10, grayBoxY + 90, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW));
 
 		// Create the done and cancel buttons.
-		this.btnBuild = new GuiButtonExt(1, grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_BUILD));
-		this.buttonList.add(this.btnBuild);
+		this.btnBuild = this.createAndAddButton(grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_BUILD));
 
-		this.btnCancel = new GuiButtonExt(2, grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_CANCEL));
-		this.buttonList.add(this.btnCancel);
+		this.btnCancel = this.createAndAddButton(grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_CANCEL));
 	}
 }

@@ -28,7 +28,7 @@ import net.minecraftforge.fml.client.config.GuiButtonExt;
  * @author WuestMan
  *
  */
-public class GuiStructure extends Screen
+public abstract class GuiStructure extends Screen
 {
 	public final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/default_background.png");
 	public BlockPos pos;
@@ -82,6 +82,34 @@ public class GuiStructure extends Screen
 	{
 		return this.pauseGame;
 	}
+	
+	public void checkVisualizationSetting()
+	{
+		if (!Prefab.proxy.proxyConfiguration.serverConfiguration.enableStructurePreview)
+		{
+			this.btnVisualize.visible = false;
+		}
+	}
+
+	/**
+	 * Creates a {@link GuiButtonExt} using the button clicked event as the handler. Then adds it to the buttons list and returns the created object.
+	 * @param x The x-axis position.
+	 * @param y The y-axis position.
+	 * @param width The width of the button.
+	 * @param height The height of the button.
+	 * @param text The text of the button.
+	 * @return A new button.
+	 */
+	public GuiButtonExt createAndAddButton(int x, int y, int width, int height, String text)
+	{
+		GuiButtonExt returnValue = new GuiButtonExt(x, y, width, height, text, this::buttonClicked);
+		
+		this.addButton(returnValue);
+		
+		return returnValue;
+	}
+	
+	public abstract void buttonClicked(Button button);
 	
 	protected void drawControlBackgroundAndButtonsAndLabels(int grayBoxX, int grayBoxY, int mouseX, int mouseY)
 	{
