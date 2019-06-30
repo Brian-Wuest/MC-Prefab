@@ -2,18 +2,25 @@ package com.wuest.prefab.Structures.Base;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 
-import com.google.common.base.Optional;
 import com.google.gson.annotations.Expose;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Structures.Config.StructureConfiguration;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeverBlock;
-import net.minecraft.client.renderer.BlockModelRenderer.Orientation;
+import net.minecraft.block.LogBlock;
+import net.minecraft.block.RotatedPillarBlock;
+import net.minecraft.block.VineBlock;
+import net.minecraft.block.WallBlock;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.state.IProperty;
+import net.minecraft.state.properties.AttachFace;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Direction.Axis;
 import net.minecraft.util.ResourceLocation;
@@ -22,87 +29,88 @@ import net.minecraft.world.World;
 
 /**
  * This class defines a single block and where it will be in the structure.
+ * 
  * @author WuestMan
  */
 public class BuildBlock
 {
 	@Expose
 	private String blockDomain;
-	
+
 	@Expose
 	private String blockName;
-	
+
 	@Expose
 	private PositionOffset startingPosition;
-	
+
 	@Expose
 	private ArrayList<BuildProperty> properties;
-	
+
 	@Expose
 	private BuildBlock subBlock;
-	
+
 	@Expose
 	private boolean hasFacing;
-	
+
 	@Expose
 	private BlockState state;
-	
+
 	@Expose
 	private String blockStateData;
-	
+
 	public BlockPos blockPos;
-	
+
 	public BuildBlock()
 	{
 		this.Initialize();
 	}
-	
+
 	public String getBlockDomain()
 	{
 		return this.blockDomain;
 	}
-	
+
 	public void setBlockDomain(String value)
 	{
 		this.blockDomain = value;
 	}
-	
+
 	public String getBlockName()
 	{
 		return this.blockName;
 	}
-	
+
 	public void setBlockName(String value)
 	{
 		this.blockName = value;
 	}
-	
+
 	public ResourceLocation getResourceLocation()
 	{
 		ResourceLocation location = new ResourceLocation(this.blockDomain, this.blockName);
 		return location;
 	}
-	
+
 	public PositionOffset getStartingPosition()
 	{
 		return this.startingPosition;
 	}
-	
+
 	public void setStartingPosition(PositionOffset value)
 	{
 		this.startingPosition = value;
 	}
-	
+
 	public ArrayList<BuildProperty> getProperties()
 	{
 		return this.properties;
 	}
-	
+
 	public void setProperties(ArrayList<BuildProperty> value)
 	{
 		this.properties = value;
 	}
-	
+
 	public BuildProperty getProperty(String name)
 	{
 		for (BuildProperty property : this.getProperties())
@@ -112,92 +120,91 @@ public class BuildBlock
 				return property;
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	public BuildBlock getSubBlock()
 	{
 		return this.subBlock;
 	}
-	
+
 	public void setSubBlock(BuildBlock value)
 	{
 		this.subBlock = value;
 	}
-	
+
 	public boolean getHasFacing()
 	{
 		return this.hasFacing;
 	}
-	
+
 	public void setHasFacing(boolean value)
 	{
 		this.hasFacing = value;
 	}
-	
+
 	public BlockState getBlockState()
 	{
 		return this.state;
 	}
-	
+
 	public void setBlockState(BlockState value)
 	{
 		this.state = value;
 	}
-	
+
 	public String getBlockStateData()
 	{
 		return this.blockStateData;
 	}
-	
+
 	public void setBlockStateData(String value)
 	{
 		this.blockStateData = value;
 	}
-	
-	public void setBlockStateData(NBTTagCompound tagCompound)
+
+	public void setBlockStateData(CompoundNBT tagCompound)
 	{
 		this.blockStateData = tagCompound.toString();
 	}
-	
-	public NBTTagCompound getBlockStateDataTag()
+
+	public CompoundNBT getBlockStateDataTag()
 	{
-		NBTTagCompound tag = null;
-		
+		CompoundNBT tag = null;
+
 		if (!this.blockStateData.equals(""))
 		{
 			try
 			{
 				tag = JsonToNBT.getTagFromJson(this.blockStateData);
 			}
-			catch (NBTException e)
+			catch (CommandSyntaxException e)
 			{
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		
+
 		return tag;
 	}
-	
+
 	public BlockState getBlockStateFromDataTag()
 	{
 		BlockState state = null;
-		
+
 		if (!this.blockStateData.equals(""))
 		{
-			NBTTagCompound tag = this.getBlockStateDataTag();
-			
+			CompoundNBT tag = this.getBlockStateDataTag();
+
 			if (tag != null)
 			{
-				state = NBTUtil.readBlockState(tag.getCompoundTag("tag"));
+				state = NBTUtil.readBlockState(tag.getCompound("tag"));
 			}
 		}
-		
+
 		return state;
 	}
-	
+
 	public void Initialize()
 	{
 		this.blockDomain = "";
@@ -209,8 +216,9 @@ public class BuildBlock
 		this.startingPosition = new PositionOffset();
 		this.blockStateData = "";
 	}
-	
-	public static BuildBlock SetBlockState(StructureConfiguration configuration, World world, BlockPos originalPos, Direction assumedNorth, BuildBlock block, Block foundBlock, BlockState blockState, Structure structure)
+
+	public static BuildBlock SetBlockState(StructureConfiguration configuration, World world, BlockPos originalPos, Direction assumedNorth, BuildBlock block, Block foundBlock,
+		BlockState blockState, Structure structure)
 	{
 		try
 		{
@@ -218,81 +226,88 @@ public class BuildBlock
 			{
 				return BuildBlock.SetBlockStateFromTagData(configuration, world, originalPos, assumedNorth, block, foundBlock, blockState, structure);
 			}
-			
+
 			Direction vineFacing = BuildBlock.getVineFacing(configuration, foundBlock, block, structure.getClearSpace().getShape().getDirection());
-			EnumAxis logFacing = BuildBlock.getLogFacing(configuration, foundBlock, block, structure.getClearSpace().getShape().getDirection());
-			Axis boneFacing = BuildBlock.getBoneFacing(configuration, foundBlock, block, structure.getClearSpace().getShape().getDirection());
-			BlockQuartz.EnumType quartzFacing = BuildBlock.getQuartsFacing(configuration, foundBlock, block, structure.getClearSpace().getShape().getDirection());
-			EnumOrientation leverOrientation = BuildBlock.getLeverOrientation(configuration, foundBlock, block, structure.getClearSpace().getShape().getDirection());
-			
-			// If this block has custom processing for block state just continue onto the next block. The sub-class is expected to place the block.
+			Direction.Axis logFacing = BuildBlock.getBoneFacing(configuration, foundBlock, block, structure.getClearSpace().getShape().getDirection());
+			Direction.Axis boneFacing = BuildBlock.getBoneFacing(configuration, foundBlock, block, structure.getClearSpace().getShape().getDirection());
+			Direction.Axis quartzFacing = BuildBlock.getBoneFacing(configuration, foundBlock, block, structure.getClearSpace().getShape().getDirection());
+			Direction leverOrientation = BuildBlock.getLeverOrientation(configuration, foundBlock, block, structure.getClearSpace().getShape().getDirection());
+
+			// If this block has custom processing for block state just continue onto the next block. The sub-class is
+			// expected to place the block.
 			if (block.getProperties().size() > 0)
 			{
-				Collection<IProperty<?>> properties = blockState.getPropertyKeys();
-				
+				Collection<IProperty<?>> properties = blockState.getProperties();
+
 				// Go through each property of this block and set it.
 				// The state will be updated as the properties are
 				// applied.
 				for (IProperty<?> property : properties)
 				{
 					BuildProperty buildProperty = block.getProperty(property.getName());
-					
-					// Make sure that this property exists in our file. The only way it wouldn't be there would be if a mod adds properties to vanilla blocks.
+
+					// Make sure that this property exists in our file. The only way it wouldn't be there would be if a
+					// mod adds properties to vanilla blocks.
 					if (buildProperty != null)
 					{
 						try
 						{
-							Optional<?> propertyValue  = property.parseValue(buildProperty.getValue());
-							
+							Optional<?> propertyValue = property.parseValue(buildProperty.getValue());
+
 							if (!propertyValue.isPresent()
-									|| propertyValue.getClass().getName().equals("com.google.common.base.Absent"))
+								|| propertyValue.getClass().getName().equals("com.google.common.base.Absent"))
 							{
-								FMLLog.log.warn("Property value for property name [" + property.getName() + "] for block [" + block.getBlockName() + "] is considered Absent, figure out why.");
+								Prefab.LOGGER.warn(
+									"Property value for property name [" + property.getName() + "] for block [" + block.getBlockName() + "] is considered Absent, figure out why.");
 								continue;
 							}
-							
+
 							Comparable<?> comparable = property.getValueClass().cast(propertyValue.get());
-							
+
 							if (comparable == null)
 							{
 								continue;
 							}
-							
-							comparable = BuildBlock.setComparable(comparable, foundBlock, property, configuration, block, assumedNorth, propertyValue, vineFacing, logFacing, boneFacing, quartzFacing, leverOrientation, structure);
-			
+
+							comparable = BuildBlock.setComparable(comparable, foundBlock, property, configuration, block, assumedNorth, propertyValue, vineFacing, logFacing,
+								boneFacing, quartzFacing, leverOrientation, structure);
+
 							if (comparable == null)
 							{
 								continue;
 							}
-							
+
 							try
 							{
-								if (blockState.getValue(property) != comparable)
+								if (blockState.get(property) != comparable)
 								{
 									blockState = BuildBlock.setProperty(blockState, property, comparable);
 								}
 							}
 							catch (Exception ex)
 							{
-								System.out.println("Error setting properly value for property name [" + property.getName() + "] property value [" + buildProperty.getValue() + "] for block [" + block.getBlockName() + "] The default value will be used.");
+								System.out.println("Error setting properly value for property name [" + property.getName() + "] property value [" + buildProperty.getValue()
+									+ "] for block [" + block.getBlockName() + "] The default value will be used.");
 							}
 						}
 						catch (Exception ex)
 						{
 							if (property != null && buildProperty != null)
 							{
-								System.out.println("Error getting properly value for property name [" + property.getName() + "] property value [" + buildProperty.getValue() + "] for block [" + block.getBlockName() + "]");
+								System.out.println("Error getting properly value for property name [" + property.getName() + "] property value [" + buildProperty.getValue()
+									+ "] for block [" + block.getBlockName() + "]");
 								throw ex;
 							}
 						}
 					}
 					else
 					{
-						//System.out.println("Property: [" + property.getName() + "] does not exist for Block: [" + block.getBlockName() + "] this is usually due to mods adding properties to vanilla blocks.");
+						// System.out.println("Property: [" + property.getName() + "] does not exist for Block: [" +
+						// block.getBlockName() + "] this is usually due to mods adding properties to vanilla blocks.");
 					}
 				}
 			}
-			
+
 			block.setBlockState(blockState);
 			return block;
 		}
@@ -302,13 +317,13 @@ public class BuildBlock
 			throw ex;
 		}
 	}
-	
+
 	public static Direction getHorizontalFacing(Direction currentFacing, Direction configurationFacing, Direction structureDirection)
 	{
 		if (currentFacing != null && currentFacing != Direction.UP && currentFacing != Direction.DOWN)
 		{
 			if (configurationFacing.getOpposite() == structureDirection.rotateY())
-			{				
+			{
 				currentFacing = currentFacing.rotateY();
 			}
 			else if (configurationFacing.getOpposite() == structureDirection.getOpposite())
@@ -320,26 +335,27 @@ public class BuildBlock
 				currentFacing = currentFacing.rotateYCCW();
 			}
 		}
-		
+
 		return currentFacing;
 	}
-	
-	private static Comparable setComparable(Comparable<?> comparable, Block foundBlock, IProperty<?> property, StructureConfiguration configuration, BuildBlock block, Direction assumedNorth, Optional<?> propertyValue
-			, Direction vineFacing, EnumAxis logFacing, Axis boneFacing, BlockQuartz.EnumType quartzFacing, EnumOrientation leverOrientation, Structure structure)
+
+	private static Comparable setComparable(Comparable<?> comparable, Block foundBlock, IProperty<?> property, StructureConfiguration configuration, BuildBlock block,
+		Direction assumedNorth, Optional<?> propertyValue, Direction vineFacing, Direction.Axis logFacing, Axis boneFacing, Direction.Axis quartzFacing, Direction leverOrientation,
+		Structure structure)
 	{
-		if (property.getName().equals("facing") && !(foundBlock instanceof BlockLever))
+		if (property.getName().equals("facing") && !(foundBlock instanceof LeverBlock))
 		{
 			// Facing properties should be relative to the configuration facing.
 			Direction facing = Direction.byName(propertyValue.get().toString());
-			
+
 			// Cannot rotate verticals.
 			facing = BuildBlock.getHorizontalFacing(facing, configuration.houseFacing, structure.getClearSpace().getShape().getDirection());
-			
+
 			comparable = facing;
-			
+
 			block.setHasFacing(true);
 		}
-		else if (property.getName().equals("facing") && foundBlock instanceof BlockLever)
+		else if (property.getName().equals("facing") && foundBlock instanceof LeverBlock)
 		{
 			comparable = leverOrientation;
 			block.setHasFacing(true);
@@ -350,9 +366,9 @@ public class BuildBlock
 			// 4 = West
 			// 8 = North
 			// 12 = East
-			int rotation = (Integer)propertyValue.get();
+			int rotation = (Integer) propertyValue.get();
 			Direction facing = rotation == 0 ? Direction.SOUTH : rotation == 4 ? Direction.WEST : rotation == 8 ? Direction.NORTH : Direction.EAST;
-			
+
 			if (configuration.houseFacing.getOpposite() == structure.getClearSpace().getShape().getDirection().rotateY())
 			{
 				facing = facing.rotateY();
@@ -365,12 +381,12 @@ public class BuildBlock
 			{
 				facing = facing.rotateYCCW();
 			}
-			
+
 			rotation = facing == Direction.SOUTH ? 0 : facing == Direction.WEST ? 4 : facing == Direction.NORTH ? 8 : 12;
 			comparable = rotation;
 			block.setHasFacing(true);
 		}
-		else if (foundBlock instanceof BlockVine)
+		else if (foundBlock instanceof VineBlock)
 		{
 			// Vines have a special state. There is 1 property for each "facing".
 			if (property.getName().equals(vineFacing.getName2()))
@@ -383,12 +399,12 @@ public class BuildBlock
 				comparable = false;
 			}
 		}
-		else if (foundBlock instanceof BlockWall)
+		else if (foundBlock instanceof WallBlock)
 		{
 			if (!property.getName().equals("variant"))
 			{
 				if (property.getName().equals(vineFacing.getName2())
-						|| property.getName().equals(vineFacing.getOpposite().getName2()))
+					|| property.getName().equals(vineFacing.getOpposite().getName2()))
 				{
 					comparable = true;
 					block.setHasFacing(true);
@@ -399,7 +415,7 @@ public class BuildBlock
 				}
 			}
 		}
-		else if (foundBlock instanceof BlockLog)
+		else if (foundBlock instanceof LogBlock)
 		{
 			// logs have a special state. There is a property called axis and it only has 3 directions.
 			if (property.getName().equals("axis"))
@@ -407,7 +423,7 @@ public class BuildBlock
 				comparable = logFacing;
 			}
 		}
-		else if (foundBlock instanceof BlockBone)
+		else if (foundBlock instanceof RotatedPillarBlock)
 		{
 			// bones have a special state. There is a property called axis and it only has 3 directions.
 			if (property.getName().equals("axis"))
@@ -415,24 +431,17 @@ public class BuildBlock
 				comparable = boneFacing;
 			}
 		}
-		else if (foundBlock instanceof BlockQuartz)
-		{
-			if (property.getName().equals("variant") && quartzFacing != BlockQuartz.EnumType.DEFAULT)
-			{
-				comparable = quartzFacing;
-			}
-		}
-		
+
 		return comparable;
 	}
-	
+
 	private static Direction getVineFacing(StructureConfiguration configuration, Block foundBlock, BuildBlock block, Direction assumedNorth)
 	{
 		Direction vineFacing = Direction.UP;
-		
+
 		// Vines have a special property for it's "facing"
-		if (foundBlock instanceof BlockVine
-				|| foundBlock instanceof BlockWall)
+		if (foundBlock instanceof VineBlock
+			|| foundBlock instanceof WallBlock)
 		{
 			if (block.getProperty("east").getValue().equals("true"))
 			{
@@ -450,7 +459,7 @@ public class BuildBlock
 			{
 				vineFacing = Direction.NORTH;
 			}
-			
+
 			if (vineFacing != Direction.UP)
 			{
 				if (configuration.houseFacing.rotateY() == assumedNorth)
@@ -470,47 +479,15 @@ public class BuildBlock
 				}
 			}
 		}
-		
+
 		return vineFacing;
 	}
-	
-	private static EnumAxis getLogFacing(StructureConfiguration configuration, Block foundBlock, BuildBlock block, Direction assumedNorth)
-	{
-		EnumAxis logFacing = EnumAxis.X;
-		
-		if (foundBlock instanceof BlockLog)
-		{
-			if (block.getProperty("axis").getValue().equals("x"))
-			{
-				logFacing = EnumAxis.X;
-			}
-			else if (block.getProperty("axis").getValue().equals("y"))
-			{
-				logFacing = EnumAxis.Y;
-			}
-			else
-			{
-				logFacing = EnumAxis.Z;
-			}
-			
-			if (logFacing != EnumAxis.Y)
-			{
-				logFacing = 
-						configuration.houseFacing == assumedNorth || configuration.houseFacing == assumedNorth.getOpposite() 
-							? logFacing : 
-						logFacing == EnumAxis.X 
-							? EnumAxis.Z : EnumAxis.X; 
-			}
-		}
-		
-		return logFacing;
-	}
-	
+
 	private static Axis getBoneFacing(StructureConfiguration configuration, Block foundBlock, BuildBlock block, Direction assumedNorth)
 	{
 		Axis boneFacing = Axis.X;
-		
-		if (foundBlock instanceof BlockBone)
+
+		if (foundBlock instanceof RotatedPillarBlock)
 		{
 			if (block.getProperty("axis").getValue().equals("x"))
 			{
@@ -524,87 +501,57 @@ public class BuildBlock
 			{
 				boneFacing = Axis.Z;
 			}
-			
+
 			if (boneFacing != Axis.Y)
 			{
-				boneFacing = 
-						configuration.houseFacing == assumedNorth || configuration.houseFacing == assumedNorth.getOpposite() 
-							? boneFacing : 
-								boneFacing == Axis.X 
-									? Axis.Z : Axis.X; 
+				boneFacing = configuration.houseFacing == assumedNorth || configuration.houseFacing == assumedNorth.getOpposite()
+					? boneFacing
+					: boneFacing == Axis.X
+						? Axis.Z
+						: Axis.X;
 			}
 		}
-		
+
 		return boneFacing;
 	}
-	
-	private static BlockQuartz.EnumType getQuartsFacing(StructureConfiguration configuration, Block foundBlock, BuildBlock block, Direction assumedNorth)
-	{
-		BlockQuartz.EnumType quartzFacing = BlockQuartz.EnumType.DEFAULT;
-		
-		if (foundBlock instanceof BlockQuartz)
-		{
-			if (block.getProperty("variant").getValue().startsWith("lines"))
-			{
-				if (block.getProperty("variant").getValue().equals("lines_x"))
-				{
-					quartzFacing = BlockQuartz.EnumType.LINES_X;
-				}
-				else if (block.getProperty("variant").getValue().equals("lines_z"))
-				{
-					quartzFacing = BlockQuartz.EnumType.LINES_Z;
-				}
-				
-				if (quartzFacing == BlockQuartz.EnumType.LINES_X
-						|| quartzFacing == BlockQuartz.EnumType.LINES_Z)
-				{
-					quartzFacing = 
-							configuration.houseFacing == assumedNorth || configuration.houseFacing.getOpposite() == assumedNorth 
-								? quartzFacing : 
-									quartzFacing == BlockQuartz.EnumType.LINES_X 
-								? BlockQuartz.EnumType.LINES_Z : BlockQuartz.EnumType.LINES_X;
-				}
-			}
-		}
-		
-		return quartzFacing;
-	}
-	
+
 	private static Direction getLeverOrientation(StructureConfiguration configuration, Block foundBlock, BuildBlock block, Direction assumedNorth)
 	{
 		Direction leverOrientation = Direction.NORTH;
-		
+		AttachFace attachedTo = AttachFace.FLOOR;
+
 		if (foundBlock instanceof LeverBlock)
 		{
 			// Levers have a special facing.
-			leverOrientation = LeverBlock.HORIZONTAL_FACING.parseValue(block.getProperty("facing").getValue().toUpperCase());
-			
-			if (leverOrientation == Direction.DOWN
-					|| leverOrientation == Direction.UP)
+			leverOrientation = LeverBlock.HORIZONTAL_FACING.parseValue(block.getProperty("horizontal_facing").getValue().toUpperCase()).get();
+			attachedTo = LeverBlock.FACE.parseValue(block.getProperty("face").getValue().toUpperCase()).get();
+
+			if (attachedTo == AttachFace.FLOOR
+				|| attachedTo == AttachFace.CEILING)
 			{
-				if (leverOrientation == Direction.DOWN)
+				if (attachedTo == AttachFace.FLOOR)
 				{
-					leverOrientation = 
-							configuration.houseFacing == assumedNorth || configuration.houseFacing == assumedNorth.getOpposite() 
-								? leverOrientation : 
-									leverOrientation == Orientation.DOWN_X 
-								? Orientation.DOWN_Z : Orientation.DOWN_X;
+					leverOrientation = configuration.houseFacing == assumedNorth || configuration.houseFacing == assumedNorth.getOpposite()
+						? leverOrientation
+						: leverOrientation == Direction.NORTH
+							? Direction.EAST
+							: Direction.NORTH;
 				}
 				else
 				{
-					leverOrientation = 
-							configuration.houseFacing == assumedNorth || configuration.houseFacing == assumedNorth.getOpposite() 
-								? leverOrientation : 
-									leverOrientation == Orientation.UP_X 
-								? Orientation.UP_Z : Orientation.UP_X;
+					leverOrientation = configuration.houseFacing == assumedNorth || configuration.houseFacing == assumedNorth.getOpposite()
+						? leverOrientation
+						: leverOrientation == Direction.NORTH
+							? Direction.EAST
+							: Direction.NORTH;
 				}
 			}
 			else
 			{
 				Direction facing = leverOrientation;
-				
+
 				if (configuration.houseFacing.rotateY() == assumedNorth)
-				{				
+				{
 					facing = facing.rotateY();
 				}
 				else if (configuration.houseFacing.getOpposite() == assumedNorth)
@@ -618,10 +565,10 @@ public class BuildBlock
 				{
 					facing = facing.getOpposite();
 				}
-				
-				for (Orientation tempOrientation : Orientation.values())
+
+				for (Direction tempOrientation : Direction.values())
 				{
-					if (tempOrientation.getFacing() == facing)
+					if (tempOrientation == facing)
 					{
 						leverOrientation = tempOrientation;
 						break;
@@ -629,20 +576,22 @@ public class BuildBlock
 				}
 			}
 		}
-		
+
 		return leverOrientation;
 	}
-	
+
 	private static BlockState setProperty(BlockState state, IProperty property, Comparable comparable)
 	{
-		// This method is required since the properties and comparables have a <?> in them and it doesn't work properly when that is there. There is a compilation error since it's not hard typed.
+		// This method is required since the properties and comparables have a <?> in them and it doesn't work properly
+		// when that is there. There is a compilation error since it's not hard typed.
 		return state.with(property, comparable);
 	}
 
-	private static BuildBlock SetBlockStateFromTagData(StructureConfiguration configuration, World world, BlockPos originalPos, Direction assumedNorth, BuildBlock block, Block foundBlock, BlockState blockState, Structure structure)
+	private static BuildBlock SetBlockStateFromTagData(StructureConfiguration configuration, World world, BlockPos originalPos, Direction assumedNorth, BuildBlock block,
+		Block foundBlock, BlockState blockState, Structure structure)
 	{
 		BlockState tagState = block.getBlockStateFromDataTag();
-		
+
 		if (tagState != null)
 		{
 			block.setBlockState(block.getBlockStateFromDataTag());
@@ -652,7 +601,7 @@ public class BuildBlock
 			block.setBlockStateData("");
 			return BuildBlock.SetBlockState(configuration, world, originalPos, assumedNorth, block, foundBlock, blockState, structure);
 		}
-		
+
 		return block;
 	}
 }

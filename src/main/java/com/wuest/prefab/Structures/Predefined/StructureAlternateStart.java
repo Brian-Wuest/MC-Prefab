@@ -12,34 +12,33 @@ import com.wuest.prefab.Structures.Base.Structure;
 import com.wuest.prefab.Structures.Config.HouseConfiguration;
 import com.wuest.prefab.Structures.Config.StructureConfiguration;
 
+import net.minecraft.block.BedBlock;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockBed;
-import net.minecraft.block.BlockChest;
-import net.minecraft.block.BlockFurnace;
-import net.minecraft.block.BlockLadder;
-import net.minecraft.block.BlockLiquid;
-import net.minecraft.block.BlockStainedGlass;
-import net.minecraft.block.BlockStandingSign;
-import net.minecraft.block.BlockStone;
-import net.minecraft.block.BlockTorch;
-import net.minecraft.block.BlockTrapDoor;
-import net.minecraft.block.BlockWorkbench;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.ChestBlock;
+import net.minecraft.block.CraftingTableBlock;
+import net.minecraft.block.FlowingFluidBlock;
+import net.minecraft.block.FurnaceBlock;
+import net.minecraft.block.LadderBlock;
+import net.minecraft.block.StandingSignBlock;
+import net.minecraft.block.TorchBlock;
+import net.minecraft.block.TrapDoorBlock;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.tileentity.ChestTileEntity;
+import net.minecraft.tileentity.FurnaceTileEntity;
+import net.minecraft.tileentity.SignTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityChest;
-import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.world.ServerWorld;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.ForgeRegistries;
 
 /**
  * 
@@ -66,8 +65,8 @@ public class StructureAlternateStart extends Structure
 		clearedSpace.getStartingPosition().setHeightOffset(-1);
 
 		Structure.ScanStructure(world, originalPos, originalPos.east(8).south().down(), originalPos.south(22).west(3).up(8),
-				"..\\src\\main\\resources\\assets\\prefab\\structures\\ranch_house.zip", clearedSpace,
-				playerFacing, false, false);
+			"..\\src\\main\\resources\\assets\\prefab\\structures\\ranch_house.zip", clearedSpace,
+			playerFacing, false, false);
 	}
 
 	public static void ScanLoftStructure(World world, BlockPos originalPos, Direction playerFacing)
@@ -81,7 +80,7 @@ public class StructureAlternateStart extends Structure
 		clearedSpace.getStartingPosition().setEastOffset(7);
 
 		Structure.ScanStructure(world, originalPos, originalPos.east(7).south(), originalPos.south(14).west(8).up(9),
-				"..\\src\\main\\resources\\assets\\prefab\\structures\\loft_house.zip", clearedSpace, playerFacing, false, false);
+			"..\\src\\main\\resources\\assets\\prefab\\structures\\loft_house.zip", clearedSpace, playerFacing, false, false);
 	}
 
 	public static void ScanHobbitStructure(World world, BlockPos originalPos, Direction playerFacing)
@@ -96,10 +95,10 @@ public class StructureAlternateStart extends Structure
 		clearedSpace.getStartingPosition().setHeightOffset(-3);
 
 		Structure.ScanStructure(world, originalPos, originalPos.east(8).south().down(3), originalPos.south(16).west(8).up(12),
-				"..\\src\\main\\resources\\assets\\prefab\\structures\\hobbit_house.zip", clearedSpace,
-				playerFacing, false, false);
+			"..\\src\\main\\resources\\assets\\prefab\\structures\\hobbit_house.zip", clearedSpace,
+			playerFacing, false, false);
 	}
-	
+
 	public static void ScanStructure(World world, BlockPos originalPos, Direction playerFacing, String structureFileName, boolean includeAir, boolean excludeWater)
 	{
 		BuildClear clearedSpace = new BuildClear();
@@ -110,85 +109,248 @@ public class StructureAlternateStart extends Structure
 		clearedSpace.getStartingPosition().setSouthOffset(1);
 		clearedSpace.getStartingPosition().setEastOffset(8);
 		clearedSpace.getStartingPosition().setHeightOffset(-1);
-		
+
 		BuildShape buildShape = clearedSpace.getShape();
 		PositionOffset offset = clearedSpace.getStartingPosition();
-		
+
 		int downOffset = offset.getHeightOffset() < 0 ? Math.abs(offset.getHeightOffset()) : 0;
 		BlockPos cornerPos = originalPos.east(offset.getEastOffset()).south(offset.getSouthOffset()).down(downOffset);
-		
+
 		Structure.ScanStructure(
-				world, 
-				originalPos, 
-				cornerPos,
-				cornerPos.south(buildShape.getLength()).west(buildShape.getWidth()).up(buildShape.getHeight()), 
-				"..\\src\\main\\resources\\assets\\prefab\\structures\\" + structureFileName  + ".zip",
-				clearedSpace,
-				playerFacing,
-				includeAir,
-				excludeWater);
+			world,
+			originalPos,
+			cornerPos,
+			cornerPos.south(buildShape.getLength()).west(buildShape.getWidth()).up(buildShape.getHeight()),
+			"..\\src\\main\\resources\\assets\\prefab\\structures\\" + structureFileName + ".zip",
+			clearedSpace,
+			playerFacing,
+			includeAir,
+			excludeWater);
 	}
 
 	@Override
 	protected Boolean CustomBlockProcessingHandled(StructureConfiguration configuration, BuildBlock block, World world, BlockPos originalPos,
-			Direction assumedNorth, Block foundBlock, IBlockState blockState, EntityPlayer player)
+		Direction assumedNorth, Block foundBlock, BlockState blockState, PlayerEntity player)
 	{
 		HouseConfiguration houseConfig = (HouseConfiguration) configuration;
 
-		if ((!houseConfig.addBed && foundBlock instanceof BlockBed) || (!houseConfig.addChest && foundBlock instanceof BlockChest)
-				|| (!houseConfig.addTorches && foundBlock instanceof BlockTorch)
-				|| (!houseConfig.addCraftingTable && foundBlock instanceof BlockWorkbench)
-				|| (!houseConfig.addFurnace && foundBlock instanceof BlockFurnace))
+		if ((!houseConfig.addBed && foundBlock instanceof BedBlock) || (!houseConfig.addChest && foundBlock instanceof ChestBlock)
+			|| (!houseConfig.addTorches && foundBlock instanceof TorchBlock)
+			|| (!houseConfig.addCraftingTable && foundBlock instanceof CraftingTableBlock)
+			|| (!houseConfig.addFurnace && foundBlock instanceof FurnaceBlock))
 		{
 			// Don't place the block, returning true means that this has been
 			// "handled"
 			return true;
 		}
 
-		if (foundBlock instanceof BlockFurnace)
+		if (foundBlock instanceof FurnaceBlock)
 		{
 			this.furnacePosition = block.getStartingPosition().getRelativePosition(
-					originalPos,
-					this.getClearSpace().getShape().getDirection(),
-					configuration.houseFacing);
+				originalPos,
+				this.getClearSpace().getShape().getDirection(),
+				configuration.houseFacing);
 		}
-		else if (foundBlock instanceof BlockTrapDoor && houseConfig.addMineShaft)
+		else if (foundBlock instanceof TrapDoorBlock && houseConfig.addMineShaft)
 		{
 			// The trap door will still be added, but the mine shaft may not be
 			// built.
 			this.trapDoorPosition = block.getStartingPosition().getRelativePosition(
-					originalPos,
-					this.getClearSpace().getShape().getDirection(),
-					configuration.houseFacing);
+				originalPos,
+				this.getClearSpace().getShape().getDirection(),
+				configuration.houseFacing);
 		}
-		else if (foundBlock instanceof BlockChest && this.chestPosition == null)
+		else if (foundBlock instanceof ChestBlock && this.chestPosition == null)
 		{
 			this.chestPosition = block.getStartingPosition().getRelativePosition(
-					originalPos,
-					this.getClearSpace().getShape().getDirection(),
-					configuration.houseFacing);
+				originalPos,
+				this.getClearSpace().getShape().getDirection(),
+				configuration.houseFacing);
 		}
-		else if (foundBlock instanceof BlockStandingSign)
+		else if (foundBlock instanceof StandingSignBlock)
 		{
 			this.signPosition = block.getStartingPosition().getRelativePosition(
-					originalPos,
-					this.getClearSpace().getShape().getDirection(),
-					configuration.houseFacing);
+				originalPos,
+				this.getClearSpace().getShape().getDirection(),
+				configuration.houseFacing);
 		}
 
-		if (foundBlock.getRegistryName().getResourceDomain().equals(Blocks.STAINED_GLASS.getRegistryName().getResourceDomain())
-				&& foundBlock.getRegistryName().getResourcePath().equals(Blocks.STAINED_GLASS.getRegistryName().getResourcePath()))
+		if (foundBlock.getRegistryName().getNamespace().equals(Blocks.WHITE_STAINED_GLASS.getRegistryName().getNamespace())
+			&& foundBlock.getRegistryName().getPath().endsWith("stained_glass"))
 		{
-			blockState = blockState.withProperty(BlockStainedGlass.COLOR, houseConfig.glassColor);
+			switch (houseConfig.glassColor)
+			{
+				case BLACK:
+				{
+					blockState = Blocks.BLACK_STAINED_GLASS.getDefaultState();
+					break;
+				}
+				case BLUE:
+				{
+					blockState = Blocks.BLUE_STAINED_GLASS.getDefaultState();
+					break;
+				}
+				case BROWN:
+				{
+					blockState = Blocks.BROWN_STAINED_GLASS.getDefaultState();
+					break;
+				}
+				case GRAY:
+				{
+					blockState = Blocks.GRAY_STAINED_GLASS.getDefaultState();
+					break;
+				}
+				case GREEN:
+				{
+					blockState = Blocks.GREEN_STAINED_GLASS.getDefaultState();
+					break;
+				}
+				case LIGHT_BLUE:
+				{
+					blockState = Blocks.LIGHT_BLUE_STAINED_GLASS.getDefaultState();
+					break;
+				}
+				case LIGHT_GRAY:
+				{
+					blockState = Blocks.LIGHT_GRAY_STAINED_GLASS.getDefaultState();
+					break;
+				}
+				case LIME:
+				{
+					blockState = Blocks.LIME_STAINED_GLASS.getDefaultState();
+					break;
+				}
+				case MAGENTA:
+				{
+					blockState = Blocks.MAGENTA_STAINED_GLASS.getDefaultState();
+					break;
+				}
+				case ORANGE:
+				{
+					blockState = Blocks.ORANGE_STAINED_GLASS.getDefaultState();
+					break;
+				}
+				case PINK:
+				{
+					blockState = Blocks.PINK_STAINED_GLASS.getDefaultState();
+					break;
+				}
+				case PURPLE:
+				{
+					blockState = Blocks.PURPLE_STAINED_GLASS.getDefaultState();
+					break;
+				}
+				case RED:
+				{
+					blockState = Blocks.RED_STAINED_GLASS.getDefaultState();
+					break;
+				}
+				case WHITE:
+				{
+					blockState = Blocks.WHITE_STAINED_GLASS.getDefaultState();
+					break;
+				}
+				case YELLOW:
+				{
+					blockState = Blocks.YELLOW_STAINED_GLASS.getDefaultState();
+					break;
+				}
+				default:
+				{
+					blockState = Blocks.CYAN_STAINED_GLASS.getDefaultState();
+				}
+			}
+
 			block.setBlockState(blockState);
 			this.priorityOneBlocks.add(block);
 
 			return true;
 		}
-		else if (foundBlock.getRegistryName().getResourceDomain().equals(Blocks.STAINED_GLASS_PANE.getRegistryName().getResourceDomain())
-				&& foundBlock.getRegistryName().getResourcePath().equals(Blocks.STAINED_GLASS_PANE.getRegistryName().getResourcePath()))
+		else if (foundBlock.getRegistryName().getNamespace().equals(Blocks.WHITE_STAINED_GLASS_PANE.getRegistryName().getNamespace())
+			&& foundBlock.getRegistryName().getPath().endsWith("stained_glass_pane"))
 		{
-			block.setBlockState(foundBlock.getStateFromMeta(houseConfig.glassColor.getMetadata()));
+			switch (houseConfig.glassColor)
+			{
+				case BLACK:
+				{
+					blockState = Blocks.BLACK_STAINED_GLASS_PANE.getDefaultState();
+					break;
+				}
+				case BLUE:
+				{
+					blockState = Blocks.BLUE_STAINED_GLASS_PANE.getDefaultState();
+					break;
+				}
+				case BROWN:
+				{
+					blockState = Blocks.BROWN_STAINED_GLASS_PANE.getDefaultState();
+					break;
+				}
+				case GRAY:
+				{
+					blockState = Blocks.GRAY_STAINED_GLASS_PANE.getDefaultState();
+					break;
+				}
+				case GREEN:
+				{
+					blockState = Blocks.GREEN_STAINED_GLASS_PANE.getDefaultState();
+					break;
+				}
+				case LIGHT_BLUE:
+				{
+					blockState = Blocks.LIGHT_BLUE_STAINED_GLASS_PANE.getDefaultState();
+					break;
+				}
+				case LIGHT_GRAY:
+				{
+					blockState = Blocks.LIGHT_GRAY_STAINED_GLASS_PANE.getDefaultState();
+					break;
+				}
+				case LIME:
+				{
+					blockState = Blocks.LIME_STAINED_GLASS_PANE.getDefaultState();
+					break;
+				}
+				case MAGENTA:
+				{
+					blockState = Blocks.MAGENTA_STAINED_GLASS_PANE.getDefaultState();
+					break;
+				}
+				case ORANGE:
+				{
+					blockState = Blocks.ORANGE_STAINED_GLASS_PANE.getDefaultState();
+					break;
+				}
+				case PINK:
+				{
+					blockState = Blocks.PINK_STAINED_GLASS_PANE.getDefaultState();
+					break;
+				}
+				case PURPLE:
+				{
+					blockState = Blocks.PURPLE_STAINED_GLASS_PANE.getDefaultState();
+					break;
+				}
+				case RED:
+				{
+					blockState = Blocks.RED_STAINED_GLASS_PANE.getDefaultState();
+					break;
+				}
+				case WHITE:
+				{
+					blockState = Blocks.WHITE_STAINED_GLASS_PANE.getDefaultState();
+					break;
+				}
+				case YELLOW:
+				{
+					blockState = Blocks.YELLOW_STAINED_GLASS_PANE.getDefaultState();
+					break;
+				}
+				default:
+				{
+					blockState = Blocks.CYAN_STAINED_GLASS_PANE.getDefaultState();
+				}
+			}
 			this.priorityOneBlocks.add(block);
 			return true;
 		}
@@ -197,17 +359,16 @@ public class StructureAlternateStart extends Structure
 	}
 
 	/**
-	 * This method is used after the main building is build for any additional
-	 * structures or modifications.
+	 * This method is used after the main building is build for any additional structures or modifications.
 	 * 
 	 * @param configuration The structure configuration.
-	 * @param world The current world.
-	 * @param originalPos The original position clicked on.
-	 * @param assumedNorth The assumed northern direction.
-	 * @param player The player which initiated the construction.
+	 * @param world         The current world.
+	 * @param originalPos   The original position clicked on.
+	 * @param assumedNorth  The assumed northern direction.
+	 * @param player        The player which initiated the construction.
 	 */
 	@Override
-	public void AfterBuilding(StructureConfiguration configuration, World world, BlockPos originalPos, Direction assumedNorth, EntityPlayer player)
+	public void AfterBuilding(StructureConfiguration configuration, ServerWorld world, BlockPos originalPos, Direction assumedNorth, PlayerEntity player)
 	{
 		HouseConfiguration houseConfig = (HouseConfiguration) configuration;
 
@@ -215,9 +376,9 @@ public class StructureAlternateStart extends Structure
 		{
 			// Fill the furnace.
 			TileEntity tileEntity = world.getTileEntity(this.furnacePosition);
-			if (tileEntity instanceof TileEntityFurnace)
+			if (tileEntity instanceof FurnaceTileEntity)
 			{
-				TileEntityFurnace furnaceTile = (TileEntityFurnace) tileEntity;
+				FurnaceTileEntity furnaceTile = (FurnaceTileEntity) tileEntity;
 				furnaceTile.setInventorySlotContents(1, new ItemStack(Items.COAL, 20));
 			}
 		}
@@ -233,26 +394,26 @@ public class StructureAlternateStart extends Structure
 			// Build the mineshaft.
 			StructureAlternateStart.PlaceMineShaft(world, this.trapDoorPosition.down(), houseConfig.houseFacing, false);
 		}
-		
+
 		if (this.signPosition != null)
 		{
 			TileEntity tileEntity = world.getTileEntity(this.signPosition);
 
-			if (tileEntity instanceof TileEntitySign)
+			if (tileEntity instanceof SignTileEntity)
 			{
-				TileEntitySign signTile = (TileEntitySign) tileEntity;
-				signTile.signText[0] = new TextComponentString("This is");
+				SignTileEntity signTile = (SignTileEntity) tileEntity;
+				signTile.signText[0] = new StringTextComponent("This is");
 
-				if (player.getDisplayNameString().length() >= 15)
+				if (player.getDisplayName().getString().length() >= 15)
 				{
-					signTile.signText[1] = new TextComponentString(player.getDisplayNameString());
+					signTile.signText[1] = new StringTextComponent(player.getDisplayName().getString());
 				}
 				else
 				{
-					signTile.signText[1] = new TextComponentString(player.getDisplayNameString() + "'s");
+					signTile.signText[1] = new StringTextComponent(player.getDisplayName().getString() + "'s");
 				}
 
-				signTile.signText[2] = new TextComponentString("house!");
+				signTile.signText[2] = new StringTextComponent("house!");
 			}
 		}
 	}
@@ -262,70 +423,52 @@ public class StructureAlternateStart extends Structure
 		// Add each stone tool to the chest and leather armor.
 		TileEntity tileEntity = world.getTileEntity(itemPosition);
 
-		if (tileEntity instanceof TileEntityChest)
+		if (tileEntity instanceof ChestTileEntity)
 		{
-			TileEntityChest chestTile = (TileEntityChest) tileEntity;
+			ChestTileEntity chestTile = (ChestTileEntity) tileEntity;
 
 			int itemSlot = 0;
 
 			// Add the tools.
-			if (Prefab.proxy.proxyConfiguration.addAxe)
+			if (Prefab.proxy.proxyConfiguration.serverConfiguration.addAxe)
 			{
 				chestTile.setInventorySlotContents(itemSlot++, new ItemStack(Items.STONE_AXE));
 			}
 
-			if (Prefab.proxy.proxyConfiguration.addHoe)
+			if (Prefab.proxy.proxyConfiguration.serverConfiguration.addHoe)
 			{
 				chestTile.setInventorySlotContents(itemSlot++, new ItemStack(Items.STONE_HOE));
-
-				// Trigger the "Time to Farm!" achievement.
-				// TODO: Figure out how to push this advancement.
-				//player.addStat(AchievementList.BUILD_HOE);
 			}
 
-			if (Prefab.proxy.proxyConfiguration.addPickAxe)
+			if (Prefab.proxy.proxyConfiguration.serverConfiguration.addPickAxe)
 			{
 				// Trigger the "Time to Mine" achievement and the better
 				// pick axe achievement.
 				chestTile.setInventorySlotContents(itemSlot++, new ItemStack(Items.STONE_PICKAXE));
-
-				// TODO: Figure out how to push this advancement.
-				//player.addStat(AchievementList.BUILD_PICKAXE);
-				//player.addStat(AchievementList.BUILD_BETTER_PICKAXE);
-
-				if (configuration.addCraftingTable)
-				{
-					// If the furnace/crafting table was created, trigger
-					// the "Hot Topic" achievement.
-					//player.addStat(AchievementList.BUILD_FURNACE);
-				}
 			}
 
-			if (Prefab.proxy.proxyConfiguration.addShovel)
+			if (Prefab.proxy.proxyConfiguration.serverConfiguration.addShovel)
 			{
 				chestTile.setInventorySlotContents(itemSlot++, new ItemStack(Items.STONE_SHOVEL));
 			}
 
-			if (Prefab.proxy.proxyConfiguration.addSword)
+			if (Prefab.proxy.proxyConfiguration.serverConfiguration.addSword)
 			{
 				// Include the swift blade if WuestUtilities has registered the
 				// swift blades.
 				ResourceLocation name = new ResourceLocation("repurpose", "itemSwiftBladeStone");
-				Item sword = Item.REGISTRY.getObject(name);
 
-				if (sword == null)
+				Item sword = Items.STONE_SWORD;
+
+				if (ForgeRegistries.ITEMS.containsKey(name))
 				{
-					sword = Items.STONE_SWORD;
+					sword = ForgeRegistries.ITEMS.getValue(name);
 				}
 
 				chestTile.setInventorySlotContents(itemSlot++, new ItemStack(sword));
-
-				// Trigger the "Time to Strike" achievement.
-				// TODO: Figure out how to push this advancement.
-				//player.addStat(AchievementList.BUILD_SWORD);
 			}
 
-			if (Prefab.proxy.proxyConfiguration.addArmor)
+			if (Prefab.proxy.proxyConfiguration.serverConfiguration.addArmor)
 			{
 				// Add the armor.
 				chestTile.setInventorySlotContents(itemSlot++, new ItemStack(Items.LEATHER_BOOTS));
@@ -334,16 +477,13 @@ public class StructureAlternateStart extends Structure
 				chestTile.setInventorySlotContents(itemSlot++, new ItemStack(Items.LEATHER_LEGGINGS));
 			}
 
-			if (Prefab.proxy.proxyConfiguration.addFood)
+			if (Prefab.proxy.proxyConfiguration.serverConfiguration.addFood)
 			{
 				// Add some bread.
 				chestTile.setInventorySlotContents(itemSlot++, new ItemStack(Items.BREAD, 20));
-				
-				// TODO: Figure out how to push this advancement.
-				//player.addStat(AchievementList.MAKE_BREAD);
 			}
 
-			if (Prefab.proxy.proxyConfiguration.addCrops)
+			if (Prefab.proxy.proxyConfiguration.serverConfiguration.addCrops)
 			{
 				// Add potatoes.
 				chestTile.setInventorySlotContents(itemSlot++, new ItemStack(Items.POTATO, 3));
@@ -355,25 +495,25 @@ public class StructureAlternateStart extends Structure
 				chestTile.setInventorySlotContents(itemSlot++, new ItemStack(Items.WHEAT_SEEDS, 3));
 			}
 
-			if (Prefab.proxy.proxyConfiguration.addCobble)
+			if (Prefab.proxy.proxyConfiguration.serverConfiguration.addCobble)
 			{
 				// Add Cobblestone.
 				chestTile.setInventorySlotContents(itemSlot++, new ItemStack(Item.getItemFromBlock(Blocks.COBBLESTONE), 64));
 			}
 
-			if (Prefab.proxy.proxyConfiguration.addDirt)
+			if (Prefab.proxy.proxyConfiguration.serverConfiguration.addDirt)
 			{
 				// Add Dirt.
 				chestTile.setInventorySlotContents(itemSlot++, new ItemStack(Item.getItemFromBlock(Blocks.DIRT), 64));
 			}
 
-			if (Prefab.proxy.proxyConfiguration.addSaplings)
+			if (Prefab.proxy.proxyConfiguration.serverConfiguration.addSaplings)
 			{
 				// Add oak saplings.
-				chestTile.setInventorySlotContents(itemSlot++, new ItemStack(Item.getItemFromBlock(Blocks.SAPLING), 3));
+				chestTile.setInventorySlotContents(itemSlot++, new ItemStack(Item.getItemFromBlock(Blocks.OAK_SAPLING), 3));
 			}
 
-			if (Prefab.proxy.proxyConfiguration.addTorches)
+			if (Prefab.proxy.proxyConfiguration.serverConfiguration.addTorches)
 			{
 				// Add a set of 20 torches.
 				chestTile.setInventorySlotContents(itemSlot++, new ItemStack(Item.getItemFromBlock(Blocks.TORCH), 20));
@@ -381,7 +521,7 @@ public class StructureAlternateStart extends Structure
 		}
 	}
 
-	public static void PlaceMineShaft(World world, BlockPos pos, Direction facing, boolean onlyGatherOres)
+	public static void PlaceMineShaft(ServerWorld world, BlockPos pos, Direction facing, boolean onlyGatherOres)
 	{
 		// Keep track of all of the items to add to the chest at the end of the
 		// shaft.
@@ -397,32 +537,33 @@ public class StructureAlternateStart extends Structure
 			blocksToNotAdd.add(Item.getItemFromBlock(Blocks.STONE));
 			blocksToNotAdd.add(Item.getItemFromBlock(Blocks.DIRT));
 		}
-		
+
 		stacks = StructureAlternateStart.CreateLadderShaft(world, pos, stacks, facing, blocksToNotAdd);
 
 		// Get to Y11;
 		pos = pos.down(pos.getY() - 10);
-		
+
 		ArrayList<ItemStack> tempStacks = new ArrayList<ItemStack>();
-		
+
 		BlockPos ceilingLevel = pos.up(4);
-		
-		tempStacks = BuildingMethods.SetFloor(world, ceilingLevel.offset(facing, 2).offset(facing.rotateY(), 2).offset(facing.getOpposite()), Blocks.STONE, 4, 4, tempStacks, facing.getOpposite(), blocksToNotAdd);
+
+		tempStacks = BuildingMethods.SetFloor(world, ceilingLevel.offset(facing, 2).offset(facing.rotateY(), 2).offset(facing.getOpposite()), Blocks.STONE, 4, 4, tempStacks,
+			facing.getOpposite(), blocksToNotAdd);
 
 		// After setting the floor, make sure to replace the ladder.
-		BuildingMethods.ReplaceBlock(world, ceilingLevel, Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, facing));
-		
-		IBlockState torchState = Blocks.TORCH.getStateFromMeta(5);
-		
+		BuildingMethods.ReplaceBlock(world, ceilingLevel, Blocks.LADDER.getDefaultState().with(LadderBlock.FACING, facing));
+
+		BlockState torchState = Blocks.TORCH.getDefaultState();
+
 		// Place the torches at this point since the entire shaft has been set.
 		for (BlockPos torchPos : StructureAlternateStart.torchPositions)
 		{
-			IBlockState surroundingState = world.getBlockState(torchPos);
+			BlockState surroundingState = world.getBlockState(torchPos);
 			Block surroundingBlock = surroundingState.getBlock();
-			tempStacks = BuildingMethods.ConsolidateDrops( surroundingBlock, world, torchPos, surroundingState, tempStacks, blocksToNotAdd);
+			tempStacks = BuildingMethods.ConsolidateDrops(surroundingBlock, world, torchPos, surroundingState, tempStacks, blocksToNotAdd);
 			BuildingMethods.ReplaceBlock(world, torchPos, torchState);
 		}
-		
+
 		// The entire ladder has been created. Create a platform at this level
 		// and place a chest next to the ladder.
 		tempStacks.addAll(BuildingMethods.SetFloor(world, pos.offset(facing).offset(facing.rotateY()), Blocks.STONE, 3, 4, tempStacks, facing.getOpposite(), blocksToNotAdd));
@@ -449,10 +590,10 @@ public class StructureAlternateStart extends Structure
 
 		// South wall.
 		tempStacks
-				.addAll(BuildingMethods.CreateWall(world, 3, 3, facing.rotateY(), pos.offset(facing.getOpposite(), 2).offset(facing.rotateYCCW()), Blocks.AIR, blocksToNotAdd));
-		
+			.addAll(BuildingMethods.CreateWall(world, 3, 3, facing.rotateY(), pos.offset(facing.getOpposite(), 2).offset(facing.rotateYCCW()), Blocks.AIR, blocksToNotAdd));
+
 		tempStacks.addAll(
-				BuildingMethods.CreateWall(world, 3, 3, facing.rotateY(), pos.offset(facing.getOpposite(), 3).offset(facing.rotateYCCW()), Blocks.STONE, blocksToNotAdd));
+			BuildingMethods.CreateWall(world, 3, 3, facing.rotateY(), pos.offset(facing.getOpposite(), 3).offset(facing.rotateYCCW()), Blocks.STONE, blocksToNotAdd));
 
 		// East wall.
 		tempStacks.addAll(BuildingMethods.CreateWall(world, 3, 4, facing, pos.offset(facing.getOpposite(), 2).offset(facing.rotateY()), Blocks.AIR, blocksToNotAdd));
@@ -493,32 +634,32 @@ public class StructureAlternateStart extends Structure
 		}
 
 		// Place a torch to the left of the ladder.
-		IBlockState blockState = Blocks.TORCH.getStateFromMeta(5);
+		BlockState blockState = Blocks.TORCH.getDefaultState();
 		BuildingMethods.ReplaceBlock(world, pos.offset(facing.rotateYCCW()), blockState);
 
-		if (Prefab.proxy.proxyConfiguration.includeMineshaftChest)
+		if (Prefab.proxy.proxyConfiguration.serverConfiguration.includeMineshaftChest)
 		{
 			// Place a chest to the right of the ladder.
-			IBlockState chestState = Blocks.CHEST.getDefaultState().withProperty(BlockChest.FACING, facing);
+			BlockState chestState = Blocks.CHEST.getDefaultState().with(ChestBlock.FACING, facing);
 			BuildingMethods.ReplaceBlock(world, pos.offset(facing.rotateY()), chestState);
-			
+
 			if (stacks.size() > 27)
 			{
 				// Add another chest to south of the existing chest.
 				BuildingMethods.ReplaceBlock(world, pos.offset(facing.rotateY()).offset(facing.getOpposite()), chestState);
 			}
-			
+
 			TileEntity tileEntity = world.getTileEntity(pos.offset(facing.rotateY()));
 			TileEntity tileEntity2 = world.getTileEntity(pos.offset(facing.rotateY()).offset(facing.getOpposite()));
 
-			if (tileEntity instanceof TileEntityChest)
+			if (tileEntity instanceof ChestTileEntity)
 			{
-				TileEntityChest chestTile = (TileEntityChest) tileEntity;
-				TileEntityChest chestTile2 = (TileEntityChest) tileEntity2;
+				ChestTileEntity chestTile = (ChestTileEntity) tileEntity;
+				ChestTileEntity chestTile2 = (ChestTileEntity) tileEntity2;
 
 				int i = 0;
 				boolean fillSecond = false;
-				
+
 				// All of the stacks should be consolidated at this point.
 				for (ItemStack stack : stacks)
 				{
@@ -529,8 +670,8 @@ public class StructureAlternateStart extends Structure
 						i = 0;
 						chestTile = chestTile2;
 					}
-					
-					if (i >= 27 && fillSecond) 
+
+					if (i >= 27 && fillSecond)
 					{
 						// Too many items, discard the rest.
 						break;
@@ -539,14 +680,15 @@ public class StructureAlternateStart extends Structure
 					{
 						chestTile.setInventorySlotContents(i, stack);
 					}
-					
+
 					i++;
 				}
 			}
 		}
 	}
-	
-	private static ArrayList<ItemStack> CreateLadderShaft(World world, BlockPos pos, ArrayList<ItemStack> originalStacks, Direction houseFacing, ArrayList<Item> blocksToNotAdd)
+
+	private static ArrayList<ItemStack> CreateLadderShaft(ServerWorld world, BlockPos pos, ArrayList<ItemStack> originalStacks, Direction houseFacing,
+		ArrayList<Item> blocksToNotAdd)
 	{
 		int torchCounter = 0;
 
@@ -554,15 +696,15 @@ public class StructureAlternateStart extends Structure
 		Direction westWall = houseFacing.rotateYCCW();
 
 		// Get the ladder state based on the house facing.
-		IBlockState ladderState = Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, houseFacing);
+		BlockState ladderState = Blocks.LADDER.getDefaultState().with(LadderBlock.FACING, houseFacing);
 
 		// Replace the main floor block with air since we don't want it placed in the chest at the end.
 		BuildingMethods.ReplaceBlock(world, pos, Blocks.AIR);
 		StructureAlternateStart.torchPositions = new ArrayList<BlockPos>();
-		
+
 		while (pos.getY() > 8)
 		{
-			IBlockState state = world.getBlockState(pos);
+			BlockState state = world.getBlockState(pos);
 			Block block = state.getBlock();
 			torchCounter++;
 
@@ -604,9 +746,9 @@ public class StructureAlternateStart extends Structure
 					for (int j = 0; j <= 2; j++)
 					{
 						BlockPos tempPos = null;
-						IBlockState surroundingState = null;
+						BlockState surroundingState = null;
 						Block surroundingBlock = null;
-						
+
 						if (j == 0)
 						{
 							tempPos = pos.offset(facing, 2);
@@ -625,9 +767,9 @@ public class StructureAlternateStart extends Structure
 							surroundingState = world.getBlockState(tempPos);
 							surroundingBlock = surroundingState.getBlock();
 						}
-						
+
 						// Make sure that this is a normal solid block and not a liquid or partial block.
-						if (!(surroundingBlock instanceof BlockStone))
+						if (!(surroundingBlock == Blocks.STONE || surroundingBlock == Blocks.ANDESITE || surroundingBlock == Blocks.DIORITE || surroundingBlock == Blocks.GRANITE))
 						{
 							// This is not a stone block. Get the drops then replace it with stone.
 							originalStacks = BuildingMethods.ConsolidateDrops(surroundingBlock, world, tempPos, surroundingState, originalStacks, blocksToNotAdd);
@@ -642,11 +784,11 @@ public class StructureAlternateStart extends Structure
 				else
 				{
 					BlockPos tempPos = pos.offset(facing);
-					IBlockState surroundingState = world.getBlockState(tempPos);
+					BlockState surroundingState = world.getBlockState(tempPos);
 					Block surroundingBlock = surroundingState.getBlock();
 
-					if (!surroundingBlock.isBlockNormalCube(surroundingState)
-							|| surroundingBlock instanceof BlockLiquid)
+					if (!surroundingBlock.isNormalCube(surroundingState, world, tempPos)
+						|| surroundingBlock instanceof FlowingFluidBlock)
 					{
 						// This is not a solid block. Get the drops then replace
 						// it with stone.
@@ -668,7 +810,7 @@ public class StructureAlternateStart extends Structure
 
 			pos = pos.down();
 		}
-		
+
 		return originalStacks;
 	}
 }

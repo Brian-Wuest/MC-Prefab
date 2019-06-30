@@ -8,7 +8,7 @@ import java.util.UUID;
 
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Proxy.Messages.ConfigSyncMessage;
+import com.wuest.prefab.Config.EntityPlayerConfiguration;
 import com.wuest.prefab.Proxy.Messages.PlayerEntityTagMessage;
 import com.wuest.prefab.Structures.Base.BuildBlock;
 import com.wuest.prefab.Structures.Base.BuildEntity;
@@ -69,7 +69,7 @@ public class StructureEventHandler
 		if (!event.getPlayer().world.isRemote && event.getPlayer() instanceof ServerPlayerEntity)
 		{
 			ServerPlayerEntity player = (ServerPlayerEntity) event.getPlayer();
-			PlayerEntityConfiguration playerConfig = PlayerEntityConfiguration.loadFromEntityData(player);
+			EntityPlayerConfiguration playerConfig = EntityPlayerConfiguration.loadFromEntityData(player);
 
 			String startingItem = Prefab.proxy.proxyConfiguration.serverConfiguration.startingItem;
 
@@ -101,7 +101,7 @@ public class StructureEventHandler
 				if (!stack.isEmpty())
 				{
 					System.out.println(player.getDisplayName().getString() + " joined the game for the first time. Giving them starting item.");
-					
+
 					player.inventory.addItemStackToInventory(stack);
 					player.openContainer.detectAndSendChanges();
 
@@ -113,8 +113,8 @@ public class StructureEventHandler
 
 			// Send the persist tag to the client.
 			Prefab.network.sendTo(
-				new PlayerEntityTagMessage(playerConfig.getModIsPlayerNewTag(player)), 
-				((ServerPlayerEntity) event.getPlayer()).connection.netManager, 
+				new PlayerEntityTagMessage(playerConfig.getModIsPlayerNewTag(player)),
+				((ServerPlayerEntity) event.getPlayer()).connection.netManager,
 				NetworkDirection.PLAY_TO_CLIENT);
 		}
 	}
@@ -178,15 +178,15 @@ public class StructureEventHandler
 			String startingItem = Prefab.proxy.proxyConfiguration.serverConfiguration.startingItem;
 			if (startingItem != null && !startingItem.equalsIgnoreCase("Nothing"))
 			{
-				if (originalTag.hasKey(PlayerEntityConfiguration.PLAYER_ENTITY_TAG))
+				if (originalTag.contains(EntityPlayerConfiguration.PLAYER_ENTITY_TAG))
 				{
 					CompoundNBT newPlayerTag = event.getEntityPlayer().getEntityData();
-					newPlayerTag.setTag(PlayerEntityConfiguration.PLAYER_ENTITY_TAG, originalTag.getTag(PlayerEntityConfiguration.PLAYER_ENTITY_TAG));
+					newPlayerTag.put(EntityPlayerConfiguration.PLAYER_ENTITY_TAG, originalTag.get(EntityPlayerConfiguration.PLAYER_ENTITY_TAG));
 
 					// Send the persist tag to the client.
 					Prefab.network.sendTo(
-						new PlayerEntityTagMessage(originalTag.getCompoundTag(PlayerEntityConfiguration.PLAYER_ENTITY_TAG)), 
-						((ServerPlayerEntity) event.getEntityPlayer()).connection.netManager, 
+						new PlayerEntityTagMessage(originalTag.getCompound(EntityPlayerConfiguration.PLAYER_ENTITY_TAG)),
+						((ServerPlayerEntity) event.getEntityPlayer()).connection.netManager,
 						NetworkDirection.PLAY_TO_CLIENT);
 				}
 			}
@@ -295,47 +295,47 @@ public class StructureEventHandler
 			for (BuildEntity buildEntity : structure.entities)
 			{
 				Optional<EntityType<?>> entityType = EntityType.byKey(buildEntity.getEntityResourceString());
-				
+
 				if (entityType.isPresent())
 				{
 					Entity entity = entityType.get().create(structure.world);
 					CompoundNBT tagCompound = buildEntity.getEntityDataTag();
 					BlockPos entityPos = buildEntity.getStartingPosition().getRelativePosition(structure.originalPos,
 						structure.getClearSpace().getShape().getDirection(), structure.configuration.houseFacing);
-	
+
 					if (tagCompound != null)
 					{
 						if (tagCompound.hasUniqueId("UUID"))
 						{
 							tagCompound.putUniqueId("UUID", UUID.randomUUID());
 						}
-						
-		                ListNBT nbttaglist = new ListNBT();
-		                nbttaglist.add(new DoubleNBT(entityPos.getX()));
-		                nbttaglist.add(new DoubleNBT(entityPos.getY()));
-		                nbttaglist.add(new DoubleNBT(entityPos.getZ()));
-		                tagCompound.put("Pos", nbttaglist);
-	
+
+						ListNBT nbttaglist = new ListNBT();
+						nbttaglist.add(new DoubleNBT(entityPos.getX()));
+						nbttaglist.add(new DoubleNBT(entityPos.getY()));
+						nbttaglist.add(new DoubleNBT(entityPos.getZ()));
+						tagCompound.put("Pos", nbttaglist);
+
 						entity.read(tagCompound);
 					}
-	
+
 					entity.forceSpawn = true;
-					
+
 					// Set item frame facing and rotation here.
 					if (entity instanceof ItemFrameEntity)
 					{
-						entity = StructureEventHandler.setItemFrameFacingAndRotation((ItemFrameEntity)entity, buildEntity, entityPos, structure);
+						entity = StructureEventHandler.setItemFrameFacingAndRotation((ItemFrameEntity) entity, buildEntity, entityPos, structure);
 					}
 					else if (entity instanceof PaintingEntity)
 					{
-						entity = StructureEventHandler.setPaintingFacingAndRotation((PaintingEntity)entity, buildEntity, entityPos, structure);
+						entity = StructureEventHandler.setPaintingFacingAndRotation((PaintingEntity) entity, buildEntity, entityPos, structure);
 					}
 					else
 					{
 						// All other entities
 						entity = StructureEventHandler.setEntityFacingAndRotation(entity, buildEntity, entityPos, structure);
 					}
-					
+
 					structure.world.addEntity(entity);
 				}
 			}
@@ -352,7 +352,7 @@ public class StructureEventHandler
 		Rotation rotation = Rotation.NONE;
 		double x_axis_offset = buildEntity.entityXAxisOffset;
 		double z_axis_offset = buildEntity.entityZAxisOffset;
-		Direction facing =  entity.getHorizontalFacing();
+		Direction facing = entity.getHorizontalFacing();
 		double y_axis_offset = buildEntity.entityYAxisOffset * -1;
 
 		if (structure.configuration.houseFacing == structure.assumedNorth.getOpposite())
@@ -367,10 +367,10 @@ public class StructureEventHandler
 			rotation = rotation.CLOCKWISE_90;
 			x_axis_offset = x_axis_offset * -1;
 			z_axis_offset = z_axis_offset * -1;
-			
+
 			if (structure.getClearSpace().getShape().getDirection() == Direction.NORTH)
 			{
-				facing = facing.rotateYCCW();	
+				facing = facing.rotateYCCW();
 			}
 			else if (structure.getClearSpace().getShape().getDirection() == Direction.SOUTH)
 			{
@@ -382,14 +382,14 @@ public class StructureEventHandler
 			rotation = rotation.COUNTERCLOCKWISE_90;
 			x_axis_offset = x_axis_offset * -1;
 			z_axis_offset = z_axis_offset * -1;
-			
+
 			if (structure.getClearSpace().getShape().getDirection() == Direction.NORTH)
 			{
 				facing = facing.rotateY();
 			}
 			else if (structure.getClearSpace().getShape().getDirection() == Direction.SOUTH)
 			{
-				facing = facing.rotateYCCW();	
+				facing = facing.rotateYCCW();
 			}
 		}
 		else
@@ -397,7 +397,7 @@ public class StructureEventHandler
 			x_axis_offset = 0;
 			z_axis_offset = 0;
 		}
-		
+
 		if (entity.art.getHeight() > entity.art.getWidth()
 			|| entity.art.getHeight() > 16)
 		{
@@ -406,10 +406,10 @@ public class StructureEventHandler
 
 		yaw = entity.getRotatedYaw(rotation);
 
-		HangingEntity hangingEntity = (HangingEntity)entity;
+		HangingEntity hangingEntity = (HangingEntity) entity;
 		CompoundNBT compound = new CompoundNBT();
 		hangingEntity.writeAdditional(compound);
-		compound.putByte("Facing", (byte)facing.getHorizontalIndex());
+		compound.putByte("Facing", (byte) facing.getHorizontalIndex());
 		hangingEntity.readAdditional(compound);
 		StructureEventHandler.updateEntityHangingBoundingBox(hangingEntity);
 
@@ -420,32 +420,32 @@ public class StructureEventHandler
 		Chunk chunk = structure.world.getChunkAt(entityPos);
 
 		chunk.markDirty();
-		
+
 		return entity;
 	}
-	
+
 	private static Entity setItemFrameFacingAndRotation(ItemFrameEntity frame, BuildEntity buildEntity, BlockPos entityPos, Structure structure)
 	{
 		float yaw = frame.rotationYaw;
 		Rotation rotation = Rotation.NONE;
 		double x_axis_offset = buildEntity.entityXAxisOffset;
 		double z_axis_offset = buildEntity.entityZAxisOffset;
-		Direction facing =  frame.getHorizontalFacing();
+		Direction facing = frame.getHorizontalFacing();
 		double y_axis_offset = buildEntity.entityYAxisOffset;
 		x_axis_offset = x_axis_offset * -1;
 		z_axis_offset = z_axis_offset * -1;
-		
+
 		if (structure.configuration.houseFacing == structure.assumedNorth.getOpposite())
 		{
 			rotation = Rotation.CLOCKWISE_180;
 			facing = facing.getOpposite();
 		}
 		else if (structure.configuration.houseFacing == structure.assumedNorth.rotateY())
-		{	
+		{
 			if (structure.getClearSpace().getShape().getDirection() == Direction.NORTH)
 			{
 				rotation = rotation.CLOCKWISE_90;
-				facing = facing.rotateYCCW();	
+				facing = facing.rotateYCCW();
 			}
 			else if (structure.getClearSpace().getShape().getDirection() == Direction.SOUTH)
 			{
@@ -454,7 +454,7 @@ public class StructureEventHandler
 			}
 		}
 		else if (structure.configuration.houseFacing == structure.assumedNorth.rotateYCCW())
-		{			
+		{
 			if (structure.getClearSpace().getShape().getDirection() == Direction.NORTH)
 			{
 				rotation = rotation.COUNTERCLOCKWISE_90;
@@ -474,10 +474,10 @@ public class StructureEventHandler
 
 		yaw = frame.getRotatedYaw(rotation);
 
-		HangingEntity hangingEntity = (HangingEntity)frame;
+		HangingEntity hangingEntity = (HangingEntity) frame;
 		CompoundNBT compound = new CompoundNBT();
 		hangingEntity.writeAdditional(compound);
-		compound.putByte("Facing", (byte)facing.getHorizontalIndex());
+		compound.putByte("Facing", (byte) facing.getHorizontalIndex());
 		hangingEntity.readAdditional(compound);
 		StructureEventHandler.updateEntityHangingBoundingBox(hangingEntity);
 
@@ -488,7 +488,7 @@ public class StructureEventHandler
 		Chunk chunk = structure.world.getChunkAt(entityPos);
 
 		chunk.markDirty();
-		
+
 		return frame;
 	}
 
@@ -532,7 +532,7 @@ public class StructureEventHandler
 
 		entity.setPositionAndRotation(entityPos.getX() + x_axis_offset, entityPos.getY() + y_axis_offset, entityPos.getZ() + z_axis_offset, yaw,
 			entity.rotationPitch);
-		
+
 		return entity;
 	}
 
