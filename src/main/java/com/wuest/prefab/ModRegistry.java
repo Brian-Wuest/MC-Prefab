@@ -1,9 +1,7 @@
 package com.wuest.prefab;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map.Entry;
 
 import com.wuest.prefab.Blocks.BlockBoundary;
 import com.wuest.prefab.Blocks.BlockCompressedObsidian;
@@ -11,7 +9,6 @@ import com.wuest.prefab.Blocks.BlockCompressedStone;
 import com.wuest.prefab.Blocks.BlockPaperLantern;
 import com.wuest.prefab.Blocks.BlockPhasing;
 import com.wuest.prefab.Blocks.BlockStairs;
-import com.wuest.prefab.Gui.GuiDrafter;
 import com.wuest.prefab.Items.ItemBundleOfTimber;
 import com.wuest.prefab.Items.ItemCoilOfLanterns;
 import com.wuest.prefab.Items.ItemCompressedChest;
@@ -65,7 +62,6 @@ import com.wuest.prefab.Structures.Messages.StructureTagMessage;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SlabBlock;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -580,7 +576,7 @@ public class ModRegistry
 	/**
 	 * Gets the item from the ModItems collections.
 	 * 
-	 * @param              <T> The type which extends item.
+	 * @param <T>          The type which extends item.
 	 * @param genericClass The class of item to get from the collection.
 	 * @return Null if the item could not be found otherwise the item found.
 	 */
@@ -600,7 +596,7 @@ public class ModRegistry
 	/**
 	 * Gets the block from the ModBlockss collections.
 	 * 
-	 * @param              <T> The type which extends Block.
+	 * @param <T>          The type which extends Block.
 	 * @param genericClass The class of block to get from the collection.
 	 * @return Null if the block could not be found otherwise the block found.
 	 */
@@ -713,7 +709,7 @@ public class ModRegistry
 	 * Register an Item
 	 *
 	 * @param item The Item instance
-	 * @param      <T> The Item type
+	 * @param <T>  The Item type
 	 * @return The Item instance
 	 */
 	public static <T extends Item> T registerItem(T item)
@@ -726,7 +722,7 @@ public class ModRegistry
 	/**
 	 * Registers a block in the game registry.
 	 * 
-	 * @param       <T> The type of block to register.
+	 * @param <T>   The type of block to register.
 	 * @param block The block to register.
 	 * @return The block which was registered.
 	 */
@@ -738,7 +734,7 @@ public class ModRegistry
 	/**
 	 * Registers a block in the game registry.
 	 * 
-	 * @param                  <T> The type of block to register.
+	 * @param <T>              The type of block to register.
 	 * @param block            The block to register.
 	 * @param includeItemBlock True to include a default item block.
 	 * @return The block which was registered.
@@ -751,7 +747,7 @@ public class ModRegistry
 	/**
 	 * Registers a block in the game registry.
 	 * 
-	 * @param                  <T> The type of block to register.
+	 * @param <T>              The type of block to register.
 	 * @param block            The block to register.
 	 * @param includeItemBlock True to include a default item block.
 	 * @return The block which was registered.
@@ -771,8 +767,8 @@ public class ModRegistry
 	/**
 	 * Registers a block in the game registry.
 	 * 
-	 * @param           <T> The type of block to register.
-	 * @param           <I> The type of item block to register.
+	 * @param <T>       The type of block to register.
+	 * @param <I>       The type of item block to register.
 	 * @param block     The block to register.
 	 * @param itemBlock The item block to register with the block.
 	 * @return The block which was registered.
@@ -830,7 +826,6 @@ public class ModRegistry
 		ModRegistry.ModGuis.put(ModRegistry.GuiHorseStable, GuiHorseStable.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiNetherGate, GuiNetherGate.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiModularHouse, GuiModularHouse.class);
-		ModRegistry.ModGuis.put(ModRegistry.GuiDrafter, GuiDrafter.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiBasicStructure, GuiBasicStructure.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiVillagerHouses, GuiVillaerHouses.class);
 		ModRegistry.ModGuis.put(ModRegistry.GuiModerateHouse, GuiModerateHouse.class);

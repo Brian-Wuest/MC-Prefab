@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.wuest.prefab.Gui.GuiTabScreen;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.util.ResourceLocation;
 
 /**
@@ -13,7 +13,7 @@ import net.minecraft.util.ResourceLocation;
  * @author WuestMan
  *
  */
-public class GuiTabTray extends Gui
+public class GuiTabTray extends Widget
 {
 	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/default_background.png");
 	private ArrayList<GuiTab> tabs;
@@ -23,6 +23,7 @@ public class GuiTabTray extends Gui
 
 	public GuiTabTray()
 	{
+		super(0, 0, "Tab Tray");
 		this.Initialize();
 	}
 

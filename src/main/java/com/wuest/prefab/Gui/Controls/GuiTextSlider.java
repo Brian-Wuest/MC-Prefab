@@ -16,19 +16,19 @@ public class GuiTextSlider extends GuiSlider
 	/**
 	 * Initializes a new instance of the GuiTextSlider class.
 	 * 
-	 * @param id The ID of this slider.
-	 * @param xPos The X-Axis Position of this slider.
-	 * @param yPos The Y-Axis Position of this slider.
-	 * @param width The width of this slider.
-	 * @param height The height of this slider.
-	 * @param minVal The minimum value of this slider.
-	 * @param maxVal The maximum value of this slider.
+	 * @param id         The ID of this slider.
+	 * @param xPos       The X-Axis Position of this slider.
+	 * @param yPos       The Y-Axis Position of this slider.
+	 * @param width      The width of this slider.
+	 * @param height     The height of this slider.
+	 * @param minVal     The minimum value of this slider.
+	 * @param maxVal     The maximum value of this slider.
 	 * @param currentVal The default value of this slider.
-	 * @param name The name of this slider.
+	 * @param name       The name of this slider.
 	 */
-	public GuiTextSlider(int id, int xPos, int yPos, int width, int height, double minVal, double maxVal, double currentVal, String name)
+	public GuiTextSlider(int id, int xPos, int yPos, int width, int height, double minVal, double maxVal, double currentVal, String name, IPressable handler)
 	{
-		super(id, xPos, yPos, width, height, "", "", minVal, maxVal, currentVal, false, true);
+		super(xPos, yPos, width, height, "", "", minVal, maxVal, currentVal, false, true, handler);
 
 		this.configName = name;
 		this.updateSlider();

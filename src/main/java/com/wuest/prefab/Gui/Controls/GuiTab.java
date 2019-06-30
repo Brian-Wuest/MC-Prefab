@@ -5,55 +5,40 @@ import java.awt.Color;
 import com.wuest.prefab.Gui.GuiTabScreen;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.PositionedSoundRecord;
+import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.init.SoundEvents;
+import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvents;
 
 /**
  * 
  * @author WuestMan
  *
  */
-public class GuiTab extends Gui
+public class GuiTab extends Widget
 {
 	private GuiTabTray parentTray;
 	private boolean selected;
 	private String name;
-	protected boolean hovered;
 	protected static final ResourceLocation TAB_TEXTURES = new ResourceLocation("prefab", "textures/gui/gui_tab.png");
 	protected static final ResourceLocation TAB_TEXTURES_hovered = new ResourceLocation("prefab", "textures/gui/gui_tab_hovered.png");
 
-	/*
-	 * Determines if this tab is visible.
-	 */
-	public boolean visible;
-
-	/** Button width in pixels */
-	public int width;
-	/** Button height in pixels */
-	public int height;
-	/** The x position of this control. */
-	public int xPosition;
-	/** The y position of this control. */
-	public int yPosition;
-
 	public GuiTab(GuiTabTray parent, String name, int x, int y)
 	{
-		this.Initialize(parent, name, x, y);
+		super(x, y, name);
+		
+		this.Initialize(parent, name);
 	}
 
-	protected void Initialize(GuiTabTray parent, String name, int x, int y)
+	protected void Initialize(GuiTabTray parent, String name)
 	{
 		this.parentTray = parent;
 		this.selected = false;
 		this.name = name;
 		this.height = 20;
 		this.width = 50;
-		this.xPosition = x;
-		this.yPosition = y;
 		this.visible = true;
 	}
 
@@ -115,9 +100,9 @@ public class GuiTab extends Gui
 		}
 
 		FontRenderer fontrenderer = mc.fontRenderer;
-		this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
+		this.isHovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
 
-		if (this.selected || this.hovered)
+		if (this.selected || this.isHovered)
 		{
 			mc.getTextureManager().bindTexture(TAB_TEXTURES_hovered);
 		}
@@ -126,37 +111,11 @@ public class GuiTab extends Gui
 			mc.getTextureManager().bindTexture(TAB_TEXTURES);
 		}
 
-		/*
-		 * if (this.hovered) { System.out.println("Hovering Over Tab: X: " + mouseX + " Y: " + mouseY); }
-		 */
-
-		GuiTabScreen.drawModalRectWithCustomSizedTexture(this.xPosition, this.yPosition, 0, this.width, this.height, this.width, this.height);
-		this.mouseDragged(mc, mouseX, mouseY);
+		GuiTabScreen.drawModalRectWithCustomSizedTexture(this.x, this.y, 0, this.width, this.height, this.width, this.height);
 		int j = Color.LIGHT_GRAY.getRGB();
 
-		int stringXPosition = ((this.xPosition + this.width / 2) - (fontrenderer.getStringWidth(this.name)) / 2);
-		fontrenderer.drawString(this.name, stringXPosition, this.yPosition + (this.height - 8) / 2, j);
-	}
-
-	/**
-	 * Fired when the mouse button is dragged. Equivalent of MouseListener.mouseDragged(MouseEvent e).
-	 * 
-	 * @param mc The minecraft object.
-	 * @param mouseX The location of the mouse X-Axis.
-	 * @param mouseY The lcoation of the mouse Y-Axis.
-	 */
-	protected void mouseDragged(Minecraft mc, int mouseX, int mouseY)
-	{
-	}
-
-	/**
-	 * Fired when the mouse button is released. Equivalent of MouseListener.mouseReleased(MouseEvent e).
-	 * 
-	 * @param mouseX The location of the mouse X-Axis.
-	 * @param mouseY The lcoation of the mouse Y-Axis.
-	 */
-	public void mouseReleased(int mouseX, int mouseY)
-	{
+		int stringXPosition = ((this.x + this.width / 2) - (fontrenderer.getStringWidth(this.name)) / 2);
+		fontrenderer.drawString(this.name, stringXPosition, this.y + (this.height - 8) / 2, j);
 	}
 
 	/**
@@ -168,9 +127,10 @@ public class GuiTab extends Gui
 	 * @param mouseY The lcoation of the mouse Y-Axis.
 	 * @return True if this tab was clicked, otherwise false.
 	 */
-	public boolean mousePressed(Minecraft mc, int mouseX, int mouseY)
+	@Override
+	public boolean clicked(double mouseX, double mouseY)
 	{
-		boolean value = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
+		boolean value = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
 
 		if (value && !this.selected)
 		{
@@ -181,32 +141,9 @@ public class GuiTab extends Gui
 		return value;
 	}
 
-	/**
-	 * Whether the mouse cursor is currently over the button.
-	 * 
-	 * @return True if this tab is being hovered over.
-	 */
-	public boolean isMouseOver()
+	@Override
+	public void playDownSound(SoundHandler soundHandlerIn)
 	{
-		return this.hovered;
-	}
-
-	public void drawButtonForegroundLayer(int mouseX, int mouseY)
-	{
-	}
-
-	public void playPressSound(SoundHandler soundHandlerIn)
-	{
-		soundHandlerIn.playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
-	}
-
-	public int getButtonWidth()
-	{
-		return this.width;
-	}
-
-	public void setWidth(int width)
-	{
-		this.width = width;
+		soundHandlerIn.play(SimpleSound.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
 	}
 }

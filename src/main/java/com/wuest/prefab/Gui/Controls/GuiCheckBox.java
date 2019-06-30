@@ -13,12 +13,16 @@ public class GuiCheckBox extends net.minecraftforge.fml.client.config.GuiCheckBo
 	protected int boxWidth;
 	protected int stringColor;
 	protected boolean withShadow;
+	protected Minecraft mineCraft;
+	protected String displayString;
 
-	public GuiCheckBox(int id, int xPos, int yPos, String displayString, boolean isChecked)
+	public GuiCheckBox(int xPos, int yPos, String displayString, boolean isChecked)
 	{
-		super(id, xPos, yPos, displayString, isChecked);
+		super(xPos, yPos, displayString, isChecked);
 
 		this.boxWidth = 11;
+		this.mineCraft = Minecraft.getInstance();
+		this.displayString = displayString;
 	}
 
 	/**
@@ -69,36 +73,36 @@ public class GuiCheckBox extends net.minecraftforge.fml.client.config.GuiCheckBo
 	 * Draws this button to the screen.
 	 */
 	@Override
-	public void drawButton(Minecraft mc, int mouseX, int mouseY, float partial)
+	public void renderButton(int mouseX, int mouseY, float partial)
 	{
 		if (this.visible)
 		{
-			this.hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.boxWidth && mouseY < this.y + this.height;
-			GuiUtils.drawContinuousTexturedBox(BUTTON_TEXTURES, this.x, this.y, 0, 46, this.boxWidth, this.height, 200, 20, 2, 3, 2, 2, this.zLevel);
-			this.mouseDragged(mc, mouseX, mouseY);
+			this.isHovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.boxWidth && mouseY < this.y + this.height;
+			GuiUtils.drawContinuousTexturedBox(WIDGETS_LOCATION, this.x, this.y, 0, 46, this.boxWidth, this.height, 200, 20, 2, 3, 2, 2, this.blitOffset);
+
 			int color = this.stringColor;
 
-			if (packedFGColour != 0)
+			if (this.packedFGColor != 0)
 			{
-				color = packedFGColour;
+				color = this.packedFGColor;
 			}
-			else if (!this.enabled)
+			else if (this.active)
 			{
 				color = 10526880;
 			}
 
 			if (this.isChecked())
 			{
-				this.drawCenteredString(mc.fontRenderer, "x", this.x + this.boxWidth / 2 + 1, this.y + 1, 14737632);
+				this.drawCenteredString(this.mineCraft.fontRenderer, "x", this.x + this.boxWidth / 2 + 1, this.y + 1, 14737632);
 			}
 
 			if (this.withShadow)
 			{
-				this.drawString(mc.fontRenderer, displayString, x + this.boxWidth + 2, y + 2, color);
+				this.drawString(this.mineCraft.fontRenderer, displayString, x + this.boxWidth + 2, y + 2, color);
 			}
 			else
 			{
-				mc.fontRenderer.drawString(displayString, x + this.boxWidth + 2, y + 2, color);
+				this.mineCraft.fontRenderer.drawString(displayString, x + this.boxWidth + 2, y + 2, color);
 			}
 		}
 	}

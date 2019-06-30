@@ -1,19 +1,18 @@
 package com.wuest.prefab.Gui;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import org.lwjgl.opengl.GL11;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import com.wuest.prefab.Gui.Controls.GuiTab;
 import com.wuest.prefab.Gui.Controls.GuiTabTray;
 
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.util.text.StringTextComponent;
 
 /**
  * 
@@ -26,6 +25,7 @@ public class GuiTabScreen extends Screen
 
 	public GuiTabScreen()
 	{
+		super(new StringTextComponent("TabScreen"));
 		this.Tabs = new GuiTabTray();
 	}
 
@@ -44,7 +44,7 @@ public class GuiTabScreen extends Screen
 	}
 
 	@Override
-	public void initGui()
+	public void init()
 	{
 		this.Tabs.GetTabs().clear();
 	}
@@ -53,39 +53,46 @@ public class GuiTabScreen extends Screen
 	 * Draws the screen and all the components in it.
 	 */
 	@Override
-	public void drawScreen(int mouseX, int mouseY, float partialTicks)
+	public void render(int mouseX, int mouseY, float partialTicks)
 	{
 		// Draw the default labels and buttons.
-		super.drawScreen(mouseX, mouseY, partialTicks);
+		super.render(mouseX, mouseY, partialTicks);
 
 		// Draw the tabs.
-		this.Tabs.DrawTabs(this.mc, mouseX, mouseY);
+		this.Tabs.DrawTabs(this.minecraft, mouseX, mouseY);
 	}
 
 	/**
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
 	@Override
-	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
+	public boolean mouseClicked(double mouseX, double mouseY, int mouseButton)
 	{
+		boolean returnValue = false;
+		
 		if (mouseButton == 0)
 		{
 			// This handles the button presses.
-			super.mouseClicked(mouseX, mouseY, mouseButton);
+			returnValue = super.mouseClicked(mouseX, mouseY, mouseButton);
 
-			// Handle the tab clicking.
-			ArrayList<GuiTab> guiTabs = this.Tabs.GetTabs();
-
-			for (GuiTab tab : guiTabs)
-			{
-				if (tab.mousePressed(mc, mouseX, mouseY))
+			if (returnValue)
 				{
-					tab.playPressSound(mc.getSoundHandler());
-					this.tabClicked(tab);
-					break;
+				// Handle the tab clicking.
+				ArrayList<GuiTab> guiTabs = this.Tabs.GetTabs();
+	
+				for (GuiTab tab : guiTabs)
+				{
+					if (tab.clicked(mouseX, mouseY))
+					{
+						tab.playDownSound(this.minecraft.getSoundHandler());
+						this.tabClicked(tab);
+						break;
+					}
 				}
 			}
 		}
+		
+		return returnValue;
 	}
 
 	/**
@@ -101,9 +108,9 @@ public class GuiTabScreen extends Screen
 	 */
 	public static void drawModalRectWithCustomSizedTexture(int x, int y, int z, int width, int height, float textureWidth, float textureHeight)
 	{
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		GlStateManager.enableBlend();
-		GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
+		GlStateManager.blendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
 
 		float u = 0;
 		float v = 0;
