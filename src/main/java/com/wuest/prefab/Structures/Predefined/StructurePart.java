@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.wuest.prefab.Structures.Base.BuildBlock;
 import com.wuest.prefab.Structures.Base.BuildClear;
-import com.wuest.prefab.Structures.Base.BuildingMethods;
 import com.wuest.prefab.Structures.Base.Structure;
 import com.wuest.prefab.Structures.Config.StructureConfiguration;
 import com.wuest.prefab.Structures.Config.StructurePartConfiguration;
@@ -19,6 +18,7 @@ import net.minecraft.state.properties.Half;
 import net.minecraft.state.properties.StairsShape;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.ServerWorld;
 import net.minecraft.world.World;
 
 /**
@@ -51,14 +51,14 @@ public class StructurePart extends Structure
 	 * This is the main building method for this structure.
 	 * 
 	 * @param configuration The configuration the user updated.
-	 * @param world The current world.
-	 * @param originalPos The block the user clicked on.
-	 * @param assumedNorth This should always be "NORTH" when the file is based on a scan.
-	 * @param player The player requesting the structure.
+	 * @param world         The current world.
+	 * @param originalPos   The block the user clicked on.
+	 * @param assumedNorth  This should always be "NORTH" when the file is based on a scan.
+	 * @param player        The player requesting the structure.
 	 * @return True if the build can occur, otherwise false.
 	 */
 	@Override
-	public boolean BuildStructure(StructureConfiguration configuration, World world, BlockPos originalPos, Direction assumedNorth, PlayerEntity player)
+	public boolean BuildStructure(StructureConfiguration configuration, ServerWorld world, BlockPos originalPos, Direction assumedNorth, PlayerEntity player)
 	{
 		StructurePartConfiguration specificConfig = (StructurePartConfiguration) configuration;
 

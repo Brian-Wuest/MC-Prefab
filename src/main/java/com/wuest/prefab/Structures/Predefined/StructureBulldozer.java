@@ -6,8 +6,8 @@ import com.wuest.prefab.Structures.Base.BuildBlock;
 import com.wuest.prefab.Structures.Base.BuildClear;
 import com.wuest.prefab.Structures.Base.Structure;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.block.BlockState;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 
 /**
@@ -24,7 +24,7 @@ public class StructureBulldozer extends Structure
 	public StructureBulldozer()
 	{
 		BuildClear clearedSpace = new BuildClear();
-		clearedSpace.getShape().setDirection(EnumFacing.SOUTH);
+		clearedSpace.getShape().setDirection(Direction.SOUTH);
 		clearedSpace.getShape().setHeight(15);
 		clearedSpace.getShape().setLength(16);
 		clearedSpace.getShape().setWidth(16);
@@ -43,12 +43,12 @@ public class StructureBulldozer extends Structure
 	@Override
 	public void BeforeClearSpaceBlockReplaced(BlockPos pos)
 	{
-		IBlockState state = this.world.getBlockState(pos);
+		BlockState state = this.world.getBlockState(pos);
 		
 		// Only harvest up to diamond level and non-indestructable blocks.
 		if (state.getBlock().getHarvestLevel(state) < 4 && state.getBlockHardness(world, pos) >= 0.0f)
 		{
-			state.getBlock().dropBlockAsItem(this.world, pos, state, 1);
+			state.getBlock().spawnDrops(state, this.world, pos);
 		}
 	}
 }

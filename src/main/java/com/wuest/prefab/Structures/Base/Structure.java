@@ -541,6 +541,149 @@ public class Structure
 
 	}
 
+	
+	public BlockState getStainedGlassBlock(DyeColor color)
+	{
+		switch (color)
+		{
+			case BLACK:
+			{
+				return Blocks.BLACK_STAINED_GLASS.getDefaultState();
+			}
+			case BLUE:
+			{
+				return Blocks.BLUE_STAINED_GLASS.getDefaultState();
+			}
+			case BROWN:
+			{
+				return Blocks.BROWN_STAINED_GLASS.getDefaultState();
+			}
+			case GRAY:
+			{
+				return Blocks.GRAY_STAINED_GLASS.getDefaultState();
+			}
+			case GREEN:
+			{
+				return Blocks.GREEN_STAINED_GLASS.getDefaultState();
+			}
+			case LIGHT_BLUE:
+			{
+				return Blocks.LIGHT_BLUE_STAINED_GLASS.getDefaultState();
+			}
+			case LIGHT_GRAY:
+			{
+				return Blocks.LIGHT_GRAY_STAINED_GLASS.getDefaultState();
+			}
+			case LIME:
+			{
+				return Blocks.LIME_STAINED_GLASS.getDefaultState();
+			}
+			case MAGENTA:
+			{
+				return Blocks.MAGENTA_STAINED_GLASS.getDefaultState();
+			}
+			case ORANGE:
+			{
+				return Blocks.ORANGE_STAINED_GLASS.getDefaultState();
+			}
+			case PINK:
+			{
+				return Blocks.PINK_STAINED_GLASS.getDefaultState();
+			}
+			case PURPLE:
+			{
+				return Blocks.PURPLE_STAINED_GLASS.getDefaultState();
+			}
+			case RED:
+			{
+				return  Blocks.RED_STAINED_GLASS.getDefaultState();
+			}
+			case WHITE:
+			{
+				return Blocks.WHITE_STAINED_GLASS.getDefaultState();
+			}
+			case YELLOW:
+			{
+				return Blocks.YELLOW_STAINED_GLASS.getDefaultState();
+			}
+			default:
+			{
+				return Blocks.CYAN_STAINED_GLASS.getDefaultState();
+			}
+		}
+	}
+	
+	public BlockState getStainedGlassPaneBlock(DyeColor color)
+	{
+		switch (color)
+		{
+			case BLACK:
+			{
+				return Blocks.BLACK_STAINED_GLASS_PANE.getDefaultState();
+			}
+			case BLUE:
+			{
+				return Blocks.BLUE_STAINED_GLASS_PANE.getDefaultState();
+			}
+			case BROWN:
+			{
+				return Blocks.BROWN_STAINED_GLASS_PANE.getDefaultState();
+			}
+			case GRAY:
+			{
+				return Blocks.GRAY_STAINED_GLASS_PANE.getDefaultState();
+			}
+			case GREEN:
+			{
+				return Blocks.GREEN_STAINED_GLASS_PANE.getDefaultState();
+			}
+			case LIGHT_BLUE:
+			{
+				return Blocks.LIGHT_BLUE_STAINED_GLASS_PANE.getDefaultState();
+			}
+			case LIGHT_GRAY:
+			{
+				return Blocks.LIGHT_GRAY_STAINED_GLASS_PANE.getDefaultState();
+			}
+			case LIME:
+			{
+				return Blocks.LIME_STAINED_GLASS_PANE.getDefaultState();
+			}
+			case MAGENTA:
+			{
+				return Blocks.MAGENTA_STAINED_GLASS_PANE.getDefaultState();
+			}
+			case ORANGE:
+			{
+				return Blocks.ORANGE_STAINED_GLASS_PANE.getDefaultState();
+			}
+			case PINK:
+			{
+				return Blocks.PINK_STAINED_GLASS_PANE.getDefaultState();
+			}
+			case PURPLE:
+			{
+				return Blocks.PURPLE_STAINED_GLASS_PANE.getDefaultState();
+			}
+			case RED:
+			{
+				return  Blocks.RED_STAINED_GLASS_PANE.getDefaultState();
+			}
+			case WHITE:
+			{
+				return Blocks.WHITE_STAINED_GLASS_PANE.getDefaultState();
+			}
+			case YELLOW:
+			{
+				return Blocks.YELLOW_STAINED_GLASS_PANE.getDefaultState();
+			}
+			default:
+			{
+				return Blocks.CYAN_STAINED_GLASS_PANE.getDefaultState();
+			}
+		}
+	}
+	
 	/**
 	 * This method is used before any building occurs to check for things or possibly pre-build locations. Note: This is
 	 * even done before blocks are cleared.
