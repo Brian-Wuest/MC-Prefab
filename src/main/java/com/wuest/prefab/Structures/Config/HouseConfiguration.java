@@ -37,7 +37,7 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.ServerWorld;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.fml.network.NetworkDirection;
@@ -918,7 +918,7 @@ public class HouseConfiguration extends StructureConfiguration
 					{
 						BuildingMethods.ReplaceBlock(world, itemPosition, blockState);
 					}
-
+ 
 					itemPosition = itemPosition.offset(facing.rotateYCCW(), torchWidthOffset);
 				}
 			}
@@ -932,7 +932,7 @@ public class HouseConfiguration extends StructureConfiguration
 
 		farmStart = farmStart.down();
 
-		boolean setWaterToCobbleStone = world.getDimension().getType() == DimensionType.field_223228_b_ || world.getDimension().getType() == DimensionType.field_223229_c_;
+		boolean setWaterToCobbleStone = world.getDimension().getType() != DimensionType.OVERWORLD;
 		Block waterBlock = setWaterToCobbleStone ? Blocks.COBBLESTONE : Blocks.WATER;
 
 		// We are now at the surface and this is where the first water source

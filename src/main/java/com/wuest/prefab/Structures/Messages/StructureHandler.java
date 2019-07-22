@@ -5,7 +5,6 @@ import java.util.function.Supplier;
 import com.wuest.prefab.Structures.Config.StructureConfiguration;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 
-import net.minecraft.world.ServerWorld;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 /**

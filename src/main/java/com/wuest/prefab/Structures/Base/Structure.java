@@ -49,9 +49,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.ServerWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.registries.ForgeRegistries;
 
 /**
@@ -758,7 +758,7 @@ public class Structure
 	{
 		// Replace water blocks with cobblestone.
 		if (foundBlock instanceof FlowingFluidBlock && blockState.getMaterial() == Material.WATER
-			&& (world.getDimension().getType() == DimensionType.field_223228_b_))
+			&& (world.getDimension().getType() == DimensionType.OVERWORLD))
 		{
 			block.setBlockDomain(Blocks.COBBLESTONE.getRegistryName().getNamespace());
 			block.setBlockName(Blocks.COBBLESTONE.getRegistryName().getPath());

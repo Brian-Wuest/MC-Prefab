@@ -12,6 +12,7 @@ import com.wuest.prefab.Events.ModEventHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItemUseContext;
@@ -248,7 +249,12 @@ public class BlockPhasing extends Block
 		// Update the state in the world, update the world and (possibly) schedule a state update.
 		state = state.with(Phasing_Out, phasingOut).with(Phasing_Progress, progress);
 		worldIn.setBlockState(pos, state);
-		worldIn.markForRerender(pos);
+		
+		if (worldIn.isRemote)
+		{
+			ClientWorld clientWorld = (ClientWorld)worldIn;
+			clientWorld.markSurroundingsForRerender(pos.getX(), pos.getY(), pos.getZ());
+		}
 
 		if (tickDelay > 0)
 		{
