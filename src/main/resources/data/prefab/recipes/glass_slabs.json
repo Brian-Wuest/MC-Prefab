@@ -14,13 +14,12 @@
     "key": {
         "#": [
             {
-                "item": "minecraft:glass"
+                "tag": "minecraft:impermeable"
             }
         ]
     },
     "result": {
         "item": "prefab:block_half_glass_slab",
-        "count": 2,
-        "data": 0
+        "count": 2
     }
 }

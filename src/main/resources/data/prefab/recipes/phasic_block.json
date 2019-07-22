@@ -14,17 +14,14 @@
     ],
     "key": {
         "a": {
-            "item": "minecraft:stone",
-            "data": 32767
+            "item": "minecraft:stone"
         },
         "b": {
-            "item": "minecraft:ender_pearl",
-            "data": 32767
+            "item": "minecraft:ender_pearl"
         }
     },
     "result": {
         "item": "prefab:block_phasing",
-        "data": 0,
         "count": 1
     }
 }

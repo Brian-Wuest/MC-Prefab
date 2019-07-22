@@ -7,8 +7,6 @@ import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Blocks.BlockCompressedStone;
 import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Proxy.Messages.ConfigSyncMessage;
-import com.wuest.prefab.Structures.Capabilities.StructureConfigurationCapability;
-import com.wuest.prefab.Structures.Capabilities.StructureConfigurationProvider;
 import com.wuest.prefab.Structures.Items.ItemBasicStructure;
 
 import net.minecraft.block.Block;
@@ -46,21 +44,6 @@ public class ModEventHandler
 	 * Determines the affected blocks by redstone power.
 	 */
 	public static ArrayList<BlockPos> RedstoneAffectedBlockPositions = new ArrayList<BlockPos>();
-
-	/**
-	 * Attaches the structure configuration capability to itemstacks.
-	 * 
-	 * @param event The event object.
-	 */
-	@SubscribeEvent
-	public static void AttachItemStackCapabilities(AttachCapabilitiesEvent<ItemStack> event)
-	{
-		if (event.getObject().getItem() instanceof ItemBasicStructure)
-		{
-			event.addCapability(new ResourceLocation(Prefab.MODID, "structuresconfiguration"),
-				new StructureConfigurationProvider(new StructureConfigurationCapability()));
-		}
-	}
 
 	/**
 	 * This event occurs when a player logs in. This is used to send server configuration to the client.

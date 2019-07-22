@@ -18,12 +18,12 @@
     "key": {
         "#": [
             {
-                "item": "#compressed_dirt"
+                "tag": "prefab:compressed_dirt1"
             }
         ]
     },
     "result": {
-        "item": "prefab:block_double_compressed_dirt",
+        "tag": "prefab:compressed_dirt2",
         "count": 1
     }
 }

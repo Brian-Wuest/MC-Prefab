@@ -23,7 +23,7 @@
         ]
     },
     "result": {
-        "item": "prefab:block_compressed_glowstone",
+		"tag": "prefab:compressed_glow_stone1",
         "count": 1
     }
 }

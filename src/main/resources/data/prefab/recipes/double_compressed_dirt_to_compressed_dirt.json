@@ -12,11 +12,11 @@
     "group": "Compressed Dirt",
     "ingredients": [
         {
-            "item": "#double_compressed_dirt"
+            "tag": "prefab:compressed_dirt2"
         }
     ],
     "result": {
-        "item": "prefab:block_compressed_dirt",
+        "tag": "prefab:compressed_dirt1",
         "count": 9
     }
 }

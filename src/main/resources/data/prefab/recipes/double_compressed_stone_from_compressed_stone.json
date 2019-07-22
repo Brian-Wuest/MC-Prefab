@@ -18,12 +18,12 @@
     "key": {
         "#": [
             {
-                "item": "#compressed_stone"
+                "tag": "prefab:compressed_stone1"
             }
         ]
     },
     "result": {
-        "item": "prefab:block_double_compressed_stone",
+       "tag": "prefab:compressed_stone2",
         "count": 1
     }
 }

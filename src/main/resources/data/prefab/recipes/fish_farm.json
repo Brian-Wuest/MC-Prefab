@@ -14,16 +14,13 @@
     ],
     "key": {
         "a": {
-            "item": "minecraft:tallgrass",
-            "data": 1
+            "item": "minecraft:grass"
         },
         "b": {
-            "item": "minecraft:reeds",
-            "data": 0
+            "item": "minecraft:sugar_cane"
         },
         "c": {
-            "item": "minecraft:sapling",
-            "data": 0
+            "tag": "minecraft:saplings"
         },
         "d": {
             "item": "minecraft:water_bucket",
@@ -34,17 +31,14 @@
             "data": 0
         },
         "f": {
-            "type": "forge:ore_dict",
-            "ore": "compressedDirt2"
+            "tag": "prefab:compressed_dirt2"
         },
         "g": {
-            "item": "minecraft:fish",
-            "data": 32767
+            "tag": "minecraft:fishes"
         }
     },
     "result": {
         "item": "prefab:item_fish_pond",
-        "data": 0,
         "count": 1
     }
 }

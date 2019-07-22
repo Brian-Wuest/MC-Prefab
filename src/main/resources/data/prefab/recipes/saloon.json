@@ -14,35 +14,20 @@
     ],
     "key": {
         "a": {
-            "item": "prefab:item_bundle_of_timber",
-            "data": 0
+            "item": "prefab:item_bundle_of_timber"
         },
         "b": {
-            "item": "minecraft:glass",
-            "data": 0
+            "tag": "minecraft:impermeable"
         },
         "c": {
-            "item": "minecraft:brewing_stand",
-            "data": 0
+            "item": "minecraft:brewing_stand"
         },
         "d": {
-            "item": "minecraft:noteblock",
-            "data": 0
+            "item": "minecraft:note_block"
         }
     },
     "result": {
-        "item": "prefab:item_basic_structure",
-        "data": 0,
-        "nbt": {
-            "ForgeCaps": {
-                "prefab:structuresconfiguration": {
-                    "configuration": {
-                        "structureEnumName": "Saloon",
-                        "structureDisplayName": "Saloon"
-                    }
-                }
-            }
-        },
+        "item": "prefab:item_saloon",
         "count": 1
     }
 }

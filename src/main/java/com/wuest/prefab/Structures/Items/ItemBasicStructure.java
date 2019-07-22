@@ -2,9 +2,6 @@ package com.wuest.prefab.Structures.Items;
 
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Structures.Capabilities.IStructureConfigurationCapability;
-import com.wuest.prefab.Structures.Capabilities.StructureConfigurationCapability;
-import com.wuest.prefab.Structures.Capabilities.Storage.StructureConfigurationStorage;
 import com.wuest.prefab.Structures.Config.BasicStructureConfiguration;
 import com.wuest.prefab.Structures.Config.BasicStructureConfiguration.EnumBasicStructureName;
 import com.wuest.prefab.Structures.Gui.GuiAdvancedWareHouse;
@@ -35,10 +32,13 @@ import net.minecraftforge.common.util.LazyOptional;
  */
 public class ItemBasicStructure extends StructureItem
 {
-
-	public ItemBasicStructure(String name)
+	public final EnumBasicStructureName structureType;
+	
+	public ItemBasicStructure(String name, EnumBasicStructureName structureType)
 	{
 		super(name);
+		
+		this.structureType = structureType;
 	}
 
 	/**
@@ -73,26 +73,6 @@ public class ItemBasicStructure extends StructureItem
 		return ActionResultType.FAIL;
 	}
 
-	/**
-	 * Override this method to change the NBT data being sent to the client. You should ONLY override this when you have
-	 * no other choice, as this might change behavior client side!
-	 *
-	 * @param stack The stack to send the NBT tag for
-	 * @return The NBT tag
-	 */
-	@Override
-	public CompoundNBT getShareTag(ItemStack stack)
-	{
-		if (stack.getTag() == null || stack.getTag().isEmpty())
-		{
-			// Make sure to serialize the NBT for this stack so the information is pushed to the client and the
-			// appropriate Icon is displayed for this stack.
-			stack.setTag(stack.serializeNBT());
-		}
-
-		return stack.getTag();
-	}
-
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public GuiStructure getScreen() {
@@ -118,38 +98,5 @@ public class ItemBasicStructure extends StructureItem
 		}
 
 		return stack;
-	}
-
-	public static IStructureConfigurationCapability getStackCapability(ItemStack stack)
-	{
-		LazyOptional<IStructureConfigurationCapability> stackCapability = stack.getCapability(ModRegistry.StructureConfiguration);
-		
-		if (stackCapability.isPresent())
-		{
-			return stackCapability.map(capability -> {
-			
-				CompoundNBT forgeCapabilities = stack.getChildTag("ForgeCaps");
-				if (forgeCapabilities != null)
-				{
-					if (capability.getDirty() && forgeCapabilities.contains(Prefab.MODID + ":structuresconfiguration"))
-					{
-						StructureConfigurationCapability capabilityTemp = new StructureConfigurationCapability();
-						StructureConfigurationStorage storage = new StructureConfigurationStorage();
-						storage.readNBT(ModRegistry.StructureConfiguration, capabilityTemp, Direction.NORTH,
-							forgeCapabilities.get(Prefab.MODID + ":structuresconfiguration"));
-
-						if (!capabilityTemp.getConfiguration().basicStructureName.getName().equals(capability.getConfiguration().basicStructureName.getName()))
-						{
-							capability.setConfiguration(capabilityTemp.getConfiguration());
-							capability.setDirty(false);
-						}
-					}
-				}
-				
-				return capability;
-			}).orElse(null);
-		}
-
-		return null;
 	}
 }

@@ -14,25 +14,20 @@
     ],
     "key": {
         "a": {
-            "item": "minecraft:bookshelf",
-            "data": 32767
+            "item": "minecraft:bookshelf"
         },
         "b": {
-            "item": "minecraft:brewing_stand",
-            "data": 32767
+            "item": "minecraft:brewing_stand"
         },
         "c": {
-            "item": "minecraft:enchanting_table",
-            "data": 32767
+            "item": "minecraft:enchanting_table"
         },
         "d": {
-            "item": "minecraft:anvil",
-            "data": 32767
+            "item": "minecraft:anvil"
         }
     },
     "result": {
         "item": "prefab:item_warehouse_upgrade",
-        "data": 0,
         "count": 1
     }
 }

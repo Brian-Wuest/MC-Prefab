@@ -12,12 +12,11 @@
     "group": "Compressed Stone",
     "ingredients": [
         {
-            "item": "#compressed_stone"
+            "tag": "prefab:compressed_stone1"
         }
     ],
     "result": {
         "item": "minecraft:stone",
-        "count": 9,
-        "data": 0
+        "count": 9
     }
 }

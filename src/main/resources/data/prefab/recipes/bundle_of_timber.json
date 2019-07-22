@@ -15,8 +15,7 @@
     "key": {
         "#": [
             {
-                "type": "forge:ore_dict",
-                "ore": "logWood"
+				"tag": "minecraft:logs"
             }
         ]
     },

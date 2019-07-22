@@ -20,9 +20,7 @@ import com.wuest.prefab.Proxy.Messages.ConfigSyncMessage;
 import com.wuest.prefab.Proxy.Messages.PlayerEntityTagMessage;
 import com.wuest.prefab.Proxy.Messages.Handlers.ConfigSyncHandler;
 import com.wuest.prefab.Proxy.Messages.Handlers.PlayerEntityHandler;
-import com.wuest.prefab.Structures.Capabilities.IStructureConfigurationCapability;
-import com.wuest.prefab.Structures.Capabilities.StructureConfigurationCapability;
-import com.wuest.prefab.Structures.Capabilities.Storage.StructureConfigurationStorage;
+import com.wuest.prefab.Structures.Config.BasicStructureConfiguration.EnumBasicStructureName;
 import com.wuest.prefab.Structures.Gui.GuiAdvancedWareHouse;
 import com.wuest.prefab.Structures.Gui.GuiBasicStructure;
 import com.wuest.prefab.Structures.Gui.GuiBulldozer;
@@ -226,12 +224,6 @@ public class ModRegistry
 	 * The identifier for the structure part gui.
 	 */
 	public static final String GuiStructurePart = "StructurePart";
-
-	/**
-	 * This capability is used to save the locations where a player spawns when transferring dimensions.
-	 */
-	@CapabilityInject(IStructureConfigurationCapability.class)
-	public static Capability<IStructureConfigurationCapability> StructureConfiguration = null;
 
 	private static ArrayList<BlockCompressedStone> CompressedStones = new ArrayList<BlockCompressedStone>();
 	private static ArrayList<BlockCompressedObsidian> CompressedObsidians = new ArrayList<BlockCompressedObsidian>();
@@ -640,9 +632,10 @@ public class ModRegistry
 		ModRegistry.registerItem(new ItemStructurePart("item_structure_part"));
 		// ModRegistry.registerItem(new ItemBogus("item_bogus"));
 
-		// Register all the basic structures here. The resource location is used for the item models and textures.
-		// Only the first one in this list should have the last variable set to true.
-		ModRegistry.registerItem(new ItemBasicStructure("item_basic_structure"));
+		for (EnumBasicStructureName structureName : EnumBasicStructureName.values())
+		{
+			ModRegistry.registerItem(new ItemBasicStructure(structureName.getResourceLocation().getPath(), structureName));	
+		}
 
 		for (BlockCompressedStone.EnumType stoneType : BlockCompressedStone.EnumType.values())
 		{
@@ -699,9 +692,6 @@ public class ModRegistry
 	 */
 	public static void RegisterCapabilities()
 	{
-		// Register the dimension home capability.
-		CapabilityManager.INSTANCE.register(IStructureConfigurationCapability.class, new StructureConfigurationStorage(),
-			() -> new StructureConfigurationCapability());
 	}
 
 	/**

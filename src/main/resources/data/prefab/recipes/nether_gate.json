@@ -14,21 +14,17 @@
     ],
     "key": {
         "a": {
-            "type": "forge:ore_dict",
-            "ore": "compressedStone2"
+            "tag": "prefab:compressed_stone2"
         },
         "b": {
-            "type": "forge:ore_dict",
-            "ore": "compressedObsidian1"
+            "tag": "prefab:compressed_obsidian1"
         },
         "c": {
-            "item": "minecraft:flint_and_steel",
-            "data": 32767
+            "item": "minecraft:flint_and_steel"
         }
     },
     "result": {
         "item": "prefab:item_nether_gate",
-        "data": 0,
         "count": 1
     }
 }

@@ -14,21 +14,17 @@
     ],
     "key": {
         "a": {
-            "type": "forge:ore_dict",
-            "ore": "compressedStone2"
+            "tag": "prefab:compressed_stone2"
         },
         "b": {
-            "type": "forge:ore_dict",
-            "ore": "compressedStone1"
+            "tag": "prefab:compressed_stone2"
         },
         "c": {
-            "item": "minecraft:cobblestone",
-            "data": 32767
+            "item": "minecraft:cobblestone"
         }
     },
     "result": {
         "item": "prefab:item_structure_part",
-        "data": 0,
         "count": 1
     }
 }

@@ -14,13 +14,11 @@
     ],
     "key": {
         "a": {
-            "item": "prefab:item_string_of_lanterns",
-            "data": 32767
+            "item": "prefab:item_string_of_lanterns"
         }
     },
     "result": {
         "item": "prefab:item_coil_of_lanterns",
-        "data": 0,
         "count": 1
     }
 }

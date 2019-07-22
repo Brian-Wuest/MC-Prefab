@@ -17,30 +17,17 @@
             "item": "prefab:item_pallet_of_bricks"
         },
         "b": {
-                "type": "forge:ore_dict",
-                "ore": "compressedGlowstone1"
+			"tag": "prefab:compressed_glow_stone1"
         },
         "c": {
             "item": "prefab:item_bundle_of_timber"
         },
         "d": {
-                "type": "forge:ore_dict",
-                "ore": "compressedDirt1"
+			"tag": "prefab:compressed_dirt1"
         }
     },
     "result": {
-        "item": "prefab:item_basic_structure",
-        "data": 0,
-        "nbt": {
-            "ForgeCaps": {
-                "prefab:structuresconfiguration": {
-                    "configuration": {
-                        "structureEnumName": "Barn",
-                        "structureDisplayName": "Barn"
-                    }
-                }
-            }
-        },
+        "item": "prefab:item_barn",
         "count": 1
     }
 }

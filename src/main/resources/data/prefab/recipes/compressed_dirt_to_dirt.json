@@ -12,12 +12,11 @@
     "group": "Compressed Dirt",
     "ingredients": [
         {
-            "item": "#compressed_dirt"
+			"tag": "prefab:compressed_dirt1"
         }
     ],
     "result": {
         "item": "minecraft:dirt",
-        "count": 9,
-        "data": 0
+        "count": 9
     }
 }

@@ -9,7 +9,7 @@
     "group": "Pile of Bricks",
     "ingredients": [
         {
-            "item": "#pile_of_bricks"
+            "item": "prefab:item_pile_of_bricks"
         }
     ],
     "result": {

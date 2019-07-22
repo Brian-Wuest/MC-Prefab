@@ -14,7 +14,7 @@
     ],
     "key": {
         "#": {
-            "item": "#pile_of_bricks"
+            "item": "prefab:item_pile_of_bricks"
         }
     },
     "result": {

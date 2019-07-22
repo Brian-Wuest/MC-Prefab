@@ -14,17 +14,14 @@
     ],
     "key": {
         "a": {
-            "item": "prefab:item_bundle_of_timber",
-            "data": 32767
+            "item": "prefab:item_bundle_of_timber"
         },
         "b": {
-            "type": "forge:ore_dict",
-            "ore": "compressedStone1"
+            "tag": "prefab:compressed_stone1"
         }
     },
     "result": {
         "item": "prefab:item_villager_houses",
-        "data": 0,
         "count": 1
     }
 }

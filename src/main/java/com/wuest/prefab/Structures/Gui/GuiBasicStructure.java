@@ -6,14 +6,15 @@ import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
-import com.wuest.prefab.Structures.Capabilities.IStructureConfigurationCapability;
-import com.wuest.prefab.Structures.Capabilities.StructureConfigurationCapability;
 import com.wuest.prefab.Structures.Config.BasicStructureConfiguration;
+import com.wuest.prefab.Structures.Config.FishPondConfiguration;
 import com.wuest.prefab.Structures.Items.ItemBasicStructure;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Structures.Predefined.StructureBasic;
+import com.wuest.prefab.Structures.Predefined.StructureChickenCoop;
 import com.wuest.prefab.Structures.Render.StructureRenderHandler;
 
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.util.LazyOptional;
@@ -77,18 +78,8 @@ public class GuiBasicStructure extends GuiStructure
 		
 		if (stack != null)
 		{
-			LazyOptional<IStructureConfigurationCapability> optionalCapability = stack.getCapability(ModRegistry.StructureConfiguration, Direction.NORTH);
-			
-			this.configuration = optionalCapability.orElse(new StructureConfigurationCapability()).getConfiguration();
-			
-			if (!ClientEventHandler.playerConfig.clientConfigurations.containsKey(this.configuration.basicStructureName.getName()))
-			{
-				ClientEventHandler.playerConfig.clientConfigurations.put(this.configuration.basicStructureName.getName(), this.configuration);
-			}
-			else
-			{
-				this.configuration = ClientEventHandler.playerConfig.getClientConfig(this.configuration.basicStructureName.getName(), BasicStructureConfiguration.class);
-			}
+			ItemBasicStructure item = (ItemBasicStructure)stack.getItem();
+			this.configuration = ClientEventHandler.playerConfig.getClientConfig(item.structureType.getName(), BasicStructureConfiguration.class);
 			
 			this.includePicture = this.doesPictureExist();
 		}
@@ -105,26 +96,12 @@ public class GuiBasicStructure extends GuiStructure
 		int grayBoxY = this.getCenteredYAxis() - this.modifiedINitialYAxis;
 
 		// Create the buttons.
-		this.btnVisualize = new GuiButtonExt(grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW), (button) ->  {
-			StructureBasic structure = StructureBasic.CreateInstance(this.configuration.basicStructureName.getAssetLocation(), StructureBasic.class);
-			StructureRenderHandler.setStructure(structure, Direction.NORTH, this.configuration);
-			this.getMinecraft().displayGuiScreen(null);
-		});
-		
-		this.buttons.add(this.btnVisualize);
+		this.btnVisualize = this.createAndAddButton(grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW));
 		
 		// Create the done and cancel buttons.
-		this.btnBuild = new GuiButtonExt(grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_BUILD), (button) ->  {
-			this.performCancelOrBuildOrHouseFacing(this.configuration, button);
-		});
-		
-		this.buttons.add(this.btnBuild);
+		this.btnBuild = this.createAndAddButton(grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_BUILD));
 
-		this.btnCancel = new GuiButtonExt(grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_CANCEL), (button) ->  {
-			this.performCancelOrBuildOrHouseFacing(this.configuration, button);
-		});
-		
-		this.buttons.add(this.btnCancel);
+		this.btnCancel = this.createAndAddButton(grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_CANCEL));
 	}
 	
 	/**
@@ -141,6 +118,20 @@ public class GuiBasicStructure extends GuiStructure
 		catch (IOException e)
 		{
 			return false;
+		}
+	}
+
+	
+	@Override
+	public void buttonClicked(Button button)
+	{
+		this.performCancelOrBuildOrHouseFacing(this.configuration, button);
+
+		if (button == this.btnVisualize)
+		{
+			StructureBasic structure = StructureBasic.CreateInstance(this.configuration.basicStructureName.getAssetLocation(), StructureBasic.class);
+			StructureRenderHandler.setStructure(structure, Direction.NORTH, this.configuration);
+			this.getMinecraft().displayGuiScreen(null);
 		}
 	}
 }

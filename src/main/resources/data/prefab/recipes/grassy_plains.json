@@ -14,31 +14,18 @@
     ],
     "key": {
         "a": {
-            "item": "minecraft:tallgrass",
+            "item": "minecraft:grass",
             "data": 1
         },
         "b": {
-            "type": "forge:ore_dict",
-            "ore": "compressedDirt1"
+            "tag": "prefab:compressed_dirt1"
         },
         "c": {
-            "type": "forge:ore_dict",
-            "ore": "compressedDirt2"
+            "tag": "prefab:compressed_dirt2"
         }
     },
     "result": {
-        "item": "prefab:item_basic_structure",
-        "data": 0,
-        "nbt": {
-            "ForgeCaps": {
-                "prefab:structuresconfiguration": {
-                    "configuration": {
-                        "structureEnumName": "GrassyPlain",
-                        "structureDisplayName": "Grassy Plains"
-                    }
-                }
-            }
-        },
+        "item": "prefab:item_grassy_plain",
         "count": 1
     }
 }

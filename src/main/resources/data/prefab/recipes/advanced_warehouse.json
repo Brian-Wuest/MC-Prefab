@@ -14,8 +14,7 @@
     ],
     "key": {
         "a": {
-                "type": "forge:ore_dict",
-                "ore": "compressedStone2"
+			"tag": "prefab:compressed_stone2"
         },
         "b": {
             "item": "prefab:item_warehouse_upgrade",
@@ -30,8 +29,7 @@
                 "ore": "compressedGlowstone2"
         },
         "e": {
-                "type": "forge:ore_dict",
-                "ore": "compressedStone3"
+			"tag": "prefab:compressed_stone3"
         }
     },
     "result": {

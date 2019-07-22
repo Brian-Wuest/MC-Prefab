@@ -13,8 +13,7 @@
         }
     ],
     "result": {
-        "item": "minecraft:log",
-        "data": 0,
+        "item": "minecraft:oak_log",
         "count": 9
     }
 }

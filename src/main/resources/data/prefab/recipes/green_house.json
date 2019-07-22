@@ -17,8 +17,7 @@
             "item": "minecraft:water_bucket"
         },
         "b": {
-                "type": "forge:ore_dict",
-                "ore": "compressedStone2"
+            "tag": "prefab:compressed_stone2"
         },
         "c": {
             "item": "minecraft:glass_pane"
@@ -27,23 +26,11 @@
             "item": "prefab:item_string_of_lanterns"
         },
         "e": {
-                "type": "forge:ore_dict",
-                "ore": "compressedDirt2"
+            "tag": "prefab:compressed_dirt2"
         }
     },
     "result": {
-        "item": "prefab:item_basic_structure",
-        "data": 0,
-        "nbt": {
-            "ForgeCaps": {
-                "prefab:structuresconfiguration": {
-                    "configuration": {
-                        "structureEnumName": "GreenHouse",
-                        "structureDisplayName": "Green House"
-                    }
-                }
-            }
-        },
+        "item": "prefab:item_green_house",
         "count": 1
     }
 }

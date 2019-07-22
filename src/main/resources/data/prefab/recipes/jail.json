@@ -18,31 +18,17 @@
             "data": 32767
         },
         "b": {
-            "type": "forge:ore_dict",
-            "ore": "compressedStone3"
+            "tag": "prefab:compressed_stone3"
         },
         "c": {
-            "type": "forge:ore_dict",
-            "ore": "compressedDirt2"
+            "tag": "prefab:compressed_dirt2"
         },
         "d": {
-            "type": "forge:ore_dict",
-            "ore": "compressedStone2"
+            "tag": "prefab:compressed_stone2"
         }
     },
     "result": {
-        "item": "prefab:item_basic_structure",
-        "data": 0,
-        "nbt": {
-            "ForgeCaps": {
-                "prefab:structuresconfiguration": {
-                    "configuration": {
-                        "structureEnumName": "Jail",
-                        "structureDisplayName": "Jail"
-                    }
-                }
-            }
-        },
+        "item": "prefab:item_jail",
         "count": 1
     }
 }

@@ -14,41 +14,33 @@
     ],
     "key": {
         "a": {
-            "item": "minecraft:skull",
-            "data": 2
+            "item": "minecraft:skeleton_skull"
         },
         "b": {
-            "item": "minecraft:redstone_block",
-            "data": 32767
+            "item": "minecraft:redstone_block"
         },
         "c": {
-            "item": "minecraft:iron_bars",
-            "data": 32767
+            "item": "minecraft:iron_bars"
         },
         "d": {
-            "item": "prefab:item_compressed_chest",
-            "data": 32767
+            "item": "prefab:item_compressed_chest"
         },
         "e": {
-            "item": "minecraft:skull",
+            "item": "minecraft:zombie_head",
             "data": 0
         },
         "f": {
-                "type": "forge:ore_dict",
-                "ore": "compressedStone2"
+            "tag": "prefab:compressed_stone2"
         },
         "g": {
-                "type": "forge:ore_dict",
-                "ore": "compressedStone3"
+            "tag": "prefab:compressed_stone3"
         },
         "h": {
-                "type": "forge:ore_dict",
-                "ore": "compressedGlowstone2"
+            "tag": "prefab:compressed_glow_stone2"
         }
     },
     "result": {
         "item": "prefab:item_monster_masher",
-        "data": 0,
         "count": 1
     }
 }

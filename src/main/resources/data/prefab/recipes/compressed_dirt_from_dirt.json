@@ -18,13 +18,12 @@
     "key": {
         "#": [
             {
-                "item": "minecraft:dirt",
-                "data": 32767
+                "item": "minecraft:dirt"
             }
         ]
     },
     "result": {
-        "item": "prefab:block_compressed_dirt",
+		"tag": "prefab:compressed_dirt1",
         "count": 1
     }
 }

@@ -14,27 +14,14 @@
     ],
     "key": {
         "a": {
-                "type": "forge:ore_dict",
-                "ore": "compressedStone1"
+                "tag": "prefab:compressed_stone1"
         },
         "b": {
-                "type": "forge:ore_dict",
-                "ore": "compressedStone2"
+                "tag": "prefab:compressed_stone2"
         }
     },
     "result": {
-        "item": "prefab:item_basic_structure",
-        "data": 0,
-        "nbt": {
-            "ForgeCaps": {
-                "prefab:structuresconfiguration": {
-                    "configuration": {
-                        "structureEnumName": "WatchTower",
-                        "structureDisplayName": "Watch Tower"
-                    }
-                }
-            }
-        },
+        "item": "prefab:item_watch_tower",
         "count": 1
     }
 }

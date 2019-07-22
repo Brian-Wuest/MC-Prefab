@@ -18,13 +18,12 @@
     "key": {
         "#": [
             {
-                "item": "minecraft:stone",
-                "data": 32767
+                "item": "minecraft:stone"
             }
         ]
     },
     "result": {
-        "item": "prefab:block_compressed_stone",
+        "tag": "prefab:compressed_stone1",
         "count": 1
     }
 }

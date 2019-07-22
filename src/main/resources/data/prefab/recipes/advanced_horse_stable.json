@@ -21,8 +21,7 @@
             "item": "prefab:item_horse_stable"
         },
         {
-            "type": "forge:ore_dict",
-            "ore": "compressedGlowstone2"
+			"tag": "prefab:compressed_glow_stone2"
         }
     ],
     "result": {

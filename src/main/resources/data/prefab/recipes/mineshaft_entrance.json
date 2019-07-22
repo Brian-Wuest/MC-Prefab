@@ -14,35 +14,20 @@
     ],
     "key": {
         "a": {
-            "item": "minecraft:iron_pickaxe",
-            "data": 32767
+            "item": "minecraft:iron_pickaxe"
         },
         "b": {
-            "item": "prefab:item_bundle_of_timber",
-            "data": 32767
+            "item": "prefab:item_bundle_of_timber"
         },
         "c": {
-                "type": "forge:ore_dict",
-                "ore": "compressedStone1"
+            "tag": "prefab:compressed_stone1"
         },
         "d": {
-            "item": "minecraft:bed",
-            "data": 32767
+            "tag": "minecraft:beds"
         }
     },
     "result": {
-        "item": "prefab:item_basic_structure",
-        "data": 0,
-        "nbt": {
-            "ForgeCaps": {
-                "prefab:structuresconfiguration": {
-                    "configuration": {
-                        "structureEnumName": "MineshaftEntrance",
-                        "structureDisplayName": "Mineshaft Entrance"
-                    }
-                }
-            }
-        },
+        "item": "prefab:item_mineshaft_entrance",
         "count": 1
     }
 }

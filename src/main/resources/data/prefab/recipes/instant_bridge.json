@@ -14,17 +14,14 @@
     ],
     "key": {
         "a": {
-            "item": "minecraft:torch",
-            "data": 32767
+            "item": "minecraft:torch"
         },
         "b": {
-                "type": "forge:ore_dict",
-                "ore": "compressedStone2"
+            "tag": "prefab:compressed_stone2"
         }
     },
     "result": {
         "item": "prefab:item_instant_bridge",
-        "data": 0,
         "count": 1
     }
 }

@@ -14,35 +14,20 @@
     ],
     "key": {
         "a": {
-            "item": "prefab:item_bundle_of_timber",
-            "data": 0
+            "item": "prefab:item_bundle_of_timber"
         },
         "b": {
-            "item": "minecraft:brewing_stand",
-            "data": 0
+            "item": "minecraft:brewing_stand"
         },
         "c": {
-            "item": "minecraft:enchanting_table",
-            "data": 0
+            "item": "minecraft:enchanting_table"
         },
         "d": {
-            "item": "minecraft:blaze_rod",
-            "data": 0
+            "item": "minecraft:blaze_rod"
         }
     },
     "result": {
-        "item": "prefab:item_basic_structure",
-        "data": 0,
-        "nbt": {
-            "ForgeCaps": {
-                "prefab:structuresconfiguration": {
-                    "configuration": {
-                        "structureEnumName": "MagicTemple",
-                        "structureDisplayName": "Magic Temple"
-                    }
-                }
-            }
-        },
+        "item": "prefab:item_magic_temple",
         "count": 1
     }
 }

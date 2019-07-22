@@ -14,25 +14,20 @@
     ],
     "key": {
         "a": {
-            "item": "prefab:item_pallet_of_bricks",
-            "data": 32767
+            "item": "prefab:item_pallet_of_bricks"
         },
         "b": {
-            "type": "forge:ore_dict",
-            "ore": "compressedDirt2"
+            "tag": "prefab:compressed_dirt2"
         },
         "c": {
-            "item": "minecraft:water_bucket",
-            "data": 32767
+            "item": "minecraft:water_bucket"
         },
         "d": {
-            "item": "prefab:item_coil_of_lanterns",
-            "data": 32767
+            "item": "prefab:item_coil_of_lanterns"
         }
     },
     "result": {
         "item": "prefab:item_produce_farm",
-        "data": 0,
         "count": 1
     }
 }

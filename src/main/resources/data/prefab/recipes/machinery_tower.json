@@ -14,31 +14,17 @@
     ],
     "key": {
         "a": {
-            "item": "minecraft:golden_rail",
-            "data": 32767
+            "item": "minecraft:powered_rail"
         },
         "b": {
-            "item": "prefab:item_string_of_lanterns",
-            "data": 32767
+            "item": "prefab:item_string_of_lanterns"
         },
         "c": {
-                "type": "forge:ore_dict",
-                "ore": "compressedStone3"
+            "tag": "prefab:compressed_stone3"
         }
     },
     "result": {
-        "item": "prefab:item_basic_structure",
-        "data": 0,
-        "nbt": {
-            "ForgeCaps": {
-                "prefab:structuresconfiguration": {
-                    "configuration": {
-                        "structureEnumName": "MachineryTower",
-                        "structureDisplayName": "Machinery Tower"
-                    }
-                }
-            }
-        },
+        "item": "prefab:item_machinery_tower",
         "count": 1
     }
 }

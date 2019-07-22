@@ -17,8 +17,7 @@
             "item": "minecraft:glass"
         },
         "b": {
-                "type": "forge:ore_dict",
-                "ore": "compressedStone1"
+			"tag": "prefab:compressed_stone1"
         },
         "c": {
             "item": "minecraft:sea_lantern"
@@ -28,18 +27,7 @@
         }
     },
     "result": {
-        "item": "prefab:item_basic_structure",
-        "data": 0,
-        "nbt": {
-            "ForgeCaps": {
-                "prefab:structuresconfiguration": {
-                    "configuration": {
-                        "structureEnumName": "AquaBase",
-                        "structureDisplayName": "Aqua Base"
-                    }
-                }
-            }
-        },
+        "item": "prefab:item_aqua_base",
         "count": 1
     }
 }

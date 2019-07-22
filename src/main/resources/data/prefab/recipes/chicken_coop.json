@@ -14,24 +14,19 @@
     ],
     "key": {
         "a": {
-            "item": "minecraft:brick_block",
-            "data": 32767
+            "item": "minecraft:bricks"
         },
         "b": {
-            "item": "minecraft:log",
-            "data": 1
+			"tag": "minecraft:logs"
         },
         "c": {
-            "item": "minecraft:egg",
-            "data": 32767
+            "item": "minecraft:egg"
         },
         "d": {
-                "type": "forge:ore_dict",
-                "ore": "compressedDirt1"
+			"tag": "prefab:compressed_dirt1"
         },
         "e": {
-            "item": "minecraft:hay_block",
-            "data": 32767
+            "item": "minecraft:hay_block"
         }
     },
     "result": {

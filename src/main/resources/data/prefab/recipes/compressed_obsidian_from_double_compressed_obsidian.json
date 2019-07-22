@@ -9,11 +9,11 @@
     "group": "Compressed Obsidian",
     "ingredients": [
         {
-            "item": "prefab:block_double_compressed_obsidian"
+			"tag": "prefab:compressed_obsidian2"
         }
     ],
     "result": {
-        "item": "prefab:block_compressed_obsidian",
+        "tag": "prefab:compressed_obsidian1",
         "count": 9
     }
 }
