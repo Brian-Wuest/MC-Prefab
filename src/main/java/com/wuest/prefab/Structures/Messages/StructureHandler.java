@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 import com.wuest.prefab.Structures.Config.StructureConfiguration;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 
+import net.minecraft.world.ServerWorld;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 /**
@@ -34,7 +35,7 @@ public class StructureHandler
 				EnumStructureConfiguration structureConfig = message.getStructureConfig();
 				
 				StructureConfiguration configuration = structureConfig.structureConfig.ReadFromCompoundNBT(message.getMessageTag());
-				configuration.BuildStructure(context.getSender(), context.getSender().world);
+				configuration.BuildStructure(context.getSender(), context.getSender().getServerWorld());
 			}
 		});
 

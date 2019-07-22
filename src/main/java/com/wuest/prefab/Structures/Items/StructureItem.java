@@ -67,7 +67,7 @@ public class StructureItem extends Item
 	
 	@OnlyIn(Dist.CLIENT)
 	public GuiStructure getScreen() {
-		return new GuiStructure("Generic Screen");
+		return null;
 	}
 	
 	/**

@@ -969,7 +969,7 @@ public class HouseConfiguration extends StructureConfiguration
 		BuildingMethods.ReplaceBlock(world, farmStart.offset(facing.getOpposite()).offset(facing.rotateY()), Blocks.FARMLAND);
 	}
 
-	private static void PlaceMineShaft(World world, BlockPos pos, int houseDepth, Direction facing)
+	private static void PlaceMineShaft(ServerWorld world, BlockPos pos, int houseDepth, Direction facing)
 	{
 		// The initial position is where the character was teleported too, go
 		// back X blocks and start building the mine shaft.
