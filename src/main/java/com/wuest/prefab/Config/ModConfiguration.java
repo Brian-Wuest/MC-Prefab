@@ -281,8 +281,6 @@ public class ModConfiguration
 
 			Prefab.proxy.proxyConfiguration.recipeConfiguration.put(key, value);
 		}
-
-		builder.worldRestart();
 	}
 
 	public static void loadConfig(ForgeConfigSpec spec, Path path)
@@ -334,6 +332,7 @@ public class ModConfiguration
 		// Recipe configuration.
 		for (String key : ModConfiguration.recipeKeys)
 		{
+			Prefab.LOGGER.debug("Setting recipe configuration for key: " + key);
 			Prefab.proxy.proxyConfiguration.serverConfiguration.recipeConfiguration.put(key, Prefab.proxy.proxyConfiguration.recipeConfiguration.get(key).get());
 		}
 	}

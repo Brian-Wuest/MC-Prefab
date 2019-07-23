@@ -39,7 +39,7 @@ public class ItemBulldozer extends StructureItem
 	 */
 	public ItemBulldozer(String name)
 	{
-		super(name, new Item.Properties().maxDamage(4).maxStackSize(1));
+		super(name, new Item.Properties().maxDamage(4));
 	}
 
 	/**

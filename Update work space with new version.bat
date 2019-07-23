@@ -1,6 +1,8 @@
 
-.\gradlew genEclipseRuns
+./gradlew genEclipseRuns
+
+./gradlew genIntellijRuns
 
 pause
 
-.\gradlew eclipse
+./gradlew eclipse

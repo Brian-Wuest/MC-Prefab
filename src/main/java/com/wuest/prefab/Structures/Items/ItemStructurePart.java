@@ -18,12 +18,9 @@ public class ItemStructurePart extends StructureItem
 {
 	public ItemStructurePart(String name)
 	{
-		super("Structure Part", new Item.Properties()
+		super(name, new Item.Properties()
 			.group(ItemGroup.MISC)
-			.maxDamage(10)
-			.maxStackSize(1));
-
-		ModRegistry.setItemName(this, name);
+			.maxDamage(10));
 	}
 
 	@Override

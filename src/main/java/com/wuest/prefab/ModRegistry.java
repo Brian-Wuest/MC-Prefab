@@ -2,6 +2,7 @@ package com.wuest.prefab;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import com.wuest.prefab.Blocks.BlockBoundary;
 import com.wuest.prefab.Blocks.BlockCompressedObsidian;
@@ -63,9 +64,6 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
-import net.minecraftforge.common.capabilities.CapabilityManager;
 
 /**
  * This is the mod registry so there is a way to get to all instances of the blocks/items created by this mod.
@@ -634,7 +632,9 @@ public class ModRegistry
 
 		for (EnumBasicStructureName structureName : EnumBasicStructureName.values())
 		{
-			ModRegistry.registerItem(new ItemBasicStructure(structureName.getResourceLocation().getPath(), structureName));	
+			if (structureName != EnumBasicStructureName.Custom) {
+				ModRegistry.registerItem(new ItemBasicStructure(structureName.getResourceLocation().getPath(), structureName));
+			}
 		}
 
 		for (BlockCompressedStone.EnumType stoneType : BlockCompressedStone.EnumType.values())
@@ -667,20 +667,20 @@ public class ModRegistry
 	 */
 	public static void RegisterMessages()
 	{
-		int index = 0;
-		Prefab.network.messageBuilder(ConfigSyncMessage.class, index++)
+		AtomicInteger index = new AtomicInteger();
+		Prefab.network.messageBuilder(ConfigSyncMessage.class, index.getAndIncrement())
 			.encoder(ConfigSyncMessage::encode)
 			.decoder(ConfigSyncMessage::decode)
 			.consumer(ConfigSyncHandler::handle)
 			.add();
 
-		Prefab.network.messageBuilder(PlayerEntityTagMessage.class, index++)
+		Prefab.network.messageBuilder(PlayerEntityTagMessage.class, index.getAndIncrement())
 			.encoder(PlayerEntityTagMessage::encode)
 			.decoder(PlayerEntityTagMessage::decode)
 			.consumer(PlayerEntityHandler::handle)
 			.add();
 
-		Prefab.network.messageBuilder(StructureTagMessage.class, index++)
+		Prefab.network.messageBuilder(StructureTagMessage.class, index.getAndIncrement())
 			.encoder(StructureTagMessage::encode)
 			.decoder(StructureTagMessage::decode)
 			.consumer(StructureHandler::handle)

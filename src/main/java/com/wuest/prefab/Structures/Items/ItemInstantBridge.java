@@ -25,8 +25,7 @@ public class ItemInstantBridge extends StructureItem
 	{
 		super(name, new Item.Properties()
 			.group(ItemGroup.MISC)
-			.maxDamage(10)
-			.maxStackSize(1));
+			.maxDamage(10));
 	}
 
 	@Override

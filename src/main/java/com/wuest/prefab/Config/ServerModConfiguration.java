@@ -45,6 +45,11 @@ public class ServerModConfiguration
 	public String startingItem;
 	
 	public HashMap<String, Boolean> recipeConfiguration;
+
+	public ServerModConfiguration()
+	{
+		this.recipeConfiguration = new HashMap<>();
+	}
 	
 	public CompoundNBT ToNBTTagCompound()
 	{
