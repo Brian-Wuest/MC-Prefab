@@ -1,15 +1,9 @@
 package com.wuest.prefab.Blocks;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nullable;
-
-import com.wuest.prefab.ModRegistry;
-import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Events.ModEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
-
+import com.wuest.prefab.ModRegistry;
+import com.wuest.prefab.Prefab;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
@@ -18,13 +12,12 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
+import net.minecraft.state.StateContainer;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -37,6 +30,10 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.MinecraftForgeClient;
 
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 
  * @author WuestMan
@@ -48,11 +45,6 @@ public class BlockBoundary extends Block
 	 * The powered meta data property.
 	 */
 	public static final BooleanProperty Powered = BooleanProperty.create("powered");
-
-	/**
-	 * An empty collision box.
-	 */
-	public static final AxisAlignedBB Empty_AABB = new AxisAlignedBB(0, 0, 0, 0, 0, 0);
 
 	public final ItemGroup itemGroup;
 
@@ -71,6 +63,12 @@ public class BlockBoundary extends Block
 		this.setDefaultState(this.stateContainer.getBaseState().with(Powered, false));
 
 		ModRegistry.setBlockName(this, name);
+	}
+
+	@Override
+	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder)
+	{
+		builder.add(BlockBoundary.Powered);
 	}
 
 	/**
@@ -129,22 +127,13 @@ public class BlockBoundary extends Block
 
 	/**
 	 * Gets the {@link BlockState} to place
-	 * 
-	 * @param world  The world the block is being placed in
-	 * @param pos    The position the block is being placed at
-	 * @param facing The side the block is being placed on
-	 * @param hitX   The X coordinate of the hit vector
-	 * @param hitY   The Y coordinate of the hit vector
-	 * @param hitZ   The Z coordinate of the hit vector
-	 * @param meta   The metadata of {@link ItemStack} as processed by {@link Item#getMetadata(int)}
-	 * @param placer The entity placing the block
-	 * @param hand   The hand used for the placement.
+	 * @param context The {@link BlockItemUseContext}.
 	 * @return The state to be placed in the world
 	 */
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext context)
 	{
-		/**
+		/*
 		 * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
 		 * BlockState
 		 */

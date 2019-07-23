@@ -1,14 +1,8 @@
 package com.wuest.prefab.Blocks;
 
-import java.util.ArrayList;
-import java.util.Random;
-
-import javax.annotation.Nullable;
-
+import com.wuest.prefab.Events.ModEventHandler;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Events.ModEventHandler;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
@@ -16,11 +10,10 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.EnumProperty;
+import net.minecraft.state.StateContainer;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
@@ -36,6 +29,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Random;
+
 /**
  * This is a phasing block.
  * 
@@ -47,7 +44,7 @@ public class BlockPhasing extends Block
 	/**
 	 * The phasing progress property.
 	 */
-	public static final EnumProperty<EnumPhasingProgress> Phasing_Progress = EnumProperty.<EnumPhasingProgress> create("phasing_progress", EnumPhasingProgress.class);
+	public static final EnumProperty<EnumPhasingProgress> Phasing_Progress = EnumProperty.create("phasing_progress", EnumPhasingProgress.class);
 
 	/**
 	 * The phasing out block property.
@@ -79,6 +76,12 @@ public class BlockPhasing extends Block
 	}
 
 	@Override
+	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder)
+	{
+		builder.add(BlockPhasing.Phasing_Out, BlockPhasing.Phasing_Progress);
+	}
+
+	@Override
 	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTrace)
 	{
 		if (!world.isRemote)
@@ -97,22 +100,13 @@ public class BlockPhasing extends Block
 
 	/**
 	 * Gets the {@link BlockState} to place
-	 * 
-	 * @param world  The world the block is being placed in
-	 * @param pos    The position the block is being placed at
-	 * @param facing The side the block is being placed on
-	 * @param hitX   The X coordinate of the hit vector
-	 * @param hitY   The Y coordinate of the hit vector
-	 * @param hitZ   The Z coordinate of the hit vector
-	 * @param meta   The metadata of {@link ItemStack} as processed by {@link Item#getMetadata(int)}
-	 * @param placer The entity placing the block
-	 * @param stack  The stack being used to place this block
+	 * @param context The {@link BlockItemUseContext}.
 	 * @return The state to be placed in the world
 	 */
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext context)
 	{
-		/**
+		/*
 		 * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
 		 * BlockState
 		 */
@@ -136,10 +130,7 @@ public class BlockPhasing extends Block
 
 		boolean returnValue = super.removedByPlayer(state, world, pos, player, willHarvest, fluid);
 
-		if (ModEventHandler.RedstoneAffectedBlockPositions.contains(pos))
-		{
-			ModEventHandler.RedstoneAffectedBlockPositions.remove(pos);
-		}
+        ModEventHandler.RedstoneAffectedBlockPositions.remove(pos);
 
 		boolean poweredSide = world.isBlockPowered(pos);
 
@@ -274,14 +265,9 @@ public class BlockPhasing extends Block
 	{
 		EnumPhasingProgress progress = state.get(Phasing_Progress);
 
-		if ((layer == BlockRenderLayer.TRANSLUCENT && progress != EnumPhasingProgress.base)
-			|| (layer == BlockRenderLayer.SOLID && progress == EnumPhasingProgress.base))
-		{
-			return true;
-		}
-
-		return false;
-	}
+        return (layer == BlockRenderLayer.TRANSLUCENT && progress != EnumPhasingProgress.base)
+                || (layer == BlockRenderLayer.SOLID && progress == EnumPhasingProgress.base);
+    }
 
 	/**
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
@@ -327,13 +313,8 @@ public class BlockPhasing extends Block
 	{
 		EnumPhasingProgress progress = state.get(Phasing_Progress);
 
-		if (progress == EnumPhasingProgress.transparent)
-		{
-			return true;
-		}
-
-		return false;
-	}
+        return progress == EnumPhasingProgress.transparent;
+    }
 
 	protected void updateNeighborPhasicBlocks(boolean setToTransparent, World worldIn, BlockPos pos, BlockState phasicBlockState, boolean setCurrentBlock,
 		boolean triggeredByRedstone)
@@ -371,7 +352,7 @@ public class BlockPhasing extends Block
 	 * @param setToTransparent     Determines if the block should be turned transparent.
 	 * @param worldIn              The world where the block resides.
 	 * @param pos                  The position of the block.
-	 * @param currentBlockPosState The current state of the block at the position.
+	 * @param desiredBlockState The current state of the block at the position.
 	 * @param cascadeCount         The number of times it has cascaded.
 	 * @param cascadedBlockPos     The list of cascaded block positions, this is used to determine if this block should
 	 *                                 be processed again.
@@ -440,7 +421,7 @@ public class BlockPhasing extends Block
 		private int meta;
 		private String name;
 
-		private EnumPhasingProgress(int meta, String name)
+		EnumPhasingProgress(int meta, String name)
 		{
 			this.meta = meta;
 			this.name = name;

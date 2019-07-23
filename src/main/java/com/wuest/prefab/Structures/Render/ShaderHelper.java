@@ -1,17 +1,19 @@
 package com.wuest.prefab.Structures.Render;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.stream.Collectors;
-
+import com.mojang.blaze3d.platform.GLX;
+import com.wuest.prefab.Events.ClientEventHandler;
+import net.minecraft.client.Minecraft;
+import net.minecraft.resources.SimpleReloadableResourceManager;
+import net.minecraft.util.Unit;
 import org.lwjgl.opengl.ARBFragmentShader;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.ARBVertexShader;
 import org.lwjgl.opengl.GL11;
 
-import com.mojang.blaze3d.platform.GLX;
-import com.wuest.prefab.Events.ClientEventHandler;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.stream.Collectors;
 
 /**
  * This class we derived from Botania's ShaderHelper. The only real change was to change the location of the assets when
@@ -29,7 +31,18 @@ public class ShaderHelper
 
 	public static void Initialize()
 	{
-		ShaderHelper.alphaShader = ShaderHelper.createProgram("/assets/prefab/shader/alpha.vert", "/assets/prefab/shader/alpha.frag");
+		if (Minecraft.getInstance().getResourceManager() instanceof SimpleReloadableResourceManager)
+		{
+			SimpleReloadableResourceManager resourceManager = (SimpleReloadableResourceManager)Minecraft.getInstance().getResourceManager();
+			resourceManager.addReloadListener((stage, manager, preparationsProfiler, reloadProfiler, backgroundExecutor, gameExecutor) -> {
+				return stage.markCompleteAwaitingOthers(Unit.INSTANCE).thenRunAsync(() -> {
+					ShaderHelper.deleteShader(alphaShader);
+					ShaderHelper.alphaShader = 0;
+
+					ShaderHelper.alphaShader = ShaderHelper.createProgram("/assets/prefab/shader/alpha.vert", "/assets/prefab/shader/alpha.frag");
+				}, gameExecutor);
+			});
+		}
 	}
 
 	public static void useShader(int shader)
@@ -135,6 +148,12 @@ public class ShaderHelper
 			ARBShaderObjects.glDeleteObjectARB(shader);
 			e.printStackTrace();
 			return -1;
+		}
+	}
+
+	private static void deleteShader(int id) {
+		if (id != 0) {
+			ARBShaderObjects.glDeleteObjectARB(id);
 		}
 	}
 
