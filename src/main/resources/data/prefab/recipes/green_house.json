@@ -1,36 +1,36 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "Green House"
-        }
-    ],
-    "type": "minecraft:crafting_shaped",
-    "group": "Green House",
-    "pattern": [
-        "bcb",
-        "bab",
-        "ded"
-    ],
-    "key": {
-        "a": {
-            "item": "minecraft:water_bucket"
-        },
-        "b": {
-            "tag": "prefab:compressed_stone2"
-        },
-        "c": {
-            "item": "minecraft:glass_pane"
-        },
-        "d": {
-            "item": "prefab:item_string_of_lanterns"
-        },
-        "e": {
-            "tag": "prefab:compressed_dirt2"
-        }
-    },
-    "result": {
-        "item": "prefab:item_green_house",
-        "count": 1
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Green House"
     }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Green House",
+  "pattern": [
+    "bcb",
+    "bab",
+    "ded"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:water_bucket"
+    },
+    "b": {
+      "tag": "prefab:compressed_stone2"
+    },
+    "c": {
+      "item": "minecraft:glass_pane"
+    },
+    "d": {
+      "item": "prefab:item_string_of_lanterns"
+    },
+    "e": {
+      "tag": "prefab:compressed_dirt2"
+    }
+  },
+  "result": {
+    "item": "prefab:item_green_house",
+    "count": 1
+  }
 }

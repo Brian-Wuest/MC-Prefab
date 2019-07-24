@@ -1,33 +1,33 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "Magic Temple"
-        }
-    ],
-    "type": "minecraft:crafting_shaped",
-    "group": "Magic Temple",
-    "pattern": [
-        "aaa",
-        "bcd",
-        "aaa"
-    ],
-    "key": {
-        "a": {
-            "item": "prefab:item_bundle_of_timber"
-        },
-        "b": {
-            "item": "minecraft:brewing_stand"
-        },
-        "c": {
-            "item": "minecraft:enchanting_table"
-        },
-        "d": {
-            "item": "minecraft:blaze_rod"
-        }
-    },
-    "result": {
-        "item": "prefab:item_magic_temple",
-        "count": 1
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Magic Temple"
     }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Magic Temple",
+  "pattern": [
+    "aaa",
+    "bcd",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "prefab:item_bundle_of_timber"
+    },
+    "b": {
+      "item": "minecraft:brewing_stand"
+    },
+    "c": {
+      "item": "minecraft:enchanting_table"
+    },
+    "d": {
+      "item": "minecraft:blaze_rod"
+    }
+  },
+  "result": {
+    "item": "prefab:item_magic_temple",
+    "count": 1
+  }
 }

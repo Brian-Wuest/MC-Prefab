@@ -1,27 +1,27 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "Compressed Chest"
-        }
-    ],
-    "type": "minecraft:crafting_shaped",
-    "group": "Compressed Chest",
-    "pattern": [
-        "###",
-        "#a#",
-        "###"
-    ],
-    "key": {
-        "#": {
-            "item": "minecraft:chest"
-        },
-        "a": {
-            "item": "minecraft:ender_chest"
-        }
-    },
-    "result": {
-        "item": "prefab:item_compressed_chest",
-        "count": 1
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Compressed Chest"
     }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Compressed Chest",
+  "pattern": [
+    "###",
+    "#a#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:chest"
+    },
+    "a": {
+      "item": "minecraft:ender_chest"
+    }
+  },
+  "result": {
+    "item": "prefab:item_compressed_chest",
+    "count": 1
+  }
 }

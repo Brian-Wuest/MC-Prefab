@@ -1,35 +1,35 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "Defense Bunker"
-        }
-    ],
-    "type": "minecraft:crafting_shaped",
-    "group": "Defense Bunker",
-    "pattern": [
-        "aba",
-        "cdc",
-        "aaa"
-    ],
-    "key": {
-        "a": {
-            "item": "minecraft:iron_block",
-            "data": 32767
-        },
-        "b": {
-            "item": "prefab:item_coil_of_lanterns",
-            "data": 32767
-        },
-        "c": {
-            "tag": "prefab:compressed_stone3"
-        },
-        "d": {
-               "tag": "prefab:compressed_obsidian2"
-        }
-    },
-    "result": {
-        "item": "prefab:item_defense_bunker",
-        "count": 1
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Defense Bunker"
     }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Defense Bunker",
+  "pattern": [
+    "aba",
+    "cdc",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:iron_block",
+      "data": 32767
+    },
+    "b": {
+      "item": "prefab:item_coil_of_lanterns",
+      "data": 32767
+    },
+    "c": {
+      "tag": "prefab:compressed_stone3"
+    },
+    "d": {
+      "tag": "prefab:compressed_obsidian2"
+    }
+  },
+  "result": {
+    "item": "prefab:item_defense_bunker",
+    "count": 1
+  }
 }

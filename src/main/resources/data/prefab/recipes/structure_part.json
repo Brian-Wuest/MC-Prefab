@@ -1,30 +1,30 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "StructurePart"
-        }
-    ],
-    "type": "minecraft:crafting_shaped",
-    "group": "StructurePart",
-    "pattern": [
-        "ccc",
-        "bbc",
-        "abc"
-    ],
-    "key": {
-        "a": {
-            "tag": "prefab:compressed_stone2"
-        },
-        "b": {
-            "tag": "prefab:compressed_stone2"
-        },
-        "c": {
-            "item": "minecraft:cobblestone"
-        }
-    },
-    "result": {
-        "item": "prefab:item_structure_part",
-        "count": 1
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "StructurePart"
     }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "StructurePart",
+  "pattern": [
+    "ccc",
+    "bbc",
+    "abc"
+  ],
+  "key": {
+    "a": {
+      "tag": "prefab:compressed_stone2"
+    },
+    "b": {
+      "tag": "prefab:compressed_stone2"
+    },
+    "c": {
+      "item": "minecraft:cobblestone"
+    }
+  },
+  "result": {
+    "item": "prefab:item_structure_part",
+    "count": 1
+  }
 }

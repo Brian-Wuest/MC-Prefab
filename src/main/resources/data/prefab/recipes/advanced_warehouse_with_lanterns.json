@@ -1,40 +1,36 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "Advanced Warehouse"
-        }
-    ],
-    "type": "minecraft:crafting_shaped",
-    "group": "Advanced Warehouse",
-    "pattern": [
-        "aba",
-        "aca",
-        "ded"
-    ],
-    "key": {
-        "a": {
-			"tag": "prefab:compressed_stone2"
-        },
-        "b": {
-            "item": "prefab:item_warehouse_upgrade",
-            "data": 32767
-        },
-        "c": {
-            "item": "prefab:item_compressed_chest",
-            "data": 32767
-        },
-        "d": {
-            "item": "prefab:item_coil_of_lanterns",
-            "data": 32767
-        },
-        "e": {
-			"tag": "prefab:compressed_stone3"
-        }
-    },
-    "result": {
-        "item": "prefab:item_advanced_warehouse",
-        "data": 0,
-        "count": 1
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Advanced Warehouse"
     }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Advanced Warehouse",
+  "pattern": [
+    "aba",
+    "aca",
+    "ded"
+  ],
+  "key": {
+    "a": {
+      "tag": "prefab:compressed_stone2"
+    },
+    "b": {
+      "item": "prefab:item_warehouse_upgrade"
+    },
+    "c": {
+      "item": "prefab:item_compressed_chest"
+    },
+    "d": {
+      "item": "prefab:item_coil_of_lanterns"
+    },
+    "e": {
+      "tag": "prefab:compressed_stone3"
+    }
+  },
+  "result": {
+    "item": "prefab:item_advanced_warehouse",
+    "count": 1
+  }
 }

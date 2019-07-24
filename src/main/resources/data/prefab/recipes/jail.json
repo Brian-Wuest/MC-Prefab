@@ -1,34 +1,34 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "Jail"
-        }
-    ],
-    "type": "minecraft:crafting_shaped",
-    "group": "Jail",
-    "pattern": [
-        "aaa",
-        "aba",
-        "cdc"
-    ],
-    "key": {
-        "a": {
-            "item": "minecraft:iron_bars",
-            "data": 32767
-        },
-        "b": {
-            "tag": "prefab:compressed_stone3"
-        },
-        "c": {
-            "tag": "prefab:compressed_dirt2"
-        },
-        "d": {
-            "tag": "prefab:compressed_stone2"
-        }
-    },
-    "result": {
-        "item": "prefab:item_jail",
-        "count": 1
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Jail"
     }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Jail",
+  "pattern": [
+    "aaa",
+    "aba",
+    "cdc"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:iron_bars",
+      "data": 32767
+    },
+    "b": {
+      "tag": "prefab:compressed_stone3"
+    },
+    "c": {
+      "tag": "prefab:compressed_dirt2"
+    },
+    "d": {
+      "tag": "prefab:compressed_stone2"
+    }
+  },
+  "result": {
+    "item": "prefab:item_jail",
+    "count": 1
+  }
 }

@@ -27,9 +27,8 @@ import org.lwjgl.opengl.GL11;
 /**
  * @author WuestMan
  */
-@Mod.EventBusSubscriber(
-        {Dist.CLIENT})
-public class ClientEventHandler {
+@Mod.EventBusSubscriber(modid = Prefab.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = {Dist.CLIENT})
+public final class ClientEventHandler {
     public static ClientEventHandler instance = new ClientEventHandler();
 
     /**

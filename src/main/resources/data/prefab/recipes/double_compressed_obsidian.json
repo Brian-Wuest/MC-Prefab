@@ -1,24 +1,24 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "Compressed Obsidian"
-        }
-    ],
-    "type": "minecraft:crafting_shaped",
-    "group": "Compressed Obsidian",
-    "pattern": [
-        "aaa",
-        "aaa",
-        "aaa"
-    ],
-    "key": {
-        "a": {
-            "tag": "prefab:compressed_obsidian1"
-        }
-    },
-    "result": {
-        "tag": "prefab:compressed_obsidian2",
-        "count": 1
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Compressed Obsidian"
     }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Compressed Obsidian",
+  "pattern": [
+    "aaa",
+    "aaa",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "tag": "prefab:compressed_obsidian1"
+    }
+  },
+  "result": {
+    "item": "prefab:block_double_compressed_obsidian",
+    "count": 1
+  }
 }

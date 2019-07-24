@@ -1,22 +1,22 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "Compressed Dirt"
-        }
-    ],
-    "_comment": [
-        "Double compressed dirt to compressed dirt"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "group": "Compressed Dirt",
-    "ingredients": [
-        {
-            "tag": "prefab:compressed_dirt2"
-        }
-    ],
-    "result": {
-        "tag": "prefab:compressed_dirt1",
-        "count": 9
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Compressed Dirt"
     }
+  ],
+  "_comment": [
+    "Double compressed dirt to compressed dirt"
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "group": "Compressed Dirt",
+  "ingredients": [
+    {
+      "tag": "prefab:compressed_dirt2"
+    }
+  ],
+  "result": {
+    "item": "prefab:block_compressed_dirt",
+    "count": 9
+  }
 }

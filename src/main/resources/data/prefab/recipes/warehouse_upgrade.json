@@ -1,33 +1,33 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "Warehouse Upgrade"
-        }
-    ],
-    "type": "minecraft:crafting_shaped",
-    "group": "Warehouse Upgrade",
-    "pattern": [
-        "aba",
-        "cdc",
-        "aba"
-    ],
-    "key": {
-        "a": {
-            "item": "minecraft:bookshelf"
-        },
-        "b": {
-            "item": "minecraft:brewing_stand"
-        },
-        "c": {
-            "item": "minecraft:enchanting_table"
-        },
-        "d": {
-            "item": "minecraft:anvil"
-        }
-    },
-    "result": {
-        "item": "prefab:item_warehouse_upgrade",
-        "count": 1
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Warehouse Upgrade"
     }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Warehouse Upgrade",
+  "pattern": [
+    "aba",
+    "cdc",
+    "aba"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:bookshelf"
+    },
+    "b": {
+      "item": "minecraft:brewing_stand"
+    },
+    "c": {
+      "item": "minecraft:enchanting_table"
+    },
+    "d": {
+      "item": "minecraft:anvil"
+    }
+  },
+  "result": {
+    "item": "prefab:item_warehouse_upgrade",
+    "count": 1
+  }
 }

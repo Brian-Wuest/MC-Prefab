@@ -528,6 +528,9 @@ public class ModRegistry {
 
         for (BlockCompressedStone.EnumType stoneType : BlockCompressedStone.EnumType.values()) {
             BlockCompressedStone stone = new BlockCompressedStone(stoneType);
+
+            ModRegistry.setBlockName(stone, stoneType.getUnlocalizedName());
+
             ModRegistry.CompressedStones.add(ModRegistry.registerBlock(stone));
         }
 
@@ -544,9 +547,15 @@ public class ModRegistry {
 
         ModRegistry.registerBlock(new BlockBoundary("block_boundary"));
 
-        ModRegistry.registerBlock(new BlockStairs(Blocks.GLASS.getDefaultState(), Block.Properties.from(Blocks.GLASS)), true, "block_glass_stairs");
+        ModRegistry.registerBlock(
+                new BlockStairs(Blocks.GLASS.getDefaultState(), Block.Properties.from(Blocks.GLASS)).setRegistryName("block_glass_stairs"),
+                true,
+                "block_glass_stairs");
 
-        ModRegistry.registerBlock(new SlabBlock(Block.Properties.from(Blocks.GLASS)), true, "block_glass_slab");
+        ModRegistry.registerBlock(
+                new SlabBlock(Block.Properties.from(Blocks.GLASS)).setRegistryName("block_glass_slab"),
+                true,
+                "block_glass_slab");
     }
 
     /**

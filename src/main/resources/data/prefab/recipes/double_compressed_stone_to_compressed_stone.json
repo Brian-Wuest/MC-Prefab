@@ -1,22 +1,22 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "Compressed Stone"
-        }
-    ],
-    "_comment": [
-        "Double compressed Stone to compressed stone"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "group": "Compressed Stone",
-    "ingredients": [
-        {
-            "tag": "prefab:compressed_stone2"
-        }
-    ],
-    "result": {
-        "tag": "prefab:compressed_stone1",
-        "count": 9
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Compressed Stone"
     }
+  ],
+  "_comment": [
+    "Double compressed Stone to compressed stone"
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "group": "Compressed Stone",
+  "ingredients": [
+    {
+      "tag": "prefab:compressed_stone2"
+    }
+  ],
+  "result": {
+    "item": "prefab:block_compressed_stone",
+    "count": 9
+  }
 }

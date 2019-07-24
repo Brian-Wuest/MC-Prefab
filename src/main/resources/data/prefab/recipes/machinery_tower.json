@@ -1,30 +1,30 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "Machinery Tower"
-        }
-    ],
-    "type": "minecraft:crafting_shaped",
-    "group": "Machinery Tower",
-    "pattern": [
-        "aaa",
-        " b ",
-        " c "
-    ],
-    "key": {
-        "a": {
-            "item": "minecraft:powered_rail"
-        },
-        "b": {
-            "item": "prefab:item_string_of_lanterns"
-        },
-        "c": {
-            "tag": "prefab:compressed_stone3"
-        }
-    },
-    "result": {
-        "item": "prefab:item_machinery_tower",
-        "count": 1
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Machinery Tower"
     }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Machinery Tower",
+  "pattern": [
+    "aaa",
+    " b ",
+    " c "
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:powered_rail"
+    },
+    "b": {
+      "item": "prefab:item_string_of_lanterns"
+    },
+    "c": {
+      "tag": "prefab:compressed_stone3"
+    }
+  },
+  "result": {
+    "item": "prefab:item_machinery_tower",
+    "count": 1
+  }
 }

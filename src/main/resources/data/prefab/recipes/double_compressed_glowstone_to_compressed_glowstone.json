@@ -1,22 +1,22 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "Compressed Glowstone"
-        }
-    ],
-    "_comment": [
-        "Double compressed glowstone to compressed glowstone"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "group": "Compressed Glowstone",
-    "ingredients": [
-        {
-            "tag": "prefab:compressed_glow_stone2"
-        }
-    ],
-    "result": {
-        "tag": "prefab:compressed_glow_stone1",
-        "count": 9
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Compressed Glowstone"
     }
+  ],
+  "_comment": [
+    "Double compressed glowstone to compressed glowstone"
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "group": "Compressed Glowstone",
+  "ingredients": [
+    {
+      "tag": "prefab:compressed_glow_stone2"
+    }
+  ],
+  "result": {
+    "item": "prefab:block_compressed_glowstone",
+    "count": 9
+  }
 }

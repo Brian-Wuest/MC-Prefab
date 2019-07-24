@@ -1,33 +1,33 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "Aqua Base"
-        }
-    ],
-    "type": "minecraft:crafting_shaped",
-    "group": "Aqua Base",
-    "pattern": [
-        "aaa",
-        "bcb",
-        "bdb"
-    ],
-    "key": {
-        "a": {
-            "item": "minecraft:glass"
-        },
-        "b": {
-			"tag": "prefab:compressed_stone1"
-        },
-        "c": {
-            "item": "minecraft:sea_lantern"
-        },
-        "d": {
-            "item": "prefab:item_coil_of_lanterns"
-        }
-    },
-    "result": {
-        "item": "prefab:item_aqua_base",
-        "count": 1
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Aqua Base"
     }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Aqua Base",
+  "pattern": [
+    "aaa",
+    "bcb",
+    "bdb"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:glass"
+    },
+    "b": {
+      "tag": "prefab:compressed_stone1"
+    },
+    "c": {
+      "item": "minecraft:sea_lantern"
+    },
+    "d": {
+      "item": "prefab:item_coil_of_lanterns"
+    }
+  },
+  "result": {
+    "item": "prefab:item_aqua_base",
+    "count": 1
+  }
 }

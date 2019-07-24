@@ -45,9 +45,8 @@ import java.util.UUID;
  *
  * @author WuestMan
  */
-@EventBusSubscriber(value =
-        {Dist.CLIENT, Dist.DEDICATED_SERVER})
-public class StructureEventHandler {
+@EventBusSubscriber(modid = Prefab.MODID, bus = EventBusSubscriber.Bus.MOD, value = {Dist.CLIENT, Dist.DEDICATED_SERVER})
+public final class StructureEventHandler {
     /**
      * Contains a hashmap for the structures to build and for whom.
      */

@@ -1,22 +1,22 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "Advanced Chicken Coop"
-        }
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "group": "Advanced Chicken Coop",
-    "ingredients": [
-        {
-            "item": "prefab:item_chicken_coop"
-        },
-        {
-            "item": "prefab:item_pallet_of_bricks"
-        }
-    ],
-    "result": {
-        "item": "prefab:item_advanced_chicken_coop",
-        "count": 1
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Advanced Chicken Coop"
     }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "group": "Advanced Chicken Coop",
+  "ingredients": [
+    {
+      "item": "prefab:item_chicken_coop"
+    },
+    {
+      "item": "prefab:item_pallet_of_bricks"
+    }
+  ],
+  "result": {
+    "item": "prefab:item_advanced_chicken_coop",
+    "count": 1
+  }
 }

@@ -1,40 +1,39 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "Starting House"
-        }
-    ],
-    "type": "minecraft:crafting_shaped",
-    "group": "Starting House",
-    "pattern": [
-        "abc",
-        "ded",
-        "fff"
-    ],
-    "key": {
-        "a": {
-            "item": "minecraft:crafting_table"
-        },
-        "b": {
-            "item": "minecraft:clock"
-        },
-        "c": {
-            "item": "minecraft:furnace"
-        },
-        "d": {
-            "tag": "prefab:compressed_stone1"
-        },
-        "e": {
-            "tag": "minecraft:beds"
-        },
-        "f": {
-            "item": "prefab:item_bundle_of_timber"
-        }
-        
-    },
-    "result": {
-        "item": "prefab:item_start_house",
-        "count": 1
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Starting House"
     }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Starting House",
+  "pattern": [
+    "abc",
+    "ded",
+    "fff"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:crafting_table"
+    },
+    "b": {
+      "item": "minecraft:clock"
+    },
+    "c": {
+      "item": "minecraft:furnace"
+    },
+    "d": {
+      "tag": "prefab:compressed_stone1"
+    },
+    "e": {
+      "tag": "minecraft:beds"
+    },
+    "f": {
+      "item": "prefab:item_bundle_of_timber"
+    }
+  },
+  "result": {
+    "item": "prefab:item_start_house",
+    "count": 1
+  }
 }

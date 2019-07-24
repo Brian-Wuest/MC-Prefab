@@ -27,7 +27,7 @@ public class ModConfiguration {
     public static String RecipeOptions = "general.recipes.";
     public static String starterHouseOptions = "general.starter house.";
     public static String tagKey = "PrefabConfig";
-    public static ArrayList<String> validStartingItems = new ArrayList<String>(Arrays.asList("Starter House", "Moderate House", "Structure Part", "Nothing"));
+    public static ArrayList<String> validStartingItems = new ArrayList<String>(Arrays.asList("Starting House", "Moderate House", "Structure Part", "Nothing"));
     // Recipe Options
     public static String compressedStoneKey = "Compressed Stone";
     public static String compressedGlowStoneKey = "Compressed Glowstone";

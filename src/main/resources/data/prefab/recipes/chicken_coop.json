@@ -1,37 +1,36 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "Chicken Coop"
-        }
-    ],
-    "type": "minecraft:crafting_shaped",
-    "group": "Chicken Coop",
-    "pattern": [
-        "aaa",
-        "bcb",
-        "ded"
-    ],
-    "key": {
-        "a": {
-            "item": "minecraft:bricks"
-        },
-        "b": {
-			"tag": "minecraft:logs"
-        },
-        "c": {
-            "item": "minecraft:egg"
-        },
-        "d": {
-			"tag": "prefab:compressed_dirt1"
-        },
-        "e": {
-            "item": "minecraft:hay_block"
-        }
-    },
-    "result": {
-        "item": "prefab:item_chicken_coop",
-        "data": 0,
-        "count": 1
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Chicken Coop"
     }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Chicken Coop",
+  "pattern": [
+    "aaa",
+    "bcb",
+    "ded"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:bricks"
+    },
+    "b": {
+      "tag": "minecraft:logs"
+    },
+    "c": {
+      "item": "minecraft:egg"
+    },
+    "d": {
+      "tag": "prefab:compressed_dirt1"
+    },
+    "e": {
+      "item": "minecraft:hay_block"
+    }
+  },
+  "result": {
+    "item": "prefab:item_chicken_coop",
+    "count": 1
+  }
 }

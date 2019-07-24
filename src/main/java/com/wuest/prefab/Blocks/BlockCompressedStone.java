@@ -1,7 +1,6 @@
 package com.wuest.prefab.Blocks;
 
 import com.google.common.collect.Lists;
-import com.wuest.prefab.ModRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
@@ -34,7 +33,6 @@ public class BlockCompressedStone extends Block {
                 .lightValue(typeOfStone == EnumType.COMPRESSED_GLOWSTONE || typeOfStone == EnumType.DOUBLE_COMPRESSED_GLOWSTONE ? 15 : 0));
 
         this.itemGroup = ItemGroup.BUILDING_BLOCKS;
-        ModRegistry.setBlockName(this, typeOfStone.unlocalizedName);
         this.typeofStone = typeOfStone;
     }
 

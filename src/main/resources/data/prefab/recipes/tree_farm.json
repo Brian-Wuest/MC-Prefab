@@ -1,33 +1,33 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "Tree Farm"
-        }
-    ],
-    "type": "minecraft:crafting_shaped",
-    "group": "Tree Farm",
-    "pattern": [
-        "aba",
-        "cdc",
-        "aba"
-    ],
-    "key": {
-        "a": {
-            "item": "prefab:item_pallet_of_bricks"
-        },
-        "b": {
-            "tag": "prefab:compressed_dirt2"
-        },
-        "c": {
-            "item": "minecraft:flower_pot"
-        },
-        "d": {
-            "tag": "prefab:compressed_glow_stone2"
-        }
-    },
-    "result": {
-        "item": "prefab:item_tree_farm",
-        "count": 1
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Tree Farm"
     }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Tree Farm",
+  "pattern": [
+    "aba",
+    "cdc",
+    "aba"
+  ],
+  "key": {
+    "a": {
+      "item": "prefab:item_pallet_of_bricks"
+    },
+    "b": {
+      "tag": "prefab:compressed_dirt2"
+    },
+    "c": {
+      "item": "minecraft:flower_pot"
+    },
+    "d": {
+      "tag": "prefab:compressed_glow_stone2"
+    }
+  },
+  "result": {
+    "item": "prefab:item_tree_farm",
+    "count": 1
+  }
 }

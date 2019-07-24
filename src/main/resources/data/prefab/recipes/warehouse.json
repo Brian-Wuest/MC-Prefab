@@ -1,34 +1,33 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "Warehouse"
-        }
-    ],
-    "type": "minecraft:crafting_shaped",
-    "group": "Warehouse",
-    "pattern": [
-        "a a",
-        "aba",
-        "cdc"
-    ],
-    "key": {
-        "a": {
-            "tag": "prefab:compressed_stone2"
-        },
-        "b": {
-            "item": "prefab:item_compressed_chest"
-        },
-        "c": {
-            "tag": "prefab:compressed_glow_stone2"
-        },
-        "d": {
-            "tag": "prefab:compressed_stone3"
-        }
-    },
-    "result": {
-        "item": "prefab:item_warehouse",
-        "data": 0,
-        "count": 1
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Warehouse"
     }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Warehouse",
+  "pattern": [
+    "a a",
+    "aba",
+    "cdc"
+  ],
+  "key": {
+    "a": {
+      "tag": "prefab:compressed_stone2"
+    },
+    "b": {
+      "item": "prefab:item_compressed_chest"
+    },
+    "c": {
+      "tag": "prefab:compressed_glow_stone2"
+    },
+    "d": {
+      "tag": "prefab:compressed_stone3"
+    }
+  },
+  "result": {
+    "item": "prefab:item_warehouse",
+    "count": 1
+  }
 }

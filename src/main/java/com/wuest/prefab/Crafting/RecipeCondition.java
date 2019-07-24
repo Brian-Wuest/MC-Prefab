@@ -2,6 +2,7 @@ package com.wuest.prefab.Crafting;
 
 import com.google.gson.JsonObject;
 import com.wuest.prefab.Prefab;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.IConditionSerializer;
 
 import java.util.function.BooleanSupplier;
@@ -12,7 +13,7 @@ import java.util.function.BooleanSupplier;
  */
 public class RecipeCondition implements IConditionSerializer {
     public String recipeKey;
-    private String recipeKeyName = "recipeKey";
+    public static final ResourceLocation KEY = new ResourceLocation(Prefab.MODID, "config_recipe");
 
     /**
      * Initializes a new instance of the recipe condition class.
@@ -22,9 +23,10 @@ public class RecipeCondition implements IConditionSerializer {
 
     @Override
     public BooleanSupplier parse(JsonObject json) {
+        String recipeKeyName = "recipeKey";
         this.recipeKey = json.get(recipeKeyName).getAsString();
 
-        return () -> this.determineActiveRecipe();
+        return this::determineActiveRecipe;
     }
 
     /**

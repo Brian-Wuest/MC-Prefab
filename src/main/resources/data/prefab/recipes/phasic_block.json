@@ -1,27 +1,27 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "Phasic Block"
-        }
-    ],
-    "type": "minecraft:crafting_shaped",
-    "group": "Phasic Block",
-    "pattern": [
-        "aaa",
-        "aba",
-        "aaa"
-    ],
-    "key": {
-        "a": {
-            "item": "minecraft:stone"
-        },
-        "b": {
-            "item": "minecraft:ender_pearl"
-        }
-    },
-    "result": {
-        "item": "prefab:block_phasing",
-        "count": 1
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Phasic Block"
     }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Phasic Block",
+  "pattern": [
+    "aaa",
+    "aba",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:stone"
+    },
+    "b": {
+      "item": "minecraft:ender_pearl"
+    }
+  },
+  "result": {
+    "item": "prefab:block_phasing",
+    "count": 1
+  }
 }

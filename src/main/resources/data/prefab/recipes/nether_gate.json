@@ -1,30 +1,30 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "Nether Gate"
-        }
-    ],
-    "type": "minecraft:crafting_shaped",
-    "group": "Nether Gate",
-    "pattern": [
-        "aba",
-        "bcb",
-        "aba"
-    ],
-    "key": {
-        "a": {
-            "tag": "prefab:compressed_stone2"
-        },
-        "b": {
-            "tag": "prefab:compressed_obsidian1"
-        },
-        "c": {
-            "item": "minecraft:flint_and_steel"
-        }
-    },
-    "result": {
-        "item": "prefab:item_nether_gate",
-        "count": 1
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Nether Gate"
     }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Nether Gate",
+  "pattern": [
+    "aba",
+    "bcb",
+    "aba"
+  ],
+  "key": {
+    "a": {
+      "tag": "prefab:compressed_stone2"
+    },
+    "b": {
+      "tag": "prefab:compressed_obsidian1"
+    },
+    "c": {
+      "item": "minecraft:flint_and_steel"
+    }
+  },
+  "result": {
+    "item": "prefab:item_nether_gate",
+    "count": 1
+  }
 }

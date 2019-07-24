@@ -1,26 +1,22 @@
 package com.wuest.prefab.Proxy;
 
-import com.google.gson.ExclusionStrategy;
-import com.google.gson.FieldAttributes;
 import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Config.ServerModConfiguration;
+import com.wuest.prefab.Crafting.RecipeCondition;
 import com.wuest.prefab.Events.ModEventHandler;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Structures.Events.StructureEventHandler;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import org.apache.commons.lang3.tuple.Pair;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * This is the server side proxy.
@@ -41,8 +37,6 @@ public class CommonProxy {
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, COMMON_SPEC);
 
         ModConfiguration.loadConfig(CommonProxy.COMMON_SPEC, FMLPaths.CONFIGDIR.get().resolve("prefab.toml"));
-
-        this.RegisterEventHandler();
     }
 
     /*
@@ -52,12 +46,12 @@ public class CommonProxy {
     }
 
     public void RegisterEventHandler() {
-        MinecraftForge.EVENT_BUS.register(CommonProxy.eventHandler);
-        MinecraftForge.EVENT_BUS.register(CommonProxy.structureEventHandler);
+        FMLJavaModLoadingContext.get().getModEventBus().register(CommonProxy.eventHandler);
+        FMLJavaModLoadingContext.get().getModEventBus().register(CommonProxy.structureEventHandler);
     }
 
     public void preInit(FMLCommonSetupEvent event) {
-        ModRegistry.RegisterModComponents();
+        CraftingHelper.register(RecipeCondition.KEY, new RecipeCondition());
 
         Prefab.network = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(Prefab.MODID, "main_channel"))
                 .clientAcceptedVersions(Prefab.PROTOCOL_VERSION::equals)
@@ -80,21 +74,5 @@ public class CommonProxy {
 
     public ServerModConfiguration getServerConfiguration() {
         return CommonProxy.proxyConfiguration.serverConfiguration;
-    }
-
-    public class CustomExclusionStrategy implements ExclusionStrategy {
-        private ArrayList<String> allowedNames = new ArrayList<String>(
-                Arrays.asList("group", "recipeWidth", "recipeHeight", "recipeItems", "recipeOutput", "matchingStacks"));
-
-        @Override
-        public boolean shouldSkipField(FieldAttributes f) {
-            return !this.allowedNames.contains(f.getName());
-        }
-
-        @Override
-        public boolean shouldSkipClass(Class<?> clazz) {
-            return clazz == PlayerEntity.class;
-        }
-
     }
 }

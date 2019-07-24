@@ -1,33 +1,33 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "Saloon"
-        }
-    ],
-    "type": "minecraft:crafting_shaped",
-    "group": "Saloon",
-    "pattern": [
-        "aaa",
-        "bcd",
-        "aaa"
-    ],
-    "key": {
-        "a": {
-            "item": "prefab:item_bundle_of_timber"
-        },
-        "b": {
-            "tag": "minecraft:impermeable"
-        },
-        "c": {
-            "item": "minecraft:brewing_stand"
-        },
-        "d": {
-            "item": "minecraft:note_block"
-        }
-    },
-    "result": {
-        "item": "prefab:item_saloon",
-        "count": 1
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Saloon"
     }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Saloon",
+  "pattern": [
+    "aaa",
+    "bcd",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "prefab:item_bundle_of_timber"
+    },
+    "b": {
+      "tag": "prefab:impermeable"
+    },
+    "c": {
+      "item": "minecraft:brewing_stand"
+    },
+    "d": {
+      "item": "minecraft:note_block"
+    }
+  },
+  "result": {
+    "item": "prefab:item_saloon",
+    "count": 1
+  }
 }

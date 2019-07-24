@@ -1,33 +1,33 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "Mineshaft Entrance"
-        }
-    ],
-    "type": "minecraft:crafting_shaped",
-    "group": "Mineshaft Entrance",
-    "pattern": [
-        "aba",
-        "cdc",
-        "bbb"
-    ],
-    "key": {
-        "a": {
-            "item": "minecraft:iron_pickaxe"
-        },
-        "b": {
-            "item": "prefab:item_bundle_of_timber"
-        },
-        "c": {
-            "tag": "prefab:compressed_stone1"
-        },
-        "d": {
-            "tag": "minecraft:beds"
-        }
-    },
-    "result": {
-        "item": "prefab:item_mineshaft_entrance",
-        "count": 1
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Mineshaft Entrance"
     }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Mineshaft Entrance",
+  "pattern": [
+    "aba",
+    "cdc",
+    "bbb"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:iron_pickaxe"
+    },
+    "b": {
+      "item": "prefab:item_bundle_of_timber"
+    },
+    "c": {
+      "tag": "prefab:compressed_stone1"
+    },
+    "d": {
+      "tag": "minecraft:beds"
+    }
+  },
+  "result": {
+    "item": "prefab:item_mineshaft_entrance",
+    "count": 1
+  }
 }

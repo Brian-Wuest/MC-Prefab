@@ -1,27 +1,27 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "Watch Tower"
-        }
-    ],
-    "type": "minecraft:crafting_shaped",
-    "group": "Watch Tower",
-    "pattern": [
-        "bbb",
-        " b ",
-        " a "
-    ],
-    "key": {
-        "a": {
-                "tag": "prefab:compressed_stone1"
-        },
-        "b": {
-                "tag": "prefab:compressed_stone2"
-        }
-    },
-    "result": {
-        "item": "prefab:item_watch_tower",
-        "count": 1
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Watch Tower"
     }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Watch Tower",
+  "pattern": [
+    "bbb",
+    " b ",
+    " a "
+  ],
+  "key": {
+    "a": {
+      "tag": "prefab:compressed_stone1"
+    },
+    "b": {
+      "tag": "prefab:compressed_stone2"
+    }
+  },
+  "result": {
+    "item": "prefab:item_watch_tower",
+    "count": 1
+  }
 }

@@ -11,11 +11,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.fml.network.NetworkDirection;
 
@@ -26,15 +25,15 @@ import java.util.ArrayList;
  *
  * @author WuestMan
  */
-@Mod.EventBusSubscriber({Dist.DEDICATED_SERVER})
-public class ModEventHandler {
+@EventBusSubscriber(modid = Prefab.MODID, bus = EventBusSubscriber.Bus.MOD)
+public final class ModEventHandler {
     /**
      * Determines the affected blocks by redstone power.
      */
-    public static ArrayList<BlockPos> RedstoneAffectedBlockPositions = new ArrayList<BlockPos>();
+    public static ArrayList<BlockPos> RedstoneAffectedBlockPositions = new ArrayList<>();
 
     static {
-        ModEventHandler.RedstoneAffectedBlockPositions = new ArrayList<BlockPos>();
+        ModEventHandler.RedstoneAffectedBlockPositions = new ArrayList<>();
     }
 
     /**
@@ -72,11 +71,16 @@ public class ModEventHandler {
 
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
-        event.getRegistry().registerAll(ModRegistry.ModBlocks.toArray(new Block[ModRegistry.ModBlocks.size()]));
+        for (Block block : ModRegistry.ModBlocks)
+        {
+            Prefab.LOGGER.debug("Logging Block With Name: " + block.getRegistryName() + " and type: " + block.toString());
+            event.getRegistry().register(block);
+        }
+
     }
 
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
-        event.getRegistry().registerAll(ModRegistry.ModItems.toArray(new Item[ModRegistry.ModItems.size()]));
+        event.getRegistry().registerAll(ModRegistry.ModItems.toArray(new Item[0]));
     }
 }

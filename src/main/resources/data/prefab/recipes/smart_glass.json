@@ -1,27 +1,27 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "Smart Glass"
-        }
-    ],
-    "type": "minecraft:crafting_shaped",
-    "group": "Smart Glass",
-    "pattern": [
-        "aaa",
-        "aba",
-        "aaa"
-    ],
-    "key": {
-        "a": {
-            "tag": "minecraft:impermeable"
-        },
-        "b": {
-            "item": "minecraft:ender_pearl"
-        }
-    },
-    "result": {
-        "item": "prefab:block_boundary",
-        "count": 1
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Smart Glass"
     }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Smart Glass",
+  "pattern": [
+    "aaa",
+    "aba",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "tag": "prefab:impermeable"
+    },
+    "b": {
+      "item": "minecraft:ender_pearl"
+    }
+  },
+  "result": {
+    "item": "prefab:block_boundary",
+    "count": 1
+  }
 }

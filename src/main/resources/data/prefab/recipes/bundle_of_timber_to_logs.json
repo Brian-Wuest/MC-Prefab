@@ -1,19 +1,19 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "Bundle of Timber"
-        }
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "group": "Bundle of Timber",
-    "ingredients": [
-        {
-            "item": "prefab:item_bundle_of_timber"
-        }
-    ],
-    "result": {
-        "item": "minecraft:oak_log",
-        "count": 9
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Bundle of Timber"
     }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "group": "Bundle of Timber",
+  "ingredients": [
+    {
+      "item": "prefab:item_bundle_of_timber"
+    }
+  ],
+  "result": {
+    "item": "minecraft:oak_log",
+    "count": 9
+  }
 }

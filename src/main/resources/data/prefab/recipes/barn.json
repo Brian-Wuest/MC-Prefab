@@ -1,33 +1,33 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "Barn"
-        }
-    ],
-    "type": "minecraft:crafting_shaped",
-    "group": "Barn",
-    "pattern": [
-        "aba",
-        "ccc",
-        "cdc"
-    ],
-    "key": {
-        "a": {
-            "item": "prefab:item_pallet_of_bricks"
-        },
-        "b": {
-			"tag": "prefab:compressed_glow_stone1"
-        },
-        "c": {
-            "item": "prefab:item_bundle_of_timber"
-        },
-        "d": {
-			"tag": "prefab:compressed_dirt1"
-        }
-    },
-    "result": {
-        "item": "prefab:item_barn",
-        "count": 1
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Barn"
     }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Barn",
+  "pattern": [
+    "aba",
+    "ccc",
+    "cdc"
+  ],
+  "key": {
+    "a": {
+      "item": "prefab:item_pallet_of_bricks"
+    },
+    "b": {
+      "tag": "prefab:compressed_glow_stone1"
+    },
+    "c": {
+      "item": "prefab:item_bundle_of_timber"
+    },
+    "d": {
+      "tag": "prefab:compressed_dirt1"
+    }
+  },
+  "result": {
+    "item": "prefab:item_barn",
+    "count": 1
+  }
 }

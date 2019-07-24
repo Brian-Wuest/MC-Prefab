@@ -1,29 +1,29 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "Compressed Dirt"
-        }
-    ],
-    "_comment": [
-        "Compressed Dirt from dirt"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "group": "Compressed Dirt",
-    "pattern": [
-        "###",
-        "###",
-        "###"
-    ],
-    "key": {
-        "#": [
-            {
-                "item": "minecraft:dirt"
-            }
-        ]
-    },
-    "result": {
-		"tag": "prefab:compressed_dirt1",
-        "count": 1
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Compressed Dirt"
     }
+  ],
+  "_comment": [
+    "Compressed Dirt from dirt"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Compressed Dirt",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": [
+      {
+        "item": "minecraft:dirt"
+      }
+    ]
+  },
+  "result": {
+    "item": "prefab:block_compressed_dirt",
+    "count": 1
+  }
 }

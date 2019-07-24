@@ -1,31 +1,31 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "Grassy Plains"
-        }
-    ],
-    "type": "minecraft:crafting_shaped",
-    "group": "Grassy Plains",
-    "pattern": [
-        "aaa",
-        "bbb",
-        "ccc"
-    ],
-    "key": {
-        "a": {
-            "item": "minecraft:grass",
-            "data": 1
-        },
-        "b": {
-            "tag": "prefab:compressed_dirt1"
-        },
-        "c": {
-            "tag": "prefab:compressed_dirt2"
-        }
-    },
-    "result": {
-        "item": "prefab:item_grassy_plain",
-        "count": 1
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Grassy Plains"
     }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Grassy Plains",
+  "pattern": [
+    "aaa",
+    "bbb",
+    "ccc"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:grass",
+      "data": 1
+    },
+    "b": {
+      "tag": "prefab:compressed_dirt1"
+    },
+    "c": {
+      "tag": "prefab:compressed_dirt2"
+    }
+  },
+  "result": {
+    "item": "prefab:item_grassy_plain",
+    "count": 1
+  }
 }

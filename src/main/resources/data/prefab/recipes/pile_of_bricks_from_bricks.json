@@ -1,24 +1,24 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "Pile of Bricks"
-        }
-    ],
-    "type": "minecraft:crafting_shaped",
-    "group": "Pile of Bricks",
-    "pattern": [
-        "###",
-        "###",
-        "###"
-    ],
-    "key": {
-        "#": {
-            "item": "minecraft:brick"
-        }
-    },
-    "result": {
-        "item": "prefab:item_pile_of_bricks",
-        "count": 1
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Pile of Bricks"
     }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Pile of Bricks",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:brick"
+    }
+  },
+  "result": {
+    "item": "prefab:item_pile_of_bricks",
+    "count": 1
+  }
 }

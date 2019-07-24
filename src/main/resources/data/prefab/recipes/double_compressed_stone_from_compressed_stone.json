@@ -1,29 +1,29 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "Compressed Stone"
-        }
-    ],
-    "_comment": [
-        "double compressed stone from compressed stone"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "group": "Compressed Stone",
-    "pattern": [
-        "###",
-        "###",
-        "###"
-    ],
-    "key": {
-        "#": [
-            {
-                "tag": "prefab:compressed_stone1"
-            }
-        ]
-    },
-    "result": {
-       "tag": "prefab:compressed_stone2",
-        "count": 1
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Compressed Stone"
     }
+  ],
+  "_comment": [
+    "double compressed stone from compressed stone"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Compressed Stone",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": [
+      {
+        "tag": "prefab:compressed_stone1"
+      }
+    ]
+  },
+  "result": {
+    "item": "prefab:block_double_compressed_stone",
+    "count": 1
+  }
 }

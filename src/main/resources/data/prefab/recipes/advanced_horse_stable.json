@@ -1,42 +1,31 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "Advanced Horse Stable"
-        }
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "group": "Advanced Horse Stable",
-    "ingredients": [
-        {
-            "item": "prefab:item_horse_stable"
-        },
-        {
-            "item": "prefab:item_horse_stable"
-        },
-        {
-            "item": "prefab:item_horse_stable"
-        },
-        {
-            "item": "prefab:item_horse_stable"
-        },
-        {
-			"tag": "prefab:compressed_glow_stone2"
-        }
-    ],
-    "result": {
-        "item": "prefab:item_basic_structure",
-        "data": 0,
-        "nbt": {
-            "ForgeCaps": {
-                "prefab:structuresconfiguration": {
-                    "configuration": {
-                        "structureEnumName": "AdvancedHorseStable",
-                        "structureDisplayName": "Advanced Horse Stable"
-                    }
-                }
-            }
-        },
-        "count": 1
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Advanced Horse Stable"
     }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "group": "Advanced Horse Stable",
+  "ingredients": [
+    {
+      "item": "prefab:item_horse_stable"
+    },
+    {
+      "item": "prefab:item_horse_stable"
+    },
+    {
+      "item": "prefab:item_horse_stable"
+    },
+    {
+      "item": "prefab:item_horse_stable"
+    },
+    {
+      "tag": "prefab:compressed_glow_stone2"
+    }
+  ],
+  "result": {
+    "item": "prefab:item_advanced_horse_stable",
+    "count": 1
+  }
 }

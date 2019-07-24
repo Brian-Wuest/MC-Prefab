@@ -1,26 +1,26 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "Glass Stairs"
-        }
-    ],
-    "type": "minecraft:crafting_shaped",
-    "group": "Glass Stairs",
-    "pattern": [
-        "#  ",
-        "## ",
-        "###"
-    ],
-    "key": {
-        "#": [
-            {
-                "tag": "minecraft:impermeable"
-            }
-        ]
-    },
-    "result": {
-        "item": "prefab:block_glass_stairs",
-        "count": 4
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Glass Stairs"
     }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Glass Stairs",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": [
+      {
+        "tag": "prefab:impermeable"
+      }
+    ]
+  },
+  "result": {
+    "item": "prefab:block_glass_stairs",
+    "count": 4
+  }
 }

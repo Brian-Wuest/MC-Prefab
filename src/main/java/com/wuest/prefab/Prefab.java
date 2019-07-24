@@ -58,6 +58,10 @@ public class Prefab {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
 
         Prefab.proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
+
+        ModRegistry.RegisterModComponents();
+
+        Prefab.proxy.RegisterEventHandler();
     }
 
     private void setup(final FMLCommonSetupEvent event) {
