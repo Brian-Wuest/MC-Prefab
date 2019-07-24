@@ -6,13 +6,11 @@ import net.minecraft.block.StairsBlock;
 
 /**
  * This class allows custom stairs blocks to be created.
- * @author Brian
  *
+ * @author Brian
  */
-public class BlockStairs extends StairsBlock
-{
-	public BlockStairs(BlockState state, Block.Properties properties)
-	{
-		super(state, properties);
-	}
+public class BlockStairs extends StairsBlock {
+    public BlockStairs(BlockState state, Block.Properties properties) {
+        super(state, properties);
+    }
 }

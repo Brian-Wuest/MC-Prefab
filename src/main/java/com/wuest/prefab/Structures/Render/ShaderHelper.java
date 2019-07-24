@@ -13,167 +13,142 @@ import org.lwjgl.opengl.GL11;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;
 
 /**
  * This class we derived from Botania's ShaderHelper. The only real change was to change the location of the assets when
  * initializing the shader. http://botaniamod.net/license.php
- * 
- * @author WuestMan
  *
+ * @author WuestMan
  */
-public class ShaderHelper
-{
-	private static final int VERT = ARBVertexShader.GL_VERTEX_SHADER_ARB;
-	private static final int FRAG = ARBFragmentShader.GL_FRAGMENT_SHADER_ARB;
+public class ShaderHelper {
+    private static final int VERT = ARBVertexShader.GL_VERTEX_SHADER_ARB;
+    private static final int FRAG = ARBFragmentShader.GL_FRAGMENT_SHADER_ARB;
 
-	public static int alphaShader = 0;
+    public static int alphaShader = 0;
 
-	public static void Initialize()
-	{
-		if (Minecraft.getInstance().getResourceManager() instanceof SimpleReloadableResourceManager)
-		{
-			SimpleReloadableResourceManager resourceManager = (SimpleReloadableResourceManager)Minecraft.getInstance().getResourceManager();
-			resourceManager.addReloadListener((stage, manager, preparationsProfiler, reloadProfiler, backgroundExecutor, gameExecutor) -> {
-				return stage.markCompleteAwaitingOthers(Unit.INSTANCE).thenRunAsync(() -> {
-					ShaderHelper.deleteShader(alphaShader);
-					ShaderHelper.alphaShader = 0;
+    public static void Initialize() {
+        if (Minecraft.getInstance().getResourceManager() instanceof SimpleReloadableResourceManager) {
+            SimpleReloadableResourceManager resourceManager = (SimpleReloadableResourceManager) Minecraft.getInstance().getResourceManager();
+            resourceManager.addReloadListener((stage, manager, preparationsProfiler, reloadProfiler, backgroundExecutor, gameExecutor) -> {
+                return stage.markCompleteAwaitingOthers(Unit.INSTANCE).thenRunAsync(() -> {
+                    ShaderHelper.deleteShader(alphaShader);
+                    ShaderHelper.alphaShader = 0;
 
-					ShaderHelper.alphaShader = ShaderHelper.createProgram("/assets/prefab/shader/alpha.vert", "/assets/prefab/shader/alpha.frag");
-				}, gameExecutor);
-			});
-		}
-	}
+                    ShaderHelper.alphaShader = ShaderHelper.createProgram("/assets/prefab/shader/alpha.vert", "/assets/prefab/shader/alpha.frag");
+                }, gameExecutor);
+            });
+        }
+    }
 
-	public static void useShader(int shader)
-	{
-		if (!GLX.usePostProcess)
-		{
-			return;
-		}
+    public static void useShader(int shader) {
+        if (!GLX.usePostProcess) {
+            return;
+        }
 
-		ARBShaderObjects.glUseProgramObjectARB(shader);
+        ARBShaderObjects.glUseProgramObjectARB(shader);
 
-		if (shader != 0)
-		{
-			int time = ARBShaderObjects.glGetUniformLocationARB(shader, "time");
-			ARBShaderObjects.glUniform1iARB(time, ClientEventHandler.ticksInGame);
+        if (shader != 0) {
+            int time = ARBShaderObjects.glGetUniformLocationARB(shader, "time");
+            ARBShaderObjects.glUniform1iARB(time, ClientEventHandler.ticksInGame);
 
-			int alpha = ARBShaderObjects.glGetUniformLocationARB(shader, "alpha");
-			ARBShaderObjects.glUniform1fARB(alpha, 0.4F);
-		}
-	}
+            int alpha = ARBShaderObjects.glGetUniformLocationARB(shader, "alpha");
+            ARBShaderObjects.glUniform1fARB(alpha, 0.4F);
+        }
+    }
 
-	public static void releaseShader()
-	{
-		ShaderHelper.useShader(0);
-	}
+    public static void releaseShader() {
+        ShaderHelper.useShader(0);
+    }
 
-	// Most of the code taken from the LWJGL wiki
-	// http://lwjgl.org/wiki/index.php?title=GLSL_Shaders_with_LWJGL
+    // Most of the code taken from the LWJGL wiki
+    // http://lwjgl.org/wiki/index.php?title=GLSL_Shaders_with_LWJGL
 
-	private static int createProgram(String vert, String frag)
-	{
-		int vertId = 0, fragId = 0, program;
+    private static int createProgram(String vert, String frag) {
+        int vertId = 0, fragId = 0, program;
 
-		if (vert != null)
-		{
-			vertId = createShader(vert, VERT);
-		}
+        if (vert != null) {
+            vertId = createShader(vert, VERT);
+        }
 
-		if (frag != null)
-		{
-			fragId = createShader(frag, FRAG);
-		}
+        if (frag != null) {
+            fragId = createShader(frag, FRAG);
+        }
 
-		program = ARBShaderObjects.glCreateProgramObjectARB();
+        program = ARBShaderObjects.glCreateProgramObjectARB();
 
-		if (program == 0)
-		{
-			return 0;
-		}
+        if (program == 0) {
+            return 0;
+        }
 
-		if (vert != null)
-		{
-			ARBShaderObjects.glAttachObjectARB(program, vertId);
-		}
+        if (vert != null) {
+            ARBShaderObjects.glAttachObjectARB(program, vertId);
+        }
 
-		if (frag != null)
-		{
-			ARBShaderObjects.glAttachObjectARB(program, fragId);
-		}
+        if (frag != null) {
+            ARBShaderObjects.glAttachObjectARB(program, fragId);
+        }
 
-		ARBShaderObjects.glLinkProgramARB(program);
+        ARBShaderObjects.glLinkProgramARB(program);
 
-		if (ARBShaderObjects.glGetObjectParameteriARB(program, ARBShaderObjects.GL_OBJECT_LINK_STATUS_ARB) == GL11.GL_FALSE)
-		{
-			return 0;
-		}
+        if (ARBShaderObjects.glGetObjectParameteriARB(program, ARBShaderObjects.GL_OBJECT_LINK_STATUS_ARB) == GL11.GL_FALSE) {
+            return 0;
+        }
 
-		ARBShaderObjects.glValidateProgramARB(program);
+        ARBShaderObjects.glValidateProgramARB(program);
 
-		if (ARBShaderObjects.glGetObjectParameteriARB(program, ARBShaderObjects.GL_OBJECT_VALIDATE_STATUS_ARB) == GL11.GL_FALSE)
-		{
-			return 0;
-		}
+        if (ARBShaderObjects.glGetObjectParameteriARB(program, ARBShaderObjects.GL_OBJECT_VALIDATE_STATUS_ARB) == GL11.GL_FALSE) {
+            return 0;
+        }
 
-		return program;
-	}
+        return program;
+    }
 
-	private static int createShader(String filename, int shaderType)
-	{
-		int shader = 0;
+    private static int createShader(String filename, int shaderType) {
+        int shader = 0;
 
-		try
-		{
-			shader = ARBShaderObjects.glCreateShaderObjectARB(shaderType);
+        try {
+            shader = ARBShaderObjects.glCreateShaderObjectARB(shaderType);
 
-			if (shader == 0)
-			{
-				return 0;
-			}
+            if (shader == 0) {
+                return 0;
+            }
 
-			ARBShaderObjects.glShaderSourceARB(shader, readFileAsString(filename));
-			ARBShaderObjects.glCompileShaderARB(shader);
+            ARBShaderObjects.glShaderSourceARB(shader, readFileAsString(filename));
+            ARBShaderObjects.glCompileShaderARB(shader);
 
-			if (ARBShaderObjects.glGetObjectParameteriARB(shader, ARBShaderObjects.GL_OBJECT_COMPILE_STATUS_ARB) == GL11.GL_FALSE)
-			{
-				throw new RuntimeException("Error creating shader: " + getLogInfo(shader));
-			}
+            if (ARBShaderObjects.glGetObjectParameteriARB(shader, ARBShaderObjects.GL_OBJECT_COMPILE_STATUS_ARB) == GL11.GL_FALSE) {
+                throw new RuntimeException("Error creating shader: " + getLogInfo(shader));
+            }
 
-			return shader;
-		}
-		catch (Exception e)
-		{
-			ARBShaderObjects.glDeleteObjectARB(shader);
-			e.printStackTrace();
-			return -1;
-		}
-	}
+            return shader;
+        } catch (Exception e) {
+            ARBShaderObjects.glDeleteObjectARB(shader);
+            e.printStackTrace();
+            return -1;
+        }
+    }
 
-	private static void deleteShader(int id) {
-		if (id != 0) {
-			ARBShaderObjects.glDeleteObjectARB(id);
-		}
-	}
+    private static void deleteShader(int id) {
+        if (id != 0) {
+            ARBShaderObjects.glDeleteObjectARB(id);
+        }
+    }
 
-	private static String readFileAsString(String filename) throws Exception
-	{
-		InputStream in = ShaderHelper.class.getResourceAsStream(filename);
+    private static String readFileAsString(String filename) throws Exception {
+        InputStream in = ShaderHelper.class.getResourceAsStream(filename);
 
-		if (in == null)
-		{
-			return "";
-		}
+        if (in == null) {
+            return "";
+        }
 
-		try (BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8")))
-		{
-			return reader.lines().collect(Collectors.joining("\n"));
-		}
-	}
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8))) {
+            return reader.lines().collect(Collectors.joining("\n"));
+        }
+    }
 
-	private static String getLogInfo(int obj)
-	{
-		return ARBShaderObjects.glGetInfoLogARB(obj, ARBShaderObjects.glGetObjectParameteriARB(obj, ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB));
-	}
+    private static String getLogInfo(int obj) {
+        return ARBShaderObjects.glGetInfoLogARB(obj, ARBShaderObjects.glGetObjectParameteriARB(obj, ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB));
+    }
 }
