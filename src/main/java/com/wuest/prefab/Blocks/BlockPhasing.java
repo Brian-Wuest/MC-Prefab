@@ -4,6 +4,7 @@ import com.wuest.prefab.Events.ModEventHandler;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.client.world.ClientWorld;
@@ -244,6 +245,23 @@ public class BlockPhasing extends Block {
     @Override
     public boolean isSolid(BlockState state) {
         return false;
+    }
+
+    /**
+     * The type of render function called. MODEL for mixed tesr and static model, MODELBLOCK_ANIMATED for TESR-only,
+     * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
+     */
+    @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        EnumPhasingProgress progress = state.get(Phasing_Progress);
+        return progress != EnumPhasingProgress.transparent ? BlockRenderType.MODEL : BlockRenderType.INVISIBLE;
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+        EnumPhasingProgress progress = state.get(Phasing_Progress);
+
+        return progress != EnumPhasingProgress.transparent ? VoxelShapes.fullCube() : VoxelShapes.empty();
     }
 
     @Nullable

@@ -1,3 +1,3 @@
 {
-	"parent": "prefab:block/block_phasing_base"
+  "parent": "prefab:block/block_phasing_base"
 }

@@ -1,9 +1,0 @@
-{
-    "variants": 
-    {
-        "half=bottom,variant=false": { "model": "prefab:block_andesite_slab_half" },
-        "half=bottom,variant=true": { "model": "prefab:block_andesite_slab_half" },
-        "half=top,variant=false": { "model": "prefab:block_andesite_slab_upper" },
-        "half=top,variant=true": { "model": "prefab:block_andesite_slab_upper" }
-    }
-}

@@ -1,6 +1,6 @@
 {
-    "parent": "item/generated",
-    "textures": {
-        "layer0": "prefab:items/item_magic_temple"
-    }
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "prefab:items/item_magic_temple"
+  }
 }

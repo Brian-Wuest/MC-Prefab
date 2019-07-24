@@ -5,6 +5,7 @@ import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.client.gui.screen.Screen;
@@ -64,6 +65,24 @@ public class BlockBoundary extends Block {
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(BlockBoundary.Powered);
+    }
+
+    /**
+     * The type of render function called. MODEL for mixed tesr and static model, MODELBLOCK_ANIMATED for TESR-only,
+     * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
+     * @deprecated call via {@link IBlockState#getRenderType()} whenever possible. Implementing/overriding is fine.
+     */
+    @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        boolean powered = state.get(Powered);
+        return powered ? BlockRenderType.MODEL : BlockRenderType.INVISIBLE;
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+        boolean powered = state.get(Powered);
+
+        return powered ? VoxelShapes.fullCube() : VoxelShapes.empty();
     }
 
     /**
@@ -175,6 +194,24 @@ public class BlockBoundary extends Block {
     @Override
     public boolean isSolid(BlockState state) {
         return false;
+    }
+
+    @Override
+    public int getOpacity(BlockState state, IBlockReader worldIn, BlockPos pos) {
+        boolean powered = state.get(Powered);
+
+        if (powered && state.isOpaqueCube(worldIn, pos)) {
+            return worldIn.getMaxLightLevel();
+        } else {
+            return state.propagatesSkylightDown(worldIn, pos) ? 0 : 1;
+        }
+    }
+
+    @Override
+    public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos) {
+        boolean powered = state.get(Powered);
+
+        return !powered || (!isOpaque(state.getShape(reader, pos)) && state.getFluidState().isEmpty());
     }
 
     /**

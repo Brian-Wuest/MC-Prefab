@@ -1,6 +1,6 @@
 {
-    "parent": "item/generated",
-    "textures": {
-        "layer0": "prefab:items/item_advanced_chicken_coop"
-    }
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "prefab:items/item_advanced_chicken_coop"
+  }
 }

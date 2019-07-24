@@ -13,7 +13,6 @@ import com.wuest.prefab.Structures.Messages.StructureHandler;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.SlabBlock;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -553,7 +552,7 @@ public class ModRegistry {
                 "block_glass_stairs");
 
         ModRegistry.registerBlock(
-                new SlabBlock(Block.Properties.from(Blocks.GLASS)).setRegistryName("block_glass_slab"),
+                new BlockGlassSlab(Block.Properties.from(Blocks.GLASS)).setRegistryName("block_glass_slab"),
                 true,
                 "block_glass_slab");
     }

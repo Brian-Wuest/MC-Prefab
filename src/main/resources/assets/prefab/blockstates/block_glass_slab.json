@@ -1,16 +1,7 @@
 {
-    "variants": {
-        "variant=false": [
-            { "model": "glass" },
-            { "model": "glass", "y": 90 },
-            { "model": "glass", "y": 180 },
-            { "model": "glass", "y": 270 }
-        ],
-        "variant=true": [
-            { "model": "glass" },
-            { "model": "glass", "y": 90 },
-            { "model": "glass", "y": 180 },
-            { "model": "glass", "y": 270 }
-        ]
-    }
+  "variants": {
+    "type=bottom": { "model": "prefab:block/block_glass_slab_half" },
+    "type=top": { "model": "prefab:block/block_glass_slab_upper" },
+    "type=double": { "model": "minecraft:block/glass" }
+  }
 }

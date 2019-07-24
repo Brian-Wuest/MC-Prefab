@@ -1,7 +1,10 @@
 {
-    "variants": 
-    {
-        "powered=false": { "model": "prefab:block_phasing_transparent" },
-        "powered=true": { "model": "prefab:block_boundary" }
+  "variants": {
+    "powered=false": {
+      "model": "prefab:block/block_phasing_transparent"
+    },
+    "powered=true": {
+      "model": "prefab:block/block_boundary"
     }
+  }
 }

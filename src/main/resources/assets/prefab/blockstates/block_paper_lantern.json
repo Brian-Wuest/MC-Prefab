@@ -1,5 +1,7 @@
 {
-    "variants": {
-        "normal": { "model": "prefab:block_paper_lantern" }
+  "variants": {
+    "": {
+      "model": "prefab:block/block_paper_lantern"
     }
+  }
 }

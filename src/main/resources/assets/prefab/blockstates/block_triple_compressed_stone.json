@@ -1,5 +1,7 @@
 {
-    "variants": {
-        "normal": { "model": "prefab:block_triple_compressed_stone" }
+  "variants": {
+    "": {
+      "model": "prefab:block/block_triple_compressed_stone"
     }
+  }
 }

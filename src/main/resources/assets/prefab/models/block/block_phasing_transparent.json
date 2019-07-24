@@ -1,6 +1,6 @@
 {
-    "parent": "block/cube_all",
-    "textures": {
-        "all": "prefab:blocks/block_phasing_transparent"
-    }
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "prefab:blocks/block_phasing_transparent"
+  }
 }

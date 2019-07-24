@@ -1,17 +1,40 @@
 {
-    "variants": 
-    {
-        "phasing_out=false,phasing_progress=base": { "model": "prefab:block_phasing_base" },
-        "phasing_out=false,phasing_progress=twenty_percent": { "model": "prefab:block_phasing_twenty_percent" },
-        "phasing_out=false,phasing_progress=forty_percent": { "model": "prefab:block_phasing_forty_percent" },
-        "phasing_out=false,phasing_progress=sixty_percent": { "model": "prefab:block_phasing_sixty_percent" },
-        "phasing_out=false,phasing_progress=eighty_percent": { "model": "prefab:block_phasing_eighty_percent" },
-        "phasing_out=false,phasing_progress=transparent": { "model": "prefab:block_phasing_transparent" },
-        "phasing_out=true,phasing_progress=base": { "model": "prefab:block_phasing_base" },
-        "phasing_out=true,phasing_progress=twenty_percent": { "model": "prefab:block_phasing_twenty_percent" },
-        "phasing_out=true,phasing_progress=forty_percent": { "model": "prefab:block_phasing_forty_percent" },
-        "phasing_out=true,phasing_progress=sixty_percent": { "model": "prefab:block_phasing_sixty_percent" },
-        "phasing_out=true,phasing_progress=eighty_percent": { "model": "prefab:block_phasing_eighty_percent" },
-        "phasing_out=true,phasing_progress=transparent": { "model": "prefab:block_phasing_transparent" }
+  "variants": {
+    "phasing_out=false,phasing_progress=base": {
+      "model": "prefab:block/block_phasing_base"
+    },
+    "phasing_out=false,phasing_progress=twenty_percent": {
+      "model": "prefab:block/block_phasing_twenty_percent"
+    },
+    "phasing_out=false,phasing_progress=forty_percent": {
+      "model": "prefab:block/block_phasing_forty_percent"
+    },
+    "phasing_out=false,phasing_progress=sixty_percent": {
+      "model": "prefab:block/block_phasing_sixty_percent"
+    },
+    "phasing_out=false,phasing_progress=eighty_percent": {
+      "model": "prefab:block/block_phasing_eighty_percent"
+    },
+    "phasing_out=false,phasing_progress=transparent": {
+      "model": "prefab:block/block_phasing_transparent"
+    },
+    "phasing_out=true,phasing_progress=base": {
+      "model": "prefab:block/block_phasing_base"
+    },
+    "phasing_out=true,phasing_progress=twenty_percent": {
+      "model": "prefab:block/block_phasing_twenty_percent"
+    },
+    "phasing_out=true,phasing_progress=forty_percent": {
+      "model": "prefab:block/block_phasing_forty_percent"
+    },
+    "phasing_out=true,phasing_progress=sixty_percent": {
+      "model": "prefab:block/block_phasing_sixty_percent"
+    },
+    "phasing_out=true,phasing_progress=eighty_percent": {
+      "model": "prefab:block/block_phasing_eighty_percent"
+    },
+    "phasing_out=true,phasing_progress=transparent": {
+      "model": "prefab:block/block_phasing_transparent"
     }
+  }
 }
