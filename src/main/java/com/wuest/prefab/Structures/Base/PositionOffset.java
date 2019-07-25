@@ -113,16 +113,6 @@ public class PositionOffset {
         for (int i = 0; i < 4; i++) {
             int offSetValue = this.getOffSetValueForFacing(originalDirection);
 
-            Direction offsetFace = configurationFacing;
-
-            if (configurationFacing == originalDirection.rotateY()) {
-                offsetFace = offsetFace.rotateY();
-            } else if (configurationFacing == originalDirection.getOpposite()) {
-                offsetFace = offsetFace.getOpposite();
-            } else if (configurationFacing == originalDirection.rotateYCCW()) {
-                offsetFace = offsetFace.rotateYCCW();
-            }
-
             pos = pos.offset(configurationFacing, offSetValue);
 
             originalDirection = originalDirection.rotateY();

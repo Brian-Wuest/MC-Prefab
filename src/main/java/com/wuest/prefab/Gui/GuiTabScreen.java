@@ -74,6 +74,7 @@ public class GuiTabScreen extends Screen {
     @Override
     public void init() {
         this.Tabs.GetTabs().clear();
+        this.children.add(this.Tabs);
     }
 
     /**
@@ -104,7 +105,7 @@ public class GuiTabScreen extends Screen {
                 ArrayList<GuiTab> guiTabs = this.Tabs.GetTabs();
 
                 for (GuiTab tab : guiTabs) {
-                    if (tab.clicked(mouseX, mouseY)) {
+                    if (tab.mouseClicked(mouseX, mouseY, mouseButton)) {
                         tab.playDownSound(this.minecraft.getSoundHandler());
                         this.tabClicked(tab);
                         break;

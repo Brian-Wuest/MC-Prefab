@@ -1,13 +1,9 @@
 #version 120
 
-// Passed in by callback
-uniform float alpha; 
+uniform float alpha; // Passed in by callback
 uniform sampler2D tex;
+uniform int time; // Passed in, see ShaderHelper.java
 
-// Passed in, see ShaderHelper.java
-uniform int time; 
-
-void main() 
-{
+void main() {
     gl_FragColor = texture2D(tex, vec2(gl_TexCoord[0])) * gl_Color * vec4(1.0, 1.0, 1.0, alpha);
 }

@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.Mod;
 /**
  * @author WuestMan
  */
-@Mod.EventBusSubscriber(modid = Prefab.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = {Dist.CLIENT})
+@Mod.EventBusSubscriber(modid = Prefab.MODID, value = Dist.CLIENT)
 public final class StructureClientEventHandler {
     /**
      * The player right-click block event. This is used to stop the structure rendering for the preview.
@@ -20,12 +20,10 @@ public final class StructureClientEventHandler {
      * @param event The event object.
      */
     @SubscribeEvent
-    public void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
-        if (event.getWorld().isRemote) {
-            if (StructureRenderHandler.currentStructure != null && event.getEntityPlayer() == Minecraft.getInstance().player) {
-                StructureRenderHandler.setStructure(null, Direction.NORTH, null);
-                event.setCanceled(true);
-            }
+    public static void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
+        if (StructureRenderHandler.currentStructure != null && event.getEntityPlayer() == Minecraft.getInstance().player) {
+            StructureRenderHandler.setStructure(null, Direction.NORTH, null);
+            event.setCanceled(true);
         }
     }
 }

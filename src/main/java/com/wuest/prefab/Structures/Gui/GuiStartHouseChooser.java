@@ -9,7 +9,6 @@ import com.wuest.prefab.Gui.Controls.GuiTextSlider;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Gui.GuiTabScreen;
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Proxy.ClientProxy;
 import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.Structures.Config.HouseConfiguration;
 import com.wuest.prefab.Structures.Config.HouseConfiguration.HouseStyle;
@@ -22,6 +21,7 @@ import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.item.DyeColor;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 import net.minecraftforge.fml.client.config.GuiSlider;
 
@@ -67,10 +67,11 @@ public class GuiStartHouseChooser extends GuiTabScreen {
     protected ServerModConfiguration serverConfiguration;
     protected boolean allowItemsInChestAndFurnace = true;
 
-    public GuiStartHouseChooser() {
+    public GuiStartHouseChooser(BlockPos pos) {
         super();
         this.houseConfiguration = ClientEventHandler.playerConfig.getClientConfig("Starter House", HouseConfiguration.class);
-        this.Tabs.trayWidth = 256;
+        this.houseConfiguration.pos = pos;
+        this.Tabs.setWidth(256);
     }
 
     @Override
@@ -91,8 +92,8 @@ public class GuiStartHouseChooser extends GuiTabScreen {
     public void render(int x, int y, float f) {
         int grayBoxX = (this.width / 2) - 188;
         int grayBoxY = (this.height / 2) - 83;
-        this.Tabs.trayX = grayBoxX;
-        this.Tabs.trayY = grayBoxY - 21;
+        this.Tabs.x = grayBoxX;
+        this.Tabs.y = grayBoxY - 21;
 
         this.renderBackground();
 
@@ -209,7 +210,6 @@ public class GuiStartHouseChooser extends GuiTabScreen {
             this.houseConfiguration.wallWoodType = ModConfiguration.WallBlockType.ValueOf(this.btnWallWoodType.getValueInt());
             this.houseConfiguration.houseDepth = this.btnHouseDepth.getValueInt();
             this.houseConfiguration.houseWidth = this.btnHouseWidth.getValueInt();
-            this.houseConfiguration.houseStyle = this.houseConfiguration.houseStyle;
             this.houseConfiguration.houseFacing = this.minecraft.player.getHorizontalFacing().getOpposite();
         }
 
@@ -379,47 +379,29 @@ public class GuiStartHouseChooser extends GuiTabScreen {
         this.addButton(this.btnIsCeilingFlat);
 
         this.btnFloorBlock = new GuiTextSlider(grayBoxX + 10, grayBoxY + 20, 90, 20, 0, 2, this.houseConfiguration.floorBlock.getValue(), GuiLangKeys.STARTER_HOUSE_FLOOR_STONE,
-                (button) ->
-                {
-                    this.actionPerformed(button);
-                });
+                this::actionPerformed);
         this.addButton(this.btnFloorBlock);
 
         this.btnCeilingBlock = new GuiTextSlider(grayBoxX + 10, grayBoxY + 60, 90, 20, 0, 2, this.houseConfiguration.ceilingBlock.getValue(),
-                GuiLangKeys.STARTER_HOUSE_CEILING_TYPE, (button) ->
-        {
-            this.actionPerformed(button);
-        });
+                GuiLangKeys.STARTER_HOUSE_CEILING_TYPE, this::actionPerformed);
         this.addButton(this.btnCeilingBlock);
 
         this.btnWallWoodType = new GuiTextSlider(grayBoxX + 10, grayBoxY + 100, 90, 20, 0, 5, this.houseConfiguration.wallWoodType.getValue(), GuiLangKeys.STARTER_HOUSE_WALL_TYPE,
-                (button) ->
-                {
-                    this.actionPerformed(button);
-                });
+                this::actionPerformed);
         this.addButton(this.btnWallWoodType);
 
-        this.btnGlassColor = new GuiButtonExt(grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateDye(this.houseConfiguration.glassColor), (button) ->
-        {
-            this.actionPerformed(button);
-        });
+        this.btnGlassColor = new GuiButtonExt(grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateDye(this.houseConfiguration.glassColor), this::actionPerformed);
         this.addButton(this.btnGlassColor);
 
         // Column 2:
 
         // Column 3:
         this.btnHouseDepth = new GuiSlider(grayBoxX + 147, grayBoxY + 20, 90, 20, "", "", 5, serverConfiguration.maximumStartingHouseSize, this.houseConfiguration.houseDepth,
-                false, true, (button) ->
-        {
-            this.actionPerformed(button);
-        });
+                false, true, this::actionPerformed);
         this.addButton(this.btnHouseDepth);
 
         this.btnHouseWidth = new GuiSlider(grayBoxX + 147, grayBoxY + 60, 90, 20, "", "", 5, serverConfiguration.maximumStartingHouseSize, this.houseConfiguration.houseWidth,
-                false, true, (button) ->
-        {
-            this.actionPerformed(button);
-        });
+                false, true, this::actionPerformed);
         this.addButton(this.btnHouseWidth);
 
         // Tabs:
@@ -434,16 +416,10 @@ public class GuiStartHouseChooser extends GuiTabScreen {
         this.Tabs.AddTab(this.tabBlockTypes);
 
         // Create the done and cancel buttons.
-        this.btnBuild = new GuiButtonExt(grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_BUILD), (button) ->
-        {
-            this.actionPerformed(button);
-        });
+        this.btnBuild = new GuiButtonExt(grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_BUILD), this::actionPerformed);
         this.addButton(this.btnBuild);
 
-        this.btnCancel = new GuiButtonExt(grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_CANCEL), (button) ->
-        {
-            this.actionPerformed(button);
-        });
+        this.btnCancel = new GuiButtonExt(grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_CANCEL), this::actionPerformed);
         this.addButton(this.btnCancel);
     }
 }

@@ -31,7 +31,7 @@ public class ItemStartHouse extends StructureItem {
         if (context.getWorld().isRemote) {
             if (context.getFace() == Direction.UP) {
                 // Open the client side gui to determine the house options.
-                GuiStartHouseChooser screen = new GuiStartHouseChooser();
+                GuiStartHouseChooser screen = new GuiStartHouseChooser(context.getPos());
                 Minecraft.getInstance().displayGuiScreen(screen);
                 return ActionResultType.PASS;
             }

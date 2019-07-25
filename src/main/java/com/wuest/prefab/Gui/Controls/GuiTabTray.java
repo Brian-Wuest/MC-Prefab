@@ -12,9 +12,6 @@ import java.util.ArrayList;
  */
 public class GuiTabTray extends Widget {
     private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/default_background.png");
-    public int trayWidth = 50;
-    public int trayX = 0;
-    public int trayY = 0;
     private ArrayList<GuiTab> tabs;
 
     public GuiTabTray() {
@@ -24,6 +21,8 @@ public class GuiTabTray extends Widget {
 
     protected void Initialize() {
         this.tabs = new ArrayList<GuiTab>();
+        this.height = 35;
+        this.width = 50;
     }
 
     public GuiTab AddTab(GuiTab tab) {
@@ -86,7 +85,7 @@ public class GuiTabTray extends Widget {
 
     public void DrawTabs(Minecraft mc, int mouseX, int mouseY) {
         mc.getTextureManager().bindTexture(backgroundTextures);
-        GuiTabScreen.drawModalRectWithCustomSizedTexture(this.trayX, this.trayY, 0, this.trayWidth, 35, this.trayWidth, 35);
+        GuiTabScreen.drawModalRectWithCustomSizedTexture(this.x, this.y, 0, this.width, this.height, this.width, 35);
 
         for (GuiTab tab : this.tabs) {
             tab.drawTab(mc, mouseX, mouseY);

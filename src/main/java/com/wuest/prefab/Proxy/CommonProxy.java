@@ -13,7 +13,6 @@ import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import org.apache.commons.lang3.tuple.Pair;
@@ -46,8 +45,8 @@ public class CommonProxy {
     }
 
     public void RegisterEventHandler() {
-        FMLJavaModLoadingContext.get().getModEventBus().register(CommonProxy.eventHandler);
-        FMLJavaModLoadingContext.get().getModEventBus().register(CommonProxy.structureEventHandler);
+        //FMLJavaModLoadingContext.get().getModEventBus().register(CommonProxy.eventHandler);
+        //FMLJavaModLoadingContext.get().getModEventBus().register(CommonProxy.structureEventHandler);
     }
 
     public void preInit(FMLCommonSetupEvent event) {

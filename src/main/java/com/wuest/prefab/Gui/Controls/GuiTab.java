@@ -110,8 +110,8 @@ public class GuiTab extends Widget {
      * @return True if this tab was clicked, otherwise false.
      */
     @Override
-    public boolean clicked(double mouseX, double mouseY) {
-        boolean value = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
+    public boolean mouseClicked(double mouseX, double mouseY, int buttonClicked) {
+        boolean value = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height && this.isValidClickButton(buttonClicked);
 
         if (value && !this.selected) {
             // Select this tab;

@@ -1,9 +1,7 @@
 package com.wuest.prefab.Structures.Render;
 
-import com.google.common.base.Throwables;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.wuest.prefab.Gui.GuiLangKeys;
-import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.Structures.Base.BuildBlock;
 import com.wuest.prefab.Structures.Base.Structure;
@@ -11,12 +9,9 @@ import com.wuest.prefab.Structures.Config.StructureConfiguration;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.ChestBlock;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BlockModelRenderer;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.ChestRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.entity.player.PlayerEntity;
@@ -28,12 +23,7 @@ import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import org.lwjgl.opengl.GL11;
-
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.MethodHandles;
-import java.lang.reflect.Field;
 
 /**
  * @author WuestMan
@@ -43,15 +33,7 @@ import java.lang.reflect.Field;
  */
 public class StructureRenderHandler {
     private static final ChestRenderer chestRenderer = new ChestRenderer();
-    private static final String[] RENDERPOSX =
-            {"renderPosX", "field_78725_b", "o"};
-    private static final String[] RENDERPOSY =
-            {"renderPosY", "field_78726_c", "p"};
-    private static final String[] RENDERPOSZ =
-            {"renderPosZ", "field_78723_d", "q"};
-    // RenderManager
-    private static final MethodHandle renderPosX_getter, renderPosY_getter, renderPosZ_getter;
-    // All of this is on client side so we don't have to worry about multiple
+
     // player's overlapping on structures and other things.
     public static StructureConfiguration currentConfiguration;
     public static Structure currentStructure;
@@ -59,26 +41,6 @@ public class StructureRenderHandler {
     public static boolean rendering = false;
     public static boolean showedMessage = false;
     private static int dimension;
-
-    static {
-        try {
-            // This is to make the renderPosX, renderPosY and renderPosZ fields available for usage.
-            Field f = ObfuscationReflectionHelper.getPrivateValue(EntityRendererManager.class, Minecraft.getInstance().getRenderManager(), StructureRenderHandler.RENDERPOSX[1]);
-            f.setAccessible(true);
-            renderPosX_getter = MethodHandles.publicLookup().unreflectGetter(f);
-
-            f = ObfuscationReflectionHelper.getPrivateValue(EntityRendererManager.class, Minecraft.getInstance().getRenderManager(), StructureRenderHandler.RENDERPOSY[1]);
-            f.setAccessible(true);
-            renderPosY_getter = MethodHandles.publicLookup().unreflectGetter(f);
-
-            f = ObfuscationReflectionHelper.getPrivateValue(EntityRendererManager.class, Minecraft.getInstance().getRenderManager(), StructureRenderHandler.RENDERPOSZ[1]);
-            f.setAccessible(true);
-            renderPosZ_getter = MethodHandles.publicLookup().unreflectGetter(f);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-            throw Throwables.propagate(e);
-        }
-    }
 
     /**
      * Resets the structure to show in the world.
@@ -123,7 +85,7 @@ public class StructureRenderHandler {
             ShaderHelper.useShader(ShaderHelper.alphaShader);
 
             for (BuildBlock buildBlock : StructureRenderHandler.currentStructure.getBlocks()) {
-                Block foundBlock = Registry.BLOCK.getOrDefault(buildBlock.getSubBlock().getResourceLocation());
+                Block foundBlock = Registry.BLOCK.getOrDefault(buildBlock.getResourceLocation());
 
                 if (foundBlock != null) {
                     // Get the unique block state for this block.
@@ -165,15 +127,9 @@ public class StructureRenderHandler {
     }
 
     private static boolean renderComponentInWorld(World world, BuildBlock buildBlock) {
-        float renderPosX, renderPosY, renderPosZ;
-
-        try {
-            renderPosX = (float) StructureRenderHandler.renderPosX_getter.invokeExact(Minecraft.getInstance().getRenderManager());
-            renderPosY = (float) StructureRenderHandler.renderPosY_getter.invokeExact(Minecraft.getInstance().getRenderManager());
-            renderPosZ = (float) StructureRenderHandler.renderPosZ_getter.invokeExact(Minecraft.getInstance().getRenderManager());
-        } catch (Throwable t) {
-            return true;
-        }
+        double renderPosX = Minecraft.getInstance().getRenderManager().renderPosX;
+        double renderPosY = Minecraft.getInstance().getRenderManager().renderPosY;
+        double renderPosZ = Minecraft.getInstance().getRenderManager().renderPosZ;
 
         // In order to get the proper relative position I also need the structure's original facing.
         BlockPos pos = buildBlock.getStartingPosition().getRelativePosition(
@@ -187,8 +143,8 @@ public class StructureRenderHandler {
         }
 
         GlStateManager.pushMatrix();
-        GlStateManager.translatef(-renderPosX, -renderPosY, -renderPosZ);
-        GlStateManager.disableFog();
+        GlStateManager.translated(-renderPosX, -renderPosY, -renderPosZ);
+       // GlStateManager.disableDepthTest();
         StructureRenderHandler.doRenderComponent(buildBlock, pos);
         GlStateManager.popMatrix();
 
@@ -223,48 +179,37 @@ public class StructureRenderHandler {
             return;
         }
 
-        GlStateManager.translatef(pos.getX(), pos.getY(), pos.getZ() + 1);
+        GlStateManager.translated(pos.getX(), pos.getY(), pos.getZ() + 1);
         GlStateManager.color4f(1, 1, 1, 1);
         StructureRenderHandler.renderBlockBrightness(state, 1.0F);
 
         GlStateManager.color4f(1F, 1F, 1F, 1F);
-        GlStateManager.enableFog();
+        // GlStateManager.enableDepthTest();
         GlStateManager.popMatrix();
     }
 
     public static void renderBlockBrightness(BlockState state, float brightness) {
         BlockRendererDispatcher brd = Minecraft.getInstance().getBlockRendererDispatcher();
 
-        BlockRenderType enumblockrendertype = state.getRenderType();
-
-        if (enumblockrendertype != BlockRenderType.INVISIBLE) {
-            switch (enumblockrendertype) {
-                case MODEL:
-                case ENTITYBLOCK_ANIMATED: {
-                    // Only use the chest renderer if this is actually an instance of a chest.
-                    if (enumblockrendertype == BlockRenderType.ENTITYBLOCK_ANIMATED
-                            && state.getBlock() instanceof ChestBlock) {
-                        StructureRenderHandler.chestRenderer.renderChestBrightness(state.getBlock(), brightness);
-                        break;
-                    }
-
+        BlockRenderType blockrendertype = state.getRenderType();
+        if (blockrendertype != BlockRenderType.INVISIBLE) {
+            switch (blockrendertype) {
+                case MODEL: {
                     IBakedModel ibakedmodel = brd.getModelForState(state);
-                    BlockModelRenderer renderer = brd.getBlockModelRenderer();
 
                     try {
-                        renderer.renderModelBrightness(ibakedmodel, state, brightness, true);
+                        brd.getBlockModelRenderer().renderModelBrightness(ibakedmodel, state, brightness, true);
                     } catch (Exception ex) {
                         // Don't do anything if a mod broke this vanilla block rendering. It just won't show up during the preview then.
-                        int test = 1;
-                        test = 2;
                     }
 
                     break;
                 }
-                default: {
-                    break;
+                case ENTITYBLOCK_ANIMATED: {
+                    StructureRenderHandler.chestRenderer.renderChestBrightness(state.getBlock(), brightness);
                 }
             }
+
         }
     }
 

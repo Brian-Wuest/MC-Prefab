@@ -7,7 +7,6 @@ import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Structures.Events.StructureClientEventHandler;
 import com.wuest.prefab.Structures.Render.ShaderHelper;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 /**
  * @author WuestMan
@@ -43,8 +42,8 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void RegisterEventHandler() {
-        FMLJavaModLoadingContext.get().getModEventBus().register(ClientProxy.clientEventHandler);
-        FMLJavaModLoadingContext.get().getModEventBus().register(ClientProxy.structureClientEventHandler);
+        //FMLJavaModLoadingContext.get().getModEventBus().register(ClientProxy.clientEventHandler);
+        //FMLJavaModLoadingContext.get().getModEventBus().register(ClientProxy.structureClientEventHandler);
     }
 
     @Override

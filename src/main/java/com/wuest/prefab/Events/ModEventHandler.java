@@ -5,14 +5,13 @@ import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.Proxy.Messages.ConfigSyncMessage;
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.AnvilUpdateEvent;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
@@ -25,7 +24,7 @@ import java.util.ArrayList;
  *
  * @author WuestMan
  */
-@EventBusSubscriber(modid = Prefab.MODID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = Prefab.MODID, value = {Dist.DEDICATED_SERVER})
 public final class ModEventHandler {
     /**
      * Determines the affected blocks by redstone power.
@@ -67,20 +66,5 @@ public final class ModEventHandler {
                 event.setOutput(outputStack);
             }
         }
-    }
-
-    @SubscribeEvent
-    public static void registerBlocks(RegistryEvent.Register<Block> event) {
-        for (Block block : ModRegistry.ModBlocks)
-        {
-            Prefab.LOGGER.debug("Logging Block With Name: " + block.getRegistryName() + " and type: " + block.toString());
-            event.getRegistry().register(block);
-        }
-
-    }
-
-    @SubscribeEvent
-    public static void registerItems(RegistryEvent.Register<Item> event) {
-        event.getRegistry().registerAll(ModRegistry.ModItems.toArray(new Item[0]));
     }
 }

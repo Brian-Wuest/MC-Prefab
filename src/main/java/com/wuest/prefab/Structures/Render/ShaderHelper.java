@@ -1,10 +1,11 @@
 package com.wuest.prefab.Structures.Render;
 
 import com.mojang.blaze3d.platform.GLX;
+import com.mojang.blaze3d.platform.GlStateManager;
 import com.wuest.prefab.Events.ClientEventHandler;
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.SimpleReloadableResourceManager;
-import net.minecraft.util.Unit;
+import net.minecraft.resources.IReloadableResourceManager;
+import net.minecraft.resources.IResourceManagerReloadListener;
 import org.lwjgl.opengl.ARBFragmentShader;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.ARBVertexShader;
@@ -27,18 +28,17 @@ public class ShaderHelper {
     private static final int FRAG = ARBFragmentShader.GL_FRAGMENT_SHADER_ARB;
 
     public static int alphaShader = 0;
+    private static boolean lighting;
 
     public static void Initialize() {
-        if (Minecraft.getInstance().getResourceManager() instanceof SimpleReloadableResourceManager) {
-            SimpleReloadableResourceManager resourceManager = (SimpleReloadableResourceManager) Minecraft.getInstance().getResourceManager();
-            resourceManager.addReloadListener((stage, manager, preparationsProfiler, reloadProfiler, backgroundExecutor, gameExecutor) -> {
-                return stage.markCompleteAwaitingOthers(Unit.INSTANCE).thenRunAsync(() -> {
-                    ShaderHelper.deleteShader(alphaShader);
-                    ShaderHelper.alphaShader = 0;
+        if (Minecraft.getInstance().getResourceManager() instanceof IReloadableResourceManager) {
+            ((IReloadableResourceManager) Minecraft.getInstance().getResourceManager()).addReloadListener(
+                    (IResourceManagerReloadListener) manager -> {
+                        ShaderHelper.deleteShader(alphaShader);
+                        ShaderHelper.alphaShader = 0;
 
-                    ShaderHelper.alphaShader = ShaderHelper.createProgram("/assets/prefab/shader/alpha.vert", "/assets/prefab/shader/alpha.frag");
-                }, gameExecutor);
-            });
+                        ShaderHelper.alphaShader = ShaderHelper.createProgram("/assets/prefab/shader/alpha.vert", "/assets/prefab/shader/alpha.frag");
+                    });
         }
     }
 
@@ -46,6 +46,14 @@ public class ShaderHelper {
         if (!GLX.usePostProcess) {
             return;
         }
+
+        if (ShaderHelper.alphaShader == 0) {
+            // Shader wasn't initialized, initialize it now.
+            ShaderHelper.alphaShader = ShaderHelper.createProgram("/assets/prefab/shader/alpha.vert", "/assets/prefab/shader/alpha.frag");
+        }
+
+        lighting = GL11.glGetBoolean(GL11.GL_LIGHTING);
+        GlStateManager.disableLighting();
 
         ARBShaderObjects.glUseProgramObjectARB(shader);
 
@@ -59,6 +67,10 @@ public class ShaderHelper {
     }
 
     public static void releaseShader() {
+        if (lighting) {
+            GlStateManager.enableLighting();
+        }
+
         ShaderHelper.useShader(0);
     }
 

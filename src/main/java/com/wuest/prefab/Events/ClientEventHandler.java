@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -27,7 +28,7 @@ import org.lwjgl.opengl.GL11;
 /**
  * @author WuestMan
  */
-@Mod.EventBusSubscriber(modid = Prefab.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = {Dist.CLIENT})
+@Mod.EventBusSubscriber(modid = Prefab.MODID, value = {Dist.CLIENT})
 public final class ClientEventHandler {
     public static ClientEventHandler instance = new ClientEventHandler();
 
@@ -47,11 +48,15 @@ public final class ClientEventHandler {
      * @param event The event object.
      */
     @SubscribeEvent
-    public void onWorldRenderLast(RenderWorldLastEvent event) {
+    public static void onWorldRenderLast(RenderWorldLastEvent event) {
         Minecraft mc = Minecraft.getInstance();
 
-        if (mc.player != null && mc.objectMouseOver != null && mc.objectMouseOver.hitInfo != null && (!mc.player.isSneaking())) {
+        if (mc.player != null && (!mc.player.isSneaking())) {
             StructureRenderHandler.renderPlayerLook(mc.player, mc.objectMouseOver);
+        }
+        else if (mc.player.isSneaking() && StructureRenderHandler.currentStructure != null)
+        {
+            StructureRenderHandler.setStructure(null, Direction.NORTH, null);
         }
 
         if (ItemBogus.renderTest) {
@@ -65,7 +70,7 @@ public final class ClientEventHandler {
      * @param event The event object.
      */
     @SubscribeEvent
-    public void EntityJoinWorldEvent(EntityJoinWorldEvent event) {
+    public static void EntityJoinWorldEvent(EntityJoinWorldEvent event) {
         if (event.getWorld().isRemote && event.getEntity() instanceof PlayerEntity) {
             // When the player logs out, make sure to re-set the server configuration.
             // This is so a new configuration can be successfully loaded when they switch servers or worlds (on single
@@ -81,7 +86,7 @@ public final class ClientEventHandler {
      * @param event The event object.
      */
     @SubscribeEvent
-    public void ClientTickEnd(ClientTickEvent event) {
+    public static void ClientTickEnd(ClientTickEvent event) {
         if (event.phase == Phase.END) {
             Screen gui = Minecraft.getInstance().currentScreen;
 
@@ -96,7 +101,7 @@ public final class ClientEventHandler {
         }
     }
 
-    private void RenderTest(World worldIn, PlayerEntity playerIn) {
+    private static void RenderTest(World worldIn, PlayerEntity playerIn) {
         float partialTicks = Minecraft.getInstance().getRenderPartialTicks();
         PlayerEntity entityplayer = playerIn;
         Tessellator tessellator = Tessellator.getInstance();
@@ -151,7 +156,7 @@ public final class ClientEventHandler {
         GlStateManager.enableTexture();
     }
 
-    private void drawLineWithGL(Vec3d blockA, Vec3d blockB) {
+    private static void drawLineWithGL(Vec3d blockA, Vec3d blockB) {
         GL11.glColor4f(1F, 0F, 1F, 0F); // change color an set alpha
 
         GL11.glBegin(GL11.GL_LINE_STRIP);
