@@ -16,9 +16,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * This class defines a single block and where it will be in the structure.
@@ -60,6 +58,7 @@ public class BuildBlock {
             Direction.Axis boneFacing = BuildBlock.getBoneFacing(configuration, foundBlock, block, structure.getClearSpace().getShape().getDirection());
             Direction.Axis quartzFacing = BuildBlock.getBoneFacing(configuration, foundBlock, block, structure.getClearSpace().getShape().getDirection());
             Direction leverOrientation = BuildBlock.getLeverOrientation(configuration, foundBlock, block, structure.getClearSpace().getShape().getDirection());
+            Map<Direction, Boolean> fourWayFacings = BuildBlock.getFourWayBlockFacings(configuration, foundBlock, block, structure.getClearSpace().getShape().getDirection());
 
             // If this block has custom processing for block state just continue onto the next block. The sub-class is
             // expected to place the block.
@@ -92,7 +91,7 @@ public class BuildBlock {
                             }
 
                             comparable = BuildBlock.setComparable(comparable, foundBlock, property, configuration, block, assumedNorth, propertyValue, vineFacing, logFacing,
-                                    boneFacing, quartzFacing, leverOrientation, structure);
+                                    boneFacing, quartzFacing, leverOrientation, structure, fourWayFacings);
 
                             if (comparable == null) {
                                 continue;
@@ -144,7 +143,8 @@ public class BuildBlock {
 
     private static Comparable setComparable(Comparable<?> comparable, Block foundBlock, IProperty<?> property, StructureConfiguration configuration, BuildBlock block,
                                             Direction assumedNorth, Optional<?> propertyValue, Direction vineFacing, Direction.Axis logFacing, Axis boneFacing, Direction.Axis quartzFacing, Direction leverOrientation,
-                                            Structure structure) {
+                                            Structure structure,
+                                            Map<Direction, Boolean> fourwayFacings) {
         if (property.getName().equals("facing") && !(foundBlock instanceof LeverBlock)) {
             // Facing properties should be relative to the configuration facing.
             Direction facing = Direction.byName(propertyValue.get().toString());
@@ -184,6 +184,12 @@ public class BuildBlock {
                 block.setHasFacing(true);
             } else {
                 comparable = false;
+            }
+        } else if (foundBlock instanceof FourWayBlock && !property.getName().equals("waterlogged")) {
+            for (Map.Entry<Direction, Boolean> entry : fourwayFacings.entrySet()) {
+                if (property.getName().equals(entry.getKey().getName2())) {
+                    comparable = entry.getValue();
+                }
             }
         } else if (foundBlock instanceof WallBlock) {
             if (!property.getName().equals("variant")) {
@@ -239,6 +245,46 @@ public class BuildBlock {
         }
 
         return vineFacing;
+    }
+
+    private static Map<Direction, Boolean> getFourWayBlockFacings(StructureConfiguration configuration, Block foundBlock, BuildBlock block, Direction assumedNorth) {
+        Map<Direction, Boolean> facings = new HashMap<>();
+
+        if (foundBlock instanceof FourWayBlock) {
+            // Valid states can be any two directions at a time, not just opposites but adjacents as well (for corners).
+            boolean northValue = Boolean.parseBoolean(block.getProperty("north").getValue());
+            boolean eastValue = Boolean.parseBoolean(block.getProperty("east").getValue());
+            boolean westValue = Boolean.parseBoolean(block.getProperty("west").getValue());
+            boolean southValue = Boolean.parseBoolean(block.getProperty("south").getValue());
+            boolean originalNorth = northValue;
+            boolean originalEast = eastValue;
+            boolean originalWest = westValue;
+            boolean originalSouth = southValue;
+
+            if (configuration.houseFacing.rotateY() == assumedNorth) {
+                northValue = originalWest;
+                eastValue = originalNorth;
+                southValue = originalEast;
+                westValue = originalSouth;
+            } else if (configuration.houseFacing == assumedNorth) {
+                northValue = originalSouth;
+                eastValue = originalWest;
+                southValue = originalNorth;
+                westValue = originalEast;
+            } else if (configuration.houseFacing.rotateYCCW() == assumedNorth) {
+                northValue = originalEast;
+                eastValue = originalSouth;
+                southValue = originalWest;
+                westValue = originalNorth;
+            }
+
+            facings.put(Direction.NORTH, northValue);
+            facings.put(Direction.EAST, eastValue);
+            facings.put(Direction.WEST, westValue);
+            facings.put(Direction.SOUTH, southValue);
+        }
+
+        return facings;
     }
 
     private static Axis getBoneFacing(StructureConfiguration configuration, Block foundBlock, BuildBlock block, Direction assumedNorth) {

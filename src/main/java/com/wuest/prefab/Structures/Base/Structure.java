@@ -1,6 +1,5 @@
 package com.wuest.prefab.Structures.Base;
 
-import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
@@ -24,6 +23,7 @@ import net.minecraft.tileentity.ChestTileEntity;
 import net.minecraft.tileentity.FurnaceTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
+import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -250,7 +250,9 @@ public class Structure {
 
         for (IProperty<?> entry : properties) {
             BuildProperty property = new BuildProperty();
+
             property.setName(entry.getName());
+
             Comparable<?> value = currentState.get(entry);
 
             if (currentBlock instanceof RotatedPillarBlock) {
@@ -258,6 +260,9 @@ public class Structure {
             } else if (currentBlock instanceof CarpetBlock && property.getName().equals("color")) {
                 DyeColor dyeColor = (DyeColor) value;
                 property.setValue(dyeColor.getName());
+            } else if (value instanceof IStringSerializable) {
+                IStringSerializable stringSerializable = (IStringSerializable)value;
+                property.setValue(stringSerializable.getName());
             } else {
                 property.setValue(value.toString());
             }
@@ -588,7 +593,12 @@ public class Structure {
                     .offset(configuration.houseFacing.getOpposite(), this.clearSpace.getShape().getLength() - 1)
                     .offset(Direction.UP, this.clearSpace.getShape().getHeight());
 
-            this.clearedBlockPos = Lists.newArrayList(BlockPos.getAllInBoxMutable(startBlockPos, endBlockPos));
+            this.clearedBlockPos = new ArrayList<>();
+
+            for (BlockPos pos : BlockPos.getAllInBoxMutable(startBlockPos, endBlockPos))
+            {
+                clearedBlockPos.add(new BlockPos(pos));
+            }
         } else {
             this.clearedBlockPos = new ArrayList<BlockPos>();
         }
@@ -617,7 +627,7 @@ public class Structure {
                                                    Direction assumedNorth, Block foundBlock, BlockState blockState, PlayerEntity player) {
         // Replace water blocks with cobblestone.
         if (foundBlock instanceof FlowingFluidBlock && blockState.getMaterial() == Material.WATER
-                && (world.getDimension().getType() == DimensionType.OVERWORLD)) {
+                && (world.getDimension().getType() != DimensionType.OVERWORLD)) {
             block.setBlockDomain(Blocks.COBBLESTONE.getRegistryName().getNamespace());
             block.setBlockName(Blocks.COBBLESTONE.getRegistryName().getPath());
             block.setBlockState(Blocks.COBBLESTONE.getDefaultState());

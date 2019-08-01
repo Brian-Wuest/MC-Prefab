@@ -7,7 +7,6 @@ import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.Proxy.Messages.PlayerEntityTagMessage;
 import com.wuest.prefab.Structures.Base.*;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.item.HangingEntity;
@@ -26,11 +25,11 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.chunk.Chunk;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ServerTickEvent;
 import net.minecraftforge.fml.network.NetworkDirection;
 
@@ -45,7 +44,7 @@ import java.util.UUID;
  *
  * @author WuestMan
  */
-@EventBusSubscriber(modid = Prefab.MODID, value = {Dist.DEDICATED_SERVER})
+@EventBusSubscriber(modid = Prefab.MODID)
 public final class StructureEventHandler {
     /**
      * Contains a hashmap for the structures to build and for whom.
@@ -112,30 +111,32 @@ public final class StructureEventHandler {
      */
     @SubscribeEvent
     public static void onServerTick(ServerTickEvent event) {
-        ArrayList<PlayerEntity> playersToRemove = new ArrayList<PlayerEntity>();
+        if (event.phase == TickEvent.Phase.START) {
+            ArrayList<PlayerEntity> playersToRemove = new ArrayList<PlayerEntity>();
 
-        for (Entry<PlayerEntity, ArrayList<Structure>> entry : StructureEventHandler.structuresToBuild.entrySet()) {
-            ArrayList<Structure> structuresToRemove = new ArrayList<Structure>();
-            PlayerEntity player = entry.getKey();
+            for (Entry<PlayerEntity, ArrayList<Structure>> entry : StructureEventHandler.structuresToBuild.entrySet()) {
+                ArrayList<Structure> structuresToRemove = new ArrayList<Structure>();
+                PlayerEntity player = entry.getKey();
 
-            // Build the first 100 blocks of each structure for this player.
-            for (Structure structure : entry.getValue()) {
-                for (int i = 0; i < 100; i++) {
-                    i = StructureEventHandler.setBlock(i, structure, structuresToRemove);
+                // Build the first 100 blocks of each structure for this player.
+                for (Structure structure : entry.getValue()) {
+                    for (int i = 0; i < 100; i++) {
+                        i = StructureEventHandler.setBlock(i, structure, structuresToRemove);
+                    }
+                }
+
+                // Update the list of structures to remove this structure since it's done building.
+                StructureEventHandler.removeStructuresFromList(structuresToRemove, entry);
+
+                if (entry.getValue().size() == 0) {
+                    playersToRemove.add(entry.getKey());
                 }
             }
 
-            // Update the list of structures to remove this structure since it's done building.
-            StructureEventHandler.removeStructuresFromList(structuresToRemove, entry);
-
-            if (entry.getValue().size() == 0) {
-                playersToRemove.add(entry.getKey());
+            // Remove each player that has their structure's built.
+            for (PlayerEntity player : playersToRemove) {
+                StructureEventHandler.structuresToBuild.remove(player);
             }
-        }
-
-        // Remove each player that has their structure's built.
-        for (PlayerEntity player : playersToRemove) {
-            StructureEventHandler.structuresToBuild.remove(player);
         }
     }
 
@@ -180,7 +181,7 @@ public final class StructureEventHandler {
             // If this block is not specifically air then set it to air.
             // This will also break other mod's logic blocks but they would probably be broken due to structure
             // generation anyways.
-            if (clearBlockState.getBlock() != Blocks.AIR) {
+            if (!clearBlockState.isAir(structure.world, currentPos)) {
                 structure.BeforeClearSpaceBlockReplaced(currentPos);
                 structure.world.removeBlock(currentPos, false);
             } else {

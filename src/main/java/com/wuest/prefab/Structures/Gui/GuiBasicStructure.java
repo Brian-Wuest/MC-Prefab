@@ -2,7 +2,6 @@ package com.wuest.prefab.Structures.Gui;
 
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
-import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.Structures.Config.BasicStructureConfiguration;
 import com.wuest.prefab.Structures.Items.ItemBasicStructure;
@@ -68,7 +67,7 @@ public class GuiBasicStructure extends GuiStructure {
         if (stack != null) {
             ItemBasicStructure item = (ItemBasicStructure) stack.getItem();
             this.configuration = ClientEventHandler.playerConfig.getClientConfig(item.structureType.getName(), BasicStructureConfiguration.class);
-
+            this.configuration.basicStructureName = item.structureType;
             this.includePicture = this.doesPictureExist();
         }
 

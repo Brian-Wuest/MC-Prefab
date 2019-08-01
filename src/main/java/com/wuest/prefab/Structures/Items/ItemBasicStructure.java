@@ -49,20 +49,23 @@ public class ItemBasicStructure extends StructureItem {
     public ActionResultType onItemUse(ItemUseContext context) {
         if (context.getWorld().isRemote) {
             if (context.getFace() == Direction.UP) {
+                // Un-comment this to scan the structure.
+                /*StructureBasic basicStructure = new StructureBasic();
+                ItemStack stack = context.getPlayer().getHeldItem(context.getHand());
+                BasicStructureConfiguration structureConfiguration = new BasicStructureConfiguration();
+                structureConfiguration.basicStructureName = ((ItemBasicStructure) stack.getItem()).structureType;
 
-				/*StructureBasic basicStructure = new StructureBasic(); ItemStack stack = player.getHeldItem(hand);
-				IStructureConfigurationCapability capability =
-				stack.getCapability(ModRegistry.StructureConfiguration, Direction.NORTH);
-				BasicStructureConfiguration structureConfiguration = capability.getConfiguration();
-				basicStructure.ScanStructure(world, hitBlockPos, player.getHorizontalFacing(),
-				structureConfiguration, false, false);*/
+                boolean isWaterStructure = structureConfiguration.basicStructureName == EnumBasicStructureName.AquaBase;
+                basicStructure.ScanStructure(
+                        context.getWorld(),
+                        context.getPos(),
+                        context.getPlayer().getHorizontalFacing(),
+                        structureConfiguration, isWaterStructure, isWaterStructure);*/
 
                 // Open the client side gui to determine the house options.
                 GuiStructure screen = this.getScreen();
                 screen.pos = context.getPos();
-
                 Minecraft.getInstance().displayGuiScreen(screen);
-                // context.getPlayer().openGui(Prefab.instance, this.guiId, context.getPlayer().world, context.getPos().getX(), context.getPos().getY(), context.getPos().getZ());
 
                 return ActionResultType.PASS;
             }
