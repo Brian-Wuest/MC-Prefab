@@ -317,7 +317,7 @@ public class BuildBlock {
 
         if (foundBlock instanceof LeverBlock) {
             // Levers have a special facing.
-            leverOrientation = LeverBlock.HORIZONTAL_FACING.parseValue(block.getProperty("horizontal_facing").getValue().toUpperCase()).get();
+            leverOrientation = LeverBlock.HORIZONTAL_FACING.parseValue(block.getProperty("facing").getValue().toUpperCase()).get();
             attachedTo = LeverBlock.FACE.parseValue(block.getProperty("face").getValue().toUpperCase()).get();
 
             if (attachedTo == AttachFace.FLOOR

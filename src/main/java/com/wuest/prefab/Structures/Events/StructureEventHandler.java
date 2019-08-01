@@ -396,7 +396,7 @@ public final class StructureEventHandler {
         HangingEntity hangingEntity = frame;
         CompoundNBT compound = new CompoundNBT();
         hangingEntity.writeAdditional(compound);
-        compound.putByte("Facing", (byte) facing.getHorizontalIndex());
+        compound.putByte("Facing", (byte) facing.getIndex());
         hangingEntity.readAdditional(compound);
         StructureEventHandler.updateEntityHangingBoundingBox(hangingEntity);
 
@@ -454,10 +454,11 @@ public final class StructureEventHandler {
         double d3 = 0.46875D;
         double d4 = entity.getWidthPixels() % 32 == 0 ? 0.5D : 0.0D;
         double d5 = entity.getHeightPixels() % 32 == 0 ? 0.5D : 0.0D;
-        d0 = d0 - (double) entity.getHorizontalFacing().getXOffset() * 0.46875D;
-        d2 = d2 - (double) entity.getHorizontalFacing().getZOffset() * 0.46875D;
+        Direction horizontal = entity.getHorizontalFacing();
+        d0 = d0 - (double) horizontal.getXOffset() * 0.46875D;
+        d2 = d2 - (double) horizontal.getZOffset() * 0.46875D;
         d1 = d1 + d5;
-        Direction direction = entity.getHorizontalFacing().rotateYCCW();
+        Direction direction = horizontal == Direction.DOWN || horizontal == Direction.UP ? horizontal.getOpposite() : horizontal.rotateYCCW();
         d0 = d0 + d4 * (double) direction.getXOffset();
         d2 = d2 + d4 * (double) direction.getZOffset();
         entity.posX = d0;
@@ -467,7 +468,7 @@ public final class StructureEventHandler {
         double d7 = (double) entity.getHeightPixels();
         double d8 = (double) entity.getWidthPixels();
 
-        if (entity.getHorizontalFacing().getAxis() == Direction.Axis.Z) {
+        if (horizontal.getAxis() == Direction.Axis.Z) {
             d8 = 1.0D;
         } else {
             d6 = 1.0D;
