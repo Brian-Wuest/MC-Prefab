@@ -12,7 +12,6 @@ import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -21,8 +20,8 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
+import net.minecraftforge.event.TickEvent.ClientTickEvent;
+import net.minecraftforge.event.TickEvent.Phase;
 import org.lwjgl.opengl.GL11;
 
 /**
@@ -54,13 +53,9 @@ public final class ClientEventHandler {
         if (mc.player != null && (!mc.player.isSneaking())) {
             StructureRenderHandler.renderPlayerLook(mc.player, mc.objectMouseOver);
         }
-        else if (mc.player.isSneaking() && StructureRenderHandler.currentStructure != null)
-        {
-            StructureRenderHandler.setStructure(null, Direction.NORTH, null);
-        }
 
         if (ItemBogus.renderTest) {
-            ClientEventHandler.instance.RenderTest(mc.world, mc.player);
+            ClientEventHandler.RenderTest(mc.world, mc.player);
         }
     }
 

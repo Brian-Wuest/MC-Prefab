@@ -36,6 +36,12 @@ public class Prefab {
      * This is used to determine if the mod is currently being debugged.
      */
     public static boolean isDebug = false;
+
+    /**
+     * Determines if structure items will scan their defined space or show the build gui. Default is false.
+     * Note: this should only be set to true during debug mode.
+     */
+    public static boolean useScanningMode = false;
     /**
      * This is the static instance of this class.
      */

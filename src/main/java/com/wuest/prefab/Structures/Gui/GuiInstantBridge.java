@@ -42,7 +42,7 @@ public class GuiInstantBridge extends GuiStructure {
         this.sldrBridgeLength = new GuiSlider(grayBoxX + 147, grayBoxY + 20, 90, 20, "", "", 25, 75, this.configuration.bridgeLength, false, true, this::buttonClicked);
         this.addButton(this.sldrBridgeLength);
 
-        this.chckIncludeRoof = new GuiCheckBox(grayBoxX + 147, grayBoxY + 55, GuiLangKeys.translateString(GuiLangKeys.INCLUDE_ROOF), this.configuration.includeRoof);
+        this.chckIncludeRoof = new GuiCheckBox(grayBoxX + 147, grayBoxY + 55, GuiLangKeys.translateString(GuiLangKeys.INCLUDE_ROOF), this.configuration.includeRoof, this::buttonClicked);
         this.addButton(this.chckIncludeRoof);
 
         this.sldrInteriorHeight = new GuiSlider(grayBoxX + 147, grayBoxY + 90, 90, 20, "", "", 3, 8, this.configuration.interiorHeight, false, true, this::buttonClicked);
@@ -76,7 +76,11 @@ public class GuiInstantBridge extends GuiStructure {
 
         // Draw the text here.
         this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.BRIDGE_MATERIAL), grayBoxX + 10, grayBoxY + 10, this.textColor);
-        this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.INTERIOR_HEIGHT), grayBoxX + 147, grayBoxY + 80, this.textColor);
+
+        if (this.chckIncludeRoof.isChecked()) {
+            this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.INTERIOR_HEIGHT), grayBoxX + 147, grayBoxY + 80, this.textColor);
+        }
+
         this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.BRIDGE_LENGTH), grayBoxX + 147, grayBoxY + 10, this.textColor);
 
         this.checkVisualizationSetting();
@@ -105,7 +109,7 @@ public class GuiInstantBridge extends GuiStructure {
         }
 
         this.configuration.interiorHeight = sliderValue;
-
+        this.configuration.includeRoof = this.chckIncludeRoof.isChecked();
         this.configuration.houseFacing = player.getHorizontalFacing().getOpposite();
         this.configuration.pos = this.pos;
 

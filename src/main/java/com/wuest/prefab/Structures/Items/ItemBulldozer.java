@@ -9,6 +9,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.CompoundNBT;
@@ -35,7 +36,9 @@ public class ItemBulldozer extends StructureItem {
      * @param name The registered name of this item.
      */
     public ItemBulldozer(String name) {
-        super(name, new Item.Properties().maxDamage(4));
+        super(name, new Item.Properties()
+                .group(ItemGroup.MISC)
+                .maxDamage(4));
     }
 
     /**

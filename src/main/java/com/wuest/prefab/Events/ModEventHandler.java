@@ -10,11 +10,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.fml.network.NetworkDirection;
 
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ import java.util.ArrayList;
  *
  * @author WuestMan
  */
-@EventBusSubscriber(modid = Prefab.MODID, value = {Dist.DEDICATED_SERVER})
+@EventBusSubscriber(modid = Prefab.MODID)
 public final class ModEventHandler {
     /**
      * Determines the affected blocks by redstone power.

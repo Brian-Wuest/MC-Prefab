@@ -103,8 +103,8 @@ public class BasicStructureConfiguration extends StructureConfiguration {
         // Greenhouse.
         EnumBasicStructureName.GreenHouse.getClearShape().setDirection(Direction.SOUTH);
         EnumBasicStructureName.GreenHouse.getClearShape().setHeight(10);
-        EnumBasicStructureName.GreenHouse.getClearShape().setWidth(15);
-        EnumBasicStructureName.GreenHouse.getClearShape().setLength(31);
+        EnumBasicStructureName.GreenHouse.getClearShape().setWidth(16);
+        EnumBasicStructureName.GreenHouse.getClearShape().setLength(32);
         EnumBasicStructureName.GreenHouse.getClearPositionOffset().setSouthOffset(1);
         EnumBasicStructureName.GreenHouse.getClearPositionOffset().setEastOffset(8);
 
@@ -129,17 +129,17 @@ public class BasicStructureConfiguration extends StructureConfiguration {
         // Welcome Center
         EnumBasicStructureName.WelcomeCenter.getClearShape().setDirection(Direction.SOUTH);
         EnumBasicStructureName.WelcomeCenter.getClearShape().setHeight(24);
-        EnumBasicStructureName.WelcomeCenter.getClearShape().setWidth(18);
+        EnumBasicStructureName.WelcomeCenter.getClearShape().setWidth(19);
         EnumBasicStructureName.WelcomeCenter.getClearShape().setLength(48);
         EnumBasicStructureName.WelcomeCenter.getClearPositionOffset().setSouthOffset(1);
-        EnumBasicStructureName.WelcomeCenter.getClearPositionOffset().setEastOffset(4);
+        EnumBasicStructureName.WelcomeCenter.getClearPositionOffset().setEastOffset(5);
         EnumBasicStructureName.WelcomeCenter.getClearPositionOffset().setHeightOffset(-5);
 
         // Jail
         EnumBasicStructureName.Jail.getClearShape().setDirection(Direction.SOUTH);
         EnumBasicStructureName.Jail.getClearShape().setHeight(14);
-        EnumBasicStructureName.Jail.getClearShape().setWidth(27);
-        EnumBasicStructureName.Jail.getClearShape().setLength(32);
+        EnumBasicStructureName.Jail.getClearShape().setWidth(28);
+        EnumBasicStructureName.Jail.getClearShape().setLength(33);
         EnumBasicStructureName.Jail.getClearPositionOffset().setSouthOffset(1);
         EnumBasicStructureName.Jail.getClearPositionOffset().setEastOffset(25);
         EnumBasicStructureName.Jail.getClearPositionOffset().setHeightOffset(-3);

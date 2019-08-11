@@ -22,6 +22,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
@@ -86,14 +87,15 @@ public class StructureModerateHouse extends Structure {
             }
 
             if (CommonProxy.proxyConfiguration.serverConfiguration.addSword) {
-                // Include the swift blade if WuestUtilities has registered the
-                // swift blades.
-                ResourceLocation name = new ResourceLocation("repurpose", "itemSwiftBladeStone");
-
+                // Include the swift blade if Repurpose has registered the swift blades.
                 Item sword = Items.STONE_SWORD;
 
-                if (ForgeRegistries.ITEMS.containsKey(name)) {
-                    sword = ForgeRegistries.ITEMS.getValue(name);
+                if (ModList.get().isLoaded("repurpose")) {
+                    ResourceLocation name = new ResourceLocation("repurpose", "itemSwiftBladeStone");
+
+                    if (ForgeRegistries.ITEMS.containsKey(name)) {
+                        sword = ForgeRegistries.ITEMS.getValue(name);
+                    }
                 }
 
                 chestTile.setInventorySlotContents(itemSlot++, new ItemStack(sword));

@@ -65,19 +65,19 @@ public class GuiModerateHouse extends GuiStructure {
         int x = grayBoxX + 130;
         int y = grayBoxY + 10;
 
-        this.btnAddChest = new GuiCheckBox(x, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_CHEST), this.configuration.addChests);
+        this.btnAddChest = new GuiCheckBox(x, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_CHEST), this.configuration.addChests, null);
         this.btnAddChest.setStringColor(color);
         this.btnAddChest.setWithShadow(false);
         this.addButton(this.btnAddChest);
         y += 15;
 
-        this.btnAddMineShaft = new GuiCheckBox(x, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_BUILD_MINESHAFT), this.configuration.addChestContents);
+        this.btnAddMineShaft = new GuiCheckBox(x, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_BUILD_MINESHAFT), this.configuration.addChestContents, null);
         this.btnAddMineShaft.setStringColor(color);
         this.btnAddMineShaft.setWithShadow(false);
         this.addButton(this.btnAddMineShaft);
         y += 15;
 
-        this.btnAddChestContents = new GuiCheckBox(x, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_CHEST_CONTENTS), this.configuration.addMineshaft);
+        this.btnAddChestContents = new GuiCheckBox(x, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_CHEST_CONTENTS), this.configuration.addMineshaft, null);
         this.btnAddChestContents.setStringColor(color);
         this.btnAddChestContents.setWithShadow(false);
         this.addButton(this.btnAddChestContents);

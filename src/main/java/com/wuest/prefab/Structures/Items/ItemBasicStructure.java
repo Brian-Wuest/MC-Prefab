@@ -1,8 +1,10 @@
 package com.wuest.prefab.Structures.Items;
 
+import com.wuest.prefab.Structures.Config.BasicStructureConfiguration;
 import com.wuest.prefab.Structures.Config.BasicStructureConfiguration.EnumBasicStructureName;
 import com.wuest.prefab.Structures.Gui.GuiBasicStructure;
 import com.wuest.prefab.Structures.Gui.GuiStructure;
+import com.wuest.prefab.Structures.Predefined.StructureBasic;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;

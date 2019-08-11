@@ -1,6 +1,7 @@
 package com.wuest.prefab.Structures.Items;
 
 import com.wuest.prefab.ModRegistry;
+import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Structures.Gui.GuiStructure;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
@@ -41,10 +42,17 @@ public class StructureItem extends Item {
     public ActionResultType onItemUse(ItemUseContext context) {
         if (context.getWorld().isRemote) {
             if (context.getFace() == Direction.UP) {
-                // Open the client side gui to determine the house options.
-                GuiStructure screen = this.getScreen();
-                screen.pos = context.getPos();
-                Minecraft.getInstance().displayGuiScreen(screen);
+                if (Prefab.useScanningMode)
+                {
+                    this.scanningMode(context);
+                }
+                else {
+                    // Open the client side gui to determine the house options.
+                    GuiStructure screen = this.getScreen();
+                    screen.pos = context.getPos();
+                    Minecraft.getInstance().displayGuiScreen(screen);
+                }
+
                 return ActionResultType.PASS;
             }
         }
@@ -55,6 +63,10 @@ public class StructureItem extends Item {
     @OnlyIn(Dist.CLIENT)
     public GuiStructure getScreen() {
         return null;
+    }
+
+    public void scanningMode(ItemUseContext context)
+    {
     }
 
     /**

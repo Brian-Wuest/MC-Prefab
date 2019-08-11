@@ -34,7 +34,7 @@ public class StructureChickenCoop extends Structure {
         Structure.ScanStructure(
                 world,
                 originalPos,
-                originalPos.east(10),
+                originalPos.east(10).south(),
                 originalPos.south(6).west(3).up(7),
                 "..\\src\\main\\resources\\assets\\prefab\\structures\\chickencoop.zip",
                 clearedSpace,

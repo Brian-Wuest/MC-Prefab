@@ -20,6 +20,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
@@ -81,8 +82,8 @@ public class StructureAlternateStart extends Structure {
         BuildClear clearedSpace = new BuildClear();
         clearedSpace.getShape().setDirection(Direction.SOUTH);
         clearedSpace.getShape().setHeight(8);
-        clearedSpace.getShape().setLength(15);
-        clearedSpace.getShape().setWidth(15);
+        clearedSpace.getShape().setLength(16);
+        clearedSpace.getShape().setWidth(16);
         clearedSpace.getStartingPosition().setSouthOffset(1);
         clearedSpace.getStartingPosition().setEastOffset(8);
         clearedSpace.getStartingPosition().setHeightOffset(-1);
@@ -134,14 +135,14 @@ public class StructureAlternateStart extends Structure {
             }
 
             if (CommonProxy.proxyConfiguration.serverConfiguration.addSword) {
-                // Include the swift blade if WuestUtilities has registered the
-                // swift blades.
-                ResourceLocation name = new ResourceLocation("repurpose", "itemSwiftBladeStone");
-
                 Item sword = Items.STONE_SWORD;
 
-                if (ForgeRegistries.ITEMS.containsKey(name)) {
-                    sword = ForgeRegistries.ITEMS.getValue(name);
+                if (ModList.get().isLoaded("repurpose")) {
+                    ResourceLocation name = new ResourceLocation("repurpose", "itemSwiftBladeStone");
+
+                    if (ForgeRegistries.ITEMS.containsKey(name)) {
+                        sword = ForgeRegistries.ITEMS.getValue(name);
+                    }
                 }
 
                 chestTile.setInventorySlotContents(itemSlot++, new ItemStack(sword));

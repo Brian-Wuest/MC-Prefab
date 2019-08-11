@@ -56,7 +56,6 @@ public class BuildBlock {
             Direction vineFacing = BuildBlock.getVineFacing(configuration, foundBlock, block, structure.getClearSpace().getShape().getDirection());
             Direction.Axis logFacing = BuildBlock.getBoneFacing(configuration, foundBlock, block, structure.getClearSpace().getShape().getDirection());
             Direction.Axis boneFacing = BuildBlock.getBoneFacing(configuration, foundBlock, block, structure.getClearSpace().getShape().getDirection());
-            Direction.Axis quartzFacing = BuildBlock.getBoneFacing(configuration, foundBlock, block, structure.getClearSpace().getShape().getDirection());
             Direction leverOrientation = BuildBlock.getLeverOrientation(configuration, foundBlock, block, structure.getClearSpace().getShape().getDirection());
             Map<Direction, Boolean> fourWayFacings = BuildBlock.getFourWayBlockFacings(configuration, foundBlock, block, structure.getClearSpace().getShape().getDirection());
 
@@ -90,8 +89,8 @@ public class BuildBlock {
                                 continue;
                             }
 
-                            comparable = BuildBlock.setComparable(comparable, foundBlock, property, configuration, block, assumedNorth, propertyValue, vineFacing, logFacing,
-                                    boneFacing, quartzFacing, leverOrientation, structure, fourWayFacings);
+                            comparable = BuildBlock.setComparable(comparable, foundBlock, property, configuration, block, propertyValue, vineFacing, logFacing,
+                                    boneFacing, leverOrientation, structure, fourWayFacings);
 
                             if (comparable == null) {
                                 continue;
@@ -106,11 +105,9 @@ public class BuildBlock {
                                         + "] for block [" + block.getBlockName() + "] The default value will be used.");
                             }
                         } catch (Exception ex) {
-                            if (property != null && buildProperty != null) {
-                                System.out.println("Error getting properly value for property name [" + property.getName() + "] property value [" + buildProperty.getValue()
-                                        + "] for block [" + block.getBlockName() + "]");
-                                throw ex;
-                            }
+                            System.out.println("Error getting properly value for property name [" + property.getName() + "] property value [" + buildProperty.getValue()
+                                    + "] for block [" + block.getBlockName() + "]");
+                            throw ex;
                         }
                     } else {
                         // System.out.println("Property: [" + property.getName() + "] does not exist for Block: [" +
@@ -141,11 +138,12 @@ public class BuildBlock {
         return currentFacing;
     }
 
+    @SuppressWarnings({"OptionalGetWithoutIsPresent", "OptionalUsedAsFieldOrParameterType"})
     private static Comparable setComparable(Comparable<?> comparable, Block foundBlock, IProperty<?> property, StructureConfiguration configuration, BuildBlock block,
-                                            Direction assumedNorth, Optional<?> propertyValue, Direction vineFacing, Direction.Axis logFacing, Axis boneFacing, Direction.Axis quartzFacing, Direction leverOrientation,
+                                            Optional<?> propertyValue, Direction vineFacing, Direction.Axis logFacing, Axis boneFacing, Direction leverOrientation,
                                             Structure structure,
-                                            Map<Direction, Boolean> fourwayFacings) {
-        if (property.getName().equals("facing") && !(foundBlock instanceof LeverBlock)) {
+                                            Map<Direction, Boolean> fourWayFacings) {
+        if (property.getName().equals("facing") && !(foundBlock instanceof HorizontalFaceBlock)) {
             // Facing properties should be relative to the configuration facing.
             Direction facing = Direction.byName(propertyValue.get().toString());
 
@@ -155,7 +153,7 @@ public class BuildBlock {
             comparable = facing;
 
             block.setHasFacing(true);
-        } else if (property.getName().equals("facing") && foundBlock instanceof LeverBlock) {
+        } else if (property.getName().equals("facing") && foundBlock instanceof HorizontalFaceBlock) {
             comparable = leverOrientation;
             block.setHasFacing(true);
         } else if (property.getName().equals("rotation")) {
@@ -186,7 +184,7 @@ public class BuildBlock {
                 comparable = false;
             }
         } else if (foundBlock instanceof FourWayBlock && !property.getName().equals("waterlogged")) {
-            for (Map.Entry<Direction, Boolean> entry : fourwayFacings.entrySet()) {
+            for (Map.Entry<Direction, Boolean> entry : fourWayFacings.entrySet()) {
                 if (property.getName().equals(entry.getKey().getName2())) {
                     comparable = entry.getValue();
                 }
@@ -315,10 +313,10 @@ public class BuildBlock {
         Direction leverOrientation = Direction.NORTH;
         AttachFace attachedTo = AttachFace.FLOOR;
 
-        if (foundBlock instanceof LeverBlock) {
+        if (foundBlock instanceof HorizontalFaceBlock) {
             // Levers have a special facing.
-            leverOrientation = LeverBlock.HORIZONTAL_FACING.parseValue(block.getProperty("facing").getValue().toUpperCase()).get();
-            attachedTo = LeverBlock.FACE.parseValue(block.getProperty("face").getValue().toUpperCase()).get();
+            leverOrientation = LeverBlock.HORIZONTAL_FACING.parseValue(block.getProperty("facing").getValue()).get();
+            attachedTo = LeverBlock.FACE.parseValue(block.getProperty("face").getValue()).get();
 
             if (attachedTo == AttachFace.FLOOR
                     || attachedTo == AttachFace.CEILING) {

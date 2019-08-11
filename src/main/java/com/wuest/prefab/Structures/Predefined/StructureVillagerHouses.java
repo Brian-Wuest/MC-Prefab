@@ -19,10 +19,10 @@ public class StructureVillagerHouses extends Structure {
         clearedSpace.getShape().setHeight(houseStyle.getHeight());
         clearedSpace.getShape().setLength(houseStyle.getLength());
         clearedSpace.getShape().setWidth(houseStyle.getWidth());
-        clearedSpace.getStartingPosition().setSouthOffset(0);
+        clearedSpace.getStartingPosition().setSouthOffset(1);
         clearedSpace.getStartingPosition().setEastOffset(houseStyle.getEastOffSet());
 
-        BlockPos cornerPos = originalPos.east(houseStyle.getEastOffSet());
+        BlockPos cornerPos = originalPos.south().east(houseStyle.getEastOffSet());
         Structure.ScanStructure(
                 world,
                 originalPos,

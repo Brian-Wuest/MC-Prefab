@@ -86,8 +86,17 @@ public class GuiWareHouse extends GuiStructure {
             this.configuration.dyeColor = DyeColor.byId(this.configuration.dyeColor.getId() + 1);
             this.btnGlassColor.setMessage(GuiLangKeys.translateDye(this.configuration.dyeColor));
         } else if (button == this.btnVisualize) {
-            StructureWarehouse structure = StructureWarehouse.CreateInstance(StructureWarehouse.ASSETLOCATION, StructureWarehouse.class);
-            StructureRenderHandler.setStructure(structure, Direction.NORTH, this.configuration);
+            if (this.configuration.advanced)
+            {
+                StructureWarehouse structure = StructureWarehouse.CreateInstance(StructureWarehouse.ADVANCED_ASSET_LOCATION, StructureWarehouse.class);
+                StructureRenderHandler.setStructure(structure, Direction.NORTH, this.configuration);
+            }
+            else
+            {
+                StructureWarehouse structure = StructureWarehouse.CreateInstance(StructureWarehouse.ASSETLOCATION, StructureWarehouse.class);
+                StructureRenderHandler.setStructure(structure, Direction.NORTH, this.configuration);
+            }
+
             this.minecraft.displayGuiScreen(null);
         }
     }

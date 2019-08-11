@@ -3,6 +3,8 @@ package com.wuest.prefab.Gui.Controls;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.client.config.GuiUtils;
 
+import java.awt.*;
+
 /**
  * @author WuestMan
  */
@@ -12,13 +14,16 @@ public class GuiCheckBox extends net.minecraftforge.fml.client.config.GuiCheckBo
     protected boolean withShadow;
     protected Minecraft mineCraft;
     protected String displayString;
+    protected IPressable handler;
 
-    public GuiCheckBox(int xPos, int yPos, String displayString, boolean isChecked) {
+    public GuiCheckBox(int xPos, int yPos, String displayString, boolean isChecked, IPressable handler) {
         super(xPos, yPos, displayString, isChecked);
 
         this.boxWidth = 11;
         this.mineCraft = Minecraft.getInstance();
         this.displayString = displayString;
+        this.stringColor = Color.DARK_GRAY.getRGB();
+        this.handler = handler;
     }
 
     /**
@@ -39,6 +44,16 @@ public class GuiCheckBox extends net.minecraftforge.fml.client.config.GuiCheckBo
     public GuiCheckBox setStringColor(int color) {
         this.stringColor = color;
         return this;
+    }
+
+    @Override
+    public void onPress()
+    {
+        super.onPress();
+
+        if (this.handler != null) {
+            this.handler.onPress(this);
+        }
     }
 
     /**
@@ -74,7 +89,7 @@ public class GuiCheckBox extends net.minecraftforge.fml.client.config.GuiCheckBo
 
             if (this.packedFGColor != 0) {
                 color = this.packedFGColor;
-            } else if (this.active) {
+            } else if (!this.active) {
                 color = 10526880;
             }
 
