@@ -63,14 +63,14 @@ public class GuiStartHouseChooser extends GuiTabScreen {
     protected GuiTextSlider btnCeilingBlock;
     protected GuiTextSlider btnWallWoodType;
 
-    protected HouseConfiguration houseConfiguration;
     protected ServerModConfiguration serverConfiguration;
     protected boolean allowItemsInChestAndFurnace = true;
 
-    public GuiStartHouseChooser(BlockPos pos) {
+    public HouseConfiguration houseConfiguration;
+
+    public GuiStartHouseChooser() {
         super();
         this.houseConfiguration = ClientEventHandler.playerConfig.getClientConfig("Starter House", HouseConfiguration.class);
-        this.houseConfiguration.pos = pos;
         this.Tabs.setWidth(256);
     }
 
@@ -265,7 +265,8 @@ public class GuiStartHouseChooser extends GuiTabScreen {
         return true;
     }
 
-    private void Initialize() {
+    @Override
+    protected void Initialize() {
         // Get the upper left hand corner of the GUI box.
         int grayBoxX = (this.width / 2) - 188;
         int grayBoxY = (this.height / 2) - 83;

@@ -7,7 +7,6 @@ import com.wuest.prefab.Proxy.Messages.Handlers.ConfigSyncHandler;
 import com.wuest.prefab.Proxy.Messages.Handlers.PlayerEntityHandler;
 import com.wuest.prefab.Proxy.Messages.PlayerEntityTagMessage;
 import com.wuest.prefab.Structures.Config.BasicStructureConfiguration.EnumBasicStructureName;
-import com.wuest.prefab.Structures.Gui.*;
 import com.wuest.prefab.Structures.Items.*;
 import com.wuest.prefab.Structures.Messages.StructureHandler;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage;
@@ -152,10 +151,7 @@ public class ModRegistry {
      * The ArrayList of mod registered blocks.
      */
     public static ArrayList<Block> ModBlocks = new ArrayList<Block>();
-    /**
-     * The hashmap of mod guis.
-     */
-    public static HashMap<String, Class> ModGuis = new HashMap<String, Class>();
+
     private static ArrayList<BlockCompressedStone> CompressedStones = new ArrayList<BlockCompressedStone>();
     private static ArrayList<BlockCompressedObsidian> CompressedObsidians = new ArrayList<BlockCompressedObsidian>();
 
@@ -680,27 +676,5 @@ public class ModRegistry {
      */
     public static void setBlockName(Block block, String blockName) {
         block.setRegistryName(blockName);
-    }
-
-    /**
-     * Adds all of the Mod Guis to the HasMap.
-     */
-    public static void AddGuis() {
-        ModRegistry.ModGuis.put(ModRegistry.GuiWareHouse, GuiWareHouse.class);
-        ModRegistry.ModGuis.put(ModRegistry.GuiChickenCoop, GuiChickenCoop.class);
-        ModRegistry.ModGuis.put(ModRegistry.GuiProduceFarm, GuiProduceFarm.class);
-        ModRegistry.ModGuis.put(ModRegistry.GuiTreeFarm, GuiTreeFarm.class);
-        ModRegistry.ModGuis.put(ModRegistry.GuiFishPond, GuiFishPond.class);
-        ModRegistry.ModGuis.put(ModRegistry.GuiStartHouseChooser, GuiStartHouseChooser.class);
-        ModRegistry.ModGuis.put(ModRegistry.GuiAdvancedWareHouse, GuiAdvancedWareHouse.class);
-        ModRegistry.ModGuis.put(ModRegistry.GuiMonsterMasher, GuiMonsterMasher.class);
-        ModRegistry.ModGuis.put(ModRegistry.GuiHorseStable, GuiHorseStable.class);
-        ModRegistry.ModGuis.put(ModRegistry.GuiNetherGate, GuiNetherGate.class);
-        ModRegistry.ModGuis.put(ModRegistry.GuiBasicStructure, GuiBasicStructure.class);
-        ModRegistry.ModGuis.put(ModRegistry.GuiVillagerHouses, GuiVillaerHouses.class);
-        ModRegistry.ModGuis.put(ModRegistry.GuiModerateHouse, GuiModerateHouse.class);
-        ModRegistry.ModGuis.put(ModRegistry.GuiBulldozer, GuiBulldozer.class);
-        ModRegistry.ModGuis.put(ModRegistry.GuiInstantBridge, GuiInstantBridge.class);
-        ModRegistry.ModGuis.put(ModRegistry.GuiStructurePart, GuiStructurePart.class);
     }
 }

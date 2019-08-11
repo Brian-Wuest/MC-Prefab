@@ -35,14 +35,14 @@ public class GuiModerateHouse extends GuiStructure {
         super("Moderate House");
 
         this.structureConfiguration = EnumStructureConfiguration.ModerateHouse;
-
-        if (!Minecraft.getInstance().player.isCreative()) {
-            this.allowItemsInChestAndFurnace = !ClientEventHandler.playerConfig.builtStarterHouse;
-        }
     }
 
     @Override
     protected void Initialize() {
+        if (!Minecraft.getInstance().player.isCreative()) {
+            this.allowItemsInChestAndFurnace = !ClientEventHandler.playerConfig.builtStarterHouse;
+        }
+
         this.serverConfiguration = Prefab.proxy.getServerConfiguration();
         this.configuration = ClientEventHandler.playerConfig.getClientConfig("Moderate Houses", ModerateHouseConfiguration.class);
         this.configuration.pos = this.pos;

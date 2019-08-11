@@ -2,25 +2,16 @@ package com.wuest.prefab.Structures.Items;
 
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Structures.Gui.GuiStructure;
-import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * @author WuestMan
  */
 public class StructureItem extends Item {
-
-    /**
-     * Get's the GuiId to show to the user when this item is used.
-     */
-    protected int guiId = 0;
 
     /**
      * Initializes a new instance of the StructureItem class.
@@ -48,9 +39,7 @@ public class StructureItem extends Item {
                 }
                 else {
                     // Open the client side gui to determine the house options.
-                    GuiStructure screen = this.getScreen();
-                    screen.pos = context.getPos();
-                    Minecraft.getInstance().displayGuiScreen(screen);
+                    Prefab.proxy.openGuiForItem(context);
                 }
 
                 return ActionResultType.PASS;
@@ -58,11 +47,6 @@ public class StructureItem extends Item {
         }
 
         return ActionResultType.FAIL;
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public GuiStructure getScreen() {
-        return null;
     }
 
     public void scanningMode(ItemUseContext context)

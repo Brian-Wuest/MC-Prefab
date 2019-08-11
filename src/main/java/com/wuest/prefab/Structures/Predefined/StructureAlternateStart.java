@@ -1,6 +1,5 @@
 package com.wuest.prefab.Structures.Predefined;
 
-import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.Structures.Base.*;
 import com.wuest.prefab.Structures.Config.HouseConfiguration;

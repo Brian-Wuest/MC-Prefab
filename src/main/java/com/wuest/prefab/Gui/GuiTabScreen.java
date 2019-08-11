@@ -3,7 +3,9 @@ package com.wuest.prefab.Gui;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.wuest.prefab.Gui.Controls.GuiTab;
 import com.wuest.prefab.Gui.Controls.GuiTabTray;
+import com.wuest.prefab.Structures.Gui.GuiStructure;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -15,48 +17,12 @@ import java.util.ArrayList;
 /**
  * @author WuestMan
  */
-public class GuiTabScreen extends Screen {
+public class GuiTabScreen extends GuiStructure {
     protected GuiTabTray Tabs;
 
     public GuiTabScreen() {
-        super(new StringTextComponent("TabScreen"));
+        super("TabScreen");
         this.Tabs = new GuiTabTray();
-    }
-
-    /**
-     * Draws a textured rectangle Args: x, y, z, width, height, textureWidth, textureHeight
-     *
-     * @param x             The X-Axis screen coordinate.
-     * @param y             The Y-Axis screen coordinate.
-     * @param z             The Z-Axis screen coordinate.
-     * @param width         The width of the rectangle.
-     * @param height        The height of the rectangle.
-     * @param textureWidth  The width of the texture.
-     * @param textureHeight The height of the texture.
-     */
-    public static void drawModalRectWithCustomSizedTexture(int x, int y, int z, int width, int height, float textureWidth, float textureHeight) {
-        GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        GlStateManager.enableBlend();
-        GlStateManager.blendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
-
-        float u = 0;
-        float v = 0;
-        float f = 1.0F / textureWidth;
-        float f1 = 1.0F / textureHeight;
-        Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder vertexbuffer = tessellator.getBuffer();
-
-        vertexbuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
-
-        vertexbuffer.pos(x, y + height, z).tex(u * f, (v + height) * f1).endVertex();
-
-        vertexbuffer.pos(x + width, y + height, z).tex((u + width) * f, (v + height) * f1).endVertex();
-
-        vertexbuffer.pos(x + width, y, z).tex((u + width) * f, v * f1).endVertex();
-
-        vertexbuffer.pos(x, y, z).tex(u * f, v * f1).endVertex();
-
-        tessellator.draw();
     }
 
     /**
@@ -87,6 +53,11 @@ public class GuiTabScreen extends Screen {
 
         // Draw the tabs.
         this.Tabs.DrawTabs(this.minecraft, mouseX, mouseY);
+    }
+
+    public void buttonClicked(Button button)
+    {
+        // This does nothing on purpose.
     }
 
     /**

@@ -1,13 +1,8 @@
 package com.wuest.prefab.Structures.Items;
 
 import com.wuest.prefab.Structures.Config.ModerateHouseConfiguration;
-import com.wuest.prefab.Structures.Gui.GuiModerateHouse;
-import com.wuest.prefab.Structures.Gui.GuiStructure;
-import com.wuest.prefab.Structures.Predefined.StructureChickenCoop;
 import com.wuest.prefab.Structures.Predefined.StructureModerateHouse;
 import net.minecraft.item.ItemUseContext;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * @author WuestMan
@@ -20,12 +15,6 @@ public class ItemModerateHouse extends StructureItem {
 	 */
 	public ItemModerateHouse(String name) {
 		super(name);
-	}
-
-	@Override
-	@OnlyIn(Dist.CLIENT)
-	public GuiStructure getScreen() {
-		return new GuiModerateHouse();
 	}
 
 	@Override

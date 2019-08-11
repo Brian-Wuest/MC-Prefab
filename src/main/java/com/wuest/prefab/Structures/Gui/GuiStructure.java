@@ -138,7 +138,7 @@ public abstract class GuiStructure extends Screen {
      * @param textureWidth  The width of the texture.
      * @param textureHeight The height of the texture.
      */
-    public void drawModalRectWithCustomSizedTexture(int x, int y, int z, int width, int height, float textureWidth, float textureHeight) {
+    public static void drawModalRectWithCustomSizedTexture(int x, int y, int z, int width, int height, float textureWidth, float textureHeight) {
         GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         GlStateManager.enableBlend();
         GlStateManager.blendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
@@ -148,21 +148,17 @@ public abstract class GuiStructure extends Screen {
         float f = 1.0F / textureWidth;
         float f1 = 1.0F / textureHeight;
         Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder vertexbuffer = tessellator.getBuffer();
+        BufferBuilder vertexBuffer = tessellator.getBuffer();
 
-        vertexbuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
+        vertexBuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
 
-        vertexbuffer.pos(x, y + height, z)
-                .tex(u * f, (v + height) * f1).endVertex();
+        vertexBuffer.pos(x, y + height, z).tex(u * f, (v + height) * f1).endVertex();
 
-        vertexbuffer.pos(x + width, y + height, z)
-                .tex((u + width) * f, (v + height) * f1).endVertex();
+        vertexBuffer.pos(x + width, y + height, z).tex((u + width) * f, (v + height) * f1).endVertex();
 
-        vertexbuffer.pos(x + width, y, z)
-                .tex((u + width) * f, v * f1).endVertex();
+        vertexBuffer.pos(x + width, y, z).tex((u + width) * f, v * f1).endVertex();
 
-        vertexbuffer.pos(x, y, z)
-                .tex(u * f, v * f1).endVertex();
+        vertexBuffer.pos(x, y, z).tex(u * f, v * f1).endVertex();
 
         tessellator.draw();
     }

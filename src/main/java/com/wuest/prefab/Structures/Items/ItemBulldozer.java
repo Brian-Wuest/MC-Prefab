@@ -2,9 +2,7 @@ package com.wuest.prefab.Structures.Items;
 
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.ModRegistry;
-import com.wuest.prefab.Structures.Gui.GuiBulldozer;
-import com.wuest.prefab.Structures.Gui.GuiStructure;
-import net.minecraft.client.Minecraft;
+import com.wuest.prefab.Prefab;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
@@ -49,20 +47,12 @@ public class ItemBulldozer extends StructureItem {
         if (context.getWorld().isRemote) {
             if (context.getFace() == Direction.UP && this.getPoweredValue(context.getPlayer(), context.getHand())) {
                 // Open the client side gui to determine the house options.
-                GuiStructure screen = this.getScreen();
-                screen.pos = context.getPos();
-                Minecraft.getInstance().displayGuiScreen(screen);
+                Prefab.proxy.openGuiForItem(context);
                 return ActionResultType.PASS;
             }
         }
 
         return ActionResultType.FAIL;
-    }
-
-    @Override
-    @OnlyIn(Dist.CLIENT)
-    public GuiStructure getScreen() {
-        return new GuiBulldozer();
     }
 
     /**

@@ -7,6 +7,8 @@ import com.wuest.prefab.Events.ModEventHandler;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Structures.Events.StructureEventHandler;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.crafting.CraftingHelper;
@@ -73,5 +75,9 @@ public class CommonProxy {
 
     public ServerModConfiguration getServerConfiguration() {
         return CommonProxy.proxyConfiguration.serverConfiguration;
+    }
+
+    public void openGuiForItem(ItemUseContext itemUseContext)
+    {
     }
 }

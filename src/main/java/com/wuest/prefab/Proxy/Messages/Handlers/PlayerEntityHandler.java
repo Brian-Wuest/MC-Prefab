@@ -23,14 +23,11 @@ public class PlayerEntityHandler {
     public static void handle(final PlayerEntityTagMessage message, Supplier<NetworkEvent.Context> ctx) {
         NetworkEvent.Context context = ctx.get();
 
-        context.enqueueWork(new Runnable() {
-            @Override
-            public void run() {
-                // This is client side.
-                CompoundNBT newPlayerTag = Minecraft.getInstance().player.getEntityData();
-                newPlayerTag.put(EntityPlayerConfiguration.PLAYER_ENTITY_TAG, message.getMessageTag());
-                ClientEventHandler.playerConfig.loadFromNBTTagCompound(message.getMessageTag());
-            }
+        context.enqueueWork(() -> {
+            // This is client side.
+            CompoundNBT newPlayerTag = Minecraft.getInstance().player.getEntityData();
+            newPlayerTag.put(EntityPlayerConfiguration.PLAYER_ENTITY_TAG, message.getMessageTag());
+            ClientEventHandler.playerConfig.loadFromNBTTagCompound(message.getMessageTag());
         });
 
         context.setPacketHandled(true);
