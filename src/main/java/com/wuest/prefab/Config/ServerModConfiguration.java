@@ -39,7 +39,6 @@ public class ServerModConfiguration {
     public boolean addFurnace;
     public boolean addChests;
     public boolean addChestContents;
-    public boolean addFarm;
     public boolean addMineshaft;
 
     public String startingItem;
@@ -85,7 +84,6 @@ public class ServerModConfiguration {
         configuration.addFurnace = tag.getBoolean(ModConfiguration.addFurnaceName);
         configuration.addChests = tag.getBoolean(ModConfiguration.addChestsName);
         configuration.addChestContents = tag.getBoolean(ModConfiguration.addChestContentsName);
-        configuration.addFarm = tag.getBoolean(ModConfiguration.addFarmName);
         configuration.addMineshaft = tag.getBoolean(ModConfiguration.addMineshaftName);
 
         for (String key : ModConfiguration.recipeKeys) {
@@ -124,7 +122,6 @@ public class ServerModConfiguration {
         tag.putBoolean(ModConfiguration.addFurnaceName, this.addFurnace);
         tag.putBoolean(ModConfiguration.addChestsName, this.addChests);
         tag.putBoolean(ModConfiguration.addChestContentsName, this.addChestContents);
-        tag.putBoolean(ModConfiguration.addFarmName, this.addFarm);
         tag.putBoolean(ModConfiguration.addMineshaftName, this.addMineshaft);
 
         for (Entry<String, Boolean> entry : this.recipeConfiguration.entrySet()) {

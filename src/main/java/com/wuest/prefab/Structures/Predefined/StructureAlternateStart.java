@@ -34,6 +34,24 @@ public class StructureAlternateStart extends Structure {
     private BlockPos trapDoorPosition = null;
     private BlockPos signPosition = null;
 
+    public static void ScanBasicHouseStructure(World world, BlockPos originalPos, Direction playerFacing) {
+        BuildClear clearedSpace = new BuildClear();
+        clearedSpace.getShape().setDirection(Direction.SOUTH);
+        clearedSpace.getShape().setHeight(10);
+        clearedSpace.getShape().setLength(14);
+        clearedSpace.getShape().setWidth(11);
+        clearedSpace.getStartingPosition().setSouthOffset(1);
+        clearedSpace.getStartingPosition().setEastOffset(3);
+        clearedSpace.getStartingPosition().setHeightOffset(-1);
+
+        BlockPos corner = originalPos.east(3).south().down();
+        BlockPos corner2 = originalPos.west(8).south(15).up(10);
+
+        Structure.ScanStructure(world, originalPos, corner, corner2,
+                "..\\src\\main\\resources\\assets\\prefab\\structures\\basic_house.zip", clearedSpace,
+                playerFacing, false, false);
+    }
+
     public static void ScanRanchStructure(World world, BlockPos originalPos, Direction playerFacing) {
         BuildClear clearedSpace = new BuildClear();
         clearedSpace.getShape().setDirection(Direction.SOUTH);
@@ -229,7 +247,7 @@ public class StructureAlternateStart extends Structure {
         for (BlockPos torchPos : StructureAlternateStart.torchPositions) {
             BlockState surroundingState = world.getBlockState(torchPos);
             Block surroundingBlock = surroundingState.getBlock();
-            tempStacks = BuildingMethods.ConsolidateDrops(surroundingBlock, world, torchPos, surroundingState, tempStacks, blocksToNotAdd);
+            tempStacks = BuildingMethods.ConsolidateDrops(world, torchPos, surroundingState, tempStacks, blocksToNotAdd);
             BuildingMethods.ReplaceBlock(world, torchPos, torchState);
         }
 
@@ -410,7 +428,7 @@ public class StructureAlternateStart extends Structure {
                         // Make sure that this is a normal solid block and not a liquid or partial block.
                         if (!(surroundingBlock == Blocks.STONE || surroundingBlock == Blocks.ANDESITE || surroundingBlock == Blocks.DIORITE || surroundingBlock == Blocks.GRANITE)) {
                             // This is not a stone block. Get the drops then replace it with stone.
-                            originalStacks = BuildingMethods.ConsolidateDrops(surroundingBlock, world, tempPos, surroundingState, originalStacks, blocksToNotAdd);
+                            originalStacks = BuildingMethods.ConsolidateDrops(world, tempPos, surroundingState, originalStacks, blocksToNotAdd);
 
                             BuildingMethods.ReplaceBlock(world, tempPos, Blocks.STONE);
                         }
@@ -427,7 +445,7 @@ public class StructureAlternateStart extends Structure {
                             || surroundingBlock instanceof FlowingFluidBlock) {
                         // This is not a solid block. Get the drops then replace
                         // it with stone.
-                        originalStacks = BuildingMethods.ConsolidateDrops(surroundingBlock, world, tempPos, surroundingState, originalStacks, blocksToNotAdd);
+                        originalStacks = BuildingMethods.ConsolidateDrops(world, tempPos, surroundingState, originalStacks, blocksToNotAdd);
 
                         BuildingMethods.ReplaceBlock(world, tempPos, Blocks.STONE);
                     }
@@ -435,7 +453,7 @@ public class StructureAlternateStart extends Structure {
             }
 
             // Get the block drops then replace it with a ladder.
-            originalStacks = BuildingMethods.ConsolidateDrops(block, world, pos, state, originalStacks, blocksToNotAdd);
+            originalStacks = BuildingMethods.ConsolidateDrops(world, pos, state, originalStacks, blocksToNotAdd);
 
             // Don't place a ladder at this location since it will be destroyed.
             if (pos.getY() >= 10) {

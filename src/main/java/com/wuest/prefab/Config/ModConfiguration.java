@@ -111,7 +111,6 @@ public class ModConfiguration {
     static String addFurnaceName = "Add Furnace";
     static String addChestsName = "Add Chests";
     static String addChestContentsName = "Add Chest Contents";
-    static String addFarmName = "Add Farm";
     static String addMineshaftName = "Add Mineshaft";
     static String versionMessageName = "Version Message";
     static String showMessageName = "Show Message";
@@ -141,7 +140,6 @@ public class ModConfiguration {
     public BooleanValue addFurnace;
     public BooleanValue addChests;
     public BooleanValue addChestContents;
-    public BooleanValue addFarm;
     public BooleanValue addMineshaft;
     public ConfigValue<String> startingItem;
     public HashMap<String, BooleanValue> recipeConfiguration;
@@ -245,10 +243,6 @@ public class ModConfiguration {
                 .comment("Determines if the chest contents is included in the starter house. When playing on a server, the server configuration is used")
                 .define(ModConfiguration.starterHouseOptions + ModConfiguration.addChestContentsName, true);
 
-        Prefab.proxy.proxyConfiguration.addFarm = builder
-                .comment("Determines if the farm is included in the basic starter house. When playing on a server, the server configuration is used")
-                .define(ModConfiguration.starterHouseOptions + ModConfiguration.addFarmName, true);
-
         Prefab.proxy.proxyConfiguration.addMineshaft = builder
                 .comment("Determines if the mineshaft is included in the starter house. When playing on a server, the server configuration is used")
                 .define(ModConfiguration.starterHouseOptions + ModConfiguration.addMineshaftName, true);
@@ -304,7 +298,6 @@ public class ModConfiguration {
         Prefab.proxy.proxyConfiguration.serverConfiguration.addFurnace = Prefab.proxy.proxyConfiguration.addFurnace.get();
         Prefab.proxy.proxyConfiguration.serverConfiguration.addChests = Prefab.proxy.proxyConfiguration.addChests.get();
         Prefab.proxy.proxyConfiguration.serverConfiguration.addChestContents = Prefab.proxy.proxyConfiguration.addChestContents.get();
-        Prefab.proxy.proxyConfiguration.serverConfiguration.addFarm = Prefab.proxy.proxyConfiguration.addFarm.get();
         Prefab.proxy.proxyConfiguration.serverConfiguration.addMineshaft = Prefab.proxy.proxyConfiguration.addMineshaft.get();
 
         // Recipe configuration.

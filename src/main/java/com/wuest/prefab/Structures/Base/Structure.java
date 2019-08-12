@@ -344,7 +344,7 @@ public class Structure {
                 .offset(Direction.UP, this.clearSpace.getShape().getHeight());
 
         // Make sure this structure can be placed here.
-        if (!BuildingMethods.CheckBuildSpaceForAllowedBlockReplacement(configuration, world, startBlockPos, endBlockPos, player)) {
+        if (!BuildingMethods.CheckBuildSpaceForAllowedBlockReplacement(world, startBlockPos, endBlockPos, player)) {
             // Send a message to the player saying that the structure could not
             // be built.
             player.sendMessage(new TranslationTextComponent(GuiLangKeys.GUI_STRUCTURE_NOBUILD).setStyle(new Style().setColor(TextFormatting.GREEN)));

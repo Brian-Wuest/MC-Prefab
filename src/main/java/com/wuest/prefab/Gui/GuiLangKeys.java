@@ -55,7 +55,7 @@ public class GuiLangKeys {
     @Unlocalized(name = "Basic House")
     public static final String STARTER_HOUSE_BASIC_DISPLAY = "prefab.gui.starter.basic.display";
 
-    @Unlocalized(name = "A highly configurable house but has a very basic design.")
+    @Unlocalized(name = "A basic stone and brick house.")
     public static final String STARTER_HOUSE_BASIC_NOTES = "prefab.gui.starter.basic.notes";
 
     @Unlocalized(name = "Ranch Style")
@@ -207,6 +207,9 @@ public class GuiLangKeys {
 
     @Unlocalized(name = "light_blue")
     public static final String GUI_LIGHT_BLUE = "prefab.gui.light_blue";
+
+    @Unlocalized(name = "light_gray")
+    public static final String GUI_LIGHT_GRAY = "prefab.gui.light_gray";
 
     @Unlocalized(name = "yellow")
     public static final String GUI_YELLOW = "prefab.gui.yellow";
