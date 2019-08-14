@@ -241,7 +241,15 @@ public class HouseConfiguration extends StructureConfiguration {
 		DESERT(4, GuiLangKeys.STARTER_HOUSE_DESERT_DISPLAY, new ResourceLocation("prefab", "textures/gui/desert_house.png"), GuiLangKeys.STARTER_HOUSE_DESERT_NOTES, 152, 131,
 				"assets/prefab/structures/desert_house.zip"),
 		SNOWY(5, GuiLangKeys.STARTER_HOUSE_SNOWY_DISPLAY, new ResourceLocation("prefab", "textures/gui/snowy_house.png"), GuiLangKeys.STARTER_HOUSE_SNOWY_NOTES, 150, 125,
-				"assets/prefab/structures/snowy_house.zip");
+				"assets/prefab/structures/snowy_house.zip")
+		/*,
+		DESERT2(6,
+				GuiLangKeys.STARTER_HOUSE_DESERT_DISPLAY,
+				new ResourceLocation("prefab", "textures/gui/desert_house2.png"),
+				GuiLangKeys.STARTER_HOUSE_DESERT_NOTES,
+				150,
+				150,
+				"assets/prefab/structures/desert_house_2.zip")*/;
 
 		private final int value;
 		private final String displayName;

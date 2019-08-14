@@ -1,41 +1,24 @@
-# This is an example mods.toml file. It contains the data relating to the loading mods.
-# There are several mandatory fields (#mandatory), and many more that are optional (#optional).
-# The overall format is standard TOML format, v0.5.0.
-# Note that there are a couple of TOML lists in this file.
-# Find more information on toml format here:  https://github.com/toml-lang/toml
-# The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
 modLoader="javafml" #mandatory
-
-# A version range to match for said mod loader - for regular FML @Mod it will be the forge version
-loaderVersion="[28,]" #mandatory (26 is current forge version)
-
-# A URL to refer people to when problems occur with this mod
+loaderVersion="[24,)" #mandatory
 issueTrackerURL="https://github.com/Brian-Wuest/MC-Prefab/issues" #optional
 
-# A list of mods - how many allowed here is determined by the individual mod loader
 [[mods]] #mandatory
-modId="prefab" #mandatory
-
-# The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
-version="${version}" #mandatory
-
-# A display name for the mod
-displayName="Prefab" #mandatory
-
-# A URL to query for updates for this mod. See the JSON update specification <here>
-updateJSONURL="https://raw.githubusercontent.com/Brian-Wuest/MC-Prefab/master/changeLog.json" #optional
-
-# A URL for the "homepage" for this mod, displayed in the mod UI
-displayURL="https://www.curseforge.com/minecraft/mc-mods/prefab" #optional
-
-# A file name (in the root of the mod JAR) containing a logo for display
-logoFile="" #optional
-
-# A text field displayed in the mod UI
-credits="Kaojinn for making the textures and the construction of the ideas. Structure Preview functionality adapted from Botania by Vazkii http://botaniamod.net/license.php." #optional
-
-# A text field displayed in the mod UI
-authors="WuestMan" #optional
-
-# The description text for the mod (multi line!) (#mandatory)
-description='''Provides ways of making pre-fabricated houses and other structures.'''
+    modId="prefab" #mandatory
+    version="1.4.0.1" #mandatory
+    displayName="Prefab" #mandatory
+    #logoFile="" #optional
+    updateJSONURL="https://raw.githubusercontent.com/Brian-Wuest/MC-Prefab/master/changeLog.json" #optional
+    displayURL="https://www.curseforge.com/minecraft/mc-mods/prefab" #optional
+    credits="Kaojinn" #optional
+    authors="WuestMan" #optional
+    description='''
+Provides ways of making pre-fabricated houses and other structures.
+Thanks to Kaojinn for making the textures and the construction of the ideas.
+Structure Preview functionality adapted from Botania by Vazkii http://botaniamod.net/license.php.
+'''
+[[dependencies.prefab]]
+    modId="forge" #mandatory
+    mandatory=false #mandatory
+    versionRange="[28.0.45,)" #mandatory
+    ordering="NONE"
+    side="BOTH"

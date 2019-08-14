@@ -95,6 +95,25 @@ public class StructureAlternateStart extends Structure {
                 playerFacing, false, false);
     }
 
+    public static void ScanDesert2Structure(World world,  BlockPos originalPos, Direction playerFacing)
+    {
+        BuildClear clearedSpace = new BuildClear();
+        clearedSpace.getShape().setDirection(Direction.SOUTH);
+        clearedSpace.getShape().setHeight(10);
+        clearedSpace.getShape().setLength(14);
+        clearedSpace.getShape().setWidth(11);
+        clearedSpace.getStartingPosition().setSouthOffset(1);
+        clearedSpace.getStartingPosition().setEastOffset(3);
+        clearedSpace.getStartingPosition().setHeightOffset(-1);
+
+        BlockPos corner = originalPos.east(3).south().down();
+        BlockPos corner2 = originalPos.west(8).south(15).up(10);
+
+        Structure.ScanStructure(world, originalPos, corner, corner2,
+                "..\\src\\main\\resources\\assets\\prefab\\structures\\desert_house2.zip", clearedSpace,
+                playerFacing, false, false);
+    }
+
     public static void ScanStructure(World world, BlockPos originalPos, Direction playerFacing, String structureFileName, boolean includeAir, boolean excludeWater) {
         BuildClear clearedSpace = new BuildClear();
         clearedSpace.getShape().setDirection(Direction.SOUTH);

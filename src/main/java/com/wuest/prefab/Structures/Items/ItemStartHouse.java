@@ -36,11 +36,10 @@ public class ItemStartHouse extends StructureItem {
 
 	@Override
 	public void scanningMode(ItemUseContext context) {
-
-		StructureAlternateStart.ScanBasicHouseStructure(
+		/*StructureAlternateStart.ScanBasicHouseStructure(
 				context.getWorld(),
 				context.getPos(),
-				context.getPlayer().getHorizontalFacing());
+				context.getPlayer().getHorizontalFacing());*/
 
         /*StructureAlternateStart.ScanRanchStructure(
                 context.getWorld(),
@@ -61,6 +60,11 @@ public class ItemStartHouse extends StructureItem {
                 context.getWorld(),
                 context.getPos(),
                 context.getPlayer().getHorizontalFacing(), "desert_house", false, false);*/
+
+		StructureAlternateStart.ScanDesert2Structure(
+				context.getWorld(),
+				context.getPos(),
+				context.getPlayer().getHorizontalFacing());
 
 		/*StructureAlternateStart.ScanStructure(
 				context.getWorld(),

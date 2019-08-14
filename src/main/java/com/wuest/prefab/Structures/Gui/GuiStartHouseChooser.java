@@ -199,7 +199,10 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 			} else if (this.houseConfiguration.houseStyle == HouseStyle.BASIC) {
 				this.houseConfiguration.glassColor = DyeColor.LIGHT_GRAY;
 				this.btnGlassColor.setMessage(GuiLangKeys.translateDye(DyeColor.LIGHT_GRAY));
-			} else {
+			} /*else if (this.houseConfiguration.houseStyle == HouseStyle.DESERT2) {
+				this.houseConfiguration.glassColor = DyeColor.RED;
+				this.btnGlassColor.setMessage(GuiLangKeys.translateDye(DyeColor.RED));
+			}*/ else {
 				this.houseConfiguration.glassColor = DyeColor.CYAN;
 				this.btnGlassColor.setMessage(GuiLangKeys.translateDye(DyeColor.CYAN));
 			}
@@ -274,7 +277,7 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 		if (this.serverConfiguration.addBed) {
 			secondColumnY += 15;
 		}
-		
+
 		this.btnAddCraftingTable = new GuiCheckBox(x, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_CRAFTING_TABLE), this.houseConfiguration.addCraftingTable, null);
 		this.btnAddCraftingTable.setFGColor(color);
 		this.btnAddCraftingTable.setWithShadow(false);

@@ -21,69 +21,70 @@ import java.util.HashMap;
  *
  * @author WuestMan
  */
+@SuppressWarnings("AccessStaticViaInstance")
 public class ModConfiguration {
-    public static String OPTIONS = "general.";
-    public static String ChestContentOptions = "general.chest contents.";
-    public static String RecipeOptions = "general.recipes.";
-    public static String starterHouseOptions = "general.starter house.";
+    private static String OPTIONS = "general.";
+    private static String ChestContentOptions = "general.chest contents.";
+    private static String RecipeOptions = "general.recipes.";
+    private static String starterHouseOptions = "general.starter house.";
     public static String tagKey = "PrefabConfig";
-    public static ArrayList<String> validStartingItems = new ArrayList<String>(Arrays.asList("Starting House", "Moderate House", "Structure Part", "Nothing"));
+    private static ArrayList<String> validStartingItems = new ArrayList<String>(Arrays.asList("Starting House", "Moderate House", "Structure Part", "Nothing"));
     // Recipe Options
-    public static String compressedStoneKey = "Compressed Stone";
-    public static String compressedGlowStoneKey = "Compressed Glowstone";
-    public static String compressedDirteKey = "Compressed Dirt";
-    public static String compressedChestKey = "Compressed Chest";
-    public static String pileOfBricksKey = "Pile of Bricks";
-    public static String warehouseKey = "Warehouse";
-    public static String produceFarmKey = "Produce Farm";
-    public static String treeFarmKey = "Tree Farm";
-    public static String chickenCoopKey = "Chicken Coop";
-    public static String fishFarmKey = "Fish Farm";
-    public static String warehouseUpgradeKey = "Warehouse Upgrade";
-    public static String advancedWarehouseKey = "Advanced Warehouse";
-    public static String monsterMasherKey = "Monster Masher";
-    public static String bundleofTimberKey = "Bundle of Timber";
-    public static String horseStableKey = "Horse Stable";
-    public static String netherGateKey = "Nether Gate";
-    public static String advancedChickenCoopKey = "Advanced Chicken Coop";
-    public static String advancedHorseStableKey = "Advanced Horse Stable";
-    public static String barnKey = "Barn";
-    public static String machineryTowerKey = "Machinery Tower";
-    public static String defenseBunkerKey = "Defense Bunker";
-    public static String mineshaftEntranceKey = "Mineshaft Entrance";
-    public static String enderGatewayKey = "Ender Gateway";
-    public static String aquaBaseKey = "Aqua Base";
-    public static String grassyPlainsKey = "Grassy Plains";
-    public static String magicTempleKey = "Magic Temple";
-    public static String instantBridgeKey = "Instant Bridge";
-    public static String paperLanternKey = "Paper Lantern";
-    public static String compressedObsidianKey = "Compressed Obsidian";
-    public static String villagerHousesKey = "Villager Houses";
-    public static String phasicBlockKey = "Phasic Block";
-    public static String smartGlassKey = "Smart Glass";
-    public static String greenHouseKey = "Green House";
-    public static String startingHouseKey = "Starting House";
-    public static String glassStairsKey = "Glass Stairs";
-    public static String andesiteStairsKey = "Andesite Stairs";
-    public static String dioriteStairsKey = "Diorite Stairs";
-    public static String graniteStairsKey = "Granite Stairs";
-    public static String glassSlabsKey = "Glass Slabs";
-    public static String andesiteSlabsKey = "Andesite Slabs";
-    public static String dioriteSlabKey = "Diorite Slabs";
-    public static String grantiteSlabKey = "Granite Slabs";
-    public static String moderateHouseKey = "Moderate House";
-    public static String watchTowerKey = "Watch Tower";
-    public static String bulldozerKey = "Bulldozer";
-    public static String structurePartKey = "StructurePart";
-    public static String jailKey = "Jail";
-    public static String saloonKey = "Saloon";
-    public static String[] recipeKeys = new String[]
+    private static String compressedStoneKey = "Compressed Stone";
+    private static String compressedGlowStoneKey = "Compressed Glowstone";
+    private static String compressedDirteKey = "Compressed Dirt";
+    private static String compressedChestKey = "Compressed Chest";
+    private static String pileOfBricksKey = "Pile of Bricks";
+    private static String warehouseKey = "Warehouse";
+    private static String produceFarmKey = "Produce Farm";
+    private static String treeFarmKey = "Tree Farm";
+    private static String chickenCoopKey = "Chicken Coop";
+    private static String fishFarmKey = "Fish Farm";
+    private static String warehouseUpgradeKey = "Warehouse Upgrade";
+    private static String advancedWarehouseKey = "Advanced Warehouse";
+    private static String monsterMasherKey = "Monster Masher";
+    private static String bundleofTimberKey = "Bundle of Timber";
+    private static String horseStableKey = "Horse Stable";
+    private static String netherGateKey = "Nether Gate";
+    private static String advancedChickenCoopKey = "Advanced Chicken Coop";
+    private static String advancedHorseStableKey = "Advanced Horse Stable";
+    private static String barnKey = "Barn";
+    private static String machineryTowerKey = "Machinery Tower";
+    private static String defenseBunkerKey = "Defense Bunker";
+    private static String mineshaftEntranceKey = "Mineshaft Entrance";
+    private static String enderGatewayKey = "Ender Gateway";
+    private static String aquaBaseKey = "Aqua Base";
+    private static String grassyPlainsKey = "Grassy Plains";
+    private static String magicTempleKey = "Magic Temple";
+    private static String instantBridgeKey = "Instant Bridge";
+    private static String paperLanternKey = "Paper Lantern";
+    private static String compressedObsidianKey = "Compressed Obsidian";
+    private static String villagerHousesKey = "Villager Houses";
+    private static String phasicBlockKey = "Phasic Block";
+    private static String smartGlassKey = "Smart Glass";
+    private static String greenHouseKey = "Green House";
+    private static String startingHouseKey = "Starting House";
+    private static String glassStairsKey = "Glass Stairs";
+    private static String andesiteStairsKey = "Andesite Stairs";
+    private static String dioriteStairsKey = "Diorite Stairs";
+    private static String graniteStairsKey = "Granite Stairs";
+    private static String glassSlabsKey = "Glass Slabs";
+    private static String andesiteSlabsKey = "Andesite Slabs";
+    private static String dioriteSlabKey = "Diorite Slabs";
+    private static String grantiteSlabKey = "Granite Slabs";
+    private static String moderateHouseKey = "Moderate House";
+    private static String watchTowerKey = "Watch Tower";
+    private static String bulldozerKey = "Bulldozer";
+    private static String structurePartKey = "StructurePart";
+    private static String jailKey = "Jail";
+    private static String saloonKey = "Saloon";
+    static String[] recipeKeys = new String[]
             {compressedStoneKey, compressedGlowStoneKey, compressedDirteKey, compressedChestKey, pileOfBricksKey, warehouseKey, produceFarmKey, treeFarmKey, chickenCoopKey, fishFarmKey,
                     warehouseUpgradeKey, advancedWarehouseKey, monsterMasherKey, bundleofTimberKey, horseStableKey, netherGateKey, advancedChickenCoopKey, advancedHorseStableKey, barnKey,
                     machineryTowerKey, defenseBunkerKey, mineshaftEntranceKey, enderGatewayKey, magicTempleKey, instantBridgeKey, paperLanternKey, compressedObsidianKey, villagerHousesKey,
                     phasicBlockKey, smartGlassKey, greenHouseKey, startingHouseKey, glassStairsKey, glassSlabsKey, andesiteStairsKey, andesiteSlabsKey, dioriteStairsKey, dioriteSlabKey,
                     graniteStairsKey, grantiteSlabKey, moderateHouseKey, grassyPlainsKey, aquaBaseKey, watchTowerKey, bulldozerKey, structurePartKey, jailKey, saloonKey};
-    public static ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
+
     // Config file option names.
     static String maximumHouseSizeName = "Maximum Starting House Size";
     static String enableVersionCheckMessageName = "Enable Version Checking";
@@ -112,50 +113,45 @@ public class ModConfiguration {
     static String addChestsName = "Add Chests";
     static String addChestContentsName = "Add Chest Contents";
     static String addMineshaftName = "Add Mineshaft";
-    static String versionMessageName = "Version Message";
-    static String showMessageName = "Show Message";
+
     // Configuration Options.
-    public IntValue maximumStartingHouseSize;
-    public BooleanValue enableVersionCheckMessage;
-    public BooleanValue enableLoftHouse;
-    public BooleanValue includeSpawnersInMasher;
-    public BooleanValue enableStructurePreview;
-    public BooleanValue includeMineshaftChest;
+    private IntValue maximumStartingHouseSize;
+    private BooleanValue enableLoftHouse;
+    private BooleanValue includeSpawnersInMasher;
+    private BooleanValue enableStructurePreview;
+    private BooleanValue includeMineshaftChest;
     // Chest content options.
-    public BooleanValue addSword;
-    public BooleanValue addAxe;
-    public BooleanValue addHoe;
-    public BooleanValue addShovel;
-    public BooleanValue addPickAxe;
-    public BooleanValue addArmor;
-    public BooleanValue addFood;
-    public BooleanValue addCrops;
-    public BooleanValue addDirt;
-    public BooleanValue addCobble;
-    public BooleanValue addSaplings;
-    public BooleanValue addTorches;
+
+    private BooleanValue addSword;
+    private BooleanValue addAxe;
+    private BooleanValue addHoe;
+    private BooleanValue addShovel;
+    private BooleanValue addPickAxe;
+    private BooleanValue addArmor;
+    private BooleanValue addFood;
+    private BooleanValue addCrops;
+    private BooleanValue addDirt;
+    private BooleanValue addCobble;
+    private BooleanValue addSaplings;
+    private BooleanValue addTorches;
     // Start House options.
-    public BooleanValue addBed;
-    public BooleanValue addCraftingTable;
-    public BooleanValue addFurnace;
-    public BooleanValue addChests;
-    public BooleanValue addChestContents;
-    public BooleanValue addMineshaft;
-    public ConfigValue<String> startingItem;
-    public HashMap<String, BooleanValue> recipeConfiguration;
+    private BooleanValue addBed;
+    private BooleanValue addCraftingTable;
+    private BooleanValue addFurnace;
+    private BooleanValue addChests;
+    private BooleanValue addChestContents;
+    private BooleanValue addMineshaft;
+    private ConfigValue<String> startingItem;
+    private HashMap<String, BooleanValue> recipeConfiguration;
     public ServerModConfiguration serverConfiguration;
-    // Version Check Message Info
-    public String versionMessage = "";
-    public boolean showMessage = false;
 
     public ModConfiguration(ForgeConfigSpec.Builder builder) {
-        this.recipeConfiguration = new HashMap<String, BooleanValue>();
+        this.recipeConfiguration = new HashMap<>();
         this.serverConfiguration = new ServerModConfiguration();
-        ModConfiguration.BUILDER = builder;
         ModConfiguration.buildOptions(this, builder);
     }
 
-    public static void buildOptions(ModConfiguration config, ForgeConfigSpec.Builder builder) {
+    private static void buildOptions(ModConfiguration config, ForgeConfigSpec.Builder builder) {
         Prefab.proxy.proxyConfiguration = config;
         builder.comment("General");
 
@@ -274,7 +270,7 @@ public class ModConfiguration {
         ModConfiguration.UpdateServerConfig();
     }
 
-    public static void UpdateServerConfig() {
+    private static void UpdateServerConfig() {
         Prefab.proxy.proxyConfiguration.serverConfiguration.startingItem = Prefab.proxy.proxyConfiguration.startingItem.get();
         Prefab.proxy.proxyConfiguration.serverConfiguration.maximumStartingHouseSize = Prefab.proxy.proxyConfiguration.maximumStartingHouseSize.get();
         Prefab.proxy.proxyConfiguration.serverConfiguration.enableLoftHouse = Prefab.proxy.proxyConfiguration.enableLoftHouse.get();
