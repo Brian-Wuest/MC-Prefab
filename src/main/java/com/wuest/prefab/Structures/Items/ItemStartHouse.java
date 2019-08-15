@@ -61,7 +61,12 @@ public class ItemStartHouse extends StructureItem {
                 context.getPos(),
                 context.getPlayer().getHorizontalFacing(), "desert_house", false, false);*/
 
-		StructureAlternateStart.ScanDesert2Structure(
+		/*StructureAlternateStart.ScanDesert2Structure(
+				context.getWorld(),
+				context.getPos(),
+				context.getPlayer().getHorizontalFacing());*/
+
+		StructureAlternateStart.ScanSubAquaticStructure(
 				context.getWorld(),
 				context.getPos(),
 				context.getPlayer().getHorizontalFacing());

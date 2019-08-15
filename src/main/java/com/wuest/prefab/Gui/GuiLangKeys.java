@@ -79,14 +79,26 @@ public class GuiLangKeys {
     @Unlocalized(name = "Desert Style")
     public static final String STARTER_HOUSE_DESERT_DISPLAY = "prefab.gui.starter.desert.display";
 
+    @Unlocalized(name = "Desert Style 2")
+    public static final String STARTER_HOUSE_DESERT_DISPLAY2 = "prefab.gui.starter.desert.display2";
+
     @Unlocalized(name = "A house designed like a pyramid.")
     public static final String STARTER_HOUSE_DESERT_NOTES = "prefab.gui.starter.desert.notes";
+
+    @Unlocalized(name = "A house designed for desert living.")
+    public static final String STARTER_HOUSE_DESERT_NOTES2 = "prefab.gui.starter.desert.notes2";
 
     @Unlocalized(name = "Snowy Style")
     public static final String STARTER_HOUSE_SNOWY_DISPLAY = "prefab.gui.starter.snowy.display";
 
     @Unlocalized(name = "A house designed like an igloo.")
     public static final String STARTER_HOUSE_SNOWY_NOTES = "prefab.gui.starter.snowy.notes";
+
+    @Unlocalized(name = "Subaquatic Style")
+    public static final String STARTER_HOUSE_SUBAQUATIC_DISPLAY = "prefab.gui.starter.subaquatic.display";
+
+    @Unlocalized(name = "A house designed for under water life.")
+    public static final String STARTER_HOUSE_SUBAQUATIC_NOTES = "prefab.gui.starter.subaquatic.notes";
 
     @Unlocalized(name = "Add Torches")
     public static final String STARTER_HOUSE_ADD_TORCHES = "prefab.gui.starter.addtorches";

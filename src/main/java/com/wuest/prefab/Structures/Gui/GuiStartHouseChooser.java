@@ -199,10 +199,10 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 			} else if (this.houseConfiguration.houseStyle == HouseStyle.BASIC) {
 				this.houseConfiguration.glassColor = DyeColor.LIGHT_GRAY;
 				this.btnGlassColor.setMessage(GuiLangKeys.translateDye(DyeColor.LIGHT_GRAY));
-			} /*else if (this.houseConfiguration.houseStyle == HouseStyle.DESERT2) {
+			} else if (this.houseConfiguration.houseStyle == HouseStyle.DESERT2) {
 				this.houseConfiguration.glassColor = DyeColor.RED;
 				this.btnGlassColor.setMessage(GuiLangKeys.translateDye(DyeColor.RED));
-			}*/ else {
+			} else {
 				this.houseConfiguration.glassColor = DyeColor.CYAN;
 				this.btnGlassColor.setMessage(GuiLangKeys.translateDye(DyeColor.CYAN));
 			}

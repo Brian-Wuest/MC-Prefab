@@ -82,6 +82,10 @@
   "prefab.gui.starter.desert.notes": "像金字塔一样的小屋。",
   "prefab.gui.starter.snowy.display": "雪地风格",
   "prefab.gui.starter.snowy.notes": "像雪屋一样的小屋。",
+  "prefab.gui.starter.desert.display2": "沙漠风格2",
+  "prefab.gui.starter.desert.notes2": "为沙漠生活设计的房子。",
+  "prefab.gui.starter.subaquatic.display": "水下风格",
+  "prefab.gui.starter.subaquatic.notes": "为水下生活设计的房子。",
 
   "prefab.gui.starter.addtorches": "添加火炬",
   "prefab.gui.starter.addbed": "添加床",

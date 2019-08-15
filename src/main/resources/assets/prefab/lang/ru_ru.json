@@ -82,6 +82,10 @@
   "prefab.gui.starter.desert.notes": "Дом, спроектированный как пирамида.",
   "prefab.gui.starter.snowy.display": "Снежный стиль",
   "prefab.gui.starter.snowy.notes": "Дом, спроектированный как \"иглу\".",
+  "prefab.gui.starter.desert.display2": "Альтернативный Пустынный Стиль",
+  "prefab.gui.starter.desert.notes2": "Дом, предназначенный для жизни в пустыне.",
+  "prefab.gui.starter.subaquatic.display": "Субакватический стиль",
+  "prefab.gui.starter.subaquatic.notes": "Дом предназначен для подводной жизни.",
 
   "prefab.gui.starter.addtorches": "Добавить факелы",
   "prefab.gui.starter.addbed": "Добавить кровать",

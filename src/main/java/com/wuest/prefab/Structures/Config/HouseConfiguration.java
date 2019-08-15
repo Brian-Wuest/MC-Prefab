@@ -241,15 +241,21 @@ public class HouseConfiguration extends StructureConfiguration {
 		DESERT(4, GuiLangKeys.STARTER_HOUSE_DESERT_DISPLAY, new ResourceLocation("prefab", "textures/gui/desert_house.png"), GuiLangKeys.STARTER_HOUSE_DESERT_NOTES, 152, 131,
 				"assets/prefab/structures/desert_house.zip"),
 		SNOWY(5, GuiLangKeys.STARTER_HOUSE_SNOWY_DISPLAY, new ResourceLocation("prefab", "textures/gui/snowy_house.png"), GuiLangKeys.STARTER_HOUSE_SNOWY_NOTES, 150, 125,
-				"assets/prefab/structures/snowy_house.zip")
-		/*,
+				"assets/prefab/structures/snowy_house.zip"),
 		DESERT2(6,
-				GuiLangKeys.STARTER_HOUSE_DESERT_DISPLAY,
+				GuiLangKeys.STARTER_HOUSE_DESERT_DISPLAY2,
 				new ResourceLocation("prefab", "textures/gui/desert_house2.png"),
-				GuiLangKeys.STARTER_HOUSE_DESERT_NOTES,
-				150,
-				150,
-				"assets/prefab/structures/desert_house_2.zip")*/;
+				GuiLangKeys.STARTER_HOUSE_DESERT_NOTES2,
+				145,
+				153,
+				"assets/prefab/structures/desert_house2.zip"),
+		SUBAQUATIC(7,
+					GuiLangKeys.STARTER_HOUSE_SUBAQUATIC_DISPLAY,
+					new ResourceLocation("prefab", "textures/gui/subaquatic_house.png"),
+					GuiLangKeys.STARTER_HOUSE_SUBAQUATIC_NOTES,
+					144,
+					162,
+					"assets/prefab/structures/subaquatic_house.zip");
 
 		private final int value;
 		private final String displayName;
@@ -276,31 +282,17 @@ public class HouseConfiguration extends StructureConfiguration {
 		 * @return The house style found or HouseStyle.Basic if none found.
 		 */
 		public static HouseStyle ValueOf(int value) {
-			switch (value) {
-				case 1: {
-					return HouseStyle.RANCH;
-				}
+			HouseStyle returnValue = HouseStyle.BASIC;
 
-				case 2: {
-					return HouseStyle.LOFT;
-				}
-
-				case 3: {
-					return HouseStyle.HOBBIT;
-				}
-
-				case 4: {
-					return HouseStyle.DESERT;
-				}
-
-				case 5: {
-					return HouseStyle.SNOWY;
-				}
-
-				default: {
-					return HouseStyle.BASIC;
+			for (HouseStyle current : HouseStyle.values())
+			{
+				if (current.value == value) {
+					returnValue = current;
+					break;
 				}
 			}
+
+			return returnValue;
 		}
 
 		/**

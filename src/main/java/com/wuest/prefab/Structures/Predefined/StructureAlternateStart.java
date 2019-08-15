@@ -38,14 +38,14 @@ public class StructureAlternateStart extends Structure {
         BuildClear clearedSpace = new BuildClear();
         clearedSpace.getShape().setDirection(Direction.SOUTH);
         clearedSpace.getShape().setHeight(10);
-        clearedSpace.getShape().setLength(14);
-        clearedSpace.getShape().setWidth(11);
+        clearedSpace.getShape().setLength(12);
+        clearedSpace.getShape().setWidth(13);
         clearedSpace.getStartingPosition().setSouthOffset(1);
-        clearedSpace.getStartingPosition().setEastOffset(3);
+        clearedSpace.getStartingPosition().setEastOffset(5);
         clearedSpace.getStartingPosition().setHeightOffset(-1);
 
-        BlockPos corner = originalPos.east(3).south().down();
-        BlockPos corner2 = originalPos.west(8).south(15).up(10);
+        BlockPos corner = originalPos.east(5).south().down();
+        BlockPos corner2 = originalPos.west(8).south(13).up(10);
 
         Structure.ScanStructure(world, originalPos, corner, corner2,
                 "..\\src\\main\\resources\\assets\\prefab\\structures\\basic_house.zip", clearedSpace,
@@ -103,15 +103,34 @@ public class StructureAlternateStart extends Structure {
         clearedSpace.getShape().setLength(14);
         clearedSpace.getShape().setWidth(11);
         clearedSpace.getStartingPosition().setSouthOffset(1);
-        clearedSpace.getStartingPosition().setEastOffset(3);
+        clearedSpace.getStartingPosition().setEastOffset(8);
         clearedSpace.getStartingPosition().setHeightOffset(-1);
 
-        BlockPos corner = originalPos.east(3).south().down();
-        BlockPos corner2 = originalPos.west(8).south(15).up(10);
+        BlockPos corner = originalPos.east(8).south().down();
+        BlockPos corner2 = originalPos.west(6).south(16).up(10);
 
         Structure.ScanStructure(world, originalPos, corner, corner2,
                 "..\\src\\main\\resources\\assets\\prefab\\structures\\desert_house2.zip", clearedSpace,
                 playerFacing, false, false);
+    }
+
+    public static void ScanSubAquaticStructure(World world,  BlockPos originalPos, Direction playerFacing)
+    {
+        BuildClear clearedSpace = new BuildClear();
+        clearedSpace.getShape().setDirection(Direction.SOUTH);
+        clearedSpace.getShape().setHeight(13);
+        clearedSpace.getShape().setLength(9);
+        clearedSpace.getShape().setWidth(12);
+        clearedSpace.getStartingPosition().setSouthOffset(1);
+        clearedSpace.getStartingPosition().setEastOffset(8);
+        clearedSpace.getStartingPosition().setHeightOffset(-1);
+
+        BlockPos corner = originalPos.east(8).south().down();
+        BlockPos corner2 = originalPos.west(4).south(10).up(12);
+
+        Structure.ScanStructure(world, originalPos, corner, corner2,
+                "..\\src\\main\\resources\\assets\\prefab\\structures\\subaquatic_house.zip", clearedSpace,
+                playerFacing, true, true);
     }
 
     public static void ScanStructure(World world, BlockPos originalPos, Direction playerFacing, String structureFileName, boolean includeAir, boolean excludeWater) {

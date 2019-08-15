@@ -82,6 +82,10 @@
     "prefab.gui.starter.desert.notes": "A house designed like a pyramid.",
     "prefab.gui.starter.snowy.display": "Snowy Style",
     "prefab.gui.starter.snowy.notes": "A house designed like an igloo.",
+    "prefab.gui.starter.desert.display2": "Desert Style 2",
+    "prefab.gui.starter.desert.notes2": "A house designed for desert living.",
+    "prefab.gui.starter.subaquatic.display": "Subaquatic Style",
+    "prefab.gui.starter.subaquatic.notes": "A house designed for under water life.",
 
     "prefab.gui.starter.addtorches": "Add Torches",
     "prefab.gui.starter.addbed": "Add Bed",

@@ -82,6 +82,10 @@
     "prefab.gui.starter.desert.notes": "ピラミッドのように設計された家。",
     "prefab.gui.starter.snowy.display": "イグルースタイル",
     "prefab.gui.starter.snowy.notes": "イグルーのように設計された家。",
+    "prefab.gui.starter.desert.display2": "デザートスタイル2",
+    "prefab.gui.starter.desert.notes2": "砂漠の生活のために設計された家。",
+    "prefab.gui.starter.subaquatic.display": "水中生物のスタイル",
+    "prefab.gui.starter.subaquatic.notes": "水中生活のために設計された家。",
 
     "prefab.gui.starter.addtorches": "トーチを追加",
     "prefab.gui.starter.addbed": "ベッドを追加",
