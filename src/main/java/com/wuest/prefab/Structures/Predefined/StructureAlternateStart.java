@@ -9,10 +9,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.tileentity.ChestTileEntity;
-import net.minecraft.tileentity.FurnaceTileEntity;
-import net.minecraft.tileentity.SignTileEntity;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.*;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -165,8 +162,8 @@ public class StructureAlternateStart extends Structure {
         // Add each stone tool to the chest and leather armor.
         TileEntity tileEntity = world.getTileEntity(itemPosition);
 
-        if (tileEntity instanceof ChestTileEntity) {
-            ChestTileEntity chestTile = (ChestTileEntity) tileEntity;
+        if (tileEntity instanceof LockableLootTileEntity) {
+            LockableLootTileEntity chestTile = (LockableLootTileEntity) tileEntity;
 
             int itemSlot = 0;
 
@@ -512,7 +509,10 @@ public class StructureAlternateStart extends Structure {
         if ((!houseConfig.addBed && foundBlock instanceof BedBlock) || (!houseConfig.addChest && foundBlock instanceof ChestBlock)
                 || (!houseConfig.addTorches && foundBlock instanceof TorchBlock)
                 || (!houseConfig.addCraftingTable && foundBlock instanceof CraftingTableBlock)
-                || (!houseConfig.addFurnace && foundBlock instanceof FurnaceBlock)) {
+                || (!houseConfig.addFurnace && foundBlock instanceof FurnaceBlock)
+                || (!houseConfig.addChest && foundBlock instanceof  BarrelBlock)
+                || (foundBlock instanceof SeaGrassBlock)
+                || (foundBlock instanceof  TallSeaGrassBlock)) {
             // Don't place the block, returning true means that this has been
             // "handled"
             return true;
@@ -530,7 +530,8 @@ public class StructureAlternateStart extends Structure {
                     originalPos,
                     this.getClearSpace().getShape().getDirection(),
                     configuration.houseFacing);
-        } else if (foundBlock instanceof ChestBlock && this.chestPosition == null) {
+        } else if ((foundBlock instanceof ChestBlock && this.chestPosition == null)
+                    || (foundBlock instanceof  BarrelBlock && this.chestPosition == null)) {
             this.chestPosition = block.getStartingPosition().getRelativePosition(
                     originalPos,
                     this.getClearSpace().getShape().getDirection(),
