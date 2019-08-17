@@ -189,7 +189,6 @@ public class StructureConfiguration {
 		ItemStack stack = player.getHeldItemMainhand().getItem() == item ? player.getHeldItemMainhand() : player.getHeldItemOffhand();
 		Hand hand = player.getHeldItemMainhand().getItem() == item ? Hand.MAIN_HAND : Hand.OFF_HAND;
 
-		int slot = player.inventory.getSlotFor(stack);
 		ItemStack copy = stack.copy();
 
 		stack.damageItem(1, player, (player1) ->

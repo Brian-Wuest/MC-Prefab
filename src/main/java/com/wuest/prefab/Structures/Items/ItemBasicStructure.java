@@ -1,7 +1,9 @@
 package com.wuest.prefab.Structures.Items;
 
 import com.wuest.prefab.Prefab;
+import com.wuest.prefab.Structures.Config.BasicStructureConfiguration;
 import com.wuest.prefab.Structures.Config.BasicStructureConfiguration.EnumBasicStructureName;
+import com.wuest.prefab.Structures.Predefined.StructureBasic;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
@@ -42,29 +44,19 @@ public class ItemBasicStructure extends StructureItem {
      * Does something when the item is right-clicked.
      */
     @Override
-    public ActionResultType onItemUse(ItemUseContext context) {
-        if (context.getWorld().isRemote) {
-            if (context.getFace() == Direction.UP) {
-                // Un-comment this to scan the structure.
-                /*StructureBasic basicStructure = new StructureBasic();
-                ItemStack stack = context.getPlayer().getHeldItem(context.getHand());
-                BasicStructureConfiguration structureConfiguration = new BasicStructureConfiguration();
-                structureConfiguration.basicStructureName = ((ItemBasicStructure) stack.getItem()).structureType;
+    public void scanningMode(ItemUseContext context)
+    {
+        StructureBasic basicStructure = new StructureBasic();
+        ItemStack stack = context.getPlayer().getHeldItem(context.getHand());
+        BasicStructureConfiguration structureConfiguration = new BasicStructureConfiguration();
+        structureConfiguration.basicStructureName = ((ItemBasicStructure) stack.getItem()).structureType;
 
-                boolean isWaterStructure = structureConfiguration.basicStructureName == EnumBasicStructureName.AquaBase;
-                basicStructure.ScanStructure(
-                        context.getWorld(),
-                        context.getPos(),
-                        context.getPlayer().getHorizontalFacing(),
-                        structureConfiguration, isWaterStructure, isWaterStructure);*/
+        boolean isWaterStructure = structureConfiguration.basicStructureName == EnumBasicStructureName.AquaBase;
 
-                // Open the client side gui to determine the house options.
-                Prefab.proxy.openGuiForItem(context);
-
-                return ActionResultType.PASS;
-            }
-        }
-
-        return ActionResultType.FAIL;
+        basicStructure.ScanStructure(
+                context.getWorld(),
+                context.getPos(),
+                context.getPlayer().getHorizontalFacing(),
+                structureConfiguration, isWaterStructure, isWaterStructure);
     }
 }

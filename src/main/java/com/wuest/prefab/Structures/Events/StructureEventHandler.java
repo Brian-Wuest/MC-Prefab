@@ -7,7 +7,9 @@ import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.Proxy.Messages.PlayerEntityTagMessage;
 import com.wuest.prefab.Structures.Base.*;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.IWaterLoggable;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.item.HangingEntity;
@@ -315,6 +317,9 @@ public final class StructureEventHandler {
 					// This is a water loggable block and there were air blocks, make sure that it's no longer water logged.
 					currentState = currentState.with((BlockStateProperties.WATERLOGGED), false);
 					structure.world.setBlockState(currentPos, currentState);
+				} else if (currentState.getMaterial() == Material.WATER) {
+					structure.world.setBlockState(currentPos, Blocks.AIR.getDefaultState());
+
 				}
 			}
 		}
