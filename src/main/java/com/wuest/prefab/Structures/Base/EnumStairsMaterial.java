@@ -12,7 +12,7 @@ import net.minecraft.block.Blocks;
 @SuppressWarnings("SpellCheckingInspection")
 public enum EnumStairsMaterial {
     Brick("prefab.gui.material.brick", Blocks.BRICK_STAIRS.getDefaultState()),
-    Cobblestone("prefab.gui.material.cobble_stone", Blocks.STONE_STAIRS.getDefaultState()),
+    Cobblestone("prefab.gui.material.cobble_stone", Blocks.COBBLESTONE_STAIRS.getDefaultState()),
     StoneBrick("prefab.gui.material.stone_brick", Blocks.STONE_BRICK_STAIRS.getDefaultState()),
     Granite("prefab.gui.material.granite", Blocks.POLISHED_GRANITE_STAIRS.getDefaultState()),
     Andesite("prefab.gui.material.andesite", Blocks.POLISHED_ANDESITE_STAIRS.getDefaultState()),
