@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
  *
  * @author WuestMan
  */
+@SuppressWarnings({"SpellCheckingInspection", "SameParameterValue", "WeakerAccess"})
 public class ShaderHelper {
     private static final int VERT = ARBVertexShader.GL_VERTEX_SHADER_ARB;
     private static final int FRAG = ARBFragmentShader.GL_FRAGMENT_SHADER_ARB;

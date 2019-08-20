@@ -20,7 +20,7 @@ import net.minecraft.world.server.ServerWorld;
  */
 public class StructureChickenCoop extends Structure {
     public static final String ASSETLOCATION = "assets/prefab/structures/chickencoop.zip";
-    BlockPos chickenCoopBlockPos = null;
+    private BlockPos chickenCoopBlockPos = null;
 
     public static void ScanStructure(World world, BlockPos originalPos, Direction playerFacing) {
         BuildClear clearedSpace = new BuildClear();

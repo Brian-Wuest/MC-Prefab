@@ -16,6 +16,7 @@ import net.minecraft.world.World;
 /**
  * @author WuestMan
  */
+@SuppressWarnings("ConstantConditions")
 public class StructureProduceFarm extends Structure {
     public static final String ASSETLOCATION = "assets/prefab/structures/producefarm.zip";
 

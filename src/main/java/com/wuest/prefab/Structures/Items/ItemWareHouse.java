@@ -8,6 +8,7 @@ import net.minecraft.item.ItemUseContext;
  *
  * @author WuestMan
  */
+@SuppressWarnings("ConstantConditions")
 public class ItemWareHouse extends StructureItem {
     public ItemWareHouse(String name) {
         super(name);

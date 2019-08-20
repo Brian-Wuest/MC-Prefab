@@ -9,6 +9,7 @@ import net.minecraft.item.ItemUseContext;
 /**
  * @author WuestMan
  */
+@SuppressWarnings("ConstantConditions")
 public class ItemVillagerHouses extends StructureItem {
 	public ItemVillagerHouses(String name) {
 		super(name, new Item.Properties()

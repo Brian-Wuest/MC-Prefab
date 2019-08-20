@@ -9,6 +9,7 @@ import net.minecraft.world.World;
 /**
  * @author WuestMan
  */
+@SuppressWarnings("ALL")
 public class StructureNetherGate extends Structure {
     public static final String ASSETLOCATION = "assets/prefab/structures/nethergate.zip";
 

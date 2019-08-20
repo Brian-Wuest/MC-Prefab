@@ -23,6 +23,7 @@ import java.util.ArrayList;
 /**
  * @author WuestMan
  */
+@SuppressWarnings({"unused", "UnusedAssignment"})
 public class StructurePart extends Structure {
     /*
      * Initializes a new instance of the StructurePart class.
@@ -358,7 +359,7 @@ public class StructurePart extends Structure {
 
         long wallPosLong = wallPos.down().toLong();
 
-        if (!buildingBlocks.stream().anyMatch(x -> x.blockPos.toLong() == wallPosLong)) {
+        if (buildingBlocks.stream().noneMatch(x -> x.blockPos.toLong() == wallPosLong)) {
             // Create final blocks.
             int finalStoneCount = wallDepth;
 

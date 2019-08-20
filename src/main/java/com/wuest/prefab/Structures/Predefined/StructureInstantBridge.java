@@ -31,8 +31,7 @@ public class StructureInstantBridge extends Structure {
      * @return A new instance of this class.
      */
     public static StructureInstantBridge CreateInstance() {
-        StructureInstantBridge structure = new StructureInstantBridge();
-        return structure;
+        return new StructureInstantBridge();
     }
 
     /**

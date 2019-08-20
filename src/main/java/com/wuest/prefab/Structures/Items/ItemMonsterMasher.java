@@ -6,6 +6,7 @@ import net.minecraft.item.ItemUseContext;
 /**
  * @author WuestMan
  */
+@SuppressWarnings("ConstantConditions")
 public class ItemMonsterMasher extends StructureItem {
     public ItemMonsterMasher(String name) {
         super(name);

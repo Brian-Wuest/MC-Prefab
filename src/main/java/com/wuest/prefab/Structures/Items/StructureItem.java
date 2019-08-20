@@ -11,6 +11,7 @@ import net.minecraft.util.Direction;
 /**
  * @author WuestMan
  */
+@SuppressWarnings("NullableProblems")
 public class StructureItem extends Item {
 
     /**
