@@ -13,6 +13,7 @@ import net.minecraft.util.ResourceLocation;
  *
  * @author WustMan
  */
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class BuildEntity {
     @Expose
     public double entityXAxisOffset;
@@ -102,7 +103,6 @@ public class BuildEntity {
             try {
                 tag = JsonToNBT.getTagFromJson(this.entityNBTData);
             } catch (CommandSyntaxException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }

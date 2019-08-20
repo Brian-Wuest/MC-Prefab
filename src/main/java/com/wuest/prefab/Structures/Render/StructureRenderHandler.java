@@ -31,6 +31,7 @@ import org.lwjgl.opengl.GL11;
  * Most changes are for extra comments for myself as well as to use my blocks class structure.
  * http://botaniamod.net/license.php
  */
+@SuppressWarnings({"WeakerAccess", "ConstantConditions"})
 public class StructureRenderHandler {
     private static final ChestRenderer chestRenderer = new ChestRenderer();
 

@@ -1,11 +1,9 @@
 package com.wuest.prefab.Structures.Gui;
 
-import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Config.ServerModConfiguration;
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.Controls.GuiCheckBox;
 import com.wuest.prefab.Gui.Controls.GuiTab;
-import com.wuest.prefab.Gui.Controls.GuiTextSlider;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Gui.GuiTabScreen;
 import com.wuest.prefab.Prefab;
@@ -21,9 +19,7 @@ import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.item.DyeColor;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
-import net.minecraftforge.fml.client.config.GuiSlider;
 
 import java.awt.*;
 
@@ -36,28 +32,28 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 	protected GuiButtonExt btnBuild;
 
 	// Tabs
-	protected GuiTab tabGeneral;
-	protected GuiTab tabConfig;
-	protected GuiTab tabBlockTypes;
+	private GuiTab tabGeneral;
+	private GuiTab tabConfig;
+	private GuiTab tabBlockTypes;
 
 	// General:
-	protected GuiButtonExt btnHouseStyle;
-	protected GuiButtonExt btnGlassColor;
+	private GuiButtonExt btnHouseStyle;
+	private GuiButtonExt btnGlassColor;
 	protected GuiButtonExt btnVisualize;
 
 	// Config:
-	protected GuiCheckBox btnAddTorches;
-	protected GuiCheckBox btnAddBed;
-	protected GuiCheckBox btnAddCraftingTable;
-	protected GuiCheckBox btnAddFurnace;
-	protected GuiCheckBox btnAddChest;
-	protected GuiCheckBox btnAddChestContents;
-	protected GuiCheckBox btnAddMineShaft;
+	private GuiCheckBox btnAddTorches;
+	private GuiCheckBox btnAddBed;
+	private GuiCheckBox btnAddCraftingTable;
+	private GuiCheckBox btnAddFurnace;
+	private GuiCheckBox btnAddChest;
+	private GuiCheckBox btnAddChestContents;
+	private GuiCheckBox btnAddMineShaft;
 
 	protected ServerModConfiguration serverConfiguration;
-	protected boolean allowItemsInChestAndFurnace = true;
+	private boolean allowItemsInChestAndFurnace = true;
 
-	public HouseConfiguration houseConfiguration;
+	private HouseConfiguration houseConfiguration;
 
 	public GuiStartHouseChooser() {
 		super();
@@ -68,6 +64,7 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 	public void init() {
 		super.init();
 
+		assert this.minecraft != null;
 		if (!this.minecraft.player.isCreative()) {
 			this.allowItemsInChestAndFurnace = !ClientEventHandler.playerConfig.builtStarterHouse;
 		}
@@ -88,6 +85,7 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 		this.renderBackground();
 
 		// Draw the control background.
+		assert this.minecraft != null;
 		this.minecraft.getTextureManager().bindTexture(backgroundTextures);
 		this.blit(grayBoxX, grayBoxY, 0, 0, 256, 256);
 
@@ -157,7 +155,7 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 	/**
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
-	public void actionPerformed(Button button) {
+	private void actionPerformed(Button button) {
 		if (button == this.btnCancel || button == this.btnVisualize
 				|| button == this.btnBuild) {
 			this.houseConfiguration.addBed = this.serverConfiguration.addBed && this.btnAddBed.isChecked();
@@ -167,6 +165,7 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 			this.houseConfiguration.addFurnace = this.serverConfiguration.addFurnace && this.btnAddFurnace.isChecked();
 			this.houseConfiguration.addMineShaft = this.serverConfiguration.addMineshaft && this.btnAddMineShaft.isChecked();
 			this.houseConfiguration.addTorches = this.serverConfiguration.addTorches && this.btnAddTorches.isChecked();
+			assert this.minecraft != null;
 			this.houseConfiguration.houseFacing = this.minecraft.player.getHorizontalFacing().getOpposite();
 		}
 
@@ -240,17 +239,11 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 
 		// Create the Controls.
 		// Column 1:
-		this.btnHouseStyle = new GuiButtonExt(grayBoxX + 10, grayBoxY + 20, 90, 20, this.houseConfiguration.houseStyle.getDisplayName(), (button) ->
-		{
-			this.actionPerformed(button);
-		});
+		this.btnHouseStyle = new GuiButtonExt(grayBoxX + 10, grayBoxY + 20, 90, 20, this.houseConfiguration.houseStyle.getDisplayName(), this::actionPerformed);
 
 		this.addButton(this.btnHouseStyle);
 
-		this.btnVisualize = new GuiButtonExt(grayBoxX + 10, grayBoxY + 60, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW), (button) ->
-		{
-			this.actionPerformed(button);
-		});
+		this.btnVisualize = new GuiButtonExt(grayBoxX + 10, grayBoxY + 60, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW), this::actionPerformed);
 		this.addButton(this.btnVisualize);
 
 		int x = grayBoxX + 10;

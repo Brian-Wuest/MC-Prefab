@@ -26,6 +26,7 @@ import java.util.List;
 /**
  * @author WuestMan
  */
+@SuppressWarnings("ConstantConditions")
 public class ItemBulldozer extends StructureItem {
 
     /**
@@ -108,13 +109,13 @@ public class ItemBulldozer extends StructureItem {
         return stack.getTag();
     }
 
-    public boolean getPoweredValue(PlayerEntity player, Hand hand) {
+    private boolean getPoweredValue(PlayerEntity player, Hand hand) {
         ItemStack stack = player.getHeldItem(hand);
 
         return this.getPoweredValue(stack);
     }
 
-    public boolean getPoweredValue(ItemStack stack) {
+    private boolean getPoweredValue(ItemStack stack) {
         if (stack.getItem() == ModRegistry.Bulldozer()) {
             if (stack.getTag() == null
                     || stack.getTag().isEmpty()) {

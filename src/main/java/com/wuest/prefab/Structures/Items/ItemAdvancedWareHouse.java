@@ -6,6 +6,7 @@ import net.minecraft.item.ItemUseContext;
 /**
  * @author WuestMan
  */
+@SuppressWarnings("ConstantConditions")
 public class ItemAdvancedWareHouse extends ItemWareHouse {
     public ItemAdvancedWareHouse(String name) {
         super(name);

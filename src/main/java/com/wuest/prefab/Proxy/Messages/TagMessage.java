@@ -6,10 +6,11 @@ import net.minecraft.network.PacketBuffer;
 /**
  * @author WuestMan
  */
+@SuppressWarnings("WeakerAccess")
 public class TagMessage {
     protected CompoundNBT tagMessage;
 
-    public TagMessage() {
+    protected TagMessage() {
     }
 
     public TagMessage(CompoundNBT tagMessage) {
@@ -26,6 +27,7 @@ public class TagMessage {
             e.printStackTrace();
         }
 
+        assert message != null;
         message.tagMessage = buf.readCompoundTag();
         return message;
     }

@@ -6,6 +6,7 @@ import net.minecraft.item.ItemUseContext;
 /**
  * @author WuestMan This is the item used to generate the Nether Gate structure.
  */
+@SuppressWarnings("ConstantConditions")
 public class ItemNetherGate extends StructureItem {
     public ItemNetherGate(String name) {
         super(name);

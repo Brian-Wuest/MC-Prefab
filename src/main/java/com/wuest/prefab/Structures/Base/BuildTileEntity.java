@@ -11,6 +11,7 @@ import net.minecraft.nbt.JsonToNBT;
  *
  * @author WustMan
  */
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class BuildTileEntity {
     @Expose
     private String entityDomain;

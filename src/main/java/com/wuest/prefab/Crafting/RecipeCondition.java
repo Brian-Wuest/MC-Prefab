@@ -11,6 +11,7 @@ import java.util.function.BooleanSupplier;
 /**
  * @author WuestMan
  */
+@SuppressWarnings("NullableProblems")
 public class RecipeCondition implements IConditionSerializer {
     public String recipeKey;
     public static final ResourceLocation KEY = new ResourceLocation(Prefab.MODID, "config_recipe");

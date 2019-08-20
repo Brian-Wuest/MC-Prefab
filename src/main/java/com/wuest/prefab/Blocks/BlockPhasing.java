@@ -11,7 +11,6 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
@@ -39,21 +38,22 @@ import java.util.Random;
  *
  * @author WuestMan
  */
+@SuppressWarnings({"SpellCheckingInspection", "NullableProblems"})
 public class BlockPhasing extends Block {
     /**
      * The phasing progress property.
      */
-    public static final EnumProperty<EnumPhasingProgress> Phasing_Progress = EnumProperty.create("phasing_progress", EnumPhasingProgress.class);
+    private static final EnumProperty<EnumPhasingProgress> Phasing_Progress = EnumProperty.create("phasing_progress", EnumPhasingProgress.class);
 
     /**
      * The phasing out block property.
      */
-    public static final BooleanProperty Phasing_Out = BooleanProperty.create("phasing_out");
-    public final ItemGroup itemGroup;
+    private static final BooleanProperty Phasing_Out = BooleanProperty.create("phasing_out");
+
     /**
      * The tick rage for this block.
      */
-    protected int tickRate = 2;
+    private int tickRate = 2;
 
     /**
      * Initializes a new instance of the BlockPhasing class.
@@ -64,7 +64,6 @@ public class BlockPhasing extends Block {
         super(Properties.create(Prefab.SeeThroughImmovable)
                 .sound(SoundType.STONE)
                 .hardnessAndResistance(0.6f));
-        this.itemGroup = ItemGroup.BUILDING_BLOCKS;
 
         this.setDefaultState(this.stateContainer.getBaseState().with(Phasing_Out, false).with(Phasing_Progress, EnumPhasingProgress.base));
 
@@ -306,7 +305,7 @@ public class BlockPhasing extends Block {
 
         // Set this block and all neighbor Phasic Blocks to transparent. This will cascade to all touching Phasic
         // blocks.
-        this.findNeighborPhasicBlocks(setToTransparent, worldIn, pos, updatedBlockState, 0, blocksToUpdate, setCurrentBlock);
+        this.findNeighborPhasicBlocks(worldIn, pos, updatedBlockState, 0, blocksToUpdate, setCurrentBlock);
 
         for (BlockPos positionToUpdate : blocksToUpdate) {
             worldIn.setBlockState(positionToUpdate, updatedBlockState);
@@ -324,7 +323,6 @@ public class BlockPhasing extends Block {
     /**
      * Sets the powered status and updates the block's neighbor.
      *
-     * @param setToTransparent  Determines if the block should be turned transparent.
      * @param worldIn           The world where the block resides.
      * @param pos               The position of the block.
      * @param desiredBlockState The current state of the block at the position.
@@ -333,8 +331,8 @@ public class BlockPhasing extends Block {
      *                          be processed again.
      * @param setCurrentBlock   Determines if the current block should be set.
      */
-    protected int findNeighborPhasicBlocks(boolean setToTransparent, World worldIn, BlockPos pos, BlockState desiredBlockState, int cascadeCount,
-                                           ArrayList<BlockPos> cascadedBlockPos, boolean setCurrentBlock) {
+    private int findNeighborPhasicBlocks(World worldIn, BlockPos pos, BlockState desiredBlockState, int cascadeCount,
+                                         ArrayList<BlockPos> cascadedBlockPos, boolean setCurrentBlock) {
         cascadeCount++;
 
         if (cascadeCount > 100) {
@@ -360,7 +358,7 @@ public class BlockPhasing extends Block {
                 }
 
                 setCurrentBlock = true;
-                cascadeCount = this.findNeighborPhasicBlocks(setToTransparent, worldIn, pos.offset(facing), desiredBlockState, cascadeCount, cascadedBlockPos, setCurrentBlock);
+                cascadeCount = this.findNeighborPhasicBlocks(worldIn, pos.offset(facing), desiredBlockState, cascadeCount, cascadedBlockPos, setCurrentBlock);
 
                 if (cascadeCount > 100) {
                     break;

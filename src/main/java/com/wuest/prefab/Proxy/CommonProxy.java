@@ -3,11 +3,8 @@ package com.wuest.prefab.Proxy;
 import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Config.ServerModConfiguration;
 import com.wuest.prefab.Crafting.RecipeCondition;
-import com.wuest.prefab.Events.ModEventHandler;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Structures.Events.StructureEventHandler;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ForgeConfigSpec;
@@ -24,9 +21,8 @@ import org.apache.commons.lang3.tuple.Pair;
  *
  * @author WuestMan
  */
+@SuppressWarnings({"SpellCheckingInspection", "WeakerAccess"})
 public class CommonProxy {
-    public static ModEventHandler eventHandler = new ModEventHandler();
-    public static StructureEventHandler structureEventHandler = new StructureEventHandler();
     public static ModConfiguration proxyConfiguration;
     public static ForgeConfigSpec COMMON_SPEC;
 
@@ -47,8 +43,6 @@ public class CommonProxy {
     }
 
     public void RegisterEventHandler() {
-        //FMLJavaModLoadingContext.get().getModEventBus().register(CommonProxy.eventHandler);
-        //FMLJavaModLoadingContext.get().getModEventBus().register(CommonProxy.structureEventHandler);
     }
 
     public void preInit(FMLCommonSetupEvent event) {

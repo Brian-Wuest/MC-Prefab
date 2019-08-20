@@ -22,6 +22,7 @@ import java.util.ArrayList;
  *
  * @author WuestMan
  */
+@SuppressWarnings({"unused", "WeakerAccess"})
 public class BuildingMethods {
 	/**
 	 * This method consolidate drops for the current block into an existing ArrayList
@@ -44,7 +45,7 @@ public class BuildingMethods {
 
 			// Check to see if this stack's item is equal to an existing item
 			// stack. If it is just add the count.
-			Boolean foundStack = false;
+			boolean foundStack = false;
 
 			for (ItemStack existingStack : originalStacks) {
 				if (ItemStack.areItemsEqual(existingStack, stack)) {
@@ -80,7 +81,7 @@ public class BuildingMethods {
 	 */
 	public static ArrayList<ItemStack> CreateWall(ServerWorld world, int height, int length, Direction direction, BlockPos startingPosition, Block replacementBlock,
 												  ArrayList<Item> itemsToNotAdd) {
-		ArrayList<ItemStack> itemsDropped = new ArrayList();
+		ArrayList<ItemStack> itemsDropped = new ArrayList<>();
 
 		BlockPos wallPos = null;
 

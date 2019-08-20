@@ -6,6 +6,7 @@ import net.minecraft.item.ItemUseContext;
 /**
  * @author WuestMan
  */
+@SuppressWarnings("ConstantConditions")
 public class ItemChickenCoop extends StructureItem {
     public ItemChickenCoop(String name) {
         super(name);

@@ -11,12 +11,6 @@ import net.minecraft.network.PacketBuffer;
 public class PlayerEntityTagMessage extends TagMessage {
     /**
      * Initializes a new instance of the PlayerEntityTagMessage class.
-     */
-    public PlayerEntityTagMessage() {
-    }
-
-    /**
-     * Initializes a new instance of the PlayerEntityTagMessage class.
      *
      * @param tagMessage The message to send.
      */

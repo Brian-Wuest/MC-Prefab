@@ -33,8 +33,9 @@ public class GuiTreeFarm extends GuiStructure {
         this.renderBackground();
 
         // Draw the control background.
+        assert this.minecraft != null;
         this.minecraft.getTextureManager().bindTexture(structureTopDown);
-        this.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 177, 175, 177, 175);
+        GuiTreeFarm.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 177, 175, 177, 175);
 
         this.drawControlBackgroundAndButtonsAndLabels(grayBoxX, grayBoxY, x, y);
 
@@ -55,6 +56,7 @@ public class GuiTreeFarm extends GuiStructure {
         if (button == this.btnVisualize) {
             StructureTreeFarm structure = StructureTreeFarm.CreateInstance(StructureTreeFarm.ASSETLOCATION, StructureTreeFarm.class);
             StructureRenderHandler.setStructure(structure, Direction.NORTH, this.configuration);
+            assert this.minecraft != null;
             this.minecraft.displayGuiScreen(null);
         }
     }

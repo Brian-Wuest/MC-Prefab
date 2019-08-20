@@ -17,6 +17,7 @@ import net.minecraft.world.server.ServerWorld;
  *
  * @author WuestMan
  */
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class BasicStructureConfiguration extends StructureConfiguration {
     private static String structureEnumNameTag = "structureEnumName";
     private static String structureDisplayNameTag = "structureDisplayName";
@@ -259,8 +260,6 @@ public class BasicStructureConfiguration extends StructureConfiguration {
 
         if (!this.IsCustomStructure()) {
             assetLocation = this.basicStructureName.getAssetLocation();
-        } else {
-            // TODO: Pull the asset information from the NBTTag from the item stack currently in the player's hand.
         }
 
         StructureBasic structure = StructureBasic.CreateInstance(assetLocation, StructureBasic.class);
@@ -283,6 +282,7 @@ public class BasicStructureConfiguration extends StructureConfiguration {
      *
      * @author WuestMan
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public enum EnumBasicStructureName {
         Custom("custom", null, null, null, null, 0, 0),
         AdvancedCoop("advancedcoop", "item.prefab.advanced.chicken.coop", "assets/prefab/structures/advancedcoop.zip", "textures/gui/advanced_chicken_coop_topdown.png",

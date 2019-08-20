@@ -10,6 +10,7 @@ import java.util.ArrayList;
 /**
  * @author WuestMan
  */
+@SuppressWarnings({"WeakerAccess", "unused", "UnusedReturnValue"})
 public class GuiTabTray extends Widget {
     private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/default_background.png");
     private ArrayList<GuiTab> tabs;
@@ -20,7 +21,7 @@ public class GuiTabTray extends Widget {
     }
 
     protected void Initialize() {
-        this.tabs = new ArrayList<GuiTab>();
+        this.tabs = new ArrayList<>();
         this.height = 35;
         this.width = 50;
     }
@@ -69,6 +70,7 @@ public class GuiTabTray extends Widget {
         if (tab != null) {
             tab.InternalSetSelected(true);
         } else {
+            assert firstTab != null;
             firstTab.InternalSetSelected(true);
         }
     }

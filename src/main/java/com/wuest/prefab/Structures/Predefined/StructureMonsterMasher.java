@@ -1,6 +1,5 @@
 package com.wuest.prefab.Structures.Predefined;
 
-import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.Structures.Base.BuildBlock;
 import com.wuest.prefab.Structures.Base.BuildClear;
@@ -27,6 +26,7 @@ import java.util.ArrayList;
 /**
  * @author WuestMan
  */
+@SuppressWarnings({"ConstantConditions", "SpellCheckingInspection"})
 public class StructureMonsterMasher extends Structure {
     public static final String ASSETLOCATION = "assets/prefab/structures/monster_masher.zip";
 
@@ -101,7 +101,7 @@ public class StructureMonsterMasher extends Structure {
         for (BlockPos pos : this.mobSpawnerPos) {
             TileEntity tileEntity = world.getTileEntity(pos);
 
-            if (tileEntity != null && tileEntity instanceof MobSpawnerTileEntity) {
+            if (tileEntity instanceof MobSpawnerTileEntity) {
                 MobSpawnerTileEntity spawner = (MobSpawnerTileEntity) tileEntity;
 
                 switch (monstersPlaced) {

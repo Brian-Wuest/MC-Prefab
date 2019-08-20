@@ -9,6 +9,7 @@ import net.minecraft.util.math.BlockPos;
  *
  * @author WuestMan
  */
+@SuppressWarnings({"unused", "WeakerAccess"})
 public class PositionOffset {
     @Expose
     private int northOffset;
@@ -86,10 +87,6 @@ public class PositionOffset {
 
             case EAST: {
                 return this.eastOffset;
-            }
-
-            case NORTH: {
-                return this.northOffset;
             }
 
             case SOUTH: {

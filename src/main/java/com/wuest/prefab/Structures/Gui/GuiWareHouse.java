@@ -19,9 +19,9 @@ import net.minecraftforge.fml.client.config.GuiButtonExt;
  */
 public class GuiWareHouse extends GuiStructure {
     private static final ResourceLocation wareHouseTopDown = new ResourceLocation("prefab", "textures/gui/warehouse_top_down.png");
-    protected GuiButtonExt btnGlassColor;
+    private GuiButtonExt btnGlassColor;
     protected WareHouseConfiguration configuration;
-    protected String clientGUIIdentifier;
+    String clientGUIIdentifier;
 
     public GuiWareHouse() {
         super("Warehouse");
@@ -61,8 +61,9 @@ public class GuiWareHouse extends GuiStructure {
         this.renderBackground();
 
         // Draw the control background.
+        assert this.minecraft != null;
         this.minecraft.getTextureManager().bindTexture(wareHouseTopDown);
-        this.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 132, 153, 132, 153);
+        GuiWareHouse.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 132, 153, 132, 153);
 
         this.drawControlBackgroundAndButtonsAndLabels(grayBoxX, grayBoxY, x, y);
 
@@ -97,6 +98,7 @@ public class GuiWareHouse extends GuiStructure {
                 StructureRenderHandler.setStructure(structure, Direction.NORTH, this.configuration);
             }
 
+            assert this.minecraft != null;
             this.minecraft.displayGuiScreen(null);
         }
     }

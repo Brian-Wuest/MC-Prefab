@@ -1,20 +1,18 @@
 package com.wuest.prefab.Structures.Items;
 
-import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Structures.Config.BasicStructureConfiguration;
 import com.wuest.prefab.Structures.Config.BasicStructureConfiguration.EnumBasicStructureName;
 import com.wuest.prefab.Structures.Predefined.StructureBasic;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
 
 /**
  * This class is used for basic structures to show the basic GUI.
  *
  * @author WuestMan
  */
+@SuppressWarnings({"AccessStaticViaInstance", "ConstantConditions"})
 public class ItemBasicStructure extends StructureItem {
     public final EnumBasicStructureName structureType;
 
@@ -29,8 +27,8 @@ public class ItemBasicStructure extends StructureItem {
 
         // Get off hand first since that is the right-click hand if there is
         // something in there.
-        if (stack == null || !(stack.getItem() instanceof ItemBasicStructure)) {
-            if (player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() instanceof ItemBasicStructure) {
+        if (!(stack.getItem() instanceof ItemBasicStructure)) {
+            if (player.getHeldItemMainhand().getItem() instanceof ItemBasicStructure) {
                 stack = player.getHeldItemMainhand();
             } else {
                 stack = null;

@@ -34,6 +34,7 @@ public class GuiChickenCoop extends GuiStructure {
         this.renderBackground();
 
         // Draw the control background.
+        assert this.minecraft != null;
         this.minecraft.getTextureManager().bindTexture(structureTopDown);
         GuiTabScreen.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 171, 87, 171, 87);
 
@@ -55,6 +56,7 @@ public class GuiChickenCoop extends GuiStructure {
         if (button == this.btnVisualize) {
             StructureChickenCoop structure = StructureChickenCoop.CreateInstance(StructureChickenCoop.ASSETLOCATION, StructureChickenCoop.class);
             StructureRenderHandler.setStructure(structure, Direction.NORTH, this.configuration);
+            assert this.minecraft != null;
             this.minecraft.displayGuiScreen(null);
         }
     }

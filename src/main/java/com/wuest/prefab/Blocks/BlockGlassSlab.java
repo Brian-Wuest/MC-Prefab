@@ -5,6 +5,7 @@ import net.minecraft.block.SlabBlock;
 import net.minecraft.state.properties.SlabType;
 import net.minecraft.util.BlockRenderLayer;
 
+@SuppressWarnings("NullableProblems")
 public class BlockGlassSlab extends SlabBlock {
 
     public BlockGlassSlab(Block.Properties properties) {

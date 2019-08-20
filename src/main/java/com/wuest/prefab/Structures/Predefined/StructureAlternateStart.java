@@ -24,6 +24,7 @@ import java.util.ArrayList;
 /**
  * @author WuestMan
  */
+@SuppressWarnings({"unused", "ConstantConditions", "UnusedAssignment"})
 public class StructureAlternateStart extends Structure {
     private static ArrayList<BlockPos> torchPositions = null;
     private BlockPos chestPosition = null;
@@ -158,7 +159,7 @@ public class StructureAlternateStart extends Structure {
                 excludeWater);
     }
 
-    public static void FillChest(World world, BlockPos itemPosition, HouseConfiguration configuration, PlayerEntity player) {
+    private static void FillChest(World world, BlockPos itemPosition, HouseConfiguration configuration, PlayerEntity player) {
         // Add each stone tool to the chest and leather armor.
         TileEntity tileEntity = world.getTileEntity(itemPosition);
 
@@ -246,7 +247,7 @@ public class StructureAlternateStart extends Structure {
         }
     }
 
-    public static void PlaceMineShaft(ServerWorld world, BlockPos pos, Direction facing, boolean onlyGatherOres) {
+    static void PlaceMineShaft(ServerWorld world, BlockPos pos, Direction facing, boolean onlyGatherOres) {
         // Keep track of all of the items to add to the chest at the end of the
         // shaft.
         ArrayList<ItemStack> stacks = new ArrayList<ItemStack>();
@@ -329,7 +330,7 @@ public class StructureAlternateStart extends Structure {
 
         // Consolidate the stacks.
         for (ItemStack tempStack : tempStacks) {
-            Boolean foundStack = false;
+            boolean foundStack = false;
 
             for (ItemStack existingStack : stacks) {
                 if (ItemStack.areItemsEqual(existingStack, tempStack)) {

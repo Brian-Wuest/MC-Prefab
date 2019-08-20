@@ -6,7 +6,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.math.BlockPos;
@@ -21,8 +20,8 @@ import java.util.Random;
  *
  * @author WuestMan
  */
+@SuppressWarnings("NullableProblems")
 public class BlockPaperLantern extends Block {
-    public final ItemGroup itemGroup;
 
     /**
      * Initializes a new instance of the BlockPaperLantern class.
@@ -34,8 +33,6 @@ public class BlockPaperLantern extends Block {
                 .sound(SoundType.SNOW)
                 .hardnessAndResistance(0.6f)
                 .lightValue(14));
-
-        this.itemGroup = ItemGroup.BUILDING_BLOCKS;
 
         ModRegistry.setBlockName(this, name);
     }
@@ -60,8 +57,7 @@ public class BlockPaperLantern extends Block {
 
     /**
      * Called periodically clientside on blocks near the player to show effects (like furnace fire particles). Note that
-     * this method is unrelated to {@link randomTick} and {@link #needsRandomTick}, and will always be called regardless
-     * of whether the block can receive random update ticks
+     * this method will always be called regardless of whether the block can receive random update ticks
      */
     @OnlyIn(Dist.CLIENT)
     @Override

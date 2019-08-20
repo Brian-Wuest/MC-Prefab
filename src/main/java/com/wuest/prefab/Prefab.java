@@ -18,12 +18,22 @@ import org.apache.logging.log4j.Logger;
  *
  * @author WuestMan
  */
+@SuppressWarnings({"WeakerAccess", "SpellCheckingInspection"})
 @Mod(Prefab.MODID)
 public class Prefab {
     /**
      * Simulates an air block that blocks movement and cannot be moved.
      */
-    public static final Material SeeThroughImmovable = new Material(MaterialColor.AIR, false, true, true, false, true, false, false, PushReaction.IGNORE);
+    public static final Material SeeThroughImmovable = new Material(
+            MaterialColor.AIR,
+            false,
+            true,
+            true,
+            false,
+            true,
+            false,
+            false,
+            PushReaction.IGNORE);
 
     /**
      * This is the ModID
@@ -42,14 +52,17 @@ public class Prefab {
      * Note: this should only be set to true during debug mode.
      */
     public static boolean useScanningMode = false;
+
     /**
      * This is the static instance of this class.
      */
     public static Prefab instance;
+
     /**
      * Says where the client and server 'proxy' code is loaded.
      */
     public static CommonProxy proxy;
+
     /**
      * The network class used to send messages.
      */

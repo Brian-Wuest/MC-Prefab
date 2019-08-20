@@ -15,13 +15,12 @@ import net.minecraftforge.fml.client.config.GuiButtonExt;
 /**
  * @author WuestMan
  */
-public class GuiVillaerHouses extends GuiStructure {
-    private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/default_background.png");
-    protected GuiButtonExt btnHouseStyle;
+public class GuiVillagerHouses extends GuiStructure {
+    private GuiButtonExt btnHouseStyle;
     protected VillagerHouseConfiguration configuration;
-    protected VillagerHouseConfiguration.HouseStyle houseStyle;
+    private VillagerHouseConfiguration.HouseStyle houseStyle;
 
-    public GuiVillaerHouses() {
+    public GuiVillagerHouses() {
         super("Villager Houses");
         this.structureConfiguration = EnumStructureConfiguration.VillagerHouses;
     }
@@ -59,6 +58,7 @@ public class GuiVillaerHouses extends GuiStructure {
         this.renderBackground();
 
         // Draw the control background.
+        assert this.minecraft != null;
         this.minecraft.getTextureManager().bindTexture(this.houseStyle.getHousePicture());
         GuiTabScreen.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1,
                 this.houseStyle.getImageWidth(), this.houseStyle.getImageHeight(),
@@ -89,6 +89,7 @@ public class GuiVillaerHouses extends GuiStructure {
         } else if (button == this.btnVisualize) {
             StructureVillagerHouses structure = StructureVillagerHouses.CreateInstance(this.houseStyle.getStructureLocation(), StructureVillagerHouses.class);
             StructureRenderHandler.setStructure(structure, Direction.NORTH, this.configuration);
+            assert this.minecraft != null;
             this.minecraft.displayGuiScreen(null);
         }
     }

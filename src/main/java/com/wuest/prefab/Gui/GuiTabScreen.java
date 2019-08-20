@@ -1,16 +1,9 @@
 package com.wuest.prefab.Gui;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.wuest.prefab.Gui.Controls.GuiTab;
 import com.wuest.prefab.Gui.Controls.GuiTabTray;
 import com.wuest.prefab.Structures.Gui.GuiStructure;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.util.text.StringTextComponent;
-import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 
@@ -52,6 +45,7 @@ public class GuiTabScreen extends GuiStructure {
         super.render(mouseX, mouseY, partialTicks);
 
         // Draw the tabs.
+        assert this.minecraft != null;
         this.Tabs.DrawTabs(this.minecraft, mouseX, mouseY);
     }
 
@@ -77,6 +71,7 @@ public class GuiTabScreen extends GuiStructure {
 
                 for (GuiTab tab : guiTabs) {
                     if (tab.mouseClicked(mouseX, mouseY, mouseButton)) {
+                        assert this.minecraft != null;
                         tab.playDownSound(this.minecraft.getSoundHandler());
                         this.tabClicked(tab);
                         break;

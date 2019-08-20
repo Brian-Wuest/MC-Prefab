@@ -6,6 +6,7 @@ import net.minecraft.item.ItemUseContext;
 /**
  * @author WuestMan
  */
+@SuppressWarnings("ConstantConditions")
 public class ItemTreeFarm extends StructureItem {
     public ItemTreeFarm(String name) {
         super(name);

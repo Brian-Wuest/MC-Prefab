@@ -10,7 +10,9 @@ import net.minecraftforge.fml.common.Mod;
 
 /**
  * @author WuestMan
+ * The eventbus for this has to be set to "Mod" instead of the standard forge in order for it to register the blocks.
  */
+@SuppressWarnings("unused")
 @Mod.EventBusSubscriber(modid = Prefab.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientServerEventHandler {
     @SubscribeEvent

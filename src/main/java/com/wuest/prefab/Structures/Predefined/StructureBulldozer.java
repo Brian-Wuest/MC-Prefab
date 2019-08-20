@@ -3,6 +3,7 @@ package com.wuest.prefab.Structures.Predefined;
 import com.wuest.prefab.Structures.Base.BuildBlock;
 import com.wuest.prefab.Structures.Base.BuildClear;
 import com.wuest.prefab.Structures.Base.Structure;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -28,7 +29,7 @@ public class StructureBulldozer extends Structure {
         clearedSpace.getStartingPosition().setHeightOffset(1);
 
         this.setClearSpace(clearedSpace);
-        this.setBlocks(new ArrayList<BuildBlock>());
+        this.setBlocks(new ArrayList<>());
     }
 
     /**
@@ -42,7 +43,7 @@ public class StructureBulldozer extends Structure {
 
         // Only harvest up to diamond level and non-indestructable blocks.
         if (state.getBlock().getHarvestLevel(state) < 4 && state.getBlockHardness(world, pos) >= 0.0f) {
-            state.getBlock().spawnDrops(state, this.world, pos);
+            Block.spawnDrops(state, this.world, pos);
         }
     }
 }

@@ -9,6 +9,7 @@ import net.minecraft.util.Direction;
 /**
  * @author WuestMan
  */
+@SuppressWarnings("ALL")
 public class ItemStartHouse extends StructureItem {
 	public ItemStartHouse(String name) {
 		super(name);

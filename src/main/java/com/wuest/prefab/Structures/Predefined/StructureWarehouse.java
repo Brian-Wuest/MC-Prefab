@@ -16,6 +16,7 @@ import net.minecraft.world.World;
 /**
  * @author WuestMan
  */
+@SuppressWarnings("ConstantConditions")
 public class StructureWarehouse extends Structure {
     public static final String ASSETLOCATION = "assets/prefab/structures/warehouse.zip";
     public static final String ADVANCED_ASSET_LOCATION = "assets/prefab/structures/advanced_warehouse.zip";

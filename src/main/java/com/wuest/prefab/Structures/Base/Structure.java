@@ -44,6 +44,7 @@ import java.util.Collection;
  *
  * @author WuestMan
  */
+@SuppressWarnings({"unchecked", "WeakerAccess", "ConstantConditions"})
 public class Structure {
 	public ArrayList<BlockPos> allBlockPositions = new ArrayList<>();
 	public ArrayList<BlockPos> clearedBlockPos = new ArrayList<BlockPos>();
@@ -126,7 +127,7 @@ public class Structure {
 				if (blockHalf == DoubleBlockHalf.LOWER) {
 					BlockState upperHalfState = world.getBlockState(currentPos.up());
 
-					if (upperHalfState != null && upperHalfState.getBlock() instanceof DoorBlock) {
+					if (upperHalfState.getBlock() instanceof DoorBlock) {
 						Block upperBlock = upperHalfState.getBlock();
 						BuildBlock upperHalf = Structure.createBuildBlockFromBlockState(upperHalfState, upperBlock, currentPos.up(), originalPos);
 
@@ -144,7 +145,7 @@ public class Structure {
 					boolean foundFoot = false;
 					Direction facing = Direction.NORTH;
 
-					while (foundFoot == false) {
+					while (!foundFoot) {
 						bedFoot = world.getBlockState(currentPos.offset(facing));
 
 						if (bedFoot.getBlock() instanceof BedBlock && bedFoot.get(BedBlock.PART) == BedPart.FOOT) {
@@ -187,6 +188,7 @@ public class Structure {
 				tileEntity.write(tagCompound);
 
 				BuildTileEntity buildTileEntity = new BuildTileEntity();
+				assert resourceLocation != null;
 				buildTileEntity.setEntityDomain(resourceLocation.getNamespace());
 				buildTileEntity.setEntityName(resourceLocation.getPath());
 				buildTileEntity.setStartingPosition(Structure.getStartingPositionFromOriginalAndCurrentPosition(currentPos, originalPos));
@@ -195,12 +197,12 @@ public class Structure {
 			}
 		}
 
-		int x_radiusRangeBegin = cornerPos1.getX() < cornerPos2.getX() ? cornerPos1.getX() : cornerPos2.getX();
-		int x_radiusRangeEnd = cornerPos1.getX() < cornerPos2.getX() ? cornerPos2.getX() : cornerPos1.getX();
-		int y_radiusRangeBegin = cornerPos1.getY() < cornerPos2.getY() ? cornerPos1.getY() : cornerPos2.getY();
-		int y_radiusRangeEnd = cornerPos1.getY() < cornerPos2.getY() ? cornerPos2.getY() : cornerPos1.getY();
-		int z_radiusRangeBegin = cornerPos1.getZ() < cornerPos2.getZ() ? cornerPos1.getZ() : cornerPos2.getZ();
-		int z_radiusRangeEnd = cornerPos1.getZ() < cornerPos2.getZ() ? cornerPos2.getZ() : cornerPos1.getZ();
+		int x_radiusRangeBegin = Math.min(cornerPos1.getX(), cornerPos2.getX());
+		int x_radiusRangeEnd = Math.max(cornerPos1.getX(), cornerPos2.getX());
+		int y_radiusRangeBegin = Math.min(cornerPos1.getY(), cornerPos2.getY());
+		int y_radiusRangeEnd = Math.max(cornerPos1.getY(), cornerPos2.getY());
+		int z_radiusRangeBegin = Math.min(cornerPos1.getZ(), cornerPos2.getZ());
+		int z_radiusRangeEnd = Math.max(cornerPos1.getZ(), cornerPos2.getZ());
 
 		AxisAlignedBB axis = new AxisAlignedBB(cornerPos1, cornerPos2);
 
@@ -328,7 +330,7 @@ public class Structure {
 	public void Initialize() {
 		this.name = "";
 		this.clearSpace = new BuildClear();
-		this.blocks = new ArrayList<BuildBlock>();
+		this.blocks = new ArrayList<>();
 	}
 
 	/**
@@ -608,7 +610,7 @@ public class Structure {
 				this.allBlockPositions.add(new BlockPos(pos));
 			}
 		} else {
-			this.clearedBlockPos = new ArrayList<BlockPos>();
+			this.clearedBlockPos = new ArrayList<>();
 		}
 	}
 

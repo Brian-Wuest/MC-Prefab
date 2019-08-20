@@ -10,13 +10,14 @@ import java.util.HashMap;
  * @author WuestMan This class serves as configuration data for the current player. It is expected that this lives on
  * the client-side but saved on server side.
  */
+@SuppressWarnings({"SpellCheckingInspection", "unchecked"})
 public class EntityPlayerConfiguration {
     public static final String PLAYER_ENTITY_TAG = "IsPlayerNew";
     private static final String GIVEN_HOUSEBUILDER_TAG = "givenHousebuilder";
     private static final String Built_Starter_house_Tag = "builtStarterHouse";
     public boolean givenHouseBuilder = false;
     public boolean builtStarterHouse = false;
-    public HashMap<String, StructureConfiguration> clientConfigurations = new HashMap<String, StructureConfiguration>();
+    private HashMap<String, StructureConfiguration> clientConfigurations = new HashMap<String, StructureConfiguration>();
 
     public EntityPlayerConfiguration() {
     }

@@ -16,11 +16,7 @@ public class GuiBulldozer extends GuiStructure {
     protected BulldozerConfiguration configuration;
 
     /**
-     * Intializes a new instance of the {@link GuiBulldozer} class.
-     *
-     * @param x The x-axis location.
-     * @param y The y-axis location.
-     * @param z the z-axis location.
+     * Initializes a new instance of the {@link GuiBulldozer} class.
      */
     public GuiBulldozer() {
         super("Bulldozer");
@@ -32,7 +28,6 @@ public class GuiBulldozer extends GuiStructure {
     protected void Initialize() {
         this.configuration = ClientEventHandler.playerConfig.getClientConfig("Bulldozer", BulldozerConfiguration.class);
         this.configuration.pos = this.pos;
-        int color = Color.DARK_GRAY.getRGB();
 
         // Get the upper left hand corner of the GUI box.
         int grayBoxX = this.getCenteredXAxis() - 125;
@@ -56,6 +51,7 @@ public class GuiBulldozer extends GuiStructure {
 
         this.drawControlBackgroundAndButtonsAndLabels(grayBoxX, grayBoxY, x, y);
 
+        assert this.minecraft != null;
         this.minecraft.fontRenderer.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BULLDOZER_DESCRIPTION), grayBoxX + 10, grayBoxY + 10, 230, this.textColor);
 
         this.minecraft.fontRenderer.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_CLEARED_AREA), grayBoxX + 10, grayBoxY + 40, 230, this.textColor);
@@ -66,6 +62,7 @@ public class GuiBulldozer extends GuiStructure {
      */
     @Override
     public void buttonClicked(Button button) {
+        assert this.minecraft != null;
         this.configuration.houseFacing = this.minecraft.player.getHorizontalFacing().getOpposite();
         this.performCancelOrBuildOrHouseFacing(this.configuration, button);
     }

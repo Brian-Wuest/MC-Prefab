@@ -9,7 +9,7 @@ import net.minecraft.network.PacketBuffer;
  * @author WuestMan
  */
 public class StructureTagMessage extends TagMessage {
-    protected EnumStructureConfiguration structureConfig;
+    private EnumStructureConfiguration structureConfig;
 
     /**
      * Initializes a new instance of the StructureTagMessage class.
@@ -48,12 +48,8 @@ public class StructureTagMessage extends TagMessage {
         buf.writeCompoundTag(tag);
     }
 
-    public EnumStructureConfiguration getStructureConfig() {
+    EnumStructureConfiguration getStructureConfig() {
         return this.structureConfig;
-    }
-
-    public void setStructureConfig(EnumStructureConfiguration value) {
-        this.structureConfig = value;
     }
 
     /**

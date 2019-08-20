@@ -14,13 +14,14 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 import net.minecraftforge.fml.client.config.GuiSlider;
 
+@SuppressWarnings("SpellCheckingInspection")
 public class GuiInstantBridge extends GuiStructure {
     private static final ResourceLocation structureTopDown = new ResourceLocation("prefab", "textures/gui/instant_bridge_top_down.png");
     protected InstantBridgeConfiguration configuration;
-    protected GuiButtonExt btnMaterialType;
-    protected GuiSlider sldrBridgeLength;
-    protected GuiCheckBox chckIncludeRoof;
-    protected GuiSlider sldrInteriorHeight;
+    private GuiButtonExt btnMaterialType;
+    private GuiSlider sldrBridgeLength;
+    private GuiCheckBox chckIncludeRoof;
+    private GuiSlider sldrInteriorHeight;
 
     public GuiInstantBridge() {
         super("Instant Bridge");
@@ -69,8 +70,9 @@ public class GuiInstantBridge extends GuiStructure {
         this.renderBackground();
 
         // Draw the control background.
+        assert this.minecraft != null;
         this.minecraft.getTextureManager().bindTexture(structureTopDown);
-        this.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 165, 58, 165, 58);
+        GuiInstantBridge.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 165, 58, 165, 58);
 
         this.drawControlBackgroundAndButtonsAndLabels(grayBoxX, grayBoxY, x, y);
 
@@ -129,6 +131,7 @@ public class GuiInstantBridge extends GuiStructure {
             structure.setupStructure(this.configuration, this.pos);
 
             StructureRenderHandler.setStructure(structure, Direction.SOUTH, this.configuration);
+            assert this.minecraft != null;
             this.minecraft.displayGuiScreen(null);
         }
     }

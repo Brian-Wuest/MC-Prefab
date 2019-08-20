@@ -49,6 +49,7 @@ import java.util.UUID;
  *
  * @author WuestMan
  */
+@SuppressWarnings({"ConstantConditions", "UnusedAssignment", "unused"})
 @EventBusSubscriber(modid = Prefab.MODID)
 public final class StructureEventHandler {
 	/**
@@ -121,7 +122,6 @@ public final class StructureEventHandler {
 
 			for (Entry<PlayerEntity, ArrayList<Structure>> entry : StructureEventHandler.structuresToBuild.entrySet()) {
 				ArrayList<Structure> structuresToRemove = new ArrayList<Structure>();
-				PlayerEntity player = entry.getKey();
 
 				// Build the first 100 blocks of each structure for this player.
 				for (Structure structure : entry.getValue()) {
@@ -495,9 +495,9 @@ public final class StructureEventHandler {
 		entity.posX = d0;
 		entity.posY = d1;
 		entity.posZ = d2;
-		double d6 = (double) entity.getWidthPixels();
-		double d7 = (double) entity.getHeightPixels();
-		double d8 = (double) entity.getWidthPixels();
+		double d6 = entity.getWidthPixels();
+		double d7 = entity.getHeightPixels();
+		double d8 = entity.getWidthPixels();
 
 		if (horizontal.getAxis() == Direction.Axis.Z) {
 			d8 = 1.0D;

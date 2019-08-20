@@ -6,6 +6,7 @@ import net.minecraft.network.PacketBuffer;
 /**
  * @author WuestMan
  */
+@SuppressWarnings("unused")
 public class ConfigSyncMessage extends TagMessage {
     /**
      * This class is just here to distinguish the configuration sync message from other messages in the mod.

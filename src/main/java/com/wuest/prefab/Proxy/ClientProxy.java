@@ -1,16 +1,12 @@
 package com.wuest.prefab.Proxy;
 
 import com.wuest.prefab.Config.ServerModConfiguration;
-import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Structures.Events.StructureClientEventHandler;
 import com.wuest.prefab.Structures.Gui.*;
-import com.wuest.prefab.Structures.Items.ItemWareHouse;
 import com.wuest.prefab.Structures.Items.StructureItem;
 import com.wuest.prefab.Structures.Render.ShaderHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemUseContext;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
@@ -20,14 +16,12 @@ import java.util.Map;
 /**
  * @author WuestMan
  */
+@SuppressWarnings({"WeakerAccess", "SpellCheckingInspection"})
 public class ClientProxy extends CommonProxy {
-	public static ClientEventHandler clientEventHandler = new ClientEventHandler();
-	public static StructureClientEventHandler structureClientEventHandler = new StructureClientEventHandler();
-
 	/**
 	 * The hashmap of mod guis.
 	 */
-	public static HashMap<StructureItem, GuiStructure> ModGuis = new HashMap();
+	public static HashMap<StructureItem, GuiStructure> ModGuis = new HashMap<>();
 
 	public ServerModConfiguration serverConfiguration = null;
 
@@ -39,7 +33,7 @@ public class ClientProxy extends CommonProxy {
 	public void preInit(FMLCommonSetupEvent event) {
 		super.preInit(event);
 
-		this.AddGuis();
+		ClientProxy.AddGuis();
 
 		// After all items have been registered and all recipes loaded, register any necessary renderer.
 		Prefab.proxy.registerRenderers();
@@ -57,8 +51,6 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void RegisterEventHandler() {
-		//FMLJavaModLoadingContext.get().getModEventBus().register(ClientProxy.clientEventHandler);
-		//FMLJavaModLoadingContext.get().getModEventBus().register(ClientProxy.structureClientEventHandler);
 	}
 
 	@Override
@@ -103,7 +95,7 @@ public class ClientProxy extends CommonProxy {
 		ClientProxy.ModGuis.put(ModRegistry.HorseStable(), new GuiHorseStable());
 		ClientProxy.ModGuis.put(ModRegistry.NetherGate(), new GuiNetherGate());
 		ClientProxy.ModGuis.put(ModRegistry.BasicStructure(), new GuiBasicStructure());
-		ClientProxy.ModGuis.put(ModRegistry.VillagerHouses(), new GuiVillaerHouses());
+		ClientProxy.ModGuis.put(ModRegistry.VillagerHouses(), new GuiVillagerHouses());
 		ClientProxy.ModGuis.put(ModRegistry.ModerateHouse(), new GuiModerateHouse());
 		ClientProxy.ModGuis.put(ModRegistry.Bulldozer(), new GuiBulldozer());
 		ClientProxy.ModGuis.put(ModRegistry.InstantBridge(), new GuiInstantBridge());

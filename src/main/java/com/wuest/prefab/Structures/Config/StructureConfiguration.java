@@ -18,6 +18,7 @@ import net.minecraft.world.server.ServerWorld;
  *
  * @author WuestMan
  */
+@SuppressWarnings("WeakerAccess")
 public class StructureConfiguration {
 	public static String houseFacingName = "House Facing";
 
@@ -116,17 +117,8 @@ public class StructureConfiguration {
 	public void BuildStructure(PlayerEntity player, ServerWorld world) {
 		// This is always on the server.
 		BlockPos hitBlockPos = this.pos;
-		BlockPos playerPosition = player.getPosition();
 
-		BlockState hitBlockState = world.getBlockState(hitBlockPos);
-
-		if (hitBlockState != null) {
-			Block hitBlock = hitBlockState.getBlock();
-
-			if (hitBlock != null) {
-				this.ConfigurationSpecificBuildStructure(player, world, hitBlockPos);
-			}
-		}
+		this.ConfigurationSpecificBuildStructure(player, world, hitBlockPos);
 	}
 
 	/**

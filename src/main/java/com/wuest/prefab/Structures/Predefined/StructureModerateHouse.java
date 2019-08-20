@@ -31,7 +31,6 @@ import java.util.ArrayList;
  * @author WuestMan
  */
 public class StructureModerateHouse extends Structure {
-    private static ArrayList<BlockPos> torchPositions = null;
     private BlockPos chestPosition = null;
     private ArrayList<BlockPos> furnacePosition = null;
     private BlockPos trapDoorPosition = null;
@@ -58,7 +57,7 @@ public class StructureModerateHouse extends Structure {
                 playerFacing, false, false);
     }
 
-    public static void FillChest(World world, BlockPos itemPosition, ModerateHouseConfiguration configuration, PlayerEntity player) {
+    private static void FillChest(World world, BlockPos itemPosition, ModerateHouseConfiguration configuration, PlayerEntity player) {
         // Add each stone tool to the chest and leather armor.
         TileEntity tileEntity = world.getTileEntity(itemPosition);
 

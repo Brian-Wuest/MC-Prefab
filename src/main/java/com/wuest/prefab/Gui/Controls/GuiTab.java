@@ -14,6 +14,7 @@ import java.awt.*;
 /**
  * @author WuestMan
  */
+@SuppressWarnings("WeakerAccess")
 public class GuiTab extends Widget {
     protected static final ResourceLocation TAB_TEXTURES = new ResourceLocation("prefab", "textures/gui/gui_tab.png");
     protected static final ResourceLocation TAB_TEXTURES_hovered = new ResourceLocation("prefab", "textures/gui/gui_tab_hovered.png");
@@ -46,8 +47,7 @@ public class GuiTab extends Widget {
 
     public void setName(String value) throws Exception {
         if (this.parentTray.DoesTabNameExist(value)) {
-            Exception exception = new Exception("A tab with the name of [" + value + "] already exists.");
-            throw exception;
+            throw new Exception("A tab with the name of [" + value + "] already exists.");
         }
 
         this.name = value;
@@ -77,7 +77,7 @@ public class GuiTab extends Widget {
      *
      * @param mc     The minecraft object.
      * @param mouseX The location of the mouse X-Axis.
-     * @param mouseY The lcoation of the mouse Y-Axis.
+     * @param mouseY The location of the mouse Y-Axis.
      */
     public void drawTab(Minecraft mc, int mouseX, int mouseY) {
         if (!this.visible) {
@@ -101,13 +101,11 @@ public class GuiTab extends Widget {
     }
 
     /**
-     * Returns true if the mouse has been pressed on this control. Equivalent of MouseListener.mousePressed(MouseEvent
-     * e).
-     *
-     * @param mc     The minecraft object.
-     * @param mouseX The location of the mouse X-Axis.
-     * @param mouseY The lcoation of the mouse Y-Axis.
-     * @return True if this tab was clicked, otherwise false.
+     * Returns true if the mouse has been pressed on this control. Equivalent of MouseListener.mousePressed(MouseEvent e).
+     * @param mouseX The x-position for the mouse.
+     * @param mouseY The y-position for the mouse.
+     * @param buttonClicked The button which was clicked.
+     * @return True if it's over this control, otherwise false.
      */
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int buttonClicked) {

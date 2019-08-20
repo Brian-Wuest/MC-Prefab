@@ -9,6 +9,7 @@ import net.minecraft.block.Blocks;
  *
  * @author WuestMan
  */
+@SuppressWarnings("SpellCheckingInspection")
 public enum EnumStairsMaterial {
     Brick("prefab.gui.material.brick", Blocks.BRICK_STAIRS.getDefaultState()),
     Cobblestone("prefab.gui.material.cobble_stone", Blocks.STONE_STAIRS.getDefaultState()),
@@ -72,7 +73,7 @@ public enum EnumStairsMaterial {
             }
 
             case Granite: {
-                return Blocks.POLISHED_ANDESITE_SLAB.getDefaultState();
+                return Blocks.POLISHED_GRANITE_SLAB.getDefaultState();
             }
 
             case Jungle: {

@@ -8,6 +8,7 @@ import java.awt.*;
 /**
  * @author WuestMan
  */
+@SuppressWarnings({"UnusedReturnValue", "unused"})
 public class GuiCheckBox extends net.minecraftforge.fml.client.config.GuiCheckBox {
     protected int boxWidth;
     protected int stringColor;

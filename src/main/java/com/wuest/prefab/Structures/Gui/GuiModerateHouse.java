@@ -6,7 +6,6 @@ import com.wuest.prefab.Gui.Controls.GuiCheckBox;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Gui.GuiTabScreen;
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Proxy.ClientProxy;
 import com.wuest.prefab.Structures.Config.ModerateHouseConfiguration;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Structures.Predefined.StructureModerateHouse;
@@ -23,12 +22,12 @@ import java.awt.*;
  */
 public class GuiModerateHouse extends GuiStructure {
     protected ModerateHouseConfiguration configuration;
-    protected GuiButtonExt btnHouseStyle;
+    private GuiButtonExt btnHouseStyle;
 
-    protected GuiCheckBox btnAddChest;
-    protected GuiCheckBox btnAddChestContents;
-    protected GuiCheckBox btnAddMineShaft;
-    protected boolean allowItemsInChestAndFurnace = true;
+    private GuiCheckBox btnAddChest;
+    private GuiCheckBox btnAddChestContents;
+    private GuiCheckBox btnAddMineShaft;
+    private boolean allowItemsInChestAndFurnace = true;
     protected ServerModConfiguration serverConfiguration;
 
     public GuiModerateHouse() {
@@ -94,6 +93,7 @@ public class GuiModerateHouse extends GuiStructure {
         this.renderBackground();
 
         // Draw the control background.
+        assert this.minecraft != null;
         this.minecraft.getTextureManager().bindTexture(this.configuration.houseStyle.getHousePicture());
         GuiTabScreen.drawModalRectWithCustomSizedTexture(grayBoxX + 249, grayBoxY, 1,
                 this.configuration.houseStyle.getImageWidth(), this.configuration.houseStyle.getImageHeight(),
@@ -130,6 +130,7 @@ public class GuiModerateHouse extends GuiStructure {
         } else if (button == this.btnVisualize) {
             StructureModerateHouse structure = StructureModerateHouse.CreateInstance(this.configuration.houseStyle.getStructureLocation(), StructureModerateHouse.class);
             StructureRenderHandler.setStructure(structure, Direction.NORTH, this.configuration);
+            assert this.minecraft != null;
             this.minecraft.displayGuiScreen(null);
         }
     }

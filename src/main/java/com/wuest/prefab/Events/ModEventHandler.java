@@ -19,10 +19,11 @@ import net.minecraftforge.fml.network.NetworkDirection;
 import java.util.ArrayList;
 
 /**
- * This is the server side event hander.
+ * This is the server side event handler.
  *
  * @author WuestMan
  */
+@SuppressWarnings({"SpellCheckingInspection", "unused"})
 @EventBusSubscriber(modid = Prefab.MODID)
 public final class ModEventHandler {
     /**
@@ -57,7 +58,6 @@ public final class ModEventHandler {
         if (rightItem.getItem() == tripleCompressedStone || leftItem.getItem() == tripleCompressedStone) {
             if (rightItem.getItem() == ModRegistry.Bulldozer() || leftItem.getItem() == ModRegistry.Bulldozer()) {
                 event.setCost(4);
-                ItemStack bulldozer = rightItem.getItem() == ModRegistry.Bulldozer() ? rightItem : leftItem;
 
                 ItemStack outputStack = new ItemStack(ModRegistry.Bulldozer());
                 ModRegistry.Bulldozer().setPoweredValue(outputStack, true);

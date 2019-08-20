@@ -384,16 +384,11 @@ public class GuiLangKeys {
      */
     public static String getUnLocalized(String translateKey) {
         for (Field field : GuiLangKeys.class.getDeclaredFields()) {
-            Class type = field.getType();
-            String name = field.getName();
             String value = "";
 
             try {
                 value = field.get(null).toString();
-            } catch (IllegalArgumentException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
+            } catch (IllegalArgumentException | IllegalAccessException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }

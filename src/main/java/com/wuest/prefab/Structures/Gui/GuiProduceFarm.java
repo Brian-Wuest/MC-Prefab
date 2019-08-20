@@ -17,7 +17,7 @@ import net.minecraftforge.fml.client.config.GuiButtonExt;
  */
 public class GuiProduceFarm extends GuiStructure {
     private static final ResourceLocation houseTopDown = new ResourceLocation("prefab", "textures/gui/produce_farm_top_down.png");
-    protected GuiButtonExt btnGlassColor;
+    private GuiButtonExt btnGlassColor;
     protected ProduceFarmConfiguration configuration;
 
     public GuiProduceFarm() {
@@ -56,8 +56,9 @@ public class GuiProduceFarm extends GuiStructure {
         this.renderBackground();
 
         // Draw the control background.
+        assert this.minecraft != null;
         this.minecraft.getTextureManager().bindTexture(houseTopDown);
-        this.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 170, 171, 170, 171);
+        GuiProduceFarm.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 170, 171, 170, 171);
 
         this.drawControlBackgroundAndButtonsAndLabels(grayBoxX, grayBoxY, x, y);
 
@@ -84,6 +85,7 @@ public class GuiProduceFarm extends GuiStructure {
         } else if (button == this.btnVisualize) {
             StructureProduceFarm structure = StructureProduceFarm.CreateInstance(StructureProduceFarm.ASSETLOCATION, StructureProduceFarm.class);
             StructureRenderHandler.setStructure(structure, Direction.NORTH, this.configuration);
+            assert this.minecraft != null;
             this.minecraft.displayGuiScreen(null);
         }
     }

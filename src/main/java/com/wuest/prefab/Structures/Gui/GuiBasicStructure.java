@@ -19,11 +19,12 @@ import java.io.IOException;
  *
  * @author WuestMan
  */
+@SuppressWarnings({"ConstantConditions", "SpellCheckingInspection"})
 public class GuiBasicStructure extends GuiStructure {
     protected BasicStructureConfiguration configuration;
-    protected boolean includePicture = true;
-    protected int modifiedInitialXAxis = 213;
-    protected int modifiedINitialYAxis = 83;
+    private boolean includePicture = true;
+    private int modifiedInitialXAxis = 213;
+    private int modifiedInitialYAxis = 83;
 
     public GuiBasicStructure() {
         super("Basic Structure");
@@ -36,7 +37,7 @@ public class GuiBasicStructure extends GuiStructure {
     @Override
     public void render(int x, int y, float f) {
         int grayBoxX = this.getCenteredXAxis() - this.modifiedInitialXAxis;
-        int grayBoxY = this.getCenteredYAxis() - this.modifiedINitialYAxis;
+        int grayBoxY = this.getCenteredYAxis() - this.modifiedInitialYAxis;
 
         this.renderBackground();
 
@@ -44,7 +45,7 @@ public class GuiBasicStructure extends GuiStructure {
             // Draw the control background.
             this.getMinecraft().getTextureManager().bindTexture(this.configuration.basicStructureName.getTopDownPictureLocation());
 
-            this.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1,
+            GuiBasicStructure.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1,
                     this.configuration.basicStructureName.getImageWidth(), this.configuration.basicStructureName.getImageHeight(),
                     this.configuration.basicStructureName.getImageWidth(), this.configuration.basicStructureName.getImageHeight());
         }
@@ -79,7 +80,7 @@ public class GuiBasicStructure extends GuiStructure {
 
         // Get the upper left hand corner of the GUI box.
         int grayBoxX = this.getCenteredXAxis() - this.modifiedInitialXAxis;
-        int grayBoxY = this.getCenteredYAxis() - this.modifiedINitialYAxis;
+        int grayBoxY = this.getCenteredYAxis() - this.modifiedInitialYAxis;
 
         // Create the buttons.
         this.btnVisualize = this.createAndAddButton(grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW));
@@ -95,7 +96,7 @@ public class GuiBasicStructure extends GuiStructure {
      *
      * @return A value indicating whether the picture exists.
      */
-    protected boolean doesPictureExist() {
+    private boolean doesPictureExist() {
         try {
             this.getMinecraft().getResourceManager().getResource(this.configuration.basicStructureName.getTopDownPictureLocation());
             return true;

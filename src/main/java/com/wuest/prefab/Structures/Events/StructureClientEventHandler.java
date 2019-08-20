@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.Mod;
 /**
  * @author WuestMan
  */
+@SuppressWarnings("unused")
 @Mod.EventBusSubscriber(modid = Prefab.MODID, value = Dist.CLIENT)
 public final class StructureClientEventHandler {
     /**

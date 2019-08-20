@@ -9,6 +9,7 @@ import net.minecraft.block.Blocks;
  *
  * @author WuestMan
  */
+@SuppressWarnings({"unused", "SpellCheckingInspection"})
 public enum EnumStructureMaterial {
     Cobblestone("prefab.gui.material.cobble_stone", Blocks.COBBLESTONE.getDefaultState(), Blocks.STONE_STAIRS.getDefaultState(), 0),
     Stone("prefab.gui.material.stone", Blocks.STONE.getDefaultState(), Blocks.STONE_STAIRS.getDefaultState(), 1),

@@ -18,7 +18,7 @@ import net.minecraftforge.fml.client.config.GuiButtonExt;
  */
 public class GuiMonsterMasher extends GuiStructure {
     private static final ResourceLocation houseTopDown = new ResourceLocation("prefab", "textures/gui/monster_masher_top_down.png");
-    protected GuiButtonExt btnGlassColor;
+    private GuiButtonExt btnGlassColor;
     protected MonsterMasherConfiguration configuration;
 
     public GuiMonsterMasher() {
@@ -57,6 +57,7 @@ public class GuiMonsterMasher extends GuiStructure {
         this.renderBackground();
 
         // Draw the control background.
+        assert this.minecraft != null;
         this.minecraft.getTextureManager().bindTexture(houseTopDown);
         GuiTabScreen.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 108, 156, 108, 156);
 
@@ -84,6 +85,7 @@ public class GuiMonsterMasher extends GuiStructure {
         } else if (button == this.btnVisualize) {
             StructureMonsterMasher structure = StructureMonsterMasher.CreateInstance(StructureMonsterMasher.ASSETLOCATION, StructureMonsterMasher.class);
             StructureRenderHandler.setStructure(structure, Direction.NORTH, this.configuration);
+            assert this.minecraft != null;
             this.minecraft.displayGuiScreen(null);
         }
     }

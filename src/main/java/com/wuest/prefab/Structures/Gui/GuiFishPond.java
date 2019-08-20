@@ -38,9 +38,10 @@ public class GuiFishPond extends GuiStructure {
         // After the buffered image has been loaded, the GlStateManager.bindTexture class should be called.
         // Will probably want to keep the buffered image around in a class so the resources aren't constantly being de-compressed as this happens on every tick.
         //BufferedImage image = ZipUtil.decompressImageResource(structureTopDown.getResourcePath());
+        assert this.minecraft != null;
         this.minecraft.getTextureManager().bindTexture(structureTopDown);
 
-        this.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 151, 149, 151, 149);
+        GuiFishPond.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 151, 149, 151, 149);
 
         this.drawControlBackgroundAndButtonsAndLabels(grayBoxX, grayBoxY, x, y);
 
@@ -60,6 +61,7 @@ public class GuiFishPond extends GuiStructure {
         if (button == this.btnVisualize) {
             StructureFishPond structure = StructureFishPond.CreateInstance(StructureFishPond.ASSETLOCATION, StructureFishPond.class);
             StructureRenderHandler.setStructure(structure, Direction.NORTH, this.configuration);
+            assert this.minecraft != null;
             this.minecraft.displayGuiScreen(null);
         }
     }

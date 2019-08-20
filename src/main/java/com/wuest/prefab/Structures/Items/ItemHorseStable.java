@@ -6,6 +6,7 @@ import net.minecraft.item.ItemUseContext;
 /**
  * @author WuestMan
  */
+@SuppressWarnings("ConstantConditions")
 public class ItemHorseStable extends StructureItem {
     public ItemHorseStable(String name) {
         super(name);

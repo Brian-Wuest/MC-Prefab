@@ -7,6 +7,7 @@ import net.minecraft.item.ItemUseContext;
 /**
  * @author WuestMan
  */
+@SuppressWarnings("ConstantConditions")
 public class ItemModerateHouse extends StructureItem {
 	/**
 	 * Initializes a new instance of the {@link ItemModerateHouse} class.

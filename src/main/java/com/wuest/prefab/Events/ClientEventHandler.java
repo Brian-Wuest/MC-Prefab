@@ -27,6 +27,7 @@ import org.lwjgl.opengl.GL11;
 /**
  * @author WuestMan
  */
+@SuppressWarnings("unused")
 @Mod.EventBusSubscriber(modid = Prefab.MODID, value = {Dist.CLIENT})
 public final class ClientEventHandler {
     public static ClientEventHandler instance = new ClientEventHandler();
@@ -98,52 +99,51 @@ public final class ClientEventHandler {
 
     private static void RenderTest(World worldIn, PlayerEntity playerIn) {
         float partialTicks = Minecraft.getInstance().getRenderPartialTicks();
-        PlayerEntity entityplayer = playerIn;
         Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder vertexbuffer = tessellator.getBuffer();
-        BlockPos playerPosition = new BlockPos(entityplayer.posX, entityplayer.posY, entityplayer.posZ);
-        BlockPos blockPos = playerPosition.offset(entityplayer.getHorizontalFacing().getOpposite());
+        BufferBuilder vertexBuffer = tessellator.getBuffer();
+        BlockPos playerPosition = new BlockPos(playerIn.posX, playerIn.posY, playerIn.posZ);
+        BlockPos blockPos = playerPosition.offset(playerIn.getHorizontalFacing().getOpposite());
 
-        double playerVertical = entityplayer.lastTickPosY + (entityplayer.posY - entityplayer.lastTickPosY) * (double) partialTicks;
+        double playerVertical = playerIn.lastTickPosY + (playerIn.posY - playerIn.lastTickPosY) * (double) partialTicks;
 
-        double playerLevelYCoordinate = blockPos.getY() - Math.abs(playerPosition.getY()) + (playerPosition.getY() - entityplayer.posY);
-        double playerLevelUpOneYCoordinate = blockPos.getY() - Math.abs(playerPosition.getY()) + 1 + (playerPosition.getY() - entityplayer.posY);
+        double playerLevelYCoordinate = blockPos.getY() - Math.abs(playerPosition.getY()) + (playerPosition.getY() - playerIn.posY);
+        double playerLevelUpOneYCoordinate = blockPos.getY() - Math.abs(playerPosition.getY()) + 1 + (playerPosition.getY() - playerIn.posY);
 
         // This makes the block north and in-line with the player's line of sight.
-        double blockXOffset = (playerPosition.getX() - blockPos.getX()) + (playerPosition.getX() - entityplayer.posX);
-        double blocZOffset = (playerPosition.getZ() - blockPos.getZ()) + (playerPosition.getZ() - entityplayer.posZ);
+        double blockXOffset = (playerPosition.getX() - blockPos.getX()) + (playerPosition.getX() - playerIn.posX);
+        double blocZOffset = (playerPosition.getZ() - blockPos.getZ()) + (playerPosition.getZ() - playerIn.posZ);
 
         GlStateManager.disableTexture();
         GlStateManager.disableBlend();
 
         GlStateManager.lineWidth(3.0F);
-        vertexbuffer.begin(3, DefaultVertexFormats.POSITION_COLOR);
+        vertexBuffer.begin(3, DefaultVertexFormats.POSITION_COLOR);
 
         // Draw the verticals of the box.
         for (int k = 1; k < 2; k += 1) {
             // Green
-            vertexbuffer.pos(blockXOffset, playerLevelYCoordinate, blocZOffset).color(0.6F, 1.0F, 0.0F, 0.0F).endVertex();
-            vertexbuffer.pos(blockXOffset, playerLevelUpOneYCoordinate, blocZOffset).color(0.6F, 1.0F, 0.0F, 1.0F).endVertex();
+            vertexBuffer.pos(blockXOffset, playerLevelYCoordinate, blocZOffset).color(0.6F, 1.0F, 0.0F, 0.0F).endVertex();
+            vertexBuffer.pos(blockXOffset, playerLevelUpOneYCoordinate, blocZOffset).color(0.6F, 1.0F, 0.0F, 1.0F).endVertex();
 
             // Orange
-            vertexbuffer.pos(blockXOffset + (double) k, playerLevelYCoordinate, blocZOffset).color(1.0F, 0.6F, 0.0F, 0.0F).endVertex();
-            vertexbuffer.pos(blockXOffset + (double) k, playerLevelUpOneYCoordinate, blocZOffset).color(1.0F, 0.6F, 0.0F, 1.0F).endVertex();
+            vertexBuffer.pos(blockXOffset + (double) k, playerLevelYCoordinate, blocZOffset).color(1.0F, 0.6F, 0.0F, 0.0F).endVertex();
+            vertexBuffer.pos(blockXOffset + (double) k, playerLevelUpOneYCoordinate, blocZOffset).color(1.0F, 0.6F, 0.0F, 1.0F).endVertex();
 
-            vertexbuffer.pos(blockXOffset, playerLevelYCoordinate, blocZOffset + (double) k).color(1.0F, 1.0F, 0.0F, 0.0F).endVertex();
-            vertexbuffer.pos(blockXOffset, playerLevelUpOneYCoordinate, blocZOffset + (double) k).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+            vertexBuffer.pos(blockXOffset, playerLevelYCoordinate, blocZOffset + (double) k).color(1.0F, 1.0F, 0.0F, 0.0F).endVertex();
+            vertexBuffer.pos(blockXOffset, playerLevelUpOneYCoordinate, blocZOffset + (double) k).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
 
-            vertexbuffer.pos(blockXOffset + 1.0D, playerLevelYCoordinate, blocZOffset + (double) k).color(1.0F, 1.0F, 0.0F, 0.0F).endVertex();
-            vertexbuffer.pos(blockXOffset + 1.0D, playerLevelUpOneYCoordinate, blocZOffset + (double) k).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+            vertexBuffer.pos(blockXOffset + 1.0D, playerLevelYCoordinate, blocZOffset + (double) k).color(1.0F, 1.0F, 0.0F, 0.0F).endVertex();
+            vertexBuffer.pos(blockXOffset + 1.0D, playerLevelUpOneYCoordinate, blocZOffset + (double) k).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
         }
 
         // All horizontals.
         for (int i1 = playerPosition.getY(); i1 <= playerPosition.getY() + 1; i1 += 1) {
             double d7 = i1 - playerVertical;
-            vertexbuffer.pos(blockXOffset, d7, blocZOffset).color(1.0F, 1.0F, 0.0F, 0.0F).endVertex();
-            vertexbuffer.pos(blockXOffset, d7, blocZOffset + 1.0D).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-            vertexbuffer.pos(blockXOffset + 1.0D, d7, blocZOffset + 1.0D).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-            vertexbuffer.pos(blockXOffset + 1.0D, d7, blocZOffset).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-            vertexbuffer.pos(blockXOffset, d7, blocZOffset).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+            vertexBuffer.pos(blockXOffset, d7, blocZOffset).color(1.0F, 1.0F, 0.0F, 0.0F).endVertex();
+            vertexBuffer.pos(blockXOffset, d7, blocZOffset + 1.0D).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+            vertexBuffer.pos(blockXOffset + 1.0D, d7, blocZOffset + 1.0D).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+            vertexBuffer.pos(blockXOffset + 1.0D, d7, blocZOffset).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+            vertexBuffer.pos(blockXOffset, d7, blocZOffset).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
         }
 
         tessellator.draw();

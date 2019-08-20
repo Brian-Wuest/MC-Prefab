@@ -6,6 +6,7 @@ import net.minecraft.item.ItemUseContext;
 /**
  * @author WuestMan
  */
+@SuppressWarnings("ConstantConditions")
 public class ItemFishPond extends StructureItem {
     public ItemFishPond(String name) {
         super(name);
