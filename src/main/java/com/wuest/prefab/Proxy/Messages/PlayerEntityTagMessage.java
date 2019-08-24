@@ -18,6 +18,10 @@ public class PlayerEntityTagMessage extends TagMessage {
         super(tagMessage);
     }
 
+    public PlayerEntityTagMessage() {
+        super();
+    }
+
     public static PlayerEntityTagMessage decode(PacketBuffer buf) {
         return TagMessage.decode(buf, PlayerEntityTagMessage.class);
     }
