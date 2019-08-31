@@ -3,48 +3,70 @@ package com.wuest.prefab.Crafting;
 import com.google.gson.JsonObject;
 import com.wuest.prefab.Prefab;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.crafting.IConditionSerializer;
-
-import java.util.function.BooleanSupplier;
+import net.minecraftforge.common.crafting.conditions.ICondition;
+import net.minecraftforge.common.crafting.conditions.IConditionSerializer;
 
 
 /**
  * @author WuestMan
  */
-@SuppressWarnings("NullableProblems")
-public class RecipeCondition implements IConditionSerializer {
-    public String recipeKey;
-    public static final ResourceLocation KEY = new ResourceLocation(Prefab.MODID, "config_recipe");
+public class RecipeCondition implements ICondition {
+	public String recipeKey;
+	public static final ResourceLocation NAME = new ResourceLocation(Prefab.MODID, "config_recipe");
 
-    /**
-     * Initializes a new instance of the recipe condition class.
-     */
-    public RecipeCondition() {
-    }
+	/**
+	 * Initializes a new instance of the recipe condition class.
+	 */
+	public RecipeCondition(String recipeKey) {
+		this.recipeKey = recipeKey;
+	}
 
-    @Override
-    public BooleanSupplier parse(JsonObject json) {
-        String recipeKeyName = "recipeKey";
-        this.recipeKey = json.get(recipeKeyName).getAsString();
+	@Override
+	public ResourceLocation getID() {
+		return NAME;
+	}
 
-        return this::determineActiveRecipe;
-    }
+	@Override
+	public boolean test() {
+		return this.determineActiveRecipe();
+	}
 
-    /**
-     * Determines if the recipe is active.
-     *
-     * @return True if the recipe is active, otherwise false.
-     */
-    public boolean determineActiveRecipe() {
-        boolean result = false;
+	/**
+	 * Determines if the recipe is active.
+	 *
+	 * @return True if the recipe is active, otherwise false.
+	 */
+	private boolean determineActiveRecipe() {
+		boolean result = false;
 
-        if (this.recipeKey != null) {
-            if (Prefab.proxy.getServerConfiguration().recipeConfiguration.containsKey(this.recipeKey)) {
-                result = Prefab.proxy.getServerConfiguration().recipeConfiguration.get(this.recipeKey);
-            }
-        }
+		if (this.recipeKey != null) {
+			if (Prefab.proxy.getServerConfiguration().recipeConfiguration.containsKey(this.recipeKey)) {
+				result = Prefab.proxy.getServerConfiguration().recipeConfiguration.get(this.recipeKey);
+			}
+		}
 
-        return result;
-    }
+		return result;
+	}
 
+	@SuppressWarnings("unused")
+	public static class Serializer implements IConditionSerializer<RecipeCondition> {
+		public static final RecipeCondition.Serializer INSTANCE = new RecipeCondition.Serializer();
+
+		@Override
+		public void write(JsonObject json, RecipeCondition value) {
+			json.addProperty("recipeKey", value.recipeKey);
+		}
+
+		@Override
+		public RecipeCondition read(JsonObject json) {
+			String recipeKeyName = "recipeKey";
+
+			return new RecipeCondition(json.get(recipeKeyName).getAsString());
+		}
+
+		@Override
+		public ResourceLocation getID() {
+			return RecipeCondition.NAME;
+		}
+	}
 }

@@ -46,7 +46,7 @@ public class CommonProxy {
     }
 
     public void preInit(FMLCommonSetupEvent event) {
-        CraftingHelper.register(RecipeCondition.KEY, new RecipeCondition());
+        CraftingHelper.register(new RecipeCondition.Serializer());
 
         Prefab.network = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(Prefab.MODID, "main_channel"))
                 .clientAcceptedVersions(Prefab.PROTOCOL_VERSION::equals)
