@@ -70,6 +70,7 @@
 	 "1.4.0.1": "Fixes a few critical defects where the game would crash when clicking on it on the Modlist screen and fixed an issue with buildings on servers.",
 	 "1.4.0.2": "Fixes the basic starting house and adds a new desert style house and a new sub-aquatic style!",
 	 "1.4.0.3": "Fixed a server error when building the villager house or instant bridge. Also fixed the structure part gui and the Aqua Base.",
-	 "1.4.0.4": "Fixed issues with the Horse Stable, Structure Part and Defense Bunker. Added Turkish language file. Thanks Emirhangg!"
+	 "1.4.0.4": "Fixed issues with the Horse Stable, Structure Part and Defense Bunker. Added Turkish language file. Thanks Emirhangg!",
+	 "1.4.0.5": "Fixed an issue with recipe registration caused by latest forge version."
  }
 }
