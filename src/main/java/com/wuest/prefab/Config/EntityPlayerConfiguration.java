@@ -54,7 +54,7 @@ public class EntityPlayerConfiguration {
      * @return An NBTTagCompound to save data too.
      */
     public CompoundNBT getModIsPlayerNewTag(PlayerEntity player) {
-        CompoundNBT tag = player.getEntityData();
+        CompoundNBT tag = player.getPersistantData();
 
         // Get/create a tag used to determine if this is a new player.
         CompoundNBT newPlayerTag = null;
