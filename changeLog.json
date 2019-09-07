@@ -7,8 +7,8 @@
 	  "1.11.2-recommended": "1.2.0.19",
 	  "1.12-latest": "1.3.0.26",
 	  "1.12-recommended": "1.3.0.26",
-	  "1.14-latest": "1.4.0.5",
-	  "1.14-recommended": "1.4.0.5"
+	  "1.14-latest": "1.4.0.6",
+	  "1.14-recommended": "1.4.0.6"
   },
   "1.10.2": {
 	  "1.1.1.10": "New Stuff: Added [Ender Gateway] structure. Added [Phasic Block] and [Boundary Block]\nSome buildings can now be generated in mod-created dimensions.",
@@ -71,6 +71,7 @@
 	 "1.4.0.2": "Fixes the basic starting house and adds a new desert style house and a new sub-aquatic style!",
 	 "1.4.0.3": "Fixed a server error when building the villager house or instant bridge. Also fixed the structure part gui and the Aqua Base.",
 	 "1.4.0.4": "Fixed issues with the Horse Stable, Structure Part and Defense Bunker. Added Turkish language file. Thanks Emirhangg!",
-	 "1.4.0.5": "Fixed an issue with recipe registration caused by latest forge version."
+	 "1.4.0.5": "Fixed an issue with recipe registration caused by latest forge version.",
+	 "1.4.0.6": "Fixed an issue caused by the forge version 28.0.92 and later."
  }
 }
