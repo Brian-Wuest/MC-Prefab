@@ -54,6 +54,7 @@ public class CommonProxy {
                 .networkProtocolVersion(() -> Prefab.PROTOCOL_VERSION)
                 .simpleChannel();
 
+
         // Register messages.
         ModRegistry.RegisterMessages();
 

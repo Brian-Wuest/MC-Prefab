@@ -159,13 +159,13 @@ public final class StructureEventHandler {
 			// Don't add the tag unless the house item was added. This way it can be added if the feature is turned on.
 			// When the player is cloned, make sure to copy the tag. If this is not done the item can be given to the
 			// player again if they die before the log out and log back in.
-			CompoundNBT originalTag = event.getOriginal().getPersistantData();
+			CompoundNBT originalTag = event.getOriginal().getPersistentData();
 
 			// Use the server configuration to determine if the house should be added for this player.
 			String startingItem = CommonProxy.proxyConfiguration.serverConfiguration.startingItem;
 			if (startingItem != null && !startingItem.equalsIgnoreCase("Nothing")) {
 				if (originalTag.contains(EntityPlayerConfiguration.PLAYER_ENTITY_TAG)) {
-					CompoundNBT newPlayerTag = event.getEntityPlayer().getPersistantData();
+					CompoundNBT newPlayerTag = event.getEntityPlayer().getPersistentData();
 					newPlayerTag.put(EntityPlayerConfiguration.PLAYER_ENTITY_TAG, originalTag.get(EntityPlayerConfiguration.PLAYER_ENTITY_TAG));
 
 					// Send the persist tag to the client.

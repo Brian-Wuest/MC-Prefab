@@ -54,11 +54,6 @@ public class Prefab {
     public static boolean useScanningMode = false;
 
     /**
-     * This is the static instance of this class.
-     */
-    public static Prefab instance;
-
-    /**
      * Says where the client and server 'proxy' code is loaded.
      */
     public static CommonProxy proxy;

@@ -25,7 +25,7 @@ public class PlayerEntityHandler {
 
         context.enqueueWork(() -> {
             // This is client side.
-            CompoundNBT newPlayerTag = Minecraft.getInstance().player.getPersistantData();
+            CompoundNBT newPlayerTag = Minecraft.getInstance().player.getPersistentData();
             newPlayerTag.put(EntityPlayerConfiguration.PLAYER_ENTITY_TAG, message.getMessageTag());
             ClientEventHandler.playerConfig.loadFromNBTTagCompound(message.getMessageTag());
         });
