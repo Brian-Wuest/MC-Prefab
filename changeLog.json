@@ -73,6 +73,6 @@
 	 "1.4.0.4": "Fixed issues with the Horse Stable, Structure Part and Defense Bunker. Added Turkish language file. Thanks Emirhangg!",
 	 "1.4.0.5": "Fixed an issue with recipe registration caused by latest forge version.",
 	 "1.4.0.6": "Fixed an issue caused by the forge version 28.0.92 and later.",
-	 "1.4.0.7": "Fixed an issue caused by the recommended version of forge. This marks the first official release!"
+	 "1.4.0.7": "Fixed an issue caused by the recommended version of forge. This marks the first non-beta release!"
  }
 }
