@@ -7,6 +7,7 @@ import com.wuest.prefab.Structures.Config.ChickenCoopConfiguration;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Structures.Predefined.StructureChickenCoop;
 import com.wuest.prefab.Structures.Render.StructureRenderHandler;
+import javafx.util.Pair;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
@@ -23,27 +24,23 @@ public class GuiChickenCoop extends GuiStructure {
         this.structureConfiguration = EnumStructureConfiguration.ChickenCoop;
     }
 
-    /**
-     * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
-     */
     @Override
-    public void render(int x, int y, float f) {
-        int grayBoxX = this.getCenteredXAxis() - 213;
-        int grayBoxY = this.getCenteredYAxis() - 83;
+    protected Pair<Integer, Integer> getAdjustedXYValue() {
+        return new Pair<>(this.getCenteredXAxis() - 213, this.getCenteredYAxis() - 83);
+    }
 
-        this.renderBackground();
+    @Override
+    protected void preButtonRender(int x, int y)
+    {
+        super.preButtonRender(x , y);
 
-        // Draw the control background.
-        assert this.minecraft != null;
         this.minecraft.getTextureManager().bindTexture(structureTopDown);
-        GuiTabScreen.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 171, 87, 171, 87);
+        GuiStructure.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 171, 87, 171, 87);
+    }
 
-        this.drawControlBackgroundAndButtonsAndLabels(grayBoxX, grayBoxY, x, y);
-
-        // Draw the text here.
-        this.minecraft.fontRenderer.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), grayBoxX + 147, grayBoxY + 10, 95, this.textColor);
-
-        this.checkVisualizationSetting();
+    @Override
+    protected void postButtonRender(int x, int y) {
+        this.minecraft.fontRenderer.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, y + 10, 95, this.textColor);
     }
 
     /**

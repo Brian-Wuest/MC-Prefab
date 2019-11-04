@@ -2,12 +2,14 @@ package com.wuest.prefab.Structures.Gui;
 
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.Controls.GuiCheckBox;
+import com.wuest.prefab.Gui.GuiBase;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Structures.Base.EnumStructureMaterial;
 import com.wuest.prefab.Structures.Config.InstantBridgeConfiguration;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Structures.Predefined.StructureInstantBridge;
 import com.wuest.prefab.Structures.Render.StructureRenderHandler;
+import javafx.util.Pair;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
@@ -59,33 +61,30 @@ public class GuiInstantBridge extends GuiStructure {
         this.btnCancel = this.createAndAddButton(grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_CANCEL));
     }
 
-    /**
-     * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
-     */
     @Override
-    public void render(int x, int y, float f) {
-        int grayBoxX = this.getCenteredXAxis() - 210;
-        int grayBoxY = this.getCenteredYAxis() - 83;
+    protected Pair<Integer, Integer> getAdjustedXYValue() {
+        return new Pair<>(this.getCenteredXAxis() - 210, this.getCenteredYAxis() - 83);
+    }
 
-        this.renderBackground();
+    @Override
+    protected void preButtonRender(int x, int y)
+    {
+        super.preButtonRender(x , y);
 
-        // Draw the control background.
-        assert this.minecraft != null;
         this.minecraft.getTextureManager().bindTexture(structureTopDown);
-        GuiInstantBridge.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 165, 58, 165, 58);
 
-        this.drawControlBackgroundAndButtonsAndLabels(grayBoxX, grayBoxY, x, y);
+        GuiStructure.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 165, 58, 165, 58);
+    }
 
-        // Draw the text here.
-        this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.BRIDGE_MATERIAL), grayBoxX + 10, grayBoxY + 10, this.textColor);
+    @Override
+    protected void postButtonRender(int x, int y) {
+        this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.BRIDGE_MATERIAL), x + 10, y + 10, this.textColor);
 
         if (this.chckIncludeRoof.isChecked()) {
-            this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.INTERIOR_HEIGHT), grayBoxX + 147, grayBoxY + 80, this.textColor);
+            this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.INTERIOR_HEIGHT), x + 147, y + 80, this.textColor);
         }
 
-        this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.BRIDGE_LENGTH), grayBoxX + 147, grayBoxY + 10, this.textColor);
-
-        this.checkVisualizationSetting();
+        this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.BRIDGE_LENGTH), x + 147, y + 10, this.textColor);
     }
 
     /**

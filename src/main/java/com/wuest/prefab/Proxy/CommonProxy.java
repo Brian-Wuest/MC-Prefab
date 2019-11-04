@@ -16,6 +16,8 @@ import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import org.apache.commons.lang3.tuple.Pair;
 
+import java.nio.file.Path;
+
 /**
  * This is the server side proxy.
  *
@@ -25,6 +27,7 @@ import org.apache.commons.lang3.tuple.Pair;
 public class CommonProxy {
     public static ModConfiguration proxyConfiguration;
     public static ForgeConfigSpec COMMON_SPEC;
+    public static Path Config_File_Path;
 
     public CommonProxy() {
         // Builder.build is called during this method.
@@ -32,8 +35,9 @@ public class CommonProxy {
         COMMON_SPEC = commonPair.getRight();
         proxyConfiguration = commonPair.getLeft();
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, COMMON_SPEC);
+        CommonProxy.Config_File_Path = FMLPaths.CONFIGDIR.get().resolve("prefab.toml");
 
-        ModConfiguration.loadConfig(CommonProxy.COMMON_SPEC, FMLPaths.CONFIGDIR.get().resolve("prefab.toml"));
+        ModConfiguration.loadConfig(CommonProxy.COMMON_SPEC, CommonProxy.Config_File_Path);
     }
 
     /*

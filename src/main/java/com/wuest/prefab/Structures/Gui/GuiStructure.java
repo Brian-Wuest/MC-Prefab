@@ -1,11 +1,13 @@
 package com.wuest.prefab.Structures.Gui;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.wuest.prefab.Gui.GuiBase;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.Structures.Config.StructureConfiguration;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
+import javafx.util.Pair;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -26,8 +28,7 @@ import java.awt.*;
  *
  * @author WuestMan
  */
-public abstract class GuiStructure extends Screen {
-	private final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/default_background.png");
+public abstract class GuiStructure extends GuiBase {
 	public BlockPos pos;
 	protected PlayerEntity player;
 	private Direction structureFacing;
@@ -38,11 +39,9 @@ public abstract class GuiStructure extends Screen {
 
 	protected int textColor = Color.DARK_GRAY.getRGB();
 	protected EnumStructureConfiguration structureConfiguration;
-	private boolean pauseGame;
 
 	public GuiStructure(String title) {
-		super(new StringTextComponent(title));
-		this.pauseGame = true;
+		super(title);
 	}
 
 	@Override
@@ -58,59 +57,33 @@ public abstract class GuiStructure extends Screen {
 	protected void Initialize() {
 	}
 
-	protected int getCenteredXAxis() {
-		return this.width / 2;
-	}
-
-	protected int getCenteredYAxis() {
-		return this.height / 2;
-	}
-
-	/**
-	 * Returns true if this GUI should pause the game when it is displayed in single-player
-	 */
-	@Override
-	public boolean isPauseScreen() {
-		return this.pauseGame;
-	}
-
 	public void checkVisualizationSetting() {
 		if (!CommonProxy.proxyConfiguration.serverConfiguration.enableStructurePreview) {
 			this.btnVisualize.visible = false;
 		}
 	}
 
-	/**
-	 * Creates a {@link GuiButtonExt} using the button clicked event as the handler. Then adds it to the buttons list and returns the created object.
-	 *
-	 * @param x      The x-axis position.
-	 * @param y      The y-axis position.
-	 * @param width  The width of the button.
-	 * @param height The height of the button.
-	 * @param text   The text of the button.
-	 * @return A new button.
-	 */
-	public GuiButtonExt createAndAddButton(int x, int y, int width, int height, String text) {
-		GuiButtonExt returnValue = new GuiButtonExt(x, y, width, height, text, this::buttonClicked);
+	@Override
+	public void render(int x, int y, float f) {
+		Pair<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
 
-		this.addButton(returnValue);
+		this.preButtonRender(adjustedXYValue.getKey(), adjustedXYValue.getValue());
 
-		return returnValue;
+		this.renderButtons(x, y);
+
+		this.postButtonRender(adjustedXYValue.getKey(), adjustedXYValue.getValue());
+
+		if (this.btnVisualize != null)
+		{
+			this.checkVisualizationSetting();
+		}
 	}
 
-	public abstract void buttonClicked(Button button);
+	@Override
+	protected void preButtonRender(int x, int y) {
+		this.renderBackground();
 
-	protected void drawControlBackgroundAndButtonsAndLabels(int grayBoxX, int grayBoxY, int mouseX, int mouseY) {
-		this.getMinecraft().getTextureManager().bindTexture(this.backgroundTextures);
-		this.blit(grayBoxX, grayBoxY, 0, 0, 256, 256);
-
-		for (net.minecraft.client.gui.widget.Widget button : this.buttons) {
-			Button currentButton = (Button) button;
-
-			if (currentButton != null && currentButton.visible) {
-				currentButton.renderButton(mouseX, mouseY, this.getMinecraft().getRenderPartialTicks());
-			}
-		}
+		this.drawControlBackground(x, y);
 	}
 
 	/**

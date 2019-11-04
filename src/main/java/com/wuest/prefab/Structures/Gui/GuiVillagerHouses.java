@@ -7,6 +7,7 @@ import com.wuest.prefab.Structures.Config.VillagerHouseConfiguration;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Structures.Predefined.StructureVillagerHouses;
 import com.wuest.prefab.Structures.Render.StructureRenderHandler;
+import javafx.util.Pair;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
@@ -47,29 +48,25 @@ public class GuiVillagerHouses extends GuiStructure {
         this.btnCancel = this.createAndAddButton(grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_CANCEL));
     }
 
-    /**
-     * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
-     */
     @Override
-    public void render(int x, int y, float f) {
-        int grayBoxX = this.getCenteredXAxis() - 205;
-        int grayBoxY = this.getCenteredYAxis() - 83;
+    protected Pair<Integer, Integer> getAdjustedXYValue() {
+        return new Pair<>(this.getCenteredXAxis() - 205, this.getCenteredYAxis() - 83);
+    }
 
-        this.renderBackground();
+    @Override
+    protected void preButtonRender(int x, int y)
+    {
+        super.preButtonRender(x , y);
 
-        // Draw the control background.
-        assert this.minecraft != null;
         this.minecraft.getTextureManager().bindTexture(this.houseStyle.getHousePicture());
-        GuiTabScreen.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1,
+        GuiTabScreen.drawModalRectWithCustomSizedTexture(x + 250, y, 1,
                 this.houseStyle.getImageWidth(), this.houseStyle.getImageHeight(),
                 this.houseStyle.getImageWidth(), this.houseStyle.getImageHeight());
+    }
 
-        this.drawControlBackgroundAndButtonsAndLabels(grayBoxX, grayBoxY, x, y);
-
-        // Draw the text here.
-        this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), grayBoxX + 10, grayBoxY + 10, this.textColor);
-
-        this.checkVisualizationSetting();
+    @Override
+    protected void postButtonRender(int x, int y) {
+        this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), x + 10, y + 10, this.textColor);
     }
 
     /**

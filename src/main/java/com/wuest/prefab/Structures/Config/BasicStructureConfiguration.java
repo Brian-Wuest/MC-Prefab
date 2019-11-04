@@ -154,6 +154,15 @@ public class BasicStructureConfiguration extends StructureConfiguration {
         EnumBasicStructureName.Saloon.getClearPositionOffset().setEastOffset(10);
         EnumBasicStructureName.Saloon.getClearPositionOffset().setHeightOffset(-1);
 
+        // Ski Lodge
+        EnumBasicStructureName.SkiLodge.getClearShape().setDirection(Direction.SOUTH);
+        EnumBasicStructureName.SkiLodge.getClearShape().setHeight(25);
+        EnumBasicStructureName.SkiLodge.getClearShape().setWidth(46);
+        EnumBasicStructureName.SkiLodge.getClearShape().setLength(35);
+        EnumBasicStructureName.SkiLodge.getClearPositionOffset().setSouthOffset(1);
+        EnumBasicStructureName.SkiLodge.getClearPositionOffset().setEastOffset(20);
+        EnumBasicStructureName.SkiLodge.getClearPositionOffset().setHeightOffset(-1);
+
         /*
          * EnumBasicStructureName.Saloon.getClearShape().setDirection(Direction.SOUTH);
          * EnumBasicStructureName.Saloon.getClearShape().setHeight(4);
@@ -312,7 +321,8 @@ public class BasicStructureConfiguration extends StructureConfiguration {
         WelcomeCenter("welcome_center", "item.prefab.welcome_center", "assets/prefab/structures/welcome_center.zip", "textures/gui/welcome_center_topdown.png",
                 "item_welcome_center", 121, 168),
         Jail("jail", "item.prefab.jail", "assets/prefab/structures/jail.zip", "textures/gui/jail_topdown.png", "item_jail", 131, 175),
-        Saloon("saloon", "item.prefab.saloon", "assets/prefab/structures/saloon.zip", "textures/gui/saloon_topdown.png", "item_saloon", 130, 170);
+        Saloon("saloon", "item.prefab.saloon", "assets/prefab/structures/saloon.zip", "textures/gui/saloon_topdown.png", "item_saloon", 130, 170),
+        SkiLodge("ski_lodge", "item.prefab.ski_lodge", "assets/prefab/structures/ski_lodge.zip", "textures/gui/ski_lodge_topdown.png", "item_ski_lodge", 130, 170);
 
         private String name;
         private String assetLocation;

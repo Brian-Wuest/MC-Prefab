@@ -10,6 +10,7 @@ import com.wuest.prefab.Structures.Config.ModerateHouseConfiguration;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Structures.Predefined.StructureModerateHouse;
 import com.wuest.prefab.Structures.Render.StructureRenderHandler;
+import javafx.util.Pair;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.Direction;
@@ -82,33 +83,30 @@ public class GuiModerateHouse extends GuiStructure {
         this.addButton(this.btnAddChestContents);
     }
 
-    /**
-     * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
-     */
     @Override
-    public void render(int x, int y, float f) {
-        int grayBoxX = this.getCenteredXAxis() - 212;
-        int grayBoxY = this.getCenteredYAxis() - 83;
+    protected Pair<Integer, Integer> getAdjustedXYValue() {
+        return new Pair<>(this.getCenteredXAxis() - 212, this.getCenteredYAxis() - 83);
+    }
 
-        this.renderBackground();
+    @Override
+    protected void preButtonRender(int x, int y)
+    {
+        super.preButtonRender(x , y);
 
-        // Draw the control background.
-        assert this.minecraft != null;
         this.minecraft.getTextureManager().bindTexture(this.configuration.houseStyle.getHousePicture());
-        GuiTabScreen.drawModalRectWithCustomSizedTexture(grayBoxX + 249, grayBoxY, 1,
+        GuiTabScreen.drawModalRectWithCustomSizedTexture(x + 249, y, 1,
                 this.configuration.houseStyle.getImageWidth(), this.configuration.houseStyle.getImageHeight(),
                 this.configuration.houseStyle.getImageWidth(), this.configuration.houseStyle.getImageHeight());
+    }
 
-        this.drawControlBackgroundAndButtonsAndLabels(grayBoxX, grayBoxY, x, y);
-
+    @Override
+    protected void postButtonRender(int x, int y) {
         this.btnAddChest.visible = this.serverConfiguration.addChests;
         this.btnAddChestContents.visible = this.allowItemsInChestAndFurnace && this.serverConfiguration.addChestContents;
         this.btnAddMineShaft.visible = this.serverConfiguration.addMineshaft;
 
         // Draw the text here.
-        this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), grayBoxX + 10, grayBoxY + 10, this.textColor);
-
-        this.checkVisualizationSetting();
+        this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), x + 10, y + 10, this.textColor);
     }
 
     /**

@@ -2,10 +2,12 @@ package com.wuest.prefab.Structures.Gui;
 
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
+import com.wuest.prefab.Gui.GuiTabScreen;
 import com.wuest.prefab.Structures.Config.FishPondConfiguration;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Structures.Predefined.StructureFishPond;
 import com.wuest.prefab.Structures.Render.StructureRenderHandler;
+import javafx.util.Pair;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
@@ -22,33 +24,24 @@ public class GuiFishPond extends GuiStructure {
         this.structureConfiguration = EnumStructureConfiguration.FishPond;
     }
 
-    /**
-     * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
-     */
     @Override
-    public void render(int x, int y, float f) {
-        int grayBoxX = this.getCenteredXAxis() - 188;
-        int grayBoxY = this.getCenteredYAxis() - 83;
+    protected Pair<Integer, Integer> getAdjustedXYValue() {
+        return new Pair<>(this.getCenteredXAxis() - 188, this.getCenteredYAxis() - 83);
+    }
 
-        this.renderBackground();
+    @Override
+    protected void preButtonRender(int x, int y)
+    {
+        super.preButtonRender(x , y);
 
-        // Draw the control background.
-        // Create class to de-compress image from resource path.
-        // This class should inherit from "SimpleTexture" and override it's loadTexture method
-        // After the buffered image has been loaded, the GlStateManager.bindTexture class should be called.
-        // Will probably want to keep the buffered image around in a class so the resources aren't constantly being de-compressed as this happens on every tick.
-        //BufferedImage image = ZipUtil.decompressImageResource(structureTopDown.getResourcePath());
-        assert this.minecraft != null;
         this.minecraft.getTextureManager().bindTexture(structureTopDown);
 
-        GuiFishPond.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 151, 149, 151, 149);
+        GuiStructure.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 151, 149, 151, 149);
+    }
 
-        this.drawControlBackgroundAndButtonsAndLabels(grayBoxX, grayBoxY, x, y);
-
-        // Draw the text here.
-        this.minecraft.fontRenderer.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), grayBoxX + 147, grayBoxY + 10, 95, this.textColor);
-
-        this.checkVisualizationSetting();
+    @Override
+    protected void postButtonRender(int x, int y) {
+        this.minecraft.fontRenderer.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, y + 10, 95, this.textColor);
     }
 
     /**

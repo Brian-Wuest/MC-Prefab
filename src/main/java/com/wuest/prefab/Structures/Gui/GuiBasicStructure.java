@@ -8,6 +8,7 @@ import com.wuest.prefab.Structures.Items.ItemBasicStructure;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Structures.Predefined.StructureBasic;
 import com.wuest.prefab.Structures.Render.StructureRenderHandler;
+import javafx.util.Pair;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
@@ -31,33 +32,31 @@ public class GuiBasicStructure extends GuiStructure {
         this.structureConfiguration = EnumStructureConfiguration.Basic;
     }
 
-    /**
-     * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
-     */
     @Override
-    public void render(int x, int y, float f) {
-        int grayBoxX = this.getCenteredXAxis() - this.modifiedInitialXAxis;
-        int grayBoxY = this.getCenteredYAxis() - this.modifiedInitialYAxis;
+    protected  Pair<Integer,Integer> getAdjustedXYValue()
+    {
+        return new Pair<>(this.getCenteredXAxis() - this.modifiedInitialXAxis, this.getCenteredYAxis() - this.modifiedInitialYAxis);
+    }
 
-        this.renderBackground();
+    @Override
+    protected void preButtonRender(int x, int y)
+    {
+       super.preButtonRender(x , y);
 
         if (this.includePicture) {
             // Draw the control background.
             this.getMinecraft().getTextureManager().bindTexture(this.configuration.basicStructureName.getTopDownPictureLocation());
 
-            GuiBasicStructure.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1,
+            GuiBasicStructure.drawModalRectWithCustomSizedTexture(x + 250, y, 1,
                     this.configuration.basicStructureName.getImageWidth(), this.configuration.basicStructureName.getImageHeight(),
                     this.configuration.basicStructureName.getImageWidth(), this.configuration.basicStructureName.getImageHeight());
         }
+    }
 
-        this.drawControlBackgroundAndButtonsAndLabels(grayBoxX, grayBoxY, x, y);
-
+    @Override
+    protected void postButtonRender(int x, int y) {
         // Draw the text here.
-        this.getMinecraft().fontRenderer.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), grayBoxX + 147, grayBoxY + 10, 95, this.textColor);
-
-        if (!CommonProxy.proxyConfiguration.serverConfiguration.enableStructurePreview) {
-            this.btnVisualize.visible = false;
-        }
+        this.getMinecraft().fontRenderer.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, y + 10, 95, this.textColor);
     }
 
     @Override

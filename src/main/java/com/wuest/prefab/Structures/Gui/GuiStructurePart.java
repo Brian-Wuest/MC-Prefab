@@ -9,6 +9,7 @@ import com.wuest.prefab.Structures.Config.StructurePartConfiguration.EnumStyle;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Structures.Predefined.StructurePart;
 import com.wuest.prefab.Structures.Render.StructureRenderHandler;
+import javafx.util.Pair;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.Direction;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
@@ -74,27 +75,27 @@ public class GuiStructurePart extends GuiStructure {
 		this.btnStairsMaterialType = this.createAndAddButton(grayBoxX + 147, grayBoxY + 20, 90, 20, this.configuration.stairsMaterial.getTranslatedName());
 	}
 
-	/**
-	 * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
-	 */
 	@Override
-	public void render(int x, int y, float f) {
-		int grayBoxX = this.getCenteredXAxis() - this.modifiedInitialXAxis;
-		int grayBoxY = this.getCenteredYAxis() - this.modifiedInitialYAxis;
+	protected Pair<Integer, Integer> getAdjustedXYValue() {
+		return new Pair<>(this.getCenteredXAxis() - this.modifiedInitialXAxis, this.getCenteredYAxis() - this.modifiedInitialYAxis);
+	}
 
-		this.renderBackground();
+	@Override
+	protected void preButtonRender(int x, int y)
+	{
+		super.preButtonRender(x , y);
 
-		assert this.minecraft != null;
 		this.minecraft.getTextureManager().bindTexture(this.configuration.style.getPictureLocation());
 
-		GuiStructurePart.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1,
+		GuiStructurePart.drawModalRectWithCustomSizedTexture(x + 250, y, 1,
 				this.configuration.style.imageWidth, this.configuration.style.imageHeight,
 				this.configuration.style.imageWidth, this.configuration.style.imageHeight);
+	}
 
-		this.drawControlBackgroundAndButtonsAndLabels(grayBoxX, grayBoxY, x, y);
-
-		this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.STYLE), grayBoxX + 10, grayBoxY + 10, this.textColor);
-		this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.MATERIAL), grayBoxX + 147, grayBoxY + 10, this.textColor);
+	@Override
+	protected void postButtonRender(int x, int y) {
+		this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.STYLE), x + 10, y + 10, this.textColor);
+		this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.MATERIAL), x + 147, y + 10, this.textColor);
 
 		if (this.configuration.style == EnumStyle.Stairs
 				|| this.configuration.style == EnumStyle.Roof) {
@@ -115,19 +116,17 @@ public class GuiStructurePart extends GuiStructure {
 
 		if (this.configuration.style != EnumStyle.Roof) {
 			if (this.configuration.style == EnumStyle.Floor) {
-				this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.LENGTH), grayBoxX + 147, grayBoxY + 90, this.textColor);
+				this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.LENGTH), x + 147, y + 90, this.textColor);
 			} else {
-				this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.HEIGHT), grayBoxX + 147, grayBoxY + 90, this.textColor);
+				this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.HEIGHT), x + 147, y + 90, this.textColor);
 			}
 		}
 
 		if (this.configuration.style == EnumStyle.Roof) {
-			this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.HEIGHT), grayBoxX + 147, grayBoxY + 50, this.textColor);
+			this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.HEIGHT), x + 147, y + 50, this.textColor);
 		} else {
-			this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.WIDTH), grayBoxX + 147, grayBoxY + 50, this.textColor);
+			this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.WIDTH), x + 147, y + 50, this.textColor);
 		}
-
-		this.checkVisualizationSetting();
 	}
 
 	/**

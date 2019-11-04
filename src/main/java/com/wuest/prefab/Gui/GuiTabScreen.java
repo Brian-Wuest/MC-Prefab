@@ -3,6 +3,7 @@ package com.wuest.prefab.Gui;
 import com.wuest.prefab.Gui.Controls.GuiTab;
 import com.wuest.prefab.Gui.Controls.GuiTabTray;
 import com.wuest.prefab.Structures.Gui.GuiStructure;
+import javafx.util.Pair;
 import net.minecraft.client.gui.widget.button.Button;
 
 import java.util.ArrayList;
@@ -52,6 +53,16 @@ public class GuiTabScreen extends GuiStructure {
     public void buttonClicked(Button button)
     {
         // This does nothing on purpose.
+    }
+
+    @Override
+    protected Pair<Integer, Integer> getAdjustedXYValue() {
+        return null;
+    }
+
+    @Override
+    protected void postButtonRender(int x, int y) {
+
     }
 
     /**

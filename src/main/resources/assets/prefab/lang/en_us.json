@@ -39,6 +39,7 @@
     "item.prefab.item_welcome_center": "Welcome Center",
     "item.prefab.item_jail": "Jail",
     "item.prefab.item_saloon": "Saloon",
+    "item.prefab.item_ski_lodge": "Ski Lodge",
 
     "block.prefab.block_compressed_stone": "Compressed Stone",
     "block.prefab.block_double_compressed_stone": "Double Compressed Stone",
