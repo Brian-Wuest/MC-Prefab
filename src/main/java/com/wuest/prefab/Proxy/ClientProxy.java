@@ -64,6 +64,7 @@ public class ClientProxy extends CommonProxy {
 		if (modContainer != null && modContainer.isPresent())
 		{
 			Supplier<BiFunction<Minecraft, Screen, Screen>> prefabGui = () -> (minecraft, screen) -> new GuiPrefab(minecraft, screen);
+			// TODO: The below line allows this mod to define a custom configuration GUI.
 			//modContainer.get().registerExtensionPoint(ExtensionPoint.CONFIGGUIFACTORY, prefabGui);
 		}
 	}

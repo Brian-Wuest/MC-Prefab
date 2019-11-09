@@ -14,6 +14,7 @@ import com.wuest.prefab.Structures.Messages.StructureTagMessage;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Structures.Predefined.StructureAlternateStart;
 import com.wuest.prefab.Structures.Render.StructureRenderHandler;
+import javafx.util.Pair;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.item.DyeColor;
@@ -72,15 +73,22 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 		this.Initialize();
 	}
 
+	@Override
+	protected Pair<Integer, Integer> getAdjustedXYValue() {
+		return new Pair<>((this.width / 2) - 198, (this.height / 2) - 83);
+	}
+
 	/**
 	 * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
 	 */
 	@Override
 	public void render(int x, int y, float f) {
-		int grayBoxX = (this.width / 2) - 198;
-		int grayBoxY = (this.height / 2) - 83;
-		this.Tabs.x = grayBoxX;
-		this.Tabs.y = grayBoxY - 21;
+		Pair<Integer, Integer> adjustedValueCoords = this.getAdjustedXYValue();
+		int grayBoxX = adjustedValueCoords.getKey();
+		int grayBoxY = adjustedValueCoords.getValue();
+
+		this.Tabs.x = adjustedValueCoords.getKey();
+		this.Tabs.y = adjustedValueCoords.getValue() - 21;
 
 		this.renderBackground();
 
