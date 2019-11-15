@@ -78,7 +78,7 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.14.4-28.1.80'
+    minecraft 'net.minecraftforge:forge:1.14.4-28.1.90'
 }
 
 task sourcesJar(type: Jar) {

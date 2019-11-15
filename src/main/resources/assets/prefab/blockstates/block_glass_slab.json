@@ -2,6 +2,6 @@
   "variants": {
     "type=bottom": { "model": "prefab:block/block_glass_slab_half" },
     "type=top": { "model": "prefab:block/block_glass_slab_upper" },
-    "type=double": { "model": "minecraft:block/glass" }
+    "type=double": { "model": "block/glass" }
   }
 }

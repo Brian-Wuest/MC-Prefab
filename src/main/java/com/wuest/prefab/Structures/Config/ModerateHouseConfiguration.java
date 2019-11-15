@@ -133,7 +133,9 @@ public class ModerateHouseConfiguration extends StructureConfiguration {
 		EARTHEN_HOME(2, GuiLangKeys.MODERATE_EARTHEN_HOME, new ResourceLocation("prefab", "textures/gui/moderate_house_earthen_topdown.png"), 174, 146,
 				"assets/prefab/structures/moderate_house_earthen.zip", 16, 16, 16, 8, 6),
 		JUNGLE_TREE_HOME(3, GuiLangKeys.MODERATE_JUNGLE_HOME, new ResourceLocation("prefab", "textures/gui/moderate_house_jungle_topdown.png"), 88, 164,
-				"assets/prefab/structures/moderate_house_jungle.zip", 16, 16, 41, 8, 1);
+				"assets/prefab/structures/moderate_house_jungle.zip", 16, 16, 41, 8, 1),
+		WORKSHOP_HOME(4, GuiLangKeys.MODERATE_WORKSHOP_HOME, new ResourceLocation("prefab", "textures/gui/moderate_house_workshop_topdown.png"), 88, 164,
+				"assets/prefab/structures/moderate_house_workshop.zip", 22, 29, 19, 12, 0);
 
 		private final int value;
 		private final String displayName;
@@ -172,6 +174,9 @@ public class ModerateHouseConfiguration extends StructureConfiguration {
 				}
 				case 3: {
 					return HouseStyle.JUNGLE_TREE_HOME;
+				}
+				case 4: {
+					return HouseStyle.WORKSHOP_HOME;
 				}
 				default: {
 					return HouseStyle.SPRUCE_HOME;

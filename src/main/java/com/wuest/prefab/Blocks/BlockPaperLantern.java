@@ -50,11 +50,6 @@ public class BlockPaperLantern extends Block {
         return BlockRenderLayer.CUTOUT;
     }
 
-    @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
-    }
-
     /**
      * Called periodically clientside on blocks near the player to show effects (like furnace fire particles). Note that
      * this method will always be called regardless of whether the block can receive random update ticks
