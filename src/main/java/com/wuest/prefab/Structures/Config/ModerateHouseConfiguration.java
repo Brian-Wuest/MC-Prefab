@@ -134,8 +134,8 @@ public class ModerateHouseConfiguration extends StructureConfiguration {
 				"assets/prefab/structures/moderate_house_earthen.zip", 16, 16, 16, 8, 6),
 		JUNGLE_TREE_HOME(3, GuiLangKeys.MODERATE_JUNGLE_HOME, new ResourceLocation("prefab", "textures/gui/moderate_house_jungle_topdown.png"), 88, 164,
 				"assets/prefab/structures/moderate_house_jungle.zip", 16, 16, 41, 8, 1),
-		WORKSHOP_HOME(4, GuiLangKeys.MODERATE_WORKSHOP_HOME, new ResourceLocation("prefab", "textures/gui/moderate_house_workshop_topdown.png"), 88, 164,
-				"assets/prefab/structures/moderate_house_workshop.zip", 22, 29, 19, 12, 0);
+		WORKSHOP_HOME(4, GuiLangKeys.MODERATE_WORKSHOP_HOME, new ResourceLocation("prefab", "textures/gui/moderate_house_workshop_topdown.png"), 174, 131,
+				"assets/prefab/structures/moderate_house_workshop.zip", 29, 21, 19, 14, 0);
 
 		private final int value;
 		private final String displayName;

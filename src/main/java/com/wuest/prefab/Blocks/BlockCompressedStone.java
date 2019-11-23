@@ -15,87 +15,78 @@ import javax.annotation.Nullable;
  * @author WuestMan
  */
 public class BlockCompressedStone extends Block {
-    public final EnumType typeofStone;
+	public final EnumType typeofStone;
 
-    /**
-     * Initializes a new instance of the CompressedStone class.
-     */
-    public BlockCompressedStone(EnumType typeOfStone) {
-        super(Block.Properties.create(Material.ROCK)
-                .hardnessAndResistance(1.5F, 10.0F)
-                .sound(SoundType.STONE)
-                .lightValue(typeOfStone == EnumType.COMPRESSED_GLOWSTONE || typeOfStone == EnumType.DOUBLE_COMPRESSED_GLOWSTONE ? 15 : 0));
+	/**
+	 * Initializes a new instance of the CompressedStone class.
+	 */
+	public BlockCompressedStone(EnumType typeOfStone) {
+		super(Block.Properties.create(Material.EARTH)
+				.hardnessAndResistance(1.5F, 10.0F)
+				.sound(SoundType.STONE)
+				.lightValue(typeOfStone == EnumType.COMPRESSED_GLOWSTONE || typeOfStone == EnumType.DOUBLE_COMPRESSED_GLOWSTONE ? 15 : 0)
+				.harvestLevel(0)
+				.harvestTool(null));
 
-        this.typeofStone = typeOfStone;
-    }
+		this.typeofStone = typeOfStone;
+	}
 
-    @Nullable
-    @Override
-    public ToolType getHarvestTool(BlockState state) {
-        return null;
-    }
+	/**
+	 * An enum which contains the various types of block variants.
+	 *
+	 * @author WuestMan
+	 */
+	@SuppressWarnings({"NullableProblems", "SpellCheckingInspection"})
+	public enum EnumType implements IStringSerializable {
+		COMPRESSED_STONE(0, "block_compressed_stone", "block_compressed_stone"),
+		DOUBLE_COMPRESSED_STONE(1, "block_double_compressed_stone", "block_double_compressed_stone"),
+		TRIPLE_COMPRESSED_STONE(2, "block_triple_compressed_stone", "block_triple_compressed_stone"),
+		COMPRESSED_GLOWSTONE(3, "block_compressed_glowstone", "block_compressed_glowstone"),
+		DOUBLE_COMPRESSED_GLOWSTONE(4, "block_double_compressed_glowstone", "block_double_compressed_glowstone"),
+		COMPRESSED_DIRT(5, "block_compressed_dirt", "block_compressed_dirt"),
+		DOUBLE_COMPRESSED_DIRT(6, "block_double_compressed_dirt", "block_double_compressed_dirt");
 
-    @Override
-    public int getHarvestLevel(BlockState state) {
-        return 0;
-    }
+		private final int meta;
+		/**
+		 * The EnumType's name.
+		 */
+		private final String name;
+		private final String unlocalizedName;
 
-    /**
-     * An enum which contains the various types of block variants.
-     *
-     * @author WuestMan
-     */
-    @SuppressWarnings({"NullableProblems", "SpellCheckingInspection"})
-    public enum EnumType implements IStringSerializable {
-        COMPRESSED_STONE(0, "block_compressed_stone", "block_compressed_stone"),
-        DOUBLE_COMPRESSED_STONE(1, "block_double_compressed_stone", "block_double_compressed_stone"),
-        TRIPLE_COMPRESSED_STONE(2, "block_triple_compressed_stone", "block_triple_compressed_stone"),
-        COMPRESSED_GLOWSTONE(3, "block_compressed_glowstone", "block_compressed_glowstone"),
-        DOUBLE_COMPRESSED_GLOWSTONE(4, "block_double_compressed_glowstone", "block_double_compressed_glowstone"),
-        COMPRESSED_DIRT(5, "block_compressed_dirt", "block_compressed_dirt"),
-        DOUBLE_COMPRESSED_DIRT(6, "block_double_compressed_dirt", "block_double_compressed_dirt");
+		EnumType(int meta, String name, String unlocalizedName) {
+			this.meta = meta;
+			this.name = name;
+			this.unlocalizedName = unlocalizedName;
+		}
 
-        private final int meta;
-        /**
-         * The EnumType's name.
-         */
-        private final String name;
-        private final String unlocalizedName;
+		/**
+		 * The EnumType's meta data value.
+		 *
+		 * @return the meta data for this block.
+		 */
+		public int getMetadata() {
+			return this.meta;
+		}
 
-        EnumType(int meta, String name, String unlocalizedName) {
-            this.meta = meta;
-            this.name = name;
-            this.unlocalizedName = unlocalizedName;
-        }
+		/**
+		 * Gets the name of this enum value.
+		 */
+		public String toString() {
+			return this.name;
+		}
 
-        /**
-         * The EnumType's meta data value.
-         *
-         * @return the meta data for this block.
-         */
-        public int getMetadata() {
-            return this.meta;
-        }
+		@Override
+		public String getName() {
+			return this.name;
+		}
 
-        /**
-         * Gets the name of this enum value.
-         */
-        public String toString() {
-            return this.name;
-        }
-
-        @Override
-        public String getName() {
-            return this.name;
-        }
-
-        /**
-         * The unlocalized name of this EnumType.
-         *
-         * @return A string containing the unlocalized name.
-         */
-        public String getUnlocalizedName() {
-            return this.unlocalizedName;
-        }
-    }
+		/**
+		 * The unlocalized name of this EnumType.
+		 *
+		 * @return A string containing the unlocalized name.
+		 */
+		public String getUnlocalizedName() {
+			return this.unlocalizedName;
+		}
+	}
 }

@@ -394,7 +394,8 @@ public class Structure {
 
 							if (foundBlock instanceof FlowerPotBlock
 									|| foundBlock instanceof CarpetBlock
-									|| foundBlock instanceof BedBlock) {
+									|| foundBlock instanceof BedBlock
+									|| foundBlock instanceof SugarCaneBlock) {
 								this.priorityThreeBlocks.add(block);
 							} else if (foundBlock instanceof AirBlock) {
 								this.airBlocks.add(block);

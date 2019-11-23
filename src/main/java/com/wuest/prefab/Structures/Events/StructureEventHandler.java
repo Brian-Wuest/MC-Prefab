@@ -268,37 +268,40 @@ public final class StructureEventHandler {
 
 				if (entityType.isPresent()) {
 					Entity entity = entityType.get().create(structure.world);
-					CompoundNBT tagCompound = buildEntity.getEntityDataTag();
-					BlockPos entityPos = buildEntity.getStartingPosition().getRelativePosition(structure.originalPos,
-							structure.getClearSpace().getShape().getDirection(), structure.configuration.houseFacing);
 
-					if (tagCompound != null) {
-						if (tagCompound.hasUniqueId("UUID")) {
-							tagCompound.putUniqueId("UUID", UUID.randomUUID());
+					if (entity != null) {
+						CompoundNBT tagCompound = buildEntity.getEntityDataTag();
+						BlockPos entityPos = buildEntity.getStartingPosition().getRelativePosition(structure.originalPos,
+								structure.getClearSpace().getShape().getDirection(), structure.configuration.houseFacing);
+
+						if (tagCompound != null) {
+							if (tagCompound.hasUniqueId("UUID")) {
+								tagCompound.putUniqueId("UUID", UUID.randomUUID());
+							}
+
+							ListNBT nbttaglist = new ListNBT();
+							nbttaglist.add(new DoubleNBT(entityPos.getX()));
+							nbttaglist.add(new DoubleNBT(entityPos.getY()));
+							nbttaglist.add(new DoubleNBT(entityPos.getZ()));
+							tagCompound.put("Pos", nbttaglist);
+
+							entity.read(tagCompound);
 						}
 
-						ListNBT nbttaglist = new ListNBT();
-						nbttaglist.add(new DoubleNBT(entityPos.getX()));
-						nbttaglist.add(new DoubleNBT(entityPos.getY()));
-						nbttaglist.add(new DoubleNBT(entityPos.getZ()));
-						tagCompound.put("Pos", nbttaglist);
+						entity.forceSpawn = true;
 
-						entity.read(tagCompound);
+						// Set item frame facing and rotation here.
+						if (entity instanceof ItemFrameEntity) {
+							entity = StructureEventHandler.setItemFrameFacingAndRotation((ItemFrameEntity) entity, buildEntity, entityPos, structure);
+						} else if (entity instanceof PaintingEntity) {
+							entity = StructureEventHandler.setPaintingFacingAndRotation((PaintingEntity) entity, buildEntity, entityPos, structure);
+						} else {
+							// All other entities
+							entity = StructureEventHandler.setEntityFacingAndRotation(entity, buildEntity, entityPos, structure);
+						}
+
+						structure.world.addEntity(entity);
 					}
-
-					entity.forceSpawn = true;
-
-					// Set item frame facing and rotation here.
-					if (entity instanceof ItemFrameEntity) {
-						entity = StructureEventHandler.setItemFrameFacingAndRotation((ItemFrameEntity) entity, buildEntity, entityPos, structure);
-					} else if (entity instanceof PaintingEntity) {
-						entity = StructureEventHandler.setPaintingFacingAndRotation((PaintingEntity) entity, buildEntity, entityPos, structure);
-					} else {
-						// All other entities
-						entity = StructureEventHandler.setEntityFacingAndRotation(entity, buildEntity, entityPos, structure);
-					}
-
-					structure.world.addEntity(entity);
 				}
 			}
 
@@ -308,8 +311,7 @@ public final class StructureEventHandler {
 		}
 	}
 
-	private static void removeWaterLogging(Structure structure)
-	{
+	private static void removeWaterLogging(Structure structure) {
 		if (structure.hasAirBlocks) {
 			for (BlockPos currentPos : structure.allBlockPositions) {
 				BlockState currentState = structure.world.getBlockState(currentPos);
