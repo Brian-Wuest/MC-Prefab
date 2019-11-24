@@ -322,7 +322,7 @@ public class BasicStructureConfiguration extends StructureConfiguration {
                 "item_welcome_center", 121, 168),
         Jail("jail", "item.prefab.jail", "assets/prefab/structures/jail.zip", "textures/gui/jail_topdown.png", "item_jail", 131, 175),
         Saloon("saloon", "item.prefab.saloon", "assets/prefab/structures/saloon.zip", "textures/gui/saloon_topdown.png", "item_saloon", 130, 170),
-        SkiLodge("ski_lodge", "item.prefab.ski_lodge", "assets/prefab/structures/ski_lodge.zip", "textures/gui/ski_lodge_topdown.png", "item_ski_lodge", 130, 170);
+        SkiLodge("ski_lodge", "item.prefab.ski_lodge", "assets/prefab/structures/ski_lodge.zip", "textures/gui/ski_lodge_topdown.png", "item_ski_lodge", 137, 180);
 
         private String name;
         private String assetLocation;
