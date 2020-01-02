@@ -3,11 +3,9 @@ package com.wuest.prefab.Blocks;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -37,9 +35,9 @@ public class BlockPaperLantern extends Block {
         ModRegistry.setBlockName(this, name);
     }
 
-    /**
+/*    *//**
      * Used to determine ambient occlusion and culling when rebuilding chunks for render
-     */
+     *//*
     @Override
     public boolean isSolid(BlockState state) {
         return false;
@@ -48,7 +46,7 @@ public class BlockPaperLantern extends Block {
     @Override
     public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT;
-    }
+    }*/
 
     /**
      * Called periodically clientside on blocks near the player to show effects (like furnace fire particles). Note that

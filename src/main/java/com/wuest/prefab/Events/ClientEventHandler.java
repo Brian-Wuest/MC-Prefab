@@ -51,7 +51,7 @@ public final class ClientEventHandler {
     public static void onWorldRenderLast(RenderWorldLastEvent event) {
         Minecraft mc = Minecraft.getInstance();
 
-        if (mc.player != null && (!mc.player.isSneaking())) {
+        if (mc.player != null && (!mc.player.isCrouching())) {
             StructureRenderHandler.renderPlayerLook(mc.player, mc.objectMouseOver);
         }
 
@@ -98,7 +98,7 @@ public final class ClientEventHandler {
     }
 
     private static void RenderTest(World worldIn, PlayerEntity playerIn) {
-        float partialTicks = Minecraft.getInstance().getRenderPartialTicks();
+/*        float partialTicks = Minecraft.getInstance().getRenderPartialTicks();
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder vertexBuffer = tessellator.getBuffer();
         BlockPos playerPosition = new BlockPos(playerIn.posX, playerIn.posY, playerIn.posZ);
@@ -148,7 +148,7 @@ public final class ClientEventHandler {
 
         tessellator.draw();
         GlStateManager.enableBlend();
-        GlStateManager.enableTexture();
+        GlStateManager.enableTexture();*/
     }
 
     private static void drawLineWithGL(Vec3d blockA, Vec3d blockB) {

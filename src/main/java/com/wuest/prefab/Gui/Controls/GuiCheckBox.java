@@ -84,7 +84,21 @@ public class GuiCheckBox extends net.minecraftforge.fml.client.config.GuiCheckBo
     public void renderButton(int mouseX, int mouseY, float partial) {
         if (this.visible) {
             this.isHovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.boxWidth && mouseY < this.y + this.height;
-            GuiUtils.drawContinuousTexturedBox(WIDGETS_LOCATION, this.x, this.y, 0, 46, this.boxWidth, this.height, 200, 20, 2, 3, 2, 2, this.blitOffset);
+            GuiUtils.drawContinuousTexturedBox(
+                    WIDGETS_LOCATION,
+                    this.x,
+                    this.y,
+                    0,
+                    46,
+                    this.boxWidth,
+                    this.height,
+                    200,
+                    20,
+                    2,
+                    3,
+                    2,
+                    2,
+                    this.getBlitOffset());
 
             int color = this.stringColor;
 

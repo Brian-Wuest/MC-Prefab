@@ -11,6 +11,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.fml.network.NetworkRegistry;
@@ -78,5 +79,8 @@ public class CommonProxy {
 
     public void openGuiForItem(ItemUseContext itemUseContext)
     {
+    }
+
+    public void clientSetup(FMLClientSetupEvent clientSetupEvent) {
     }
 }

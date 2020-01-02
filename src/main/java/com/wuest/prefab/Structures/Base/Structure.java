@@ -215,9 +215,12 @@ public class Structure {
 				BuildEntity buildEntity = new BuildEntity();
 				buildEntity.setEntityResourceString(ForgeRegistries.ENTITIES.getKey(entity.getType()));
 				buildEntity.setStartingPosition(Structure.getStartingPositionFromOriginalAndCurrentPosition(entityPos, originalPos));
-				buildEntity.entityXAxisOffset = entityPos.getX() - entity.posX;
-				buildEntity.entityYAxisOffset = entityPos.getY() - entity.posY;
-				buildEntity.entityZAxisOffset = entityPos.getZ() - entity.posZ;
+
+				// The function calls below get the following fields from the "entity" class. posX, posY, posZ.
+				// This will probably have to change when the mappings get updated.
+				buildEntity.entityXAxisOffset = entityPos.getX() - entity.func_226277_ct_();
+				buildEntity.entityYAxisOffset = entityPos.getY() - entity.func_226278_cu_();
+				buildEntity.entityZAxisOffset = entityPos.getZ() - entity.func_226281_cx_();
 
 				if (entity instanceof ItemFrameEntity) {
 					buildEntity.entityYAxisOffset = buildEntity.entityYAxisOffset * -1;

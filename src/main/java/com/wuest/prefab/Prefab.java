@@ -9,6 +9,7 @@ import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
@@ -74,6 +75,8 @@ public class Prefab {
         // Register the setup method for mod-loading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
 
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
+
         Prefab.proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
         ModRegistry.RegisterModComponents();
@@ -87,5 +90,9 @@ public class Prefab {
         Prefab.proxy.preInit(event);
         Prefab.proxy.init(event);
         Prefab.proxy.postinit(event);
+    }
+
+    private void doClientStuff(final FMLClientSetupEvent event) {
+        Prefab.proxy.clientSetup(event);
     }
 }

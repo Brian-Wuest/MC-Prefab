@@ -14,7 +14,6 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.IStringSerializable;
@@ -75,7 +74,7 @@ public class BlockPhasing extends Block {
         builder.add(BlockPhasing.Phasing_Out, BlockPhasing.Phasing_Progress);
     }
 
-    @Override
+/*    @Override
     public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTrace) {
         if (!world.isRemote) {
             EnumPhasingProgress progress = state.get(Phasing_Progress);
@@ -87,7 +86,7 @@ public class BlockPhasing extends Block {
         }
 
         return true;
-    }
+    }*/
 
     /**
      * Gets the {@link BlockState} to place
@@ -164,7 +163,7 @@ public class BlockPhasing extends Block {
         }
     }
 
-    @Override
+    // todo fix this
     public void tick(BlockState state, World worldIn, BlockPos pos, Random random) {
         int tickDelay = this.tickRate;
 
@@ -225,7 +224,7 @@ public class BlockPhasing extends Block {
         }
     }
 
-    @Override
+/*    @Override
     public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.TRANSLUCENT;
     }
@@ -238,13 +237,13 @@ public class BlockPhasing extends Block {
                 || (layer == BlockRenderLayer.SOLID && progress == EnumPhasingProgress.base);
     }
 
-    /**
+    *//**
      * Used to determine ambient occlusion and culling when rebuilding chunks for render
-     */
+     *//*
     @Override
     public boolean isSolid(BlockState state) {
         return false;
-    }
+    }*/
 
     /**
      * The type of render function called. MODEL for mixed tesr and static model, MODELBLOCK_ANIMATED for TESR-only,

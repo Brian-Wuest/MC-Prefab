@@ -2,6 +2,7 @@ package com.wuest.prefab.Structures.Render;
 
 import com.mojang.blaze3d.platform.GLX;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.wuest.prefab.Events.ClientEventHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.IReloadableResourceManager;
@@ -44,17 +45,13 @@ public class ShaderHelper {
     }
 
     public static void useShader(int shader) {
-        if (!GLX.usePostProcess) {
-            return;
-        }
-
         if (ShaderHelper.alphaShader == 0) {
             // Shader wasn't initialized, initialize it now.
             ShaderHelper.alphaShader = ShaderHelper.createProgram("/assets/prefab/shader/alpha.vert", "/assets/prefab/shader/alpha.frag");
         }
 
         lighting = GL11.glGetBoolean(GL11.GL_LIGHTING);
-        GlStateManager.disableLighting();
+        RenderSystem.disableLighting();
 
         ARBShaderObjects.glUseProgramObjectARB(shader);
 
@@ -69,7 +66,7 @@ public class ShaderHelper {
 
     public static void releaseShader() {
         if (lighting) {
-            GlStateManager.enableLighting();
+            RenderSystem.enableLighting();
         }
 
         ShaderHelper.useShader(0);

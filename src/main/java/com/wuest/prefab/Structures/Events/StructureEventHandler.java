@@ -155,7 +155,7 @@ public final class StructureEventHandler {
 	 */
 	@SubscribeEvent
 	public static void onClone(PlayerEvent.Clone event) {
-		if (event.getEntityPlayer() instanceof ServerPlayerEntity) {
+		if (event.getPlayer() instanceof ServerPlayerEntity) {
 			// Don't add the tag unless the house item was added. This way it can be added if the feature is turned on.
 			// When the player is cloned, make sure to copy the tag. If this is not done the item can be given to the
 			// player again if they die before the log out and log back in.
@@ -165,13 +165,13 @@ public final class StructureEventHandler {
 			String startingItem = CommonProxy.proxyConfiguration.serverConfiguration.startingItem;
 			if (startingItem != null && !startingItem.equalsIgnoreCase("Nothing")) {
 				if (originalTag.contains(EntityPlayerConfiguration.PLAYER_ENTITY_TAG)) {
-					CompoundNBT newPlayerTag = event.getEntityPlayer().getPersistentData();
+					CompoundNBT newPlayerTag = event.getPlayer().getPersistentData();
 					newPlayerTag.put(EntityPlayerConfiguration.PLAYER_ENTITY_TAG, originalTag.get(EntityPlayerConfiguration.PLAYER_ENTITY_TAG));
 
 					// Send the persist tag to the client.
 					Prefab.network.sendTo(
 							new PlayerEntityTagMessage(originalTag.getCompound(EntityPlayerConfiguration.PLAYER_ENTITY_TAG)),
-							((ServerPlayerEntity) event.getEntityPlayer()).connection.netManager,
+							((ServerPlayerEntity) event.getPlayer()).connection.netManager,
 							NetworkDirection.PLAY_TO_CLIENT);
 				}
 			}
@@ -280,9 +280,9 @@ public final class StructureEventHandler {
 							}
 
 							ListNBT nbttaglist = new ListNBT();
-							nbttaglist.add(new DoubleNBT(entityPos.getX()));
-							nbttaglist.add(new DoubleNBT(entityPos.getY()));
-							nbttaglist.add(new DoubleNBT(entityPos.getZ()));
+							nbttaglist.add(DoubleNBT.func_229684_a_(entityPos.getX()));
+							nbttaglist.add(DoubleNBT.func_229684_a_(entityPos.getY()));
+							nbttaglist.add(DoubleNBT.func_229684_a_(entityPos.getZ()));
 							tagCompound.put("Pos", nbttaglist);
 
 							entity.read(tagCompound);
@@ -494,9 +494,10 @@ public final class StructureEventHandler {
 		Direction direction = horizontal == Direction.DOWN || horizontal == Direction.UP ? horizontal.getOpposite() : horizontal.rotateYCCW();
 		d0 = d0 + d4 * (double) direction.getXOffset();
 		d2 = d2 + d4 * (double) direction.getZOffset();
-		entity.posX = d0;
-		entity.posY = d1;
-		entity.posZ = d2;
+
+		// The function call below set the following fields from the "entity" class. posX, posY, posZ.
+		// This will probably have to change when the mappings get updated.
+		entity.func_226288_n_(d0, d1, d2);
 		double d6 = entity.getWidthPixels();
 		double d7 = entity.getHeightPixels();
 		double d8 = entity.getWidthPixels();

@@ -1,5 +1,6 @@
 package com.wuest.prefab.Proxy;
 
+import com.wuest.prefab.Blocks.BlockBoundary;
 import com.wuest.prefab.Config.ServerModConfiguration;
 import com.wuest.prefab.Gui.GuiPrefab;
 import com.wuest.prefab.ModRegistry;
@@ -9,10 +10,13 @@ import com.wuest.prefab.Structures.Items.StructureItem;
 import com.wuest.prefab.Structures.Render.ShaderHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.ItemUseContext;
 import net.minecraftforge.fml.ExtensionPoint;
 import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 import java.util.HashMap;
@@ -94,6 +98,11 @@ public class ClientProxy extends CommonProxy {
                 Minecraft.getInstance().displayGuiScreen(screen);
 			}
 		}
+	}
+
+	@Override
+	public void clientSetup(FMLClientSetupEvent clientSetupEvent) {
+		RenderTypeLookup.setRenderLayer(ModRegistry.BoundaryBlock(), BlockBoundary::canRenderInLayer);
 	}
 
 	/**

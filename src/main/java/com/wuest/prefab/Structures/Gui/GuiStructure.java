@@ -1,6 +1,7 @@
 package com.wuest.prefab.Structures.Gui;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.wuest.prefab.Gui.GuiBase;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Proxy.CommonProxy;
@@ -112,9 +113,9 @@ public abstract class GuiStructure extends GuiBase {
 	 * @param textureHeight The height of the texture.
 	 */
 	public static void drawModalRectWithCustomSizedTexture(int x, int y, int z, int width, int height, float textureWidth, float textureHeight) {
-		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-		GlStateManager.enableBlend();
-		GlStateManager.blendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
+		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+		RenderSystem.enableBlend();
+		RenderSystem.blendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
 
 		float u = 0;
 		float v = 0;
@@ -125,13 +126,15 @@ public abstract class GuiStructure extends GuiBase {
 
 		vertexBuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
 
-		vertexBuffer.pos(x, y + height, z).tex(u * f, (v + height) * f1).endVertex();
+		// These function names used to be called "pos" and "tex" when they had proper names.
+		// This probably will be reverted back when mappings are added.
+		vertexBuffer.func_225582_a_(x, y + height, z).func_225583_a_(u * f, (v + height) * f1).endVertex();
 
-		vertexBuffer.pos(x + width, y + height, z).tex((u + width) * f, (v + height) * f1).endVertex();
+		vertexBuffer.func_225582_a_(x + width, y + height, z).func_225583_a_((u + width) * f, (v + height) * f1).endVertex();
 
-		vertexBuffer.pos(x + width, y, z).tex((u + width) * f, v * f1).endVertex();
+		vertexBuffer.func_225582_a_(x + width, y, z).func_225583_a_((u + width) * f, v * f1).endVertex();
 
-		vertexBuffer.pos(x, y, z).tex(u * f, v * f1).endVertex();
+		vertexBuffer.func_225582_a_(x, y, z).func_225583_a_(u * f, v * f1).endVertex();
 
 		tessellator.draw();
 	}

@@ -9,6 +9,8 @@ import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.renderer.RenderState;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.IFluidState;
@@ -17,7 +19,6 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -29,7 +30,6 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.MinecraftForgeClient;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -55,7 +55,8 @@ public class BlockBoundary extends Block {
 	public BlockBoundary(String name) {
 		super(Block.Properties.create(Prefab.SeeThroughImmovable)
 				.sound(SoundType.STONE)
-				.hardnessAndResistance(0.6F));
+				.hardnessAndResistance(0.6F)
+				.func_226896_b_());
 
 		this.itemGroup = ItemGroup.BUILDING_BLOCKS;
 		this.setDefaultState(this.stateContainer.getBaseState().with(Powered, false));
@@ -118,14 +119,16 @@ public class BlockBoundary extends Block {
 	}
 
 	/**
-	 * Queries if this block should render in a given layer. ISmartBlockModel can use
-	 * {@link MinecraftForgeClient#getRenderLayer()} to alter their model based on layer.
+	 * Queries if this block should render in a given layer.
 	 */
-	@Override
-	public boolean canRenderInLayer(BlockState state, BlockRenderLayer layer) {
-		boolean powered = state.get(Powered);
+	public static boolean canRenderInLayer(Object layer) {
+		// NOTE: This code is in a partial state. Need to find out how to get block state to determine if the block should be rendered this pass.
+		boolean powered = false;// state.get(Powered);
 
-		return (layer == BlockRenderLayer.TRANSLUCENT && !powered) || (layer == BlockRenderLayer.SOLID && powered);
+		RenderState renderState = (RenderState)layer;
+
+		// first part is translucent, second is for solid.
+		return (layer == RenderType.func_228645_f_() && !powered) || (layer == RenderType.func_228639_c_() && powered);
 	}
 
 	/**
@@ -166,11 +169,6 @@ public class BlockBoundary extends Block {
 		}
 	}
 
-	@Override
-	public BlockRenderLayer getRenderLayer() {
-		return BlockRenderLayer.TRANSLUCENT;
-	}
-
 	/**
 	 * allows items to add custom lines of information to the mouseover description
 	 */
@@ -186,14 +184,6 @@ public class BlockBoundary extends Block {
 		} else {
 			tooltip.add(new StringTextComponent(GuiLangKeys.translateString(GuiLangKeys.BOUNDARY_TOOLTIP)));
 		}
-	}
-
-	/**
-	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
-	 */
-	@Override
-	public boolean isSolid(BlockState state) {
-		return false;
 	}
 
 	@Override
