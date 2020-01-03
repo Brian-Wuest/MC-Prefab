@@ -14,6 +14,7 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.IStringSerializable;
@@ -25,6 +26,7 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -62,7 +64,8 @@ public class BlockPhasing extends Block {
     public BlockPhasing(String name) {
         super(Properties.create(Prefab.SeeThroughImmovable)
                 .sound(SoundType.STONE)
-                .hardnessAndResistance(0.6f));
+                .hardnessAndResistance(0.6f)
+                .func_226896_b_());
 
         this.setDefaultState(this.stateContainer.getBaseState().with(Phasing_Out, false).with(Phasing_Progress, EnumPhasingProgress.base));
 
@@ -74,8 +77,9 @@ public class BlockPhasing extends Block {
         builder.add(BlockPhasing.Phasing_Out, BlockPhasing.Phasing_Progress);
     }
 
-/*    @Override
-    public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTrace) {
+    // This was the "onBlockActivated" method.
+    @Override
+    public ActionResultType func_225533_a_(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTrace) {
         if (!world.isRemote) {
             EnumPhasingProgress progress = state.get(Phasing_Progress);
 
@@ -85,8 +89,8 @@ public class BlockPhasing extends Block {
             }
         }
 
-        return true;
-    }*/
+        return ActionResultType.SUCCESS;
+    }
 
     /**
      * Gets the {@link BlockState} to place
@@ -163,8 +167,9 @@ public class BlockPhasing extends Block {
         }
     }
 
-    // todo fix this
-    public void tick(BlockState state, World worldIn, BlockPos pos, Random random) {
+    // TODO: This used to be "tick"
+    @Override
+    public void func_225534_a_(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
         int tickDelay = this.tickRate;
 
         if (ModEventHandler.RedstoneAffectedBlockPositions.contains(pos)) {
@@ -214,36 +219,15 @@ public class BlockPhasing extends Block {
         state = state.with(Phasing_Out, phasingOut).with(Phasing_Progress, progress);
         worldIn.setBlockState(pos, state);
 
-        if (worldIn.isRemote) {
+        /*if (worldIn.isRemote) {
             ClientWorld clientWorld = (ClientWorld) worldIn;
             clientWorld.markSurroundingsForRerender(pos.getX(), pos.getY(), pos.getZ());
-        }
+        }*/
 
         if (tickDelay > 0) {
             worldIn.getPendingBlockTicks().scheduleTick(pos, this, tickDelay);
         }
     }
-
-/*    @Override
-    public BlockRenderLayer getRenderLayer() {
-        return BlockRenderLayer.TRANSLUCENT;
-    }
-
-    @Override
-    public boolean canRenderInLayer(BlockState state, BlockRenderLayer layer) {
-        EnumPhasingProgress progress = state.get(Phasing_Progress);
-
-        return (layer == BlockRenderLayer.TRANSLUCENT && progress != EnumPhasingProgress.base)
-                || (layer == BlockRenderLayer.SOLID && progress == EnumPhasingProgress.base);
-    }
-
-    *//**
-     * Used to determine ambient occlusion and culling when rebuilding chunks for render
-     *//*
-    @Override
-    public boolean isSolid(BlockState state) {
-        return false;
-    }*/
 
     /**
      * The type of render function called. MODEL for mixed tesr and static model, MODELBLOCK_ANIMATED for TESR-only,

@@ -392,7 +392,6 @@ public class GuiLangKeys {
             try {
                 value = field.get(null).toString();
             } catch (IllegalArgumentException | IllegalAccessException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 

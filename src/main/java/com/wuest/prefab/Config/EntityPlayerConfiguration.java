@@ -96,7 +96,6 @@ public class EntityPlayerConfiguration {
                 config = structureConfiguration.newInstance();
                 this.clientConfigurations.put(guiName, config);
             } catch (InstantiationException | IllegalAccessException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }

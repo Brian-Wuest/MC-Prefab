@@ -99,7 +99,6 @@ public class ZipUtil {
 			bos.close();
 			return bos.toByteArray();
 		} catch (IOException | DataFormatException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

@@ -85,7 +85,6 @@ public class BuildTileEntity {
             try {
                 tag = JsonToNBT.getTagFromJson(this.entityNBTData);
             } catch (CommandSyntaxException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }

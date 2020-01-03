@@ -103,6 +103,14 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void clientSetup(FMLClientSetupEvent clientSetupEvent) {
 		RenderTypeLookup.setRenderLayer(ModRegistry.BoundaryBlock(), BlockBoundary::canRenderInLayer);
+
+		// This render type (func_228643_e_) is the "cutout" render type.
+		RenderTypeLookup.setRenderLayer(ModRegistry.GlassSlab(), RenderType.func_228643_e_());
+
+		RenderTypeLookup.setRenderLayer(ModRegistry.PaperLantern(), RenderType.func_228643_e_());
+
+		// This is the "translucent" type.
+		RenderTypeLookup.setRenderLayer(ModRegistry.PhasingBlock(), RenderType.func_228645_f_());
 	}
 
 	/**

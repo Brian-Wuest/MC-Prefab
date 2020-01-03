@@ -23,7 +23,6 @@ public class TagMessage {
         try {
             message = clazz.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

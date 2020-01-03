@@ -137,9 +137,9 @@ public class StructureRenderHandler {
 	}
 
 	private static boolean renderComponentInWorld(World world, BuildBlock buildBlock) {
-		double renderPosX = Minecraft.getInstance().getRenderManager().pointedEntity.func_226277_ct_();
-		double renderPosY = Minecraft.getInstance().getRenderManager().pointedEntity.func_226278_cu_();
-		double renderPosZ = Minecraft.getInstance().getRenderManager().pointedEntity.func_226281_cx_();
+		double renderPosX = Minecraft.getInstance().player.func_226277_ct_();
+		double renderPosY = Minecraft.getInstance().player.func_226278_cu_();
+		double renderPosZ = Minecraft.getInstance().player.func_226281_cx_();
 
 		// In order to get the proper relative position I also need the structure's original facing.
 		BlockPos pos = buildBlock.getStartingPosition().getRelativePosition(
@@ -199,13 +199,14 @@ public class StructureRenderHandler {
 	}
 
 	public static void renderBlockBrightness(BlockState state, float brightness, BlockPos pos) {
-		BlockRendererDispatcher brd = Minecraft.getInstance().getBlockRendererDispatcher();
+		Minecraft minecraft = Minecraft.getInstance();
+		BlockRendererDispatcher brd = minecraft.getBlockRendererDispatcher();
 		TileEntityRendererDispatcher tileEntityRendererDispatcher = TileEntityRendererDispatcher.instance;
-		World world = Minecraft.getInstance().world;
+		World world = minecraft.world;
 
 		BlockRenderType blockrendertype = state.getRenderType();
 		MatrixStack matrixstack = new MatrixStack();
-		IRenderTypeBuffer.Impl renderTypeBuffer = Minecraft.getInstance().func_228019_au_().func_228487_b_();
+		IRenderTypeBuffer.Impl renderTypeBuffer = minecraft.func_228019_au_().func_228487_b_();
 		RenderType renderType = RenderTypeLookup.func_228394_b_(state);
 
 		if (blockrendertype != BlockRenderType.INVISIBLE) {
@@ -215,12 +216,14 @@ public class StructureRenderHandler {
 
 					try {
 						BlockModelRenderer renderer = brd.getBlockModelRenderer();
-
+						IBakedModel model = brd.getModelForState(state);
+						matrixstack.func_227860_a_();
+						matrixstack.func_227861_a_(-0.5D, 0.0D, -0.5D);
 
 						// TODO: test out this functionality since it probably doesn't work well anymore.
 						renderer.func_228802_a_(
 								world,
-								brd.getModelForState(state),
+								model,
 								state,
 								pos,
 								matrixstack,

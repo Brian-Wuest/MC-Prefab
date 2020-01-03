@@ -27,26 +27,15 @@ public class BlockPaperLantern extends Block {
      * @param name The name to register this block as.
      */
     public BlockPaperLantern(String name) {
+        // The "func_226896_b_" function causes the "isSolid" field on the block to be set to false.
         super(Properties.create(Prefab.SeeThroughImmovable)
                 .sound(SoundType.SNOW)
                 .hardnessAndResistance(0.6f)
-                .lightValue(14));
+                .lightValue(14)
+                .func_226896_b_());
 
         ModRegistry.setBlockName(this, name);
     }
-
-/*    *//**
-     * Used to determine ambient occlusion and culling when rebuilding chunks for render
-     *//*
-    @Override
-    public boolean isSolid(BlockState state) {
-        return false;
-    }
-
-    @Override
-    public BlockRenderLayer getRenderLayer() {
-        return BlockRenderLayer.CUTOUT;
-    }*/
 
     /**
      * Called periodically clientside on blocks near the player to show effects (like furnace fire particles). Note that
