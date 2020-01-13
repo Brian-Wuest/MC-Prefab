@@ -15,25 +15,37 @@ import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.color.BlockColors;
+import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ModelBakery;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.tileentity.ChestTileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.ILightReader;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelDataManager;
+import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import org.lwjgl.opengl.GL11;
 
+import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -83,16 +95,16 @@ public class StructureRenderHandler {
 				&& StructureRenderHandler.dimension == player.world.getDimension().getType().getId()
 				&& StructureRenderHandler.currentConfiguration != null
 				&& CommonProxy.proxyConfiguration.serverConfiguration.enableStructurePreview) {
-			RenderSystem.pushMatrix();
+/*			RenderSystem.pushMatrix();
 			GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
 			RenderSystem.enableBlend();
 			RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			RenderSystem.disableLighting();
+			RenderSystem.disableLighting();*/
 			rendering = true;
 			boolean didAny = false;
 
 			// Use a unique shader for these blocks so the player can tell them apart from the rest of the world.
-			ShaderHelper.useShader(ShaderHelper.alphaShader);
+			/*ShaderHelper.useShader(ShaderHelper.alphaShader);*/
 
 			for (BuildBlock buildBlock : StructureRenderHandler.currentStructure.getBlocks()) {
 				Block foundBlock = Registry.BLOCK.getOrDefault(buildBlock.getResourceLocation());
@@ -117,11 +129,11 @@ public class StructureRenderHandler {
 			}
 
 			// Release the shader so the whole world isn't using this shader.
-			ShaderHelper.releaseShader();
+			/*ShaderHelper.releaseShader();
 
 			rendering = false;
 			GL11.glPopAttrib();
-			RenderSystem.popMatrix();
+			RenderSystem.popMatrix();*/
 
 			if (!didAny) {
 				// Nothing was generated, tell the user this through a chat message and re-set the structure information.
@@ -152,11 +164,11 @@ public class StructureRenderHandler {
 			return false;
 		}
 
-		RenderSystem.pushMatrix();
-		RenderSystem.translated(-renderPosX, -renderPosY, -renderPosZ);
+		//RenderSystem.pushMatrix();
+		//RenderSystem.translated(-renderPosX, -renderPosY, -renderPosZ);
 		// GlStateManager.disableDepthTest();
 		StructureRenderHandler.doRenderComponent(buildBlock, pos);
-		RenderSystem.popMatrix();
+		//RenderSystem.popMatrix();
 
 		if (buildBlock.getSubBlock() != null) {
 			Block foundBlock = Registry.BLOCK.getOrDefault(buildBlock.getSubBlock().getResourceLocation());
@@ -178,10 +190,12 @@ public class StructureRenderHandler {
 	}
 
 	private static void doRenderComponent(BuildBlock buildBlock, BlockPos pos) {
-		RenderSystem.pushMatrix();
+		BlockState state = buildBlock.getBlockState();
+
+/*		RenderSystem.pushMatrix();
 		RenderSystem.enableBlend();
 		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		BlockState state = buildBlock.getBlockState();
+
 		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 
 		if (state == null) {
@@ -190,12 +204,25 @@ public class StructureRenderHandler {
 		}
 
 		RenderSystem.translated(pos.getX(), pos.getY(), pos.getZ() + 1);
-		RenderSystem.color4f(1, 1, 1, 1);
+		RenderSystem.color4f(1, 1, 1, 1);*/
 		StructureRenderHandler.renderBlockBrightness(state, 1.0F, pos);
 
-		RenderSystem.color4f(1F, 1F, 1F, 1F);
+		/*RenderSystem.color4f(1F, 1F, 1F, 1F);
 		// GlStateManager.enableDepthTest();
-		RenderSystem.popMatrix();
+		RenderSystem.popMatrix();*/
+	}
+
+	public static void renderBlock2(MatrixStack matrixStack, Vec3d pos, BlockState state) {
+		BlockRendererDispatcher renderer = Minecraft.getInstance().getBlockRendererDispatcher();
+		ClientWorld world = Minecraft.getInstance().world;
+		IModelData model = renderer.getModelForState(state).getModelData(world, new BlockPos(pos), state, ModelDataManager.getModelData(world, new BlockPos(pos)));
+
+		ActiveRenderInfo renderInfo = Minecraft.getInstance().gameRenderer.getActiveRenderInfo();
+
+		matrixStack.func_227860_a_(); // push
+		matrixStack.func_227861_a_(-renderInfo.getProjectedView().getX() + pos.x, -renderInfo.getProjectedView().getY() + pos.y, -renderInfo.getProjectedView().getZ() + pos.z); // translate back to camera
+		Minecraft.getInstance().getBlockRendererDispatcher().renderBlock(state, matrixStack, Minecraft.getInstance().func_228019_au_().func_228487_b_(), 15728880, OverlayTexture.field_229196_a_, model);
+		matrixStack.func_227865_b_(); // pop
 	}
 
 	public static void renderBlockBrightness(BlockState state, float brightness, BlockPos pos) {
@@ -208,30 +235,41 @@ public class StructureRenderHandler {
 		MatrixStack matrixstack = new MatrixStack();
 		IRenderTypeBuffer.Impl renderTypeBuffer = minecraft.func_228019_au_().func_228487_b_();
 		RenderType renderType = RenderTypeLookup.func_228394_b_(state);
+		PlayerEntity playerEntity = minecraft.player;
+		BlockColors blockColors = minecraft.getBlockColors();
+
+		ActiveRenderInfo renderInfo = minecraft.gameRenderer.getActiveRenderInfo();
+		BlockPos originalPos = StructureRenderHandler.currentConfiguration.pos;
 
 		if (blockrendertype != BlockRenderType.INVISIBLE) {
 			switch (blockrendertype) {
 				case MODEL: {
-					IBakedModel ibakedmodel = brd.getModelForState(state);
-
 					try {
+						Vec3d vec3d = renderInfo.getProjectedView();
 						BlockModelRenderer renderer = brd.getBlockModelRenderer();
 						IBakedModel model = brd.getModelForState(state);
+						IModelData modelData = model.getModelData(world, new BlockPos(pos), state, ModelDataManager.getModelData(world, new BlockPos(pos)));
+
+						// push
 						matrixstack.func_227860_a_();
-						matrixstack.func_227861_a_(-0.5D, 0.0D, -0.5D);
+
+						// TODO: Not sure where this comment came from in my copying of code but: This makes it show in the player's view like a screen instead of in the world.
+						//matrixstack.func_227861_a_(projectedX + (double)pos.getX(), projectedY + (double)pos.getY(), projectedZ + (double)pos.getZ());
+
+						matrixstack.func_227861_a_(
+								(float)pos.getX() - originalPos.getX(),
+								(float)pos.getY() - originalPos.getY(),
+								(float)pos.getZ() - originalPos.getZ());
 
 						// TODO: test out this functionality since it probably doesn't work well anymore.
-						renderer.func_228802_a_(
-								world,
-								model,
-								state,
-								pos,
-								matrixstack,
-								renderTypeBuffer.getBuffer(renderType),
-								false,
-								new Random(),
-								state.getPositionRandom(pos),
-								OverlayTexture.field_229196_a_);
+						// This magic number (15728880) is used to determine how bright the textures are (not their transparency).
+						/*
+						* Watching a forge post to get this to work as well as botania's Astrolabe handler: Botania\src\main\java\vazkii\botania\client\core\handler\AstrolabePreviewHandler.java
+						*/
+						brd.renderBlock(state, matrixstack, renderTypeBuffer, 15728880, OverlayTexture.field_229196_a_, modelData);
+
+						// pop
+						matrixstack.func_227865_b_();
 
 						//brd.getBlockModelRenderer().renderModelBrightness(ibakedmodel, state, brightness, true);
 					} catch (Exception ex) {
