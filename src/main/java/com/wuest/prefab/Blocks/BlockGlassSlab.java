@@ -11,9 +11,12 @@ import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.properties.SlabType;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.tags.Tag;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -55,7 +58,19 @@ public class BlockGlassSlab extends GlassBlock implements IWaterLoggable {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public boolean isSideInvisible(BlockState state, BlockState adjacentBlockState, Direction side) {
-		return (adjacentBlockState.getBlock() == this && adjacentBlockState.get(SlabBlock.TYPE) == state.get(SlabBlock.TYPE));
+		Tag<Block> tags = BlockTags.getCollection().get(new ResourceLocation("forge", "glass"));
+		Block adjacentBlock = adjacentBlockState.getBlock();
+
+		/*
+			Hide this side under the following conditions
+			1. The other block is a "Glass" block (this includes colored glass).
+			2. This block and the other block has a matching type.
+			3. The other block is a double slab and this is a single slab.
+		*/
+		return tags.contains(adjacentBlock) || (adjacentBlock == this
+				&& (adjacentBlockState.get(SlabBlock.TYPE) == state.get(SlabBlock.TYPE)
+					|| (adjacentBlockState.get(SlabBlock.TYPE) == SlabType.DOUBLE
+						&& state.get(SlabBlock.TYPE) != SlabType.DOUBLE)));
 	}
 
 	@Override
