@@ -10,9 +10,13 @@ import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.Structures.Base.BuildBlock;
 import com.wuest.prefab.Structures.Base.Structure;
 import com.wuest.prefab.Structures.Config.StructureConfiguration;
+import javafx.geometry.Pos;
+import javafx.util.Pair;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.color.BlockColors;
@@ -45,6 +49,7 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import org.lwjgl.opengl.GL11;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -90,21 +95,16 @@ public class StructureRenderHandler {
 	 * @param player The player to render the structure for.
 	 * @param src    The ray trace for where the player is currently looking.
 	 */
-	public static void renderPlayerLook(PlayerEntity player, RayTraceResult src) {
+	public static void renderPlayerLook(PlayerEntity player, RayTraceResult src, MatrixStack matrixStack) {
 		if (StructureRenderHandler.currentStructure != null
 				&& StructureRenderHandler.dimension == player.world.getDimension().getType().getId()
 				&& StructureRenderHandler.currentConfiguration != null
 				&& CommonProxy.proxyConfiguration.serverConfiguration.enableStructurePreview) {
-/*			RenderSystem.pushMatrix();
-			GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
-			RenderSystem.enableBlend();
-			RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			RenderSystem.disableLighting();*/
 			rendering = true;
 			boolean didAny = false;
 
-			// Use a unique shader for these blocks so the player can tell them apart from the rest of the world.
-			/*ShaderHelper.useShader(ShaderHelper.alphaShader);*/
+			IRenderTypeBuffer.Impl entityVertexConsumer = Minecraft.getInstance().func_228019_au_().func_228489_c_();
+			ArrayList<Pair<BlockState, BlockPos>> entityModels = new ArrayList<>();
 
 			for (BuildBlock buildBlock : StructureRenderHandler.currentStructure.getBlocks()) {
 				Block foundBlock = Registry.BLOCK.getOrDefault(buildBlock.getResourceLocation());
@@ -122,18 +122,44 @@ public class StructureRenderHandler {
 							blockState,
 							StructureRenderHandler.currentStructure);
 
-					if (StructureRenderHandler.renderComponentInWorld(player.world, buildBlock)) {
+					// In order to get the proper relative position I also need the structure's original facing.
+					BlockPos pos = buildBlock.getStartingPosition().getRelativePosition(
+							StructureRenderHandler.currentConfiguration.pos,
+							StructureRenderHandler.currentStructure.getClearSpace().getShape().getDirection(),
+							StructureRenderHandler.currentConfiguration.houseFacing);
+
+					BlockRenderType blockRenderType = blockState.getRenderType();
+
+					if (blockRenderType == BlockRenderType.ENTITYBLOCK_ANIMATED) {
+						entityModels.add(new Pair<>(buildBlock.getBlockState(), pos));
+						continue;
+					}
+
+					if (StructureRenderHandler.renderComponentInWorld(player.world, buildBlock, entityVertexConsumer, matrixStack, pos, blockRenderType)) {
 						didAny = true;
 					}
 				}
 			}
 
-			// Release the shader so the whole world isn't using this shader.
-			/*ShaderHelper.releaseShader();
+			for (Pair<BlockState, BlockPos> pair : entityModels)
+			{
+				StructureRenderHandler.renderBlock(matrixStack, new Vec3d(pair.getValue()), pair.getKey(), entityVertexConsumer, BlockRenderType.ENTITYBLOCK_ANIMATED);
+			}
 
-			rendering = false;
-			GL11.glPopAttrib();
-			RenderSystem.popMatrix();*/
+			ShaderHelper.useShader(ShaderHelper.alphaShader, shader -> {
+				// getUniformLocation
+				int alpha = GlStateManager.func_227680_b_(shader, "alpha");
+				ShaderHelper.FLOAT_BUF.position(0);
+				ShaderHelper.FLOAT_BUF.put(0, 0.4F);
+
+				// uniform1
+				GlStateManager.func_227681_b_(alpha, ShaderHelper.FLOAT_BUF);
+			});
+
+			// Draw function.
+			entityVertexConsumer.func_228461_a_();
+
+			ShaderHelper.releaseShader();
 
 			if (!didAny) {
 				// Nothing was generated, tell the user this through a chat message and re-set the structure information.
@@ -148,27 +174,14 @@ public class StructureRenderHandler {
 		}
 	}
 
-	private static boolean renderComponentInWorld(World world, BuildBlock buildBlock) {
-		double renderPosX = Minecraft.getInstance().player.func_226277_ct_();
-		double renderPosY = Minecraft.getInstance().player.func_226278_cu_();
-		double renderPosZ = Minecraft.getInstance().player.func_226281_cx_();
-
-		// In order to get the proper relative position I also need the structure's original facing.
-		BlockPos pos = buildBlock.getStartingPosition().getRelativePosition(
-				StructureRenderHandler.currentConfiguration.pos,
-				StructureRenderHandler.currentStructure.getClearSpace().getShape().getDirection(),
-				StructureRenderHandler.currentConfiguration.houseFacing);
-
-		// Don't render this block if it's going to overlay a non-air block.
-		if (!world.isAirBlock(pos)) {
+	private static boolean renderComponentInWorld(World world, BuildBlock buildBlock, IRenderTypeBuffer entityVertexConsumer, MatrixStack matrixStack, BlockPos pos, BlockRenderType blockRenderType) {
+		// Don't render this block if it's going to overlay a non-air/water block.
+		BlockState targetBlock = world.getBlockState(pos);
+		if (targetBlock.getMaterial() != Material.AIR && targetBlock.getMaterial() != Material.WATER) {
 			return false;
 		}
 
-		//RenderSystem.pushMatrix();
-		//RenderSystem.translated(-renderPosX, -renderPosY, -renderPosZ);
-		// GlStateManager.disableDepthTest();
-		StructureRenderHandler.doRenderComponent(buildBlock, pos);
-		//RenderSystem.popMatrix();
+		StructureRenderHandler.doRenderComponent(buildBlock, pos, entityVertexConsumer, matrixStack, blockRenderType);
 
 		if (buildBlock.getSubBlock() != null) {
 			Block foundBlock = Registry.BLOCK.getOrDefault(buildBlock.getSubBlock().getResourceLocation());
@@ -183,122 +196,81 @@ public class StructureRenderHandler {
 					blockState,
 					StructureRenderHandler.currentStructure);
 
-			return StructureRenderHandler.renderComponentInWorld(world, subBlock);
+			BlockPos subBlockPos = subBlock.getStartingPosition().getRelativePosition(
+					StructureRenderHandler.currentConfiguration.pos,
+					StructureRenderHandler.currentStructure.getClearSpace().getShape().getDirection(),
+					StructureRenderHandler.currentConfiguration.houseFacing);
+
+			BlockRenderType subBlockRenderType = subBlock.getBlockState().getRenderType();
+
+			return StructureRenderHandler.renderComponentInWorld(world, subBlock, entityVertexConsumer, matrixStack, subBlockPos, subBlockRenderType);
 		}
 
 		return true;
 	}
 
-	private static void doRenderComponent(BuildBlock buildBlock, BlockPos pos) {
+	private static void doRenderComponent(BuildBlock buildBlock, BlockPos pos, IRenderTypeBuffer entityVertexConsumer, MatrixStack matrixStack, BlockRenderType blockRenderType) {
 		BlockState state = buildBlock.getBlockState();
-
-/*		RenderSystem.pushMatrix();
-		RenderSystem.enableBlend();
-		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-
-		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
-
-		if (state == null) {
-			RenderSystem.popMatrix();
-			return;
-		}
-
-		RenderSystem.translated(pos.getX(), pos.getY(), pos.getZ() + 1);
-		RenderSystem.color4f(1, 1, 1, 1);*/
-		StructureRenderHandler.renderBlockBrightness(state, 1.0F, pos);
-
-		/*RenderSystem.color4f(1F, 1F, 1F, 1F);
-		// GlStateManager.enableDepthTest();
-		RenderSystem.popMatrix();*/
+		StructureRenderHandler.renderBlock(matrixStack, new Vec3d(pos), state, entityVertexConsumer, blockRenderType);
 	}
 
-	public static void renderBlock2(MatrixStack matrixStack, Vec3d pos, BlockState state) {
-		BlockRendererDispatcher renderer = Minecraft.getInstance().getBlockRendererDispatcher();
+	private static void renderBlock(MatrixStack matrixStack, Vec3d pos, BlockState state, IRenderTypeBuffer entityVertexConsumer, BlockRenderType blockRenderType) {
+		Minecraft minecraft = Minecraft.getInstance();
+		Vec3d projectedView = minecraft.getRenderManager().info.getProjectedView();
+		double renderPosX = projectedView.getX();
+		double renderPosY = projectedView.getY();
+		double renderPosZ = projectedView.getZ();
+
+		// push
+		matrixStack.func_227860_a_();
+
+		// Translate function.
+		matrixStack.func_227861_a_(-renderPosX, -renderPosY, -renderPosZ);
+
+		BlockRendererDispatcher renderer = minecraft.getBlockRendererDispatcher();
+
+		matrixStack.func_227861_a_(pos.getX(), pos.getY(), pos.getZ() + 1);
+
 		ClientWorld world = Minecraft.getInstance().world;
 		IModelData model = renderer.getModelForState(state).getModelData(world, new BlockPos(pos), state, ModelDataManager.getModelData(world, new BlockPos(pos)));
+		IBakedModel bakedModel = renderer.getModelForState(state);
 
-		ActiveRenderInfo renderInfo = Minecraft.getInstance().gameRenderer.getActiveRenderInfo();
+		// getColor function.
+		int color = minecraft.getBlockColors().func_228054_a_(state, null, null, 0);
+		float r = (float)(color >> 16 & 255) / 255.0F;
+		float g = (float)(color >> 8 & 255) / 255.0F;
+		float b = (float)(color & 255) / 255.0F;
 
-		matrixStack.func_227860_a_(); // push
-		matrixStack.func_227861_a_(-renderInfo.getProjectedView().getX() + pos.x, -renderInfo.getProjectedView().getY() + pos.y, -renderInfo.getProjectedView().getZ() + pos.z); // translate back to camera
-		Minecraft.getInstance().getBlockRendererDispatcher().renderBlock(state, matrixStack, Minecraft.getInstance().func_228019_au_().func_228487_b_(), 15728880, OverlayTexture.field_229196_a_, model);
-		matrixStack.func_227865_b_(); // pop
-	}
-
-	public static void renderBlockBrightness(BlockState state, float brightness, BlockPos pos) {
-		Minecraft minecraft = Minecraft.getInstance();
-		BlockRendererDispatcher brd = minecraft.getBlockRendererDispatcher();
-		TileEntityRendererDispatcher tileEntityRendererDispatcher = TileEntityRendererDispatcher.instance;
-		World world = minecraft.world;
-
-		BlockRenderType blockrendertype = state.getRenderType();
-		MatrixStack matrixstack = new MatrixStack();
-		IRenderTypeBuffer.Impl renderTypeBuffer = minecraft.func_228019_au_().func_228487_b_();
-		RenderType renderType = RenderTypeLookup.func_228394_b_(state);
-		PlayerEntity playerEntity = minecraft.player;
-		BlockColors blockColors = minecraft.getBlockColors();
-
-		ActiveRenderInfo renderInfo = minecraft.gameRenderer.getActiveRenderInfo();
-		BlockPos originalPos = StructureRenderHandler.currentConfiguration.pos;
-
-		if (blockrendertype != BlockRenderType.INVISIBLE) {
-			switch (blockrendertype) {
-				case MODEL: {
-					try {
-						Vec3d vec3d = renderInfo.getProjectedView();
-						BlockModelRenderer renderer = brd.getBlockModelRenderer();
-						IBakedModel model = brd.getModelForState(state);
-						IModelData modelData = model.getModelData(world, new BlockPos(pos), state, ModelDataManager.getModelData(world, new BlockPos(pos)));
-
-						// push
-						matrixstack.func_227860_a_();
-
-						// TODO: Not sure where this comment came from in my copying of code but: This makes it show in the player's view like a screen instead of in the world.
-						//matrixstack.func_227861_a_(projectedX + (double)pos.getX(), projectedY + (double)pos.getY(), projectedZ + (double)pos.getZ());
-
-						matrixstack.func_227861_a_(
-								(float)pos.getX() - originalPos.getX(),
-								(float)pos.getY() - originalPos.getY(),
-								(float)pos.getZ() - originalPos.getZ());
-
-						// TODO: test out this functionality since it probably doesn't work well anymore.
-						// This magic number (15728880) is used to determine how bright the textures are (not their transparency).
-						/*
-						* Watching a forge post to get this to work as well as botania's Astrolabe handler: Botania\src\main\java\vazkii\botania\client\core\handler\AstrolabePreviewHandler.java
-						*/
-						brd.renderBlock(state, matrixstack, renderTypeBuffer, 15728880, OverlayTexture.field_229196_a_, modelData);
-
-						// pop
-						matrixstack.func_227865_b_();
-
-						//brd.getBlockModelRenderer().renderModelBrightness(ibakedmodel, state, brightness, true);
-					} catch (Exception ex) {
-						// Don't do anything if a mod broke this vanilla block rendering. It just won't show up during the preview then.
-					}
-
-					break;
-				}
-				case ENTITYBLOCK_ANIMATED: {
-					TileEntity tileEntity = world.getTileEntity(pos);
-
-					if (tileEntity != null) {
-
-						int i;
-						if (world != null) {
-							i = WorldRenderer.func_228421_a_(world, pos);
-						} else {
-							i = 15728880;
-						}
-
-						tileEntityRendererDispatcher.getRenderer(tileEntity)
-								.func_225616_a_(tileEntity, brightness, matrixstack, renderTypeBuffer, i, OverlayTexture.field_229196_a_);
-
-						//StructureRenderHandler.chestRenderer.renderChestBrightness(state.getBlock(), brightness);
-					}
-				}
-			}
-
+		if (blockRenderType == BlockRenderType.MODEL) {
+			renderer.getBlockModelRenderer().func_228804_a_(
+					matrixStack.func_227866_c_(),
+					entityVertexConsumer.getBuffer(Atlases.func_228784_i_()),
+					state,
+					bakedModel,
+					r,
+					g,
+					b,
+					0xF000F0,
+					OverlayTexture.field_229196_a_);
 		}
+		else if (blockRenderType == BlockRenderType.ENTITYBLOCK_ANIMATED) {
+			// TODO: render the animated (chests) after all normal model blocks are rendered.
+			renderer.renderBlock(
+					state,
+					matrixStack,
+					entityVertexConsumer,
+					15728880,
+					OverlayTexture.field_229196_a_,
+					model);
+		}
+
+		// pop
+		matrixStack.func_227865_b_();
 	}
+
+	private  static void  renderModel(MatrixStack matrixStack, Vec3d pos, BlockState state, IRenderTypeBuffer entityVertexConsumer) {
+
+	}
+
 
 }

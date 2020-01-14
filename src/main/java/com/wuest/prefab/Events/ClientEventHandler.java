@@ -52,7 +52,7 @@ public final class ClientEventHandler {
         Minecraft mc = Minecraft.getInstance();
 
         if (mc.player != null && (!mc.player.isCrouching())) {
-            StructureRenderHandler.renderPlayerLook(mc.player, mc.objectMouseOver);
+            StructureRenderHandler.renderPlayerLook(mc.player, mc.objectMouseOver, event.getMatrixStack());
         }
 
         if (ItemBogus.renderTest) {

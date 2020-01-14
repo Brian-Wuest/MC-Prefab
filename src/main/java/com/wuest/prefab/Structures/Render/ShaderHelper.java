@@ -11,10 +11,12 @@ import org.lwjgl.opengl.ARBFragmentShader;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.ARBVertexShader;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.system.MemoryUtil;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.FloatBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;
 
@@ -28,6 +30,7 @@ import java.util.stream.Collectors;
 public class ShaderHelper {
     private static final int VERT = ARBVertexShader.GL_VERTEX_SHADER_ARB;
     private static final int FRAG = ARBFragmentShader.GL_FRAGMENT_SHADER_ARB;
+    public static final FloatBuffer FLOAT_BUF = MemoryUtil.memAllocFloat(1);
 
     public static int alphaShader = 0;
     private static boolean lighting;
@@ -44,24 +47,32 @@ public class ShaderHelper {
         }
     }
 
-    public static void useShader(int shader) {
+    public static void useShader(int shader, ShaderCallback callback) {
         if (ShaderHelper.alphaShader == 0) {
             // Shader wasn't initialized, initialize it now.
             ShaderHelper.alphaShader = ShaderHelper.createProgram("/assets/prefab/shader/alpha.vert", "/assets/prefab/shader/alpha.frag");
         }
 
         lighting = GL11.glGetBoolean(GL11.GL_LIGHTING);
-        RenderSystem.disableLighting();
 
-        ARBShaderObjects.glUseProgramObjectARB(shader);
+        // disableLighting
+        GlStateManager.func_227722_g_();
+        GlStateManager.func_227723_g_(shader);
 
-        if (shader != 0) {
-            int time = ARBShaderObjects.glGetUniformLocationARB(shader, "time");
-            ARBShaderObjects.glUniform1iARB(time, ClientEventHandler.ticksInGame);
+        if(shader != 0) {
+            // getUniformLocation
+            int time = GlStateManager.func_227680_b_(shader, "time");
 
-            int alpha = ARBShaderObjects.glGetUniformLocationARB(shader, "alpha");
-            ARBShaderObjects.glUniform1fARB(alpha, 0.4F);
+            // uniform1
+            GlStateManager.func_227718_f_(time, ClientEventHandler.ticksInGame);
+
+            if(callback != null)
+                callback.call(shader);
         }
+    }
+
+    public static void useShader(int shader) {
+        useShader(shader, null);
     }
 
     public static void releaseShader() {
@@ -160,5 +171,12 @@ public class ShaderHelper {
 
     private static String getLogInfo(int obj) {
         return ARBShaderObjects.glGetInfoLogARB(obj, ARBShaderObjects.glGetObjectParameteriARB(obj, ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB));
+    }
+
+    @FunctionalInterface
+    public interface ShaderCallback {
+
+        void call(int shader);
+
     }
 }
