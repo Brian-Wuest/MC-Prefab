@@ -4,7 +4,7 @@ issueTrackerURL="https://github.com/Brian-Wuest/MC-Prefab/issues" #optional
 
 [[mods]] #mandatory
     modId="prefab" #mandatory
-    version="1.4.0.8" #mandatory
+    version="1.4.0.9" #mandatory
     displayName="Prefab" #mandatory
     #logoFile="" #optional
     updateJSONURL="https://raw.githubusercontent.com/Brian-Wuest/MC-Prefab/master/changeLog.json" #optional
@@ -19,6 +19,6 @@ Structure Preview functionality adapted from Botania by Vazkii http://botaniamod
 [[dependencies.prefab]]
     modId="forge" #mandatory
     mandatory=false #mandatory
-    versionRange="[28.1.80,)" #mandatory
+    versionRange="[28.1.113,)" #mandatory
     ordering="NONE"
     side="BOTH"
