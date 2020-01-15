@@ -68,6 +68,7 @@ public class StructureRenderHandler {
 	public static boolean rendering = false;
 	public static boolean showedMessage = false;
 	private static int dimension;
+	private static int overlay  = OverlayTexture.func_229201_a_(5,10);
 
 	/**
 	 * Resets the structure to show in the world.
@@ -141,11 +142,6 @@ public class StructureRenderHandler {
 				}
 			}
 
-			for (Pair<BlockState, BlockPos> pair : entityModels)
-			{
-				StructureRenderHandler.renderBlock(matrixStack, new Vec3d(pair.getValue()), pair.getKey(), entityVertexConsumer, BlockRenderType.ENTITYBLOCK_ANIMATED);
-			}
-
 			ShaderHelper.useShader(ShaderHelper.alphaShader, shader -> {
 				// getUniformLocation
 				int alpha = GlStateManager.func_227680_b_(shader, "alpha");
@@ -160,6 +156,11 @@ public class StructureRenderHandler {
 			entityVertexConsumer.func_228461_a_();
 
 			ShaderHelper.releaseShader();
+
+			for (Pair<BlockState, BlockPos> pair : entityModels)
+			{
+				StructureRenderHandler.renderBlock(matrixStack, new Vec3d(pair.getValue()), pair.getKey(), entityVertexConsumer, BlockRenderType.ENTITYBLOCK_ANIMATED);
+			}
 
 			if (!didAny) {
 				// Nothing was generated, tell the user this through a chat message and re-set the structure information.
@@ -229,19 +230,19 @@ public class StructureRenderHandler {
 
 		BlockRendererDispatcher renderer = minecraft.getBlockRendererDispatcher();
 
-		matrixStack.func_227861_a_(pos.getX(), pos.getY(), pos.getZ() + 1);
+		matrixStack.func_227861_a_(pos.getX(), pos.getY(), pos.getZ());
 
 		ClientWorld world = Minecraft.getInstance().world;
 		IModelData model = renderer.getModelForState(state).getModelData(world, new BlockPos(pos), state, ModelDataManager.getModelData(world, new BlockPos(pos)));
 		IBakedModel bakedModel = renderer.getModelForState(state);
 
-		// getColor function.
-		int color = minecraft.getBlockColors().func_228054_a_(state, null, null, 0);
-		float r = (float)(color >> 16 & 255) / 255.0F;
-		float g = (float)(color >> 8 & 255) / 255.0F;
-		float b = (float)(color & 255) / 255.0F;
-
 		if (blockRenderType == BlockRenderType.MODEL) {
+			// getColor function.
+			int color = minecraft.getBlockColors().func_228054_a_(state, null, null, 0);
+			float r = (float)(color >> 16 & 255) / 255.0F;
+			float g = (float)(color >> 8 & 255) / 255.0F;
+			float b = (float)(color & 255) / 255.0F;
+
 			renderer.getBlockModelRenderer().func_228804_a_(
 					matrixStack.func_227866_c_(),
 					entityVertexConsumer.getBuffer(Atlases.func_228784_i_()),
@@ -254,13 +255,12 @@ public class StructureRenderHandler {
 					OverlayTexture.field_229196_a_);
 		}
 		else if (blockRenderType == BlockRenderType.ENTITYBLOCK_ANIMATED) {
-			// TODO: render the animated (chests) after all normal model blocks are rendered.
 			renderer.renderBlock(
 					state,
 					matrixStack,
 					entityVertexConsumer,
 					15728880,
-					OverlayTexture.field_229196_a_,
+					StructureRenderHandler.overlay,
 					model);
 		}
 
