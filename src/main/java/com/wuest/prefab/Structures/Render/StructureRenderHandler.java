@@ -259,7 +259,7 @@ public class StructureRenderHandler {
 					state,
 					matrixStack,
 					entityVertexConsumer,
-					15728880,
+					0xF000F0,
 					StructureRenderHandler.overlay,
 					model);
 		}
