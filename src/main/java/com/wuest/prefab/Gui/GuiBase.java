@@ -2,12 +2,11 @@ package com.wuest.prefab.Gui;
 
 import javafx.util.Pair;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraftforge.fml.client.config.GuiButtonExt;
-
-import java.util.logging.XMLFormatter;
+import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
 
 public abstract class GuiBase extends Screen {
 
@@ -58,7 +57,7 @@ public abstract class GuiBase extends Screen {
 	}
 
 	/**
-	 * Creates a {@link GuiButtonExt} using the button clicked event as the handler. Then adds it to the buttons list and returns the created object.
+	 * Creates a {@link net.minecraftforge.fml.client.gui.widget.ExtendedButton} using the button clicked event as the handler. Then adds it to the buttons list and returns the created object.
 	 *
 	 * @param x      The x-axis position.
 	 * @param y      The y-axis position.
@@ -67,8 +66,8 @@ public abstract class GuiBase extends Screen {
 	 * @param text   The text of the button.
 	 * @return A new button.
 	 */
-	public GuiButtonExt createAndAddButton(int x, int y, int width, int height, String text) {
-		GuiButtonExt returnValue = new GuiButtonExt(x, y, width, height, text, this::buttonClicked);
+	public ExtendedButton createAndAddButton(int x, int y, int width, int height, String text) {
+		ExtendedButton returnValue = new ExtendedButton(x, y, width, height, text, this::buttonClicked);
 
 		this.addButton(returnValue);
 
@@ -80,8 +79,7 @@ public abstract class GuiBase extends Screen {
 		this.blit(grayBoxX, grayBoxY, 0, 0, 256, 256);
 	}
 
-	protected void renderButtons(int mouseX, int mouseY)
-	{
+	protected void renderButtons(int mouseX, int mouseY) {
 		for (net.minecraft.client.gui.widget.Widget button : this.buttons) {
 			Button currentButton = (Button) button;
 
@@ -91,9 +89,9 @@ public abstract class GuiBase extends Screen {
 		}
 	}
 
-	public abstract void buttonClicked(Button button);
+	public abstract void buttonClicked(AbstractButton button);
 
-	protected abstract Pair<Integer,Integer> getAdjustedXYValue();
+	protected abstract Pair<Integer, Integer> getAdjustedXYValue();
 
 	protected abstract void preButtonRender(int x, int y);
 

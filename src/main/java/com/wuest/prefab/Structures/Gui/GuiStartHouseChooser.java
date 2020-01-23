@@ -20,7 +20,7 @@ import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.item.DyeColor;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.client.config.GuiButtonExt;
+import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
 
 import java.awt.*;
 
@@ -29,8 +29,8 @@ import java.awt.*;
  */
 public class GuiStartHouseChooser extends GuiTabScreen {
 	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/default_background.png");
-	protected GuiButtonExt btnCancel;
-	protected GuiButtonExt btnBuild;
+	protected ExtendedButton btnCancel;
+	protected ExtendedButton btnBuild;
 
 	// Tabs
 	private GuiTab tabGeneral;
@@ -38,9 +38,9 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 	private GuiTab tabBlockTypes;
 
 	// General:
-	private GuiButtonExt btnHouseStyle;
-	private GuiButtonExt btnGlassColor;
-	protected GuiButtonExt btnVisualize;
+	private ExtendedButton btnHouseStyle;
+	private ExtendedButton btnGlassColor;
+	protected ExtendedButton btnVisualize;
 
 	// Config:
 	private GuiCheckBox btnAddTorches;
@@ -247,11 +247,11 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 
 		// Create the Controls.
 		// Column 1:
-		this.btnHouseStyle = new GuiButtonExt(grayBoxX + 10, grayBoxY + 20, 90, 20, this.houseConfiguration.houseStyle.getDisplayName(), this::actionPerformed);
+		this.btnHouseStyle = new ExtendedButton(grayBoxX + 10, grayBoxY + 20, 90, 20, this.houseConfiguration.houseStyle.getDisplayName(), this::actionPerformed);
 
 		this.addButton(this.btnHouseStyle);
 
-		this.btnVisualize = new GuiButtonExt(grayBoxX + 10, grayBoxY + 60, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW), this::actionPerformed);
+		this.btnVisualize = new ExtendedButton(grayBoxX + 10, grayBoxY + 60, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW), this::actionPerformed);
 		this.addButton(this.btnVisualize);
 
 		int x = grayBoxX + 10;
@@ -329,7 +329,7 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 			y += 15;
 		}
 
-		this.btnGlassColor = new GuiButtonExt(grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateDye(this.houseConfiguration.glassColor), this::actionPerformed);
+		this.btnGlassColor = new ExtendedButton(grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateDye(this.houseConfiguration.glassColor), this::actionPerformed);
 		this.addButton(this.btnGlassColor);
 
 		// Column 2:
@@ -348,10 +348,10 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 		this.Tabs.AddTab(this.tabBlockTypes);
 
 		// Create the done and cancel buttons.
-		this.btnBuild = new GuiButtonExt(grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_BUILD), this::actionPerformed);
+		this.btnBuild = new ExtendedButton(grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_BUILD), this::actionPerformed);
 		this.addButton(this.btnBuild);
 
-		this.btnCancel = new GuiButtonExt(grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_CANCEL), this::actionPerformed);
+		this.btnCancel = new ExtendedButton(grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_CANCEL), this::actionPerformed);
 		this.addButton(this.btnCancel);
 	}
 }

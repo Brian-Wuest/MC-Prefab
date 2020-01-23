@@ -1,5 +1,5 @@
 modLoader="javafml" #mandatory
-loaderVersion="[30,)" #mandatory
+loaderVersion="[31,)" #mandatory
 issueTrackerURL="https://github.com/Brian-Wuest/MC-Prefab/issues" #optional
 
 [[mods]] #mandatory
@@ -19,6 +19,6 @@ Structure Preview functionality adapted from Botania by Vazkii http://botaniamod
 [[dependencies.prefab]]
     modId="forge" #mandatory
     mandatory=false #mandatory
-    versionRange="[30,)" #mandatory
+    versionRange="[31,)" #mandatory
     ordering="NONE"
     side="BOTH"

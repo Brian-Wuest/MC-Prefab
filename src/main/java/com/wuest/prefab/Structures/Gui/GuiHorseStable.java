@@ -3,13 +3,12 @@ package com.wuest.prefab.Structures.Gui;
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Gui.GuiTabScreen;
-import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.Structures.Config.HorseStableConfiguration;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Structures.Predefined.StructureHorseStable;
 import com.wuest.prefab.Structures.Render.StructureRenderHandler;
 import javafx.util.Pair;
-import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 
@@ -25,34 +24,33 @@ public class GuiHorseStable extends GuiStructure {
 		this.structureConfiguration = EnumStructureConfiguration.HorseStable;
 	}
 
-    @Override
-    protected Pair<Integer, Integer> getAdjustedXYValue() {
-        return new Pair<>(this.getCenteredXAxis() - 213, this.getCenteredYAxis() - 83);
-    }
+	@Override
+	protected Pair<Integer, Integer> getAdjustedXYValue() {
+		return new Pair<>(this.getCenteredXAxis() - 213, this.getCenteredYAxis() - 83);
+	}
 
-    @Override
-    protected void preButtonRender(int x, int y)
-    {
-        super.preButtonRender(x , y);
+	@Override
+	protected void preButtonRender(int x, int y) {
+		super.preButtonRender(x, y);
 
-        this.minecraft.getTextureManager().bindTexture(structureTopDown);
-        GuiTabScreen.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 104, 166, 104, 166);
-    }
+		this.minecraft.getTextureManager().bindTexture(structureTopDown);
+		GuiTabScreen.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 104, 166, 104, 166);
+	}
 
-    @Override
-    protected void postButtonRender(int x, int y) {
-        // Draw the text here.
-        this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_FACING), x + 10, y + 10, this.textColor);
+	@Override
+	protected void postButtonRender(int x, int y) {
+		// Draw the text here.
+		this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_FACING), x + 10, y + 10, this.textColor);
 
-        // Draw the text here.
-        this.minecraft.fontRenderer.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, y + 10, 95, this.textColor);
-    }
+		// Draw the text here.
+		this.minecraft.fontRenderer.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, y + 10, 95, this.textColor);
+	}
 
 	/**
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	@Override
-	public void buttonClicked(Button button) {
+	public void buttonClicked(AbstractButton button) {
 		this.performCancelOrBuildOrHouseFacing(this.configuration, button);
 
 		if (button == this.btnVisualize) {

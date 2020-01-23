@@ -7,18 +7,19 @@ import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureCon
 import com.wuest.prefab.Structures.Predefined.StructureProduceFarm;
 import com.wuest.prefab.Structures.Render.StructureRenderHandler;
 import javafx.util.Pair;
+import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.item.DyeColor;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.client.config.GuiButtonExt;
+import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
 
 /**
  * @author WuestMan
  */
 public class GuiProduceFarm extends GuiStructure {
     private static final ResourceLocation houseTopDown = new ResourceLocation("prefab", "textures/gui/produce_farm_top_down.png");
-    private GuiButtonExt btnGlassColor;
+    private ExtendedButton btnGlassColor;
     protected ProduceFarmConfiguration configuration;
 
     public GuiProduceFarm() {
@@ -73,7 +74,7 @@ public class GuiProduceFarm extends GuiStructure {
      * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
      */
     @Override
-    public void buttonClicked(Button button) {
+    public void buttonClicked(AbstractButton button) {
         this.performCancelOrBuildOrHouseFacing(this.configuration, button);
 
         if (button == this.btnGlassColor) {

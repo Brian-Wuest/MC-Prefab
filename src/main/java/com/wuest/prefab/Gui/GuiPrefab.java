@@ -5,7 +5,7 @@ import com.wuest.prefab.Proxy.CommonProxy;
 import javafx.util.Pair;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 import java.util.Map;
@@ -33,17 +33,16 @@ public class GuiPrefab extends GuiBase {
 
 		UnmodifiableConfig config = this.spec.getValues();
 
-		for (Map.Entry<String, Object> entry : config.valueMap().entrySet())
-		{
+		for (Map.Entry<String, Object> entry : config.valueMap().entrySet()) {
 			/*
-			* TODO: Create an entry for each object in the save. If it's a configuration (secondary layer), show a new screen for that layer.
-			*  Later during the save. Load the configuration file and make any staged updated.
-			* */
+			 * TODO: Create an entry for each object in the save. If it's a configuration (secondary layer), show a new screen for that layer.
+			 *  Later during the save. Load the configuration file and make any staged updated.
+			 * */
 		}
 	}
 
 	@Override
-	public void buttonClicked(Button button) {
+	public void buttonClicked(AbstractButton button) {
 		this.minecraft.displayGuiScreen(this.parentScreen);
 	}
 

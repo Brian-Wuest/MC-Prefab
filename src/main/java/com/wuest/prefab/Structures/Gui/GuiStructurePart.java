@@ -10,12 +10,10 @@ import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureCon
 import com.wuest.prefab.Structures.Predefined.StructurePart;
 import com.wuest.prefab.Structures.Render.StructureRenderHandler;
 import javafx.util.Pair;
-import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.util.Direction;
-import net.minecraftforge.fml.client.config.GuiButtonExt;
-import net.minecraftforge.fml.client.config.GuiSlider;
-
-import java.awt.*;
+import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
+import net.minecraftforge.fml.client.gui.widget.Slider;
 
 /**
  * This class is used as the gui for structure parts.
@@ -25,13 +23,13 @@ import java.awt.*;
 @SuppressWarnings({"ConstantConditions", "SpellCheckingInspection"})
 public class GuiStructurePart extends GuiStructure {
 	protected StructurePartConfiguration configuration;
-	private GuiSlider sldrStairWidth;
-	private GuiSlider sldrStairHeight;
-	private GuiSlider sldrGeneralWidth;
-	private GuiSlider sldrGeneralHeight;
-	private GuiButtonExt btnPartStyle;
-	private GuiButtonExt btnMaterialType;
-	private GuiButtonExt btnStairsMaterialType;
+	private Slider sldrStairWidth;
+	private Slider sldrStairHeight;
+	private Slider sldrGeneralWidth;
+	private Slider sldrGeneralHeight;
+	private ExtendedButton btnPartStyle;
+	private ExtendedButton btnMaterialType;
+	private ExtendedButton btnStairsMaterialType;
 	private int modifiedInitialXAxis = 213;
 	private int modifiedInitialYAxis = 83;
 
@@ -56,16 +54,16 @@ public class GuiStructurePart extends GuiStructure {
 
 		this.btnVisualize = this.createAndAddButton(grayBoxX + 10, grayBoxY + 90, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW));
 
-		this.sldrStairHeight = new GuiSlider(grayBoxX + 147, grayBoxY + 100, 90, 20, "", "", 1, 9, this.configuration.stairHeight, false, true, this::buttonClicked);
+		this.sldrStairHeight = new Slider(grayBoxX + 147, grayBoxY + 100, 90, 20, "", "", 1, 9, this.configuration.stairHeight, false, true, this::buttonClicked);
 		this.addButton(this.sldrStairHeight);
 
-		this.sldrStairWidth = new GuiSlider(grayBoxX + 147, grayBoxY + 60, 90, 20, "", "", 1, 9, this.configuration.stairWidth, false, true, this::buttonClicked);
+		this.sldrStairWidth = new Slider(grayBoxX + 147, grayBoxY + 60, 90, 20, "", "", 1, 9, this.configuration.stairWidth, false, true, this::buttonClicked);
 		this.addButton(this.sldrStairWidth);
 
-		this.sldrGeneralHeight = new GuiSlider(grayBoxX + 147, grayBoxY + 100, 90, 20, "", "", 3, 9, this.configuration.generalHeight, false, true, this::buttonClicked);
+		this.sldrGeneralHeight = new Slider(grayBoxX + 147, grayBoxY + 100, 90, 20, "", "", 3, 9, this.configuration.generalHeight, false, true, this::buttonClicked);
 		this.addButton(this.sldrGeneralHeight);
 
-		this.sldrGeneralWidth = new GuiSlider(grayBoxX + 147, grayBoxY + 60, 90, 20, "", "", 3, 9, this.configuration.generalWidth, false, true, this::buttonClicked);
+		this.sldrGeneralWidth = new Slider(grayBoxX + 147, grayBoxY + 60, 90, 20, "", "", 3, 9, this.configuration.generalWidth, false, true, this::buttonClicked);
 		this.addButton(this.sldrGeneralWidth);
 
 		this.btnPartStyle = this.createAndAddButton(grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateString(this.configuration.style.translateKey));
@@ -81,9 +79,8 @@ public class GuiStructurePart extends GuiStructure {
 	}
 
 	@Override
-	protected void preButtonRender(int x, int y)
-	{
-		super.preButtonRender(x , y);
+	protected void preButtonRender(int x, int y) {
+		super.preButtonRender(x, y);
 
 		this.minecraft.getTextureManager().bindTexture(this.configuration.style.getPictureLocation());
 
@@ -133,7 +130,7 @@ public class GuiStructurePart extends GuiStructure {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	@Override
-	public void buttonClicked(Button button) {
+	public void buttonClicked(AbstractButton button) {
 		this.configuration.houseFacing = this.minecraft.player.getHorizontalFacing().getOpposite();
 		this.configuration.stairHeight = this.sldrStairHeight.getValueInt();
 		this.configuration.stairWidth = this.sldrStairWidth.getValueInt();

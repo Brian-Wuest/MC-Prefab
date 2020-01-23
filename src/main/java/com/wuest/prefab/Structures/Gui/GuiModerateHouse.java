@@ -12,9 +12,10 @@ import com.wuest.prefab.Structures.Predefined.StructureModerateHouse;
 import com.wuest.prefab.Structures.Render.StructureRenderHandler;
 import javafx.util.Pair;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.Direction;
-import net.minecraftforge.fml.client.config.GuiButtonExt;
+import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
 
 import java.awt.*;
 
@@ -23,7 +24,7 @@ import java.awt.*;
  */
 public class GuiModerateHouse extends GuiStructure {
     protected ModerateHouseConfiguration configuration;
-    private GuiButtonExt btnHouseStyle;
+    private ExtendedButton btnHouseStyle;
 
     private GuiCheckBox btnAddChest;
     private GuiCheckBox btnAddChestContents;
@@ -113,7 +114,7 @@ public class GuiModerateHouse extends GuiStructure {
      * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
      */
     @Override
-    public void buttonClicked(Button button) {
+    public void buttonClicked(AbstractButton button) {
         this.configuration.addChests = this.btnAddChest.visible && this.btnAddChest.isChecked();
         this.configuration.addChestContents = this.allowItemsInChestAndFurnace && (this.btnAddChestContents.visible && this.btnAddChestContents.isChecked());
         this.configuration.addMineshaft = this.btnAddMineShaft.visible && this.btnAddMineShaft.isChecked();

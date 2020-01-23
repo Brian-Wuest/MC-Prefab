@@ -1,6 +1,5 @@
 package com.wuest.prefab.Structures.Gui;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.wuest.prefab.Gui.GuiBase;
 import com.wuest.prefab.Prefab;
@@ -9,17 +8,15 @@ import com.wuest.prefab.Structures.Config.StructureConfiguration;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import javafx.util.Pair;
-import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraftforge.fml.client.config.GuiButtonExt;
+import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
@@ -34,9 +31,9 @@ public abstract class GuiStructure extends GuiBase {
 	protected PlayerEntity player;
 	private Direction structureFacing;
 
-	protected GuiButtonExt btnCancel;
-	protected GuiButtonExt btnBuild;
-	protected GuiButtonExt btnVisualize;
+	protected ExtendedButton btnCancel;
+	protected ExtendedButton btnBuild;
+	protected ExtendedButton btnVisualize;
 
 	protected int textColor = Color.DARK_GRAY.getRGB();
 	protected EnumStructureConfiguration structureConfiguration;
@@ -74,8 +71,7 @@ public abstract class GuiStructure extends GuiBase {
 
 		this.postButtonRender(adjustedXYValue.getKey(), adjustedXYValue.getValue());
 
-		if (this.btnVisualize != null)
-		{
+		if (this.btnVisualize != null) {
 			this.checkVisualizationSetting();
 		}
 	}
@@ -90,7 +86,7 @@ public abstract class GuiStructure extends GuiBase {
 	/**
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
-	protected void performCancelOrBuildOrHouseFacing(StructureConfiguration configuration, Button button) {
+	protected void performCancelOrBuildOrHouseFacing(StructureConfiguration configuration, AbstractButton button) {
 		configuration.houseFacing = this.structureFacing;
 
 		if (button == this.btnCancel) {

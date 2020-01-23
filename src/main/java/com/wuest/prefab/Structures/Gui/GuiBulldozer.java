@@ -2,13 +2,10 @@ package com.wuest.prefab.Structures.Gui;
 
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
-import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.Structures.Config.BulldozerConfiguration;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import javafx.util.Pair;
-import net.minecraft.client.gui.widget.button.Button;
-
-import java.awt.*;
+import net.minecraft.client.gui.widget.button.AbstractButton;
 
 /**
  * @author WuestMan
@@ -57,7 +54,7 @@ public class GuiBulldozer extends GuiStructure {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	@Override
-	public void buttonClicked(Button button) {
+	public void buttonClicked(AbstractButton button) {
 		assert this.minecraft != null;
 		this.configuration.houseFacing = this.minecraft.player.getHorizontalFacing().getOpposite();
 		this.performCancelOrBuildOrHouseFacing(this.configuration, button);

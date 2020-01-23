@@ -2,7 +2,6 @@ package com.wuest.prefab.Structures.Gui;
 
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.Controls.GuiCheckBox;
-import com.wuest.prefab.Gui.GuiBase;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Structures.Base.EnumStructureMaterial;
 import com.wuest.prefab.Structures.Config.InstantBridgeConfiguration;
@@ -10,128 +9,127 @@ import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureCon
 import com.wuest.prefab.Structures.Predefined.StructureInstantBridge;
 import com.wuest.prefab.Structures.Render.StructureRenderHandler;
 import javafx.util.Pair;
-import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.client.config.GuiButtonExt;
-import net.minecraftforge.fml.client.config.GuiSlider;
+import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
+import net.minecraftforge.fml.client.gui.widget.Slider;
 
 @SuppressWarnings("SpellCheckingInspection")
 public class GuiInstantBridge extends GuiStructure {
-    private static final ResourceLocation structureTopDown = new ResourceLocation("prefab", "textures/gui/instant_bridge_top_down.png");
-    protected InstantBridgeConfiguration configuration;
-    private GuiButtonExt btnMaterialType;
-    private GuiSlider sldrBridgeLength;
-    private GuiCheckBox chckIncludeRoof;
-    private GuiSlider sldrInteriorHeight;
+	private static final ResourceLocation structureTopDown = new ResourceLocation("prefab", "textures/gui/instant_bridge_top_down.png");
+	protected InstantBridgeConfiguration configuration;
+	private ExtendedButton btnMaterialType;
+	private Slider sldrBridgeLength;
+	private GuiCheckBox chckIncludeRoof;
+	private Slider sldrInteriorHeight;
 
-    public GuiInstantBridge() {
-        super("Instant Bridge");
-        this.structureConfiguration = EnumStructureConfiguration.InstantBridge;
-    }
+	public GuiInstantBridge() {
+		super("Instant Bridge");
+		this.structureConfiguration = EnumStructureConfiguration.InstantBridge;
+	}
 
-    @Override
-    protected void Initialize() {
-        this.configuration = ClientEventHandler.playerConfig.getClientConfig("InstantBridge", InstantBridgeConfiguration.class);
-        this.configuration.pos = this.pos;
+	@Override
+	protected void Initialize() {
+		this.configuration = ClientEventHandler.playerConfig.getClientConfig("InstantBridge", InstantBridgeConfiguration.class);
+		this.configuration.pos = this.pos;
 
-        // Get the upper left hand corner of the GUI box.
-        int grayBoxX = this.getCenteredXAxis() - 213;
-        int grayBoxY = this.getCenteredYAxis() - 83;
+		// Get the upper left hand corner of the GUI box.
+		int grayBoxX = this.getCenteredXAxis() - 213;
+		int grayBoxY = this.getCenteredYAxis() - 83;
 
-        // Create the buttons.
-        this.btnMaterialType = this.createAndAddButton(grayBoxX + 10, grayBoxY + 20, 90, 20, this.configuration.bridgeMaterial.getTranslatedName());
+		// Create the buttons.
+		this.btnMaterialType = this.createAndAddButton(grayBoxX + 10, grayBoxY + 20, 90, 20, this.configuration.bridgeMaterial.getTranslatedName());
 
-        this.sldrBridgeLength = new GuiSlider(grayBoxX + 147, grayBoxY + 20, 90, 20, "", "", 25, 75, this.configuration.bridgeLength, false, true, this::buttonClicked);
-        this.addButton(this.sldrBridgeLength);
+		this.sldrBridgeLength = new Slider(grayBoxX + 147, grayBoxY + 20, 90, 20, "", "", 25, 75, this.configuration.bridgeLength, false, true, this::buttonClicked);
+		this.addButton(this.sldrBridgeLength);
 
-        this.chckIncludeRoof = new GuiCheckBox(grayBoxX + 147, grayBoxY + 55, GuiLangKeys.translateString(GuiLangKeys.INCLUDE_ROOF), this.configuration.includeRoof, this::buttonClicked);
-        this.addButton(this.chckIncludeRoof);
+		this.chckIncludeRoof = new GuiCheckBox(grayBoxX + 147, grayBoxY + 55, GuiLangKeys.translateString(GuiLangKeys.INCLUDE_ROOF), this.configuration.includeRoof, this::buttonClicked);
+		this.addButton(this.chckIncludeRoof);
 
-        this.sldrInteriorHeight = new GuiSlider(grayBoxX + 147, grayBoxY + 90, 90, 20, "", "", 3, 8, this.configuration.interiorHeight, false, true, this::buttonClicked);
-        this.addButton(this.sldrInteriorHeight);
+		this.sldrInteriorHeight = new Slider(grayBoxX + 147, grayBoxY + 90, 90, 20, "", "", 3, 8, this.configuration.interiorHeight, false, true, this::buttonClicked);
+		this.addButton(this.sldrInteriorHeight);
 
-        this.sldrInteriorHeight.visible = this.chckIncludeRoof.isChecked();
+		this.sldrInteriorHeight.visible = this.chckIncludeRoof.isChecked();
 
-        this.btnVisualize = this.createAndAddButton(grayBoxX + 10, grayBoxY + 90, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW));
+		this.btnVisualize = this.createAndAddButton(grayBoxX + 10, grayBoxY + 90, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW));
 
-        // Create the done and cancel buttons.
-        this.btnBuild = this.createAndAddButton(grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_BUILD));
+		// Create the done and cancel buttons.
+		this.btnBuild = this.createAndAddButton(grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_BUILD));
 
-        this.btnCancel = this.createAndAddButton(grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_CANCEL));
-    }
+		this.btnCancel = this.createAndAddButton(grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_CANCEL));
+	}
 
-    @Override
-    protected Pair<Integer, Integer> getAdjustedXYValue() {
-        return new Pair<>(this.getCenteredXAxis() - 210, this.getCenteredYAxis() - 83);
-    }
+	@Override
+	protected Pair<Integer, Integer> getAdjustedXYValue() {
+		return new Pair<>(this.getCenteredXAxis() - 210, this.getCenteredYAxis() - 83);
+	}
 
-    @Override
-    protected void preButtonRender(int x, int y)
-    {
-        super.preButtonRender(x , y);
+	@Override
+	protected void preButtonRender(int x, int y) {
+		super.preButtonRender(x, y);
 
-        this.minecraft.getTextureManager().bindTexture(structureTopDown);
+		this.minecraft.getTextureManager().bindTexture(structureTopDown);
 
-        GuiStructure.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 165, 58, 165, 58);
-    }
+		GuiStructure.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 165, 58, 165, 58);
+	}
 
-    @Override
-    protected void postButtonRender(int x, int y) {
-        this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.BRIDGE_MATERIAL), x + 10, y + 10, this.textColor);
+	@Override
+	protected void postButtonRender(int x, int y) {
+		this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.BRIDGE_MATERIAL), x + 10, y + 10, this.textColor);
 
-        if (this.chckIncludeRoof.isChecked()) {
-            this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.INTERIOR_HEIGHT), x + 147, y + 80, this.textColor);
-        }
+		if (this.chckIncludeRoof.isChecked()) {
+			this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.INTERIOR_HEIGHT), x + 147, y + 80, this.textColor);
+		}
 
-        this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.BRIDGE_LENGTH), x + 147, y + 10, this.textColor);
-    }
+		this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.BRIDGE_LENGTH), x + 147, y + 10, this.textColor);
+	}
 
-    /**
-     * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
-     */
-    @Override
-    public void buttonClicked(Button button) {
-        int sliderValue = this.sldrBridgeLength.getValueInt();
+	/**
+	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
+	 */
+	@Override
+	public void buttonClicked(AbstractButton button) {
+		int sliderValue = this.sldrBridgeLength.getValueInt();
 
-        if (sliderValue > 75) {
-            sliderValue = 75;
-        } else if (sliderValue < 25) {
-            sliderValue = 25;
-        }
+		if (sliderValue > 75) {
+			sliderValue = 75;
+		} else if (sliderValue < 25) {
+			sliderValue = 25;
+		}
 
-        this.configuration.bridgeLength = sliderValue;
+		this.configuration.bridgeLength = sliderValue;
 
-        sliderValue = this.sldrInteriorHeight.getValueInt();
-        if (sliderValue > 8) {
-            sliderValue = 8;
-        } else if (sliderValue < 3) {
-            sliderValue = 3;
-        }
+		sliderValue = this.sldrInteriorHeight.getValueInt();
+		if (sliderValue > 8) {
+			sliderValue = 8;
+		} else if (sliderValue < 3) {
+			sliderValue = 3;
+		}
 
-        this.configuration.interiorHeight = sliderValue;
-        this.configuration.includeRoof = this.chckIncludeRoof.isChecked();
-        this.configuration.houseFacing = player.getHorizontalFacing().getOpposite();
-        this.configuration.pos = this.pos;
+		this.configuration.interiorHeight = sliderValue;
+		this.configuration.includeRoof = this.chckIncludeRoof.isChecked();
+		this.configuration.houseFacing = player.getHorizontalFacing().getOpposite();
+		this.configuration.pos = this.pos;
 
-        this.performCancelOrBuildOrHouseFacing(this.configuration, button);
+		this.performCancelOrBuildOrHouseFacing(this.configuration, button);
 
-        if (button == this.chckIncludeRoof) {
-            this.configuration.includeRoof = this.chckIncludeRoof.isChecked();
+		if (button == this.chckIncludeRoof) {
+			this.configuration.includeRoof = this.chckIncludeRoof.isChecked();
 
-            this.sldrInteriorHeight.visible = this.configuration.includeRoof;
-        }
-        if (button == this.btnMaterialType) {
-            this.configuration.bridgeMaterial = EnumStructureMaterial.getMaterialByNumber(this.configuration.bridgeMaterial.getNumber() + 1);
-            this.btnMaterialType.setMessage(this.configuration.bridgeMaterial.getTranslatedName());
-        } else if (button == this.btnVisualize) {
-            StructureInstantBridge structure = new StructureInstantBridge();
-            structure.getClearSpace().getShape().setDirection(Direction.SOUTH);
-            structure.setupStructure(this.configuration, this.pos);
+			this.sldrInteriorHeight.visible = this.configuration.includeRoof;
+		}
+		if (button == this.btnMaterialType) {
+			this.configuration.bridgeMaterial = EnumStructureMaterial.getMaterialByNumber(this.configuration.bridgeMaterial.getNumber() + 1);
+			this.btnMaterialType.setMessage(this.configuration.bridgeMaterial.getTranslatedName());
+		} else if (button == this.btnVisualize) {
+			StructureInstantBridge structure = new StructureInstantBridge();
+			structure.getClearSpace().getShape().setDirection(Direction.SOUTH);
+			structure.setupStructure(this.configuration, this.pos);
 
-            StructureRenderHandler.setStructure(structure, Direction.SOUTH, this.configuration);
-            assert this.minecraft != null;
-            this.minecraft.displayGuiScreen(null);
-        }
-    }
+			StructureRenderHandler.setStructure(structure, Direction.SOUTH, this.configuration);
+			assert this.minecraft != null;
+			this.minecraft.displayGuiScreen(null);
+		}
+	}
 }
