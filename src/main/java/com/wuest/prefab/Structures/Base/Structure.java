@@ -7,6 +7,7 @@ import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Structures.Config.StructureConfiguration;
 import com.wuest.prefab.Structures.Events.StructureEventHandler;
+import com.wuest.prefab.Structures.Predefined.StructureBasic;
 import com.wuest.prefab.ZipUtil;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -610,8 +611,11 @@ public class Structure {
 			this.clearedBlockPos = new ArrayList<>();
 
 			for (BlockPos pos : BlockPos.getAllInBoxMutable(startBlockPos, endBlockPos)) {
-				this.clearedBlockPos.add(new BlockPos(pos));
-				this.allBlockPositions.add(new BlockPos(pos));
+
+				if (this.BlockShouldBeClearedDuringConstruction(configuration, world, originalPos, assumedNorth, pos)) {
+					this.clearedBlockPos.add(new BlockPos(pos));
+					this.allBlockPositions.add(new BlockPos(pos));
+				}
 			}
 		} else {
 			this.clearedBlockPos = new ArrayList<>();
@@ -621,6 +625,10 @@ public class Structure {
 	protected Boolean CustomBlockProcessingHandled(StructureConfiguration configuration, BuildBlock block, World world, BlockPos originalPos,
 												   Direction assumedNorth, Block foundBlock, BlockState blockState, PlayerEntity player) {
 		return false;
+	}
+
+	protected Boolean BlockShouldBeClearedDuringConstruction(StructureConfiguration configuration, World world, BlockPos originalPos, Direction assumedNorth, BlockPos blockPos) {
+		return true;
 	}
 
 	/**

@@ -8,6 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HopperBlock;
 import net.minecraft.block.TrapDoorBlock;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.ChickenEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -15,6 +16,8 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+
+import java.security.ProtectionDomain;
 
 /**
  * This is the basic structure to be used for structures which don't need a lot of configuration or a custom player
@@ -85,6 +88,21 @@ public class StructureBasic extends Structure {
 		}
 
 		return false;
+	}
+
+	@Override
+	protected Boolean BlockShouldBeClearedDuringConstruction(StructureConfiguration configuration, World world, BlockPos originalPos, Direction assumedNorth, BlockPos blockPos) {
+		BasicStructureConfiguration config = (BasicStructureConfiguration) configuration;
+
+		if (config.basicStructureName.getName().equals(EnumBasicStructureName.AquaBase.getName())) {
+			BlockState blockState = world.getBlockState(blockPos);
+			if (blockState.getMaterial() == Material.WATER) {
+				// Don't clear water blocks for this building.
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	/**
