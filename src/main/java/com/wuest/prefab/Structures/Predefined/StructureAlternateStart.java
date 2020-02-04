@@ -1,5 +1,6 @@
 package com.wuest.prefab.Structures.Predefined;
 
+import com.wuest.prefab.Config.EntityPlayerConfiguration;
 import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.Structures.Base.*;
 import com.wuest.prefab.Structures.Config.HouseConfiguration;
@@ -576,6 +577,7 @@ public class StructureAlternateStart extends Structure {
     @Override
     public void AfterBuilding(StructureConfiguration configuration, ServerWorld world, BlockPos originalPos, Direction assumedNorth, PlayerEntity player) {
         HouseConfiguration houseConfig = (HouseConfiguration) configuration;
+        EntityPlayerConfiguration playerConfig = EntityPlayerConfiguration.loadFromEntityData(player);
 
         if (this.furnacePosition != null) {
             // Fill the furnace.
@@ -586,7 +588,7 @@ public class StructureAlternateStart extends Structure {
             }
         }
 
-        if (this.chestPosition != null && houseConfig.addChestContents) {
+        if (this.chestPosition != null && !playerConfig.builtStarterHouse && houseConfig.addChestContents) {
             // Fill the chest.
             StructureAlternateStart.FillChest(world, this.chestPosition, houseConfig, player);
         }

@@ -81,7 +81,7 @@ public abstract class GuiBase extends Screen {
 
 	protected void renderButtons(int mouseX, int mouseY) {
 		for (net.minecraft.client.gui.widget.Widget button : this.buttons) {
-			Button currentButton = (Button) button;
+			AbstractButton currentButton = (AbstractButton) button;
 
 			if (currentButton != null && currentButton.visible) {
 				currentButton.renderButton(mouseX, mouseY, this.getMinecraft().getRenderPartialTicks());
