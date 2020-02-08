@@ -135,7 +135,7 @@
     "prefab.gui.structure.facing.player": "注意：如果你面向北邊的話，選擇南方會使建築朝向你。",
     "prefab.gui.structure.block.clicked": "右圖中的紅色方塊顯示你點擊的方塊。",
     "prefab.gui.structure.door.facing": "注意：如果你面向北邊的話，選擇南方會使門朝向你。",
-    "prefab.gui.structure.nobuild": "有被保護或是無法被破壞的方塊（區域），無法建造。",
+    "prefab.gui.structure.nobuild": "有被保護或是無法被破壞的方塊（區域），無法建造。塊名：%1$s 塊位置：x=%2$s, y=%3$s, z=%4$s。",
 
     "prefab.gui.button.build": "建造！",
     "prefab.gui.button.cancel": "取消",

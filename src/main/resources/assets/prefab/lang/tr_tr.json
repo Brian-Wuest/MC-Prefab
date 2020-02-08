@@ -135,7 +135,7 @@
     "prefab.gui.structure.facing.player": "Not: Eğer kuzeye bakıyorsan, güneyi seç ki yapı sana baksın.",
     "prefab.gui.structure.block.clicked": "Sağdaki resimde bulunan kırmızı kutu, tıkladığın bloğu gösterir.",
     "prefab.gui.structure.door.facing": "Not: Eğer kuzeye bakıyorsan, güneyi seç ki kapılar sana baksın.",
-    "prefab.gui.structure.nobuild": "Etrafta koruma bulunan bloklar veya kırılamayan bloklar olduğu için yapı inşa edilemiyor.",
+    "prefab.gui.structure.nobuild": "Etrafta koruma bulunan bloklar veya kırılamayan bloklar olduğu için yapı inşa edilemiyor. Blok Adı: %1$s Blok Konumu: x=%2$s, y=%3$s, z=%4$s.",
 
     "prefab.gui.button.build": "İnşa Et!",
     "prefab.gui.button.cancel": "İptal!",

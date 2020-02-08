@@ -134,7 +134,7 @@
   "prefab.gui.structure.facing.player": "Nota: Si está mirando hacia el norte, elija el sur para que la estructura se enfrente a usted.",
   "prefab.gui.structure.block.clicked": "El cuadro rojo de la imagen de la derecha muestra el bloque en el que hizo clic.",
   "prefab.gui.structure.door.facing": "Nota: Si está mirando hacia el norte, elija el sur para que las puertas se enfrentan a usted.",
-  "prefab.gui.structure.nobuild": "No se puede construir la estructura debido a bloques protegidos / área o bloques irrompibles están en el área.",
+  "prefab.gui.structure.nobuild": "No se puede construir la estructura debido a bloques protegidos / área o bloques irrompibles están en el área. Nombre de bloque: %1$s Posición de bloque: x=%2$s, y=%3$s, z=%4$s.",
 
   "prefab.gui.button.build": "Construir!",
   "prefab.gui.button.cancel": "Cancelar",
