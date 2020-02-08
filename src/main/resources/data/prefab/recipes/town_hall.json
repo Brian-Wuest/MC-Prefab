@@ -1,0 +1,36 @@
+{
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Town Hall"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Town Hall",
+  "pattern": [
+    "bab",
+    "ded",
+    "c c"
+  ],
+  "key": {
+    "a": {
+      "item": "prefab:item_ton_of_timber"
+    },
+    "b": {
+      "tag": "prefab:compressed_stone2"
+    },
+    "c": {
+      "tag": "prefab:compressed_dirt2"
+    },
+    "d": {
+      "item": "prefab:item_coil_of_lanterns"
+    },
+    "e": {
+      "item": "prefab:item_heap_of_timber"
+    }
+  },
+  "result": {
+    "item": "prefab:item_town_hall",
+    "count": 1
+  }
+}

@@ -20,6 +20,8 @@
     "item.prefab.item_moderate_house": "Orta Boy Ev",
     "item.prefab.item_bulldozer": "Buldozer",
     "item.prefab.item_structure_part": "Yapıt Parçası",
+    "item.prefab.item_heap_of_timber": "Ahşap yığını",
+    "item.prefab.item_ton_of_timber": "Kereste Tonu",
 
     "item.prefab.item_advanced_chicken_coop": "Gelişmiş Tavuk Kümesi",
     "item.prefab.item_advanced_horse_stable": "Gelişmiş At Ahırı",
@@ -41,6 +43,7 @@
     "item.prefab.item_saloon": "Salon",
     "item.prefab.item_ski_lodge": "Kayak emniyeti",
     "item.prefab.item_wind_mill": "fırıldak",
+    "item.prefab.item_town_hall": "Belediye binası",
 
     "block.prefab.block_compressed_stone": "Sıkıştırılmış Taş",
     "block.prefab.block_double_compressed_stone": "Çifte Sıkıştırılmış Taş",

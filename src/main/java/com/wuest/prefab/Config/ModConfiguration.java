@@ -105,12 +105,16 @@ public class ModConfiguration {
 	private static String saloonKey = "Saloon";
 	private static String skiLodgeKey = "Ski Lodge";
 	private static String windMillKey = "Windmill";
+	private static String townHallKey = "Town Hall";
+	private static String heapOfTimberKey = "Heap of Timber";
+	private static String tonOfTimberKey = "Ton of Timber";
 	static String[] recipeKeys = new String[]
 			{compressedStoneKey, compressedGlowStoneKey, compressedDirteKey, compressedChestKey, pileOfBricksKey, warehouseKey, produceFarmKey, treeFarmKey, chickenCoopKey, fishFarmKey,
 					warehouseUpgradeKey, advancedWarehouseKey, monsterMasherKey, bundleofTimberKey, horseStableKey, netherGateKey, advancedChickenCoopKey, advancedHorseStableKey, barnKey,
 					machineryTowerKey, defenseBunkerKey, mineshaftEntranceKey, enderGatewayKey, magicTempleKey, instantBridgeKey, paperLanternKey, compressedObsidianKey, villagerHousesKey,
 					phasicBlockKey, smartGlassKey, greenHouseKey, startingHouseKey, glassStairsKey, glassSlabsKey, andesiteStairsKey, andesiteSlabsKey, dioriteStairsKey, dioriteSlabKey,
-					graniteStairsKey, grantiteSlabKey, moderateHouseKey, grassyPlainsKey, aquaBaseKey, watchTowerKey, bulldozerKey, structurePartKey, jailKey, saloonKey, skiLodgeKey, windMillKey};
+					graniteStairsKey, grantiteSlabKey, moderateHouseKey, grassyPlainsKey, aquaBaseKey, watchTowerKey, bulldozerKey, structurePartKey, jailKey, saloonKey, skiLodgeKey,
+					windMillKey, townHallKey, heapOfTimberKey, tonOfTimberKey};
 	public ServerModConfiguration serverConfiguration;
 	// Configuration Options.
 	private IntValue maximumStartingHouseSize;

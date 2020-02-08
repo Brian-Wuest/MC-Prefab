@@ -286,15 +286,6 @@ public class ModRegistry {
 	}
 
 	/**
-	 * The Bundle of Timber registered item.
-	 *
-	 * @return An instance of {@link ItemBundleOfTimber}.
-	 */
-	public static ItemBundleOfTimber BundleOfTimber() {
-		return ModRegistry.GetItem(ItemBundleOfTimber.class);
-	}
-
-	/**
 	 * The Horse Stable registered item.
 	 *
 	 * @return An instance of {@link ItemHorseStable}.
@@ -531,6 +522,8 @@ public class ModRegistry {
 		ModRegistry.registerItem(new ItemMonsterMasher("item_monster_masher"));
 		ModRegistry.registerItem(new ItemWarehouseUpgrade("item_warehouse_upgrade"));
 		ModRegistry.registerItem(new ItemBundleOfTimber("item_bundle_of_timber"));
+		ModRegistry.registerItem(new ItemBundleOfTimber("item_heap_of_timber"));
+		ModRegistry.registerItem(new ItemBundleOfTimber("item_ton_of_timber"));
 		ModRegistry.registerItem(new ItemHorseStable("item_horse_stable"));
 		ModRegistry.registerItem(new ItemNetherGate("item_nether_gate"));
 		ModRegistry.registerItem(new ItemInstantBridge("item_instant_bridge"));

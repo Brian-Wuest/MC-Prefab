@@ -10,7 +10,7 @@
   "pattern": [
     " a ",
     "aba",
-    "ca"
+    "cad"
   ],
   "key": {
     "a": {
@@ -21,10 +21,13 @@
     },
     "c": {
       "tag": "prefab:compressed_dirt2"
+    },
+    "d": {
+      "item": "minecraft:hay_block"
     }
   },
   "result": {
-    "item": "prefab:item_ski_lodge",
+    "item": "prefab:item_wind_mill",
     "count": 1
   }
 }

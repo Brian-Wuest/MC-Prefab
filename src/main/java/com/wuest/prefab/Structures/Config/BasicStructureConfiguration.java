@@ -171,6 +171,15 @@ public class BasicStructureConfiguration extends StructureConfiguration {
 		EnumBasicStructureName.WindMill.getClearPositionOffset().setSouthOffset(1);
 		EnumBasicStructureName.WindMill.getClearPositionOffset().setEastOffset(8);
 		EnumBasicStructureName.WindMill.getClearPositionOffset().setHeightOffset(-1);
+
+		// Town Hall
+		EnumBasicStructureName.TownHall.getClearShape().setDirection(Direction.SOUTH);
+		EnumBasicStructureName.TownHall.getClearShape().setHeight(12);
+		EnumBasicStructureName.TownHall.getClearShape().setWidth(27);
+		EnumBasicStructureName.TownHall.getClearShape().setLength(27);
+		EnumBasicStructureName.TownHall.getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.TownHall.getClearPositionOffset().setEastOffset(20);
+		EnumBasicStructureName.TownHall.getClearPositionOffset().setHeightOffset(-1);
 	}
 
 	/**
@@ -323,7 +332,8 @@ public class BasicStructureConfiguration extends StructureConfiguration {
 		Jail("jail", "item.prefab.jail", "assets/prefab/structures/jail.zip", "textures/gui/jail_topdown.png", "item_jail", 131, 175),
 		Saloon("saloon", "item.prefab.saloon", "assets/prefab/structures/saloon.zip", "textures/gui/saloon_topdown.png", "item_saloon", 130, 170),
 		SkiLodge("ski_lodge", "item.prefab.ski_lodge", "assets/prefab/structures/ski_lodge.zip", "textures/gui/ski_lodge_topdown.png", "item_ski_lodge", 137, 180),
-		WindMill("wind_mill", "item.prefab.wind_mill", "assets/prefab/structures/wind_mill.zip", "textures/gui/wind_mill_topdown.png", "item_wind_mill", 176, 102);
+		WindMill("wind_mill", "item.prefab.wind_mill", "assets/prefab/structures/wind_mill.zip", "textures/gui/wind_mill_topdown.png", "item_wind_mill", 176, 102),
+		TownHall("town_hall", "item.prefab.town_hall", "assets/prefab/structures/town_hall.zip", "textures/gui/town_hall_topdown.png", "item_town_hall", 89,173);
 
 		private String name;
 		private String assetLocation;

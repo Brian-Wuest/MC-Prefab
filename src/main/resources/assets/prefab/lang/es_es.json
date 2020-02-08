@@ -20,6 +20,8 @@
     "item.prefab.item_moderate_house": "Casa moderada",
     "item.prefab.item_bulldozer": "Excavadora",
     "item.prefab.item_structure_part": "Parte de estructura",
+    "item.prefab.item_heap_of_timber": "Montón de madera",
+    "item.prefab.item_ton_of_timber": "Tonelada de madera",
 
     "item.prefab.item_advanced_chicken_coop": "Gallinero avanzado",
     "item.prefab.item_advanced_horse_stable": "Casa de caballos avanzada",
@@ -41,6 +43,7 @@
     "item.prefab.item_saloon": "Salón",
     "item.prefab.item_ski_lodge": "Albergue de esquí",
     "item.prefab.item_wind_mill": "Molino",
+    "item.prefab.item_town_hall": "Ayuntamiento",
 
     "block.prefab.block_compressed_stone": "Piedra comprimida",
     "block.prefab.block_double_compressed_stone": "Doble piedra comprimida",
