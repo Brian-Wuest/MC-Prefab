@@ -7,8 +7,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 
-import java.util.logging.XMLFormatter;
-
 public abstract class GuiBase extends Screen {
 
 	private final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/default_background.png");
@@ -80,8 +78,7 @@ public abstract class GuiBase extends Screen {
 		this.blit(grayBoxX, grayBoxY, 0, 0, 256, 256);
 	}
 
-	protected void renderButtons(int mouseX, int mouseY)
-	{
+	protected void renderButtons(int mouseX, int mouseY) {
 		for (net.minecraft.client.gui.widget.Widget button : this.buttons) {
 			Button currentButton = (Button) button;
 
@@ -93,7 +90,7 @@ public abstract class GuiBase extends Screen {
 
 	public abstract void buttonClicked(Button button);
 
-	protected abstract Pair<Integer,Integer> getAdjustedXYValue();
+	protected abstract Pair<Integer, Integer> getAdjustedXYValue();
 
 	protected abstract void preButtonRender(int x, int y);
 

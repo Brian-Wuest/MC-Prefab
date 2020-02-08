@@ -8,15 +8,15 @@ import net.minecraft.item.ItemUseContext;
  */
 @SuppressWarnings("ConstantConditions")
 public class ItemProduceFarm extends StructureItem {
-    public ItemProduceFarm(String name) {
-        super(name);
-    }
+	public ItemProduceFarm(String name) {
+		super(name);
+	}
 
-    @Override
-    public void scanningMode(ItemUseContext context) {
-        StructureProduceFarm.ScanStructure(
-                context.getWorld(),
-                context.getPos(),
-                context.getPlayer().getHorizontalFacing());
-    }
+	@Override
+	public void scanningMode(ItemUseContext context) {
+		StructureProduceFarm.ScanStructure(
+				context.getWorld(),
+				context.getPos(),
+				context.getPlayer().getHorizontalFacing());
+	}
 }

@@ -14,22 +14,22 @@ import java.util.function.Supplier;
  * @author WuestMan
  */
 public class PlayerEntityHandler {
-    /**
-     * Initializes a new instance of the StructureHandler class.
-     */
-    public PlayerEntityHandler() {
-    }
+	/**
+	 * Initializes a new instance of the StructureHandler class.
+	 */
+	public PlayerEntityHandler() {
+	}
 
-    public static void handle(final PlayerEntityTagMessage message, Supplier<NetworkEvent.Context> ctx) {
-        NetworkEvent.Context context = ctx.get();
+	public static void handle(final PlayerEntityTagMessage message, Supplier<NetworkEvent.Context> ctx) {
+		NetworkEvent.Context context = ctx.get();
 
-        context.enqueueWork(() -> {
-            // This is client side.
-            CompoundNBT newPlayerTag = Minecraft.getInstance().player.getPersistentData();
-            newPlayerTag.put(EntityPlayerConfiguration.PLAYER_ENTITY_TAG, message.getMessageTag());
-            ClientEventHandler.playerConfig.loadFromNBTTagCompound(message.getMessageTag());
-        });
+		context.enqueueWork(() -> {
+			// This is client side.
+			CompoundNBT newPlayerTag = Minecraft.getInstance().player.getPersistentData();
+			newPlayerTag.put(EntityPlayerConfiguration.PLAYER_ENTITY_TAG, message.getMessageTag());
+			ClientEventHandler.playerConfig.loadFromNBTTagCompound(message.getMessageTag());
+		});
 
-        context.setPacketHandled(true);
-    }
+		context.setPacketHandled(true);
+	}
 }

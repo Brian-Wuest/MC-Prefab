@@ -14,47 +14,46 @@ import net.minecraft.item.ItemUseContext;
  */
 @SuppressWarnings({"AccessStaticViaInstance", "ConstantConditions"})
 public class ItemBasicStructure extends StructureItem {
-    public final EnumBasicStructureName structureType;
+	public final EnumBasicStructureName structureType;
 
-    public ItemBasicStructure(String name, EnumBasicStructureName structureType) {
-        super(name);
+	public ItemBasicStructure(String name, EnumBasicStructureName structureType) {
+		super(name);
 
-        this.structureType = structureType;
-    }
+		this.structureType = structureType;
+	}
 
-    public static ItemStack getBasicStructureItemInHand(PlayerEntity player) {
-        ItemStack stack = player.getHeldItemOffhand();
+	public static ItemStack getBasicStructureItemInHand(PlayerEntity player) {
+		ItemStack stack = player.getHeldItemOffhand();
 
-        // Get off hand first since that is the right-click hand if there is
-        // something in there.
-        if (!(stack.getItem() instanceof ItemBasicStructure)) {
-            if (player.getHeldItemMainhand().getItem() instanceof ItemBasicStructure) {
-                stack = player.getHeldItemMainhand();
-            } else {
-                stack = null;
-            }
-        }
+		// Get off hand first since that is the right-click hand if there is
+		// something in there.
+		if (!(stack.getItem() instanceof ItemBasicStructure)) {
+			if (player.getHeldItemMainhand().getItem() instanceof ItemBasicStructure) {
+				stack = player.getHeldItemMainhand();
+			} else {
+				stack = null;
+			}
+		}
 
-        return stack;
-    }
+		return stack;
+	}
 
-    /**
-     * Does something when the item is right-clicked.
-     */
-    @Override
-    public void scanningMode(ItemUseContext context)
-    {
-        StructureBasic basicStructure = new StructureBasic();
-        ItemStack stack = context.getPlayer().getHeldItem(context.getHand());
-        BasicStructureConfiguration structureConfiguration = new BasicStructureConfiguration();
-        structureConfiguration.basicStructureName = ((ItemBasicStructure) stack.getItem()).structureType;
+	/**
+	 * Does something when the item is right-clicked.
+	 */
+	@Override
+	public void scanningMode(ItemUseContext context) {
+		StructureBasic basicStructure = new StructureBasic();
+		ItemStack stack = context.getPlayer().getHeldItem(context.getHand());
+		BasicStructureConfiguration structureConfiguration = new BasicStructureConfiguration();
+		structureConfiguration.basicStructureName = ((ItemBasicStructure) stack.getItem()).structureType;
 
-        boolean isWaterStructure = structureConfiguration.basicStructureName == EnumBasicStructureName.AquaBase;
+		boolean isWaterStructure = structureConfiguration.basicStructureName == EnumBasicStructureName.AquaBase;
 
-        basicStructure.ScanStructure(
-                context.getWorld(),
-                context.getPos(),
-                context.getPlayer().getHorizontalFacing(),
-                structureConfiguration, isWaterStructure, isWaterStructure);
-    }
+		basicStructure.ScanStructure(
+				context.getWorld(),
+				context.getPos(),
+				context.getPlayer().getHorizontalFacing(),
+				structureConfiguration, isWaterStructure, isWaterStructure);
+	}
 }

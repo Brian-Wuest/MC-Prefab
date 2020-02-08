@@ -15,17 +15,17 @@ import net.minecraftforge.fml.common.Mod;
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(modid = Prefab.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientServerEventHandler {
-    @SubscribeEvent
-    public static void registerBlocks(RegistryEvent.Register<Block> event) {
-        for (Block block : ModRegistry.ModBlocks) {
-            Prefab.LOGGER.debug("Logging Block With Name: " + block.getRegistryName() + " and type: " + block.toString());
-            event.getRegistry().register(block);
-        }
+	@SubscribeEvent
+	public static void registerBlocks(RegistryEvent.Register<Block> event) {
+		for (Block block : ModRegistry.ModBlocks) {
+			Prefab.LOGGER.debug("Logging Block With Name: " + block.getRegistryName() + " and type: " + block.toString());
+			event.getRegistry().register(block);
+		}
 
-    }
+	}
 
-    @SubscribeEvent
-    public static void registerItems(RegistryEvent.Register<Item> event) {
-        event.getRegistry().registerAll(ModRegistry.ModItems.toArray(new Item[0]));
-    }
+	@SubscribeEvent
+	public static void registerItems(RegistryEvent.Register<Item> event) {
+		event.getRegistry().registerAll(ModRegistry.ModItems.toArray(new Item[0]));
+	}
 }

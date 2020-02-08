@@ -31,17 +31,15 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 	private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/default_background.png");
 	protected GuiButtonExt btnCancel;
 	protected GuiButtonExt btnBuild;
-
+	protected GuiButtonExt btnVisualize;
+	protected ServerModConfiguration serverConfiguration;
 	// Tabs
 	private GuiTab tabGeneral;
 	private GuiTab tabConfig;
 	private GuiTab tabBlockTypes;
-
 	// General:
 	private GuiButtonExt btnHouseStyle;
 	private GuiButtonExt btnGlassColor;
-	protected GuiButtonExt btnVisualize;
-
 	// Config:
 	private GuiCheckBox btnAddTorches;
 	private GuiCheckBox btnAddBed;
@@ -50,8 +48,6 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 	private GuiCheckBox btnAddChest;
 	private GuiCheckBox btnAddChestContents;
 	private GuiCheckBox btnAddMineShaft;
-
-	protected ServerModConfiguration serverConfiguration;
 	private boolean allowItemsInChestAndFurnace = true;
 
 	private HouseConfiguration houseConfiguration;

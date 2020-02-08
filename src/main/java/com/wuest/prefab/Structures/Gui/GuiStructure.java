@@ -8,16 +8,13 @@ import com.wuest.prefab.Structures.Config.StructureConfiguration;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import javafx.util.Pair;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 import org.lwjgl.opengl.GL11;
 
@@ -31,73 +28,15 @@ import java.awt.*;
 public abstract class GuiStructure extends GuiBase {
 	public BlockPos pos;
 	protected PlayerEntity player;
-	private Direction structureFacing;
-
 	protected GuiButtonExt btnCancel;
 	protected GuiButtonExt btnBuild;
 	protected GuiButtonExt btnVisualize;
-
 	protected int textColor = Color.DARK_GRAY.getRGB();
 	protected EnumStructureConfiguration structureConfiguration;
+	private Direction structureFacing;
 
 	public GuiStructure(String title) {
 		super(title);
-	}
-
-	@Override
-	public void init() {
-		this.player = this.getMinecraft().player;
-		this.structureFacing = this.player.getHorizontalFacing().getOpposite();
-		this.Initialize();
-	}
-
-	/**
-	 * This method is used to initialize GUI specific items.
-	 */
-	protected void Initialize() {
-	}
-
-	public void checkVisualizationSetting() {
-		if (!CommonProxy.proxyConfiguration.serverConfiguration.enableStructurePreview) {
-			this.btnVisualize.visible = false;
-		}
-	}
-
-	@Override
-	public void render(int x, int y, float f) {
-		Pair<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
-
-		this.preButtonRender(adjustedXYValue.getKey(), adjustedXYValue.getValue());
-
-		this.renderButtons(x, y);
-
-		this.postButtonRender(adjustedXYValue.getKey(), adjustedXYValue.getValue());
-
-		if (this.btnVisualize != null)
-		{
-			this.checkVisualizationSetting();
-		}
-	}
-
-	@Override
-	protected void preButtonRender(int x, int y) {
-		this.renderBackground();
-
-		this.drawControlBackground(x, y);
-	}
-
-	/**
-	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
-	 */
-	protected void performCancelOrBuildOrHouseFacing(StructureConfiguration configuration, Button button) {
-		configuration.houseFacing = this.structureFacing;
-
-		if (button == this.btnCancel) {
-			this.getMinecraft().displayGuiScreen(null);
-		} else if (button == this.btnBuild) {
-			Prefab.network.sendToServer(new StructureTagMessage(configuration.WriteToCompoundNBT(), this.structureConfiguration));
-			this.getMinecraft().displayGuiScreen(null);
-		}
 	}
 
 	/**
@@ -134,5 +73,60 @@ public abstract class GuiStructure extends GuiBase {
 		vertexBuffer.pos(x, y, z).tex(u * f, v * f1).endVertex();
 
 		tessellator.draw();
+	}
+
+	@Override
+	public void init() {
+		this.player = this.getMinecraft().player;
+		this.structureFacing = this.player.getHorizontalFacing().getOpposite();
+		this.Initialize();
+	}
+
+	/**
+	 * This method is used to initialize GUI specific items.
+	 */
+	protected void Initialize() {
+	}
+
+	public void checkVisualizationSetting() {
+		if (!CommonProxy.proxyConfiguration.serverConfiguration.enableStructurePreview) {
+			this.btnVisualize.visible = false;
+		}
+	}
+
+	@Override
+	public void render(int x, int y, float f) {
+		Pair<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
+
+		this.preButtonRender(adjustedXYValue.getKey(), adjustedXYValue.getValue());
+
+		this.renderButtons(x, y);
+
+		this.postButtonRender(adjustedXYValue.getKey(), adjustedXYValue.getValue());
+
+		if (this.btnVisualize != null) {
+			this.checkVisualizationSetting();
+		}
+	}
+
+	@Override
+	protected void preButtonRender(int x, int y) {
+		this.renderBackground();
+
+		this.drawControlBackground(x, y);
+	}
+
+	/**
+	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
+	 */
+	protected void performCancelOrBuildOrHouseFacing(StructureConfiguration configuration, Button button) {
+		configuration.houseFacing = this.structureFacing;
+
+		if (button == this.btnCancel) {
+			this.getMinecraft().displayGuiScreen(null);
+		} else if (button == this.btnBuild) {
+			Prefab.network.sendToServer(new StructureTagMessage(configuration.WriteToCompoundNBT(), this.structureConfiguration));
+			this.getMinecraft().displayGuiScreen(null);
+		}
 	}
 }

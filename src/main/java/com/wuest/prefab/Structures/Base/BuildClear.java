@@ -8,34 +8,34 @@ import com.google.gson.annotations.Expose;
  * @author WuestMan
  */
 public class BuildClear {
-    @Expose
-    private BuildShape shape;
+	@Expose
+	private BuildShape shape;
 
-    @Expose
-    private PositionOffset startingPosition;
+	@Expose
+	private PositionOffset startingPosition;
 
-    public BuildClear() {
-        this.Initialize();
-    }
+	public BuildClear() {
+		this.Initialize();
+	}
 
-    public BuildShape getShape() {
-        return this.shape;
-    }
+	public BuildShape getShape() {
+		return this.shape;
+	}
 
-    public void setShape(BuildShape value) {
-        this.shape = value;
-    }
+	public void setShape(BuildShape value) {
+		this.shape = value;
+	}
 
-    public PositionOffset getStartingPosition() {
-        return this.startingPosition;
-    }
+	public PositionOffset getStartingPosition() {
+		return this.startingPosition;
+	}
 
-    public void setStartingPosition(PositionOffset value) {
-        this.startingPosition = value;
-    }
+	public void setStartingPosition(PositionOffset value) {
+		this.startingPosition = value;
+	}
 
-    public void Initialize() {
-        this.shape = new BuildShape();
-        this.startingPosition = new PositionOffset();
-    }
+	public void Initialize() {
+		this.shape = new BuildShape();
+		this.startingPosition = new PositionOffset();
+	}
 }

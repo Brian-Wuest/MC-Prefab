@@ -8,16 +8,16 @@ import net.minecraft.item.ItemUseContext;
  */
 @SuppressWarnings("ConstantConditions")
 public class ItemTreeFarm extends StructureItem {
-    public ItemTreeFarm(String name) {
-        super(name);
-    }
+	public ItemTreeFarm(String name) {
+		super(name);
+	}
 
 
-    @Override
-    public void scanningMode(ItemUseContext context) {
-        StructureTreeFarm.ScanStructure(
-                context.getWorld(),
-                context.getPos(),
-                context.getPlayer().getHorizontalFacing());
-    }
+	@Override
+	public void scanningMode(ItemUseContext context) {
+		StructureTreeFarm.ScanStructure(
+				context.getWorld(),
+				context.getPos(),
+				context.getPlayer().getHorizontalFacing());
+	}
 }

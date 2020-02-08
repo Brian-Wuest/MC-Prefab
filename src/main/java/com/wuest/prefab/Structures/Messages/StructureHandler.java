@@ -11,24 +11,24 @@ import java.util.function.Supplier;
  */
 @SuppressWarnings("ConstantConditions")
 public class StructureHandler {
-    /**
-     * Initializes a new instance of the StructureHandler class.
-     */
-    public StructureHandler() {
-    }
+	/**
+	 * Initializes a new instance of the StructureHandler class.
+	 */
+	public StructureHandler() {
+	}
 
-    public static void handle(final StructureTagMessage message, Supplier<NetworkEvent.Context> ctx) {
-        NetworkEvent.Context context = ctx.get();
+	public static void handle(final StructureTagMessage message, Supplier<NetworkEvent.Context> ctx) {
+		NetworkEvent.Context context = ctx.get();
 
-        context.enqueueWork(() -> {
-            // This is server side. Build the structure.
-            EnumStructureConfiguration structureConfig = message.getStructureConfig();
+		context.enqueueWork(() -> {
+			// This is server side. Build the structure.
+			EnumStructureConfiguration structureConfig = message.getStructureConfig();
 
-            StructureConfiguration configuration = structureConfig.structureConfig.ReadFromCompoundNBT(message.getMessageTag());
-            configuration.BuildStructure(context.getSender(), context.getSender().getServerWorld());
-        });
+			StructureConfiguration configuration = structureConfig.structureConfig.ReadFromCompoundNBT(message.getMessageTag());
+			configuration.BuildStructure(context.getSender(), context.getSender().getServerWorld());
+		});
 
-        context.setPacketHandled(true);
-    }
+		context.setPacketHandled(true);
+	}
 
 }

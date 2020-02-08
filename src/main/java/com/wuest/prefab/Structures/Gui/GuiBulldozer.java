@@ -2,13 +2,10 @@ package com.wuest.prefab.Structures.Gui;
 
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
-import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.Structures.Config.BulldozerConfiguration;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import javafx.util.Pair;
 import net.minecraft.client.gui.widget.button.Button;
-
-import java.awt.*;
 
 /**
  * @author WuestMan

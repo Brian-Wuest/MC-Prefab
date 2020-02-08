@@ -11,8 +11,8 @@ import net.minecraftforge.common.crafting.conditions.IConditionSerializer;
  * @author WuestMan
  */
 public class RecipeCondition implements ICondition {
-	public String recipeKey;
 	public static final ResourceLocation NAME = new ResourceLocation(Prefab.MODID, "config_recipe");
+	public String recipeKey;
 
 	/**
 	 * Initializes a new instance of the recipe condition class.

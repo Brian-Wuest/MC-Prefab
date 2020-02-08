@@ -9,20 +9,20 @@ import net.minecraft.network.PacketBuffer;
  * @author WuestMan
  */
 public class PlayerEntityTagMessage extends TagMessage {
-    /**
-     * Initializes a new instance of the PlayerEntityTagMessage class.
-     *
-     * @param tagMessage The message to send.
-     */
-    public PlayerEntityTagMessage(CompoundNBT tagMessage) {
-        super(tagMessage);
-    }
+	/**
+	 * Initializes a new instance of the PlayerEntityTagMessage class.
+	 *
+	 * @param tagMessage The message to send.
+	 */
+	public PlayerEntityTagMessage(CompoundNBT tagMessage) {
+		super(tagMessage);
+	}
 
-    public PlayerEntityTagMessage() {
-        super();
-    }
+	public PlayerEntityTagMessage() {
+		super();
+	}
 
-    public static PlayerEntityTagMessage decode(PacketBuffer buf) {
-        return TagMessage.decode(buf, PlayerEntityTagMessage.class);
-    }
+	public static PlayerEntityTagMessage decode(PacketBuffer buf) {
+		return TagMessage.decode(buf, PlayerEntityTagMessage.class);
+	}
 }

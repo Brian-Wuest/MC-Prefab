@@ -209,7 +209,7 @@ public class BuildingMethods {
 	 * @return True if all blocks can be replaced. Otherwise false and send a message to the player.
 	 */
 	public static Triple<Boolean, BlockState, BlockPos> CheckBuildSpaceForAllowedBlockReplacement(World world, BlockPos startBlockPos, BlockPos endBlockPos,
-																   PlayerEntity player) {
+																								  PlayerEntity player) {
 		// Check each block in the space to be cleared if it's protected from
 		// breaking or placing, if it is return false.
 		for (BlockPos currentPos : BlockPos.getAllInBoxMutable(startBlockPos, endBlockPos)) {

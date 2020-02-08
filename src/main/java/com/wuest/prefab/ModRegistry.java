@@ -476,8 +476,7 @@ public class ModRegistry {
 		return ModRegistry.GetItem(ItemBulldozer.class);
 	}
 
-	public static BlockGlassSlab GlassSlab()
-	{
+	public static BlockGlassSlab GlassSlab() {
 		return ModRegistry.GetBlock(BlockGlassSlab.class);
 	}
 

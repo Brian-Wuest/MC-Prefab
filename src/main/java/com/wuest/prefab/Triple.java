@@ -5,8 +5,7 @@ public class Triple<A, B, C> {
 	private B second;
 	private C third;
 
-	public Triple(A first, B second, C third)
-	{
+	public Triple(A first, B second, C third) {
 		this.first = first;
 		this.second = second;
 		this.third = third;
@@ -21,6 +20,6 @@ public class Triple<A, B, C> {
 	}
 
 	public C getThird() {
-		return  this.third;
+		return this.third;
 	}
 }

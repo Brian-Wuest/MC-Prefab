@@ -12,85 +12,84 @@ import java.util.ArrayList;
  * @author WuestMan
  */
 public class GuiTabScreen extends GuiStructure {
-    protected GuiTabTray Tabs;
+	protected GuiTabTray Tabs;
 
-    public GuiTabScreen() {
-        super("TabScreen");
-        this.Tabs = new GuiTabTray();
-    }
+	public GuiTabScreen() {
+		super("TabScreen");
+		this.Tabs = new GuiTabTray();
+	}
 
-    /**
-     * Processes when this tab is clicked.
-     *
-     * @param tab The tab which was clicked.
-     */
-    protected void tabClicked(GuiTab tab) {
-    }
+	/**
+	 * Processes when this tab is clicked.
+	 *
+	 * @param tab The tab which was clicked.
+	 */
+	protected void tabClicked(GuiTab tab) {
+	}
 
-    protected GuiTab getSelectedTab() {
-        return this.Tabs.GetSelectedTab();
-    }
+	protected GuiTab getSelectedTab() {
+		return this.Tabs.GetSelectedTab();
+	}
 
-    @Override
-    public void init() {
-        this.Tabs.GetTabs().clear();
-        this.children.add(this.Tabs);
-    }
+	@Override
+	public void init() {
+		this.Tabs.GetTabs().clear();
+		this.children.add(this.Tabs);
+	}
 
-    /**
-     * Draws the screen and all the components in it.
-     */
-    @Override
-    public void render(int mouseX, int mouseY, float partialTicks) {
-        // Draw the default labels and buttons.
-        super.render(mouseX, mouseY, partialTicks);
+	/**
+	 * Draws the screen and all the components in it.
+	 */
+	@Override
+	public void render(int mouseX, int mouseY, float partialTicks) {
+		// Draw the default labels and buttons.
+		super.render(mouseX, mouseY, partialTicks);
 
-        // Draw the tabs.
-        assert this.minecraft != null;
-        this.Tabs.DrawTabs(this.minecraft, mouseX, mouseY);
-    }
+		// Draw the tabs.
+		assert this.minecraft != null;
+		this.Tabs.DrawTabs(this.minecraft, mouseX, mouseY);
+	}
 
-    public void buttonClicked(Button button)
-    {
-        // This does nothing on purpose.
-    }
+	public void buttonClicked(Button button) {
+		// This does nothing on purpose.
+	}
 
-    @Override
-    protected Pair<Integer, Integer> getAdjustedXYValue() {
-        return null;
-    }
+	@Override
+	protected Pair<Integer, Integer> getAdjustedXYValue() {
+		return null;
+	}
 
-    @Override
-    protected void postButtonRender(int x, int y) {
+	@Override
+	protected void postButtonRender(int x, int y) {
 
-    }
+	}
 
-    /**
-     * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
-     */
-    @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
-        boolean returnValue = false;
+	/**
+	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
+	 */
+	@Override
+	public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
+		boolean returnValue = false;
 
-        if (mouseButton == 0) {
-            // This handles the button presses.
-            returnValue = super.mouseClicked(mouseX, mouseY, mouseButton);
+		if (mouseButton == 0) {
+			// This handles the button presses.
+			returnValue = super.mouseClicked(mouseX, mouseY, mouseButton);
 
-            if (returnValue) {
-                // Handle the tab clicking.
-                ArrayList<GuiTab> guiTabs = this.Tabs.GetTabs();
+			if (returnValue) {
+				// Handle the tab clicking.
+				ArrayList<GuiTab> guiTabs = this.Tabs.GetTabs();
 
-                for (GuiTab tab : guiTabs) {
-                    if (tab.mouseClicked(mouseX, mouseY, mouseButton)) {
-                        assert this.minecraft != null;
-                        tab.playDownSound(this.minecraft.getSoundHandler());
-                        this.tabClicked(tab);
-                        break;
-                    }
-                }
-            }
-        }
+				for (GuiTab tab : guiTabs) {
+					if (tab.mouseClicked(mouseX, mouseY, mouseButton)) {
+						assert this.minecraft != null;
+						tab.playDownSound(this.minecraft.getSoundHandler());
+						this.tabClicked(tab);
+						break;
+					}
+				}
+			}
+		}
 
-        return returnValue;
-    }
+		return returnValue;
+	}
 }

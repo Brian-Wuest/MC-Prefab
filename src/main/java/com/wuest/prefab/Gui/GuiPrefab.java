@@ -33,12 +33,11 @@ public class GuiPrefab extends GuiBase {
 
 		UnmodifiableConfig config = this.spec.getValues();
 
-		for (Map.Entry<String, Object> entry : config.valueMap().entrySet())
-		{
+		for (Map.Entry<String, Object> entry : config.valueMap().entrySet()) {
 			/*
-			* TODO: Create an entry for each object in the save. If it's a configuration (secondary layer), show a new screen for that layer.
-			*  Later during the save. Load the configuration file and make any staged updated.
-			* */
+			 * TODO: Create an entry for each object in the save. If it's a configuration (secondary layer), show a new screen for that layer.
+			 *  Later during the save. Load the configuration file and make any staged updated.
+			 * */
 		}
 	}
 

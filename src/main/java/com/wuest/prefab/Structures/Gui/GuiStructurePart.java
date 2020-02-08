@@ -15,8 +15,6 @@ import net.minecraft.util.Direction;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 import net.minecraftforge.fml.client.config.GuiSlider;
 
-import java.awt.*;
-
 /**
  * This class is used as the gui for structure parts.
  *
@@ -81,9 +79,8 @@ public class GuiStructurePart extends GuiStructure {
 	}
 
 	@Override
-	protected void preButtonRender(int x, int y)
-	{
-		super.preButtonRender(x , y);
+	protected void preButtonRender(int x, int y) {
+		super.preButtonRender(x, y);
 
 		this.minecraft.getTextureManager().bindTexture(this.configuration.style.getPictureLocation());
 
