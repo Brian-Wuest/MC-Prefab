@@ -1,0 +1,30 @@
+{
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Windmill"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Windmill",
+  "pattern": [
+    " a ",
+    "aba",
+    "ca"
+  ],
+  "key": {
+    "a": {
+      "item": "prefab:item_bundle_of_timber"
+    },
+    "b": {
+      "tag": "prefab:compressed_stone3"
+    },
+    "c": {
+      "tag": "prefab:compressed_dirt2"
+    }
+  },
+  "result": {
+    "item": "prefab:item_ski_lodge",
+    "count": 1
+  }
+}

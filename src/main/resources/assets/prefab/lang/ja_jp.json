@@ -40,6 +40,7 @@
     "item.prefab.item_jail": "刑務所",
     "item.prefab.item_saloon": "サルーン",
     "item.prefab.item_ski_lodge": "スキーロッジ",
+    "item.prefab.item_wind_mill": "風車",
 
     "block.prefab.block_compressed_stone": "圧縮石",
     "block.prefab.block_double_compressed_stone": "二重圧縮石",

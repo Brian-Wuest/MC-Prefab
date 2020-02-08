@@ -163,14 +163,14 @@ public class BasicStructureConfiguration extends StructureConfiguration {
 		EnumBasicStructureName.SkiLodge.getClearPositionOffset().setEastOffset(20);
 		EnumBasicStructureName.SkiLodge.getClearPositionOffset().setHeightOffset(-1);
 
-		/*
-		 * EnumBasicStructureName.Saloon.getClearShape().setDirection(Direction.SOUTH);
-		 * EnumBasicStructureName.Saloon.getClearShape().setHeight(4);
-		 * EnumBasicStructureName.Saloon.getClearShape().setWidth(5);
-		 * EnumBasicStructureName.Saloon.getClearShape().setLength(12);
-		 * EnumBasicStructureName.Saloon.getClearPositionOffset().setSouthOffset(1);
-		 * EnumBasicStructureName.Saloon.getClearPositionOffset().setEastOffset(2);
-		 */
+		// Windmill
+		EnumBasicStructureName.WindMill.getClearShape().setDirection(Direction.SOUTH);
+		EnumBasicStructureName.WindMill.getClearShape().setHeight(31);
+		EnumBasicStructureName.WindMill.getClearShape().setWidth(17);
+		EnumBasicStructureName.WindMill.getClearShape().setLength(13);
+		EnumBasicStructureName.WindMill.getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.WindMill.getClearPositionOffset().setEastOffset(8);
+		EnumBasicStructureName.WindMill.getClearPositionOffset().setHeightOffset(-1);
 	}
 
 	/**
@@ -322,7 +322,8 @@ public class BasicStructureConfiguration extends StructureConfiguration {
 				"item_welcome_center", 121, 168),
 		Jail("jail", "item.prefab.jail", "assets/prefab/structures/jail.zip", "textures/gui/jail_topdown.png", "item_jail", 131, 175),
 		Saloon("saloon", "item.prefab.saloon", "assets/prefab/structures/saloon.zip", "textures/gui/saloon_topdown.png", "item_saloon", 130, 170),
-		SkiLodge("ski_lodge", "item.prefab.ski_lodge", "assets/prefab/structures/ski_lodge.zip", "textures/gui/ski_lodge_topdown.png", "item_ski_lodge", 137, 180);
+		SkiLodge("ski_lodge", "item.prefab.ski_lodge", "assets/prefab/structures/ski_lodge.zip", "textures/gui/ski_lodge_topdown.png", "item_ski_lodge", 137, 180),
+		WindMill("wind_mill", "item.prefab.wind_mill", "assets/prefab/structures/wind_mill.zip", "textures/gui/wind_mill_topdown.png", "item_wind_mill", 176, 102);
 
 		private String name;
 		private String assetLocation;
