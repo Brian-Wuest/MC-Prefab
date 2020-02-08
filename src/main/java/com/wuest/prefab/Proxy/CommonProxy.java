@@ -25,58 +25,57 @@ import java.nio.file.Path;
  */
 @SuppressWarnings({"SpellCheckingInspection", "WeakerAccess"})
 public class CommonProxy {
-    public static ModConfiguration proxyConfiguration;
-    public static ForgeConfigSpec COMMON_SPEC;
-    public static Path Config_File_Path;
+	public static ModConfiguration proxyConfiguration;
+	public static ForgeConfigSpec COMMON_SPEC;
+	public static Path Config_File_Path;
 
-    public CommonProxy() {
-        // Builder.build is called during this method.
-        Pair<ModConfiguration, ForgeConfigSpec> commonPair = new ForgeConfigSpec.Builder().configure(ModConfiguration::new);
-        COMMON_SPEC = commonPair.getRight();
-        proxyConfiguration = commonPair.getLeft();
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, COMMON_SPEC);
-        CommonProxy.Config_File_Path = FMLPaths.CONFIGDIR.get().resolve("prefab.toml");
+	public CommonProxy() {
+		// Builder.build is called during this method.
+		Pair<ModConfiguration, ForgeConfigSpec> commonPair = new ForgeConfigSpec.Builder().configure(ModConfiguration::new);
+		COMMON_SPEC = commonPair.getRight();
+		proxyConfiguration = commonPair.getLeft();
+		ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, COMMON_SPEC);
+		CommonProxy.Config_File_Path = FMLPaths.CONFIGDIR.get().resolve("prefab.toml");
 
-        ModConfiguration.loadConfig(CommonProxy.COMMON_SPEC, CommonProxy.Config_File_Path);
-    }
+		ModConfiguration.loadConfig(CommonProxy.COMMON_SPEC, CommonProxy.Config_File_Path);
+	}
 
-    /*
-     * Methods for ClientProxy to Override
-     */
-    public void registerRenderers() {
-    }
+	/*
+	 * Methods for ClientProxy to Override
+	 */
+	public void registerRenderers() {
+	}
 
-    public void RegisterEventHandler() {
-    }
+	public void RegisterEventHandler() {
+	}
 
-    public void preInit(FMLCommonSetupEvent event) {
-        CraftingHelper.register(new RecipeCondition.Serializer());
+	public void preInit(FMLCommonSetupEvent event) {
+		CraftingHelper.register(new RecipeCondition.Serializer());
 
-        Prefab.network = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(Prefab.MODID, "main_channel"))
-                .clientAcceptedVersions(Prefab.PROTOCOL_VERSION::equals)
-                .serverAcceptedVersions(Prefab.PROTOCOL_VERSION::equals)
-                .networkProtocolVersion(() -> Prefab.PROTOCOL_VERSION)
-                .simpleChannel();
+		Prefab.network = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(Prefab.MODID, "main_channel"))
+				.clientAcceptedVersions(Prefab.PROTOCOL_VERSION::equals)
+				.serverAcceptedVersions(Prefab.PROTOCOL_VERSION::equals)
+				.networkProtocolVersion(() -> Prefab.PROTOCOL_VERSION)
+				.simpleChannel();
 
 
-        // Register messages.
-        ModRegistry.RegisterMessages();
+		// Register messages.
+		ModRegistry.RegisterMessages();
 
-        // Register the capabilities.
-        ModRegistry.RegisterCapabilities();
-    }
+		// Register the capabilities.
+		ModRegistry.RegisterCapabilities();
+	}
 
-    public void init(FMLCommonSetupEvent event) {
-    }
+	public void init(FMLCommonSetupEvent event) {
+	}
 
-    public void postinit(FMLCommonSetupEvent event) {
-    }
+	public void postinit(FMLCommonSetupEvent event) {
+	}
 
-    public ServerModConfiguration getServerConfiguration() {
-        return CommonProxy.proxyConfiguration.serverConfiguration;
-    }
+	public ServerModConfiguration getServerConfiguration() {
+		return CommonProxy.proxyConfiguration.serverConfiguration;
+	}
 
-    public void openGuiForItem(ItemUseContext itemUseContext)
-    {
-    }
+	public void openGuiForItem(ItemUseContext itemUseContext) {
+	}
 }

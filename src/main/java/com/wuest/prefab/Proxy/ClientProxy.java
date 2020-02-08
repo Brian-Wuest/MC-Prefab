@@ -61,8 +61,7 @@ public class ClientProxy extends CommonProxy {
 	public void RegisterEventHandler() {
 		Optional<? extends ModContainer> modContainer = ModList.get().getModContainerById(Prefab.MODID);
 
-		if (modContainer != null && modContainer.isPresent())
-		{
+		if (modContainer != null && modContainer.isPresent()) {
 			Supplier<BiFunction<Minecraft, Screen, Screen>> prefabGui = () -> (minecraft, screen) -> new GuiPrefab(minecraft, screen);
 			// TODO: The below line allows this mod to define a custom configuration GUI.
 			//modContainer.get().registerExtensionPoint(ExtensionPoint.CONFIGGUIFACTORY, prefabGui);
@@ -89,9 +88,9 @@ public class ClientProxy extends CommonProxy {
 		for (Map.Entry<StructureItem, GuiStructure> entry : ClientProxy.ModGuis.entrySet()) {
 			if (entry.getKey().getClass() == itemUseContext.getItem().getItem().getClass()) {
 				GuiStructure screen = entry.getValue();
-                screen.pos = itemUseContext.getPos();
+				screen.pos = itemUseContext.getPos();
 
-                Minecraft.getInstance().displayGuiScreen(screen);
+				Minecraft.getInstance().displayGuiScreen(screen);
 			}
 		}
 	}
