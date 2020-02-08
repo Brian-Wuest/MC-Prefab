@@ -4,7 +4,7 @@ import com.wuest.prefab.Config.ServerModConfiguration;
 import com.wuest.prefab.Gui.GuiPrefab;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Structures.Gui.GuiAdvancedWareHouse;
+import com.wuest.prefab.Structures.Gui.*;
 import com.wuest.prefab.Structures.Items.StructureItem;
 import com.wuest.prefab.Structures.Render.ShaderHelper;
 import net.minecraft.client.Minecraft;
