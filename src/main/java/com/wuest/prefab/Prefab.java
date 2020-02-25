@@ -75,9 +75,9 @@ public class Prefab {
 		// Register the setup method for mod-loading
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
 
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
+		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
 
-        Prefab.proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
+		Prefab.proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
 		ModRegistry.RegisterModComponents();
 
@@ -86,13 +86,13 @@ public class Prefab {
 		ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.DISPLAYTEST, () -> Pair.of(() -> "ANY", (remote, isServer) -> true));
 	}
 
-    private void setup(final FMLCommonSetupEvent event) {
-        Prefab.proxy.preInit(event);
-        Prefab.proxy.init(event);
-        Prefab.proxy.postinit(event);
-    }
+	private void setup(final FMLCommonSetupEvent event) {
+		Prefab.proxy.preInit(event);
+		Prefab.proxy.init(event);
+		Prefab.proxy.postinit(event);
+	}
 
-    private void doClientStuff(final FMLClientSetupEvent event) {
-        Prefab.proxy.clientSetup(event);
-    }
+	private void doClientStuff(final FMLClientSetupEvent event) {
+		Prefab.proxy.clientSetup(event);
+	}
 }

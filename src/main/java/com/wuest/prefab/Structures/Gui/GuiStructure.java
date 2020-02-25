@@ -9,7 +9,6 @@ import com.wuest.prefab.Structures.Messages.StructureTagMessage;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import javafx.util.Pair;
 import net.minecraft.client.gui.widget.button.AbstractButton;
-import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -29,12 +28,9 @@ import java.awt.*;
 public abstract class GuiStructure extends GuiBase {
 	public BlockPos pos;
 	protected PlayerEntity player;
-	private Direction structureFacing;
-
 	protected ExtendedButton btnCancel;
 	protected ExtendedButton btnBuild;
 	protected ExtendedButton btnVisualize;
-
 	protected int textColor = Color.DARK_GRAY.getRGB();
 	protected EnumStructureConfiguration structureConfiguration;
 	private Direction structureFacing;
@@ -55,9 +51,9 @@ public abstract class GuiStructure extends GuiBase {
 	 * @param textureHeight The height of the texture.
 	 */
 	public static void drawModalRectWithCustomSizedTexture(int x, int y, int z, int width, int height, float textureWidth, float textureHeight) {
-		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-		GlStateManager.enableBlend();
-		GlStateManager.blendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
+		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+		RenderSystem.enableBlend();
+		RenderSystem.blendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
 
 		float u = 0;
 		float v = 0;
@@ -68,13 +64,14 @@ public abstract class GuiStructure extends GuiBase {
 
 		vertexBuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
 
-		vertexBuffer.pos(x, y + height, z).tex(u * f, (v + height) * f1).endVertex();
+		// This was the "pos" and "tex" method.
+		vertexBuffer.func_225582_a_(x, y + height, z).func_225583_a_(u * f, (v + height) * f1).endVertex();
 
-		vertexBuffer.pos(x + width, y + height, z).tex((u + width) * f, (v + height) * f1).endVertex();
+		vertexBuffer.func_225582_a_(x + width, y + height, z).func_225583_a_((u + width) * f, (v + height) * f1).endVertex();
 
-		vertexBuffer.pos(x + width, y, z).tex((u + width) * f, v * f1).endVertex();
+		vertexBuffer.func_225582_a_(x + width, y, z).func_225583_a_((u + width) * f, v * f1).endVertex();
 
-		vertexBuffer.pos(x, y, z).tex(u * f, v * f1).endVertex();
+		vertexBuffer.func_225582_a_(x, y, z).func_225583_a_(u * f, v * f1).endVertex();
 
 		tessellator.draw();
 	}
@@ -132,43 +129,5 @@ public abstract class GuiStructure extends GuiBase {
 			Prefab.network.sendToServer(new StructureTagMessage(configuration.WriteToCompoundNBT(), this.structureConfiguration));
 			this.getMinecraft().displayGuiScreen(null);
 		}
-	}
-
-	/**
-	 * Draws a textured rectangle Args: x, y, z, width, height, textureWidth, textureHeight
-	 *
-	 * @param x             The X-Axis screen coordinate.
-	 * @param y             The Y-Axis screen coordinate.
-	 * @param z             The Z-Axis screen coordinate.
-	 * @param width         The width of the rectangle.
-	 * @param height        The height of the rectangle.
-	 * @param textureWidth  The width of the texture.
-	 * @param textureHeight The height of the texture.
-	 */
-	public static void drawModalRectWithCustomSizedTexture(int x, int y, int z, int width, int height, float textureWidth, float textureHeight) {
-		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-		RenderSystem.enableBlend();
-		RenderSystem.blendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
-
-		float u = 0;
-		float v = 0;
-		float f = 1.0F / textureWidth;
-		float f1 = 1.0F / textureHeight;
-		Tessellator tessellator = Tessellator.getInstance();
-		BufferBuilder vertexBuffer = tessellator.getBuffer();
-
-		vertexBuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
-
-		// These function names used to be called "pos" and "tex" when they had proper names.
-		// This probably will be reverted back when mappings are added.
-		vertexBuffer.func_225582_a_(x, y + height, z).func_225583_a_(u * f, (v + height) * f1).endVertex();
-
-		vertexBuffer.func_225582_a_(x + width, y + height, z).func_225583_a_((u + width) * f, (v + height) * f1).endVertex();
-
-		vertexBuffer.func_225582_a_(x + width, y, z).func_225583_a_((u + width) * f, v * f1).endVertex();
-
-		vertexBuffer.func_225582_a_(x, y, z).func_225583_a_(u * f, v * f1).endVertex();
-
-		tessellator.draw();
 	}
 }

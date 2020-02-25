@@ -7,7 +7,7 @@ import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Structures.Config.StructureConfiguration;
 import com.wuest.prefab.Structures.Events.StructureEventHandler;
-import com.wuest.prefab.Structures.Predefined.StructureBasic;
+import com.wuest.prefab.Triple;
 import com.wuest.prefab.ZipUtil;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;

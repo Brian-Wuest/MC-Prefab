@@ -64,6 +64,19 @@ public class BlockBoundary extends Block {
 		ModRegistry.setBlockName(this, name);
 	}
 
+	/**
+	 * Queries if this block should render in a given layer.
+	 */
+	public static boolean canRenderInLayer(Object layer) {
+		// NOTE: This code is in a partial state. Need to find out how to get block state to determine if the block should be rendered this pass.
+		boolean powered = false;// state.get(Powered);
+
+		RenderState renderState = (RenderState) layer;
+
+		// first part is translucent, second is for solid.
+		return (layer == RenderType.func_228645_f_() && !powered) || (layer == RenderType.func_228639_c_() && powered);
+	}
+
 	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
 		builder.add(BlockBoundary.Powered);
@@ -116,19 +129,6 @@ public class BlockBoundary extends Block {
 		}
 
 		return returnValue;
-	}
-
-	/**
-	 * Queries if this block should render in a given layer.
-	 */
-	public static boolean canRenderInLayer(Object layer) {
-		// NOTE: This code is in a partial state. Need to find out how to get block state to determine if the block should be rendered this pass.
-		boolean powered = false;// state.get(Powered);
-
-		RenderState renderState = (RenderState)layer;
-
-		// first part is translucent, second is for solid.
-		return (layer == RenderType.func_228645_f_() && !powered) || (layer == RenderType.func_228639_c_() && powered);
 	}
 
 	/**

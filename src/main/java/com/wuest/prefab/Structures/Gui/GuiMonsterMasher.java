@@ -19,8 +19,8 @@ import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
  */
 public class GuiMonsterMasher extends GuiStructure {
 	private static final ResourceLocation houseTopDown = new ResourceLocation("prefab", "textures/gui/monster_masher_top_down.png");
-	private ExtendedButton btnGlassColor;
 	protected MonsterMasherConfiguration configuration;
+	private ExtendedButton btnGlassColor;
 
 	public GuiMonsterMasher() {
 		super("Monster Masher");

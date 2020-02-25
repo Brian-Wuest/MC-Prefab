@@ -20,11 +20,11 @@ public class TagMessage {
 	public static <T extends TagMessage> T decode(PacketBuffer buf, Class<T> clazz) {
 		T message = null;
 
-        try {
-            message = clazz.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
+		try {
+			message = clazz.newInstance();
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
 
 		assert message != null;
 		message.tagMessage = buf.readCompoundTag();

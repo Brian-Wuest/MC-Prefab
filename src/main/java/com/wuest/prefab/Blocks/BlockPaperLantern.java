@@ -21,33 +21,33 @@ import java.util.Random;
 @SuppressWarnings("NullableProblems")
 public class BlockPaperLantern extends Block {
 
-    /**
-     * Initializes a new instance of the BlockPaperLantern class.
-     *
-     * @param name The name to register this block as.
-     */
-    public BlockPaperLantern(String name) {
-        // The "func_226896_b_" function causes the "isSolid" field on the block to be set to false.
-        super(Properties.create(Prefab.SeeThroughImmovable)
-                .sound(SoundType.SNOW)
-                .hardnessAndResistance(0.6f)
-                .lightValue(14)
-                .func_226896_b_());
+	/**
+	 * Initializes a new instance of the BlockPaperLantern class.
+	 *
+	 * @param name The name to register this block as.
+	 */
+	public BlockPaperLantern(String name) {
+		// The "func_226896_b_" function causes the "isSolid" field on the block to be set to false.
+		super(Properties.create(Prefab.SeeThroughImmovable)
+				.sound(SoundType.SNOW)
+				.hardnessAndResistance(0.6f)
+				.lightValue(14)
+				.func_226896_b_());
 
 		ModRegistry.setBlockName(this, name);
 	}
 
-    /**
-     * Called periodically clientside on blocks near the player to show effects (like furnace fire particles). Note that
-     * this method will always be called regardless of whether the block can receive random update ticks
-     */
-    @OnlyIn(Dist.CLIENT)
-    @Override
-    public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-        double d0 = (double) pos.getX() + 0.5D;
-        double d1 = (double) pos.getY() + 0.7D;
-        double d2 = (double) pos.getZ() + 0.5D;
-        worldIn.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
-        worldIn.addParticle(ParticleTypes.FLAME, d0, d1, d2, 0.0D, 0.0D, 0.0D);
-    }
+	/**
+	 * Called periodically clientside on blocks near the player to show effects (like furnace fire particles). Note that
+	 * this method will always be called regardless of whether the block can receive random update ticks
+	 */
+	@OnlyIn(Dist.CLIENT)
+	@Override
+	public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+		double d0 = (double) pos.getX() + 0.5D;
+		double d1 = (double) pos.getY() + 0.7D;
+		double d2 = (double) pos.getZ() + 0.5D;
+		worldIn.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+		worldIn.addParticle(ParticleTypes.FLAME, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+	}
 }

@@ -21,9 +21,9 @@ import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
  */
 public class GuiWareHouse extends GuiStructure {
 	private static final ResourceLocation wareHouseTopDown = new ResourceLocation("prefab", "textures/gui/warehouse_top_down.png");
-	private ExtendedButton btnGlassColor;
 	protected WareHouseConfiguration configuration;
 	String clientGUIIdentifier;
+	private ExtendedButton btnGlassColor;
 
 	public GuiWareHouse() {
 		super("Warehouse");

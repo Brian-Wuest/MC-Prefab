@@ -389,43 +389,43 @@ public class GuiLangKeys {
 		for (Field field : GuiLangKeys.class.getDeclaredFields()) {
 			String value = "";
 
-            try {
-                value = field.get(null).toString();
-            } catch (IllegalArgumentException | IllegalAccessException e) {
-                e.printStackTrace();
-            }
+			try {
+				value = field.get(null).toString();
+			} catch (IllegalArgumentException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
 
-            if (translateKey.equals(value)) {
-                Annotation[] annotations = field.getDeclaredAnnotations();
+			if (translateKey.equals(value)) {
+				Annotation[] annotations = field.getDeclaredAnnotations();
 
-                for (Annotation annotation : annotations) {
-                    if (annotation instanceof Unlocalized) {
+				for (Annotation annotation : annotations) {
+					if (annotation instanceof Unlocalized) {
 
-                        return ((Unlocalized) annotation).name();
-                    }
-                }
-            }
-        }
+						return ((Unlocalized) annotation).name();
+					}
+				}
+			}
+		}
 
-        return translateKey;
-    }
+		return translateKey;
+	}
 
-    public static String translateFacing(Direction facing) {
-        return GuiLangKeys.translateString("prefab.gui." + facing.getName2());
-    }
+	public static String translateFacing(Direction facing) {
+		return GuiLangKeys.translateString("prefab.gui." + facing.getName2());
+	}
 
-    public static String translateDye(DyeColor dyeColor) {
-        return GuiLangKeys.translateString("prefab.gui." + dyeColor.getTranslationKey());
-    }
+	public static String translateDye(DyeColor dyeColor) {
+		return GuiLangKeys.translateString("prefab.gui." + dyeColor.getTranslationKey());
+	}
 
-    /**
-     * An annotation which allows the UI to get the unlocalized name;
-     *
-     * @author WuestMan
-     */
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(java.lang.annotation.ElementType.FIELD)
-    public @interface Unlocalized {
-        String name() default "";
-    }
+	/**
+	 * An annotation which allows the UI to get the unlocalized name;
+	 *
+	 * @author WuestMan
+	 */
+	@Retention(RetentionPolicy.RUNTIME)
+	@Target(java.lang.annotation.ElementType.FIELD)
+	public @interface Unlocalized {
+		String name() default "";
+	}
 }

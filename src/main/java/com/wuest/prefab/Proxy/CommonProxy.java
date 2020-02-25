@@ -77,10 +77,9 @@ public class CommonProxy {
 		return CommonProxy.proxyConfiguration.serverConfiguration;
 	}
 
-    public void openGuiForItem(ItemUseContext itemUseContext)
-    {
-    }
+	public void openGuiForItem(ItemUseContext itemUseContext) {
+	}
 
-    public void clientSetup(FMLClientSetupEvent clientSetupEvent) {
-    }
+	public void clientSetup(FMLClientSetupEvent clientSetupEvent) {
+	}
 }

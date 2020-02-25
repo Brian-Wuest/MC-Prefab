@@ -1,6 +1,5 @@
 package com.wuest.prefab.Structures.Render;
 
-import com.mojang.blaze3d.platform.GLX;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.wuest.prefab.Events.ClientEventHandler;
@@ -28,10 +27,9 @@ import java.util.stream.Collectors;
  */
 @SuppressWarnings({"SpellCheckingInspection", "SameParameterValue", "WeakerAccess"})
 public class ShaderHelper {
-    private static final int VERT = ARBVertexShader.GL_VERTEX_SHADER_ARB;
-    private static final int FRAG = ARBFragmentShader.GL_FRAGMENT_SHADER_ARB;
-    public static final FloatBuffer FLOAT_BUF = MemoryUtil.memAllocFloat(1);
-
+	public static final FloatBuffer FLOAT_BUF = MemoryUtil.memAllocFloat(1);
+	private static final int VERT = ARBVertexShader.GL_VERTEX_SHADER_ARB;
+	private static final int FRAG = ARBFragmentShader.GL_FRAGMENT_SHADER_ARB;
 	public static int alphaShader = 0;
 	private static boolean lighting;
 
@@ -47,38 +45,38 @@ public class ShaderHelper {
 		}
 	}
 
-    public static void useShader(int shader, ShaderCallback callback) {
-        if (ShaderHelper.alphaShader == 0) {
-            // Shader wasn't initialized, initialize it now.
-            ShaderHelper.alphaShader = ShaderHelper.createProgram("/assets/prefab/shader/alpha.vert", "/assets/prefab/shader/alpha.frag");
-        }
+	public static void useShader(int shader, ShaderCallback callback) {
+		if (ShaderHelper.alphaShader == 0) {
+			// Shader wasn't initialized, initialize it now.
+			ShaderHelper.alphaShader = ShaderHelper.createProgram("/assets/prefab/shader/alpha.vert", "/assets/prefab/shader/alpha.frag");
+		}
 
-        lighting = GL11.glGetBoolean(GL11.GL_LIGHTING);
+		lighting = GL11.glGetBoolean(GL11.GL_LIGHTING);
 
-        // disableLighting
-        GlStateManager.func_227722_g_();
-        GlStateManager.func_227723_g_(shader);
+		// disableLighting
+		GlStateManager.func_227722_g_();
+		GlStateManager.func_227723_g_(shader);
 
-        if(shader != 0) {
-            // getUniformLocation
-            int time = GlStateManager.func_227680_b_(shader, "time");
+		if (shader != 0) {
+			// getUniformLocation
+			int time = GlStateManager.func_227680_b_(shader, "time");
 
-            // uniform1
-            GlStateManager.func_227718_f_(time, ClientEventHandler.ticksInGame);
+			// uniform1
+			GlStateManager.func_227718_f_(time, ClientEventHandler.ticksInGame);
 
-            if(callback != null)
-                callback.call(shader);
-        }
-    }
+			if (callback != null)
+				callback.call(shader);
+		}
+	}
 
-    public static void useShader(int shader) {
-        useShader(shader, null);
-    }
+	public static void useShader(int shader) {
+		useShader(shader, null);
+	}
 
-    public static void releaseShader() {
-        if (lighting) {
-            RenderSystem.enableLighting();
-        }
+	public static void releaseShader() {
+		if (lighting) {
+			RenderSystem.enableLighting();
+		}
 
 		ShaderHelper.useShader(0);
 	}
@@ -169,14 +167,14 @@ public class ShaderHelper {
 		}
 	}
 
-    private static String getLogInfo(int obj) {
-        return ARBShaderObjects.glGetInfoLogARB(obj, ARBShaderObjects.glGetObjectParameteriARB(obj, ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB));
-    }
+	private static String getLogInfo(int obj) {
+		return ARBShaderObjects.glGetInfoLogARB(obj, ARBShaderObjects.glGetObjectParameteriARB(obj, ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB));
+	}
 
-    @FunctionalInterface
-    public interface ShaderCallback {
+	@FunctionalInterface
+	public interface ShaderCallback {
 
-        void call(int shader);
+		void call(int shader);
 
-    }
+	}
 }

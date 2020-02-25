@@ -2,56 +2,37 @@ package com.wuest.prefab.Structures.Render;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-import com.mojang.blaze3d.vertex.MatrixApplyingVertexBuilder;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.Structures.Base.BuildBlock;
 import com.wuest.prefab.Structures.Base.Structure;
 import com.wuest.prefab.Structures.Config.StructureConfiguration;
-import javafx.geometry.Pos;
 import javafx.util.Pair;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.color.BlockColors;
-import net.minecraft.client.renderer.model.BakedQuad;
+import net.minecraft.client.renderer.Atlases;
+import net.minecraft.client.renderer.BlockRendererDispatcher;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.model.ModelBakery;
-import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.renderer.tileentity.ChestTileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.ILightReader;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelDataManager;
 import net.minecraftforge.client.model.data.IModelData;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
-import org.lwjgl.opengl.GL11;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 /**
  * @author WuestMan
@@ -68,7 +49,7 @@ public class StructureRenderHandler {
 	public static boolean rendering = false;
 	public static boolean showedMessage = false;
 	private static int dimension;
-	private static int overlay  = OverlayTexture.func_229201_a_(5,10);
+	private static int overlay = OverlayTexture.func_229201_a_(5, 10);
 
 	/**
 	 * Resets the structure to show in the world.
@@ -157,8 +138,7 @@ public class StructureRenderHandler {
 
 			ShaderHelper.releaseShader();
 
-			for (Pair<BlockState, BlockPos> pair : entityModels)
-			{
+			for (Pair<BlockState, BlockPos> pair : entityModels) {
 				StructureRenderHandler.renderBlock(matrixStack, new Vec3d(pair.getValue()), pair.getKey(), entityVertexConsumer, BlockRenderType.ENTITYBLOCK_ANIMATED);
 			}
 
@@ -239,9 +219,9 @@ public class StructureRenderHandler {
 		if (blockRenderType == BlockRenderType.MODEL) {
 			// getColor function.
 			int color = minecraft.getBlockColors().func_228054_a_(state, null, null, 0);
-			float r = (float)(color >> 16 & 255) / 255.0F;
-			float g = (float)(color >> 8 & 255) / 255.0F;
-			float b = (float)(color & 255) / 255.0F;
+			float r = (float) (color >> 16 & 255) / 255.0F;
+			float g = (float) (color >> 8 & 255) / 255.0F;
+			float b = (float) (color & 255) / 255.0F;
 
 			renderer.getBlockModelRenderer().func_228804_a_(
 					matrixStack.func_227866_c_(),
@@ -253,8 +233,7 @@ public class StructureRenderHandler {
 					b,
 					0xF000F0,
 					OverlayTexture.field_229196_a_);
-		}
-		else if (blockRenderType == BlockRenderType.ENTITYBLOCK_ANIMATED) {
+		} else if (blockRenderType == BlockRenderType.ENTITYBLOCK_ANIMATED) {
 			renderer.renderBlock(
 					state,
 					matrixStack,
@@ -268,7 +247,7 @@ public class StructureRenderHandler {
 		matrixStack.func_227865_b_();
 	}
 
-	private  static void  renderModel(MatrixStack matrixStack, Vec3d pos, BlockState state, IRenderTypeBuffer entityVertexConsumer) {
+	private static void renderModel(MatrixStack matrixStack, Vec3d pos, BlockState state, IRenderTypeBuffer entityVertexConsumer) {
 
 	}
 

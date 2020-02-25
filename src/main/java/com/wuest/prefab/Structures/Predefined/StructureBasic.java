@@ -17,8 +17,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-import java.security.ProtectionDomain;
-
 /**
  * This is the basic structure to be used for structures which don't need a lot of configuration or a custom player
  * created structures.
@@ -96,10 +94,8 @@ public class StructureBasic extends Structure {
 
 		if (config.basicStructureName.getName().equals(EnumBasicStructureName.AquaBase.getName())) {
 			BlockState blockState = world.getBlockState(blockPos);
-			if (blockState.getMaterial() == Material.WATER) {
-				// Don't clear water blocks for this building.
-				return false;
-			}
+			// Don't clear water blocks for this building.
+			return blockState.getMaterial() != Material.WATER;
 		}
 
 		return true;

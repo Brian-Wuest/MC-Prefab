@@ -16,8 +16,8 @@ import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
  * @author WuestMan
  */
 public class GuiVillagerHouses extends GuiStructure {
-	private ExtendedButton btnHouseStyle;
 	protected VillagerHouseConfiguration configuration;
+	private ExtendedButton btnHouseStyle;
 	private VillagerHouseConfiguration.HouseStyle houseStyle;
 
 	public GuiVillagerHouses() {
