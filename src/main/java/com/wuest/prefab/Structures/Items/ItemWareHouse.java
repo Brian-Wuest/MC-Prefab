@@ -10,17 +10,16 @@ import net.minecraft.item.ItemUseContext;
  */
 @SuppressWarnings("ConstantConditions")
 public class ItemWareHouse extends StructureItem {
-    public ItemWareHouse(String name) {
-        super(name);
-    }
+	public ItemWareHouse(String name) {
+		super(name);
+	}
 
-    @Override
-    public void scanningMode(ItemUseContext context)
-    {
-        StructureWarehouse.ScanStructure(
-                context.getWorld(),
-                context.getPos(),
-                context.getPlayer().getHorizontalFacing(),
-                false);
-    }
+	@Override
+	public void scanningMode(ItemUseContext context) {
+		StructureWarehouse.ScanStructure(
+				context.getWorld(),
+				context.getPos(),
+				context.getPlayer().getHorizontalFacing(),
+				false);
+	}
 }

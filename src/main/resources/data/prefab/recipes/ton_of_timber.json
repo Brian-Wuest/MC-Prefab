@@ -1,0 +1,26 @@
+{
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Ton of Timber"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Ton of Timber",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": [
+      {
+        "item": "prefab:item_heap_of_timber"
+      }
+    ]
+  },
+  "result": {
+    "item": "prefab:item_ton_of_timber",
+    "count": 1
+  }
+}

@@ -1,5 +1,6 @@
 package com.wuest.prefab.Structures.Base;
 
+import com.wuest.prefab.Triple;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -207,8 +208,8 @@ public class BuildingMethods {
 	 * @param player        The player running this build request.
 	 * @return True if all blocks can be replaced. Otherwise false and send a message to the player.
 	 */
-	public static boolean CheckBuildSpaceForAllowedBlockReplacement(World world, BlockPos startBlockPos, BlockPos endBlockPos,
-																	PlayerEntity player) {
+	public static Triple<Boolean, BlockState, BlockPos> CheckBuildSpaceForAllowedBlockReplacement(World world, BlockPos startBlockPos, BlockPos endBlockPos,
+																								  PlayerEntity player) {
 		// Check each block in the space to be cleared if it's protected from
 		// breaking or placing, if it is return false.
 		for (BlockPos currentPos : BlockPos.getAllInBoxMutable(startBlockPos, endBlockPos)) {
@@ -218,24 +219,24 @@ public class BuildingMethods {
 				BlockEvent.BreakEvent breakEvent = new BlockEvent.BreakEvent(world, currentPos, world.getBlockState(currentPos), player);
 
 				if (MinecraftForge.EVENT_BUS.post(breakEvent)) {
-					return false;
+					return new Triple<>(false, blockState, currentPos);
 				}
 			}
 
 			EntityPlaceEvent placeEvent = new EntityPlaceEvent(new BlockSnapshot(world, currentPos, blockState), Blocks.AIR.getDefaultState(), player);
 
 			if (MinecraftForge.EVENT_BUS.post(placeEvent)) {
-				return false;
+				return new Triple<>(false, blockState, currentPos);
 			}
 
 			// A hardness of less than 0 is unbreakable.
 			if (blockState.getBlockHardness(world, currentPos) < 0.0f) {
 				// This is bedrock or some other type of unbreakable block. Don't allow this block to be broken by a
 				// structure.
-				return false;
+				return new Triple<>(false, blockState, currentPos);
 			}
 		}
 
-		return true;
+		return new Triple<>(true, null, null);
 	}
 }

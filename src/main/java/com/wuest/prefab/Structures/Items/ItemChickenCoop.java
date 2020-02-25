@@ -8,15 +8,15 @@ import net.minecraft.item.ItemUseContext;
  */
 @SuppressWarnings("ConstantConditions")
 public class ItemChickenCoop extends StructureItem {
-    public ItemChickenCoop(String name) {
-        super(name);
-    }
+	public ItemChickenCoop(String name) {
+		super(name);
+	}
 
-    @Override
-    public void scanningMode(ItemUseContext context) {
-        StructureChickenCoop.ScanStructure(
-                context.getWorld(),
-                context.getPos(),
-                context.getPlayer().getHorizontalFacing());
-    }
+	@Override
+	public void scanningMode(ItemUseContext context) {
+		StructureChickenCoop.ScanStructure(
+				context.getWorld(),
+				context.getPos(),
+				context.getPlayer().getHorizontalFacing());
+	}
 }

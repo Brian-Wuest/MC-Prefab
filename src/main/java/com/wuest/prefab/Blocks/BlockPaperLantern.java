@@ -34,8 +34,8 @@ public class BlockPaperLantern extends Block {
                 .lightValue(14)
                 .func_226896_b_());
 
-        ModRegistry.setBlockName(this, name);
-    }
+		ModRegistry.setBlockName(this, name);
+	}
 
     /**
      * Called periodically clientside on blocks near the player to show effects (like furnace fire particles). Note that

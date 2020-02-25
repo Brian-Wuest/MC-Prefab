@@ -8,15 +8,15 @@ import net.minecraft.item.ItemUseContext;
  */
 @SuppressWarnings("ConstantConditions")
 public class ItemFishPond extends StructureItem {
-    public ItemFishPond(String name) {
-        super(name);
-    }
+	public ItemFishPond(String name) {
+		super(name);
+	}
 
-    @Override
-    public void scanningMode(ItemUseContext context) {
-        StructureFishPond.ScanStructure(
-                context.getWorld(),
-                context.getPos(),
-                context.getPlayer().getHorizontalFacing());
-    }
+	@Override
+	public void scanningMode(ItemUseContext context) {
+		StructureFishPond.ScanStructure(
+				context.getWorld(),
+				context.getPos(),
+				context.getPlayer().getHorizontalFacing());
+	}
 }

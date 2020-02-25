@@ -8,15 +8,15 @@ import net.minecraft.item.ItemUseContext;
  */
 @SuppressWarnings("ConstantConditions")
 public class ItemNetherGate extends StructureItem {
-    public ItemNetherGate(String name) {
-        super(name);
-    }
+	public ItemNetherGate(String name) {
+		super(name);
+	}
 
-    @Override
-    public void scanningMode(ItemUseContext context) {
-        StructureNetherGate.ScanStructure(
-                context.getWorld(),
-                context.getPos(),
-                context.getPlayer().getHorizontalFacing());
-    }
+	@Override
+	public void scanningMode(ItemUseContext context) {
+		StructureNetherGate.ScanStructure(
+				context.getWorld(),
+				context.getPos(),
+				context.getPlayer().getHorizontalFacing());
+	}
 }

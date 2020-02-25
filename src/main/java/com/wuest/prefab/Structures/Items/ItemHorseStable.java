@@ -8,15 +8,15 @@ import net.minecraft.item.ItemUseContext;
  */
 @SuppressWarnings("ConstantConditions")
 public class ItemHorseStable extends StructureItem {
-    public ItemHorseStable(String name) {
-        super(name);
-    }
+	public ItemHorseStable(String name) {
+		super(name);
+	}
 
-    @Override
-    public void scanningMode(ItemUseContext context) {
-        StructureHorseStable.ScanStructure(
-                context.getWorld(),
-                context.getPos(),
-                context.getPlayer().getHorizontalFacing());
-    }
+	@Override
+	public void scanningMode(ItemUseContext context) {
+		StructureHorseStable.ScanStructure(
+				context.getWorld(),
+				context.getPos(),
+				context.getPlayer().getHorizontalFacing());
+	}
 }

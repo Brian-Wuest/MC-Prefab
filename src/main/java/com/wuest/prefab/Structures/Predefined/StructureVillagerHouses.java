@@ -13,23 +13,23 @@ import net.minecraft.world.World;
  * @author WuestMan
  */
 public class StructureVillagerHouses extends Structure {
-    public static void ScanStructure(World world, BlockPos originalPos, Direction playerFacing, VillagerHouseConfiguration.HouseStyle houseStyle) {
-        BuildClear clearedSpace = new BuildClear();
-        clearedSpace.getShape().setDirection(Direction.SOUTH);
-        clearedSpace.getShape().setHeight(houseStyle.getHeight());
-        clearedSpace.getShape().setLength(houseStyle.getLength());
-        clearedSpace.getShape().setWidth(houseStyle.getWidth());
-        clearedSpace.getStartingPosition().setSouthOffset(1);
-        clearedSpace.getStartingPosition().setEastOffset(houseStyle.getEastOffSet());
+	public static void ScanStructure(World world, BlockPos originalPos, Direction playerFacing, VillagerHouseConfiguration.HouseStyle houseStyle) {
+		BuildClear clearedSpace = new BuildClear();
+		clearedSpace.getShape().setDirection(Direction.SOUTH);
+		clearedSpace.getShape().setHeight(houseStyle.getHeight());
+		clearedSpace.getShape().setLength(houseStyle.getLength());
+		clearedSpace.getShape().setWidth(houseStyle.getWidth());
+		clearedSpace.getStartingPosition().setSouthOffset(1);
+		clearedSpace.getStartingPosition().setEastOffset(houseStyle.getEastOffSet());
 
-        BlockPos cornerPos = originalPos.south().east(houseStyle.getEastOffSet());
-        Structure.ScanStructure(
-                world,
-                originalPos,
-                cornerPos,
-                cornerPos.south(houseStyle.getLength()).west(houseStyle.getWidth()).up(houseStyle.getHeight()),
-                "../src/main/resources/" + houseStyle.getStructureLocation(),
-                clearedSpace,
-                playerFacing, false, false);
-    }
+		BlockPos cornerPos = originalPos.south().east(houseStyle.getEastOffSet());
+		Structure.ScanStructure(
+				world,
+				originalPos,
+				cornerPos,
+				cornerPos.south(houseStyle.getLength()).west(houseStyle.getWidth()).up(houseStyle.getHeight()),
+				"../src/main/resources/" + houseStyle.getStructureLocation(),
+				clearedSpace,
+				playerFacing, false, false);
+	}
 }

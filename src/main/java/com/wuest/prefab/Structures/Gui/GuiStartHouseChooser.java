@@ -36,7 +36,6 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 	private GuiTab tabGeneral;
 	private GuiTab tabConfig;
 	private GuiTab tabBlockTypes;
-
 	// General:
 	private ExtendedButton btnHouseStyle;
 	private ExtendedButton btnGlassColor;
@@ -50,8 +49,6 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 	private GuiCheckBox btnAddChest;
 	private GuiCheckBox btnAddChestContents;
 	private GuiCheckBox btnAddMineShaft;
-
-	protected ServerModConfiguration serverConfiguration;
 	private boolean allowItemsInChestAndFurnace = true;
 
 	private HouseConfiguration houseConfiguration;

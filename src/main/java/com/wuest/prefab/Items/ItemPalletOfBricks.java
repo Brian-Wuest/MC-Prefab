@@ -8,9 +8,9 @@ import net.minecraft.item.ItemGroup;
  * @author WuestMan
  */
 public class ItemPalletOfBricks extends Item {
-    public ItemPalletOfBricks(String name) {
-        super(new Item.Properties().group(ItemGroup.MATERIALS));
+	public ItemPalletOfBricks(String name) {
+		super(new Item.Properties().group(ItemGroup.MATERIALS));
 
-        ModRegistry.setItemName(this, name);
-    }
+		ModRegistry.setItemName(this, name);
+	}
 }

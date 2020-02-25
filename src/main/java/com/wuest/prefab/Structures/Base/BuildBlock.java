@@ -287,7 +287,7 @@ public class BuildBlock {
 
 		if (foundBlock instanceof RotatedPillarBlock) {
 			if (block.getProperty("axis").getValue().equals("x")) {
-            } else if (block.getProperty("axis").getValue().equals("y")) {
+			} else if (block.getProperty("axis").getValue().equals("y")) {
 				boneFacing = Axis.Y;
 			} else {
 				boneFacing = Axis.Z;
@@ -390,7 +390,7 @@ public class BuildBlock {
 	}
 
 	public ResourceLocation getResourceLocation() {
-        return new ResourceLocation(this.blockDomain, this.blockName);
+		return new ResourceLocation(this.blockDomain, this.blockName);
 	}
 
 	public PositionOffset getStartingPosition() {

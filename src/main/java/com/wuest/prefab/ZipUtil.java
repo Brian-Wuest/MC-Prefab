@@ -102,7 +102,7 @@ public class ZipUtil {
 			e.printStackTrace();
 		}
 
-        return null;
+		return null;
 	}
 
 	/**
@@ -116,14 +116,14 @@ public class ZipUtil {
 		String temp;
 
 		try {
-            assert stream != null;
-            temp = CharStreams.toString(new InputStreamReader(stream, Charsets.UTF_8.name()));
+			assert stream != null;
+			temp = CharStreams.toString(new InputStreamReader(stream, Charsets.UTF_8.name()));
 			stream.close();
 			ZipUtil.zipStringToFile(temp, fileLocation);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    }
+	}
 
 	/**
 	 * Compresses a string to a file location.
@@ -138,7 +138,7 @@ public class ZipUtil {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    }
+	}
 
 	/**
 	 * De-compresses a resource location into a string.
@@ -152,8 +152,8 @@ public class ZipUtil {
 		String returnValue = "";
 
 		try {
-            assert stream != null;
-            buf = ByteStreams.toByteArray(stream);
+			assert stream != null;
+			buf = ByteStreams.toByteArray(stream);
 			returnValue = ZipUtil.decompressString(buf);
 			stream.close();
 		} catch (IOException e) {
@@ -175,8 +175,8 @@ public class ZipUtil {
 		BufferedImage returnValue = null;
 
 		try {
-            assert stream != null;
-            buf = ByteStreams.toByteArray(stream);
+			assert stream != null;
+			buf = ByteStreams.toByteArray(stream);
 			buf = ZipUtil.decompressBytes(buf);
 			stream.close();
 

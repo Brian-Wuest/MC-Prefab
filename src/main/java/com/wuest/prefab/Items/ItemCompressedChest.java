@@ -20,23 +20,23 @@ import java.util.List;
  * @author WuestMan
  */
 public class ItemCompressedChest extends Item {
-    /**
-     * Initializes a new instance of the ItemCondensedChest class.
-     *
-     * @param name The name of the item to register.
-     */
-    public ItemCompressedChest(String name) {
-        super(new Item.Properties().group(ItemGroup.MATERIALS));
+	/**
+	 * Initializes a new instance of the ItemCondensedChest class.
+	 *
+	 * @param name The name of the item to register.
+	 */
+	public ItemCompressedChest(String name) {
+		super(new Item.Properties().group(ItemGroup.MATERIALS));
 
-        ModRegistry.setItemName(this, name);
-    }
+		ModRegistry.setItemName(this, name);
+	}
 
-    /**
-     * allows items to add custom lines of information to the mouse-over description
-     */
-    @OnlyIn(Dist.CLIENT)
-    @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        tooltip.add(new StringTextComponent("Used in the recipes for structures, not for direct storage"));
-    }
+	/**
+	 * allows items to add custom lines of information to the mouse-over description
+	 */
+	@OnlyIn(Dist.CLIENT)
+	@Override
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+		tooltip.add(new StringTextComponent("Used in the recipes for structures, not for direct storage"));
+	}
 }

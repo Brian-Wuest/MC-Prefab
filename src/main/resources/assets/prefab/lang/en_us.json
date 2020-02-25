@@ -20,6 +20,8 @@
     "item.prefab.item_moderate_house": "Moderate House",
     "item.prefab.item_bulldozer": "Bulldozer",
     "item.prefab.item_structure_part": "Structure Part",
+    "item.prefab.item_heap_of_timber": "Heap of Timber",
+    "item.prefab.item_ton_of_timber": "Ton of Timber",
 
     "item.prefab.item_advanced_chicken_coop": "Advanced Chicken Coop",
     "item.prefab.item_advanced_horse_stable": "Advanced Horse Stable",
@@ -40,6 +42,8 @@
     "item.prefab.item_jail": "Jail",
     "item.prefab.item_saloon": "Saloon",
     "item.prefab.item_ski_lodge": "Ski Lodge",
+    "item.prefab.item_wind_mill": "Windmill",
+    "item.prefab.item_town_hall": "Town Hall",
 
     "block.prefab.block_compressed_stone": "Compressed Stone",
     "block.prefab.block_double_compressed_stone": "Double Compressed Stone",
@@ -135,7 +139,7 @@
     "prefab.gui.structure.facing.player": "Note: If you're facing north, choose south so the structure is facing you.",
     "prefab.gui.structure.block.clicked": "The red box in the image on the right shows the block you clicked on.",
     "prefab.gui.structure.door.facing": "Note: If you're facing north, choose south so the doors are facing you.",
-    "prefab.gui.structure.nobuild": "Cannot build structure due to protected blocks/area or unbreakable blocks are in the area.",
+    "prefab.gui.structure.nobuild": "Cannot build structure due to protected blocks/area or unbreakable blocks are in the area. Block Name: %1$s Block Position: x=%2$s, y=%3$s, z=%4$s",
 
     "prefab.gui.button.build": "Build!",
     "prefab.gui.button.cancel": "Cancel",

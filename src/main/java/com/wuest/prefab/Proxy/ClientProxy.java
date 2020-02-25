@@ -13,7 +13,6 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.ItemUseContext;
-import net.minecraftforge.fml.ExtensionPoint;
 import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -41,6 +40,28 @@ public class ClientProxy extends CommonProxy {
 		super();
 	}
 
+	/**
+	 * Adds all of the Mod Guis to the HasMap.
+	 */
+	public static void AddGuis() {
+		ClientProxy.ModGuis.put(ModRegistry.WareHouse(), new GuiWareHouse());
+		ClientProxy.ModGuis.put(ModRegistry.ChickenCoop(), new GuiChickenCoop());
+		ClientProxy.ModGuis.put(ModRegistry.ProduceFarm(), new GuiProduceFarm());
+		ClientProxy.ModGuis.put(ModRegistry.TreeFarm(), new GuiTreeFarm());
+		ClientProxy.ModGuis.put(ModRegistry.FishPond(), new GuiFishPond());
+		ClientProxy.ModGuis.put(ModRegistry.StartHouse(), new GuiStartHouseChooser());
+		ClientProxy.ModGuis.put(ModRegistry.AdvancedWareHouse(), new GuiAdvancedWareHouse());
+		ClientProxy.ModGuis.put(ModRegistry.MonsterMasher(), new GuiMonsterMasher());
+		ClientProxy.ModGuis.put(ModRegistry.HorseStable(), new GuiHorseStable());
+		ClientProxy.ModGuis.put(ModRegistry.NetherGate(), new GuiNetherGate());
+		ClientProxy.ModGuis.put(ModRegistry.BasicStructure(), new GuiBasicStructure());
+		ClientProxy.ModGuis.put(ModRegistry.VillagerHouses(), new GuiVillagerHouses());
+		ClientProxy.ModGuis.put(ModRegistry.ModerateHouse(), new GuiModerateHouse());
+		ClientProxy.ModGuis.put(ModRegistry.Bulldozer(), new GuiBulldozer());
+		ClientProxy.ModGuis.put(ModRegistry.InstantBridge(), new GuiInstantBridge());
+		ClientProxy.ModGuis.put(ModRegistry.StructurePart(), new GuiStructurePart());
+	}
+
 	@Override
 	public void preInit(FMLCommonSetupEvent event) {
 		super.preInit(event);
@@ -65,8 +86,7 @@ public class ClientProxy extends CommonProxy {
 	public void RegisterEventHandler() {
 		Optional<? extends ModContainer> modContainer = ModList.get().getModContainerById(Prefab.MODID);
 
-		if (modContainer != null && modContainer.isPresent())
-		{
+		if (modContainer != null && modContainer.isPresent()) {
 			Supplier<BiFunction<Minecraft, Screen, Screen>> prefabGui = () -> (minecraft, screen) -> new GuiPrefab(minecraft, screen);
 			// TODO: The below line allows this mod to define a custom configuration GUI.
 			//modContainer.get().registerExtensionPoint(ExtensionPoint.CONFIGGUIFACTORY, prefabGui);
@@ -93,9 +113,9 @@ public class ClientProxy extends CommonProxy {
 		for (Map.Entry<StructureItem, GuiStructure> entry : ClientProxy.ModGuis.entrySet()) {
 			if (entry.getKey().getClass() == itemUseContext.getItem().getItem().getClass()) {
 				GuiStructure screen = entry.getValue();
-                screen.pos = itemUseContext.getPos();
+				screen.pos = itemUseContext.getPos();
 
-                Minecraft.getInstance().displayGuiScreen(screen);
+				Minecraft.getInstance().displayGuiScreen(screen);
 			}
 		}
 	}
@@ -111,27 +131,5 @@ public class ClientProxy extends CommonProxy {
 
 		// This is the "translucent" type.
 		RenderTypeLookup.setRenderLayer(ModRegistry.PhasingBlock(), RenderType.func_228645_f_());
-	}
-
-	/**
-	 * Adds all of the Mod Guis to the HasMap.
-	 */
-	public static void AddGuis() {
-		ClientProxy.ModGuis.put(ModRegistry.WareHouse(), new GuiWareHouse());
-		ClientProxy.ModGuis.put(ModRegistry.ChickenCoop(), new GuiChickenCoop());
-		ClientProxy.ModGuis.put(ModRegistry.ProduceFarm(), new GuiProduceFarm());
-		ClientProxy.ModGuis.put(ModRegistry.TreeFarm(), new GuiTreeFarm());
-		ClientProxy.ModGuis.put(ModRegistry.FishPond(), new GuiFishPond());
-		ClientProxy.ModGuis.put(ModRegistry.StartHouse(), new GuiStartHouseChooser());
-		ClientProxy.ModGuis.put(ModRegistry.AdvancedWareHouse(), new GuiAdvancedWareHouse());
-		ClientProxy.ModGuis.put(ModRegistry.MonsterMasher(), new GuiMonsterMasher());
-		ClientProxy.ModGuis.put(ModRegistry.HorseStable(), new GuiHorseStable());
-		ClientProxy.ModGuis.put(ModRegistry.NetherGate(), new GuiNetherGate());
-		ClientProxy.ModGuis.put(ModRegistry.BasicStructure(), new GuiBasicStructure());
-		ClientProxy.ModGuis.put(ModRegistry.VillagerHouses(), new GuiVillagerHouses());
-		ClientProxy.ModGuis.put(ModRegistry.ModerateHouse(), new GuiModerateHouse());
-		ClientProxy.ModGuis.put(ModRegistry.Bulldozer(), new GuiBulldozer());
-		ClientProxy.ModGuis.put(ModRegistry.InstantBridge(), new GuiInstantBridge());
-		ClientProxy.ModGuis.put(ModRegistry.StructurePart(), new GuiStructurePart());
 	}
 }

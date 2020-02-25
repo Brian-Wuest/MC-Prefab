@@ -20,6 +20,8 @@
     "item.prefab.item_moderate_house": "モデレートハウス",
     "item.prefab.item_bulldozer": "ブルドーザー",
     "item.prefab.item_structure_part": "ストラクチャーパレット",
+    "item.prefab.item_heap_of_timber": "木材の山",
+    "item.prefab.item_ton_of_timber": "木材のトン",
 
     "item.prefab.item_advanced.chicken.coop": "上位鶏舎",
     "item.prefab.item_advanced.horse.stable": "上位厩舎",
@@ -40,6 +42,8 @@
     "item.prefab.item_jail": "刑務所",
     "item.prefab.item_saloon": "サルーン",
     "item.prefab.item_ski_lodge": "スキーロッジ",
+    "item.prefab.item_wind_mill": "風車",
+    "item.prefab.item_town_hall": "町役場",
 
     "block.prefab.block_compressed_stone": "圧縮石",
     "block.prefab.block_double_compressed_stone": "二重圧縮石",
@@ -135,7 +139,7 @@
     "prefab.gui.structure.facing.player": "注：北を向いている場合は、南を選択して、構造物があなたに向くようにします。",
     "prefab.gui.structure.block.clicked": "右側の画像の赤いボックスは、クリックしたブロックを示しています。",
     "prefab.gui.structure.door.facing": "注：北を向いている場合は、ドアがあなたに向いているように南を選択します。",
-    "prefab.gui.structure.nobuild": "保護されたブロック/エリアのために構造を構築できないか、そのエリアに破損しないブロックがあります。",
+    "prefab.gui.structure.nobuild": "保護されたブロック/エリアのために構造を構築できないか、そのエリアに破損しないブロックがあります。 ブロック名：%1$s ブロック位置：x=%2$s, y=%3$s, z=%4$s。",
 
     "prefab.gui.button.build": "建築",
     "prefab.gui.button.cancel": "キャンセル",

@@ -1,8 +1,6 @@
 package com.wuest.prefab.Structures.Config;
 
 import com.wuest.prefab.Structures.Items.StructureItem;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -205,13 +203,14 @@ public class StructureConfiguration {
 		return stack1.getItem() == stack2.getItem() && ItemStack.areItemStackTagsEqual(stack1, stack2);
 	}
 
-    /**
-     * Get's the first slot which contains the item in the supplied item stack in the player's main inventory.
-     * This method was copied directly from teh player inventory class since it was needed server side.
-     * @param playerInventory The player's inventory to try and find a slot.
-     * @param stack The stack to find an associated slot.
-     * @return The slot index or -1 if the item wasn't found.
-     */
+	/**
+	 * Get's the first slot which contains the item in the supplied item stack in the player's main inventory.
+	 * This method was copied directly from teh player inventory class since it was needed server side.
+	 *
+	 * @param playerInventory The player's inventory to try and find a slot.
+	 * @param stack           The stack to find an associated slot.
+	 * @return The slot index or -1 if the item wasn't found.
+	 */
 	public int getSlotFor(PlayerInventory playerInventory, ItemStack stack) {
 		for (int i = 0; i < playerInventory.mainInventory.size(); ++i) {
 			if (!playerInventory.mainInventory.get(i).isEmpty() && this.stackEqualExact(stack, playerInventory.mainInventory.get(i))) {

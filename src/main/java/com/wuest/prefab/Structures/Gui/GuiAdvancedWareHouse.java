@@ -7,16 +7,16 @@ import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureCon
  */
 public class GuiAdvancedWareHouse extends GuiWareHouse {
 
-    public GuiAdvancedWareHouse() {
-        super();
-        this.clientGUIIdentifier = "Advanced Warehouse";
-    }
+	public GuiAdvancedWareHouse() {
+		super();
+		this.clientGUIIdentifier = "Advanced Warehouse";
+	}
 
-    @Override
-    public void Initialize() {
-        super.Initialize();
-        this.configuration.advanced = true;
-        this.structureConfiguration = EnumStructureConfiguration.AdvancedWareHouse;
-    }
+	@Override
+	public void Initialize() {
+		super.Initialize();
+		this.configuration.advanced = true;
+		this.structureConfiguration = EnumStructureConfiguration.AdvancedWareHouse;
+	}
 
 }

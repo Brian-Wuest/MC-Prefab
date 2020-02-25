@@ -8,17 +8,17 @@ import net.minecraft.network.PacketBuffer;
  */
 @SuppressWarnings("WeakerAccess")
 public class TagMessage {
-    protected CompoundNBT tagMessage;
+	protected CompoundNBT tagMessage;
 
-    protected TagMessage() {
-    }
+	protected TagMessage() {
+	}
 
-    public TagMessage(CompoundNBT tagMessage) {
-        this.tagMessage = tagMessage;
-    }
+	public TagMessage(CompoundNBT tagMessage) {
+		this.tagMessage = tagMessage;
+	}
 
-    public static <T extends TagMessage> T decode(PacketBuffer buf, Class<T> clazz) {
-        T message = null;
+	public static <T extends TagMessage> T decode(PacketBuffer buf, Class<T> clazz) {
+		T message = null;
 
         try {
             message = clazz.newInstance();
@@ -26,20 +26,20 @@ public class TagMessage {
             e.printStackTrace();
         }
 
-        assert message != null;
-        message.tagMessage = buf.readCompoundTag();
-        return message;
-    }
+		assert message != null;
+		message.tagMessage = buf.readCompoundTag();
+		return message;
+	}
 
-    public static <T extends TagMessage> void encode(T message, PacketBuffer buf) {
-        buf.writeCompoundTag(message.tagMessage);
-    }
+	public static <T extends TagMessage> void encode(T message, PacketBuffer buf) {
+		buf.writeCompoundTag(message.tagMessage);
+	}
 
-    public CompoundNBT getMessageTag() {
-        return this.tagMessage;
-    }
+	public CompoundNBT getMessageTag() {
+		return this.tagMessage;
+	}
 
-    public void setMessageTag(CompoundNBT value) {
-        this.tagMessage = value;
-    }
+	public void setMessageTag(CompoundNBT value) {
+		this.tagMessage = value;
+	}
 }

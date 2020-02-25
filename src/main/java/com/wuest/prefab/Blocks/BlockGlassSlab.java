@@ -64,8 +64,8 @@ public class BlockGlassSlab extends GlassBlock implements IWaterLoggable {
 		*/
 		return tags.contains(adjacentBlock) || (adjacentBlock == this
 				&& (adjacentBlockState.get(SlabBlock.TYPE) == state.get(SlabBlock.TYPE)
-					|| (adjacentBlockState.get(SlabBlock.TYPE) == SlabType.DOUBLE
-						&& state.get(SlabBlock.TYPE) != SlabType.DOUBLE)));
+				|| (adjacentBlockState.get(SlabBlock.TYPE) == SlabType.DOUBLE
+				&& state.get(SlabBlock.TYPE) != SlabType.DOUBLE)));
 	}
 
 	@Override

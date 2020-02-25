@@ -354,10 +354,18 @@ public class Structure {
 				.offset(Direction.UP, this.clearSpace.getShape().getHeight());
 
 		// Make sure this structure can be placed here.
-		if (!BuildingMethods.CheckBuildSpaceForAllowedBlockReplacement(world, startBlockPos, endBlockPos, player)) {
+		Triple<Boolean, BlockState, BlockPos> checkResult = BuildingMethods.CheckBuildSpaceForAllowedBlockReplacement(world, startBlockPos, endBlockPos, player);
+
+		if (!checkResult.getFirst()) {
 			// Send a message to the player saying that the structure could not
 			// be built.
-			player.sendMessage(new TranslationTextComponent(GuiLangKeys.GUI_STRUCTURE_NOBUILD).setStyle(new Style().setColor(TextFormatting.GREEN)));
+			player.sendMessage(new TranslationTextComponent(
+					GuiLangKeys.GUI_STRUCTURE_NOBUILD,
+					checkResult.getSecond().getBlock().getRegistryName().toString(),
+					checkResult.getThird().getX(),
+					checkResult.getThird().getY(),
+					checkResult.getThird().getZ())
+					.setStyle(new Style().setColor(TextFormatting.GREEN)));
 			return false;
 		}
 

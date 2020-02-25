@@ -15,99 +15,99 @@ import net.minecraft.util.ResourceLocation;
  */
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class BuildEntity {
-    @Expose
-    public double entityXAxisOffset;
-    @Expose
-    public double entityYAxisOffset;
-    @Expose
-    public double entityZAxisOffset;
-    @Expose
-    public Direction entityFacing;
-    @Expose
-    private int entityId;
-    @Expose
-    private String entityResourceLocation;
-    @Expose
-    private PositionOffset startingPosition;
-    @Expose
-    private String entityNBTData;
+	@Expose
+	public double entityXAxisOffset;
+	@Expose
+	public double entityYAxisOffset;
+	@Expose
+	public double entityZAxisOffset;
+	@Expose
+	public Direction entityFacing;
+	@Expose
+	private int entityId;
+	@Expose
+	private String entityResourceLocation;
+	@Expose
+	private PositionOffset startingPosition;
+	@Expose
+	private String entityNBTData;
 
-    /**
-     * Initializes a new instance of the BuildEntity class.
-     */
-    public BuildEntity() {
-        this.Initialize();
-    }
+	/**
+	 * Initializes a new instance of the BuildEntity class.
+	 */
+	public BuildEntity() {
+		this.Initialize();
+	}
 
-    public int getEntityId() {
-        return this.entityId;
-    }
+	public int getEntityId() {
+		return this.entityId;
+	}
 
-    public void setEntityId(int value) {
-        this.entityId = value;
-    }
+	public void setEntityId(int value) {
+		this.entityId = value;
+	}
 
-    public String getEntityResourceString() {
-        return this.entityResourceLocation;
-    }
+	public String getEntityResourceString() {
+		return this.entityResourceLocation;
+	}
 
-    public void setEntityResourceString(String value) {
-        this.entityResourceLocation = value;
-    }
+	public void setEntityResourceString(String value) {
+		this.entityResourceLocation = value;
+	}
 
-    public void setEntityResourceString(ResourceLocation value) {
-        this.entityResourceLocation = value.toString();
-    }
+	public void setEntityResourceString(ResourceLocation value) {
+		this.entityResourceLocation = value.toString();
+	}
 
-    public ResourceLocation getEntityResource() {
-        return new ResourceLocation(this.entityResourceLocation);
-    }
+	public ResourceLocation getEntityResource() {
+		return new ResourceLocation(this.entityResourceLocation);
+	}
 
-    public PositionOffset getStartingPosition() {
-        return this.startingPosition;
-    }
+	public PositionOffset getStartingPosition() {
+		return this.startingPosition;
+	}
 
-    public void setStartingPosition(PositionOffset value) {
-        this.startingPosition = value;
-    }
+	public void setStartingPosition(PositionOffset value) {
+		this.startingPosition = value;
+	}
 
-    public String getEntityNBTData() {
-        return this.entityNBTData;
-    }
+	public String getEntityNBTData() {
+		return this.entityNBTData;
+	}
 
-    public void setEntityNBTData(String value) {
-        this.entityNBTData = value;
-    }
+	public void setEntityNBTData(String value) {
+		this.entityNBTData = value;
+	}
 
-    public void setEntityNBTData(CompoundNBT tagCompound) {
-        this.entityNBTData = tagCompound.toString();
-    }
+	public void setEntityNBTData(CompoundNBT tagCompound) {
+		this.entityNBTData = tagCompound.toString();
+	}
 
-    /**
-     * Initializes any properties to their default properties.
-     */
-    public void Initialize() {
-        this.entityId = 0;
-        this.startingPosition = new PositionOffset();
-        this.entityNBTData = "";
-        this.entityXAxisOffset = 0;
-        this.entityYAxisOffset = 0;
-        this.entityZAxisOffset = 0;
-        this.entityFacing = Direction.NORTH;
-    }
+	/**
+	 * Initializes any properties to their default properties.
+	 */
+	public void Initialize() {
+		this.entityId = 0;
+		this.startingPosition = new PositionOffset();
+		this.entityNBTData = "";
+		this.entityXAxisOffset = 0;
+		this.entityYAxisOffset = 0;
+		this.entityZAxisOffset = 0;
+		this.entityFacing = Direction.NORTH;
+	}
 
-    public CompoundNBT getEntityDataTag() {
-        CompoundNBT tag = null;
+	public CompoundNBT getEntityDataTag() {
+		CompoundNBT tag = null;
 
-        if (!this.entityNBTData.equals("")) {
-            try {
-                tag = JsonToNBT.getTagFromJson(this.entityNBTData);
-            } catch (CommandSyntaxException e) {
-                e.printStackTrace();
-            }
-        }
+		if (!this.entityNBTData.equals("")) {
+			try {
+				tag = JsonToNBT.getTagFromJson(this.entityNBTData);
+			} catch (CommandSyntaxException e) {
+				e.printStackTrace();
+			}
+		}
 
-        return tag;
-    }
+		return tag;
+	}
 
 }

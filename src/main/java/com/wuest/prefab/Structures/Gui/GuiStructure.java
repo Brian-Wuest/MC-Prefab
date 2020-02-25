@@ -37,9 +37,46 @@ public abstract class GuiStructure extends GuiBase {
 
 	protected int textColor = Color.DARK_GRAY.getRGB();
 	protected EnumStructureConfiguration structureConfiguration;
+	private Direction structureFacing;
 
 	public GuiStructure(String title) {
 		super(title);
+	}
+
+	/**
+	 * Draws a textured rectangle Args: x, y, z, width, height, textureWidth, textureHeight
+	 *
+	 * @param x             The X-Axis screen coordinate.
+	 * @param y             The Y-Axis screen coordinate.
+	 * @param z             The Z-Axis screen coordinate.
+	 * @param width         The width of the rectangle.
+	 * @param height        The height of the rectangle.
+	 * @param textureWidth  The width of the texture.
+	 * @param textureHeight The height of the texture.
+	 */
+	public static void drawModalRectWithCustomSizedTexture(int x, int y, int z, int width, int height, float textureWidth, float textureHeight) {
+		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.enableBlend();
+		GlStateManager.blendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
+
+		float u = 0;
+		float v = 0;
+		float f = 1.0F / textureWidth;
+		float f1 = 1.0F / textureHeight;
+		Tessellator tessellator = Tessellator.getInstance();
+		BufferBuilder vertexBuffer = tessellator.getBuffer();
+
+		vertexBuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
+
+		vertexBuffer.pos(x, y + height, z).tex(u * f, (v + height) * f1).endVertex();
+
+		vertexBuffer.pos(x + width, y + height, z).tex((u + width) * f, (v + height) * f1).endVertex();
+
+		vertexBuffer.pos(x + width, y, z).tex((u + width) * f, v * f1).endVertex();
+
+		vertexBuffer.pos(x, y, z).tex(u * f, v * f1).endVertex();
+
+		tessellator.draw();
 	}
 
 	@Override

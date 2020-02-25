@@ -20,6 +20,8 @@
   "item.prefab.item_moderate_house": "豪华小屋",
   "item.prefab.item_bulldozer": "整地器",
   "item.prefab.item_structure_part": "结构部件",
+  "item.prefab.item_heap_of_timber": "木材堆",
+  "item.prefab.item_ton_of_timber": "木材吨",
 
   "item.prefab.item_advanced_chicken_coop": "高级鸡舍",
   "item.prefab.item_advanced_horse_stable": "高级马厩",
@@ -40,6 +42,8 @@
   "item.prefab.item_jail": "监狱",
   "item.prefab.item_saloon": "轿车",
   "item.prefab.item_ski_lodge": "滑雪屋",
+  "item.prefab.item_wind_mill": "风车",
+  "item.prefab.item_town_hall": "市政厅",
 
   "block.prefab.block_compressed_stone": "压缩石头",
   "block.prefab.block_double_compressed_stone": "双倍压缩石头",
@@ -135,7 +139,7 @@
   "prefab.gui.structure.facing.player": "注意：如果你面朝北方，此时选择南方结构会面朝你。",
   "prefab.gui.structure.block.clicked": "右图中的红色方框展示了可点击的方块。",
   "prefab.gui.structure.door.facing": "注意：如果你面朝北方，此时选择南方大门会面朝你。",
-  "prefab.gui.structure.nobuild": "区域内有被保护的或无法破坏的方块，无法建造结构。",
+  "prefab.gui.structure.nobuild": "区域内有被保护的或无法破坏的方块，无法建造结构。块名：%1$s 块位置：x=%2$s, y=%3$s, z=%4$s。",
 
   "prefab.gui.button.build": "建造！",
   "prefab.gui.button.cancel": "取消",

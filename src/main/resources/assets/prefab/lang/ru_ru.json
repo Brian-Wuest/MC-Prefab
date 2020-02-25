@@ -20,6 +20,8 @@
   "item.prefab.item_moderate_house": "Умеренный дом",
   "item.prefab.item_bulldozer": "Бульдозер",
   "item.prefab.item_structure_part": "Составная часть",
+  "item.prefab.item_heap_of_timber": "Куча древесины",
+  "item.prefab.item_ton_of_timber": "Тонна древесины",
 
   "item.prefab.item_advanced_chicken_coop": "Расширенный курятник",
   "item.prefab.item_advanced_horse_stable": "Расширенная конюшня для лошади",
@@ -40,6 +42,8 @@
   "item.prefab.item_jail": "тюрьма",
   "item.prefab.item.saloon": "салон",
   "item.prefab.item_ski_lodge": "Лыжная база",
+  "item.prefab.item_wind_mill": "ветряная мельница",
+  "item.prefab.item_town_hall": "Городской зал",
 
   "block.prefab.block_compressed_stone": "Сжатый камень",
   "block.prefab.block_double_compressed_stone": "Двойной сжатый камень",
@@ -135,7 +139,7 @@
   "prefab.gui.structure.facing.player": "Примечание: Если Вы обращены на север, выберите юг, чтобы структура была обращена к Вам.",
   "prefab.gui.structure.block.clicked": "Красный прямоугольник на изображении справа показывает блок, на котором вы нажали.",
   "prefab.gui.structure.door.facing": "Примечание: Если Вы обращены на север, выберите юг, чтобы двери были обращены к Вам.",
-  "prefab.gui.structure.nobuild": "Не удается построить структуру из-за охраняемых блоков/области или неразрывныех блоков в этой области.",
+  "prefab.gui.structure.nobuild": "Не удается построить структуру из-за охраняемых блоков/области или неразрывныех блоков в этой области. Имя блока: %1$s Положение блока: x=%2$s, y=%3$s, z=%4$s.",
 
   "prefab.gui.button.build": "Строить!",
   "prefab.gui.button.cancel": "Отмена",

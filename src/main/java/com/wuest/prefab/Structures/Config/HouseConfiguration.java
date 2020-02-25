@@ -214,12 +214,12 @@ public class HouseConfiguration extends StructureConfiguration {
 				153,
 				"assets/prefab/structures/desert_house2.zip"),
 		SUBAQUATIC(7,
-					GuiLangKeys.STARTER_HOUSE_SUBAQUATIC_DISPLAY,
-					new ResourceLocation("prefab", "textures/gui/subaquatic_house.png"),
-					GuiLangKeys.STARTER_HOUSE_SUBAQUATIC_NOTES,
-					144,
-					162,
-					"assets/prefab/structures/subaquatic_house.zip");
+				GuiLangKeys.STARTER_HOUSE_SUBAQUATIC_DISPLAY,
+				new ResourceLocation("prefab", "textures/gui/subaquatic_house.png"),
+				GuiLangKeys.STARTER_HOUSE_SUBAQUATIC_NOTES,
+				144,
+				162,
+				"assets/prefab/structures/subaquatic_house.zip");
 
 		private final int value;
 		private final String displayName;
@@ -248,8 +248,7 @@ public class HouseConfiguration extends StructureConfiguration {
 		public static HouseStyle ValueOf(int value) {
 			HouseStyle returnValue = HouseStyle.BASIC;
 
-			for (HouseStyle current : HouseStyle.values())
-			{
+			for (HouseStyle current : HouseStyle.values()) {
 				if (current.value == value) {
 					returnValue = current;
 					break;
