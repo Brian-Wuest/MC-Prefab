@@ -32,7 +32,7 @@ public class BlockPaperLantern extends Block {
 				.sound(SoundType.SNOW)
 				.hardnessAndResistance(0.6f)
 				.lightValue(14)
-				.func_226896_b_());
+				.notSolid());
 
 		ModRegistry.setBlockName(this, name);
 	}

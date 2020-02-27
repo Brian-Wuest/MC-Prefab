@@ -278,9 +278,9 @@ public final class StructureEventHandler {
 							}
 
 							ListNBT nbttaglist = new ListNBT();
-							nbttaglist.add(DoubleNBT.func_229684_a_(entityPos.getX()));
-							nbttaglist.add(DoubleNBT.func_229684_a_(entityPos.getY()));
-							nbttaglist.add(DoubleNBT.func_229684_a_(entityPos.getZ()));
+							nbttaglist.add(DoubleNBT.valueOf(entityPos.getX()));
+							nbttaglist.add(DoubleNBT.valueOf(entityPos.getY()));
+							nbttaglist.add(DoubleNBT.valueOf(entityPos.getZ()));
 							tagCompound.put("Pos", nbttaglist);
 
 							entity.read(tagCompound);
@@ -495,7 +495,7 @@ public final class StructureEventHandler {
 
 		// The function call below set the following fields from the "entity" class. posX, posY, posZ.
 		// This will probably have to change when the mappings get updated.
-		entity.func_226288_n_(d0, d1, d2);
+		entity.setRawPosition(d0, d1, d2);
 		double d6 = entity.getWidthPixels();
 		double d7 = entity.getHeightPixels();
 		double d8 = entity.getWidthPixels();

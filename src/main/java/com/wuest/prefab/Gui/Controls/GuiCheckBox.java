@@ -79,10 +79,6 @@ public class GuiCheckBox extends CheckboxButton {
 		return this;
 	}
 
-	public boolean isChecked() {
-		return this.func_212942_a();
-	}
-
 	/**
 	 * Draws this button to the screen.
 	 */
@@ -114,7 +110,7 @@ public class GuiCheckBox extends CheckboxButton {
 				color = 10526880;
 			}
 
-			if (this.func_212942_a()) {
+			if (this.isChecked()) {
 				this.drawCenteredString(this.mineCraft.fontRenderer, "x", this.x + this.boxWidth / 2 + 1, this.y + 1, 14737632);
 			}
 

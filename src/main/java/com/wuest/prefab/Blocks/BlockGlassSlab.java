@@ -39,9 +39,9 @@ public class BlockGlassSlab extends GlassBlock implements IWaterLoggable {
 		this.setDefaultState(this.getDefaultState().with(SlabBlock.TYPE, SlabType.BOTTOM).with(WATERLOGGED, Boolean.FALSE));
 	}
 
-	// This is basically the "isDouble" function.
+	// This is basically the "isTransparent" function.
 	@Override
-	public boolean func_220074_n(BlockState state) {
+	public boolean isTransparent(BlockState state) {
 		return state.get(SlabBlock.TYPE) != SlabType.DOUBLE;
 	}
 

@@ -65,13 +65,13 @@ public abstract class GuiStructure extends GuiBase {
 		vertexBuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
 
 		// This was the "pos" and "tex" method.
-		vertexBuffer.func_225582_a_(x, y + height, z).func_225583_a_(u * f, (v + height) * f1).endVertex();
+		vertexBuffer.pos(x, y + height, z).tex(u * f, (v + height) * f1).endVertex();
 
-		vertexBuffer.func_225582_a_(x + width, y + height, z).func_225583_a_((u + width) * f, (v + height) * f1).endVertex();
+		vertexBuffer.pos(x + width, y + height, z).tex((u + width) * f, (v + height) * f1).endVertex();
 
-		vertexBuffer.func_225582_a_(x + width, y, z).func_225583_a_((u + width) * f, v * f1).endVertex();
+		vertexBuffer.pos(x + width, y, z).tex((u + width) * f, v * f1).endVertex();
 
-		vertexBuffer.func_225582_a_(x, y, z).func_225583_a_(u * f, v * f1).endVertex();
+		vertexBuffer.pos(x, y, z).tex(u * f, v * f1).endVertex();
 
 		tessellator.draw();
 	}

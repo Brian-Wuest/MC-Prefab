@@ -64,7 +64,7 @@ public class BlockPhasing extends Block {
 		super(Properties.create(Prefab.SeeThroughImmovable)
 				.sound(SoundType.STONE)
 				.hardnessAndResistance(0.6f)
-				.func_226896_b_());
+				.notSolid());
 
 		this.setDefaultState(this.stateContainer.getBaseState().with(Phasing_Out, false).with(Phasing_Progress, EnumPhasingProgress.base));
 
@@ -78,7 +78,7 @@ public class BlockPhasing extends Block {
 
 	// This was the "onBlockActivated" method.
 	@Override
-	public ActionResultType func_225533_a_(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTrace) {
+	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTrace) {
 		if (!world.isRemote) {
 			EnumPhasingProgress progress = state.get(Phasing_Progress);
 
@@ -168,7 +168,7 @@ public class BlockPhasing extends Block {
 
 	// TODO: This used to be "tick"
 	@Override
-	public void func_225534_a_(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
+	public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
 		int tickDelay = this.tickRate;
 
 		if (ModEventHandler.RedstoneAffectedBlockPositions.contains(pos)) {

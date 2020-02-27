@@ -56,7 +56,7 @@ public class BlockBoundary extends Block {
 		super(Block.Properties.create(Prefab.SeeThroughImmovable)
 				.sound(SoundType.STONE)
 				.hardnessAndResistance(0.6F)
-				.func_226896_b_());
+				.notSolid());
 
 		this.itemGroup = ItemGroup.BUILDING_BLOCKS;
 		this.setDefaultState(this.stateContainer.getBaseState().with(Powered, false));
@@ -74,7 +74,7 @@ public class BlockBoundary extends Block {
 		RenderState renderState = (RenderState) layer;
 
 		// first part is translucent, second is for solid.
-		return (layer == RenderType.func_228645_f_() && !powered) || (layer == RenderType.func_228639_c_() && powered);
+		return (layer == RenderType.getTranslucent() && !powered) || (layer == RenderType.getSolid() && powered);
 	}
 
 	@Override

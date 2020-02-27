@@ -219,9 +219,9 @@ public class Structure {
 
 				// The function calls below get the following fields from the "entity" class. posX, posY, posZ.
 				// This will probably have to change when the mappings get updated.
-				buildEntity.entityXAxisOffset = entityPos.getX() - entity.func_226277_ct_();
-				buildEntity.entityYAxisOffset = entityPos.getY() - entity.func_226278_cu_();
-				buildEntity.entityZAxisOffset = entityPos.getZ() - entity.func_226281_cx_();
+				buildEntity.entityXAxisOffset = entityPos.getX() - entity.getPosX();
+				buildEntity.entityYAxisOffset = entityPos.getY() - entity.getPosY();
+				buildEntity.entityZAxisOffset = entityPos.getZ() - entity.getPosZ();
 
 				if (entity instanceof ItemFrameEntity) {
 					buildEntity.entityYAxisOffset = buildEntity.entityYAxisOffset * -1;

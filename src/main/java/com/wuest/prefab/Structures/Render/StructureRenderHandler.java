@@ -49,7 +49,7 @@ public class StructureRenderHandler {
 	public static boolean rendering = false;
 	public static boolean showedMessage = false;
 	private static int dimension;
-	private static int overlay = OverlayTexture.func_229201_a_(5, 10);
+	private static int overlay = OverlayTexture.getPackedUV(5, 10);
 
 	/**
 	 * Resets the structure to show in the world.
@@ -85,7 +85,7 @@ public class StructureRenderHandler {
 			rendering = true;
 			boolean didAny = false;
 
-			IRenderTypeBuffer.Impl entityVertexConsumer = Minecraft.getInstance().func_228019_au_().func_228489_c_();
+			IRenderTypeBuffer.Impl entityVertexConsumer = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
 			ArrayList<Pair<BlockState, BlockPos>> entityModels = new ArrayList<>();
 
 			for (BuildBlock buildBlock : StructureRenderHandler.currentStructure.getBlocks()) {
@@ -125,16 +125,16 @@ public class StructureRenderHandler {
 
 			ShaderHelper.useShader(ShaderHelper.alphaShader, shader -> {
 				// getUniformLocation
-				int alpha = GlStateManager.func_227680_b_(shader, "alpha");
+				int alpha = GlStateManager.getUniformLocation(shader, "alpha");
 				ShaderHelper.FLOAT_BUF.position(0);
 				ShaderHelper.FLOAT_BUF.put(0, 0.4F);
 
 				// uniform1
-				GlStateManager.func_227681_b_(alpha, ShaderHelper.FLOAT_BUF);
+				GlStateManager.uniform1f(alpha, ShaderHelper.FLOAT_BUF);
 			});
 
 			// Draw function.
-			entityVertexConsumer.func_228461_a_();
+			entityVertexConsumer.finish();
 
 			ShaderHelper.releaseShader();
 
@@ -203,14 +203,15 @@ public class StructureRenderHandler {
 		double renderPosZ = projectedView.getZ();
 
 		// push
-		matrixStack.func_227860_a_();
+		matrixStack.push();
 
 		// Translate function.
-		matrixStack.func_227861_a_(-renderPosX, -renderPosY, -renderPosZ);
+		matrixStack.translate(-renderPosX, -renderPosY, -renderPosZ);
 
 		BlockRendererDispatcher renderer = minecraft.getBlockRendererDispatcher();
 
-		matrixStack.func_227861_a_(pos.getX(), pos.getY(), pos.getZ());
+		// Translate.
+		matrixStack.translate(pos.getX(), pos.getY(), pos.getZ());
 
 		ClientWorld world = Minecraft.getInstance().world;
 		IModelData model = renderer.getModelForState(state).getModelData(world, new BlockPos(pos), state, ModelDataManager.getModelData(world, new BlockPos(pos)));
@@ -218,21 +219,21 @@ public class StructureRenderHandler {
 
 		if (blockRenderType == BlockRenderType.MODEL) {
 			// getColor function.
-			int color = minecraft.getBlockColors().func_228054_a_(state, null, null, 0);
+			int color = minecraft.getBlockColors().getColor(state, null, null, 0);
 			float r = (float) (color >> 16 & 255) / 255.0F;
 			float g = (float) (color >> 8 & 255) / 255.0F;
 			float b = (float) (color & 255) / 255.0F;
 
-			renderer.getBlockModelRenderer().func_228804_a_(
-					matrixStack.func_227866_c_(),
-					entityVertexConsumer.getBuffer(Atlases.func_228784_i_()),
+			renderer.getBlockModelRenderer().renderModelBrightnessColor(
+					matrixStack.getLast(),
+					entityVertexConsumer.getBuffer(Atlases.getTranslucentBlockType()),
 					state,
 					bakedModel,
 					r,
 					g,
 					b,
 					0xF000F0,
-					OverlayTexture.field_229196_a_);
+					OverlayTexture.NO_OVERLAY);
 		} else if (blockRenderType == BlockRenderType.ENTITYBLOCK_ANIMATED) {
 			renderer.renderBlock(
 					state,
@@ -244,7 +245,7 @@ public class StructureRenderHandler {
 		}
 
 		// pop
-		matrixStack.func_227865_b_();
+		matrixStack.pop();
 	}
 
 	private static void renderModel(MatrixStack matrixStack, Vec3d pos, BlockState state, IRenderTypeBuffer entityVertexConsumer) {

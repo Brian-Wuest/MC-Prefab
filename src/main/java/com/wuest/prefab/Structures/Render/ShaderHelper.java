@@ -4,6 +4,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.wuest.prefab.Events.ClientEventHandler;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.shader.ShaderLinkHelper;
 import net.minecraft.resources.IReloadableResourceManager;
 import net.minecraft.resources.IResourceManagerReloadListener;
 import org.lwjgl.opengl.ARBFragmentShader;
@@ -54,15 +55,17 @@ public class ShaderHelper {
 		lighting = GL11.glGetBoolean(GL11.GL_LIGHTING);
 
 		// disableLighting
-		GlStateManager.func_227722_g_();
-		GlStateManager.func_227723_g_(shader);
+		GlStateManager.disableLighting();
+
+		// useProgram
+		GlStateManager.useProgram(shader);
 
 		if (shader != 0) {
 			// getUniformLocation
-			int time = GlStateManager.func_227680_b_(shader, "time");
+			int time = GlStateManager.getUniformLocation(shader, "time");
 
 			// uniform1
-			GlStateManager.func_227718_f_(time, ClientEventHandler.ticksInGame);
+			GlStateManager.uniform1i(time, ClientEventHandler.ticksInGame);
 
 			if (callback != null)
 				callback.call(shader);
