@@ -1,20 +1,15 @@
 package com.wuest.prefab.Structures.Config;
 
-import com.wuest.prefab.Config.EntityPlayerConfiguration;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.ModRegistry;
-import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Proxy.Messages.PlayerEntityTagMessage;
 import com.wuest.prefab.Structures.Predefined.StructureAlternateStart;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.fml.network.NetworkDirection;
 
 /**
  * This class is used to determine the configuration for a particular house.
@@ -169,16 +164,7 @@ public class HouseConfiguration extends StructureConfiguration {
 
 		// The house was successfully built, remove the item from the inventory.
 		if (houseBuilt) {
-			EntityPlayerConfiguration playerConfig = EntityPlayerConfiguration.loadFromEntityData(player);
-			playerConfig.builtStarterHouse = true;
-			playerConfig.saveToPlayer(player);
-
 			this.RemoveStructureItemFromPlayer(player, ModRegistry.StartHouse());
-
-			// Make sure to send a message to the client to sync up the server player information and the client player
-			// information.
-			Prefab.network.sendTo(new PlayerEntityTagMessage(playerConfig.getModIsPlayerNewTag(player)), ((ServerPlayerEntity) player).connection.netManager,
-					NetworkDirection.PLAY_TO_CLIENT);
 		}
 	}
 

@@ -1,7 +1,9 @@
 package com.wuest.prefab.Structures.Predefined;
 
 import com.wuest.prefab.Config.EntityPlayerConfiguration;
+import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Proxy.CommonProxy;
+import com.wuest.prefab.Proxy.Messages.PlayerEntityTagMessage;
 import com.wuest.prefab.Structures.Base.BuildBlock;
 import com.wuest.prefab.Structures.Base.BuildClear;
 import com.wuest.prefab.Structures.Base.Structure;
@@ -9,6 +11,7 @@ import com.wuest.prefab.Structures.Config.ModerateHouseConfiguration;
 import com.wuest.prefab.Structures.Config.StructureConfiguration;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -21,6 +24,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
@@ -220,6 +224,11 @@ public class StructureModerateHouse extends Structure {
 		// Make sure to set this value so the player cannot fill the chest a second time.
 		playerConfig.builtStarterHouse = true;
 		playerConfig.saveToPlayer(player);
+
+		// Make sure to send a message to the client to sync up the server player information and the client player
+		// information.
+		Prefab.network.sendTo(new PlayerEntityTagMessage(playerConfig.getModIsPlayerNewTag(player)), ((ServerPlayerEntity) player).connection.netManager,
+				NetworkDirection.PLAY_TO_CLIENT);
 	}
 
 }
