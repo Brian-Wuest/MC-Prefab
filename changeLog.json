@@ -7,10 +7,10 @@
 	  "1.11.2-recommended": "1.2.0.19",
 	  "1.12-latest": "1.3.0.26",
 	  "1.12-recommended": "1.3.0.26",
-	  "1.14-latest": "1.4.0.9",
-	  "1.14-recommended": "1.4.0.9",
-	  "1.15-latest": "1.5.0.0",
-	  "1.15-recommended": "1.5.0.0"
+	  "1.14-latest": "1.4.0.10",
+	  "1.14-recommended": "1.4.0.10",
+	  "1.15-latest": "1.5.0.1",
+	  "1.15-recommended": "1.5.0.1"
   },
   "1.10.2": {
 	  "1.1.1.10": "New Stuff: Added [Ender Gateway] structure. Added [Phasic Block] and [Boundary Block]\nSome buildings can now be generated in mod-created dimensions.",
@@ -77,9 +77,11 @@
 	 "1.4.0.6": "Fixed an issue caused by the forge version 28.0.92 and later.",
 	 "1.4.0.7": "Fixed an issue caused by the recommended version of forge. This marks the first non-beta release!",
 	 "1.4.0.8": "Latest forge update, fixing various rendering issues and blocks not dropping themselves.",
-	 "1.4.0.9": "Fixing issue with glass stairs not rendering correctly when around other glass blocks."
+	 "1.4.0.9": "Fixing issue with glass stairs not rendering correctly when around other glass blocks.",
+	 "1.4.0.10": "Adding windmill and town center. Adding Chinese(Traditional), fixing various bugs"
  },
  "1.15": {
-	"1.5.0.0": "Initial release for 1.15.2 containing the latest updates from 1.4.0.9."
+	"1.5.0.0": "Initial release for 1.15.2 containing the latest updates from 1.4.0.9.",
+	"1.5.0.1": "Adding windmill and town center. Adding Chinese(Traditional), fixing various bugs"
   }
 }
