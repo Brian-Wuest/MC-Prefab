@@ -135,6 +135,7 @@
 
   "prefab.gui.structure.facing": "结构朝向",
   "prefab.gui.structure.glass": "玻璃颜色",
+  "prefab.gui.structure.bed_color": "床颜色",
 
   "prefab.gui.structure.facing.player": "注意：如果你面朝北方，此时选择南方结构会面朝你。",
   "prefab.gui.structure.block.clicked": "右图中的红色方框展示了可点击的方块。",

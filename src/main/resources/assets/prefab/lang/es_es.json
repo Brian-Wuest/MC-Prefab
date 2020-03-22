@@ -134,6 +134,7 @@
 
     "prefab.gui.structure.facing": "Dirección de la estructura",
     "prefab.gui.structure.glass": "Color de cristal",
+    "prefab.gui.structure.bed_color": "Color de la cama",
 
     "prefab.gui.structure.facing.player": "Nota: Si está mirando hacia el norte, elija el sur para que la estructura se enfrente a usted.",
     "prefab.gui.structure.block.clicked": "El cuadro rojo de la imagen de la derecha muestra el bloque en el que hizo clic.",

@@ -31,6 +31,8 @@ public class StructureAlternateStart extends Structure {
 	private BlockPos furnacePosition = null;
 	private BlockPos trapDoorPosition = null;
 	private BlockPos signPosition = null;
+	private BlockPos bedHeadPosition = null;
+	private BlockPos bedFootPosition = null;
 
 	public static void ScanBasicHouseStructure(World world, BlockPos originalPos, Direction playerFacing) {
 		BuildClear clearedSpace = new BuildClear();
@@ -540,6 +542,12 @@ public class StructureAlternateStart extends Structure {
 					originalPos,
 					this.getClearSpace().getShape().getDirection(),
 					configuration.houseFacing);
+		} else if (foundBlock instanceof BedBlock && houseConfig.addBed) {
+			this.bedHeadPosition = block.getStartingPosition().getRelativePosition(originalPos, this.getClearSpace().getShape().getDirection(), configuration.houseFacing);
+			this.bedFootPosition = block.getSubBlock().getStartingPosition().getRelativePosition(
+					originalPos,
+					this.getClearSpace().getShape().getDirection(),
+					configuration.houseFacing);
 		}
 
 		if (foundBlock.getRegistryName().getNamespace().equals(Blocks.WHITE_STAINED_GLASS.getRegistryName().getNamespace())
@@ -609,6 +617,10 @@ public class StructureAlternateStart extends Structure {
 
 				signTile.signText[2] = new StringTextComponent("house!");
 			}
+		}
+
+		if (this.bedHeadPosition != null && houseConfig.addBed) {
+			BuildingMethods.PlaceColoredBed(world, this.bedHeadPosition, this.bedFootPosition, houseConfig.bedColor);
 		}
 	}
 }

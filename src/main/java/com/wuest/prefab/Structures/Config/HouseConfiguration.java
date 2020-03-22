@@ -35,6 +35,7 @@ public class HouseConfiguration extends StructureConfiguration {
 	private static String houseFacingTag = "houseFacing";
 	private static String houseStyleTag = "houseStyle";
 	private static String glassColorTag = "glassColor";
+	private static String bedColorTag = "bedColor";
 
 	public boolean addTorches;
 	public boolean addBed;
@@ -45,6 +46,7 @@ public class HouseConfiguration extends StructureConfiguration {
 	public boolean addMineShaft;
 	public HouseStyle houseStyle;
 	public DyeColor glassColor;
+	public DyeColor bedColor;
 
 	/**
 	 * Initializes a new instance of the {@link HouseConfiguration} class.
@@ -58,6 +60,7 @@ public class HouseConfiguration extends StructureConfiguration {
 		super.Initialize();
 		this.houseStyle = HouseStyle.BASIC;
 		this.glassColor = DyeColor.LIGHT_GRAY;
+		this.bedColor = DyeColor.RED;
 		this.addTorches = true;
 		this.addBed = true;
 		this.addCraftingTable = true;
@@ -87,6 +90,7 @@ public class HouseConfiguration extends StructureConfiguration {
 		tag.putString(HouseConfiguration.houseFacingTag, this.houseFacing.getName());
 		tag.putInt(HouseConfiguration.houseStyleTag, this.houseStyle.value);
 		tag.putString(HouseConfiguration.glassColorTag, this.glassColor.getName().toUpperCase());
+		tag.putString(HouseConfiguration.bedColorTag, this.bedColor.getName().toUpperCase());
 
 		return tag;
 	}
@@ -146,6 +150,10 @@ public class HouseConfiguration extends StructureConfiguration {
 
 			if (tag.contains(HouseConfiguration.glassColorTag)) {
 				config.glassColor = DyeColor.valueOf(tag.getString(HouseConfiguration.glassColorTag));
+			}
+
+			if (tag.contains(HouseConfiguration.bedColorTag)) {
+				config.bedColor = DyeColor.valueOf(tag.getString(HouseConfiguration.bedColorTag));
 			}
 		}
 
