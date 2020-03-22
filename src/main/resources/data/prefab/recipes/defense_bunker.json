@@ -20,10 +20,10 @@
       "item": "prefab:item_coil_of_lanterns"
     },
     "c": {
-      "tag": "forge:triple_compressed_stone"
+      "tag": "forge:storage_blocks/triple_compressed_stone"
     },
     "d": {
-      "tag": "forge:double_compressed_obsidian"
+      "tag": "forge:storage_blocks/double_compressed_obsidian"
     }
   },
   "result": {

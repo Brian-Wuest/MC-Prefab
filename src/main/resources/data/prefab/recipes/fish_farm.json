@@ -29,7 +29,7 @@
       "item": "minecraft:fishing_rod"
     },
     "f": {
-      "tag": "forge:double_compressed_dirt"
+      "tag": "forge:storage_blocks/double_compressed_dirt"
     },
     "g": {
       "tag": "minecraft:fishes"

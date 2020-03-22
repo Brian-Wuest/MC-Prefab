@@ -14,10 +14,10 @@
   ],
   "key": {
     "a": {
-      "tag": "forge:compressed_stone"
+      "tag": "forge:storage_blocks/compressed_stone"
     },
     "b": {
-      "tag": "forge:double_compressed_stone"
+      "tag": "forge:storage_blocks/double_compressed_stone"
     }
   },
   "result": {

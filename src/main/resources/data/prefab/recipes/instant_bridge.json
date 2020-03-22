@@ -17,7 +17,7 @@
       "item": "minecraft:torch"
     },
     "b": {
-      "tag": "forge:double_compressed_stone"
+      "tag": "forge:storage_blocks/double_compressed_stone"
     }
   },
   "result": {

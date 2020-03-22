@@ -20,7 +20,7 @@
       "item": "prefab:item_string_of_lanterns"
     },
     "c": {
-      "tag": "forge:triple_compressed_stone"
+      "tag": "forge:storage_blocks/triple_compressed_stone"
     }
   },
   "result": {

@@ -14,16 +14,16 @@
   ],
   "key": {
     "a": {
-      "tag": "forge:pallet_of_bricks"
+      "tag": "forge:storage_blocks/pallet_of_bricks"
     },
     "b": {
-      "tag": "forge:double_compressed_dirt"
+      "tag": "forge:storage_blocks/double_compressed_dirt"
     },
     "c": {
       "item": "minecraft:water_bucket"
     },
     "d": {
-      "tag": "forge:double_compressed_glow_stone"
+      "tag": "forge:storage_blocks/double_compressed_glow_stone"
     }
   },
   "result": {

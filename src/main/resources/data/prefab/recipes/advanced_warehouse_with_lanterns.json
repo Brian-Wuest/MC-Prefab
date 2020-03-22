@@ -14,7 +14,7 @@
   ],
   "key": {
     "a": {
-      "tag": "forge:double_compressed_stone"
+      "tag": "forge:storage_blocks/double_compressed_stone"
     },
     "b": {
       "item": "prefab:item_warehouse_upgrade"
@@ -26,7 +26,7 @@
       "item": "prefab:item_coil_of_lanterns"
     },
     "e": {
-      "tag": "forge:triple_compressed_stone"
+      "tag": "forge:storage_blocks/triple_compressed_stone"
     }
   },
   "result": {

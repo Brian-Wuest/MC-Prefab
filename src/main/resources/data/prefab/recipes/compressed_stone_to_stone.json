@@ -12,7 +12,7 @@
   "group": "Compressed Stone",
   "ingredients": [
     {
-      "tag": "forge:compressed_stone"
+      "tag": "forge:storage_blocks/compressed_stone"
     }
   ],
   "result": {

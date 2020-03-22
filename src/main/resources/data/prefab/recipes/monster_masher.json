@@ -29,13 +29,13 @@
       "item": "minecraft:zombie_head"
     },
     "f": {
-      "tag": "forge:double_compressed_stone"
+      "tag": "forge:storage_blocks/double_compressed_stone"
     },
     "g": {
-      "tag": "forge:triple_compressed_stone"
+      "tag": "forge:storage_blocks/triple_compressed_stone"
     },
     "h": {
-      "tag": "forge:double_compressed_glow_stone"
+      "tag": "forge:storage_blocks/double_compressed_glow_stone"
     }
   },
   "result": {

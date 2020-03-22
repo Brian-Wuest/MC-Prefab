@@ -17,13 +17,13 @@
       "item": "minecraft:iron_bars"
     },
     "b": {
-      "tag": "forge:triple_compressed_stone"
+      "tag": "forge:storage_blocks/triple_compressed_stone"
     },
     "c": {
-      "tag": "forge:double_compressed_dirt"
+      "tag": "forge:storage_blocks/double_compressed_dirt"
     },
     "d": {
-      "tag": "forge:double_compressed_stone"
+      "tag": "forge:storage_blocks/double_compressed_stone"
     }
   },
   "result": {

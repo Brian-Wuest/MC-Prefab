@@ -14,10 +14,10 @@
   ],
   "key": {
     "a": {
-      "tag": "forge:double_compressed_stone"
+      "tag": "forge:storage_blocks/double_compressed_stone"
     },
     "b": {
-      "tag": "forge:compressed_obsidian"
+      "tag": "forge:storage_blocks/compressed_obsidian"
     },
     "c": {
       "item": "minecraft:flint_and_steel"

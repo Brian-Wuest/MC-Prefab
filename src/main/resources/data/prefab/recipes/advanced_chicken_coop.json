@@ -12,7 +12,7 @@
       "item": "prefab:item_chicken_coop"
     },
     {
-      "tag": "forge:pallet_of_bricks"
+      "tag": "forge:storage_blocks/pallet_of_bricks"
     }
   ],
   "result": {

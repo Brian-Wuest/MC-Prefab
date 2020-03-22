@@ -23,7 +23,7 @@
       "item": "minecraft:egg"
     },
     "d": {
-      "tag": "forge:compressed_dirt"
+      "tag": "forge:storage_blocks/compressed_dirt"
     },
     "e": {
       "item": "minecraft:hay_block"

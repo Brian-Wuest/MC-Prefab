@@ -18,10 +18,10 @@
       "data": 1
     },
     "b": {
-      "tag": "forge:compressed_dirt"
+      "tag": "forge:storage_blocks/compressed_dirt"
     },
     "c": {
-      "tag": "forge:double_compressed_dirt"
+      "tag": "forge:storage_blocks/double_compressed_dirt"
     }
   },
   "result": {

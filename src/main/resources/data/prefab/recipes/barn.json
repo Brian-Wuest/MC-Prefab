@@ -14,16 +14,16 @@
   ],
   "key": {
     "a": {
-      "tag": "forge:pallet_of_bricks"
+      "tag": "forge:storage_blocks/pallet_of_bricks"
     },
     "b": {
-      "tag": "forge:compressed_glow_stone"
+      "tag": "forge:storage_blocks/compressed_glow_stone"
     },
     "c": {
       "item": "prefab:item_bundle_of_timber"
     },
     "d": {
-      "tag": "forge:compressed_dirt"
+      "tag": "forge:storage_blocks/compressed_dirt"
     }
   },
   "result": {

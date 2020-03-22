@@ -14,7 +14,7 @@
   ],
   "key": {
     "a": {
-      "tag": "forge:double_compressed_stone"
+      "tag": "forge:storage_blocks/double_compressed_stone"
     },
     "b": {
       "item": "prefab:item_warehouse_upgrade"
@@ -23,10 +23,10 @@
       "item": "prefab:item_compressed_chest"
     },
     "d": {
-      "tag": "forge:double_compressed_glow_stone"
+      "tag": "forge:storage_blocks/double_compressed_glow_stone"
     },
     "e": {
-      "tag": "forge:triple_compressed_stone"
+      "tag": "forge:storage_blocks/triple_compressed_stone"
     }
   },
   "result": {
