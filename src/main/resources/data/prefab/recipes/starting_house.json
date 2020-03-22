@@ -23,7 +23,7 @@
       "item": "minecraft:furnace"
     },
     "d": {
-      "tag": "prefab:compressed_stone1"
+      "tag": "forge:compressed_stone"
     },
     "e": {
       "tag": "minecraft:beds"

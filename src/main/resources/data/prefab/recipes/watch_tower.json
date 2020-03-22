@@ -14,10 +14,10 @@
   ],
   "key": {
     "a": {
-      "tag": "prefab:compressed_stone1"
+      "tag": "forge:compressed_stone"
     },
     "b": {
-      "tag": "prefab:compressed_stone2"
+      "tag": "forge:double_compressed_stone"
     }
   },
   "result": {

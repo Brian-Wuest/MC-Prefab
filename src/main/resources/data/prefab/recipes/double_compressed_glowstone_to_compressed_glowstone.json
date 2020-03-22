@@ -12,7 +12,7 @@
   "group": "Compressed Glowstone",
   "ingredients": [
     {
-      "tag": "prefab:compressed_glow_stone2"
+      "tag": "forge:double_compressed_glow_stone"
     }
   ],
   "result": {

@@ -14,17 +14,16 @@
   ],
   "key": {
     "a": {
-      "item": "minecraft:iron_bars",
-      "data": 32767
+      "item": "minecraft:iron_bars"
     },
     "b": {
-      "tag": "prefab:compressed_stone3"
+      "tag": "forge:triple_compressed_stone"
     },
     "c": {
-      "tag": "prefab:compressed_dirt2"
+      "tag": "forge:double_compressed_dirt"
     },
     "d": {
-      "tag": "prefab:compressed_stone2"
+      "tag": "forge:double_compressed_stone"
     }
   },
   "result": {

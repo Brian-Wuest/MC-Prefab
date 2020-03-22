@@ -26,17 +26,16 @@
       "item": "prefab:item_compressed_chest"
     },
     "e": {
-      "item": "minecraft:zombie_head",
-      "data": 0
+      "item": "minecraft:zombie_head"
     },
     "f": {
-      "tag": "prefab:compressed_stone2"
+      "tag": "forge:double_compressed_stone"
     },
     "g": {
-      "tag": "prefab:compressed_stone3"
+      "tag": "forge:triple_compressed_stone"
     },
     "h": {
-      "tag": "prefab:compressed_glow_stone2"
+      "tag": "forge:double_compressed_glow_stone"
     }
   },
   "result": {

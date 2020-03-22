@@ -14,16 +14,16 @@
   ],
   "key": {
     "a": {
-      "tag": "prefab:compressed_stone2"
+      "tag": "forge:double_compressed_stone"
     },
     "b": {
       "item": "prefab:item_compressed_chest"
     },
     "c": {
-      "tag": "prefab:compressed_glow_stone2"
+      "tag": "forge:double_compressed_glow_stone"
     },
     "d": {
-      "tag": "prefab:compressed_stone3"
+      "tag": "forge:triple_compressed_stone"
     }
   },
   "result": {

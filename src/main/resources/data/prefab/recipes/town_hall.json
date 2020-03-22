@@ -17,10 +17,10 @@
       "item": "prefab:item_ton_of_timber"
     },
     "b": {
-      "tag": "prefab:compressed_stone2"
+      "tag": "forge:double_compressed_stone"
     },
     "c": {
-      "tag": "prefab:compressed_dirt2"
+      "tag": "forge:double_compressed_dirt"
     },
     "d": {
       "item": "prefab:item_coil_of_lanterns"

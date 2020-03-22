@@ -17,7 +17,7 @@
       "item": "minecraft:torch"
     },
     "b": {
-      "tag": "prefab:compressed_stone2"
+      "tag": "forge:double_compressed_stone"
     }
   },
   "result": {

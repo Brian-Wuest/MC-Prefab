@@ -18,10 +18,10 @@
       "data": 1
     },
     "b": {
-      "tag": "prefab:compressed_dirt1"
+      "tag": "forge:compressed_dirt"
     },
     "c": {
-      "tag": "prefab:compressed_dirt2"
+      "tag": "forge:double_compressed_dirt"
     }
   },
   "result": {

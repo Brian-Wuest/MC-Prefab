@@ -20,7 +20,7 @@
       "item": "prefab:item_bundle_of_timber"
     },
     "c": {
-      "tag": "prefab:compressed_stone1"
+      "tag": "forge:compressed_stone"
     },
     "d": {
       "tag": "minecraft:beds"

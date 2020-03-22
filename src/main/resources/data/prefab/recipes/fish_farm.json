@@ -23,15 +23,13 @@
       "tag": "minecraft:saplings"
     },
     "d": {
-      "item": "minecraft:water_bucket",
-      "data": 0
+      "item": "minecraft:water_bucket"
     },
     "e": {
-      "item": "minecraft:fishing_rod",
-      "data": 0
+      "item": "minecraft:fishing_rod"
     },
     "f": {
-      "tag": "prefab:compressed_dirt2"
+      "tag": "forge:double_compressed_dirt"
     },
     "g": {
       "tag": "minecraft:fishes"

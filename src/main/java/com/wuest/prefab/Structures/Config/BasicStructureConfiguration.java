@@ -333,7 +333,7 @@ public class BasicStructureConfiguration extends StructureConfiguration {
 		Saloon("saloon", "item.prefab.saloon", "assets/prefab/structures/saloon.zip", "textures/gui/saloon_topdown.png", "item_saloon", 130, 170),
 		SkiLodge("ski_lodge", "item.prefab.ski_lodge", "assets/prefab/structures/ski_lodge.zip", "textures/gui/ski_lodge_topdown.png", "item_ski_lodge", 137, 180),
 		WindMill("wind_mill", "item.prefab.wind_mill", "assets/prefab/structures/wind_mill.zip", "textures/gui/wind_mill_topdown.png", "item_wind_mill", 176, 102),
-		TownHall("town_hall", "item.prefab.town_hall", "assets/prefab/structures/town_hall.zip", "textures/gui/town_hall_topdown.png", "item_town_hall", 89,173);
+		TownHall("town_hall", "item.prefab.town_hall", "assets/prefab/structures/town_hall.zip", "textures/gui/town_hall_topdown.png", "item_town_hall", 89, 173);
 
 		private String name;
 		private String assetLocation;

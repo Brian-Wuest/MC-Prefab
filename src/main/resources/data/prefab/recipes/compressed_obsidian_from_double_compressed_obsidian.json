@@ -9,7 +9,7 @@
   "group": "Compressed Obsidian",
   "ingredients": [
     {
-      "tag": "prefab:compressed_obsidian2"
+      "tag": "forge:double_compressed_obsidian"
     }
   ],
   "result": {

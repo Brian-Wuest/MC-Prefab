@@ -14,10 +14,10 @@
   ],
   "key": {
     "a": {
-      "tag": "prefab:compressed_stone2"
+      "tag": "forge:double_compressed_stone"
     },
     "b": {
-      "tag": "prefab:compressed_obsidian1"
+      "tag": "forge:compressed_obsidian"
     },
     "c": {
       "item": "minecraft:flint_and_steel"

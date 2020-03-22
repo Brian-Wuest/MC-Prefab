@@ -14,7 +14,7 @@
   ],
   "key": {
     "#": {
-      "item": "prefab:item_pile_of_bricks"
+      "tag": "forge:pile_of_bricks"
     }
   },
   "result": {

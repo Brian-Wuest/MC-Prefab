@@ -12,7 +12,7 @@
   "group": "Compressed Stone",
   "ingredients": [
     {
-      "tag": "prefab:compressed_stone2"
+      "tag": "forge:double_compressed_stone"
     }
   ],
   "result": {

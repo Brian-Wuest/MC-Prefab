@@ -17,7 +17,7 @@
       "item": "minecraft:glass"
     },
     "b": {
-      "tag": "prefab:compressed_stone1"
+      "tag": "forge:compressed_stone"
     },
     "c": {
       "item": "minecraft:sea_lantern"

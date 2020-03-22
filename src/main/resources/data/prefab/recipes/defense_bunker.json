@@ -14,18 +14,16 @@
   ],
   "key": {
     "a": {
-      "item": "minecraft:iron_block",
-      "data": 32767
+      "item": "minecraft:iron_block"
     },
     "b": {
-      "item": "prefab:item_coil_of_lanterns",
-      "data": 32767
+      "item": "prefab:item_coil_of_lanterns"
     },
     "c": {
-      "tag": "prefab:compressed_stone3"
+      "tag": "forge:triple_compressed_stone"
     },
     "d": {
-      "tag": "prefab:compressed_obsidian2"
+      "tag": "forge:double_compressed_obsidian"
     }
   },
   "result": {
