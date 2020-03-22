@@ -3,6 +3,7 @@ package com.wuest.prefab.Gui;
 import com.wuest.prefab.Gui.Controls.GuiTab;
 import com.wuest.prefab.Gui.Controls.GuiTabTray;
 import com.wuest.prefab.Structures.Gui.GuiStructure;
+import com.wuest.prefab.Tuple;
 import javafx.util.Pair;
 import net.minecraft.client.gui.widget.button.Button;
 
@@ -55,7 +56,7 @@ public class GuiTabScreen extends GuiStructure {
 	}
 
 	@Override
-	protected Pair<Integer, Integer> getAdjustedXYValue() {
+	protected Tuple<Integer, Integer> getAdjustedXYValue() {
 		return null;
 	}
 

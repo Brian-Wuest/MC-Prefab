@@ -469,7 +469,6 @@ public class Structure {
 
 	}
 
-
 	public BlockState getStainedGlassBlock(DyeColor color) {
 		switch (color) {
 			case BLACK: {
