@@ -8,8 +8,8 @@ import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureCon
 import com.wuest.prefab.Structures.Predefined.StructureVillagerHouses;
 import com.wuest.prefab.Structures.Render.StructureRenderHandler;
 import com.wuest.prefab.Tuple;
-import javafx.util.Pair;
 import net.minecraft.client.gui.widget.button.AbstractButton;
+import net.minecraft.item.DyeColor;
 import net.minecraft.util.Direction;
 import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
 

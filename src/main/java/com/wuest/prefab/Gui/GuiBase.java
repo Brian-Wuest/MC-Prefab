@@ -1,7 +1,6 @@
 package com.wuest.prefab.Gui;
 
 import com.wuest.prefab.Tuple;
-import javafx.util.Pair;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.util.ResourceLocation;

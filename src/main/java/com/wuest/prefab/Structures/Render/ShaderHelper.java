@@ -4,7 +4,6 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.wuest.prefab.Events.ClientEventHandler;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.shader.ShaderLinkHelper;
 import net.minecraft.resources.IReloadableResourceManager;
 import net.minecraft.resources.IResourceManagerReloadListener;
 import org.lwjgl.opengl.ARBFragmentShader;
