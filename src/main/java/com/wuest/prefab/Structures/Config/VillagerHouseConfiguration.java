@@ -4,6 +4,7 @@ import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Structures.Predefined.StructureVillagerHouses;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.DyeColor;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
@@ -19,11 +20,14 @@ public class VillagerHouseConfiguration extends StructureConfiguration {
 	public static String tagKey = "villagerHouseConfig";
 
 	private static String houseStyleTag = "houseStyle";
+	private static String bedColorTag = "bedColor";
 
 	/**
 	 * The house style.
 	 */
 	public HouseStyle houseStyle;
+
+	public DyeColor bedColor;
 
 	/**
 	 * Initializes a new instance of the VillagerHouseConfiguration class.
@@ -36,18 +40,26 @@ public class VillagerHouseConfiguration extends StructureConfiguration {
 	public void Initialize() {
 		super.Initialize();
 		this.houseStyle = HouseStyle.FLAT_ROOF;
+		this.bedColor = DyeColor.RED;
 	}
 
 	@Override
 	protected CompoundNBT CustomWriteToCompoundNBT(CompoundNBT tag) {
 		tag.putInt(VillagerHouseConfiguration.houseStyleTag, this.houseStyle.value);
+		tag.putString(VillagerHouseConfiguration.bedColorTag, this.bedColor.getName().toUpperCase());
 		return tag;
 	}
 
 	@Override
 	protected void CustomReadFromNBTTag(CompoundNBT messageTag, StructureConfiguration config) {
+		VillagerHouseConfiguration houseConfiguration = ((VillagerHouseConfiguration) config);
+
 		if (messageTag.contains(VillagerHouseConfiguration.houseStyleTag)) {
 			((VillagerHouseConfiguration) config).houseStyle = HouseStyle.ValueOf(messageTag.getInt(VillagerHouseConfiguration.houseStyleTag));
+		}
+
+		if (messageTag.contains(VillagerHouseConfiguration.bedColorTag)) {
+			houseConfiguration.bedColor = DyeColor.valueOf(messageTag.getString(VillagerHouseConfiguration.bedColorTag));
 		}
 	}
 

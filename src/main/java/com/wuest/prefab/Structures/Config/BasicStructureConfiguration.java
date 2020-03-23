@@ -5,6 +5,7 @@ import com.wuest.prefab.Structures.Base.PositionOffset;
 import com.wuest.prefab.Structures.Items.ItemBasicStructure;
 import com.wuest.prefab.Structures.Predefined.StructureBasic;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
@@ -21,6 +22,7 @@ import net.minecraft.world.server.ServerWorld;
 public class BasicStructureConfiguration extends StructureConfiguration {
 	private static String structureEnumNameTag = "structureEnumName";
 	private static String structureDisplayNameTag = "structureDisplayName";
+	private static String bedColorTag = "bedColor";
 
 	static {
 		// This static method is used to set up the clear shapes for the basic structure names.
@@ -191,12 +193,13 @@ public class BasicStructureConfiguration extends StructureConfiguration {
 	 */
 	public String structureDisplayName;
 
+	public DyeColor bedColor;
+
 	/**
 	 * Initializes a new instance of the BasicStructureConfiguration class.
 	 */
 	public BasicStructureConfiguration() {
 		super();
-		this.basicStructureName = EnumBasicStructureName.AdvancedCoop;
 	}
 
 	/**
@@ -225,7 +228,8 @@ public class BasicStructureConfiguration extends StructureConfiguration {
 	public void Initialize() {
 		super.Initialize();
 		this.houseFacing = Direction.NORTH;
-		this.basicStructureName = EnumBasicStructureName.Custom;
+		this.basicStructureName = EnumBasicStructureName.AdvancedCoop;
+		this.bedColor = DyeColor.RED;
 	}
 
 	@Override
@@ -239,6 +243,10 @@ public class BasicStructureConfiguration extends StructureConfiguration {
 		if (messageTag.contains(BasicStructureConfiguration.structureDisplayNameTag)) {
 			basicConfig.structureDisplayName = messageTag.getString(BasicStructureConfiguration.structureDisplayNameTag);
 		}
+
+		if (messageTag.contains(BasicStructureConfiguration.bedColorTag)) {
+			basicConfig.bedColor = DyeColor.valueOf(messageTag.getString(BasicStructureConfiguration.bedColorTag));
+		}
 	}
 
 	@Override
@@ -248,6 +256,8 @@ public class BasicStructureConfiguration extends StructureConfiguration {
 		if (this.structureDisplayName != null) {
 			tag.putString(BasicStructureConfiguration.structureDisplayNameTag, this.structureDisplayName);
 		}
+
+		tag.putString(BasicStructureConfiguration.bedColorTag, this.bedColor.getName().toUpperCase());
 
 		return tag;
 	}

@@ -49,6 +49,8 @@ public class ModConfiguration {
 	static String addChestsName = "Add Chests";
 	static String addChestContentsName = "Add Chest Contents";
 	static String addMineshaftName = "Add Mineshaft";
+	static String allowBulldozerToCreateDropsName = "Bulldozer Creates Drops";
+
 	private static String OPTIONS = "general.";
 	private static String ChestContentOptions = "general.chest contents.";
 	private static String RecipeOptions = "general.recipes.";
@@ -121,6 +123,8 @@ public class ModConfiguration {
 	private BooleanValue enableLoftHouse;
 	private BooleanValue includeSpawnersInMasher;
 	private BooleanValue enableStructurePreview;
+	private BooleanValue allowBulldozerToCreateDrops;
+
 	// Chest content options.
 	private BooleanValue includeMineshaftChest;
 	private BooleanValue addSword;
@@ -178,6 +182,10 @@ public class ModConfiguration {
 		Prefab.proxy.proxyConfiguration.includeMineshaftChest = builder
 				.comment("Determines if the mineshaft chest is included when building mineshafts for various structures.")
 				.define(OPTIONS + ModConfiguration.includeMineshaftChestName, true);
+
+		Prefab.proxy.proxyConfiguration.allowBulldozerToCreateDrops = builder
+				.comment("Determines if the bulldozer item can create drops when it clears an area.")
+				.define(OPTIONS + ModConfiguration.allowBulldozerToCreateDropsName, true);
 
 		builder.comment("Chest Options");
 
@@ -295,6 +303,7 @@ public class ModConfiguration {
 		Prefab.proxy.proxyConfiguration.serverConfiguration.addChests = Prefab.proxy.proxyConfiguration.addChests.get();
 		Prefab.proxy.proxyConfiguration.serverConfiguration.addChestContents = Prefab.proxy.proxyConfiguration.addChestContents.get();
 		Prefab.proxy.proxyConfiguration.serverConfiguration.addMineshaft = Prefab.proxy.proxyConfiguration.addMineshaft.get();
+		Prefab.proxy.proxyConfiguration.serverConfiguration.allowBulldozerToCreateDrops = Prefab.proxy.proxyConfiguration.allowBulldozerToCreateDrops.get();
 
 		// Recipe configuration.
 		for (String key : ModConfiguration.recipeKeys) {

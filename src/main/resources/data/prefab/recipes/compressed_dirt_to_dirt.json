@@ -12,7 +12,7 @@
   "group": "Compressed Dirt",
   "ingredients": [
     {
-      "tag": "prefab:compressed_dirt1"
+      "tag": "forge:storage_blocks/compressed_dirt"
     }
   ],
   "result": {

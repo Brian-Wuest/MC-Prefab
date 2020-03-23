@@ -135,6 +135,7 @@
 
     "prefab.gui.structure.facing": "構造面",
     "prefab.gui.structure.glass": "ガラス色",
+    "prefab.gui.structure.bed_color": "ベッド色",
 
     "prefab.gui.structure.facing.player": "注：北を向いている場合は、南を選択して、構造物があなたに向くようにします。",
     "prefab.gui.structure.block.clicked": "右側の画像の赤いボックスは、クリックしたブロックを示しています。",

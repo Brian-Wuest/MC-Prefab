@@ -18,6 +18,7 @@ public class ServerModConfiguration {
 	public boolean includeSpawnersInMasher;
 	public boolean enableStructurePreview;
 	public boolean includeMineshaftChest;
+	public boolean allowBulldozerToCreateDrops;
 
 	// Chest content options.
 	public boolean addSword;
@@ -59,6 +60,7 @@ public class ServerModConfiguration {
 		configuration.includeSpawnersInMasher = tag.getBoolean(ModConfiguration.includeSpawnersInMasherName);
 		configuration.enableStructurePreview = tag.getBoolean(ModConfiguration.enableStructurePreviewName);
 		configuration.includeMineshaftChest = tag.getBoolean(ModConfiguration.includeMineshaftChestName);
+		configuration.allowBulldozerToCreateDrops = tag.getBoolean(ModConfiguration.allowBulldozerToCreateDropsName);
 
 		// Make sure the server admin didn't set the maximum starting size to an
 		// invalid value from the configuration file.
@@ -103,6 +105,7 @@ public class ServerModConfiguration {
 		tag.putBoolean(ModConfiguration.includeSpawnersInMasherName, this.includeSpawnersInMasher);
 		tag.putBoolean(ModConfiguration.enableStructurePreviewName, this.enableStructurePreview);
 		tag.putBoolean(ModConfiguration.includeMineshaftChestName, this.includeMineshaftChest);
+		tag.putBoolean(ModConfiguration.allowBulldozerToCreateDropsName, this.allowBulldozerToCreateDrops);
 
 		tag.putBoolean(ModConfiguration.addSwordName, this.addSword);
 		tag.putBoolean(ModConfiguration.addAxeName, this.addAxe);

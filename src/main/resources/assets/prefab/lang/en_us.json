@@ -135,6 +135,7 @@
 
     "prefab.gui.structure.facing": "Structure Facing",
     "prefab.gui.structure.glass": "Glass Color",
+    "prefab.gui.structure.bed_color": "Bed Color",
 
     "prefab.gui.structure.facing.player": "Note: If you're facing north, choose south so the structure is facing you.",
     "prefab.gui.structure.block.clicked": "The red box in the image on the right shows the block you clicked on.",

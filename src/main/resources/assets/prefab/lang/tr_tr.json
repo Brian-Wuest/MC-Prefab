@@ -135,6 +135,7 @@
 
     "prefab.gui.structure.facing": "Yapının Baktığı Yön",
     "prefab.gui.structure.glass": "Cam Rengi",
+    "prefab.gui.structure.bed_color": "Yatak Rengi",
 
     "prefab.gui.structure.facing.player": "Not: Eğer kuzeye bakıyorsan, güneyi seç ki yapı sana baksın.",
     "prefab.gui.structure.block.clicked": "Sağdaki resimde bulunan kırmızı kutu, tıkladığın bloğu gösterir.",

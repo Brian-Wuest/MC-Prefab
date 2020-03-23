@@ -9,7 +9,7 @@
   "group": "Pile of Bricks",
   "ingredients": [
     {
-      "item": "prefab:item_pallet_of_bricks"
+      "tag": "forge:storage_blocks/pallet_of_bricks"
     }
   ],
   "result": {

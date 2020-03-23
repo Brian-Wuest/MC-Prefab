@@ -10,9 +10,10 @@ import com.wuest.prefab.Structures.Config.ModerateHouseConfiguration;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Structures.Predefined.StructureModerateHouse;
 import com.wuest.prefab.Structures.Render.StructureRenderHandler;
-import javafx.util.Pair;
+import com.wuest.prefab.Tuple;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.AbstractButton;
+import net.minecraft.item.DyeColor;
 import net.minecraft.util.Direction;
 import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
 
@@ -28,6 +29,7 @@ public class GuiModerateHouse extends GuiStructure {
 	private GuiCheckBox btnAddChest;
 	private GuiCheckBox btnAddChestContents;
 	private GuiCheckBox btnAddMineShaft;
+	private ExtendedButton btnBedColor;
 	private boolean allowItemsInChestAndFurnace = true;
 
 	public GuiModerateHouse() {
@@ -51,10 +53,10 @@ public class GuiModerateHouse extends GuiStructure {
 		int grayBoxX = this.getCenteredXAxis() - 212;
 		int grayBoxY = this.getCenteredYAxis() - 83;
 
+		// Create the buttons.
 		this.btnHouseStyle = this.createAndAddButton(grayBoxX + 10, grayBoxY + 20, 90, 20, this.configuration.houseStyle.getDisplayName());
 
-		// Create the buttons.
-		this.btnVisualize = this.createAndAddButton(grayBoxX + 10, grayBoxY + 60, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW));
+		this.btnVisualize = this.createAndAddButton(grayBoxX + 10, grayBoxY + 50, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW));
 
 		// Create the done and cancel buttons.
 		this.btnBuild = this.createAndAddButton(grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_BUILD));
@@ -62,7 +64,11 @@ public class GuiModerateHouse extends GuiStructure {
 		this.btnCancel = this.createAndAddButton(grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_CANCEL));
 
 		int x = grayBoxX + 130;
-		int y = grayBoxY + 10;
+		int y = grayBoxY + 20;
+
+		this.btnBedColor = this.createAndAddButton(x, y, 90, 20, GuiLangKeys.translateDye(this.configuration.bedColor));
+
+		y += 30;
 
 		this.btnAddChest = new GuiCheckBox(x, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_CHEST), this.configuration.addChests, null);
 		this.btnAddChest.setStringColor(color);
@@ -83,8 +89,8 @@ public class GuiModerateHouse extends GuiStructure {
 	}
 
 	@Override
-	protected Pair<Integer, Integer> getAdjustedXYValue() {
-		return new Pair<>(this.getCenteredXAxis() - 212, this.getCenteredYAxis() - 83);
+	protected Tuple<Integer, Integer> getAdjustedXYValue() {
+		return new Tuple<>(this.getCenteredXAxis() - 212, this.getCenteredYAxis() - 83);
 	}
 
 	@Override
@@ -105,6 +111,8 @@ public class GuiModerateHouse extends GuiStructure {
 
 		// Draw the text here.
 		this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), x + 10, y + 10, this.textColor);
+
+		this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), x + 130, y + 10, this.textColor);
 	}
 
 	/**
@@ -128,6 +136,9 @@ public class GuiModerateHouse extends GuiStructure {
 			StructureRenderHandler.setStructure(structure, Direction.NORTH, this.configuration);
 			assert this.minecraft != null;
 			this.minecraft.displayGuiScreen(null);
+		} else if (button == this.btnBedColor) {
+			this.configuration.bedColor = DyeColor.byId(this.configuration.bedColor.getId() + 1);
+			this.btnBedColor.setMessage(GuiLangKeys.translateDye(this.configuration.bedColor));
 		}
 	}
 }

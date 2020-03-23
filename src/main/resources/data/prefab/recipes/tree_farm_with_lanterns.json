@@ -14,10 +14,10 @@
   ],
   "key": {
     "a": {
-      "item": "prefab:item_pallet_of_bricks"
+      "tag": "forge:storage_blocks/pallet_of_bricks"
     },
     "b": {
-      "tag": "prefab:compressed_dirt2"
+      "tag": "forge:storage_blocks/double_compressed_dirt"
     },
     "c": {
       "item": "minecraft:flower_pot"

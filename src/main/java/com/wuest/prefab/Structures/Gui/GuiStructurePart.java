@@ -9,6 +9,7 @@ import com.wuest.prefab.Structures.Config.StructurePartConfiguration.EnumStyle;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Structures.Predefined.StructurePart;
 import com.wuest.prefab.Structures.Render.StructureRenderHandler;
+import com.wuest.prefab.Tuple;
 import javafx.util.Pair;
 import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.util.Direction;
@@ -74,8 +75,8 @@ public class GuiStructurePart extends GuiStructure {
 	}
 
 	@Override
-	protected Pair<Integer, Integer> getAdjustedXYValue() {
-		return new Pair<>(this.getCenteredXAxis() - this.modifiedInitialXAxis, this.getCenteredYAxis() - this.modifiedInitialYAxis);
+	protected Tuple<Integer, Integer> getAdjustedXYValue() {
+		return new Tuple<>(this.getCenteredXAxis() - this.modifiedInitialXAxis, this.getCenteredYAxis() - this.modifiedInitialYAxis);
 	}
 
 	@Override

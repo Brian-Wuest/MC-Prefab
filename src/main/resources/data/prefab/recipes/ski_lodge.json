@@ -17,16 +17,16 @@
       "item": "minecraft:snow_block"
     },
     "b": {
-      "tag": "prefab:compressed_glow_stone2"
+      "tag": "forge:storage_blocks/double_compressed_glow_stone"
     },
     "c": {
       "item": "prefab:item_bundle_of_timber"
     },
     "d": {
-      "tag": "prefab:compressed_dirt2"
+      "tag": "forge:storage_blocks/double_compressed_dirt"
     },
     "e": {
-      "tag": "prefab:compressed_stone3"
+      "tag": "forge:storage_blocks/triple_compressed_stone"
     },
     "f": {
       "item": "minecraft:blue_ice"

@@ -4,6 +4,7 @@ import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Structures.Predefined.StructureModerateHouse;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.DyeColor;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
@@ -21,6 +22,7 @@ public class ModerateHouseConfiguration extends StructureConfiguration {
 	private static String addChestTag = "addChests";
 	private static String addChestContentsTag = "addChestContents";
 	private static String addMineshaftTag = "addMineshaft";
+	private static String bedColorTag = "bedColor";
 
 	/**
 	 * The house style.
@@ -42,6 +44,8 @@ public class ModerateHouseConfiguration extends StructureConfiguration {
 	 */
 	public boolean addMineshaft;
 
+	public DyeColor bedColor;
+
 	/**
 	 * Initializes a new instance of the {@link ModerateHouseConfiguration} class.
 	 */
@@ -52,12 +56,14 @@ public class ModerateHouseConfiguration extends StructureConfiguration {
 		this.addChestContents = true;
 		this.addMineshaft = true;
 		this.houseStyle = HouseStyle.SPRUCE_HOME;
+		this.bedColor = DyeColor.RED;
 	}
 
 	@Override
 	public void Initialize() {
 		super.Initialize();
 		this.houseStyle = HouseStyle.SPRUCE_HOME;
+		this.bedColor = DyeColor.RED;
 	}
 
 	@Override
@@ -66,6 +72,7 @@ public class ModerateHouseConfiguration extends StructureConfiguration {
 		tag.putBoolean(ModerateHouseConfiguration.addChestTag, this.addChests);
 		tag.putBoolean(ModerateHouseConfiguration.addChestContentsTag, this.addChestContents);
 		tag.putBoolean(ModerateHouseConfiguration.addMineshaftTag, this.addMineshaft);
+		tag.putString(ModerateHouseConfiguration.bedColorTag, this.bedColor.getName().toUpperCase());
 
 		return tag;
 	}
@@ -88,6 +95,10 @@ public class ModerateHouseConfiguration extends StructureConfiguration {
 
 		if (messageTag.contains(ModerateHouseConfiguration.addMineshaftTag)) {
 			houseConfiguration.addMineshaft = messageTag.getBoolean(ModerateHouseConfiguration.addMineshaftTag);
+		}
+
+		if (messageTag.contains(ModerateHouseConfiguration.bedColorTag)) {
+			houseConfiguration.bedColor = DyeColor.valueOf(messageTag.getString(ModerateHouseConfiguration.bedColorTag));
 		}
 	}
 

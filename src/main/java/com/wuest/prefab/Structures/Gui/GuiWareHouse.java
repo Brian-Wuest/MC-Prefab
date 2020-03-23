@@ -6,6 +6,7 @@ import com.wuest.prefab.Structures.Config.WareHouseConfiguration;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Structures.Predefined.StructureWarehouse;
 import com.wuest.prefab.Structures.Render.StructureRenderHandler;
+import com.wuest.prefab.Tuple;
 import javafx.util.Pair;
 import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.item.DyeColor;
@@ -53,8 +54,8 @@ public class GuiWareHouse extends GuiStructure {
 	}
 
 	@Override
-	protected Pair<Integer, Integer> getAdjustedXYValue() {
-		return new Pair<>(this.getCenteredXAxis() - 180, this.getCenteredYAxis() - 83);
+	protected Tuple<Integer, Integer> getAdjustedXYValue() {
+		return new Tuple<>(this.getCenteredXAxis() - 180, this.getCenteredYAxis() - 83);
 	}
 
 	@Override

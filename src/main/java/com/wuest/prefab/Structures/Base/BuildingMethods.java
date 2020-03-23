@@ -1,12 +1,15 @@
 package com.wuest.prefab.Structures.Base;
 
 import com.wuest.prefab.Triple;
+import net.minecraft.block.BedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.properties.BedPart;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -238,5 +241,129 @@ public class BuildingMethods {
 		}
 
 		return new Triple<>(true, null, null);
+	}
+
+	/**
+	 * This method places a bed with the specified color and at the specified location.
+	 *
+	 * @param world      The world to set the blocks in.
+	 * @param bedHeadPos The position of the head of the bed.
+	 * @param bedFootPos The position of the foot of the bed.
+	 * @param bedColor   The color of the bed to place.
+	 */
+	public static void PlaceColoredBed(World world, BlockPos bedHeadPos, BlockPos bedFootPos, DyeColor bedColor) {
+		BlockState bedHead = null;
+		BlockState bedFoot = null;
+
+		switch (bedColor) {
+			case BLACK: {
+				bedHead = Blocks.BLACK_BED.getDefaultState().with(BedBlock.PART, BedPart.HEAD);
+				bedFoot = Blocks.BLACK_BED.getDefaultState();
+				break;
+			}
+			case BLUE: {
+				bedHead = Blocks.BLUE_BED.getDefaultState().with(BedBlock.PART, BedPart.HEAD);
+				bedFoot = Blocks.BLUE_BED.getDefaultState();
+				break;
+			}
+
+			case BROWN: {
+				bedHead = Blocks.BROWN_BED.getDefaultState().with(BedBlock.PART, BedPart.HEAD);
+				bedFoot = Blocks.BROWN_BED.getDefaultState();
+				break;
+			}
+
+			case CYAN: {
+				bedHead = Blocks.CYAN_BED.getDefaultState().with(BedBlock.PART, BedPart.HEAD);
+				bedFoot = Blocks.CYAN_BED.getDefaultState();
+				break;
+			}
+
+			case GRAY: {
+				bedHead = Blocks.GRAY_BED.getDefaultState().with(BedBlock.PART, BedPart.HEAD);
+				bedFoot = Blocks.GRAY_BED.getDefaultState();
+				break;
+			}
+
+			case GREEN: {
+				bedHead = Blocks.GREEN_BED.getDefaultState().with(BedBlock.PART, BedPart.HEAD);
+				bedFoot = Blocks.GREEN_BED.getDefaultState();
+				break;
+			}
+
+			case LIGHT_BLUE: {
+				bedHead = Blocks.LIGHT_BLUE_BED.getDefaultState().with(BedBlock.PART, BedPart.HEAD);
+				bedFoot = Blocks.LIGHT_BLUE_BED.getDefaultState();
+				break;
+			}
+
+			case LIGHT_GRAY: {
+				bedHead = Blocks.LIGHT_GRAY_BED.getDefaultState().with(BedBlock.PART, BedPart.HEAD);
+				bedFoot = Blocks.LIGHT_GRAY_BED.getDefaultState();
+				break;
+			}
+
+			case LIME: {
+				bedHead = Blocks.LIME_BED.getDefaultState().with(BedBlock.PART, BedPart.HEAD);
+				bedFoot = Blocks.LIME_BED.getDefaultState();
+				break;
+			}
+
+			case MAGENTA: {
+				bedHead = Blocks.MAGENTA_BED.getDefaultState().with(BedBlock.PART, BedPart.HEAD);
+				bedFoot = Blocks.MAGENTA_BED.getDefaultState();
+				break;
+			}
+
+			case ORANGE: {
+				bedHead = Blocks.ORANGE_BED.getDefaultState().with(BedBlock.PART, BedPart.HEAD);
+				bedFoot = Blocks.ORANGE_BED.getDefaultState();
+				break;
+			}
+
+			case PINK: {
+				bedHead = Blocks.PINK_BED.getDefaultState().with(BedBlock.PART, BedPart.HEAD);
+				bedFoot = Blocks.PINK_BED.getDefaultState();
+				break;
+			}
+
+			case PURPLE: {
+				bedHead = Blocks.PURPLE_BED.getDefaultState().with(BedBlock.PART, BedPart.HEAD);
+				bedFoot = Blocks.PURPLE_BED.getDefaultState();
+				break;
+			}
+
+			case RED: {
+				bedHead = Blocks.RED_BED.getDefaultState().with(BedBlock.PART, BedPart.HEAD);
+				bedFoot = Blocks.RED_BED.getDefaultState();
+				break;
+			}
+
+			case WHITE: {
+				bedHead = Blocks.WHITE_BED.getDefaultState().with(BedBlock.PART, BedPart.HEAD);
+				bedFoot = Blocks.WHITE_BED.getDefaultState();
+				break;
+			}
+
+			case YELLOW: {
+				bedHead = Blocks.YELLOW_BED.getDefaultState().with(BedBlock.PART, BedPart.HEAD);
+				bedFoot = Blocks.YELLOW_BED.getDefaultState();
+				break;
+			}
+		}
+
+		Direction direction = Direction.NORTH;
+		BlockPos tempPos = bedHeadPos.offset(Direction.NORTH);
+
+		while (tempPos.getX() != bedFootPos.getX() || tempPos.getZ() != bedFootPos.getZ()) {
+			direction = direction.rotateY();
+			tempPos = bedHeadPos.offset(direction);
+		}
+
+		bedHead = bedHead.with(BedBlock.HORIZONTAL_FACING, direction.getOpposite());
+		bedFoot = bedFoot.with(BedBlock.HORIZONTAL_FACING, direction.getOpposite());
+
+		BuildingMethods.ReplaceBlock(world, bedHeadPos, bedHead);
+		BuildingMethods.ReplaceBlock(world, bedFootPos, bedFoot);
 	}
 }

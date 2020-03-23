@@ -7,6 +7,7 @@ import com.wuest.prefab.Structures.Config.VillagerHouseConfiguration;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Structures.Predefined.StructureVillagerHouses;
 import com.wuest.prefab.Structures.Render.StructureRenderHandler;
+import com.wuest.prefab.Tuple;
 import javafx.util.Pair;
 import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.util.Direction;
@@ -18,6 +19,7 @@ import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
 public class GuiVillagerHouses extends GuiStructure {
 	protected VillagerHouseConfiguration configuration;
 	private ExtendedButton btnHouseStyle;
+	private ExtendedButton btnBedColor;
 	private VillagerHouseConfiguration.HouseStyle houseStyle;
 
 	public GuiVillagerHouses() {
@@ -41,6 +43,13 @@ public class GuiVillagerHouses extends GuiStructure {
 		// Create the buttons.
 		this.btnVisualize = this.createAndAddButton(grayBoxX + 10, grayBoxY + 60, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW));
 
+		int x = grayBoxX + 130;
+		int y = grayBoxY + 20;
+
+		this.btnBedColor = this.createAndAddButton(x, y, 90, 20, GuiLangKeys.translateDye(this.configuration.bedColor));
+
+		this.btnBedColor.visible = this.houseStyle == VillagerHouseConfiguration.HouseStyle.LONG_HOUSE;
+
 		// Create the done and cancel buttons.
 		this.btnBuild = this.createAndAddButton(grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_BUILD));
 
@@ -48,8 +57,8 @@ public class GuiVillagerHouses extends GuiStructure {
 	}
 
 	@Override
-	protected Pair<Integer, Integer> getAdjustedXYValue() {
-		return new Pair<>(this.getCenteredXAxis() - 205, this.getCenteredYAxis() - 83);
+	protected Tuple<Integer, Integer> getAdjustedXYValue() {
+		return new Tuple<>(this.getCenteredXAxis() - 205, this.getCenteredYAxis() - 83);
 	}
 
 	@Override
@@ -65,6 +74,10 @@ public class GuiVillagerHouses extends GuiStructure {
 	@Override
 	protected void postButtonRender(int x, int y) {
 		this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), x + 10, y + 10, this.textColor);
+
+		if (this.houseStyle == VillagerHouseConfiguration.HouseStyle.LONG_HOUSE) {
+			this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), x + 130, y + 10, this.textColor);
+		}
 	}
 
 	/**
@@ -81,11 +94,16 @@ public class GuiVillagerHouses extends GuiStructure {
 			this.houseStyle = VillagerHouseConfiguration.HouseStyle.ValueOf(id);
 
 			this.btnHouseStyle.setMessage(this.houseStyle.getDisplayName());
+
+			this.btnBedColor.visible = this.houseStyle == VillagerHouseConfiguration.HouseStyle.LONG_HOUSE;
 		} else if (button == this.btnVisualize) {
 			StructureVillagerHouses structure = StructureVillagerHouses.CreateInstance(this.houseStyle.getStructureLocation(), StructureVillagerHouses.class);
 			StructureRenderHandler.setStructure(structure, Direction.NORTH, this.configuration);
 			assert this.minecraft != null;
 			this.minecraft.displayGuiScreen(null);
+		} else if (button == this.btnBedColor) {
+			this.configuration.bedColor = DyeColor.byId(this.configuration.bedColor.getId() + 1);
+			this.btnBedColor.setMessage(GuiLangKeys.translateDye(this.configuration.bedColor));
 		}
 	}
 }

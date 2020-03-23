@@ -14,6 +14,7 @@ import com.wuest.prefab.Structures.Messages.StructureTagMessage;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Structures.Predefined.StructureAlternateStart;
 import com.wuest.prefab.Structures.Render.StructureRenderHandler;
+import com.wuest.prefab.Tuple;
 import javafx.util.Pair;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.Button;
@@ -38,7 +39,11 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 	private GuiTab tabBlockTypes;
 	// General:
 	private ExtendedButton btnHouseStyle;
+
+	// Blocks/Size
 	private ExtendedButton btnGlassColor;
+	private ExtendedButton btnBedColor;
+
 	// Config:
 	private GuiCheckBox btnAddTorches;
 	private GuiCheckBox btnAddBed;
@@ -71,8 +76,8 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 	}
 
 	@Override
-	protected Pair<Integer, Integer> getAdjustedXYValue() {
-		return new Pair<>((this.width / 2) - 198, (this.height / 2) - 83);
+	protected Tuple<Integer, Integer> getAdjustedXYValue() {
+		return new Tuple<>((this.width / 2) - 198, (this.height / 2) - 83);
 	}
 
 	/**
@@ -80,12 +85,12 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 	 */
 	@Override
 	public void render(int x, int y, float f) {
-		Pair<Integer, Integer> adjustedValueCoords = this.getAdjustedXYValue();
-		int grayBoxX = adjustedValueCoords.getKey();
-		int grayBoxY = adjustedValueCoords.getValue();
+		Tuple<Integer, Integer> adjustedValueCoords = this.getAdjustedXYValue();
+		int grayBoxX = adjustedValueCoords.getFirst();
+		int grayBoxY = adjustedValueCoords.getSecond();
 
-		this.Tabs.x = adjustedValueCoords.getKey();
-		this.Tabs.y = adjustedValueCoords.getValue() - 21;
+		this.Tabs.x = adjustedValueCoords.getFirst();
+		this.Tabs.y = adjustedValueCoords.getSecond() - 21;
 
 		this.renderBackground();
 
@@ -108,6 +113,7 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 		this.btnAddCraftingTable.visible = false;
 		this.btnAddFurnace.visible = false;
 		this.btnAddMineShaft.visible = false;
+		this.btnBedColor.visible = false;
 
 		// Update visibility on controls based on the selected tab.
 		if (this.getSelectedTab() == this.tabGeneral) {
@@ -125,6 +131,8 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 		} else if (this.getSelectedTab() == this.tabBlockTypes) {
 			this.btnGlassColor.visible = this.houseConfiguration.houseStyle != HouseStyle.SNOWY
 					&& this.houseConfiguration.houseStyle != HouseStyle.DESERT;
+
+			this.btnBedColor.visible = true;
 		}
 
 		// Draw the buttons, labels and tabs.
@@ -145,11 +153,13 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 		} else if (this.getSelectedTab() == this.tabBlockTypes) {
 			if (this.houseConfiguration.houseStyle == HouseConfiguration.HouseStyle.SNOWY
 					|| this.houseConfiguration.houseStyle == HouseConfiguration.HouseStyle.DESERT) {
-
 			} else {
 				// Column 1:
 				this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS), grayBoxX + 10, grayBoxY + 10, color);
 			}
+
+			// Column 2:
+			this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), grayBoxX + 147, grayBoxY + 10, color);
 		}
 
 		if (!CommonProxy.proxyConfiguration.serverConfiguration.enableStructurePreview) {
@@ -211,11 +221,14 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 				this.btnGlassColor.setMessage(GuiLangKeys.translateDye(DyeColor.CYAN));
 			}
 
-			this.tabBlockTypes.visible = this.houseConfiguration.houseStyle != HouseStyle.DESERT
-					&& this.houseConfiguration.houseStyle != HouseStyle.SNOWY;
+			this.tabBlockTypes.visible = true;
+
 		} else if (button == this.btnGlassColor) {
 			this.houseConfiguration.glassColor = DyeColor.byId(this.houseConfiguration.glassColor.getId() + 1);
 			this.btnGlassColor.setMessage(GuiLangKeys.translateDye(this.houseConfiguration.glassColor));
+		} else if (button == this.btnBedColor) {
+			this.houseConfiguration.bedColor = DyeColor.byId(this.houseConfiguration.bedColor.getId() + 1);
+			this.btnBedColor.setMessage(GuiLangKeys.translateDye(this.houseConfiguration.bedColor));
 		} else if (button == this.btnVisualize) {
 			StructureAlternateStart structure = StructureAlternateStart.CreateInstance(this.houseConfiguration.houseStyle.getStructureLocation(), StructureAlternateStart.class);
 
@@ -326,10 +339,16 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 			y += 15;
 		}
 
-		this.btnGlassColor = new ExtendedButton(grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateDye(this.houseConfiguration.glassColor), this::actionPerformed);
+		x = grayBoxX + 10;
+		y = grayBoxY + 20;
+
+		this.btnGlassColor = new ExtendedButton(x, y, 90, 20, GuiLangKeys.translateDye(this.houseConfiguration.glassColor), this::actionPerformed);
 		this.addButton(this.btnGlassColor);
 
 		// Column 2:
+		x = secondColumnX;
+		this.btnBedColor = new ExtendedButton(x, y, 90, 20, GuiLangKeys.translateDye(this.houseConfiguration.bedColor), this::actionPerformed);
+		this.addButton(this.btnBedColor);
 
 		// Column 3:
 

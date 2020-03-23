@@ -7,6 +7,7 @@ import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.Structures.Config.StructureConfiguration;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
+import com.wuest.prefab.Tuple;
 import javafx.util.Pair;
 import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -97,13 +98,13 @@ public abstract class GuiStructure extends GuiBase {
 
 	@Override
 	public void render(int x, int y, float f) {
-		Pair<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
+		Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
 
-		this.preButtonRender(adjustedXYValue.getKey(), adjustedXYValue.getValue());
+		this.preButtonRender(adjustedXYValue.getFirst(), adjustedXYValue.getSecond());
 
 		this.renderButtons(x, y);
 
-		this.postButtonRender(adjustedXYValue.getKey(), adjustedXYValue.getValue());
+		this.postButtonRender(adjustedXYValue.getFirst(), adjustedXYValue.getSecond());
 
 		if (this.btnVisualize != null) {
 			this.checkVisualizationSetting();

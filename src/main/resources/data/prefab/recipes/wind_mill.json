@@ -17,10 +17,10 @@
       "item": "prefab:item_bundle_of_timber"
     },
     "b": {
-      "tag": "prefab:compressed_stone3"
+      "tag": "forge:storage_blocks/triple_compressed_stone"
     },
     "c": {
-      "tag": "prefab:compressed_dirt2"
+      "tag": "forge:storage_blocks/double_compressed_dirt"
     },
     "d": {
       "item": "minecraft:hay_block"

@@ -1,5 +1,6 @@
 package com.wuest.prefab.Structures.Predefined;
 
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.wuest.prefab.Structures.Base.*;
 import com.wuest.prefab.Structures.Config.BasicStructureConfiguration;
 import com.wuest.prefab.Structures.Config.BasicStructureConfiguration.EnumBasicStructureName;
@@ -17,6 +18,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
+import java.util.ArrayList;
+
 /**
  * This is the basic structure to be used for structures which don't need a lot of configuration or a custom player
  * created structures.
@@ -25,6 +28,7 @@ import net.minecraft.world.server.ServerWorld;
  */
 public class StructureBasic extends Structure {
 	private BlockPos customBlockPos = null;
+	private ArrayList<Tuple<BlockPos, BlockPos>> bedPositions = new ArrayList<>();
 
 	public static void ScanStructure(World world, BlockPos originalPos, Direction playerFacing, BasicStructureConfiguration configuration, boolean includeAir, boolean excludeWater) {
 		BuildClear clearedSpace = new BuildClear();
@@ -83,6 +87,16 @@ public class StructureBasic extends Structure {
 					originalPos,
 					this.getClearSpace().getShape().getDirection(),
 					configuration.houseFacing);
+		} else if (foundBlock instanceof BedBlock) {
+			BlockPos bedHeadPosition = block.getStartingPosition().getRelativePosition(originalPos, this.getClearSpace().getShape().getDirection(), configuration.houseFacing);
+			BlockPos bedFootPosition = block.getSubBlock().getStartingPosition().getRelativePosition(
+					originalPos,
+					this.getClearSpace().getShape().getDirection(),
+					configuration.houseFacing);
+
+			this.bedPositions.add(new Tuple<>(bedHeadPosition, bedFootPosition));
+
+			return  true;
 		}
 
 		return false;
@@ -128,6 +142,12 @@ public class StructureBasic extends Structure {
 			}
 
 			this.customBlockPos = null;
+		}
+
+		if (this.bedPositions.size() > 0) {
+			for (Tuple<BlockPos, BlockPos> bedPosition : this.bedPositions) {
+				BuildingMethods.PlaceColoredBed(world, bedPosition.getFirst(), bedPosition.getSecond(), config.bedColor);
+			}
 		}
 
 		if (config.basicStructureName.getName().equals(EnumBasicStructureName.AquaBase.getName())) {

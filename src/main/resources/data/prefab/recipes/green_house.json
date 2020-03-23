@@ -17,7 +17,7 @@
       "item": "minecraft:water_bucket"
     },
     "b": {
-      "tag": "prefab:compressed_stone2"
+      "tag": "forge:storage_blocks/double_compressed_stone"
     },
     "c": {
       "item": "minecraft:glass_pane"
@@ -26,7 +26,7 @@
       "item": "prefab:item_string_of_lanterns"
     },
     "e": {
-      "tag": "prefab:compressed_dirt2"
+      "tag": "forge:storage_blocks/double_compressed_dirt"
     }
   },
   "result": {

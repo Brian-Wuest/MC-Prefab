@@ -1,5 +1,6 @@
 package com.wuest.prefab.Gui;
 
+import com.wuest.prefab.Tuple;
 import javafx.util.Pair;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.AbstractButton;
@@ -46,13 +47,13 @@ public abstract class GuiBase extends Screen {
 
 	@Override
 	public void render(int x, int y, float f) {
-		Pair<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
+		Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
 
-		this.preButtonRender(adjustedXYValue.getKey(), adjustedXYValue.getValue());
+		this.preButtonRender(adjustedXYValue.getFirst(), adjustedXYValue.getSecond());
 
 		this.renderButtons(x, y);
 
-		this.postButtonRender(adjustedXYValue.getKey(), adjustedXYValue.getValue());
+		this.postButtonRender(adjustedXYValue.getFirst(), adjustedXYValue.getSecond());
 	}
 
 	/**
@@ -90,7 +91,7 @@ public abstract class GuiBase extends Screen {
 
 	public abstract void buttonClicked(AbstractButton button);
 
-	protected abstract Pair<Integer, Integer> getAdjustedXYValue();
+	protected abstract Tuple<Integer, Integer> getAdjustedXYValue();
 
 	protected abstract void preButtonRender(int x, int y);
 

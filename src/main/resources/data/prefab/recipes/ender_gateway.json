@@ -14,18 +14,16 @@
   ],
   "key": {
     "a": {
-      "item": "minecraft:prismarine",
-      "data": 1
+      "item": "minecraft:prismarine"
     },
     "b": {
-      "item": "minecraft:quartz_block",
-      "data": 32767
+      "item": "minecraft:quartz_block"
     },
     "c": {
-      "tag": "prefab:compressed_obsidian2"
+      "tag": "forge:storage_blocks/double_compressed_obsidian"
     },
     "d": {
-      "tag": "prefab:compressed_stone3"
+      "tag": "forge:storage_blocks/triple_compressed_stone"
     }
   },
   "result": {

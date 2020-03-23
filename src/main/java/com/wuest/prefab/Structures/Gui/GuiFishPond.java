@@ -6,6 +6,7 @@ import com.wuest.prefab.Structures.Config.FishPondConfiguration;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Structures.Predefined.StructureFishPond;
 import com.wuest.prefab.Structures.Render.StructureRenderHandler;
+import com.wuest.prefab.Tuple;
 import javafx.util.Pair;
 import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.util.Direction;
@@ -24,8 +25,8 @@ public class GuiFishPond extends GuiStructure {
 	}
 
 	@Override
-	protected Pair<Integer, Integer> getAdjustedXYValue() {
-		return new Pair<>(this.getCenteredXAxis() - 188, this.getCenteredYAxis() - 83);
+	protected Tuple<Integer, Integer> getAdjustedXYValue() {
+		return new Tuple<>(this.getCenteredXAxis() - 188, this.getCenteredYAxis() - 83);
 	}
 
 	@Override

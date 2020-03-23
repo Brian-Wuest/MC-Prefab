@@ -135,6 +135,7 @@
 
   "prefab.gui.structure.facing": "Фасад структуры",
   "prefab.gui.structure.glass": "Цвет стекла",
+  "prefab.gui.structure.bed_color": "Цвет кровати",
 
   "prefab.gui.structure.facing.player": "Примечание: Если Вы обращены на север, выберите юг, чтобы структура была обращена к Вам.",
   "prefab.gui.structure.block.clicked": "Красный прямоугольник на изображении справа показывает блок, на котором вы нажали.",

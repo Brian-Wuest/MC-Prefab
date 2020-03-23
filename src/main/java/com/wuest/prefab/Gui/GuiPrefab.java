@@ -2,6 +2,7 @@ package com.wuest.prefab.Gui;
 
 import com.electronwill.nightconfig.core.UnmodifiableConfig;
 import com.wuest.prefab.Proxy.CommonProxy;
+import com.wuest.prefab.Tuple;
 import javafx.util.Pair;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
@@ -25,9 +26,9 @@ public class GuiPrefab extends GuiBase {
 	@Override
 	protected void Initialize() {
 		// Get the upper left hand corner of the GUI box.
-		Pair<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
-		int x = adjustedXYValue.getKey();
-		int y = adjustedXYValue.getValue();
+		Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
+		int x = adjustedXYValue.getFirst();
+		int y = adjustedXYValue.getSecond();
 
 		this.createAndAddButton(x + 10, y + 90, 120, 20, "This is a cool button!");
 
@@ -47,8 +48,8 @@ public class GuiPrefab extends GuiBase {
 	}
 
 	@Override
-	protected Pair<Integer, Integer> getAdjustedXYValue() {
-		return new Pair<>(0, 0);
+	protected Tuple<Integer, Integer> getAdjustedXYValue() {
+		return new Tuple<>(0, 0);
 	}
 
 	@Override

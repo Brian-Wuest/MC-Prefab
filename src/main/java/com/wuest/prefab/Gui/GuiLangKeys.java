@@ -169,6 +169,9 @@ public class GuiLangKeys {
 	@Unlocalized(name = "Glass Color")
 	public static final String GUI_STRUCTURE_GLASS = "prefab.gui.structure.glass";
 
+	@Unlocalized(name = "Bed Color")
+	public static final String GUI_STRUCTURE_BED_COLOR = "prefab.gui.structure.bed_color";
+
 	@Unlocalized(name = "The red box in the image on the right shows the block you clicked on.")
 	public static final String GUI_BLOCK_CLICKED = "prefab.gui.structure.block.clicked";
 
