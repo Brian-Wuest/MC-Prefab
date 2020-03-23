@@ -8,6 +8,7 @@ import com.wuest.prefab.Structures.Base.BuildingMethods;
 import com.wuest.prefab.Structures.Base.Structure;
 import com.wuest.prefab.Structures.Config.ModerateHouseConfiguration;
 import com.wuest.prefab.Structures.Config.StructureConfiguration;
+import com.wuest.prefab.Tuple;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -33,8 +34,7 @@ public class StructureModerateHouse extends Structure {
 	private BlockPos chestPosition = null;
 	private ArrayList<BlockPos> furnacePosition = null;
 	private BlockPos trapDoorPosition = null;
-	private BlockPos bedHeadPosition = null;
-	private BlockPos bedFootPosition = null;
+	private ArrayList<Tuple<BlockPos, BlockPos>> bedPositions = new ArrayList<>();
 
 	public static void ScanStructure(World world, BlockPos originalPos, Direction playerFacing, ModerateHouseConfiguration.HouseStyle houseStyle) {
 		BuildClear clearedSpace = new BuildClear();
@@ -183,11 +183,15 @@ public class StructureModerateHouse extends Structure {
 					this.getClearSpace().getShape().getDirection(),
 					configuration.houseFacing).up();
 		} else if (foundBlock instanceof BedBlock) {
-			this.bedHeadPosition = block.getStartingPosition().getRelativePosition(originalPos, this.getClearSpace().getShape().getDirection(), configuration.houseFacing);
-			this.bedFootPosition = block.getSubBlock().getStartingPosition().getRelativePosition(
+			BlockPos bedHeadPosition = block.getStartingPosition().getRelativePosition(originalPos, this.getClearSpace().getShape().getDirection(), configuration.houseFacing);
+			BlockPos bedFootPosition = block.getSubBlock().getStartingPosition().getRelativePosition(
 					originalPos,
 					this.getClearSpace().getShape().getDirection(),
 					configuration.houseFacing);
+
+			this.bedPositions.add(new Tuple<>(bedHeadPosition, bedFootPosition));
+
+			return  true;
 		}
 
 		return false;
@@ -229,8 +233,10 @@ public class StructureModerateHouse extends Structure {
 			StructureAlternateStart.PlaceMineShaft(world, this.trapDoorPosition.down(), houseConfig.houseFacing, false);
 		}
 
-		if (this.bedHeadPosition != null) {
-			BuildingMethods.PlaceColoredBed(world, this.bedHeadPosition, this.bedFootPosition, houseConfig.bedColor);
+		if (this.bedPositions.size() > 0) {
+			for (Tuple<BlockPos, BlockPos> bedPosition : this.bedPositions) {
+				BuildingMethods.PlaceColoredBed(world, bedPosition.getFirst(), bedPosition.getSecond(), houseConfig.bedColor);
+			}
 		}
 
 		// Make sure to set this value so the player cannot fill the chest a second time.

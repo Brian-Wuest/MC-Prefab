@@ -10,8 +10,10 @@ import com.wuest.prefab.Structures.Render.StructureRenderHandler;
 import com.wuest.prefab.Tuple;
 import javafx.util.Pair;
 import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
+import net.minecraftforge.fml.client.config.GuiButtonExt;
 
 import java.io.IOException;
 
@@ -26,6 +28,7 @@ public class GuiBasicStructure extends GuiStructure {
 	private boolean includePicture = true;
 	private int modifiedInitialXAxis = 213;
 	private int modifiedInitialYAxis = 83;
+	private GuiButtonExt btnBedColor = null;
 
 	public GuiBasicStructure() {
 		super("Basic Structure");
@@ -54,6 +57,12 @@ public class GuiBasicStructure extends GuiStructure {
 	@Override
 	protected void postButtonRender(int x, int y) {
 		// Draw the text here.
+		if (this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.MineshaftEntrance
+			|| this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WatchTower
+			|| this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WelcomeCenter) {
+			this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), x + 10, y + 10, this.textColor);
+		}
+
 		this.getMinecraft().fontRenderer.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, y + 10, 95, this.textColor);
 	}
 
@@ -80,7 +89,22 @@ public class GuiBasicStructure extends GuiStructure {
 		int grayBoxY = this.getCenteredYAxis() - this.modifiedInitialYAxis;
 
 		// Create the buttons.
-		this.btnVisualize = this.createAndAddButton(grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW));
+		int x = grayBoxX + 10;
+		int y = grayBoxY + 20;
+
+		this.btnBedColor = this.createAndAddButton(x, y, 90, 20, GuiLangKeys.translateDye(this.configuration.bedColor));
+
+		if (this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.MineshaftEntrance
+				|| this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WatchTower
+				|| this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WelcomeCenter) {
+			this.btnBedColor.visible = true;
+			y += 40;
+		}
+		else {
+			this.btnBedColor.visible = false;
+		}
+
+		this.btnVisualize = this.createAndAddButton(x, y, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW));
 
 		// Create the done and cancel buttons.
 		this.btnBuild = this.createAndAddButton(grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_BUILD));
@@ -111,6 +135,9 @@ public class GuiBasicStructure extends GuiStructure {
 			StructureBasic structure = StructureBasic.CreateInstance(this.configuration.basicStructureName.getAssetLocation(), StructureBasic.class);
 			StructureRenderHandler.setStructure(structure, Direction.NORTH, this.configuration);
 			this.getMinecraft().displayGuiScreen(null);
+		} else if (button == this.btnBedColor) {
+			this.configuration.bedColor = DyeColor.byId(this.configuration.bedColor.getId() + 1);
+			this.btnBedColor.setMessage(GuiLangKeys.translateDye(this.configuration.bedColor));
 		}
 	}
 }
