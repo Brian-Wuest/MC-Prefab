@@ -58,6 +58,7 @@ public class Structure {
 	public BlockPos originalPos;
 	public Direction assumedNorth;
 	public boolean hasAirBlocks = false;
+	public boolean entitiesRemoved = false;
 
 	@Expose
 	public ArrayList<BuildTileEntity> tileEntities = new ArrayList<BuildTileEntity>();
@@ -396,15 +397,28 @@ public class Structure {
 							block.setSubBlock(subBlock);
 						}
 
+						boolean priorityThreeBlock = foundBlock instanceof TorchBlock
+								|| foundBlock instanceof AbstractSignBlock
+								|| foundBlock instanceof LeverBlock
+								|| foundBlock instanceof AbstractButtonBlock
+								|| foundBlock instanceof BedBlock
+								|| foundBlock instanceof CarpetBlock
+								|| foundBlock instanceof FlowerPotBlock
+								|| foundBlock instanceof SugarCaneBlock
+								|| foundBlock instanceof AbstractPressurePlateBlock
+								|| foundBlock instanceof DoorBlock
+								|| foundBlock instanceof LadderBlock
+								|| foundBlock instanceof VineBlock
+								|| foundBlock instanceof RedstoneWireBlock
+								|| foundBlock instanceof RedstoneDiodeBlock
+								|| foundBlock instanceof AbstractBannerBlock;
+						
 						if (!block.getHasFacing()) {
 							if (subBlock != null) {
 								block.setSubBlock(subBlock);
 							}
 
-							if (foundBlock instanceof FlowerPotBlock
-									|| foundBlock instanceof CarpetBlock
-									|| foundBlock instanceof BedBlock
-									|| foundBlock instanceof SugarCaneBlock) {
+							if (priorityThreeBlock) {
 								this.priorityThreeBlocks.add(block);
 							} else if (foundBlock instanceof AirBlock) {
 								this.airBlocks.add(block);
@@ -415,11 +429,7 @@ public class Structure {
 							}
 						} else {
 							// These blocks may be attached to other facing blocks and must be done later.
-							if (foundBlock instanceof TorchBlock || foundBlock instanceof StandingSignBlock || foundBlock instanceof LeverBlock
-									|| foundBlock instanceof WoodButtonBlock
-									|| foundBlock instanceof BedBlock
-									|| foundBlock instanceof WallSignBlock
-									|| foundBlock instanceof StoneButtonBlock) {
+							if (priorityThreeBlock) {
 								this.priorityThreeBlocks.add(block);
 							} else {
 								this.priorityTwoBlocks.add(block);
@@ -466,7 +476,9 @@ public class Structure {
 	 * @param pos The block position being processed.
 	 */
 	public void BeforeClearSpaceBlockReplaced(BlockPos pos) {
+	}
 
+	public void BeforeHangingEntityRemoved(HangingEntity hangingEntity) {
 	}
 
 	public BlockState getStainedGlassBlock(DyeColor color) {

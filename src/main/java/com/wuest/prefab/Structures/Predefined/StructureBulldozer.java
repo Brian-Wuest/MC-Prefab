@@ -1,9 +1,11 @@
 package com.wuest.prefab.Structures.Predefined;
 
+import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Structures.Base.BuildClear;
 import com.wuest.prefab.Structures.Base.Structure;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.item.HangingEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 
@@ -41,8 +43,17 @@ public class StructureBulldozer extends Structure {
 		BlockState state = this.world.getBlockState(pos);
 
 		// Only harvest up to diamond level and non-indestructable blocks.
-		if (state.getBlock().getHarvestLevel(state) < 4 && state.getBlockHardness(world, pos) >= 0.0f) {
+		if (Prefab.proxy.getServerConfiguration().allowBulldozerToCreateDrops && state.getBlock().getHarvestLevel(state) < 4 && state.getBlockHardness(world, pos) >= 0.0f) {
 			Block.spawnDrops(state, this.world, pos);
+		}
+	}
+
+	@Override
+	public void BeforeHangingEntityRemoved(HangingEntity hangingEntity) {
+		// Only generate drops for this hanging entity if the bulldozer allows it.
+		// By default the base class doesn't allow hanging entities to generate drops.
+		if (Prefab.proxy.getServerConfiguration().allowBulldozerToCreateDrops) {
+			hangingEntity.onBroken(null);
 		}
 	}
 }

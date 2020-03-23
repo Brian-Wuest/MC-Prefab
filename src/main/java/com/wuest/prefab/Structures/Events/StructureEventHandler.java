@@ -6,11 +6,11 @@ import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.Proxy.Messages.PlayerEntityTagMessage;
 import com.wuest.prefab.Structures.Base.*;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.HangingEntity;
 import net.minecraft.entity.item.ItemFrameEntity;
 import net.minecraft.entity.item.PaintingEntity;
@@ -22,11 +22,13 @@ import net.minecraft.nbt.DoubleNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.TickEvent.ServerTickEvent;
@@ -36,11 +38,9 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.network.NetworkDirection;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import javax.swing.plaf.nimbus.State;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Optional;
-import java.util.UUID;
 
 /**
  * This is the structure event hander.
@@ -123,6 +123,31 @@ public final class StructureEventHandler {
 
 				// Build the first 100 blocks of each structure for this player.
 				for (Structure structure : entry.getValue()) {
+					if (!structure.entitiesRemoved) {
+						// Go through each block and find any entities there. If there are any; kill them if they aren't players.
+						// If there is a player there...they will probably die anyways.....
+						for (BlockPos clearedPos : structure.clearedBlockPos) {
+							AxisAlignedBB axisPos = VoxelShapes.fullCube().getBoundingBox().offset(clearedPos);
+
+							List<Entity> list = structure.world.getEntitiesWithinAABBExcludingEntity((Entity) null, axisPos);
+
+							if (!list.isEmpty()) {
+								for (Entity entity : list) {
+									// Don't kill living entities.
+									if (!(entity instanceof LivingEntity)) {
+										if (entity instanceof  HangingEntity) {
+											structure.BeforeHangingEntityRemoved((HangingEntity)entity);
+										}
+
+										structure.world.removeEntity(entity, false);
+									}
+								}
+							}
+						}
+
+						structure.entitiesRemoved = true;
+					}
+
 					for (int i = 0; i < 100; i++) {
 						i = StructureEventHandler.setBlock(i, structure, structuresToRemove);
 					}
@@ -149,7 +174,7 @@ public final class StructureEventHandler {
 	/**
 	 * This occurs when a player dies and is used to make sure that a player does not get a duplicate starting house.
 	 *
-	 * @param event
+	 * @param event The player clone event.
 	 */
 	@SubscribeEvent
 	public static void onClone(PlayerEvent.Clone event) {
@@ -189,6 +214,63 @@ public final class StructureEventHandler {
 			// generation anyways.
 			if (!clearBlockState.isAir(structure.world, currentPos)) {
 				structure.BeforeClearSpaceBlockReplaced(currentPos);
+
+				for (Direction adjacentBlock : Direction.values()) {
+					BlockPos tempPos = currentPos.offset(adjacentBlock);
+					BlockState foundState = structure.world.getBlockState(tempPos);
+					Block foundBlock = foundState.getBlock();
+
+					// Check if this block is one that is attached to a facing, if it is, remove it first.
+					if (foundBlock instanceof TorchBlock
+							|| foundBlock instanceof AbstractSignBlock
+							|| foundBlock instanceof LeverBlock
+							|| foundBlock instanceof AbstractButtonBlock
+							|| foundBlock instanceof BedBlock
+							|| foundBlock instanceof CarpetBlock
+							|| foundBlock instanceof FlowerPotBlock
+							|| foundBlock instanceof SugarCaneBlock
+							|| foundBlock instanceof AbstractPressurePlateBlock
+							|| foundBlock instanceof DoorBlock
+							|| foundBlock instanceof LadderBlock
+							|| foundBlock instanceof VineBlock
+							|| foundBlock instanceof RedstoneWireBlock
+							|| foundBlock instanceof RedstoneDiodeBlock
+							|| foundBlock instanceof AbstractBannerBlock) {
+						structure.BeforeClearSpaceBlockReplaced(currentPos);
+
+						if (!(foundBlock instanceof BedBlock)) {
+							structure.world.removeBlock(tempPos, false);
+						} else if(foundBlock instanceof DoorBlock) {
+							// Make sure to remove both parts before going on.
+							DoubleBlockHalf currentHalf = foundState.get(BlockStateProperties.DOUBLE_BLOCK_HALF);
+
+							BlockPos otherHalfPos = currentHalf == DoubleBlockHalf.LOWER
+									? tempPos.up() : tempPos.down();
+
+							structure.world.setBlockState(tempPos, Blocks.AIR.getDefaultState(), 35);
+							structure.world.setBlockState(otherHalfPos, Blocks.AIR.getDefaultState(), 35);
+
+						} else {
+							// Found a bed, try to find the other part of the bed and remove it.
+							Direction direction = Direction.NORTH;
+
+							while (true) {
+								BlockPos bedPos = tempPos.offset(direction);
+								BlockState bedState = structure.world.getBlockState(bedPos);
+
+								if (bedState.getBlock() instanceof BedBlock) {
+									// found the other part of the bed. Remove the current block and this one.
+									structure.world.setBlockState(tempPos, Blocks.AIR.getDefaultState(), 35);
+									structure.world.setBlockState(bedPos, Blocks.AIR.getDefaultState(), 35);
+									break;
+								}
+
+								direction = direction.rotateY();
+							}
+						}
+					}
+				}
+
 				structure.world.removeBlock(currentPos, false);
 			} else {
 				// This is just an air block, move onto the next block don't need to wait for the next tick.
