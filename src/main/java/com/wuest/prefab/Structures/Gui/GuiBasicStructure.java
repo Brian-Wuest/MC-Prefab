@@ -57,8 +57,8 @@ public class GuiBasicStructure extends GuiStructure {
 	protected void postButtonRender(int x, int y) {
 		// Draw the text here.
 		if (this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.MineshaftEntrance
-			|| this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WatchTower
-			|| this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WelcomeCenter) {
+				|| this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WatchTower
+				|| this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WelcomeCenter) {
 			this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), x + 10, y + 10, this.textColor);
 		}
 
@@ -98,8 +98,7 @@ public class GuiBasicStructure extends GuiStructure {
 				|| this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WelcomeCenter) {
 			this.btnBedColor.visible = true;
 			y += 40;
-		}
-		else {
+		} else {
 			this.btnBedColor.visible = false;
 		}
 

@@ -5,7 +5,9 @@ import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.Proxy.Messages.PlayerEntityTagMessage;
-import com.wuest.prefab.Structures.Base.*;
+import com.wuest.prefab.Structures.Base.BuildBlock;
+import com.wuest.prefab.Structures.Base.BuildEntity;
+import com.wuest.prefab.Structures.Base.BuildingMethods;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -134,8 +136,8 @@ public final class StructureEventHandler {
 								for (Entity entity : list) {
 									// Don't kill living entities.
 									if (!(entity instanceof LivingEntity)) {
-										if (entity instanceof  HangingEntity) {
-											structure.BeforeHangingEntityRemoved((HangingEntity)entity);
+										if (entity instanceof HangingEntity) {
+											structure.BeforeHangingEntityRemoved((HangingEntity) entity);
 										}
 
 										structure.world.removeEntity(entity, false);
@@ -240,7 +242,7 @@ public final class StructureEventHandler {
 
 						if (!(foundBlock instanceof BedBlock)) {
 							structure.world.removeBlock(tempPos, false);
-						} else if(foundBlock instanceof DoorBlock) {
+						} else if (foundBlock instanceof DoorBlock) {
 							// Make sure to remove both parts before going on.
 							DoubleBlockHalf currentHalf = foundState.get(BlockStateProperties.DOUBLE_BLOCK_HALF);
 

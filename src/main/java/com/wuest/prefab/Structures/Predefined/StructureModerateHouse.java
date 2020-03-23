@@ -155,7 +155,7 @@ public class StructureModerateHouse extends Structure {
 	protected Boolean CustomBlockProcessingHandled(StructureConfiguration configuration, BuildBlock block, World world, BlockPos originalPos,
 												   Direction assumedNorth, Block foundBlock, BlockState blockState, PlayerEntity player) {
 
-		ModerateHouseConfiguration houseConfiguration = (ModerateHouseConfiguration)configuration;
+		ModerateHouseConfiguration houseConfiguration = (ModerateHouseConfiguration) configuration;
 
 		if (foundBlock instanceof FurnaceBlock) {
 			if (this.furnacePosition == null) {
@@ -195,7 +195,7 @@ public class StructureModerateHouse extends Structure {
 
 			this.bedPositions.add(new Tuple<>(bedHeadPosition, bedFootPosition));
 
-			return  true;
+			return true;
 		}
 
 		return false;

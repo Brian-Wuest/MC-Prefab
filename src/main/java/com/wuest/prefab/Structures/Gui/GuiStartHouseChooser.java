@@ -32,17 +32,16 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 	protected ExtendedButton btnCancel;
 	protected ExtendedButton btnBuild;
 	protected ExtendedButton btnVisualize;
+	protected ServerModConfiguration serverConfiguration;
 	// Tabs
 	private GuiTab tabGeneral;
 	private GuiTab tabConfig;
 	private GuiTab tabBlockTypes;
 	// General:
 	private ExtendedButton btnHouseStyle;
-
 	// Blocks/Size
 	private ExtendedButton btnGlassColor;
 	private ExtendedButton btnBedColor;
-
 	// Config:
 	private GuiCheckBox btnAddTorches;
 	private GuiCheckBox btnAddBed;
@@ -51,8 +50,6 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 	private GuiCheckBox btnAddChest;
 	private GuiCheckBox btnAddChestContents;
 	private GuiCheckBox btnAddMineShaft;
-
-	protected ServerModConfiguration serverConfiguration;
 	private boolean allowItemsInChestAndFurnace = true;
 
 	private HouseConfiguration houseConfiguration;
