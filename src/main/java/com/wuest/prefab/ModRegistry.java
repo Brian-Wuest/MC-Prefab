@@ -1,8 +1,6 @@
 package com.wuest.prefab;
 
-import com.wuest.prefab.Blocks.BlockCompressedObsidian;
-import com.wuest.prefab.Blocks.BlockCompressedStone;
-import com.wuest.prefab.Blocks.BlockStairs;
+import com.wuest.prefab.Blocks.*;
 import com.wuest.prefab.Items.*;
 import com.wuest.prefab.Proxy.Messages.ConfigSyncMessage;
 import com.wuest.prefab.Proxy.Messages.Handlers.ConfigSyncHandler;
