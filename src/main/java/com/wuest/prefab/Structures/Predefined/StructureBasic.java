@@ -1,6 +1,5 @@
 package com.wuest.prefab.Structures.Predefined;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.wuest.prefab.Structures.Base.*;
 import com.wuest.prefab.Structures.Config.BasicStructureConfiguration;
 import com.wuest.prefab.Structures.Config.BasicStructureConfiguration.EnumBasicStructureName;
@@ -93,7 +92,7 @@ public class StructureBasic extends Structure {
 
 			this.bedPositions.add(new Tuple<>(bedHeadPosition, bedFootPosition));
 
-			return  true;
+			return true;
 		}
 
 		return false;

@@ -8,7 +8,6 @@ import com.wuest.prefab.Structures.Config.StructureConfiguration;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Tuple;
-import javafx.util.Pair;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;

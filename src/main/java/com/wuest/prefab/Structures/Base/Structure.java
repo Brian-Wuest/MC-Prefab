@@ -411,7 +411,8 @@ public class Structure {
 								|| foundBlock instanceof VineBlock
 								|| foundBlock instanceof RedstoneWireBlock
 								|| foundBlock instanceof RedstoneDiodeBlock
-								|| foundBlock instanceof AbstractBannerBlock;
+								|| foundBlock instanceof AbstractBannerBlock
+								|| foundBlock instanceof LanternBlock;
 						
 						if (!block.getHasFacing()) {
 							if (subBlock != null) {

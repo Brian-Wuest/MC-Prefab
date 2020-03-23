@@ -3,7 +3,6 @@ package com.wuest.prefab.Gui;
 import com.electronwill.nightconfig.core.UnmodifiableConfig;
 import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.Tuple;
-import javafx.util.Pair;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;

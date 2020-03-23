@@ -10,7 +10,6 @@ import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureCon
 import com.wuest.prefab.Structures.Predefined.StructurePart;
 import com.wuest.prefab.Structures.Render.StructureRenderHandler;
 import com.wuest.prefab.Tuple;
-import javafx.util.Pair;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.Direction;
 import net.minecraftforge.fml.client.config.GuiButtonExt;

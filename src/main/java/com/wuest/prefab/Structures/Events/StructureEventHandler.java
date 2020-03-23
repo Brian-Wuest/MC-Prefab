@@ -38,7 +38,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.network.NetworkDirection;
 
-import javax.swing.plaf.nimbus.State;
 import java.util.*;
 import java.util.Map.Entry;
 
@@ -235,7 +234,8 @@ public final class StructureEventHandler {
 							|| foundBlock instanceof VineBlock
 							|| foundBlock instanceof RedstoneWireBlock
 							|| foundBlock instanceof RedstoneDiodeBlock
-							|| foundBlock instanceof AbstractBannerBlock) {
+							|| foundBlock instanceof AbstractBannerBlock
+							|| foundBlock instanceof LanternBlock) {
 						structure.BeforeClearSpaceBlockReplaced(currentPos);
 
 						if (!(foundBlock instanceof BedBlock)) {

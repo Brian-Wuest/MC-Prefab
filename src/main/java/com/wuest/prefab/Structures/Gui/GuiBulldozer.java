@@ -5,7 +5,6 @@ import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Structures.Config.BulldozerConfiguration;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Tuple;
-import javafx.util.Pair;
 import net.minecraft.client.gui.widget.button.Button;
 
 /**
