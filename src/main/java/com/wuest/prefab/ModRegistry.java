@@ -471,6 +471,10 @@ public class ModRegistry {
 		return ModRegistry.GetBlock(BlockGlassSlab.class);
 	}
 
+	public static BlockGlassStairs GlassStairs() {
+		return ModRegistry.GetBlock(BlockGlassStairs.class);
+	}
+
 	/**
 	 * Gets the item from the ModItems collections.
 	 *
@@ -562,7 +566,7 @@ public class ModRegistry {
 		ModRegistry.registerBlock(new BlockBoundary("block_boundary"));
 
 		ModRegistry.registerBlock(
-				new BlockStairs(Blocks.GLASS.getDefaultState(), Block.Properties.from(Blocks.GLASS)).setRegistryName("block_glass_stairs"),
+				new BlockGlassStairs(Blocks.GLASS.getDefaultState(), Block.Properties.from(Blocks.GLASS)).setRegistryName("block_glass_stairs"),
 				"block_glass_stairs");
 
 		ModRegistry.registerBlock(

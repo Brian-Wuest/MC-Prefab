@@ -18,8 +18,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
  *
  * @author Brian
  */
-public class BlockStairs extends StairsBlock {
-	public BlockStairs(BlockState state, Block.Properties properties) {
+public class BlockGlassStairs extends StairsBlock {
+	public BlockGlassStairs(BlockState state, Block.Properties properties) {
 		super(state, properties);
 	}
 

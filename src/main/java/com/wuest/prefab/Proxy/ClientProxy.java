@@ -127,6 +127,8 @@ public class ClientProxy extends CommonProxy {
 		// This render type (func_228643_e_) is the "cutout" render type.
 		RenderTypeLookup.setRenderLayer(ModRegistry.GlassSlab(), RenderType.getCutout());
 
+		RenderTypeLookup.setRenderLayer(ModRegistry.GlassStairs(), RenderType.getCutout());
+
 		RenderTypeLookup.setRenderLayer(ModRegistry.PaperLantern(), RenderType.getCutout());
 
 		// This is the "translucent" type.
