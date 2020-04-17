@@ -191,7 +191,7 @@ public class StructureAlternateStart extends Structure {
 				Item sword = Items.STONE_SWORD;
 
 				if (ModList.get().isLoaded("repurpose")) {
-					ResourceLocation name = new ResourceLocation("repurpose", "itemSwiftBladeStone");
+					ResourceLocation name = new ResourceLocation("repurpose", "item_swift_blade_stone");
 
 					if (ForgeRegistries.ITEMS.containsKey(name)) {
 						sword = ForgeRegistries.ITEMS.getValue(name);
