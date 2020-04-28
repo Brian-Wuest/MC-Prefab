@@ -1,6 +1,8 @@
 package com.wuest.prefab.Structures.Predefined;
 
 import com.wuest.prefab.Config.EntityPlayerConfiguration;
+import com.wuest.prefab.Prefab;
+import com.wuest.prefab.Proxy.Messages.PlayerEntityTagMessage;
 import com.wuest.prefab.Structures.Base.BuildBlock;
 import com.wuest.prefab.Structures.Base.BuildClear;
 import com.wuest.prefab.Structures.Base.BuildingMethods;
@@ -10,10 +12,12 @@ import com.wuest.prefab.Structures.Config.StructureConfiguration;
 import com.wuest.prefab.Tuple;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.fml.network.NetworkDirection;
 
 import java.util.ArrayList;
 
