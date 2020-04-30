@@ -30,12 +30,12 @@ public class GuiStructurePart extends GuiStructure {
 	private GuiButtonExt btnPartStyle;
 	private GuiButtonExt btnMaterialType;
 	private GuiButtonExt btnStairsMaterialType;
-	private int modifiedInitialXAxis = 213;
-	private int modifiedInitialYAxis = 83;
 
 	public GuiStructurePart() {
 		super("Structure Part");
 		this.structureConfiguration = EnumStructureConfiguration.Parts;
+		this.modifiedInitialXAxis = 213;
+		this.modifiedInitialYAxis = 83;
 	}
 
 	@Override
@@ -74,15 +74,10 @@ public class GuiStructurePart extends GuiStructure {
 	}
 
 	@Override
-	protected Tuple<Integer, Integer> getAdjustedXYValue() {
-		return new Tuple<>(this.getCenteredXAxis() - this.modifiedInitialXAxis, this.getCenteredYAxis() - this.modifiedInitialYAxis);
-	}
-
-	@Override
 	protected void preButtonRender(int x, int y) {
 		super.preButtonRender(x, y);
 
-		this.minecraft.getTextureManager().bindTexture(this.configuration.style.getPictureLocation());
+		this.bindTexture(this.configuration.style.getPictureLocation());
 
 		GuiStructurePart.drawModalRectWithCustomSizedTexture(x + 250, y, 1,
 				this.configuration.style.imageWidth, this.configuration.style.imageHeight,
@@ -91,8 +86,8 @@ public class GuiStructurePart extends GuiStructure {
 
 	@Override
 	protected void postButtonRender(int x, int y) {
-		this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.STYLE), x + 10, y + 10, this.textColor);
-		this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.MATERIAL), x + 147, y + 10, this.textColor);
+		this.drawString(GuiLangKeys.translateString(GuiLangKeys.STYLE), x + 10, y + 10, this.textColor);
+		this.drawString(GuiLangKeys.translateString(GuiLangKeys.MATERIAL), x + 147, y + 10, this.textColor);
 
 		if (this.configuration.style == EnumStyle.Stairs
 				|| this.configuration.style == EnumStyle.Roof) {
@@ -113,16 +108,16 @@ public class GuiStructurePart extends GuiStructure {
 
 		if (this.configuration.style != EnumStyle.Roof) {
 			if (this.configuration.style == EnumStyle.Floor) {
-				this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.LENGTH), x + 147, y + 90, this.textColor);
+				this.drawString(GuiLangKeys.translateString(GuiLangKeys.LENGTH), x + 147, y + 90, this.textColor);
 			} else {
-				this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.HEIGHT), x + 147, y + 90, this.textColor);
+				this.drawString(GuiLangKeys.translateString(GuiLangKeys.HEIGHT), x + 147, y + 90, this.textColor);
 			}
 		}
 
 		if (this.configuration.style == EnumStyle.Roof) {
-			this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.HEIGHT), x + 147, y + 50, this.textColor);
+			this.drawString(GuiLangKeys.translateString(GuiLangKeys.HEIGHT), x + 147, y + 50, this.textColor);
 		} else {
-			this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.WIDTH), x + 147, y + 50, this.textColor);
+			this.drawString(GuiLangKeys.translateString(GuiLangKeys.WIDTH), x + 147, y + 50, this.textColor);
 		}
 	}
 
@@ -155,7 +150,7 @@ public class GuiStructurePart extends GuiStructure {
 			structure.setupStructure(this.minecraft.world, this.configuration, this.pos);
 
 			StructureRenderHandler.setStructure(structure, Direction.SOUTH, this.configuration);
-			this.minecraft.displayGuiScreen(null);
+			this.closeScreen();
 		}
 	}
 }

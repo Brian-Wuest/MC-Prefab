@@ -27,6 +27,8 @@ public class GuiInstantBridge extends GuiStructure {
 	public GuiInstantBridge() {
 		super("Instant Bridge");
 		this.structureConfiguration = EnumStructureConfiguration.InstantBridge;
+		this.modifiedInitialXAxis = 210;
+		this.modifiedInitialYAxis = 83;
 	}
 
 	@Override
@@ -61,28 +63,23 @@ public class GuiInstantBridge extends GuiStructure {
 	}
 
 	@Override
-	protected Tuple<Integer, Integer> getAdjustedXYValue() {
-		return new Tuple<>(this.getCenteredXAxis() - 210, this.getCenteredYAxis() - 83);
-	}
-
-	@Override
 	protected void preButtonRender(int x, int y) {
 		super.preButtonRender(x, y);
 
-		this.minecraft.getTextureManager().bindTexture(structureTopDown);
+		this.bindTexture(structureTopDown);
 
 		GuiStructure.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 165, 58, 165, 58);
 	}
 
 	@Override
 	protected void postButtonRender(int x, int y) {
-		this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.BRIDGE_MATERIAL), x + 10, y + 10, this.textColor);
+		this.drawString(GuiLangKeys.translateString(GuiLangKeys.BRIDGE_MATERIAL), x + 10, y + 10, this.textColor);
 
 		if (this.chckIncludeRoof.isChecked()) {
-			this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.INTERIOR_HEIGHT), x + 147, y + 80, this.textColor);
+			this.drawString(GuiLangKeys.translateString(GuiLangKeys.INTERIOR_HEIGHT), x + 147, y + 80, this.textColor);
 		}
 
-		this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.BRIDGE_LENGTH), x + 147, y + 10, this.textColor);
+		this.drawString(GuiLangKeys.translateString(GuiLangKeys.BRIDGE_LENGTH), x + 147, y + 10, this.textColor);
 	}
 
 	/**
@@ -101,6 +98,7 @@ public class GuiInstantBridge extends GuiStructure {
 		this.configuration.bridgeLength = sliderValue;
 
 		sliderValue = this.sldrInteriorHeight.getValueInt();
+
 		if (sliderValue > 8) {
 			sliderValue = 8;
 		} else if (sliderValue < 3) {
@@ -128,8 +126,7 @@ public class GuiInstantBridge extends GuiStructure {
 			structure.setupStructure(this.configuration, this.pos);
 
 			StructureRenderHandler.setStructure(structure, Direction.SOUTH, this.configuration);
-			assert this.minecraft != null;
-			this.minecraft.displayGuiScreen(null);
+			this.closeScreen();
 		}
 	}
 }

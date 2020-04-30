@@ -24,6 +24,8 @@ public class GuiProduceFarm extends GuiStructure {
 	public GuiProduceFarm() {
 		super("Produce Farm");
 		this.structureConfiguration = EnumStructureConfiguration.ProduceFarm;
+		this.modifiedInitialXAxis = 210;
+		this.modifiedInitialYAxis = 83;
 	}
 
 	@Override
@@ -32,8 +34,9 @@ public class GuiProduceFarm extends GuiStructure {
 		this.configuration.pos = this.pos;
 
 		// Get the upper left hand corner of the GUI box.
-		int grayBoxX = this.getCenteredXAxis() - 210;
-		int grayBoxY = this.getCenteredYAxis() - 83;
+		Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
+		int grayBoxX = adjustedXYValue.getFirst();
+		int grayBoxY = adjustedXYValue.getSecond();
 
 		// Create the buttons.
 		this.btnGlassColor = this.createAndAddButton(grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateDye(this.configuration.dyeColor));
@@ -55,17 +58,17 @@ public class GuiProduceFarm extends GuiStructure {
 	protected void preButtonRender(int x, int y) {
 		super.preButtonRender(x, y);
 
-		this.minecraft.getTextureManager().bindTexture(houseTopDown);
+		this.bindTexture(houseTopDown);
 		GuiProduceFarm.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 170, 171, 170, 171);
 	}
 
 	@Override
 	protected void postButtonRender(int x, int y) {
-		this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS), x + 10, y + 10, this.textColor);
+		this.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS), x + 10, y + 10, this.textColor);
 
 		// Draw the text here.
-		this.minecraft.fontRenderer.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, y + 10, 100, this.textColor);
-		this.minecraft.fontRenderer.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.PRODUCE_FARM_SIZE), x + 147, y + 50, 100, this.textColor);
+		this.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, y + 10, 100, this.textColor);
+		this.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.PRODUCE_FARM_SIZE), x + 147, y + 50, 100, this.textColor);
 	}
 
 	/**
@@ -81,8 +84,7 @@ public class GuiProduceFarm extends GuiStructure {
 		} else if (button == this.btnVisualize) {
 			StructureProduceFarm structure = StructureProduceFarm.CreateInstance(StructureProduceFarm.ASSETLOCATION, StructureProduceFarm.class);
 			StructureRenderHandler.setStructure(structure, Direction.NORTH, this.configuration);
-			assert this.minecraft != null;
-			this.minecraft.displayGuiScreen(null);
+			this.closeScreen();
 		}
 	}
 }

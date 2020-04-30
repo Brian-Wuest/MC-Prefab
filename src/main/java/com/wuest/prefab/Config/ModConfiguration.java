@@ -160,7 +160,7 @@ public class ModConfiguration {
 		builder.comment("General");
 
 		Prefab.proxy.proxyConfiguration.startingItem = builder
-				.comment("Determines which starting item a player gets on first world join. Server configuration overrides client.")
+				.comment("Determines which starting item a player gets on first world join. Valid values for this option are: \"Starting House\", \"Moderate House\", \"Structure Part\", \"Nothing\". Server configuration overrides client.")
 				.defineInList(OPTIONS + ModConfiguration.startingItemName, "Starting House", validStartingItems);
 
 		Prefab.proxy.proxyConfiguration.maximumStartingHouseSize = builder

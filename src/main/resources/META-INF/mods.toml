@@ -4,7 +4,7 @@ issueTrackerURL="https://github.com/Brian-Wuest/MC-Prefab/issues" #optional
 
 [[mods]] #mandatory
     modId="prefab" #mandatory
-    version="1.4.0.15" #mandatory
+    version="${file.jarVersion}" #mandatory
     displayName="Prefab" #mandatory
     #logoFile="" #optional
     updateJSONURL="https://raw.githubusercontent.com/Brian-Wuest/MC-Prefab/master/changeLog.json" #optional

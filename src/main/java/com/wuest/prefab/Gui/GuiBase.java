@@ -11,6 +11,8 @@ public abstract class GuiBase extends Screen {
 
 	private final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/default_background.png");
 	private boolean pauseGame;
+	protected int modifiedInitialXAxis = 213;
+	protected int modifiedInitialYAxis = 83;
 
 	public GuiBase(String title) {
 		super(new StringTextComponent(title));
@@ -28,10 +30,18 @@ public abstract class GuiBase extends Screen {
 	protected void Initialize() {
 	}
 
+	/**
+	 * Gets the X-Coordinates of the center of the screen.
+	 * @return The coordinate value.
+	 */
 	protected int getCenteredXAxis() {
 		return this.width / 2;
 	}
 
+	/**
+	 * Gets the Y-Coordinates of the center off the screen.
+	 * @return The coordinate value.
+	 */
 	protected int getCenteredYAxis() {
 		return this.height / 2;
 	}
@@ -88,9 +98,58 @@ public abstract class GuiBase extends Screen {
 		}
 	}
 
-	public abstract void buttonClicked(Button button);
+	/**
+	 * Gets the adjusted x/y coordinates for the topleft most part of the screen.
+	 * @return A new tuple containing the x/y coordinates.
+	 */
+	protected Tuple<Integer, Integer> getAdjustedXYValue() {
+		return new Tuple<>(this.getCenteredXAxis() - this.modifiedInitialXAxis, this.getCenteredYAxis() - this.modifiedInitialYAxis);
+	}
 
-	protected abstract Tuple<Integer, Integer> getAdjustedXYValue();
+	/**
+	 * Draws a string on the screen.
+	 * @param text The text to draw.
+	 * @param x The X-Coordinates of the string to start.
+	 * @param y The Y-Coordinates of the string to start.
+	 * @param color The color of the text.
+	 * @return Some integer value.
+	 */
+	public int drawString(String text, float x, float y, int color) {
+		return this.getMinecraft().fontRenderer.drawString(text, x, y, color);
+	}
+
+	/**
+	 * Draws a string on the screen with word wrapping.
+	 * @param str The text to draw.
+	 * @param x The X-Coordinates of the string to start.
+	 * @param y The Y-Coordinates of the string to start.
+	 * @param wrapWidth The maximum width before wrapping begins.
+	 * @param textColor The color of the text.
+	 */
+	public void drawSplitString(String str, int x, int y, int wrapWidth, int textColor) {
+		this.getMinecraft().fontRenderer.drawSplitString(str, x, y, wrapWidth, textColor);
+	}
+
+	/**
+	 * Closes the current screen.
+	 */
+	public void closeScreen() {
+		this.getMinecraft().displayGuiScreen(null);
+	}
+
+	/**
+	 * Binds a texture to the texture manager for rendering.
+	 * @param resourceLocation The resource location to bind.
+	 */
+	public void bindTexture(ResourceLocation resourceLocation) {
+		this.getMinecraft().getTextureManager().bindTexture(resourceLocation);
+	}
+
+	/**
+	 * This event is called when a particular button is clicked.
+	 * @param button The button which was clicked.
+	 */
+	public abstract void buttonClicked(Button button);
 
 	protected abstract void preButtonRender(int x, int y);
 

@@ -28,6 +28,8 @@ public class GuiWareHouse extends GuiStructure {
 		super("Warehouse");
 		this.structureConfiguration = EnumStructureConfiguration.WareHouse;
 		this.clientGUIIdentifier = "Warehouse";
+		this.modifiedInitialXAxis = 180;
+		this.modifiedInitialYAxis = 83;
 	}
 
 	@Override
@@ -37,8 +39,9 @@ public class GuiWareHouse extends GuiStructure {
 		this.configuration.houseFacing = Direction.NORTH;
 
 		// Get the upper left hand corner of the GUI box.
-		int grayBoxX = this.getCenteredXAxis() - 180;
-		int grayBoxY = this.getCenteredYAxis() - 83;
+		Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
+		int grayBoxX = adjustedXYValue.getFirst();
+		int grayBoxY = adjustedXYValue.getSecond();
 
 		// Create the buttons.
 		this.btnGlassColor = this.createAndAddButton(grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateDye(this.configuration.dyeColor));
@@ -52,24 +55,19 @@ public class GuiWareHouse extends GuiStructure {
 	}
 
 	@Override
-	protected Tuple<Integer, Integer> getAdjustedXYValue() {
-		return new Tuple<>(this.getCenteredXAxis() - 180, this.getCenteredYAxis() - 83);
-	}
-
-	@Override
 	protected void preButtonRender(int x, int y) {
 		super.preButtonRender(x, y);
 
-		this.minecraft.getTextureManager().bindTexture(wareHouseTopDown);
+		this.bindTexture(wareHouseTopDown);
 		GuiWareHouse.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 132, 153, 132, 153);
 	}
 
 	@Override
 	protected void postButtonRender(int x, int y) {
-		this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS), x + 10, y + 10, this.textColor);
+		this.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS), x + 10, y + 10, this.textColor);
 
 		// Draw the text here.
-		this.minecraft.fontRenderer.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, y + 10, 95, this.textColor);
+		this.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, y + 10, 95, this.textColor);
 	}
 
 	/**
@@ -91,8 +89,7 @@ public class GuiWareHouse extends GuiStructure {
 				StructureRenderHandler.setStructure(structure, Direction.NORTH, this.configuration);
 			}
 
-			assert this.minecraft != null;
-			this.minecraft.displayGuiScreen(null);
+			this.closeScreen();
 		}
 	}
 }
