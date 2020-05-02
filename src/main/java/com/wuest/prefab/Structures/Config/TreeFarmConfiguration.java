@@ -36,7 +36,7 @@ public class TreeFarmConfiguration extends StructureConfiguration {
 	protected void ConfigurationSpecificBuildStructure(PlayerEntity player, ServerWorld world, BlockPos hitBlockPos) {
 		StructureTreeFarm structure = StructureTreeFarm.CreateInstance(StructureTreeFarm.ASSETLOCATION, StructureTreeFarm.class);
 		if (structure.BuildStructure(this, world, hitBlockPos, Direction.NORTH, player)) {
-			this.RemoveStructureItemFromPlayer(player, ModRegistry.TreeFarm());
+			this.RemoveStructureItemFromPlayer(player, ModRegistry.TreeFarm.get());
 		}
 	}
 }

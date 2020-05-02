@@ -8,8 +8,8 @@ import net.minecraft.item.ItemUseContext;
  */
 @SuppressWarnings("ConstantConditions")
 public class ItemMonsterMasher extends StructureItem {
-	public ItemMonsterMasher(String name) {
-		super(name);
+	public ItemMonsterMasher( ) {
+		super();
 	}
 
 	@Override

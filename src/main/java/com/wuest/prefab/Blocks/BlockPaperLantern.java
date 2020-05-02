@@ -25,15 +25,12 @@ public class BlockPaperLantern extends Block {
 	/**
 	 * Initializes a new instance of the BlockPaperLantern class.
 	 *
-	 * @param name The name to register this block as.
 	 */
-	public BlockPaperLantern(String name) {
+	public BlockPaperLantern( ) {
 		super(Properties.create(Prefab.SeeThroughImmovable)
 				.sound(SoundType.SNOW)
 				.hardnessAndResistance(0.6f)
 				.lightValue(14));
-
-		ModRegistry.setBlockName(this, name);
 	}
 
 	/**

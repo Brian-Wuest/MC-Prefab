@@ -30,7 +30,7 @@ public class ChickenCoopConfiguration extends StructureConfiguration {
 		StructureChickenCoop structure = StructureChickenCoop.CreateInstance(StructureChickenCoop.ASSETLOCATION, StructureChickenCoop.class);
 
 		if (structure.BuildStructure(this, world, hitBlockPos, Direction.NORTH, player)) {
-			this.RemoveStructureItemFromPlayer(player, ModRegistry.ChickenCoop());
+			this.RemoveStructureItemFromPlayer(player, ModRegistry.ChickenCoop.get());
 		}
 	}
 }

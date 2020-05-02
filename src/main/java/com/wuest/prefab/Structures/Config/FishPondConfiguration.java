@@ -37,7 +37,7 @@ public class FishPondConfiguration extends StructureConfiguration {
 		StructureFishPond structure = StructureFishPond.CreateInstance(StructureFishPond.ASSETLOCATION, StructureFishPond.class);
 
 		if (structure.BuildStructure(this, world, hitBlockPos, Direction.NORTH, player)) {
-			this.RemoveStructureItemFromPlayer(player, ModRegistry.FishPond());
+			this.RemoveStructureItemFromPlayer(player, ModRegistry.FishPond.get());
 		}
 	}
 }

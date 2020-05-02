@@ -11,8 +11,8 @@ import net.minecraft.item.ItemUseContext;
  */
 @SuppressWarnings("ConstantConditions")
 public class ItemVillagerHouses extends StructureItem {
-	public ItemVillagerHouses(String name) {
-		super(name, new Item.Properties()
+	public ItemVillagerHouses() {
+		super(new Item.Properties()
 				.group(ItemGroup.MISC)
 				.maxDamage(10));
 	}

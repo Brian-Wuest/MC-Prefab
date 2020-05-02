@@ -8,9 +8,8 @@ import net.minecraft.item.ItemGroup;
  * @author WuestMan
  */
 public class ItemPileOfBricks extends Item {
-	public ItemPileOfBricks(String name) {
+	public ItemPileOfBricks( ) {
 		super(new Item.Properties().group(ItemGroup.MATERIALS));
 
-		ModRegistry.setItemName(this, name);
 	}
 }

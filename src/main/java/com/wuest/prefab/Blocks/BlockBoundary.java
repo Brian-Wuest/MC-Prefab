@@ -50,17 +50,14 @@ public class BlockBoundary extends Block {
 	/**
 	 * Initializes a new instance of the BlockBoundary class.
 	 *
-	 * @param name The name of the block to register.
 	 */
-	public BlockBoundary(String name) {
+	public BlockBoundary() {
 		super(Block.Properties.create(Prefab.SeeThroughImmovable)
 				.sound(SoundType.STONE)
 				.hardnessAndResistance(0.6F));
 
 		this.itemGroup = ItemGroup.BUILDING_BLOCKS;
 		this.setDefaultState(this.stateContainer.getBaseState().with(Powered, false));
-
-		ModRegistry.setBlockName(this, name);
 	}
 
 	@Override

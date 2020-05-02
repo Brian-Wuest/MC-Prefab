@@ -31,11 +31,9 @@ public class ItemBulldozer extends StructureItem {
 
 	/**
 	 * Initializes a new instance of the {@link ItemBulldozer} class.
-	 *
-	 * @param name The registered name of this item.
 	 */
-	public ItemBulldozer(String name) {
-		super(name, new Item.Properties()
+	public ItemBulldozer() {
+		super(new Item.Properties()
 				.group(ItemGroup.MISC)
 				.maxDamage(4));
 	}
@@ -116,7 +114,7 @@ public class ItemBulldozer extends StructureItem {
 	}
 
 	private boolean getPoweredValue(ItemStack stack) {
-		if (stack.getItem() == ModRegistry.Bulldozer()) {
+		if (stack.getItem() == ModRegistry.Bulldozer.get()) {
 			if (stack.getTag() == null
 					|| stack.getTag().isEmpty()) {
 				stack.setTag(stack.serializeNBT());

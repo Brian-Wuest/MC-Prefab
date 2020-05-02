@@ -27,7 +27,6 @@ public class BlockCompressedObsidian extends Block {
 				.sound(SoundType.STONE));
 
 		this.typeofStone = stoneType;
-		ModRegistry.setBlockName(this, stoneType.unlocalizedName);
 	}
 
 	@Nullable

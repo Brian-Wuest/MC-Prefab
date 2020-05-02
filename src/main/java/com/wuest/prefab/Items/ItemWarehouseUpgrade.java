@@ -8,9 +8,9 @@ import net.minecraft.item.ItemGroup;
  * @author WuestMan
  */
 public class ItemWarehouseUpgrade extends Item {
-	public ItemWarehouseUpgrade(String name) {
+	public ItemWarehouseUpgrade( ) {
 		super(new Item.Properties().group(ItemGroup.MATERIALS));
 
-		ModRegistry.setItemName(this, name);
+
 	}
 }

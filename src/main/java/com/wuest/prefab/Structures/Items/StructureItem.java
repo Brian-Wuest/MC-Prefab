@@ -17,14 +17,14 @@ public class StructureItem extends Item {
 	/**
 	 * Initializes a new instance of the StructureItem class.
 	 */
-	public StructureItem(String name) {
+	public StructureItem() {
 		super(new Item.Properties().group(ItemGroup.MISC));
-		this.Initialize(name);
+		this.Initialize();
 	}
 
-	public StructureItem(String name, Item.Properties properties) {
+	public StructureItem(Item.Properties properties) {
 		super(properties);
-		this.Initialize(name);
+		this.Initialize();
 	}
 
 	/**
@@ -54,7 +54,6 @@ public class StructureItem extends Item {
 	/**
 	 * Initializes common fields/properties for this structure item.
 	 */
-	protected void Initialize(String name) {
-		ModRegistry.setItemName(this, name);
+	protected void Initialize() {
 	}
 }

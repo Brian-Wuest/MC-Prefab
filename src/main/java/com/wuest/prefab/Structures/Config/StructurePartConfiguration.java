@@ -84,7 +84,7 @@ public class StructurePartConfiguration extends StructureConfiguration {
 		StructurePart structure = StructurePart.CreateInstance();
 
 		if (structure.BuildStructure(this, world, hitBlockPos, Direction.NORTH, player)) {
-			this.DamageHeldItem(player, ModRegistry.StructurePart());
+			this.DamageHeldItem(player, ModRegistry.StructurePart.get());
 		}
 	}
 

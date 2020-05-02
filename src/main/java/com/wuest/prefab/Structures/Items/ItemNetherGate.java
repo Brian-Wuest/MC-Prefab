@@ -8,8 +8,8 @@ import net.minecraft.item.ItemUseContext;
  */
 @SuppressWarnings("ConstantConditions")
 public class ItemNetherGate extends StructureItem {
-	public ItemNetherGate(String name) {
-		super(name);
+	public ItemNetherGate( ) {
+		super();
 	}
 
 	@Override

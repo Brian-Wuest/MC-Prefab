@@ -25,10 +25,9 @@ public class ItemCompressedChest extends Item {
 	 *
 	 * @param name The name of the item to register.
 	 */
-	public ItemCompressedChest(String name) {
+	public ItemCompressedChest( ) {
 		super(new Item.Properties().group(ItemGroup.MATERIALS));
 
-		ModRegistry.setItemName(this, name);
 	}
 
 	/**

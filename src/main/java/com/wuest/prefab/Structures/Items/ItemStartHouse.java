@@ -11,8 +11,8 @@ import net.minecraft.util.Direction;
  */
 @SuppressWarnings("ALL")
 public class ItemStartHouse extends StructureItem {
-	public ItemStartHouse(String name) {
-		super(name);
+	public ItemStartHouse( ) {
+		super();
 	}
 
 	/**

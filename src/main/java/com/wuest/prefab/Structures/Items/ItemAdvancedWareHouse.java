@@ -8,8 +8,8 @@ import net.minecraft.item.ItemUseContext;
  */
 @SuppressWarnings("ConstantConditions")
 public class ItemAdvancedWareHouse extends ItemWareHouse {
-	public ItemAdvancedWareHouse(String name) {
-		super(name);
+	public ItemAdvancedWareHouse( ) {
+		super();
 	}
 
 	@Override

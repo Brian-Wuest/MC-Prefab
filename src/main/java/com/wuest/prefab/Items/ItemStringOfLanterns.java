@@ -8,9 +8,8 @@ import net.minecraft.item.ItemGroup;
  * @author WuestMan
  */
 public class ItemStringOfLanterns extends Item {
-	public ItemStringOfLanterns(String name) {
+	public ItemStringOfLanterns( ) {
 		super(new Item.Properties().group(ItemGroup.MATERIALS));
 
-		ModRegistry.setItemName(this, name);
 	}
 }

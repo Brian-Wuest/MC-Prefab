@@ -1,6 +1,5 @@
 package com.wuest.prefab.Items;
 
-import com.wuest.prefab.ModRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -14,10 +13,8 @@ import net.minecraft.world.World;
 public class ItemBogus extends Item {
 	public static boolean renderTest = false;
 
-	public ItemBogus(String name) {
+	public ItemBogus() {
 		super(new Item.Properties().group(ItemGroup.MATERIALS));
-
-		ModRegistry.setItemName(this, name);
 	}
 
 	/**

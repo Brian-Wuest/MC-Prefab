@@ -181,7 +181,7 @@ public class HouseConfiguration extends StructureConfiguration {
 			playerConfig.builtStarterHouse = true;
 			playerConfig.saveToPlayer(player);
 
-			this.RemoveStructureItemFromPlayer(player, ModRegistry.StartHouse());
+			this.RemoveStructureItemFromPlayer(player, ModRegistry.StartHouse.get());
 
 			// Make sure to send a message to the client to sync up the server player information and the client player
 			// information.

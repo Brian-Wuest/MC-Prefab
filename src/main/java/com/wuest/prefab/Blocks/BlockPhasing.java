@@ -58,16 +58,13 @@ public class BlockPhasing extends Block {
 	/**
 	 * Initializes a new instance of the BlockPhasing class.
 	 *
-	 * @param name The name to register the block as.
 	 */
-	public BlockPhasing(String name) {
+	public BlockPhasing() {
 		super(Properties.create(Prefab.SeeThroughImmovable)
 				.sound(SoundType.STONE)
 				.hardnessAndResistance(0.6f));
 
 		this.setDefaultState(this.stateContainer.getBaseState().with(Phasing_Out, false).with(Phasing_Progress, EnumPhasingProgress.base));
-
-		ModRegistry.setBlockName(this, name);
 	}
 
 	@Override
