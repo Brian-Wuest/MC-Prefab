@@ -55,11 +55,6 @@ public class GuiTabScreen extends GuiStructure {
 	}
 
 	@Override
-	protected Tuple<Integer, Integer> getAdjustedXYValue() {
-		return null;
-	}
-
-	@Override
 	protected void postButtonRender(int x, int y) {
 
 	}
