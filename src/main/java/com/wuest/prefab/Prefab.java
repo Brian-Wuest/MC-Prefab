@@ -74,14 +74,14 @@ public class Prefab {
 	}
 
 	public Prefab() {
+		// Register the blocks and items for this mod.
+		ModRegistry.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
+		ModRegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
+
 		// Register the setup method for mod-loading
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
 
 		Prefab.proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
-
-		// Register the blocks and items for this mod.
-		ModRegistry.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
-		ModRegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
 
 		Prefab.proxy.RegisterEventHandler();
 
