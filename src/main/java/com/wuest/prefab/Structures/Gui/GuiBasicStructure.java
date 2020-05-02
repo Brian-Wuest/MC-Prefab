@@ -25,18 +25,13 @@ import java.io.IOException;
 public class GuiBasicStructure extends GuiStructure {
 	protected BasicStructureConfiguration configuration;
 	private boolean includePicture = true;
-	private int modifiedInitialXAxis = 213;
-	private int modifiedInitialYAxis = 83;
 	private ExtendedButton btnBedColor = null;
 
 	public GuiBasicStructure() {
 		super("Basic Structure");
 		this.structureConfiguration = EnumStructureConfiguration.Basic;
-	}
-
-	@Override
-	protected Tuple<Integer, Integer> getAdjustedXYValue() {
-		return new Tuple<>(this.getCenteredXAxis() - this.modifiedInitialXAxis, this.getCenteredYAxis() - this.modifiedInitialYAxis);
+		this.modifiedInitialXAxis = 213;
+		this.modifiedInitialYAxis = 83;
 	}
 
 	@Override
@@ -45,7 +40,7 @@ public class GuiBasicStructure extends GuiStructure {
 
 		if (this.includePicture) {
 			// Draw the control background.
-			this.getMinecraft().getTextureManager().bindTexture(this.configuration.basicStructureName.getTopDownPictureLocation());
+			this.bindTexture(this.configuration.basicStructureName.getTopDownPictureLocation());
 
 			GuiBasicStructure.drawModalRectWithCustomSizedTexture(x + 250, y, 1,
 					this.configuration.basicStructureName.getImageWidth(), this.configuration.basicStructureName.getImageHeight(),
@@ -57,12 +52,12 @@ public class GuiBasicStructure extends GuiStructure {
 	protected void postButtonRender(int x, int y) {
 		// Draw the text here.
 		if (this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.MineshaftEntrance
-				|| this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WatchTower
-				|| this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WelcomeCenter) {
-			this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), x + 10, y + 10, this.textColor);
+			|| this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WatchTower
+			|| this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WelcomeCenter) {
+			this.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), x + 10, y + 10, this.textColor);
 		}
 
-		this.getMinecraft().fontRenderer.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, y + 10, 95, this.textColor);
+		this.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, y + 10, 95, this.textColor);
 	}
 
 	@Override
@@ -84,8 +79,9 @@ public class GuiBasicStructure extends GuiStructure {
 		}
 
 		// Get the upper left hand corner of the GUI box.
-		int grayBoxX = this.getCenteredXAxis() - this.modifiedInitialXAxis;
-		int grayBoxY = this.getCenteredYAxis() - this.modifiedInitialYAxis;
+		Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
+		int grayBoxX = adjustedXYValue.getFirst();
+		int grayBoxY = adjustedXYValue.getSecond();
 
 		// Create the buttons.
 		int x = grayBoxX + 10;
@@ -132,7 +128,7 @@ public class GuiBasicStructure extends GuiStructure {
 		if (button == this.btnVisualize) {
 			StructureBasic structure = StructureBasic.CreateInstance(this.configuration.basicStructureName.getAssetLocation(), StructureBasic.class);
 			StructureRenderHandler.setStructure(structure, Direction.NORTH, this.configuration);
-			this.getMinecraft().displayGuiScreen(null);
+			this.closeScreen();
 		} else if (button == this.btnBedColor) {
 			this.configuration.bedColor = DyeColor.byId(this.configuration.bedColor.getId() + 1);
 			this.btnBedColor.setMessage(GuiLangKeys.translateDye(this.configuration.bedColor));

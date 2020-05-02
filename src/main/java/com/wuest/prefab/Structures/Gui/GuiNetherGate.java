@@ -6,7 +6,6 @@ import com.wuest.prefab.Structures.Config.NetherGateConfiguration;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Structures.Predefined.StructureNetherGate;
 import com.wuest.prefab.Structures.Render.StructureRenderHandler;
-import com.wuest.prefab.Tuple;
 import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
@@ -21,24 +20,21 @@ public class GuiNetherGate extends GuiStructure {
 	public GuiNetherGate() {
 		super("Nether Gate");
 		this.structureConfiguration = EnumStructureConfiguration.NetherGate;
-	}
-
-	@Override
-	protected Tuple<Integer, Integer> getAdjustedXYValue() {
-		return new Tuple<>(this.getCenteredXAxis() - 213, this.getCenteredYAxis() - 83);
+		this.modifiedInitialXAxis = 213;
+		this.modifiedInitialYAxis = 83;
 	}
 
 	@Override
 	protected void preButtonRender(int x, int y) {
 		super.preButtonRender(x, y);
 
-		this.minecraft.getTextureManager().bindTexture(structureTopDown);
+		this.bindTexture(structureTopDown);
 		GuiStructure.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 164, 108, 164, 108);
 	}
 
 	@Override
 	protected void postButtonRender(int x, int y) {
-		this.minecraft.fontRenderer.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, y + 10, 95, this.textColor);
+		this.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, y + 10, 95, this.textColor);
 	}
 
 	/**
@@ -51,8 +47,7 @@ public class GuiNetherGate extends GuiStructure {
 		if (button == this.btnVisualize) {
 			StructureNetherGate structure = StructureNetherGate.CreateInstance(StructureNetherGate.ASSETLOCATION, StructureNetherGate.class);
 			StructureRenderHandler.setStructure(structure, Direction.NORTH, this.configuration);
-			assert this.minecraft != null;
-			this.minecraft.displayGuiScreen(null);
+			this.closeScreen();
 		}
 	}
 

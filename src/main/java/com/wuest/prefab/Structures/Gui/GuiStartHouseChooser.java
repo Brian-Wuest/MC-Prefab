@@ -57,6 +57,8 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 	public GuiStartHouseChooser() {
 		super();
 		this.Tabs.setWidth(256);
+		this.modifiedInitialXAxis = 198;
+		this.modifiedInitialYAxis = 83;
 	}
 
 	@Override
@@ -69,11 +71,6 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 		}
 
 		this.Initialize();
-	}
-
-	@Override
-	protected Tuple<Integer, Integer> getAdjustedXYValue() {
-		return new Tuple<>((this.width / 2) - 198, (this.height / 2) - 83);
 	}
 
 	/**
@@ -139,10 +136,10 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 
 		// Draw the appropriate text based on the selected tab.
 		if (this.getSelectedTab() == this.tabGeneral) {
-			this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), grayBoxX + 10, grayBoxY + 10, color);
-			this.minecraft.fontRenderer.drawSplitString(this.houseConfiguration.houseStyle.getHouseNotes(), grayBoxX + 147, grayBoxY + 10, 95, color);
+			this.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), grayBoxX + 10, grayBoxY + 10, color);
+			this.drawSplitString(this.houseConfiguration.houseStyle.getHouseNotes(), grayBoxX + 147, grayBoxY + 10, 95, color);
 
-			this.minecraft.getTextureManager().bindTexture(this.houseConfiguration.houseStyle.getHousePicture());
+			this.bindTexture(this.houseConfiguration.houseStyle.getHousePicture());
 			GuiTabScreen.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1,
 					this.houseConfiguration.houseStyle.getImageWidth(), this.houseConfiguration.houseStyle.getImageHeight(),
 					this.houseConfiguration.houseStyle.getImageWidth(), this.houseConfiguration.houseStyle.getImageHeight());
@@ -151,11 +148,11 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 					|| this.houseConfiguration.houseStyle == HouseConfiguration.HouseStyle.DESERT) {
 			} else {
 				// Column 1:
-				this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS), grayBoxX + 10, grayBoxY + 10, color);
+				this.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS), grayBoxX + 10, grayBoxY + 10, color);
 			}
 
 			// Column 2:
-			this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), grayBoxX + 147, grayBoxY + 10, color);
+			this.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), grayBoxX + 147, grayBoxY + 10, color);
 		}
 
 		if (!CommonProxy.proxyConfiguration.serverConfiguration.enableStructurePreview) {
@@ -229,7 +226,7 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 			StructureAlternateStart structure = StructureAlternateStart.CreateInstance(this.houseConfiguration.houseStyle.getStructureLocation(), StructureAlternateStart.class);
 
 			StructureRenderHandler.setStructure(structure, Direction.NORTH, this.houseConfiguration);
-			this.minecraft.displayGuiScreen(null);
+			this.closeScreen();
 		}
 	}
 
@@ -244,8 +241,9 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 	@Override
 	protected void Initialize() {
 		// Get the upper left hand corner of the GUI box.
-		int grayBoxX = (this.width / 2) - 198;
-		int grayBoxY = (this.height / 2) - 83;
+		Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
+		int grayBoxX = adjustedXYValue.getFirst();
+		int grayBoxY = adjustedXYValue.getSecond();
 		int color = Color.DARK_GRAY.getRGB();
 		this.serverConfiguration = Prefab.proxy.getServerConfiguration();
 		this.houseConfiguration = ClientEventHandler.playerConfig.getClientConfig("Starter House", HouseConfiguration.class);

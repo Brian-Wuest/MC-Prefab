@@ -39,7 +39,7 @@ public class HorseStableConfiguration extends StructureConfiguration {
 		StructureHorseStable structure = StructureHorseStable.CreateInstance(StructureHorseStable.ASSETLOCATION, StructureHorseStable.class);
 
 		if (structure.BuildStructure(this, world, hitBlockPos, Direction.NORTH, player)) {
-			this.RemoveStructureItemFromPlayer(player, ModRegistry.HorseStable());
+			this.RemoveStructureItemFromPlayer(player, ModRegistry.HorseStable.get());
 		}
 	}
 }

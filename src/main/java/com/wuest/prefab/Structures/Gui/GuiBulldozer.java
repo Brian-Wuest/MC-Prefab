@@ -21,6 +21,8 @@ public class GuiBulldozer extends GuiStructure {
 		super("Bulldozer");
 
 		this.structureConfiguration = EnumStructureConfiguration.Bulldozer;
+		this.modifiedInitialXAxis = 125;
+		this.modifiedInitialYAxis = 83;
 	}
 
 	@Override
@@ -29,8 +31,9 @@ public class GuiBulldozer extends GuiStructure {
 		this.configuration.pos = this.pos;
 
 		// Get the upper left hand corner of the GUI box.
-		int grayBoxX = this.getCenteredXAxis() - 125;
-		int grayBoxY = this.getCenteredYAxis() - 83;
+		Tuple<Integer, Integer> adjustedCorner = this.getAdjustedXYValue();
+		int grayBoxX = adjustedCorner.getFirst();
+		int grayBoxY = adjustedCorner.getSecond();
 
 		// Create the done and cancel buttons.
 		this.btnBuild = this.createAndAddButton(grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_BUILD));
@@ -39,15 +42,10 @@ public class GuiBulldozer extends GuiStructure {
 	}
 
 	@Override
-	protected Tuple<Integer, Integer> getAdjustedXYValue() {
-		return new Tuple<>(this.getCenteredXAxis() - 125, this.getCenteredYAxis() - 83);
-	}
-
-	@Override
 	protected void postButtonRender(int x, int y) {
-		this.minecraft.fontRenderer.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BULLDOZER_DESCRIPTION), x + 10, y + 10, 230, this.textColor);
+		this.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BULLDOZER_DESCRIPTION), x + 10, y + 10, 230, this.textColor);
 
-		this.minecraft.fontRenderer.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_CLEARED_AREA), x + 10, y + 40, 230, this.textColor);
+		this.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_CLEARED_AREA), x + 10, y + 40, 230, this.textColor);
 	}
 
 	/**

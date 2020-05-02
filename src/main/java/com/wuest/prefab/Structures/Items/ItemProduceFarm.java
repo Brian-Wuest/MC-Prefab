@@ -8,8 +8,8 @@ import net.minecraft.item.ItemUseContext;
  */
 @SuppressWarnings("ConstantConditions")
 public class ItemProduceFarm extends StructureItem {
-	public ItemProduceFarm(String name) {
-		super(name);
+	public ItemProduceFarm( ) {
+		super();
 	}
 
 	@Override

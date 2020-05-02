@@ -62,7 +62,7 @@ public class MonsterMasherConfiguration extends StructureConfiguration {
 		StructureMonsterMasher structure = StructureMonsterMasher.CreateInstance(StructureMonsterMasher.ASSETLOCATION, StructureMonsterMasher.class);
 
 		if (structure.BuildStructure(this, world, hitBlockPos, Direction.NORTH, player)) {
-			this.RemoveStructureItemFromPlayer(player, ModRegistry.MonsterMasher());
+			this.RemoveStructureItemFromPlayer(player, ModRegistry.MonsterMasher.get());
 		}
 	}
 }

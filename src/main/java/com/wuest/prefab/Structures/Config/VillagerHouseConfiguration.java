@@ -87,7 +87,7 @@ public class VillagerHouseConfiguration extends StructureConfiguration {
 	protected void ConfigurationSpecificBuildStructure(PlayerEntity player, ServerWorld world, BlockPos hitBlockPos) {
 		StructureVillagerHouses structure = StructureVillagerHouses.CreateInstance(this.houseStyle.getStructureLocation(), StructureVillagerHouses.class);
 		if (structure.BuildStructure(this, world, hitBlockPos, Direction.NORTH, player)) {
-			this.DamageHeldItem(player, ModRegistry.VillagerHouses());
+			this.DamageHeldItem(player, ModRegistry.VillagerHouses.get());
 		}
 	}
 

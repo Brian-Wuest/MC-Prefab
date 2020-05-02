@@ -30,7 +30,7 @@ public class BlockGlassStairs extends StairsBlock {
 		Block adjacentBlock = adjacentBlockState.getBlock();
 
 		return tags.contains(adjacentBlock) || adjacentBlock == this
-				|| (adjacentBlock == ModRegistry.GlassSlab()
+				|| (adjacentBlock == ModRegistry.GlassSlab.get()
 				&& adjacentBlockState.get(SlabBlock.TYPE) == SlabType.DOUBLE);
 	}
 }

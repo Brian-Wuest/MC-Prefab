@@ -5,6 +5,7 @@ import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.Proxy.Messages.ConfigSyncMessage;
+import com.wuest.prefab.Structures.Items.ItemBulldozer;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -53,14 +54,15 @@ public final class ModEventHandler {
 	public static void AnvilUpdate(AnvilUpdateEvent event) {
 		ItemStack rightItem = event.getRight();
 		ItemStack leftItem = event.getLeft();
-		Item tripleCompressedStone = ModRegistry.GetCompressedStoneType(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE).getItem();
+		Item tripleCompressedStone = ModRegistry.TripleCompressedStoneItem.get();
 
+		ItemBulldozer bulldozer = ModRegistry.Bulldozer.get();
 		if (rightItem.getItem() == tripleCompressedStone || leftItem.getItem() == tripleCompressedStone) {
-			if (rightItem.getItem() == ModRegistry.Bulldozer() || leftItem.getItem() == ModRegistry.Bulldozer()) {
+			if (rightItem.getItem() == bulldozer || leftItem.getItem() == bulldozer) {
 				event.setCost(4);
 
-				ItemStack outputStack = new ItemStack(ModRegistry.Bulldozer());
-				ModRegistry.Bulldozer().setPoweredValue(outputStack, true);
+				ItemStack outputStack = new ItemStack(bulldozer);
+				bulldozer.setPoweredValue(outputStack, true);
 				outputStack.setDamage(0);
 				event.setOutput(outputStack);
 			}

@@ -8,8 +8,8 @@ import net.minecraft.item.ItemUseContext;
  */
 @SuppressWarnings("ConstantConditions")
 public class ItemFishPond extends StructureItem {
-	public ItemFishPond(String name) {
-		super(name);
+	public ItemFishPond( ) {
+		super();
 	}
 
 	@Override

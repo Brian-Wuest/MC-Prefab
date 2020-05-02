@@ -127,7 +127,7 @@ public class ModerateHouseConfiguration extends StructureConfiguration {
 		StructureModerateHouse structure = StructureModerateHouse.CreateInstance(this.houseStyle.getStructureLocation(), StructureModerateHouse.class);
 
 		if (structure.BuildStructure(this, world, hitBlockPos, Direction.NORTH, player)) {
-			this.RemoveStructureItemFromPlayer(player, ModRegistry.ModerateHouse());
+			this.RemoveStructureItemFromPlayer(player, ModRegistry.ModerateHouse.get());
 		}
 	}
 

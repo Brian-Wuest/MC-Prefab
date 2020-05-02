@@ -21,25 +21,22 @@ public class GuiTreeFarm extends GuiStructure {
 	public GuiTreeFarm() {
 		super("Tree Farm");
 		this.structureConfiguration = EnumStructureConfiguration.TreeFarm;
-	}
-
-	@Override
-	protected Tuple<Integer, Integer> getAdjustedXYValue() {
-		return new Tuple<>(this.getCenteredXAxis() - 213, this.getCenteredYAxis() - 83);
+		this.modifiedInitialXAxis = 213;
+		this.modifiedInitialYAxis = 83;
 	}
 
 	@Override
 	protected void preButtonRender(int x, int y) {
 		super.preButtonRender(x, y);
 
-		this.minecraft.getTextureManager().bindTexture(structureTopDown);
+		this.bindTexture(structureTopDown);
 		GuiStructure.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 177, 175, 177, 175);
 	}
 
 	@Override
 	protected void postButtonRender(int x, int y) {
-		this.minecraft.fontRenderer.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, y + 10, 100, this.textColor);
-		this.minecraft.fontRenderer.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.TREE_FARM_SIZE), x + 147, y + 50, 100, this.textColor);
+		this.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, y + 10, 100, this.textColor);
+		this.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.TREE_FARM_SIZE), x + 147, y + 50, 100, this.textColor);
 	}
 
 	/**
@@ -52,8 +49,7 @@ public class GuiTreeFarm extends GuiStructure {
 		if (button == this.btnVisualize) {
 			StructureTreeFarm structure = StructureTreeFarm.CreateInstance(StructureTreeFarm.ASSETLOCATION, StructureTreeFarm.class);
 			StructureRenderHandler.setStructure(structure, Direction.NORTH, this.configuration);
-			assert this.minecraft != null;
-			this.minecraft.displayGuiScreen(null);
+			this.closeScreen();
 		}
 	}
 

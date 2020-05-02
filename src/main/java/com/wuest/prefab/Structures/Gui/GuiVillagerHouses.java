@@ -25,6 +25,8 @@ public class GuiVillagerHouses extends GuiStructure {
 	public GuiVillagerHouses() {
 		super("Villager Houses");
 		this.structureConfiguration = EnumStructureConfiguration.VillagerHouses;
+		this.modifiedInitialXAxis = 205;
+		this.modifiedInitialYAxis = 83;
 	}
 
 	@Override
@@ -35,8 +37,9 @@ public class GuiVillagerHouses extends GuiStructure {
 		this.houseStyle = this.configuration.houseStyle;
 
 		// Get the upper left hand corner of the GUI box.
-		int grayBoxX = this.getCenteredXAxis() - 205;
-		int grayBoxY = this.getCenteredYAxis() - 83;
+		Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
+		int grayBoxX = adjustedXYValue.getFirst();
+		int grayBoxY = adjustedXYValue.getSecond();
 
 		this.btnHouseStyle = this.createAndAddButton(grayBoxX + 10, grayBoxY + 20, 90, 20, this.houseStyle.getDisplayName());
 
@@ -57,15 +60,10 @@ public class GuiVillagerHouses extends GuiStructure {
 	}
 
 	@Override
-	protected Tuple<Integer, Integer> getAdjustedXYValue() {
-		return new Tuple<>(this.getCenteredXAxis() - 205, this.getCenteredYAxis() - 83);
-	}
-
-	@Override
 	protected void preButtonRender(int x, int y) {
 		super.preButtonRender(x, y);
 
-		this.minecraft.getTextureManager().bindTexture(this.houseStyle.getHousePicture());
+		this.bindTexture(this.houseStyle.getHousePicture());
 		GuiTabScreen.drawModalRectWithCustomSizedTexture(x + 250, y, 1,
 				this.houseStyle.getImageWidth(), this.houseStyle.getImageHeight(),
 				this.houseStyle.getImageWidth(), this.houseStyle.getImageHeight());
@@ -73,10 +71,10 @@ public class GuiVillagerHouses extends GuiStructure {
 
 	@Override
 	protected void postButtonRender(int x, int y) {
-		this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), x + 10, y + 10, this.textColor);
+		this.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), x + 10, y + 10, this.textColor);
 
 		if (this.houseStyle == VillagerHouseConfiguration.HouseStyle.LONG_HOUSE) {
-			this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), x + 130, y + 10, this.textColor);
+			this.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), x + 130, y + 10, this.textColor);
 		}
 	}
 

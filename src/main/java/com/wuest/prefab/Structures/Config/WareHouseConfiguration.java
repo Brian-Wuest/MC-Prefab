@@ -91,7 +91,7 @@ public class WareHouseConfiguration extends StructureConfiguration {
 		StructureWarehouse structure = StructureWarehouse.CreateInstance(assetLocation, StructureWarehouse.class);
 
 		if (structure.BuildStructure(this, world, hitBlockPos, Direction.NORTH, player)) {
-			StructureItem structureItem = this.advanced ? ModRegistry.AdvancedWareHouse() : ModRegistry.WareHouse();
+			StructureItem structureItem = this.advanced ? ModRegistry.AdvancedWareHouse.get() : ModRegistry.WareHouse.get();
 
 			this.RemoveStructureItemFromPlayer(player, structureItem);
 		}

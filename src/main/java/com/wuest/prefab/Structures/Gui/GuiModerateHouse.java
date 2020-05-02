@@ -36,6 +36,8 @@ public class GuiModerateHouse extends GuiStructure {
 		super("Moderate House");
 
 		this.structureConfiguration = EnumStructureConfiguration.ModerateHouse;
+		this.modifiedInitialXAxis = 212;
+		this.modifiedInitialYAxis = 83;
 	}
 
 	@Override
@@ -89,15 +91,10 @@ public class GuiModerateHouse extends GuiStructure {
 	}
 
 	@Override
-	protected Tuple<Integer, Integer> getAdjustedXYValue() {
-		return new Tuple<>(this.getCenteredXAxis() - 212, this.getCenteredYAxis() - 83);
-	}
-
-	@Override
 	protected void preButtonRender(int x, int y) {
 		super.preButtonRender(x, y);
 
-		this.minecraft.getTextureManager().bindTexture(this.configuration.houseStyle.getHousePicture());
+		this.bindTexture(this.configuration.houseStyle.getHousePicture());
 		GuiTabScreen.drawModalRectWithCustomSizedTexture(x + 249, y, 1,
 				this.configuration.houseStyle.getImageWidth(), this.configuration.houseStyle.getImageHeight(),
 				this.configuration.houseStyle.getImageWidth(), this.configuration.houseStyle.getImageHeight());
@@ -110,9 +107,9 @@ public class GuiModerateHouse extends GuiStructure {
 		this.btnAddMineShaft.visible = this.serverConfiguration.addMineshaft;
 
 		// Draw the text here.
-		this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), x + 10, y + 10, this.textColor);
+		this.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), x + 10, y + 10, this.textColor);
 
-		this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), x + 130, y + 10, this.textColor);
+		this.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), x + 130, y + 10, this.textColor);
 	}
 
 	/**
@@ -134,8 +131,7 @@ public class GuiModerateHouse extends GuiStructure {
 		} else if (button == this.btnVisualize) {
 			StructureModerateHouse structure = StructureModerateHouse.CreateInstance(this.configuration.houseStyle.getStructureLocation(), StructureModerateHouse.class);
 			StructureRenderHandler.setStructure(structure, Direction.NORTH, this.configuration);
-			assert this.minecraft != null;
-			this.minecraft.displayGuiScreen(null);
+			this.closeScreen();
 		} else if (button == this.btnBedColor) {
 			this.configuration.bedColor = DyeColor.byId(this.configuration.bedColor.getId() + 1);
 			this.btnBedColor.setMessage(GuiLangKeys.translateDye(this.configuration.bedColor));

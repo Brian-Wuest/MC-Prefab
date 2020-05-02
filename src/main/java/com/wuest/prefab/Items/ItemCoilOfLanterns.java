@@ -8,9 +8,8 @@ import net.minecraft.item.ItemGroup;
  * @author WuestMan
  */
 public class ItemCoilOfLanterns extends Item {
-	public ItemCoilOfLanterns(String name) {
+	public ItemCoilOfLanterns( ) {
 		super(new Item.Properties().group(ItemGroup.MATERIALS));
 
-		ModRegistry.setItemName(this, name);
 	}
 }

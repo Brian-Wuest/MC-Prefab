@@ -16,8 +16,8 @@ import net.minecraft.item.ItemUseContext;
 public class ItemBasicStructure extends StructureItem {
 	public final EnumBasicStructureName structureType;
 
-	public ItemBasicStructure(String name, EnumBasicStructureName structureType) {
-		super(name);
+	public ItemBasicStructure(EnumBasicStructureName structureType) {
+		super();
 
 		this.structureType = structureType;
 	}

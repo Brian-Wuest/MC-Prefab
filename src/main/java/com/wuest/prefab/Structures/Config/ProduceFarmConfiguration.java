@@ -62,7 +62,7 @@ public class ProduceFarmConfiguration extends StructureConfiguration {
 		StructureProduceFarm structure = StructureProduceFarm.CreateInstance(StructureProduceFarm.ASSETLOCATION, StructureProduceFarm.class);
 
 		if (structure.BuildStructure(this, world, hitBlockPos, Direction.NORTH, player)) {
-			this.RemoveStructureItemFromPlayer(player, ModRegistry.ProduceFarm());
+			this.RemoveStructureItemFromPlayer(player, ModRegistry.ProduceFarm.get());
 		}
 	}
 }

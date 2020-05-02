@@ -25,6 +25,8 @@ public class GuiMonsterMasher extends GuiStructure {
 	public GuiMonsterMasher() {
 		super("Monster Masher");
 		this.structureConfiguration = EnumStructureConfiguration.MonsterMasher;
+		this.modifiedInitialXAxis = 210;
+		this.modifiedInitialYAxis = 83;
 	}
 
 	@Override
@@ -33,8 +35,9 @@ public class GuiMonsterMasher extends GuiStructure {
 		this.configuration.pos = this.pos;
 
 		// Get the upper left hand corner of the GUI box.
-		int grayBoxX = this.getCenteredXAxis() - 210;
-		int grayBoxY = this.getCenteredYAxis() - 83;
+		Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
+		int grayBoxX = adjustedXYValue.getFirst();
+		int grayBoxY = adjustedXYValue.getSecond();
 
 		// Create the buttons.
 		this.btnGlassColor = this.createAndAddButton(grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateDye(this.configuration.dyeColor));
@@ -48,24 +51,19 @@ public class GuiMonsterMasher extends GuiStructure {
 	}
 
 	@Override
-	protected Tuple<Integer, Integer> getAdjustedXYValue() {
-		return new Tuple<>(this.getCenteredXAxis() - 210, this.getCenteredYAxis() - 83);
-	}
-
-	@Override
 	protected void preButtonRender(int x, int y) {
 		super.preButtonRender(x, y);
 
-		this.minecraft.getTextureManager().bindTexture(houseTopDown);
+		this.bindTexture(houseTopDown);
 		GuiStructure.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 108, 156, 108, 156);
 	}
 
 	@Override
 	protected void postButtonRender(int x, int y) {
-		this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS), x + 10, y + 10, this.textColor);
+		this.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS), x + 10, y + 10, this.textColor);
 
 		// Draw the text here.
-		this.minecraft.fontRenderer.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, y + 10, 100, this.textColor);
+		this.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, y + 10, 100, this.textColor);
 	}
 
 	/**
@@ -81,8 +79,7 @@ public class GuiMonsterMasher extends GuiStructure {
 		} else if (button == this.btnVisualize) {
 			StructureMonsterMasher structure = StructureMonsterMasher.CreateInstance(StructureMonsterMasher.ASSETLOCATION, StructureMonsterMasher.class);
 			StructureRenderHandler.setStructure(structure, Direction.NORTH, this.configuration);
-			assert this.minecraft != null;
-			this.minecraft.displayGuiScreen(null);
+			this.closeScreen();
 		}
 	}
 }

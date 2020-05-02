@@ -43,9 +43,12 @@ public class Prefab {
 	 * This is the ModID
 	 */
 	public static final String MODID = "prefab";
+
 	// Directly reference a log4j logger.
 	public static final Logger LOGGER = LogManager.getLogger();
+
 	public static final String PROTOCOL_VERSION = Integer.toString(1);
+
 	/**
 	 * This is used to determine if the mod is currently being debugged.
 	 */
@@ -72,14 +75,16 @@ public class Prefab {
 	}
 
 	public Prefab() {
+		// Register the blocks and items for this mod.
+		ModRegistry.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
+		ModRegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
+
 		// Register the setup method for mod-loading
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
 
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
 
 		Prefab.proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
-
-		ModRegistry.RegisterModComponents();
 
 		Prefab.proxy.RegisterEventHandler();
 

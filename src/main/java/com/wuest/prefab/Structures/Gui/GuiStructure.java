@@ -124,10 +124,10 @@ public abstract class GuiStructure extends GuiBase {
 		configuration.houseFacing = this.structureFacing;
 
 		if (button == this.btnCancel) {
-			this.getMinecraft().displayGuiScreen(null);
+			this.closeScreen();
 		} else if (button == this.btnBuild) {
 			Prefab.network.sendToServer(new StructureTagMessage(configuration.WriteToCompoundNBT(), this.structureConfiguration));
-			this.getMinecraft().displayGuiScreen(null);
+			this.closeScreen();
 		}
 	}
 }

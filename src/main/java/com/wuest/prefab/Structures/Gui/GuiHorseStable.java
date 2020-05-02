@@ -22,28 +22,25 @@ public class GuiHorseStable extends GuiStructure {
 	public GuiHorseStable() {
 		super("Horse Stable");
 		this.structureConfiguration = EnumStructureConfiguration.HorseStable;
-	}
-
-	@Override
-	protected Tuple<Integer, Integer> getAdjustedXYValue() {
-		return new Tuple<>(this.getCenteredXAxis() - 213, this.getCenteredYAxis() - 83);
+		this.modifiedInitialXAxis = 213;
+		this.modifiedInitialYAxis = 83;
 	}
 
 	@Override
 	protected void preButtonRender(int x, int y) {
 		super.preButtonRender(x, y);
 
-		this.minecraft.getTextureManager().bindTexture(structureTopDown);
+		this.bindTexture(structureTopDown);
 		GuiTabScreen.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 104, 166, 104, 166);
 	}
 
 	@Override
 	protected void postButtonRender(int x, int y) {
 		// Draw the text here.
-		this.minecraft.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_FACING), x + 10, y + 10, this.textColor);
+		this.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_FACING), x + 10, y + 10, this.textColor);
 
 		// Draw the text here.
-		this.minecraft.fontRenderer.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, y + 10, 95, this.textColor);
+		this.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, y + 10, 95, this.textColor);
 	}
 
 	/**
@@ -56,8 +53,7 @@ public class GuiHorseStable extends GuiStructure {
 		if (button == this.btnVisualize) {
 			StructureHorseStable structure = StructureHorseStable.CreateInstance(StructureHorseStable.ASSETLOCATION, StructureHorseStable.class);
 			StructureRenderHandler.setStructure(structure, Direction.NORTH, this.configuration);
-			assert this.minecraft != null;
-			this.minecraft.displayGuiScreen(null);
+			this.closeScreen();
 		}
 	}
 

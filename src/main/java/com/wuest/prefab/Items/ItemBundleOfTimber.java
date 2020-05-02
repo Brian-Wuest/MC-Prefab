@@ -8,9 +8,8 @@ import net.minecraft.item.ItemGroup;
  * @author WuestMan
  */
 public class ItemBundleOfTimber extends Item {
-	public ItemBundleOfTimber(String name) {
+	public ItemBundleOfTimber( ) {
 		super(new Item.Properties().group(ItemGroup.MATERIALS));
 
-		ModRegistry.setItemName(this, name);
 	}
 }

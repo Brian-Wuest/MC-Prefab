@@ -8,8 +8,8 @@ import net.minecraft.item.ItemUseContext;
  */
 @SuppressWarnings("ConstantConditions")
 public class ItemChickenCoop extends StructureItem {
-	public ItemChickenCoop(String name) {
-		super(name);
+	public ItemChickenCoop( ) {
+		super();
 	}
 
 	@Override

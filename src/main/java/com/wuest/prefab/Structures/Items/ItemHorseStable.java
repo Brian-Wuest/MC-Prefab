@@ -8,8 +8,8 @@ import net.minecraft.item.ItemUseContext;
  */
 @SuppressWarnings("ConstantConditions")
 public class ItemHorseStable extends StructureItem {
-	public ItemHorseStable(String name) {
-		super(name);
+	public ItemHorseStable( ) {
+		super();
 	}
 
 	@Override

@@ -37,7 +37,7 @@ public class NetherGateConfiguration extends StructureConfiguration {
 		StructureNetherGate structure = StructureNetherGate.CreateInstance(StructureNetherGate.ASSETLOCATION, StructureNetherGate.class);
 
 		if (structure.BuildStructure(this, world, hitBlockPos, Direction.NORTH, player)) {
-			this.RemoveStructureItemFromPlayer(player, ModRegistry.NetherGate());
+			this.RemoveStructureItemFromPlayer(player, ModRegistry.NetherGate.get());
 		}
 	}
 }
