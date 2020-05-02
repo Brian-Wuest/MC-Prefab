@@ -140,16 +140,16 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void clientSetup(FMLClientSetupEvent clientSetupEvent) {
-		RenderTypeLookup.setRenderLayer(ModRegistry.BoundaryBlock(), BlockBoundary::canRenderInLayer);
+		RenderTypeLookup.setRenderLayer(ModRegistry.BlockBoundary.get(), BlockBoundary::canRenderInLayer);
 
 		// This render type (func_228643_e_) is the "cutout" render type.
-		RenderTypeLookup.setRenderLayer(ModRegistry.GlassSlab(), RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(ModRegistry.GlassSlab.get(), RenderType.getCutout());
 
-		RenderTypeLookup.setRenderLayer(ModRegistry.GlassStairs(), RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(ModRegistry.GlassStairs.get(), RenderType.getCutout());
 
-		RenderTypeLookup.setRenderLayer(ModRegistry.PaperLantern(), RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(ModRegistry.PaperLantern.get(), RenderType.getCutout());
 
 		// This is the "translucent" type.
-		RenderTypeLookup.setRenderLayer(ModRegistry.PhasingBlock(), RenderType.getTranslucent());
+		RenderTypeLookup.setRenderLayer(ModRegistry.BlockPhasing.get(), RenderType.getTranslucent());
 	}
 }

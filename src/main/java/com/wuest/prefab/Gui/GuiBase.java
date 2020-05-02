@@ -98,8 +98,6 @@ public abstract class GuiBase extends Screen {
 		}
 	}
 
-	public abstract void buttonClicked(AbstractButton button);
-	
 	/**
 	 * Gets the adjusted x/y coordinates for the topleft most part of the screen.
 	 * @return A new tuple containing the x/y coordinates.
@@ -151,7 +149,7 @@ public abstract class GuiBase extends Screen {
 	 * This event is called when a particular button is clicked.
 	 * @param button The button which was clicked.
 	 */
-	public abstract void buttonClicked(Button button);
+	public abstract void buttonClicked(AbstractButton button);
 
 	protected abstract void preButtonRender(int x, int y);
 
