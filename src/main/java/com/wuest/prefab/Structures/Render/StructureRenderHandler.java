@@ -7,7 +7,7 @@ import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.Structures.Base.BuildBlock;
 import com.wuest.prefab.Structures.Base.Structure;
 import com.wuest.prefab.Structures.Config.StructureConfiguration;
-import javafx.util.Pair;
+import com.wuest.prefab.Tuple;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -86,7 +86,7 @@ public class StructureRenderHandler {
 			boolean didAny = false;
 
 			IRenderTypeBuffer.Impl entityVertexConsumer = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
-			ArrayList<Pair<BlockState, BlockPos>> entityModels = new ArrayList<>();
+			ArrayList<Tuple<BlockState, BlockPos>> entityModels = new ArrayList<>();
 
 			for (BuildBlock buildBlock : StructureRenderHandler.currentStructure.getBlocks()) {
 				Block foundBlock = Registry.BLOCK.getOrDefault(buildBlock.getResourceLocation());
@@ -113,7 +113,7 @@ public class StructureRenderHandler {
 					BlockRenderType blockRenderType = blockState.getRenderType();
 
 					if (blockRenderType == BlockRenderType.ENTITYBLOCK_ANIMATED) {
-						entityModels.add(new Pair<>(buildBlock.getBlockState(), pos));
+						entityModels.add(new Tuple<>(buildBlock.getBlockState(), pos));
 						continue;
 					}
 
@@ -138,8 +138,8 @@ public class StructureRenderHandler {
 
 			ShaderHelper.releaseShader();
 
-			for (Pair<BlockState, BlockPos> pair : entityModels) {
-				StructureRenderHandler.renderBlock(matrixStack, new Vec3d(pair.getValue()), pair.getKey(), entityVertexConsumer, BlockRenderType.ENTITYBLOCK_ANIMATED);
+			for (Tuple<BlockState, BlockPos> pair : entityModels) {
+				StructureRenderHandler.renderBlock(matrixStack, new Vec3d(pair.getSecond()), pair.getFirst(), entityVertexConsumer, BlockRenderType.ENTITYBLOCK_ANIMATED);
 			}
 
 			if (!didAny) {
