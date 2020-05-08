@@ -13,14 +13,18 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = "${mod_version}"
+// Load configuration options from the properties file.
+ext.configFile = file('gradle.properties')
+ext.config = parseConfig(configFile)
+
+version = "${config.mod_version}"
 group = "com.wuest.prefab"
 archivesBaseName = "prefab"
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 minecraft {
-    mappings channel: 'snapshot', version: '20190719-1.14.3'
+    mappings channel: 'snapshot', version: "${config.forge_snapshot}"
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     // Default run configurations.
@@ -33,7 +37,7 @@ minecraft {
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
 
             // Recommended logging level for the console
-            property 'forge.logging.console.level', 'debug'
+            property 'forge.logging.console.level', 'info'
 
             mods {
                 prefab {
@@ -78,7 +82,7 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.14.4-28.2.3'
+    minecraft 'net.minecraftforge:forge:' + "${config.forge_version}"
 }
 
 task sourcesJar(type: Jar) {
@@ -88,6 +92,14 @@ task sourcesJar(type: Jar) {
 
 artifacts {
     archives sourcesJar
+}
+
+def parseConfig(File config) {
+    config.withReader {
+        def prop = new Properties()
+        prop.load(it)
+        return (new ConfigSlurper().parse(prop))
+    }
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..
