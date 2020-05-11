@@ -1,11 +1,13 @@
 package com.wuest.prefab.Gui;
 
+import com.wuest.prefab.Gui.Controls.GuiCheckBox;
 import com.wuest.prefab.Tuple;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
+import net.minecraftforge.fml.client.config.GuiSlider;
 
 public abstract class GuiBase extends Screen {
 
@@ -81,6 +83,24 @@ public abstract class GuiBase extends Screen {
 		this.addButton(returnValue);
 
 		return returnValue;
+	}
+
+	public GuiCheckBox createAndAddCheckBox(int xPos, int yPos, String displayString, boolean isChecked,
+											GuiCheckBox.IPressable handler) {
+		GuiCheckBox checkBox = new GuiCheckBox(xPos, yPos, displayString, isChecked, handler);
+
+		this.addButton(checkBox);
+		return checkBox;
+	}
+
+	public GuiSlider createAndAddSlider(int xPos, int yPos, int width, int height, String prefix, String suf,
+										double minVal, double maxVal, double currentVal, boolean showDec, boolean drawStr,
+										Button.IPressable handler) {
+		GuiSlider slider = new GuiSlider(xPos, yPos, width, height, prefix, suf, minVal, maxVal, currentVal, showDec,
+				drawStr, handler);
+
+		this.addButton(slider);
+		return slider;
 	}
 
 	protected void drawControlBackground(int grayBoxX, int grayBoxY) {

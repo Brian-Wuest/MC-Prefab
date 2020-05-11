@@ -49,7 +49,6 @@ public class GuiModerateHouse extends GuiStructure {
 		this.serverConfiguration = Prefab.proxy.getServerConfiguration();
 		this.configuration = ClientEventHandler.playerConfig.getClientConfig("Moderate Houses", ModerateHouseConfiguration.class);
 		this.configuration.pos = this.pos;
-		int color = Color.DARK_GRAY.getRGB();
 
 		// Get the upper left hand corner of the GUI box.
 		int grayBoxX = this.getCenteredXAxis() - 212;
@@ -72,22 +71,13 @@ public class GuiModerateHouse extends GuiStructure {
 
 		y += 30;
 
-		this.btnAddChest = new GuiCheckBox(x, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_CHEST), this.configuration.addChests, null);
-		this.btnAddChest.setStringColor(color);
-		this.btnAddChest.setWithShadow(false);
-		this.addButton(this.btnAddChest);
+		this.btnAddChest = this.createAndAddCheckBox(x, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_CHEST), this.configuration.addChests, null);
 		y += 15;
 
-		this.btnAddMineShaft = new GuiCheckBox(x, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_BUILD_MINESHAFT), this.configuration.addChestContents, null);
-		this.btnAddMineShaft.setStringColor(color);
-		this.btnAddMineShaft.setWithShadow(false);
-		this.addButton(this.btnAddMineShaft);
+		this.btnAddMineShaft = this.createAndAddCheckBox(x, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_BUILD_MINESHAFT), this.configuration.addChestContents, null);
 		y += 15;
 
-		this.btnAddChestContents = new GuiCheckBox(x, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_CHEST_CONTENTS), this.configuration.addMineshaft, null);
-		this.btnAddChestContents.setStringColor(color);
-		this.btnAddChestContents.setWithShadow(false);
-		this.addButton(this.btnAddChestContents);
+		this.btnAddChestContents = this.createAndAddCheckBox(x, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_CHEST_CONTENTS), this.configuration.addMineshaft, null);
 	}
 
 	@Override

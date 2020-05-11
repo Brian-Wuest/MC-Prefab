@@ -25,6 +25,7 @@ public class GuiCheckBox extends net.minecraftforge.fml.client.config.GuiCheckBo
 		this.displayString = displayString;
 		this.stringColor = Color.DARK_GRAY.getRGB();
 		this.handler = handler;
+		this.withShadow = false;
 	}
 
 	/**
