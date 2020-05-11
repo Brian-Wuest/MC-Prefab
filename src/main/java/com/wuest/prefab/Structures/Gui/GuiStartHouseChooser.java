@@ -16,6 +16,7 @@ import com.wuest.prefab.Structures.Predefined.StructureAlternateStart;
 import com.wuest.prefab.Structures.Render.StructureRenderHandler;
 import com.wuest.prefab.Tuple;
 import net.minecraft.client.gui.widget.Widget;
+import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.item.DyeColor;
 import net.minecraft.util.Direction;
@@ -163,7 +164,7 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	@Override
-	public void buttonClicked(Button button) {
+	public void buttonClicked(AbstractButton button) {
 		if (button == this.btnCancel || button == this.btnVisualize
 				|| button == this.btnBuild) {
 			this.houseConfiguration.addBed = this.serverConfiguration.addBed && this.btnAddBed.isChecked();
