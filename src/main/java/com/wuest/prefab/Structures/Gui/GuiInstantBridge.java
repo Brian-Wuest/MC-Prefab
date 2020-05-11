@@ -43,14 +43,11 @@ public class GuiInstantBridge extends GuiStructure {
 		// Create the buttons.
 		this.btnMaterialType = this.createAndAddButton(grayBoxX + 10, grayBoxY + 20, 90, 20, this.configuration.bridgeMaterial.getTranslatedName());
 
-		this.sldrBridgeLength = new Slider(grayBoxX + 147, grayBoxY + 20, 90, 20, "", "", 25, 75, this.configuration.bridgeLength, false, true, this::buttonClicked);
-		this.addButton(this.sldrBridgeLength);
+		this.sldrBridgeLength = this.createAndAddSlider(grayBoxX + 147, grayBoxY + 20, 90, 20, "", "", 25, 75, this.configuration.bridgeLength, false, true, this::buttonClicked);
 
-		this.chckIncludeRoof = new GuiCheckBox(grayBoxX + 147, grayBoxY + 55, GuiLangKeys.translateString(GuiLangKeys.INCLUDE_ROOF), this.configuration.includeRoof, this::buttonClicked);
-		this.addButton(this.chckIncludeRoof);
+		this.chckIncludeRoof = this.createAndAddCheckBox(grayBoxX + 147, grayBoxY + 55, GuiLangKeys.translateString(GuiLangKeys.INCLUDE_ROOF), this.configuration.includeRoof, this::buttonClicked);
 
-		this.sldrInteriorHeight = new Slider(grayBoxX + 147, grayBoxY + 90, 90, 20, "", "", 3, 8, this.configuration.interiorHeight, false, true, this::buttonClicked);
-		this.addButton(this.sldrInteriorHeight);
+		this.sldrInteriorHeight = this.createAndAddSlider(grayBoxX + 147, grayBoxY + 90, 90, 20, "", "", 3, 8, this.configuration.interiorHeight, false, true, this::buttonClicked);
 
 		this.sldrInteriorHeight.visible = this.chckIncludeRoof.isChecked();
 

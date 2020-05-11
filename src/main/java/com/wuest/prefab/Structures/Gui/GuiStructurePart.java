@@ -44,8 +44,9 @@ public class GuiStructurePart extends GuiStructure {
 		this.configuration.pos = this.pos;
 
 		// Get the upper left hand corner of the GUI box.
-		int grayBoxX = this.getCenteredXAxis() - this.modifiedInitialXAxis;
-		int grayBoxY = this.getCenteredYAxis() - this.modifiedInitialYAxis;
+		Tuple<Integer, Integer> adjustedValue = this.getAdjustedXYValue();
+		int grayBoxX = adjustedValue.getFirst();
+		int grayBoxY = adjustedValue.getSecond();
 
 		// Create the done and cancel buttons.
 		this.btnBuild = this.createAndAddButton(grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_BUILD));
@@ -54,17 +55,13 @@ public class GuiStructurePart extends GuiStructure {
 
 		this.btnVisualize = this.createAndAddButton(grayBoxX + 10, grayBoxY + 90, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW));
 
-		this.sldrStairHeight = new Slider(grayBoxX + 147, grayBoxY + 100, 90, 20, "", "", 1, 9, this.configuration.stairHeight, false, true, this::buttonClicked);
-		this.addButton(this.sldrStairHeight);
+		this.sldrStairHeight = this.createAndAddSlider(grayBoxX + 147, grayBoxY + 100, 90, 20, "", "", 1, 9, this.configuration.stairHeight, false, true, this::buttonClicked);
 
-		this.sldrStairWidth = new Slider(grayBoxX + 147, grayBoxY + 60, 90, 20, "", "", 1, 9, this.configuration.stairWidth, false, true, this::buttonClicked);
-		this.addButton(this.sldrStairWidth);
+		this.sldrStairWidth = this.createAndAddSlider(grayBoxX + 147, grayBoxY + 60, 90, 20, "", "", 1, 9, this.configuration.stairWidth, false, true, this::buttonClicked);
 
-		this.sldrGeneralHeight = new Slider(grayBoxX + 147, grayBoxY + 100, 90, 20, "", "", 3, 9, this.configuration.generalHeight, false, true, this::buttonClicked);
-		this.addButton(this.sldrGeneralHeight);
+		this.sldrGeneralHeight = this.createAndAddSlider(grayBoxX + 147, grayBoxY + 100, 90, 20, "", "", 3, 9, this.configuration.generalHeight, false, true, this::buttonClicked);
 
-		this.sldrGeneralWidth = new Slider(grayBoxX + 147, grayBoxY + 60, 90, 20, "", "", 3, 9, this.configuration.generalWidth, false, true, this::buttonClicked);
-		this.addButton(this.sldrGeneralWidth);
+		this.sldrGeneralWidth = this.createAndAddSlider(grayBoxX + 147, grayBoxY + 60, 90, 20, "", "", 3, 9, this.configuration.generalWidth, false, true, this::buttonClicked);
 
 		this.btnPartStyle = this.createAndAddButton(grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateString(this.configuration.style.translateKey));
 
@@ -79,7 +76,7 @@ public class GuiStructurePart extends GuiStructure {
 
 		this.bindTexture(this.configuration.style.getPictureLocation());
 
-		GuiStructurePart.drawModalRectWithCustomSizedTexture(x + 250, y, 1,
+		GuiStructure.drawModalRectWithCustomSizedTexture(x + 250, y, 1,
 				this.configuration.style.imageWidth, this.configuration.style.imageHeight,
 				this.configuration.style.imageWidth, this.configuration.style.imageHeight);
 	}

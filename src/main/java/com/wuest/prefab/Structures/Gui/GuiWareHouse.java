@@ -60,7 +60,7 @@ public class GuiWareHouse extends GuiStructure {
 		super.preButtonRender(x, y);
 
 		this.bindTexture(wareHouseTopDown);
-		GuiWareHouse.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 132, 153, 132, 153);
+		GuiStructure.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 132, 153, 132, 153);
 	}
 
 	@Override

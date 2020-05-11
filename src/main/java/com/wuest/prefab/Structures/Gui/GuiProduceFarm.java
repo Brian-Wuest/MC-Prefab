@@ -59,7 +59,7 @@ public class GuiProduceFarm extends GuiStructure {
 		super.preButtonRender(x, y);
 
 		this.bindTexture(houseTopDown);
-		GuiProduceFarm.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 170, 171, 170, 171);
+		GuiStructure.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 170, 171, 170, 171);
 	}
 
 	@Override

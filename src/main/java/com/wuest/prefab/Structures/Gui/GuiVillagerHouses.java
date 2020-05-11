@@ -97,8 +97,8 @@ public class GuiVillagerHouses extends GuiStructure {
 		} else if (button == this.btnVisualize) {
 			StructureVillagerHouses structure = StructureVillagerHouses.CreateInstance(this.houseStyle.getStructureLocation(), StructureVillagerHouses.class);
 			StructureRenderHandler.setStructure(structure, Direction.NORTH, this.configuration);
-			assert this.minecraft != null;
-			this.minecraft.displayGuiScreen(null);
+
+			this.closeScreen();
 		} else if (button == this.btnBedColor) {
 			this.configuration.bedColor = DyeColor.byId(this.configuration.bedColor.getId() + 1);
 			this.btnBedColor.setMessage(GuiLangKeys.translateDye(this.configuration.bedColor));

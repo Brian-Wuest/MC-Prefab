@@ -28,6 +28,7 @@ public class GuiCheckBox extends CheckboxButton {
 		this.displayString = displayString;
 		this.stringColor = Color.DARK_GRAY.getRGB();
 		this.handler = handler;
+		this.withShadow = false;
 	}
 
 	/**
