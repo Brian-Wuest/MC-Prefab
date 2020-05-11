@@ -7,10 +7,10 @@
 	  "1.11.2-recommended": "1.2.0.19",
 	  "1.12-latest": "1.3.0.26",
 	  "1.12-recommended": "1.3.0.26",
-	  "1.14-latest": "1.4.0.17",
-	  "1.14-recommended": "1.4.0.17",
-	  "1.15-latest": "1.5.0.8",
-	  "1.15-recommended": "1.5.0.8"
+	  "1.14-latest": "1.4.0.18",
+	  "1.14-recommended": "1.4.0.18",
+	  "1.15-latest": "1.5.0.9",
+	  "1.15-recommended": "1.5.0.9"
   },
   "1.10.2": {
 	  "1.1.1.10": "New Stuff: Added [Ender Gateway] structure. Added [Phasic Block] and [Boundary Block]\nSome buildings can now be generated in mod-created dimensions.",
@@ -85,7 +85,8 @@
 	 "1.4.0.14": "Fixed an issue when filling the starter house chest when repurpose was also installed",
 	 "1.4.0.15": "Fixed an issue when filling the moderate house chest when repurpose was also installed",
 	 "1.4.0.16": "Updated the configuration to provide better information for the starter house options",
-	 "1.4.0.17": "Fixed an issue where there starter house couldn't be built"
+	 "1.4.0.17": "Fixed an issue where there starter house couldn't be built",
+	 "1.4.0.18": "Fixes issues with infected blocks in some buildings"
  },
  "1.15": {
 	"1.5.0.0": "Initial release for 1.15.2 containing the latest updates from 1.4.0.9.",
@@ -96,6 +97,7 @@
 	"1.5.0.5": "Fixed an issue when filling the moderate house chest when repurpose was also installed",
 	"1.5.0.6": "Updated the configuration to provide better information for the starter house options",
 	"1.5.0.7": "Fixed an issue where there starter house couldn't be built",
-	"1.5.0.8": "Fixed an issue the OpenJDK when using the Preview functionality"
+	"1.5.0.8": "Fixed an issue the OpenJDK when using the Preview functionality",
+	"1.5.0.9": "Fixed issues with infected blocks in some buildings"
   }
 }
