@@ -105,9 +105,7 @@ public class GuiCheckBox extends CheckboxButton {
 
 			int color = this.stringColor;
 
-			if (this.packedFGColor != 0) {
-				color = this.packedFGColor;
-			} else if (!this.active) {
+			if (!this.active) {
 				color = 10526880;
 			}
 
