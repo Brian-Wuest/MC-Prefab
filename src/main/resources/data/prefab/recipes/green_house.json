@@ -20,7 +20,7 @@
       "tag": "forge:storage_blocks/double_compressed_stone"
     },
     "c": {
-      "item": "minecraft:glass_pane"
+      "tag": "forge:glass_panes"
     },
     "d": {
       "item": "prefab:item_string_of_lanterns"

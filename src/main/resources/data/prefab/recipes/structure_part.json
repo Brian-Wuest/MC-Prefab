@@ -20,7 +20,7 @@
       "tag": "forge:storage_blocks/compressed_stone"
     },
     "c": {
-      "item": "minecraft:cobblestone"
+      "tag": "forge:cobblestone"
     }
   },
   "result": {
