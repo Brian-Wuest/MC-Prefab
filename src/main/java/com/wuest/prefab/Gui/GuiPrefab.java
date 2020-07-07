@@ -1,6 +1,7 @@
 package com.wuest.prefab.Gui;
 
 import com.electronwill.nightconfig.core.UnmodifiableConfig;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.Tuple;
 import net.minecraft.client.Minecraft;
@@ -52,13 +53,13 @@ public class GuiPrefab extends GuiBase {
 	}
 
 	@Override
-	protected void preButtonRender(int x, int y) {
+	protected void preButtonRender(MatrixStack matrixStack, int x, int y) {
 		this.renderDirtBackground(0);
 
 	}
 
 	@Override
-	protected void postButtonRender(int x, int y) {
+	protected void postButtonRender(MatrixStack matrixStack, int x, int y) {
 
 	}
 }

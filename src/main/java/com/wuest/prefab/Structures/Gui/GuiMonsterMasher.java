@@ -1,5 +1,6 @@
 package com.wuest.prefab.Structures.Gui;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Structures.Config.MonsterMasherConfiguration;
@@ -11,6 +12,7 @@ import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.item.DyeColor;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
 
 
@@ -51,16 +53,16 @@ public class GuiMonsterMasher extends GuiStructure {
 	}
 
 	@Override
-	protected void preButtonRender(int x, int y) {
-		super.preButtonRender(x, y);
+	protected void preButtonRender(MatrixStack matrixStack, int x, int y) {
+		super.preButtonRender(matrixStack, x, y);
 
 		this.bindTexture(houseTopDown);
 		GuiStructure.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 108, 156, 108, 156);
 	}
 
 	@Override
-	protected void postButtonRender(int x, int y) {
-		this.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS), x + 10, y + 10, this.textColor);
+	protected void postButtonRender(MatrixStack matrixStack,int x, int y) {
+		this.drawString(matrixStack,  GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS), x + 10, y + 10, this.textColor);
 
 		// Draw the text here.
 		this.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, y + 10, 100, this.textColor);
@@ -75,7 +77,7 @@ public class GuiMonsterMasher extends GuiStructure {
 
 		if (button == this.btnGlassColor) {
 			this.configuration.dyeColor = DyeColor.byId(this.configuration.dyeColor.getId() + 1);
-			this.btnGlassColor.setMessage(GuiLangKeys.translateDye(this.configuration.dyeColor));
+			this.btnGlassColor.setMessage(new StringTextComponent( GuiLangKeys.translateDye(this.configuration.dyeColor)));
 		} else if (button == this.btnVisualize) {
 			StructureMonsterMasher structure = StructureMonsterMasher.CreateInstance(StructureMonsterMasher.ASSETLOCATION, StructureMonsterMasher.class);
 			StructureRenderHandler.setStructure(structure, Direction.NORTH, this.configuration);

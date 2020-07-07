@@ -1,5 +1,6 @@
 package com.wuest.prefab.Structures.Gui;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Structures.Config.BulldozerConfiguration;
@@ -42,7 +43,7 @@ public class GuiBulldozer extends GuiStructure {
 	}
 
 	@Override
-	protected void postButtonRender(int x, int y) {
+	protected void postButtonRender(MatrixStack matrixStack, int x, int y) {
 		this.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BULLDOZER_DESCRIPTION), x + 10, y + 10, 230, this.textColor);
 
 		this.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_CLEARED_AREA), x + 10, y + 40, 230, this.textColor);

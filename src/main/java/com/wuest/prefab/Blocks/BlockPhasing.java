@@ -8,7 +8,7 @@ import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.IFluidState;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.EnumProperty;
@@ -113,7 +113,7 @@ public class BlockPhasing extends Block {
 	 * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
 	 */
 	@Override
-	public boolean removedByPlayer(BlockState state, World world, BlockPos pos, PlayerEntity player, boolean willHarvest, IFluidState fluid) {
+	public boolean removedByPlayer(BlockState state, World world, BlockPos pos, PlayerEntity player, boolean willHarvest, FluidState fluid) {
 		EnumPhasingProgress currentState = state.get(Phasing_Progress);
 
 		boolean returnValue = super.removedByPlayer(state, world, pos, player, willHarvest, fluid);
@@ -128,14 +128,6 @@ public class BlockPhasing extends Block {
 		}
 
 		return returnValue;
-	}
-
-	/**
-	 * How many world ticks before ticking
-	 */
-	@Override
-	public int tickRate(IWorldReader worldIn) {
-		return this.tickRate;
 	}
 
 	/**
@@ -390,7 +382,7 @@ public class BlockPhasing extends Block {
 		}
 
 		@Override
-		public String getName() {
+		public String getString() {
 			return this.name;
 		}
 	}

@@ -1,5 +1,6 @@
 package com.wuest.prefab.Structures.Gui;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.wuest.prefab.Gui.GuiBase;
 import com.wuest.prefab.Prefab;
@@ -96,14 +97,14 @@ public abstract class GuiStructure extends GuiBase {
 	}
 
 	@Override
-	public void render(int x, int y, float f) {
+	public void render(MatrixStack matrixStack, int x, int y, float f) {
 		Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
 
-		this.preButtonRender(adjustedXYValue.getFirst(), adjustedXYValue.getSecond());
+		this.preButtonRender(matrixStack, adjustedXYValue.getFirst(), adjustedXYValue.getSecond());
 
-		this.renderButtons(x, y);
+		this.renderButtons(matrixStack, x, y);
 
-		this.postButtonRender(adjustedXYValue.getFirst(), adjustedXYValue.getSecond());
+		this.postButtonRender(matrixStack, adjustedXYValue.getFirst(), adjustedXYValue.getSecond());
 
 		if (this.btnVisualize != null) {
 			this.checkVisualizationSetting();
@@ -111,10 +112,10 @@ public abstract class GuiStructure extends GuiBase {
 	}
 
 	@Override
-	protected void preButtonRender(int x, int y) {
-		this.renderBackground();
+	protected void preButtonRender(MatrixStack matrixStack, int x, int y) {
+		this.renderBackground(matrixStack);
 
-		this.drawControlBackground(x, y);
+		this.drawControlBackground(matrixStack, x, y);
 	}
 
 	/**

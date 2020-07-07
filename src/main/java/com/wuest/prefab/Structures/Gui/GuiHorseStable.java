@@ -1,5 +1,6 @@
 package com.wuest.prefab.Structures.Gui;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Gui.GuiTabScreen;
@@ -27,17 +28,17 @@ public class GuiHorseStable extends GuiStructure {
 	}
 
 	@Override
-	protected void preButtonRender(int x, int y) {
-		super.preButtonRender(x, y);
+	protected void preButtonRender(MatrixStack matrixStack, int x, int y) {
+		super.preButtonRender(matrixStack, x, y);
 
 		this.bindTexture(structureTopDown);
 		GuiTabScreen.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 104, 166, 104, 166);
 	}
 
 	@Override
-	protected void postButtonRender(int x, int y) {
+	protected void postButtonRender(MatrixStack matrixStack,int x, int y) {
 		// Draw the text here.
-		this.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_FACING), x + 10, y + 10, this.textColor);
+		this.drawString(matrixStack,  GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_FACING), x + 10, y + 10, this.textColor);
 
 		// Draw the text here.
 		this.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, y + 10, 95, this.textColor);

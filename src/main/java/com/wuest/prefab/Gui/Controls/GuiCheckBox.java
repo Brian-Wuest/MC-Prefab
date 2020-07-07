@@ -1,7 +1,9 @@
 package com.wuest.prefab.Gui.Controls;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.CheckboxButton;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.gui.GuiUtils;
@@ -21,7 +23,7 @@ public class GuiCheckBox extends CheckboxButton {
 	protected IPressable handler;
 
 	public GuiCheckBox(int xPos, int yPos, String displayString, boolean isChecked, IPressable handler) {
-		super(xPos, yPos, 11, 12, displayString, isChecked);
+		super(xPos, yPos, 11, 12, new StringTextComponent(displayString), isChecked);
 
 		this.boxWidth = 11;
 		this.mineCraft = Minecraft.getInstance();
@@ -84,7 +86,7 @@ public class GuiCheckBox extends CheckboxButton {
 	 * Draws this button to the screen.
 	 */
 	@Override
-	public void renderButton(int mouseX, int mouseY, float partial) {
+	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partial) {
 		if (this.visible) {
 			this.isHovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.boxWidth && mouseY < this.y + this.height;
 			GuiUtils.drawContinuousTexturedBox(
@@ -110,13 +112,13 @@ public class GuiCheckBox extends CheckboxButton {
 			}
 
 			if (this.isChecked()) {
-				this.drawCenteredString(this.mineCraft.fontRenderer, "x", this.x + this.boxWidth / 2 + 1, this.y + 1, 14737632);
+				this.drawCenteredString(matrixStack, this.mineCraft.fontRenderer, "x", this.x + this.boxWidth / 2 + 1, this.y + 1, 14737632);
 			}
 
 			if (this.withShadow) {
-				this.drawString(this.mineCraft.fontRenderer, displayString, x + this.boxWidth + 2, y + 2, color);
+				this.drawString(matrixStack, this.mineCraft.fontRenderer, displayString, x + this.boxWidth + 2, y + 2, color);
 			} else {
-				this.mineCraft.fontRenderer.drawString(displayString, x + this.boxWidth + 2, y + 2, color);
+				this.mineCraft.fontRenderer.drawString(matrixStack, displayString, x + this.boxWidth + 2, y + 2, color);
 			}
 		}
 	}

@@ -23,7 +23,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
@@ -67,7 +67,8 @@ public class StructureRenderHandler {
 		Minecraft mc = Minecraft.getInstance();
 
 		if (mc.world != null) {
-			StructureRenderHandler.dimension = mc.world.getDimension().getType().getId();
+			// TODO: This was the "getDimension" and "getID" methods.
+			StructureRenderHandler.dimension = mc.world.func_230315_m_().func_241513_m_();
 		}
 	}
 
@@ -78,8 +79,9 @@ public class StructureRenderHandler {
 	 * @param src    The ray trace for where the player is currently looking.
 	 */
 	public static void renderPlayerLook(PlayerEntity player, RayTraceResult src, MatrixStack matrixStack) {
+		// TODO: This was the "getDimension" and "getID" methods.
 		if (StructureRenderHandler.currentStructure != null
-				&& StructureRenderHandler.dimension == player.world.getDimension().getType().getId()
+				&& StructureRenderHandler.dimension == player.world.func_230315_m_().func_241513_m_()
 				&& StructureRenderHandler.currentConfiguration != null
 				&& CommonProxy.proxyConfiguration.serverConfiguration.enableStructurePreview) {
 			rendering = true;
@@ -139,17 +141,25 @@ public class StructureRenderHandler {
 			ShaderHelper.releaseShader();
 
 			for (Tuple<BlockState, BlockPos> pair : entityModels) {
-				StructureRenderHandler.renderBlock(matrixStack, new Vec3d(pair.getSecond()), pair.getFirst(), entityVertexConsumer, BlockRenderType.ENTITYBLOCK_ANIMATED);
+				BlockPos blockPos = pair.getSecond();
+				StructureRenderHandler.renderBlock(matrixStack, new Vector3d(blockPos.getX(), blockPos.getY(), blockPos.getZ()), pair.getFirst(), entityVertexConsumer, BlockRenderType.ENTITYBLOCK_ANIMATED);
 			}
 
 			if (!didAny) {
 				// Nothing was generated, tell the user this through a chat message and re-set the structure information.
 				StructureRenderHandler.setStructure(null, Direction.NORTH, null);
-				player.sendMessage(
-						new TranslationTextComponent(GuiLangKeys.GUI_PREVIEW_COMPLETE)
-								.setStyle(new Style().setColor(TextFormatting.GREEN)));
+
+				// TODO: This was the setStyle and SetColor functions respectively.
+				TranslationTextComponent message = new TranslationTextComponent(GuiLangKeys.GUI_PREVIEW_COMPLETE);
+				message.func_230530_a_(Style.EMPTY.setFormatting(TextFormatting.GREEN));
+				player.sendMessage(message, player.getUniqueID());
+
 			} else if (!StructureRenderHandler.showedMessage) {
-				player.sendMessage(new TranslationTextComponent(GuiLangKeys.GUI_PREVIEW_NOTICE).setStyle(new Style().setColor(TextFormatting.GREEN)));
+				// TODO: This was the setStyle and SetColor functions respectively.
+				TranslationTextComponent message = new TranslationTextComponent(GuiLangKeys.GUI_PREVIEW_NOTICE);
+				message.func_230530_a_(Style.EMPTY.setFormatting(TextFormatting.GREEN));
+
+				player.sendMessage(message, player.getUniqueID());
 				StructureRenderHandler.showedMessage = true;
 			}
 		}
@@ -192,12 +202,12 @@ public class StructureRenderHandler {
 
 	private static void doRenderComponent(BuildBlock buildBlock, BlockPos pos, IRenderTypeBuffer entityVertexConsumer, MatrixStack matrixStack, BlockRenderType blockRenderType) {
 		BlockState state = buildBlock.getBlockState();
-		StructureRenderHandler.renderBlock(matrixStack, new Vec3d(pos), state, entityVertexConsumer, blockRenderType);
+		StructureRenderHandler.renderBlock(matrixStack, new Vector3d(pos.getX(), pos.getY(), pos.getZ()), state, entityVertexConsumer, blockRenderType);
 	}
 
-	private static void renderBlock(MatrixStack matrixStack, Vec3d pos, BlockState state, IRenderTypeBuffer entityVertexConsumer, BlockRenderType blockRenderType) {
+	private static void renderBlock(MatrixStack matrixStack, Vector3d pos, BlockState state, IRenderTypeBuffer entityVertexConsumer, BlockRenderType blockRenderType) {
 		Minecraft minecraft = Minecraft.getInstance();
-		Vec3d projectedView = minecraft.getRenderManager().info.getProjectedView();
+		Vector3d projectedView = minecraft.getRenderManager().info.getProjectedView();
 		double renderPosX = projectedView.getX();
 		double renderPosY = projectedView.getY();
 		double renderPosZ = projectedView.getZ();
@@ -226,7 +236,8 @@ public class StructureRenderHandler {
 
 			renderer.getBlockModelRenderer().renderModelBrightnessColor(
 					matrixStack.getLast(),
-					entityVertexConsumer.getBuffer(Atlases.getTranslucentBlockType()),
+					// TODO: This used to be "getTranslucentBlockType"
+					entityVertexConsumer.getBuffer(Atlases.func_239280_i_()),
 					state,
 					bakedModel,
 					r,
@@ -248,7 +259,7 @@ public class StructureRenderHandler {
 		matrixStack.pop();
 	}
 
-	private static void renderModel(MatrixStack matrixStack, Vec3d pos, BlockState state, IRenderTypeBuffer entityVertexConsumer) {
+	private static void renderModel(MatrixStack matrixStack, Vector3d pos, BlockState state, IRenderTypeBuffer entityVertexConsumer) {
 
 	}
 

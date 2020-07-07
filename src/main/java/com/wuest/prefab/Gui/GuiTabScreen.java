@@ -1,5 +1,6 @@
 package com.wuest.prefab.Gui;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Gui.Controls.GuiTab;
 import com.wuest.prefab.Gui.Controls.GuiTabTray;
 import com.wuest.prefab.Structures.Gui.GuiStructure;
@@ -41,13 +42,13 @@ public class GuiTabScreen extends GuiStructure {
 	 * Draws the screen and all the components in it.
 	 */
 	@Override
-	public void render(int mouseX, int mouseY, float partialTicks) {
+	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		// Draw the default labels and buttons.
-		super.render(mouseX, mouseY, partialTicks);
+		super.render(matrixStack,  mouseX, mouseY, partialTicks);
 
 		// Draw the tabs.
 		assert this.minecraft != null;
-		this.Tabs.DrawTabs(this.minecraft, mouseX, mouseY);
+		this.Tabs.DrawTabs(this.minecraft, matrixStack, mouseX, mouseY);
 	}
 
 	public void buttonClicked(AbstractButton button) {
@@ -55,7 +56,7 @@ public class GuiTabScreen extends GuiStructure {
 	}
 
 	@Override
-	protected void postButtonRender(int x, int y) {
+	protected void postButtonRender(MatrixStack matrixStack, int x, int y) {
 
 	}
 

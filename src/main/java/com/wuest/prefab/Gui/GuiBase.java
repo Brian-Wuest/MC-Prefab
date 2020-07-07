@@ -1,5 +1,6 @@
 package com.wuest.prefab.Gui;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Gui.Controls.GuiCheckBox;
 import com.wuest.prefab.Tuple;
 import net.minecraft.client.gui.screen.Screen;
@@ -60,14 +61,14 @@ public abstract class GuiBase extends Screen {
 	}
 
 	@Override
-	public void render(int x, int y, float f) {
+	public void render(MatrixStack matrixStack, int x, int y, float f) {
 		Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
 
-		this.preButtonRender(adjustedXYValue.getFirst(), adjustedXYValue.getSecond());
+		this.preButtonRender(matrixStack, adjustedXYValue.getFirst(), adjustedXYValue.getSecond());
 
-		this.renderButtons(x, y);
+		this.renderButtons(matrixStack, x, y);
 
-		this.postButtonRender(adjustedXYValue.getFirst(), adjustedXYValue.getSecond());
+		this.postButtonRender(matrixStack, adjustedXYValue.getFirst(), adjustedXYValue.getSecond());
 	}
 
 	/**
@@ -81,7 +82,7 @@ public abstract class GuiBase extends Screen {
 	 * @return A new button.
 	 */
 	public ExtendedButton createAndAddButton(int x, int y, int width, int height, String text) {
-		ExtendedButton returnValue = new ExtendedButton(x, y, width, height, text, this::buttonClicked);
+		ExtendedButton returnValue = new ExtendedButton(x, y, width, height, new StringTextComponent(text), this::buttonClicked);
 
 		this.addButton(returnValue);
 
@@ -99,24 +100,24 @@ public abstract class GuiBase extends Screen {
 	public Slider createAndAddSlider(int xPos, int yPos, int width, int height, String prefix, String suf,
 									 double minVal, double maxVal, double currentVal, boolean showDec, boolean drawStr,
 									 Button.IPressable handler) {
-		Slider slider = new Slider(xPos, yPos, width, height, prefix, suf, minVal, maxVal, currentVal, showDec,
+		Slider slider = new Slider(xPos, yPos, width, height, new StringTextComponent(prefix), new StringTextComponent(suf), minVal, maxVal, currentVal, showDec,
 				drawStr, handler);
 
 		this.addButton(slider);
 		return slider;
 	}
 
-	protected void drawControlBackground(int grayBoxX, int grayBoxY) {
+	protected void drawControlBackground(MatrixStack matrixStack, int grayBoxX, int grayBoxY) {
 		this.getMinecraft().getTextureManager().bindTexture(this.backgroundTextures);
-		this.blit(grayBoxX, grayBoxY, 0, 0, 256, 256);
+		this.blit(matrixStack, grayBoxX, grayBoxY, 0, 0, 256, 256);
 	}
 
-	protected void renderButtons(int mouseX, int mouseY) {
+	protected void renderButtons(MatrixStack matrixStack, int mouseX, int mouseY) {
 		for (net.minecraft.client.gui.widget.Widget button : this.buttons) {
 			AbstractButton currentButton = (AbstractButton) button;
 
 			if (currentButton != null && currentButton.visible) {
-				currentButton.renderButton(mouseX, mouseY, this.getMinecraft().getRenderPartialTicks());
+				currentButton.renderButton(matrixStack, mouseX, mouseY, this.getMinecraft().getRenderPartialTicks());
 			}
 		}
 	}
@@ -139,8 +140,8 @@ public abstract class GuiBase extends Screen {
 	 * @param color The color of the text.
 	 * @return Some integer value.
 	 */
-	public int drawString(String text, float x, float y, int color) {
-		return this.getMinecraft().fontRenderer.drawString(text, x, y, color);
+	public int drawString(MatrixStack matrixStack, String text, float x, float y, int color) {
+		return this.getMinecraft().fontRenderer.drawString(matrixStack, text, x, y, color);
 	}
 
 	/**
@@ -153,7 +154,8 @@ public abstract class GuiBase extends Screen {
 	 * @param textColor The color of the text.
 	 */
 	public void drawSplitString(String str, int x, int y, int wrapWidth, int textColor) {
-		this.getMinecraft().fontRenderer.drawSplitString(str, x, y, wrapWidth, textColor);
+		// TODO: This used to be renderSplitString.
+		this.getMinecraft().fontRenderer.func_238418_a_(new StringTextComponent(str), x, y, wrapWidth, textColor);
 	}
 
 	/**
@@ -179,7 +181,7 @@ public abstract class GuiBase extends Screen {
 	 */
 	public abstract void buttonClicked(AbstractButton button);
 
-	protected abstract void preButtonRender(int x, int y);
+	protected abstract void preButtonRender(MatrixStack matrixStack, int x, int y);
 
-	protected abstract void postButtonRender(int x, int y);
+	protected abstract void postButtonRender(MatrixStack matrixStack, int x, int y);
 }

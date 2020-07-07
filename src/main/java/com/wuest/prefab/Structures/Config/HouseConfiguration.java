@@ -87,10 +87,10 @@ public class HouseConfiguration extends StructureConfiguration {
 		tag.putInt(HouseConfiguration.hitXTag, this.pos.getX());
 		tag.putInt(HouseConfiguration.hitYTag, this.pos.getY());
 		tag.putInt(HouseConfiguration.hitZTag, this.pos.getZ());
-		tag.putString(HouseConfiguration.houseFacingTag, this.houseFacing.getName());
+		tag.putString(HouseConfiguration.houseFacingTag, this.houseFacing.getString());
 		tag.putInt(HouseConfiguration.houseStyleTag, this.houseStyle.value);
-		tag.putString(HouseConfiguration.glassColorTag, this.glassColor.getName().toUpperCase());
-		tag.putString(HouseConfiguration.bedColorTag, this.bedColor.getName().toUpperCase());
+		tag.putString(HouseConfiguration.glassColorTag, this.glassColor.getString().toUpperCase());
+		tag.putString(HouseConfiguration.bedColorTag, this.bedColor.getString().toUpperCase());
 
 		return tag;
 	}

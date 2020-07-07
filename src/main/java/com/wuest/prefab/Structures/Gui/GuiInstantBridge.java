@@ -1,5 +1,6 @@
 package com.wuest.prefab.Structures.Gui;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.Controls.GuiCheckBox;
 import com.wuest.prefab.Gui.GuiLangKeys;
@@ -8,10 +9,10 @@ import com.wuest.prefab.Structures.Config.InstantBridgeConfiguration;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Structures.Predefined.StructureInstantBridge;
 import com.wuest.prefab.Structures.Render.StructureRenderHandler;
-import com.wuest.prefab.Tuple;
 import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
 import net.minecraftforge.fml.client.gui.widget.Slider;
 
@@ -60,8 +61,8 @@ public class GuiInstantBridge extends GuiStructure {
 	}
 
 	@Override
-	protected void preButtonRender(int x, int y) {
-		super.preButtonRender(x, y);
+	protected void preButtonRender(MatrixStack matrixStack, int x, int y) {
+		super.preButtonRender(matrixStack, x, y);
 
 		this.bindTexture(structureTopDown);
 
@@ -69,14 +70,14 @@ public class GuiInstantBridge extends GuiStructure {
 	}
 
 	@Override
-	protected void postButtonRender(int x, int y) {
-		this.drawString(GuiLangKeys.translateString(GuiLangKeys.BRIDGE_MATERIAL), x + 10, y + 10, this.textColor);
+	protected void postButtonRender(MatrixStack matrixStack, int x, int y) {
+		this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.BRIDGE_MATERIAL), x + 10, y + 10, this.textColor);
 
 		if (this.chckIncludeRoof.isChecked()) {
-			this.drawString(GuiLangKeys.translateString(GuiLangKeys.INTERIOR_HEIGHT), x + 147, y + 80, this.textColor);
+			this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.INTERIOR_HEIGHT), x + 147, y + 80, this.textColor);
 		}
 
-		this.drawString(GuiLangKeys.translateString(GuiLangKeys.BRIDGE_LENGTH), x + 147, y + 10, this.textColor);
+		this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.BRIDGE_LENGTH), x + 147, y + 10, this.textColor);
 	}
 
 	/**
@@ -116,7 +117,7 @@ public class GuiInstantBridge extends GuiStructure {
 		}
 		if (button == this.btnMaterialType) {
 			this.configuration.bridgeMaterial = EnumStructureMaterial.getMaterialByNumber(this.configuration.bridgeMaterial.getNumber() + 1);
-			this.btnMaterialType.setMessage(this.configuration.bridgeMaterial.getTranslatedName());
+			this.btnMaterialType.setMessage(new StringTextComponent(this.configuration.bridgeMaterial.getTranslatedName()));
 		} else if (button == this.btnVisualize) {
 			StructureInstantBridge structure = new StructureInstantBridge();
 			structure.getClearSpace().getShape().setDirection(Direction.SOUTH);

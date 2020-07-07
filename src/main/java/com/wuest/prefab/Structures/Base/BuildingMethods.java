@@ -17,6 +17,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.MinecraftForge;
@@ -218,7 +219,7 @@ public class BuildingMethods {
 	 * @param player        The player running this build request.
 	 * @return True if all blocks can be replaced. Otherwise false and send a message to the player.
 	 */
-	public static Triple<Boolean, BlockState, BlockPos> CheckBuildSpaceForAllowedBlockReplacement(World world, BlockPos startBlockPos, BlockPos endBlockPos,
+	public static Triple<Boolean, BlockState, BlockPos> CheckBuildSpaceForAllowedBlockReplacement(ServerWorld world, BlockPos startBlockPos, BlockPos endBlockPos,
 																								  PlayerEntity player) {
 		if (world.getServer() != null) {
 			// Check each block in the space to be cleared if it's protected from
@@ -240,7 +241,7 @@ public class BuildingMethods {
 					}
 				}
 
-				EntityPlaceEvent placeEvent = new EntityPlaceEvent(new BlockSnapshot(world, currentPos, blockState), Blocks.AIR.getDefaultState(), player);
+				EntityPlaceEvent placeEvent = new EntityPlaceEvent(BlockSnapshot.create(world, currentPos), Blocks.AIR.getDefaultState(), player);
 
 				if (MinecraftForge.EVENT_BUS.post(placeEvent)) {
 					return new Triple<>(false, blockState, currentPos);
@@ -741,7 +742,7 @@ public class BuildingMethods {
 					BlockState surroundingState = world.getBlockState(tempPos);
 					Block surroundingBlock = surroundingState.getBlock();
 
-					if (!surroundingBlock.isNormalCube(surroundingState, world, tempPos)
+					if (!surroundingState.isNormalCube(world, tempPos)
 							|| surroundingBlock instanceof FlowingFluidBlock) {
 						// This is not a solid block. Get the drops then replace
 						// it with stone.

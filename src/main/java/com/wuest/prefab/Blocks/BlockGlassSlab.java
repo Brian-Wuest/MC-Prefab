@@ -3,7 +3,7 @@ package com.wuest.prefab.Blocks;
 import net.minecraft.block.*;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.fluid.IFluidState;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathType;
@@ -13,6 +13,7 @@ import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.properties.SlabType;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.tags.ITag;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
@@ -53,7 +54,7 @@ public class BlockGlassSlab extends GlassBlock implements IWaterLoggable {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public boolean isSideInvisible(BlockState state, BlockState adjacentBlockState, Direction side) {
-		Tag<Block> tags = BlockTags.getCollection().get(new ResourceLocation("forge", "glass"));
+		ITag<Block> tags = BlockTags.getCollection().get(new ResourceLocation("forge", "glass"));
 		Block adjacentBlock = adjacentBlockState.getBlock();
 
 		/*
@@ -62,6 +63,7 @@ public class BlockGlassSlab extends GlassBlock implements IWaterLoggable {
 			2. This block and the other block has a matching type.
 			3. The other block is a double slab and this is a single slab.
 		*/
+		// TODO: This was the "contains" method.
 		return tags.contains(adjacentBlock) || (adjacentBlock == this
 				&& (adjacentBlockState.get(SlabBlock.TYPE) == state.get(SlabBlock.TYPE)
 				|| (adjacentBlockState.get(SlabBlock.TYPE) == SlabType.DOUBLE
@@ -90,7 +92,7 @@ public class BlockGlassSlab extends GlassBlock implements IWaterLoggable {
 			boolean wasWaterlogged = blockstate.get(WATERLOGGED);
 			return blockstate.with(SlabBlock.TYPE, SlabType.DOUBLE).with(WATERLOGGED, wasWaterlogged);
 		} else {
-			IFluidState ifluidstate = context.getWorld().getFluidState(blockpos);
+			FluidState ifluidstate = context.getWorld().getFluidState(blockpos);
 			BlockState blockstate1 = this.getDefaultState().with(SlabBlock.TYPE, SlabType.BOTTOM).with(WATERLOGGED, ifluidstate.getFluid() == Fluids.WATER);
 			Direction direction = context.getFace();
 			return direction != Direction.DOWN && (direction == Direction.UP || !(context.getHitVec().y - (double) blockpos.getY() > 0.5D)) ? blockstate1 : blockstate1.with(SlabBlock.TYPE, SlabType.TOP);
@@ -119,12 +121,12 @@ public class BlockGlassSlab extends GlassBlock implements IWaterLoggable {
 	}
 
 	@Override
-	public IFluidState getFluidState(BlockState state) {
+	public FluidState getFluidState(BlockState state) {
 		return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
 	}
 
 	@Override
-	public boolean receiveFluid(IWorld worldIn, BlockPos pos, BlockState state, IFluidState fluidStateIn) {
+	public boolean receiveFluid(IWorld worldIn, BlockPos pos, BlockState state, FluidState fluidStateIn) {
 		return state.get(SlabBlock.TYPE) != SlabType.DOUBLE && this.slabReceiveFluid(worldIn, pos, state, fluidStateIn);
 	}
 
@@ -137,7 +139,7 @@ public class BlockGlassSlab extends GlassBlock implements IWaterLoggable {
 		return !state.get(BlockStateProperties.WATERLOGGED) && fluidIn == Fluids.WATER;
 	}
 
-	private boolean slabReceiveFluid(IWorld worldIn, BlockPos pos, BlockState state, IFluidState fluidStateIn) {
+	private boolean slabReceiveFluid(IWorld worldIn, BlockPos pos, BlockState state, FluidState fluidStateIn) {
 		if (!state.get(BlockStateProperties.WATERLOGGED) && fluidStateIn.getFluid() == Fluids.WATER) {
 			if (!worldIn.isRemote()) {
 				worldIn.setBlockState(pos, state.with(BlockStateProperties.WATERLOGGED, Boolean.TRUE), 3);

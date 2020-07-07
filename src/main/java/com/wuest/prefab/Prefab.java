@@ -34,7 +34,6 @@ public class Prefab {
 			true,
 			true,
 			false,
-			true,
 			false,
 			false,
 			PushReaction.IGNORE);

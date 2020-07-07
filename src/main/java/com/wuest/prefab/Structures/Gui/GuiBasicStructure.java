@@ -1,5 +1,6 @@
 package com.wuest.prefab.Structures.Gui;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Structures.Config.BasicStructureConfiguration;
@@ -12,6 +13,7 @@ import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
 
 import java.io.IOException;
@@ -35,8 +37,8 @@ public class GuiBasicStructure extends GuiStructure {
 	}
 
 	@Override
-	protected void preButtonRender(int x, int y) {
-		super.preButtonRender(x, y);
+	protected void preButtonRender(MatrixStack matrixStack, int x, int y) {
+		super.preButtonRender(matrixStack, x, y);
 
 		if (this.includePicture) {
 			// Draw the control background.
@@ -49,12 +51,12 @@ public class GuiBasicStructure extends GuiStructure {
 	}
 
 	@Override
-	protected void postButtonRender(int x, int y) {
+	protected void postButtonRender(MatrixStack matrixStack, int x, int y) {
 		// Draw the text here.
 		if (this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.MineshaftEntrance
-			|| this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WatchTower
-			|| this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WelcomeCenter) {
-			this.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), x + 10, y + 10, this.textColor);
+				|| this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WatchTower
+				|| this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WelcomeCenter) {
+			this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), x + 10, y + 10, this.textColor);
 		}
 
 		this.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, y + 10, 95, this.textColor);
@@ -131,7 +133,7 @@ public class GuiBasicStructure extends GuiStructure {
 			this.closeScreen();
 		} else if (button == this.btnBedColor) {
 			this.configuration.bedColor = DyeColor.byId(this.configuration.bedColor.getId() + 1);
-			this.btnBedColor.setMessage(GuiLangKeys.translateDye(this.configuration.bedColor));
+			this.btnBedColor.setMessage(new StringTextComponent(GuiLangKeys.translateDye(this.configuration.bedColor)));
 		}
 	}
 }

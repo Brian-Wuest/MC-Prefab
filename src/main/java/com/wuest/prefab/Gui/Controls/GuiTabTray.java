@@ -1,9 +1,11 @@
 package com.wuest.prefab.Gui.Controls;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Gui.GuiTabScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.StringTextComponent;
 
 import java.util.ArrayList;
 
@@ -16,7 +18,7 @@ public class GuiTabTray extends Widget {
 	private ArrayList<GuiTab> tabs;
 
 	public GuiTabTray() {
-		super(0, 0, "Tab Tray");
+		super(0, 0, 50, 35, new StringTextComponent("Tab Tray"));
 		this.Initialize();
 	}
 
@@ -85,12 +87,12 @@ public class GuiTabTray extends Widget {
 		return false;
 	}
 
-	public void DrawTabs(Minecraft mc, int mouseX, int mouseY) {
+	public void DrawTabs(Minecraft mc, MatrixStack matrixStack, int mouseX, int mouseY) {
 		mc.getTextureManager().bindTexture(backgroundTextures);
 		GuiTabScreen.drawModalRectWithCustomSizedTexture(this.x, this.y, 0, this.width, this.height, this.width, 35);
 
 		for (GuiTab tab : this.tabs) {
-			tab.drawTab(mc, mouseX, mouseY);
+			tab.drawTab(mc, matrixStack, mouseX, mouseY);
 		}
 	}
 

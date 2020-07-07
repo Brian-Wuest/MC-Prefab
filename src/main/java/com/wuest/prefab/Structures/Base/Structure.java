@@ -17,7 +17,7 @@ import net.minecraft.entity.item.ItemFrameEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.state.IProperty;
+import net.minecraft.state.Property;
 import net.minecraft.state.properties.BedPart;
 import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.tileentity.ChestTileEntity;
@@ -31,8 +31,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -209,7 +209,8 @@ public class Structure {
 		AxisAlignedBB axis = new AxisAlignedBB(cornerPos1, cornerPos2);
 
 		for (Entity entity : world.getEntitiesWithinAABBExcludingEntity(null, axis)) {
-			BlockPos entityPos = entity.getPosition();
+			// TODO: This was the "getPosition" method.
+			BlockPos entityPos = entity.func_233580_cy_();
 
 			if (entityPos.getX() >= x_radiusRangeBegin && entityPos.getX() <= x_radiusRangeEnd
 					&& entityPos.getZ() >= z_radiusRangeBegin && entityPos.getZ() <= z_radiusRangeEnd
@@ -257,9 +258,10 @@ public class Structure {
 		buildBlock.setStartingPosition(Structure.getStartingPositionFromOriginalAndCurrentPosition(currentPos, originalPos));
 		buildBlock.blockPos = currentPos;
 
-		Collection<IProperty<?>> properties = currentState.getProperties();
+		// TODO: This was the "getProperties" method.
+		Collection<Property<?>> properties = currentState.func_235904_r_();
 
-		for (IProperty<?> entry : properties) {
+		for (Property<?> entry : properties) {
 			BuildProperty property = new BuildProperty();
 
 			property.setName(entry.getName());
@@ -267,13 +269,13 @@ public class Structure {
 			Comparable<?> value = currentState.get(entry);
 
 			if (currentBlock instanceof RotatedPillarBlock) {
-				property.setValue(((Direction.Axis) value).getName());
+				property.setValue(((Direction.Axis) value).getString());
 			} else if (currentBlock instanceof CarpetBlock && property.getName().equals("color")) {
 				DyeColor dyeColor = (DyeColor) value;
-				property.setValue(dyeColor.getName());
+				property.setValue(dyeColor.getString());
 			} else if (value instanceof IStringSerializable) {
 				IStringSerializable stringSerializable = (IStringSerializable) value;
-				property.setValue(stringSerializable.getName());
+				property.setValue(stringSerializable.getString());
 			} else {
 				property.setValue(value.toString());
 			}
@@ -360,13 +362,16 @@ public class Structure {
 		if (!checkResult.getFirst()) {
 			// Send a message to the player saying that the structure could not
 			// be built.
-			player.sendMessage(new TranslationTextComponent(
+			// TODO: This was the setStyle and SetColor functions respectively.
+			TranslationTextComponent message = new TranslationTextComponent(
 					GuiLangKeys.GUI_STRUCTURE_NOBUILD,
 					checkResult.getSecond().getBlock().getRegistryName().toString(),
 					checkResult.getThird().getX(),
 					checkResult.getThird().getY(),
-					checkResult.getThird().getZ())
-					.setStyle(new Style().setColor(TextFormatting.GREEN)));
+					checkResult.getThird().getZ());
+
+			message.func_230530_a_(Style.EMPTY.setFormatting(TextFormatting.GREEN));
+			player.sendMessage(message, player.getUniqueID());
 			return false;
 		}
 
@@ -668,8 +673,9 @@ public class Structure {
 	protected Boolean WaterReplacedWithCobbleStone(StructureConfiguration configuration, BuildBlock block, World world, BlockPos originalPos,
 												   Direction assumedNorth, Block foundBlock, BlockState blockState, PlayerEntity player) {
 		// Replace water blocks with cobblestone.
+		// TODO: This was the "getDimension" and "Overworld" method names respectively.
 		if (foundBlock instanceof FlowingFluidBlock && blockState.getMaterial() == Material.WATER
-				&& (world.getDimension().getType() != DimensionType.OVERWORLD)) {
+				&& (world.func_230315_m_() != DimensionType.func_236019_a_())) {
 			block.setBlockDomain(Blocks.COBBLESTONE.getRegistryName().getNamespace());
 			block.setBlockName(Blocks.COBBLESTONE.getRegistryName().getPath());
 			block.setBlockState(Blocks.COBBLESTONE.getDefaultState());

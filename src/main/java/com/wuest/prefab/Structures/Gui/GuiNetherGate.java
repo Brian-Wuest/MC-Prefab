@@ -1,5 +1,6 @@
 package com.wuest.prefab.Structures.Gui;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Structures.Config.NetherGateConfiguration;
@@ -25,15 +26,15 @@ public class GuiNetherGate extends GuiStructure {
 	}
 
 	@Override
-	protected void preButtonRender(int x, int y) {
-		super.preButtonRender(x, y);
+	protected void preButtonRender(MatrixStack matrixStack, int x, int y) {
+		super.preButtonRender(matrixStack,  x, y);
 
 		this.bindTexture(structureTopDown);
 		GuiStructure.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 164, 108, 164, 108);
 	}
 
 	@Override
-	protected void postButtonRender(int x, int y) {
+	protected void postButtonRender(MatrixStack matrixStack,int x, int y) {
 		this.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, y + 10, 95, this.textColor);
 	}
 

@@ -1,5 +1,6 @@
 package com.wuest.prefab.Structures.Gui;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Structures.Base.EnumStairsMaterial;
@@ -12,6 +13,7 @@ import com.wuest.prefab.Structures.Render.StructureRenderHandler;
 import com.wuest.prefab.Tuple;
 import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.util.Direction;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
 import net.minecraftforge.fml.client.gui.widget.Slider;
 
@@ -71,8 +73,8 @@ public class GuiStructurePart extends GuiStructure {
 	}
 
 	@Override
-	protected void preButtonRender(int x, int y) {
-		super.preButtonRender(x, y);
+	protected void preButtonRender(MatrixStack matrixStack, int x, int y) {
+		super.preButtonRender(matrixStack, x, y);
 
 		this.bindTexture(this.configuration.style.getPictureLocation());
 
@@ -82,9 +84,9 @@ public class GuiStructurePart extends GuiStructure {
 	}
 
 	@Override
-	protected void postButtonRender(int x, int y) {
-		this.drawString(GuiLangKeys.translateString(GuiLangKeys.STYLE), x + 10, y + 10, this.textColor);
-		this.drawString(GuiLangKeys.translateString(GuiLangKeys.MATERIAL), x + 147, y + 10, this.textColor);
+	protected void postButtonRender(MatrixStack matrixStack, int x, int y) {
+		this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.STYLE), x + 10, y + 10, this.textColor);
+		this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.MATERIAL), x + 147, y + 10, this.textColor);
 
 		if (this.configuration.style == EnumStyle.Stairs
 				|| this.configuration.style == EnumStyle.Roof) {
@@ -105,16 +107,16 @@ public class GuiStructurePart extends GuiStructure {
 
 		if (this.configuration.style != EnumStyle.Roof) {
 			if (this.configuration.style == EnumStyle.Floor) {
-				this.drawString(GuiLangKeys.translateString(GuiLangKeys.LENGTH), x + 147, y + 90, this.textColor);
+				this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.LENGTH), x + 147, y + 90, this.textColor);
 			} else {
-				this.drawString(GuiLangKeys.translateString(GuiLangKeys.HEIGHT), x + 147, y + 90, this.textColor);
+				this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.HEIGHT), x + 147, y + 90, this.textColor);
 			}
 		}
 
 		if (this.configuration.style == EnumStyle.Roof) {
-			this.drawString(GuiLangKeys.translateString(GuiLangKeys.HEIGHT), x + 147, y + 50, this.textColor);
+			this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.HEIGHT), x + 147, y + 50, this.textColor);
 		} else {
-			this.drawString(GuiLangKeys.translateString(GuiLangKeys.WIDTH), x + 147, y + 50, this.textColor);
+			this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.WIDTH), x + 147, y + 50, this.textColor);
 		}
 	}
 
@@ -133,14 +135,14 @@ public class GuiStructurePart extends GuiStructure {
 
 		if (button == this.btnMaterialType) {
 			this.configuration.partMaterial = EnumStructureMaterial.getMaterialByNumber(this.configuration.partMaterial.getNumber() + 1);
-			this.btnMaterialType.setMessage(this.configuration.partMaterial.getTranslatedName());
+			this.btnMaterialType.setMessage(new StringTextComponent(this.configuration.partMaterial.getTranslatedName()));
 		}
 		if (button == this.btnStairsMaterialType) {
 			this.configuration.stairsMaterial = EnumStairsMaterial.getByOrdinal(this.configuration.stairsMaterial.ordinal() + 1);
-			this.btnStairsMaterialType.setMessage(this.configuration.stairsMaterial.getTranslatedName());
+			this.btnStairsMaterialType.setMessage(new StringTextComponent(this.configuration.stairsMaterial.getTranslatedName()));
 		} else if (button == this.btnPartStyle) {
 			this.configuration.style = EnumStyle.getByOrdinal(this.configuration.style.ordinal() + 1);
-			this.btnPartStyle.setMessage(GuiLangKeys.translateString(this.configuration.style.translateKey));
+			this.btnPartStyle.setMessage(new StringTextComponent(GuiLangKeys.translateString(this.configuration.style.translateKey)));
 		} else if (button == this.btnVisualize) {
 			StructurePart structure = new StructurePart();
 			structure.getClearSpace().getShape().setDirection(Direction.NORTH);

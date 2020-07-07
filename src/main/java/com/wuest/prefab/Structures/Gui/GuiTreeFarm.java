@@ -1,12 +1,12 @@
 package com.wuest.prefab.Structures.Gui;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Structures.Config.TreeFarmConfiguration;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Structures.Predefined.StructureTreeFarm;
 import com.wuest.prefab.Structures.Render.StructureRenderHandler;
-import com.wuest.prefab.Tuple;
 import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
@@ -26,15 +26,15 @@ public class GuiTreeFarm extends GuiStructure {
 	}
 
 	@Override
-	protected void preButtonRender(int x, int y) {
-		super.preButtonRender(x, y);
+	protected void preButtonRender(MatrixStack matrixStack, int x, int y) {
+		super.preButtonRender(matrixStack, x, y);
 
 		this.bindTexture(structureTopDown);
 		GuiStructure.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 177, 175, 177, 175);
 	}
 
 	@Override
-	protected void postButtonRender(int x, int y) {
+	protected void postButtonRender(MatrixStack matrixStack, int x, int y) {
 		this.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, y + 10, 100, this.textColor);
 		this.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.TREE_FARM_SIZE), x + 147, y + 50, 100, this.textColor);
 	}

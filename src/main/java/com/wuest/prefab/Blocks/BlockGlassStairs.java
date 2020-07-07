@@ -7,7 +7,7 @@ import net.minecraft.block.SlabBlock;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.state.properties.SlabType;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.ITag;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -26,7 +26,7 @@ public class BlockGlassStairs extends StairsBlock {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public boolean isSideInvisible(BlockState state, BlockState adjacentBlockState, Direction side) {
-		Tag<Block> tags = BlockTags.getCollection().get(new ResourceLocation("forge", "glass"));
+		ITag<Block> tags = BlockTags.getCollection().get(new ResourceLocation("forge", "glass"));
 		Block adjacentBlock = adjacentBlockState.getBlock();
 
 		return tags.contains(adjacentBlock) || adjacentBlock == this

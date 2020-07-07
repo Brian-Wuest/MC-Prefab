@@ -139,9 +139,9 @@ public class StructureMonsterMasher extends Structure {
 
 			if (tileEntity instanceof SignTileEntity) {
 				SignTileEntity signTile = (SignTileEntity) tileEntity;
-				signTile.signText[0] = new StringTextComponent("Lamp On=Mobs");
+				signTile.setText(0, new StringTextComponent("Lamp On=Mobs"));
 
-				signTile.signText[2] = new StringTextComponent("Lamp Off=No Mobs");
+				signTile.setText(2, new StringTextComponent("Lamp Off=No Mobs"));
 			}
 		}
 	}

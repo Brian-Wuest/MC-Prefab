@@ -63,7 +63,7 @@ public class StructureConfiguration {
 			tag.putInt(StructureConfiguration.hitZTag, this.pos.getZ());
 		}
 
-		tag.putString(StructureConfiguration.houseFacingTag, this.houseFacing.getName());
+		tag.putString(StructureConfiguration.houseFacingTag, this.houseFacing.getString());
 
 		tag = this.CustomWriteToCompoundNBT(tag);
 

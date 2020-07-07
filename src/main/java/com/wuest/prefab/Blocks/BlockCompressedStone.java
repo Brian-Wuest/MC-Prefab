@@ -17,10 +17,19 @@ public class BlockCompressedStone extends Block {
 	 * Initializes a new instance of the CompressedStone class.
 	 */
 	public BlockCompressedStone(EnumType typeOfStone) {
-		super(Block.Properties.create(Material.EARTH)
+		super(Properties.create(Material.EARTH)
 				.hardnessAndResistance(1.5F, 10.0F)
 				.sound(SoundType.STONE)
-				.lightValue(typeOfStone == EnumType.COMPRESSED_GLOWSTONE || typeOfStone == EnumType.DOUBLE_COMPRESSED_GLOWSTONE ? 15 : 0)
+				.setLightLevel(value -> {
+					int lightValue = 0;
+
+					if (value.getBlock() instanceof BlockCompressedStone) {
+						BlockCompressedStone currentBlock = (BlockCompressedStone)value.getBlock();
+						lightValue = currentBlock.typeofStone == EnumType.COMPRESSED_GLOWSTONE || currentBlock.typeofStone == EnumType.DOUBLE_COMPRESSED_GLOWSTONE ? 15 : 0;
+					}
+
+					return lightValue;
+				})
 				.harvestLevel(0)
 				.harvestTool(null));
 
@@ -72,7 +81,7 @@ public class BlockCompressedStone extends Block {
 		}
 
 		@Override
-		public String getName() {
+		public String getString() {
 			return this.name;
 		}
 

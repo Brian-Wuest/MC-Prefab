@@ -1,5 +1,6 @@
 package com.wuest.prefab.Structures.Gui;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Config.ServerModConfiguration;
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.Controls.GuiCheckBox;
@@ -21,6 +22,7 @@ import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.item.DyeColor;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
 
 import java.awt.*;
@@ -78,7 +80,7 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 	 * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
 	 */
 	@Override
-	public void render(int x, int y, float f) {
+	public void render(MatrixStack matrixStack, int x, int y, float f) {
 		Tuple<Integer, Integer> adjustedValueCoords = this.getAdjustedXYValue();
 		int grayBoxX = adjustedValueCoords.getFirst();
 		int grayBoxY = adjustedValueCoords.getSecond();
@@ -86,12 +88,12 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 		this.Tabs.x = adjustedValueCoords.getFirst();
 		this.Tabs.y = adjustedValueCoords.getSecond() - 21;
 
-		this.renderBackground();
+		this.renderBackground(matrixStack);
 
 		// Draw the control background.
 		assert this.minecraft != null;
 		this.bindTexture(backgroundTextures);
-		this.blit(grayBoxX, grayBoxY, 0, 0, 256, 256);
+		this.blit(matrixStack,  grayBoxX, grayBoxY, 0, 0, 256, 256);
 
 		for (Widget button : this.buttons) {
 			// Make all buttons invisible.
@@ -130,14 +132,14 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 		}
 
 		// Draw the buttons, labels and tabs.
-		super.render(x, y, f);
+		super.render(matrixStack,  x, y, f);
 
 		// Draw the text here.
 		int color = Color.DARK_GRAY.getRGB();
 
 		// Draw the appropriate text based on the selected tab.
 		if (this.getSelectedTab() == this.tabGeneral) {
-			this.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), grayBoxX + 10, grayBoxY + 10, color);
+			this.drawString(matrixStack,  GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), grayBoxX + 10, grayBoxY + 10, color);
 			this.drawSplitString(this.houseConfiguration.houseStyle.getHouseNotes(), grayBoxX + 147, grayBoxY + 10, 95, color);
 
 			this.bindTexture(this.houseConfiguration.houseStyle.getHousePicture());
@@ -148,11 +150,11 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 			if (!(this.houseConfiguration.houseStyle == HouseConfiguration.HouseStyle.SNOWY
 					|| this.houseConfiguration.houseStyle == HouseConfiguration.HouseStyle.DESERT)) {
 				// Column 1:
-				this.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS), grayBoxX + 10, grayBoxY + 10, color);
+				this.drawString(matrixStack,  GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS), grayBoxX + 10, grayBoxY + 10, color);
 			}
 
 			// Column 2:
-			this.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), grayBoxX + 147, grayBoxY + 10, color);
+			this.drawString(matrixStack,  GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), grayBoxX + 147, grayBoxY + 10, color);
 		}
 
 		if (!CommonProxy.proxyConfiguration.serverConfiguration.enableStructurePreview) {
@@ -195,34 +197,34 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 				this.houseConfiguration.houseStyle = HouseConfiguration.HouseStyle.ValueOf(id);
 			}
 
-			this.btnHouseStyle.setMessage(this.houseConfiguration.houseStyle.getDisplayName());
+			this.btnHouseStyle.setMessage(new StringTextComponent( this.houseConfiguration.houseStyle.getDisplayName()));
 
 			// Set the default glass colors for this style.
 			if (this.houseConfiguration.houseStyle == HouseConfiguration.HouseStyle.HOBBIT) {
 				this.houseConfiguration.glassColor = DyeColor.GREEN;
-				this.btnGlassColor.setMessage(GuiLangKeys.translateDye(DyeColor.GREEN));
+				this.btnGlassColor.setMessage(new StringTextComponent(GuiLangKeys.translateDye(DyeColor.GREEN)));
 			} else if (this.houseConfiguration.houseStyle == HouseConfiguration.HouseStyle.LOFT) {
 				this.houseConfiguration.glassColor = DyeColor.BLACK;
-				this.btnGlassColor.setMessage(GuiLangKeys.translateDye(DyeColor.BLACK));
+				this.btnGlassColor.setMessage(new StringTextComponent(GuiLangKeys.translateDye(DyeColor.BLACK)));
 			} else if (this.houseConfiguration.houseStyle == HouseStyle.BASIC) {
 				this.houseConfiguration.glassColor = DyeColor.LIGHT_GRAY;
-				this.btnGlassColor.setMessage(GuiLangKeys.translateDye(DyeColor.LIGHT_GRAY));
+				this.btnGlassColor.setMessage(new StringTextComponent(GuiLangKeys.translateDye(DyeColor.LIGHT_GRAY)));
 			} else if (this.houseConfiguration.houseStyle == HouseStyle.DESERT2) {
 				this.houseConfiguration.glassColor = DyeColor.RED;
-				this.btnGlassColor.setMessage(GuiLangKeys.translateDye(DyeColor.RED));
+				this.btnGlassColor.setMessage(new StringTextComponent(GuiLangKeys.translateDye(DyeColor.RED)));
 			} else {
 				this.houseConfiguration.glassColor = DyeColor.CYAN;
-				this.btnGlassColor.setMessage(GuiLangKeys.translateDye(DyeColor.CYAN));
+				this.btnGlassColor.setMessage(new StringTextComponent(GuiLangKeys.translateDye(DyeColor.CYAN)));
 			}
 
 			this.tabBlockTypes.visible = true;
 
 		} else if (button == this.btnGlassColor) {
 			this.houseConfiguration.glassColor = DyeColor.byId(this.houseConfiguration.glassColor.getId() + 1);
-			this.btnGlassColor.setMessage(GuiLangKeys.translateDye(this.houseConfiguration.glassColor));
+			this.btnGlassColor.setMessage(new StringTextComponent(GuiLangKeys.translateDye(this.houseConfiguration.glassColor)));
 		} else if (button == this.btnBedColor) {
 			this.houseConfiguration.bedColor = DyeColor.byId(this.houseConfiguration.bedColor.getId() + 1);
-			this.btnBedColor.setMessage(GuiLangKeys.translateDye(this.houseConfiguration.bedColor));
+			this.btnBedColor.setMessage(new StringTextComponent(GuiLangKeys.translateDye(this.houseConfiguration.bedColor)));
 		} else if (button == this.btnVisualize) {
 			StructureAlternateStart structure = StructureAlternateStart.CreateInstance(this.houseConfiguration.houseStyle.getStructureLocation(), StructureAlternateStart.class);
 

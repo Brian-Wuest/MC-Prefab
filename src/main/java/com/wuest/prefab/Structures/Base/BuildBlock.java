@@ -8,7 +8,7 @@ import net.minecraft.block.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTUtil;
-import net.minecraft.state.IProperty;
+import net.minecraft.state.Property;
 import net.minecraft.state.properties.AttachFace;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Direction.Axis;
@@ -63,12 +63,13 @@ public class BuildBlock {
 			// If this block has custom processing for block state just continue onto the next block. The sub-class is
 			// expected to place the block.
 			if (block.getProperties().size() > 0) {
-				Collection<IProperty<?>> properties = blockState.getProperties();
+				// TODO: This was the "getProperties" method.
+				Collection<Property<?>> properties = blockState.func_235904_r_();
 
 				// Go through each property of this block and set it.
 				// The state will be updated as the properties are
 				// applied.
-				for (IProperty<?> property : properties) {
+				for (Property<?> property : properties) {
 					BuildProperty buildProperty = block.getProperty(property.getName());
 
 					// Make sure that this property exists in our file. The only way it wouldn't be there would be if a
@@ -136,7 +137,7 @@ public class BuildBlock {
 	}
 
 	@SuppressWarnings({"OptionalGetWithoutIsPresent", "OptionalUsedAsFieldOrParameterType"})
-	private static Comparable setComparable(Comparable<?> comparable, Block foundBlock, IProperty<?> property, StructureConfiguration configuration, BuildBlock block,
+	private static Comparable setComparable(Comparable<?> comparable, Block foundBlock, Property<?> property, StructureConfiguration configuration, BuildBlock block,
 											Optional<?> propertyValue, Direction vineFacing, Direction.Axis logFacing, Axis boneFacing, Direction leverOrientation,
 											Structure structure,
 											Map<Direction, Boolean> fourWayFacings) {
@@ -195,11 +196,6 @@ public class BuildBlock {
 				} else {
 					comparable = false;
 				}
-			}
-		} else if (foundBlock instanceof LogBlock) {
-			// logs have a special state. There is a property called axis and it only has 3 directions.
-			if (property.getName().equals("axis")) {
-				comparable = logFacing;
 			}
 		} else if (foundBlock instanceof RotatedPillarBlock) {
 			// bones have a special state. There is a property called axis and it only has 3 directions.
@@ -353,7 +349,7 @@ public class BuildBlock {
 		return leverOrientation;
 	}
 
-	private static BlockState setProperty(BlockState state, IProperty property, Comparable comparable) {
+	private static BlockState setProperty(BlockState state, Property property, Comparable comparable) {
 		// This method is required since the properties and comparables have a <?> in them and it doesn't work properly
 		// when that is there. There is a compilation error since it's not hard typed.
 		return state.with(property, comparable);

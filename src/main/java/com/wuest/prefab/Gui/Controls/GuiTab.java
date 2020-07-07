@@ -1,5 +1,6 @@
 package com.wuest.prefab.Gui.Controls;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Gui.GuiTabScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SimpleSound;
@@ -8,6 +9,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.text.StringTextComponent;
 
 import java.awt.*;
 
@@ -23,7 +25,7 @@ public class GuiTab extends Widget {
 	private String name;
 
 	public GuiTab(GuiTabTray parent, String name, int x, int y) {
-		super(x, y, name);
+		super(x, y, 50, 20, new StringTextComponent(name));
 
 		this.Initialize(parent, name);
 	}
@@ -79,7 +81,7 @@ public class GuiTab extends Widget {
 	 * @param mouseX The location of the mouse X-Axis.
 	 * @param mouseY The location of the mouse Y-Axis.
 	 */
-	public void drawTab(Minecraft mc, int mouseX, int mouseY) {
+	public void drawTab(Minecraft mc, MatrixStack matrixStack, int mouseX, int mouseY) {
 		if (!this.visible) {
 			return;
 		}
@@ -97,7 +99,7 @@ public class GuiTab extends Widget {
 		int j = Color.LIGHT_GRAY.getRGB();
 
 		int stringXPosition = ((this.x + this.width / 2) - (fontrenderer.getStringWidth(this.name)) / 2);
-		fontrenderer.drawString(this.name, stringXPosition, this.y + (this.height - 8) / 2, j);
+		fontrenderer.drawString(matrixStack, this.name, stringXPosition, this.y + (this.height - 8) / 2, j);
 	}
 
 	/**

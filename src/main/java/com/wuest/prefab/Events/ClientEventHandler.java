@@ -1,14 +1,13 @@
 package com.wuest.prefab.Events;
 
+import com.sun.javafx.geom.Vec3d;
 import com.wuest.prefab.Config.EntityPlayerConfiguration;
-import com.wuest.prefab.Items.ItemBogus;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Proxy.ClientProxy;
 import com.wuest.prefab.Structures.Render.StructureRenderHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
@@ -48,10 +47,6 @@ public final class ClientEventHandler {
 
 		if (mc.player != null && (!mc.player.isCrouching())) {
 			StructureRenderHandler.renderPlayerLook(mc.player, mc.objectMouseOver, event.getMatrixStack());
-		}
-
-		if (ItemBogus.renderTest) {
-			ClientEventHandler.RenderTest(mc.world, mc.player);
 		}
 	}
 

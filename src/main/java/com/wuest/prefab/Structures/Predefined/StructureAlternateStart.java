@@ -262,15 +262,15 @@ public class StructureAlternateStart extends Structure {
 
 			if (tileEntity instanceof SignTileEntity) {
 				SignTileEntity signTile = (SignTileEntity) tileEntity;
-				signTile.signText[0] = new StringTextComponent("This is");
+				signTile.setText(0, new StringTextComponent("This is"));
 
 				if (player.getDisplayName().getString().length() >= 15) {
-					signTile.signText[1] = new StringTextComponent(player.getDisplayName().getString());
+					signTile.setText(1, new StringTextComponent(player.getDisplayName().getString()));
 				} else {
-					signTile.signText[1] = new StringTextComponent(player.getDisplayName().getString() + "'s");
+					signTile.setText(1, new StringTextComponent(player.getDisplayName().getString() + "'s"));
 				}
 
-				signTile.signText[2] = new StringTextComponent("house!");
+				signTile.setText(2, new StringTextComponent("house!"));
 			}
 		}
 

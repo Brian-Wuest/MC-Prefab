@@ -92,7 +92,7 @@ public class BlockCompressedObsidian extends Block {
 		}
 
 		@Override
-		public String getName() {
+		public String getString() {
 			return this.name;
 		}
 	}

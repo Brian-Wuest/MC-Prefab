@@ -257,7 +257,7 @@ public class BasicStructureConfiguration extends StructureConfiguration {
 			tag.putString(BasicStructureConfiguration.structureDisplayNameTag, this.structureDisplayName);
 		}
 
-		tag.putString(BasicStructureConfiguration.bedColorTag, this.bedColor.getName().toUpperCase());
+		tag.putString(BasicStructureConfiguration.bedColorTag, this.bedColor.getString().toUpperCase());
 
 		return tag;
 	}

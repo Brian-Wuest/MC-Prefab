@@ -30,7 +30,7 @@ public class BlockPaperLantern extends Block {
 		super(Properties.create(Prefab.SeeThroughImmovable)
 				.sound(SoundType.SNOW)
 				.hardnessAndResistance(0.6f)
-				.lightValue(14)
+				.setLightLevel(value -> 14)
 				.notSolid());
 	}
 

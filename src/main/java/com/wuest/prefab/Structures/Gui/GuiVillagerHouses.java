@@ -1,5 +1,6 @@
 package com.wuest.prefab.Structures.Gui;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Gui.GuiTabScreen;
@@ -11,6 +12,7 @@ import com.wuest.prefab.Tuple;
 import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.item.DyeColor;
 import net.minecraft.util.Direction;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
 
 /**
@@ -60,8 +62,8 @@ public class GuiVillagerHouses extends GuiStructure {
 	}
 
 	@Override
-	protected void preButtonRender(int x, int y) {
-		super.preButtonRender(x, y);
+	protected void preButtonRender(MatrixStack matrixStack, int x, int y) {
+		super.preButtonRender(matrixStack, x, y);
 
 		this.bindTexture(this.houseStyle.getHousePicture());
 		GuiTabScreen.drawModalRectWithCustomSizedTexture(x + 250, y, 1,
@@ -70,11 +72,11 @@ public class GuiVillagerHouses extends GuiStructure {
 	}
 
 	@Override
-	protected void postButtonRender(int x, int y) {
-		this.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), x + 10, y + 10, this.textColor);
+	protected void postButtonRender(MatrixStack matrixStack, int x, int y) {
+		this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), x + 10, y + 10, this.textColor);
 
 		if (this.houseStyle == VillagerHouseConfiguration.HouseStyle.LONG_HOUSE) {
-			this.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), x + 130, y + 10, this.textColor);
+			this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), x + 130, y + 10, this.textColor);
 		}
 	}
 
@@ -91,7 +93,7 @@ public class GuiVillagerHouses extends GuiStructure {
 			int id = this.houseStyle.getValue() + 1;
 			this.houseStyle = VillagerHouseConfiguration.HouseStyle.ValueOf(id);
 
-			this.btnHouseStyle.setMessage(this.houseStyle.getDisplayName());
+			this.btnHouseStyle.setMessage(new StringTextComponent(this.houseStyle.getDisplayName()));
 
 			this.btnBedColor.visible = this.houseStyle == VillagerHouseConfiguration.HouseStyle.LONG_HOUSE;
 		} else if (button == this.btnVisualize) {
@@ -101,7 +103,7 @@ public class GuiVillagerHouses extends GuiStructure {
 			this.closeScreen();
 		} else if (button == this.btnBedColor) {
 			this.configuration.bedColor = DyeColor.byId(this.configuration.bedColor.getId() + 1);
-			this.btnBedColor.setMessage(GuiLangKeys.translateDye(this.configuration.bedColor));
+			this.btnBedColor.setMessage(new StringTextComponent(GuiLangKeys.translateDye(this.configuration.bedColor)));
 		}
 	}
 }

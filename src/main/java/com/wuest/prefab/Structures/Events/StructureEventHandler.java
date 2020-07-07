@@ -324,12 +324,13 @@ public final class StructureEventHandler {
 				BlockPos tileEntityPos = buildTileEntity.getStartingPosition().getRelativePosition(structure.originalPos,
 						structure.getClearSpace().getShape().getDirection(), structure.configuration.houseFacing);
 				TileEntity tileEntity = structure.world.getTileEntity(tileEntityPos);
+				BlockState tileBlock = structure.world.getBlockState(tileEntityPos);
 
 				if (tileEntity == null) {
-					TileEntity.create(buildTileEntity.getEntityDataTag());
+					TileEntity.readTileEntity(tileBlock, buildTileEntity.getEntityDataTag());
 				} else {
 					structure.world.removeTileEntity(tileEntityPos);
-					tileEntity = TileEntity.create(buildTileEntity.getEntityDataTag());
+					tileEntity = TileEntity.readTileEntity(tileBlock, buildTileEntity.getEntityDataTag());
 					structure.world.setTileEntity(tileEntityPos, tileEntity);
 					structure.world.getChunkAt(tileEntityPos).markDirty();
 					tileEntity.markDirty();
@@ -395,7 +396,8 @@ public final class StructureEventHandler {
 		if (structure.hasAirBlocks) {
 			for (BlockPos currentPos : structure.allBlockPositions) {
 				BlockState currentState = structure.world.getBlockState(currentPos);
-				if (currentState.has(BlockStateProperties.WATERLOGGED)) {
+				// TODO: This was the "has" method.
+				if (currentState.func_235901_b_(BlockStateProperties.WATERLOGGED)) {
 					// This is a water loggable block and there were air blocks, make sure that it's no longer water logged.
 					currentState = currentState.with((BlockStateProperties.WATERLOGGED), false);
 					structure.world.setBlockState(currentPos, currentState);

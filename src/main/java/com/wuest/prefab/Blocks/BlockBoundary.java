@@ -13,7 +13,7 @@ import net.minecraft.client.renderer.RenderState;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.IFluidState;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -114,7 +114,7 @@ public class BlockBoundary extends Block {
 	 * @return True if the block is actually destroyed.
 	 */
 	@Override
-	public boolean removedByPlayer(BlockState state, World world, BlockPos pos, PlayerEntity player, boolean willHarvest, IFluidState fluid) {
+	public boolean removedByPlayer(BlockState state, World world, BlockPos pos, PlayerEntity player, boolean willHarvest, FluidState fluid) {
 		boolean returnValue = super.removedByPlayer(state, world, pos, player, willHarvest, fluid);
 
 		ModEventHandler.RedstoneAffectedBlockPositions.remove(pos);
@@ -174,6 +174,7 @@ public class BlockBoundary extends Block {
 	public void addInformation(ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, ITooltipFlag advanced) {
 		super.addInformation(stack, worldIn, tooltip, advanced);
 
+		// TODO: When the mappings are updated, this was the "hasShiftDown" method.
 		boolean advancedKeyDown = Screen.hasShiftDown();
 
 		if (!advancedKeyDown) {
