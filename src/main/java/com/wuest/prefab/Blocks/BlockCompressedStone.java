@@ -20,16 +20,7 @@ public class BlockCompressedStone extends Block {
 		super(Properties.create(Material.EARTH)
 				.hardnessAndResistance(1.5F, 10.0F)
 				.sound(SoundType.STONE)
-				.setLightLevel(value -> {
-					int lightValue = 0;
-
-					if (value.getBlock() instanceof BlockCompressedStone) {
-						BlockCompressedStone currentBlock = (BlockCompressedStone)value.getBlock();
-						lightValue = currentBlock.typeofStone == EnumType.COMPRESSED_GLOWSTONE || currentBlock.typeofStone == EnumType.DOUBLE_COMPRESSED_GLOWSTONE ? 15 : 0;
-					}
-
-					return lightValue;
-				})
+				.setLightLevel(value -> typeOfStone == EnumType.COMPRESSED_GLOWSTONE || typeOfStone == EnumType.DOUBLE_COMPRESSED_GLOWSTONE ? 15 : 0)
 				.harvestLevel(0)
 				.harvestTool(null));
 
