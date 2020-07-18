@@ -10,7 +10,9 @@
 	  "1.14-latest": "1.4.0.18",
 	  "1.14-recommended": "1.4.0.18",
 	  "1.15-latest": "1.5.0.9",
-	  "1.15-recommended": "1.5.0.9"
+	  "1.15-recommended": "1.5.0.9",
+	  "1.16-latest": "1.6.0.0",
+	  "1.16-recommended": "1.6.0.0"
   },
   "1.10.2": {
 	  "1.1.1.10": "New Stuff: Added [Ender Gateway] structure. Added [Phasic Block] and [Boundary Block]\nSome buildings can now be generated in mod-created dimensions.",
@@ -99,5 +101,8 @@
 	"1.5.0.7": "Fixed an issue where there starter house couldn't be built",
 	"1.5.0.8": "Fixed an issue the OpenJDK when using the Preview functionality",
 	"1.5.0.9": "Fixed issues with infected blocks in some buildings"
+  },
+  "1.16": {
+	  "1.6.0.0": "Initial releaes for 1.16.1 containing the latest updates from 1.5.0.9"
   }
 }
