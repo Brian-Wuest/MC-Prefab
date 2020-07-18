@@ -22,9 +22,3 @@ Structure Preview functionality adapted from Botania by Vazkii http://botaniamod
     versionRange="[32,)" #mandatory
     ordering="NONE"
     side="BOTH"
-[[dependencies.prefab]]
-    modId="minecraft"
-    mandatory=true
-    versionRange="[1.16.1]"
-    ordering="NONE"
-    side="BOTH"
