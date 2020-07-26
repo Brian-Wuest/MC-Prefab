@@ -193,8 +193,6 @@ public class BuildBlock {
 						|| property.getName().equals(vineFacing.getOpposite().getName2())) {
 					comparable = true;
 					block.setHasFacing(true);
-				} else {
-					comparable = false;
 				}
 			}
 		} else if (foundBlock instanceof RotatedPillarBlock) {

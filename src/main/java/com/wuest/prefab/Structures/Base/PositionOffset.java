@@ -30,6 +30,49 @@ public class PositionOffset {
 		this.Initialize();
 	}
 
+	public void setHorizontalOffset(Direction direction, int value) {
+		switch (direction) {
+			case EAST: {
+				this.setEastOffset(value);
+				break;
+			}
+			case SOUTH: {
+				this.setSouthOffset(value);
+				break;
+			}
+			case WEST: {
+				this.setWestOffset(value);
+				break;
+			}
+			case NORTH: {
+				this.setNorthOffset(value);
+				break;
+			}
+		}
+	}
+
+	public int getHorizontalOffset(Direction direction) {
+		switch (direction) {
+			case EAST: {
+				return this.getEastOffset();
+			}
+
+			case SOUTH: {
+				return this.getSouthOffset();
+			}
+
+			case WEST: {
+				return this.getWestOffset();
+			}
+
+			case NORTH: {
+				return this.getNorthOffset();
+			}
+		}
+
+		return 0;
+	}
+
 	public int getNorthOffset() {
 		return this.northOffset;
 	}

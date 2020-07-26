@@ -32,21 +32,23 @@ public class StructureModerateHouse extends Structure {
 
 	public static void ScanStructure(World world, BlockPos originalPos, Direction playerFacing, ModerateHouseConfiguration.HouseStyle houseStyle) {
 		BuildClear clearedSpace = new BuildClear();
-		clearedSpace.getShape().setDirection(Direction.SOUTH);
+		clearedSpace.getShape().setDirection(playerFacing);
 		clearedSpace.getShape().setHeight(houseStyle.getHeight());
 		clearedSpace.getShape().setLength(houseStyle.getLength() + 1);
 		clearedSpace.getShape().setWidth(houseStyle.getWidth());
-		clearedSpace.getStartingPosition().setSouthOffset(1);
-		clearedSpace.getStartingPosition().setEastOffset(houseStyle.getEastOffSet());
+		clearedSpace.getStartingPosition().setHorizontalOffset(playerFacing, 1);
+
+		// East is always to the "Left" of the player.
+		clearedSpace.getStartingPosition().setHorizontalOffset(playerFacing.rotateYCCW(), houseStyle.getEastOffSet());
 		clearedSpace.getStartingPosition().setHeightOffset(houseStyle.getDownOffSet() * -1);
 
-		BlockPos cornerPos = originalPos.east(houseStyle.getEastOffSet()).south().down(houseStyle.getDownOffSet());
+		BlockPos cornerPos = originalPos.offset(playerFacing.rotateYCCW(), houseStyle.getEastOffSet()).offset(playerFacing).down(houseStyle.getDownOffSet());
 
 		Structure.ScanStructure(
 				world,
 				originalPos,
 				cornerPos,
-				cornerPos.south(houseStyle.getLength()).west(houseStyle.getWidth()).up(houseStyle.getHeight()),
+				cornerPos.offset(playerFacing, houseStyle.getLength()).offset(playerFacing.rotateY(), houseStyle.getWidth()).up(houseStyle.getHeight()),
 				"../src/main/resources/" + houseStyle.getStructureLocation(),
 				clearedSpace,
 				playerFacing, false, false);
