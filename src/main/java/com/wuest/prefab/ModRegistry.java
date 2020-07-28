@@ -99,7 +99,6 @@ public class ModRegistry {
 	public static final RegistryObject<ItemMonsterMasher> MonsterMasher = ITEMS.register("item_monster_masher", com.wuest.prefab.Structures.Items.ItemMonsterMasher::new);
 	public static final RegistryObject<ItemWarehouseUpgrade> WarehouseUpgrade = ITEMS.register("item_warehouse_upgrade", com.wuest.prefab.Items.ItemWarehouseUpgrade::new);
 	public static final RegistryObject<ItemHorseStable> HorseStable = ITEMS.register("item_horse_stable", com.wuest.prefab.Structures.Items.ItemHorseStable::new);
-	public static final RegistryObject<ItemNetherGate> NetherGate = ITEMS.register("item_nether_gate", com.wuest.prefab.Structures.Items.ItemNetherGate::new);
 	public static final RegistryObject<ItemInstantBridge> InstantBridge = ITEMS.register("item_instant_bridge", com.wuest.prefab.Structures.Items.ItemInstantBridge::new);
 	public static final RegistryObject<ItemModerateHouse> ModerateHouse = ITEMS.register("item_moderate_house", com.wuest.prefab.Structures.Items.ItemModerateHouse::new);
 	public static final RegistryObject<ItemBulldozer> Bulldozer = ITEMS.register("item_bulldozer", com.wuest.prefab.Structures.Items.ItemBulldozer::new);
@@ -124,6 +123,7 @@ public class ModRegistry {
 	public static final RegistryObject<ItemBasicStructure> SkiLodge = ITEMS.register(EnumBasicStructureName.SkiLodge.getResourceLocation().getPath(), () ->new ItemBasicStructure(EnumBasicStructureName.SkiLodge));
 	public static final RegistryObject<ItemBasicStructure> WindMill = ITEMS.register(EnumBasicStructureName.WindMill.getResourceLocation().getPath(), () ->new ItemBasicStructure(EnumBasicStructureName.WindMill));
 	public static final RegistryObject<ItemBasicStructure> TownHall = ITEMS.register(EnumBasicStructureName.TownHall.getResourceLocation().getPath(), () ->new ItemBasicStructure(EnumBasicStructureName.TownHall));
+	public static final RegistryObject<ItemBasicStructure> NetherGate = ITEMS.register(EnumBasicStructureName.NetherGate.getResourceLocation().getPath(), () ->new ItemBasicStructure(EnumBasicStructureName.NetherGate));
 
 	/**
 	 * This is where the mod messages are registered.

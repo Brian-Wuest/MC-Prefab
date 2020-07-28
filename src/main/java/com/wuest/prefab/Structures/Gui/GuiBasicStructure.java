@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Structures.Config.BasicStructureConfiguration;
+import com.wuest.prefab.Structures.Config.Enums.BaseOption;
 import com.wuest.prefab.Structures.Items.ItemBasicStructure;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Structures.Predefined.StructureBasic;
@@ -17,6 +18,7 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * This class is used as the gui for all basic structures.
@@ -28,6 +30,8 @@ public class GuiBasicStructure extends GuiStructure {
 	protected BasicStructureConfiguration configuration;
 	private boolean includePicture = true;
 	private ExtendedButton btnBedColor = null;
+	private ExtendedButton btnStructureOptions = null;
+	private ArrayList<BaseOption> availableOptions;
 
 	public GuiBasicStructure() {
 		super("Basic Structure");
@@ -42,24 +46,33 @@ public class GuiBasicStructure extends GuiStructure {
 
 		if (this.includePicture) {
 			// Draw the control background.
-			this.bindTexture(this.configuration.basicStructureName.getTopDownPictureLocation());
+			this.bindTexture(this.configuration.chosenOption.getPictureLocation());
 
 			GuiBasicStructure.drawModalRectWithCustomSizedTexture(x + 250, y, 1,
-					this.configuration.basicStructureName.getImageWidth(), this.configuration.basicStructureName.getImageHeight(),
-					this.configuration.basicStructureName.getImageWidth(), this.configuration.basicStructureName.getImageHeight());
+					this.configuration.chosenOption.getImageWidth(), this.configuration.chosenOption.getImageHeight(),
+					this.configuration.chosenOption.getImageWidth(), this.configuration.chosenOption.getImageHeight());
 		}
 	}
 
 	@Override
 	protected void postButtonRender(MatrixStack matrixStack, int x, int y) {
+		int yValue = y + 10;
 		// Draw the text here.
 		if (this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.MineshaftEntrance
 				|| this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WatchTower
 				|| this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WelcomeCenter) {
-			this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), x + 10, y + 10, this.textColor);
+
+			this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), x + 10, yValue, this.textColor);
+			yValue += 40;
 		}
 
-		this.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, y + 10, 95, this.textColor);
+		if (this.availableOptions.size() > 1) {
+			this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.BUILDING_OPTIONS), x + 10, yValue, this.textColor);
+		}
+
+		// Second column
+		yValue = y + 10;
+		this.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, yValue, 95, this.textColor);
 	}
 
 	@Override
@@ -71,7 +84,9 @@ public class GuiBasicStructure extends GuiStructure {
 			ItemBasicStructure item = (ItemBasicStructure) stack.getItem();
 			this.configuration = ClientEventHandler.playerConfig.getClientConfig(item.structureType.getName(), BasicStructureConfiguration.class);
 			this.configuration.basicStructureName = item.structureType;
+			this.configuration.chosenOption = item.structureType.getBaseOption();
 			this.includePicture = this.doesPictureExist();
+			this.availableOptions = this.configuration.chosenOption.getSpecificOptions();
 		}
 
 		this.configuration.pos = this.pos;
@@ -100,6 +115,14 @@ public class GuiBasicStructure extends GuiStructure {
 			this.btnBedColor.visible = false;
 		}
 
+		if (this.availableOptions.size() > 1) {
+			this.btnStructureOptions = this.createAndAddButton(x, y, 90, 20, GuiLangKeys.translateString(this.configuration.chosenOption.getTranslationString()));
+			this.btnStructureOptions.visible = true;
+			y += 40;
+		} else if (this.btnStructureOptions != null) {
+			this.btnStructureOptions.visible = false;
+		}
+
 		this.btnVisualize = this.createAndAddButton(x, y, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW));
 
 		// Create the done and cancel buttons.
@@ -115,7 +138,7 @@ public class GuiBasicStructure extends GuiStructure {
 	 */
 	private boolean doesPictureExist() {
 		try {
-			this.getMinecraft().getResourceManager().getResource(this.configuration.basicStructureName.getTopDownPictureLocation());
+			this.getMinecraft().getResourceManager().getResource(this.configuration.chosenOption.getPictureLocation());
 			return true;
 		} catch (IOException e) {
 			return false;
@@ -128,12 +151,32 @@ public class GuiBasicStructure extends GuiStructure {
 		this.performCancelOrBuildOrHouseFacing(this.configuration, button);
 
 		if (button == this.btnVisualize) {
-			StructureBasic structure = StructureBasic.CreateInstance(this.configuration.basicStructureName.getAssetLocation(), StructureBasic.class);
+			StructureBasic structure = StructureBasic.CreateInstance(this.configuration.chosenOption.getAssetLocation(), StructureBasic.class);
 			StructureRenderHandler.setStructure(structure, Direction.NORTH, this.configuration);
 			this.closeScreen();
 		} else if (button == this.btnBedColor) {
 			this.configuration.bedColor = DyeColor.byId(this.configuration.bedColor.getId() + 1);
 			this.btnBedColor.setMessage(new StringTextComponent(GuiLangKeys.translateDye(this.configuration.bedColor)));
+		} else if (button == this.btnStructureOptions) {
+			for (int i = 0; i < this.availableOptions.size(); i++) {
+				BaseOption option = this.availableOptions.get(i);
+				BaseOption chosenOption = null;
+
+				if (this.configuration.chosenOption.getTranslationString().equals(option.getTranslationString())) {
+					if (i == this.availableOptions.size() - 1) {
+						// This is the last option, set the text to the first option.
+						chosenOption = this.availableOptions.get(0);
+					} else {
+						chosenOption = this.availableOptions.get(i + 1);
+					}
+				}
+
+				if (chosenOption != null) {
+					this.configuration.chosenOption = chosenOption;
+					this.btnStructureOptions.setMessage(new StringTextComponent(GuiLangKeys.translateString(chosenOption.getTranslationString())));
+					break;
+				}
+			}
 		}
 	}
 }

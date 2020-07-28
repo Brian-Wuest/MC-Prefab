@@ -45,6 +45,9 @@
     "item.prefab.item_wind_mill": "fırıldak",
     "item.prefab.item_town_hall": "Belediye binası",
 
+    "item.prefab.item_nether_gate_tree": "Bozuk ağaç",
+    "item.prefab.item_nether_gate_skull": "Antik kurukafa",
+
     "block.prefab.block_compressed_stone": "Sıkıştırılmış Taş",
     "block.prefab.block_double_compressed_stone": "Çifte Sıkıştırılmış Taş",
     "block.prefab.block_triple_compressed_stone": "Üçlü Sıkıştırılmış Taş",
@@ -211,5 +214,6 @@
     "prefab.gui.width": "En",
     "prefab.gui.length": "Boy",
     "prefab.gui.stairs_height": "Merdiven Yüksekliği",
-    "prefab.gui.stairs_width": "Merdiven Uzunluğu"
+    "prefab.gui.stairs_width": "Merdiven Uzunluğu",
+    "prefab.gui.building_options": "Bina Seçenekleri"
 }

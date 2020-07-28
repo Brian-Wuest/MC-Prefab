@@ -1,7 +1,6 @@
 package com.wuest.prefab.Structures.Config;
 
-import com.wuest.prefab.Structures.Base.BuildShape;
-import com.wuest.prefab.Structures.Base.PositionOffset;
+import com.wuest.prefab.Structures.Config.Enums.*;
 import com.wuest.prefab.Structures.Items.ItemBasicStructure;
 import com.wuest.prefab.Structures.Predefined.StructureBasic;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,101 +22,102 @@ public class BasicStructureConfiguration extends StructureConfiguration {
 	private static String structureEnumNameTag = "structureEnumName";
 	private static String structureDisplayNameTag = "structureDisplayName";
 	private static String bedColorTag = "bedColor";
+	private static String chosenOptionTag = "chosenOption";
 
 	static {
 		// This static method is used to set up the clear shapes for the basic structure names.
-		EnumBasicStructureName.AdvancedCoop.getClearShape().setDirection(Direction.SOUTH);
-		EnumBasicStructureName.AdvancedCoop.getClearShape().setHeight(10);
-		EnumBasicStructureName.AdvancedCoop.getClearShape().setWidth(11);
-		EnumBasicStructureName.AdvancedCoop.getClearShape().setLength(11);
-		EnumBasicStructureName.AdvancedCoop.getClearPositionOffset().setSouthOffset(1);
-		EnumBasicStructureName.AdvancedCoop.getClearPositionOffset().setEastOffset(5);
+		EnumBasicStructureName.AdvancedCoop.baseOption.getSpecificOptions().get(0).getClearShape().setDirection(Direction.SOUTH);
+		EnumBasicStructureName.AdvancedCoop.baseOption.getSpecificOptions().get(0).getClearShape().setHeight(10);
+		EnumBasicStructureName.AdvancedCoop.baseOption.getSpecificOptions().get(0).getClearShape().setWidth(11);
+		EnumBasicStructureName.AdvancedCoop.baseOption.getSpecificOptions().get(0).getClearShape().setLength(11);
+		EnumBasicStructureName.AdvancedCoop.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.AdvancedCoop.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setEastOffset(5);
 
-		EnumBasicStructureName.AdvancedHorseStable.getClearShape().setDirection(Direction.SOUTH);
-		EnumBasicStructureName.AdvancedHorseStable.getClearShape().setHeight(8);
-		EnumBasicStructureName.AdvancedHorseStable.getClearShape().setWidth(17);
-		EnumBasicStructureName.AdvancedHorseStable.getClearShape().setLength(34);
-		EnumBasicStructureName.AdvancedHorseStable.getClearPositionOffset().setSouthOffset(1);
-		EnumBasicStructureName.AdvancedHorseStable.getClearPositionOffset().setEastOffset(8);
+		EnumBasicStructureName.AdvancedHorseStable.baseOption.getSpecificOptions().get(0).getClearShape().setDirection(Direction.SOUTH);
+		EnumBasicStructureName.AdvancedHorseStable.baseOption.getSpecificOptions().get(0).getClearShape().setHeight(8);
+		EnumBasicStructureName.AdvancedHorseStable.baseOption.getSpecificOptions().get(0).getClearShape().setWidth(17);
+		EnumBasicStructureName.AdvancedHorseStable.baseOption.getSpecificOptions().get(0).getClearShape().setLength(34);
+		EnumBasicStructureName.AdvancedHorseStable.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.AdvancedHorseStable.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setEastOffset(8);
 
-		EnumBasicStructureName.Barn.getClearShape().setDirection(Direction.SOUTH);
-		EnumBasicStructureName.Barn.getClearShape().setHeight(10);
-		EnumBasicStructureName.Barn.getClearShape().setWidth(30);
-		EnumBasicStructureName.Barn.getClearShape().setLength(35);
-		EnumBasicStructureName.Barn.getClearPositionOffset().setSouthOffset(1);
-		EnumBasicStructureName.Barn.getClearPositionOffset().setEastOffset(15);
+		EnumBasicStructureName.Barn.baseOption.getSpecificOptions().get(0).getClearShape().setDirection(Direction.SOUTH);
+		EnumBasicStructureName.Barn.baseOption.getSpecificOptions().get(0).getClearShape().setHeight(10);
+		EnumBasicStructureName.Barn.baseOption.getSpecificOptions().get(0).getClearShape().setWidth(30);
+		EnumBasicStructureName.Barn.baseOption.getSpecificOptions().get(0).getClearShape().setLength(35);
+		EnumBasicStructureName.Barn.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.Barn.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setEastOffset(15);
 
-		EnumBasicStructureName.MachineryTower.getClearShape().setDirection(Direction.SOUTH);
-		EnumBasicStructureName.MachineryTower.getClearShape().setHeight(12);
-		EnumBasicStructureName.MachineryTower.getClearShape().setWidth(16);
-		EnumBasicStructureName.MachineryTower.getClearShape().setLength(16);
-		EnumBasicStructureName.MachineryTower.getClearPositionOffset().setSouthOffset(1);
-		EnumBasicStructureName.MachineryTower.getClearPositionOffset().setEastOffset(8);
+		EnumBasicStructureName.MachineryTower.baseOption.getSpecificOptions().get(0).getClearShape().setDirection(Direction.SOUTH);
+		EnumBasicStructureName.MachineryTower.baseOption.getSpecificOptions().get(0).getClearShape().setHeight(12);
+		EnumBasicStructureName.MachineryTower.baseOption.getSpecificOptions().get(0).getClearShape().setWidth(16);
+		EnumBasicStructureName.MachineryTower.baseOption.getSpecificOptions().get(0).getClearShape().setLength(16);
+		EnumBasicStructureName.MachineryTower.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.MachineryTower.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setEastOffset(8);
 
 		// Defense bunker.
-		EnumBasicStructureName.DefenseBunker.getClearShape().setDirection(Direction.SOUTH);
-		EnumBasicStructureName.DefenseBunker.getClearShape().setHeight(17);
-		EnumBasicStructureName.DefenseBunker.getClearShape().setWidth(32);
-		EnumBasicStructureName.DefenseBunker.getClearShape().setLength(32);
-		EnumBasicStructureName.DefenseBunker.getClearPositionOffset().setSouthOffset(1);
-		EnumBasicStructureName.DefenseBunker.getClearPositionOffset().setEastOffset(15);
+		EnumBasicStructureName.DefenseBunker.baseOption.getSpecificOptions().get(0).getClearShape().setDirection(Direction.SOUTH);
+		EnumBasicStructureName.DefenseBunker.baseOption.getSpecificOptions().get(0).getClearShape().setHeight(17);
+		EnumBasicStructureName.DefenseBunker.baseOption.getSpecificOptions().get(0).getClearShape().setWidth(32);
+		EnumBasicStructureName.DefenseBunker.baseOption.getSpecificOptions().get(0).getClearShape().setLength(32);
+		EnumBasicStructureName.DefenseBunker.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.DefenseBunker.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setEastOffset(15);
 
 		// Mineshaft entrance.
-		EnumBasicStructureName.MineshaftEntrance.getClearShape().setDirection(Direction.SOUTH);
-		EnumBasicStructureName.MineshaftEntrance.getClearShape().setHeight(6);
-		EnumBasicStructureName.MineshaftEntrance.getClearShape().setWidth(7);
-		EnumBasicStructureName.MineshaftEntrance.getClearShape().setLength(7);
-		EnumBasicStructureName.MineshaftEntrance.getClearPositionOffset().setSouthOffset(1);
-		EnumBasicStructureName.MineshaftEntrance.getClearPositionOffset().setEastOffset(3);
+		EnumBasicStructureName.MineshaftEntrance.baseOption.getSpecificOptions().get(0).getClearShape().setDirection(Direction.SOUTH);
+		EnumBasicStructureName.MineshaftEntrance.baseOption.getSpecificOptions().get(0).getClearShape().setHeight(6);
+		EnumBasicStructureName.MineshaftEntrance.baseOption.getSpecificOptions().get(0).getClearShape().setWidth(7);
+		EnumBasicStructureName.MineshaftEntrance.baseOption.getSpecificOptions().get(0).getClearShape().setLength(7);
+		EnumBasicStructureName.MineshaftEntrance.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.MineshaftEntrance.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setEastOffset(3);
 
 		// Ender Gateway.
-		EnumBasicStructureName.EnderGateway.getClearShape().setDirection(Direction.SOUTH);
-		EnumBasicStructureName.EnderGateway.getClearShape().setHeight(26);
-		EnumBasicStructureName.EnderGateway.getClearShape().setWidth(17);
-		EnumBasicStructureName.EnderGateway.getClearShape().setLength(17);
-		EnumBasicStructureName.EnderGateway.getClearPositionOffset().setSouthOffset(1);
-		EnumBasicStructureName.EnderGateway.getClearPositionOffset().setEastOffset(8);
+		EnumBasicStructureName.EnderGateway.baseOption.getSpecificOptions().get(0).getClearShape().setDirection(Direction.SOUTH);
+		EnumBasicStructureName.EnderGateway.baseOption.getSpecificOptions().get(0).getClearShape().setHeight(26);
+		EnumBasicStructureName.EnderGateway.baseOption.getSpecificOptions().get(0).getClearShape().setWidth(17);
+		EnumBasicStructureName.EnderGateway.baseOption.getSpecificOptions().get(0).getClearShape().setLength(17);
+		EnumBasicStructureName.EnderGateway.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.EnderGateway.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setEastOffset(8);
 
 		// Aqua Base.
-		EnumBasicStructureName.AquaBase.getClearShape().setDirection(Direction.SOUTH);
-		EnumBasicStructureName.AquaBase.getClearShape().setHeight(27);
-		EnumBasicStructureName.AquaBase.getClearShape().setWidth(25);
-		EnumBasicStructureName.AquaBase.getClearShape().setLength(38);
-		EnumBasicStructureName.AquaBase.getClearPositionOffset().setSouthOffset(1);
-		EnumBasicStructureName.AquaBase.getClearPositionOffset().setEastOffset(12);
+		EnumBasicStructureName.AquaBase.baseOption.getSpecificOptions().get(0).getClearShape().setDirection(Direction.SOUTH);
+		EnumBasicStructureName.AquaBase.baseOption.getSpecificOptions().get(0).getClearShape().setHeight(27);
+		EnumBasicStructureName.AquaBase.baseOption.getSpecificOptions().get(0).getClearShape().setWidth(25);
+		EnumBasicStructureName.AquaBase.baseOption.getSpecificOptions().get(0).getClearShape().setLength(38);
+		EnumBasicStructureName.AquaBase.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.AquaBase.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setEastOffset(12);
 
 		// Grassy Plain.
-		EnumBasicStructureName.GrassyPlain.getClearShape().setDirection(Direction.SOUTH);
-		EnumBasicStructureName.GrassyPlain.getClearShape().setHeight(4);
-		EnumBasicStructureName.GrassyPlain.getClearShape().setWidth(15);
-		EnumBasicStructureName.GrassyPlain.getClearShape().setLength(15);
-		EnumBasicStructureName.GrassyPlain.getClearPositionOffset().setSouthOffset(1);
-		EnumBasicStructureName.GrassyPlain.getClearPositionOffset().setEastOffset(8);
-		EnumBasicStructureName.GrassyPlain.getClearPositionOffset().setHeightOffset(-1);
+		EnumBasicStructureName.GrassyPlain.baseOption.getSpecificOptions().get(0).getClearShape().setDirection(Direction.SOUTH);
+		EnumBasicStructureName.GrassyPlain.baseOption.getSpecificOptions().get(0).getClearShape().setHeight(4);
+		EnumBasicStructureName.GrassyPlain.baseOption.getSpecificOptions().get(0).getClearShape().setWidth(15);
+		EnumBasicStructureName.GrassyPlain.baseOption.getSpecificOptions().get(0).getClearShape().setLength(15);
+		EnumBasicStructureName.GrassyPlain.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.GrassyPlain.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setEastOffset(8);
+		EnumBasicStructureName.GrassyPlain.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setHeightOffset(-1);
 
 		// Magic Temple.
-		EnumBasicStructureName.MagicTemple.getClearShape().setDirection(Direction.SOUTH);
-		EnumBasicStructureName.MagicTemple.getClearShape().setHeight(13);
-		EnumBasicStructureName.MagicTemple.getClearShape().setWidth(12);
-		EnumBasicStructureName.MagicTemple.getClearShape().setLength(13);
-		EnumBasicStructureName.MagicTemple.getClearPositionOffset().setSouthOffset(1);
-		EnumBasicStructureName.MagicTemple.getClearPositionOffset().setEastOffset(6);
+		EnumBasicStructureName.MagicTemple.baseOption.getSpecificOptions().get(0).getClearShape().setDirection(Direction.SOUTH);
+		EnumBasicStructureName.MagicTemple.baseOption.getSpecificOptions().get(0).getClearShape().setHeight(13);
+		EnumBasicStructureName.MagicTemple.baseOption.getSpecificOptions().get(0).getClearShape().setWidth(12);
+		EnumBasicStructureName.MagicTemple.baseOption.getSpecificOptions().get(0).getClearShape().setLength(13);
+		EnumBasicStructureName.MagicTemple.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.MagicTemple.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setEastOffset(6);
 
 		// Greenhouse.
-		EnumBasicStructureName.GreenHouse.getClearShape().setDirection(Direction.SOUTH);
-		EnumBasicStructureName.GreenHouse.getClearShape().setHeight(10);
-		EnumBasicStructureName.GreenHouse.getClearShape().setWidth(16);
-		EnumBasicStructureName.GreenHouse.getClearShape().setLength(32);
-		EnumBasicStructureName.GreenHouse.getClearPositionOffset().setSouthOffset(1);
-		EnumBasicStructureName.GreenHouse.getClearPositionOffset().setEastOffset(8);
+		EnumBasicStructureName.GreenHouse.baseOption.getSpecificOptions().get(0).getClearShape().setDirection(Direction.SOUTH);
+		EnumBasicStructureName.GreenHouse.baseOption.getSpecificOptions().get(0).getClearShape().setHeight(10);
+		EnumBasicStructureName.GreenHouse.baseOption.getSpecificOptions().get(0).getClearShape().setWidth(16);
+		EnumBasicStructureName.GreenHouse.baseOption.getSpecificOptions().get(0).getClearShape().setLength(32);
+		EnumBasicStructureName.GreenHouse.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.GreenHouse.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setEastOffset(8);
 
 		// Watch Tower
-		EnumBasicStructureName.WatchTower.getClearShape().setDirection(Direction.SOUTH);
-		EnumBasicStructureName.WatchTower.getClearShape().setHeight(16);
-		EnumBasicStructureName.WatchTower.getClearShape().setWidth(9);
-		EnumBasicStructureName.WatchTower.getClearShape().setLength(9);
-		EnumBasicStructureName.WatchTower.getClearPositionOffset().setSouthOffset(1);
-		EnumBasicStructureName.WatchTower.getClearPositionOffset().setEastOffset(4);
+		EnumBasicStructureName.WatchTower.baseOption.getSpecificOptions().get(0).getClearShape().setDirection(Direction.SOUTH);
+		EnumBasicStructureName.WatchTower.baseOption.getSpecificOptions().get(0).getClearShape().setHeight(16);
+		EnumBasicStructureName.WatchTower.baseOption.getSpecificOptions().get(0).getClearShape().setWidth(9);
+		EnumBasicStructureName.WatchTower.baseOption.getSpecificOptions().get(0).getClearShape().setLength(9);
+		EnumBasicStructureName.WatchTower.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.WatchTower.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setEastOffset(4);
 
 		// Test
 		/*
@@ -130,58 +130,76 @@ public class BasicStructureConfiguration extends StructureConfiguration {
 		 */
 
 		// Welcome Center
-		EnumBasicStructureName.WelcomeCenter.getClearShape().setDirection(Direction.SOUTH);
-		EnumBasicStructureName.WelcomeCenter.getClearShape().setHeight(24);
-		EnumBasicStructureName.WelcomeCenter.getClearShape().setWidth(19);
-		EnumBasicStructureName.WelcomeCenter.getClearShape().setLength(48);
-		EnumBasicStructureName.WelcomeCenter.getClearPositionOffset().setSouthOffset(1);
-		EnumBasicStructureName.WelcomeCenter.getClearPositionOffset().setEastOffset(5);
-		EnumBasicStructureName.WelcomeCenter.getClearPositionOffset().setHeightOffset(-5);
+		EnumBasicStructureName.WelcomeCenter.baseOption.getSpecificOptions().get(0).getClearShape().setDirection(Direction.SOUTH);
+		EnumBasicStructureName.WelcomeCenter.baseOption.getSpecificOptions().get(0).getClearShape().setHeight(24);
+		EnumBasicStructureName.WelcomeCenter.baseOption.getSpecificOptions().get(0).getClearShape().setWidth(19);
+		EnumBasicStructureName.WelcomeCenter.baseOption.getSpecificOptions().get(0).getClearShape().setLength(48);
+		EnumBasicStructureName.WelcomeCenter.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.WelcomeCenter.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setEastOffset(5);
+		EnumBasicStructureName.WelcomeCenter.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setHeightOffset(-5);
 
 		// Jail
-		EnumBasicStructureName.Jail.getClearShape().setDirection(Direction.SOUTH);
-		EnumBasicStructureName.Jail.getClearShape().setHeight(14);
-		EnumBasicStructureName.Jail.getClearShape().setWidth(28);
-		EnumBasicStructureName.Jail.getClearShape().setLength(33);
-		EnumBasicStructureName.Jail.getClearPositionOffset().setSouthOffset(1);
-		EnumBasicStructureName.Jail.getClearPositionOffset().setEastOffset(25);
-		EnumBasicStructureName.Jail.getClearPositionOffset().setHeightOffset(-3);
+		EnumBasicStructureName.Jail.baseOption.getSpecificOptions().get(0).getClearShape().setDirection(Direction.SOUTH);
+		EnumBasicStructureName.Jail.baseOption.getSpecificOptions().get(0).getClearShape().setHeight(14);
+		EnumBasicStructureName.Jail.baseOption.getSpecificOptions().get(0).getClearShape().setWidth(28);
+		EnumBasicStructureName.Jail.baseOption.getSpecificOptions().get(0).getClearShape().setLength(33);
+		EnumBasicStructureName.Jail.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.Jail.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setEastOffset(25);
+		EnumBasicStructureName.Jail.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setHeightOffset(-3);
 
 		// Saloon
-		EnumBasicStructureName.Saloon.getClearShape().setDirection(Direction.SOUTH);
-		EnumBasicStructureName.Saloon.getClearShape().setHeight(14);
-		EnumBasicStructureName.Saloon.getClearShape().setWidth(18);
-		EnumBasicStructureName.Saloon.getClearShape().setLength(16);
-		EnumBasicStructureName.Saloon.getClearPositionOffset().setSouthOffset(1);
-		EnumBasicStructureName.Saloon.getClearPositionOffset().setEastOffset(10);
-		EnumBasicStructureName.Saloon.getClearPositionOffset().setHeightOffset(-1);
+		EnumBasicStructureName.Saloon.baseOption.getSpecificOptions().get(0).getClearShape().setDirection(Direction.SOUTH);
+		EnumBasicStructureName.Saloon.baseOption.getSpecificOptions().get(0).getClearShape().setHeight(14);
+		EnumBasicStructureName.Saloon.baseOption.getSpecificOptions().get(0).getClearShape().setWidth(18);
+		EnumBasicStructureName.Saloon.baseOption.getSpecificOptions().get(0).getClearShape().setLength(16);
+		EnumBasicStructureName.Saloon.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.Saloon.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setEastOffset(10);
+		EnumBasicStructureName.Saloon.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setHeightOffset(-1);
 
 		// Ski Lodge
-		EnumBasicStructureName.SkiLodge.getClearShape().setDirection(Direction.SOUTH);
-		EnumBasicStructureName.SkiLodge.getClearShape().setHeight(25);
-		EnumBasicStructureName.SkiLodge.getClearShape().setWidth(46);
-		EnumBasicStructureName.SkiLodge.getClearShape().setLength(35);
-		EnumBasicStructureName.SkiLodge.getClearPositionOffset().setSouthOffset(1);
-		EnumBasicStructureName.SkiLodge.getClearPositionOffset().setEastOffset(20);
-		EnumBasicStructureName.SkiLodge.getClearPositionOffset().setHeightOffset(-1);
+		EnumBasicStructureName.SkiLodge.baseOption.getSpecificOptions().get(0).getClearShape().setDirection(Direction.SOUTH);
+		EnumBasicStructureName.SkiLodge.baseOption.getSpecificOptions().get(0).getClearShape().setHeight(25);
+		EnumBasicStructureName.SkiLodge.baseOption.getSpecificOptions().get(0).getClearShape().setWidth(46);
+		EnumBasicStructureName.SkiLodge.baseOption.getSpecificOptions().get(0).getClearShape().setLength(35);
+		EnumBasicStructureName.SkiLodge.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.SkiLodge.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setEastOffset(20);
+		EnumBasicStructureName.SkiLodge.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setHeightOffset(-1);
 
 		// Windmill
-		EnumBasicStructureName.WindMill.getClearShape().setDirection(Direction.SOUTH);
-		EnumBasicStructureName.WindMill.getClearShape().setHeight(31);
-		EnumBasicStructureName.WindMill.getClearShape().setWidth(17);
-		EnumBasicStructureName.WindMill.getClearShape().setLength(13);
-		EnumBasicStructureName.WindMill.getClearPositionOffset().setSouthOffset(1);
-		EnumBasicStructureName.WindMill.getClearPositionOffset().setEastOffset(8);
-		EnumBasicStructureName.WindMill.getClearPositionOffset().setHeightOffset(-1);
+		EnumBasicStructureName.WindMill.baseOption.getSpecificOptions().get(0).getClearShape().setDirection(Direction.SOUTH);
+		EnumBasicStructureName.WindMill.baseOption.getSpecificOptions().get(0).getClearShape().setHeight(31);
+		EnumBasicStructureName.WindMill.baseOption.getSpecificOptions().get(0).getClearShape().setWidth(17);
+		EnumBasicStructureName.WindMill.baseOption.getSpecificOptions().get(0).getClearShape().setLength(13);
+		EnumBasicStructureName.WindMill.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.WindMill.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setEastOffset(8);
+		EnumBasicStructureName.WindMill.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setHeightOffset(-1);
 
 		// Town Hall
-		EnumBasicStructureName.TownHall.getClearShape().setDirection(Direction.SOUTH);
-		EnumBasicStructureName.TownHall.getClearShape().setHeight(12);
-		EnumBasicStructureName.TownHall.getClearShape().setWidth(27);
-		EnumBasicStructureName.TownHall.getClearShape().setLength(27);
-		EnumBasicStructureName.TownHall.getClearPositionOffset().setSouthOffset(1);
-		EnumBasicStructureName.TownHall.getClearPositionOffset().setEastOffset(20);
-		EnumBasicStructureName.TownHall.getClearPositionOffset().setHeightOffset(-1);
+		EnumBasicStructureName.TownHall.baseOption.getSpecificOptions().get(0).getClearShape().setDirection(Direction.SOUTH);
+		EnumBasicStructureName.TownHall.baseOption.getSpecificOptions().get(0).getClearShape().setHeight(12);
+		EnumBasicStructureName.TownHall.baseOption.getSpecificOptions().get(0).getClearShape().setWidth(27);
+		EnumBasicStructureName.TownHall.baseOption.getSpecificOptions().get(0).getClearShape().setLength(27);
+		EnumBasicStructureName.TownHall.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.TownHall.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setEastOffset(20);
+		EnumBasicStructureName.TownHall.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setHeightOffset(-1);
+
+		// Nether Gate - Ancient Skull
+		EnumBasicStructureName.NetherGate.baseOption.getSpecificOptions().get(0).getClearShape().setDirection(Direction.SOUTH);
+		EnumBasicStructureName.NetherGate.baseOption.getSpecificOptions().get(0).getClearShape().setHeight(13);
+		EnumBasicStructureName.NetherGate.baseOption.getSpecificOptions().get(0).getClearShape().setLength(26);
+		EnumBasicStructureName.NetherGate.baseOption.getSpecificOptions().get(0).getClearShape().setWidth(15);
+		EnumBasicStructureName.NetherGate.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.NetherGate.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setEastOffset(7);
+		EnumBasicStructureName.NetherGate.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setHeightOffset(-2);
+
+		// Nether Gate - Corrupted Tree
+		EnumBasicStructureName.NetherGate.baseOption.getSpecificOptions().get(1).getClearShape().setDirection(Direction.SOUTH);
+		EnumBasicStructureName.NetherGate.baseOption.getSpecificOptions().get(1).getClearShape().setHeight(20);
+		EnumBasicStructureName.NetherGate.baseOption.getSpecificOptions().get(1).getClearShape().setLength(15);
+		EnumBasicStructureName.NetherGate.baseOption.getSpecificOptions().get(1).getClearShape().setWidth(16);
+		EnumBasicStructureName.NetherGate.baseOption.getSpecificOptions().get(1).getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.NetherGate.baseOption.getSpecificOptions().get(1).getClearPositionOffset().setEastOffset(9);
+		EnumBasicStructureName.NetherGate.baseOption.getSpecificOptions().get(1).getClearPositionOffset().setHeightOffset(-7);
 	}
 
 	/**
@@ -194,6 +212,8 @@ public class BasicStructureConfiguration extends StructureConfiguration {
 	public String structureDisplayName;
 
 	public DyeColor bedColor;
+
+	public BaseOption chosenOption;
 
 	/**
 	 * Initializes a new instance of the BasicStructureConfiguration class.
@@ -230,6 +250,7 @@ public class BasicStructureConfiguration extends StructureConfiguration {
 		this.houseFacing = Direction.NORTH;
 		this.basicStructureName = EnumBasicStructureName.AdvancedCoop;
 		this.bedColor = DyeColor.RED;
+		this.chosenOption = this.basicStructureName.baseOption.getSpecificOptions().get(0);
 	}
 
 	@Override
@@ -247,6 +268,10 @@ public class BasicStructureConfiguration extends StructureConfiguration {
 		if (messageTag.contains(BasicStructureConfiguration.bedColorTag)) {
 			basicConfig.bedColor = DyeColor.valueOf(messageTag.getString(BasicStructureConfiguration.bedColorTag));
 		}
+
+		if (messageTag.contains(BasicStructureConfiguration.chosenOptionTag)) {
+			basicConfig.chosenOption = basicConfig.basicStructureName.baseOption.getOptionByTranslationString(messageTag.getString(BasicStructureConfiguration.chosenOptionTag));
+		}
 	}
 
 	@Override
@@ -258,6 +283,7 @@ public class BasicStructureConfiguration extends StructureConfiguration {
 		}
 
 		tag.putString(BasicStructureConfiguration.bedColorTag, this.bedColor.getString().toUpperCase());
+		tag.putString(BasicStructureConfiguration.chosenOptionTag, this.chosenOption.getTranslationString());
 
 		return tag;
 	}
@@ -287,7 +313,7 @@ public class BasicStructureConfiguration extends StructureConfiguration {
 		String assetLocation = "";
 
 		if (!this.IsCustomStructure()) {
-			assetLocation = this.basicStructureName.getAssetLocation();
+			assetLocation = this.chosenOption.getAssetLocation();
 		}
 
 		StructureBasic structure = StructureBasic.CreateInstance(assetLocation, StructureBasic.class);
@@ -312,78 +338,54 @@ public class BasicStructureConfiguration extends StructureConfiguration {
 	 */
 	@SuppressWarnings("SpellCheckingInspection")
 	public enum EnumBasicStructureName {
-		Custom("custom", null, null, null, null, 0, 0),
-		AdvancedCoop("advancedcoop", "item.prefab.advanced.chicken.coop", "assets/prefab/structures/advancedcoop.zip", "textures/gui/advanced_chicken_coop_topdown.png",
-				"item_advanced_chicken_coop", 156, 121),
-		AdvancedHorseStable("advanced_horse_stable", "item.prefab.advanced.horse.stable", "assets/prefab/structures/advanced_horse_stable.zip",
-				"textures/gui/advanced_horse_stable_topdown.png", "item_advanced_horse_stable", 128, 158),
-		Barn("barn", "item.prefab.barn", "assets/prefab/structures/barn.zip", "textures/gui/barn_topdown.png", "item_barn", 164, 160),
-		MachineryTower("machinery_tower", "item.prefab.machinery.tower", "assets/prefab/structures/machinery_tower.zip", "textures/gui/machinery_tower_topdown.png",
-				"item_machinery_tower", 153, 175),
-		DefenseBunker("defense_bunker", "item.prefab.defense.bunker", "assets/prefab/structures/defense_bunker.zip", "textures/gui/defense_bunker_topdown.png",
-				"item_defense_bunker", 153, 175),
-		MineshaftEntrance("mineshaft_entrance", "item.prefab.mineshaft.entrance", "assets/prefab/structures/mineshaft_entrance.zip", "textures/gui/mineshaft_entrance_topdown.png",
-				"item_mineshaft_entrance", 135, 159),
-		EnderGateway("ender_gateway", "item.prefab.ender_gateway", "assets/prefab/structures/ender_gateway.zip", "textures/gui/ender_gateway_topdown.png", "item_ender_gateway",
-				150, 103),
-		AquaBase("aqua_base", "item.prefab.aqua_base", "assets/prefab/structures/aqua_base.zip", "textures/gui/aqua_base_topdown.png", "item_aqua_base", 160, 119),
-		GrassyPlain("grassy_plain", "item.prefab.grassy_plain", "assets/prefab/structures/grassy_plain.zip", "textures/gui/grassy_plain_topdown.png", "item_grassy_plain", 160,
-				160),
-		MagicTemple("magic_temple", "item.prefab.magic_temple", "assets/prefab/structures/magic_temple.zip", "textures/gui/magic_temple_topdown.png", "item_magic_temple", 146,
-				156),
-		GreenHouse("green_house", "item.prefab.green_house", "assets/prefab/structures/green_house.zip", "textures/gui/green_house_topdown.png", "item_green_house", 104, 173),
-		WatchTower("watch_tower", "item.prefab.watch_tower", "assets/prefab/structures/watch_tower.zip", "textures/gui/watch_tower_topdown.png", "item_watch_tower", 176, 133),
+		Custom("custom", null, null, null),
+		AdvancedCoop("advancedcoop", "item.prefab.advanced.chicken.coop", "item_advanced_chicken_coop", AdvancedCoopOptions.Default),
+		AdvancedHorseStable("advanced_horse_stable", "item.prefab.advanced.horse.stable", "item_advanced_horse_stable", AdvancedHorseStableOptions.Default),
+		Barn("barn", "item.prefab.barn", "item_barn", BarnOptions.Default),
+		MachineryTower("machinery_tower", "item.prefab.machinery.tower", "item_machinery_tower", MachineryTowerOptions.Default),
+		DefenseBunker("defense_bunker", "item.prefab.defense.bunker", "item_defense_bunker", DefenseBunkerOptions.Default),
+		MineshaftEntrance("mineshaft_entrance", "item.prefab.mineshaft.entrance", "item_mineshaft_entrance", MineshaftEntranceOptions.Default),
+		EnderGateway("ender_gateway", "item.prefab.ender_gateway", "item_ender_gateway", EnderGatewayOptions.Default),
+		AquaBase("aqua_base", "item.prefab.aqua_base", "item_aqua_base", AquaBaseOptions.Default),
+		GrassyPlain("grassy_plain", "item.prefab.grassy_plain", "item_grassy_plain", GrassyPlainOptions.Default),
+		MagicTemple("magic_temple", "item.prefab.magic_temple", "item_magic_temple", MagicTempleOptions.Default),
+		GreenHouse("green_house", "item.prefab.green_house", "item_green_house", GreenHouseOptions.Default),
+		WatchTower("watch_tower", "item.prefab.watch_tower", "item_watch_tower", WatchTowerOptions.Default),
 		/*
 		 * Test("test", "item.prefab.test", "assets/prefab/structures/test.zip", "textures/gui/watch_tower_topdown.png",
 		 * "item_test", 176, 133),
 		 */
-		WelcomeCenter("welcome_center", "item.prefab.welcome_center", "assets/prefab/structures/welcome_center.zip", "textures/gui/welcome_center_topdown.png",
-				"item_welcome_center", 121, 168),
-		Jail("jail", "item.prefab.jail", "assets/prefab/structures/jail.zip", "textures/gui/jail_topdown.png", "item_jail", 131, 175),
-		Saloon("saloon", "item.prefab.saloon", "assets/prefab/structures/saloon.zip", "textures/gui/saloon_topdown.png", "item_saloon", 130, 170),
-		SkiLodge("ski_lodge", "item.prefab.ski_lodge", "assets/prefab/structures/ski_lodge.zip", "textures/gui/ski_lodge_topdown.png", "item_ski_lodge", 137, 180),
-		WindMill("wind_mill", "item.prefab.wind_mill", "assets/prefab/structures/wind_mill.zip", "textures/gui/wind_mill_topdown.png", "item_wind_mill", 176, 102),
-		TownHall("town_hall", "item.prefab.town_hall", "assets/prefab/structures/town_hall.zip", "textures/gui/town_hall_topdown.png", "item_town_hall", 89, 173);
+		WelcomeCenter("welcome_center", "item.prefab.welcome_center", "item_welcome_center", WelcomeCenterOptions.Default),
+		Jail("jail", "item.prefab.jail", "item_jail", JailOptions.Default),
+		Saloon("saloon", "item.prefab.saloon", "item_saloon", SaloonOptions.Default),
+		SkiLodge("ski_lodge", "item.prefab.ski_lodge", "item_ski_lodge", SkiLodgeOptions.Default),
+		WindMill("wind_mill", "item.prefab.wind_mill", "item_wind_mill", WindMillOptions.Default),
+		TownHall("town_hall", "item.prefab.town_hall", "item_town_hall", TownHallOptions.Default),
+		NetherGate("nether_gate", "item.prefab.nether_gate", "item_nether_gate", NetherGateOptions.AncientSkull);
 
 		private String name;
-		private String assetLocation;
-		private String topDownPictureLocation;
 		private String unlocalizedName;
-		private BuildShape clearShape;
 		private ResourceLocation resourceLocation;
-		private PositionOffset clearPositionOffset;
-		private int imageHeight;
-		private int imageWidth;
+		private BaseOption baseOption;
 
 		/**
 		 * This is a basic structure which doesn't have any (or limited) custom processing.
 		 *
-		 * @param name                   - This is the name for this structure. This is used for comparative purposes in
-		 *                               item stacks.
-		 * @param unlocalizedName        - This is the localization key to determine the displayed name to the user.
-		 * @param assetLocation          - This is location of the structure zip file in the jar file.
-		 * @param topDownPictureLocation - This is the picture location used in the basic GUI when the player uses the
-		 *                               item.
-		 * @param resourceLocation       - This is the resource location for the item's texture when it's in the players
-		 *                               and or in inventories/the world.
-		 * @param imageHeight            - This is the height of the image shown to the user in the build structure GUI.
-		 * @param imageWidth             - This is the width of the image shown to the user in the build structure GUI.
+		 * @param name             - This is the name for this structure. This is used for comparative purposes in
+		 *                         item stacks.
+		 * @param unlocalizedName  - This is the localization key to determine the displayed name to the user.
+		 * @param resourceLocation - This is the resource location for the item's texture when it's in the players
+		 *                         and or in inventories/the world.
 		 */
-		EnumBasicStructureName(String name, String unlocalizedName, String assetLocation, String topDownPictureLocation, String resourceLocation, int imageHeight,
-							   int imageWidth) {
+		EnumBasicStructureName(String name, String unlocalizedName, String resourceLocation, BaseOption baseOption) {
 			this.name = name;
 			this.unlocalizedName = unlocalizedName;
-			this.assetLocation = assetLocation;
-			this.topDownPictureLocation = topDownPictureLocation;
-			this.imageHeight = imageHeight;
-			this.imageWidth = imageWidth;
-
-			this.clearShape = new BuildShape();
-			this.clearPositionOffset = new PositionOffset();
 
 			if (resourceLocation != null) {
 				this.resourceLocation = new ResourceLocation("prefab", resourceLocation);
 			}
+
+			this.baseOption = baseOption;
 		}
 
 		/**
@@ -405,46 +407,6 @@ public class BasicStructureConfiguration extends StructureConfiguration {
 		}
 
 		/**
-		 * This is the asset location for the compressed structure file in the mod.
-		 *
-		 * @return The asset location for ths compressed structure in the mod.
-		 */
-		public String getAssetLocation() {
-			return this.assetLocation;
-		}
-
-		/**
-		 * Gets the picture used in the GUI for this structure.
-		 *
-		 * @return The resource location for the picture used for this structure.
-		 */
-		public ResourceLocation getTopDownPictureLocation() {
-			if (this.topDownPictureLocation != null) {
-				return new ResourceLocation("prefab", this.topDownPictureLocation);
-			}
-
-			return null;
-		}
-
-		/**
-		 * Gets the {@link BuildShape} for the cube to clear when building the structure.
-		 *
-		 * @return The shape of the space cleared when this structure is built.
-		 */
-		public BuildShape getClearShape() {
-			return this.clearShape;
-		}
-
-		/**
-		 * The {@link PositionOffset} for the clear shape.
-		 *
-		 * @return A {@link PositionOffset} which describes where the clearing should start.
-		 */
-		public PositionOffset getClearPositionOffset() {
-			return this.clearPositionOffset;
-		}
-
-		/**
 		 * This is the resource location for the item's texture when it's in the players and or in inventories/the
 		 * world.
 		 *
@@ -454,22 +416,8 @@ public class BasicStructureConfiguration extends StructureConfiguration {
 			return this.resourceLocation;
 		}
 
-		/**
-		 * Gets the image height for the image used in the GUI.
-		 *
-		 * @return An integer representing the image height.
-		 */
-		public int getImageHeight() {
-			return this.imageHeight;
-		}
-
-		/**
-		 * Gets the image width for the image used in the GUI.
-		 *
-		 * @return An integer representing the image width.
-		 */
-		public int getImageWidth() {
-			return this.imageWidth;
+		public BaseOption getBaseOption() {
+			return this.baseOption;
 		}
 	}
 }

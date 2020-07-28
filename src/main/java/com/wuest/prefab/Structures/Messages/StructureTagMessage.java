@@ -64,7 +64,6 @@ public class StructureTagMessage extends TagMessage {
 		FishPond(3, new FishPondConfiguration()),
 		HorseStable(4, new HorseStableConfiguration()),
 		MonsterMasher(6, new MonsterMasherConfiguration()),
-		NetherGate(7, new NetherGateConfiguration()),
 		ProduceFarm(8, new ProduceFarmConfiguration()),
 		StartHouse(9, new HouseConfiguration()),
 		TreeFarm(10, new TreeFarmConfiguration()),

@@ -45,6 +45,9 @@
     "item.prefab.item_wind_mill": "風車",
     "item.prefab.item_town_hall": "市政廳",
 
+    "item.prefab.item_nether_gate_tree": "腐敗的樹",
+    "item.prefab.item_nether_gate_skull": "古代骷髏",
+
     "block.prefab.block_compressed_stone": "壓縮石頭",
     "block.prefab.block_double_compressed_stone": "雙重壓縮石頭",
     "block.prefab.block_triple_compressed_stone": "三重壓縮石頭",
@@ -211,5 +214,6 @@
     "prefab.gui.width": "寬度",
     "prefab.gui.length": "長度",
     "prefab.gui.stairs_height": "階梯高度",
-    "prefab.gui.stairs_width": "階梯寬度"
+    "prefab.gui.stairs_width": "階梯寬度",
+    "prefab.gui.building_options": "建築選擇"
 }

@@ -45,6 +45,9 @@
     "item.prefab.item_wind_mill": "風車",
     "item.prefab.item_town_hall": "町役場",
 
+    "item.prefab.item_nether_gate_tree": "壊れた木",
+    "item.prefab.item_nether_gate_skull": "古代の頭蓋骨",
+
     "block.prefab.block_compressed_stone": "圧縮石",
     "block.prefab.block_double_compressed_stone": "二重圧縮石",
     "block.prefab.block_triple_compressed_stone": "三重圧縮ストーン",
@@ -211,5 +214,6 @@
     "prefab.gui.width": "幅",
     "prefab.gui.length": "長さ",
     "prefab.gui.stairs_height": "階段の高さ",
-    "prefab.gui.stairs_width": "階段の幅"
+    "prefab.gui.stairs_width": "階段の幅",
+    "prefab.gui.building_options": "構築オプション"
 }

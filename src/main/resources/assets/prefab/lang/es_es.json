@@ -45,6 +45,9 @@
     "item.prefab.item_wind_mill": "Molino",
     "item.prefab.item_town_hall": "Ayuntamiento",
 
+    "item.prefab.item_nether_gate_tree": "Árbol corrupto",
+    "item.prefab.item_nether_gate_skull": "Calavera Antigua",
+
     "block.prefab.block_compressed_stone": "Piedra comprimida",
     "block.prefab.block_double_compressed_stone": "Doble piedra comprimida",
     "block.prefab.block_triple_compressed_stone": "Triple piedra comprimida",
@@ -210,5 +213,6 @@
     "prefab.gui.width": "Anchura",
     "prefab.gui.length": "Longitud",
     "prefab.gui.stairs_height": "Altura de las escaleras",
-    "prefab.gui.stairs_width": "Ancho de la escalera"
+    "prefab.gui.stairs_width": "Ancho de la escalera",
+    "prefab.gui.building_options": "Opciones de construcción"
 }

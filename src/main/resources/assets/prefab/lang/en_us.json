@@ -45,6 +45,9 @@
     "item.prefab.item_wind_mill": "Windmill",
     "item.prefab.item_town_hall": "Town Hall",
 
+    "item.prefab.item_nether_gate_tree": "Corrupted Tree",
+    "item.prefab.item_nether_gate_skull": "Ancient Skull",
+
     "block.prefab.block_compressed_stone": "Compressed Stone",
     "block.prefab.block_double_compressed_stone": "Double Compressed Stone",
     "block.prefab.block_triple_compressed_stone": "Triple Compressed Stone",
@@ -211,5 +214,6 @@
     "prefab.gui.width": "Width",
     "prefab.gui.length": "Length",
     "prefab.gui.stairs_height": "Stairs Height",
-    "prefab.gui.stairs_width": "Stairs Width"
+    "prefab.gui.stairs_width": "Stairs Width",
+    "prefab.gui.building_options": "Building Options"
 }

@@ -29,18 +29,18 @@ public class StructureBasic extends Structure {
 
 	public static void ScanStructure(World world, BlockPos originalPos, Direction playerFacing, BasicStructureConfiguration configuration, boolean includeAir, boolean excludeWater) {
 		BuildClear clearedSpace = new BuildClear();
-		clearedSpace.setShape(configuration.basicStructureName.getClearShape());
-		clearedSpace.setStartingPosition(configuration.basicStructureName.getClearPositionOffset());
+		clearedSpace.setShape(configuration.chosenOption.getClearShape());
+		clearedSpace.setStartingPosition(configuration.chosenOption.getClearPositionOffset());
 		clearedSpace.getShape().setDirection(playerFacing);
 
 		if (!configuration.IsCustomStructure()) {
-			BuildShape buildShape = configuration.basicStructureName.getClearShape().Clone();
+			BuildShape buildShape = configuration.chosenOption.getClearShape().Clone();
 
 			// Scanning the structure doesn't contain the starting corner block but the clear does.
 			buildShape.setWidth(buildShape.getWidth() - 1);
 			buildShape.setLength(buildShape.getLength() - 1);
 
-			PositionOffset offset = configuration.basicStructureName.getClearPositionOffset();
+			PositionOffset offset = configuration.chosenOption.getClearPositionOffset();
 
 			clearedSpace.getShape().setWidth(clearedSpace.getShape().getWidth());
 			clearedSpace.getShape().setLength(clearedSpace.getShape().getLength());
@@ -61,7 +61,7 @@ public class StructureBasic extends Structure {
 					originalPos,
 					cornerPos,
 					otherCorner,
-					"..\\src\\main\\resources\\assets\\prefab\\structures\\" + configuration.basicStructureName.getName() + ".zip",
+					"..\\src\\main\\resources\\" + configuration.chosenOption.getAssetLocation(),
 					clearedSpace,
 					playerFacing,
 					includeAir,

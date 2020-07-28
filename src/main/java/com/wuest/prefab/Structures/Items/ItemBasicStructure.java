@@ -2,6 +2,7 @@ package com.wuest.prefab.Structures.Items;
 
 import com.wuest.prefab.Structures.Config.BasicStructureConfiguration;
 import com.wuest.prefab.Structures.Config.BasicStructureConfiguration.EnumBasicStructureName;
+import com.wuest.prefab.Structures.Config.Enums.NetherGateOptions;
 import com.wuest.prefab.Structures.Predefined.StructureBasic;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -47,6 +48,7 @@ public class ItemBasicStructure extends StructureItem {
 		ItemStack stack = context.getPlayer().getHeldItem(context.getHand());
 		BasicStructureConfiguration structureConfiguration = new BasicStructureConfiguration();
 		structureConfiguration.basicStructureName = ((ItemBasicStructure) stack.getItem()).structureType;
+		structureConfiguration.chosenOption = NetherGateOptions.CorruptedTree;
 
 		boolean isWaterStructure = structureConfiguration.basicStructureName == EnumBasicStructureName.AquaBase;
 

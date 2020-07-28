@@ -45,6 +45,9 @@
   "item.prefab.item_wind_mill": "Moulin à vent",
   "item.prefab.item_town_hall": "Mairie",
 
+  "item.prefab.item_nether_gate_tree": "Arbre corrompu",
+  "item.prefab.item_nether_gate_skull": "Crâne antique",
+
   "block.prefab.block_compressed_stone": "Pierre compressée",
   "block.prefab.block_double_compressed_stone": "Double Pierre compressée",
   "block.prefab.block_triple_compressed_stone": "Triple Pierre compressée",
@@ -211,5 +214,6 @@
   "prefab.gui.width": "Largeur",
   "prefab.gui.length": "Longueur",
   "prefab.gui.stairs_height": "Escaliers Hauteur",
-  "prefab.gui.stairs_width": "Escaliers Largeur"
+  "prefab.gui.stairs_width": "Escaliers Largeur",
+  "prefab.gui.building_options": "Options de construction"
 }
