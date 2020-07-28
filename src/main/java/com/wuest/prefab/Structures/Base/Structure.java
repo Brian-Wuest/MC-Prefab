@@ -420,8 +420,9 @@ public class Structure {
 								|| foundBlock instanceof RedstoneWireBlock
 								|| foundBlock instanceof RedstoneDiodeBlock
 								|| foundBlock instanceof AbstractBannerBlock
-								|| foundBlock instanceof LanternBlock;
-						
+								|| foundBlock instanceof LanternBlock
+								|| foundBlock instanceof MushroomBlock;
+
 						if (!block.getHasFacing()) {
 							if (subBlock != null) {
 								block.setSubBlock(subBlock);

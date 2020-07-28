@@ -195,7 +195,7 @@ public class BasicStructureConfiguration extends StructureConfiguration {
 		// Nether Gate - Corrupted Tree
 		EnumBasicStructureName.NetherGate.baseOption.getSpecificOptions().get(1).getClearShape().setDirection(Direction.SOUTH);
 		EnumBasicStructureName.NetherGate.baseOption.getSpecificOptions().get(1).getClearShape().setHeight(20);
-		EnumBasicStructureName.NetherGate.baseOption.getSpecificOptions().get(1).getClearShape().setLength(15);
+		EnumBasicStructureName.NetherGate.baseOption.getSpecificOptions().get(1).getClearShape().setLength(16);
 		EnumBasicStructureName.NetherGate.baseOption.getSpecificOptions().get(1).getClearShape().setWidth(16);
 		EnumBasicStructureName.NetherGate.baseOption.getSpecificOptions().get(1).getClearPositionOffset().setSouthOffset(1);
 		EnumBasicStructureName.NetherGate.baseOption.getSpecificOptions().get(1).getClearPositionOffset().setEastOffset(9);
