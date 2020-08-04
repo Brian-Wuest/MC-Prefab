@@ -6,6 +6,7 @@ import com.wuest.prefab.Events.ClientEventHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.IReloadableResourceManager;
 import net.minecraft.resources.IResourceManagerReloadListener;
+import net.minecraftforge.fml.ModList;
 import org.lwjgl.opengl.ARBFragmentShader;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.ARBVertexShader;
@@ -28,15 +29,20 @@ import java.util.stream.Collectors;
 @SuppressWarnings({"SpellCheckingInspection", "SameParameterValue", "WeakerAccess"})
 public class ShaderHelper {
 	public static final FloatBuffer FLOAT_BUF = MemoryUtil.memAllocFloat(1);
+	public static boolean hasIncompatibleMods = false;
+	public static int alphaShader = 0;
+
 	private static final int VERT = ARBVertexShader.GL_VERTEX_SHADER_ARB;
 	private static final int FRAG = ARBFragmentShader.GL_FRAGMENT_SHADER_ARB;
-	public static int alphaShader = 0;
 	private static boolean lighting;
+	private static boolean checkedIncompatibility = false;
 
 	public static void Initialize() {
 		if (Minecraft.getInstance().getResourceManager() instanceof IReloadableResourceManager) {
 			((IReloadableResourceManager) Minecraft.getInstance().getResourceManager()).addReloadListener(
 					(IResourceManagerReloadListener) manager -> {
+						ShaderHelper.checkIncompatibleMods();
+
 						ShaderHelper.deleteShader(alphaShader);
 						ShaderHelper.alphaShader = 0;
 
@@ -171,6 +177,15 @@ public class ShaderHelper {
 
 	private static String getLogInfo(int obj) {
 		return ARBShaderObjects.glGetInfoLogARB(obj, ARBShaderObjects.glGetObjectParameteriARB(obj, ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB));
+	}
+
+	private static boolean checkIncompatibleMods() {
+		if (!checkedIncompatibility) {
+			hasIncompatibleMods = ModList.get().isLoaded("optifine");
+			checkedIncompatibility = true;
+		}
+
+		return !hasIncompatibleMods;
 	}
 
 	@FunctionalInterface

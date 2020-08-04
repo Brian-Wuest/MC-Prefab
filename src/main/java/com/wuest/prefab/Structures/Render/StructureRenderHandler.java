@@ -115,7 +115,10 @@ public class StructureRenderHandler {
 					BlockRenderType blockRenderType = blockState.getRenderType();
 
 					if (blockRenderType == BlockRenderType.ENTITYBLOCK_ANIMATED) {
-						entityModels.add(new Tuple<>(buildBlock.getBlockState(), pos));
+						if (ShaderHelper.hasIncompatibleMods) {
+							entityModels.add(new Tuple<>(buildBlock.getBlockState(), pos));
+						}
+
 						continue;
 					}
 
@@ -136,7 +139,8 @@ public class StructureRenderHandler {
 			});
 
 			// Draw function.
-			entityVertexConsumer.finish();
+			// TODO: This used to be "getTranslucentBlockType"
+			entityVertexConsumer.finish(Atlases.func_239280_i_());
 
 			ShaderHelper.releaseShader();
 
