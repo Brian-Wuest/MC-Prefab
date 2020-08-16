@@ -396,8 +396,8 @@ public final class StructureEventHandler {
 		if (structure.hasAirBlocks) {
 			for (BlockPos currentPos : structure.allBlockPositions) {
 				BlockState currentState = structure.world.getBlockState(currentPos);
-				// TODO: This was the "has" method.
-				if (currentState.func_235901_b_(BlockStateProperties.WATERLOGGED)) {
+
+				if (currentState.hasProperty(BlockStateProperties.WATERLOGGED)) {
 					// This is a water loggable block and there were air blocks, make sure that it's no longer water logged.
 					currentState = currentState.with((BlockStateProperties.WATERLOGGED), false);
 					structure.world.setBlockState(currentPos, currentState);

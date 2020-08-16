@@ -153,15 +153,13 @@ public class StructureRenderHandler {
 				// Nothing was generated, tell the user this through a chat message and re-set the structure information.
 				StructureRenderHandler.setStructure(null, Direction.NORTH, null);
 
-				// TODO: This was the setStyle and SetColor functions respectively.
 				TranslationTextComponent message = new TranslationTextComponent(GuiLangKeys.GUI_PREVIEW_COMPLETE);
-				message.func_230530_a_(Style.EMPTY.setFormatting(TextFormatting.GREEN));
+				message.setStyle(Style.EMPTY.setFormatting(TextFormatting.GREEN));
 				player.sendMessage(message, player.getUniqueID());
 
 			} else if (!StructureRenderHandler.showedMessage) {
-				// TODO: This was the setStyle and SetColor functions respectively.
 				TranslationTextComponent message = new TranslationTextComponent(GuiLangKeys.GUI_PREVIEW_NOTICE);
-				message.func_230530_a_(Style.EMPTY.setFormatting(TextFormatting.GREEN));
+				message.setStyle(Style.EMPTY.setFormatting(TextFormatting.GREEN));
 
 				player.sendMessage(message, player.getUniqueID());
 				StructureRenderHandler.showedMessage = true;

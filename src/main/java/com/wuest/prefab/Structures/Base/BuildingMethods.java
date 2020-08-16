@@ -17,6 +17,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.DimensionType;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -221,7 +222,7 @@ public class BuildingMethods {
 	 */
 	public static Triple<Boolean, BlockState, BlockPos> CheckBuildSpaceForAllowedBlockReplacement(ServerWorld world, BlockPos startBlockPos, BlockPos endBlockPos,
 																								  PlayerEntity player) {
-		if (world.getServer() != null) {
+		if (!world.isRemote) {
 			// Check each block in the space to be cleared if it's protected from
 			// breaking or placing, if it is return false.
 			for (BlockPos currentPos : BlockPos.getAllInBoxMutable(startBlockPos, endBlockPos)) {
@@ -241,7 +242,8 @@ public class BuildingMethods {
 					}
 				}
 
-				EntityPlaceEvent placeEvent = new EntityPlaceEvent(BlockSnapshot.create(world, currentPos), Blocks.AIR.getDefaultState(), player);
+				// TODO: world.func_234923_W_ gets the RegistryKey<World> for the current world.
+				EntityPlaceEvent placeEvent = new EntityPlaceEvent(BlockSnapshot.create(world.func_234923_W_(), world, currentPos), Blocks.AIR.getDefaultState(), player);
 
 				if (MinecraftForge.EVENT_BUS.post(placeEvent)) {
 					return new Triple<>(false, blockState, currentPos);

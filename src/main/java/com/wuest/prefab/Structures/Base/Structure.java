@@ -210,7 +210,7 @@ public class Structure {
 
 		for (Entity entity : world.getEntitiesWithinAABBExcludingEntity(null, axis)) {
 			// TODO: This was the "getPosition" method.
-			BlockPos entityPos = entity.func_233580_cy_();
+			BlockPos entityPos = entity.getPosition();
 
 			if (entityPos.getX() >= x_radiusRangeBegin && entityPos.getX() <= x_radiusRangeEnd
 					&& entityPos.getZ() >= z_radiusRangeBegin && entityPos.getZ() <= z_radiusRangeEnd
@@ -258,8 +258,7 @@ public class Structure {
 		buildBlock.setStartingPosition(Structure.getStartingPositionFromOriginalAndCurrentPosition(currentPos, originalPos));
 		buildBlock.blockPos = currentPos;
 
-		// TODO: This was the "getProperties" method.
-		Collection<Property<?>> properties = currentState.func_235904_r_();
+		Collection<Property<?>> properties = currentState.getProperties();
 
 		for (Property<?> entry : properties) {
 			BuildProperty property = new BuildProperty();
@@ -362,7 +361,6 @@ public class Structure {
 		if (!checkResult.getFirst()) {
 			// Send a message to the player saying that the structure could not
 			// be built.
-			// TODO: This was the setStyle and SetColor functions respectively.
 			TranslationTextComponent message = new TranslationTextComponent(
 					GuiLangKeys.GUI_STRUCTURE_NOBUILD,
 					checkResult.getSecond().getBlock().getRegistryName().toString(),
@@ -370,7 +368,7 @@ public class Structure {
 					checkResult.getThird().getY(),
 					checkResult.getThird().getZ());
 
-			message.func_230530_a_(Style.EMPTY.setFormatting(TextFormatting.GREEN));
+			message.setStyle(Style.EMPTY.setFormatting(TextFormatting.GREEN));
 			player.sendMessage(message, player.getUniqueID());
 			return false;
 		}
@@ -673,10 +671,11 @@ public class Structure {
 	 */
 	protected Boolean WaterReplacedWithCobbleStone(StructureConfiguration configuration, BuildBlock block, World world, BlockPos originalPos,
 												   Direction assumedNorth, Block foundBlock, BlockState blockState, PlayerEntity player) {
-		// Replace water blocks with cobblestone.
-		// TODO: This was the "getDimension" and "Overworld" method names respectively.
+		// Replace water blocks with cobblestone when this is not the overworld.
+		// TODO: World.field_234918_g_ gets the RegistryKey<World> for the general 'overworld' world.
+		// TODO: world.func_234923_W_ gets the RegistryKey<World> for the current world.
 		if (foundBlock instanceof FlowingFluidBlock && blockState.getMaterial() == Material.WATER
-				&& (world.func_230315_m_() != DimensionType.func_236019_a_())) {
+				&& (World.field_234918_g_.compareTo(world.func_234923_W_()) == 0)) {
 			block.setBlockDomain(Blocks.COBBLESTONE.getRegistryName().getNamespace());
 			block.setBlockName(Blocks.COBBLESTONE.getRegistryName().getPath());
 			block.setBlockState(Blocks.COBBLESTONE.getDefaultState());
