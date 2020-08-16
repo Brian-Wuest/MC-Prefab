@@ -675,7 +675,7 @@ public class Structure {
 		// TODO: World.field_234918_g_ gets the RegistryKey<World> for the general 'overworld' world.
 		// TODO: world.func_234923_W_ gets the RegistryKey<World> for the current world.
 		if (foundBlock instanceof FlowingFluidBlock && blockState.getMaterial() == Material.WATER
-				&& (World.field_234918_g_.compareTo(world.func_234923_W_()) == 0)) {
+				&& (World.field_234918_g_.compareTo(world.func_234923_W_()) != 0)) {
 			block.setBlockDomain(Blocks.COBBLESTONE.getRegistryName().getNamespace());
 			block.setBlockName(Blocks.COBBLESTONE.getRegistryName().getPath());
 			block.setBlockState(Blocks.COBBLESTONE.getDefaultState());
