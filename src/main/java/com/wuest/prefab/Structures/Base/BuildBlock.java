@@ -279,19 +279,23 @@ public class BuildBlock {
 		Axis boneFacing = Axis.X;
 
 		if (foundBlock instanceof RotatedPillarBlock) {
-			if (block.getProperty("axis").getValue().equals("x")) {
-			} else if (block.getProperty("axis").getValue().equals("y")) {
-				boneFacing = Axis.Y;
-			} else {
-				boneFacing = Axis.Z;
-			}
+			BuildProperty property = block.getProperty("axis");
 
-			if (boneFacing != Axis.Y) {
-				boneFacing = configuration.houseFacing == assumedNorth || configuration.houseFacing == assumedNorth.getOpposite()
-						? boneFacing
-						: boneFacing == Axis.X
-						? Axis.Z
-						: Axis.X;
+			if (property != null) {
+				if (property.getValue().equals("x")) {
+				} else if (property.getValue().equals("y")) {
+					boneFacing = Axis.Y;
+				} else {
+					boneFacing = Axis.Z;
+				}
+
+				if (boneFacing != Axis.Y) {
+					boneFacing = configuration.houseFacing == assumedNorth || configuration.houseFacing == assumedNorth.getOpposite()
+							? boneFacing
+							: boneFacing == Axis.X
+							? Axis.Z
+							: Axis.X;
+				}
 			}
 		}
 
