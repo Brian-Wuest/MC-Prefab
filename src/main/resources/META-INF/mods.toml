@@ -1,5 +1,5 @@
 modLoader="javafml" #mandatory
-loaderVersion="[33,)" #mandatory
+loaderVersion="[32,)" #mandatory
 # The license for you mod. This is mandatory metadata and allows for easier comprehension of your redistributive properties.
 # Review your options at https://choosealicense.com/. All rights reserved is the default copyright stance, and is thus the default here.
 license='''
@@ -42,6 +42,6 @@ Structure Preview functionality adapted from Botania by Vazkii http://botaniamod
 [[dependencies.prefab]]
     modId="forge" #mandatory
     mandatory=false #mandatory
-    versionRange="[33,)" #mandatory
+    versionRange="[32,)" #mandatory
     ordering="NONE"
     side="BOTH"
