@@ -11,8 +11,10 @@
 	  "1.14-recommended": "1.4.0.18",
 	  "1.15-latest": "1.5.0.9",
 	  "1.15-recommended": "1.5.0.9",
-	  "1.16-latest": "1.6.0.1",
-	  "1.16-recommended": "1.6.0.1"
+	  "1.16.1-latest": "1.6.0.2",
+	  "1.16.1-recommended": "1.6.0.2"
+	  "1.16.2-latest": "1.6.1.0",
+	  "1.16.2-recommended": "1.6.1.0"
   },
   "1.10.2": {
 	  "1.1.1.10": "New Stuff: Added [Ender Gateway] structure. Added [Phasic Block] and [Boundary Block]\nSome buildings can now be generated in mod-created dimensions.",
@@ -102,8 +104,12 @@
 	"1.5.0.8": "Fixed an issue the OpenJDK when using the Preview functionality",
 	"1.5.0.9": "Fixed issues with infected blocks in some buildings"
   },
-  "1.16": {
-	  "1.6.0.0": "Initial releaes for 1.16.1 containing the latest updates from 1.5.0.9",
-	  "1.6.0.1": "Added 'Warped' and 'Mountainside' Moderate houses. Added 'Cursed Tree' Nether Gate. Also fixed issue with preview when Optifine is loaded."
+  "1.16.1": {
+	  "1.6.0.0": "Initial release for 1.16.1 containing the latest updates from 1.5.0.9",
+	  "1.6.0.1": "Added 'Warped' and 'Mountainside' Moderate houses. Added 'Cursed Tree' Nether Gate. Also fixed issue with preview when Optifine is loaded.",
+	  "1.6.0.2": "Fixed an issue with the saloon generating as the jail instead. Fixed some structure image dimensions so they look correct."
+  },
+  "1.16.2": {
+	  "1.6.1.0": "Initial release for 1.16.2 containing the latest updates from 1.6.0.2"
   }
 }
