@@ -31,7 +31,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -267,16 +266,21 @@ public class Structure {
 
 			Comparable<?> value = currentState.get(entry);
 
-			if (currentBlock instanceof RotatedPillarBlock) {
-				property.setValue(((Direction.Axis) value).getString());
-			} else if (currentBlock instanceof CarpetBlock && property.getName().equals("color")) {
-				DyeColor dyeColor = (DyeColor) value;
-				property.setValue(dyeColor.getString());
-			} else if (value instanceof IStringSerializable) {
-				IStringSerializable stringSerializable = (IStringSerializable) value;
-				property.setValue(stringSerializable.getString());
-			} else {
-				property.setValue(value.toString());
+			try {
+				if (currentBlock instanceof RotatedPillarBlock && property.getName().equals("axis")) {
+					property.setValue(((Direction.Axis) value).getString());
+				} else if (currentBlock instanceof CarpetBlock && property.getName().equals("color")) {
+					DyeColor dyeColor = (DyeColor) value;
+					property.setValue(dyeColor.getString());
+				} else if (value instanceof IStringSerializable) {
+					IStringSerializable stringSerializable = (IStringSerializable) value;
+					property.setValue(stringSerializable.getString());
+				} else {
+					property.setValue(value.toString());
+				}
+			} catch (Exception ex) {
+				Prefab.LOGGER.error("Unable to set property [" + property.getName() + "] to value [" + value + "] for Block [" + buildBlock.getBlockDomain() + ":" + buildBlock.getBlockName() + "].");
+				throw ex;
 			}
 
 			buildBlock.getProperties().add(property);
