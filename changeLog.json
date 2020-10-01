@@ -15,8 +15,8 @@
     "1.16.1-recommended": "1.6.0.2",
     "1.16.2-latest": "1.6.1.0",
     "1.16.2-recommended": "1.6.1.0",
-    "1.16.3-latest": "1.6.2.0",
-    "1.16.3-recommended": "1.6.2.0"
+    "1.16.3-latest": "1.6.2.1",
+    "1.16.3-recommended": "1.6.2.1"
   },
   "1.10.2": {
     "1.1.1.10": "New Stuff: Added [Ender Gateway] structure. Added [Phasic Block] and [Boundary Block]\nSome buildings can now be generated in mod-created dimensions.",
@@ -115,6 +115,7 @@
     "1.6.1.0": "Initial release for 1.16.2 containing the latest updates from 1.6.0.2"
   },
   "1.16.3": {
-    "1.6.2.0": "Initial release for 1.16.3 containing the latest updates from 1.6.1.0"
+    "1.6.2.0": "Initial release for 1.16.3 containing the latest updates from 1.6.1.0",
+    "1.6.2.1": "Adds missing crafting table to Mountain Moderate House"
   }
 }
