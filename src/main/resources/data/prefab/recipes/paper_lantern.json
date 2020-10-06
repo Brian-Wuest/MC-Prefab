@@ -12,7 +12,7 @@
       "item": "minecraft:paper"
     },
     {
-      "item": "forge:rods/wooden"
+      "tag": "forge:rods/wooden"
     },
     {
       "item": "minecraft:torch"
