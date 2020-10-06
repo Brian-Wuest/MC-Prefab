@@ -14,7 +14,7 @@
   ],
   "key": {
     "a": {
-      "item": "minecraft:iron_block"
+      "tag": "forge:storage_blocks/iron"
     },
     "b": {
       "item": "prefab:item_coil_of_lanterns"

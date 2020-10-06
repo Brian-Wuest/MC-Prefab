@@ -14,7 +14,7 @@
   ],
   "key": {
     "a": {
-      "item": "minecraft:glass"
+      "tag": "forge:glass"
     },
     "b": {
       "tag": "forge:storage_blocks/compressed_stone"

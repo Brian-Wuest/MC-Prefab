@@ -14,7 +14,7 @@
   ],
   "key": {
     "a": {
-      "item": "minecraft:bookshelf"
+      "tag": "forge:bookshelves"
     },
     "b": {
       "item": "minecraft:brewing_stand"
@@ -23,7 +23,7 @@
       "item": "minecraft:enchanting_table"
     },
     "d": {
-      "item": "minecraft:anvil"
+      "tag": "minecraft:anvil"
     }
   },
   "result": {
