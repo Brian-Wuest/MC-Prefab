@@ -14,7 +14,7 @@
   ],
   "key": {
     "a": {
-      "item": "minecraft:stone"
+      "tag": "forge:stone"
     },
     "b": {
       "item": "minecraft:ender_pearl"
