@@ -14,7 +14,7 @@
   ],
   "key": {
     "a": {
-      "item": "minecraft:water_bucket"
+      "tag": "forge:water"
     },
     "b": {
       "tag": "forge:storage_blocks/double_compressed_stone"
