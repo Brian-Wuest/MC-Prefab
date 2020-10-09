@@ -23,7 +23,7 @@
       "tag": "minecraft:saplings"
     },
     "d": {
-      "item": "minecraft:water_bucket"
+      "tag": "forge:water"
     },
     "e": {
       "item": "minecraft:fishing_rod"
