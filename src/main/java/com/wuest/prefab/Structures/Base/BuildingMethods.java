@@ -242,8 +242,7 @@ public class BuildingMethods {
 					}
 				}
 
-				// TODO: world.func_234923_W_ gets the RegistryKey<World> for the current world.
-				EntityPlaceEvent placeEvent = new EntityPlaceEvent(BlockSnapshot.create(world.func_234923_W_(), world, currentPos), Blocks.AIR.getDefaultState(), player);
+				EntityPlaceEvent placeEvent = new EntityPlaceEvent(BlockSnapshot.create(world.getDimensionKey(), world, currentPos), Blocks.AIR.getDefaultState(), player);
 
 				if (MinecraftForge.EVENT_BUS.post(placeEvent)) {
 					return new Triple<>(false, blockState, currentPos);

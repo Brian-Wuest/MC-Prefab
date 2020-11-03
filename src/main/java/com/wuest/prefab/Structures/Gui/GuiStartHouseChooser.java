@@ -62,6 +62,7 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 		this.Tabs.setWidth(256);
 		this.modifiedInitialXAxis = 198;
 		this.modifiedInitialYAxis = 83;
+		this.structureConfiguration = EnumStructureConfiguration.StartHouse;
 	}
 
 	@Override
@@ -183,7 +184,7 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 		if (button == this.btnCancel) {
 			this.closeScreen();
 		} else if (button == this.btnBuild) {
-			Prefab.network.sendToServer(new StructureTagMessage(this.houseConfiguration.WriteToCompoundNBT(), EnumStructureConfiguration.StartHouse));
+			Prefab.network.sendToServer(new StructureTagMessage(this.houseConfiguration.WriteToCompoundNBT(), this.structureConfiguration));
 
 			this.closeScreen();
 		} else if (button == this.btnHouseStyle) {

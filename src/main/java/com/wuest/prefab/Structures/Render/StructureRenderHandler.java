@@ -67,8 +67,7 @@ public class StructureRenderHandler {
 		Minecraft mc = Minecraft.getInstance();
 
 		if (mc.world != null) {
-			// TODO: This was the "getDimension" and "getID" methods.
-			StructureRenderHandler.dimension = mc.world.func_230315_m_().func_241513_m_();
+			StructureRenderHandler.dimension = mc.world.getDimensionType().getLogicalHeight();
 		}
 	}
 
@@ -79,9 +78,8 @@ public class StructureRenderHandler {
 	 * @param src    The ray trace for where the player is currently looking.
 	 */
 	public static void renderPlayerLook(PlayerEntity player, RayTraceResult src, MatrixStack matrixStack) {
-		// TODO: This was the "getDimension" and "getID" methods.
 		if (StructureRenderHandler.currentStructure != null
-				&& StructureRenderHandler.dimension == player.world.func_230315_m_().func_241513_m_()
+				&& StructureRenderHandler.dimension == player.world.getDimensionType().getLogicalHeight()
 				&& StructureRenderHandler.currentConfiguration != null
 				&& CommonProxy.proxyConfiguration.serverConfiguration.enableStructurePreview) {
 			rendering = true;
@@ -139,8 +137,7 @@ public class StructureRenderHandler {
 			});
 
 			// Draw function.
-			// TODO: This used to be "getTranslucentBlockType"
-			entityVertexConsumer.finish(Atlases.func_239280_i_());
+			entityVertexConsumer.finish(Atlases.getItemEntityTranslucentCullType());
 
 			ShaderHelper.releaseShader();
 
@@ -238,8 +235,7 @@ public class StructureRenderHandler {
 
 			renderer.getBlockModelRenderer().renderModelBrightnessColor(
 					matrixStack.getLast(),
-					// TODO: This used to be "getTranslucentBlockType"
-					entityVertexConsumer.getBuffer(Atlases.func_239280_i_()),
+					entityVertexConsumer.getBuffer(Atlases.getItemEntityTranslucentCullType()),
 					state,
 					bakedModel,
 					r,

@@ -676,10 +676,8 @@ public class Structure {
 	protected Boolean WaterReplacedWithCobbleStone(StructureConfiguration configuration, BuildBlock block, World world, BlockPos originalPos,
 												   Direction assumedNorth, Block foundBlock, BlockState blockState, PlayerEntity player) {
 		// Replace water blocks with cobblestone when this is not the overworld.
-		// TODO: World.field_234918_g_ gets the RegistryKey<World> for the general 'overworld' world.
-		// TODO: world.func_234923_W_ gets the RegistryKey<World> for the current world.
 		if (foundBlock instanceof FlowingFluidBlock && blockState.getMaterial() == Material.WATER
-				&& (World.field_234918_g_.compareTo(world.func_234923_W_()) != 0)) {
+				&& (World.OVERWORLD.compareTo(world.getDimensionKey()) != 0)) {
 			block.setBlockDomain(Blocks.COBBLESTONE.getRegistryName().getNamespace());
 			block.setBlockName(Blocks.COBBLESTONE.getRegistryName().getPath());
 			block.setBlockState(Blocks.COBBLESTONE.getDefaultState());
