@@ -252,10 +252,8 @@ public final class StructureEventHandler {
 
 						} else {
 							// Found a bed, try to find the other part of the bed and remove it.
-							Direction direction = Direction.NORTH;
-
-							while (true) {
-								BlockPos bedPos = tempPos.offset(direction);
+							for (Direction currentDirection : Direction.values()) {
+								BlockPos bedPos = tempPos.offset(currentDirection);
 								BlockState bedState = structure.world.getBlockState(bedPos);
 
 								if (bedState.getBlock() instanceof BedBlock) {
@@ -264,8 +262,6 @@ public final class StructureEventHandler {
 									structure.world.setBlockState(bedPos, Blocks.AIR.getDefaultState(), 35);
 									break;
 								}
-
-								direction = direction.rotateY();
 							}
 						}
 					}
