@@ -20,7 +20,7 @@
       "tag": "forge:storage_blocks/double_compressed_dirt"
     },
     "c": {
-      "tag": "forge:water"
+      "item": "minecraft:water_bucket"
     },
     "d": {
       "tag": "forge:storage_blocks/double_compressed_glow_stone"
