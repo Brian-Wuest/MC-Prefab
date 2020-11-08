@@ -72,7 +72,7 @@ public class BuildBlock {
 					BuildProperty buildProperty = block.getProperty(property.getName());
 
 					// Make sure that this property exists in our file. The only way it wouldn't be there would be if a
-					// mod adds properties to vanilla blocks.
+					// mod (or sometimes vanilla) adds properties to vanilla blocks.
 					if (buildProperty != null) {
 						try {
 							Optional<?> propertyValue = property.parseValue(buildProperty.getValue());
@@ -106,9 +106,6 @@ public class BuildBlock {
 									+ "] for block [" + block.getBlockName() + "]");
 							throw ex;
 						}
-					} else {
-						System.out.println("Property: [" + property.getName() + "] does not exist for Block: [" +
-								block.getBlockName() + "] this is usually due to mods adding properties to vanilla blocks.");
 					}
 				}
 			}
