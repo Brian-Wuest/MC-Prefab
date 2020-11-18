@@ -222,8 +222,6 @@ public class StructureRenderHandler {
 		// Translate.
 		matrixStack.translate(pos.getX(), pos.getY(), pos.getZ());
 
-		ClientWorld world = Minecraft.getInstance().world;
-		IModelData model = renderer.getModelForState(state).getModelData(world, new BlockPos(pos), state, ModelDataManager.getModelData(world, new BlockPos(pos)));
 		IBakedModel bakedModel = renderer.getModelForState(state);
 
 		if (blockRenderType == BlockRenderType.MODEL) {
@@ -244,6 +242,15 @@ public class StructureRenderHandler {
 					0xF000F0,
 					OverlayTexture.NO_OVERLAY);
 		} else if (blockRenderType == BlockRenderType.ENTITYBLOCK_ANIMATED) {
+			ClientWorld world = Minecraft.getInstance().world;
+			IModelData modelData = ModelDataManager.getModelData(world, new BlockPos(pos));
+
+			if (modelData == null) {
+				modelData = net.minecraftforge.client.model.data.EmptyModelData.INSTANCE;
+			}
+
+			IModelData model = renderer.getModelForState(state).getModelData(world, new BlockPos(pos), state, modelData);
+
 			renderer.renderBlock(
 					state,
 					matrixStack,
