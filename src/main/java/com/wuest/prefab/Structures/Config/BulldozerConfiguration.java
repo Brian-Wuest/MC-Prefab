@@ -15,6 +15,8 @@ import net.minecraft.world.server.ServerWorld;
  */
 public class BulldozerConfiguration extends StructureConfiguration {
 
+	public boolean creativeMode = false;
+
 	/**
 	 * Initializes a new instance of the {@link BulldozerConfiguration} class.
 	 */
@@ -45,15 +47,28 @@ public class BulldozerConfiguration extends StructureConfiguration {
 	protected void ConfigurationSpecificBuildStructure(PlayerEntity player, ServerWorld world, BlockPos hitBlockPos) {
 		StructureBulldozer structure = new StructureBulldozer();
 
+		if (player.isCreative()) {
+			this.creativeMode = true;
+		}
+
 		if (structure.BuildStructure(this, world, hitBlockPos, Direction.NORTH, player)) {
 			ItemStack stack = player.getHeldItem(Hand.OFF_HAND);
 			Hand hand = Hand.OFF_HAND;
 
+			if (stack.getItem() == ModRegistry.Creative_Bulldozer.get()) {
+				this.creativeMode = true;
+			}
+
 			if (stack.getItem() != ModRegistry.Bulldozer.get()) {
 				stack = player.getHeldItem(Hand.MAIN_HAND);
 				hand = Hand.MAIN_HAND;
+
+				if (stack.getItem() == ModRegistry.Creative_Bulldozer.get()) {
+					this.creativeMode = true;
+				}
 			}
 
+			// Only damage the item if this is the regular bulldozer.
 			if (stack.getItem() == ModRegistry.Bulldozer.get()) {
 				Hand hand1 = hand;
 				stack.damageItem(1, player, (player1) ->

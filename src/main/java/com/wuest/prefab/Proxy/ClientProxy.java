@@ -57,6 +57,7 @@ public class ClientProxy extends CommonProxy {
 		ClientProxy.ModGuis.put(ModRegistry.VillagerHouses.get(), new GuiVillagerHouses());
 		ClientProxy.ModGuis.put(ModRegistry.ModerateHouse.get(), new GuiModerateHouse());
 		ClientProxy.ModGuis.put(ModRegistry.Bulldozer.get(), new GuiBulldozer());
+		ClientProxy.ModGuis.put(ModRegistry.Creative_Bulldozer.get(), new GuiBulldozer());
 		ClientProxy.ModGuis.put(ModRegistry.InstantBridge.get(), new GuiInstantBridge());
 		ClientProxy.ModGuis.put(ModRegistry.StructurePart.get(), new GuiStructurePart());
 
