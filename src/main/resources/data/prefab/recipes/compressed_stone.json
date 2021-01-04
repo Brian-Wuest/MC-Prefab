@@ -18,7 +18,7 @@
   "key": {
     "#": [
       {
-        "item": "minecraft:stone"
+        "tag": "forge:stone"
       }
     ]
   },

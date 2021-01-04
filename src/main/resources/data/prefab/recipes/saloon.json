@@ -17,7 +17,7 @@
       "item": "prefab:item_bundle_of_timber"
     },
     "b": {
-      "tag": "prefab:impermeable"
+      "tag": "forge:glass"
     },
     "c": {
       "item": "minecraft:brewing_stand"

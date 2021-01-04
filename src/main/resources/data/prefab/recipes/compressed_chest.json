@@ -14,10 +14,10 @@
   ],
   "key": {
     "#": {
-      "item": "minecraft:chest"
+      "tag": "forge:chests/wooden"
     },
     "a": {
-      "item": "minecraft:ender_chest"
+      "tag": "forge:chests/ender"
     }
   },
   "result": {
