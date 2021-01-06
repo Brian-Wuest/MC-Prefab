@@ -17,8 +17,8 @@
     "1.16.2-recommended": "1.6.1.0",
     "1.16.3-latest": "1.6.2.1",
     "1.16.3-recommended": "1.6.2.1",
-    "1.16.4-latest": "1.6.4.1",
-    "1.16.4-recommended": "1.6.4.1"
+    "1.16.4-latest": "1.6.4.2",
+    "1.16.4-recommended": "1.6.4.2"
   },
   "1.10.2": {
     "1.1.1.10": "New Stuff: Added [Ender Gateway] structure. Added [Phasic Block] and [Boundary Block]\nSome buildings can now be generated in mod-created dimensions.",
@@ -123,6 +123,7 @@
   },
   "1.16.4": {
     "1.6.4.0": "Initial release for 1.16.4 containing the latest updates from 1.6.2.1",
-    "1.6.4.1": "Adding Creative Bulldozer"
+    "1.6.4.1": "Adding Creative Bulldozer",
+    "1.6.4.2": "Fixed recipes to use Minecraft Tag system (old OreDictionary"
   }
 }
