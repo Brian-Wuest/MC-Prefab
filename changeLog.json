@@ -9,8 +9,8 @@
     "1.12-recommended": "1.3.0.26",
     "1.14-latest": "1.4.0.18",
     "1.14-recommended": "1.4.0.18",
-    "1.15-latest": "1.5.0.9",
-    "1.15-recommended": "1.5.0.9",
+    "1.15-latest": "1.5.0.10",
+    "1.15-recommended": "1.5.0.10",
     "1.16.1-latest": "1.6.0.2",
     "1.16.1-recommended": "1.6.0.2",
     "1.16.2-latest": "1.6.1.0",
@@ -106,7 +106,8 @@
     "1.5.0.6": "Updated the configuration to provide better information for the starter house options",
     "1.5.0.7": "Fixed an issue where there starter house couldn't be built",
     "1.5.0.8": "Fixed an issue the OpenJDK when using the Preview functionality",
-    "1.5.0.9": "Fixed issues with infected blocks in some buildings"
+    "1.5.0.9": "Fixed issues with infected blocks in some buildings",
+    "1.5.0.10": "Fixed recipes to use Minecraft Tag system (old OreDictionary)"
   },
   "1.16.1": {
     "1.6.0.0": "Initial release for 1.16.1 containing the latest updates from 1.5.0.9",
