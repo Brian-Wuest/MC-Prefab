@@ -2,7 +2,10 @@ package com.wuest.prefab.Structures.Render;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.sun.javafx.geom.Vec3d;
 import com.wuest.prefab.Gui.GuiLangKeys;
+import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.Structures.Base.BuildBlock;
 import com.wuest.prefab.Structures.Base.Structure;
@@ -13,17 +16,18 @@ import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.Atlases;
-import net.minecraft.client.renderer.BlockRendererDispatcher;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
@@ -31,6 +35,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelDataManager;
 import net.minecraftforge.client.model.data.IModelData;
+import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 
@@ -161,6 +166,10 @@ public class StructureRenderHandler {
 				player.sendMessage(message, player.getUniqueID());
 				StructureRenderHandler.showedMessage = true;
 			}
+
+			if (didAny) {
+				StructureRenderHandler.RenderTest(player.getEntityWorld(), matrixStack);
+			}
 		}
 	}
 
@@ -268,5 +277,87 @@ public class StructureRenderHandler {
 
 	}
 
+	private static void RenderTest(World worldIn, MatrixStack matrixStack)
+	{
+		BlockPos originalPos = StructureRenderHandler.currentConfiguration.pos.up();
+		// This makes the block north and in-line with the player's line of sight.
+		double blockXOffset = originalPos.getX();
+		double blockZOffset = originalPos.getZ();
+		double blockStartYOffset = originalPos.getY();
+		double blockEndYOffset = originalPos.up().getY();
 
+		StructureRenderHandler.drawBox(matrixStack, blockXOffset, blockZOffset, blockStartYOffset, blockEndYOffset);
+	}
+
+	private static void drawBox(MatrixStack matrixStack, double blockXOffset, double blockZOffset, double blockStartYOffset, double blockEndYOffset)
+	{
+		RenderSystem.pushMatrix();
+		RenderSystem.multMatrix(matrixStack.getLast().getMatrix());
+
+		final Vector3d view = Minecraft.getInstance().getRenderManager().info.getProjectedView();
+
+		RenderSystem.enableDepthTest();
+		RenderSystem.shadeModel(7425);
+		RenderSystem.enableAlphaTest();
+		RenderSystem.defaultAlphaFunc();
+
+		Tessellator tessellator = Tessellator.getInstance();
+		BufferBuilder vertexBuffer = tessellator.getBuffer();
+
+		RenderSystem.disableTexture();
+		RenderSystem.disableBlend();
+
+		double translatedX = blockXOffset - view.getX();
+		double translatedY = blockStartYOffset - view.getY();
+		double translatedYEnd = translatedY + 1;
+		double translatedZ = blockZOffset - view.getZ();
+
+		vertexBuffer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION_COLOR);
+
+		RenderSystem.lineWidth(2.0f);
+
+		// Draw the verticals of the box.
+		for (int k = 1; k < 2; k += 1)
+		{
+			vertexBuffer.pos(translatedX, translatedY, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+			vertexBuffer.pos(translatedX, translatedYEnd, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+
+			vertexBuffer.pos(translatedX + (double) k, translatedY, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+			vertexBuffer.pos(translatedX + (double) k, translatedYEnd, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+
+			vertexBuffer.pos(translatedX, translatedY, translatedZ + (double) k).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+			vertexBuffer.pos(translatedX, translatedYEnd, translatedZ + (double) k).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+
+			vertexBuffer.pos(translatedX + 1.0D, translatedY, translatedZ + (double) k).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+			vertexBuffer.pos(translatedX + 1.0D, translatedYEnd, translatedZ + (double) k).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+		}
+
+		// All horizontals.
+		for (double i1 = translatedY; i1 <= translatedYEnd; i1 += 1)
+		{
+			// RED
+			vertexBuffer.pos(translatedX, i1, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+			vertexBuffer.pos(translatedX, i1, translatedZ + 1.0D).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+
+			vertexBuffer.pos(translatedX + 1.0D, i1, translatedZ + 1.0D).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+			vertexBuffer.pos(translatedX + 1.0D, i1, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+
+			// BLUE
+			vertexBuffer.pos(translatedX, i1, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+			vertexBuffer.pos(translatedX + 1, i1, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+
+			// Purple
+			vertexBuffer.pos(translatedX + 1, i1, translatedZ + 1).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+			vertexBuffer.pos(translatedX, i1, translatedZ + 1).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+		}
+
+		tessellator.draw();
+
+		RenderSystem.lineWidth(1.0F);
+		RenderSystem.enableBlend();
+		RenderSystem.enableTexture();
+		RenderSystem.shadeModel(7424);
+
+		RenderSystem.popMatrix();
+	}
 }
