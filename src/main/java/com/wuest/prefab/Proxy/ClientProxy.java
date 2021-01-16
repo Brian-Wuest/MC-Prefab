@@ -2,6 +2,7 @@ package com.wuest.prefab.Proxy;
 
 import com.wuest.prefab.Blocks.BlockBoundary;
 import com.wuest.prefab.Config.ServerModConfiguration;
+import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiPrefab;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
@@ -12,9 +13,15 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.client.util.InputMappings;
 import net.minecraft.item.ItemUseContext;
+import net.minecraftforge.client.settings.KeyConflictContext;
+import net.minecraftforge.client.settings.KeyModifier;
+import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
@@ -23,6 +30,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
+
+import static org.lwjgl.glfw.GLFW.*;
 
 /**
  * @author WuestMan
@@ -141,6 +150,8 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void clientSetup(FMLClientSetupEvent clientSetupEvent) {
+		this.registerKeyBindings(clientSetupEvent);
+
 		RenderTypeLookup.setRenderLayer(ModRegistry.BlockBoundary.get(), BlockBoundary::canRenderInLayer);
 
 		// This render type (func_228643_e_) is the "cutout" render type.
@@ -152,5 +163,16 @@ public class ClientProxy extends CommonProxy {
 
 		// This is the "translucent" type.
 		RenderTypeLookup.setRenderLayer(ModRegistry.BlockPhasing.get(), RenderType.getTranslucent());
+	}
+
+	private void registerKeyBindings(FMLClientSetupEvent clientSetupEvent) {
+		clientSetupEvent.enqueueWork(() -> {
+			KeyBinding binding = new KeyBinding("Build Current Structure",
+					KeyConflictContext.IN_GAME, KeyModifier.ALT,
+					InputMappings.Type.KEYSYM, GLFW_KEY_B, "Prefab - Structure Preview");
+
+			ClientEventHandler.keyBindings.add(binding);
+			ClientRegistry.registerKeyBinding(binding);
+		});
 	}
 }

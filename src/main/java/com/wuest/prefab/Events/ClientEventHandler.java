@@ -4,19 +4,28 @@ import com.sun.javafx.geom.Vec3d;
 import com.wuest.prefab.Config.EntityPlayerConfiguration;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Proxy.ClientProxy;
+import com.wuest.prefab.Structures.Messages.StructureTagMessage;
 import com.wuest.prefab.Structures.Render.StructureRenderHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.TickEvent.ClientTickEvent;
 import net.minecraftforge.event.TickEvent.Phase;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.lwjgl.opengl.GL11;
+
+import java.util.ArrayList;
 
 /**
  * @author WuestMan
@@ -35,6 +44,11 @@ public final class ClientEventHandler {
 	 * This client event handler is used to store player specific data.
 	 */
 	public static EntityPlayerConfiguration playerConfig = new EntityPlayerConfiguration();
+
+	/**
+	 * Contains the keybindings registered.
+	 */
+	public static ArrayList<KeyBinding> keyBindings = new ArrayList<KeyBinding>();
 
 	/**
 	 * The world render last event. This is used for structure rendering.
@@ -83,6 +97,25 @@ public final class ClientEventHandler {
 				}
 
 				ClientEventHandler.ticksInGame++;
+			}
+		}
+	}
+
+	@SubscribeEvent(priority = EventPriority.NORMAL)
+	@OnlyIn(Dist.CLIENT)
+	public static void KeyInput(InputEvent.KeyInputEvent event) {
+		for (KeyBinding binding : ClientEventHandler.keyBindings) {
+			if (binding.isPressed()) {
+				if (StructureRenderHandler.currentStructure != null)
+				{
+					Prefab.network.sendToServer(new StructureTagMessage(
+							StructureRenderHandler.currentConfiguration.WriteToCompoundNBT(),
+							StructureTagMessage.EnumStructureConfiguration.getByConfigurationInstance(StructureRenderHandler.currentConfiguration)));
+
+					StructureRenderHandler.currentStructure = null;
+				}
+
+				break;
 			}
 		}
 	}

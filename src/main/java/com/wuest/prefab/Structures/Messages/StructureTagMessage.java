@@ -91,5 +91,18 @@ public class StructureTagMessage extends TagMessage {
 
 			return EnumStructureConfiguration.Basic;
 		}
+
+		public static EnumStructureConfiguration getByConfigurationInstance(StructureConfiguration structureConfig)
+		{
+			for (EnumStructureConfiguration configuration : EnumStructureConfiguration.values())
+			{
+				if (configuration.structureConfig.getClass().equals(structureConfig.getClass()))
+				{
+					return  configuration;
+				}
+			}
+
+			return null;
+		}
 	}
 }
