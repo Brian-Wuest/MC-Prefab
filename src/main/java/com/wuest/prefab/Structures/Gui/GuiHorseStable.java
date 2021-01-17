@@ -38,9 +38,6 @@ public class GuiHorseStable extends GuiStructure {
 	@Override
 	protected void postButtonRender(MatrixStack matrixStack,int x, int y) {
 		// Draw the text here.
-		this.drawString(matrixStack,  GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_FACING), x + 10, y + 10, this.textColor);
-
-		// Draw the text here.
 		this.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, y + 10, 95, this.textColor);
 	}
 
