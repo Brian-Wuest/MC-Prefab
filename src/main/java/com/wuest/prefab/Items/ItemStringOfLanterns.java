@@ -9,7 +9,7 @@ import net.minecraft.item.ItemGroup;
  */
 public class ItemStringOfLanterns extends Item {
 	public ItemStringOfLanterns( ) {
-		super(new Item.Properties().group(ItemGroup.MATERIALS));
+		super(new Item.Properties().tab(ItemGroup.TAB_MATERIALS));
 
 	}
 }

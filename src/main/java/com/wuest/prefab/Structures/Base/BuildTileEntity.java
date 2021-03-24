@@ -83,7 +83,7 @@ public class BuildTileEntity {
 
 		if (!this.entityNBTData.equals("")) {
 			try {
-				tag = JsonToNBT.getTagFromJson(this.entityNBTData);
+				tag = JsonToNBT.parseTag(this.entityNBTData);
 			} catch (CommandSyntaxException e) {
 				e.printStackTrace();
 			}

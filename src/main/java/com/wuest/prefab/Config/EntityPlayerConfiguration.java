@@ -17,7 +17,7 @@ public class EntityPlayerConfiguration {
 	private static final String Built_Starter_house_Tag = "builtStarterHouse";
 	public boolean givenHouseBuilder = false;
 	public boolean builtStarterHouse = false;
-	private HashMap<String, StructureConfiguration> clientConfigurations = new HashMap<String, StructureConfiguration>();
+	private final HashMap<String, StructureConfiguration> clientConfigurations = new HashMap<String, StructureConfiguration>();
 
 	public EntityPlayerConfiguration() {
 	}
@@ -57,7 +57,7 @@ public class EntityPlayerConfiguration {
 		CompoundNBT tag = player.getPersistentData();
 
 		// Get/create a tag used to determine if this is a new player.
-		CompoundNBT newPlayerTag = null;
+		CompoundNBT newPlayerTag;
 
 		if (tag.contains(EntityPlayerConfiguration.PLAYER_ENTITY_TAG)) {
 			newPlayerTag = tag.getCompound(EntityPlayerConfiguration.PLAYER_ENTITY_TAG);

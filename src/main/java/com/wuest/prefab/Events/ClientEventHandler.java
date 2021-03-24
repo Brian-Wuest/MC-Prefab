@@ -60,7 +60,7 @@ public final class ClientEventHandler {
 		Minecraft mc = Minecraft.getInstance();
 
 		if (mc.player != null && (!mc.player.isCrouching())) {
-			StructureRenderHandler.renderPlayerLook(mc.player, mc.objectMouseOver, event.getMatrixStack());
+			StructureRenderHandler.renderPlayerLook(mc.player, mc.hitResult, event.getMatrixStack());
 		}
 	}
 
@@ -71,7 +71,7 @@ public final class ClientEventHandler {
 	 */
 	@SubscribeEvent
 	public static void EntityJoinWorldEvent(EntityJoinWorldEvent event) {
-		if (event.getWorld().isRemote && event.getEntity() instanceof PlayerEntity) {
+		if (event.getWorld().isClientSide && event.getEntity() instanceof PlayerEntity) {
 			// When the player logs out, make sure to re-set the server configuration.
 			// This is so a new configuration can be successfully loaded when they switch servers or worlds (on single
 			// player.
@@ -88,7 +88,7 @@ public final class ClientEventHandler {
 	@SubscribeEvent
 	public static void ClientTickEnd(ClientTickEvent event) {
 		if (event.phase == Phase.END) {
-			Screen gui = Minecraft.getInstance().currentScreen;
+			Screen gui = Minecraft.getInstance().screen;
 
 			if (gui == null || !gui.isPauseScreen()) {
 				// Reset the ticks in game if we are getting close to the maximum value of an integer.
@@ -105,7 +105,7 @@ public final class ClientEventHandler {
 	@OnlyIn(Dist.CLIENT)
 	public static void KeyInput(InputEvent.KeyInputEvent event) {
 		for (KeyBinding binding : ClientEventHandler.keyBindings) {
-			if (binding.isPressed()) {
+			if (binding.isDown()) {
 				if (StructureRenderHandler.currentStructure != null)
 				{
 					Prefab.network.sendToServer(new StructureTagMessage(

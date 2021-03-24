@@ -153,13 +153,13 @@ public class PositionOffset {
 		for (int i = 0; i < 4; i++) {
 			int offSetValue = this.getOffSetValueForFacing(originalDirection);
 
-			pos = pos.offset(configurationFacing, offSetValue);
+			pos = pos.relative(configurationFacing, offSetValue);
 
-			originalDirection = originalDirection.rotateY();
-			configurationFacing = configurationFacing.rotateY();
+			originalDirection = originalDirection.getClockWise();
+			configurationFacing = configurationFacing.getClockWise();
 		}
 
-		pos = pos.offset(Direction.UP, this.heightOffset);
+		pos = pos.relative(Direction.UP, this.heightOffset);
 
 		return pos;
 	}

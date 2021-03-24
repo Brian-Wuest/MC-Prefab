@@ -11,7 +11,7 @@ import net.minecraft.item.ItemGroup;
 public class ItemInstantBridge extends StructureItem {
 	public ItemInstantBridge( ) {
 		super(new Item.Properties()
-				.group(ItemGroup.MISC)
-				.maxDamage(10));
+				.tab(ItemGroup.TAB_MISC)
+				.durability(10));
 	}
 }

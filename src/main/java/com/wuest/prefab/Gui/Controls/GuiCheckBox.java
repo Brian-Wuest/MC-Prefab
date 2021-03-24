@@ -111,14 +111,14 @@ public class GuiCheckBox extends CheckboxButton {
 				color = 10526880;
 			}
 
-			if (this.isChecked()) {
-				this.drawCenteredString(matrixStack, this.mineCraft.fontRenderer, "x", this.x + this.boxWidth / 2 + 1, this.y + 1, 14737632);
+			if (this.selected()) {
+				this.drawCenteredString(matrixStack, this.mineCraft.font, "x", this.x + this.boxWidth / 2 + 1, this.y + 1, 14737632);
 			}
 
 			if (this.withShadow) {
-				this.drawString(matrixStack, this.mineCraft.fontRenderer, displayString, x + this.boxWidth + 2, y + 2, color);
+				this.drawString(matrixStack, this.mineCraft.font, displayString, x + this.boxWidth + 2, y + 2, color);
 			} else {
-				this.mineCraft.fontRenderer.drawString(matrixStack, displayString, x + this.boxWidth + 2, y + 2, color);
+				this.mineCraft.font.draw(matrixStack, displayString, x + this.boxWidth + 2, y + 2, color);
 			}
 		}
 	}

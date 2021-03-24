@@ -1,9 +1,9 @@
 package com.wuest.prefab;
 
 public class Triple<A, B, C> {
-	private A first;
-	private B second;
-	private C third;
+	private final A first;
+	private final B second;
+	private final C third;
 
 	public Triple(A first, B second, C third) {
 		this.first = first;

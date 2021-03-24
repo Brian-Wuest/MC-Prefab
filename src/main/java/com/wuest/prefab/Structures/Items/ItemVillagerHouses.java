@@ -13,16 +13,16 @@ import net.minecraft.item.ItemUseContext;
 public class ItemVillagerHouses extends StructureItem {
 	public ItemVillagerHouses() {
 		super(new Item.Properties()
-				.group(ItemGroup.MISC)
-				.maxDamage(10));
+				.tab(ItemGroup.TAB_MISC)
+				.durability(10));
 	}
 
 	@Override
 	public void scanningMode(ItemUseContext context) {
 		StructureVillagerHouses.ScanStructure(
-				context.getWorld(),
-				context.getPos(),
-				context.getPlayer().getHorizontalFacing(),
+				context.getLevel(),
+				context.getClickedPos(),
+				context.getPlayer().getDirection(),
 				VillagerHouseConfiguration.HouseStyle.BLACKSMITH);
 	}
 }

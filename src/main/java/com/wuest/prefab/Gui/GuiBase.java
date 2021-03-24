@@ -108,7 +108,7 @@ public abstract class GuiBase extends Screen {
 	}
 
 	protected void drawControlBackground(MatrixStack matrixStack, int grayBoxX, int grayBoxY) {
-		this.getMinecraft().getTextureManager().bindTexture(this.backgroundTextures);
+		this.getMinecraft().getTextureManager().bind(this.backgroundTextures);
 		this.blit(matrixStack, grayBoxX, grayBoxY, 0, 0, 256, 256);
 	}
 
@@ -117,7 +117,7 @@ public abstract class GuiBase extends Screen {
 			AbstractButton currentButton = (AbstractButton) button;
 
 			if (currentButton != null && currentButton.visible) {
-				currentButton.renderButton(matrixStack, mouseX, mouseY, this.getMinecraft().getRenderPartialTicks());
+				currentButton.renderButton(matrixStack, mouseX, mouseY, this.getMinecraft().getFrameTime());
 			}
 		}
 	}
@@ -141,7 +141,7 @@ public abstract class GuiBase extends Screen {
 	 * @return Some integer value.
 	 */
 	public int drawString(MatrixStack matrixStack, String text, float x, float y, int color) {
-		return this.getMinecraft().fontRenderer.drawString(matrixStack, text, x, y, color);
+		return this.getMinecraft().font.draw(matrixStack, text, x, y, color);
 	}
 
 	/**
@@ -154,15 +154,14 @@ public abstract class GuiBase extends Screen {
 	 * @param textColor The color of the text.
 	 */
 	public void drawSplitString(String str, int x, int y, int wrapWidth, int textColor) {
-		// TODO: This used to be renderSplitString.
-		this.getMinecraft().fontRenderer.func_238418_a_(new StringTextComponent(str), x, y, wrapWidth, textColor);
+		this.getMinecraft().font.drawWordWrap(new StringTextComponent(str), x, y, wrapWidth, textColor);
 	}
 
 	/**
 	 * Closes the current screen.
 	 */
 	public void closeScreen() {
-		this.getMinecraft().displayGuiScreen(null);
+		this.getMinecraft().setScreen(null);
 	}
 
 	/**
@@ -171,7 +170,7 @@ public abstract class GuiBase extends Screen {
 	 * @param resourceLocation The resource location to bind.
 	 */
 	public void bindTexture(ResourceLocation resourceLocation) {
-		this.getMinecraft().getTextureManager().bindTexture(resourceLocation);
+		this.getMinecraft().getTextureManager().bind(resourceLocation);
 	}
 
 	/**

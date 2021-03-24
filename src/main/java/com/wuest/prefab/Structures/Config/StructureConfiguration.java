@@ -63,7 +63,7 @@ public class StructureConfiguration {
 			tag.putInt(StructureConfiguration.hitZTag, this.pos.getZ());
 		}
 
-		tag.putString(StructureConfiguration.houseFacingTag, this.houseFacing.getString());
+		tag.putString(StructureConfiguration.houseFacingTag, this.houseFacing.getSerializedName());
 
 		tag = this.CustomWriteToCompoundNBT(tag);
 
@@ -156,10 +156,10 @@ public class StructureConfiguration {
 	 * @param item   the structure item to find.
 	 */
 	protected void RemoveStructureItemFromPlayer(PlayerEntity player, StructureItem item) {
-		ItemStack stack = player.getHeldItemMainhand();
+		ItemStack stack = player.getMainHandItem();
 
 		if (stack.getItem() != item) {
-			stack = player.getHeldItemOffhand();
+			stack = player.getOffhandItem();
 		}
 
 		int slot = this.getSlotFor(player.inventory, stack);
@@ -168,39 +168,39 @@ public class StructureConfiguration {
 			stack.shrink(1);
 
 			if (stack.isEmpty()) {
-				player.inventory.setInventorySlotContents(slot, ItemStack.EMPTY);
+				player.inventory.setItem(slot, ItemStack.EMPTY);
 			}
 
-			player.openContainer.detectAndSendChanges();
+			player.containerMenu.broadcastChanges();
 		}
 	}
 
 	protected void DamageHeldItem(PlayerEntity player, StructureItem item) {
-		ItemStack stack = player.getHeldItemMainhand().getItem() == item ? player.getHeldItemMainhand() : player.getHeldItemOffhand();
-		Hand hand = player.getHeldItemMainhand().getItem() == item ? Hand.MAIN_HAND : Hand.OFF_HAND;
+		ItemStack stack = player.getMainHandItem().getItem() == item ? player.getMainHandItem() : player.getOffhandItem();
+		Hand hand = player.getMainHandItem().getItem() == item ? Hand.MAIN_HAND : Hand.OFF_HAND;
 
 		ItemStack copy = stack.copy();
 
-		stack.damageItem(1, player, (player1) ->
+		stack.hurtAndBreak(1, player, (player1) ->
 		{
-			player1.sendBreakAnimation(hand);
+			player1.broadcastBreakEvent(hand);
 		});
 
 		if (stack.isEmpty()) {
 			net.minecraftforge.event.ForgeEventFactory.onPlayerDestroyItem(player, copy, hand);
 			EquipmentSlotType slotType = hand == Hand.MAIN_HAND ? EquipmentSlotType.MAINHAND : EquipmentSlotType.OFFHAND;
 
-			player.setItemStackToSlot(slotType, ItemStack.EMPTY);
+			player.setItemSlot(slotType, ItemStack.EMPTY);
 		}
 
-		player.openContainer.detectAndSendChanges();
+		player.containerMenu.broadcastChanges();
 	}
 
 	/**
 	 * Checks item, NBT, and meta if the item is not damageable
 	 */
 	private boolean stackEqualExact(ItemStack stack1, ItemStack stack2) {
-		return stack1.getItem() == stack2.getItem() && ItemStack.areItemStackTagsEqual(stack1, stack2);
+		return stack1.getItem() == stack2.getItem() && ItemStack.tagMatches(stack1, stack2);
 	}
 
 	/**
@@ -212,8 +212,8 @@ public class StructureConfiguration {
 	 * @return The slot index or -1 if the item wasn't found.
 	 */
 	public int getSlotFor(PlayerInventory playerInventory, ItemStack stack) {
-		for (int i = 0; i < playerInventory.mainInventory.size(); ++i) {
-			if (!playerInventory.mainInventory.get(i).isEmpty() && this.stackEqualExact(stack, playerInventory.mainInventory.get(i))) {
+		for (int i = 0; i < playerInventory.items.size(); ++i) {
+			if (!playerInventory.items.get(i).isEmpty() && this.stackEqualExact(stack, playerInventory.items.get(i))) {
 				return i;
 			}
 		}

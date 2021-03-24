@@ -19,9 +19,9 @@ public class ItemStartHouse extends StructureItem {
 	 * Does something when the item is right-clicked.
 	 */
 	@Override
-	public ActionResultType onItemUse(ItemUseContext context) {
-		if (context.getWorld().isRemote) {
-			if (context.getFace() == Direction.UP) {
+	public ActionResultType useOn(ItemUseContext context) {
+		if (context.getLevel().isClientSide()) {
+			if (context.getClickedFace() == Direction.UP) {
 				if (!Prefab.useScanningMode) {
 					// Open the client side gui to determine the house options.
 					Prefab.proxy.openGuiForItem(context);
@@ -38,9 +38,9 @@ public class ItemStartHouse extends StructureItem {
 	@Override
 	public void scanningMode(ItemUseContext context) {
 		StructureAlternateStart.ScanBasicHouseStructure(
-				context.getWorld(),
-				context.getPos(),
-				context.getPlayer().getHorizontalFacing());
+				context.getLevel(),
+				context.getClickedPos(),
+				context.getPlayer().getDirection());
 
         /*StructureAlternateStart.ScanRanchStructure(
                 context.getWorld(),

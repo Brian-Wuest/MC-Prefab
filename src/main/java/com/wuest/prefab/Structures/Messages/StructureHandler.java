@@ -25,7 +25,7 @@ public class StructureHandler {
 			EnumStructureConfiguration structureConfig = message.getStructureConfig();
 
 			StructureConfiguration configuration = structureConfig.structureConfig.ReadFromCompoundNBT(message.getMessageTag());
-			configuration.BuildStructure(context.getSender(), context.getSender().getServerWorld());
+			configuration.BuildStructure(context.getSender(), context.getSender().getLevel());
 		});
 
 		context.setPacketHandled(true);

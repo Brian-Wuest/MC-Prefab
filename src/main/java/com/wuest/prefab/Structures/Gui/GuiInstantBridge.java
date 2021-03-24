@@ -50,7 +50,7 @@ public class GuiInstantBridge extends GuiStructure {
 
 		this.sldrInteriorHeight = this.createAndAddSlider(grayBoxX + 147, grayBoxY + 90, 90, 20, "", "", 3, 8, this.configuration.interiorHeight, false, true, this::buttonClicked);
 
-		this.sldrInteriorHeight.visible = this.chckIncludeRoof.isChecked();
+		this.sldrInteriorHeight.visible = this.chckIncludeRoof.selected();
 
 		this.btnVisualize = this.createAndAddButton(grayBoxX + 10, grayBoxY + 90, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW));
 
@@ -73,7 +73,7 @@ public class GuiInstantBridge extends GuiStructure {
 	protected void postButtonRender(MatrixStack matrixStack, int x, int y) {
 		this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.BRIDGE_MATERIAL), x + 10, y + 10, this.textColor);
 
-		if (this.chckIncludeRoof.isChecked()) {
+		if (this.chckIncludeRoof.selected()) {
 			this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.INTERIOR_HEIGHT), x + 147, y + 80, this.textColor);
 		}
 
@@ -104,14 +104,14 @@ public class GuiInstantBridge extends GuiStructure {
 		}
 
 		this.configuration.interiorHeight = sliderValue;
-		this.configuration.includeRoof = this.chckIncludeRoof.isChecked();
-		this.configuration.houseFacing = player.getHorizontalFacing().getOpposite();
+		this.configuration.includeRoof = this.chckIncludeRoof.selected();
+		this.configuration.houseFacing = player.getDirection().getOpposite();
 		this.configuration.pos = this.pos;
 
 		this.performCancelOrBuildOrHouseFacing(this.configuration, button);
 
 		if (button == this.chckIncludeRoof) {
-			this.configuration.includeRoof = this.chckIncludeRoof.isChecked();
+			this.configuration.includeRoof = this.chckIncludeRoof.selected();
 
 			this.sldrInteriorHeight.visible = this.configuration.includeRoof;
 		}

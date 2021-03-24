@@ -46,7 +46,7 @@ public class VillagerHouseConfiguration extends StructureConfiguration {
 	@Override
 	protected CompoundNBT CustomWriteToCompoundNBT(CompoundNBT tag) {
 		tag.putInt(VillagerHouseConfiguration.houseStyleTag, this.houseStyle.value);
-		tag.putString(VillagerHouseConfiguration.bedColorTag, this.bedColor.getString().toUpperCase());
+		tag.putString(VillagerHouseConfiguration.bedColorTag, this.bedColor.getSerializedName().toUpperCase());
 		return tag;
 	}
 

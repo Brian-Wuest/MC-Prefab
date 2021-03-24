@@ -125,7 +125,7 @@ public class GuiStructurePart extends GuiStructure {
 	 */
 	@Override
 	public void buttonClicked(AbstractButton button) {
-		this.configuration.houseFacing = this.minecraft.player.getHorizontalFacing().getOpposite();
+		this.configuration.houseFacing = this.minecraft.player.getDirection().getOpposite();
 		this.configuration.stairHeight = this.sldrStairHeight.getValueInt();
 		this.configuration.stairWidth = this.sldrStairWidth.getValueInt();
 		this.configuration.generalHeight = this.sldrGeneralHeight.getValueInt();
@@ -146,7 +146,7 @@ public class GuiStructurePart extends GuiStructure {
 		} else if (button == this.btnVisualize) {
 			StructurePart structure = new StructurePart();
 			structure.getClearSpace().getShape().setDirection(Direction.NORTH);
-			structure.setupStructure(this.minecraft.world, this.configuration, this.pos);
+			structure.setupStructure(this.minecraft.level, this.configuration, this.pos);
 
 			StructureRenderHandler.setStructure(structure, Direction.SOUTH, this.configuration);
 			this.closeScreen();

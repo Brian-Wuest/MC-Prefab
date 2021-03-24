@@ -72,7 +72,7 @@ public class ModerateHouseConfiguration extends StructureConfiguration {
 		tag.putBoolean(ModerateHouseConfiguration.addChestTag, this.addChests);
 		tag.putBoolean(ModerateHouseConfiguration.addChestContentsTag, this.addChestContents);
 		tag.putBoolean(ModerateHouseConfiguration.addMineshaftTag, this.addMineshaft);
-		tag.putString(ModerateHouseConfiguration.bedColorTag, this.bedColor.getString().toUpperCase());
+		tag.putString(ModerateHouseConfiguration.bedColorTag, this.bedColor.getSerializedName().toUpperCase());
 
 		return tag;
 	}

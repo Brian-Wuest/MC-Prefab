@@ -23,10 +23,9 @@ public class ItemCompressedChest extends Item {
 	/**
 	 * Initializes a new instance of the ItemCondensedChest class.
 	 *
-	 * @param name The name of the item to register.
 	 */
 	public ItemCompressedChest( ) {
-		super(new Item.Properties().group(ItemGroup.MATERIALS));
+		super(new Item.Properties().tab(ItemGroup.TAB_MATERIALS));
 
 	}
 
@@ -35,7 +34,7 @@ public class ItemCompressedChest extends Item {
 	 */
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+	public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 		tooltip.add(new StringTextComponent("Used in the recipes for structures, not for direct storage"));
 	}
 }

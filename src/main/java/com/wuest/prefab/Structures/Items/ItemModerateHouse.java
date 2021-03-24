@@ -19,9 +19,9 @@ public class ItemModerateHouse extends StructureItem {
 	@Override
 	public void scanningMode(ItemUseContext context) {
 		StructureModerateHouse.ScanStructure(
-				context.getWorld(),
-				context.getPos(),
-				context.getPlayer().getHorizontalFacing(),
+				context.getLevel(),
+				context.getClickedPos(),
+				context.getPlayer().getDirection(),
 				ModerateHouseConfiguration.HouseStyle.MOUNTAIN_HOME);
 	}
 }

@@ -31,30 +31,30 @@ import javax.annotation.Nullable;
 @SuppressWarnings("NullableProblems")
 public class BlockGlassSlab extends GlassBlock implements IWaterLoggable {
 
-	private static final VoxelShape BOTTOM_SHAPE = Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D);
-	private static final VoxelShape TOP_SHAPE = Block.makeCuboidShape(0.0D, 8.0D, 0.0D, 16.0D, 16.0D, 16.0D);
+	private static final VoxelShape BOTTOM_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D);
+	private static final VoxelShape TOP_SHAPE = Block.box(0.0D, 8.0D, 0.0D, 16.0D, 16.0D, 16.0D);
 	private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
 	public BlockGlassSlab(Block.Properties properties) {
 		super(properties);
-		this.setDefaultState(this.getDefaultState().with(SlabBlock.TYPE, SlabType.BOTTOM).with(WATERLOGGED, Boolean.FALSE));
+		this.registerDefaultState(this.getStateDefinition().any().setValue(SlabBlock.TYPE, SlabType.BOTTOM).setValue(WATERLOGGED, Boolean.FALSE));
 	}
 
 	// This is basically the "isTransparent" function.
 	@Override
-	public boolean isTransparent(BlockState state) {
-		return state.get(SlabBlock.TYPE) != SlabType.DOUBLE;
+	public boolean useShapeForLightOcclusion(BlockState state) {
+		return state.getValue(SlabBlock.TYPE) != SlabType.DOUBLE;
 	}
 
 	@Override
-	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
 		builder.add(SlabBlock.TYPE, WATERLOGGED);
 	}
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public boolean isSideInvisible(BlockState state, BlockState adjacentBlockState, Direction side) {
-		ITag<Block> tags = BlockTags.getCollection().get(new ResourceLocation("forge", "glass"));
+	public boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction side) {
+		ITag<Block> tags = BlockTags.getAllTags().getTag(new ResourceLocation("forge", "glass"));
 		Block adjacentBlock = adjacentBlockState.getBlock();
 
 		/*
@@ -63,19 +63,18 @@ public class BlockGlassSlab extends GlassBlock implements IWaterLoggable {
 			2. This block and the other block has a matching type.
 			3. The other block is a double slab and this is a single slab.
 		*/
-		// TODO: This was the "contains" method.
 		return tags.contains(adjacentBlock) || (adjacentBlock == this
-				&& (adjacentBlockState.get(SlabBlock.TYPE) == state.get(SlabBlock.TYPE)
-				|| (adjacentBlockState.get(SlabBlock.TYPE) == SlabType.DOUBLE
-				&& state.get(SlabBlock.TYPE) != SlabType.DOUBLE)));
+				&& (adjacentBlockState.getValue(SlabBlock.TYPE) == state.getValue(SlabBlock.TYPE)
+				|| (adjacentBlockState.getValue(SlabBlock.TYPE) == SlabType.DOUBLE
+				&& state.getValue(SlabBlock.TYPE) != SlabType.DOUBLE)));
 	}
 
 	@Override
 	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-		SlabType slabtype = state.get(SlabBlock.TYPE);
+		SlabType slabtype = state.getValue(SlabBlock.TYPE);
 		switch (slabtype) {
 			case DOUBLE:
-				return VoxelShapes.fullCube();
+				return VoxelShapes.block();
 			case TOP:
 				return BlockGlassSlab.TOP_SHAPE;
 			default:
@@ -86,27 +85,27 @@ public class BlockGlassSlab extends GlassBlock implements IWaterLoggable {
 	@Override
 	@Nullable
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
-		BlockPos blockpos = context.getPos();
-		BlockState blockstate = context.getWorld().getBlockState(blockpos);
+		BlockPos blockpos = context.getClickedPos();
+		BlockState blockstate = context.getLevel().getBlockState(blockpos);
 		if (blockstate.getBlock() == this) {
-			boolean wasWaterlogged = blockstate.get(WATERLOGGED);
-			return blockstate.with(SlabBlock.TYPE, SlabType.DOUBLE).with(WATERLOGGED, wasWaterlogged);
+			boolean wasWaterlogged = blockstate.getValue(WATERLOGGED);
+			return blockstate.setValue(SlabBlock.TYPE, SlabType.DOUBLE).setValue(WATERLOGGED, wasWaterlogged);
 		} else {
-			FluidState ifluidstate = context.getWorld().getFluidState(blockpos);
-			BlockState blockstate1 = this.getDefaultState().with(SlabBlock.TYPE, SlabType.BOTTOM).with(WATERLOGGED, ifluidstate.getFluid() == Fluids.WATER);
-			Direction direction = context.getFace();
-			return direction != Direction.DOWN && (direction == Direction.UP || !(context.getHitVec().y - (double) blockpos.getY() > 0.5D)) ? blockstate1 : blockstate1.with(SlabBlock.TYPE, SlabType.TOP);
+			FluidState ifluidstate = context.getLevel().getFluidState(blockpos);
+			BlockState blockstate1 = this.defaultBlockState().setValue(SlabBlock.TYPE, SlabType.BOTTOM).setValue(WATERLOGGED, ifluidstate.getType() == Fluids.WATER);
+			Direction direction = context.getClickedFace();
+			return direction != Direction.DOWN && (direction == Direction.UP || !(context.getClickLocation().y - (double) blockpos.getY() > 0.5D)) ? blockstate1 : blockstate1.setValue(SlabBlock.TYPE, SlabType.TOP);
 		}
 	}
 
 	@Override
-	public boolean isReplaceable(BlockState state, BlockItemUseContext useContext) {
-		ItemStack itemstack = useContext.getItem();
-		SlabType slabtype = state.get(SlabBlock.TYPE);
+	public boolean canBeReplaced(BlockState state, BlockItemUseContext useContext) {
+		ItemStack itemstack = useContext.getItemInHand();
+		SlabType slabtype = state.getValue(SlabBlock.TYPE);
 		if (slabtype != SlabType.DOUBLE && itemstack.getItem() == this.asItem()) {
 			if (useContext.replacingClickedOnBlock()) {
-				boolean flag = useContext.getHitVec().y - (double) useContext.getPos().getY() > 0.5D;
-				Direction direction = useContext.getFace();
+				boolean flag = useContext.getClickLocation().y - (double) useContext.getClickedPos().getY() > 0.5D;
+				Direction direction = useContext.getClickedFace();
 				if (slabtype == SlabType.BOTTOM) {
 					return direction == Direction.UP || flag && direction.getAxis().isHorizontal();
 				} else {
@@ -122,28 +121,28 @@ public class BlockGlassSlab extends GlassBlock implements IWaterLoggable {
 
 	@Override
 	public FluidState getFluidState(BlockState state) {
-		return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
+		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
 	}
 
 	@Override
-	public boolean receiveFluid(IWorld worldIn, BlockPos pos, BlockState state, FluidState fluidStateIn) {
-		return state.get(SlabBlock.TYPE) != SlabType.DOUBLE && this.slabReceiveFluid(worldIn, pos, state, fluidStateIn);
+	public boolean placeLiquid(IWorld worldIn, BlockPos pos, BlockState state, FluidState fluidStateIn) {
+		return state.getValue(SlabBlock.TYPE) != SlabType.DOUBLE && this.slabReceiveFluid(worldIn, pos, state, fluidStateIn);
 	}
 
 	@Override
-	public boolean canContainFluid(IBlockReader worldIn, BlockPos pos, BlockState state, Fluid fluidIn) {
-		return state.get(SlabBlock.TYPE) != SlabType.DOUBLE && this.slabCanContainFluid(worldIn, pos, state, fluidIn);
+	public boolean canPlaceLiquid(IBlockReader worldIn, BlockPos pos, BlockState state, Fluid fluidIn) {
+		return state.getValue(SlabBlock.TYPE) != SlabType.DOUBLE && this.slabCanContainFluid(worldIn, pos, state, fluidIn);
 	}
 
 	private boolean slabCanContainFluid(IBlockReader worldIn, BlockPos pos, BlockState state, Fluid fluidIn) {
-		return !state.get(BlockStateProperties.WATERLOGGED) && fluidIn == Fluids.WATER;
+		return !state.getValue(BlockStateProperties.WATERLOGGED) && fluidIn == Fluids.WATER;
 	}
 
 	private boolean slabReceiveFluid(IWorld worldIn, BlockPos pos, BlockState state, FluidState fluidStateIn) {
-		if (!state.get(BlockStateProperties.WATERLOGGED) && fluidStateIn.getFluid() == Fluids.WATER) {
-			if (!worldIn.isRemote()) {
-				worldIn.setBlockState(pos, state.with(BlockStateProperties.WATERLOGGED, Boolean.TRUE), 3);
-				worldIn.getPendingFluidTicks().scheduleTick(pos, fluidStateIn.getFluid(), fluidStateIn.getFluid().getTickRate(worldIn));
+		if (!state.getValue(BlockStateProperties.WATERLOGGED) && fluidStateIn.getType() == Fluids.WATER) {
+			if (!worldIn.isClientSide()) {
+				worldIn.setBlock(pos, state.setValue(BlockStateProperties.WATERLOGGED, Boolean.TRUE), 3);
+				worldIn.getLiquidTicks().scheduleTick(pos, fluidStateIn.getType(), fluidStateIn.getType().getTickDelay(worldIn));
 			}
 
 			return true;
@@ -153,9 +152,9 @@ public class BlockGlassSlab extends GlassBlock implements IWaterLoggable {
 	}
 
 	@Override
-	public Fluid pickupFluid(IWorld worldIn, BlockPos pos, BlockState state) {
-		if (state.get(BlockStateProperties.WATERLOGGED) && state.get(SlabBlock.TYPE) != SlabType.DOUBLE) {
-			worldIn.setBlockState(pos, state.with(BlockStateProperties.WATERLOGGED, Boolean.FALSE), 3);
+	public Fluid takeLiquid(IWorld worldIn, BlockPos pos, BlockState state) {
+		if (state.getValue(BlockStateProperties.WATERLOGGED) && state.getValue(SlabBlock.TYPE) != SlabType.DOUBLE) {
+			worldIn.setBlock(pos, state.setValue(BlockStateProperties.WATERLOGGED, Boolean.FALSE), 3);
 			return Fluids.WATER;
 		} else {
 			return Fluids.EMPTY;
@@ -169,18 +168,18 @@ public class BlockGlassSlab extends GlassBlock implements IWaterLoggable {
 	 * Note that this method should ideally consider only the specific face passed in.
 	 */
 	@Override
-	public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
-		if (stateIn.get(WATERLOGGED)) {
-			worldIn.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
+	public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+		if (stateIn.getValue(WATERLOGGED)) {
+			worldIn.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(worldIn));
 		}
 
-		return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+		return super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
 	}
 
 	@Override
-	public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
+	public boolean isPathfindable(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
 		if (type == PathType.WATER) {
-			return worldIn.getFluidState(pos).isTagged(FluidTags.WATER);
+			return worldIn.getFluidState(pos).is(FluidTags.WATER);
 		}
 
 		return false;

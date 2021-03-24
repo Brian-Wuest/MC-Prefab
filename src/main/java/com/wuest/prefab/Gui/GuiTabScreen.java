@@ -78,7 +78,7 @@ public class GuiTabScreen extends GuiStructure {
 				for (GuiTab tab : guiTabs) {
 					if (tab.mouseClicked(mouseX, mouseY, mouseButton)) {
 						assert this.minecraft != null;
-						tab.playDownSound(this.minecraft.getSoundHandler());
+						tab.playDownSound(this.minecraft.getSoundManager());
 						this.tabClicked(tab);
 						break;
 					}

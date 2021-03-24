@@ -170,15 +170,15 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 	public void buttonClicked(AbstractButton button) {
 		if (button == this.btnCancel || button == this.btnVisualize
 				|| button == this.btnBuild) {
-			this.houseConfiguration.addBed = this.serverConfiguration.addBed && this.btnAddBed.isChecked();
-			this.houseConfiguration.addChest = this.serverConfiguration.addChests && this.btnAddChest.isChecked();
-			this.houseConfiguration.addChestContents = this.allowItemsInChestAndFurnace && (this.serverConfiguration.addChestContents && this.btnAddChestContents.isChecked());
-			this.houseConfiguration.addCraftingTable = this.serverConfiguration.addCraftingTable && this.btnAddCraftingTable.isChecked();
-			this.houseConfiguration.addFurnace = this.serverConfiguration.addFurnace && this.btnAddFurnace.isChecked();
-			this.houseConfiguration.addMineShaft = this.serverConfiguration.addMineshaft && this.btnAddMineShaft.isChecked();
-			this.houseConfiguration.addTorches = this.serverConfiguration.addTorches && this.btnAddTorches.isChecked();
+			this.houseConfiguration.addBed = this.serverConfiguration.addBed && this.btnAddBed.selected();
+			this.houseConfiguration.addChest = this.serverConfiguration.addChests && this.btnAddChest.selected();
+			this.houseConfiguration.addChestContents = this.allowItemsInChestAndFurnace && (this.serverConfiguration.addChestContents && this.btnAddChestContents.selected());
+			this.houseConfiguration.addCraftingTable = this.serverConfiguration.addCraftingTable && this.btnAddCraftingTable.selected();
+			this.houseConfiguration.addFurnace = this.serverConfiguration.addFurnace && this.btnAddFurnace.selected();
+			this.houseConfiguration.addMineShaft = this.serverConfiguration.addMineshaft && this.btnAddMineShaft.selected();
+			this.houseConfiguration.addTorches = this.serverConfiguration.addTorches && this.btnAddTorches.selected();
 			assert this.minecraft != null;
-			this.houseConfiguration.houseFacing = this.minecraft.player.getHorizontalFacing().getOpposite();
+			this.houseConfiguration.houseFacing = this.minecraft.player.getDirection().getOpposite();
 		}
 
 		if (button == this.btnCancel) {

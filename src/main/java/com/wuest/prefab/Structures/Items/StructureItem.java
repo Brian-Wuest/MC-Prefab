@@ -18,7 +18,7 @@ public class StructureItem extends Item {
 	 * Initializes a new instance of the StructureItem class.
 	 */
 	public StructureItem() {
-		super(new Item.Properties().group(ItemGroup.MISC));
+		super(new Item.Properties().tab(ItemGroup.TAB_MISC));
 		this.Initialize();
 	}
 
@@ -31,9 +31,9 @@ public class StructureItem extends Item {
 	 * Does something when the item is right-clicked.
 	 */
 	@Override
-	public ActionResultType onItemUse(ItemUseContext context) {
-		if (context.getWorld().isRemote) {
-			if (context.getFace() == Direction.UP) {
+	public ActionResultType useOn(ItemUseContext context) {
+		if (context.getLevel().isClientSide) {
+			if (context.getClickedFace() == Direction.UP) {
 				if (Prefab.useScanningMode) {
 					this.scanningMode(context);
 				} else {

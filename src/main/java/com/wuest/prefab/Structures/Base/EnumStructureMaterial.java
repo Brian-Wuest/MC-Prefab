@@ -11,23 +11,23 @@ import net.minecraft.block.Blocks;
  */
 @SuppressWarnings({"unused", "SpellCheckingInspection"})
 public enum EnumStructureMaterial {
-	Cobblestone("prefab.gui.material.cobble_stone", Blocks.COBBLESTONE.getDefaultState(), Blocks.STONE_STAIRS.getDefaultState(), 0),
-	Stone("prefab.gui.material.stone", Blocks.STONE.getDefaultState(), Blocks.STONE_STAIRS.getDefaultState(), 1),
-	StoneBrick("prefab.gui.material.stone_brick", Blocks.STONE_BRICKS.getDefaultState(), Blocks.STONE_BRICK_STAIRS.getDefaultState(), 2),
-	Brick("prefab.gui.material.brick", Blocks.BRICKS.getDefaultState(), Blocks.BRICK_STAIRS.getDefaultState(), 3),
-	ChiseledStone("prefab.gui.material.chiseled_stone", Blocks.CHISELED_STONE_BRICKS.getDefaultState(), Blocks.STONE_BRICK_STAIRS.getDefaultState(), 4),
-	Granite("prefab.gui.material.granite", Blocks.GRANITE.getDefaultState(), Blocks.GRANITE_STAIRS.getDefaultState(), 5),
-	SmoothGranite("prefab.gui.material.smooth_granite", Blocks.POLISHED_GRANITE.getDefaultState(), Blocks.POLISHED_GRANITE_STAIRS.getDefaultState(), 6),
-	Andesite("prefab.gui.material.andesite", Blocks.ANDESITE.getDefaultState(), Blocks.ANDESITE_STAIRS.getDefaultState(), 7),
-	SmoothAndesite("prefab.gui.material.smooth_andesite", Blocks.POLISHED_ANDESITE.getDefaultState(), Blocks.POLISHED_ANDESITE_STAIRS.getDefaultState(), 8),
-	Diorite("prefab.gui.material.diorite", Blocks.DIORITE.getDefaultState(), Blocks.DIORITE_STAIRS.getDefaultState(), 9),
-	SmoothDiorite("prefab.gui.material.smooth_diorite", Blocks.POLISHED_DIORITE.getDefaultState(), Blocks.POLISHED_DIORITE_STAIRS.getDefaultState(), 10),
-	Oak("prefab.wall.block.type.oak", Blocks.OAK_PLANKS.getDefaultState(), Blocks.OAK_STAIRS.getDefaultState(), 11),
-	Spruce("prefab.wall.block.type.spruce", Blocks.SPRUCE_PLANKS.getDefaultState(), Blocks.SPRUCE_STAIRS.getDefaultState(), 12),
-	Birch("prefab.wall.block.type.birch", Blocks.BIRCH_PLANKS.getDefaultState(), Blocks.BIRCH_STAIRS.getDefaultState(), 13),
-	Jungle("prefab.wall.block.type.jungle", Blocks.JUNGLE_PLANKS.getDefaultState(), Blocks.JUNGLE_STAIRS.getDefaultState(), 14),
-	Acacia("prefab.wall.block.type.acacia", Blocks.ACACIA_PLANKS.getDefaultState(), Blocks.ACACIA_STAIRS.getDefaultState(), 15),
-	DarkOak("prefab.wall.block.type.darkoak", Blocks.DARK_OAK_PLANKS.getDefaultState(), Blocks.DARK_OAK_STAIRS.getDefaultState(), 16);
+	Cobblestone("prefab.gui.material.cobble_stone", Blocks.COBBLESTONE.defaultBlockState(), Blocks.STONE_STAIRS.defaultBlockState(), 0),
+	Stone("prefab.gui.material.stone", Blocks.STONE.defaultBlockState(), Blocks.STONE_STAIRS.defaultBlockState(), 1),
+	StoneBrick("prefab.gui.material.stone_brick", Blocks.STONE_BRICKS.defaultBlockState(), Blocks.STONE_BRICK_STAIRS.defaultBlockState(), 2),
+	Brick("prefab.gui.material.brick", Blocks.BRICKS.defaultBlockState(), Blocks.BRICK_STAIRS.defaultBlockState(), 3),
+	ChiseledStone("prefab.gui.material.chiseled_stone", Blocks.CHISELED_STONE_BRICKS.defaultBlockState(), Blocks.STONE_BRICK_STAIRS.defaultBlockState(), 4),
+	Granite("prefab.gui.material.granite", Blocks.GRANITE.defaultBlockState(), Blocks.GRANITE_STAIRS.defaultBlockState(), 5),
+	SmoothGranite("prefab.gui.material.smooth_granite", Blocks.POLISHED_GRANITE.defaultBlockState(), Blocks.POLISHED_GRANITE_STAIRS.defaultBlockState(), 6),
+	Andesite("prefab.gui.material.andesite", Blocks.ANDESITE.defaultBlockState(), Blocks.ANDESITE_STAIRS.defaultBlockState(), 7),
+	SmoothAndesite("prefab.gui.material.smooth_andesite", Blocks.POLISHED_ANDESITE.defaultBlockState(), Blocks.POLISHED_ANDESITE_STAIRS.defaultBlockState(), 8),
+	Diorite("prefab.gui.material.diorite", Blocks.DIORITE.defaultBlockState(), Blocks.DIORITE_STAIRS.defaultBlockState(), 9),
+	SmoothDiorite("prefab.gui.material.smooth_diorite", Blocks.POLISHED_DIORITE.defaultBlockState(), Blocks.POLISHED_DIORITE_STAIRS.defaultBlockState(), 10),
+	Oak("prefab.wall.block.type.oak", Blocks.OAK_PLANKS.defaultBlockState(), Blocks.OAK_STAIRS.defaultBlockState(), 11),
+	Spruce("prefab.wall.block.type.spruce", Blocks.SPRUCE_PLANKS.defaultBlockState(), Blocks.SPRUCE_STAIRS.defaultBlockState(), 12),
+	Birch("prefab.wall.block.type.birch", Blocks.BIRCH_PLANKS.defaultBlockState(), Blocks.BIRCH_STAIRS.defaultBlockState(), 13),
+	Jungle("prefab.wall.block.type.jungle", Blocks.JUNGLE_PLANKS.defaultBlockState(), Blocks.JUNGLE_STAIRS.defaultBlockState(), 14),
+	Acacia("prefab.wall.block.type.acacia", Blocks.ACACIA_PLANKS.defaultBlockState(), Blocks.ACACIA_STAIRS.defaultBlockState(), 15),
+	DarkOak("prefab.wall.block.type.darkoak", Blocks.DARK_OAK_PLANKS.defaultBlockState(), Blocks.DARK_OAK_STAIRS.defaultBlockState(), 16);
 
 	private String name;
 	private BlockState blockType;

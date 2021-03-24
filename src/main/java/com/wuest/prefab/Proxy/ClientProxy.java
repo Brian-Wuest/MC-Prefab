@@ -139,11 +139,11 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void openGuiForItem(ItemUseContext itemUseContext) {
 		for (Map.Entry<StructureItem, GuiStructure> entry : ClientProxy.ModGuis.entrySet()) {
-			if (entry.getKey() == itemUseContext.getItem().getItem()) {
+			if (entry.getKey() == itemUseContext.getItemInHand().getItem()) {
 				GuiStructure screen = entry.getValue();
-				screen.pos = itemUseContext.getPos();
+				screen.pos = itemUseContext.getClickedPos();
 
-				Minecraft.getInstance().displayGuiScreen(screen);
+				Minecraft.getInstance().setScreen(screen);
 			}
 		}
 	}
@@ -155,14 +155,14 @@ public class ClientProxy extends CommonProxy {
 		RenderTypeLookup.setRenderLayer(ModRegistry.BlockBoundary.get(), BlockBoundary::canRenderInLayer);
 
 		// This render type (func_228643_e_) is the "cutout" render type.
-		RenderTypeLookup.setRenderLayer(ModRegistry.GlassSlab.get(), RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(ModRegistry.GlassSlab.get(), RenderType.cutout());
 
-		RenderTypeLookup.setRenderLayer(ModRegistry.GlassStairs.get(), RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(ModRegistry.GlassStairs.get(), RenderType.cutout());
 
-		RenderTypeLookup.setRenderLayer(ModRegistry.PaperLantern.get(), RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(ModRegistry.PaperLantern.get(), RenderType.cutout());
 
 		// This is the "translucent" type.
-		RenderTypeLookup.setRenderLayer(ModRegistry.BlockPhasing.get(), RenderType.getTranslucent());
+		RenderTypeLookup.setRenderLayer(ModRegistry.BlockPhasing.get(), RenderType.translucent());
 	}
 
 	private void registerKeyBindings(FMLClientSetupEvent clientSetupEvent) {

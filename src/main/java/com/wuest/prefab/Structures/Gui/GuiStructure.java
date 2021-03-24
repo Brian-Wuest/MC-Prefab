@@ -61,26 +61,26 @@ public abstract class GuiStructure extends GuiBase {
 		float f = 1.0F / textureWidth;
 		float f1 = 1.0F / textureHeight;
 		Tessellator tessellator = Tessellator.getInstance();
-		BufferBuilder vertexBuffer = tessellator.getBuffer();
+		BufferBuilder vertexBuffer = tessellator.getBuilder();
 
 		vertexBuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
 
 		// This was the "pos" and "tex" method.
-		vertexBuffer.pos(x, y + height, z).tex(u * f, (v + height) * f1).endVertex();
+		vertexBuffer.vertex(x, y + height, z).uv(u * f, (v + height) * f1).endVertex();
 
-		vertexBuffer.pos(x + width, y + height, z).tex((u + width) * f, (v + height) * f1).endVertex();
+		vertexBuffer.vertex(x + width, y + height, z).uv((u + width) * f, (v + height) * f1).endVertex();
 
-		vertexBuffer.pos(x + width, y, z).tex((u + width) * f, v * f1).endVertex();
+		vertexBuffer.vertex(x + width, y, z).uv((u + width) * f, v * f1).endVertex();
 
-		vertexBuffer.pos(x, y, z).tex(u * f, v * f1).endVertex();
+		vertexBuffer.vertex(x, y, z).uv(u * f, v * f1).endVertex();
 
-		tessellator.draw();
+		tessellator.end();
 	}
 
 	@Override
 	public void init() {
 		this.player = this.getMinecraft().player;
-		this.structureFacing = this.player.getHorizontalFacing().getOpposite();
+		this.structureFacing = this.player.getDirection().getOpposite();
 		this.Initialize();
 	}
 

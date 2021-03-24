@@ -52,13 +52,13 @@ public class BlockBoundary extends Block {
 	 *
 	 */
 	public BlockBoundary() {
-		super(Block.Properties.create(Prefab.SeeThroughImmovable)
+		super(Block.Properties.of(Prefab.SeeThroughImmovable)
 				.sound(SoundType.STONE)
-				.hardnessAndResistance(0.6F)
-				.notSolid());
+				.strength(0.6F)
+				.noOcclusion());
 
-		this.itemGroup = ItemGroup.BUILDING_BLOCKS;
-		this.setDefaultState(this.stateContainer.getBaseState().with(Powered, false));
+		this.itemGroup = ItemGroup.TAB_BUILDING_BLOCKS;
+		this.registerDefaultState(this.getStateDefinition().any().setValue(Powered, false));
 	}
 
 	/**
@@ -71,11 +71,11 @@ public class BlockBoundary extends Block {
 		RenderState renderState = (RenderState) layer;
 
 		// first part is translucent, second is for solid.
-		return (layer == RenderType.getTranslucent() && !powered) || (layer == RenderType.getSolid() && powered);
+		return (layer == RenderType.translucent() && !powered) || (layer == RenderType.solid() && powered);
 	}
 
 	@Override
-	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
 		builder.add(BlockBoundary.Powered);
 	}
 
@@ -84,16 +84,16 @@ public class BlockBoundary extends Block {
 	 * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
 	 */
 	@Override
-	public BlockRenderType getRenderType(BlockState state) {
-		boolean powered = state.get(Powered);
+	public BlockRenderType getRenderShape(BlockState state) {
+		boolean powered = state.getValue(Powered);
 		return powered ? BlockRenderType.MODEL : BlockRenderType.INVISIBLE;
 	}
 
 	@Override
 	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-		boolean powered = state.get(Powered);
+		boolean powered = state.getValue(Powered);
 
-		return powered ? VoxelShapes.fullCube() : VoxelShapes.empty();
+		return powered ? VoxelShapes.block() : VoxelShapes.empty();
 	}
 
 	/**
@@ -119,7 +119,7 @@ public class BlockBoundary extends Block {
 
 		ModEventHandler.RedstoneAffectedBlockPositions.remove(pos);
 
-		boolean poweredSide = world.isBlockPowered(pos);
+		boolean poweredSide = world.hasNeighborSignal(pos);
 
 		if (poweredSide) {
 			this.setNeighborGlassBlocksPoweredStatus(world, pos, false, 0, new ArrayList<>(), false);
@@ -140,13 +140,13 @@ public class BlockBoundary extends Block {
 		 * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
 		 * BlockState
 		 */
-		boolean poweredSide = context.getWorld().isBlockPowered(context.getPos());
+		boolean poweredSide = context.getLevel().hasNeighborSignal(context.getClickedPos());
 
 		if (poweredSide) {
-			this.setNeighborGlassBlocksPoweredStatus(context.getWorld(), context.getPos(), true, 0, new ArrayList<>(), false);
+			this.setNeighborGlassBlocksPoweredStatus(context.getLevel(), context.getClickedPos(), true, 0, new ArrayList<>(), false);
 		}
 
-		return this.getDefaultState().with(Powered, poweredSide);
+		return this.defaultBlockState().setValue(Powered, poweredSide);
 	}
 
 	/**
@@ -156,10 +156,10 @@ public class BlockBoundary extends Block {
 	 */
 	@Override
 	public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos p_189540_5_, boolean p_220069_6_) {
-		if (!worldIn.isRemote) {
+		if (!worldIn.isClientSide) {
 			// Only worry about powering blocks.
-			if (blockIn.getDefaultState().canProvidePower()) {
-				boolean poweredSide = worldIn.isBlockPowered(pos);
+			if (blockIn.defaultBlockState().isSignalSource()) {
+				boolean poweredSide = worldIn.hasNeighborSignal(pos);
 
 				this.setNeighborGlassBlocksPoweredStatus(worldIn, pos, poweredSide, 0, new ArrayList<>(), true);
 			}
@@ -171,8 +171,8 @@ public class BlockBoundary extends Block {
 	 */
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, ITooltipFlag advanced) {
-		super.addInformation(stack, worldIn, tooltip, advanced);
+	public void appendHoverText(ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, ITooltipFlag advanced) {
+		super.appendHoverText(stack, worldIn, tooltip, advanced);
 
 		// TODO: When the mappings are updated, this was the "hasShiftDown" method.
 		boolean advancedKeyDown = Screen.hasShiftDown();
@@ -185,10 +185,10 @@ public class BlockBoundary extends Block {
 	}
 
 	@Override
-	public int getOpacity(BlockState state, IBlockReader worldIn, BlockPos pos) {
-		boolean powered = state.get(Powered);
+	public int getLightBlock(BlockState state, IBlockReader worldIn, BlockPos pos) {
+		boolean powered = state.getValue(Powered);
 
-		if (powered && state.isOpaqueCube(worldIn, pos)) {
+		if (powered && state.isSolidRender(worldIn, pos)) {
 			return worldIn.getMaxLightLevel();
 		} else {
 			return state.propagatesSkylightDown(worldIn, pos) ? 0 : 1;
@@ -197,9 +197,9 @@ public class BlockBoundary extends Block {
 
 	@Override
 	public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos) {
-		boolean powered = state.get(Powered);
+		boolean powered = state.getValue(Powered);
 
-		return !powered || (!isOpaque(state.getShape(reader, pos)) && state.getFluidState().isEmpty());
+		return !powered || (!Block.isShapeFullBlock(state.getShape(reader, pos)) && state.getFluidState().isEmpty());
 	}
 
 	/**
@@ -213,23 +213,23 @@ public class BlockBoundary extends Block {
 	 */
 	@Override
 	public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-		return VoxelShapes.fullCube();
+		return VoxelShapes.block();
 	}
 
 	@Deprecated
 	@Override
-	public VoxelShape getRaytraceShape(BlockState state, IBlockReader worldIn, BlockPos pos) {
-		if (!state.get(Powered)) {
+	public VoxelShape getInteractionShape(BlockState state, IBlockReader worldIn, BlockPos pos) {
+		if (!state.getValue(Powered)) {
 			return VoxelShapes.empty();
 		} else {
-			return VoxelShapes.fullCube();
+			return VoxelShapes.block();
 		}
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public boolean isSideInvisible(BlockState state, BlockState adjacentBlockState, Direction side) {
-		return !state.get(Powered);
+	public boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction side) {
+		return !state.getValue(Powered);
 	}
 
 	/**
@@ -252,23 +252,23 @@ public class BlockBoundary extends Block {
 
 		if (setCurrentBlock) {
 			BlockState state = world.getBlockState(pos);
-			world.setBlockState(pos, state.with(Powered, isPowered));
+			world.setBlock(pos, state.setValue(Powered, isPowered), 3);
 		}
 
 		cascadedBlockPos.add(pos);
 
 		for (Direction facing : Direction.values()) {
-			Block neighborBlock = world.getBlockState(pos.offset(facing)).getBlock();
+			Block neighborBlock = world.getBlockState(pos.relative(facing)).getBlock();
 
 			if (neighborBlock instanceof BlockBoundary) {
 				// If the block is already in the correct state, there is no need to cascade to it's neighbors.
-				if (cascadedBlockPos.contains(pos.offset(facing))) {
+				if (cascadedBlockPos.contains(pos.relative(facing))) {
 					continue;
 				}
 
 				// running this method for the neighbor block will cascade out to it's other neighbors until there are
 				// no more Phasic blocks around.
-				((BlockBoundary) neighborBlock).setNeighborGlassBlocksPoweredStatus(world, pos.offset(facing), isPowered, cascadeCount, cascadedBlockPos, true);
+				((BlockBoundary) neighborBlock).setNeighborGlassBlocksPoweredStatus(world, pos.relative(facing), isPowered, cascadeCount, cascadedBlockPos, true);
 			}
 		}
 	}

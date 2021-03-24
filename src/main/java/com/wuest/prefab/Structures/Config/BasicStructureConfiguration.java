@@ -282,7 +282,7 @@ public class BasicStructureConfiguration extends StructureConfiguration {
 			tag.putString(BasicStructureConfiguration.structureDisplayNameTag, this.structureDisplayName);
 		}
 
-		tag.putString(BasicStructureConfiguration.bedColorTag, this.bedColor.getString().toUpperCase());
+		tag.putString(BasicStructureConfiguration.bedColorTag, this.bedColor.getSerializedName().toUpperCase());
 		tag.putString(BasicStructureConfiguration.chosenOptionTag, this.chosenOption.getTranslationString());
 
 		return tag;
@@ -322,12 +322,12 @@ public class BasicStructureConfiguration extends StructureConfiguration {
 			ItemStack stack = ItemBasicStructure.getBasicStructureItemInHand(player);
 
 			if (stack.getCount() == 1) {
-				player.inventory.deleteStack(stack);
+				player.inventory.removeItem(stack);
 			} else {
 				stack.setCount(stack.getCount() - 1);
 			}
 
-			player.openContainer.detectAndSendChanges();
+			player.containerMenu.broadcastChanges();
 		}
 	}
 

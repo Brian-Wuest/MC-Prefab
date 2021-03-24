@@ -29,7 +29,7 @@ public class Prefab {
 	 * Simulates an air block that blocks movement and cannot be moved.
 	 */
 	public static final Material SeeThroughImmovable = new Material(
-			MaterialColor.AIR,
+			MaterialColor.NONE,
 			false,
 			true,
 			true,
@@ -83,7 +83,7 @@ public class Prefab {
 
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
 
-		Prefab.proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
+		Prefab.proxy = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
 		Prefab.proxy.RegisterEventHandler();
 

@@ -27,12 +27,12 @@ public class TagMessage {
 		}
 
 		assert message != null;
-		message.tagMessage = buf.readCompoundTag();
+		message.tagMessage = buf.readNbt();
 		return message;
 	}
 
 	public static <T extends TagMessage> void encode(T message, PacketBuffer buf) {
-		buf.writeCompoundTag(message.tagMessage);
+		buf.writeNbt(message.tagMessage);
 	}
 
 	public CompoundNBT getMessageTag() {

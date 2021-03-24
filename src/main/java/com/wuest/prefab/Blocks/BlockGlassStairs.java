@@ -25,12 +25,12 @@ public class BlockGlassStairs extends StairsBlock {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public boolean isSideInvisible(BlockState state, BlockState adjacentBlockState, Direction side) {
-		ITag<Block> tags = BlockTags.getCollection().get(new ResourceLocation("forge", "glass"));
+	public boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction side) {
+		ITag<Block> tags = BlockTags.getAllTags().getTag(new ResourceLocation("forge", "glass"));
 		Block adjacentBlock = adjacentBlockState.getBlock();
 
 		return tags.contains(adjacentBlock) || adjacentBlock == this
 				|| (adjacentBlock == ModRegistry.GlassSlab.get()
-				&& adjacentBlockState.get(SlabBlock.TYPE) == SlabType.DOUBLE);
+				&& adjacentBlockState.getValue(SlabBlock.TYPE) == SlabType.DOUBLE);
 	}
 }

@@ -383,8 +383,8 @@ public class GuiLangKeys {
 	 * @return The translated language key.
 	 */
 	public static String translateString(String translateKey) {
-		if (I18n.hasKey(translateKey)) {
-			return I18n.format(translateKey);
+		if (I18n.exists(translateKey)) {
+			return I18n.get(translateKey);
 		} else {
 			return GuiLangKeys.getUnLocalized(translateKey);
 		}
@@ -423,11 +423,11 @@ public class GuiLangKeys {
 	}
 
 	public static String translateFacing(Direction facing) {
-		return GuiLangKeys.translateString("prefab.gui." + facing.getName2());
+		return GuiLangKeys.translateString("prefab.gui." + facing.getName());
 	}
 
 	public static String translateDye(DyeColor dyeColor) {
-		return GuiLangKeys.translateString("prefab.gui." + dyeColor.getTranslationKey());
+		return GuiLangKeys.translateString("prefab.gui." + dyeColor.getName());
 	}
 
 	/**

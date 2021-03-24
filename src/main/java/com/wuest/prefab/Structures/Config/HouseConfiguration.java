@@ -87,10 +87,10 @@ public class HouseConfiguration extends StructureConfiguration {
 		tag.putInt(HouseConfiguration.hitXTag, this.pos.getX());
 		tag.putInt(HouseConfiguration.hitYTag, this.pos.getY());
 		tag.putInt(HouseConfiguration.hitZTag, this.pos.getZ());
-		tag.putString(HouseConfiguration.houseFacingTag, this.houseFacing.getString());
+		tag.putString(HouseConfiguration.houseFacingTag, this.houseFacing.getSerializedName());
 		tag.putInt(HouseConfiguration.houseStyleTag, this.houseStyle.value);
-		tag.putString(HouseConfiguration.glassColorTag, this.glassColor.getString().toUpperCase());
-		tag.putString(HouseConfiguration.bedColorTag, this.bedColor.getString().toUpperCase());
+		tag.putString(HouseConfiguration.glassColorTag, this.glassColor.getSerializedName().toUpperCase());
+		tag.putString(HouseConfiguration.bedColorTag, this.bedColor.getSerializedName().toUpperCase());
 
 		return tag;
 	}
@@ -185,7 +185,7 @@ public class HouseConfiguration extends StructureConfiguration {
 
 			// Make sure to send a message to the client to sync up the server player information and the client player
 			// information.
-			Prefab.network.sendTo(new PlayerEntityTagMessage(playerConfig.getModIsPlayerNewTag(player)), ((ServerPlayerEntity) player).connection.netManager,
+			Prefab.network.sendTo(new PlayerEntityTagMessage(playerConfig.getModIsPlayerNewTag(player)), ((ServerPlayerEntity) player).connection.connection,
 					NetworkDirection.PLAY_TO_CLIENT);
 		}
 	}

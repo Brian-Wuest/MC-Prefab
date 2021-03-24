@@ -15,8 +15,8 @@ public class ItemHorseStable extends StructureItem {
 	@Override
 	public void scanningMode(ItemUseContext context) {
 		StructureHorseStable.ScanStructure(
-				context.getWorld(),
-				context.getPos(),
-				context.getPlayer().getHorizontalFacing());
+				context.getLevel(),
+				context.getClickedPos(),
+				context.getPlayer().getDirection());
 	}
 }

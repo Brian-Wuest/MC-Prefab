@@ -15,9 +15,9 @@ public class ItemAdvancedWareHouse extends ItemWareHouse {
 	@Override
 	public void scanningMode(ItemUseContext context) {
 		StructureWarehouse.ScanStructure(
-				context.getWorld(),
-				context.getPos(),
-				context.getPlayer().getHorizontalFacing(),
+				context.getLevel(),
+				context.getClickedPos(),
+				context.getPlayer().getDirection(),
 				true);
 	}
 }

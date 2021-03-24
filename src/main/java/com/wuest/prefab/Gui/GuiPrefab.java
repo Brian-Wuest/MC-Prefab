@@ -44,7 +44,7 @@ public class GuiPrefab extends GuiBase {
 
 	@Override
 	public void buttonClicked(AbstractButton button) {
-		this.minecraft.displayGuiScreen(this.parentScreen);
+		this.minecraft.setScreen(this.parentScreen);
 	}
 
 	@Override

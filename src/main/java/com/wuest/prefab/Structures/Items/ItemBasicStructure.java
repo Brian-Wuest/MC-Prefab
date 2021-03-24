@@ -24,13 +24,13 @@ public class ItemBasicStructure extends StructureItem {
 	}
 
 	public static ItemStack getBasicStructureItemInHand(PlayerEntity player) {
-		ItemStack stack = player.getHeldItemOffhand();
+		ItemStack stack = player.getOffhandItem();
 
 		// Get off hand first since that is the right-click hand if there is
 		// something in there.
 		if (!(stack.getItem() instanceof ItemBasicStructure)) {
-			if (player.getHeldItemMainhand().getItem() instanceof ItemBasicStructure) {
-				stack = player.getHeldItemMainhand();
+			if (player.getMainHandItem().getItem() instanceof ItemBasicStructure) {
+				stack = player.getMainHandItem();
 			} else {
 				stack = null;
 			}
@@ -45,7 +45,7 @@ public class ItemBasicStructure extends StructureItem {
 	@Override
 	public void scanningMode(ItemUseContext context) {
 		StructureBasic basicStructure = new StructureBasic();
-		ItemStack stack = context.getPlayer().getHeldItem(context.getHand());
+		ItemStack stack = context.getPlayer().getItemInHand(context.getHand());
 		BasicStructureConfiguration structureConfiguration = new BasicStructureConfiguration();
 		structureConfiguration.basicStructureName = ((ItemBasicStructure) stack.getItem()).structureType;
 		structureConfiguration.chosenOption = NetherGateOptions.CorruptedTree;
@@ -53,9 +53,9 @@ public class ItemBasicStructure extends StructureItem {
 		boolean isWaterStructure = structureConfiguration.basicStructureName == EnumBasicStructureName.AquaBase;
 
 		basicStructure.ScanStructure(
-				context.getWorld(),
-				context.getPos(),
-				context.getPlayer().getHorizontalFacing(),
+				context.getLevel(),
+				context.getClickedPos(),
+				context.getPlayer().getDirection(),
 				structureConfiguration, isWaterStructure, isWaterStructure);
 	}
 }

@@ -9,7 +9,7 @@ import net.minecraft.item.ItemGroup;
  */
 public class ItemPalletOfBricks extends Item {
 	public ItemPalletOfBricks( ) {
-		super(new Item.Properties().group(ItemGroup.MATERIALS));
+		super(new Item.Properties().tab(ItemGroup.TAB_MATERIALS));
 
 	}
 }

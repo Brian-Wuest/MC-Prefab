@@ -106,9 +106,9 @@ public class GuiModerateHouse extends GuiStructure {
 	 */
 	@Override
 	public void buttonClicked(AbstractButton button) {
-		this.configuration.addChests = this.btnAddChest.visible && this.btnAddChest.isChecked();
-		this.configuration.addChestContents = this.allowItemsInChestAndFurnace && (this.btnAddChestContents.visible && this.btnAddChestContents.isChecked());
-		this.configuration.addMineshaft = this.btnAddMineShaft.visible && this.btnAddMineShaft.isChecked();
+		this.configuration.addChests = this.btnAddChest.visible && this.btnAddChest.selected();
+		this.configuration.addChestContents = this.allowItemsInChestAndFurnace && (this.btnAddChestContents.visible && this.btnAddChestContents.selected());
+		this.configuration.addMineshaft = this.btnAddMineShaft.visible && this.btnAddMineShaft.selected();
 
 		this.performCancelOrBuildOrHouseFacing(this.configuration, button);
 

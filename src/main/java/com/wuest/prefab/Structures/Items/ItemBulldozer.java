@@ -36,8 +36,8 @@ public class ItemBulldozer extends StructureItem {
 	 */
 	public ItemBulldozer() {
 		super(new Item.Properties()
-				.group(ItemGroup.MISC)
-				.maxDamage(4));
+				.tab(ItemGroup.TAB_MISC)
+				.durability(4));
 	}
 
 	/**
@@ -46,7 +46,7 @@ public class ItemBulldozer extends StructureItem {
 	 */
 	public ItemBulldozer(boolean creativePowered) {
 		super(new Item.Properties()
-				.group(ItemGroup.MISC));
+				.tab(ItemGroup.TAB_MISC));
 
 		this.creativePowered = creativePowered;
 	}
@@ -55,9 +55,9 @@ public class ItemBulldozer extends StructureItem {
 	 * Does something when the item is right-clicked.
 	 */
 	@Override
-	public ActionResultType onItemUse(ItemUseContext context) {
-		if (context.getWorld().isRemote) {
-			if (context.getFace() == Direction.UP && this.getPoweredValue(context.getPlayer(), context.getHand())) {
+	public ActionResultType useOn(ItemUseContext context) {
+		if (context.getLevel().isClientSide()) {
+			if (context.getClickedFace() == Direction.UP && this.getPoweredValue(context.getPlayer(), context.getHand())) {
 				// Open the client side gui to determine the house options.
 				Prefab.proxy.openGuiForItem(context);
 				return ActionResultType.PASS;
@@ -72,8 +72,8 @@ public class ItemBulldozer extends StructureItem {
 	 */
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-		super.addInformation(stack, worldIn, tooltip, flagIn);
+	public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+		super.appendHoverText(stack, worldIn, tooltip, flagIn);
 
 		boolean advancedKeyDown = Screen.hasShiftDown();
 
@@ -97,8 +97,8 @@ public class ItemBulldozer extends StructureItem {
 	 * the glint for enchanted items. Of course, that is unnecessary if the overwritten version always returns true.
 	 */
 	@OnlyIn(Dist.CLIENT)
-	public boolean hasEffect(ItemStack stack) {
-		return this.getPoweredValue(stack) || super.hasEffect(stack);
+	public boolean isFoil(ItemStack stack) {
+		return this.getPoweredValue(stack) || super.isFoil(stack);
 	}
 
 	/**
@@ -121,7 +121,7 @@ public class ItemBulldozer extends StructureItem {
 	}
 
 	private boolean getPoweredValue(PlayerEntity player, Hand hand) {
-		ItemStack stack = player.getHeldItem(hand);
+		ItemStack stack = player.getItemInHand(hand);
 
 		return this.getPoweredValue(stack);
 	}

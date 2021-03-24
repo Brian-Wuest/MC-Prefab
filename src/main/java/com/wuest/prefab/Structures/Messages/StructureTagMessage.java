@@ -30,7 +30,7 @@ public class StructureTagMessage extends TagMessage {
 
 	public static StructureTagMessage decode(PacketBuffer buf) {
 		// This class is very useful in general for writing more complex objects.
-		CompoundNBT tag = buf.readCompoundTag();
+		CompoundNBT tag = buf.readNbt();
 		StructureTagMessage returnValue = new StructureTagMessage();
 
 		returnValue.structureConfig = EnumStructureConfiguration.getFromIdentifier(tag.getInt("config"));
@@ -45,7 +45,7 @@ public class StructureTagMessage extends TagMessage {
 		tag.putInt("config", message.structureConfig.identifier);
 		tag.put("dataTag", message.tagMessage);
 
-		buf.writeCompoundTag(tag);
+		buf.writeNbt(tag);
 	}
 
 	EnumStructureConfiguration getStructureConfig() {

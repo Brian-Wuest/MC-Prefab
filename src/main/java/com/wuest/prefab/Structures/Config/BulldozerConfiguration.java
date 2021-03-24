@@ -52,7 +52,7 @@ public class BulldozerConfiguration extends StructureConfiguration {
 		}
 
 		if (structure.BuildStructure(this, world, hitBlockPos, Direction.NORTH, player)) {
-			ItemStack stack = player.getHeldItem(Hand.OFF_HAND);
+			ItemStack stack = player.getItemInHand(Hand.OFF_HAND);
 			Hand hand = Hand.OFF_HAND;
 
 			if (stack.getItem() == ModRegistry.Creative_Bulldozer.get()) {
@@ -60,7 +60,7 @@ public class BulldozerConfiguration extends StructureConfiguration {
 			}
 
 			if (stack.getItem() != ModRegistry.Bulldozer.get()) {
-				stack = player.getHeldItem(Hand.MAIN_HAND);
+				stack = player.getItemInHand(Hand.MAIN_HAND);
 				hand = Hand.MAIN_HAND;
 
 				if (stack.getItem() == ModRegistry.Creative_Bulldozer.get()) {
@@ -71,11 +71,11 @@ public class BulldozerConfiguration extends StructureConfiguration {
 			// Only damage the item if this is the regular bulldozer.
 			if (stack.getItem() == ModRegistry.Bulldozer.get()) {
 				Hand hand1 = hand;
-				stack.damageItem(1, player, (player1) ->
+				stack.hurtAndBreak(1, player, (player1) ->
 				{
-					player1.sendBreakAnimation(hand1);
+					player1.broadcastBreakEvent(hand1);
 				});
-				player.openContainer.detectAndSendChanges();
+				player.containerMenu.broadcastChanges();
 			}
 		}
 	}

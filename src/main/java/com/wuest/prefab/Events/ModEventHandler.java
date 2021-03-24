@@ -43,9 +43,9 @@ public final class ModEventHandler {
 	 */
 	@SubscribeEvent
 	public static void onPlayerLoginEvent(PlayerLoggedInEvent event) {
-		if (!event.getPlayer().world.isRemote) {
+		if (!event.getPlayer().level.isClientSide) {
 			CompoundNBT tag = CommonProxy.proxyConfiguration.serverConfiguration.ToNBTTagCompound();
-			Prefab.network.sendTo(new ConfigSyncMessage(tag), ((ServerPlayerEntity) event.getPlayer()).connection.netManager, NetworkDirection.PLAY_TO_CLIENT);
+			Prefab.network.sendTo(new ConfigSyncMessage(tag), ((ServerPlayerEntity) event.getPlayer()).connection.connection, NetworkDirection.PLAY_TO_CLIENT);
 			System.out.println("Sent config to '" + event.getPlayer().getDisplayName().getString() + "'.");
 		}
 	}
@@ -63,7 +63,7 @@ public final class ModEventHandler {
 
 				ItemStack outputStack = new ItemStack(bulldozer);
 				bulldozer.setPoweredValue(outputStack, true);
-				outputStack.setDamage(0);
+				outputStack.setDamageValue(0);
 				event.setOutput(outputStack);
 			}
 		}

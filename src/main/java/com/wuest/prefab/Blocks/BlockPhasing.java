@@ -60,28 +60,27 @@ public class BlockPhasing extends Block {
 	 *
 	 */
 	public BlockPhasing() {
-		super(Properties.create(Prefab.SeeThroughImmovable)
+		super(Properties.of(Prefab.SeeThroughImmovable)
 				.sound(SoundType.STONE)
-				.hardnessAndResistance(0.6f)
-				.notSolid());
+				.strength(0.6f)
+				.noOcclusion());
 
-		this.setDefaultState(this.stateContainer.getBaseState().with(Phasing_Out, false).with(Phasing_Progress, EnumPhasingProgress.base));
+		this.registerDefaultState(this.getStateDefinition().any().setValue(Phasing_Out, false).setValue(Phasing_Progress, EnumPhasingProgress.base));
 	}
 
 	@Override
-	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
 		builder.add(BlockPhasing.Phasing_Out, BlockPhasing.Phasing_Progress);
 	}
-
-	// This was the "onBlockActivated" method.
+	
 	@Override
-	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTrace) {
-		if (!world.isRemote) {
-			EnumPhasingProgress progress = state.get(Phasing_Progress);
+	public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTrace) {
+		if (!world.isClientSide()) {
+			EnumPhasingProgress progress = state.getValue(Phasing_Progress);
 
 			if (progress == EnumPhasingProgress.base) {
 				// Only trigger the phasing when this block is not currently phasing.
-				world.getPendingBlockTicks().scheduleTick(pos, this, this.tickRate);
+				world.getBlockTicks().scheduleTick(pos, this, this.tickRate);
 			}
 		}
 
@@ -100,13 +99,13 @@ public class BlockPhasing extends Block {
 		 * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
 		 * BlockState
 		 */
-		boolean poweredSide = context.getWorld().isBlockPowered(context.getPos());
+		boolean poweredSide = context.getLevel().hasNeighborSignal(context.getClickedPos());
 
 		if (poweredSide) {
-			this.updateNeighborPhasicBlocks(true, context.getWorld(), context.getPos(), this.getDefaultState(), false, false);
+			this.updateNeighborPhasicBlocks(true, context.getLevel(), context.getClickedPos(), this.defaultBlockState(), false, false);
 		}
 
-		return this.getDefaultState().with(Phasing_Out, poweredSide).with(Phasing_Progress, EnumPhasingProgress.base);
+		return this.defaultBlockState().setValue(Phasing_Out, poweredSide).setValue(Phasing_Progress, EnumPhasingProgress.base);
 	}
 
 	/**
@@ -114,13 +113,13 @@ public class BlockPhasing extends Block {
 	 */
 	@Override
 	public boolean removedByPlayer(BlockState state, World world, BlockPos pos, PlayerEntity player, boolean willHarvest, FluidState fluid) {
-		EnumPhasingProgress currentState = state.get(Phasing_Progress);
+		EnumPhasingProgress currentState = state.getValue(Phasing_Progress);
 
 		boolean returnValue = super.removedByPlayer(state, world, pos, player, willHarvest, fluid);
 
 		ModEventHandler.RedstoneAffectedBlockPositions.remove(pos);
 
-		boolean poweredSide = world.isBlockPowered(pos);
+		boolean poweredSide = world.hasNeighborSignal(pos);
 
 		if (poweredSide && currentState == EnumPhasingProgress.transparent) {
 			// Set this block and all neighbor Phasic Blocks to base. This will cascade to tall touching Phasic blocks.
@@ -137,11 +136,11 @@ public class BlockPhasing extends Block {
 	 */
 	@Override
 	public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos p_189540_5_, boolean p_220069_6_) {
-		if (!worldIn.isRemote) {
+		if (!worldIn.isClientSide()) {
 			// Only worry about powering blocks.
-			if (blockIn.getDefaultState().canProvidePower()) {
-				boolean poweredSide = worldIn.isBlockPowered(pos);
-				EnumPhasingProgress currentState = state.get(Phasing_Progress);
+			if (blockIn.defaultBlockState().isSignalSource()) {
+				boolean poweredSide = worldIn.hasNeighborSignal(pos);
+				EnumPhasingProgress currentState = state.getValue(Phasing_Progress);
 				boolean setToTransparent = false;
 
 				if (poweredSide && currentState == EnumPhasingProgress.base) {
@@ -164,16 +163,16 @@ public class BlockPhasing extends Block {
 			return;
 		}
 
-		EnumPhasingProgress progress = state.get(Phasing_Progress);
-		boolean phasingOut = state.get(Phasing_Out);
+		EnumPhasingProgress progress = state.getValue(Phasing_Progress);
+		boolean phasingOut = state.getValue(Phasing_Out);
 
 		// If the state is at base, progress trigger the phasing out to the neighboring blocks.
 		if (progress == EnumPhasingProgress.base) {
 			for (Direction facing : Direction.values()) {
-				Block currentBlock = worldIn.getBlockState(pos.offset(facing)).getBlock();
+				Block currentBlock = worldIn.getBlockState(pos.relative(facing)).getBlock();
 
-				if (currentBlock instanceof BlockPhasing && !ModEventHandler.RedstoneAffectedBlockPositions.contains(pos.offset(facing))) {
-					worldIn.getPendingBlockTicks().scheduleTick(pos.offset(facing), currentBlock, tickDelay);
+				if (currentBlock instanceof BlockPhasing && !ModEventHandler.RedstoneAffectedBlockPositions.contains(pos.relative(facing))) {
+					worldIn.getBlockTicks().scheduleTick(pos.relative(facing), currentBlock, tickDelay);
 				}
 			}
 
@@ -204,8 +203,8 @@ public class BlockPhasing extends Block {
 		progress = EnumPhasingProgress.ValueOf(updatedMeta);
 
 		// Update the state in the world, update the world and (possibly) schedule a state update.
-		state = state.with(Phasing_Out, phasingOut).with(Phasing_Progress, progress);
-		worldIn.setBlockState(pos, state);
+		state = state.setValue(Phasing_Out, phasingOut).setValue(Phasing_Progress, progress);
+		worldIn.setBlock(pos, state, 3);
 
         /*if (worldIn.isRemote) {
             ClientWorld clientWorld = (ClientWorld) worldIn;
@@ -213,7 +212,7 @@ public class BlockPhasing extends Block {
         }*/
 
 		if (tickDelay > 0) {
-			worldIn.getPendingBlockTicks().scheduleTick(pos, this, tickDelay);
+			worldIn.getBlockTicks().scheduleTick(pos, this, tickDelay);
 		}
 	}
 
@@ -222,22 +221,22 @@ public class BlockPhasing extends Block {
 	 * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
 	 */
 	@Override
-	public BlockRenderType getRenderType(BlockState state) {
-		EnumPhasingProgress progress = state.get(Phasing_Progress);
+	public BlockRenderType getRenderShape(BlockState state) {
+		EnumPhasingProgress progress = state.getValue(Phasing_Progress);
 		return progress != EnumPhasingProgress.transparent ? BlockRenderType.MODEL : BlockRenderType.INVISIBLE;
 	}
 
 	@Override
 	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-		EnumPhasingProgress progress = state.get(Phasing_Progress);
+		EnumPhasingProgress progress = state.getValue(Phasing_Progress);
 
-		return progress != EnumPhasingProgress.transparent ? VoxelShapes.fullCube() : VoxelShapes.empty();
+		return progress != EnumPhasingProgress.transparent ? VoxelShapes.block() : VoxelShapes.empty();
 	}
 
 	@Nullable
 	@Override
 	public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-		EnumPhasingProgress progress = state.get(Phasing_Progress);
+		EnumPhasingProgress progress = state.getValue(Phasing_Progress);
 
 		if (progress == EnumPhasingProgress.transparent) {
 			return VoxelShapes.empty();
@@ -247,22 +246,22 @@ public class BlockPhasing extends Block {
 	}
 
 	@Override
-	public VoxelShape getRaytraceShape(BlockState state, IBlockReader worldIn, BlockPos pos) {
-		EnumPhasingProgress progress = state.get(Phasing_Progress);
+	public VoxelShape getInteractionShape(BlockState state, IBlockReader worldIn, BlockPos pos) {
+		EnumPhasingProgress progress = state.getValue(Phasing_Progress);
 
 		if (progress == EnumPhasingProgress.transparent) {
 			return VoxelShapes.empty();
 		}
 
-		VoxelShape aabb = super.getRaytraceShape(state, worldIn, pos);
+		VoxelShape aabb = super.getInteractionShape(state, worldIn, pos);
 
 		return aabb;
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public boolean isSideInvisible(BlockState state, BlockState adjacentBlockState, Direction side) {
-		EnumPhasingProgress progress = state.get(Phasing_Progress);
+	public boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction side) {
+		EnumPhasingProgress progress = state.getValue(Phasing_Progress);
 
 		return progress == EnumPhasingProgress.transparent;
 	}
@@ -271,15 +270,15 @@ public class BlockPhasing extends Block {
 											  boolean triggeredByRedstone) {
 		ArrayList<BlockPos> blocksToUpdate = new ArrayList<BlockPos>();
 		BlockState updatedBlockState = phasicBlockState
-				.with(Phasing_Out, setToTransparent)
-				.with(Phasing_Progress, setToTransparent ? EnumPhasingProgress.transparent : EnumPhasingProgress.base);
+				.setValue(Phasing_Out, setToTransparent)
+				.setValue(Phasing_Progress, setToTransparent ? EnumPhasingProgress.transparent : EnumPhasingProgress.base);
 
 		// Set this block and all neighbor Phasic Blocks to transparent. This will cascade to all touching Phasic
 		// blocks.
 		this.findNeighborPhasicBlocks(worldIn, pos, updatedBlockState, 0, blocksToUpdate, setCurrentBlock);
 
 		for (BlockPos positionToUpdate : blocksToUpdate) {
-			worldIn.setBlockState(positionToUpdate, updatedBlockState);
+			worldIn.setBlock(positionToUpdate, updatedBlockState, 3);
 
 			if (triggeredByRedstone) {
 				if (ModEventHandler.RedstoneAffectedBlockPositions.contains(positionToUpdate) && !setToTransparent) {
@@ -315,21 +314,21 @@ public class BlockPhasing extends Block {
 		}
 
 		for (Direction facing : Direction.values()) {
-			Block neighborBlock = worldIn.getBlockState(pos.offset(facing)).getBlock();
+			Block neighborBlock = worldIn.getBlockState(pos.relative(facing)).getBlock();
 
 			if (neighborBlock instanceof BlockPhasing) {
-				BlockState blockState = worldIn.getBlockState(pos.offset(facing));
+				BlockState blockState = worldIn.getBlockState(pos.relative(facing));
 
 				// If the block is already in the correct state or was already checked, there is no need to cascade to
 				// it's neighbors.
-				EnumPhasingProgress progress = blockState.get(Phasing_Progress);
+				EnumPhasingProgress progress = blockState.getValue(Phasing_Progress);
 
-				if (cascadedBlockPos.contains(pos.offset(facing)) || progress == desiredBlockState.get(Phasing_Progress)) {
+				if (cascadedBlockPos.contains(pos.relative(facing)) || progress == desiredBlockState.getValue(Phasing_Progress)) {
 					continue;
 				}
 
 				setCurrentBlock = true;
-				cascadeCount = this.findNeighborPhasicBlocks(worldIn, pos.offset(facing), desiredBlockState, cascadeCount, cascadedBlockPos, setCurrentBlock);
+				cascadeCount = this.findNeighborPhasicBlocks(worldIn, pos.relative(facing), desiredBlockState, cascadeCount, cascadedBlockPos, setCurrentBlock);
 
 				if (cascadeCount > 100) {
 					break;
@@ -382,7 +381,7 @@ public class BlockPhasing extends Block {
 		}
 
 		@Override
-		public String getString() {
+		public String getSerializedName() {
 			return this.name;
 		}
 	}

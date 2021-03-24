@@ -86,20 +86,20 @@ public class GuiTab extends Widget {
 			return;
 		}
 
-		FontRenderer fontrenderer = mc.fontRenderer;
+		FontRenderer fontrenderer = mc.font;
 		this.isHovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
 
 		if (this.selected || this.isHovered) {
-			mc.getTextureManager().bindTexture(TAB_TEXTURES_hovered);
+			mc.getTextureManager().bind(TAB_TEXTURES_hovered);
 		} else {
-			mc.getTextureManager().bindTexture(TAB_TEXTURES);
+			mc.getTextureManager().bind(TAB_TEXTURES);
 		}
 
 		GuiTabScreen.drawModalRectWithCustomSizedTexture(this.x, this.y, 0, this.width, this.height, this.width, this.height);
 		int j = Color.LIGHT_GRAY.getRGB();
 
-		int stringXPosition = ((this.x + this.width / 2) - (fontrenderer.getStringWidth(this.name)) / 2);
-		fontrenderer.drawString(matrixStack, this.name, stringXPosition, this.y + (this.height - 8) / 2, j);
+		int stringXPosition = ((this.x + this.width / 2) - (fontrenderer.width(this.name)) / 2);
+		fontrenderer.draw(matrixStack, this.name, stringXPosition, this.y + (this.height - 8) / 2, j);
 	}
 
 	/**
@@ -124,6 +124,6 @@ public class GuiTab extends Widget {
 
 	@Override
 	public void playDownSound(SoundHandler soundHandlerIn) {
-		soundHandlerIn.play(SimpleSound.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+		soundHandlerIn.play(SimpleSound.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
 	}
 }

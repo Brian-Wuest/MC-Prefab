@@ -22,8 +22,8 @@ public class BlockCompressedObsidian extends Block {
 	 * Initializes a new instance of the BlockCompressedObsidian class.
 	 */
 	public BlockCompressedObsidian(EnumType stoneType) {
-		super(Block.Properties.create(Material.ROCK)
-				.hardnessAndResistance(50.0f, 2000.0f)
+		super(Block.Properties.of(Material.STONE)
+				.strength(50.0f, 2000.0f)
 				.sound(SoundType.STONE));
 
 		this.typeofStone = stoneType;
@@ -92,7 +92,7 @@ public class BlockCompressedObsidian extends Block {
 		}
 
 		@Override
-		public String getString() {
+		public String getSerializedName() {
 			return this.name;
 		}
 	}
