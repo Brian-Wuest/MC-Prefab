@@ -39,7 +39,7 @@ public class ShaderHelper {
 
 	public static void Initialize() {
 		if (Minecraft.getInstance().getResourceManager() instanceof IReloadableResourceManager) {
-			((IReloadableResourceManager) Minecraft.getInstance().getResourceManager()).addReloadListener(
+			((IReloadableResourceManager) Minecraft.getInstance().getResourceManager()).registerReloadListener(
 					(IResourceManagerReloadListener) manager -> {
 						ShaderHelper.checkIncompatibleMods();
 
@@ -60,17 +60,17 @@ public class ShaderHelper {
 		lighting = GL11.glGetBoolean(GL11.GL_LIGHTING);
 
 		// disableLighting
-		GlStateManager.disableLighting();
+		GlStateManager._disableLighting();
 
 		// useProgram
-		GlStateManager.useProgram(shader);
+		GlStateManager._glUseProgram(shader);
 
 		if (shader != 0) {
 			// getUniformLocation
-			int time = GlStateManager.getUniformLocation(shader, "time");
+			int time = GlStateManager._glGetUniformLocation(shader, "time");
 
 			// uniform1
-			GlStateManager.uniform1i(time, ClientEventHandler.ticksInGame);
+			GlStateManager._glUniform1i(time, ClientEventHandler.ticksInGame);
 
 			if (callback != null)
 				callback.call(shader);
