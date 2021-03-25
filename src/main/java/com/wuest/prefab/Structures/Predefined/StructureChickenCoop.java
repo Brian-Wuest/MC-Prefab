@@ -35,7 +35,7 @@ public class StructureChickenCoop extends Structure {
 				world,
 				originalPos,
 				originalPos.east(10).south(),
-				originalPos.south(6).west(3).up(7),
+				originalPos.south(6).west(3).above(7),
 				"..\\src\\main\\resources\\assets\\prefab\\structures\\chickencoop.zip",
 				clearedSpace,
 				playerFacing, false, false);
@@ -48,7 +48,7 @@ public class StructureChickenCoop extends Structure {
 			chickenCoopBlockPos = block.getStartingPosition().getRelativePosition(
 					originalPos,
 					this.getClearSpace().getShape().getDirection(),
-					configuration.houseFacing).offset(configuration.houseFacing.getOpposite(), 2);
+					configuration.houseFacing).relative(configuration.houseFacing.getOpposite(), 2);
 		}
 
 		return false;
@@ -69,8 +69,8 @@ public class StructureChickenCoop extends Structure {
 			// For the chicken coop, spawn 1 chicken above a hay bale.
 			for (int i = 0; i < 1; i++) {
 				ChickenEntity entity = new ChickenEntity(EntityType.CHICKEN, world);
-				entity.setPosition(this.chickenCoopBlockPos.getX(), this.chickenCoopBlockPos.getY(), this.chickenCoopBlockPos.getZ());
-				world.addEntity(entity);
+				entity.setPos(this.chickenCoopBlockPos.getX(), this.chickenCoopBlockPos.getY(), this.chickenCoopBlockPos.getZ());
+				world.addFreshEntity(entity);
 			}
 
 			this.chickenCoopBlockPos = null;

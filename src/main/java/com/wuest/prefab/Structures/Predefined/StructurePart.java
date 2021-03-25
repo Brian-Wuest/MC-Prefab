@@ -119,13 +119,13 @@ public class StructurePart extends Structure {
 
 		// Get all 8 Corners
 		BlockPos lowerNearLeft = originalPos.west(configuration.generalWidth / 2);
-		BlockPos upperNearLeft = lowerNearLeft.up(height);
+		BlockPos upperNearLeft = lowerNearLeft.above(height);
 		BlockPos lowerFarLeft = lowerNearLeft.north(width);
-		BlockPos upperFarLeft = lowerNearLeft.north(width).up(height);
+		BlockPos upperFarLeft = lowerNearLeft.north(width).above(height);
 		BlockPos lowerNearRight = lowerNearLeft.east(width);
-		BlockPos upperNearRight = lowerNearRight.up(height);
+		BlockPos upperNearRight = lowerNearRight.above(height);
 		BlockPos lowerFarRight = lowerNearRight.north(width);
-		BlockPos upperFarRight = lowerNearRight.north(width).up(height);
+		BlockPos upperFarRight = lowerNearRight.north(width).above(height);
 
 		// Now make ALL connections.
 		this.makeBlockListForPositions(buildingBlocks, configuration, originalPos, materialState, facing, lowerNearLeft, lowerFarLeft);
@@ -146,7 +146,7 @@ public class StructurePart extends Structure {
 
 	private void makeBlockListForPositions(ArrayList<BuildBlock> buildingBlocks, StructurePartConfiguration configuration, BlockPos originalPos,
 										   BlockState materialState, Direction facing, BlockPos position1, BlockPos position2) {
-		for (BlockPos pos : BlockPos.getAllInBoxMutable(position1, position2)) {
+		for (BlockPos pos : BlockPos.betweenClosed(position1, position2)) {
 			buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), pos, originalPos));
 		}
 	}
@@ -155,39 +155,39 @@ public class StructurePart extends Structure {
 		ArrayList<BuildBlock> buildingBlocks = new ArrayList<BuildBlock>();
 
 		BlockPos gatePos = null;
-		BlockPos gateOriginalPos = originalPos.west(configuration.generalWidth / 2).up();
+		BlockPos gateOriginalPos = originalPos.west(configuration.generalWidth / 2).above();
 
 		ArrayList<Long> ignoredPositions = new ArrayList<Long>();
-		ignoredPositions.add(originalPos.up().toLong());
-		ignoredPositions.add(originalPos.up(2).toLong());
+		ignoredPositions.add(originalPos.above().asLong());
+		ignoredPositions.add(originalPos.above(2).asLong());
 
 		// Only create a 3x3 opening if there are enough blocks for it. Otherwise we are essentially doing nothing.
 		if (configuration.generalWidth > 3 && configuration.generalHeight > 3) {
-			ignoredPositions.add(originalPos.up(3).toLong());
-			ignoredPositions.add(originalPos.up().west().toLong());
-			ignoredPositions.add(originalPos.up(2).west().toLong());
-			ignoredPositions.add(originalPos.up(3).west().toLong());
+			ignoredPositions.add(originalPos.above(3).asLong());
+			ignoredPositions.add(originalPos.above().west().asLong());
+			ignoredPositions.add(originalPos.above(2).west().asLong());
+			ignoredPositions.add(originalPos.above(3).west().asLong());
 
-			ignoredPositions.add(originalPos.up().east().toLong());
-			ignoredPositions.add(originalPos.up(2).east().toLong());
-			ignoredPositions.add(originalPos.up(3).east().toLong());
+			ignoredPositions.add(originalPos.above().east().asLong());
+			ignoredPositions.add(originalPos.above(2).east().asLong());
+			ignoredPositions.add(originalPos.above(3).east().asLong());
 		}
 
 		for (int i = 0; i < configuration.generalHeight; i++) {
 			// Reset gate building position to the starting position up by the
 			// height counter.
-			gatePos = gateOriginalPos.up(i);
+			gatePos = gateOriginalPos.above(i);
 
 			for (int j = 0; j < configuration.generalWidth; j++) {
-				if (ignoredPositions.contains(gatePos.toLong())) {
-					gatePos = gatePos.offset(facing.rotateYCCW());
+				if (ignoredPositions.contains(gatePos.asLong())) {
+					gatePos = gatePos.relative(facing.getCounterClockWise());
 					continue;
 				}
 
 				// j is the north/south counter.
 				buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), gatePos, originalPos));
 
-				gatePos = gatePos.offset(facing.rotateYCCW());
+				gatePos = gatePos.relative(facing.getCounterClockWise());
 			}
 		}
 
@@ -198,30 +198,30 @@ public class StructurePart extends Structure {
 		ArrayList<BuildBlock> buildingBlocks = new ArrayList<BuildBlock>();
 
 		BlockPos gatePos = null;
-		BlockPos gateOriginalPos = originalPos.west(configuration.generalWidth / 2).up();
+		BlockPos gateOriginalPos = originalPos.west(configuration.generalWidth / 2).above();
 
 		for (int i = 0; i < configuration.generalHeight; i++) {
 			// Reset gate building position to the starting position up by the
 			// height counter.
-			gatePos = gateOriginalPos.up(i);
+			gatePos = gateOriginalPos.above(i);
 
 			for (int j = 0; j < configuration.generalWidth; j++) {
-				if (gatePos.toLong() == originalPos.up().toLong() || gatePos.toLong() == originalPos.up(2).toLong()) {
-					gatePos = gatePos.offset(facing.rotateYCCW());
+				if (gatePos.asLong() == originalPos.above().asLong() || gatePos.asLong() == originalPos.above(2).asLong()) {
+					gatePos = gatePos.relative(facing.getCounterClockWise());
 					continue;
 				}
 
 				// j is the north/south counter.
 				buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), gatePos, originalPos));
 
-				gatePos = gatePos.offset(facing.rotateYCCW());
+				gatePos = gatePos.relative(facing.getCounterClockWise());
 			}
 		}
 
 		DoorBlock door = (DoorBlock) Blocks.OAK_DOOR;
-		BuildBlock doorBlockBottom = Structure.createBuildBlockFromBlockState(door.getDefaultState(), door, originalPos.up(), originalPos);
-		BuildBlock doorBlockTop = Structure.createBuildBlockFromBlockState(door.getDefaultState().with(DoorBlock.HALF, DoubleBlockHalf.UPPER),
-				door, originalPos.up(2), originalPos);
+		BuildBlock doorBlockBottom = Structure.createBuildBlockFromBlockState(door.defaultBlockState(), door, originalPos.above(), originalPos);
+		BuildBlock doorBlockTop = Structure.createBuildBlockFromBlockState(door.defaultBlockState().setValue(DoorBlock.HALF, DoubleBlockHalf.UPPER),
+				door, originalPos.above(2), originalPos);
 		doorBlockBottom.setSubBlock(doorBlockTop);
 		buildingBlocks.add(doorBlockBottom);
 
@@ -231,18 +231,18 @@ public class StructurePart extends Structure {
 	private ArrayList<BuildBlock> setupStairs(StructurePartConfiguration configuration, BlockPos originalPos, BlockState materialState, Direction facing) {
 		ArrayList<BuildBlock> buildingBlocks = new ArrayList<BuildBlock>();
 		BlockPos stepPos = null;
-		BlockPos stepOriginalPos = originalPos.west((int) (configuration.stairWidth - .2) / 2).up();
+		BlockPos stepOriginalPos = originalPos.west((int) (configuration.stairWidth - .2) / 2).above();
 
 		for (int i = 0; i < configuration.stairHeight; i++) {
 			// Reset step building position to the starting position up by the
 			// height counter.
-			stepPos = stepOriginalPos.up(i).north(i);
+			stepPos = stepOriginalPos.above(i).north(i);
 
 			for (int j = 0; j < configuration.stairWidth; j++) {
 				// j is the north/south counter.
 				buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), stepPos, originalPos));
 
-				stepPos = stepPos.offset(facing.rotateYCCW());
+				stepPos = stepPos.relative(facing.getCounterClockWise());
 			}
 		}
 
@@ -252,18 +252,18 @@ public class StructurePart extends Structure {
 	private ArrayList<BuildBlock> setupWall(StructurePartConfiguration configuration, BlockPos originalPos, BlockState materialState, Direction facing) {
 		ArrayList<BuildBlock> buildingBlocks = new ArrayList<BuildBlock>();
 		BlockPos wallPos = null;
-		BlockPos wallOriginalPos = originalPos.west(configuration.generalWidth / 2).up();
+		BlockPos wallOriginalPos = originalPos.west(configuration.generalWidth / 2).above();
 
 		for (int i = 0; i < configuration.generalHeight; i++) {
 			// Reset wall building position to the starting position up by the
 			// height counter.
-			wallPos = wallOriginalPos.up(i);
+			wallPos = wallOriginalPos.above(i);
 
 			for (int j = 0; j < configuration.generalWidth; j++) {
 				// j is the north/south counter.
 				buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), wallPos, originalPos));
 
-				wallPos = wallPos.offset(facing.rotateYCCW());
+				wallPos = wallPos.relative(facing.getCounterClockWise());
 			}
 		}
 
@@ -284,7 +284,7 @@ public class StructurePart extends Structure {
 				// j is the north/south counter.
 				buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), floorPos, originalPos));
 
-				floorPos = floorPos.offset(facing.rotateYCCW());
+				floorPos = floorPos.relative(facing.getCounterClockWise());
 			}
 		}
 
@@ -294,10 +294,10 @@ public class StructurePart extends Structure {
 	private ArrayList<BuildBlock> setupRoof(StructurePartConfiguration configuration, BlockPos originalPos, BlockState materialState, Direction facing) {
 		ArrayList<BuildBlock> buildingBlocks = new ArrayList<BuildBlock>();
 		BlockPos wallPos = null;
-		BlockPos wallOriginalPos = originalPos.west(configuration.stairWidth / 2).up();
+		BlockPos wallOriginalPos = originalPos.west(configuration.stairWidth / 2).above();
 
 		// Get the stairs state without the facing since it will change.
-		BlockState stateWithoutFacing = materialState.with(StairsBlock.HALF, Half.BOTTOM).with(StairsBlock.SHAPE,
+		BlockState stateWithoutFacing = materialState.setValue(StairsBlock.HALF, Half.BOTTOM).setValue(StairsBlock.SHAPE,
 				StairsShape.STRAIGHT);
 
 		int wallWidth = configuration.stairWidth;
@@ -316,20 +316,20 @@ public class StructurePart extends Structure {
 			// I is the vaulted roof level.
 			for (int j = 0; j < 4; j++) {
 				// Default is depth.
-				Direction tempFacing = facing.rotateYCCW();
+				Direction tempFacing = facing.getCounterClockWise();
 				Direction flowDirection = facing.getOpposite();
 				int wallSize = wallDepth;
 
 				switch (j) {
 					case 1: {
 						tempFacing = facing;
-						flowDirection = facing.rotateYCCW();
+						flowDirection = facing.getCounterClockWise();
 						wallSize = wallWidth;
 						break;
 					}
 
 					case 2: {
-						tempFacing = facing.rotateY();
+						tempFacing = facing.getClockWise();
 						flowDirection = facing;
 						wallSize = wallDepth;
 						break;
@@ -337,7 +337,7 @@ public class StructurePart extends Structure {
 
 					case 3: {
 						tempFacing = facing.getOpposite();
-						flowDirection = facing.rotateY();
+						flowDirection = facing.getClockWise();
 						wallSize = wallWidth;
 						break;
 					}
@@ -345,21 +345,21 @@ public class StructurePart extends Structure {
 
 				for (int k = 0; k <= wallSize; k++) {
 					// j is the north/south counter.
-					buildingBlocks.add(Structure.createBuildBlockFromBlockState(stateWithoutFacing.with(StairsBlock.FACING, tempFacing),
+					buildingBlocks.add(Structure.createBuildBlockFromBlockState(stateWithoutFacing.setValue(StairsBlock.FACING, tempFacing),
 							materialState.getBlock(), wallPos, originalPos));
 
-					wallPos = wallPos.offset(flowDirection);
+					wallPos = wallPos.relative(flowDirection);
 				}
 			}
 
-			wallPos = wallPos.offset(facing.rotateYCCW()).offset(facing.getOpposite()).up();
+			wallPos = wallPos.relative(facing.getCounterClockWise()).relative(facing.getOpposite()).above();
 			wallWidth = wallWidth - 2;
 			wallDepth = wallDepth - 2;
 		}
 
-		long wallPosLong = wallPos.down().toLong();
+		long wallPosLong = wallPos.below().asLong();
 
-		if (buildingBlocks.stream().noneMatch(x -> x.blockPos.toLong() == wallPosLong)) {
+		if (buildingBlocks.stream().noneMatch(x -> x.blockPos.asLong() == wallPosLong)) {
 			// Create final blocks.
 			int finalStoneCount = wallDepth;
 
@@ -379,9 +379,9 @@ public class StructurePart extends Structure {
 						configuration.stairsMaterial.getFullBlock().getBlock(), wallPos, originalPos));
 
 				if (isWider) {
-					wallPos = wallPos.offset(facing.rotateYCCW());
+					wallPos = wallPos.relative(facing.getCounterClockWise());
 				} else {
-					wallPos = wallPos.offset(facing.getOpposite());
+					wallPos = wallPos.relative(facing.getOpposite());
 				}
 			}
 		}

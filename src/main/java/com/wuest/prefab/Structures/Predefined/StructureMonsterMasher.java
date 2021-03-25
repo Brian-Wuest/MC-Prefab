@@ -46,7 +46,7 @@ public class StructureMonsterMasher extends Structure {
 				world,
 				originalPos,
 				originalPos.east(6).south(),
-				originalPos.south(15).west(6).up(18),
+				originalPos.south(15).west(6).above(18),
 				"..\\src\\main\\resources\\assets\\prefab\\structures\\monster_masher.zip",
 				clearedSpace,
 				playerFacing, false, false);
@@ -99,7 +99,7 @@ public class StructureMonsterMasher extends Structure {
 
 		// Set the spawner.
 		for (BlockPos pos : this.mobSpawnerPos) {
-			TileEntity tileEntity = world.getTileEntity(pos);
+			TileEntity tileEntity = world.getBlockEntity(pos);
 
 			if (tileEntity instanceof MobSpawnerTileEntity) {
 				MobSpawnerTileEntity spawner = (MobSpawnerTileEntity) tileEntity;
@@ -107,25 +107,25 @@ public class StructureMonsterMasher extends Structure {
 				switch (monstersPlaced) {
 					case 0: {
 						// Zombie.
-						spawner.getSpawnerBaseLogic().setEntityType(EntityType.ZOMBIE);
+						spawner.getSpawner().setEntityId(EntityType.ZOMBIE);
 						break;
 					}
 
 					case 1: {
 						// Skeleton.
-						spawner.getSpawnerBaseLogic().setEntityType(EntityType.SKELETON);
+						spawner.getSpawner().setEntityId(EntityType.SKELETON);
 						break;
 					}
 
 					case 2: {
 						// Spider.
-						spawner.getSpawnerBaseLogic().setEntityType(EntityType.SPIDER);
+						spawner.getSpawner().setEntityId(EntityType.SPIDER);
 						break;
 					}
 
 					default: {
 						// Creeper.
-						spawner.getSpawnerBaseLogic().setEntityType(EntityType.CREEPER);
+						spawner.getSpawner().setEntityId(EntityType.CREEPER);
 						break;
 					}
 				}
@@ -135,13 +135,13 @@ public class StructureMonsterMasher extends Structure {
 		}
 
 		if (this.signPosition != null) {
-			TileEntity tileEntity = world.getTileEntity(this.signPosition);
+			TileEntity tileEntity = world.getBlockEntity(this.signPosition);
 
 			if (tileEntity instanceof SignTileEntity) {
 				SignTileEntity signTile = (SignTileEntity) tileEntity;
-				signTile.setText(0, new StringTextComponent("Lamp On=Mobs"));
+				signTile.setMessage(0, new StringTextComponent("Lamp On=Mobs"));
 
-				signTile.setText(2, new StringTextComponent("Lamp Off=No Mobs"));
+				signTile.setMessage(2, new StringTextComponent("Lamp Off=No Mobs"));
 			}
 		}
 	}

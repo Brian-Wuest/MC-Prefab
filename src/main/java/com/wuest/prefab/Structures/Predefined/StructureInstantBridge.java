@@ -59,48 +59,48 @@ public class StructureInstantBridge extends Structure {
 		BlockState materialState = configuration.bridgeMaterial.getBlockType();
 		Direction facing = Direction.SOUTH;
 
-		BlockState torchState = Blocks.TORCH.getDefaultState();
-		BlockState glassState = Blocks.GLASS_PANE.getDefaultState();
+		BlockState torchState = Blocks.TORCH.defaultBlockState();
+		BlockState glassState = Blocks.GLASS_PANE.defaultBlockState();
 
 		int interiorHeightOffSet = configuration.interiorHeight - 3;
 
 		for (int i = 1; i <= configuration.bridgeLength; i++) {
-			BlockPos currentPos = originalPos.offset(facing, i);
+			BlockPos currentPos = originalPos.relative(facing, i);
 
 			// Place the floor
-			buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), currentPos.offset(facing.rotateYCCW(), 2), originalPos));
-			buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), currentPos.offset(facing.rotateYCCW()), originalPos));
+			buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), currentPos.relative(facing.getCounterClockWise(), 2), originalPos));
+			buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), currentPos.relative(facing.getCounterClockWise()), originalPos));
 			buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), currentPos, originalPos));
-			buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), currentPos.offset(facing.rotateY()), originalPos));
-			buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), currentPos.offset(facing.rotateY(), 2), originalPos));
+			buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), currentPos.relative(facing.getClockWise()), originalPos));
+			buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), currentPos.relative(facing.getClockWise(), 2), originalPos));
 
 			// Build the walls.
-			buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), currentPos.offset(facing.rotateYCCW(), 2).up(), originalPos));
-			buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), currentPos.offset(facing.rotateY(), 2).up(), originalPos));
+			buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), currentPos.relative(facing.getCounterClockWise(), 2).above(), originalPos));
+			buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), currentPos.relative(facing.getClockWise(), 2).above(), originalPos));
 
 			if (configuration.includeRoof) {
 				// Build the roof.
 				buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(),
-						currentPos.offset(facing.rotateYCCW(), 2).up(3 + interiorHeightOffSet), originalPos));
+						currentPos.relative(facing.getCounterClockWise(), 2).above(3 + interiorHeightOffSet), originalPos));
 				buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(),
-						currentPos.offset(facing.rotateYCCW()).up(4 + interiorHeightOffSet), originalPos));
-				buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), currentPos.up(4 + interiorHeightOffSet), originalPos));
+						currentPos.relative(facing.getCounterClockWise()).above(4 + interiorHeightOffSet), originalPos));
+				buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), currentPos.above(4 + interiorHeightOffSet), originalPos));
 				buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(),
-						currentPos.offset(facing.rotateY()).up(4 + interiorHeightOffSet), originalPos));
+						currentPos.relative(facing.getClockWise()).above(4 + interiorHeightOffSet), originalPos));
 				buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(),
-						currentPos.offset(facing.rotateY(), 2).up(3 + interiorHeightOffSet), originalPos));
+						currentPos.relative(facing.getClockWise(), 2).above(3 + interiorHeightOffSet), originalPos));
 			}
 
 			for (int j = 0; j <= interiorHeightOffSet; j++) {
 				if ((i == 1 || i % 6 == 0) && j == 0) {
 					// Place torches.
-					buildingBlocks.add(Structure.createBuildBlockFromBlockState(torchState, torchState.getBlock(), currentPos.offset(facing.rotateYCCW(), 2).up(2), originalPos));
-					buildingBlocks.add(Structure.createBuildBlockFromBlockState(torchState, torchState.getBlock(), currentPos.offset(facing.rotateY(), 2).up(2), originalPos));
+					buildingBlocks.add(Structure.createBuildBlockFromBlockState(torchState, torchState.getBlock(), currentPos.relative(facing.getCounterClockWise(), 2).above(2), originalPos));
+					buildingBlocks.add(Structure.createBuildBlockFromBlockState(torchState, torchState.getBlock(), currentPos.relative(facing.getClockWise(), 2).above(2), originalPos));
 				} else if (configuration.includeRoof) {
 					// Place Glass panes
 					buildingBlocks
-							.add(Structure.createBuildBlockFromBlockState(glassState, glassState.getBlock(), currentPos.offset(facing.rotateYCCW(), 2).up(2 + j), originalPos));
-					buildingBlocks.add(Structure.createBuildBlockFromBlockState(glassState, glassState.getBlock(), currentPos.offset(facing.rotateY(), 2).up(2 + j), originalPos));
+							.add(Structure.createBuildBlockFromBlockState(glassState, glassState.getBlock(), currentPos.relative(facing.getCounterClockWise(), 2).above(2 + j), originalPos));
+					buildingBlocks.add(Structure.createBuildBlockFromBlockState(glassState, glassState.getBlock(), currentPos.relative(facing.getClockWise(), 2).above(2 + j), originalPos));
 				}
 			}
 		}

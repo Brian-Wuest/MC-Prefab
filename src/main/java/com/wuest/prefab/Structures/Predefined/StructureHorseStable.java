@@ -25,8 +25,8 @@ public class StructureHorseStable extends Structure {
 		Structure.ScanStructure(
 				world,
 				originalPos,
-				originalPos.east(4).down(4).south(),
-				originalPos.south(10).west(3).up(7),
+				originalPos.east(4).below(4).south(),
+				originalPos.south(10).west(3).above(7),
 				"..\\src\\main\\resources\\assets\\prefab\\structures\\horsestable.zip",
 				clearedSpace,
 				playerFacing, false, false);

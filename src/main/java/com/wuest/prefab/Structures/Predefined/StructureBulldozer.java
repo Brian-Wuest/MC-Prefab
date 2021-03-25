@@ -48,8 +48,8 @@ public class StructureBulldozer extends Structure {
 		BulldozerConfiguration configuration = (BulldozerConfiguration) this.configuration;
 
 		// Only harvest up to diamond level and non-indestructable blocks.
-		if (!configuration.creativeMode && Prefab.proxy.getServerConfiguration().allowBulldozerToCreateDrops && state.getBlock().getHarvestLevel(state) < 4 && state.getBlockHardness(world, pos) >= 0.0f) {
-			Block.spawnDrops(state, this.world, pos);
+		if (!configuration.creativeMode && Prefab.proxy.getServerConfiguration().allowBulldozerToCreateDrops && state.getBlock().getHarvestLevel(state) < 4 && state.getDestroySpeed(world, pos) >= 0.0f) {
+			Block.dropResources(state, this.world, pos);
 		}
 
 		if (configuration.creativeMode && state.getBlock() instanceof FlowingFluidBlock) {
@@ -63,7 +63,7 @@ public class StructureBulldozer extends Structure {
 		// Only generate drops for this hanging entity if the bulldozer allows it.
 		// By default the base class doesn't allow hanging entities to generate drops.
 		if (Prefab.proxy.getServerConfiguration().allowBulldozerToCreateDrops) {
-			hangingEntity.onBroken(null);
+			hangingEntity.dropItem(null);
 		}
 	}
 }

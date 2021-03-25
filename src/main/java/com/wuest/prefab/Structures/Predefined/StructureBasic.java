@@ -47,14 +47,14 @@ public class StructureBasic extends Structure {
 
 			int downOffset = offset.getHeightOffset() < 0 ? Math.abs(offset.getHeightOffset()) : 0;
 			BlockPos cornerPos = originalPos
-					.offset(playerFacing.rotateYCCW(), offset.getOffSetValueForFacing(playerFacing.rotateYCCW()))
-					.offset(playerFacing, offset.getOffSetValueForFacing(playerFacing))
-					.down(downOffset);
+					.relative(playerFacing.getCounterClockWise(), offset.getOffSetValueForFacing(playerFacing.getCounterClockWise()))
+					.relative(playerFacing, offset.getOffSetValueForFacing(playerFacing))
+					.below(downOffset);
 
 			BlockPos otherCorner = cornerPos
-					.offset(playerFacing, buildShape.getLength())
-					.offset(playerFacing.rotateY(), buildShape.getWidth())
-					.up(buildShape.getHeight());
+					.relative(playerFacing, buildShape.getLength())
+					.relative(playerFacing.getClockWise(), buildShape.getWidth())
+					.above(buildShape.getHeight());
 
 			Structure.ScanStructure(
 					world,
@@ -130,12 +130,12 @@ public class StructureBasic extends Structure {
 				// For the advanced chicken coop, spawn 4 chickens above the hopper.
 				for (int i = 0; i < 4; i++) {
 					ChickenEntity entity = new ChickenEntity(EntityType.CHICKEN, world);
-					entity.setPosition(this.customBlockPos.getX(), this.customBlockPos.up().getY(), this.customBlockPos.getZ());
-					world.addEntity(entity);
+					entity.setPos(this.customBlockPos.getX(), this.customBlockPos.above().getY(), this.customBlockPos.getZ());
+					world.addFreshEntity(entity);
 				}
 			} else if (config.basicStructureName.getName().equals(EnumBasicStructureName.MineshaftEntrance.getName())) {
 				// Build the mineshaft where the trap door exists.
-				BuildingMethods.PlaceMineShaft(world, this.customBlockPos.down(), configuration.houseFacing, true);
+				BuildingMethods.PlaceMineShaft(world, this.customBlockPos.below(), configuration.houseFacing, true);
 			}
 
 			this.customBlockPos = null;
@@ -149,40 +149,40 @@ public class StructureBasic extends Structure {
 
 		if (config.basicStructureName.getName().equals(EnumBasicStructureName.AquaBase.getName())) {
 			// Replace the entrance area with air blocks.
-			BlockPos airPos = originalPos.up(4).offset(configuration.houseFacing.getOpposite(), 1);
+			BlockPos airPos = originalPos.above(4).relative(configuration.houseFacing.getOpposite(), 1);
 
 			// This is the first wall.
-			world.removeBlock(airPos.offset(configuration.houseFacing.rotateY()), false);
+			world.removeBlock(airPos.relative(configuration.houseFacing.getClockWise()), false);
 			world.removeBlock(airPos, false);
-			world.removeBlock(airPos.offset(configuration.houseFacing.rotateYCCW()), false);
+			world.removeBlock(airPos.relative(configuration.houseFacing.getCounterClockWise()), false);
 
-			airPos = airPos.down();
-			world.removeBlock(airPos.offset(configuration.houseFacing.rotateY()), false);
+			airPos = airPos.below();
+			world.removeBlock(airPos.relative(configuration.houseFacing.getClockWise()), false);
 			world.removeBlock(airPos, false);
-			world.removeBlock(airPos.offset(configuration.houseFacing.rotateYCCW()), false);
+			world.removeBlock(airPos.relative(configuration.houseFacing.getCounterClockWise()), false);
 
-			airPos = airPos.down();
-			world.removeBlock(airPos.offset(configuration.houseFacing.rotateY()), false);
+			airPos = airPos.below();
+			world.removeBlock(airPos.relative(configuration.houseFacing.getClockWise()), false);
 			world.removeBlock(airPos, false);
-			world.removeBlock(airPos.offset(configuration.houseFacing.rotateYCCW()), false);
+			world.removeBlock(airPos.relative(configuration.houseFacing.getCounterClockWise()), false);
 
-			airPos = airPos.down();
-			world.removeBlock(airPos.offset(configuration.houseFacing.rotateY()), false);
+			airPos = airPos.below();
+			world.removeBlock(airPos.relative(configuration.houseFacing.getClockWise()), false);
 			world.removeBlock(airPos, false);
-			world.removeBlock(airPos.offset(configuration.houseFacing.rotateYCCW()), false);
+			world.removeBlock(airPos.relative(configuration.houseFacing.getCounterClockWise()), false);
 
 			// Second part of the wall.
-			airPos = airPos.offset(configuration.houseFacing.getOpposite()).up();
-			world.removeBlock(airPos.offset(configuration.houseFacing.rotateY()), false);
+			airPos = airPos.relative(configuration.houseFacing.getOpposite()).above();
+			world.removeBlock(airPos.relative(configuration.houseFacing.getClockWise()), false);
 			world.removeBlock(airPos, false);
-			world.removeBlock(airPos.offset(configuration.houseFacing.rotateYCCW()), false);
+			world.removeBlock(airPos.relative(configuration.houseFacing.getCounterClockWise()), false);
 
-			airPos = airPos.up();
-			world.removeBlock(airPos.offset(configuration.houseFacing.rotateY()), false);
+			airPos = airPos.above();
+			world.removeBlock(airPos.relative(configuration.houseFacing.getClockWise()), false);
 			world.removeBlock(airPos, false);
-			world.removeBlock(airPos.offset(configuration.houseFacing.rotateYCCW()), false);
+			world.removeBlock(airPos.relative(configuration.houseFacing.getCounterClockWise()), false);
 
-			airPos = airPos.up();
+			airPos = airPos.above();
 			world.removeBlock(airPos, false);
 		}
 	}

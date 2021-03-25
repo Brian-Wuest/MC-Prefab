@@ -40,8 +40,8 @@ public class StructureWarehouse extends Structure {
 		Structure.ScanStructure(
 				world,
 				originalPos,
-				originalPos.east(7).south(1).down(5),
-				originalPos.west(8).south(16).up(10),
+				originalPos.east(7).south(1).below(5),
+				originalPos.west(8).south(16).above(10),
 				fileLocation,
 				clearedSpace,
 				playerFacing, false, false);

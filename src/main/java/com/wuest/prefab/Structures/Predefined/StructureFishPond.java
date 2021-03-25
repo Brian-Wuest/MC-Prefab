@@ -25,8 +25,8 @@ public class StructureFishPond extends Structure {
 		Structure.ScanStructure(
 				world,
 				originalPos,
-				originalPos.east(16).south().down(3),
-				originalPos.south(32).west(15).up(12),
+				originalPos.east(16).south().below(3),
+				originalPos.south(32).west(15).above(12),
 				"..\\src\\main\\resources\\assets\\prefab\\structures\\fishpond.zip",
 				clearedSpace,
 				playerFacing, false, false);

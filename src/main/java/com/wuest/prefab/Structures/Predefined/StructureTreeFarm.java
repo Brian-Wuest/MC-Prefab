@@ -25,7 +25,7 @@ public class StructureTreeFarm extends Structure {
 				world,
 				originalPos,
 				originalPos.east(18).south(),
-				originalPos.south(38).west(19).up(7),
+				originalPos.south(38).west(19).above(7),
 				"..\\src\\main\\resources\\assets\\prefab\\structures\\treefarm.zip",
 				clearedSpace,
 				playerFacing, false, false);

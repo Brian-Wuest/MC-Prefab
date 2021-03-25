@@ -40,7 +40,7 @@ public class StructureVillagerHouses extends Structure {
 				world,
 				originalPos,
 				cornerPos,
-				cornerPos.south(houseStyle.getLength()).west(houseStyle.getWidth()).up(houseStyle.getHeight()),
+				cornerPos.south(houseStyle.getLength()).west(houseStyle.getWidth()).above(houseStyle.getHeight()),
 				"../src/main/resources/" + houseStyle.getStructureLocation(),
 				clearedSpace,
 				playerFacing, false, false);

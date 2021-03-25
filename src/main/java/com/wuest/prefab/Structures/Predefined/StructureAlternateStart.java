@@ -42,8 +42,8 @@ public class StructureAlternateStart extends Structure {
 		clearedSpace.getStartingPosition().setEastOffset(5);
 		clearedSpace.getStartingPosition().setHeightOffset(-1);
 
-		BlockPos corner = originalPos.east(5).south().down();
-		BlockPos corner2 = originalPos.west(8).south(13).up(10);
+		BlockPos corner = originalPos.east(5).south().below();
+		BlockPos corner2 = originalPos.west(8).south(13).above(10);
 
 		Structure.ScanStructure(world, originalPos, corner, corner2,
 				"..\\src\\main\\resources\\assets\\prefab\\structures\\basic_house.zip", clearedSpace,
@@ -60,7 +60,7 @@ public class StructureAlternateStart extends Structure {
 		clearedSpace.getStartingPosition().setEastOffset(8);
 		clearedSpace.getStartingPosition().setHeightOffset(-1);
 
-		Structure.ScanStructure(world, originalPos, originalPos.east(8).south().down(), originalPos.south(22).west(3).up(8),
+		Structure.ScanStructure(world, originalPos, originalPos.east(8).south().below(), originalPos.south(22).west(3).above(8),
 				"..\\src\\main\\resources\\assets\\prefab\\structures\\ranch_house.zip", clearedSpace,
 				playerFacing, false, false);
 	}
@@ -74,7 +74,7 @@ public class StructureAlternateStart extends Structure {
 		clearedSpace.getStartingPosition().setSouthOffset(1);
 		clearedSpace.getStartingPosition().setEastOffset(7);
 
-		Structure.ScanStructure(world, originalPos, originalPos.east(7).south(), originalPos.south(14).west(8).up(9),
+		Structure.ScanStructure(world, originalPos, originalPos.east(7).south(), originalPos.south(14).west(8).above(9),
 				"..\\src\\main\\resources\\assets\\prefab\\structures\\loft_house.zip", clearedSpace, playerFacing, false, false);
 	}
 
@@ -88,7 +88,7 @@ public class StructureAlternateStart extends Structure {
 		clearedSpace.getStartingPosition().setEastOffset(8);
 		clearedSpace.getStartingPosition().setHeightOffset(-3);
 
-		Structure.ScanStructure(world, originalPos, originalPos.east(8).south().down(3), originalPos.south(16).west(8).up(12),
+		Structure.ScanStructure(world, originalPos, originalPos.east(8).south().below(3), originalPos.south(16).west(8).above(12),
 				"..\\src\\main\\resources\\assets\\prefab\\structures\\hobbit_house.zip", clearedSpace,
 				playerFacing, false, false);
 	}
@@ -103,8 +103,8 @@ public class StructureAlternateStart extends Structure {
 		clearedSpace.getStartingPosition().setEastOffset(8);
 		clearedSpace.getStartingPosition().setHeightOffset(-1);
 
-		BlockPos corner = originalPos.east(8).south().down();
-		BlockPos corner2 = originalPos.west(6).south(16).up(10);
+		BlockPos corner = originalPos.east(8).south().below();
+		BlockPos corner2 = originalPos.west(6).south(16).above(10);
 
 		Structure.ScanStructure(world, originalPos, corner, corner2,
 				"..\\src\\main\\resources\\assets\\prefab\\structures\\desert_house2.zip", clearedSpace,
@@ -121,8 +121,8 @@ public class StructureAlternateStart extends Structure {
 		clearedSpace.getStartingPosition().setEastOffset(8);
 		clearedSpace.getStartingPosition().setHeightOffset(-1);
 
-		BlockPos corner = originalPos.east(8).south().down();
-		BlockPos corner2 = originalPos.west(4).south(10).up(12);
+		BlockPos corner = originalPos.east(8).south().below();
+		BlockPos corner2 = originalPos.west(4).south(10).above(12);
 
 		Structure.ScanStructure(world, originalPos, corner, corner2,
 				"..\\src\\main\\resources\\assets\\prefab\\structures\\subaquatic_house.zip", clearedSpace,
@@ -143,13 +143,13 @@ public class StructureAlternateStart extends Structure {
 		PositionOffset offset = clearedSpace.getStartingPosition();
 
 		int downOffset = offset.getHeightOffset() < 0 ? Math.abs(offset.getHeightOffset()) : 0;
-		BlockPos cornerPos = originalPos.east(offset.getEastOffset()).south(offset.getSouthOffset()).down(downOffset);
+		BlockPos cornerPos = originalPos.east(offset.getEastOffset()).south(offset.getSouthOffset()).below(downOffset);
 
 		Structure.ScanStructure(
 				world,
 				originalPos,
 				cornerPos,
-				cornerPos.south(buildShape.getLength()).west(buildShape.getWidth()).up(buildShape.getHeight()),
+				cornerPos.south(buildShape.getLength()).west(buildShape.getWidth()).above(buildShape.getHeight()),
 				"..\\src\\main\\resources\\assets\\prefab\\structures\\" + structureFileName + ".zip",
 				clearedSpace,
 				playerFacing,
@@ -263,23 +263,23 @@ public class StructureAlternateStart extends Structure {
 
 		if (this.trapDoorPosition != null && this.trapDoorPosition.getY() > 15 && houseConfig.addMineShaft) {
 			// Build the mineshaft.
-			BuildingMethods.PlaceMineShaft(world, this.trapDoorPosition.down(), houseConfig.houseFacing, false);
+			BuildingMethods.PlaceMineShaft(world, this.trapDoorPosition.below(), houseConfig.houseFacing, false);
 		}
 
 		if (this.signPosition != null) {
-			TileEntity tileEntity = world.getTileEntity(this.signPosition);
+			TileEntity tileEntity = world.getBlockEntity(this.signPosition);
 
 			if (tileEntity instanceof SignTileEntity) {
 				SignTileEntity signTile = (SignTileEntity) tileEntity;
-				signTile.setText(0, new StringTextComponent("This is"));
+				signTile.setMessage(0, new StringTextComponent("This is"));
 
 				if (player.getDisplayName().getString().length() >= 15) {
-					signTile.setText(1, new StringTextComponent(player.getDisplayName().getString()));
+					signTile.setMessage(1, new StringTextComponent(player.getDisplayName().getString()));
 				} else {
-					signTile.setText(1, new StringTextComponent(player.getDisplayName().getString() + "'s"));
+					signTile.setMessage(1, new StringTextComponent(player.getDisplayName().getString() + "'s"));
 				}
 
-				signTile.setText(2, new StringTextComponent("house!"));
+				signTile.setMessage(2, new StringTextComponent("house!"));
 			}
 		}
 
@@ -293,7 +293,7 @@ public class StructureAlternateStart extends Structure {
 
 		// Make sure to send a message to the client to sync up the server player information and the client player
 		// information.
-		Prefab.network.sendTo(new PlayerEntityTagMessage(playerConfig.getModIsPlayerNewTag(player)), ((ServerPlayerEntity) player).connection.netManager,
+		Prefab.network.sendTo(new PlayerEntityTagMessage(playerConfig.getModIsPlayerNewTag(player)), ((ServerPlayerEntity) player).connection.connection,
 				NetworkDirection.PLAY_TO_CLIENT);
 	}
 }

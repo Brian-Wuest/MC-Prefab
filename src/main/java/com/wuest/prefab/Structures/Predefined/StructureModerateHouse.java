@@ -39,16 +39,16 @@ public class StructureModerateHouse extends Structure {
 		clearedSpace.getStartingPosition().setHorizontalOffset(playerFacing, 1);
 
 		// East is always to the "Left" of the player.
-		clearedSpace.getStartingPosition().setHorizontalOffset(playerFacing.rotateYCCW(), houseStyle.getEastOffSet());
+		clearedSpace.getStartingPosition().setHorizontalOffset(playerFacing.getCounterClockWise(), houseStyle.getEastOffSet());
 		clearedSpace.getStartingPosition().setHeightOffset(houseStyle.getDownOffSet() * -1);
 
-		BlockPos cornerPos = originalPos.offset(playerFacing.rotateYCCW(), houseStyle.getEastOffSet()).offset(playerFacing).down(houseStyle.getDownOffSet());
+		BlockPos cornerPos = originalPos.relative(playerFacing.getCounterClockWise(), houseStyle.getEastOffSet()).relative(playerFacing).below(houseStyle.getDownOffSet());
 
 		Structure.ScanStructure(
 				world,
 				originalPos,
 				cornerPos,
-				cornerPos.offset(playerFacing, houseStyle.getLength()).offset(playerFacing.rotateY(), houseStyle.getWidth()).up(houseStyle.getHeight()),
+				cornerPos.relative(playerFacing, houseStyle.getLength()).relative(playerFacing.getClockWise(), houseStyle.getWidth()).above(houseStyle.getHeight()),
 				"../src/main/resources/" + houseStyle.getStructureLocation(),
 				clearedSpace,
 				playerFacing, false, false);
@@ -88,7 +88,7 @@ public class StructureModerateHouse extends Structure {
 			this.trapDoorPosition = block.getStartingPosition().getRelativePosition(
 					originalPos,
 					this.getClearSpace().getShape().getDirection(),
-					configuration.houseFacing).up();
+					configuration.houseFacing).above();
 		} else if (foundBlock instanceof BedBlock) {
 			BlockPos bedHeadPosition = block.getStartingPosition().getRelativePosition(originalPos, this.getClearSpace().getShape().getDirection(), configuration.houseFacing);
 			BlockPos bedFootPosition = block.getSubBlock().getStartingPosition().getRelativePosition(
@@ -127,7 +127,7 @@ public class StructureModerateHouse extends Structure {
 
 		if (this.trapDoorPosition != null && this.trapDoorPosition.getY() > 15 && houseConfig.addMineshaft) {
 			// Build the mineshaft.
-			BuildingMethods.PlaceMineShaft(world, this.trapDoorPosition.down(), houseConfig.houseFacing, false);
+			BuildingMethods.PlaceMineShaft(world, this.trapDoorPosition.below(), houseConfig.houseFacing, false);
 		}
 
 		if (this.bedPositions.size() > 0) {
@@ -142,7 +142,7 @@ public class StructureModerateHouse extends Structure {
 
 		// Make sure to send a message to the client to sync up the server player information and the client player
 		// information.
-		Prefab.network.sendTo(new PlayerEntityTagMessage(playerConfig.getModIsPlayerNewTag(player)), ((ServerPlayerEntity) player).connection.netManager,
+		Prefab.network.sendTo(new PlayerEntityTagMessage(playerConfig.getModIsPlayerNewTag(player)), ((ServerPlayerEntity) player).connection.connection,
 				NetworkDirection.PLAY_TO_CLIENT);
 	}
 

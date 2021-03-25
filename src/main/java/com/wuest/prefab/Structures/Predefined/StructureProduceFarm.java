@@ -33,8 +33,8 @@ public class StructureProduceFarm extends Structure {
 		Structure.ScanStructure(
 				world,
 				originalPos,
-				originalPos.east(28).south().down(1),
-				originalPos.south(32).west(3).up(9),
+				originalPos.east(28).south().below(1),
+				originalPos.south(32).west(3).above(9),
 				"..\\src\\main\\resources\\assets\\prefab\\structures\\producefarm.zip",
 				clearedSpace,
 				playerFacing, false, false);
