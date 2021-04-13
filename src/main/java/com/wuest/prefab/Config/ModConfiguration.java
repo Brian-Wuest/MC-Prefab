@@ -270,9 +270,9 @@ public class ModConfiguration {
 				.writingMode(WritingMode.REPLACE)
 				.build();
 
-		Prefab.LOGGER.debug("Built TOML config for {}", path.toString());
+		Prefab.LOGGER.info("Built TOML config for {}", path.toString());
 		configData.load();
-		Prefab.LOGGER.debug("Loaded TOML config file {}", path.toString());
+		Prefab.LOGGER.info("Loaded TOML config file {}", path.toString());
 		spec.setConfig(configData);
 
 		ModConfiguration.UpdateServerConfig();

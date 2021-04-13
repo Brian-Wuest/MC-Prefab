@@ -1,14 +1,18 @@
 package com.wuest.prefab;
 
+import com.wuest.prefab.Config.ModConfiguration;
+import com.wuest.prefab.Events.ModEventHandler;
 import com.wuest.prefab.Proxy.ClientProxy;
 import com.wuest.prefab.Proxy.CommonProxy;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.material.PushReaction;
+import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -16,6 +20,8 @@ import net.minecraftforge.fml.network.simple.SimpleChannel;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.nio.file.Path;
 
 /**
  * The starting point to load all of the blocks, items and other objects associated with this mod.
@@ -83,6 +89,8 @@ public class Prefab {
 
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
 
+		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::modConfigReload);
+
 		Prefab.proxy = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
 		Prefab.proxy.RegisterEventHandler();
@@ -98,5 +106,14 @@ public class Prefab {
 
 	private void doClientStuff(final FMLClientSetupEvent event) {
 		Prefab.proxy.clientSetup(event);
+	}
+
+	private void modConfigReload(ModConfig.Loading loadingEvent) {
+		if (loadingEvent.getConfig().getModId().equals(Prefab.MODID)) {
+			Prefab.LOGGER.info("Reloading mod configuration.");
+			ForgeConfigSpec spec = loadingEvent.getConfig().getSpec();
+			Path configPath = loadingEvent.getConfig().getFullPath();
+			ModConfiguration.loadConfig(spec, configPath);
+		}
 	}
 }
