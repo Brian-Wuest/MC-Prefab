@@ -18,206 +18,212 @@ import net.minecraft.world.server.ServerWorld;
  */
 @SuppressWarnings("WeakerAccess")
 public class StructureConfiguration {
-	public static String houseFacingName = "House Facing";
+    public static String houseFacingName = "House Facing";
 
-	private static String hitXTag = "hitX";
-	private static String hitYTag = "hitY";
-	private static String hitZTag = "hitZ";
-	private static String houseFacingTag = "wareHouseFacing";
+    private static String hitXTag = "hitX";
+    private static String hitYTag = "hitY";
+    private static String hitZTag = "hitZ";
+    private static String houseFacingTag = "wareHouseFacing";
 
-	/**
-	 * The structure facing property.
-	 */
-	public Direction houseFacing;
+    /**
+     * The structure facing property.
+     */
+    public Direction houseFacing;
 
-	/**
-	 * The position of the structure.
-	 */
-	public BlockPos pos;
+    /**
+     * The position of the structure.
+     */
+    public BlockPos pos;
 
-	/**
-	 * Initializes a new instance of the StructureConfiguration class.
-	 */
-	public StructureConfiguration() {
-		this.Initialize();
-	}
+    /**
+     * Initializes a new instance of the StructureConfiguration class.
+     */
+    public StructureConfiguration() {
+        this.Initialize();
+    }
 
-	/**
-	 * Initializes any properties for this class.
-	 */
-	public void Initialize() {
-		this.houseFacing = Direction.NORTH;
-	}
+    /**
+     * Initializes any properties for this class.
+     */
+    public void Initialize() {
+        this.houseFacing = Direction.NORTH;
+    }
 
-	/**
-	 * Writes the properties to an CompoundNBT.
-	 *
-	 * @return An CompoundNBT with the updated properties.
-	 */
-	public CompoundNBT WriteToCompoundNBT() {
-		CompoundNBT tag = new CompoundNBT();
+    /**
+     * Writes the properties to an CompoundNBT.
+     *
+     * @return An CompoundNBT with the updated properties.
+     */
+    public CompoundNBT WriteToCompoundNBT() {
+        CompoundNBT tag = new CompoundNBT();
 
-		if (this.pos != null) {
-			tag.putInt(StructureConfiguration.hitXTag, this.pos.getX());
-			tag.putInt(StructureConfiguration.hitYTag, this.pos.getY());
-			tag.putInt(StructureConfiguration.hitZTag, this.pos.getZ());
-		}
+        if (this.pos != null) {
+            tag.putInt(StructureConfiguration.hitXTag, this.pos.getX());
+            tag.putInt(StructureConfiguration.hitYTag, this.pos.getY());
+            tag.putInt(StructureConfiguration.hitZTag, this.pos.getZ());
+        }
 
-		tag.putString(StructureConfiguration.houseFacingTag, this.houseFacing.getSerializedName());
+        tag.putString(StructureConfiguration.houseFacingTag, this.houseFacing.getSerializedName());
 
-		tag = this.CustomWriteToCompoundNBT(tag);
+        tag = this.CustomWriteToCompoundNBT(tag);
 
-		return tag;
-	}
+        return tag;
+    }
 
-	/**
-	 * Reads CompoundNBT to create a StructureConfiguration object from.
-	 *
-	 * @param messageTag The CompoundNBT to read the properties from.
-	 * @return The updated StructureConfiguration instance.
-	 */
-	public StructureConfiguration ReadFromCompoundNBT(CompoundNBT messageTag) {
-		return null;
-	}
+    /**
+     * Reads CompoundNBT to create a StructureConfiguration object from.
+     *
+     * @param messageTag The CompoundNBT to read the properties from.
+     * @return The updated StructureConfiguration instance.
+     */
+    public StructureConfiguration ReadFromCompoundNBT(CompoundNBT messageTag) {
+        return null;
+    }
 
-	/**
-	 * Reads CompoundNBT to create a StructureConfiguration object from.
-	 *
-	 * @param messageTag The CompoundNBT to read the properties from.
-	 * @param config     The existing StructureConfiguration instance to fill the properties in for.
-	 * @return The updated StructureConfiguration instance.
-	 */
-	public StructureConfiguration ReadFromCompoundNBT(CompoundNBT messageTag, StructureConfiguration config) {
-		if (messageTag != null) {
-			if (messageTag.contains(StructureConfiguration.hitXTag)) {
-				config.pos = new BlockPos(
-						messageTag.getInt(StructureConfiguration.hitXTag),
-						messageTag.getInt(StructureConfiguration.hitYTag),
-						messageTag.getInt(StructureConfiguration.hitZTag));
-			}
+    /**
+     * Reads CompoundNBT to create a StructureConfiguration object from.
+     *
+     * @param messageTag The CompoundNBT to read the properties from.
+     * @param config     The existing StructureConfiguration instance to fill the properties in for.
+     * @return The updated StructureConfiguration instance.
+     */
+    public StructureConfiguration ReadFromCompoundNBT(CompoundNBT messageTag, StructureConfiguration config) {
+        if (messageTag != null) {
+            if (messageTag.contains(StructureConfiguration.hitXTag)) {
+                config.pos = new BlockPos(
+                        messageTag.getInt(StructureConfiguration.hitXTag),
+                        messageTag.getInt(StructureConfiguration.hitYTag),
+                        messageTag.getInt(StructureConfiguration.hitZTag));
+            }
 
-			if (messageTag.contains(StructureConfiguration.houseFacingTag)) {
-				config.houseFacing = Direction.byName(messageTag.getString(StructureConfiguration.houseFacingTag));
-			}
+            if (messageTag.contains(StructureConfiguration.houseFacingTag)) {
+                config.houseFacing = Direction.byName(messageTag.getString(StructureConfiguration.houseFacingTag));
+            }
 
-			this.CustomReadFromNBTTag(messageTag, config);
-		}
+            this.CustomReadFromNBTTag(messageTag, config);
+        }
 
-		return config;
-	}
+        return config;
+    }
 
-	/**
-	 * Generic method to start the building of the structure.
-	 *
-	 * @param player The player which requested the build.
-	 * @param world  The world instance where the build will occur.
-	 */
-	public void BuildStructure(PlayerEntity player, ServerWorld world) {
-		// This is always on the server.
-		BlockPos hitBlockPos = this.pos;
+    /**
+     * Generic method to start the building of the structure.
+     *
+     * @param player The player which requested the build.
+     * @param world  The world instance where the build will occur.
+     */
+    public void BuildStructure(PlayerEntity player, ServerWorld world) {
+        // This is always on the server.
+        BlockPos hitBlockPos = this.pos;
 
-		this.ConfigurationSpecificBuildStructure(player, world, hitBlockPos);
-	}
+        this.ConfigurationSpecificBuildStructure(player, world, hitBlockPos);
+    }
 
-	/**
-	 * This is used to actually build the structure as it creates the structure instance and calls build structure.
-	 *
-	 * @param player      The player which requested the build.
-	 * @param world       The world instance where the build will occur.
-	 * @param hitBlockPos This hit block position.
-	 */
-	protected void ConfigurationSpecificBuildStructure(PlayerEntity player, ServerWorld world, BlockPos hitBlockPos) {
-	}
+    /**
+     * This is used to actually build the structure as it creates the structure instance and calls build structure.
+     *
+     * @param player      The player which requested the build.
+     * @param world       The world instance where the build will occur.
+     * @param hitBlockPos This hit block position.
+     */
+    protected void ConfigurationSpecificBuildStructure(PlayerEntity player, ServerWorld world, BlockPos hitBlockPos) {
+    }
 
-	/**
-	 * Custom method which can be overridden to write custom properties to the tag.
-	 *
-	 * @param tag The CompoundNBT to write the custom properties too.
-	 * @return The updated tag.
-	 */
-	protected CompoundNBT CustomWriteToCompoundNBT(CompoundNBT tag) {
-		return tag;
-	}
+    /**
+     * Custom method which can be overridden to write custom properties to the tag.
+     *
+     * @param tag The CompoundNBT to write the custom properties too.
+     * @return The updated tag.
+     */
+    protected CompoundNBT CustomWriteToCompoundNBT(CompoundNBT tag) {
+        return tag;
+    }
 
-	/**
-	 * Custom method to read the CompoundNBT message.
-	 *
-	 * @param messageTag The message to create the configuration from.
-	 * @param config     The configuration to read the settings into.
-	 */
-	protected void CustomReadFromNBTTag(CompoundNBT messageTag, StructureConfiguration config) {
-	}
+    /**
+     * Custom method to read the CompoundNBT message.
+     *
+     * @param messageTag The message to create the configuration from.
+     * @param config     The configuration to read the settings into.
+     */
+    protected void CustomReadFromNBTTag(CompoundNBT messageTag, StructureConfiguration config) {
+    }
 
-	/**
-	 * This method will remove 1 structure item from the player's inventory, it is expected that the item is in the
-	 * player's hand.
-	 *
-	 * @param player The player to remove the item from.
-	 * @param item   the structure item to find.
-	 */
-	protected void RemoveStructureItemFromPlayer(PlayerEntity player, StructureItem item) {
-		ItemStack stack = player.getMainHandItem();
+    /**
+     * This method will remove 1 structure item from the player's inventory, it is expected that the item is in the
+     * player's hand.
+     *
+     * @param player The player to remove the item from.
+     * @param item   the structure item to find.
+     */
+    protected void RemoveStructureItemFromPlayer(PlayerEntity player, StructureItem item) {
+        ItemStack stack = player.getMainHandItem();
 
-		if (stack.getItem() != item) {
-			stack = player.getOffhandItem();
-		}
+        if (stack.getItem() != item) {
+            stack = player.getOffhandItem();
 
-		int slot = this.getSlotFor(player.inventory, stack);
+            stack.shrink(1);
 
-		if (slot != -1) {
-			stack.shrink(1);
+            if (stack.isEmpty()) {
+                player.inventory.offhand.set(0, ItemStack.EMPTY);
+            }
+        } else {
+            int slot = this.getSlotFor(player.inventory, stack);
 
-			if (stack.isEmpty()) {
-				player.inventory.setItem(slot, ItemStack.EMPTY);
-			}
+            if (slot != -1) {
+                stack.shrink(1);
 
-			player.containerMenu.broadcastChanges();
-		}
-	}
+                if (stack.isEmpty()) {
+                    player.inventory.setItem(slot, ItemStack.EMPTY);
+                }
+            }
+        }
 
-	protected void DamageHeldItem(PlayerEntity player, StructureItem item) {
-		ItemStack stack = player.getMainHandItem().getItem() == item ? player.getMainHandItem() : player.getOffhandItem();
-		Hand hand = player.getMainHandItem().getItem() == item ? Hand.MAIN_HAND : Hand.OFF_HAND;
+        player.containerMenu.broadcastChanges();
+    }
 
-		ItemStack copy = stack.copy();
+    protected void DamageHeldItem(PlayerEntity player, StructureItem item) {
+        ItemStack stack = player.getMainHandItem().getItem() == item ? player.getMainHandItem() : player.getOffhandItem();
+        Hand hand = player.getMainHandItem().getItem() == item ? Hand.MAIN_HAND : Hand.OFF_HAND;
 
-		stack.hurtAndBreak(1, player, (player1) ->
-		{
-			player1.broadcastBreakEvent(hand);
-		});
+        ItemStack copy = stack.copy();
 
-		if (stack.isEmpty()) {
-			net.minecraftforge.event.ForgeEventFactory.onPlayerDestroyItem(player, copy, hand);
-			EquipmentSlotType slotType = hand == Hand.MAIN_HAND ? EquipmentSlotType.MAINHAND : EquipmentSlotType.OFFHAND;
+        stack.hurtAndBreak(1, player, (player1) ->
+        {
+            player1.broadcastBreakEvent(hand);
+        });
 
-			player.setItemSlot(slotType, ItemStack.EMPTY);
-		}
+        if (stack.isEmpty()) {
+            net.minecraftforge.event.ForgeEventFactory.onPlayerDestroyItem(player, copy, hand);
+            EquipmentSlotType slotType = hand == Hand.MAIN_HAND ? EquipmentSlotType.MAINHAND : EquipmentSlotType.OFFHAND;
 
-		player.containerMenu.broadcastChanges();
-	}
+            player.setItemSlot(slotType, ItemStack.EMPTY);
+        }
 
-	/**
-	 * Checks item, NBT, and meta if the item is not damageable
-	 */
-	private boolean stackEqualExact(ItemStack stack1, ItemStack stack2) {
-		return stack1.getItem() == stack2.getItem() && ItemStack.tagMatches(stack1, stack2);
-	}
+        player.containerMenu.broadcastChanges();
+    }
 
-	/**
-	 * Get's the first slot which contains the item in the supplied item stack in the player's main inventory.
-	 * This method was copied directly from teh player inventory class since it was needed server side.
-	 *
-	 * @param playerInventory The player's inventory to try and find a slot.
-	 * @param stack           The stack to find an associated slot.
-	 * @return The slot index or -1 if the item wasn't found.
-	 */
-	public int getSlotFor(PlayerInventory playerInventory, ItemStack stack) {
-		for (int i = 0; i < playerInventory.items.size(); ++i) {
-			if (!playerInventory.items.get(i).isEmpty() && this.stackEqualExact(stack, playerInventory.items.get(i))) {
-				return i;
-			}
-		}
+    /**
+     * Checks item, NBT, and meta if the item is not damageable
+     */
+    private boolean stackEqualExact(ItemStack stack1, ItemStack stack2) {
+        return stack1.getItem() == stack2.getItem() && ItemStack.tagMatches(stack1, stack2);
+    }
 
-		return -1;
-	}
+    /**
+     * Get's the first slot which contains the item in the supplied item stack in the player's main inventory.
+     * This method was copied directly from teh player inventory class since it was needed server side.
+     *
+     * @param playerInventory The player's inventory to try and find a slot.
+     * @param stack           The stack to find an associated slot.
+     * @return The slot index or -1 if the item wasn't found.
+     */
+    public int getSlotFor(PlayerInventory playerInventory, ItemStack stack) {
+        for (int i = 0; i < playerInventory.items.size(); ++i) {
+            if (!playerInventory.items.get(i).isEmpty() && this.stackEqualExact(stack, playerInventory.items.get(i))) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
 }
