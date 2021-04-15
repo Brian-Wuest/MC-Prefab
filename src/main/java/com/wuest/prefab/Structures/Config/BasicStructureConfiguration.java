@@ -200,6 +200,15 @@ public class BasicStructureConfiguration extends StructureConfiguration {
 		EnumBasicStructureName.NetherGate.baseOption.getSpecificOptions().get(1).getClearPositionOffset().setSouthOffset(1);
 		EnumBasicStructureName.NetherGate.baseOption.getSpecificOptions().get(1).getClearPositionOffset().setEastOffset(9);
 		EnumBasicStructureName.NetherGate.baseOption.getSpecificOptions().get(1).getClearPositionOffset().setHeightOffset(-7);
+
+		// Sugar Cane Farm
+		EnumBasicStructureName.SugarCaneFarm.baseOption.getSpecificOptions().get(0).getClearShape().setDirection(Direction.SOUTH);
+		EnumBasicStructureName.SugarCaneFarm.baseOption.getSpecificOptions().get(0).getClearShape().setHeight(9);
+		EnumBasicStructureName.SugarCaneFarm.baseOption.getSpecificOptions().get(0).getClearShape().setLength(6);
+		EnumBasicStructureName.SugarCaneFarm.baseOption.getSpecificOptions().get(0).getClearShape().setWidth(12);
+		EnumBasicStructureName.SugarCaneFarm.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.SugarCaneFarm.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setEastOffset(10);
+		EnumBasicStructureName.SugarCaneFarm.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setHeightOffset(-1);
 	}
 
 	/**
@@ -361,7 +370,8 @@ public class BasicStructureConfiguration extends StructureConfiguration {
 		SkiLodge("ski_lodge", "item.prefab.ski_lodge", "item_ski_lodge", SkiLodgeOptions.Default),
 		WindMill("wind_mill", "item.prefab.wind_mill", "item_wind_mill", WindMillOptions.Default),
 		TownHall("town_hall", "item.prefab.town_hall", "item_town_hall", TownHallOptions.Default),
-		NetherGate("nether_gate", "item.prefab.nether_gate", "item_nether_gate", NetherGateOptions.AncientSkull);
+		NetherGate("nether_gate", "item.prefab.nether_gate", "item_nether_gate", NetherGateOptions.AncientSkull),
+		SugarCaneFarm("sugar_cane_farm", "item.prefab.sugar_cane_farm", "item_sugar_cane_farm", SugarCaneFarmOptions.Default);
 
 		private String name;
 		private String unlocalizedName;
