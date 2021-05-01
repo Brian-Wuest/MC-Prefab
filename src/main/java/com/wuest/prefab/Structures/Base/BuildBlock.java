@@ -73,15 +73,6 @@ public class BuildBlock {
                 // The state will be updated as the properties are
                 // applied.
                 for (Property<?> property : properties) {
-                    // Never keep waterlogged state, this will be taken care of when the structure is generated if it should still be waterlogged.
-                    if (property.getName().equals(BlockStateProperties.WATERLOGGED.getName())) {
-                        // Check neighbors for water, if there is water, set this to waterlogged.
-                        boolean waterLogged = BuildBlock.neighborHaveWater(originalPos, world);
-
-                        blockState.setValue(BlockStateProperties.WATERLOGGED, waterLogged);
-                        continue;
-                    }
-
                     BuildProperty buildProperty = block.getProperty(property.getName());
 
                     // Make sure that this property exists in our file. The only way it wouldn't be there would be if a
