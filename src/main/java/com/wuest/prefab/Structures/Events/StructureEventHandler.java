@@ -16,6 +16,7 @@ import net.minecraft.entity.item.ItemFrameEntity;
 import net.minecraft.entity.item.PaintingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.DoubleNBT;
@@ -23,6 +24,7 @@ import net.minecraft.nbt.ListNBT;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.properties.DoubleBlockHalf;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Rotation;
@@ -147,6 +149,10 @@ public final class StructureEventHandler {
                         structure.entitiesRemoved = true;
                     }
 
+                    if (structure.airBlocks.size() > 0) {
+                        structure.hasAirBlocks = true;
+                    }
+
                     for (int i = 0; i < 100; i++) {
                         i = StructureEventHandler.setBlock(i, structure, structuresToRemove);
                     }
@@ -202,7 +208,9 @@ public final class StructureEventHandler {
 
     private static int setBlock(int i, Structure structure, ArrayList<Structure> structuresToRemove) {
         // Structure clearing happens before anything else.
-        if (structure.clearedBlockPos.size() > 0) {
+        // Don't bother clearing the area for water-based structures
+        // Anything which should be air will be air
+        if (structure.clearedBlockPos.size() > 0 && !structure.hasAirBlocks) {
             BlockPos currentPos = structure.clearedBlockPos.get(0);
             structure.clearedBlockPos.remove(0);
 
@@ -288,7 +296,6 @@ public final class StructureEventHandler {
         } else if (structure.airBlocks.size() > 0) {
             currentBlock = structure.airBlocks.get(0);
             structure.airBlocks.remove(0);
-            structure.hasAirBlocks = true;
         } else if (structure.priorityThreeBlocks.size() > 0) {
             currentBlock = structure.priorityThreeBlocks.get(0);
             structure.priorityThreeBlocks.remove(0);
@@ -407,7 +414,6 @@ public final class StructureEventHandler {
                     structure.world.setBlock(currentPos, currentState, 3);
                 } else if (currentState.getMaterial() == Material.WATER) {
                     structure.world.setBlock(currentPos, Blocks.AIR.defaultBlockState(), 3);
-
                 }
             }
         }

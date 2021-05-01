@@ -5,11 +5,14 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Structures.Config.StructureConfiguration;
 import net.minecraft.block.*;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.state.Property;
 import net.minecraft.state.properties.AttachFace;
+import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Direction.Axis;
 import net.minecraft.util.ResourceLocation;
@@ -70,6 +73,15 @@ public class BuildBlock {
                 // The state will be updated as the properties are
                 // applied.
                 for (Property<?> property : properties) {
+                    // Never keep waterlogged state, this will be taken care of when the structure is generated if it should still be waterlogged.
+                    if (property.getName().equals(BlockStateProperties.WATERLOGGED.getName())) {
+                        // Check neighbors for water, if there is water, set this to waterlogged.
+                        boolean waterLogged = BuildBlock.neighborHaveWater(originalPos, world);
+
+                        blockState.setValue(BlockStateProperties.WATERLOGGED, waterLogged);
+                        continue;
+                    }
+
                     BuildProperty buildProperty = block.getProperty(property.getName());
 
                     // Make sure that this property exists in our file. The only way it wouldn't be there would be if a
@@ -117,6 +129,25 @@ public class BuildBlock {
             System.out.println("Error setting block state for block [" + block.getBlockName() + "] for structure configuration class [" + configuration.getClass().getName() + "]");
             throw ex;
         }
+    }
+
+    private static boolean neighborHaveWater(BlockPos originalPos, World world) {
+        boolean returnValue = false;
+
+        for (Direction direction : Direction.values()) {
+            if (direction == Direction.DOWN) {
+                continue;
+            }
+
+            FluidState fluidState = world.getFluidState(originalPos.relative(direction));
+
+            if (fluidState.is(FluidTags.WATER) && fluidState.getAmount() == 8) {
+                returnValue = true;
+                break;
+            }
+        }
+
+        return returnValue;
     }
 
     public static Direction getHorizontalFacing(Direction currentFacing, Direction configurationFacing, Direction structureDirection) {

@@ -123,6 +123,7 @@ public class ModRegistry {
     public static final RegistryObject<ItemBasicStructure> TownHall = ITEMS.register(EnumBasicStructureName.TownHall.getResourceLocation().getPath(), () -> new ItemBasicStructure(EnumBasicStructureName.TownHall));
     public static final RegistryObject<ItemBasicStructure> NetherGate = ITEMS.register(EnumBasicStructureName.NetherGate.getResourceLocation().getPath(), () -> new ItemBasicStructure(EnumBasicStructureName.NetherGate));
     public static final RegistryObject<ItemBasicStructure> SugarCaneFarm = ITEMS.register(EnumBasicStructureName.SugarCaneFarm.getResourceLocation().getPath(), () -> new ItemBasicStructure(EnumBasicStructureName.SugarCaneFarm));
+    public static final RegistryObject<ItemBasicStructure> AdvancedAquaBase = ITEMS.register(EnumBasicStructureName.AdvancedAquaBase.getResourceLocation().getPath(), () -> new ItemBasicStructure(EnumBasicStructureName.AdvancedAquaBase));
 
     /**
      * This is where the mod messages are registered.

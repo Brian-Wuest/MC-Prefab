@@ -1,7 +1,6 @@
 package com.wuest.prefab;
 
 import com.wuest.prefab.Config.ModConfiguration;
-import com.wuest.prefab.Events.ModEventHandler;
 import com.wuest.prefab.Proxy.ClientProxy;
 import com.wuest.prefab.Proxy.CommonProxy;
 import net.minecraft.block.material.Material;
@@ -28,7 +27,6 @@ import java.nio.file.Path;
  *
  * @author WuestMan
  */
-@SuppressWarnings({"WeakerAccess", "SpellCheckingInspection"})
 @Mod(Prefab.MODID)
 public class Prefab {
 	/**
@@ -113,6 +111,8 @@ public class Prefab {
 			Prefab.LOGGER.info("Reloading mod configuration.");
 			ForgeConfigSpec spec = loadingEvent.getConfig().getSpec();
 			Path configPath = loadingEvent.getConfig().getFullPath();
+
+			Prefab.LOGGER.info("Config file loaded from path: {}", configPath);
 			ModConfiguration.loadConfig(spec, configPath);
 		}
 	}

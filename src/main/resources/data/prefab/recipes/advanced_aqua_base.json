@@ -17,7 +17,7 @@
       "tag": "forge:glass"
     },
     "b": {
-      "tag": "forge:storage_blocks/compressed_stone"
+      "item": "minecraft:conduit"
     },
     "c": {
       "item": "minecraft:sea_lantern"
@@ -30,7 +30,7 @@
     }
   },
   "result": {
-    "item": "prefab:item_aqua_base",
+    "item": "prefab:item_advanced_aqua_base",
     "count": 1
   }
 }

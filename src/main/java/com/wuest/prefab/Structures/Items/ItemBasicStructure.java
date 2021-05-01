@@ -2,6 +2,7 @@ package com.wuest.prefab.Structures.Items;
 
 import com.wuest.prefab.Structures.Config.BasicStructureConfiguration;
 import com.wuest.prefab.Structures.Config.BasicStructureConfiguration.EnumBasicStructureName;
+import com.wuest.prefab.Structures.Config.Enums.AdvancedAquaBaseOptions;
 import com.wuest.prefab.Structures.Config.Enums.NetherGateOptions;
 import com.wuest.prefab.Structures.Config.Enums.SugarCaneFarmOptions;
 import com.wuest.prefab.Structures.Predefined.StructureBasic;
@@ -49,9 +50,10 @@ public class ItemBasicStructure extends StructureItem {
 		ItemStack stack = context.getPlayer().getItemInHand(context.getHand());
 		BasicStructureConfiguration structureConfiguration = new BasicStructureConfiguration();
 		structureConfiguration.basicStructureName = ((ItemBasicStructure) stack.getItem()).structureType;
-		structureConfiguration.chosenOption = SugarCaneFarmOptions.Default;
+		structureConfiguration.chosenOption = AdvancedAquaBaseOptions.Default;
 
-		boolean isWaterStructure = structureConfiguration.basicStructureName == EnumBasicStructureName.AquaBase;
+		boolean isWaterStructure = structureConfiguration.basicStructureName == EnumBasicStructureName.AquaBase
+				|| structureConfiguration.basicStructureName == EnumBasicStructureName.AdvancedAquaBase;
 
 		basicStructure.ScanStructure(
 				context.getLevel(),

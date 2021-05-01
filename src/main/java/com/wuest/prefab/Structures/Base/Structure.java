@@ -656,7 +656,6 @@ public class Structure {
             this.clearedBlockPos = new ArrayList<>();
 
             for (BlockPos pos : BlockPos.betweenClosed(startBlockPos, endBlockPos)) {
-
                 if (this.BlockShouldBeClearedDuringConstruction(configuration, world, originalPos, assumedNorth, pos)) {
                     this.clearedBlockPos.add(new BlockPos(pos));
                     this.allBlockPositions.add(new BlockPos(pos));

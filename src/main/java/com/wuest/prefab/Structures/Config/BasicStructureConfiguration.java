@@ -209,6 +209,14 @@ public class BasicStructureConfiguration extends StructureConfiguration {
 		EnumBasicStructureName.SugarCaneFarm.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setSouthOffset(1);
 		EnumBasicStructureName.SugarCaneFarm.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setEastOffset(10);
 		EnumBasicStructureName.SugarCaneFarm.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setHeightOffset(-1);
+
+		// Advanced Aqua Base.
+		EnumBasicStructureName.AdvancedAquaBase.baseOption.getSpecificOptions().get(0).getClearShape().setDirection(Direction.SOUTH);
+		EnumBasicStructureName.AdvancedAquaBase.baseOption.getSpecificOptions().get(0).getClearShape().setHeight(27);
+		EnumBasicStructureName.AdvancedAquaBase.baseOption.getSpecificOptions().get(0).getClearShape().setWidth(25);
+		EnumBasicStructureName.AdvancedAquaBase.baseOption.getSpecificOptions().get(0).getClearShape().setLength(38);
+		EnumBasicStructureName.AdvancedAquaBase.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.AdvancedAquaBase.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setEastOffset(12);
 	}
 
 	/**
@@ -371,7 +379,8 @@ public class BasicStructureConfiguration extends StructureConfiguration {
 		WindMill("wind_mill", "item.prefab.wind_mill", "item_wind_mill", WindMillOptions.Default),
 		TownHall("town_hall", "item.prefab.town_hall", "item_town_hall", TownHallOptions.Default),
 		NetherGate("nether_gate", "item.prefab.nether_gate", "item_nether_gate", NetherGateOptions.AncientSkull),
-		SugarCaneFarm("sugar_cane_farm", "item.prefab.sugar_cane_farm", "item_sugar_cane_farm", SugarCaneFarmOptions.Default);
+		SugarCaneFarm("sugar_cane_farm", "item.prefab.sugar_cane_farm", "item_sugar_cane_farm", SugarCaneFarmOptions.Default),
+		AdvancedAquaBase("advanced_aqua_base", "item.prefab.advanced_aqua_base", "item_advanced_aqua_base", AdvancedAquaBaseOptions.Default);
 
 		private String name;
 		private String unlocalizedName;

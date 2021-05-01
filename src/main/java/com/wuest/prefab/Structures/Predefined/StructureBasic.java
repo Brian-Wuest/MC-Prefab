@@ -103,7 +103,8 @@ public class StructureBasic extends Structure {
 	protected Boolean BlockShouldBeClearedDuringConstruction(StructureConfiguration configuration, World world, BlockPos originalPos, Direction assumedNorth, BlockPos blockPos) {
 		BasicStructureConfiguration config = (BasicStructureConfiguration) configuration;
 
-		if (config.basicStructureName.getName().equals(EnumBasicStructureName.AquaBase.getName())) {
+		if (config.basicStructureName.getName().equals(EnumBasicStructureName.AquaBase.getName())
+			|| config.basicStructureName.getName().equals(EnumBasicStructureName.AdvancedAquaBase.getName())) {
 			BlockState blockState = world.getBlockState(blockPos);
 			// Don't clear water blocks for this building.
 			return blockState.getMaterial() != Material.WATER;
@@ -147,7 +148,8 @@ public class StructureBasic extends Structure {
 			}
 		}
 
-		if (config.basicStructureName.getName().equals(EnumBasicStructureName.AquaBase.getName())) {
+		if (config.basicStructureName.getName().equals(EnumBasicStructureName.AquaBase.getName())
+			|| config.basicStructureName.getName().equals(EnumBasicStructureName.AdvancedAquaBase.getName())) {
 			// Replace the entrance area with air blocks.
 			BlockPos airPos = originalPos.above(4).relative(configuration.houseFacing.getOpposite(), 1);
 
