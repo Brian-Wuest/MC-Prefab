@@ -19,8 +19,8 @@
     "1.16.3-recommended": "1.6.2.1",
     "1.16.4-latest": "1.6.4.3",
     "1.16.4-recommended": "1.6.4.3",
-    "1.16.5-latest": "1.6.5.2",
-    "1.16.5-recommended": "1.6.5.2"
+    "1.16.5-latest": "1.6.5.3",
+    "1.16.5-recommended": "1.6.5.3"
   },
   "1.10.2": {
     "1.1.1.10": "New Stuff: Added [Ender Gateway] structure. Added [Phasic Block] and [Boundary Block]\nSome buildings can now be generated in mod-created dimensions.",
@@ -132,6 +132,7 @@
   "1.16.5": {
     "1.6.5.0": "Initial release for 1.16.5 containing the latest updates from 1.6.4.3",
     "1.6.5.1": "Fixing issue with glass panes in structures. Removed wither rose from Tree Nether Gate. Fixed default config file loading",
-    "1.6.5.2": "Fixing issue where the player could generate infinite houses without losing blueprint"
+    "1.6.5.2": "Fixing issue where the player could generate infinite houses without losing blueprint",
+    "1.6.5.3": "Adding Advanced Aqua Base and Sugar Cane Farm. Aqua Base recipe updated as it was too cheap before"
   }
 }
