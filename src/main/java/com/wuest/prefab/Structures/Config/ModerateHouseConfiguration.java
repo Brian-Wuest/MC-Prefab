@@ -145,11 +145,9 @@ public class ModerateHouseConfiguration extends StructureConfiguration {
 				"assets/prefab/structures/moderate_house_earthen.zip", 16, 16, 16, 8, 6),
 		JUNGLE_TREE_HOME(3, GuiLangKeys.MODERATE_JUNGLE_HOME, new ResourceLocation("prefab", "textures/gui/moderate_house_jungle_topdown.png"), 88, 164,
 				"assets/prefab/structures/moderate_house_jungle.zip", 16, 16, 41, 8, 1),
-		WORKSHOP_HOME(4, GuiLangKeys.MODERATE_WORKSHOP_HOME, new ResourceLocation("prefab", "textures/gui/moderate_house_workshop_topdown.png"), 174, 131,
-				"assets/prefab/structures/moderate_house_workshop.zip", 29, 21, 19, 14, 0),
-		NETHER_HOME(5, GuiLangKeys.MODERATE_NETHER_HOME, new ResourceLocation("prefab", "textures/gui/moderate_house_nether_topdown.png"), 141, 165,
+		NETHER_HOME(4, GuiLangKeys.MODERATE_NETHER_HOME, new ResourceLocation("prefab", "textures/gui/moderate_house_nether_topdown.png"), 141, 165,
 				"assets/prefab/structures/moderate_house_nether.zip", 16, 15, 22, 0, 0),
-		MOUNTAIN_HOME(6, GuiLangKeys.MODERATE_MOUNTAIN_HOME, new ResourceLocation("prefab", "textures/gui/moderate_house_mountain_topdown.png"), 174, 99,
+		MOUNTAIN_HOME(5, GuiLangKeys.MODERATE_MOUNTAIN_HOME, new ResourceLocation("prefab", "textures/gui/moderate_house_mountain_topdown.png"), 174, 99,
 				"assets/prefab/structures/moderate_house_mountain.zip", 20, 21, 12, 10, 0);
 
 		private final int value;
@@ -191,12 +189,9 @@ public class ModerateHouseConfiguration extends StructureConfiguration {
 					return HouseStyle.JUNGLE_TREE_HOME;
 				}
 				case 4: {
-					return HouseStyle.WORKSHOP_HOME;
-				}
-				case 5: {
 					return HouseStyle.NETHER_HOME;
 				}
-				case 6: {
+				case 5: {
 					return HouseStyle.MOUNTAIN_HOME;
 				}
 				default: {

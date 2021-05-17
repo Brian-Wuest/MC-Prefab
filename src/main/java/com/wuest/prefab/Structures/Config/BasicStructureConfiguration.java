@@ -217,6 +217,14 @@ public class BasicStructureConfiguration extends StructureConfiguration {
 		EnumBasicStructureName.AdvancedAquaBase.baseOption.getSpecificOptions().get(0).getClearShape().setLength(38);
 		EnumBasicStructureName.AdvancedAquaBase.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setSouthOffset(1);
 		EnumBasicStructureName.AdvancedAquaBase.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setEastOffset(12);
+
+		// Workshop.
+		EnumBasicStructureName.WorkShop.baseOption.getSpecificOptions().get(0).getClearShape().setDirection(Direction.SOUTH);
+		EnumBasicStructureName.WorkShop.baseOption.getSpecificOptions().get(0).getClearShape().setHeight(12);
+		EnumBasicStructureName.WorkShop.baseOption.getSpecificOptions().get(0).getClearShape().setWidth(20);
+		EnumBasicStructureName.WorkShop.baseOption.getSpecificOptions().get(0).getClearShape().setLength(21);
+		EnumBasicStructureName.WorkShop.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setSouthOffset(1);
+		EnumBasicStructureName.WorkShop.baseOption.getSpecificOptions().get(0).getClearPositionOffset().setEastOffset(10);
 	}
 
 	/**
@@ -380,7 +388,8 @@ public class BasicStructureConfiguration extends StructureConfiguration {
 		TownHall("town_hall", "item.prefab.town_hall", "item_town_hall", TownHallOptions.Default),
 		NetherGate("nether_gate", "item.prefab.nether_gate", "item_nether_gate", NetherGateOptions.AncientSkull),
 		SugarCaneFarm("sugar_cane_farm", "item.prefab.sugar_cane_farm", "item_sugar_cane_farm", SugarCaneFarmOptions.Default),
-		AdvancedAquaBase("advanced_aqua_base", "item.prefab.advanced_aqua_base", "item_advanced_aqua_base", AdvancedAquaBaseOptions.Default);
+		AdvancedAquaBase("advanced_aqua_base", "item.prefab.advanced_aqua_base", "item_advanced_aqua_base", AdvancedAquaBaseOptions.Default),
+		WorkShop("workshop", "item.prefab.workshop", "item_workshop", WorkshopOptions.Default);
 
 		private String name;
 		private String unlocalizedName;

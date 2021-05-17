@@ -80,6 +80,8 @@ public class ModConfiguration {
     private static final String heapOfTimberKey = "Heap of Timber";
     private static final String tonOfTimberKey = "Ton of Timber";
     private static final String sugarCaneFarmKey = "Sugar Cane Farm";
+    private static final String workshopKey = "Workshop";
+
     public static String tagKey = "PrefabConfig";
     // Config file option names.
     static String maximumHouseSizeName = "Maximum Starting House Size";
@@ -116,7 +118,7 @@ public class ModConfiguration {
                     machineryTowerKey, defenseBunkerKey, mineshaftEntranceKey, enderGatewayKey, magicTempleKey, instantBridgeKey, paperLanternKey, compressedObsidianKey, villagerHousesKey,
                     phasicBlockKey, smartGlassKey, greenHouseKey, startingHouseKey, glassStairsKey, glassSlabsKey, andesiteStairsKey, andesiteSlabsKey, dioriteStairsKey, dioriteSlabKey,
                     graniteStairsKey, grantiteSlabKey, moderateHouseKey, grassyPlainsKey, aquaBaseKey, watchTowerKey, bulldozerKey, structurePartKey, jailKey, saloonKey, skiLodgeKey,
-                    windMillKey, townHallKey, heapOfTimberKey, tonOfTimberKey, sugarCaneFarmKey};
+                    windMillKey, townHallKey, heapOfTimberKey, tonOfTimberKey, sugarCaneFarmKey, workshopKey};
     private final HashMap<String, BooleanValue> recipeConfiguration;
     public ServerModConfiguration serverConfiguration;
     // Configuration Options.
