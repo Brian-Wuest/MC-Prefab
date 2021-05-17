@@ -35,7 +35,7 @@ public class CommonProxy {
 		Pair<ModConfiguration, ForgeConfigSpec> commonPair = new ForgeConfigSpec.Builder().configure(ModConfiguration::new);
 		COMMON_SPEC = commonPair.getRight();
 		proxyConfiguration = commonPair.getLeft();
-		ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, COMMON_SPEC);
+		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, COMMON_SPEC);
 		CommonProxy.Config_File_Path = FMLPaths.CONFIGDIR.get().resolve("prefab.toml");
 
 		ModConfiguration.loadConfig(CommonProxy.COMMON_SPEC, CommonProxy.Config_File_Path);
