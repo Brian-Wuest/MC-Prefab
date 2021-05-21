@@ -87,8 +87,6 @@ public class Prefab {
 
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
 
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::modConfigReload);
-
 		Prefab.proxy = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
 		Prefab.proxy.RegisterEventHandler();
@@ -104,16 +102,5 @@ public class Prefab {
 
 	private void doClientStuff(final FMLClientSetupEvent event) {
 		Prefab.proxy.clientSetup(event);
-	}
-
-	private void modConfigReload(ModConfig.Loading loadingEvent) {
-		if (loadingEvent.getConfig().getModId().equals(Prefab.MODID)) {
-			Prefab.LOGGER.info("Reloading mod configuration.");
-			ForgeConfigSpec spec = loadingEvent.getConfig().getSpec();
-			Path configPath = loadingEvent.getConfig().getFullPath();
-
-			Prefab.LOGGER.info("Config file loaded from path: {}", configPath);
-			ModConfiguration.loadConfig(spec, configPath);
-		}
 	}
 }
