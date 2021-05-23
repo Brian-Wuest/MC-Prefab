@@ -1,9 +1,34 @@
 package com.wuest.prefab.Structures.Config.Enums;
 
-public class JailOptions extends BaseOption {
-	public static JailOptions Default = new JailOptions("item.prefab.jail", "assets/prefab/structures/jail.zip", "textures/gui/jail_topdown.png", 175, 131);
+import net.minecraft.util.Direction;
 
-	protected JailOptions(String translationString, String assetLocation, String pictureLocation, int imageWidth, int imageHeight) {
-		super(translationString, assetLocation, pictureLocation, imageWidth, imageHeight);
-	}
+public class JailOptions extends BaseOption {
+    public static JailOptions Default = new JailOptions(
+            "item.prefab.jail",
+            "assets/prefab/structures/jail.zip",
+            "textures/gui/jail_topdown.png",
+            175,
+            131,
+            Direction.SOUTH,
+            14,
+            28,
+            33,
+            1,
+            25,
+            -3);
+
+    protected JailOptions(String translationString,
+                          String assetLocation,
+                          String pictureLocation,
+                          int imageWidth,
+                          int imageHeight,
+                          Direction direction,
+                          int height,
+                          int width,
+                          int length,
+                          int offsetParallelToPlayer,
+                          int offsetToLeftOfPlayer,
+                          int heightOffset) {
+        super(translationString, assetLocation, pictureLocation, imageWidth, imageHeight, direction, height, width, length, offsetParallelToPlayer, offsetToLeftOfPlayer, heightOffset);
+    }
 }
