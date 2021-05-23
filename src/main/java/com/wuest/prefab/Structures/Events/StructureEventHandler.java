@@ -521,7 +521,7 @@ public final class StructureEventHandler {
         HangingEntity hangingEntity = frame;
         CompoundNBT compound = new CompoundNBT();
         hangingEntity.addAdditionalSaveData(compound);
-        compound.putByte("Facing", (byte) facing.get2DDataValue());
+        compound.putByte("Facing", (byte) facing.get3DDataValue());
         hangingEntity.readAdditionalSaveData(compound);
         StructureEventHandler.updateEntityHangingBoundingBox(hangingEntity);
 
