@@ -1,10 +1,10 @@
 package com.wuest.prefab.Structures.Items;
 
+import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Structures.Config.BasicStructureConfiguration;
 import com.wuest.prefab.Structures.Config.BasicStructureConfiguration.EnumBasicStructureName;
 import com.wuest.prefab.Structures.Config.Enums.AdvancedAquaBaseOptions;
-import com.wuest.prefab.Structures.Config.Enums.NetherGateOptions;
-import com.wuest.prefab.Structures.Config.Enums.SugarCaneFarmOptions;
+import com.wuest.prefab.Structures.Gui.GuiBasicStructure;
 import com.wuest.prefab.Structures.Predefined.StructureBasic;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -21,7 +21,6 @@ public class ItemBasicStructure extends StructureItem {
 
 	public ItemBasicStructure(EnumBasicStructureName structureType) {
 		super();
-
 		this.structureType = structureType;
 	}
 
@@ -39,6 +38,16 @@ public class ItemBasicStructure extends StructureItem {
 		}
 
 		return stack;
+	}
+
+	/**
+	 * Initializes common fields/properties for this structure item.
+	 */
+	@Override
+	protected void Initialize() {
+		if (Prefab.proxy.isClient) {
+			this.RegisterGui(GuiBasicStructure.class);
+		}
 	}
 
 	/**

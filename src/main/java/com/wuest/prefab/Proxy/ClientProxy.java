@@ -47,50 +47,14 @@ public class ClientProxy extends CommonProxy {
 
 	public ClientProxy() {
 		super();
+
+		this.isClient = true;
 	}
 
 	/**
 	 * Adds all of the Mod Guis to the HasMap.
 	 */
 	public static void AddGuis() {
-		ClientProxy.ModGuis.put(ModRegistry.WareHouse.get(), new GuiWareHouse());
-		ClientProxy.ModGuis.put(ModRegistry.ChickenCoop.get(), new GuiChickenCoop());
-		ClientProxy.ModGuis.put(ModRegistry.ProduceFarm.get(), new GuiProduceFarm());
-		ClientProxy.ModGuis.put(ModRegistry.TreeFarm.get(), new GuiTreeFarm());
-		ClientProxy.ModGuis.put(ModRegistry.FishPond.get(), new GuiFishPond());
-		ClientProxy.ModGuis.put(ModRegistry.StartHouse.get(), new GuiStartHouseChooser());
-		ClientProxy.ModGuis.put(ModRegistry.AdvancedWareHouse.get(), new GuiAdvancedWareHouse());
-		ClientProxy.ModGuis.put(ModRegistry.MonsterMasher.get(), new GuiMonsterMasher());
-		ClientProxy.ModGuis.put(ModRegistry.HorseStable.get(), new GuiHorseStable());
-		ClientProxy.ModGuis.put(ModRegistry.NetherGate.get(), new GuiBasicStructure());
-		ClientProxy.ModGuis.put(ModRegistry.VillagerHouses.get(), new GuiVillagerHouses());
-		ClientProxy.ModGuis.put(ModRegistry.ModerateHouse.get(), new GuiModerateHouse());
-		ClientProxy.ModGuis.put(ModRegistry.Bulldozer.get(), new GuiBulldozer());
-		ClientProxy.ModGuis.put(ModRegistry.Creative_Bulldozer.get(), new GuiBulldozer());
-		ClientProxy.ModGuis.put(ModRegistry.InstantBridge.get(), new GuiInstantBridge());
-		ClientProxy.ModGuis.put(ModRegistry.StructurePart.get(), new GuiStructurePart());
-
-		ClientProxy.ModGuis.put(ModRegistry.Barn.get(), new GuiBasicStructure());
-		ClientProxy.ModGuis.put(ModRegistry.AdvancedCoop.get(), new GuiBasicStructure());
-		ClientProxy.ModGuis.put(ModRegistry.AdvancedHorseStable.get(), new GuiBasicStructure());
-		ClientProxy.ModGuis.put(ModRegistry.MachineryTower.get(), new GuiBasicStructure());
-		ClientProxy.ModGuis.put(ModRegistry.DefenseBunker.get(), new GuiBasicStructure());
-		ClientProxy.ModGuis.put(ModRegistry.MineshaftEntrance.get(), new GuiBasicStructure());
-		ClientProxy.ModGuis.put(ModRegistry.EnderGateway.get(), new GuiBasicStructure());
-		ClientProxy.ModGuis.put(ModRegistry.AquaBase.get(), new GuiBasicStructure());
-		ClientProxy.ModGuis.put(ModRegistry.GrassyPlain.get(), new GuiBasicStructure());
-		ClientProxy.ModGuis.put(ModRegistry.MagicTemple.get(), new GuiBasicStructure());
-		ClientProxy.ModGuis.put(ModRegistry.GreenHouse.get(), new GuiBasicStructure());
-		ClientProxy.ModGuis.put(ModRegistry.WatchTower.get(), new GuiBasicStructure());
-		ClientProxy.ModGuis.put(ModRegistry.WelcomeCenter.get(), new GuiBasicStructure());
-		ClientProxy.ModGuis.put(ModRegistry.Jail.get(), new GuiBasicStructure());
-		ClientProxy.ModGuis.put(ModRegistry.Saloon.get(), new GuiBasicStructure());
-		ClientProxy.ModGuis.put(ModRegistry.SkiLodge.get(), new GuiBasicStructure());
-		ClientProxy.ModGuis.put(ModRegistry.WindMill.get(), new GuiBasicStructure());
-		ClientProxy.ModGuis.put(ModRegistry.TownHall.get(), new GuiBasicStructure());
-		ClientProxy.ModGuis.put(ModRegistry.SugarCaneFarm.get(), new GuiBasicStructure());
-		ClientProxy.ModGuis.put(ModRegistry.AdvancedAquaBase.get(), new GuiBasicStructure());
-		ClientProxy.ModGuis.put(ModRegistry.Workshop.get(), new GuiBasicStructure());
 	}
 
 	@Override

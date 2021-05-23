@@ -30,6 +30,8 @@ public class CommonProxy {
 	public static ForgeConfigSpec COMMON_SPEC;
 	public static Path Config_File_Path;
 
+	public boolean isClient;
+
 	public CommonProxy() {
 		// Builder.build is called during this method.
 		Pair<ModConfiguration, ForgeConfigSpec> commonPair = new ForgeConfigSpec.Builder().configure(ModConfiguration::new);
@@ -39,6 +41,8 @@ public class CommonProxy {
 		CommonProxy.Config_File_Path = FMLPaths.CONFIGDIR.get().resolve("prefab.toml");
 
 		ModConfiguration.loadConfig(CommonProxy.COMMON_SPEC, CommonProxy.Config_File_Path);
+
+		this.isClient = false;
 	}
 
 	/*

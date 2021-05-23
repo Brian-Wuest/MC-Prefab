@@ -3,6 +3,7 @@ package com.wuest.prefab.Structures.Items;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
+import com.wuest.prefab.Structures.Gui.GuiBulldozer;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
@@ -49,6 +50,16 @@ public class ItemBulldozer extends StructureItem {
 				.tab(ItemGroup.TAB_MISC));
 
 		this.creativePowered = creativePowered;
+	}
+
+	/**
+	 * Initializes common fields/properties for this structure item.
+	 */
+	@Override
+	protected void Initialize() {
+		if (Prefab.proxy.isClient) {
+			this.RegisterGui(GuiBulldozer.class);
+		}
 	}
 
 	/**
