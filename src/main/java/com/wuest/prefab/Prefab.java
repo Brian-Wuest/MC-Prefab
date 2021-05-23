@@ -1,17 +1,14 @@
 package com.wuest.prefab;
 
-import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Proxy.ClientProxy;
 import com.wuest.prefab.Proxy.CommonProxy;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.material.PushReaction;
-import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -19,8 +16,6 @@ import net.minecraftforge.fml.network.simple.SimpleChannel;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.nio.file.Path;
 
 /**
  * The starting point to load all of the blocks, items and other objects associated with this mod.
