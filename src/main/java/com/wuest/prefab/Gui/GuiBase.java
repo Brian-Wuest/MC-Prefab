@@ -6,10 +6,13 @@ import com.wuest.prefab.Tuple;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
 import net.minecraftforge.fml.client.gui.widget.Slider;
+
+import java.util.List;
 
 public abstract class GuiBase extends Screen {
 
@@ -64,11 +67,11 @@ public abstract class GuiBase extends Screen {
 	public void render(MatrixStack matrixStack, int x, int y, float f) {
 		Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
 
-		this.preButtonRender(matrixStack, adjustedXYValue.getFirst(), adjustedXYValue.getSecond());
+		this.preButtonRender(matrixStack, adjustedXYValue.getFirst(), adjustedXYValue.getSecond(), x, y, f);
 
 		this.renderButtons(matrixStack, x, y);
 
-		this.postButtonRender(matrixStack, adjustedXYValue.getFirst(), adjustedXYValue.getSecond());
+		this.postButtonRender(matrixStack, adjustedXYValue.getFirst(), adjustedXYValue.getSecond(), x, y, f);
 	}
 
 	/**
@@ -157,6 +160,14 @@ public abstract class GuiBase extends Screen {
 		this.getMinecraft().font.drawWordWrap(new StringTextComponent(str), x, y, wrapWidth, textColor);
 	}
 
+	public List<IReorderingProcessor> getSplitString(String str, int wrapWidth) {
+		return this.getMinecraft().font.split(new StringTextComponent(str), wrapWidth);
+	}
+
+	public List<IReorderingProcessor> getSplitString(StringTextComponent str, int wrapWidth) {
+		return this.getMinecraft().font.split(str, wrapWidth);
+	}
+
 	/**
 	 * Closes the current screen.
 	 */
@@ -180,7 +191,7 @@ public abstract class GuiBase extends Screen {
 	 */
 	public abstract void buttonClicked(AbstractButton button);
 
-	protected abstract void preButtonRender(MatrixStack matrixStack, int x, int y);
+	protected abstract void preButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks);
 
-	protected abstract void postButtonRender(MatrixStack matrixStack, int x, int y);
+	protected abstract void postButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks);
 }

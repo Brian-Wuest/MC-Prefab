@@ -100,11 +100,11 @@ public abstract class GuiStructure extends GuiBase {
 	public void render(MatrixStack matrixStack, int x, int y, float f) {
 		Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
 
-		this.preButtonRender(matrixStack, adjustedXYValue.getFirst(), adjustedXYValue.getSecond());
+		this.preButtonRender(matrixStack, adjustedXYValue.getFirst(), adjustedXYValue.getSecond(), x, y, f);
 
 		this.renderButtons(matrixStack, x, y);
 
-		this.postButtonRender(matrixStack, adjustedXYValue.getFirst(), adjustedXYValue.getSecond());
+		this.postButtonRender(matrixStack, adjustedXYValue.getFirst(), adjustedXYValue.getSecond(), x, y, f);
 
 		if (this.btnVisualize != null) {
 			this.checkVisualizationSetting();
@@ -112,7 +112,7 @@ public abstract class GuiStructure extends GuiBase {
 	}
 
 	@Override
-	protected void preButtonRender(MatrixStack matrixStack, int x, int y) {
+	protected void preButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
 		this.renderBackground(matrixStack);
 
 		this.drawControlBackground(matrixStack, x, y);

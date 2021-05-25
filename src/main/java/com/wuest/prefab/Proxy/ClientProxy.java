@@ -19,6 +19,7 @@ import net.minecraft.item.ItemUseContext;
 import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.client.settings.KeyModifier;
 import net.minecraftforge.fml.DeferredWorkQueue;
+import net.minecraftforge.fml.ExtensionPoint;
 import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -82,9 +83,8 @@ public class ClientProxy extends CommonProxy {
 		Optional<? extends ModContainer> modContainer = ModList.get().getModContainerById(Prefab.MODID);
 
 		if (modContainer != null && modContainer.isPresent()) {
-			Supplier<BiFunction<Minecraft, Screen, Screen>> prefabGui = () -> (minecraft, screen) -> new GuiPrefab(minecraft, screen);
-			// TODO: The below line allows this mod to define a custom configuration GUI.
-			//modContainer.get().registerExtensionPoint(ExtensionPoint.CONFIGGUIFACTORY, prefabGui);
+			Supplier<BiFunction<Minecraft, Screen, Screen>> prefabGui = () -> GuiPrefab::new;
+			modContainer.get().registerExtensionPoint(ExtensionPoint.CONFIGGUIFACTORY, prefabGui);
 		}
 	}
 

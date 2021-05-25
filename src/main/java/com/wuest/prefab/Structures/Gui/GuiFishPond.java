@@ -27,8 +27,8 @@ public class GuiFishPond extends GuiStructure {
 	}
 
 	@Override
-	protected void preButtonRender(MatrixStack matrixStack, int x, int y) {
-		super.preButtonRender(matrixStack, x, y);
+	protected void preButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
+		super.preButtonRender(matrixStack, x, y, mouseX, mouseY, partialTicks);
 
 		this.bindTexture(structureTopDown);
 
@@ -36,7 +36,7 @@ public class GuiFishPond extends GuiStructure {
 	}
 
 	@Override
-	protected void postButtonRender(MatrixStack matrixStack, int x, int y) {
+	protected void postButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
 		this.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, y + 10, 95, this.textColor);
 	}
 

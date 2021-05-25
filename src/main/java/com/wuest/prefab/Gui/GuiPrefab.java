@@ -1,65 +1,318 @@
 package com.wuest.prefab.Gui;
 
-import com.electronwill.nightconfig.core.UnmodifiableConfig;
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.wuest.prefab.Config.ConfigOption;
 import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.Tuple;
+import net.minecraft.client.AbstractOption;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.AbstractGui;
+import net.minecraft.client.gui.IBidiTooltip;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.AbstractButton;
-import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraft.client.gui.widget.list.OptionsRowList;
+import net.minecraft.client.settings.BooleanOption;
+import net.minecraft.client.settings.IteratableOption;
+import net.minecraft.client.settings.SliderPercentageOption;
+import net.minecraft.util.IReorderingProcessor;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
 
-import java.util.Map;
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.Optional;
 
 public class GuiPrefab extends GuiBase {
+    /**
+     * Distance from top of the screen to this GUI's title
+     */
+    private static final int TITLE_HEIGHT = 8;
+    /**
+     * Distance from top of the screen to the options row list's top
+     */
+    private static final int OPTIONS_LIST_TOP_HEIGHT = 24;
 
-	private Screen parentScreen;
-	private ForgeConfigSpec spec;
+    /**
+     * Distance from bottom of the screen to the options row list's bottom
+     */
+    private static final int OPTIONS_LIST_BOTTOM_OFFSET = 32;
 
-	public GuiPrefab(Minecraft minecraft, Screen parent) {
-		super("Prefab Configuration");
-		this.parentScreen = parent;
-		super.minecraft = minecraft;
-		this.spec = CommonProxy.COMMON_SPEC;
-	}
+    /**
+     * Height of each item in the options row list
+     */
+    private static final int OPTIONS_LIST_ITEM_HEIGHT = 25;
 
-	@Override
-	protected void Initialize() {
-		// Get the upper left hand corner of the GUI box.
-		Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
-		int x = adjustedXYValue.getFirst();
-		int y = adjustedXYValue.getSecond();
+    /**
+     * Distance from bottom of the screen to the "Done" button's top
+     */
+    private static final int DONE_BUTTON_TOP_OFFSET = 26;
 
-		this.createAndAddButton(x + 10, y + 90, 120, 20, "This is a cool button!");
+    private Screen parentScreen;
+    private ExtendedButton doneButton;
+    private ExtendedButton generalGroupButton;
 
-		UnmodifiableConfig config = this.spec.getValues();
+    private String currentOption = "General";
 
-		for (Map.Entry<String, Object> entry : config.valueMap().entrySet()) {
-			/*
-			 * TODO: Create an entry for each object in the save. If it's a configuration (secondary layer), show a new screen for that layer.
-			 *  Later during the save. Load the configuration file and make any staged updated.
-			 * */
-		}
-	}
+    /**
+     * List of options rows shown on the screen
+     */
+    private OptionsRowList optionsRowList;
+    private OptionsRowList chestOptionsRowList;
+    private OptionsRowList recipeOptionsRowList;
+    private OptionsRowList starterHouseOptionsRowList;
 
-	@Override
-	public void buttonClicked(AbstractButton button) {
-		this.minecraft.setScreen(this.parentScreen);
-	}
+    public GuiPrefab(Minecraft minecraft, Screen parent) {
+        super("Prefab Configuration");
+        this.parentScreen = parent;
+        super.minecraft = minecraft;
+    }
 
-	@Override
-	protected Tuple<Integer, Integer> getAdjustedXYValue() {
-		return new Tuple<>(0, 0);
-	}
+    @Override
+    protected void Initialize() {
+        // Get the upper left hand corner of the GUI box.
+        Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
+        int x = adjustedXYValue.getFirst();
+        int y = adjustedXYValue.getSecond();
 
-	@Override
-	protected void preButtonRender(MatrixStack matrixStack, int x, int y) {
-		this.renderDirtBackground(0);
+        // Add the "Done" button
+        this.doneButton = this.createAndAddButton((this.width - 200) / 2, this.height - DONE_BUTTON_TOP_OFFSET, 200, 20, "Done");
+        this.generalGroupButton = this.createAndAddButton(x + 20, 2, 120, 20, "General");
 
-	}
+        // Create the options row list
+        // It must be created in this method instead of in the constructor,
+        // or it will not be displayed properly
+        this.optionsRowList = new OptionsRowList(
+                this.minecraft,
+                this.width,
+                this.height,
+                OPTIONS_LIST_TOP_HEIGHT,
+                this.height - OPTIONS_LIST_BOTTOM_OFFSET,
+                OPTIONS_LIST_ITEM_HEIGHT
+        );
 
-	@Override
-	protected void postButtonRender(MatrixStack matrixStack, int x, int y) {
+        this.chestOptionsRowList = new OptionsRowList(
+                this.minecraft,
+                this.width,
+                this.height,
+                OPTIONS_LIST_TOP_HEIGHT,
+                this.height - OPTIONS_LIST_BOTTOM_OFFSET,
+                OPTIONS_LIST_ITEM_HEIGHT
+        );
 
-	}
+        this.recipeOptionsRowList = new OptionsRowList(
+                this.minecraft,
+                this.width,
+                this.height,
+                OPTIONS_LIST_TOP_HEIGHT,
+                this.height - OPTIONS_LIST_BOTTOM_OFFSET,
+                OPTIONS_LIST_ITEM_HEIGHT
+        );
+
+        this.starterHouseOptionsRowList = new OptionsRowList(
+                this.minecraft,
+                this.width,
+                this.height,
+                OPTIONS_LIST_TOP_HEIGHT,
+                this.height - OPTIONS_LIST_BOTTOM_OFFSET,
+                OPTIONS_LIST_ITEM_HEIGHT
+        );
+
+        for (ConfigOption<?> configOption : CommonProxy.proxyConfiguration.configOptions) {
+            OptionsRowList rowList = this.getOptionsRowList(configOption.getGroupName());
+
+            if (configOption.getConfigType().equals("Boolean")) {
+                this.addBooleanOption(rowList, configOption);
+            } else if (configOption.getConfigType().equals("String")) {
+                this.addStringOption(rowList, configOption);
+            } else if (configOption.getConfigType().equals("Integer")) {
+                this.addIntegerOption(rowList, configOption);
+            }
+        }
+
+        // Only add the general OptionsList when starting the screen.
+        // This list will be removed and re-added depending on the group of options chosen.
+        this.children.add(this.optionsRowList);
+    }
+
+    @Override
+    public void buttonClicked(AbstractButton button) {
+        if (button == this.doneButton) {
+            this.minecraft.setScreen(this.parentScreen);
+        } else if (button == this.generalGroupButton) {
+            switch (this.currentOption) {
+                case "General": {
+                    this.children.remove(this.optionsRowList);
+                    this.children.add(this.chestOptionsRowList);
+                    this.generalGroupButton.setMessage(new StringTextComponent("Chest Options"));
+                    this.currentOption = "Chest Options";
+                    break;
+                }
+                case "Chest Options": {
+                    this.children.remove(this.chestOptionsRowList);
+                    this.children.add(this.recipeOptionsRowList);
+                    this.generalGroupButton.setMessage(new StringTextComponent("Recipes"));
+                    this.currentOption = "Recipe Options";
+                    break;
+                }
+                case "Recipe Options": {
+                    this.children.remove(this.recipeOptionsRowList);
+                    this.children.add(this.starterHouseOptionsRowList);
+                    this.generalGroupButton.setMessage(new StringTextComponent("House Options"));
+                    this.currentOption = "Starter House Options";
+                    break;
+                }
+                case "Starter House Options": {
+                    this.children.remove(this.starterHouseOptionsRowList);
+                    this.children.add(this.optionsRowList);
+                    this.generalGroupButton.setMessage(new StringTextComponent("General"));
+                    this.currentOption = "General";
+                    break;
+                }
+            }
+
+        }
+    }
+
+    @Override
+    protected Tuple<Integer, Integer> getAdjustedXYValue() {
+        return new Tuple<>(0, 0);
+    }
+
+    @Override
+    protected void preButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
+        this.renderDirtBackground(0);
+
+        // Only render the appropriate options row list based on the currently selected option.
+        OptionsRowList rowList = this.getOptionsRowList(this.currentOption);
+
+        rowList.render(matrixStack, x, y, partialTicks);
+
+        // Draw the title
+        AbstractGui.drawCenteredString(
+                matrixStack,
+                this.font,
+                this.title.getString(),
+                this.width / 2,
+                TITLE_HEIGHT,
+                0xFFFFFF);
+
+        List<IReorderingProcessor> list = GuiPrefab.tooltipAt(rowList, mouseX, mouseY);
+
+        if (list != null) {
+            this.renderTooltip(matrixStack, list, mouseX, mouseY + 25);
+        }
+    }
+
+    @Override
+    protected void postButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
+    }
+
+    private void addBooleanOption(OptionsRowList rowList, ConfigOption<?> configOption) {
+        AbstractOption abstractOption = new BooleanOption(
+                configOption.getName(),
+                unused -> configOption.getConfigValueAsBoolean().get(),
+                (unused, newValue) -> configOption.getConfigValueAsBoolean().set(newValue)
+        );
+
+        if (!configOption.getHoverText().isEmpty()) {
+            abstractOption.setTooltip( this.getSplitString(configOption.getHoverTextComponent(), 250));
+        }
+
+        rowList.addBig(abstractOption);
+    }
+
+    private void addIntegerOption(OptionsRowList rowList, ConfigOption<?> configOption) {
+        AbstractOption abstractOption = new SliderPercentageOption(
+                configOption.getName(),
+                // Range
+                configOption.getMinRange(),
+                configOption.getMaxRange(),
+                // This is an integer option, so allow whole steps only
+                1.0F,
+                // Getter and setter are similar to those in BooleanOption
+                unused -> (double) configOption.getConfigValueAsInt().get(),
+                (unused, newValue) -> configOption.getConfigValueAsInt().set(newValue.intValue()),
+                // BiFunction that returns a string text component
+                // in format "<name>: <value>"
+                (gs, option) -> new StringTextComponent(
+                        // Use I18n.get(String) to get a translation key's value
+                        configOption.getName()
+                                + ": "
+                                + (int) option.get(gs)
+                )
+        );
+
+        if (!configOption.getHoverText().isEmpty()) {
+            abstractOption.setTooltip( this.getSplitString(configOption.getHoverTextComponent(), 250));
+        }
+
+        rowList.addBig(abstractOption);
+    }
+
+    private void addStringOption(OptionsRowList rowList, ConfigOption<?> configOption) {
+        AbstractOption abstractOption = new IteratableOption(
+                configOption.getName(),
+                (unused, newValue) -> {
+                    // 'newValue' is always 1.
+                    int nextIndex = configOption.getValidValues().indexOf(configOption.getConfigValueAsString().get()) + newValue;
+
+                    if (nextIndex >= configOption.getValidValues().size()) {
+                        nextIndex = 0;
+                    }
+
+                    configOption.getConfigValueAsString().set(configOption.getValidValues().get(nextIndex));
+                },
+                (unused, option) -> new StringTextComponent(
+                        configOption.getName()
+                                + ": "
+                                + configOption.getConfigValueAsString().get())
+        );
+
+        if (!configOption.getHoverText().isEmpty()) {
+            abstractOption.setTooltip( this.getSplitString(configOption.getHoverTextComponent(), 250));
+        }
+
+        rowList.addBig(abstractOption);
+    }
+
+    private OptionsRowList getOptionsRowList(String listName) {
+        OptionsRowList rowList;
+
+        switch (listName) {
+            case "Chest Options": {
+                rowList = this.chestOptionsRowList;
+                break;
+            }
+
+            case "Recipe Options": {
+                rowList = this.recipeOptionsRowList;
+                break;
+            }
+
+            case "Starter House Options": {
+                rowList = this.starterHouseOptionsRowList;
+                break;
+            }
+
+            default: {
+                rowList = this.optionsRowList;
+                break;
+            }
+        }
+
+        return rowList;
+    }
+
+    @Nullable
+    public static List<IReorderingProcessor> tooltipAt(OptionsRowList optionsRowList, int mouseX, int mouseY) {
+        Optional<Widget> optional = optionsRowList.getMouseOver(mouseX, mouseY);
+
+        if (optional.isPresent() && optional.get() instanceof IBidiTooltip) {
+            Optional<List<IReorderingProcessor>> tooltip = ((IBidiTooltip)optional.get()).getTooltip();
+            return tooltip.orElse((List<IReorderingProcessor>)null);
+        } else {
+            return null;
+        }
+    }
 }

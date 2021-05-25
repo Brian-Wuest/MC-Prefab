@@ -56,7 +56,7 @@ public class GuiTabScreen extends GuiStructure {
 	}
 
 	@Override
-	protected void postButtonRender(MatrixStack matrixStack, int x, int y) {
+	protected void postButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
 
 	}
 

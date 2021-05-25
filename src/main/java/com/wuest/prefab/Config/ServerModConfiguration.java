@@ -12,7 +12,6 @@ import java.util.Map.Entry;
  */
 public class ServerModConfiguration {
 	// Configuration Options.
-	public int maximumStartingHouseSize;
 	public boolean enableVersionCheckMessage;
 	public boolean enableLoftHouse;
 	public boolean includeSpawnersInMasher;
@@ -56,17 +55,10 @@ public class ServerModConfiguration {
 		configuration.startingItem = tag.getString(ModConfiguration.startingItemName);
 		configuration.enableVersionCheckMessage = tag.getBoolean(ModConfiguration.enableVersionCheckMessageName);
 		configuration.enableLoftHouse = tag.getBoolean(ModConfiguration.enableLoftHouseName);
-		configuration.maximumStartingHouseSize = tag.getInt(ModConfiguration.maximumHouseSizeName);
 		configuration.includeSpawnersInMasher = tag.getBoolean(ModConfiguration.includeSpawnersInMasherName);
 		configuration.enableStructurePreview = tag.getBoolean(ModConfiguration.enableStructurePreviewName);
 		configuration.includeMineshaftChest = tag.getBoolean(ModConfiguration.includeMineshaftChestName);
 		configuration.allowBulldozerToCreateDrops = tag.getBoolean(ModConfiguration.allowBulldozerToCreateDropsName);
-
-		// Make sure the server admin didn't set the maximum starting size to an
-		// invalid value from the configuration file.
-		if (configuration.maximumStartingHouseSize < 5 || configuration.maximumStartingHouseSize > 16) {
-			configuration.maximumStartingHouseSize = 16;
-		}
 
 		configuration.addSword = tag.getBoolean(ModConfiguration.addSwordName);
 		configuration.addAxe = tag.getBoolean(ModConfiguration.addAxeName);
@@ -99,7 +91,6 @@ public class ServerModConfiguration {
 		CompoundNBT tag = new CompoundNBT();
 
 		tag.putString(ModConfiguration.startingItemName, this.startingItem);
-		tag.putInt(ModConfiguration.maximumHouseSizeName, this.maximumStartingHouseSize);
 		tag.putBoolean(ModConfiguration.enableVersionCheckMessageName, this.enableVersionCheckMessage);
 		tag.putBoolean(ModConfiguration.enableLoftHouseName, this.enableLoftHouse);
 		tag.putBoolean(ModConfiguration.includeSpawnersInMasherName, this.includeSpawnersInMasher);

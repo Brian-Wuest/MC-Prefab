@@ -43,7 +43,7 @@ public class GuiBulldozer extends GuiStructure {
 	}
 
 	@Override
-	protected void postButtonRender(MatrixStack matrixStack, int x, int y) {
+	protected void postButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
 		this.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BULLDOZER_DESCRIPTION), x + 10, y + 10, 230, this.textColor);
 
 		this.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_CLEARED_AREA), x + 10, y + 40, 230, this.textColor);

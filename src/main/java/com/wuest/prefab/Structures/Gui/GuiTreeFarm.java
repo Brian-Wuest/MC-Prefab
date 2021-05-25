@@ -26,15 +26,15 @@ public class GuiTreeFarm extends GuiStructure {
 	}
 
 	@Override
-	protected void preButtonRender(MatrixStack matrixStack, int x, int y) {
-		super.preButtonRender(matrixStack, x, y);
+	protected void preButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
+		super.preButtonRender(matrixStack, x, y, mouseX, mouseY, partialTicks);
 
 		this.bindTexture(structureTopDown);
 		GuiStructure.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 177, 175, 177, 175);
 	}
 
 	@Override
-	protected void postButtonRender(MatrixStack matrixStack, int x, int y) {
+	protected void postButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
 		this.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, y + 10, 100, this.textColor);
 		this.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.TREE_FARM_SIZE), x + 147, y + 50, 100, this.textColor);
 	}

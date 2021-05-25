@@ -28,15 +28,15 @@ public class GuiHorseStable extends GuiStructure {
 	}
 
 	@Override
-	protected void preButtonRender(MatrixStack matrixStack, int x, int y) {
-		super.preButtonRender(matrixStack, x, y);
+	protected void preButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
+		super.preButtonRender(matrixStack, x, y, mouseX, mouseY, partialTicks);
 
 		this.bindTexture(structureTopDown);
 		GuiTabScreen.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 104, 166, 104, 166);
 	}
 
 	@Override
-	protected void postButtonRender(MatrixStack matrixStack,int x, int y) {
+	protected void postButtonRender(MatrixStack matrixStack,int x, int y, int mouseX, int mouseY, float partialTicks) {
 		// Draw the text here.
 		this.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, y + 10, 95, this.textColor);
 	}

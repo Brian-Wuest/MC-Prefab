@@ -61,8 +61,8 @@ public class GuiInstantBridge extends GuiStructure {
 	}
 
 	@Override
-	protected void preButtonRender(MatrixStack matrixStack, int x, int y) {
-		super.preButtonRender(matrixStack, x, y);
+	protected void preButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
+		super.preButtonRender(matrixStack, x, y, mouseX, mouseY, partialTicks);
 
 		this.bindTexture(structureTopDown);
 
@@ -70,7 +70,7 @@ public class GuiInstantBridge extends GuiStructure {
 	}
 
 	@Override
-	protected void postButtonRender(MatrixStack matrixStack, int x, int y) {
+	protected void postButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
 		this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.BRIDGE_MATERIAL), x + 10, y + 10, this.textColor);
 
 		if (this.chckIncludeRoof.selected()) {
