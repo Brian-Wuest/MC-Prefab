@@ -6,7 +6,6 @@ import com.wuest.prefab.Prefab;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
-import net.minecraftforge.common.ForgeConfigSpec.IntValue;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -120,6 +119,7 @@ public class ModConfiguration {
     private static ForgeConfigSpec SPEC;
     private final HashMap<String, BooleanValue> recipeConfiguration;
     public ServerModConfiguration serverConfiguration;
+    public ArrayList<ConfigOption<?>> configOptions;
     // Configuration Options.
     private BooleanValue enableLoftHouse;
     private BooleanValue includeSpawnersInMasher;
@@ -147,8 +147,6 @@ public class ModConfiguration {
     private BooleanValue addChestContents;
     private BooleanValue addMineshaft;
     private ConfigValue<String> startingItem;
-
-    public ArrayList<ConfigOption<?>> configOptions;
 
     public ModConfiguration(ForgeConfigSpec.Builder builder) {
         this.recipeConfiguration = new HashMap<>();
@@ -480,7 +478,7 @@ public class ModConfiguration {
         ModConfiguration.UpdateServerConfig();
     }
 
-    private static void UpdateServerConfig() {
+    public static void UpdateServerConfig() {
         Prefab.proxy.proxyConfiguration.serverConfiguration.startingItem = Prefab.proxy.proxyConfiguration.startingItem.get();
         Prefab.proxy.proxyConfiguration.serverConfiguration.enableLoftHouse = Prefab.proxy.proxyConfiguration.enableLoftHouse.get();
         Prefab.proxy.proxyConfiguration.serverConfiguration.includeSpawnersInMasher = Prefab.proxy.proxyConfiguration.includeSpawnersInMasher.get();
@@ -511,9 +509,5 @@ public class ModConfiguration {
             Prefab.LOGGER.debug("Setting recipe configuration for key: " + key);
             Prefab.proxy.proxyConfiguration.serverConfiguration.recipeConfiguration.put(key, Prefab.proxy.proxyConfiguration.recipeConfiguration.get(key).get());
         }
-    }
-
-    public void SaveConfig() {
-        ModConfiguration.SPEC.save();
     }
 }

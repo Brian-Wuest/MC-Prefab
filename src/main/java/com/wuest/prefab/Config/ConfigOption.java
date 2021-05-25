@@ -109,13 +109,13 @@ public class ConfigOption<T> {
         return hoverText;
     }
 
-    public StringTextComponent getHoverTextComponent() {
-        return this.hoverTextComponent;
-    }
-
     public ConfigOption<T> setHoverText(String value) {
         this.hoverText = value;
         this.hoverTextComponent = new StringTextComponent(value);
         return this;
+    }
+
+    public StringTextComponent getHoverTextComponent() {
+        return this.hoverTextComponent;
     }
 }

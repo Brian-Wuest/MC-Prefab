@@ -2,6 +2,7 @@ package com.wuest.prefab.Gui;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Config.ConfigOption;
+import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.Tuple;
 import net.minecraft.client.AbstractOption;
@@ -48,7 +49,7 @@ public class GuiPrefab extends GuiBase {
      */
     private static final int DONE_BUTTON_TOP_OFFSET = 26;
 
-    private Screen parentScreen;
+    private final Screen parentScreen;
     private ExtendedButton doneButton;
     private ExtendedButton generalGroupButton;
 
@@ -68,12 +69,23 @@ public class GuiPrefab extends GuiBase {
         super.minecraft = minecraft;
     }
 
+    @Nullable
+    public static List<IReorderingProcessor> tooltipAt(OptionsRowList optionsRowList, int mouseX, int mouseY) {
+        Optional<Widget> optional = optionsRowList.getMouseOver(mouseX, mouseY);
+
+        if (optional.isPresent() && optional.get() instanceof IBidiTooltip) {
+            Optional<List<IReorderingProcessor>> tooltip = ((IBidiTooltip) optional.get()).getTooltip();
+            return tooltip.orElse(null);
+        } else {
+            return null;
+        }
+    }
+
     @Override
     protected void Initialize() {
         // Get the upper left hand corner of the GUI box.
         Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
         int x = adjustedXYValue.getFirst();
-        int y = adjustedXYValue.getSecond();
 
         // Add the "Done" button
         this.doneButton = this.createAndAddButton((this.width - 200) / 2, this.height - DONE_BUTTON_TOP_OFFSET, 200, 20, "Done");
@@ -83,7 +95,7 @@ public class GuiPrefab extends GuiBase {
         // It must be created in this method instead of in the constructor,
         // or it will not be displayed properly
         this.optionsRowList = new OptionsRowList(
-                this.minecraft,
+                this.getMinecraft(),
                 this.width,
                 this.height,
                 OPTIONS_LIST_TOP_HEIGHT,
@@ -92,7 +104,7 @@ public class GuiPrefab extends GuiBase {
         );
 
         this.chestOptionsRowList = new OptionsRowList(
-                this.minecraft,
+                this.getMinecraft(),
                 this.width,
                 this.height,
                 OPTIONS_LIST_TOP_HEIGHT,
@@ -101,7 +113,7 @@ public class GuiPrefab extends GuiBase {
         );
 
         this.recipeOptionsRowList = new OptionsRowList(
-                this.minecraft,
+                this.getMinecraft(),
                 this.width,
                 this.height,
                 OPTIONS_LIST_TOP_HEIGHT,
@@ -110,7 +122,7 @@ public class GuiPrefab extends GuiBase {
         );
 
         this.starterHouseOptionsRowList = new OptionsRowList(
-                this.minecraft,
+                this.getMinecraft(),
                 this.width,
                 this.height,
                 OPTIONS_LIST_TOP_HEIGHT,
@@ -121,12 +133,21 @@ public class GuiPrefab extends GuiBase {
         for (ConfigOption<?> configOption : CommonProxy.proxyConfiguration.configOptions) {
             OptionsRowList rowList = this.getOptionsRowList(configOption.getGroupName());
 
-            if (configOption.getConfigType().equals("Boolean")) {
-                this.addBooleanOption(rowList, configOption);
-            } else if (configOption.getConfigType().equals("String")) {
-                this.addStringOption(rowList, configOption);
-            } else if (configOption.getConfigType().equals("Integer")) {
-                this.addIntegerOption(rowList, configOption);
+            switch (configOption.getConfigType()) {
+                case "Boolean": {
+                    this.addBooleanOption(rowList, configOption);
+                    break;
+                }
+
+                case "String": {
+                    this.addStringOption(rowList, configOption);
+                    break;
+                }
+
+                case "Integer": {
+                    this.addIntegerOption(rowList, configOption);
+                    break;
+                }
             }
         }
 
@@ -138,7 +159,8 @@ public class GuiPrefab extends GuiBase {
     @Override
     public void buttonClicked(AbstractButton button) {
         if (button == this.doneButton) {
-            this.minecraft.setScreen(this.parentScreen);
+            ModConfiguration.UpdateServerConfig();
+            this.getMinecraft().setScreen(this.parentScreen);
         } else if (button == this.generalGroupButton) {
             switch (this.currentOption) {
                 case "General": {
@@ -216,7 +238,7 @@ public class GuiPrefab extends GuiBase {
         );
 
         if (!configOption.getHoverText().isEmpty()) {
-            abstractOption.setTooltip( this.getSplitString(configOption.getHoverTextComponent(), 250));
+            abstractOption.setTooltip(this.getSplitString(configOption.getHoverTextComponent(), 250));
         }
 
         rowList.addBig(abstractOption);
@@ -244,7 +266,7 @@ public class GuiPrefab extends GuiBase {
         );
 
         if (!configOption.getHoverText().isEmpty()) {
-            abstractOption.setTooltip( this.getSplitString(configOption.getHoverTextComponent(), 250));
+            abstractOption.setTooltip(this.getSplitString(configOption.getHoverTextComponent(), 250));
         }
 
         rowList.addBig(abstractOption);
@@ -270,7 +292,7 @@ public class GuiPrefab extends GuiBase {
         );
 
         if (!configOption.getHoverText().isEmpty()) {
-            abstractOption.setTooltip( this.getSplitString(configOption.getHoverTextComponent(), 250));
+            abstractOption.setTooltip(this.getSplitString(configOption.getHoverTextComponent(), 250));
         }
 
         rowList.addBig(abstractOption);
@@ -302,17 +324,5 @@ public class GuiPrefab extends GuiBase {
         }
 
         return rowList;
-    }
-
-    @Nullable
-    public static List<IReorderingProcessor> tooltipAt(OptionsRowList optionsRowList, int mouseX, int mouseY) {
-        Optional<Widget> optional = optionsRowList.getMouseOver(mouseX, mouseY);
-
-        if (optional.isPresent() && optional.get() instanceof IBidiTooltip) {
-            Optional<List<IReorderingProcessor>> tooltip = ((IBidiTooltip)optional.get()).getTooltip();
-            return tooltip.orElse((List<IReorderingProcessor>)null);
-        } else {
-            return null;
-        }
     }
 }
