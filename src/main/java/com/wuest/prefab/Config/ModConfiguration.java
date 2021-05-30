@@ -377,7 +377,7 @@ public class ModConfiguration {
                 .setConfigValue(Prefab.proxy.proxyConfiguration.addBed)
                 .setName(ModConfiguration.addBedName)
                 .setConfigType("Boolean")
-                .setGroupName("Starter House Options")
+                .setGroupName("House Options")
                 .setHoverText("Determines if the bed is included in the starter house. When playing on a server, the server configuration is used")
                 .setDefaultValue(true));
 
@@ -389,7 +389,7 @@ public class ModConfiguration {
                 .setConfigValue(Prefab.proxy.proxyConfiguration.addCraftingTable)
                 .setName(ModConfiguration.addCraftingTableName)
                 .setConfigType("Boolean")
-                .setGroupName("Starter House Options")
+                .setGroupName("House Options")
                 .setHoverText("Determines if the crafting table is included in the starter house. When playing on a server, the server configuration is used")
                 .setDefaultValue(true));
 
@@ -401,7 +401,7 @@ public class ModConfiguration {
                 .setConfigValue(Prefab.proxy.proxyConfiguration.addFurnace)
                 .setName(ModConfiguration.addFurnaceName)
                 .setConfigType("Boolean")
-                .setGroupName("Starter House Options")
+                .setGroupName("House Options")
                 .setHoverText("Determines if the furnace is included in the starter house. When playing on a server, the server configuration is used")
                 .setDefaultValue(true));
 
@@ -413,7 +413,7 @@ public class ModConfiguration {
                 .setConfigValue(Prefab.proxy.proxyConfiguration.addChests)
                 .setName(ModConfiguration.addChestsName)
                 .setConfigType("Boolean")
-                .setGroupName("Starter House Options")
+                .setGroupName("House Options")
                 .setHoverText("Determines if chests are included in the starter house. When playing on a server, the server configuration is used")
                 .setDefaultValue(true));
 
@@ -425,7 +425,7 @@ public class ModConfiguration {
                 .setConfigValue(Prefab.proxy.proxyConfiguration.addChestContents)
                 .setName(ModConfiguration.addChestContentsName)
                 .setConfigType("Boolean")
-                .setGroupName("Starter House Options")
+                .setGroupName("House Options")
                 .setHoverText("Determines if the chest contents is included in the starter house. When playing on a server, the server configuration is used")
                 .setDefaultValue(true));
 
@@ -437,7 +437,7 @@ public class ModConfiguration {
                 .setConfigValue(Prefab.proxy.proxyConfiguration.addMineshaft)
                 .setName(ModConfiguration.addMineshaftName)
                 .setConfigType("Boolean")
-                .setGroupName("Starter House Options")
+                .setGroupName("House Options")
                 .setHoverText("Determines if the mineshaft is included in the starter house. When playing on a server, the server configuration is used")
                 .setDefaultValue(true));
 

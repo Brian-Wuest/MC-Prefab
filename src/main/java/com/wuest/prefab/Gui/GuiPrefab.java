@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Config.ConfigOption;
 import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Proxy.CommonProxy;
+import com.wuest.prefab.Quadruple;
 import com.wuest.prefab.Tuple;
 import net.minecraft.client.AbstractOption;
 import net.minecraft.client.Minecraft;
@@ -21,6 +22,7 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,10 +31,11 @@ public class GuiPrefab extends GuiBase {
      * Distance from top of the screen to this GUI's title
      */
     private static final int TITLE_HEIGHT = 8;
+
     /**
      * Distance from top of the screen to the options row list's top
      */
-    private static final int OPTIONS_LIST_TOP_HEIGHT = 24;
+    private static final int OPTIONS_LIST_TOP_HEIGHT = 55;
 
     /**
      * Distance from bottom of the screen to the options row list's bottom
@@ -51,13 +54,13 @@ public class GuiPrefab extends GuiBase {
 
     private final Screen parentScreen;
     private ExtendedButton doneButton;
+    private ExtendedButton resetToDefaultsButton;
     private ExtendedButton generalGroupButton;
 
     private String currentOption = "General";
 
-    /**
-     * List of options rows shown on the screen
-     */
+    private OptionsRowList currentRowList;
+    private ArrayList<Quadruple<String, OptionsRowList, OptionsRowList, String>> optionCollection;
     private OptionsRowList optionsRowList;
     private OptionsRowList chestOptionsRowList;
     private OptionsRowList recipeOptionsRowList;
@@ -71,14 +74,16 @@ public class GuiPrefab extends GuiBase {
 
     @Nullable
     public static List<IReorderingProcessor> tooltipAt(OptionsRowList optionsRowList, int mouseX, int mouseY) {
-        Optional<Widget> optional = optionsRowList.getMouseOver(mouseX, mouseY);
+        if (optionsRowList.isMouseOver(mouseX, mouseY)) {
+            Optional<Widget> optional = optionsRowList.getMouseOver(mouseX, mouseY);
 
-        if (optional.isPresent() && optional.get() instanceof IBidiTooltip) {
-            Optional<List<IReorderingProcessor>> tooltip = ((IBidiTooltip) optional.get()).getTooltip();
-            return tooltip.orElse(null);
-        } else {
-            return null;
+            if (optional.isPresent() && optional.get() instanceof IBidiTooltip) {
+                Optional<List<IReorderingProcessor>> tooltip = ((IBidiTooltip) optional.get()).getTooltip();
+                return tooltip.orElse(null);
+            }
         }
+
+        return null;
     }
 
     @Override
@@ -87,14 +92,14 @@ public class GuiPrefab extends GuiBase {
         Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
         int x = adjustedXYValue.getFirst();
 
-        // Add the "Done" button
-        this.doneButton = this.createAndAddButton((this.width - 200) / 2, this.height - DONE_BUTTON_TOP_OFFSET, 200, 20, "Done");
-        this.generalGroupButton = this.createAndAddButton(x + 20, 2, 120, 20, "General");
+        this.optionCollection = new ArrayList<>();
 
-        // Create the options row list
-        // It must be created in this method instead of in the constructor,
-        // or it will not be displayed properly
-        this.optionsRowList = new OptionsRowList(
+        this.resetToDefaultsButton = this.createAndAddButton(60, this.height - DONE_BUTTON_TOP_OFFSET, 100, 20, "Reset");
+        this.doneButton = this.createAndAddButton(this.width - 160, this.height - DONE_BUTTON_TOP_OFFSET, 100, 20, "Done");
+
+        this.generalGroupButton = this.createAndAddButton(this.width / 2, 30, 120, 20, "General");
+
+        OptionsRowList generalOptions = new OptionsRowList(
                 this.getMinecraft(),
                 this.width,
                 this.height,
@@ -103,7 +108,7 @@ public class GuiPrefab extends GuiBase {
                 OPTIONS_LIST_ITEM_HEIGHT
         );
 
-        this.chestOptionsRowList = new OptionsRowList(
+        OptionsRowList chestOptions = new OptionsRowList(
                 this.getMinecraft(),
                 this.width,
                 this.height,
@@ -112,7 +117,7 @@ public class GuiPrefab extends GuiBase {
                 OPTIONS_LIST_ITEM_HEIGHT
         );
 
-        this.recipeOptionsRowList = new OptionsRowList(
+        OptionsRowList recipeOptions = new OptionsRowList(
                 this.getMinecraft(),
                 this.width,
                 this.height,
@@ -121,7 +126,7 @@ public class GuiPrefab extends GuiBase {
                 OPTIONS_LIST_ITEM_HEIGHT
         );
 
-        this.starterHouseOptionsRowList = new OptionsRowList(
+        OptionsRowList houseOptions = new OptionsRowList(
                 this.getMinecraft(),
                 this.width,
                 this.height,
@@ -129,31 +134,38 @@ public class GuiPrefab extends GuiBase {
                 this.height - OPTIONS_LIST_BOTTOM_OFFSET,
                 OPTIONS_LIST_ITEM_HEIGHT
         );
+
+        this.optionCollection.add(new Quadruple<>("General", generalOptions, chestOptions, "Chest Options"));
+        this.optionCollection.add(new Quadruple<>("Chest Options", chestOptions, recipeOptions, "Recipe Options"));
+        this.optionCollection.add(new Quadruple<>("Recipe Options", recipeOptions, houseOptions, "House Options"));
+        this.optionCollection.add(new Quadruple<>("House Options", houseOptions, generalOptions, "General"));
 
         for (ConfigOption<?> configOption : CommonProxy.proxyConfiguration.configOptions) {
-            OptionsRowList rowList = this.getOptionsRowList(configOption.getGroupName());
+            Quadruple<String, OptionsRowList, OptionsRowList, String> rowList = this.getOptionsRowList(configOption.getGroupName());
 
-            switch (configOption.getConfigType()) {
-                case "Boolean": {
-                    this.addBooleanOption(rowList, configOption);
-                    break;
-                }
+            if (rowList != null) {
+                switch (configOption.getConfigType()) {
+                    case "Boolean": {
+                        this.addBooleanOption(rowList.getSecond(), configOption);
+                        break;
+                    }
 
-                case "String": {
-                    this.addStringOption(rowList, configOption);
-                    break;
-                }
+                    case "String": {
+                        this.addStringOption(rowList.getSecond(), configOption);
+                        break;
+                    }
 
-                case "Integer": {
-                    this.addIntegerOption(rowList, configOption);
-                    break;
+                    case "Integer": {
+                        this.addIntegerOption(rowList.getSecond(), configOption);
+                        break;
+                    }
                 }
             }
         }
 
         // Only add the general OptionsList when starting the screen.
         // This list will be removed and re-added depending on the group of options chosen.
-        this.children.add(this.optionsRowList);
+        this.children.add(this.optionCollection.get(0).getSecond());
     }
 
     @Override
@@ -162,37 +174,18 @@ public class GuiPrefab extends GuiBase {
             ModConfiguration.UpdateServerConfig();
             this.getMinecraft().setScreen(this.parentScreen);
         } else if (button == this.generalGroupButton) {
-            switch (this.currentOption) {
-                case "General": {
-                    this.children.remove(this.optionsRowList);
-                    this.children.add(this.chestOptionsRowList);
-                    this.generalGroupButton.setMessage(new StringTextComponent("Chest Options"));
-                    this.currentOption = "Chest Options";
-                    break;
-                }
-                case "Chest Options": {
-                    this.children.remove(this.chestOptionsRowList);
-                    this.children.add(this.recipeOptionsRowList);
-                    this.generalGroupButton.setMessage(new StringTextComponent("Recipes"));
-                    this.currentOption = "Recipe Options";
-                    break;
-                }
-                case "Recipe Options": {
-                    this.children.remove(this.recipeOptionsRowList);
-                    this.children.add(this.starterHouseOptionsRowList);
-                    this.generalGroupButton.setMessage(new StringTextComponent("House Options"));
-                    this.currentOption = "Starter House Options";
-                    break;
-                }
-                case "Starter House Options": {
-                    this.children.remove(this.starterHouseOptionsRowList);
-                    this.children.add(this.optionsRowList);
-                    this.generalGroupButton.setMessage(new StringTextComponent("General"));
-                    this.currentOption = "General";
-                    break;
-                }
-            }
+            Quadruple<String, OptionsRowList, OptionsRowList, String> option = this.getOptionsRowList(this.currentOption);
 
+            if (option != null) {
+                this.children.remove(option.getSecond());
+                this.children.add(option.getThird());
+                this.generalGroupButton.setMessage(new StringTextComponent(option.getFourth()));
+                this.currentOption = option.getFourth();
+            }
+        } else if (button == this.resetToDefaultsButton) {
+            for (ConfigOption<?> configOption : CommonProxy.proxyConfiguration.configOptions) {
+                configOption.resetToDefault();
+            }
         }
     }
 
@@ -206,9 +199,18 @@ public class GuiPrefab extends GuiBase {
         this.renderDirtBackground(0);
 
         // Only render the appropriate options row list based on the currently selected option.
-        OptionsRowList rowList = this.getOptionsRowList(this.currentOption);
+        Quadruple<String, OptionsRowList, OptionsRowList, String> rowList = this.getOptionsRowList(this.currentOption);
 
-        rowList.render(matrixStack, x, y, partialTicks);
+        if (rowList != null) {
+            rowList.getSecond().render(matrixStack, x, y, partialTicks);
+
+            List<IReorderingProcessor> list = GuiPrefab.tooltipAt(rowList.getSecond(), mouseX, mouseY);
+
+            if (list != null) {
+                int mousePosition = mouseY > this.height / 2 ? mouseY - 25 : mouseY + 25;
+                this.renderTooltip(matrixStack, list, mouseX, mousePosition);
+            }
+        }
 
         // Draw the title
         AbstractGui.drawCenteredString(
@@ -219,11 +221,13 @@ public class GuiPrefab extends GuiBase {
                 TITLE_HEIGHT,
                 0xFFFFFF);
 
-        List<IReorderingProcessor> list = GuiPrefab.tooltipAt(rowList, mouseX, mouseY);
-
-        if (list != null) {
-            this.renderTooltip(matrixStack, list, mouseX, mouseY + 25);
-        }
+        AbstractGui.drawCenteredString(
+                matrixStack,
+                this.font,
+                "Category",
+                (this.width / 2) - 50,
+                35,
+                0xFFFFFF);
     }
 
     @Override
@@ -298,31 +302,13 @@ public class GuiPrefab extends GuiBase {
         rowList.addBig(abstractOption);
     }
 
-    private OptionsRowList getOptionsRowList(String listName) {
-        OptionsRowList rowList;
-
-        switch (listName) {
-            case "Chest Options": {
-                rowList = this.chestOptionsRowList;
-                break;
-            }
-
-            case "Recipe Options": {
-                rowList = this.recipeOptionsRowList;
-                break;
-            }
-
-            case "Starter House Options": {
-                rowList = this.starterHouseOptionsRowList;
-                break;
-            }
-
-            default: {
-                rowList = this.optionsRowList;
-                break;
+    private Quadruple<String, OptionsRowList, OptionsRowList, String> getOptionsRowList(String listName) {
+        for (Quadruple<String, OptionsRowList, OptionsRowList, String> option : this.optionCollection) {
+            if (option.getFirst().equals(listName)) {
+                return option;
             }
         }
 
-        return rowList;
+        return null;
     }
 }

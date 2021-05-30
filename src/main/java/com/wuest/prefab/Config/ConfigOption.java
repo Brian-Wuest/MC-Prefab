@@ -118,4 +118,23 @@ public class ConfigOption<T> {
     public StringTextComponent getHoverTextComponent() {
         return this.hoverTextComponent;
     }
+
+    public void resetToDefault() {
+        switch (this.getConfigType()) {
+            case "Boolean": {
+                this.getConfigValueAsBoolean().set((Boolean) this.getDefaultValue());
+                break;
+            }
+
+            case "String": {
+                this.getConfigValueAsString().set((String) this.getDefaultValue());
+                break;
+            }
+
+            case "Integer": {
+                this.getConfigValueAsInt().set((Integer) this.getDefaultValue());
+                break;
+            }
+        }
+    }
 }
