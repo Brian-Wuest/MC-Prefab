@@ -185,6 +185,11 @@ public class GuiPrefab extends GuiBase {
             for (ConfigOption<?> configOption : CommonProxy.proxyConfiguration.configOptions) {
                 configOption.resetToDefault();
             }
+
+            this.buttons.clear();
+            this.children.clear();
+            this.currentOption = ConfigCategory.General;
+            this.Initialize();
         }
     }
 
