@@ -1,6 +1,7 @@
 package com.wuest.prefab.Gui;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.wuest.prefab.Config.ConfigCategory;
 import com.wuest.prefab.Config.ConfigOption;
 import com.wuest.prefab.Config.ModConfiguration;
 import com.wuest.prefab.Proxy.CommonProxy;
@@ -57,10 +58,10 @@ public class GuiPrefab extends GuiBase {
     private ExtendedButton resetToDefaultsButton;
     private ExtendedButton generalGroupButton;
 
-    private String currentOption = "General";
+    private ConfigCategory currentOption = ConfigCategory.General;
 
     private OptionsRowList currentRowList;
-    private ArrayList<Quadruple<String, OptionsRowList, OptionsRowList, String>> optionCollection;
+    private ArrayList<Quadruple<ConfigCategory, OptionsRowList, OptionsRowList, ConfigCategory>> optionCollection;
     private OptionsRowList optionsRowList;
     private OptionsRowList chestOptionsRowList;
     private OptionsRowList recipeOptionsRowList;
@@ -99,49 +100,47 @@ public class GuiPrefab extends GuiBase {
 
         this.generalGroupButton = this.createAndAddButton(this.width / 2, 30, 120, 20, "General");
 
-        OptionsRowList generalOptions = new OptionsRowList(
-                this.getMinecraft(),
-                this.width,
-                this.height,
-                OPTIONS_LIST_TOP_HEIGHT,
-                this.height - OPTIONS_LIST_BOTTOM_OFFSET,
-                OPTIONS_LIST_ITEM_HEIGHT
-        );
+        for (ConfigCategory category : ConfigCategory.values()) {
+            OptionsRowList nextOptions = new OptionsRowList(
+                    this.getMinecraft(),
+                    this.width,
+                    this.height,
+                    OPTIONS_LIST_TOP_HEIGHT,
+                    this.height - OPTIONS_LIST_BOTTOM_OFFSET,
+                    OPTIONS_LIST_ITEM_HEIGHT
+            );
 
-        OptionsRowList chestOptions = new OptionsRowList(
-                this.getMinecraft(),
-                this.width,
-                this.height,
-                OPTIONS_LIST_TOP_HEIGHT,
-                this.height - OPTIONS_LIST_BOTTOM_OFFSET,
-                OPTIONS_LIST_ITEM_HEIGHT
-        );
+            OptionsRowList currentOptions = null;
+            int currentLocation = category.ordinal();
 
-        OptionsRowList recipeOptions = new OptionsRowList(
-                this.getMinecraft(),
-                this.width,
-                this.height,
-                OPTIONS_LIST_TOP_HEIGHT,
-                this.height - OPTIONS_LIST_BOTTOM_OFFSET,
-                OPTIONS_LIST_ITEM_HEIGHT
-        );
+            if (currentLocation == 0) {
+                currentOptions = new OptionsRowList(
+                        this.getMinecraft(),
+                        this.width,
+                        this.height,
+                        OPTIONS_LIST_TOP_HEIGHT,
+                        this.height - OPTIONS_LIST_BOTTOM_OFFSET,
+                        OPTIONS_LIST_ITEM_HEIGHT
+                );
+            }
+            else  {
+                int currentOptionsIndex = currentLocation - 1;
 
-        OptionsRowList houseOptions = new OptionsRowList(
-                this.getMinecraft(),
-                this.width,
-                this.height,
-                OPTIONS_LIST_TOP_HEIGHT,
-                this.height - OPTIONS_LIST_BOTTOM_OFFSET,
-                OPTIONS_LIST_ITEM_HEIGHT
-        );
+                if (currentLocation == ConfigCategory.values().length - 1) {
+                    // This is the last one; make sure to use the first record as the "next" option row list.
+                    nextOptions = this.optionCollection.get(0).getSecond();
+                }
 
-        this.optionCollection.add(new Quadruple<>("General", generalOptions, chestOptions, "Chest Options"));
-        this.optionCollection.add(new Quadruple<>("Chest Options", chestOptions, recipeOptions, "Recipe Options"));
-        this.optionCollection.add(new Quadruple<>("Recipe Options", recipeOptions, houseOptions, "House Options"));
-        this.optionCollection.add(new Quadruple<>("House Options", houseOptions, generalOptions, "General"));
+                currentOptions = this.optionCollection.get(currentOptionsIndex).getThird();
+            }
+
+            ConfigCategory nextCategory = ConfigCategory.getNextCategory(category);
+
+            this.optionCollection.add(new Quadruple<>(category, currentOptions, nextOptions, nextCategory));
+        }
 
         for (ConfigOption<?> configOption : CommonProxy.proxyConfiguration.configOptions) {
-            Quadruple<String, OptionsRowList, OptionsRowList, String> rowList = this.getOptionsRowList(configOption.getGroupName());
+            Quadruple<ConfigCategory, OptionsRowList, OptionsRowList, ConfigCategory> rowList = this.getOptionsRowList(configOption.getCategory());
 
             if (rowList != null) {
                 switch (configOption.getConfigType()) {
@@ -174,12 +173,12 @@ public class GuiPrefab extends GuiBase {
             ModConfiguration.UpdateServerConfig();
             this.getMinecraft().setScreen(this.parentScreen);
         } else if (button == this.generalGroupButton) {
-            Quadruple<String, OptionsRowList, OptionsRowList, String> option = this.getOptionsRowList(this.currentOption);
+            Quadruple<ConfigCategory, OptionsRowList, OptionsRowList, ConfigCategory> option = this.getOptionsRowList(this.currentOption);
 
             if (option != null) {
                 this.children.remove(option.getSecond());
                 this.children.add(option.getThird());
-                this.generalGroupButton.setMessage(new StringTextComponent(option.getFourth()));
+                this.generalGroupButton.setMessage(new StringTextComponent(option.getFourth().getName()));
                 this.currentOption = option.getFourth();
             }
         } else if (button == this.resetToDefaultsButton) {
@@ -199,7 +198,7 @@ public class GuiPrefab extends GuiBase {
         this.renderDirtBackground(0);
 
         // Only render the appropriate options row list based on the currently selected option.
-        Quadruple<String, OptionsRowList, OptionsRowList, String> rowList = this.getOptionsRowList(this.currentOption);
+        Quadruple<ConfigCategory, OptionsRowList, OptionsRowList, ConfigCategory> rowList = this.getOptionsRowList(this.currentOption);
 
         if (rowList != null) {
             rowList.getSecond().render(matrixStack, x, y, partialTicks);
@@ -302,9 +301,9 @@ public class GuiPrefab extends GuiBase {
         rowList.addBig(abstractOption);
     }
 
-    private Quadruple<String, OptionsRowList, OptionsRowList, String> getOptionsRowList(String listName) {
-        for (Quadruple<String, OptionsRowList, OptionsRowList, String> option : this.optionCollection) {
-            if (option.getFirst().equals(listName)) {
+    private Quadruple<ConfigCategory, OptionsRowList, OptionsRowList, ConfigCategory> getOptionsRowList(ConfigCategory listName) {
+        for (Quadruple<ConfigCategory, OptionsRowList, OptionsRowList, ConfigCategory> option : this.optionCollection) {
+            if (option.getFirst() == listName) {
                 return option;
             }
         }

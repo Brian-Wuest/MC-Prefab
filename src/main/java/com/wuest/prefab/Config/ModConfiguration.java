@@ -167,7 +167,7 @@ public class ModConfiguration {
         config.configOptions.add(new ConfigOption<String>()
                 .setConfigValue(Prefab.proxy.proxyConfiguration.startingItem)
                 .setName(ModConfiguration.startingItemName)
-                .setGroupName("General")
+                .setCategory(ConfigCategory.General)
                 .setConfigType("String")
                 .setDefaultValue("Starting House")
                 .setHoverText("Determines which starting item a player gets on first world join. Valid values for this option are: \"Starting House\", \"Moderate House\", \"Structure Part\", \"Nothing\". Server configuration overrides client.")
@@ -181,7 +181,7 @@ public class ModConfiguration {
                 .setConfigValue(Prefab.proxy.proxyConfiguration.enableLoftHouse)
                 .setName(ModConfiguration.enableLoftHouseName)
                 .setConfigType("Boolean")
-                .setGroupName("General")
+                .setCategory(ConfigCategory.General)
                 .setHoverText("Determines if the loft starter house is enabled. This house contains Nether materials in it's construction. Server configuration overrides client.")
                 .setDefaultValue(false));
 
@@ -193,7 +193,7 @@ public class ModConfiguration {
                 .setConfigValue(Prefab.proxy.proxyConfiguration.includeSpawnersInMasher)
                 .setName(ModConfiguration.includeSpawnersInMasherName)
                 .setConfigType("Boolean")
-                .setGroupName("General")
+                .setCategory(ConfigCategory.General)
                 .setHoverText("Determines if the spawners for the Monster Masher building are included. Server configuration overrides client.")
                 .setDefaultValue(true));
 
@@ -205,7 +205,7 @@ public class ModConfiguration {
                 .setConfigValue(Prefab.proxy.proxyConfiguration.enableStructurePreview)
                 .setName(ModConfiguration.enableStructurePreviewName)
                 .setConfigType("Boolean")
-                .setGroupName("General")
+                .setCategory(ConfigCategory.General)
                 .setHoverText("Determines if the Preview buttons in structure GUIs and other structure previews functions are enabled. Client side only.")
                 .setDefaultValue(true));
 
@@ -217,7 +217,7 @@ public class ModConfiguration {
                 .setConfigValue(Prefab.proxy.proxyConfiguration.includeMineshaftChest)
                 .setName(ModConfiguration.includeMineshaftChestName)
                 .setConfigType("Boolean")
-                .setGroupName("General")
+                .setCategory(ConfigCategory.General)
                 .setHoverText("Determines if the mineshaft chest is included when building mineshafts for various structures.")
                 .setDefaultValue(true));
 
@@ -229,7 +229,7 @@ public class ModConfiguration {
                 .setConfigValue(Prefab.proxy.proxyConfiguration.allowBulldozerToCreateDrops)
                 .setName(ModConfiguration.allowBulldozerToCreateDropsName)
                 .setConfigType("Boolean")
-                .setGroupName("General")
+                .setCategory(ConfigCategory.General)
                 .setHoverText("Determines if the bulldozer item can create drops when it clears an area.")
                 .setDefaultValue(true));
 
@@ -242,7 +242,7 @@ public class ModConfiguration {
                 .setConfigValue(Prefab.proxy.proxyConfiguration.addSword)
                 .setName(ModConfiguration.addSwordName)
                 .setConfigType("Boolean")
-                .setGroupName("Chest Options")
+                .setCategory(ConfigCategory.ChestOptions)
                 .setHoverText("Determines if a Stone Sword is added the the chest when the house is created.")
                 .setDefaultValue(true));
 
@@ -253,7 +253,7 @@ public class ModConfiguration {
                 .setConfigValue(Prefab.proxy.proxyConfiguration.addAxe)
                 .setName(ModConfiguration.addAxeName)
                 .setConfigType("Boolean")
-                .setGroupName("Chest Options")
+                .setCategory(ConfigCategory.ChestOptions)
                 .setHoverText("Determines if a Stone Axe is added the the chest when the house is created.")
                 .setDefaultValue(true));
 
@@ -264,7 +264,7 @@ public class ModConfiguration {
                 .setConfigValue(Prefab.proxy.proxyConfiguration.addShovel)
                 .setName(ModConfiguration.addShovelName)
                 .setConfigType("Boolean")
-                .setGroupName("Chest Options")
+                .setCategory(ConfigCategory.ChestOptions)
                 .setHoverText("Determines if a Stone Shovel is added the the chest when the house is created.")
                 .setDefaultValue(true));
 
@@ -275,7 +275,7 @@ public class ModConfiguration {
                 .setConfigValue(Prefab.proxy.proxyConfiguration.addHoe)
                 .setName(ModConfiguration.addHoeName)
                 .setConfigType("Boolean")
-                .setGroupName("Chest Options")
+                .setCategory(ConfigCategory.ChestOptions)
                 .setHoverText("Determines if a Stone Hoe is added the the chest when the house is created.")
                 .setDefaultValue(true));
 
@@ -286,7 +286,7 @@ public class ModConfiguration {
                 .setConfigValue(Prefab.proxy.proxyConfiguration.addPickAxe)
                 .setName(ModConfiguration.addPickAxeName)
                 .setConfigType("Boolean")
-                .setGroupName("Chest Options")
+                .setCategory(ConfigCategory.ChestOptions)
                 .setHoverText("Determines if a Stone Pickaxe is added the the chest when the house is created.")
                 .setDefaultValue(true));
 
@@ -297,7 +297,7 @@ public class ModConfiguration {
                 .setConfigValue(Prefab.proxy.proxyConfiguration.addArmor)
                 .setName(ModConfiguration.addArmorName)
                 .setConfigType("Boolean")
-                .setGroupName("Chest Options")
+                .setCategory(ConfigCategory.ChestOptions)
                 .setHoverText("Determines if Leather Armor is added the the chest when the house is created.")
                 .setDefaultValue(true));
 
@@ -308,7 +308,7 @@ public class ModConfiguration {
                 .setConfigValue(Prefab.proxy.proxyConfiguration.addFood)
                 .setName(ModConfiguration.addFoodName)
                 .setConfigType("Boolean")
-                .setGroupName("Chest Options")
+                .setCategory(ConfigCategory.ChestOptions)
                 .setHoverText("Determines if Bread is added the the chest when the house is created.")
                 .setDefaultValue(true));
 
@@ -319,7 +319,7 @@ public class ModConfiguration {
                 .setConfigValue(Prefab.proxy.proxyConfiguration.addCrops)
                 .setName(ModConfiguration.addCropsName)
                 .setConfigType("Boolean")
-                .setGroupName("Chest Options")
+                .setCategory(ConfigCategory.ChestOptions)
                 .setHoverText("Determines if seeds, potatoes and carrots are added the the chest when the house is created.")
                 .setDefaultValue(true));
 
@@ -330,7 +330,7 @@ public class ModConfiguration {
                 .setConfigValue(Prefab.proxy.proxyConfiguration.addDirt)
                 .setName(ModConfiguration.addDirtName)
                 .setConfigType("Boolean")
-                .setGroupName("Chest Options")
+                .setCategory(ConfigCategory.ChestOptions)
                 .setHoverText("Determines if a stack of dirt is added the the chest when the house is created.")
                 .setDefaultValue(true));
 
@@ -341,7 +341,7 @@ public class ModConfiguration {
                 .setConfigValue(Prefab.proxy.proxyConfiguration.addCobble)
                 .setName(ModConfiguration.addCobbleName)
                 .setConfigType("Boolean")
-                .setGroupName("Chest Options")
+                .setCategory(ConfigCategory.ChestOptions)
                 .setHoverText("Determines if a stack of cobble is added the the chest when the house is created.")
                 .setDefaultValue(true));
 
@@ -352,7 +352,7 @@ public class ModConfiguration {
                 .setConfigValue(Prefab.proxy.proxyConfiguration.addSaplings)
                 .setName(ModConfiguration.addSaplingsName)
                 .setConfigType("Boolean")
-                .setGroupName("Chest Options")
+                .setCategory(ConfigCategory.ChestOptions)
                 .setHoverText("Determines if a set of oak saplings are added the the chest when the house is created.")
                 .setDefaultValue(true));
 
@@ -363,7 +363,7 @@ public class ModConfiguration {
                 .setConfigValue(Prefab.proxy.proxyConfiguration.addTorches)
                 .setName(ModConfiguration.addTorchesName)
                 .setConfigType("Boolean")
-                .setGroupName("Chest Options")
+                .setCategory(ConfigCategory.ChestOptions)
                 .setHoverText("Determines if a set of torches are added the the chest when the house is created.")
                 .setDefaultValue(true));
 
@@ -377,7 +377,7 @@ public class ModConfiguration {
                 .setConfigValue(Prefab.proxy.proxyConfiguration.addBed)
                 .setName(ModConfiguration.addBedName)
                 .setConfigType("Boolean")
-                .setGroupName("House Options")
+                .setCategory(ConfigCategory.HouseOptions)
                 .setHoverText("Determines if the bed is included in the starter house. When playing on a server, the server configuration is used")
                 .setDefaultValue(true));
 
@@ -389,7 +389,7 @@ public class ModConfiguration {
                 .setConfigValue(Prefab.proxy.proxyConfiguration.addCraftingTable)
                 .setName(ModConfiguration.addCraftingTableName)
                 .setConfigType("Boolean")
-                .setGroupName("House Options")
+                .setCategory(ConfigCategory.HouseOptions)
                 .setHoverText("Determines if the crafting table is included in the starter house. When playing on a server, the server configuration is used")
                 .setDefaultValue(true));
 
@@ -401,7 +401,7 @@ public class ModConfiguration {
                 .setConfigValue(Prefab.proxy.proxyConfiguration.addFurnace)
                 .setName(ModConfiguration.addFurnaceName)
                 .setConfigType("Boolean")
-                .setGroupName("House Options")
+                .setCategory(ConfigCategory.HouseOptions)
                 .setHoverText("Determines if the furnace is included in the starter house. When playing on a server, the server configuration is used")
                 .setDefaultValue(true));
 
@@ -413,7 +413,7 @@ public class ModConfiguration {
                 .setConfigValue(Prefab.proxy.proxyConfiguration.addChests)
                 .setName(ModConfiguration.addChestsName)
                 .setConfigType("Boolean")
-                .setGroupName("House Options")
+                .setCategory(ConfigCategory.HouseOptions)
                 .setHoverText("Determines if chests are included in the starter house. When playing on a server, the server configuration is used")
                 .setDefaultValue(true));
 
@@ -425,7 +425,7 @@ public class ModConfiguration {
                 .setConfigValue(Prefab.proxy.proxyConfiguration.addChestContents)
                 .setName(ModConfiguration.addChestContentsName)
                 .setConfigType("Boolean")
-                .setGroupName("House Options")
+                .setCategory(ConfigCategory.HouseOptions)
                 .setHoverText("Determines if the chest contents is included in the starter house. When playing on a server, the server configuration is used")
                 .setDefaultValue(true));
 
@@ -437,7 +437,7 @@ public class ModConfiguration {
                 .setConfigValue(Prefab.proxy.proxyConfiguration.addMineshaft)
                 .setName(ModConfiguration.addMineshaftName)
                 .setConfigType("Boolean")
-                .setGroupName("House Options")
+                .setCategory(ConfigCategory.HouseOptions)
                 .setHoverText("Determines if the mineshaft is included in the starter house. When playing on a server, the server configuration is used")
                 .setDefaultValue(true));
 
@@ -450,7 +450,7 @@ public class ModConfiguration {
             config.configOptions.add(new ConfigOption<Boolean>()
                     .setConfigValue(value)
                     .setName(key)
-                    .setGroupName("Recipe Options")
+                    .setCategory(ConfigCategory.RecipeOptions)
                     .setConfigType("Boolean")
                     .setHoverText("Determines if the recipe(s) associated with the " + key + " are enabled.")
                     .setDefaultValue(true));

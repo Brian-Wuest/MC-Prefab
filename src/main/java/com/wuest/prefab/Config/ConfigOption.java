@@ -12,7 +12,7 @@ public class ConfigOption<T> {
     private int minRange;
     private int maxRange;
     private ArrayList<String> validValues;
-    private String groupName;
+    private ConfigCategory category;
     private String configType;
     private String hoverText;
     private StringTextComponent hoverTextComponent;
@@ -21,12 +21,12 @@ public class ConfigOption<T> {
         this.validValues = new ArrayList<>();
     }
 
-    public String getGroupName() {
-        return this.groupName;
+    public ConfigCategory getCategory() {
+        return this.category;
     }
 
-    public ConfigOption<T> setGroupName(String value) {
-        this.groupName = value;
+    public ConfigOption<T> setCategory(ConfigCategory value) {
+        this.category = value;
         return this;
     }
 
