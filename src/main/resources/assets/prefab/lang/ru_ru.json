@@ -49,7 +49,7 @@
     "item.prefab.item_sugar_cane_farm": "Ферма Тростника",
     "item.prefab.item_workshop": "Мастерская",
 
-    "item.prefab.item_nether_gate_tree": "Искаженное Дерево",
+    "item.prefab.item_nether_gate_tree": "Искажённое Дерево",
     "item.prefab.item_nether_gate_skull": "Древний Череп",
 
     "block.prefab.block_compressed_stone": "Сжатый Камень",
@@ -59,7 +59,7 @@
     "block.prefab.block_double_compressed_glowstone": "Двойной Сжатый Светокамень",
     "block.prefab.block_compressed_dirt": "Сжатая Земля",
     "block.prefab.block_double_compressed_dirt": "Двойная Сжатая Земля",
-    "block.prefab.block_drafter": "Чертежный Стол",
+    "block.prefab.block_drafter": "Чертёжный Стол",
     "block.prefab.block_paper_lantern": "Бумажный Фонарь",
     "block.prefab.block_compressed_obsidian": "Сжатый Обсидиан",
     "block.prefab.block_double_compressed_obsidian": "Двойной Сжатый Обсидиан",
@@ -178,7 +178,7 @@
     "prefab.gui.pink": "Розовый",
     "prefab.gui.gray": "Серый",
     "prefab.gui.silver": "Серебрянный",
-    "prefab.gui.cyan": "Берюзовый",
+    "prefab.gui.cyan": "Бирюзовый",
     "prefab.gui.purple": "Фиолетовый",
     "prefab.gui.blue": "Синий",
     "prefab.gui.brown": "Коричневый",
