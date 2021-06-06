@@ -35,8 +35,8 @@ public class GuiTreeFarm extends GuiStructure {
 
 	@Override
 	protected void postButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
-		this.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, y + 10, 100, this.textColor);
-		this.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.TREE_FARM_SIZE), x + 147, y + 50, 100, this.textColor);
+		String strToDraw = GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED) + "\n \n" + GuiLangKeys.translateString(GuiLangKeys.TREE_FARM_SIZE);
+		this.drawSplitString(strToDraw, x + 147, y + 10, 100, this.textColor);
 	}
 
 	/**
