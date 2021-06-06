@@ -21,6 +21,7 @@ public class GuiCheckBox extends CheckboxButton {
 	protected Minecraft mineCraft;
 	protected String displayString;
 	protected IPressable handler;
+	protected int labelWidth;
 
 	public GuiCheckBox(int xPos, int yPos, String displayString, boolean isChecked, IPressable handler) {
 		super(xPos, yPos, 11, 12, new StringTextComponent(displayString), isChecked);
@@ -31,6 +32,7 @@ public class GuiCheckBox extends CheckboxButton {
 		this.stringColor = Color.DARK_GRAY.getRGB();
 		this.handler = handler;
 		this.withShadow = false;
+		this.labelWidth = 98;
 	}
 
 	/**
@@ -82,6 +84,11 @@ public class GuiCheckBox extends CheckboxButton {
 		return this;
 	}
 
+	public GuiCheckBox setLabelWidth(int value) {
+		this.labelWidth = value;
+		return this;
+	}
+
 	/**
 	 * Draws this button to the screen.
 	 */
@@ -118,7 +125,7 @@ public class GuiCheckBox extends CheckboxButton {
 			if (this.withShadow) {
 				this.drawString(matrixStack, this.mineCraft.font, displayString, x + this.boxWidth + 2, y + 2, color);
 			} else {
-				this.mineCraft.font.draw(matrixStack, displayString, x + this.boxWidth + 2, y + 2, color);
+				this.mineCraft.font.drawWordWrap(new StringTextComponent(displayString), x + this.boxWidth + 2, y + 2, this.labelWidth, color);
 			}
 		}
 	}

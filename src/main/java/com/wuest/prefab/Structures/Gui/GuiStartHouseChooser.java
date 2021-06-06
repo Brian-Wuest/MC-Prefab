@@ -264,53 +264,53 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 		int secondColumnY = y;
 		int secondColumnX = x + 137;
 
-		this.btnAddFurnace = this.createAndAddCheckBox(secondColumnX, secondColumnY, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_FURNACE), this.houseConfiguration.addFurnace, null);
+		this.btnAddFurnace = this.createAndAddCheckBox(secondColumnX - 10, secondColumnY, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_FURNACE), this.houseConfiguration.addFurnace, null);
 		this.btnAddFurnace.visible = false;
 
 		if (this.serverConfiguration.addFurnace) {
-			secondColumnY += 15;
+			secondColumnY += 20;
 		}
 
-		this.btnAddBed = this.createAndAddCheckBox(secondColumnX, secondColumnY, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_BED), this.houseConfiguration.addBed, null);
+		this.btnAddBed = this.createAndAddCheckBox(secondColumnX - 10, secondColumnY, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_BED), this.houseConfiguration.addBed, null);
 		this.btnAddBed.visible = false;
 
 		if (this.serverConfiguration.addBed) {
-			secondColumnY += 15;
+			secondColumnY += 20;
 		}
 
 		this.btnAddCraftingTable = this.createAndAddCheckBox(x, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_CRAFTING_TABLE), this.houseConfiguration.addCraftingTable, null);
 		this.btnAddCraftingTable.visible = false;
 
 		if (this.serverConfiguration.addCraftingTable) {
-			y += 15;
+			y += 20;
 		}
 
 		this.btnAddTorches = this.createAndAddCheckBox(x, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_TORCHES), this.houseConfiguration.addTorches, null);
 		this.btnAddTorches.visible = false;
 
 		if (this.serverConfiguration.addTorches) {
-			y += 15;
+			y += 20;
 		}
 
 		this.btnAddChest = this.createAndAddCheckBox(x, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_CHEST), this.houseConfiguration.addChest, null);
 		this.btnAddChest.visible = false;
 
 		if (this.serverConfiguration.addChests) {
-			y += 15;
+			y += 20;
 		}
 
 		this.btnAddMineShaft = this.createAndAddCheckBox(x, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_BUILD_MINESHAFT), this.houseConfiguration.addMineShaft, null);
 		this.btnAddMineShaft.visible = false;
 
 		if (this.serverConfiguration.addMineshaft) {
-			y += 15;
+			y += 20;
 		}
 
 		this.btnAddChestContents = this.createAndAddCheckBox(x, y, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_ADD_CHEST_CONTENTS), this.houseConfiguration.addChestContents, null);
 		this.btnAddChestContents.visible = false;
 
 		if (this.allowItemsInChestAndFurnace) {
-			y += 15;
+			y += 20;
 		}
 
 		x = grayBoxX + 10;
