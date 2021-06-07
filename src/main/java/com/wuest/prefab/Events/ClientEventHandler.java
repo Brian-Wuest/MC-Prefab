@@ -1,6 +1,5 @@
 package com.wuest.prefab.Events;
 
-import com.sun.javafx.geom.Vec3d;
 import com.wuest.prefab.Config.EntityPlayerConfiguration;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Proxy.ClientProxy;
@@ -10,6 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.world.World;
@@ -174,7 +174,7 @@ public final class ClientEventHandler {
         GlStateManager.enableTexture();*/
 	}
 
-	private static void drawLineWithGL(Vec3d blockA, Vec3d blockB) {
+	private static void drawLineWithGL(Vector3d blockA, Vector3d blockB) {
 		GL11.glColor4f(1F, 0F, 1F, 0F); // change color an set alpha
 
 		GL11.glBegin(GL11.GL_LINE_STRIP);
