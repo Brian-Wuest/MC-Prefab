@@ -185,6 +185,7 @@
     "prefab.gui.green": "Verde",
     "prefab.gui.red": "Rosso",
     "prefab.gui.black": "Nero",
+    "prefab.gui.clear": "Trasparente",
 
     "prefab.gui.bridge_length": "Lunghezza Ponte",
     "prefab.gui.bridge_material": "Materiale Ponte",

@@ -185,6 +185,7 @@
     "prefab.gui.green": "Зелёный",
     "prefab.gui.red": "Красный",
     "prefab.gui.black": "Чёрный",
+    "prefab.gui.clear": "Прозрачный",
 
     "prefab.gui.bridge_length": "Длина Моста",
     "prefab.gui.bridge_material": "Материал Моста",

@@ -3,6 +3,7 @@ package com.wuest.prefab.Structures.Base;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
+import com.wuest.prefab.Blocks.FullDyeColor;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Structures.Config.StructureConfiguration;
@@ -51,8 +52,8 @@ public class Structure {
     public ArrayList<BuildBlock> priorityOneBlocks = new ArrayList<BuildBlock>();
     public ArrayList<BuildBlock> priorityTwoBlocks = new ArrayList<>();
     public ArrayList<BuildBlock> priorityThreeBlocks = new ArrayList<>();
-	public ArrayList<BuildBlock> priorityFourBlocks = new ArrayList<>();
-	public ArrayList<BuildBlock> priorityFiveBlocks = new ArrayList<>();
+    public ArrayList<BuildBlock> priorityFourBlocks = new ArrayList<>();
+    public ArrayList<BuildBlock> priorityFiveBlocks = new ArrayList<>();
     public ArrayList<BuildBlock> airBlocks = new ArrayList<>();
     public StructureConfiguration configuration;
     public ServerWorld world;
@@ -444,9 +445,9 @@ public class Structure {
                             }
 
                             if (priorityFiveBlock) {
-                            	this.priorityFiveBlocks.add(block);
+                                this.priorityFiveBlocks.add(block);
                             } else if (priorityFourBlock) {
-                            	this.priorityFourBlocks.add(block);
+                                this.priorityFourBlocks.add(block);
                             } else if (priorityThreeBlock) {
                                 this.priorityThreeBlocks.add(block);
                             } else if (foundBlock instanceof AirBlock) {
@@ -510,7 +511,7 @@ public class Structure {
     public void BeforeHangingEntityRemoved(HangingEntity hangingEntity) {
     }
 
-    public BlockState getStainedGlassBlock(DyeColor color) {
+    public BlockState getStainedGlassBlock(FullDyeColor color) {
         switch (color) {
             case BLACK: {
                 return Blocks.BLACK_STAINED_GLASS.defaultBlockState();
@@ -557,13 +558,16 @@ public class Structure {
             case YELLOW: {
                 return Blocks.YELLOW_STAINED_GLASS.defaultBlockState();
             }
+            case CLEAR: {
+                return Blocks.GLASS.defaultBlockState();
+            }
             default: {
                 return Blocks.CYAN_STAINED_GLASS.defaultBlockState();
             }
         }
     }
 
-    public BlockState getStainedGlassPaneBlock(DyeColor color) {
+    public BlockState getStainedGlassPaneBlock(FullDyeColor color) {
         switch (color) {
             case BLACK: {
                 return Blocks.BLACK_STAINED_GLASS_PANE.defaultBlockState();
@@ -609,6 +613,9 @@ public class Structure {
             }
             case YELLOW: {
                 return Blocks.YELLOW_STAINED_GLASS_PANE.defaultBlockState();
+            }
+            case CLEAR: {
+                return Blocks.GLASS_PANE.defaultBlockState();
             }
             default: {
                 return Blocks.CYAN_STAINED_GLASS_PANE.defaultBlockState();

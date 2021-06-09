@@ -185,6 +185,7 @@
     "prefab.gui.green": "グリーン",
     "prefab.gui.red": "レッド",
     "prefab.gui.black": "ブラック",
+    "prefab.gui.clear": "トランスペアレント",
 
     "prefab.gui.bridge_length": "橋の長さ",
     "prefab.gui.bridge_material": "橋材",

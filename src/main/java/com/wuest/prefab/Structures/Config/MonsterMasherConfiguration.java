@@ -1,5 +1,6 @@
 package com.wuest.prefab.Structures.Config;
 
+import com.wuest.prefab.Blocks.FullDyeColor;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Structures.Predefined.StructureMonsterMasher;
 import net.minecraft.entity.player.PlayerEntity;
@@ -14,19 +15,19 @@ import net.minecraft.world.server.ServerWorld;
  */
 public class MonsterMasherConfiguration extends StructureConfiguration {
 	private static String dyeColorTag = "dyeColor";
-	public DyeColor dyeColor;
+	public FullDyeColor dyeColor;
 
 	@Override
 	public void Initialize() {
 		super.Initialize();
 		this.houseFacing = Direction.NORTH;
-		this.dyeColor = DyeColor.CYAN;
+		this.dyeColor = FullDyeColor.CYAN;
 	}
 
 	@Override
 	protected void CustomReadFromNBTTag(CompoundNBT messageTag, StructureConfiguration config) {
 		if (messageTag.contains(MonsterMasherConfiguration.dyeColorTag)) {
-			((MonsterMasherConfiguration) config).dyeColor = DyeColor.byId(messageTag.getInt(MonsterMasherConfiguration.dyeColorTag));
+			((MonsterMasherConfiguration) config).dyeColor = FullDyeColor.ById(messageTag.getInt(MonsterMasherConfiguration.dyeColorTag));
 		}
 	}
 

@@ -1,5 +1,6 @@
 package com.wuest.prefab.Structures.Config;
 
+import com.wuest.prefab.Blocks.FullDyeColor;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Structures.Items.StructureItem;
 import com.wuest.prefab.Structures.Predefined.StructureWarehouse;
@@ -22,7 +23,7 @@ public class WareHouseConfiguration extends StructureConfiguration {
 	/**
 	 * Determines the glass color.
 	 */
-	public DyeColor dyeColor;
+	public FullDyeColor dyeColor;
 
 	/**
 	 * Determines if the advanced warehouse is generated instead.
@@ -40,14 +41,14 @@ public class WareHouseConfiguration extends StructureConfiguration {
 	public void Initialize() {
 		super.Initialize();
 		this.houseFacing = Direction.SOUTH;
-		this.dyeColor = DyeColor.CYAN;
+		this.dyeColor = FullDyeColor.CYAN;
 		this.advanced = false;
 	}
 
 	@Override
 	protected void CustomReadFromNBTTag(CompoundNBT messageTag, StructureConfiguration config) {
 		if (messageTag.contains(WareHouseConfiguration.dyeColorTag)) {
-			((WareHouseConfiguration) config).dyeColor = DyeColor.byId(messageTag.getInt(WareHouseConfiguration.dyeColorTag));
+			((WareHouseConfiguration) config).dyeColor = FullDyeColor.ById(messageTag.getInt(WareHouseConfiguration.dyeColorTag));
 		}
 
 		if (messageTag.contains(WareHouseConfiguration.advancedTag)) {

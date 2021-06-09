@@ -185,6 +185,7 @@
     "prefab.gui.green": "Yeşil",
     "prefab.gui.red": "Kırmızı",
     "prefab.gui.black": "Siyah",
+    "prefab.gui.clear": "Şeffaf",
 
     "prefab.gui.bridge_length": "Köprü Uzunluğu",
     "prefab.gui.bridge_material": "Köprü Materyali",

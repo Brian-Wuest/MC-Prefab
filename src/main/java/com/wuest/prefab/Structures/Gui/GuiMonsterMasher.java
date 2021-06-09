@@ -1,6 +1,7 @@
 package com.wuest.prefab.Structures.Gui;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.wuest.prefab.Blocks.FullDyeColor;
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Structures.Config.MonsterMasherConfiguration;
@@ -42,7 +43,7 @@ public class GuiMonsterMasher extends GuiStructure {
 		int grayBoxY = adjustedXYValue.getSecond();
 
 		// Create the buttons.
-		this.btnGlassColor = this.createAndAddButton(grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateDye(this.configuration.dyeColor));
+		this.btnGlassColor = this.createAndAddButton(grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateFullDye(this.configuration.dyeColor));
 
 		this.btnVisualize = this.createAndAddButton(grayBoxX + 10, grayBoxY + 90, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW));
 
@@ -76,8 +77,8 @@ public class GuiMonsterMasher extends GuiStructure {
 		this.performCancelOrBuildOrHouseFacing(this.configuration, button);
 
 		if (button == this.btnGlassColor) {
-			this.configuration.dyeColor = DyeColor.byId(this.configuration.dyeColor.getId() + 1);
-			this.btnGlassColor.setMessage(new StringTextComponent( GuiLangKeys.translateDye(this.configuration.dyeColor)));
+			this.configuration.dyeColor = FullDyeColor.ById(this.configuration.dyeColor.getId() + 1);
+			this.btnGlassColor.setMessage(new StringTextComponent( GuiLangKeys.translateFullDye(this.configuration.dyeColor)));
 		} else if (button == this.btnVisualize) {
 			StructureMonsterMasher structure = StructureMonsterMasher.CreateInstance(StructureMonsterMasher.ASSETLOCATION, StructureMonsterMasher.class);
 			StructureRenderHandler.setStructure(structure, Direction.NORTH, this.configuration);

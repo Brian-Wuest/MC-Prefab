@@ -185,6 +185,7 @@
     "prefab.gui.green": "綠色",
     "prefab.gui.red": "紅色",
     "prefab.gui.black": "黑色",
+    "prefab.gui.clear": "透明",
 
     "prefab.gui.bridge_length": "長度",
     "prefab.gui.bridge_material": "材料",
