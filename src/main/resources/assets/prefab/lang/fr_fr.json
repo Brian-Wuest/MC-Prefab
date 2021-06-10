@@ -203,6 +203,7 @@
   "prefab.gui.material.smooth_andesite": "Andésite lisse",
   "prefab.gui.material.diorite": "Diorite",
   "prefab.gui.material.smooth_diorite": "Diorite lisse",
+  "prefab.gui.material.red_sandstone": "Grès Rouge",
 
   "prefab.gui.part_style.wall": "Mur",
   "prefab.gui.part_style.gate": "Porte",

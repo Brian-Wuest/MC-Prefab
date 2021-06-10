@@ -203,6 +203,7 @@
     "prefab.gui.material.smooth_andesite": "Полированный Андезит",
     "prefab.gui.material.diorite": "Диорит",
     "prefab.gui.material.smooth_diorite": "Полированный Диорит",
+    "prefab.gui.material.red_sandstone": "Красный песчаник",
 
     "prefab.gui.part_style.wall": "Стена",
     "prefab.gui.part_style.gate": "Ворота",

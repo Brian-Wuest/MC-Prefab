@@ -202,6 +202,7 @@
   "prefab.gui.material.smooth_andesite": "磨制安山岩",
   "prefab.gui.material.diorite": "闪长岩",
   "prefab.gui.material.smooth_diorite": "磨制闪长岩",
+  "prefab.gui.material.red_sandstone": "红砂岩",
 
   "prefab.gui.part_style.wall": "墙",
   "prefab.gui.part_style.gate": "门",

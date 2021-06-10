@@ -203,6 +203,7 @@
     "prefab.gui.material.smooth_andesite": "滑らかな安山岩",
     "prefab.gui.material.diorite": "閃緑岩",
     "prefab.gui.material.smooth_diorite": "滑らかな閃緑岩",
+    "prefab.gui.material.red_sandstone": "赤い砂岩",
 
     "prefab.gui.part_style.wall": "壁",
     "prefab.gui.part_style.gate": "ゲート",

@@ -203,6 +203,7 @@
     "prefab.gui.material.smooth_andesite": "Smooth Andesite",
     "prefab.gui.material.diorite": "Diorite",
     "prefab.gui.material.smooth_diorite": "Smooth Diorite",
+    "prefab.gui.material.red_sandstone": "Red Sandstone",
 
     "prefab.gui.part_style.wall": "Wall",
     "prefab.gui.part_style.gate": "Gate",

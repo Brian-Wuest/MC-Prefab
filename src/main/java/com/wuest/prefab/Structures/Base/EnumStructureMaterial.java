@@ -27,7 +27,9 @@ public enum EnumStructureMaterial {
 	Birch("prefab.wall.block.type.birch", Blocks.BIRCH_PLANKS.defaultBlockState(), Blocks.BIRCH_STAIRS.defaultBlockState(), 13),
 	Jungle("prefab.wall.block.type.jungle", Blocks.JUNGLE_PLANKS.defaultBlockState(), Blocks.JUNGLE_STAIRS.defaultBlockState(), 14),
 	Acacia("prefab.wall.block.type.acacia", Blocks.ACACIA_PLANKS.defaultBlockState(), Blocks.ACACIA_STAIRS.defaultBlockState(), 15),
-	DarkOak("prefab.wall.block.type.darkoak", Blocks.DARK_OAK_PLANKS.defaultBlockState(), Blocks.DARK_OAK_STAIRS.defaultBlockState(), 16);
+	DarkOak("prefab.wall.block.type.darkoak", Blocks.DARK_OAK_PLANKS.defaultBlockState(), Blocks.DARK_OAK_STAIRS.defaultBlockState(), 16),
+	SandStone("prefab.ceiling.block.type.sand", Blocks.SANDSTONE.defaultBlockState(), Blocks.SANDSTONE_STAIRS.defaultBlockState(), 17),
+	RedSandStone("prefab.gui.material.red_sandstone", Blocks.RED_SANDSTONE.defaultBlockState(), Blocks.RED_SANDSTONE_STAIRS.defaultBlockState(), 18);
 
 	private String name;
 	private BlockState blockType;

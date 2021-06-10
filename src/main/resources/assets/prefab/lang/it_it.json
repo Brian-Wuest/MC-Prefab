@@ -203,6 +203,7 @@
     "prefab.gui.material.smooth_andesite": "Andesite Levigata",
     "prefab.gui.material.diorite": "Diorite",
     "prefab.gui.material.smooth_diorite": "Diorite Levigata",
+    "prefab.gui.material.red_sandstone": "arenaria rossa",
 
     "prefab.gui.part_style.wall": "Muro",
     "prefab.gui.part_style.gate": "Cancello",

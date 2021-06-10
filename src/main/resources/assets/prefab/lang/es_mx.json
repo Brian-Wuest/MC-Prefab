@@ -202,6 +202,7 @@
   "prefab.gui.material.smooth_andesite": "Andesita lisa",
   "prefab.gui.material.diorite": "Diorita",
   "prefab.gui.material.smooth_diorite": "Diorita suave",
+  "prefab.gui.material.red_sandstone": "Piedra arenisca roja",
 
   "prefab.gui.part_style.wall": "Pared",
   "prefab.gui.part_style.gate": "Portón",
