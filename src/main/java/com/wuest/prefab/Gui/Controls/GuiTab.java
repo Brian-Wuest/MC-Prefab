@@ -98,8 +98,17 @@ public class GuiTab extends Widget {
 		GuiTabScreen.drawModalRectWithCustomSizedTexture(this.x, this.y, 0, this.width, this.height, this.width, this.height);
 		int j = Color.LIGHT_GRAY.getRGB();
 
-		int stringXPosition = ((this.x + this.width / 2) - (fontrenderer.width(this.name)) / 2);
-		fontrenderer.draw(matrixStack, this.name, stringXPosition, this.y + (this.height - 8) / 2, j);
+		String buttonText = this.name;
+		int strWidth = fontrenderer.width(this.name);
+		int ellipsisWidth = fontrenderer.width("...");
+
+		if (strWidth > width - 6 && strWidth > ellipsisWidth) {
+			buttonText = mc.font.substrByWidth(new StringTextComponent(buttonText), width - 6 - ellipsisWidth).getString() + "...";
+		}
+
+		int stringXPosition = ((this.x + this.width / 2) - (fontrenderer.width(buttonText)) / 2);
+
+		fontrenderer.draw(matrixStack, buttonText, stringXPosition, this.y + (this.height - 8) / 2, j);
 	}
 
 	/**

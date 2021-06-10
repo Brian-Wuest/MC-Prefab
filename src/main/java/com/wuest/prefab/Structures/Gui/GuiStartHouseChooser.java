@@ -327,13 +327,15 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 
 		// Tabs:
 		this.tabGeneral = new GuiTab(this.Tabs, GuiLangKeys.translateString(GuiLangKeys.STARTER_TAB_GENERAL), grayBoxX + 3, grayBoxY - 20);
+		this.tabGeneral.setWidth(80);
 		this.Tabs.AddTab(this.tabGeneral);
 
-		this.tabConfig = new GuiTab(this.Tabs, GuiLangKeys.translateString(GuiLangKeys.STARTER_TAB_CONFIG), grayBoxX + 54, grayBoxY - 20);
+		this.tabConfig = new GuiTab(this.Tabs, GuiLangKeys.translateString(GuiLangKeys.STARTER_TAB_CONFIG), grayBoxX + 84, grayBoxY - 20);
+		this.tabConfig.setWidth(80);
 		this.Tabs.AddTab(this.tabConfig);
 
-		this.tabBlockTypes = new GuiTab(this.Tabs, GuiLangKeys.translateString(GuiLangKeys.STARTER_TAB_BLOCK), grayBoxX + 105, grayBoxY - 20);
-		this.tabBlockTypes.setWidth(70);
+		this.tabBlockTypes = new GuiTab(this.Tabs, GuiLangKeys.translateString(GuiLangKeys.STARTER_TAB_BLOCK), grayBoxX + 165, grayBoxY - 20);
+		this.tabBlockTypes.setWidth(80);
 		this.Tabs.AddTab(this.tabBlockTypes);
 
 		// Create the done and cancel buttons.
