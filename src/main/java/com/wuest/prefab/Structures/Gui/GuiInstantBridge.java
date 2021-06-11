@@ -2,6 +2,7 @@ package com.wuest.prefab.Structures.Gui;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Events.ClientEventHandler;
+import com.wuest.prefab.GeneralUtils;
 import com.wuest.prefab.Gui.Controls.GuiCheckBox;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Gui.GuiUtils;
@@ -65,9 +66,7 @@ public class GuiInstantBridge extends GuiStructure {
 	protected void preButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
 		super.preButtonRender(matrixStack, x, y, mouseX, mouseY, partialTicks);
 
-		GuiUtils.bindTexture(structureTopDown);
-
-		GuiUtils.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 165, 58, 165, 58);
+		GuiUtils.bindAndDrawModalRectWithCustomSizedTexture(structureTopDown,x + 250, y, 1, 165, 58, 165, 58);
 	}
 
 	@Override
@@ -118,7 +117,7 @@ public class GuiInstantBridge extends GuiStructure {
 		}
 		if (button == this.btnMaterialType) {
 			this.configuration.bridgeMaterial = EnumStructureMaterial.getMaterialByNumber(this.configuration.bridgeMaterial.getNumber() + 1);
-			this.btnMaterialType.setMessage(new StringTextComponent(this.configuration.bridgeMaterial.getTranslatedName()));
+			GuiUtils.setButtonText(btnMaterialType, this.configuration.bridgeMaterial.getTranslatedName());
 		} else if (button == this.btnVisualize) {
 			StructureInstantBridge structure = new StructureInstantBridge();
 			structure.getClearSpace().getShape().setDirection(Direction.SOUTH);

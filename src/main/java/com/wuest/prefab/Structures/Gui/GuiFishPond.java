@@ -31,9 +31,7 @@ public class GuiFishPond extends GuiStructure {
 	protected void preButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
 		super.preButtonRender(matrixStack, x, y, mouseX, mouseY, partialTicks);
 
-		GuiUtils.bindTexture(structureTopDown);
-
-		GuiUtils.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 151, 149, 151, 149);
+		GuiUtils.bindAndDrawModalRectWithCustomSizedTexture(structureTopDown, x + 250, y, 1, 151, 149, 151, 149);
 	}
 
 	@Override

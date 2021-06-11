@@ -1,6 +1,7 @@
 package com.wuest.prefab.Gui.Controls;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.wuest.prefab.GeneralUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.CheckboxButton;
 import net.minecraft.util.text.StringTextComponent;
@@ -24,7 +25,7 @@ public class GuiCheckBox extends CheckboxButton {
 	protected int labelWidth;
 
 	public GuiCheckBox(int xPos, int yPos, String displayString, boolean isChecked, IPressable handler) {
-		super(xPos, yPos, 11, 12, new StringTextComponent(displayString), isChecked);
+		super(xPos, yPos, 11, 12, GeneralUtils.createTextComponent(displayString), isChecked);
 
 		this.boxWidth = 11;
 		this.mineCraft = Minecraft.getInstance();
@@ -125,7 +126,7 @@ public class GuiCheckBox extends CheckboxButton {
 			if (this.withShadow) {
 				this.drawString(matrixStack, this.mineCraft.font, displayString, x + this.boxWidth + 2, y + 2, color);
 			} else {
-				this.mineCraft.font.drawWordWrap(new StringTextComponent(displayString), x + this.boxWidth + 2, y + 2, this.labelWidth, color);
+				this.mineCraft.font.drawWordWrap(GeneralUtils.createTextComponent(displayString), x + this.boxWidth + 2, y + 2, this.labelWidth, color);
 			}
 		}
 	}

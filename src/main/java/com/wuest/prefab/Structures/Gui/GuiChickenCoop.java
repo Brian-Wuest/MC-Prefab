@@ -31,8 +31,7 @@ public class GuiChickenCoop extends GuiStructure {
 	protected void preButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
 		super.preButtonRender(matrixStack, x, y, mouseX, mouseY, partialTicks);
 
-		GuiUtils.bindTexture(structureTopDown);
-		GuiUtils.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 171, 87, 171, 87);
+		GuiUtils.bindAndDrawModalRectWithCustomSizedTexture(structureTopDown, x + 250, y, 1, 171, 87, 171, 87);
 	}
 
 	@Override

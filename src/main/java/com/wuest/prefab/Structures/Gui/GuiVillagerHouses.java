@@ -2,6 +2,7 @@ package com.wuest.prefab.Structures.Gui;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Events.ClientEventHandler;
+import com.wuest.prefab.GeneralUtils;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Gui.GuiTabScreen;
 import com.wuest.prefab.Gui.GuiUtils;
@@ -66,8 +67,7 @@ public class GuiVillagerHouses extends GuiStructure {
 	protected void preButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
 		super.preButtonRender(matrixStack, x, y, mouseX, mouseY, partialTicks);
 
-		GuiUtils.bindTexture(this.houseStyle.getHousePicture());
-		GuiUtils.drawModalRectWithCustomSizedTexture(x + 250, y, 1,
+		GuiUtils.bindAndDrawModalRectWithCustomSizedTexture(this.houseStyle.getHousePicture(), x + 250, y, 1,
 				this.houseStyle.getImageWidth(), this.houseStyle.getImageHeight(),
 				this.houseStyle.getImageWidth(), this.houseStyle.getImageHeight());
 	}
@@ -94,7 +94,7 @@ public class GuiVillagerHouses extends GuiStructure {
 			int id = this.houseStyle.getValue() + 1;
 			this.houseStyle = VillagerHouseConfiguration.HouseStyle.ValueOf(id);
 
-			this.btnHouseStyle.setMessage(new StringTextComponent(this.houseStyle.getDisplayName()));
+			GuiUtils.setButtonText(btnHouseStyle, this.houseStyle.getDisplayName());
 
 			this.btnBedColor.visible = this.houseStyle == VillagerHouseConfiguration.HouseStyle.LONG_HOUSE;
 		} else if (button == this.btnVisualize) {
@@ -104,7 +104,7 @@ public class GuiVillagerHouses extends GuiStructure {
 			this.closeScreen();
 		} else if (button == this.btnBedColor) {
 			this.configuration.bedColor = DyeColor.byId(this.configuration.bedColor.getId() + 1);
-			this.btnBedColor.setMessage(new StringTextComponent(GuiLangKeys.translateDye(this.configuration.bedColor)));
+			GuiUtils.setButtonText(btnBedColor, GuiLangKeys.translateDye(this.configuration.bedColor));
 		}
 	}
 }

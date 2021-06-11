@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Blocks.FullDyeColor;
 import com.wuest.prefab.Config.ServerModConfiguration;
 import com.wuest.prefab.Events.ClientEventHandler;
+import com.wuest.prefab.GeneralUtils;
 import com.wuest.prefab.Gui.Controls.GuiCheckBox;
 import com.wuest.prefab.Gui.Controls.GuiTab;
 import com.wuest.prefab.Gui.GuiLangKeys;
@@ -144,8 +145,7 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 			this.drawString(matrixStack,  GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), grayBoxX + 10, grayBoxY + 10, color);
 			this.drawSplitString(this.houseConfiguration.houseStyle.getHouseNotes(), grayBoxX + 147, grayBoxY + 10, 95, color);
 
-			GuiUtils.bindTexture(this.houseConfiguration.houseStyle.getHousePicture());
-			GuiUtils.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1,
+			GuiUtils.bindAndDrawModalRectWithCustomSizedTexture(this.houseConfiguration.houseStyle.getHousePicture(),grayBoxX + 250, grayBoxY, 1,
 					this.houseConfiguration.houseStyle.getImageWidth(), this.houseConfiguration.houseStyle.getImageHeight(),
 					this.houseConfiguration.houseStyle.getImageWidth(), this.houseConfiguration.houseStyle.getImageHeight());
 		} else if (this.getSelectedTab() == this.tabBlockTypes) {
@@ -199,34 +199,34 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 				this.houseConfiguration.houseStyle = HouseConfiguration.HouseStyle.ValueOf(id);
 			}
 
-			this.btnHouseStyle.setMessage(new StringTextComponent( this.houseConfiguration.houseStyle.getDisplayName()));
+			GuiUtils.setButtonText(btnHouseStyle, this.houseConfiguration.houseStyle.getDisplayName());
 
 			// Set the default glass colors for this style.
 			if (this.houseConfiguration.houseStyle == HouseConfiguration.HouseStyle.HOBBIT) {
 				this.houseConfiguration.glassColor = FullDyeColor.GREEN;
-				this.btnGlassColor.setMessage(new StringTextComponent(GuiLangKeys.translateDye(DyeColor.GREEN)));
+				GuiUtils.setButtonText(btnGlassColor, GuiLangKeys.translateDye(DyeColor.GREEN));
 			} else if (this.houseConfiguration.houseStyle == HouseConfiguration.HouseStyle.LOFT) {
 				this.houseConfiguration.glassColor = FullDyeColor.BLACK;
-				this.btnGlassColor.setMessage(new StringTextComponent(GuiLangKeys.translateDye(DyeColor.BLACK)));
+				GuiUtils.setButtonText(btnGlassColor, GuiLangKeys.translateDye(DyeColor.BLACK));
 			} else if (this.houseConfiguration.houseStyle == HouseStyle.BASIC) {
 				this.houseConfiguration.glassColor = FullDyeColor.LIGHT_GRAY;
-				this.btnGlassColor.setMessage(new StringTextComponent(GuiLangKeys.translateDye(DyeColor.LIGHT_GRAY)));
+				GuiUtils.setButtonText(btnGlassColor, GuiLangKeys.translateDye(DyeColor.LIGHT_GRAY));
 			} else if (this.houseConfiguration.houseStyle == HouseStyle.DESERT2) {
 				this.houseConfiguration.glassColor = FullDyeColor.RED;
-				this.btnGlassColor.setMessage(new StringTextComponent(GuiLangKeys.translateDye(DyeColor.RED)));
+				GuiUtils.setButtonText(btnGlassColor, GuiLangKeys.translateDye(DyeColor.RED));
 			} else {
 				this.houseConfiguration.glassColor = FullDyeColor.CYAN;
-				this.btnGlassColor.setMessage(new StringTextComponent(GuiLangKeys.translateDye(DyeColor.CYAN)));
+				GuiUtils.setButtonText(btnGlassColor, GuiLangKeys.translateDye(DyeColor.CYAN));
 			}
 
 			this.tabBlockTypes.visible = true;
 
 		} else if (button == this.btnGlassColor) {
 			this.houseConfiguration.glassColor = FullDyeColor.ById(this.houseConfiguration.glassColor.getId() + 1);
-			this.btnGlassColor.setMessage(new StringTextComponent(GuiLangKeys.translateFullDye(this.houseConfiguration.glassColor)));
+			GuiUtils.setButtonText(btnGlassColor, GuiLangKeys.translateFullDye(this.houseConfiguration.glassColor));
 		} else if (button == this.btnBedColor) {
 			this.houseConfiguration.bedColor = DyeColor.byId(this.houseConfiguration.bedColor.getId() + 1);
-			this.btnBedColor.setMessage(new StringTextComponent(GuiLangKeys.translateDye(this.houseConfiguration.bedColor)));
+			GuiUtils.setButtonText(btnBedColor, GuiLangKeys.translateDye(this.houseConfiguration.bedColor));
 		} else if (button == this.btnVisualize) {
 			StructureAlternateStart structure = StructureAlternateStart.CreateInstance(this.houseConfiguration.houseStyle.getStructureLocation(), StructureAlternateStart.class);
 

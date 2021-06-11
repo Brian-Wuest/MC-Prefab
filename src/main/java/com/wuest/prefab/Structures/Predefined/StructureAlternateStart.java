@@ -1,6 +1,7 @@
 package com.wuest.prefab.Structures.Predefined;
 
 import com.wuest.prefab.Config.EntityPlayerConfiguration;
+import com.wuest.prefab.GeneralUtils;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Proxy.Messages.PlayerEntityTagMessage;
 import com.wuest.prefab.Structures.Base.*;
@@ -271,15 +272,15 @@ public class StructureAlternateStart extends Structure {
 
 			if (tileEntity instanceof SignTileEntity) {
 				SignTileEntity signTile = (SignTileEntity) tileEntity;
-				signTile.setMessage(0, new StringTextComponent("This is"));
+				signTile.setMessage(0, GeneralUtils.createTextComponent("This is"));
 
 				if (player.getDisplayName().getString().length() >= 15) {
-					signTile.setMessage(1, new StringTextComponent(player.getDisplayName().getString()));
+					signTile.setMessage(1, GeneralUtils.createTextComponent(player.getDisplayName().getString()));
 				} else {
-					signTile.setMessage(1, new StringTextComponent(player.getDisplayName().getString() + "'s"));
+					signTile.setMessage(1, GeneralUtils.createTextComponent(player.getDisplayName().getString() + "'s"));
 				}
 
-				signTile.setMessage(2, new StringTextComponent("house!"));
+				signTile.setMessage(2, GeneralUtils.createTextComponent("house!"));
 			}
 		}
 

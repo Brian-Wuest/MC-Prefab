@@ -1,11 +1,14 @@
 package com.wuest.prefab.Gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.wuest.prefab.GeneralUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
 import org.lwjgl.opengl.GL11;
 
 public class GuiUtils {
@@ -128,5 +131,14 @@ public class GuiUtils {
         vertexBuffer.vertex(x, y, z).uv(u * f, v * f1).endVertex();
 
         tessellator.end();
+    }
+
+    public static void bindAndDrawModalRectWithCustomSizedTexture(ResourceLocation resourceLocation, int x, int y, int z, int width, int height, float textureWidth, float textureHeight) {
+        GuiUtils.bindTexture(resourceLocation);
+        GuiUtils.drawModalRectWithCustomSizedTexture(x, y, z, width, height, textureWidth, textureHeight);
+    }
+
+    public static void setButtonText(ExtendedButton button, String message) {
+        button.setMessage(GeneralUtils.createTextComponent(message));
     }
 }

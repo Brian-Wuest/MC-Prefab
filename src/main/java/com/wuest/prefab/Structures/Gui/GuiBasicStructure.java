@@ -2,6 +2,7 @@ package com.wuest.prefab.Structures.Gui;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Events.ClientEventHandler;
+import com.wuest.prefab.GeneralUtils;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Gui.GuiUtils;
 import com.wuest.prefab.Structures.Config.BasicStructureConfiguration;
@@ -47,9 +48,7 @@ public class GuiBasicStructure extends GuiStructure {
 
 		if (this.includePicture) {
 			// Draw the control background.
-			GuiUtils.bindTexture(this.configuration.chosenOption.getPictureLocation());
-
-			GuiUtils.drawModalRectWithCustomSizedTexture(x + 250, y, 1,
+			GuiUtils.bindAndDrawModalRectWithCustomSizedTexture(this.configuration.chosenOption.getPictureLocation(), x + 250, y, 1,
 					this.configuration.chosenOption.getImageWidth(), this.configuration.chosenOption.getImageHeight(),
 					this.configuration.chosenOption.getImageWidth(), this.configuration.chosenOption.getImageHeight());
 		}
@@ -158,7 +157,7 @@ public class GuiBasicStructure extends GuiStructure {
 			this.closeScreen();
 		} else if (button == this.btnBedColor) {
 			this.configuration.bedColor = DyeColor.byId(this.configuration.bedColor.getId() + 1);
-			this.btnBedColor.setMessage(new StringTextComponent(GuiLangKeys.translateDye(this.configuration.bedColor)));
+			GuiUtils.setButtonText(btnBedColor, GuiLangKeys.translateDye(this.configuration.bedColor));
 		} else if (button == this.btnStructureOptions) {
 			for (int i = 0; i < this.availableOptions.size(); i++) {
 				BaseOption option = this.availableOptions.get(i);
@@ -175,7 +174,7 @@ public class GuiBasicStructure extends GuiStructure {
 
 				if (chosenOption != null) {
 					this.configuration.chosenOption = chosenOption;
-					this.btnStructureOptions.setMessage(new StringTextComponent(GuiLangKeys.translateString(chosenOption.getTranslationString())));
+					GuiUtils.setButtonText(btnStructureOptions, GuiLangKeys.translateString(chosenOption.getTranslationString()));
 					break;
 				}
 			}

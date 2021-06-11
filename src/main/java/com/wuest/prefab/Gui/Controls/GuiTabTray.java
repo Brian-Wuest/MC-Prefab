@@ -1,6 +1,7 @@
 package com.wuest.prefab.Gui.Controls;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.wuest.prefab.GeneralUtils;
 import com.wuest.prefab.Gui.GuiTabScreen;
 import com.wuest.prefab.Gui.GuiUtils;
 import net.minecraft.client.Minecraft;
@@ -19,7 +20,7 @@ public class GuiTabTray extends Widget {
 	private ArrayList<GuiTab> tabs;
 
 	public GuiTabTray() {
-		super(0, 0, 50, 35, new StringTextComponent("Tab Tray"));
+		super(0, 0, 50, 35, GeneralUtils.createTextComponent("Tab Tray"));
 		this.Initialize();
 	}
 

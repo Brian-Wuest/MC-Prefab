@@ -3,6 +3,7 @@ package com.wuest.prefab.Structures.Gui;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Blocks.FullDyeColor;
 import com.wuest.prefab.Events.ClientEventHandler;
+import com.wuest.prefab.GeneralUtils;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Gui.GuiUtils;
 import com.wuest.prefab.Structures.Config.WareHouseConfiguration;
@@ -62,8 +63,7 @@ public class GuiWareHouse extends GuiStructure {
     protected void preButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
         super.preButtonRender(matrixStack, x, y, mouseX, mouseY, partialTicks);
 
-        GuiUtils.bindTexture(wareHouseTopDown);
-        GuiUtils.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 132, 153, 132, 153);
+        GuiUtils.bindAndDrawModalRectWithCustomSizedTexture(wareHouseTopDown,x + 250, y, 1, 132, 153, 132, 153);
     }
 
     @Override
@@ -83,15 +83,17 @@ public class GuiWareHouse extends GuiStructure {
 
         if (button == this.btnGlassColor) {
             this.configuration.dyeColor = FullDyeColor.ById(this.configuration.dyeColor.getId() + 1);
-            this.btnGlassColor.setMessage(new StringTextComponent(GuiLangKeys.translateFullDye(this.configuration.dyeColor)));
+            GuiUtils.setButtonText(btnGlassColor, GuiLangKeys.translateFullDye(this.configuration.dyeColor));
         } else if (button == this.btnVisualize) {
+            StructureWarehouse structure;
+
             if (this.configuration.advanced) {
-                StructureWarehouse structure = StructureWarehouse.CreateInstance(StructureWarehouse.ADVANCED_ASSET_LOCATION, StructureWarehouse.class);
-                StructureRenderHandler.setStructure(structure, Direction.NORTH, this.configuration);
+                structure = StructureWarehouse.CreateInstance(StructureWarehouse.ADVANCED_ASSET_LOCATION, StructureWarehouse.class);
             } else {
-                StructureWarehouse structure = StructureWarehouse.CreateInstance(StructureWarehouse.ASSETLOCATION, StructureWarehouse.class);
-                StructureRenderHandler.setStructure(structure, Direction.NORTH, this.configuration);
+                structure = StructureWarehouse.CreateInstance(StructureWarehouse.ASSETLOCATION, StructureWarehouse.class);
             }
+
+            StructureRenderHandler.setStructure(structure, Direction.NORTH, this.configuration);
 
             this.closeScreen();
         }

@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Config.ConfigCategory;
 import com.wuest.prefab.Config.ConfigOption;
 import com.wuest.prefab.Config.ModConfiguration;
+import com.wuest.prefab.GeneralUtils;
 import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.Quadruple;
 import com.wuest.prefab.Tuple;
@@ -19,7 +20,6 @@ import net.minecraft.client.settings.BooleanOption;
 import net.minecraft.client.settings.IteratableOption;
 import net.minecraft.client.settings.SliderPercentageOption;
 import net.minecraft.util.IReorderingProcessor;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
 
 import javax.annotation.Nullable;
@@ -122,8 +122,7 @@ public class GuiPrefab extends GuiBase {
                         this.height - OPTIONS_LIST_BOTTOM_OFFSET,
                         OPTIONS_LIST_ITEM_HEIGHT
                 );
-            }
-            else  {
+            } else {
                 int currentOptionsIndex = currentLocation - 1;
 
                 if (currentLocation == ConfigCategory.values().length - 1) {
@@ -178,7 +177,7 @@ public class GuiPrefab extends GuiBase {
             if (option != null) {
                 this.children.remove(option.getSecond());
                 this.children.add(option.getThird());
-                this.generalGroupButton.setMessage(new StringTextComponent(option.getFourth().getName()));
+                GuiUtils.setButtonText(generalGroupButton, option.getFourth().getName());
                 this.currentOption = option.getFourth();
             }
         } else if (button == this.resetToDefaultsButton) {
@@ -265,7 +264,7 @@ public class GuiPrefab extends GuiBase {
                 (unused, newValue) -> configOption.getConfigValueAsInt().set(newValue.intValue()),
                 // BiFunction that returns a string text component
                 // in format "<name>: <value>"
-                (gs, option) -> new StringTextComponent(
+                (gs, option) -> GeneralUtils.createTextComponent(
                         // Use I18n.get(String) to get a translation key's value
                         configOption.getName()
                                 + ": "
@@ -293,7 +292,7 @@ public class GuiPrefab extends GuiBase {
 
                     configOption.getConfigValueAsString().set(configOption.getValidValues().get(nextIndex));
                 },
-                (unused, option) -> new StringTextComponent(
+                (unused, option) -> GeneralUtils.createTextComponent(
                         configOption.getName()
                                 + ": "
                                 + configOption.getConfigValueAsString().get())

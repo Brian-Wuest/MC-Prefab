@@ -1,5 +1,6 @@
 package com.wuest.prefab.Items;
 
+import com.wuest.prefab.GeneralUtils;
 import com.wuest.prefab.ModRegistry;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
@@ -35,6 +36,6 @@ public class ItemCompressedChest extends Item {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(new StringTextComponent("Used in the recipes for structures, not for direct storage"));
+		tooltip.add(GeneralUtils.createTextComponent("Used in the recipes for structures, not for direct storage"));
 	}
 }

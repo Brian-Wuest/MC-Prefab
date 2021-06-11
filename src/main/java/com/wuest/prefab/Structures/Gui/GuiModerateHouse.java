@@ -3,6 +3,7 @@ package com.wuest.prefab.Structures.Gui;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Config.ServerModConfiguration;
 import com.wuest.prefab.Events.ClientEventHandler;
+import com.wuest.prefab.GeneralUtils;
 import com.wuest.prefab.Gui.Controls.GuiCheckBox;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Gui.GuiTabScreen;
@@ -84,8 +85,7 @@ public class GuiModerateHouse extends GuiStructure {
 	protected void preButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
 		super.preButtonRender(matrixStack, x, y, mouseX, mouseY, partialTicks);
 
-		GuiUtils.bindTexture(this.configuration.houseStyle.getHousePicture());
-		GuiUtils.drawModalRectWithCustomSizedTexture(x + 249, y, 1,
+		GuiUtils.bindAndDrawModalRectWithCustomSizedTexture(this.configuration.houseStyle.getHousePicture(),x + 249, y, 1,
 				this.configuration.houseStyle.getImageWidth(), this.configuration.houseStyle.getImageHeight(),
 				this.configuration.houseStyle.getImageWidth(), this.configuration.houseStyle.getImageHeight());
 	}
@@ -117,14 +117,14 @@ public class GuiModerateHouse extends GuiStructure {
 			int id = this.configuration.houseStyle.getValue() + 1;
 			this.configuration.houseStyle = ModerateHouseConfiguration.HouseStyle.ValueOf(id);
 
-			this.btnHouseStyle.setMessage(new StringTextComponent(this.configuration.houseStyle.getDisplayName()));
+			GuiUtils.setButtonText(btnHouseStyle, this.configuration.houseStyle.getDisplayName());
 		} else if (button == this.btnVisualize) {
 			StructureModerateHouse structure = StructureModerateHouse.CreateInstance(this.configuration.houseStyle.getStructureLocation(), StructureModerateHouse.class);
 			StructureRenderHandler.setStructure(structure, Direction.NORTH, this.configuration);
 			this.closeScreen();
 		} else if (button == this.btnBedColor) {
 			this.configuration.bedColor = DyeColor.byId(this.configuration.bedColor.getId() + 1);
-			this.btnBedColor.setMessage(new StringTextComponent(GuiLangKeys.translateDye(this.configuration.bedColor)));
+			GuiUtils.setButtonText(btnBedColor, GuiLangKeys.translateDye(this.configuration.bedColor));
 		}
 	}
 }

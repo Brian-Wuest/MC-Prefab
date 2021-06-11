@@ -1,5 +1,6 @@
 package com.wuest.prefab.Structures.Predefined;
 
+import com.wuest.prefab.GeneralUtils;
 import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.Structures.Base.BuildBlock;
 import com.wuest.prefab.Structures.Base.BuildClear;
@@ -139,9 +140,9 @@ public class StructureMonsterMasher extends Structure {
 
 			if (tileEntity instanceof SignTileEntity) {
 				SignTileEntity signTile = (SignTileEntity) tileEntity;
-				signTile.setMessage(0, new StringTextComponent("Lamp On=Mobs"));
+				signTile.setMessage(0, GeneralUtils.createTextComponent("Lamp On=Mobs"));
 
-				signTile.setMessage(2, new StringTextComponent("Lamp Off=No Mobs"));
+				signTile.setMessage(2, GeneralUtils.createTextComponent("Lamp Off=No Mobs"));
 			}
 		}
 	}

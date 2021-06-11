@@ -1,6 +1,7 @@
 package com.wuest.prefab.Blocks;
 
 import com.wuest.prefab.Events.ModEventHandler;
+import com.wuest.prefab.GeneralUtils;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
@@ -178,9 +179,9 @@ public class BlockBoundary extends Block {
 		boolean advancedKeyDown = Screen.hasShiftDown();
 
 		if (!advancedKeyDown) {
-			tooltip.add(new StringTextComponent(GuiLangKeys.translateString(GuiLangKeys.SHIFT_TOOLTIP)));
+			tooltip.add(GuiLangKeys.translateToComponent(GuiLangKeys.SHIFT_TOOLTIP));
 		} else {
-			tooltip.add(new StringTextComponent(GuiLangKeys.translateString(GuiLangKeys.BOUNDARY_TOOLTIP)));
+			tooltip.add(GuiLangKeys.translateToComponent(GuiLangKeys.BOUNDARY_TOOLTIP));
 		}
 	}
 

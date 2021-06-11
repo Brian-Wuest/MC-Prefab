@@ -1,9 +1,11 @@
 package com.wuest.prefab.Gui;
 
 import com.wuest.prefab.Blocks.FullDyeColor;
+import com.wuest.prefab.GeneralUtils;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.DyeColor;
 import net.minecraft.util.Direction;
+import net.minecraft.util.text.StringTextComponent;
 
 import java.lang.annotation.Annotation;
 import java.lang.annotation.Retention;
@@ -392,6 +394,15 @@ public class GuiLangKeys {
 		} else {
 			return GuiLangKeys.getUnLocalized(translateKey);
 		}
+	}
+
+	/**
+	 * Translates a translation key and puts it in a text component.
+	 * @param translateKey The key to translate.
+	 * @return A StringTextComponent representing the translated text.
+	 */
+	public static StringTextComponent translateToComponent(String translateKey) {
+		return GeneralUtils.createTextComponent(GuiLangKeys.translateString(translateKey));
 	}
 
 	/**

@@ -2,6 +2,7 @@ package com.wuest.prefab.Structures.Gui;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Events.ClientEventHandler;
+import com.wuest.prefab.GeneralUtils;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Gui.GuiUtils;
 import com.wuest.prefab.Structures.Base.EnumStairsMaterial;
@@ -77,9 +78,7 @@ public class GuiStructurePart extends GuiStructure {
 	protected void preButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
 		super.preButtonRender(matrixStack, x, y, mouseX, mouseY, partialTicks);
 
-		GuiUtils.bindTexture(this.configuration.style.getPictureLocation());
-
-		GuiUtils.drawModalRectWithCustomSizedTexture(x + 250, y, 1,
+		GuiUtils.bindAndDrawModalRectWithCustomSizedTexture(this.configuration.style.getPictureLocation(),x + 250, y, 1,
 				this.configuration.style.imageWidth, this.configuration.style.imageHeight,
 				this.configuration.style.imageWidth, this.configuration.style.imageHeight);
 	}
@@ -136,14 +135,13 @@ public class GuiStructurePart extends GuiStructure {
 
 		if (button == this.btnMaterialType) {
 			this.configuration.partMaterial = EnumStructureMaterial.getMaterialByNumber(this.configuration.partMaterial.getNumber() + 1);
-			this.btnMaterialType.setMessage(new StringTextComponent(this.configuration.partMaterial.getTranslatedName()));
-		}
-		if (button == this.btnStairsMaterialType) {
+			GuiUtils.setButtonText(btnMaterialType, this.configuration.partMaterial.getTranslatedName());
+		} else if (button == this.btnStairsMaterialType) {
 			this.configuration.stairsMaterial = EnumStairsMaterial.getByOrdinal(this.configuration.stairsMaterial.ordinal() + 1);
-			this.btnStairsMaterialType.setMessage(new StringTextComponent(this.configuration.stairsMaterial.getTranslatedName()));
+			GuiUtils.setButtonText(btnStairsMaterialType, this.configuration.stairsMaterial.getTranslatedName());
 		} else if (button == this.btnPartStyle) {
 			this.configuration.style = EnumStyle.getByOrdinal(this.configuration.style.ordinal() + 1);
-			this.btnPartStyle.setMessage(new StringTextComponent(GuiLangKeys.translateString(this.configuration.style.translateKey)));
+			GuiUtils.setButtonText(btnPartStyle, GuiLangKeys.translateString(this.configuration.style.translateKey));
 		} else if (button == this.btnVisualize) {
 			StructurePart structure = new StructurePart();
 			structure.getClearSpace().getShape().setDirection(Direction.NORTH);

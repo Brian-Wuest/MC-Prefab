@@ -1,5 +1,6 @@
 package com.wuest.prefab.Structures.Items;
 
+import com.wuest.prefab.GeneralUtils;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
@@ -89,12 +90,12 @@ public class ItemBulldozer extends StructureItem {
 		boolean advancedKeyDown = Screen.hasShiftDown();
 
 		if (!advancedKeyDown) {
-			tooltip.add(new StringTextComponent(GuiLangKeys.translateString(GuiLangKeys.SHIFT_TOOLTIP)));
+			tooltip.add(GuiLangKeys.translateToComponent(GuiLangKeys.SHIFT_TOOLTIP));
 		} else {
 			if (this.getPoweredValue(stack)) {
-				tooltip.add(new StringTextComponent(GuiLangKeys.translateString(GuiLangKeys.BULLDOZER_POWERED_TOOLTIP)));
+				tooltip.add(GuiLangKeys.translateToComponent(GuiLangKeys.BULLDOZER_POWERED_TOOLTIP));
 			} else {
-				tooltip.add(new StringTextComponent(GuiLangKeys.translateString(GuiLangKeys.BULLDOZER_UNPOWERED_TOOLTIP)));
+				tooltip.add(GuiLangKeys.translateToComponent(GuiLangKeys.BULLDOZER_UNPOWERED_TOOLTIP));
 			}
 		}
 	}

@@ -2,6 +2,7 @@ package com.wuest.prefab.Gui;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.wuest.prefab.GeneralUtils;
 import com.wuest.prefab.Gui.Controls.GuiCheckBox;
 import com.wuest.prefab.Tuple;
 import net.minecraft.client.Minecraft;
@@ -25,7 +26,7 @@ public abstract class GuiBase extends Screen {
     private boolean pauseGame;
 
     public GuiBase(String title) {
-        super(new StringTextComponent(title));
+        super(GeneralUtils.createTextComponent(title));
         this.pauseGame = true;
     }
 
@@ -88,7 +89,7 @@ public abstract class GuiBase extends Screen {
      * @return A new button.
      */
     public ExtendedButton createAndAddButton(int x, int y, int width, int height, String text) {
-        ExtendedButton returnValue = new ExtendedButton(x, y, width, height, new StringTextComponent(text), this::buttonClicked);
+        ExtendedButton returnValue = new ExtendedButton(x, y, width, height, GeneralUtils.createTextComponent(text), this::buttonClicked);
 
         this.addButton(returnValue);
 
@@ -106,7 +107,7 @@ public abstract class GuiBase extends Screen {
     public Slider createAndAddSlider(int xPos, int yPos, int width, int height, String prefix, String suf,
                                      double minVal, double maxVal, double currentVal, boolean showDec, boolean drawStr,
                                      Button.IPressable handler) {
-        Slider slider = new Slider(xPos, yPos, width, height, new StringTextComponent(prefix), new StringTextComponent(suf), minVal, maxVal, currentVal, showDec,
+        Slider slider = new Slider(xPos, yPos, width, height, GeneralUtils.createTextComponent(prefix), GeneralUtils.createTextComponent(suf), minVal, maxVal, currentVal, showDec,
                 drawStr, handler);
 
         this.addButton(slider);
@@ -160,11 +161,11 @@ public abstract class GuiBase extends Screen {
      * @param textColor The color of the text.
      */
     public void drawSplitString(String str, int x, int y, int wrapWidth, int textColor) {
-        this.getFontRenderer().drawWordWrap(new StringTextComponent(str), x, y, wrapWidth, textColor);
+        this.getFontRenderer().drawWordWrap(GeneralUtils.createTextComponent(str), x, y, wrapWidth, textColor);
     }
 
     public List<IReorderingProcessor> getSplitString(String str, int wrapWidth) {
-        return this.getFontRenderer().split(new StringTextComponent(str), wrapWidth);
+        return this.getFontRenderer().split(GeneralUtils.createTextComponent(str), wrapWidth);
     }
 
     public List<IReorderingProcessor> getSplitString(StringTextComponent str, int wrapWidth) {
