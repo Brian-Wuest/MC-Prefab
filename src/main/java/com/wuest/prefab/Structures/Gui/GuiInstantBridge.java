@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.Controls.GuiCheckBox;
 import com.wuest.prefab.Gui.GuiLangKeys;
+import com.wuest.prefab.Gui.GuiUtils;
 import com.wuest.prefab.Structures.Base.EnumStructureMaterial;
 import com.wuest.prefab.Structures.Config.InstantBridgeConfiguration;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
@@ -64,9 +65,9 @@ public class GuiInstantBridge extends GuiStructure {
 	protected void preButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
 		super.preButtonRender(matrixStack, x, y, mouseX, mouseY, partialTicks);
 
-		this.bindTexture(structureTopDown);
+		GuiUtils.bindTexture(structureTopDown);
 
-		GuiStructure.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 165, 58, 165, 58);
+		GuiUtils.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 165, 58, 165, 58);
 	}
 
 	@Override

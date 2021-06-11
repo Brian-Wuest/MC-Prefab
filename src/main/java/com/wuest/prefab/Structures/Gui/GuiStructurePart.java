@@ -3,6 +3,7 @@ package com.wuest.prefab.Structures.Gui;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
+import com.wuest.prefab.Gui.GuiUtils;
 import com.wuest.prefab.Structures.Base.EnumStairsMaterial;
 import com.wuest.prefab.Structures.Base.EnumStructureMaterial;
 import com.wuest.prefab.Structures.Config.StructurePartConfiguration;
@@ -76,9 +77,9 @@ public class GuiStructurePart extends GuiStructure {
 	protected void preButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
 		super.preButtonRender(matrixStack, x, y, mouseX, mouseY, partialTicks);
 
-		this.bindTexture(this.configuration.style.getPictureLocation());
+		GuiUtils.bindTexture(this.configuration.style.getPictureLocation());
 
-		GuiStructure.drawModalRectWithCustomSizedTexture(x + 250, y, 1,
+		GuiUtils.drawModalRectWithCustomSizedTexture(x + 250, y, 1,
 				this.configuration.style.imageWidth, this.configuration.style.imageHeight,
 				this.configuration.style.imageWidth, this.configuration.style.imageHeight);
 	}

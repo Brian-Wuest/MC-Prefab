@@ -1,8 +1,11 @@
 package com.wuest.prefab.Gui;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.wuest.prefab.Gui.Controls.GuiCheckBox;
 import com.wuest.prefab.Tuple;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.client.gui.widget.button.Button;
@@ -111,7 +114,7 @@ public abstract class GuiBase extends Screen {
     }
 
     protected void drawControlBackground(MatrixStack matrixStack, int grayBoxX, int grayBoxY) {
-        this.getMinecraft().getTextureManager().bind(this.backgroundTextures);
+        GuiUtils.bindTexture(this.backgroundTextures);
         this.blit(matrixStack, grayBoxX, grayBoxY, 0, 0, 256, 256);
     }
 
@@ -144,7 +147,7 @@ public abstract class GuiBase extends Screen {
      * @return Some integer value.
      */
     public int drawString(MatrixStack matrixStack, String text, float x, float y, int color) {
-        return this.getMinecraft().font.draw(matrixStack, text, x, y, color);
+        return this.getFontRenderer().draw(matrixStack, text, x, y, color);
     }
 
     /**
@@ -157,15 +160,15 @@ public abstract class GuiBase extends Screen {
      * @param textColor The color of the text.
      */
     public void drawSplitString(String str, int x, int y, int wrapWidth, int textColor) {
-        this.getMinecraft().font.drawWordWrap(new StringTextComponent(str), x, y, wrapWidth, textColor);
+        this.getFontRenderer().drawWordWrap(new StringTextComponent(str), x, y, wrapWidth, textColor);
     }
 
     public List<IReorderingProcessor> getSplitString(String str, int wrapWidth) {
-        return this.getMinecraft().font.split(new StringTextComponent(str), wrapWidth);
+        return this.getFontRenderer().split(new StringTextComponent(str), wrapWidth);
     }
 
     public List<IReorderingProcessor> getSplitString(StringTextComponent str, int wrapWidth) {
-        return this.getMinecraft().font.split(str, wrapWidth);
+        return this.getFontRenderer().split(str, wrapWidth);
     }
 
     /**
@@ -175,13 +178,12 @@ public abstract class GuiBase extends Screen {
         this.getMinecraft().setScreen(null);
     }
 
-    /**
-     * Binds a texture to the texture manager for rendering.
-     *
-     * @param resourceLocation The resource location to bind.
-     */
-    public void bindTexture(ResourceLocation resourceLocation) {
-        this.getMinecraft().getTextureManager().bind(resourceLocation);
+    public Minecraft getMinecraft() {
+        return this.minecraft;
+    }
+
+    public FontRenderer getFontRenderer() {
+        return this.getMinecraft().font;
     }
 
     /**

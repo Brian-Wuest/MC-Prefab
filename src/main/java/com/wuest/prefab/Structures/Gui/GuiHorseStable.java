@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Gui.GuiTabScreen;
+import com.wuest.prefab.Gui.GuiUtils;
 import com.wuest.prefab.Structures.Config.HorseStableConfiguration;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Structures.Predefined.StructureHorseStable;
@@ -31,8 +32,8 @@ public class GuiHorseStable extends GuiStructure {
 	protected void preButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
 		super.preButtonRender(matrixStack, x, y, mouseX, mouseY, partialTicks);
 
-		this.bindTexture(structureTopDown);
-		GuiTabScreen.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 104, 166, 104, 166);
+		GuiUtils.bindTexture(structureTopDown);
+		GuiUtils.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 104, 166, 104, 166);
 	}
 
 	@Override

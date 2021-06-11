@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Blocks.FullDyeColor;
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
+import com.wuest.prefab.Gui.GuiUtils;
 import com.wuest.prefab.Structures.Config.MonsterMasherConfiguration;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Structures.Predefined.StructureMonsterMasher;
@@ -57,8 +58,8 @@ public class GuiMonsterMasher extends GuiStructure {
 	protected void preButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
 		super.preButtonRender(matrixStack, x, y, mouseX, mouseY, partialTicks);
 
-		this.bindTexture(houseTopDown);
-		GuiStructure.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 108, 156, 108, 156);
+		GuiUtils.bindTexture(houseTopDown);
+		GuiUtils.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 108, 156, 108, 156);
 	}
 
 	@Override

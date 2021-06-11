@@ -3,6 +3,7 @@ package com.wuest.prefab.Structures.Gui;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
+import com.wuest.prefab.Gui.GuiUtils;
 import com.wuest.prefab.Structures.Config.TreeFarmConfiguration;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Structures.Predefined.StructureTreeFarm;
@@ -29,8 +30,8 @@ public class GuiTreeFarm extends GuiStructure {
 	protected void preButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
 		super.preButtonRender(matrixStack, x, y, mouseX, mouseY, partialTicks);
 
-		this.bindTexture(structureTopDown);
-		GuiStructure.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 177, 175, 177, 175);
+		GuiUtils.bindTexture(structureTopDown);
+		GuiUtils.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 177, 175, 177, 175);
 	}
 
 	@Override

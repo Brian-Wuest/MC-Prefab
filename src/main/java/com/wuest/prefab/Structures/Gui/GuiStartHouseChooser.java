@@ -8,6 +8,7 @@ import com.wuest.prefab.Gui.Controls.GuiCheckBox;
 import com.wuest.prefab.Gui.Controls.GuiTab;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Gui.GuiTabScreen;
+import com.wuest.prefab.Gui.GuiUtils;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.Structures.Config.HouseConfiguration;
@@ -93,8 +94,7 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 		this.renderBackground(matrixStack);
 
 		// Draw the control background.
-		assert this.minecraft != null;
-		this.bindTexture(backgroundTextures);
+		GuiUtils.bindTexture(backgroundTextures);
 		this.blit(matrixStack,  grayBoxX, grayBoxY, 0, 0, 256, 256);
 
 		for (Widget button : this.buttons) {
@@ -144,8 +144,8 @@ public class GuiStartHouseChooser extends GuiTabScreen {
 			this.drawString(matrixStack,  GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), grayBoxX + 10, grayBoxY + 10, color);
 			this.drawSplitString(this.houseConfiguration.houseStyle.getHouseNotes(), grayBoxX + 147, grayBoxY + 10, 95, color);
 
-			this.bindTexture(this.houseConfiguration.houseStyle.getHousePicture());
-			GuiTabScreen.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1,
+			GuiUtils.bindTexture(this.houseConfiguration.houseStyle.getHousePicture());
+			GuiUtils.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1,
 					this.houseConfiguration.houseStyle.getImageWidth(), this.houseConfiguration.houseStyle.getImageHeight(),
 					this.houseConfiguration.houseStyle.getImageWidth(), this.houseConfiguration.houseStyle.getImageHeight());
 		} else if (this.getSelectedTab() == this.tabBlockTypes) {

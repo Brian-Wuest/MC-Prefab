@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Gui.GuiTabScreen;
+import com.wuest.prefab.Gui.GuiUtils;
 import com.wuest.prefab.Structures.Config.VillagerHouseConfiguration;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Structures.Predefined.StructureVillagerHouses;
@@ -65,8 +66,8 @@ public class GuiVillagerHouses extends GuiStructure {
 	protected void preButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
 		super.preButtonRender(matrixStack, x, y, mouseX, mouseY, partialTicks);
 
-		this.bindTexture(this.houseStyle.getHousePicture());
-		GuiTabScreen.drawModalRectWithCustomSizedTexture(x + 250, y, 1,
+		GuiUtils.bindTexture(this.houseStyle.getHousePicture());
+		GuiUtils.drawModalRectWithCustomSizedTexture(x + 250, y, 1,
 				this.houseStyle.getImageWidth(), this.houseStyle.getImageHeight(),
 				this.houseStyle.getImageWidth(), this.houseStyle.getImageHeight());
 	}

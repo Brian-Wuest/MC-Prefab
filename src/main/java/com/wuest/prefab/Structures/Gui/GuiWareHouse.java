@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Blocks.FullDyeColor;
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
+import com.wuest.prefab.Gui.GuiUtils;
 import com.wuest.prefab.Structures.Config.WareHouseConfiguration;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Structures.Predefined.StructureWarehouse;
@@ -61,8 +62,8 @@ public class GuiWareHouse extends GuiStructure {
     protected void preButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
         super.preButtonRender(matrixStack, x, y, mouseX, mouseY, partialTicks);
 
-        this.bindTexture(wareHouseTopDown);
-        GuiStructure.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 132, 153, 132, 153);
+        GuiUtils.bindTexture(wareHouseTopDown);
+        GuiUtils.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 132, 153, 132, 153);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.wuest.prefab.Structures.Gui;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
+import com.wuest.prefab.Gui.GuiUtils;
 import com.wuest.prefab.Structures.Config.BasicStructureConfiguration;
 import com.wuest.prefab.Structures.Config.Enums.BaseOption;
 import com.wuest.prefab.Structures.Items.ItemBasicStructure;
@@ -46,9 +47,9 @@ public class GuiBasicStructure extends GuiStructure {
 
 		if (this.includePicture) {
 			// Draw the control background.
-			this.bindTexture(this.configuration.chosenOption.getPictureLocation());
+			GuiUtils.bindTexture(this.configuration.chosenOption.getPictureLocation());
 
-			GuiBasicStructure.drawModalRectWithCustomSizedTexture(x + 250, y, 1,
+			GuiUtils.drawModalRectWithCustomSizedTexture(x + 250, y, 1,
 					this.configuration.chosenOption.getImageWidth(), this.configuration.chosenOption.getImageHeight(),
 					this.configuration.chosenOption.getImageWidth(), this.configuration.chosenOption.getImageHeight());
 		}
@@ -57,6 +58,7 @@ public class GuiBasicStructure extends GuiStructure {
 	@Override
 	protected void postButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
 		int yValue = y + 10;
+
 		// Draw the text here.
 		if (this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.MineshaftEntrance
 				|| this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WatchTower

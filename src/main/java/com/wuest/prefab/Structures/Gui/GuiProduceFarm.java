@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Blocks.FullDyeColor;
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
+import com.wuest.prefab.Gui.GuiUtils;
 import com.wuest.prefab.Structures.Config.ProduceFarmConfiguration;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Structures.Predefined.StructureProduceFarm;
@@ -60,8 +61,8 @@ public class GuiProduceFarm extends GuiStructure {
     protected void preButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
         super.preButtonRender(matrixStack, x, y, mouseX, mouseY, partialTicks);
 
-        this.bindTexture(houseTopDown);
-        GuiStructure.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 170, 171, 170, 171);
+        GuiUtils.bindTexture(houseTopDown);
+        GuiUtils.drawModalRectWithCustomSizedTexture(x + 250, y, 1, 170, 171, 170, 171);
     }
 
     @Override

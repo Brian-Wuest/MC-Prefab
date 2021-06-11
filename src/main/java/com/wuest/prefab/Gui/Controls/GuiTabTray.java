@@ -2,6 +2,7 @@ package com.wuest.prefab.Gui.Controls;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Gui.GuiTabScreen;
+import com.wuest.prefab.Gui.GuiUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.util.ResourceLocation;
@@ -88,8 +89,8 @@ public class GuiTabTray extends Widget {
 	}
 
 	public void DrawTabs(Minecraft mc, MatrixStack matrixStack, int mouseX, int mouseY) {
-		mc.getTextureManager().bind(backgroundTextures);
-		GuiTabScreen.drawModalRectWithCustomSizedTexture(this.x, this.y, 0, this.width, this.height, this.width, 35);
+		GuiUtils.bindTexture(backgroundTextures);
+		GuiUtils.drawModalRectWithCustomSizedTexture(this.x, this.y, 0, this.width, this.height, this.width, 35);
 
 		for (GuiTab tab : this.tabs) {
 			tab.drawTab(mc, matrixStack, mouseX, mouseY);
