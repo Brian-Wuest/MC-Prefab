@@ -1,13 +1,13 @@
-package com.wuest.prefab.Gui;
+package com.wuest.prefab.gui;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.wuest.prefab.Config.ConfigCategory;
-import com.wuest.prefab.Config.ConfigOption;
-import com.wuest.prefab.Config.ModConfiguration;
-import com.wuest.prefab.Utils;
-import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.Quadruple;
 import com.wuest.prefab.Tuple;
+import com.wuest.prefab.Utils;
+import com.wuest.prefab.config.ConfigCategory;
+import com.wuest.prefab.config.ConfigOption;
+import com.wuest.prefab.config.ModConfiguration;
+import com.wuest.prefab.proxy.CommonProxy;
 import net.minecraft.client.AbstractOption;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;

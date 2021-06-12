@@ -1,4 +1,4 @@
-package com.wuest.prefab.Blocks;
+package com.wuest.prefab.blocks;
 
 import com.wuest.prefab.Prefab;
 import net.minecraft.block.Block;

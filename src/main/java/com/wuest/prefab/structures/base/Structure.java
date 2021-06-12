@@ -1,15 +1,15 @@
-package com.wuest.prefab.Structures.Base;
+package com.wuest.prefab.structures.base;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
-import com.wuest.prefab.Blocks.FullDyeColor;
-import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Structures.Config.StructureConfiguration;
-import com.wuest.prefab.Structures.Events.StructureEventHandler;
 import com.wuest.prefab.Triple;
 import com.wuest.prefab.ZipUtil;
+import com.wuest.prefab.blocks.FullDyeColor;
+import com.wuest.prefab.gui.GuiLangKeys;
+import com.wuest.prefab.structures.config.StructureConfiguration;
+import com.wuest.prefab.structures.events.StructureEventHandler;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;

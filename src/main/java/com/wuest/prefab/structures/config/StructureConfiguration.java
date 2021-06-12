@@ -1,6 +1,6 @@
-package com.wuest.prefab.Structures.Config;
+package com.wuest.prefab.structures.config;
 
-import com.wuest.prefab.Structures.Items.StructureItem;
+import com.wuest.prefab.structures.items.StructureItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.EquipmentSlotType;

@@ -1,10 +1,10 @@
-package com.wuest.prefab.Events;
+package com.wuest.prefab.events;
 
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Proxy.CommonProxy;
-import com.wuest.prefab.Proxy.Messages.ConfigSyncMessage;
-import com.wuest.prefab.Structures.Items.ItemBulldozer;
+import com.wuest.prefab.proxy.CommonProxy;
+import com.wuest.prefab.proxy.messages.ConfigSyncMessage;
+import com.wuest.prefab.structures.items.ItemBulldozer;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

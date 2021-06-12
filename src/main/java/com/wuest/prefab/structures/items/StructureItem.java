@@ -1,9 +1,8 @@
-package com.wuest.prefab.Structures.Items;
+package com.wuest.prefab.structures.items;
 
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Proxy.ClientProxy;
-import com.wuest.prefab.Structures.Gui.GuiBasicStructure;
-import com.wuest.prefab.Structures.Gui.GuiStructure;
+import com.wuest.prefab.proxy.ClientProxy;
+import com.wuest.prefab.structures.gui.GuiStructure;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemUseContext;

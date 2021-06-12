@@ -1,8 +1,8 @@
-package com.wuest.prefab.Structures.Config;
+package com.wuest.prefab.structures.config;
 
-import com.wuest.prefab.Blocks.FullDyeColor;
+import com.wuest.prefab.blocks.FullDyeColor;
 import com.wuest.prefab.ModRegistry;
-import com.wuest.prefab.Structures.Predefined.StructureProduceFarm;
+import com.wuest.prefab.structures.predefined.StructureProduceFarm;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;

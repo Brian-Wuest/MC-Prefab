@@ -1,4 +1,4 @@
-package com.wuest.prefab.Structures.Base;
+package com.wuest.prefab.structures.base;
 
 import com.google.gson.annotations.Expose;
 

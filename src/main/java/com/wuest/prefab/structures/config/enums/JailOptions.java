@@ -1,4 +1,4 @@
-package com.wuest.prefab.Structures.Config.Enums;
+package com.wuest.prefab.structures.config.enums;
 
 import net.minecraft.util.Direction;
 

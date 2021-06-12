@@ -1,4 +1,4 @@
-package com.wuest.prefab.Blocks;
+package com.wuest.prefab.blocks;
 
 import com.google.common.base.Strings;
 import net.minecraft.item.DyeColor;
@@ -33,26 +33,6 @@ public enum FullDyeColor implements IStringSerializable {
         this.linkedColor = linkedColor;
     }
 
-    public int getId() {
-        return this.id;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public DyeColor getLinkedColor() {
-        return this.linkedColor;
-    }
-
-    public String toString() {
-        return this.name;
-    }
-
-    public String getSerializedName() {
-        return this.name;
-    }
-
     public static FullDyeColor ById(int id) {
         FullDyeColor returnValue = FullDyeColor.WHITE;
 
@@ -79,5 +59,25 @@ public enum FullDyeColor implements IStringSerializable {
         }
 
         return returnValue;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public DyeColor getLinkedColor() {
+        return this.linkedColor;
+    }
+
+    public String toString() {
+        return this.name;
+    }
+
+    public String getSerializedName() {
+        return this.name;
     }
 }

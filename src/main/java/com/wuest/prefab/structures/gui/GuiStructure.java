@@ -1,13 +1,13 @@
-package com.wuest.prefab.Structures.Gui;
+package com.wuest.prefab.structures.gui;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.wuest.prefab.Gui.GuiBase;
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Proxy.CommonProxy;
-import com.wuest.prefab.Structures.Config.StructureConfiguration;
-import com.wuest.prefab.Structures.Messages.StructureTagMessage;
-import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Tuple;
+import com.wuest.prefab.gui.GuiBase;
+import com.wuest.prefab.proxy.CommonProxy;
+import com.wuest.prefab.structures.config.StructureConfiguration;
+import com.wuest.prefab.structures.messages.StructureTagMessage;
+import com.wuest.prefab.structures.messages.StructureTagMessage.EnumStructureConfiguration;
 import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Direction;

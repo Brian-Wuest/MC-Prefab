@@ -1,15 +1,15 @@
-package com.wuest.prefab.Structures.Gui;
+package com.wuest.prefab.structures.gui;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.wuest.prefab.Events.ClientEventHandler;
-import com.wuest.prefab.Gui.Controls.GuiCheckBox;
-import com.wuest.prefab.Gui.GuiLangKeys;
-import com.wuest.prefab.Gui.GuiUtils;
-import com.wuest.prefab.Structures.Base.EnumStructureMaterial;
-import com.wuest.prefab.Structures.Config.InstantBridgeConfiguration;
-import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
-import com.wuest.prefab.Structures.Predefined.StructureInstantBridge;
-import com.wuest.prefab.Structures.Render.StructureRenderHandler;
+import com.wuest.prefab.events.ClientEventHandler;
+import com.wuest.prefab.gui.GuiLangKeys;
+import com.wuest.prefab.gui.GuiUtils;
+import com.wuest.prefab.gui.controls.GuiCheckBox;
+import com.wuest.prefab.structures.base.EnumStructureMaterial;
+import com.wuest.prefab.structures.config.InstantBridgeConfiguration;
+import com.wuest.prefab.structures.messages.StructureTagMessage.EnumStructureConfiguration;
+import com.wuest.prefab.structures.predefined.StructureInstantBridge;
+import com.wuest.prefab.structures.render.StructureRenderHandler;
 import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;

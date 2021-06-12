@@ -1,9 +1,9 @@
-package com.wuest.prefab.Structures.Items;
+package com.wuest.prefab.structures.items;
 
-import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Structures.Gui.GuiBulldozer;
+import com.wuest.prefab.gui.GuiLangKeys;
+import com.wuest.prefab.structures.gui.GuiBulldozer;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;

@@ -1,16 +1,16 @@
-package com.wuest.prefab.Structures.Gui;
+package com.wuest.prefab.structures.gui;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.wuest.prefab.Config.ServerModConfiguration;
-import com.wuest.prefab.Events.ClientEventHandler;
-import com.wuest.prefab.Gui.Controls.GuiCheckBox;
-import com.wuest.prefab.Gui.GuiLangKeys;
-import com.wuest.prefab.Gui.GuiUtils;
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Structures.Config.ModerateHouseConfiguration;
-import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
-import com.wuest.prefab.Structures.Predefined.StructureModerateHouse;
-import com.wuest.prefab.Structures.Render.StructureRenderHandler;
+import com.wuest.prefab.config.ServerModConfiguration;
+import com.wuest.prefab.events.ClientEventHandler;
+import com.wuest.prefab.gui.GuiLangKeys;
+import com.wuest.prefab.gui.GuiUtils;
+import com.wuest.prefab.gui.controls.GuiCheckBox;
+import com.wuest.prefab.structures.config.ModerateHouseConfiguration;
+import com.wuest.prefab.structures.messages.StructureTagMessage.EnumStructureConfiguration;
+import com.wuest.prefab.structures.predefined.StructureModerateHouse;
+import com.wuest.prefab.structures.render.StructureRenderHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.item.DyeColor;

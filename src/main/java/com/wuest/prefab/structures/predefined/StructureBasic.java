@@ -1,10 +1,10 @@
-package com.wuest.prefab.Structures.Predefined;
+package com.wuest.prefab.structures.predefined;
 
-import com.wuest.prefab.Structures.Base.*;
-import com.wuest.prefab.Structures.Config.BasicStructureConfiguration;
-import com.wuest.prefab.Structures.Config.BasicStructureConfiguration.EnumBasicStructureName;
-import com.wuest.prefab.Structures.Config.StructureConfiguration;
 import com.wuest.prefab.Tuple;
+import com.wuest.prefab.structures.base.*;
+import com.wuest.prefab.structures.config.BasicStructureConfiguration;
+import com.wuest.prefab.structures.config.BasicStructureConfiguration.EnumBasicStructureName;
+import com.wuest.prefab.structures.config.StructureConfiguration;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityType;

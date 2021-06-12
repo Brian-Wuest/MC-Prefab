@@ -1,7 +1,7 @@
 package com.wuest.prefab;
 
-import com.wuest.prefab.Proxy.ClientProxy;
-import com.wuest.prefab.Proxy.CommonProxy;
+import com.wuest.prefab.proxy.ClientProxy;
+import com.wuest.prefab.proxy.CommonProxy;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.material.PushReaction;

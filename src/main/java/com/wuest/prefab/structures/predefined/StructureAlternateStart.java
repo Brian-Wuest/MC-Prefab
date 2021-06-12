@@ -1,12 +1,12 @@
-package com.wuest.prefab.Structures.Predefined;
+package com.wuest.prefab.structures.predefined;
 
-import com.wuest.prefab.Config.EntityPlayerConfiguration;
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Proxy.Messages.PlayerEntityTagMessage;
-import com.wuest.prefab.Structures.Base.*;
-import com.wuest.prefab.Structures.Config.HouseConfiguration;
-import com.wuest.prefab.Structures.Config.StructureConfiguration;
 import com.wuest.prefab.Utils;
+import com.wuest.prefab.config.EntityPlayerConfiguration;
+import com.wuest.prefab.proxy.messages.PlayerEntityTagMessage;
+import com.wuest.prefab.structures.base.*;
+import com.wuest.prefab.structures.config.HouseConfiguration;
+import com.wuest.prefab.structures.config.StructureConfiguration;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;

@@ -1,4 +1,4 @@
-package com.wuest.prefab.Items;
+package com.wuest.prefab.items;
 
 import com.wuest.prefab.Utils;
 import net.minecraft.client.util.ITooltipFlag;

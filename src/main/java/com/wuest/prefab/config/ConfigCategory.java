@@ -1,4 +1,4 @@
-package com.wuest.prefab.Config;
+package com.wuest.prefab.config;
 
 public enum ConfigCategory {
     General("General"),

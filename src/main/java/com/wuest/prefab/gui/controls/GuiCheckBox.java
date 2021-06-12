@@ -1,4 +1,4 @@
-package com.wuest.prefab.Gui.Controls;
+package com.wuest.prefab.gui.controls;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Utils;

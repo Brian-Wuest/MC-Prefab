@@ -1,15 +1,15 @@
-package com.wuest.prefab.Structures.Gui;
+package com.wuest.prefab.structures.gui;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.wuest.prefab.Blocks.FullDyeColor;
-import com.wuest.prefab.Events.ClientEventHandler;
-import com.wuest.prefab.Gui.GuiLangKeys;
-import com.wuest.prefab.Gui.GuiUtils;
-import com.wuest.prefab.Structures.Config.ProduceFarmConfiguration;
-import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
-import com.wuest.prefab.Structures.Predefined.StructureProduceFarm;
-import com.wuest.prefab.Structures.Render.StructureRenderHandler;
 import com.wuest.prefab.Tuple;
+import com.wuest.prefab.blocks.FullDyeColor;
+import com.wuest.prefab.events.ClientEventHandler;
+import com.wuest.prefab.gui.GuiLangKeys;
+import com.wuest.prefab.gui.GuiUtils;
+import com.wuest.prefab.structures.config.ProduceFarmConfiguration;
+import com.wuest.prefab.structures.messages.StructureTagMessage.EnumStructureConfiguration;
+import com.wuest.prefab.structures.predefined.StructureProduceFarm;
+import com.wuest.prefab.structures.render.StructureRenderHandler;
 import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;

@@ -1,7 +1,7 @@
-package com.wuest.prefab.Structures.Predefined;
+package com.wuest.prefab.structures.predefined;
 
-import com.wuest.prefab.Structures.Base.BuildClear;
-import com.wuest.prefab.Structures.Base.Structure;
+import com.wuest.prefab.structures.base.BuildClear;
+import com.wuest.prefab.structures.base.Structure;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;

@@ -1,8 +1,8 @@
-package com.wuest.prefab.Structures.Items;
+package com.wuest.prefab.structures.items;
 
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Structures.Gui.GuiStartHouseChooser;
-import com.wuest.prefab.Structures.Predefined.StructureAlternateStart;
+import com.wuest.prefab.structures.gui.GuiStartHouseChooser;
+import com.wuest.prefab.structures.predefined.StructureAlternateStart;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
@@ -12,46 +12,46 @@ import net.minecraft.util.Direction;
  */
 @SuppressWarnings("ALL")
 public class ItemStartHouse extends StructureItem {
-	public ItemStartHouse( ) {
-		super();
-	}
+    public ItemStartHouse() {
+        super();
+    }
 
-	/**
-	 * Initializes common fields/properties for this structure item.
-	 */
-	@Override
-	protected void Initialize() {
-		if (Prefab.proxy.isClient) {
-			this.RegisterGui(GuiStartHouseChooser.class);
-		}
-	}
+    /**
+     * Initializes common fields/properties for this structure item.
+     */
+    @Override
+    protected void Initialize() {
+        if (Prefab.proxy.isClient) {
+            this.RegisterGui(GuiStartHouseChooser.class);
+        }
+    }
 
-	/**
-	 * Does something when the item is right-clicked.
-	 */
-	@Override
-	public ActionResultType useOn(ItemUseContext context) {
-		if (context.getLevel().isClientSide()) {
-			if (context.getClickedFace() == Direction.UP) {
-				if (!Prefab.useScanningMode) {
-					// Open the client side gui to determine the house options.
-					Prefab.proxy.openGuiForItem(context);
-				} else {
-					this.scanningMode(context);
-				}
-				return ActionResultType.PASS;
-			}
-		}
+    /**
+     * Does something when the item is right-clicked.
+     */
+    @Override
+    public ActionResultType useOn(ItemUseContext context) {
+        if (context.getLevel().isClientSide()) {
+            if (context.getClickedFace() == Direction.UP) {
+                if (!Prefab.useScanningMode) {
+                    // Open the client side gui to determine the house options.
+                    Prefab.proxy.openGuiForItem(context);
+                } else {
+                    this.scanningMode(context);
+                }
+                return ActionResultType.PASS;
+            }
+        }
 
-		return ActionResultType.FAIL;
-	}
+        return ActionResultType.FAIL;
+    }
 
-	@Override
-	public void scanningMode(ItemUseContext context) {
-		StructureAlternateStart.ScanBasicHouseStructure(
-				context.getLevel(),
-				context.getClickedPos(),
-				context.getPlayer().getDirection());
+    @Override
+    public void scanningMode(ItemUseContext context) {
+        StructureAlternateStart.ScanBasicHouseStructure(
+                context.getLevel(),
+                context.getClickedPos(),
+                context.getPlayer().getDirection());
 
         /*StructureAlternateStart.ScanRanchStructure(
                 context.getWorld(),
@@ -87,5 +87,5 @@ public class ItemStartHouse extends StructureItem {
 				context.getWorld(),
 				context.getPos(),
 				context.getPlayer().getHorizontalFacing(), "snowy_house", false, false);*/
-	}
+    }
 }

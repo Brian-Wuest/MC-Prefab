@@ -1,10 +1,10 @@
-package com.wuest.prefab.Gui;
+package com.wuest.prefab.gui;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.wuest.prefab.Blocks.FullDyeColor;
-import com.wuest.prefab.Gui.Controls.GuiCheckBox;
 import com.wuest.prefab.Tuple;
 import com.wuest.prefab.Utils;
+import com.wuest.prefab.blocks.FullDyeColor;
+import com.wuest.prefab.gui.controls.GuiCheckBox;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;

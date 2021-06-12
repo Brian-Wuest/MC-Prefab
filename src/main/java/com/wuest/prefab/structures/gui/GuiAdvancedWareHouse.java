@@ -1,6 +1,6 @@
-package com.wuest.prefab.Structures.Gui;
+package com.wuest.prefab.structures.gui;
 
-import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
+import com.wuest.prefab.structures.messages.StructureTagMessage.EnumStructureConfiguration;
 
 /**
  * @author WuestMan

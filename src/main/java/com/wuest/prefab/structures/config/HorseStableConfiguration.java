@@ -1,7 +1,7 @@
-package com.wuest.prefab.Structures.Config;
+package com.wuest.prefab.structures.config;
 
 import com.wuest.prefab.ModRegistry;
-import com.wuest.prefab.Structures.Predefined.StructureHorseStable;
+import com.wuest.prefab.structures.predefined.StructureHorseStable;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;

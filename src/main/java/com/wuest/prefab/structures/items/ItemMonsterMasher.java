@@ -1,8 +1,8 @@
-package com.wuest.prefab.Structures.Items;
+package com.wuest.prefab.structures.items;
 
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Structures.Gui.GuiMonsterMasher;
-import com.wuest.prefab.Structures.Predefined.StructureMonsterMasher;
+import com.wuest.prefab.structures.gui.GuiMonsterMasher;
+import com.wuest.prefab.structures.predefined.StructureMonsterMasher;
 import net.minecraft.item.ItemUseContext;
 
 /**
@@ -10,25 +10,25 @@ import net.minecraft.item.ItemUseContext;
  */
 @SuppressWarnings("ConstantConditions")
 public class ItemMonsterMasher extends StructureItem {
-	public ItemMonsterMasher( ) {
-		super();
-	}
+    public ItemMonsterMasher() {
+        super();
+    }
 
-	/**
-	 * Initializes common fields/properties for this structure item.
-	 */
-	@Override
-	protected void Initialize() {
-		if (Prefab.proxy.isClient) {
-			this.RegisterGui(GuiMonsterMasher.class);
-		}
-	}
+    /**
+     * Initializes common fields/properties for this structure item.
+     */
+    @Override
+    protected void Initialize() {
+        if (Prefab.proxy.isClient) {
+            this.RegisterGui(GuiMonsterMasher.class);
+        }
+    }
 
-	@Override
-	public void scanningMode(ItemUseContext context) {
-		StructureMonsterMasher.ScanStructure(
-				context.getLevel(),
-				context.getClickedPos(),
-				context.getPlayer().getDirection());
-	}
+    @Override
+    public void scanningMode(ItemUseContext context) {
+        StructureMonsterMasher.ScanStructure(
+                context.getLevel(),
+                context.getClickedPos(),
+                context.getPlayer().getDirection());
+    }
 }

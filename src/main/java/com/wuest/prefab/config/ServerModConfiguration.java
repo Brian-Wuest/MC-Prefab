@@ -1,4 +1,4 @@
-package com.wuest.prefab.Config;
+package com.wuest.prefab.config;
 
 import net.minecraft.nbt.CompoundNBT;
 

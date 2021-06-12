@@ -1,7 +1,7 @@
-package com.wuest.prefab.Gui.Controls;
+package com.wuest.prefab.gui.controls;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.wuest.prefab.Gui.GuiUtils;
+import com.wuest.prefab.gui.GuiUtils;
 import com.wuest.prefab.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SimpleSound;

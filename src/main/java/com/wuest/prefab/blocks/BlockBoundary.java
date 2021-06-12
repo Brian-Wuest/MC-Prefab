@@ -1,8 +1,8 @@
-package com.wuest.prefab.Blocks;
+package com.wuest.prefab.blocks;
 
-import com.wuest.prefab.Events.ModEventHandler;
-import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.Prefab;
+import com.wuest.prefab.events.ModEventHandler;
+import com.wuest.prefab.gui.GuiLangKeys;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;

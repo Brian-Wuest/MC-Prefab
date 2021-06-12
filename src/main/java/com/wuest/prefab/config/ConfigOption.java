@@ -1,4 +1,4 @@
-package com.wuest.prefab.Config;
+package com.wuest.prefab.config;
 
 import com.wuest.prefab.Utils;
 import net.minecraft.util.text.StringTextComponent;

@@ -1,8 +1,8 @@
-package com.wuest.prefab.Structures.Config.Enums;
+package com.wuest.prefab.structures.config.enums;
 
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Structures.Base.BuildShape;
-import com.wuest.prefab.Structures.Base.PositionOffset;
+import com.wuest.prefab.structures.base.BuildShape;
+import com.wuest.prefab.structures.base.PositionOffset;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 

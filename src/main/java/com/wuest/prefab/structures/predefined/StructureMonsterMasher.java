@@ -1,12 +1,12 @@
-package com.wuest.prefab.Structures.Predefined;
+package com.wuest.prefab.structures.predefined;
 
-import com.wuest.prefab.Proxy.CommonProxy;
-import com.wuest.prefab.Structures.Base.BuildBlock;
-import com.wuest.prefab.Structures.Base.BuildClear;
-import com.wuest.prefab.Structures.Base.Structure;
-import com.wuest.prefab.Structures.Config.MonsterMasherConfiguration;
-import com.wuest.prefab.Structures.Config.StructureConfiguration;
 import com.wuest.prefab.Utils;
+import com.wuest.prefab.proxy.CommonProxy;
+import com.wuest.prefab.structures.base.BuildBlock;
+import com.wuest.prefab.structures.base.BuildClear;
+import com.wuest.prefab.structures.base.Structure;
+import com.wuest.prefab.structures.config.MonsterMasherConfiguration;
+import com.wuest.prefab.structures.config.StructureConfiguration;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;

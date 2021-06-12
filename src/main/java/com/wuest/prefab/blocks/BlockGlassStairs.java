@@ -1,4 +1,4 @@
-package com.wuest.prefab.Blocks;
+package com.wuest.prefab.blocks;
 
 import com.wuest.prefab.ModRegistry;
 import net.minecraft.block.Block;
@@ -19,18 +19,18 @@ import net.minecraftforge.api.distmarker.OnlyIn;
  * @author Brian
  */
 public class BlockGlassStairs extends StairsBlock {
-	public BlockGlassStairs(BlockState state, Block.Properties properties) {
-		super(state, properties);
-	}
+    public BlockGlassStairs(BlockState state, Block.Properties properties) {
+        super(state, properties);
+    }
 
-	@Override
-	@OnlyIn(Dist.CLIENT)
-	public boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction side) {
-		ITag<Block> tags = BlockTags.getAllTags().getTag(new ResourceLocation("forge", "glass"));
-		Block adjacentBlock = adjacentBlockState.getBlock();
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction side) {
+        ITag<Block> tags = BlockTags.getAllTags().getTag(new ResourceLocation("forge", "glass"));
+        Block adjacentBlock = adjacentBlockState.getBlock();
 
-		return tags.contains(adjacentBlock) || adjacentBlock == this
-				|| (adjacentBlock == ModRegistry.GlassSlab.get()
-				&& adjacentBlockState.getValue(SlabBlock.TYPE) == SlabType.DOUBLE);
-	}
+        return tags.contains(adjacentBlock) || adjacentBlock == this
+                || (adjacentBlock == ModRegistry.GlassSlab.get()
+                && adjacentBlockState.getValue(SlabBlock.TYPE) == SlabType.DOUBLE);
+    }
 }
