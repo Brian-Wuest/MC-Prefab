@@ -1,9 +1,8 @@
 package com.wuest.prefab.Gui.Controls;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.wuest.prefab.GeneralUtils;
-import com.wuest.prefab.Gui.GuiTabScreen;
 import com.wuest.prefab.Gui.GuiUtils;
+import com.wuest.prefab.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.client.audio.SoundHandler;
@@ -11,7 +10,6 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.util.text.StringTextComponent;
 
 import java.awt.*;
 
@@ -27,7 +25,7 @@ public class GuiTab extends Widget {
 	private String name;
 
 	public GuiTab(GuiTabTray parent, String name, int x, int y) {
-		super(x, y, 50, 20, GeneralUtils.createTextComponent(name));
+		super(x, y, 50, 20, Utils.createTextComponent(name));
 
 		this.Initialize(parent, name);
 	}
@@ -97,7 +95,7 @@ public class GuiTab extends Widget {
 			GuiUtils.bindTexture(TAB_TEXTURES);
 		}
 
-		GuiUtils.drawModalRectWithCustomSizedTexture(this.x, this.y, 0, this.width, this.height, this.width, this.height);
+		GuiUtils.drawModalRectWithCustomSizedTexture(matrixStack, this.x, this.y, 0, this.width, this.height, this.width, this.height);
 		int j = Color.LIGHT_GRAY.getRGB();
 
 		String buttonText = this.name;
@@ -105,7 +103,7 @@ public class GuiTab extends Widget {
 		int ellipsisWidth = fontrenderer.width("...");
 
 		if (strWidth > width - 6 && strWidth > ellipsisWidth) {
-			buttonText = mc.font.substrByWidth(GeneralUtils.createTextComponent(buttonText), width - 6 - ellipsisWidth).getString() + "...";
+			buttonText = mc.font.substrByWidth(Utils.createTextComponent(buttonText), width - 6 - ellipsisWidth).getString() + "...";
 		}
 
 		int stringXPosition = ((this.x + this.width / 2) - (fontrenderer.width(buttonText)) / 2);

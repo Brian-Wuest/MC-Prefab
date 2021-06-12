@@ -1,7 +1,7 @@
 package com.wuest.prefab.Gui;
 
 import com.wuest.prefab.Blocks.FullDyeColor;
-import com.wuest.prefab.GeneralUtils;
+import com.wuest.prefab.Utils;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.DyeColor;
 import net.minecraft.util.Direction;
@@ -402,7 +402,7 @@ public class GuiLangKeys {
 	 * @return A StringTextComponent representing the translated text.
 	 */
 	public static StringTextComponent translateToComponent(String translateKey) {
-		return GeneralUtils.createTextComponent(GuiLangKeys.translateString(translateKey));
+		return Utils.createTextComponent(GuiLangKeys.translateString(translateKey));
 	}
 
 	/**

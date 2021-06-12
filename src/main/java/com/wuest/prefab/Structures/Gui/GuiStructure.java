@@ -1,7 +1,6 @@
 package com.wuest.prefab.Structures.Gui;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.wuest.prefab.Gui.GuiBase;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Proxy.CommonProxy;
@@ -10,14 +9,10 @@ import com.wuest.prefab.Structures.Messages.StructureTagMessage;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Tuple;
 import net.minecraft.client.gui.widget.button.AbstractButton;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
-import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 
@@ -27,71 +22,71 @@ import java.awt.*;
  * @author WuestMan
  */
 public abstract class GuiStructure extends GuiBase {
-	public BlockPos pos;
-	protected PlayerEntity player;
-	protected ExtendedButton btnCancel;
-	protected ExtendedButton btnBuild;
-	protected ExtendedButton btnVisualize;
-	protected int textColor = Color.DARK_GRAY.getRGB();
-	protected EnumStructureConfiguration structureConfiguration;
-	private Direction structureFacing;
+    public BlockPos pos;
+    protected PlayerEntity player;
+    protected ExtendedButton btnCancel;
+    protected ExtendedButton btnBuild;
+    protected ExtendedButton btnVisualize;
+    protected int textColor = Color.DARK_GRAY.getRGB();
+    protected EnumStructureConfiguration structureConfiguration;
+    private Direction structureFacing;
 
-	public GuiStructure(String title) {
-		super(title);
-	}
+    public GuiStructure(String title) {
+        super(title);
+    }
 
-	@Override
-	public void init() {
-		this.player = this.getMinecraft().player;
-		this.structureFacing = this.player.getDirection().getOpposite();
-		this.Initialize();
-	}
+    @Override
+    public void init() {
+        this.player = this.getMinecraft().player;
+        this.structureFacing = this.player.getDirection().getOpposite();
+        this.Initialize();
+    }
 
-	/**
-	 * This method is used to initialize GUI specific items.
-	 */
-	protected void Initialize() {
-	}
+    /**
+     * This method is used to initialize GUI specific items.
+     */
+    protected void Initialize() {
+    }
 
-	public void checkVisualizationSetting() {
-		if (!CommonProxy.proxyConfiguration.serverConfiguration.enableStructurePreview) {
-			this.btnVisualize.visible = false;
-		}
-	}
+    public void checkVisualizationSetting() {
+        if (!CommonProxy.proxyConfiguration.serverConfiguration.enableStructurePreview) {
+            this.btnVisualize.visible = false;
+        }
+    }
 
-	@Override
-	public void render(MatrixStack matrixStack, int x, int y, float f) {
-		Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
+    @Override
+    public void render(MatrixStack matrixStack, int x, int y, float f) {
+        Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
 
-		this.preButtonRender(matrixStack, adjustedXYValue.getFirst(), adjustedXYValue.getSecond(), x, y, f);
+        this.preButtonRender(matrixStack, adjustedXYValue.getFirst(), adjustedXYValue.getSecond(), x, y, f);
 
-		this.renderButtons(matrixStack, x, y);
+        this.renderButtons(matrixStack, x, y);
 
-		this.postButtonRender(matrixStack, adjustedXYValue.getFirst(), adjustedXYValue.getSecond(), x, y, f);
+        this.postButtonRender(matrixStack, adjustedXYValue.getFirst(), adjustedXYValue.getSecond(), x, y, f);
 
-		if (this.btnVisualize != null) {
-			this.checkVisualizationSetting();
-		}
-	}
+        if (this.btnVisualize != null) {
+            this.checkVisualizationSetting();
+        }
+    }
 
-	@Override
-	protected void preButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
-		this.renderBackground(matrixStack);
+    @Override
+    protected void preButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
+        this.renderBackground(matrixStack);
 
-		this.drawControlBackground(matrixStack, x, y);
-	}
+        this.drawControlBackground(matrixStack, x, y);
+    }
 
-	/**
-	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
-	 */
-	protected void performCancelOrBuildOrHouseFacing(StructureConfiguration configuration, AbstractButton button) {
-		configuration.houseFacing = this.structureFacing;
+    /**
+     * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
+     */
+    protected void performCancelOrBuildOrHouseFacing(StructureConfiguration configuration, AbstractButton button) {
+        configuration.houseFacing = this.structureFacing;
 
-		if (button == this.btnCancel) {
-			this.closeScreen();
-		} else if (button == this.btnBuild) {
-			Prefab.network.sendToServer(new StructureTagMessage(configuration.WriteToCompoundNBT(), this.structureConfiguration));
-			this.closeScreen();
-		}
-	}
+        if (button == this.btnCancel) {
+            this.closeScreen();
+        } else if (button == this.btnBuild) {
+            Prefab.network.sendToServer(new StructureTagMessage(configuration.WriteToCompoundNBT(), this.structureConfiguration));
+            this.closeScreen();
+        }
+    }
 }

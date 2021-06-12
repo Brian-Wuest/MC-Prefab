@@ -1,6 +1,6 @@
 package com.wuest.prefab.Config;
 
-import com.wuest.prefab.GeneralUtils;
+import com.wuest.prefab.Utils;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.common.ForgeConfigSpec;
 
@@ -112,7 +112,7 @@ public class ConfigOption<T> {
 
     public ConfigOption<T> setHoverText(String value) {
         this.hoverText = value;
-        this.hoverTextComponent = GeneralUtils.createTextComponent(value);
+        this.hoverTextComponent = Utils.createTextComponent(value);
         return this;
     }
 

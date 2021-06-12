@@ -4,7 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Config.ConfigCategory;
 import com.wuest.prefab.Config.ConfigOption;
 import com.wuest.prefab.Config.ModConfiguration;
-import com.wuest.prefab.GeneralUtils;
+import com.wuest.prefab.Utils;
 import com.wuest.prefab.Proxy.CommonProxy;
 import com.wuest.prefab.Quadruple;
 import com.wuest.prefab.Tuple;
@@ -95,10 +95,10 @@ public class GuiPrefab extends GuiBase {
 
         this.optionCollection = new ArrayList<>();
 
-        this.resetToDefaultsButton = this.createAndAddButton(60, this.height - DONE_BUTTON_TOP_OFFSET, 100, 20, "Reset");
-        this.doneButton = this.createAndAddButton(this.width - 160, this.height - DONE_BUTTON_TOP_OFFSET, 100, 20, "Done");
+        this.resetToDefaultsButton = this.createAndAddButton(60, this.height - DONE_BUTTON_TOP_OFFSET, 100, 20, "Reset", false);
+        this.doneButton = this.createAndAddButton(this.width - 160, this.height - DONE_BUTTON_TOP_OFFSET, 100, 20, "Done", false);
 
-        this.generalGroupButton = this.createAndAddButton(this.width / 2, 30, 120, 20, "General");
+        this.generalGroupButton = this.createAndAddButton(this.width / 2, 30, 120, 20, "General", false);
 
         for (ConfigCategory category : ConfigCategory.values()) {
             OptionsRowList nextOptions = new OptionsRowList(
@@ -264,7 +264,7 @@ public class GuiPrefab extends GuiBase {
                 (unused, newValue) -> configOption.getConfigValueAsInt().set(newValue.intValue()),
                 // BiFunction that returns a string text component
                 // in format "<name>: <value>"
-                (gs, option) -> GeneralUtils.createTextComponent(
+                (gs, option) -> Utils.createTextComponent(
                         // Use I18n.get(String) to get a translation key's value
                         configOption.getName()
                                 + ": "
@@ -292,7 +292,7 @@ public class GuiPrefab extends GuiBase {
 
                     configOption.getConfigValueAsString().set(configOption.getValidValues().get(nextIndex));
                 },
-                (unused, option) -> GeneralUtils.createTextComponent(
+                (unused, option) -> Utils.createTextComponent(
                         configOption.getName()
                                 + ": "
                                 + configOption.getConfigValueAsString().get())

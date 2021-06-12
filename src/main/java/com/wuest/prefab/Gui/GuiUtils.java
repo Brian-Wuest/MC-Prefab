@@ -1,13 +1,13 @@
 package com.wuest.prefab.Gui;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.wuest.prefab.GeneralUtils;
+import com.wuest.prefab.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
 import org.lwjgl.opengl.GL11;
 
@@ -107,7 +107,7 @@ public class GuiUtils {
      * @param textureWidth  The width of the texture.
      * @param textureHeight The height of the texture.
      */
-    public static void drawModalRectWithCustomSizedTexture(int x, int y, int z, int width, int height, float textureWidth, float textureHeight) {
+    public static void drawModalRectWithCustomSizedTexture(MatrixStack matrixStack, int x, int y, int z, int width, int height, float textureWidth, float textureHeight) {
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.enableBlend();
         RenderSystem.blendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
@@ -133,12 +133,12 @@ public class GuiUtils {
         tessellator.end();
     }
 
-    public static void bindAndDrawModalRectWithCustomSizedTexture(ResourceLocation resourceLocation, int x, int y, int z, int width, int height, float textureWidth, float textureHeight) {
+    public static void bindAndDrawModalRectWithCustomSizedTexture(ResourceLocation resourceLocation, MatrixStack matrixStack, int x, int y, int z, int width, int height, float textureWidth, float textureHeight) {
         GuiUtils.bindTexture(resourceLocation);
-        GuiUtils.drawModalRectWithCustomSizedTexture(x, y, z, width, height, textureWidth, textureHeight);
+        GuiUtils.drawModalRectWithCustomSizedTexture(matrixStack, x, y, z, width, height, textureWidth, textureHeight);
     }
 
     public static void setButtonText(ExtendedButton button, String message) {
-        button.setMessage(GeneralUtils.createTextComponent(message));
+        button.setMessage(Utils.createTextComponent(message));
     }
 }

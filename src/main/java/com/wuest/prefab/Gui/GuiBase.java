@@ -1,15 +1,16 @@
 package com.wuest.prefab.Gui;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.wuest.prefab.GeneralUtils;
+import com.wuest.prefab.Blocks.FullDyeColor;
 import com.wuest.prefab.Gui.Controls.GuiCheckBox;
 import com.wuest.prefab.Tuple;
+import com.wuest.prefab.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.item.DyeColor;
 import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
@@ -26,7 +27,7 @@ public abstract class GuiBase extends Screen {
     private boolean pauseGame;
 
     public GuiBase(String title) {
-        super(GeneralUtils.createTextComponent(title));
+        super(Utils.createTextComponent(title));
         this.pauseGame = true;
     }
 
@@ -89,7 +90,57 @@ public abstract class GuiBase extends Screen {
      * @return A new button.
      */
     public ExtendedButton createAndAddButton(int x, int y, int width, int height, String text) {
-        ExtendedButton returnValue = new ExtendedButton(x, y, width, height, GeneralUtils.createTextComponent(text), this::buttonClicked);
+        return this.createAndAddButton(x, y, width, height, text, true);
+    }
+
+    /**
+     * Creates a {@link net.minecraftforge.fml.client.gui.widget.ExtendedButton} using the button clicked event as the handler. Then adds it to the buttons list and returns the created object.
+     *
+     * @param x      The x-axis position.
+     * @param y      The y-axis position.
+     * @param width  The width of the button.
+     * @param height The height of the button.
+     * @param text   The text of the button.
+     * @return A new button.
+     */
+    public ExtendedButton createAndAddButton(int x, int y, int width, int height, String text, boolean translate) {
+        ExtendedButton returnValue = new ExtendedButton(x, y, width, height, translate ? GuiLangKeys.translateToComponent(text) : Utils.createTextComponent(text), this::buttonClicked);
+
+        this.addButton(returnValue);
+
+        return returnValue;
+    }
+
+    /**
+     * Creates a {@link net.minecraftforge.fml.client.gui.widget.ExtendedButton} using the button clicked event as the handler. Then adds it to the buttons list and returns the created object.
+     *
+     * @param x      The x-axis position.
+     * @param y      The y-axis position.
+     * @param width  The width of the button.
+     * @param height The height of the button.
+     * @param color  The color to describe on the button.
+     * @return A new button.
+     */
+    public ExtendedButton createAndAddDyeButton(int x, int y, int width, int height, DyeColor color) {
+        ExtendedButton returnValue = new ExtendedButton(x, y, width, height, Utils.createTextComponent(GuiLangKeys.translateDye(color)), this::buttonClicked);
+
+        this.addButton(returnValue);
+
+        return returnValue;
+    }
+
+    /**
+     * Creates a {@link net.minecraftforge.fml.client.gui.widget.ExtendedButton} using the button clicked event as the handler. Then adds it to the buttons list and returns the created object.
+     *
+     * @param x      The x-axis position.
+     * @param y      The y-axis position.
+     * @param width  The width of the button.
+     * @param height The height of the button.
+     * @param color  The color to describe on the button.
+     * @return A new button.
+     */
+    public ExtendedButton createAndAddFullDyeButton(int x, int y, int width, int height, FullDyeColor color) {
+        ExtendedButton returnValue = new ExtendedButton(x, y, width, height, Utils.createTextComponent(GuiLangKeys.translateFullDye(color)), this::buttonClicked);
 
         this.addButton(returnValue);
 
@@ -98,7 +149,7 @@ public abstract class GuiBase extends Screen {
 
     public GuiCheckBox createAndAddCheckBox(int xPos, int yPos, String displayString, boolean isChecked,
                                             GuiCheckBox.IPressable handler) {
-        GuiCheckBox checkBox = new GuiCheckBox(xPos, yPos, displayString, isChecked, handler);
+        GuiCheckBox checkBox = new GuiCheckBox(xPos, yPos, GuiLangKeys.translateString(displayString), isChecked, handler);
 
         this.addButton(checkBox);
         return checkBox;
@@ -107,7 +158,7 @@ public abstract class GuiBase extends Screen {
     public Slider createAndAddSlider(int xPos, int yPos, int width, int height, String prefix, String suf,
                                      double minVal, double maxVal, double currentVal, boolean showDec, boolean drawStr,
                                      Button.IPressable handler) {
-        Slider slider = new Slider(xPos, yPos, width, height, GeneralUtils.createTextComponent(prefix), GeneralUtils.createTextComponent(suf), minVal, maxVal, currentVal, showDec,
+        Slider slider = new Slider(xPos, yPos, width, height, Utils.createTextComponent(prefix), Utils.createTextComponent(suf), minVal, maxVal, currentVal, showDec,
                 drawStr, handler);
 
         this.addButton(slider);
@@ -161,11 +212,11 @@ public abstract class GuiBase extends Screen {
      * @param textColor The color of the text.
      */
     public void drawSplitString(String str, int x, int y, int wrapWidth, int textColor) {
-        this.getFontRenderer().drawWordWrap(GeneralUtils.createTextComponent(str), x, y, wrapWidth, textColor);
+        this.getFontRenderer().drawWordWrap(Utils.createTextComponent(str), x, y, wrapWidth, textColor);
     }
 
     public List<IReorderingProcessor> getSplitString(String str, int wrapWidth) {
-        return this.getFontRenderer().split(GeneralUtils.createTextComponent(str), wrapWidth);
+        return this.getFontRenderer().split(Utils.createTextComponent(str), wrapWidth);
     }
 
     public List<IReorderingProcessor> getSplitString(StringTextComponent str, int wrapWidth) {
