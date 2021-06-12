@@ -19,7 +19,7 @@ public class ItemBlockMeta extends ItemBlock
 
 		if (!(block instanceof IMetaBlock))
 		{
-			throw new IllegalArgumentException(String.format("The given Block %s is not an instance of IMetaBlockName!", block.getUnlocalizedName()));
+			throw new IllegalArgumentException(String.format("The given Block %s is not an instance of IMetaBlockName!", block.getTranslationKey()));
 		}
 
 		this.setMaxDamage(0);
@@ -32,8 +32,8 @@ public class ItemBlockMeta extends ItemBlock
 	}
 
 	@Override
-	public String getUnlocalizedName(ItemStack stack)
+	public String getTranslationKey(ItemStack stack)
 	{
-		return super.getUnlocalizedName(stack) + "." + ((IMetaBlock) this.block).getSpecialName(stack);
+		return super.getTranslationKey(stack) + "." + ((IMetaBlock) this.block).getSpecialName(stack);
 	}
 }

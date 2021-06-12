@@ -1,11 +1,8 @@
 package com.wuest.prefab;
 
-import java.util.ArrayList;
-
 import com.wuest.prefab.Blocks.IMetaBlock;
 import com.wuest.prefab.Structures.Config.BasicStructureConfiguration.EnumBasicStructureName;
 import com.wuest.prefab.Structures.Items.ItemBasicStructure;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -13,6 +10,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
+
+import java.util.ArrayList;
 
 /**
  * This class is used to assist in registering blocks/items for rendering.
@@ -47,7 +46,7 @@ public final class ItemRenderRegister
 	 */
 	public static void regItem(Item item)
 	{
-		ItemRenderRegister.regItem(item, 0, item.getUnlocalizedName().substring(5));
+		ItemRenderRegister.regItem(item, 0, item.getTranslationKey().substring(5));
 	}
 
 	/**

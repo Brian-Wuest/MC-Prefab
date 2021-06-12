@@ -1,85 +1,19 @@
 package com.wuest.prefab;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map.Entry;
-
-import com.wuest.prefab.Blocks.BlockAndesiteStairs;
-import com.wuest.prefab.Blocks.BlockBoundary;
-import com.wuest.prefab.Blocks.BlockCompressedObsidian;
-import com.wuest.prefab.Blocks.BlockCompressedStone;
-import com.wuest.prefab.Blocks.BlockDioriteStairs;
-import com.wuest.prefab.Blocks.BlockDoubleAndesiteSlab;
-import com.wuest.prefab.Blocks.BlockDoubleDioriteSlab;
-import com.wuest.prefab.Blocks.BlockDoubleGlassSlab;
-import com.wuest.prefab.Blocks.BlockDoubleGraniteSlab;
-import com.wuest.prefab.Blocks.BlockDrafter;
-import com.wuest.prefab.Blocks.BlockGlassStairs;
-import com.wuest.prefab.Blocks.BlockGraniteStairs;
-import com.wuest.prefab.Blocks.BlockHalfAndesiteSlab;
-import com.wuest.prefab.Blocks.BlockHalfDioriteSlab;
-import com.wuest.prefab.Blocks.BlockHalfGlassSlab;
-import com.wuest.prefab.Blocks.BlockHalfGraniteSlab;
-import com.wuest.prefab.Blocks.BlockPaperLantern;
-import com.wuest.prefab.Blocks.BlockPhasing;
+import com.wuest.prefab.Blocks.*;
 import com.wuest.prefab.Gui.GuiDrafter;
-import com.wuest.prefab.Items.ItemBlockAndesiteSlab;
-import com.wuest.prefab.Items.ItemBlockDioriteSlab;
-import com.wuest.prefab.Items.ItemBlockGlassSlab;
-import com.wuest.prefab.Items.ItemBlockGraniteSlab;
-import com.wuest.prefab.Items.ItemBlockMeta;
-import com.wuest.prefab.Items.ItemBundleOfTimber;
-import com.wuest.prefab.Items.ItemCoilOfLanterns;
-import com.wuest.prefab.Items.ItemCompressedChest;
-import com.wuest.prefab.Items.ItemPalletOfBricks;
-import com.wuest.prefab.Items.ItemPileOfBricks;
-import com.wuest.prefab.Items.ItemStringOfLanterns;
-import com.wuest.prefab.Items.ItemWarehouseUpgrade;
+import com.wuest.prefab.Items.*;
 import com.wuest.prefab.Proxy.Messages.ConfigSyncMessage;
-import com.wuest.prefab.Proxy.Messages.PlayerEntityTagMessage;
 import com.wuest.prefab.Proxy.Messages.Handlers.ConfigSyncHandler;
 import com.wuest.prefab.Proxy.Messages.Handlers.PlayerEntityHandler;
+import com.wuest.prefab.Proxy.Messages.PlayerEntityTagMessage;
 import com.wuest.prefab.Structures.Capabilities.IStructureConfigurationCapability;
-import com.wuest.prefab.Structures.Capabilities.StructureConfigurationCapability;
 import com.wuest.prefab.Structures.Capabilities.Storage.StructureConfigurationStorage;
-import com.wuest.prefab.Structures.Gui.GuiAdvancedWareHouse;
-import com.wuest.prefab.Structures.Gui.GuiBasicStructure;
-import com.wuest.prefab.Structures.Gui.GuiBulldozer;
-import com.wuest.prefab.Structures.Gui.GuiChickenCoop;
-import com.wuest.prefab.Structures.Gui.GuiFishPond;
-import com.wuest.prefab.Structures.Gui.GuiHorseStable;
-import com.wuest.prefab.Structures.Gui.GuiInstantBridge;
-import com.wuest.prefab.Structures.Gui.GuiModerateHouse;
-import com.wuest.prefab.Structures.Gui.GuiModularHouse;
-import com.wuest.prefab.Structures.Gui.GuiMonsterMasher;
-import com.wuest.prefab.Structures.Gui.GuiNetherGate;
-import com.wuest.prefab.Structures.Gui.GuiProduceFarm;
-import com.wuest.prefab.Structures.Gui.GuiStartHouseChooser;
-import com.wuest.prefab.Structures.Gui.GuiStructurePart;
-import com.wuest.prefab.Structures.Gui.GuiTreeFarm;
-import com.wuest.prefab.Structures.Gui.GuiVillaerHouses;
-import com.wuest.prefab.Structures.Gui.GuiWareHouse;
-import com.wuest.prefab.Structures.Items.ItemAdvancedWareHouse;
-import com.wuest.prefab.Structures.Items.ItemBasicStructure;
-import com.wuest.prefab.Structures.Items.ItemBulldozer;
-import com.wuest.prefab.Structures.Items.ItemChickenCoop;
-import com.wuest.prefab.Structures.Items.ItemFishPond;
-import com.wuest.prefab.Structures.Items.ItemHorseStable;
-import com.wuest.prefab.Structures.Items.ItemInstantBridge;
-import com.wuest.prefab.Structures.Items.ItemModerateHouse;
-import com.wuest.prefab.Structures.Items.ItemModularHouse;
-import com.wuest.prefab.Structures.Items.ItemMonsterMasher;
-import com.wuest.prefab.Structures.Items.ItemNetherGate;
-import com.wuest.prefab.Structures.Items.ItemProduceFarm;
-import com.wuest.prefab.Structures.Items.ItemStartHouse;
-import com.wuest.prefab.Structures.Items.ItemStructurePart;
-import com.wuest.prefab.Structures.Items.ItemTreeFarm;
-import com.wuest.prefab.Structures.Items.ItemVillagerHouses;
-import com.wuest.prefab.Structures.Items.ItemWareHouse;
+import com.wuest.prefab.Structures.Capabilities.StructureConfigurationCapability;
+import com.wuest.prefab.Structures.Gui.*;
+import com.wuest.prefab.Structures.Items.*;
 import com.wuest.prefab.Structures.Messages.StructureHandler;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.creativetab.CreativeTabs;
@@ -102,6 +36,11 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.OreDictionary;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
 /**
  * This is the mod registry so there is a way to get to all instances of the blocks/items created by this mod.
@@ -552,7 +491,7 @@ public class ModRegistry
 	/**
 	 * The Compressed Obsidian registered block.
 	 * 
-	 * @return An instance of {@link CompressedObsidianBlock}.
+	 * @return An instance of {@link BlockCompressedObsidian}.
 	 */
 	public static BlockCompressedObsidian CompressedObsidianBlock()
 	{
@@ -1006,7 +945,7 @@ public class ModRegistry
 		if (itemName != null)
 		{
 			item.setRegistryName(itemName);
-			item.setUnlocalizedName(item.getRegistryName().toString());
+			item.setTranslationKey(item.getRegistryName().toString());
 		}
 	}
 
@@ -1019,7 +958,7 @@ public class ModRegistry
 	public static void setBlockName(Block block, String blockName)
 	{
 		block.setRegistryName(blockName);
-		block.setUnlocalizedName(block.getRegistryName().toString());
+		block.setTranslationKey(block.getRegistryName().toString());
 	}
 
 	/**

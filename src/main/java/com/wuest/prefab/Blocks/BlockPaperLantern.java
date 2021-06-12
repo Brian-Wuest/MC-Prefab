@@ -1,9 +1,6 @@
 package com.wuest.prefab.Blocks;
 
-import java.util.Random;
-
 import com.wuest.prefab.ModRegistry;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
@@ -19,6 +16,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.Random;
 
 /**
  * This block is used as an alternate light source to be used in the structures created in this mod.
@@ -82,7 +81,7 @@ public class BlockPaperLantern extends Block
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public BlockRenderLayer getBlockLayer()
+	public BlockRenderLayer getRenderLayer()
 	{
 		return BlockRenderLayer.CUTOUT;
 	}
@@ -107,10 +106,10 @@ public class BlockPaperLantern extends Block
 		if (enumfacing.getAxis().isHorizontal())
 		{
 			EnumFacing enumfacing1 = enumfacing.getOpposite();
-			worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + 0.27D * (double) enumfacing1.getFrontOffsetX(), d1 + 0.22D,
-				d2 + 0.27D * (double) enumfacing1.getFrontOffsetZ(), 0.0D, 0.0D, 0.0D, new int[0]);
-			worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 + 0.27D * (double) enumfacing1.getFrontOffsetX(), d1 + 0.22D,
-				d2 + 0.27D * (double) enumfacing1.getFrontOffsetZ(), 0.0D, 0.0D, 0.0D, new int[0]);
+			worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + 0.27D * (double) enumfacing1.getXOffset(), d1 + 0.22D,
+				d2 + 0.27D * (double) enumfacing1.getZOffset(), 0.0D, 0.0D, 0.0D, new int[0]);
+			worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 + 0.27D * (double) enumfacing1.getXOffset(), d1 + 0.22D,
+				d2 + 0.27D * (double) enumfacing1.getZOffset(), 0.0D, 0.0D, 0.0D, new int[0]);
 		}
 		else
 		{

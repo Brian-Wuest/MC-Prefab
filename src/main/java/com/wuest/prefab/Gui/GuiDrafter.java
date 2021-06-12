@@ -634,11 +634,11 @@ public class GuiDrafter extends GuiTabScreen
 			if (materialForSlot.metaData >= 0)
 			{
 				itemToDraw = new ItemStack(foundItem, 1, materialForSlot.metaData);
-				itemName = net.minecraft.client.resources.I18n.format(itemToDraw.getUnlocalizedName() + ".name", new Object[0]);
+				itemName = net.minecraft.client.resources.I18n.format(itemToDraw.getTranslationKey() + ".name", new Object[0]);
 			}
 			else
 			{
-				itemName = net.minecraft.client.resources.I18n.format(foundItem.getUnlocalizedName() + ".name", new Object[0]);
+				itemName = net.minecraft.client.resources.I18n.format(foundItem.getTranslationKey() + ".name", new Object[0]);
 				itemToDraw = new ItemStack(foundItem);
 			}
 

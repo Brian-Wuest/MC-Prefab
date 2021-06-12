@@ -164,7 +164,7 @@ public class ModEventHandler
 		{
 			Block mappedBlock = null;
 
-			switch (entry.key.getResourcePath())
+			switch (entry.key.getPath())
 			{
 				case "blockcompressedstone":
 				case "blockCompressedStone":
@@ -189,12 +189,12 @@ public class ModEventHandler
 		{
 			Item mappedItem = null;
 
-			switch (mapping.key.getResourcePath())
+			switch (mapping.key.getPath())
 			{
 				case "blockcompressedstone":
 				case "blockCompressedStone":
 				{
-					mappedItem = ModRegistry.ModItems.stream().filter(item -> item.getRegistryName().getResourcePath().equals("block_compressed_stone"))
+					mappedItem = ModRegistry.ModItems.stream().filter(item -> item.getRegistryName().getPath().equals("block_compressed_stone"))
 						.findFirst().get();
 					break;
 				}

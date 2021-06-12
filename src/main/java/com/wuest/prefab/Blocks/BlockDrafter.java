@@ -133,7 +133,7 @@ public class BlockDrafter extends TileBlockBase<TileEntityDrafter> implements IM
 	@Override
 	public IBlockState getStateFromMeta(int meta)
 	{
-		return this.getDefaultState().withProperty(FACING, EnumFacing.getFront(meta));
+		return this.getDefaultState().withProperty(FACING, EnumFacing.byIndex(meta));
 	}
 
 	/**
@@ -162,7 +162,7 @@ public class BlockDrafter extends TileBlockBase<TileEntityDrafter> implements IM
 	@Override
 	public String getMetaDataUnLocalizedName(int metaData)
 	{
-		return this.getRegistryName().getResourcePath();
+		return this.getRegistryName().getPath();
 	}
 
 }

@@ -232,8 +232,8 @@ public class Structure
 				tileEntity.writeToNBT(tagCompound);
 				
 				BuildTileEntity buildTileEntity = new BuildTileEntity();
-				buildTileEntity.setEntityDomain(resourceLocation.getResourceDomain());
-				buildTileEntity.setEntityName(resourceLocation.getResourcePath());
+				buildTileEntity.setEntityDomain(resourceLocation.getNamespace());
+				buildTileEntity.setEntityName(resourceLocation.getPath());
 				buildTileEntity.setStartingPosition(Structure.getStartingPositionFromOriginalAndCurrentPosition(currentPos, originalPos));
 				buildTileEntity.setEntityNBTData(tagCompound);
 				scannedStructure.tileEntities.add(buildTileEntity);
@@ -293,8 +293,8 @@ public class Structure
 	public static BuildBlock createBuildBlockFromBlockState(IBlockState currentState, Block currentBlock, BlockPos currentPos, BlockPos originalPos)
 	{
 		BuildBlock buildBlock = new BuildBlock();
-		buildBlock.setBlockDomain(currentBlock.getRegistryName().getResourceDomain());
-		buildBlock.setBlockName(currentBlock.getRegistryName().getResourcePath());
+		buildBlock.setBlockDomain(currentBlock.getRegistryName().getNamespace());
+		buildBlock.setBlockName(currentBlock.getRegistryName().getPath());
 		buildBlock.setStartingPosition(Structure.getStartingPositionFromOriginalAndCurrentPosition(currentPos, originalPos));
 		buildBlock.blockPos = currentPos;
 
@@ -611,8 +611,8 @@ public class Structure
 		if (foundBlock instanceof BlockLiquid && blockState.getMaterial() == Material.WATER
 				&& (world.provider.getDimensionType() == DimensionType.NETHER))
 		{
-			block.setBlockDomain(Blocks.COBBLESTONE.getRegistryName().getResourceDomain());
-			block.setBlockName(Blocks.COBBLESTONE.getRegistryName().getResourcePath());
+			block.setBlockDomain(Blocks.COBBLESTONE.getRegistryName().getNamespace());
+			block.setBlockName(Blocks.COBBLESTONE.getRegistryName().getPath());
 			block.setBlockState(Blocks.COBBLESTONE.getDefaultState());
 			
 			// Add this as a priority 3 block since it should be done at the end.

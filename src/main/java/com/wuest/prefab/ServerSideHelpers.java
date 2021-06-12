@@ -24,7 +24,7 @@ public class ServerSideHelpers
     {
         Vec3d vec3d = new Vec3d(player.posX, player.posY + (double)player.getEyeHeight(), player.posZ);
         Vec3d vec3d1 = player.getLook(1.0F);
-        Vec3d vec3d2 = vec3d.addVector(vec3d1.x * distance, vec3d1.y * distance, vec3d1.z * distance);
+        Vec3d vec3d2 = vec3d.add(vec3d1.x * distance, vec3d1.y * distance, vec3d1.z * distance);
         
     	try
     	{

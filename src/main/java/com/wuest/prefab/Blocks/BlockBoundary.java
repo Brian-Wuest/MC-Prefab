@@ -1,14 +1,8 @@
 package com.wuest.prefab.Blocks;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nullable;
-
-import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Events.ModEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
-
+import com.wuest.prefab.ModRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.properties.IProperty;
@@ -33,6 +27,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
@@ -191,7 +189,7 @@ public class BlockBoundary extends Block
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public BlockRenderLayer getBlockLayer()
+	public BlockRenderLayer getRenderLayer()
 	{
 		return BlockRenderLayer.TRANSLUCENT;
 	}

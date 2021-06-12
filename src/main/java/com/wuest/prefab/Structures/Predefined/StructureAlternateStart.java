@@ -175,8 +175,8 @@ public class StructureAlternateStart extends Structure
 					configuration.houseFacing);
 		}
 
-		if (foundBlock.getRegistryName().getResourceDomain().equals(Blocks.STAINED_GLASS.getRegistryName().getResourceDomain())
-				&& foundBlock.getRegistryName().getResourcePath().equals(Blocks.STAINED_GLASS.getRegistryName().getResourcePath()))
+		if (foundBlock.getRegistryName().getNamespace().equals(Blocks.STAINED_GLASS.getRegistryName().getNamespace())
+				&& foundBlock.getRegistryName().getPath().equals(Blocks.STAINED_GLASS.getRegistryName().getPath()))
 		{
 			blockState = blockState.withProperty(BlockStainedGlass.COLOR, houseConfig.glassColor);
 			block.setBlockState(blockState);
@@ -184,8 +184,8 @@ public class StructureAlternateStart extends Structure
 
 			return true;
 		}
-		else if (foundBlock.getRegistryName().getResourceDomain().equals(Blocks.STAINED_GLASS_PANE.getRegistryName().getResourceDomain())
-				&& foundBlock.getRegistryName().getResourcePath().equals(Blocks.STAINED_GLASS_PANE.getRegistryName().getResourcePath()))
+		else if (foundBlock.getRegistryName().getNamespace().equals(Blocks.STAINED_GLASS_PANE.getRegistryName().getNamespace())
+				&& foundBlock.getRegistryName().getPath().equals(Blocks.STAINED_GLASS_PANE.getRegistryName().getPath()))
 		{
 			block.setBlockState(foundBlock.getStateFromMeta(houseConfig.glassColor.getMetadata()));
 			this.priorityOneBlocks.add(block);

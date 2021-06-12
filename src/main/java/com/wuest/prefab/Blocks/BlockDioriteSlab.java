@@ -1,39 +1,23 @@
 package com.wuest.prefab.Blocks;
 
-import java.util.Random;
-
 import com.wuest.prefab.ModRegistry;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockPlanks;
-import net.minecraft.block.BlockSand;
 import net.minecraft.block.BlockSlab;
-import net.minecraft.block.BlockStoneSlabNew;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.BlockSlab.EnumBlockHalf;
 import net.minecraft.block.BlockStone;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.Random;
 
 /**
  * 
@@ -73,9 +57,9 @@ public abstract class BlockDioriteSlab extends BlockSlab
 	}
 
 	@Override
-	public String getUnlocalizedName(int meta)
+	public String getTranslationKey(int meta)
 	{
-		return super.getUnlocalizedName();
+		return super.getTranslationKey();
 	}
 
 	@Override

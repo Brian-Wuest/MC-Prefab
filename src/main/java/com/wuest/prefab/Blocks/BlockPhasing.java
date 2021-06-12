@@ -1,14 +1,8 @@
 package com.wuest.prefab.Blocks;
 
-import java.util.ArrayList;
-import java.util.Random;
-
-import javax.annotation.Nullable;
-
-import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Blocks.BlockPaperLantern.SeeThroughMaterial;
 import com.wuest.prefab.Events.ModEventHandler;
-
+import com.wuest.prefab.ModRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
@@ -35,6 +29,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * This is a phasing block.
@@ -301,7 +299,7 @@ public class BlockPhasing extends Block
     
     @Override
     @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer()
+    public BlockRenderLayer getRenderLayer()
     {
         return BlockRenderLayer.TRANSLUCENT;
     }

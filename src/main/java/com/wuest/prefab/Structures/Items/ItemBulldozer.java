@@ -108,7 +108,7 @@ public class ItemBulldozer extends StructureItem
     public int getMetadata(ItemStack stack)
     {
     	if (stack.getTagCompound() == null
-    			|| stack.getTagCompound().hasNoTags())
+    			|| stack.getTagCompound().isEmpty())
     	{
     		// Make sure to serialize the NBT for this stack so the information is pushed to the client and the appropriate Icon is displayed for this stack.
     		stack.setTagCompound(stack.serializeNBT());
@@ -128,7 +128,7 @@ public class ItemBulldozer extends StructureItem
 	public NBTTagCompound getNBTShareTag(ItemStack stack)
     {
     	if (stack.getTagCompound() == null
-    			|| stack.getTagCompound().hasNoTags())
+    			|| stack.getTagCompound().isEmpty())
     	{
     		// Make sure to serialize the NBT for this stack so the information is pushed to the client and the appropriate Icon is displayed for this stack.
     		stack.setTagCompound(stack.serializeNBT());
@@ -149,7 +149,7 @@ public class ItemBulldozer extends StructureItem
     	if (stack.getItem() == ModRegistry.Bulldozer())
     	{
     		if (stack.getTagCompound() == null
-        		|| stack.getTagCompound().hasNoTags())
+        		|| stack.getTagCompound().isEmpty())
         	{
     			stack.setTagCompound(stack.serializeNBT());
         	}
@@ -175,7 +175,7 @@ public class ItemBulldozer extends StructureItem
     public void setPoweredValue(ItemStack stack, boolean value)
     {
     	if (stack.getTagCompound() == null
-    		|| stack.getTagCompound().hasNoTags())
+    		|| stack.getTagCompound().isEmpty())
     	{
 			stack.setTagCompound(stack.serializeNBT());
     	}

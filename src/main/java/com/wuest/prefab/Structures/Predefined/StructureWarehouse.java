@@ -57,8 +57,8 @@ public class StructureWarehouse extends Structure
 	protected Boolean CustomBlockProcessingHandled(StructureConfiguration configuration, BuildBlock block, World world, BlockPos originalPos, EnumFacing assumedNorth,
 			Block foundBlock, IBlockState blockState, EntityPlayer player)
 	{
-		if (foundBlock.getRegistryName().getResourceDomain().equals(Blocks.STAINED_GLASS.getRegistryName().getResourceDomain())
-				&& foundBlock.getRegistryName().getResourcePath().equals(Blocks.STAINED_GLASS.getRegistryName().getResourcePath()))
+		if (foundBlock.getRegistryName().getNamespace().equals(Blocks.STAINED_GLASS.getRegistryName().getNamespace())
+				&& foundBlock.getRegistryName().getPath().equals(Blocks.STAINED_GLASS.getRegistryName().getPath()))
 		{
 			WareHouseConfiguration wareHouseConfiguration = (WareHouseConfiguration)configuration;
 			

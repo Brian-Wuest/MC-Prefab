@@ -274,7 +274,7 @@ public class StructureEventHandler
 					structure.world.removeTileEntity(tileEntityPos);
 					tileEntity = TileEntity.create(structure.world, buildTileEntity.getEntityDataTag());
 					structure.world.setTileEntity(tileEntityPos, tileEntity);
-					structure.world.getChunkFromBlockCoords(tileEntityPos).markDirty();
+					structure.world.getChunk(tileEntityPos).markDirty();
 					tileEntity.markDirty();
 					SPacketUpdateTileEntity packet = tileEntity.getUpdatePacket();
 
@@ -401,7 +401,7 @@ public class StructureEventHandler
 			entity.rotationPitch);
 
 		StructureEventHandler.updateEntityHangingBoundingBox((EntityHanging) entity);
-		Chunk chunk = structure.world.getChunkFromBlockCoords(entityPos);
+		Chunk chunk = structure.world.getChunk(entityPos);
 
 		chunk.markDirty();
 		
@@ -465,7 +465,7 @@ public class StructureEventHandler
 			frame.rotationPitch);
 
 		StructureEventHandler.updateEntityHangingBoundingBox((EntityHanging) frame);
-		Chunk chunk = structure.world.getChunkFromBlockCoords(entityPos);
+		Chunk chunk = structure.world.getChunk(entityPos);
 
 		chunk.markDirty();
 		
@@ -526,12 +526,12 @@ public class StructureEventHandler
 		;
 		double d5 = entity.getHeightPixels() % 32 == 0 ? 0.5D : 0.0D;
 		;
-		d0 = d0 - (double) entity.facingDirection.getFrontOffsetX() * 0.46875D;
-		d2 = d2 - (double) entity.facingDirection.getFrontOffsetZ() * 0.46875D;
+		d0 = d0 - (double) entity.facingDirection.getXOffset() * 0.46875D;
+		d2 = d2 - (double) entity.facingDirection.getZOffset() * 0.46875D;
 		d1 = d1 + d5;
 		EnumFacing enumfacing = entity.facingDirection.rotateYCCW();
-		d0 = d0 + d4 * (double) enumfacing.getFrontOffsetX();
-		d2 = d2 + d4 * (double) enumfacing.getFrontOffsetZ();
+		d0 = d0 + d4 * (double) enumfacing.getXOffset();
+		d2 = d2 + d4 * (double) enumfacing.getZOffset();
 		entity.posX = d0;
 		entity.posY = d1;
 		entity.posZ = d2;

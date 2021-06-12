@@ -1,9 +1,6 @@
 package com.wuest.prefab.Blocks;
 
-import java.util.Random;
-
 import com.wuest.prefab.ModRegistry;
-
 import net.minecraft.block.BlockGlass;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.SoundType;
@@ -24,6 +21,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.Random;
 
 /**
  * 
@@ -147,9 +146,9 @@ public abstract class BlockGlassSlab extends BlockSlab
 	}
 
 	@Override
-	public String getUnlocalizedName(int meta)
+	public String getTranslationKey(int meta)
 	{
-		return super.getUnlocalizedName();
+		return super.getTranslationKey();
 	}
 
 	@Override
@@ -172,7 +171,7 @@ public abstract class BlockGlassSlab extends BlockSlab
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public BlockRenderLayer getBlockLayer()
+	public BlockRenderLayer getRenderLayer()
 	{
 		return BlockRenderLayer.CUTOUT;
 	}

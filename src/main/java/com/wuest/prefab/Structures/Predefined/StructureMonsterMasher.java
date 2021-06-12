@@ -64,8 +64,8 @@ public class StructureMonsterMasher extends Structure
 	protected Boolean CustomBlockProcessingHandled(StructureConfiguration configuration, BuildBlock block, World world, BlockPos originalPos, EnumFacing assumedNorth,
 			Block foundBlock, IBlockState blockState, EntityPlayer player)
 	{
-		if (foundBlock.getRegistryName().getResourceDomain().equals(Blocks.STAINED_GLASS.getRegistryName().getResourceDomain())
-				&& foundBlock.getRegistryName().getResourcePath().equals(Blocks.STAINED_GLASS.getRegistryName().getResourcePath()))
+		if (foundBlock.getRegistryName().getNamespace().equals(Blocks.STAINED_GLASS.getRegistryName().getNamespace())
+				&& foundBlock.getRegistryName().getPath().equals(Blocks.STAINED_GLASS.getRegistryName().getPath()))
 		{
 			MonsterMasherConfiguration wareHouseConfiguration = (MonsterMasherConfiguration)configuration;
 			
@@ -75,8 +75,8 @@ public class StructureMonsterMasher extends Structure
 			
 			return true;
 		}
-		else if (foundBlock.getRegistryName().getResourceDomain().equals(Blocks.MOB_SPAWNER.getRegistryName().getResourceDomain())
-				&& foundBlock.getRegistryName().getResourcePath().equals(Blocks.MOB_SPAWNER.getRegistryName().getResourcePath()))
+		else if (foundBlock.getRegistryName().getNamespace().equals(Blocks.MOB_SPAWNER.getRegistryName().getNamespace())
+				&& foundBlock.getRegistryName().getPath().equals(Blocks.MOB_SPAWNER.getRegistryName().getPath()))
 		{
 			if (Prefab.proxy.proxyConfiguration.includeSpawnersInMasher)
 			{

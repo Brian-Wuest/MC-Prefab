@@ -141,7 +141,7 @@ public class ClientEventHandler
 	 */
 	public static void regItem(Item item)
 	{
-		ClientEventHandler.regItem(item, 0, item.getUnlocalizedName().substring(5));
+		ClientEventHandler.regItem(item, 0, item.getTranslationKey().substring(5));
 	}
 
 	/**

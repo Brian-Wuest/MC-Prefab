@@ -31,8 +31,3 @@ mods
 journeymap
 realms_persistence.json
 doc
-
-gradle/wrapper/gradle-wrapper.jar
-gradle/wrapper/gradle-wrapper.properties
-gradlew
-gradlew.bat
