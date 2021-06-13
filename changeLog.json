@@ -19,8 +19,8 @@
     "1.16.3-recommended": "1.6.2.1",
     "1.16.4-latest": "1.6.4.3",
     "1.16.4-recommended": "1.6.4.3",
-    "1.16.5-latest": "1.6.5.5",
-    "1.16.5-recommended": "1.6.5.5"
+    "1.16.5-latest": "1.6.5.6",
+    "1.16.5-recommended": "1.6.5.6"
   },
   "1.10.2": {
     "1.1.1.10": "New Stuff: Added [Ender Gateway] structure. Added [Phasic Block] and [Boundary Block]\nSome buildings can now be generated in mod-created dimensions.",
@@ -135,6 +135,7 @@
     "1.6.5.2": "Fixing issue where the player could generate infinite houses without losing blueprint",
     "1.6.5.3": "Adding Advanced Aqua Base and Sugar Cane Farm. Aqua Base recipe updated as it was too cheap before",
     "1.6.5.4": "Fixed item frames in structures, made workshop blueprint. Lots of config updates, see full changelog on CurseForge",
-    "1.6.5.5": "Fixed issue with the workshop where it would not generate the mineshaft. Added Ukrainian language file"
+    "1.6.5.5": "Fixed issue with the workshop where it would not generate the mineshaft. Added Ukrainian language file",
+    "1.6.5.6": "Added Clear glass options to some blueprints, added Sandstone and Red Sandstone to Structure Part and Instant Bridge. Fixed more Internationalization issues" 
   }
 }
