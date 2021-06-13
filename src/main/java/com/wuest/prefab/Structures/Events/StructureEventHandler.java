@@ -1,20 +1,10 @@
 package com.wuest.prefab.Structures.Events;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map.Entry;
-import java.util.UUID;
-
+import com.wuest.prefab.Config.EntityPlayerConfiguration;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Config.EntityPlayerConfiguration;
 import com.wuest.prefab.Proxy.Messages.PlayerEntityTagMessage;
-import com.wuest.prefab.Structures.Base.BuildBlock;
-import com.wuest.prefab.Structures.Base.BuildEntity;
-import com.wuest.prefab.Structures.Base.BuildTileEntity;
-import com.wuest.prefab.Structures.Base.BuildingMethods;
-import com.wuest.prefab.Structures.Base.Structure;
-
+import com.wuest.prefab.Structures.Base.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityHanging;
@@ -41,6 +31,11 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ServerTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map.Entry;
+import java.util.UUID;
 
 /**
  * This is the structure event hander.
@@ -79,19 +74,19 @@ public class StructureEventHandler
 				{
 					case "structure part":
 					{
-						stack = new ItemStack(ModRegistry.StructurePart());
+						stack = new ItemStack(ModRegistry.StructurePart);
 						break;
 					}
 
 					case "starting house":
 					{
-						stack = new ItemStack(ModRegistry.StartHouse());
+						stack = new ItemStack(ModRegistry.StartHouse);
 						break;
 					}
 
 					case "moderate house":
 					{
-						stack = new ItemStack(ModRegistry.ModerateHouse());
+						stack = new ItemStack(ModRegistry.ModerateHouse);
 						break;
 					}
 				}

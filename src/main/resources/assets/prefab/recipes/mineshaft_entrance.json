@@ -31,18 +31,7 @@
         }
     },
     "result": {
-        "item": "prefab:item_basic_structure",
-        "data": 0,
-        "nbt": {
-            "ForgeCaps": {
-                "prefab:structuresconfiguration": {
-                    "configuration": {
-                        "structureEnumName": "MineshaftEntrance",
-                        "structureDisplayName": "Mineshaft Entrance"
-                    }
-                }
-            }
-        },
+        "item": "prefab:item_mineshaft_entrance",
         "count": 1
     }
 }

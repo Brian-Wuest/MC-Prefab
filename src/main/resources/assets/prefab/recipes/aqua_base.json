@@ -28,18 +28,7 @@
         }
     },
     "result": {
-        "item": "prefab:item_basic_structure",
-        "data": 0,
-        "nbt": {
-            "ForgeCaps": {
-                "prefab:structuresconfiguration": {
-                    "configuration": {
-                        "structureEnumName": "AquaBase",
-                        "structureDisplayName": "Aqua Base"
-                    }
-                }
-            }
-        },
+        "item": "prefab:item_aqua_base",
         "count": 1
     }
 }

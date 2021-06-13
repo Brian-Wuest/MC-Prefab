@@ -23,18 +23,7 @@
         }
     },
     "result": {
-        "item": "prefab:item_basic_structure",
-        "data": 0,
-        "nbt": {
-            "ForgeCaps": {
-                "prefab:structuresconfiguration": {
-                    "configuration": {
-                        "structureEnumName": "WatchTower",
-                        "structureDisplayName": "Watch Tower"
-                    }
-                }
-            }
-        },
+        "item": "prefab:item_watch_tower",
         "count": 1
     }
 }

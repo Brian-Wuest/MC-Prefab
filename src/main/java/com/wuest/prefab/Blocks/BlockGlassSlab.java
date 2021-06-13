@@ -253,7 +253,7 @@ public abstract class BlockGlassSlab extends BlockSlab
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune)
 	{
-		return Item.getItemFromBlock(ModRegistry.GlassSlab());
+		return Item.getItemFromBlock(ModRegistry.GlassSlab);
 	}
 
 	/**

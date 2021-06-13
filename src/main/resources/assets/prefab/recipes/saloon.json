@@ -31,18 +31,7 @@
         }
     },
     "result": {
-        "item": "prefab:item_basic_structure",
-        "data": 0,
-        "nbt": {
-            "ForgeCaps": {
-                "prefab:structuresconfiguration": {
-                    "configuration": {
-                        "structureEnumName": "Saloon",
-                        "structureDisplayName": "Saloon"
-                    }
-                }
-            }
-        },
+        "item": "prefab:item_saloon",
         "count": 1
     }
 }

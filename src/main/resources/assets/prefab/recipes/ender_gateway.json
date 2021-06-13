@@ -31,18 +31,7 @@
         }
     },
     "result": {
-        "item": "prefab:item_basic_structure",
-        "data": 0,
-        "nbt": {
-            "ForgeCaps": {
-                "prefab:structuresconfiguration": {
-                    "configuration": {
-                        "structureEnumName": "EnderGateway",
-                        "structureDisplayName": "Ender Gateway"
-                    }
-                }
-            }
-        },
+        "item": "prefab:item_ender_gateway",
         "count": 1
     }
 }

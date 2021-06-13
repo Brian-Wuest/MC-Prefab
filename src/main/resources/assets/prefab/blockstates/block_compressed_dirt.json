@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "normal": {
+      "model": "prefab:block_compressed_dirt"
+    }
+  }
+}

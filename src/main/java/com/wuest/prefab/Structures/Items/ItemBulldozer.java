@@ -1,11 +1,8 @@
 package com.wuest.prefab.Structures.Items;
 
-import java.util.List;
-
+import com.wuest.prefab.Gui.GuiLangKeys;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Gui.GuiLangKeys;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,6 +16,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.List;
 
 /**
  * @author WuestMan
@@ -146,7 +145,7 @@ public class ItemBulldozer extends StructureItem
     
     public boolean getPoweredValue(ItemStack stack)
     {
-    	if (stack.getItem() == ModRegistry.Bulldozer())
+    	if (stack.getItem() == ModRegistry.Bulldozer)
     	{
     		if (stack.getTagCompound() == null
         		|| stack.getTagCompound().isEmpty())

@@ -54,12 +54,12 @@ public class BulldozerConfiguration extends StructureConfiguration
 		{
 			ItemStack stack = player.getHeldItem(EnumHand.OFF_HAND);
 			
-			if (stack.getItem() != ModRegistry.Bulldozer())
+			if (stack.getItem() != ModRegistry.Bulldozer)
 			{
 				stack = player.getHeldItem(EnumHand.MAIN_HAND);
 			}
 
-			if (stack.getItem() == ModRegistry.Bulldozer())
+			if (stack.getItem() == ModRegistry.Bulldozer)
 			{
 	    		stack.damageItem(1, player);
 				player.inventoryContainer.detectAndSendChanges();

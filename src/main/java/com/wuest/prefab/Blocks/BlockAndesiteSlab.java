@@ -143,7 +143,7 @@ public abstract class BlockAndesiteSlab extends BlockSlab
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune)
 	{
-		return Item.getItemFromBlock(ModRegistry.AndesiteSlab());
+		return Item.getItemFromBlock(ModRegistry.AndesiteSlab);
 	}
 
 	/**

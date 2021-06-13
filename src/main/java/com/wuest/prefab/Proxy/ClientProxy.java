@@ -1,6 +1,5 @@
 package com.wuest.prefab.Proxy;
 
-import com.wuest.prefab.ClientModRegistry;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.ModConfiguration;
@@ -38,8 +37,6 @@ public class ClientProxy extends CommonProxy
 	public void init(FMLInitializationEvent event)
 	{
 		super.init(event);
-
-		ClientModRegistry.RegisterModelMeshers();
 	}
 
 	@Override

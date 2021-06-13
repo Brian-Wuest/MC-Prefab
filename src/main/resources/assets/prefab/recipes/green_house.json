@@ -32,18 +32,7 @@
         }
     },
     "result": {
-        "item": "prefab:item_basic_structure",
-        "data": 0,
-        "nbt": {
-            "ForgeCaps": {
-                "prefab:structuresconfiguration": {
-                    "configuration": {
-                        "structureEnumName": "GreenHouse",
-                        "structureDisplayName": "Green House"
-                    }
-                }
-            }
-        },
+        "item": "prefab:item_green_house",
         "count": 1
     }
 }

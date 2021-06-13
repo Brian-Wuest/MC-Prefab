@@ -1,38 +1,38 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "Tree Farm"
-        }
-    ],
-    "type": "minecraft:crafting_shaped",
-    "group": "Tree Farm",
-    "pattern": [
-        "aba",
-        "cdc",
-        "aba"
-    ],
-    "key": {
-        "a": {
-            "item": "prefab:item_pallet_of_bricks",
-            "data": 32767
-        },
-        "b": {
-                "type": "forge:ore_dict",
-                "ore": "compressedDirt2"
-        },
-        "c": {
-            "item": "minecraft:flower_pot",
-            "data": 32767
-        },
-        "d": {
-                "type": "forge:ore_dict",
-                "ore": "compressedGlowstone2"
-        }
-    },
-    "result": {
-        "item": "prefab:item_tree_farm",
-        "data": 0,
-        "count": 1
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Tree Farm"
     }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Tree Farm",
+  "pattern": [
+    "aba",
+    "cdc",
+    "aba"
+  ],
+  "key": {
+    "a": {
+      "item": "prefab:item_pallet_of_bricks",
+      "data": 32767
+    },
+    "b": {
+      "type": "forge:ore_dict",
+      "ore": "compressedDirt2"
+    },
+    "c": {
+      "item": "minecraft:flower_pot",
+      "data": 32767
+    },
+    "d": {
+      "type": "forge:ore_dict",
+      "ore": "compressedGlowstone2"
+    }
+  },
+  "result": {
+    "item": "prefab:item_tree_farm",
+    "data": 0,
+    "count": 1
+  }
 }

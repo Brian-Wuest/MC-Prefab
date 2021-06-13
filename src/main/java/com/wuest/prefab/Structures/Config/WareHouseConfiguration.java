@@ -100,11 +100,11 @@ public class WareHouseConfiguration extends StructureConfiguration
 		{
 			if (this.advanced)
 			{
-				player.inventory.clearMatchingItems(ModRegistry.AdvancedWareHouse(), -1, 1, null);
+				player.inventory.clearMatchingItems(ModRegistry.AdvancedWareHouse, -1, 1, null);
 			}
 			else
 			{
-				player.inventory.clearMatchingItems(ModRegistry.WareHouse(), -1, 1, null);
+				player.inventory.clearMatchingItems(ModRegistry.WareHouse, -1, 1, null);
 			}
 			
 			player.inventoryContainer.detectAndSendChanges();

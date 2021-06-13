@@ -16,8 +16,7 @@
         }
     ],
     "result": {
-        "item": "prefab:block_compressed_stone",
-        "count": 9,
-        "data": 3
+        "item": "prefab:block_compressed_glowstone",
+        "count": 9
     }
 }

@@ -1,38 +1,38 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "Warehouse"
-        }
-    ],
-    "type": "minecraft:crafting_shaped",
-    "group": "Warehouse",
-    "pattern": [
-        "a a",
-        "aba",
-        "cdc"
-    ],
-    "key": {
-        "a": {
-            "item": "prefab:block_compressed_stone",
-            "data": 1
-        },
-        "b": {
-            "item": "prefab:item_compressed_chest",
-            "data": 32767
-        },
-        "c": {
-            "item": "prefab:item_coil_of_lanterns",
-            "data": 32767
-        },
-        "d": {
-            "item": "prefab:block_compressed_stone",
-            "data": 2
-        }
-    },
-    "result": {
-        "item": "prefab:item_warehouse",
-        "data": 0,
-        "count": 1
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Warehouse"
     }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Warehouse",
+  "pattern": [
+    "a a",
+    "aba",
+    "cdc"
+  ],
+  "key": {
+    "a": {
+      "type": "forge:ore_dict",
+      "ore": "compressedStone2"
+    },
+    "b": {
+      "item": "prefab:item_compressed_chest",
+      "data": 32767
+    },
+    "c": {
+      "item": "prefab:item_coil_of_lanterns",
+      "data": 32767
+    },
+    "d": {
+      "type": "forge:ore_dict",
+      "ore": "compressedStone3"
+    }
+  },
+  "result": {
+    "item": "prefab:item_warehouse",
+    "data": 0,
+    "count": 1
+  }
 }

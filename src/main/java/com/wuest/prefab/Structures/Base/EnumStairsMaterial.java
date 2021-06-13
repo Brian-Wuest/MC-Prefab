@@ -1,14 +1,9 @@
 package com.wuest.prefab.Structures.Base;
 
-import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Gui.GuiLangKeys;
-import com.wuest.prefab.Structures.Config.StructurePartConfiguration.EnumStyle;
-
+import com.wuest.prefab.ModRegistry;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.BlockSlab;
-import net.minecraft.block.BlockStairs;
-import net.minecraft.block.BlockStone;
-import net.minecraft.block.BlockStoneBrick;
 import net.minecraft.block.BlockStoneSlab;
 import net.minecraft.block.BlockWoodSlab;
 import net.minecraft.block.state.IBlockState;
@@ -25,9 +20,9 @@ public enum EnumStairsMaterial
 	Brick("prefab.gui.material.brick", Blocks.BRICK_STAIRS.getDefaultState()),
 	Cobblestone("prefab.gui.material.cobble_stone", Blocks.STONE_STAIRS.getDefaultState()),
 	StoneBrick("prefab.gui.material.stone_brick", Blocks.STONE_BRICK_STAIRS.getDefaultState()),
-	Granite("prefab.gui.material.granite", ModRegistry.GraniteStairs().getDefaultState()),
-	Andesite("prefab.gui.material.andesite", ModRegistry.AndesiteStairs().getDefaultState()),
-	Diorite("prefab.gui.material.diorite", ModRegistry.DioriteStairs().getDefaultState()),
+	Granite("prefab.gui.material.granite", ModRegistry.GraniteStairs.getDefaultState()),
+	Andesite("prefab.gui.material.andesite", ModRegistry.AndesiteStairs.getDefaultState()),
+	Diorite("prefab.gui.material.diorite", ModRegistry.DioriteStairs.getDefaultState()),
 	Oak("prefab.wall.block.type.oak", Blocks.OAK_STAIRS.getDefaultState()),
 	Spruce("prefab.wall.block.type.spruce", Blocks.SPRUCE_STAIRS.getDefaultState()),
 	Birch("prefab.wall.block.type.birch", Blocks.BIRCH_STAIRS.getDefaultState()),
@@ -60,7 +55,7 @@ public enum EnumStairsMaterial
 
 			case Andesite:
 			{
-				return ModRegistry.AndesiteSlab().getDefaultState().withProperty(BlockSlab.HALF, BlockSlab.EnumBlockHalf.BOTTOM);
+				return ModRegistry.AndesiteSlab.getDefaultState().withProperty(BlockSlab.HALF, BlockSlab.EnumBlockHalf.BOTTOM);
 			}
 
 			case Birch:
@@ -80,12 +75,12 @@ public enum EnumStairsMaterial
 			
 			case Diorite:
 			{
-				return ModRegistry.DioriteSlab().getDefaultState().withProperty(BlockSlab.HALF, BlockSlab.EnumBlockHalf.BOTTOM);
+				return ModRegistry.DioriteSlab.getDefaultState().withProperty(BlockSlab.HALF, BlockSlab.EnumBlockHalf.BOTTOM);
 			}
 			
 			case Granite:
 			{
-				return ModRegistry.GraniteSlab().getDefaultState().withProperty(BlockSlab.HALF, BlockSlab.EnumBlockHalf.BOTTOM);
+				return ModRegistry.GraniteSlab.getDefaultState().withProperty(BlockSlab.HALF, BlockSlab.EnumBlockHalf.BOTTOM);
 			}
 			
 			case Jungle:

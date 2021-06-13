@@ -16,18 +16,7 @@
         }
     ],
     "result": {
-        "item": "prefab:item_basic_structure",
-        "data": 0,
-        "nbt": {
-            "ForgeCaps": {
-                "prefab:structuresconfiguration": {
-                    "configuration": {
-                        "structureEnumName": "AdvancedCoop",
-                        "structureDisplayName": "Advanced Chicken Coop"
-                    }
-                }
-            }
-        },
+        "item": "prefab:item_advanced_chicken_coop",
         "count": 1
     }
 }

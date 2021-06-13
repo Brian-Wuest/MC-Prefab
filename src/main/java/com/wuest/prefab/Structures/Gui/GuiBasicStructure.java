@@ -1,22 +1,19 @@
 package com.wuest.prefab.Structures.Gui;
 
-import java.io.IOException;
-
-import com.wuest.prefab.ModRegistry;
-import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Events.ClientEventHandler;
 import com.wuest.prefab.Gui.GuiLangKeys;
-import com.wuest.prefab.Structures.Capabilities.IStructureConfigurationCapability;
+import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Structures.Config.BasicStructureConfiguration;
 import com.wuest.prefab.Structures.Items.ItemBasicStructure;
 import com.wuest.prefab.Structures.Messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.Structures.Predefined.StructureBasic;
 import com.wuest.prefab.Structures.Render.StructureRenderHandler;
-
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
+
+import java.io.IOException;
 
 /**
  * This class is used as the gui for all basic structures.
@@ -92,19 +89,12 @@ public class GuiBasicStructure extends GuiStructure
 		
 		if (stack != null)
 		{
-			IStructureConfigurationCapability capability = stack.getCapability(ModRegistry.StructureConfiguration, EnumFacing.NORTH);
-			this.configuration = capability.getConfiguration();
-			
-			if (!ClientEventHandler.playerConfig.clientConfigurations.containsKey(this.configuration.basicStructureName.getName()))
-			{
-				ClientEventHandler.playerConfig.clientConfigurations.put(this.configuration.basicStructureName.getName(), this.configuration);
-			}
-			else
-			{
-				this.configuration = ClientEventHandler.playerConfig.getClientConfig(this.configuration.basicStructureName.getName(), BasicStructureConfiguration.class);
-			}
-			
+			ItemBasicStructure item = (ItemBasicStructure) stack.getItem();
+			this.configuration = ClientEventHandler.playerConfig.getClientConfig(item.structureType.getName(), BasicStructureConfiguration.class);
+			this.configuration.basicStructureName = item.structureType;
+			//this.configuration.chosenOption = item.structureType.getBaseOption();
 			this.includePicture = this.doesPictureExist();
+			//this.availableOptions = this.configuration.chosenOption.getSpecificOptions();
 		}
 		
 		this.configuration.pos = this.pos;

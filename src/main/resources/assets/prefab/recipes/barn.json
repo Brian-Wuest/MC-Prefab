@@ -29,18 +29,7 @@
         }
     },
     "result": {
-        "item": "prefab:item_basic_structure",
-        "data": 0,
-        "nbt": {
-            "ForgeCaps": {
-                "prefab:structuresconfiguration": {
-                    "configuration": {
-                        "structureEnumName": "Barn",
-                        "structureDisplayName": "Barn"
-                    }
-                }
-            }
-        },
+        "item": "prefab:item_barn",
         "count": 1
     }
 }

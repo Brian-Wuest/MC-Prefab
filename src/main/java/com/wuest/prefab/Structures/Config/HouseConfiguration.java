@@ -1,25 +1,15 @@
 package com.wuest.prefab.Structures.Config;
 
-import java.util.ArrayList;
-
-import com.wuest.prefab.ModRegistry;
-import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Config.EntityPlayerConfiguration;
 import com.wuest.prefab.Config.ModConfiguration.CeilingFloorBlockType;
 import com.wuest.prefab.Config.ModConfiguration.WallBlockType;
 import com.wuest.prefab.Gui.GuiLangKeys;
+import com.wuest.prefab.ModRegistry;
+import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Proxy.Messages.PlayerEntityTagMessage;
 import com.wuest.prefab.Structures.Base.BuildingMethods;
 import com.wuest.prefab.Structures.Predefined.StructureAlternateStart;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockBed;
-import net.minecraft.block.BlockChest;
-import net.minecraft.block.BlockFurnace;
-import net.minecraft.block.BlockHorizontal;
-import net.minecraft.block.BlockPlanks;
-import net.minecraft.block.BlockSign;
-import net.minecraft.block.BlockTorch;
+import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -41,6 +31,8 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
+
+import java.util.ArrayList;
 
 /**
  * This class is used to determine the configuration for a particular house.
@@ -381,7 +373,7 @@ public class HouseConfiguration extends StructureConfiguration
 			EntityPlayerConfiguration playerConfig = EntityPlayerConfiguration.loadFromEntityData((EntityPlayerMP)player);
 			playerConfig.builtStarterHouse = true;
 			playerConfig.saveToPlayer(player);
-			player.inventory.clearMatchingItems(ModRegistry.StartHouse(), -1, 1, null);
+			player.inventory.clearMatchingItems(ModRegistry.StartHouse, -1, 1, null);
 			player.inventoryContainer.detectAndSendChanges();
 			
 			// Make sure to send a message to the client to sync up the server player information and the client player information.

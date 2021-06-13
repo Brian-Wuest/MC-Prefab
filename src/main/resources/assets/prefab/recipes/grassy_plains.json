@@ -27,18 +27,7 @@
         }
     },
     "result": {
-        "item": "prefab:item_basic_structure",
-        "data": 0,
-        "nbt": {
-            "ForgeCaps": {
-                "prefab:structuresconfiguration": {
-                    "configuration": {
-                        "structureEnumName": "GrassyPlain",
-                        "structureDisplayName": "Grassy Plains"
-                    }
-                }
-            }
-        },
+        "item": "prefab:item_grassy_plain",
         "count": 1
     }
 }

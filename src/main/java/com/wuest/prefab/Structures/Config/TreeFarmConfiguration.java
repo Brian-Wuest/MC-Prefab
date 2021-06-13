@@ -41,7 +41,7 @@ public class TreeFarmConfiguration extends StructureConfiguration
 		StructureTreeFarm structure = StructureTreeFarm.CreateInstance(StructureTreeFarm.ASSETLOCATION, StructureTreeFarm.class);
 		if (structure.BuildStructure(this, world, hitBlockPos, EnumFacing.NORTH, player))
 		{
-			player.inventory.clearMatchingItems(ModRegistry.TreeFarm(), -1, 1, null);
+			player.inventory.clearMatchingItems(ModRegistry.TreeFarm, -1, 1, null);
 			player.inventoryContainer.detectAndSendChanges();
 		}
 	}

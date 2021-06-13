@@ -31,18 +31,7 @@
         }
     },
     "result": {
-        "item": "prefab:item_basic_structure",
-        "data": 0,
-        "nbt": {
-            "ForgeCaps": {
-                "prefab:structuresconfiguration": {
-                    "configuration": {
-                        "structureEnumName": "DefenseBunker",
-                        "structureDisplayName": "Defense Bunker"
-                    }
-                }
-            }
-        },
+        "item": "prefab:item_defense_bunker",
         "count": 1
     }
 }

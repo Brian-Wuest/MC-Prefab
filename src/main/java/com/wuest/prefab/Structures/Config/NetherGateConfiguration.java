@@ -41,7 +41,7 @@ public class NetherGateConfiguration extends StructureConfiguration
 		
 		if (structure.BuildStructure(this, world, hitBlockPos, EnumFacing.NORTH, player))
 		{
-			player.inventory.clearMatchingItems(ModRegistry.NetherGate(), -1, 1, null);
+			player.inventory.clearMatchingItems(ModRegistry.NetherGate, -1, 1, null);
 			player.inventoryContainer.detectAndSendChanges();
 		}
 	}

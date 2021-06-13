@@ -27,18 +27,7 @@
         }
     },
     "result": {
-        "item": "prefab:item_basic_structure",
-        "data": 0,
-        "nbt": {
-            "ForgeCaps": {
-                "prefab:structuresconfiguration": {
-                    "configuration": {
-                        "structureEnumName": "MachineryTower",
-                        "structureDisplayName": "Machinery Tower"
-                    }
-                }
-            }
-        },
+        "item": "prefab:item_machinery_tower",
         "count": 1
     }
 }

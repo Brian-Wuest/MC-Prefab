@@ -36,7 +36,7 @@ public class ChickenCoopConfiguration extends StructureConfiguration
 		
 		if (structure.BuildStructure(this, world, hitBlockPos, EnumFacing.NORTH, player))
 		{
-			player.inventory.clearMatchingItems(ModRegistry.ChickenCoop(), -1, 1, null);
+			player.inventory.clearMatchingItems(ModRegistry.ChickenCoop, -1, 1, null);
 			player.inventoryContainer.detectAndSendChanges();
 		}
 	}
