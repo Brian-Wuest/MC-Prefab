@@ -30,6 +30,11 @@ public class CommonProxy implements IGuiHandler {
     public static ModEventHandler eventHandler = new ModEventHandler();
     public static StructureEventHandler structureEventHandler = new StructureEventHandler();
     public static ModConfiguration proxyConfiguration;
+    public boolean isClient;
+
+    public CommonProxy() {
+        this.isClient = false;
+    }
 
     /*
      * Methods for ClientProxy to Override
@@ -78,7 +83,7 @@ public class CommonProxy implements IGuiHandler {
 
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-        return ModRegistry.GetModGuiByID(ID, x, y, z);
+        return null;
     }
 
     public ModConfiguration getServerConfiguration() {

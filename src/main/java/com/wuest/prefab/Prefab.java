@@ -16,7 +16,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
  *
  * @author WuestMan
  */
-@Mod(modid = Prefab.MODID, version = Prefab.VERSION, acceptedMinecraftVersions = "[1.12]", guiFactory = "com.wuest.prefab.Gui.ConfigGuiFactory", updateJSON = "https://raw.githubusercontent.com/Brian-Wuest/MC-Prefab/master/changeLog.json")
+@Mod(modid = Prefab.MODID, version = Prefab.VERSION, acceptedMinecraftVersions = "[1.12]", guiFactory = "com.wuest.prefab.gui.ConfigGuiFactory", updateJSON = "https://raw.githubusercontent.com/Brian-Wuest/MC-Prefab/master/changeLog.json")
 public class Prefab {
     /**
      * This is the ModID
@@ -34,6 +34,12 @@ public class Prefab {
     public static boolean isDebug = false;
 
     /**
+     * Determines if structure items will scan their defined space or show the build gui. Default is false.
+     * Note: this should only be set to true during debug mode.
+     */
+    public static boolean useScanningMode = false;
+
+    /**
      * This is the static instance of this class.
      */
     @Instance(value = Prefab.MODID)
@@ -42,7 +48,7 @@ public class Prefab {
     /**
      * Says where the client and server 'proxy' code is loaded.
      */
-    @SidedProxy(clientSide = "com.wuest.prefab.Proxy.ClientProxy", serverSide = "com.wuest.prefab.Proxy.CommonProxy")
+    @SidedProxy(clientSide = "com.wuest.prefab.proxy.ClientProxy", serverSide = "com.wuest.prefab.proxy.CommonProxy")
     public static CommonProxy proxy;
 
     /**

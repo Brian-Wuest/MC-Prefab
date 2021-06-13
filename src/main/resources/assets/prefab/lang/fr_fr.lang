@@ -169,6 +169,7 @@ prefab.gui.brown=Brown
 prefab.gui.green=Vert
 prefab.gui.red=Rouge
 prefab.gui.black=Noir
+prefab.gui.clear=Transparente
 
 prefab.gui.bridge_length=Longueur du pont
 prefab.gui.bridge_material=Matériau de pont

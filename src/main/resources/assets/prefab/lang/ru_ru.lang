@@ -169,6 +169,7 @@ prefab.gui.brown=Коричневый
 prefab.gui.green=Зеленый
 prefab.gui.red=Красный
 prefab.gui.black=Черный
+prefab.gui.clear=Прозрачный
 
 prefab.gui.bridge_length=Длина моста
 prefab.gui.bridge_material=Материал моста

@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 import com.wuest.prefab.ZipUtil;
+import com.wuest.prefab.blocks.FullDyeColor;
 import com.wuest.prefab.gui.GuiLangKeys;
 import com.wuest.prefab.structures.config.StructureConfiguration;
 import com.wuest.prefab.structures.events.StructureEventHandler;
@@ -440,6 +441,31 @@ public class Structure {
     public void BeforeClearSpaceBlockReplaced(BlockPos pos) {
 
     }
+
+    public IBlockState getStainedGlassBlock(FullDyeColor color) {
+        IBlockState blockState = Blocks.STAINED_GLASS.getDefaultState();
+
+        if (color != FullDyeColor.CLEAR) {
+            blockState.withProperty(BlockStainedGlass.COLOR, color.getLinkedColor());
+        } else {
+            blockState = Blocks.GLASS.getDefaultState();
+        }
+
+        return blockState;
+    }
+
+    public IBlockState getStainedGlassPaneBlock(FullDyeColor color) {
+        IBlockState blockState = Blocks.STAINED_GLASS_PANE.getDefaultState();
+
+        if (color != FullDyeColor.CLEAR) {
+            blockState.withProperty(BlockStainedGlass.COLOR, color.getLinkedColor());
+        } else {
+            blockState = Blocks.GLASS_PANE.getDefaultState();
+        }
+
+        return blockState;
+    }
+
 
     /**
      * This method is used before any building occurs to check for things or

@@ -4,11 +4,12 @@ import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.gui.GuiLangKeys;
 import com.wuest.prefab.structures.predefined.StructureModerateHouse;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 
 /**
  * This class is used for the moderate houses in the mod.
@@ -21,6 +22,7 @@ public class ModerateHouseConfiguration extends StructureConfiguration {
     private static String addChestTag = "addChests";
     private static String addChestContentsTag = "addChestContents";
     private static String addMineshaftTag = "addMineshaft";
+    private static String bedColorTag = "bedColor";
 
     /**
      * The house style.
@@ -42,8 +44,10 @@ public class ModerateHouseConfiguration extends StructureConfiguration {
      */
     public boolean addMineshaft;
 
+    public EnumDyeColor bedColor;
+
     /**
-     * Initliazes a new instance of the {@link ModerateHouseConfiguration} class.
+     * Initializes a new instance of the {@link ModerateHouseConfiguration} class.
      */
     public ModerateHouseConfiguration() {
         super();
@@ -52,20 +56,23 @@ public class ModerateHouseConfiguration extends StructureConfiguration {
         this.addChestContents = true;
         this.addMineshaft = true;
         this.houseStyle = HouseStyle.SPRUCE_HOME;
+        this.bedColor = EnumDyeColor.RED;
     }
 
     @Override
     public void Initialize() {
         super.Initialize();
         this.houseStyle = HouseStyle.SPRUCE_HOME;
+        this.bedColor = EnumDyeColor.RED;
     }
 
     @Override
-    protected NBTTagCompound CustomWriteToNBTTagCompound(NBTTagCompound tag) {
+    protected NBTTagCompound CustomWriteToCompoundNBT(NBTTagCompound tag) {
         tag.setInteger(ModerateHouseConfiguration.houseStyleTag, this.houseStyle.value);
         tag.setBoolean(ModerateHouseConfiguration.addChestTag, this.addChests);
         tag.setBoolean(ModerateHouseConfiguration.addChestContentsTag, this.addChestContents);
         tag.setBoolean(ModerateHouseConfiguration.addMineshaftTag, this.addMineshaft);
+        tag.setString(ModerateHouseConfiguration.bedColorTag, this.bedColor.getName().toUpperCase());
 
         return tag;
     }
@@ -89,19 +96,23 @@ public class ModerateHouseConfiguration extends StructureConfiguration {
         if (messageTag.hasKey(ModerateHouseConfiguration.addMineshaftTag)) {
             houseConfiguration.addMineshaft = messageTag.getBoolean(ModerateHouseConfiguration.addMineshaftTag);
         }
+
+        if (messageTag.hasKey(ModerateHouseConfiguration.bedColorTag)) {
+            houseConfiguration.bedColor = EnumDyeColor.valueOf(messageTag.getString(ModerateHouseConfiguration.bedColorTag));
+        }
     }
 
     /**
-     * Custom method to read the NBTTagCompound message.
+     * Custom method to read the CompoundNBT message.
      *
      * @param messageTag The message to create the configuration from.
-     * @return An new configuration object with the values derived from the NBTTagCompound.
+     * @return An new configuration object with the values derived from the CompoundNBT.
      */
     @Override
-    public ModerateHouseConfiguration ReadFromNBTTagCompound(NBTTagCompound messageTag) {
+    public ModerateHouseConfiguration ReadFromCompoundNBT(NBTTagCompound messageTag) {
         ModerateHouseConfiguration config = new ModerateHouseConfiguration();
 
-        return (ModerateHouseConfiguration) super.ReadFromNBTTagCompound(messageTag, config);
+        return (ModerateHouseConfiguration) super.ReadFromCompoundNBT(messageTag, config);
     }
 
     /**
@@ -112,12 +123,11 @@ public class ModerateHouseConfiguration extends StructureConfiguration {
      * @param hitBlockPos This hit block position.
      */
     @Override
-    protected void ConfigurationSpecificBuildStructure(EntityPlayer player, World world, BlockPos hitBlockPos) {
+    protected void ConfigurationSpecificBuildStructure(EntityPlayer player, WorldServer world, BlockPos hitBlockPos) {
         StructureModerateHouse structure = StructureModerateHouse.CreateInstance(this.houseStyle.getStructureLocation(), StructureModerateHouse.class);
 
         if (structure.BuildStructure(this, world, hitBlockPos, EnumFacing.NORTH, player)) {
-            player.inventory.clearMatchingItems(ModRegistry.ModerateHouse, -1, 1, null);
-            player.inventoryContainer.detectAndSendChanges();
+            this.RemoveStructureItemFromPlayer(player, ModRegistry.ModerateHouse);
         }
     }
 
@@ -148,7 +158,8 @@ public class ModerateHouseConfiguration extends StructureConfiguration {
         private final int eastOffSet;
         private final int downOffSet;
 
-        HouseStyle(int newValue, String displayName, ResourceLocation housePicture, int imageWidth, int imageHeight, String structureLocation, int width, int length, int height, int eastOffSet, int downOffSet) {
+        HouseStyle(int newValue, String displayName, ResourceLocation housePicture, int imageWidth, int imageHeight, String structureLocation, int width, int length, int height,
+                   int eastOffSet, int downOffSet) {
             this.value = newValue;
             this.displayName = displayName;
             this.housePicture = housePicture;
@@ -164,10 +175,6 @@ public class ModerateHouseConfiguration extends StructureConfiguration {
 
         public static HouseStyle ValueOf(int value) {
             switch (value) {
-                case 0: {
-                    return HouseStyle.SPRUCE_HOME;
-                }
-
                 case 1: {
                     return HouseStyle.ACACIA_HOME;
                 }

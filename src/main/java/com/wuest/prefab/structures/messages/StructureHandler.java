@@ -29,8 +29,8 @@ public class StructureHandler implements IMessageHandler<StructureTagMessage, IM
                 // This is server side. Build the structure.
                 EnumStructureConfiguration structureConfig = message.getStructureConfig();
 
-                StructureConfiguration configuration = structureConfig.structureConfig.ReadFromNBTTagCompound(message.getMessageTag());
-                configuration.BuildStructure(ctx.getServerHandler().player, ctx.getServerHandler().player.world);
+                StructureConfiguration configuration = structureConfig.structureConfig.ReadFromCompoundNBT(message.getMessageTag());
+                configuration.BuildStructure(ctx.getServerHandler().player, ctx.getServerHandler().player.getServerWorld());
             }
         });
 

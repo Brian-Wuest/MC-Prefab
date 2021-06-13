@@ -3,6 +3,7 @@ package com.wuest.prefab.structures.items;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.gui.GuiLangKeys;
+import com.wuest.prefab.structures.gui.GuiBulldozer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,16 +24,19 @@ import java.util.List;
  * @author WuestMan
  */
 public class ItemBulldozer extends StructureItem {
+    private boolean creativePowered = false;
 
     /**
      * Initializes a new instance of the {@link ItemBulldozer} class.
      *
      * @param name The registered name of this item.
      */
-    public ItemBulldozer(String name) {
-        super(name, ModRegistry.GuiBulldozer);
+    public ItemBulldozer(String name, boolean creativePowered) {
+        super(name);
         this.setMaxDamage(4);
         this.setMaxStackSize(1);
+
+        this.creativePowered = creativePowered;
     }
 
     /**
@@ -44,7 +48,7 @@ public class ItemBulldozer extends StructureItem {
         if (world.isRemote) {
             if (side == EnumFacing.UP && this.getPoweredValue(player, hand)) {
                 // Open the client side gui to determine the house options.
-                player.openGui(Prefab.instance, this.guiId, player.world, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+                player.openGui(Prefab.instance, 0, player.world, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
                 return EnumActionResult.PASS;
             }
         }
@@ -128,6 +132,10 @@ public class ItemBulldozer extends StructureItem {
     }
 
     public boolean getPoweredValue(ItemStack stack) {
+        if (this.creativePowered) {
+            return true;
+        }
+
         if (stack.getItem() == ModRegistry.Bulldozer) {
             if (stack.getTagCompound() == null
                     || stack.getTagCompound().isEmpty()) {
@@ -157,5 +165,15 @@ public class ItemBulldozer extends StructureItem {
         NBTTagCompound prefabTag = new NBTTagCompound();
         prefabTag.setBoolean("powered", value);
         stack.getTagCompound().setTag("prefab", prefabTag);
+    }
+
+    /**
+     * Initializes common fields/properties for this structure item.
+     */
+    @Override
+    protected void PostInit() {
+        if (Prefab.proxy.isClient) {
+            this.RegisterGui(GuiBulldozer.class);
+        }
     }
 }

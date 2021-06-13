@@ -47,7 +47,7 @@ public class StructureProduceFarm extends Structure {
                 && foundBlock.getRegistryName().getPath().equals(Blocks.STAINED_GLASS.getRegistryName().getPath())) {
             ProduceFarmConfiguration wareHouseConfiguration = (ProduceFarmConfiguration) configuration;
 
-            blockState = blockState.withProperty(BlockStainedGlass.COLOR, wareHouseConfiguration.dyeColor);
+            blockState = this.getStainedGlassBlock(wareHouseConfiguration.dyeColor);
             block.setBlockState(blockState);
             //this.placedBlocks.add(block);
             this.priorityOneBlocks.add(block);

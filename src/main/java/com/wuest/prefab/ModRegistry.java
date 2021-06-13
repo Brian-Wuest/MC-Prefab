@@ -1,14 +1,12 @@
 package com.wuest.prefab;
 
 import com.wuest.prefab.blocks.*;
-import com.wuest.prefab.gui.GuiDrafter;
 import com.wuest.prefab.items.*;
 import com.wuest.prefab.proxy.messages.ConfigSyncMessage;
 import com.wuest.prefab.proxy.messages.PlayerEntityTagMessage;
 import com.wuest.prefab.proxy.messages.handlers.ConfigSyncHandler;
 import com.wuest.prefab.proxy.messages.handlers.PlayerEntityHandler;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration;
-import com.wuest.prefab.structures.gui.*;
 import com.wuest.prefab.structures.items.*;
 import com.wuest.prefab.structures.messages.StructureHandler;
 import com.wuest.prefab.structures.messages.StructureTagMessage;
@@ -34,78 +32,12 @@ import java.util.Objects;
  */
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class ModRegistry {
-    /**
-     * The identifier for the WareHouse GUI.
-     */
-    public static final int GuiWareHouse = 1;
-    /**
-     * The identifier for the Chicken coop GUI.
-     */
-    public static final int GuiChickenCoop = 2;
-    /**
-     * The identifier for the Produce Farm GUI.
-     */
-    public static final int GuiProduceFarm = 3;
-    /**
-     * The identifier for the Tree Farm GUI.
-     */
-    public static final int GuiTreeFarm = 4;
-    /**
-     * The identifier for the FishPond GUI.
-     */
-    public static final int GuiFishPond = 5;
-    /**
-     * The identifier for the Starting House GUI.
-     */
-    public static final int GuiStartHouseChooser = 6;
-    /**
-     * The identifier for the Advanced WareHouse GUI.
-     */
-    public static final int GuiAdvancedWareHouse = 7;
-    /**
-     * The identifier for the Monster Masher GUI.
-     */
-    public static final int GuiMonsterMasher = 8;
-    /**
-     * The identifier for the Horse Stable GUI.
-     */
-    public static final int GuiHorseStable = 9;
-    /**
-     * The identifier for the Nether Gate GUI.
-     */
-    public static final int GuiNetherGate = 10;
-    /**
-     * The identifier for the Modular House GUI.
-     */
-    public static final int GuiModularHouse = 11;
+
     /**
      * The identifier for the Drafter GUI.
      */
     public static final int GuiDrafter = 12;
-    /**
-     * The identifier for the Basic structure GUI.
-     */
-    public static final int GuiBasicStructure = 13;
-    /**
-     * The identifier for the Villaer Houses GUI.
-     */
-    public static final int GuiVillagerHouses = 14;
-    /**
-     * The identifier for the moderate house GUI.
-     */
-    public static final int GuiModerateHouse = 15;
-    /**
-     * The identifier for the bulldozer GUI.
-     */
-    public static final int GuiBulldozer = 16;
-    /**
-     * The identifier for the instant bridge gui.
-     */
-    public static final int GuiInstantBridge = 17;
-    /**
-     * The identifier for the structure part gui.
-     */
-    public static final int GuiStructurePart = 18;
+
     /**
      * The ArrayList of mod registered items.
      */
@@ -184,12 +116,12 @@ public class ModRegistry {
     public static ItemWarehouseUpgrade WareHouseUpgrade;
     public static ItemBundleOfTimber BundleOfTimber;
     public static ItemHorseStable HorseStable;
-    public static ItemNetherGate NetherGate;
     public static ItemModularHouse ModularHouse;
     public static ItemInstantBridge InstantBridge;
     public static ItemStructurePart StructurePart;
     public static ItemModerateHouse ModerateHouse;
     public static ItemBulldozer Bulldozer;
+    public static ItemBulldozer Creative_Bulldozer;
     public static ItemVillagerHouses VillagerHouses;
 
     /**
@@ -272,29 +204,30 @@ public class ModRegistry {
         ModRegistry.WareHouseUpgrade = ModRegistry.registerItem(new ItemWarehouseUpgrade("item_warehouse_upgrade"));
         ModRegistry.BundleOfTimber = ModRegistry.registerItem(new ItemBundleOfTimber("item_bundle_of_timber"));
         ModRegistry.HorseStable = ModRegistry.registerItem(new ItemHorseStable("item_horse_stable"));
-        ModRegistry.NetherGate = ModRegistry.registerItem(new ItemNetherGate("item_nether_gate"));
         ModRegistry.InstantBridge = ModRegistry.registerItem(new ItemInstantBridge("item_instant_bridge"));
         ModRegistry.StringOfLanterns = ModRegistry.registerItem(new ItemStringOfLanterns("item_string_of_lanterns"));
         ModRegistry.CoilOfLanterns = ModRegistry.registerItem(new ItemCoilOfLanterns("item_coil_of_lanterns"));
         ModRegistry.ModerateHouse = ModRegistry.registerItem(new ItemModerateHouse("item_moderate_house"));
-        ModRegistry.Bulldozer = ModRegistry.registerItem(new ItemBulldozer("item_bulldozer"));
+        ModRegistry.Bulldozer = ModRegistry.registerItem(new ItemBulldozer("item_bulldozer", false));
+        ModRegistry.Bulldozer = ModRegistry.registerItem(new ItemBulldozer("item_creative_bulldozer", true));
         ModRegistry.StructurePart = ModRegistry.registerItem(new ItemStructurePart("item_structure_part"));
         ModRegistry.VillagerHouses = ModRegistry.registerItem(new ItemVillagerHouses("item_villager_houses"));
-        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.AdvancedCoop.getResourceLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.AdvancedCoop));
-        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.AdvancedHorseStable.getResourceLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.AdvancedHorseStable));
-        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.Barn.getResourceLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.Barn));
-        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.MachineryTower.getResourceLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.MachineryTower));
-        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.DefenseBunker.getResourceLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.DefenseBunker));
-        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.MineshaftEntrance.getResourceLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.MineshaftEntrance));
-        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.EnderGateway.getResourceLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.EnderGateway));
-        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.AquaBase.getResourceLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.AquaBase));
-        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.GrassyPlain.getResourceLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.GrassyPlain));
-        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.MagicTemple.getResourceLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.MagicTemple));
-        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.GreenHouse.getResourceLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.GreenHouse));
-        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.WatchTower.getResourceLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.WatchTower));
-        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.WelcomeCenter.getResourceLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.WelcomeCenter));
-        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.Jail.getResourceLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.Jail));
-        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.Saloon.getResourceLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.Saloon));
+        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.AdvancedCoop.getItemTextureLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.AdvancedCoop));
+        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.AdvancedHorseStable.getItemTextureLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.AdvancedHorseStable));
+        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.Barn.getItemTextureLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.Barn));
+        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.MachineryTower.getItemTextureLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.MachineryTower));
+        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.DefenseBunker.getItemTextureLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.DefenseBunker));
+        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.MineshaftEntrance.getItemTextureLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.MineshaftEntrance));
+        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.EnderGateway.getItemTextureLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.EnderGateway));
+        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.AquaBase.getItemTextureLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.AquaBase));
+        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.GrassyPlain.getItemTextureLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.GrassyPlain));
+        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.MagicTemple.getItemTextureLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.MagicTemple));
+        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.GreenHouse.getItemTextureLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.GreenHouse));
+        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.WatchTower.getItemTextureLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.WatchTower));
+        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.WelcomeCenter.getItemTextureLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.WelcomeCenter));
+        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.Jail.getItemTextureLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.Jail));
+        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.Saloon.getItemTextureLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.Saloon));
+        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.NetherGate.getItemTextureLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.NetherGate));
 
         /* *********************************** Slabs *********************************** */
 
@@ -431,29 +364,5 @@ public class ModRegistry {
     public static void setBlockName(Block block, String blockName) {
         block.setRegistryName(blockName);
         block.setTranslationKey(Objects.requireNonNull(block.getRegistryName()).toString());
-    }
-
-    /**
-     * Adds all of the Mod Guis to the HasMap.
-     */
-    public static void AddGuis() {
-        ModRegistry.ModGuis.put(ModRegistry.GuiWareHouse, GuiWareHouse.class);
-        ModRegistry.ModGuis.put(ModRegistry.GuiChickenCoop, GuiChickenCoop.class);
-        ModRegistry.ModGuis.put(ModRegistry.GuiProduceFarm, GuiProduceFarm.class);
-        ModRegistry.ModGuis.put(ModRegistry.GuiTreeFarm, GuiTreeFarm.class);
-        ModRegistry.ModGuis.put(ModRegistry.GuiFishPond, GuiFishPond.class);
-        ModRegistry.ModGuis.put(ModRegistry.GuiStartHouseChooser, GuiStartHouseChooser.class);
-        ModRegistry.ModGuis.put(ModRegistry.GuiAdvancedWareHouse, GuiAdvancedWareHouse.class);
-        ModRegistry.ModGuis.put(ModRegistry.GuiMonsterMasher, GuiMonsterMasher.class);
-        ModRegistry.ModGuis.put(ModRegistry.GuiHorseStable, GuiHorseStable.class);
-        ModRegistry.ModGuis.put(ModRegistry.GuiNetherGate, GuiNetherGate.class);
-        ModRegistry.ModGuis.put(ModRegistry.GuiModularHouse, GuiModularHouse.class);
-        ModRegistry.ModGuis.put(ModRegistry.GuiDrafter, GuiDrafter.class);
-        ModRegistry.ModGuis.put(ModRegistry.GuiBasicStructure, GuiBasicStructure.class);
-        ModRegistry.ModGuis.put(ModRegistry.GuiVillagerHouses, GuiVillaerHouses.class);
-        ModRegistry.ModGuis.put(ModRegistry.GuiModerateHouse, GuiModerateHouse.class);
-        ModRegistry.ModGuis.put(ModRegistry.GuiBulldozer, GuiBulldozer.class);
-        ModRegistry.ModGuis.put(ModRegistry.GuiInstantBridge, GuiInstantBridge.class);
-        ModRegistry.ModGuis.put(ModRegistry.GuiStructurePart, GuiStructurePart.class);
     }
 }

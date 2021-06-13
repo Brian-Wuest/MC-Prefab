@@ -33,6 +33,24 @@ public class StructureAlternateStart extends Structure {
     private BlockPos trapDoorPosition = null;
     private BlockPos signPosition = null;
 
+    public static void ScanBasicHouseStructure(World world, BlockPos originalPos, EnumFacing playerFacing) {
+        BuildClear clearedSpace = new BuildClear();
+        clearedSpace.getShape().setDirection(EnumFacing.SOUTH);
+        clearedSpace.getShape().setHeight(10);
+        clearedSpace.getShape().setLength(12);
+        clearedSpace.getShape().setWidth(13);
+        clearedSpace.getStartingPosition().setSouthOffset(1);
+        clearedSpace.getStartingPosition().setEastOffset(5);
+        clearedSpace.getStartingPosition().setHeightOffset(-1);
+
+        BlockPos corner = originalPos.east(5).south().down();
+        BlockPos corner2 = originalPos.west(8).south(13).up(10);
+
+        Structure.ScanStructure(world, originalPos, corner, corner2,
+                "..\\src\\main\\resources\\assets\\prefab\\structures\\basic_house.zip", clearedSpace,
+                playerFacing, false, false);
+    }
+
     public static void ScanRanchStructure(World world, BlockPos originalPos, EnumFacing playerFacing) {
         BuildClear clearedSpace = new BuildClear();
         clearedSpace.getShape().setDirection(EnumFacing.SOUTH);
@@ -505,14 +523,25 @@ public class StructureAlternateStart extends Structure {
 
         if (foundBlock.getRegistryName().getNamespace().equals(Blocks.STAINED_GLASS.getRegistryName().getNamespace())
                 && foundBlock.getRegistryName().getPath().equals(Blocks.STAINED_GLASS.getRegistryName().getPath())) {
-            blockState = blockState.withProperty(BlockStainedGlass.COLOR, houseConfig.glassColor);
+            blockState = this.getStainedGlassBlock(houseConfig.glassColor);
             block.setBlockState(blockState);
             this.priorityOneBlocks.add(block);
 
             return true;
         } else if (foundBlock.getRegistryName().getNamespace().equals(Blocks.STAINED_GLASS_PANE.getRegistryName().getNamespace())
                 && foundBlock.getRegistryName().getPath().equals(Blocks.STAINED_GLASS_PANE.getRegistryName().getPath())) {
-            block.setBlockState(foundBlock.getStateFromMeta(houseConfig.glassColor.getMetadata()));
+            blockState = this.getStainedGlassPaneBlock(houseConfig.glassColor);
+
+            BuildBlock.SetBlockState(
+                    configuration,
+                    world,
+                    originalPos,
+                    assumedNorth,
+                    block,
+                    foundBlock,
+                    blockState,
+                    this);
+
             this.priorityOneBlocks.add(block);
             return true;
         }

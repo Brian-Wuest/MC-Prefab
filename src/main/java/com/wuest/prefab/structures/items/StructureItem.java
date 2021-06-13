@@ -2,6 +2,8 @@ package com.wuest.prefab.structures.items;
 
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
+import com.wuest.prefab.proxy.ClientProxy;
+import com.wuest.prefab.structures.gui.GuiStructure;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -15,19 +17,13 @@ import net.minecraft.world.World;
  * @author WuestMan
  */
 public class StructureItem extends Item {
-
-    /**
-     * Get's the GuiId to show to the user when this item is used.
-     */
-    protected int guiId = 0;
-
     /**
      * Initializes a new instance of the StructureItem class.
      */
-    public StructureItem(String name, int guiId) {
+    public StructureItem(String name) {
         super();
 
-        this.Initialize(name, guiId);
+        this.Initialize(name);
     }
 
     /**
@@ -38,8 +34,13 @@ public class StructureItem extends Item {
                                       float hitY, float hitZ) {
         if (world.isRemote) {
             if (side == EnumFacing.UP) {
-                // Open the client side gui to determine the house options.
-                player.openGui(Prefab.instance, this.guiId, player.world, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+                if (Prefab.useScanningMode) {
+                    this.scanningMode(player, world, hitBlockPos, hand);
+                } else {
+                    // Open the client side gui to determine the house options.
+                    player.openGui(Prefab.instance, 0, player.world, hitBlockPos.getX(), hitBlockPos.getY(), hitBlockPos.getZ());
+                }
+
                 return EnumActionResult.PASS;
             }
         }
@@ -47,12 +48,30 @@ public class StructureItem extends Item {
         return EnumActionResult.FAIL;
     }
 
+    public void scanningMode(EntityPlayer player, World world, BlockPos hitBlockPos, EnumHand hand) {
+    }
+
     /**
      * Initializes common fields/properties for this structure item.
      */
-    protected void Initialize(String name, int guiId) {
+    protected void Initialize(String name) {
         ModRegistry.setItemName(this, name);
-        this.guiId = guiId;
         this.setCreativeTab(CreativeTabs.MISC);
+        this.PostInit();
+    }
+
+    protected void PostInit() {
+
+    }
+
+    protected void RegisterGui(Class<?> classToRegister) {
+        try {
+            if (Prefab.proxy.isClient) {
+                GuiStructure userInterface = (GuiStructure) classToRegister.newInstance();
+                ClientProxy.ModGuis.put(this, userInterface);
+            }
+        } catch (InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 }

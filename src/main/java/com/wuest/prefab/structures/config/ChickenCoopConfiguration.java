@@ -6,7 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 
 /**
  * @author WuestMan
@@ -19,19 +19,18 @@ public class ChickenCoopConfiguration extends StructureConfiguration {
      * @return An new configuration object with the values derived from the NBTTagCompound.
      */
     @Override
-    public ChickenCoopConfiguration ReadFromNBTTagCompound(NBTTagCompound messageTag) {
+    public ChickenCoopConfiguration ReadFromCompoundNBT(NBTTagCompound messageTag) {
         ChickenCoopConfiguration config = new ChickenCoopConfiguration();
 
-        return (ChickenCoopConfiguration) super.ReadFromNBTTagCompound(messageTag, config);
+        return (ChickenCoopConfiguration) super.ReadFromCompoundNBT(messageTag, config);
     }
 
     @Override
-    protected void ConfigurationSpecificBuildStructure(EntityPlayer player, World world, BlockPos hitBlockPos) {
+    protected void ConfigurationSpecificBuildStructure(EntityPlayer player, WorldServer world, BlockPos hitBlockPos) {
         StructureChickenCoop structure = StructureChickenCoop.CreateInstance(StructureChickenCoop.ASSETLOCATION, StructureChickenCoop.class);
 
         if (structure.BuildStructure(this, world, hitBlockPos, EnumFacing.NORTH, player)) {
-            player.inventory.clearMatchingItems(ModRegistry.ChickenCoop, -1, 1, null);
-            player.inventoryContainer.detectAndSendChanges();
+            this.RemoveStructureItemFromPlayer(player, ModRegistry.ChickenCoop);
         }
     }
 }

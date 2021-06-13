@@ -6,7 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 
 /**
  * The configuration class for the modular house.
@@ -21,10 +21,10 @@ public class ModularHouseConfiguration extends StructureConfiguration {
      * @return An new configuration object with the values derived from the NBTTagCompound.
      */
     @Override
-    public ModularHouseConfiguration ReadFromNBTTagCompound(NBTTagCompound messageTag) {
+    public ModularHouseConfiguration ReadFromCompoundNBT(NBTTagCompound messageTag) {
         ModularHouseConfiguration config = new ModularHouseConfiguration();
 
-        return (ModularHouseConfiguration) super.ReadFromNBTTagCompound(messageTag, config);
+        return (ModularHouseConfiguration) super.ReadFromCompoundNBT(messageTag, config);
     }
 
     /**
@@ -35,7 +35,7 @@ public class ModularHouseConfiguration extends StructureConfiguration {
      * @param hitBlockPos This hit block position.
      */
     @Override
-    protected void ConfigurationSpecificBuildStructure(EntityPlayer player, World world, BlockPos hitBlockPos) {
+    protected void ConfigurationSpecificBuildStructure(EntityPlayer player, WorldServer world, BlockPos hitBlockPos) {
         StructureModularHouse structure = StructureModularHouse.CreateInstance(StructureModularHouse.ASSETLOCATION, StructureModularHouse.class);
 
         if (structure.BuildStructure(this, world, hitBlockPos, EnumFacing.NORTH, player)) {

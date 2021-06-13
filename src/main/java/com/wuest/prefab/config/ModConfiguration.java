@@ -2,7 +2,6 @@ package com.wuest.prefab.config;
 
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.UpdateChecker;
-import com.wuest.prefab.gui.GuiLangKeys;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
@@ -24,6 +23,7 @@ public class ModConfiguration {
     public static String tagKey = "PrefabConfig";
     public static String[] validStartingItems = new String[]
             {"Starter House", "Moderate House", "Structure Part", "Nothing"};
+
     // Recipe Options
     public static String compressedStoneKey = "Compressed Stone";
     public static String compressedGlowStoneKey = "Compressed Glowstone";
@@ -38,7 +38,7 @@ public class ModConfiguration {
     public static String warehouseUpgradeKey = "Warehouse Upgrade";
     public static String advancedWarehouseKey = "Advanced Warehouse";
     public static String monsterMasherKey = "Monster Masher";
-    public static String bundleofTimberKey = "Bundle of Timber";
+    public static String bundleOfTimberKey = "Bundle of Timber";
     public static String horseStableKey = "Horse Stable";
     public static String netherGateKey = "Nether Gate";
     public static String advancedChickenCoopKey = "Advanced Chicken Coop";
@@ -66,7 +66,7 @@ public class ModConfiguration {
     public static String glassSlabsKey = "Glass Slabs";
     public static String andesiteSlabsKey = "Andesite Slabs";
     public static String dioriteSlabKey = "Diorite Slabs";
-    public static String grantiteSlabKey = "Granite Slabs";
+    public static String graniteSlabKey = "Granite Slabs";
     public static String moderateHouseKey = "Moderate House";
     public static String watchTowerKey = "Watch Tower";
     public static String bulldozerKey = "Bulldozer";
@@ -75,17 +75,18 @@ public class ModConfiguration {
     public static String saloonKey = "Saloon";
     public static String[] recipeKeys = new String[]
             {compressedStoneKey, compressedGlowStoneKey, compressedDirteKey, compressedChestKey, pileOfBricksKey, warehouseKey, produceFarmKey, treeFarmKey, chickenCoopKey, fishFarmKey,
-                    warehouseUpgradeKey, advancedWarehouseKey, monsterMasherKey, bundleofTimberKey, horseStableKey, netherGateKey, advancedChickenCoopKey, advancedHorseStableKey, barnKey,
+                    warehouseUpgradeKey, advancedWarehouseKey, monsterMasherKey, bundleOfTimberKey, horseStableKey, netherGateKey, advancedChickenCoopKey, advancedHorseStableKey, barnKey,
                     machineryTowerKey, defenseBunkerKey, mineshaftEntranceKey, enderGatewayKey, magicTempleKey, instantBridgeKey, paperLanternKey, compressedObsidianKey, villagerHousesKey,
                     phasicBlockKey, smartGlassKey, greenHouseKey, startingHouseKey, glassStairsKey, glassSlabsKey, andesiteStairsKey, andesiteSlabsKey, dioriteStairsKey, dioriteSlabKey,
-                    graniteStairsKey, grantiteSlabKey, moderateHouseKey, grassyPlainsKey, aquaBaseKey, watchTowerKey, bulldozerKey, structurePartKey, jailKey, saloonKey};
+                    graniteStairsKey, graniteSlabKey, moderateHouseKey, grassyPlainsKey, aquaBaseKey, watchTowerKey, bulldozerKey, structurePartKey, jailKey, saloonKey};
+
     // Config file option names.
-    private static String maximumHouseSizeName = "Maximum Starting House Size";
     private static String enableVersionCheckMessageName = "Enable Version Checking";
     private static String enableLoftHouseName = "Enable Loft House";
     private static String includeSpawnersInMasherName = "Include Spawners in Monster Masher";
     private static String enableStructurePreviewName = "Include Structure Previews";
     private static String includeMineshaftChestName = "Include Mineshaft Chest";
+
     // Chest content option names.
     private static String addSwordName = "Add Sword";
     private static String addAxeName = "Add Axe";
@@ -100,6 +101,7 @@ public class ModConfiguration {
     private static String addSaplingsName = "Add Saplings";
     private static String addTorchesName = "Add Torches";
     private static String startingItemName = "Starting Item";
+
     // Starter House option names.
     private static String addBedName = "Add Bed";
     private static String addCraftingTableName = "Add Crafting Table";
@@ -108,15 +110,18 @@ public class ModConfiguration {
     private static String addChestContentsName = "Add Chest Contents";
     private static String addFarmName = "Add Farm";
     private static String addMineshaftName = "Add Mineshaft";
+    private static String allowBulldozerToCreateDropsName = "Bulldozer Creates Drops";
     private static String versionMessageName = "Version Message";
     private static String showMessageName = "Show Message";
+
     // Configuration Options.
-    public int maximumStartingHouseSize;
     public boolean enableVersionCheckMessage;
     public boolean enableLoftHouse;
     public boolean includeSpawnersInMasher;
     public boolean enableStructurePreview;
     public boolean includeMineshaftChest;
+    public boolean allowBulldozerToCreateDrops;
+
     // Chest content options.
     public boolean addSword;
     public boolean addAxe;
@@ -130,6 +135,7 @@ public class ModConfiguration {
     public boolean addCobble;
     public boolean addSaplings;
     public boolean addTorches;
+
     // Start House options.
     public boolean addBed;
     public boolean addCraftingTable;
@@ -140,12 +146,12 @@ public class ModConfiguration {
     public boolean addMineshaft;
     public String startingItem;
     public HashMap<String, Boolean> recipeConfiguration;
+
     // Version Check Message Info
     public String versionMessage = "";
     public boolean showMessage = false;
 
     public ModConfiguration() {
-        this.maximumStartingHouseSize = 16;
         this.enableVersionCheckMessage = true;
         this.includeSpawnersInMasher = true;
         this.enableStructurePreview = true;
@@ -166,8 +172,6 @@ public class ModConfiguration {
                 "Determines which starting item a player gets on first world join. Server configuration overrides client.", validStartingItems);
         Property startingItemProperty = mainCategory.get(ModConfiguration.startingItemName);
 
-        Prefab.proxy.proxyConfiguration.maximumStartingHouseSize = config.getInt(ModConfiguration.maximumHouseSizeName, ModConfiguration.OPTIONS, 16, 5, 16,
-                "Determines the maximum size the starting house can be generated as. Server configuration overrides client.");
         Prefab.proxy.proxyConfiguration.enableVersionCheckMessage = config.getBoolean(ModConfiguration.enableVersionCheckMessageName, ModConfiguration.OPTIONS, true,
                 "Determines if version checking is enabled when application starts. Also determines if the chat message about old versions is shown when joining a world. Server configuration overrides client.");
         Prefab.proxy.proxyConfiguration.enableLoftHouse = config.getBoolean(ModConfiguration.enableLoftHouseName, ModConfiguration.OPTIONS, false,
@@ -178,6 +182,9 @@ public class ModConfiguration {
                 "Determines if the Preview buttons in structure GUIs and other structure previews functions are enabled. Client side only.");
         Prefab.proxy.proxyConfiguration.includeMineshaftChest = config.getBoolean(ModConfiguration.includeMineshaftChestName, ModConfiguration.OPTIONS, true,
                 "Determines if the mineshaft chest is included when building mineshafts for various structures.");
+
+        Prefab.proxy.proxyConfiguration.allowBulldozerToCreateDrops = config.getBoolean(ModConfiguration.allowBulldozerToCreateDropsName, ModConfiguration.OPTIONS, true,
+                "Determines if the bulldozer item can create drops when it clears an area.");
 
         // Make this property require a restart.
         config.get(ModConfiguration.OPTIONS, ModConfiguration.enableVersionCheckMessageName, true).setRequiresMcRestart(true);
@@ -274,16 +281,10 @@ public class ModConfiguration {
         config.startingItem = tag.getString(ModConfiguration.startingItemName);
         config.enableVersionCheckMessage = tag.getBoolean(ModConfiguration.enableVersionCheckMessageName);
         config.enableLoftHouse = tag.getBoolean(ModConfiguration.enableLoftHouseName);
-        config.maximumStartingHouseSize = tag.getInteger(ModConfiguration.maximumHouseSizeName);
         config.includeSpawnersInMasher = tag.getBoolean(ModConfiguration.includeSpawnersInMasherName);
         config.enableStructurePreview = tag.getBoolean(ModConfiguration.enableStructurePreviewName);
         config.includeMineshaftChest = tag.getBoolean(ModConfiguration.includeMineshaftChestName);
-
-        // Make sure the server admin didn't set the maximum starting size to an
-        // invalid value from the configuration file.
-        if (config.maximumStartingHouseSize < 5 || config.maximumStartingHouseSize > 16) {
-            config.maximumStartingHouseSize = 16;
-        }
+        config.allowBulldozerToCreateDrops = tag.getBoolean(ModConfiguration.allowBulldozerToCreateDropsName);
 
         config.addSword = tag.getBoolean(ModConfiguration.addSwordName);
         config.addAxe = tag.getBoolean(ModConfiguration.addAxeName);
@@ -320,12 +321,12 @@ public class ModConfiguration {
         NBTTagCompound tag = new NBTTagCompound();
 
         tag.setString(ModConfiguration.startingItemName, this.startingItem);
-        tag.setInteger(ModConfiguration.maximumHouseSizeName, this.maximumStartingHouseSize);
         tag.setBoolean(ModConfiguration.enableVersionCheckMessageName, this.enableVersionCheckMessage);
         tag.setBoolean(ModConfiguration.enableLoftHouseName, this.enableLoftHouse);
         tag.setBoolean(ModConfiguration.includeSpawnersInMasherName, this.includeSpawnersInMasher);
         tag.setBoolean(ModConfiguration.enableStructurePreviewName, this.enableStructurePreview);
         tag.setBoolean(ModConfiguration.includeMineshaftChestName, this.includeMineshaftChest);
+        tag.setBoolean(ModConfiguration.allowBulldozerToCreateDropsName, this.allowBulldozerToCreateDrops);
 
         tag.setBoolean(ModConfiguration.addSwordName, this.addSword);
         tag.setBoolean(ModConfiguration.addAxeName, this.addAxe);
@@ -356,90 +357,5 @@ public class ModConfiguration {
         }
 
         return tag;
-    }
-
-    public enum CeilingFloorBlockType {
-        StoneBrick(0, GuiLangKeys.CEILING_BLOCK_TYPE_STONE), Brick(1, GuiLangKeys.CEILING_BLOCK_TYPE_BRICK), SandStone(2, GuiLangKeys.CEILING_BLOCK_TYPE_SAND);
-
-        private final int value;
-        private final String langKey;
-
-        CeilingFloorBlockType(int newValue, String langKey) {
-            this.value = newValue;
-            this.langKey = langKey;
-        }
-
-        public static CeilingFloorBlockType ValueOf(int value) {
-            switch (value) {
-                case 1: {
-                    return CeilingFloorBlockType.Brick;
-                }
-
-                case 2: {
-                    return CeilingFloorBlockType.SandStone;
-                }
-
-                default: {
-                    return CeilingFloorBlockType.StoneBrick;
-                }
-            }
-        }
-
-        public int getValue() {
-            return value;
-        }
-
-        public String getName() {
-            return GuiLangKeys.translateString(this.langKey);
-        }
-    }
-
-    public enum WallBlockType {
-        Oak(0, GuiLangKeys.WALL_BLOCK_TYPE_OAK), Spruce(1, GuiLangKeys.WALL_BLOCK_TYPE_SPRUCE), Birch(2, GuiLangKeys.WALL_BLOCK_TYPE_BIRCH), Jungle(3,
-                GuiLangKeys.WALL_BLOCK_TYPE_JUNGLE), Acacia(4, GuiLangKeys.WALL_BLOCK_TYPE_ACACIA), DarkOak(5, GuiLangKeys.WALL_BLOCK_TYPE_DARK_OAK);
-
-        private final int value;
-        private final String langKey;
-
-        WallBlockType(final int newValue, String langKey) {
-            value = newValue;
-            this.langKey = langKey;
-        }
-
-        public static WallBlockType ValueOf(int value) {
-            switch (value) {
-                case 1: {
-                    return WallBlockType.Spruce;
-                }
-
-                case 2: {
-                    return WallBlockType.Birch;
-                }
-
-                case 3: {
-                    return WallBlockType.Jungle;
-                }
-
-                case 4: {
-                    return WallBlockType.Acacia;
-                }
-
-                case 5: {
-                    return WallBlockType.DarkOak;
-                }
-
-                default: {
-                    return WallBlockType.Oak;
-                }
-            }
-        }
-
-        public int getValue() {
-            return value;
-        }
-
-        public String getName() {
-            return GuiLangKeys.translateString(this.langKey);
-        }
     }
 }

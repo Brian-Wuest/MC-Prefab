@@ -169,6 +169,7 @@ prefab.gui.brown=Brown
 prefab.gui.green=Green
 prefab.gui.red=Red
 prefab.gui.black=Black
+prefab.gui.clear=Clear
 
 prefab.gui.bridge_length=Bridge Length
 prefab.gui.bridge_material=Bridge Material

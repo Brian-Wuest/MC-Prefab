@@ -1,9 +1,9 @@
 package com.wuest.prefab.structures.gui;
 
-import com.wuest.prefab.Prefab;
+import com.wuest.prefab.Tuple;
 import com.wuest.prefab.events.ClientEventHandler;
 import com.wuest.prefab.gui.GuiLangKeys;
-import com.wuest.prefab.gui.GuiTabScreen;
+import com.wuest.prefab.gui.GuiUtils;
 import com.wuest.prefab.structures.config.ChickenCoopConfiguration;
 import com.wuest.prefab.structures.messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.structures.predefined.StructureChickenCoop;
@@ -11,7 +11,6 @@ import com.wuest.prefab.structures.render.StructureRenderHandler;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.client.config.GuiButtonExt;
 
 import java.io.IOException;
 
@@ -22,33 +21,23 @@ public class GuiChickenCoop extends GuiStructure {
     private static final ResourceLocation structureTopDown = new ResourceLocation("prefab", "textures/gui/chicken_coop_top_down.png");
     protected ChickenCoopConfiguration configuration;
 
-    public GuiChickenCoop(int x, int y, int z) {
-        super(x, y, z, true);
+    public GuiChickenCoop() {
+        super();
         this.structureConfiguration = EnumStructureConfiguration.ChickenCoop;
+        this.modifiedInitialXAxis = 213;
+        this.modifiedInitialYAxis = 83;
     }
 
-    /**
-     * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
-     */
     @Override
-    public void drawScreen(int x, int y, float f) {
-        int grayBoxX = this.getCenteredXAxis() - 213;
-        int grayBoxY = this.getCenteredYAxis() - 83;
+    protected void preButtonRender(int x, int y, int mouseX, int mouseY, float partialTicks) {
+        super.preButtonRender(x, y, mouseX, mouseY, partialTicks);
 
-        this.drawDefaultBackground();
+        GuiUtils.bindAndDrawModalRectWithCustomSizedTexture(structureTopDown, x + 250, y, 1, 171, 87, 171, 87);
+    }
 
-        // Draw the control background.
-        this.mc.getTextureManager().bindTexture(structureTopDown);
-        GuiTabScreen.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 171, 87, 171, 87);
-
-        this.drawControlBackgroundAndButtonsAndLabels(grayBoxX, grayBoxY, x, y);
-
-        // Draw the text here.
-        this.mc.fontRenderer.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), grayBoxX + 147, grayBoxY + 10, 95, this.textColor);
-
-        if (!Prefab.proxy.proxyConfiguration.enableStructurePreview) {
-            this.btnVisualize.enabled = false;
-        }
+    @Override
+    protected void postButtonRender(int x, int y, int mouseX, int mouseY, float partialTicks) {
+        this.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, y + 10, 95, this.textColor);
     }
 
     /**
@@ -61,7 +50,7 @@ public class GuiChickenCoop extends GuiStructure {
         if (button == this.btnVisualize) {
             StructureChickenCoop structure = StructureChickenCoop.CreateInstance(StructureChickenCoop.ASSETLOCATION, StructureChickenCoop.class);
             StructureRenderHandler.setStructure(structure, EnumFacing.NORTH, this.configuration);
-            this.mc.displayGuiScreen(null);
+            this.closeScreen();
         }
     }
 
@@ -71,19 +60,17 @@ public class GuiChickenCoop extends GuiStructure {
         this.configuration.pos = this.pos;
 
         // Get the upper left hand corner of the GUI box.
-        int grayBoxX = this.getCenteredXAxis() - 213;
-        int grayBoxY = this.getCenteredYAxis() - 83;
+        Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
+        int grayBoxX = adjustedXYValue.getFirst();
+        int grayBoxY = adjustedXYValue.getSecond();
 
         // Create the buttons.
-        this.btnVisualize = new GuiButtonExt(4, grayBoxX + 10, grayBoxY + 90, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW));
-        this.buttonList.add(this.btnVisualize);
+        this.btnVisualize = this.createAndAddButton(4, grayBoxX + 10, grayBoxY + 90, 90, 20, GuiLangKeys.GUI_BUTTON_PREVIEW);
 
         // Create the done and cancel buttons.
-        this.btnBuild = new GuiButtonExt(1, grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_BUILD));
-        this.buttonList.add(this.btnBuild);
+        this.btnBuild = this.createAndAddButton(1, grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.GUI_BUTTON_BUILD);
 
-        this.btnCancel = new GuiButtonExt(2, grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_CANCEL));
-        this.buttonList.add(this.btnCancel);
+        this.btnCancel = this.createAndAddButton(2, grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.GUI_BUTTON_CANCEL);
     }
 
 }

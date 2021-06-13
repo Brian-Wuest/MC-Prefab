@@ -1,14 +1,15 @@
 package com.wuest.prefab.structures.gui;
 
-import com.wuest.prefab.Prefab;
+import com.wuest.prefab.Tuple;
 import com.wuest.prefab.events.ClientEventHandler;
 import com.wuest.prefab.gui.GuiLangKeys;
-import com.wuest.prefab.gui.GuiTabScreen;
+import com.wuest.prefab.gui.GuiUtils;
 import com.wuest.prefab.structures.config.VillagerHouseConfiguration;
 import com.wuest.prefab.structures.messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.structures.predefined.StructureVillagerHouses;
 import com.wuest.prefab.structures.render.StructureRenderHandler;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
@@ -18,15 +19,18 @@ import java.io.IOException;
 /**
  * @author WuestMan
  */
-public class GuiVillaerHouses extends GuiStructure {
+public class GuiVillagerHouses extends GuiStructure {
     private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/default_background.png");
     protected GuiButtonExt btnHouseStyle;
+    protected GuiButtonExt btnBedColor;
     protected VillagerHouseConfiguration configuration;
     protected VillagerHouseConfiguration.HouseStyle houseStyle;
 
-    public GuiVillaerHouses(int x, int y, int z) {
-        super(x, y, z, true);
+    public GuiVillagerHouses() {
+        super();
         this.structureConfiguration = EnumStructureConfiguration.VillagerHouses;
+        this.modifiedInitialXAxis = 205;
+        this.modifiedInitialYAxis = 83;
     }
 
     @Override
@@ -37,47 +41,43 @@ public class GuiVillaerHouses extends GuiStructure {
         this.houseStyle = this.configuration.houseStyle;
 
         // Get the upper left hand corner of the GUI box.
-        int grayBoxX = this.getCenteredXAxis() - 205;
-        int grayBoxY = this.getCenteredYAxis() - 83;
+        Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
+        int grayBoxX = adjustedXYValue.getFirst();
+        int grayBoxY = adjustedXYValue.getSecond();
 
-        this.btnHouseStyle = new GuiButtonExt(4, grayBoxX + 10, grayBoxY + 20, 90, 20, this.houseStyle.getDisplayName());
-        this.buttonList.add(this.btnHouseStyle);
+        this.btnHouseStyle = this.createAndAddButton(4, grayBoxX + 10, grayBoxY + 20, 90, 20, this.houseStyle.getDisplayName(), false);
 
         // Create the buttons.
-        this.btnVisualize = new GuiButtonExt(4, grayBoxX + 10, grayBoxY + 60, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW));
-        this.buttonList.add(this.btnVisualize);
+        this.btnVisualize = this.createAndAddButton(4, grayBoxX + 10, grayBoxY + 60, 90, 20, GuiLangKeys.GUI_BUTTON_PREVIEW);
+
+        int x = grayBoxX + 130;
+        int y = grayBoxY + 20;
+
+        this.btnBedColor = this.createAndAddDyeButton(8, x, y, 90, 20, this.configuration.bedColor);
+
+        this.btnBedColor.visible = this.houseStyle == VillagerHouseConfiguration.HouseStyle.LONG_HOUSE;
 
         // Create the done and cancel buttons.
-        this.btnBuild = new GuiButtonExt(1, grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_BUILD));
-        this.buttonList.add(this.btnBuild);
+        this.btnBuild = this.createAndAddButton(1, grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.GUI_BUTTON_BUILD);
 
-        this.btnCancel = new GuiButtonExt(2, grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_CANCEL));
-        this.buttonList.add(this.btnCancel);
+        this.btnCancel = this.createAndAddButton(2, grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.GUI_BUTTON_CANCEL);
     }
 
-    /**
-     * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
-     */
     @Override
-    public void drawScreen(int x, int y, float f) {
-        int grayBoxX = this.getCenteredXAxis() - 205;
-        int grayBoxY = this.getCenteredYAxis() - 83;
+    protected void preButtonRender(int x, int y, int mouseX, int mouseY, float partialTicks) {
+        super.preButtonRender(x, y, mouseX, mouseY, partialTicks);
 
-        this.drawDefaultBackground();
-
-        // Draw the control background.
-        this.mc.getTextureManager().bindTexture(this.houseStyle.getHousePicture());
-        GuiTabScreen.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1,
+        GuiUtils.bindAndDrawModalRectWithCustomSizedTexture(this.houseStyle.getHousePicture(), x + 250, y, 1,
                 this.houseStyle.getImageWidth(), this.houseStyle.getImageHeight(),
                 this.houseStyle.getImageWidth(), this.houseStyle.getImageHeight());
+    }
 
-        this.drawControlBackgroundAndButtonsAndLabels(grayBoxX, grayBoxY, x, y);
+    @Override
+    protected void postButtonRender(int x, int y, int mouseX, int mouseY, float partialTicks) {
+        this.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), x + 10, y + 10, this.textColor);
 
-        // Draw the text here.
-        this.mc.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), grayBoxX + 10, grayBoxY + 10, this.textColor);
-
-        if (!Prefab.proxy.proxyConfiguration.enableStructurePreview) {
-            this.btnVisualize.enabled = false;
+        if (this.houseStyle == VillagerHouseConfiguration.HouseStyle.LONG_HOUSE) {
+            this.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), x + 130, y + 10, this.textColor);
         }
     }
 
@@ -98,7 +98,10 @@ public class GuiVillaerHouses extends GuiStructure {
         } else if (button == this.btnVisualize) {
             StructureVillagerHouses structure = StructureVillagerHouses.CreateInstance(this.houseStyle.getStructureLocation(), StructureVillagerHouses.class);
             StructureRenderHandler.setStructure(structure, EnumFacing.NORTH, this.configuration);
-            this.mc.displayGuiScreen(null);
+            this.closeScreen();
+        } else if (button == this.btnBedColor) {
+            this.configuration.bedColor = EnumDyeColor.byMetadata(this.configuration.bedColor.getMetadata() + 1);
+            GuiUtils.setButtonText(btnBedColor, GuiLangKeys.translateDye(this.configuration.bedColor));
         }
     }
 }

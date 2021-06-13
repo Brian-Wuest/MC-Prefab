@@ -1,5 +1,6 @@
 package com.wuest.prefab.gui;
 
+import com.wuest.prefab.blocks.FullDyeColor;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.EnumFacing;
@@ -156,6 +157,9 @@ public class GuiLangKeys {
 
     @Unlocalized(name = "Glass Color")
     public static final String GUI_STRUCTURE_GLASS = "prefab.gui.structure.glass";
+
+    @Unlocalized(name = "Bed Color")
+    public static final String GUI_STRUCTURE_BED_COLOR = "prefab.gui.structure.bed_color";
 
     @Unlocalized(name = "The red box in the image on the right shows the block you clicked on.")
     public static final String GUI_BLOCK_CLICKED = "prefab.gui.structure.block.clicked";
@@ -346,6 +350,9 @@ public class GuiLangKeys {
     @Unlocalized(name = "Floor")
     public static final String FLOOR = "prefab.gui.part_style.floor";
 
+    @Unlocalized(name = "Building Options")
+    public static final String BUILDING_OPTIONS = "prefab.gui.building_options";
+
     /**
      * Translates the specified language key for the current language.
      *
@@ -404,6 +411,10 @@ public class GuiLangKeys {
 
     public static String translateDye(EnumDyeColor dyeColor) {
         return GuiLangKeys.translateString("prefab.gui." + dyeColor.getTranslationKey());
+    }
+
+    public static String translateFullDye(FullDyeColor dyeColor) {
+        return GuiLangKeys.translateString("prefab.gui." + dyeColor.getName());
     }
 
     /**

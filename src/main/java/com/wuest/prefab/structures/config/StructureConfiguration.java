@@ -1,18 +1,21 @@
 package com.wuest.prefab.structures.config;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import com.wuest.prefab.structures.items.StructureItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+
 
 /**
  * This is the base configuration class used by all structures.
  *
  * @author WuestMan
  */
+@SuppressWarnings("WeakerAccess")
 public class StructureConfiguration {
     public static String houseFacingName = "House Facing";
 
@@ -61,7 +64,7 @@ public class StructureConfiguration {
 
         tag.setString(StructureConfiguration.houseFacingTag, this.houseFacing.getName());
 
-        tag = this.CustomWriteToNBTTagCompound(tag);
+        tag = this.CustomWriteToCompoundNBT(tag);
 
         return tag;
     }
@@ -72,7 +75,7 @@ public class StructureConfiguration {
      * @param messageTag The NBTTagCompound to read the properties from.
      * @return The updated StructureConfiguration instance.
      */
-    public StructureConfiguration ReadFromNBTTagCompound(NBTTagCompound messageTag) {
+    public StructureConfiguration ReadFromCompoundNBT(NBTTagCompound messageTag) {
         return null;
     }
 
@@ -83,7 +86,7 @@ public class StructureConfiguration {
      * @param config     The existing StructureConfiguration instance to fill the properties in for.
      * @return The updated StructureConfiguration instance.
      */
-    public StructureConfiguration ReadFromNBTTagCompound(NBTTagCompound messageTag, StructureConfiguration config) {
+    public StructureConfiguration ReadFromCompoundNBT(NBTTagCompound messageTag, StructureConfiguration config) {
         if (messageTag != null) {
             if (messageTag.hasKey(StructureConfiguration.hitXTag)) {
                 config.pos = new BlockPos(
@@ -108,20 +111,11 @@ public class StructureConfiguration {
      * @param player The player which requested the build.
      * @param world  The world instance where the build will occur.
      */
-    public void BuildStructure(EntityPlayer player, World world) {
+    public void BuildStructure(EntityPlayer player, WorldServer world) {
         // This is always on the server.
         BlockPos hitBlockPos = this.pos;
-        BlockPos playerPosition = player.getPosition();
 
-        IBlockState hitBlockState = world.getBlockState(hitBlockPos);
-
-        if (hitBlockState != null) {
-            Block hitBlock = hitBlockState.getBlock();
-
-            if (hitBlock != null) {
-                this.ConfigurationSpecificBuildStructure(player, world, hitBlockPos);
-            }
-        }
+        this.ConfigurationSpecificBuildStructure(player, world, hitBlockPos);
     }
 
     /**
@@ -131,7 +125,7 @@ public class StructureConfiguration {
      * @param world       The world instance where the build will occur.
      * @param hitBlockPos This hit block position.
      */
-    protected void ConfigurationSpecificBuildStructure(EntityPlayer player, World world, BlockPos hitBlockPos) {
+    protected void ConfigurationSpecificBuildStructure(EntityPlayer player, WorldServer world, BlockPos hitBlockPos) {
     }
 
     /**
@@ -140,7 +134,7 @@ public class StructureConfiguration {
      * @param tag The NBTTagCompound to write the custom properties too.
      * @return The updated tag.
      */
-    protected NBTTagCompound CustomWriteToNBTTagCompound(NBTTagCompound tag) {
+    protected NBTTagCompound CustomWriteToCompoundNBT(NBTTagCompound tag) {
         return tag;
     }
 
@@ -151,5 +145,29 @@ public class StructureConfiguration {
      * @param config     The configuration to read the settings into.
      */
     protected void CustomReadFromNBTTag(NBTTagCompound messageTag, StructureConfiguration config) {
+    }
+
+    /**
+     * This method will remove 1 structure item from the player's inventory, it is expected that the item is in the
+     * player's hand.
+     *
+     * @param player The player to remove the item from.
+     * @param item   the structure item to find.
+     */
+    protected void RemoveStructureItemFromPlayer(EntityPlayer player, StructureItem item) {
+        player.inventory.clearMatchingItems(item, -1, 1, null);
+        player.inventoryContainer.detectAndSendChanges();
+    }
+
+    protected void DamageHeldItem(EntityPlayer player, StructureItem item) {
+        ItemStack stack = player.getHeldItem(EnumHand.OFF_HAND);
+        if (stack.getItem() != item) {
+            stack = player.getHeldItem(EnumHand.MAIN_HAND);
+        }
+
+        if (stack.getItem() == item) {
+            stack.damageItem(1, player);
+            player.inventoryContainer.detectAndSendChanges();
+        }
     }
 }

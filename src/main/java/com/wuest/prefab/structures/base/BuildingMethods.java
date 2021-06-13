@@ -1,10 +1,7 @@
 package com.wuest.prefab.structures.base;
 
-import com.wuest.prefab.structures.config.HouseConfiguration;
 import com.wuest.prefab.structures.config.StructureConfiguration;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockStairs;
-import net.minecraft.block.BlockTorch;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -217,119 +214,6 @@ public class BuildingMethods {
         }
 
         return originalStack;
-    }
-
-    /**
-     * Creates a ceiling (floating floor) in the world.
-     *
-     * @param world         The world to create the floor in.
-     * @param pos           The block position to start creating the floor.
-     * @param block         The Type of block to create the floor out of.
-     * @param width         The width of the floor.
-     * @param depth         The length of the floor.
-     * @param stairs        The type of block to create the roof out of.
-     * @param configuration The house configuration object. This is specifically used in the basic house.
-     * @param houseFacing   The direction to start the ceiling.
-     * @param itemsToNotAdd The items to not include in the harvested blocks.
-     */
-    public static void SetCeiling(World world, BlockPos pos, Block block, int width, int depth, Block stairs, HouseConfiguration configuration, EnumFacing houseFacing, ArrayList<Item> itemsToNotAdd) {
-        // If the ceiling is flat, call SetFloor since it's laid out the same.
-        if (configuration.isCeilingFlat) {
-            BuildingMethods.SetFloor(world, pos, block, width, depth, new ArrayList<ItemStack>(), houseFacing.getOpposite(), itemsToNotAdd);
-            return;
-        }
-
-        // Get the stairs state without the facing since it will change.
-        IBlockState stateWithoutFacing = stairs.getBlockState().getBaseState().withProperty(BlockStairs.HALF, BlockStairs.EnumHalf.BOTTOM)
-                .withProperty(BlockStairs.SHAPE, BlockStairs.EnumShape.STRAIGHT);
-
-        int wallWidth = configuration.houseWidth;
-        int wallDepth = configuration.houseDepth;
-        int height = wallWidth / 2;
-        boolean isWider = false;
-
-        if (wallWidth > wallDepth) {
-            height = wallDepth / 2;
-            isWider = true;
-        }
-
-        for (int i = 0; i <= height; i++) {
-            // I is the vaulted roof level.
-            for (int j = 0; j < 4; j++) {
-                // Default is depth.
-                EnumFacing facing = houseFacing.rotateYCCW();
-                EnumFacing flowDirection = houseFacing.getOpposite();
-                int wallSize = wallDepth;
-
-                switch (j) {
-                    case 1: {
-                        facing = houseFacing;
-                        flowDirection = houseFacing.rotateYCCW();
-                        wallSize = wallWidth;
-                        break;
-                    }
-
-                    case 2: {
-                        facing = houseFacing.rotateY();
-                        flowDirection = houseFacing;
-                        wallSize = wallDepth;
-                        break;
-                    }
-
-                    case 3: {
-                        facing = houseFacing.getOpposite();
-                        flowDirection = houseFacing.rotateY();
-                        wallSize = wallWidth;
-                        break;
-                    }
-                }
-
-                for (int k = 0; k <= wallSize; k++) {
-                    // j is the north/south counter.
-                    BuildingMethods.ReplaceBlock(world, pos, stateWithoutFacing.withProperty(BlockStairs.FACING, facing));
-
-                    pos = pos.offset(flowDirection);
-                }
-            }
-
-            pos = pos.offset(houseFacing.rotateYCCW()).offset(houseFacing.getOpposite()).up();
-            wallWidth = wallWidth - 2;
-            wallDepth = wallDepth - 2;
-        }
-
-        if (world.isAirBlock(pos.down())) {
-            int finalStoneCount = wallDepth;
-
-            if (isWider) {
-                finalStoneCount = wallWidth;
-            }
-
-            // Add the number of blocks based on the depth/width (minimum 1);
-            if (finalStoneCount < 1) {
-                finalStoneCount = 1;
-            } else {
-                finalStoneCount = finalStoneCount + 2;
-            }
-
-            BlockPos torchPos = pos;
-
-            for (int i = 0; i < finalStoneCount; i++) {
-                BuildingMethods.ReplaceBlock(world, pos, block);
-
-                if (isWider) {
-                    pos = pos.offset(houseFacing.rotateYCCW());
-                } else {
-                    pos = pos.offset(houseFacing.getOpposite());
-                }
-            }
-
-            IBlockState torchLocation = world.getBlockState(torchPos);
-
-            if (torchLocation.getBlock().canPlaceTorchOnTop(torchLocation, world, torchPos)) {
-                IBlockState blockState = ((BlockTorch) Blocks.TORCH).getStateFromMeta(5);
-                BuildingMethods.ReplaceBlock(world, torchPos.up(), blockState);
-            }
-        }
     }
 
     /**

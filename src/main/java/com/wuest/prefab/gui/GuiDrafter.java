@@ -84,9 +84,8 @@ public class GuiDrafter extends GuiTabScreen {
      * 		a. Need to account for a null house generated facing since creative places could place my block.
      */
 
-    public GuiDrafter(int x, int y, int z) {
+    public GuiDrafter() {
         super();
-        this.pos = new BlockPos(x, y, z);
         this.Tabs.trayWidth = 320;
         this.roomButtons = new ArrayList<GuiRoomInfoButton>();
         this.roomHovers = new ArrayList<HoverChecker>();
@@ -121,7 +120,7 @@ public class GuiDrafter extends GuiTabScreen {
 
         // Draw the control background.
         this.mc.getTextureManager().bindTexture(backgroundTextures);
-        this.drawModalRectWithCustomSizedTexture(grayBoxX, grayBoxY, 0, 320, 320, 320, 320);
+        GuiUtils.drawModalRectWithCustomSizedTexture(grayBoxX, grayBoxY, 0, 320, 320, 320, 320);
 
         for (GuiButton button : this.buttonList) {
             // Make all buttons invisible.
@@ -304,7 +303,7 @@ public class GuiDrafter extends GuiTabScreen {
         this.btnThirdFloor.enabled = true;
     }
 
-    private void Initialize() {
+    protected void Initialize() {
         // Get the upper left hand corner of the GUI box.
         int grayBoxX = (this.width / 2) - 158;
         int grayBoxY = (this.height / 2) - 103;

@@ -1,15 +1,15 @@
 package com.wuest.prefab.structures.gui;
 
-import com.wuest.prefab.Prefab;
+import com.wuest.prefab.Tuple;
+import com.wuest.prefab.blocks.FullDyeColor;
 import com.wuest.prefab.events.ClientEventHandler;
 import com.wuest.prefab.gui.GuiLangKeys;
-import com.wuest.prefab.gui.GuiTabScreen;
+import com.wuest.prefab.gui.GuiUtils;
 import com.wuest.prefab.structures.config.MonsterMasherConfiguration;
 import com.wuest.prefab.structures.messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.structures.predefined.StructureMonsterMasher;
 import com.wuest.prefab.structures.render.StructureRenderHandler;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
@@ -24,9 +24,11 @@ public class GuiMonsterMasher extends GuiStructure {
     protected GuiButtonExt btnGlassColor;
     protected MonsterMasherConfiguration configuration;
 
-    public GuiMonsterMasher(int x, int y, int z) {
-        super(x, y, z, true);
+    public GuiMonsterMasher() {
+        super();
         this.structureConfiguration = EnumStructureConfiguration.MonsterMasher;
+        this.modifiedInitialXAxis = 210;
+        this.modifiedInitialYAxis = 83;
     }
 
     @Override
@@ -35,49 +37,34 @@ public class GuiMonsterMasher extends GuiStructure {
         this.configuration.pos = this.pos;
 
         // Get the upper left hand corner of the GUI box.
-        int grayBoxX = this.getCenteredXAxis() - 210;
-        int grayBoxY = this.getCenteredYAxis() - 83;
+        Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
+        int grayBoxX = adjustedXYValue.getFirst();
+        int grayBoxY = adjustedXYValue.getSecond();
 
         // Create the buttons.
-        this.btnGlassColor = new GuiButtonExt(10, grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.translateDye(this.configuration.dyeColor));
-        this.buttonList.add(this.btnGlassColor);
+        this.btnGlassColor = this.createAndAddFullDyeButton(10, grayBoxX + 10, grayBoxY + 20, 90, 20, this.configuration.dyeColor);
 
-        this.btnVisualize = new GuiButtonExt(4, grayBoxX + 10, grayBoxY + 90, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_PREVIEW));
-        this.buttonList.add(this.btnVisualize);
+        this.btnVisualize = this.createAndAddButton(4, grayBoxX + 10, grayBoxY + 90, 90, 20, GuiLangKeys.GUI_BUTTON_PREVIEW);
 
         // Create the done and cancel buttons.
-        this.btnBuild = new GuiButtonExt(1, grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_BUILD));
-        this.buttonList.add(this.btnBuild);
+        this.btnBuild = this.createAndAddButton(1, grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.GUI_BUTTON_BUILD);
 
-        this.btnCancel = new GuiButtonExt(2, grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_CANCEL));
-        this.buttonList.add(this.btnCancel);
+        this.btnCancel = this.createAndAddButton(2, grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.GUI_BUTTON_CANCEL);
     }
 
-    /**
-     * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
-     */
     @Override
-    public void drawScreen(int x, int y, float f) {
-        int grayBoxX = this.getCenteredXAxis() - 210;
-        int grayBoxY = this.getCenteredYAxis() - 83;
+    protected void preButtonRender(int x, int y, int mouseX, int mouseY, float partialTicks) {
+        super.preButtonRender(x, y, mouseX, mouseY, partialTicks);
 
-        this.drawDefaultBackground();
+        GuiUtils.bindAndDrawModalRectWithCustomSizedTexture(houseTopDown, x + 250, y, 1, 108, 156, 108, 156);
+    }
 
-        // Draw the control background.
-        this.mc.getTextureManager().bindTexture(houseTopDown);
-        GuiTabScreen.drawModalRectWithCustomSizedTexture(grayBoxX + 250, grayBoxY, 1, 108, 156, 108, 156);
-
-        this.drawControlBackgroundAndButtonsAndLabels(grayBoxX, grayBoxY, x, y);
+    @Override
+    protected void postButtonRender(int x, int y, int mouseX, int mouseY, float partialTicks) {
+        this.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS), x + 10, y + 10, this.textColor);
 
         // Draw the text here.
-        this.mc.fontRenderer.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS), grayBoxX + 10, grayBoxY + 10, this.textColor);
-
-        // Draw the text here.
-        this.mc.fontRenderer.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), grayBoxX + 147, grayBoxY + 10, 100, this.textColor);
-
-        if (!Prefab.proxy.proxyConfiguration.enableStructurePreview) {
-            this.btnVisualize.enabled = false;
-        }
+        this.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, y + 10, 100, this.textColor);
     }
 
     /**
@@ -88,12 +75,12 @@ public class GuiMonsterMasher extends GuiStructure {
         this.performCancelOrBuildOrHouseFacing(this.configuration, button);
 
         if (button == this.btnGlassColor) {
-            this.configuration.dyeColor = EnumDyeColor.byMetadata(this.configuration.dyeColor.getMetadata() + 1);
-            this.btnGlassColor.displayString = GuiLangKeys.translateDye(this.configuration.dyeColor);
+            this.configuration.dyeColor = FullDyeColor.ById(this.configuration.dyeColor.getId() + 1);
+            this.btnGlassColor.displayString = GuiLangKeys.translateFullDye(this.configuration.dyeColor);
         } else if (button == this.btnVisualize) {
             StructureMonsterMasher structure = StructureMonsterMasher.CreateInstance(StructureMonsterMasher.ASSETLOCATION, StructureMonsterMasher.class);
             StructureRenderHandler.setStructure(structure, EnumFacing.NORTH, this.configuration);
-            this.mc.displayGuiScreen(null);
+            this.closeScreen();
         }
     }
 }

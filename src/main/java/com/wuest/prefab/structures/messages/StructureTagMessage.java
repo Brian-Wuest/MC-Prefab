@@ -69,7 +69,6 @@ public class StructureTagMessage extends TagMessage {
         HorseStable(4, new HorseStableConfiguration()),
         ModularHouse(5, new ModularHouseConfiguration()),
         MonsterMasher(6, new MonsterMasherConfiguration()),
-        NetherGate(7, new NetherGateConfiguration()),
         ProduceFarm(8, new ProduceFarmConfiguration()),
         StartHouse(9, new HouseConfiguration()),
         TreeFarm(10, new TreeFarmConfiguration()),

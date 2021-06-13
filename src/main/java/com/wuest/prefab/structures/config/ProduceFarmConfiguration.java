@@ -1,53 +1,53 @@
 package com.wuest.prefab.structures.config;
 
 import com.wuest.prefab.ModRegistry;
+import com.wuest.prefab.blocks.FullDyeColor;
 import com.wuest.prefab.structures.predefined.StructureProduceFarm;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumDyeColor;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 
 /**
  * @author WuestMan
  */
 public class ProduceFarmConfiguration extends StructureConfiguration {
     private static String dyeColorTag = "dyeColor";
-    public EnumDyeColor dyeColor;
+    public FullDyeColor dyeColor;
 
     @Override
     public void Initialize() {
         super.Initialize();
         this.houseFacing = EnumFacing.NORTH;
-        this.dyeColor = EnumDyeColor.CYAN;
+        this.dyeColor = FullDyeColor.CYAN;
     }
 
     @Override
     protected void CustomReadFromNBTTag(NBTTagCompound messageTag, StructureConfiguration config) {
         if (messageTag.hasKey(ProduceFarmConfiguration.dyeColorTag)) {
-            ((ProduceFarmConfiguration) config).dyeColor = EnumDyeColor.byMetadata(messageTag.getInteger(ProduceFarmConfiguration.dyeColorTag));
+            ((ProduceFarmConfiguration) config).dyeColor = FullDyeColor.ById(messageTag.getInteger(ProduceFarmConfiguration.dyeColorTag));
         }
     }
 
     @Override
-    protected NBTTagCompound CustomWriteToNBTTagCompound(NBTTagCompound tag) {
-        tag.setInteger(ProduceFarmConfiguration.dyeColorTag, this.dyeColor.getMetadata());
+    protected NBTTagCompound CustomWriteToCompoundNBT(NBTTagCompound tag) {
+        tag.setInteger(ProduceFarmConfiguration.dyeColorTag, this.dyeColor.getId());
 
         return tag;
     }
 
     /**
-     * Custom method to read the NBTTagCompound message.
+     * Custom method to read the CompoundNBT message.
      *
      * @param messageTag The message to create the configuration from.
-     * @return An new configuration object with the values derived from the NBTTagCompound.
+     * @return An new configuration object with the values derived from the CompoundNBT.
      */
     @Override
-    public ProduceFarmConfiguration ReadFromNBTTagCompound(NBTTagCompound messageTag) {
+    public ProduceFarmConfiguration ReadFromCompoundNBT(NBTTagCompound messageTag) {
         ProduceFarmConfiguration config = new ProduceFarmConfiguration();
 
-        return (ProduceFarmConfiguration) super.ReadFromNBTTagCompound(messageTag, config);
+        return (ProduceFarmConfiguration) super.ReadFromCompoundNBT(messageTag, config);
     }
 
     /**
@@ -58,12 +58,11 @@ public class ProduceFarmConfiguration extends StructureConfiguration {
      * @param hitBlockPos This hit block position.
      */
     @Override
-    protected void ConfigurationSpecificBuildStructure(EntityPlayer player, World world, BlockPos hitBlockPos) {
+    protected void ConfigurationSpecificBuildStructure(EntityPlayer player, WorldServer world, BlockPos hitBlockPos) {
         StructureProduceFarm structure = StructureProduceFarm.CreateInstance(StructureProduceFarm.ASSETLOCATION, StructureProduceFarm.class);
 
         if (structure.BuildStructure(this, world, hitBlockPos, EnumFacing.NORTH, player)) {
-            player.inventory.clearMatchingItems(ModRegistry.ProduceFarm, -1, 1, null);
-            player.inventoryContainer.detectAndSendChanges();
+            this.RemoveStructureItemFromPlayer(player, ModRegistry.ProduceFarm);
         }
     }
 }

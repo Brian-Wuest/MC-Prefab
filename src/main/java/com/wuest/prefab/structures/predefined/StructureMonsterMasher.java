@@ -62,7 +62,7 @@ public class StructureMonsterMasher extends Structure {
                 && foundBlock.getRegistryName().getPath().equals(Blocks.STAINED_GLASS.getRegistryName().getPath())) {
             MonsterMasherConfiguration wareHouseConfiguration = (MonsterMasherConfiguration) configuration;
 
-            blockState = blockState.withProperty(BlockStainedGlass.COLOR, wareHouseConfiguration.dyeColor);
+            blockState = this.getStainedGlassBlock(wareHouseConfiguration.dyeColor);
             block.setBlockState(blockState);
             this.priorityOneBlocks.add(block);
 

@@ -1,14 +1,13 @@
 package com.wuest.prefab.structures.gui;
 
+import com.wuest.prefab.Tuple;
 import com.wuest.prefab.events.ClientEventHandler;
 import com.wuest.prefab.gui.GuiLangKeys;
 import com.wuest.prefab.structures.config.BulldozerConfiguration;
 import com.wuest.prefab.structures.messages.StructureTagMessage.EnumStructureConfiguration;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraftforge.fml.client.config.GuiButtonExt;
 
-import java.awt.*;
 import java.io.IOException;
 
 /**
@@ -19,51 +18,38 @@ public class GuiBulldozer extends GuiStructure {
     protected BulldozerConfiguration configuration;
 
     /**
-     * Intializes a new instance of the {@link GuiBulldozer} class.
+     * Initializes a new instance of the {@link GuiBulldozer} class.
      *
-     * @param x The x-axis location.
-     * @param y The y-axis location.
-     * @param z the z-axis location.
      */
-    public GuiBulldozer(int x, int y, int z) {
-        super(x, y, z, true);
+    public GuiBulldozer() {
+        super();
 
         this.structureConfiguration = EnumStructureConfiguration.Bulldozer;
+        this.modifiedInitialXAxis = 125;
+        this.modifiedInitialYAxis = 83;
     }
 
     @Override
     protected void Initialize() {
         this.configuration = ClientEventHandler.playerConfig.getClientConfig("Bulldozer", BulldozerConfiguration.class);
         this.configuration.pos = this.pos;
-        int color = Color.DARK_GRAY.getRGB();
 
         // Get the upper left hand corner of the GUI box.
-        int grayBoxX = this.getCenteredXAxis() - 125;
-        int grayBoxY = this.getCenteredYAxis() - 83;
+        Tuple<Integer, Integer> adjustedCorner = this.getAdjustedXYValue();
+        int grayBoxX = adjustedCorner.getFirst();
+        int grayBoxY = adjustedCorner.getSecond();
+
 
         // Create the done and cancel buttons.
-        this.btnBuild = new GuiButtonExt(1, grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_BUILD));
-        this.buttonList.add(this.btnBuild);
+        this.btnBuild = this.createAndAddButton(1, grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.GUI_BUTTON_BUILD);
 
-        this.btnCancel = new GuiButtonExt(2, grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.translateString(GuiLangKeys.GUI_BUTTON_CANCEL));
-        this.buttonList.add(this.btnCancel);
+        this.btnCancel = this.createAndAddButton(2, grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.GUI_BUTTON_CANCEL);
     }
 
-    /**
-     * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
-     */
     @Override
-    public void drawScreen(int x, int y, float f) {
-        int grayBoxX = this.getCenteredXAxis() - 125;
-        int grayBoxY = this.getCenteredYAxis() - 83;
-
-        this.drawDefaultBackground();
-
-        this.drawControlBackgroundAndButtonsAndLabels(grayBoxX, grayBoxY, x, y);
-
-        this.mc.fontRenderer.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BULLDOZER_DESCRIPTION), grayBoxX + 10, grayBoxY + 10, 230, this.textColor);
-
-        this.mc.fontRenderer.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_CLEARED_AREA), grayBoxX + 10, grayBoxY + 40, 230, this.textColor);
+    protected void postButtonRender(int x, int y, int mouseX, int mouseY, float partialTicks) {
+        String strToDraw = GuiLangKeys.translateString(GuiLangKeys.GUI_BULLDOZER_DESCRIPTION) + "\n \n" + GuiLangKeys.translateString(GuiLangKeys.GUI_CLEARED_AREA);
+        this.drawSplitString(strToDraw, x + 10, y + 10, 230, this.textColor);
     }
 
     /**

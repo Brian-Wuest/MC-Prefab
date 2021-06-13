@@ -1,6 +1,6 @@
 package com.wuest.prefab.gui.controls;
 
-import com.wuest.prefab.gui.GuiTabScreen;
+import com.wuest.prefab.gui.GuiUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.audio.SoundHandler;
@@ -118,7 +118,7 @@ public class GuiTab extends Gui {
          * if (this.hovered) { System.out.println("Hovering Over Tab: X: " + mouseX + " Y: " + mouseY); }
          */
 
-        GuiTabScreen.drawModalRectWithCustomSizedTexture(this.xPosition, this.yPosition, 0, this.width, this.height, this.width, this.height);
+        GuiUtils.drawModalRectWithCustomSizedTexture(this.xPosition, this.yPosition, 0, this.width, this.height, this.width, this.height);
         this.mouseDragged(mc, mouseX, mouseY);
         int j = Color.LIGHT_GRAY.getRGB();
 

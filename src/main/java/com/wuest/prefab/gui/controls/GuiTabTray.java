@@ -1,6 +1,6 @@
 package com.wuest.prefab.gui.controls;
 
-import com.wuest.prefab.gui.GuiTabScreen;
+import com.wuest.prefab.gui.GuiUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.util.ResourceLocation;
@@ -84,8 +84,8 @@ public class GuiTabTray extends Gui {
     }
 
     public void DrawTabs(Minecraft mc, int mouseX, int mouseY) {
-        mc.getTextureManager().bindTexture(backgroundTextures);
-        GuiTabScreen.drawModalRectWithCustomSizedTexture(this.trayX, this.trayY, 0, this.trayWidth, 35, this.trayWidth, 35);
+        GuiUtils.bindTexture(backgroundTextures);
+        GuiUtils.drawModalRectWithCustomSizedTexture(this.trayX, this.trayY, 0, this.trayWidth, 35, this.trayWidth, 35);
 
         for (GuiTab tab : this.tabs) {
             tab.drawTab(mc, mouseX, mouseY);

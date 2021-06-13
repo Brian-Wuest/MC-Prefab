@@ -17,6 +17,7 @@
     ],
     "result": {
         "item": "minecraft:stone",
-        "count": 9
+        "count": 9,
+        "data": 0
     }
 }
