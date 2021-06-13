@@ -483,7 +483,7 @@ public class Structure {
         IBlockState blockState = Blocks.STAINED_GLASS.getDefaultState();
 
         if (color != FullDyeColor.CLEAR) {
-            blockState.withProperty(BlockStainedGlass.COLOR, color.getLinkedColor());
+            blockState = blockState.withProperty(BlockStainedGlass.COLOR, color.getLinkedColor());
         } else {
             blockState = Blocks.GLASS.getDefaultState();
         }
@@ -495,7 +495,7 @@ public class Structure {
         IBlockState blockState = Blocks.STAINED_GLASS_PANE.getDefaultState();
 
         if (color != FullDyeColor.CLEAR) {
-            blockState.withProperty(BlockStainedGlass.COLOR, color.getLinkedColor());
+            blockState = blockState.withProperty(BlockStainedGlass.COLOR, color.getLinkedColor());
         } else {
             blockState = Blocks.GLASS_PANE.getDefaultState();
         }

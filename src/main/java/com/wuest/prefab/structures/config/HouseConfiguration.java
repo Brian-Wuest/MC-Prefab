@@ -149,7 +149,7 @@ public class HouseConfiguration extends StructureConfiguration {
             }
 
             if (tag.hasKey(HouseConfiguration.glassColorTag)) {
-                config.glassColor = FullDyeColor.valueOf(tag.getString(HouseConfiguration.glassColorTag));
+                config.glassColor = FullDyeColor.ByName(tag.getString(HouseConfiguration.glassColorTag));
             }
 
             if (tag.hasKey(HouseConfiguration.bedColorTag)) {

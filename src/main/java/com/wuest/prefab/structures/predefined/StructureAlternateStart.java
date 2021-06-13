@@ -519,17 +519,13 @@ public class StructureAlternateStart extends Structure {
                     originalPos,
                     this.getClearSpace().getShape().getDirection(),
                     configuration.houseFacing);
-        }
-
-        if (foundBlock.getRegistryName().getNamespace().equals(Blocks.STAINED_GLASS.getRegistryName().getNamespace())
-                && foundBlock.getRegistryName().getPath().equals(Blocks.STAINED_GLASS.getRegistryName().getPath())) {
+        } else if (foundBlock instanceof BlockStainedGlass) {
             blockState = this.getStainedGlassBlock(houseConfig.glassColor);
             block.setBlockState(blockState);
             this.priorityOneBlocks.add(block);
 
             return true;
-        } else if (foundBlock.getRegistryName().getNamespace().equals(Blocks.STAINED_GLASS_PANE.getRegistryName().getNamespace())
-                && foundBlock.getRegistryName().getPath().equals(Blocks.STAINED_GLASS_PANE.getRegistryName().getPath())) {
+        } else if (foundBlock instanceof BlockStainedGlassPane) {
             blockState = this.getStainedGlassPaneBlock(houseConfig.glassColor);
 
             BuildBlock.SetBlockState(
