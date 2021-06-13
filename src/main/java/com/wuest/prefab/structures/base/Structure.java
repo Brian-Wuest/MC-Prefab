@@ -51,6 +51,9 @@ public class Structure {
     public ArrayList<BuildBlock> priorityOneBlocks = new ArrayList<BuildBlock>();
     public ArrayList<BuildBlock> priorityTwoBlocks = new ArrayList<BuildBlock>();
     public ArrayList<BuildBlock> priorityThreeBlocks = new ArrayList<BuildBlock>();
+    public ArrayList<BuildBlock> priorityFourBlocks = new ArrayList<>();
+    public ArrayList<BuildBlock> priorityFiveBlocks = new ArrayList<>();
+    public ArrayList<BuildBlock> airBlocks = new ArrayList<>();
     public StructureConfiguration configuration;
     public World world;
     public BlockPos originalPos;
@@ -379,23 +382,54 @@ public class Structure {
                             block.setSubBlock(subBlock);
                         }
 
+                        boolean priorityTwoBlock = foundBlock instanceof BlockHopper;
+
+                        boolean priorityThreeBlock = foundBlock instanceof BlockTorch
+                                || foundBlock instanceof BlockSign
+                                || foundBlock instanceof BlockLever
+                                || foundBlock instanceof BlockButton
+                                || foundBlock instanceof BlockBed
+                                || foundBlock instanceof BlockCarpet
+                                || foundBlock instanceof BlockFlowerPot
+                                || foundBlock instanceof BlockReed
+                                || foundBlock instanceof BlockBasePressurePlate
+                                || foundBlock instanceof BlockDoor
+                                || foundBlock instanceof BlockLadder
+                                || foundBlock instanceof BlockVine
+                                || foundBlock instanceof BlockRedstoneWire
+                                || foundBlock instanceof BlockRedstoneDiode
+                                || foundBlock instanceof BlockBanner
+                                || foundBlock instanceof BlockMushroom
+                                || foundBlock instanceof BlockRail;
+
+                        boolean priorityFourBlock = foundBlock instanceof BlockSand;
+
+                        boolean priorityFiveBlock = foundBlock instanceof BlockReed ||
+                                foundBlock instanceof BlockCactus
+                                || foundBlock instanceof BlockDeadBush
+                                || foundBlock instanceof BlockRedstoneTorch;
+
                         if (!block.getHasFacing()) {
                             if (subBlock != null) {
                                 block.setSubBlock(subBlock);
                             }
 
-                            if (foundBlock instanceof BlockFlowerPot
-                                    || foundBlock instanceof BlockCarpet
-                                    || foundBlock instanceof BlockBed) {
+                            if (priorityFiveBlock) {
+                                this.priorityFiveBlocks.add(block);
+                            } else if (priorityFourBlock) {
+                                this.priorityFourBlocks.add(block);
+                            } else if (priorityThreeBlock) {
                                 this.priorityThreeBlocks.add(block);
+                            } else if (foundBlock instanceof BlockAir) {
+                                this.airBlocks.add(block);
+                            } else if (foundBlock instanceof ITileEntityProvider || priorityTwoBlock) {
+                                this.priorityTwoBlocks.add(block);
                             } else {
                                 this.priorityOneBlocks.add(block);
                             }
                         } else {
                             // These blocks may be attached to other facing blocks and must be done later.
-                            if (foundBlock instanceof BlockTorch || foundBlock instanceof BlockSign || foundBlock instanceof BlockLever
-                                    || foundBlock instanceof BlockButton
-                                    || foundBlock instanceof BlockBed) {
+                            if (priorityThreeBlock) {
                                 this.priorityThreeBlocks.add(block);
                             } else {
                                 this.priorityTwoBlocks.add(block);
@@ -442,6 +476,9 @@ public class Structure {
 
     }
 
+    public void BeforeHangingEntityRemoved(EntityHanging hangingEntity) {
+    }
+
     public IBlockState getStainedGlassBlock(FullDyeColor color) {
         IBlockState blockState = Blocks.STAINED_GLASS.getDefaultState();
 
@@ -465,7 +502,6 @@ public class Structure {
 
         return blockState;
     }
-
 
     /**
      * This method is used before any building occurs to check for things or

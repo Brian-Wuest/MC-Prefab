@@ -192,9 +192,18 @@ public class StructureEventHandler {
         } else if (structure.priorityTwoBlocks.size() > 0) {
             currentBlock = structure.priorityTwoBlocks.get(0);
             structure.priorityTwoBlocks.remove(0);
+        } else if (structure.airBlocks.size() > 0) {
+            currentBlock = structure.airBlocks.get(0);
+            structure.airBlocks.remove(0);
         } else if (structure.priorityThreeBlocks.size() > 0) {
             currentBlock = structure.priorityThreeBlocks.get(0);
             structure.priorityThreeBlocks.remove(0);
+        } else if (structure.priorityFourBlocks.size() > 0) {
+            currentBlock = structure.priorityFourBlocks.get(0);
+            structure.priorityFourBlocks.remove(0);
+        } else if (structure.priorityFiveBlocks.size() > 0) {
+            currentBlock = structure.priorityFiveBlocks.get(0);
+            structure.priorityFiveBlocks.remove(0);
         } else {
             // There are no more blocks to set.
             structuresToRemove.add(structure);
