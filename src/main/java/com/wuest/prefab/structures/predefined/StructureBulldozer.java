@@ -5,6 +5,7 @@ import com.wuest.prefab.structures.base.BuildClear;
 import com.wuest.prefab.structures.base.Structure;
 import com.wuest.prefab.structures.config.BulldozerConfiguration;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityHanging;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 
@@ -46,6 +47,15 @@ public class StructureBulldozer extends Structure {
         if (!configuration.creativeMode && Prefab.proxy.getServerConfiguration().allowBulldozerToCreateDrops
                 && state.getBlock().getHarvestLevel(state) < 4 && state.getBlockHardness(world, pos) >= 0.0f) {
             state.getBlock().dropBlockAsItem(this.world, pos, state, 1);
+        }
+    }
+
+    @Override
+    public void BeforeHangingEntityRemoved(EntityHanging hangingEntity) {
+        // Only generate drops for this hanging entity if the bulldozer allows it.
+        // By default the base class doesn't allow hanging entities to generate drops.
+        if (Prefab.proxy.getServerConfiguration().allowBulldozerToCreateDrops) {
+            hangingEntity.onBroken(null);
         }
     }
 }
