@@ -1,7 +1,6 @@
 package com.wuest.prefab;
 
-import com.wuest.prefab.Proxy.CommonProxy;
-
+import com.wuest.prefab.proxy.CommonProxy;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -14,85 +13,79 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 
 /**
  * The starting point to load all of the blocks, items and other objects associated with this mod.
- * 
- * @author WuestMan
  *
+ * @author WuestMan
  */
 @Mod(modid = Prefab.MODID, version = Prefab.VERSION, acceptedMinecraftVersions = "[1.12]", guiFactory = "com.wuest.prefab.Gui.ConfigGuiFactory", updateJSON = "https://raw.githubusercontent.com/Brian-Wuest/MC-Prefab/master/changeLog.json")
-public class Prefab
-{
-	/**
-	 * This is the ModID
-	 */
-	public static final String MODID = "prefab";
+public class Prefab {
+    /**
+     * This is the ModID
+     */
+    public static final String MODID = "prefab";
 
-	/**
-	 * This is the current mod version.
-	 */
-	public static final String VERSION = "@VERSION@";
+    /**
+     * This is the current mod version.
+     */
+    public static final String VERSION = "@VERSION@";
 
-	/**
-	 * This is used to determine if the mod is currently being debugged.
-	 */
-	public static boolean isDebug = false;
+    /**
+     * This is used to determine if the mod is currently being debugged.
+     */
+    public static boolean isDebug = false;
 
-	/**
-	 * This is the static instance of this class.
-	 */
-	@Instance(value = Prefab.MODID)
-	public static Prefab instance;
+    /**
+     * This is the static instance of this class.
+     */
+    @Instance(value = Prefab.MODID)
+    public static Prefab instance;
 
-	/**
-	 * Says where the client and server 'proxy' code is loaded.
-	 */
-	@SidedProxy(clientSide = "com.wuest.prefab.Proxy.ClientProxy", serverSide = "com.wuest.prefab.Proxy.CommonProxy")
-	public static CommonProxy proxy;
+    /**
+     * Says where the client and server 'proxy' code is loaded.
+     */
+    @SidedProxy(clientSide = "com.wuest.prefab.Proxy.ClientProxy", serverSide = "com.wuest.prefab.Proxy.CommonProxy")
+    public static CommonProxy proxy;
 
-	/**
-	 * The network class used to send messages.
-	 */
-	public static SimpleNetworkWrapper network;
+    /**
+     * The network class used to send messages.
+     */
+    public static SimpleNetworkWrapper network;
 
-	/**
-	 * This is the configuration of the mod.
-	 */
-	public static Configuration config;
+    /**
+     * This is the configuration of the mod.
+     */
+    public static Configuration config;
 
-	static
-	{
-		Prefab.isDebug = java.lang.management.ManagementFactory.getRuntimeMXBean().getInputArguments().toString().contains("-agentlib:jdwp");
-	}
+    static {
+        Prefab.isDebug = java.lang.management.ManagementFactory.getRuntimeMXBean().getInputArguments().toString().contains("-agentlib:jdwp");
+    }
 
-	/**
-	 * The pre-initialization event.
-	 * 
-	 * @param event The event from forge.
-	 */
-	@EventHandler
-	public void preInit(FMLPreInitializationEvent event)
-	{
-		Prefab.proxy.preInit(event);
-	}
+    /**
+     * The pre-initialization event.
+     *
+     * @param event The event from forge.
+     */
+    @EventHandler
+    public void preInit(FMLPreInitializationEvent event) {
+        Prefab.proxy.preInit(event);
+    }
 
-	/**
-	 * The initialization event.
-	 * 
-	 * @param event The event from forge.
-	 */
-	@EventHandler
-	public void init(FMLInitializationEvent event)
-	{
-		Prefab.proxy.init(event);
-	}
+    /**
+     * The initialization event.
+     *
+     * @param event The event from forge.
+     */
+    @EventHandler
+    public void init(FMLInitializationEvent event) {
+        Prefab.proxy.init(event);
+    }
 
-	/**
-	 * The post-initialization event.
-	 * 
-	 * @param event The event from forge.
-	 */
-	@EventHandler
-	public void postinit(FMLPostInitializationEvent event)
-	{
-		Prefab.proxy.postinit(event);
-	}
+    /**
+     * The post-initialization event.
+     *
+     * @param event The event from forge.
+     */
+    @EventHandler
+    public void postinit(FMLPostInitializationEvent event) {
+        Prefab.proxy.postinit(event);
+    }
 }
