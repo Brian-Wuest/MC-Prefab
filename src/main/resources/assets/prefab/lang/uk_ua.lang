@@ -1,0 +1,216 @@
+item.prefab:item_start_house.name=Стартовий Будинок
+item.prefab:item_warehouse.name=Склад
+item.prefab:item_chicken_coop.name=Курник
+item.prefab:item_produce_farm.name=Виробнича Ферма
+item.prefab:item_tree_farm.name=Ферма Дерев
+item.prefab:item_fish_pond.name=Рибний Ставок
+item.prefab:item_compressed_chest.name=Стиснена Скриня
+item.prefab:item_pile_of_bricks.name=Купа Цегли
+item.prefab:item_pallet_of_bricks.name=Піддон Цегли
+item.prefab:item_advanced_warehouse.name=Розширений Склад
+item.prefab:item_monster_masher.name=Ферма Монстрів
+item.prefab:item_warehouse_upgrade.name=Покращення Складу
+item.prefab:item_bundle_of_timber.name=Зв'язка Деревини
+item.prefab:item_horse_stable.name=Стайня
+item.prefab:item_nether_gate.name=Врата в Ад
+item.prefab:item_modular_house.name=Модульний Будинок
+item.prefab:item_basic_structure.name=Базова Структура
+item.prefab:item_instant_bridge.name=Швидкий Міст
+item.prefab:item_moderate_house.name=Невеличкий Будинок
+item.prefab:item_bulldozer.name=Бульдозер
+item.prefab:item_creative_bulldozer.name=Творчий Бульдозер
+item.prefab:item_structure_part.name=Складова Частина
+item.prefab:item_heap_of_timber.name=Купа Деревини
+item.prefab:item_ton_of_timber.name=Тонна Деревини
+
+item.prefab:item_advanced_chicken_coop.name=Розширений Курник
+item.prefab:item_advanced_horse_stable.name=Розширена Стайня
+item.prefab:item_barn.name=Амбар
+item.prefab:item_machinery_tower.name=Вежа для Механізмів
+item.prefab:item_string_of_lanterns.name=Гірлянда Ліхтарів
+item.prefab:item_coil_of_lanterns.name=Котушка Ліхтарів
+item.prefab:item_defense_bunker.name=Захисний Бункер
+item.prefab:item_villager_houses.name=Сільські Будинки
+item.prefab:item_mineshaft_entrance.name=Вхід в Шахту
+item.prefab:item_ender_gateway.name=Врата в Край
+item.prefab:item_aqua_base.name=Підводна База
+item.prefab:item_grassy_plain.name=Луг
+item.prefab:item_magic_temple.name=Чарівний Храм
+item.prefab:item_green_house.name=Теплиця
+item.prefab:item_watch_tower.name=Вартова Вежа
+item.prefab:item_welcome_center.name=Центр для Відвідувачів
+item.prefab:item_jail.name=В'язниця
+item.prefab:item_saloon.name=Салун
+item.prefab:item_ski_lodge.name=Лижна База
+item.prefab:item_wind_mill.name=Вітряк
+item.prefab:item_town_hall.name=Ратуша
+item.prefab:item_workshop.name=Майстерня
+
+item.prefab:item_nether_gate_tree.name=Химерне Дерево
+item.prefab:item_nether_gate_skull.name=Древній Череп
+
+tile.prefab:block_compressed_stone.name=Стиснений Камінь
+tile.prefab:block_double_compressed_stone.name=Подвійно Стиснений Камінь
+tile.prefab:block_triple_compressed_stone.name=Потрійно Стиснений Камінь
+tile.prefab:block_compressed_glowstone.name=Стиснений Світлокамінь
+tile.prefab:block_double_compressed_glowstone.name=Подвійно Стиснений Світлокамінь
+tile.prefab:block_compressed_dirt.name=Стиснений Ґрунт
+tile.prefab:block_double_compressed_dirt.name=Подвійно Стиснутий Ґрунт
+tile.prefab:block_drafter.name=Креслярський Стіл
+tile.prefab:block_paper_lantern.name=Паперовий Ліхтар
+tile.prefab:block_compressed_obsidian.name=Стиснений Обсидіан
+tile.prefab:block_double_compressed_obsidian.name=Подвійно Стиснений Обсидіан
+tile.prefab:block_phasing.name=Фазовий Блок
+tile.prefab:block_boundary.name=Бар'єрний Блок
+tile.prefab:block_glass_stairs.name=Скляні Сходи
+tile.prefab:block_half_glass_slab.name=Скляна Плита
+tile.prefab:block_half_andesite_slab.name=Андезитова плита
+tile.prefab:block_half_diorite_slab.name=Діоритова плита
+tile.prefab:block_half_granite_slab.name=Гранітна плита
+
+prefab.gui.fishpond.structure.facing=Примітка: Якщо ви дивитесь на північ, оберіть південь щоб причал відходив від вас. Біла окантовка - лише для показу розміру.
+prefab.gui.cleared_area=Очищена зона буде в тому напрямку, в який ви спрямовані.
+
+prefab.gui.producefarm.structure.size=Ця структура розміром 32x32 блока.
+
+prefab.gui.starter.tab.general=Загальні
+prefab.gui.starter.tab.config=Параметри
+prefab.gui.starter.tab.block=Блоки/Розмір
+prefab.gui.starter.style.label=Стиль Будинку
+prefab.gui.starter.floortype.label=Тип Підлоги
+prefab.gui.starter.ceilingtype.label=Тип Стелі
+prefab.gui.starter.walltype.label=Тип Стіни
+prefab.gui.starter.depth.label=Внутрішня Глибина
+prefab.gui.starter.width.label=Внутрішня Ширина
+prefab.gui.starter.basic.display=Звичайний Будинок
+prefab.gui.starter.basic.notes=Звичайний камінь та цегляний будинок.
+prefab.gui.starter.ranch.display=Ранчо
+prefab.gui.starter.ranch.notes=Будинок спроектований у стилю ранчо.
+prefab.gui.starter.loft.display=Лофт
+prefab.gui.starter.loft.notes=Будинок, спроектований з горищем для скринь.
+prefab.gui.starter.hobbit.display=Хоббіт
+prefab.gui.starter.hobbit.notes=Будинок, спроектований під землею, як у хоббітов.
+prefab.gui.starter.desert.display=Пустельний
+prefab.gui.starter.desert.notes=Будинок, спроектований як піраміда.
+prefab.gui.starter.snowy.display=Сніжний
+prefab.gui.starter.snowy.notes=Будинок, спроектований як іглу.
+
+prefab.gui.starter.addtorches=Додати Смолоскипи
+prefab.gui.starter.addbed=Додати Ліжко
+prefab.gui.starter.addcraftingtable=Додати Верстак
+prefab.gui.starter.addfurnace=Додати Піч
+prefab.gui.starter.addchest=Додати Скриню
+prefab.gui.starter.addchestcontents=Додати Вміст Скрині
+prefab.gui.starter.addfarm=Додати Ферму
+prefab.gui.starter.floorstone=Тип Підлогового Камню
+prefab.gui.starter.ceilingtype=Тип Стельового Камню
+prefab.gui.starter.walltype=Тип Деревини Стін
+prefab.gui.starter.ceilingflat=Плоска Стеля
+prefab.gui.starter.buildmineshaft=Вирити Шахту
+
+prefab.gui.villager.house.flat=Плоский Дах
+prefab.gui.villager.house.angled=Нахилений Дах
+prefab.gui.villager.house.fenced=Огороджений Дах
+prefab.gui.villager.blacksmith=Кузня
+prefab.gui.villager.long_house=Довгий Будинок
+
+prefab.gui.moderate_house.spruce=Смерековий Будинок
+prefab.gui.moderate_house.acacia=Акацієвий Будинок
+prefab.gui.moderate_house.earthen=Земляний Будинок
+prefab.gui.moderate_house.jungle=Джунглієвий Будинок
+prefab.gui.moderate_house.mountain=Гірський Будинок
+
+prefab.gui.bulldozer_desc=Цей предмет почистить область розміром 16x16x16 блоків та віддасть зламані блоки.
+
+prefab.ceiling.block.type.stone=Кам'яна Цегла
+prefab.ceiling.block.type.brick=Цегла
+prefab.ceiling.block.type.sand=Пісковик
+
+prefab.wall.block.type.oak=Дуб
+prefab.wall.block.type.spruce=Смерека
+prefab.wall.block.type.birch=Береза
+prefab.wall.block.type.jungle=Тропічне
+prefab.wall.block.type.acacia=Акація
+prefab.wall.block.type.darkoak=Темний Дуб
+
+prefab.gui.treefarm.facing=Направлення Ферми Дерев
+prefab.gui.treefarm.structure.size=Ця структура розміром 38x38 блоків.
+
+prefab.gui.structure.facing=Направлення Структури
+prefab.gui.structure.glass=Колір Скла
+prefab.gui.structure.bed_color=Колір Ліжка
+
+prefab.gui.structure.facing.player=Примітка: Якщо ви дивитесь на північ, обирайте південь, щоб структура дивилася на вас.
+prefab.gui.structure.block.clicked=Червоний прямокутник справа на зображенні відображає блок на який ви натиснули.
+prefab.gui.structure.door.facing=Примітка: Якщо ви дивитесь на північ, обирайте південь, щоб двері дивилися на вас.
+prefab.gui.structure.nobuild=Неможливо побудувати структуру через захищенні блоки/область або неруйнівні блоки у області. Блок: %1$s Координати: x=%2$s, y=%3$s, z=%4$s
+
+prefab.gui.button.build=Побудувати!
+prefab.gui.button.cancel=Скасувати
+prefab.gui.button.preview=Перегляд!
+
+prefab.gui.tooltip.shift=Натисніть§9 Shift §7для отримання більшої інформації.
+prefab.gui.tooltip.boundary_block=Спочатку невидимий, стає видимим при отриманні редстоун сигналу.
+prefab.gui.tooltip.bulldozer_unpowered=Повинен бути проникнут силою землі та магії. Спробуйте поєднати з потрійно стисненим камнем на ковадлі.
+prefab.gui.tooltip.bulldozer_powered=Проникнен силою землі та магії. Ви вірите, що велика область може буте очищена.
+
+prefab.gui.preview.complete=Структура Завершена!
+prefab.gui.preview.notice=Натисніть праву кнопку миши на будь-який блок у світі щоб сховати перегляд.
+
+prefab.gui.north=Північ
+prefab.gui.east=Схід
+prefab.gui.south=Південь
+prefab.gui.west=Захід
+
+prefab.gui.white=Білий
+prefab.gui.orange=Помаранчовий
+prefab.gui.magenta=Пурпуровий
+prefab.gui.yellow=Жовтий
+prefab.gui.lime=Лаймовий
+prefab.gui.pink=Рожевий
+prefab.gui.gray=Сірий
+prefab.gui.silver=Срібний
+prefab.gui.cyan=Бірюзове
+prefab.gui.purple=Фіолетовий
+prefab.gui.blue=Синій
+prefab.gui.brown=Коричневий
+prefab.gui.green=Зелений
+prefab.gui.red=Червоний
+prefab.gui.black=Чорний
+prefab.gui.clear=Прозорий
+
+prefab.gui.bridge_length=Довжина Мосту
+prefab.gui.bridge_material=Матеріал Мосту
+prefab.gui.bridge_include_roof=Побудувати Дах
+prefab.gui.bridge_interior_height=Внутрішня Висота
+
+prefab.gui.material.cobble_stone=Кругляк
+prefab.gui.material.stone=Камінь
+prefab.gui.material.stone_brick=Кам'яна Цегла
+prefab.gui.material.brick=Цегла
+prefab.gui.material.chiseled_stone=Точена Кам'яна Цегла
+prefab.gui.material.granite=Граніт
+prefab.gui.material.smooth_granite=Полірований Граніт
+prefab.gui.material.andesite=Андезит
+prefab.gui.material.smooth_andesite=Полірований Андезит
+prefab.gui.material.diorite=Діорит
+prefab.gui.material.smooth_diorite=Полірований Діорит
+prefab.gui.material.red_sandstone=Червоний пісковик
+
+prefab.gui.part_style.wall=Стіна
+prefab.gui.part_style.gate=Ворота
+prefab.gui.part_style.frame=Рамка
+prefab.gui.part_style.stairs=Сходи
+prefab.gui.part_style.circle=Коло
+prefab.gui.part_style.door_way=Дверний Отвір
+prefab.gui.part_style.floor=Підлога
+prefab.gui.part_style.roof=Дах
+
+prefab.gui.style=Стиль
+prefab.gui.material=Матеріал
+prefab.gui.height=Висота
+prefab.gui.width=Ширина
+prefab.gui.length=Довжина
+prefab.gui.stairs_height=Висота Сход
+prefab.gui.stairs_width=Ширина Сход
+prefab.gui.building_options=Параметри Будівництва"

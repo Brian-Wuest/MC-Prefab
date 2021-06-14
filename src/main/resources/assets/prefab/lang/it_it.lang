@@ -1,0 +1,216 @@
+item.prefab:item_start_house.name=Casa Di Partenza
+item.prefab:item_warehouse.name=Magazzino
+item.prefab:item_chicken_coop.name=Pollaio
+item.prefab:item_produce_farm.name=Campo Per Coltivare
+item.prefab:item_tree_farm.name=Piantagione Di Alberi
+item.prefab:item_fish_pond.name=Laghetto
+item.prefab:item_compressed_chest.name=Cassa Compressa
+item.prefab:item_pile_of_bricks.name=Mucchio di Mattoni
+item.prefab:item_pallet_of_bricks.name=Pallet di Mattoni
+item.prefab:item_advanced_warehouse.name=Magazzino Avanzato
+item.prefab:item_monster_masher.name=Farm Di Mostri
+item.prefab:item_warehouse_upgrade.name=Miglioramento del Magazzino
+item.prefab:item_bundle_of_timber.name=Fascio di Legname
+item.prefab:item_horse_stable.name=Scuderia
+item.prefab:item_nether_gate.name=Portale per il Nether
+item.prefab:item_modular_house.name=Casa Modulare
+item.prefab:item_basic_structure.name=Struttura Base
+item.prefab:item_instant_bridge.name=Ponte Istantaneo
+item.prefab:item_moderate_house.name=Casa Moderata
+item.prefab:item_bulldozer.name=Escavatore
+item.prefab:item_creative_bulldozer.name=Escavatore creativo
+item.prefab:item_structure_part.name=Parte di Struttura
+item.prefab:item_heap_of_timber.name=Cumulo di Legname
+item.prefab:item_ton_of_timber.name=Tonnellata di Legname
+
+item.prefab:item_advanced_chicken_coop.name=Pollaio Avanzato
+item.prefab:item_advanced_horse_stable.name=Scuderia Avanzata
+item.prefab:item_barn.name=Fienile
+item.prefab:item_machinery_tower.name=Torre per Macchine
+item.prefab:item_string_of_lanterns.name=Catena di Lanterne
+item.prefab:item_coil_of_lanterns.name=Rotolo di Lanterne
+item.prefab:item_defense_bunker.name=Bunker Difensivo
+item.prefab:item_villager_houses.name=Casa Villico
+item.prefab:item_mineshaft_entrance.name=Entrata Miniera
+item.prefab:item_ender_gateway.name=Portale per l'Ender
+item.prefab:item_aqua_base.name=Base Acquatica
+item.prefab:item_grassy_plain.name=Piano Erboso
+item.prefab:item_magic_temple.name=Tempio Magico
+item.prefab:item_green_house.name=Serra
+item.prefab:item_watch_tower.name=Torre di Guardia
+item.prefab:item_welcome_center.name=Centro di Benvenuto
+item.prefab:item_jail.name=Prigione
+item.prefab:item_saloon.name=Saloon
+item.prefab:item_ski_lodge.name=Baita
+item.prefab:item_wind_mill.name=Mulino a Vento
+item.prefab:item_town_hall.name=Municipio
+item.prefab:item_workshop.name=Officina
+
+item.prefab:item_nether_gate_tree.name=Albero Corrotto
+item.prefab:item_nether_gate_skull.name=Teschio Antico
+
+tile.prefab:block_compressed_stone.name=Pietra Compressa
+tile.prefab:block_double_compressed_stone.name=Pietra Doppiamente Compressa
+tile.prefab:block_triple_compressed_stone.name=Pietra Triplamente Compressa
+tile.prefab:block_compressed_glowstone.name=Luminite Compressa
+tile.prefab:block_double_compressed_glowstone.name=Luminite Doppiamente Compressa
+tile.prefab:block_compressed_dirt.name=Terra Compressa
+tile.prefab:block_double_compressed_dirt.name=Terra Doppiamente Compressa
+tile.prefab:block_drafter.name=Estensore
+tile.prefab:block_paper_lantern.name=Lanterna di Carta
+tile.prefab:block_compressed_obsidian.name=Ossidiana Compressa
+tile.prefab:block_double_compressed_obsidian.name=Ossidiana Doppiamente Compressa
+tile.prefab:block_phasing.name=Blocco di Fase
+tile.prefab:block_boundary.name=Blocco di Confine
+tile.prefab:block_glass_stairs.name=Scala di Vetro
+tile.prefab:block_half_glass_slab.name=Lastra di Vetro
+tile.prefab:block_half_andesite_slab.name=Lastra di andesite
+tile.prefab:block_half_diorite_slab.name=Lastra di diorite
+tile.prefab:block_half_granite_slab.name=Lastra di granito
+
+prefab.gui.fishpond.structure.facing=Nota: Se sei rivolto a nord, scegli il sud così il molo si allontanerà da te. Il bordo bianco è solo per mostrare la dimensione.
+prefab.gui.cleared_area=L'area verrà sgombrata nella direzione che stai guardando.
+
+prefab.gui.producefarm.structure.size=Questa struttura misura 32x32 blocchi.
+
+prefab.gui.starter.tab.general=Generale
+prefab.gui.starter.tab.config=Configurazione
+prefab.gui.starter.tab.block=Blocco/Dimensione
+prefab.gui.starter.style.label=Stile Casa
+prefab.gui.starter.floortype.label=Stile Blocco Pavimento
+prefab.gui.starter.ceilingtype.label=Stile Blocco Soffitto
+prefab.gui.starter.walltype.label=Stile Legno Muro
+prefab.gui.starter.depth.label=Profondità Interna
+prefab.gui.starter.width.label=Larghezza Interna
+prefab.gui.starter.basic.display=Casa Base
+prefab.gui.starter.basic.notes=Una casa base di pietra e mattoni.
+prefab.gui.starter.ranch.display=Stile Ranch
+prefab.gui.starter.ranch.notes=Una casa in Stile Ranch.
+prefab.gui.starter.loft.display=Stile Loft
+prefab.gui.starter.loft.notes=Una casa con un soppalco per le casse.
+prefab.gui.starter.hobbit.display=Stile Hobbit
+prefab.gui.starter.hobbit.notes=Una casa nel terreno come nello Hobbit.
+prefab.gui.starter.desert.display=Stile Deserto
+prefab.gui.starter.desert.notes=Una casa simile a una piramide.
+prefab.gui.starter.snowy.display=Stile Neve
+prefab.gui.starter.snowy.notes=Una casa simile ad un igloo.
+
+prefab.gui.starter.addtorches=Aggiungi Torce
+prefab.gui.starter.addbed=Aggiungi Letto
+prefab.gui.starter.addcraftingtable=Aggiungi Banco da Lavoro
+prefab.gui.starter.addfurnace=Aggiungi Fornace
+prefab.gui.starter.addchest=Aggiungi Cassa
+prefab.gui.starter.addchestcontents=Aggiungi Cassa Bonus
+prefab.gui.starter.addfarm=Aggiungi Blocchi Arati
+prefab.gui.starter.floorstone=Stile Pietra Pavimento
+prefab.gui.starter.ceilingtype=Stile Pietra Soffitto
+prefab.gui.starter.walltype=Stile Legno Muro
+prefab.gui.starter.ceilingflat=Soffitto Piatto
+prefab.gui.starter.buildmineshaft=Costruisci Miniera
+
+prefab.gui.villager.house.flat=Tetto Piatto
+prefab.gui.villager.house.angled=Tetto Angolato
+prefab.gui.villager.house.fenced=Tetto Recintato
+prefab.gui.villager.blacksmith=Fabbro
+prefab.gui.villager.long_house=Casa Lunga
+
+prefab.gui.moderate_house.spruce=Casa di Abete
+prefab.gui.moderate_house.acacia=Casa di Acacia
+prefab.gui.moderate_house.earthen=Casa di Terra e pietra
+prefab.gui.moderate_house.jungle=Casa nella Giungla
+prefab.gui.moderate_house.mountain=Casa nella Montagna
+
+prefab.gui.bulldozer_desc=Questo oggetto sgombrerà uno spazio di 16x16x16 e fornirà il drop di ogni blocco.
+
+prefab.ceiling.block.type.stone=Mattoni di Pietra
+prefab.ceiling.block.type.brick=Mattone
+prefab.ceiling.block.type.sand=Arenaria
+
+prefab.wall.block.type.oak=Quercia
+prefab.wall.block.type.spruce=Abete
+prefab.wall.block.type.birch=Betulla
+prefab.wall.block.type.jungle=Giungla
+prefab.wall.block.type.acacia=Acacia
+prefab.wall.block.type.darkoak=Quercia Scura
+
+prefab.gui.treefarm.facing=Direzione Piantagione Di Alberi
+prefab.gui.treefarm.structure.size=Questa struttura misura 38x38 blocchi.
+
+prefab.gui.structure.facing=Direzione Struttura
+prefab.gui.structure.glass=Colore Vetro
+prefab.gui.structure.bed_color=Colore Letto
+
+prefab.gui.structure.facing.player=Nota: Se sei rivolto a nord, scegli il sud così la struttura è rivolta verso di te.
+prefab.gui.structure.block.clicked=La casella rossa nella immagine a destra mostra il blocco su cui hai fatto clic.
+prefab.gui.structure.door.facing=Nota: Se sei rivolto a nord, scegli il sud così la porta è rivolta verso di te.
+prefab.gui.structure.nobuild=Impossibile costruire la struttura a causa di blocchi/area protetti o ci sono blocchi indistruttibili nell'area. Nome Blocco: %1$s Posizione Blocco: x=%2$s, y=%3$s, z=%4$s
+
+prefab.gui.button.build=Costruisci!
+prefab.gui.button.cancel=Cancella
+prefab.gui.button.preview=Anteprima!
+
+prefab.gui.tooltip.shift=Premi§9 Shift §7per maggiori informazioni.
+prefab.gui.tooltip.boundary_block=Inizialmente invisibile, diventa visibile quando riceve un segnale di redstone.
+prefab.gui.tooltip.bulldozer_unpowered=Deve essere impregnato con il potere della terra e della magia. Prova a combinarlo in un incudine con pietra triplamente compressa.
+prefab.gui.tooltip.bulldozer_powered=Alimentato con la forza della terra e della magia, credi che una grande area possa essere sgombrata.
+
+prefab.gui.preview.complete=Struttura Completata!
+prefab.gui.preview.notice=Fai clic destro su qualsiasi blocco nel mondo per rimuovere l'anteprima.
+
+prefab.gui.north=Nord
+prefab.gui.east=Est
+prefab.gui.south=Sud
+prefab.gui.west=Ovest
+
+prefab.gui.white=Bianco
+prefab.gui.orange=Arancione
+prefab.gui.magenta=Magenta
+prefab.gui.yellow=Giallo
+prefab.gui.lime=Lime
+prefab.gui.pink=Rosa
+prefab.gui.gray=Grigio
+prefab.gui.silver=Argento
+prefab.gui.cyan=Ciano
+prefab.gui.purple=Viola
+prefab.gui.blue=Blu
+prefab.gui.brown=Marrone
+prefab.gui.green=Verde
+prefab.gui.red=Rosso
+prefab.gui.black=Nero
+prefab.gui.clear=Trasparente
+
+prefab.gui.bridge_length=Lunghezza Ponte
+prefab.gui.bridge_material=Materiale Ponte
+prefab.gui.bridge_include_roof=Includi Tetto
+prefab.gui.bridge_interior_height=Altezza Interna
+
+prefab.gui.material.cobble_stone=Pietrisco
+prefab.gui.material.stone=Pietra
+prefab.gui.material.stone_brick=Mattoni di Pietra
+prefab.gui.material.brick=Mattone
+prefab.gui.material.chiseled_stone=Pietra Cesellata
+prefab.gui.material.granite=Granito
+prefab.gui.material.smooth_granite=Granito Levigato
+prefab.gui.material.andesite=Andesite
+prefab.gui.material.smooth_andesite=Andesite Levigata
+prefab.gui.material.diorite=Diorite
+prefab.gui.material.smooth_diorite=Diorite Levigata
+prefab.gui.material.red_sandstone=arenaria rossa
+
+prefab.gui.part_style.wall=Muro
+prefab.gui.part_style.gate=Cancello
+prefab.gui.part_style.frame=Telaio
+prefab.gui.part_style.stairs=Scale
+prefab.gui.part_style.circle=Cerchio
+prefab.gui.part_style.door_way=Portone
+prefab.gui.part_style.floor=Pavimento
+prefab.gui.part_style.roof=Tetto
+
+prefab.gui.style=Stile
+prefab.gui.material=Materiale
+prefab.gui.height=Altezza
+prefab.gui.width=Larghezza
+prefab.gui.length=Lunghezza
+prefab.gui.stairs_height=Altezza Scale
+prefab.gui.stairs_width=Larghezza Scale
+prefab.gui.building_options=Opzioni di Costruzione"

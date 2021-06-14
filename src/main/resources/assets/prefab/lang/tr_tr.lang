@@ -1,0 +1,216 @@
+item.prefab:item_start_house.name=Başlangıç Evi
+item.prefab:item_warehouse.name=Ambar
+item.prefab:item_chicken_coop.name=Tavuk Kümesi
+item.prefab:item_produce_farm.name=Üretim Çiftliği
+item.prefab:item_tree_farm.name=Ağaç Tarlası
+item.prefab:item_fish_pond.name=Balık Havuzu
+item.prefab:item_compressed_chest.name=Sıkıştırılmış Sandık
+item.prefab:item_pile_of_bricks.name=Tuğla Yığını
+item.prefab:item_pallet_of_bricks.name=Palet Üstünde Tuğla
+item.prefab:item_advanced_warehouse.name=Gelişmiş Ambar
+item.prefab:item_monster_masher.name=Canavar Ezici
+item.prefab:item_warehouse_upgrade.name=Ambar Yükseltmesi
+item.prefab:item_bundle_of_timber.name=Kereste Demeti
+item.prefab:item_horse_stable.name=At Ahırı
+item.prefab:item_nether_gate.name=Nether Kapısı
+item.prefab:item_modular_house.name=Modüler Ev
+item.prefab:item_basic_structure.name=Basit Yapıt
+item.prefab:item_instant_bridge.name=Anında Köprü
+item.prefab:item_moderate_house.name=Orta Boy Ev
+item.prefab:item_bulldozer.name=Ekskavatör
+item.prefab:item_creative_bulldozer.name=Yaratıcı Ekskavatör
+item.prefab:item_structure_part.name=Yapıt Parçası
+item.prefab:item_heap_of_timber.name=Ahşap yığını
+item.prefab:item_ton_of_timber.name=Kereste Tonu
+
+item.prefab:item_advanced_chicken_coop.name=Gelişmiş Tavuk Kümesi
+item.prefab:item_advanced_horse_stable.name=Gelişmiş At Ahırı
+item.prefab:item_barn.name=Ahır
+item.prefab:item_machinery_tower.name=Makine Kulesi
+item.prefab:item_string_of_lanterns.name=Fenerler
+item.prefab:item_coil_of_lanterns.name=Toplu Fenerler
+item.prefab:item_defense_bunker.name=Savunma Sığınağı
+item.prefab:item_villager_houses.name=Köylü Evleri
+item.prefab:item_mineshaft_entrance.name=Maden Kuyusu Girişi
+item.prefab:item_ender_gateway.name=Ender Kapıyolu
+item.prefab:item_aqua_base.name=Deniz Üssü
+item.prefab:item_grassy_plain.name=Çimenlik Ova
+item.prefab:item_magic_temple.name=Sihirli Tapınak
+item.prefab:item_green_house.name=Sera
+item.prefab:item_watch_tower.name=Saat Kulesi
+item.prefab:item_welcome_center.name=Karşılama Merkezi
+item.prefab:item_jail.name=Hapishane
+item.prefab:item_saloon.name=Salon
+item.prefab:item_ski_lodge.name=Kayak emniyeti
+item.prefab:item_wind_mill.name=fırıldak
+item.prefab:item_town_hall.name=Belediye binası
+item.prefab:item_workshop.name=atölye
+
+item.prefab:item_nether_gate_tree.name=Bozuk ağaç
+item.prefab:item_nether_gate_skull.name=Antik kurukafa
+
+tile.prefab:block_compressed_stone.name=Sıkıştırılmış Taş
+tile.prefab:block_double_compressed_stone.name=Çifte Sıkıştırılmış Taş
+tile.prefab:block_triple_compressed_stone.name=Üçlü Sıkıştırılmış Taş
+tile.prefab:block_compressed_glowstone.name=Sıkıştırılmış Işık Taşı
+tile.prefab:block_double_compressed_glowstone.name=Çifte Sıkıştırılmış Işık Taşı
+tile.prefab:block_compressed_dirt.name=Sıkıştırılmış Toprak
+tile.prefab:block_double_compressed_dirt.name=Çifte Sıkıştırılmış Toprak
+tile.prefab:block_drafter.name=Tasarımcı
+tile.prefab:block_paper_lantern.name=Kağıt Fener
+tile.prefab:block_compressed_obsidian.name=Sıkıştırılmış Obsidyen
+tile.prefab:block_double_compressed_obsidian.name=Çifte Sıkıştırılmış Obsidyen
+tile.prefab:block_phasing.name=Fazlık Blok
+tile.prefab:block_boundary.name=Sınır Bloğu
+tile.prefab:block_glass_stairs.name=Cam Merdiven
+tile.prefab:block_half_glass_slab.name=Cam Basamak
+tile.prefab:block_half_andesite_slab.name=andezit levha
+tile.prefab:block_half_diorite_slab.name=diyorit levha
+tile.prefab:block_half_granite_slab.name=Granit Döşeme
+
+prefab.gui.fishpond.structure.facing=Not: Eğer kuzeye bakıyorsan, güneyi seç ki iskele senden uzakta olsun. Beyaz kenarlıklar boyutu göstermek içindir.
+prefab.gui.cleared_area=Temizlenecek alan baktığın yönde olacaktır.
+
+prefab.gui.producefarm.structure.size=Bu yapıt 32x32 blok boyutunda.
+
+prefab.gui.starter.tab.general=Genel
+prefab.gui.starter.tab.config=Seçenekler
+prefab.gui.starter.tab.block=Bloklar/Boyut
+prefab.gui.starter.style.label=Ev Boyutu
+prefab.gui.starter.floortype.label=Zemin Blok Tipi
+prefab.gui.starter.ceilingtype.label=Tavan Blok Tipi
+prefab.gui.starter.walltype.label=Duvar Odun Tipi
+prefab.gui.starter.depth.label=İç Derinlik
+prefab.gui.starter.width.label=İç Genişlik
+prefab.gui.starter.basic.display=Basit Ev
+prefab.gui.starter.basic.notes=Taş ve tuğladan yapılmış basit bir ev.
+prefab.gui.starter.ranch.display=Çiftlik Stili
+prefab.gui.starter.ranch.notes=Çiftlik stiliyle dizayn edilmiş bir ev.
+prefab.gui.starter.loft.display=Çatı Katlı Stil
+prefab.gui.starter.loft.notes=Sandıklar için çatı katına sahip olan bir ev stili.
+prefab.gui.starter.hobbit.display=Hobbit Tipi
+prefab.gui.starter.hobbit.notes=Yer altında Hobbit tarzında inşa edilmiş bir ev.
+prefab.gui.starter.desert.display=Çöl Stili
+prefab.gui.starter.desert.notes=Piramitlere benzeyen bir ev.
+prefab.gui.starter.snowy.display=Kar Stili
+prefab.gui.starter.snowy.notes=İglolara benzeyen bir ev.
+
+prefab.gui.starter.addtorches=Meşale Ekle
+prefab.gui.starter.addbed=Yatak Ekle
+prefab.gui.starter.addcraftingtable=Çalışma Masası Ekle
+prefab.gui.starter.addfurnace=Fırın Ekle
+prefab.gui.starter.addchest=Sandık Ekle
+prefab.gui.starter.addchestcontents=Sandıkların İçini Ekle
+prefab.gui.starter.addfarm=Çiftlik Ekle
+prefab.gui.starter.floorstone=Zemini Taştan
+prefab.gui.starter.ceilingtype=Tavanı Taştan
+prefab.gui.starter.walltype=Duvarı Tahtadan
+prefab.gui.starter.ceilingflat=Tavanı Düz Mü
+prefab.gui.starter.buildmineshaft=Maden Kuyusu İnşa Et
+
+prefab.gui.villager.house.flat=Düz Çatı
+prefab.gui.villager.house.angled=Eğimli Çatı
+prefab.gui.villager.house.fenced=Çitli Çatı
+prefab.gui.villager.blacksmith=Demirci
+prefab.gui.villager.long_house=Uzun Ev
+
+prefab.gui.moderate_house.spruce=Ladin Ev
+prefab.gui.moderate_house.acacia=Akasya Ev
+prefab.gui.moderate_house.earthen=Topraktan Ev
+prefab.gui.moderate_house.jungle=Orman Evi
+prefab.gui.moderate_house.mountain=Dağ evi
+
+prefab.gui.bulldozer_desc=Bu eşya 16x16x16'lık bir alanı temizleyecek ve düşen bloklar eşya olarak geri dönecek.
+
+prefab.ceiling.block.type.stone=Taş Tuğla
+prefab.ceiling.block.type.brick=Tuğla
+prefab.ceiling.block.type.sand=Kumtaşı
+
+prefab.wall.block.type.oak=Meşe
+prefab.wall.block.type.spruce=Ladin
+prefab.wall.block.type.birch=Huş
+prefab.wall.block.type.jungle=Orman
+prefab.wall.block.type.acacia=Akasya
+prefab.wall.block.type.darkoak=Koyu Meşe
+
+prefab.gui.treefarm.facing=Ağaç Çiftliği Yönü
+prefab.gui.treefarm.structure.size=Bu yapı 38x38 blok boyutunda.
+
+prefab.gui.structure.facing=Yapının Baktığı Yön
+prefab.gui.structure.glass=Cam Rengi
+prefab.gui.structure.bed_color=Yatak Rengi
+
+prefab.gui.structure.facing.player=Not: Eğer kuzeye bakıyorsan, güneyi seç ki yapı sana baksın.
+prefab.gui.structure.block.clicked=Sağdaki resimde bulunan kırmızı kutu, tıkladığın bloğu gösterir.
+prefab.gui.structure.door.facing=Not: Eğer kuzeye bakıyorsan, güneyi seç ki kapılar sana baksın.
+prefab.gui.structure.nobuild=Etrafta koruma bulunan bloklar veya kırılamayan bloklar olduğu için yapı inşa edilemiyor. Blok Adı: %1$s Blok Konumu: x=%2$s, y=%3$s, z=%4$s.
+
+prefab.gui.button.build=İnşa Et!
+prefab.gui.button.cancel=İptal!
+prefab.gui.button.preview=Önizleme!
+
+prefab.gui.tooltip.shift=Daha fazla bilgi için§9 Shift §7tuşuna bas.
+prefab.gui.tooltip.boundary_block=Başlangıçta görünmez, ancak kızıltaş sinyali aldığında görünür olur.
+prefab.gui.tooltip.bulldozer_unpowered=Toprak ve sihrin gücüyle birleşmesi gerekli. Üçlü sıkıştırılmış taş ile örste birleştirmeyi dene.
+prefab.gui.tooltip.bulldozer_powered=Toprak ve sihrin gücüyle birleştiğine göre büyük bir alanın temizleneceğine inanabilirsin.
+
+prefab.gui.preview.complete=Yapı Tamamlandı!
+prefab.gui.preview.notice=Dünyadaki herhangi bir bloğa sağ tıklayarak önizlemeyi kaldırabilirsin.
+
+prefab.gui.north=Kuzey
+prefab.gui.east=Doğu
+prefab.gui.south=Güney
+prefab.gui.west=Batı
+
+prefab.gui.white=Beyaz
+prefab.gui.orange=Turuncu
+prefab.gui.magenta=Eflatun
+prefab.gui.yellow=Sarı
+prefab.gui.lime=Kireç Yeşili
+prefab.gui.pink=Pembe
+prefab.gui.gray=Gri
+prefab.gui.silver=Gümüş
+prefab.gui.cyan=Camgöbeği
+prefab.gui.purple=Mor
+prefab.gui.blue=Mavi
+prefab.gui.brown=Kahverengi
+prefab.gui.green=Yeşil
+prefab.gui.red=Kırmızı
+prefab.gui.black=Siyah
+prefab.gui.clear=Şeffaf
+
+prefab.gui.bridge_length=Köprü Uzunluğu
+prefab.gui.bridge_material=Köprü Materyali
+prefab.gui.bridge_include_roof=Çatıyı Dahil Et
+prefab.gui.bridge_interior_height=İç Yükseklik
+
+prefab.gui.material.cobble_stone=Kırık Taş
+prefab.gui.material.stone=Taş
+prefab.gui.material.stone_brick=Taş Tuğla
+prefab.gui.material.brick=Tuğla
+prefab.gui.material.chiseled_stone=Keskin Taş
+prefab.gui.material.granite=Granit
+prefab.gui.material.smooth_granite=Cilalı Granit
+prefab.gui.material.andesite=Andezit
+prefab.gui.material.smooth_andesite=Cilalı Andezit
+prefab.gui.material.diorite=Diyorit
+prefab.gui.material.smooth_diorite=Cilalı Diyorit
+prefab.gui.material.red_sandstone=kırmızı kumtaşı
+
+prefab.gui.part_style.wall=Duvar
+prefab.gui.part_style.gate=Kapı
+prefab.gui.part_style.frame=Çerçeve
+prefab.gui.part_style.stairs=Merdivenler
+prefab.gui.part_style.circle=Çember
+prefab.gui.part_style.door_way=Kapı Yolu
+prefab.gui.part_style.floor=Zemin
+prefab.gui.part_style.roof=Çatı
+
+prefab.gui.style=Stil
+prefab.gui.material=Materyal
+prefab.gui.height=Yükseklik
+prefab.gui.width=En
+prefab.gui.length=Boy
+prefab.gui.stairs_height=Merdiven Yüksekliği
+prefab.gui.stairs_width=Merdiven Uzunluğu
+prefab.gui.building_options=Bina Seçenekleri"
