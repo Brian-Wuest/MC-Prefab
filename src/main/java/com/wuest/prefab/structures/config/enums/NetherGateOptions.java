@@ -17,20 +17,6 @@ public class NetherGateOptions extends BaseOption {
             7,
             -2);
 
-    public static NetherGateOptions CorruptedTree = new NetherGateOptions(
-            "item.prefab.item_nether_gate_tree",
-            "assets/prefab/structures/nethergate_tree.zip",
-            "textures/gui/nether_gate_tree_top_down.png",
-            164,
-            126,
-            EnumFacing.SOUTH,
-            20,
-            16,
-            16,
-            1,
-            9,
-            -7);
-
     protected NetherGateOptions(String translationString,
                                 String assetLocation,
                                 String pictureLocation,
