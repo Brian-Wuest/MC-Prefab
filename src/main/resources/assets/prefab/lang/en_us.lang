@@ -18,10 +18,10 @@ item.prefab:item_basic_structure.name=Basic Structure
 item.prefab:item_instant_bridge.name=Instant Bridge
 item.prefab:item_moderate_house.name=Moderate House
 item.prefab:item_bulldozer.name=Bulldozer
+item.prefab:item_creative_bulldozer.name=Bulldozer
 item.prefab:item_structure_part.name=Structure Part
-item.prefab.item_heap_of_timber=Heap of Timber
-item.prefab.item_ton_of_timber=Ton of Timber
-
+item.prefab:item_heap_of_timber.name=Heap of Timber
+item.prefab:item_ton_of_timber.name=Ton of Timber
 
 item.prefab:item_advanced_chicken_coop.name=Advanced Chicken Coop
 item.prefab:item_advanced_horse_stable.name=Advanced Horse Stable
@@ -41,14 +41,13 @@ item.prefab:item_watch_tower.name=Watch Tower
 item.prefab:item_welcome_center.name=Welcome Center
 item.prefab:item_jail.name=Jail
 item.prefab:item_saloon.name=Saloon
-item.prefab.item_ski_lodge=Ski Lodge
-item.prefab.item_wind_mill=Windmill
-item.prefab.item_town_hall=Town Hall
-item.prefab.item_sugar_cane_farm=Sugar Cane Farm
-item.prefab.item_workshop=Workshop
+item.prefab:item_ski_lodge.name=Ski Lodge
+item.prefab:item_wind_mill.name=Windmill
+item.prefab:item_town_hall.name=Town Hall
+item.prefab:item_workshop.name=Workshop
 
-item.prefab.item_nether_gate_tree=Corrupted Tree
-item.prefab.item_nether_gate_skull=Ancient Skull
+item.prefab:item_nether_gate_tree.name=Corrupted Tree
+item.prefab:item_nether_gate_skull.name=Ancient Skull
 
 tile.prefab:block_compressed_stone.name=Compressed Stone
 tile.prefab:block_double_compressed_stone.name=Double Compressed Stone
