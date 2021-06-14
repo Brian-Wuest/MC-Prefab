@@ -10,18 +10,17 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BlockModelRenderer;
-import net.minecraft.client.renderer.BlockRendererDispatcher;
-import net.minecraft.client.renderer.ChestRenderer;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
@@ -49,6 +48,7 @@ public class StructureRenderHandler {
             {"renderPosZ", "field_78723_d", "q"};
     // RenderManager
     private static final MethodHandle renderPosX_getter, renderPosY_getter, renderPosZ_getter;
+
     // All of this is on client side so we don't have to worry about multiple
     // player's overlapping on structures and other things.
     public static StructureConfiguration currentConfiguration;
@@ -157,6 +157,10 @@ public class StructureRenderHandler {
                 player.sendMessage(new TextComponentTranslation(GuiLangKeys.GUI_PREVIEW_NOTICE).setStyle(new Style().setColor(TextFormatting.GREEN)));
                 StructureRenderHandler.showedMessage = true;
             }
+
+            if (didAny) {
+                StructureRenderHandler.RenderTest(player.world);
+            }
         }
     }
 
@@ -264,4 +268,74 @@ public class StructureRenderHandler {
         }
     }
 
+    private static void RenderTest(World worldIn) {
+        BlockPos originalPos = StructureRenderHandler.currentConfiguration.pos.up();
+        // This makes the block north and in-line with the player's line of sight.
+        double blockXOffset = originalPos.getX();
+        double blockZOffset = originalPos.getZ();
+        double blockStartYOffset = originalPos.getY();
+        double blockEndYOffset = originalPos.up().getY();
+
+        StructureRenderHandler.drawBox(blockXOffset, blockZOffset, blockStartYOffset, blockEndYOffset);
+    }
+
+    private static void drawBox(double blockXOffset, double blockZOffset, double blockStartYOffset, double blockEndYOffset) {
+        // Note: This code is derived from: net.minecraft.client.renderer.debug.DebugRendererChunkBorder
+        Minecraft minecraft = Minecraft.getMinecraft();
+        Vec3d vector3d = minecraft.player.getPositionVector();
+
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder vertexBuffer = tessellator.getBuffer();
+
+        GlStateManager.disableTexture2D();
+        GlStateManager.disableBlend();
+
+        double translatedX = blockXOffset - vector3d.x;
+        double translatedY = blockStartYOffset - vector3d.y;
+        double translatedYEnd = translatedY + 1;
+        double translatedZ = blockZOffset - vector3d.z;
+
+        vertexBuffer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION_COLOR);
+
+        GlStateManager.glLineWidth(2.0F);
+
+        // Draw the verticals of the box.
+        for (int k = 1; k < 2; k += 1) {
+            vertexBuffer.pos(translatedX, translatedY, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+            vertexBuffer.pos(translatedX, translatedYEnd, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+
+            vertexBuffer.pos(translatedX + (double) k, translatedY, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+            vertexBuffer.pos(translatedX + (double) k, translatedYEnd, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+
+            vertexBuffer.pos(translatedX, translatedY, translatedZ + (double) k).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+            vertexBuffer.pos(translatedX, translatedYEnd, translatedZ + (double) k).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+
+            vertexBuffer.pos(translatedX + 1.0D, translatedY, translatedZ + (double) k).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+            vertexBuffer.pos(translatedX + 1.0D, translatedYEnd, translatedZ + (double) k).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+        }
+
+        // All horizontals.
+        for (double i1 = translatedY; i1 <= translatedYEnd; i1 += 1) {
+            // RED
+            vertexBuffer.pos(translatedX, i1, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+            vertexBuffer.pos(translatedX, i1, translatedZ + 1.0D).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+
+            vertexBuffer.pos(translatedX + 1.0D, i1, translatedZ + 1.0D).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+            vertexBuffer.pos(translatedX + 1.0D, i1, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+
+            // BLUE
+            vertexBuffer.pos(translatedX, i1, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+            vertexBuffer.pos(translatedX + 1, i1, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+
+            // Purple
+            vertexBuffer.pos(translatedX + 1, i1, translatedZ + 1).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+            vertexBuffer.pos(translatedX, i1, translatedZ + 1).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+        }
+
+        tessellator.draw();
+
+        GlStateManager.glLineWidth(1.0F);
+        GlStateManager.enableBlend();
+        GlStateManager.enableTexture2D();
+    }
 }
