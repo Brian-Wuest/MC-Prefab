@@ -67,7 +67,7 @@ public class GuiModerateHouse extends GuiStructure {
         this.btnCancel = this.createAndAddButton(2, grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.GUI_BUTTON_CANCEL);
 
         int x = grayBoxX + 130;
-        int y = grayBoxY + 10;
+        int y = grayBoxY + 20;
 
         this.btnBedColor = this.createAndAddDyeButton(19, x, y, 90, 20, this.configuration.bedColor);
 

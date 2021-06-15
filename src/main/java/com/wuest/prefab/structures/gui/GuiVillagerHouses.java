@@ -95,6 +95,7 @@ public class GuiVillagerHouses extends GuiStructure {
             this.houseStyle = VillagerHouseConfiguration.HouseStyle.ValueOf(id);
 
             this.btnHouseStyle.displayString = this.houseStyle.getDisplayName();
+            this.btnBedColor.visible = this.houseStyle == VillagerHouseConfiguration.HouseStyle.LONG_HOUSE;
         } else if (button == this.btnVisualize) {
             StructureVillagerHouses structure = StructureVillagerHouses.CreateInstance(this.houseStyle.getStructureLocation(), StructureVillagerHouses.class);
             StructureRenderHandler.setStructure(structure, EnumFacing.NORTH, this.configuration);
