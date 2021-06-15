@@ -7,7 +7,9 @@ import com.wuest.prefab.structures.base.BuildBlock;
 import com.wuest.prefab.structures.base.Structure;
 import com.wuest.prefab.structures.config.StructureConfiguration;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockBed;
 import net.minecraft.block.BlockChest;
+import net.minecraft.block.BlockEnderChest;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
@@ -243,8 +245,11 @@ public class StructureRenderHandler {
                 case ENTITYBLOCK_ANIMATED: {
                     // Only use the chest renderer if this is actually an instance of a chest.
                     if (enumblockrendertype == EnumBlockRenderType.ENTITYBLOCK_ANIMATED
-                            && state.getBlock() instanceof BlockChest) {
+                            && (state.getBlock() instanceof BlockChest || state.getBlock() instanceof BlockEnderChest)) {
                         StructureRenderHandler.chestRenderer.renderChestBrightness(state.getBlock(), brightness);
+                        break;
+                    }
+                    else if (state.getBlock() instanceof BlockBed) {
                         break;
                     }
 
@@ -255,8 +260,6 @@ public class StructureRenderHandler {
                         renderer.renderModelBrightness(ibakedmodel, state, brightness, true);
                     } catch (Exception ex) {
                         // Don't do anything if a mod broke this vanilla block rendering. It just won't show up during the preview then.
-                        int test = 1;
-                        test = 2;
                     }
 
                     break;
