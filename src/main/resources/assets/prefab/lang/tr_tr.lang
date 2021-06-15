@@ -63,6 +63,9 @@ tile.prefab:block_double_compressed_obsidian.name=Çifte Sıkıştırılmış Ob
 tile.prefab:block_phasing.name=Fazlık Blok
 tile.prefab:block_boundary.name=Sınır Bloğu
 tile.prefab:block_glass_stairs.name=Cam Merdiven
+tile.prefab:block_andesite_stairs.name=Andezit Merdivenler
+tile.prefab:block_diorite_stairs.name=Diyorit Merdivenler
+tile.prefab:block_granite_stairs.name=Granit Merdivenler
 tile.prefab:block_half_glass_slab.name=Cam Basamak
 tile.prefab:block_half_andesite_slab.name=andezit levha
 tile.prefab:block_half_diorite_slab.name=diyorit levha
@@ -165,6 +168,7 @@ prefab.gui.west=Batı
 prefab.gui.white=Beyaz
 prefab.gui.orange=Turuncu
 prefab.gui.magenta=Eflatun
+prefab.gui.lightBlue=Açık Mavi
 prefab.gui.yellow=Sarı
 prefab.gui.lime=Kireç Yeşili
 prefab.gui.pink=Pembe
@@ -214,3 +218,5 @@ prefab.gui.length=Boy
 prefab.gui.stairs_height=Merdiven Yüksekliği
 prefab.gui.stairs_width=Merdiven Uzunluğu
 prefab.gui.building_options=Bina Seçenekleri"
+
+

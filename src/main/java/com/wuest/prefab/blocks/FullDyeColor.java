@@ -8,7 +8,7 @@ public enum FullDyeColor implements IStringSerializable {
     WHITE(0, "white", EnumDyeColor.WHITE),
     ORANGE(1, "orange", EnumDyeColor.ORANGE),
     MAGENTA(2, "magenta", EnumDyeColor.MAGENTA),
-    LIGHT_BLUE(3, "light_blue", EnumDyeColor.LIGHT_BLUE),
+    LIGHT_BLUE(3, "lightBlue", EnumDyeColor.LIGHT_BLUE),
     YELLOW(4, "yellow", EnumDyeColor.YELLOW),
     LIME(5, "lime", EnumDyeColor.LIME),
     PINK(6, "pink", EnumDyeColor.PINK),

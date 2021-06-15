@@ -10,11 +10,13 @@ public class GuiCheckBox extends net.minecraftforge.fml.client.config.GuiCheckBo
     protected int boxWidth;
     protected int stringColor;
     protected boolean withShadow;
+    protected int labelWidth;
 
     public GuiCheckBox(int id, int xPos, int yPos, String displayString, boolean isChecked) {
         super(id, xPos, yPos, displayString, isChecked);
 
         this.boxWidth = 11;
+        this.labelWidth = 98;
     }
 
     /**
@@ -57,6 +59,11 @@ public class GuiCheckBox extends net.minecraftforge.fml.client.config.GuiCheckBo
         return this;
     }
 
+    public GuiCheckBox setLabelWidth(int value) {
+        this.labelWidth = value;
+        return this;
+    }
+
     /**
      * Draws this button to the screen.
      */
@@ -81,7 +88,7 @@ public class GuiCheckBox extends net.minecraftforge.fml.client.config.GuiCheckBo
             if (this.withShadow) {
                 this.drawString(mc.fontRenderer, displayString, x + this.boxWidth + 2, y + 2, color);
             } else {
-                mc.fontRenderer.drawString(displayString, x + this.boxWidth + 2, y + 2, color);
+                mc.fontRenderer.drawSplitString(displayString, x + this.boxWidth + 2, y + 2, this.labelWidth, color);
             }
         }
     }
