@@ -31,7 +31,7 @@ archivesBaseName = "prefab"
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
 minecraft {
-    mappings channel: 'snapshot', version: '20180814-1.12'
+    mappings channel: 'snapshot', version: "${config.forge_snapshot}"
 
     // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
@@ -60,7 +60,7 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2854'
+    minecraft 'net.minecraftforge:forge:' + "${config.forge_version}"
 }
 
 task sourcesJar(type: Jar) {
