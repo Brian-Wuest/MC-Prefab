@@ -2,11 +2,15 @@ package com.wuest.prefab.structures.base;
 
 import com.wuest.prefab.structures.config.StructureConfiguration;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockBed;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityBed;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
@@ -357,5 +361,48 @@ public class BuildingMethods {
         }
 
         return true;
+    }
+
+    /**
+     * This method places a bed with the specified color and at the specified location.
+     *
+     * @param world      The world to set the blocks in.
+     * @param bedHeadPos The position of the head of the bed.
+     * @param bedFootPos The position of the foot of the bed.
+     * @param bedColor   The color of the bed to place.
+     */
+    public static void PlaceColoredBed(World world, BlockPos bedHeadPos, BlockPos bedFootPos, EnumDyeColor bedColor) {
+        IBlockState bedHead = null;
+        IBlockState bedFoot = null;
+
+        bedHead = Blocks.BED.getDefaultState().withProperty(BlockBed.PART, BlockBed.EnumPartType.HEAD);
+        bedFoot = Blocks.BED.getDefaultState().withProperty(BlockBed.PART, BlockBed.EnumPartType.FOOT);
+
+        EnumFacing direction = EnumFacing.NORTH;
+        BlockPos tempPos = bedHeadPos.offset(EnumFacing.NORTH);
+
+        while (tempPos.getX() != bedFootPos.getX() || tempPos.getZ() != bedFootPos.getZ()) {
+            direction = direction.rotateY();
+            tempPos = bedHeadPos.offset(direction);
+        }
+
+        bedHead = bedHead.withProperty(BlockBed.FACING, direction.getOpposite());
+        bedFoot = bedFoot.withProperty(BlockBed.FACING, direction.getOpposite());
+
+        BuildingMethods.ReplaceBlock(world, bedHeadPos, bedHead);
+        BuildingMethods.ReplaceBlock(world, bedFootPos, bedFoot);
+
+        TileEntity bedHeadTileEntity = world.getTileEntity(bedHeadPos);
+        TileEntity bedFootTileEntity = world.getTileEntity(bedFootPos);
+
+        if (bedHeadTileEntity != null && bedHeadTileEntity instanceof TileEntityBed) {
+            TileEntityBed entityHeadBed = (TileEntityBed) bedHeadTileEntity;
+            entityHeadBed.setColor(bedColor);
+        }
+
+        if (bedFootTileEntity != null && bedFootTileEntity instanceof TileEntityBed) {
+            TileEntityBed entityFootBed = (TileEntityBed) bedFootTileEntity;
+            entityFootBed.setColor(bedColor);
+        }
     }
 }

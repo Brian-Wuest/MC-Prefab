@@ -1,10 +1,12 @@
 package com.wuest.prefab.structures.predefined;
 
+import com.wuest.prefab.Tuple;
 import com.wuest.prefab.structures.base.*;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration.EnumBasicStructureName;
 import com.wuest.prefab.structures.config.StructureConfiguration;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockBed;
 import net.minecraft.block.BlockHopper;
 import net.minecraft.block.BlockTrapDoor;
 import net.minecraft.block.state.IBlockState;
@@ -14,6 +16,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
+
 /**
  * This is the basic structure to be used for structures which don't need a lot of configuration or a custom player created structures.
  *
@@ -21,6 +25,7 @@ import net.minecraft.world.World;
  */
 public class StructureBasic extends Structure {
     BlockPos customBlockPos = null;
+    private ArrayList<Tuple<BlockPos, BlockPos>> bedPositions = new ArrayList<>();
 
     public static void ScanStructure(World world, BlockPos originalPos, EnumFacing playerFacing, BasicStructureConfiguration configuration, boolean includeAir, boolean excludeWater) {
         BuildClear clearedSpace = new BuildClear();
@@ -81,6 +86,16 @@ public class StructureBasic extends Structure {
                     originalPos,
                     this.getClearSpace().getShape().getDirection(),
                     configuration.houseFacing);
+        } else if (foundBlock instanceof BlockBed) {
+            BlockPos bedHeadPosition = block.getStartingPosition().getRelativePosition(originalPos, this.getClearSpace().getShape().getDirection(), configuration.houseFacing);
+            BlockPos bedFootPosition = block.getSubBlock().getStartingPosition().getRelativePosition(
+                    originalPos,
+                    this.getClearSpace().getShape().getDirection(),
+                    configuration.houseFacing);
+
+            this.bedPositions.add(new Tuple<>(bedHeadPosition, bedFootPosition));
+
+            return true;
         }
 
         return false;
@@ -114,6 +129,12 @@ public class StructureBasic extends Structure {
             }
 
             this.customBlockPos = null;
+        }
+
+        if (this.bedPositions.size() > 0) {
+            for (Tuple<BlockPos, BlockPos> bedPosition : this.bedPositions) {
+                BuildingMethods.PlaceColoredBed(world, bedPosition.getFirst(), bedPosition.getSecond(), config.bedColor);
+            }
         }
 
         if (config.basicStructureName.getName().equals(EnumBasicStructureName.AquaBase.getName())) {

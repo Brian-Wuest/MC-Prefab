@@ -159,7 +159,7 @@ public class GuiBasicStructure extends GuiStructure {
         }
 
         // Create the buttons.
-        this.btnVisualize = this.createAndAddButton(4, grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.GUI_BUTTON_PREVIEW);
+        this.btnVisualize = this.createAndAddButton(4, grayBoxX + 10, y + 20, 90, 20, GuiLangKeys.GUI_BUTTON_PREVIEW);
 
         // Create the done and cancel buttons.
         this.btnBuild = this.createAndAddButton(1, grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.GUI_BUTTON_BUILD);

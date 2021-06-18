@@ -7,10 +7,7 @@ import com.wuest.prefab.structures.base.BuildClear;
 import com.wuest.prefab.structures.base.Structure;
 import com.wuest.prefab.structures.config.ModerateHouseConfiguration;
 import com.wuest.prefab.structures.config.StructureConfiguration;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockChest;
-import net.minecraft.block.BlockFurnace;
-import net.minecraft.block.BlockTrapDoor;
+import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -149,6 +146,7 @@ public class StructureModerateHouse extends Structure {
     @Override
     protected Boolean CustomBlockProcessingHandled(StructureConfiguration configuration, BuildBlock block, World world, BlockPos originalPos,
                                                    EnumFacing assumedNorth, Block foundBlock, IBlockState blockState, EntityPlayer player) {
+        ModerateHouseConfiguration houseConfiguration = (ModerateHouseConfiguration) configuration;
         if (foundBlock instanceof BlockFurnace) {
             if (this.furnacePosition == null) {
                 this.furnacePosition = new ArrayList<BlockPos>();
@@ -158,7 +156,7 @@ public class StructureModerateHouse extends Structure {
                     originalPos,
                     this.getClearSpace().getShape().getDirection(),
                     configuration.houseFacing));
-        } else if (foundBlock instanceof BlockChest && !((ModerateHouseConfiguration) configuration).addChests) {
+        } else if (foundBlock instanceof BlockChest && !houseConfiguration.addChests) {
             return true;
         } else if (foundBlock instanceof BlockChest && this.chestPosition == null) {
             this.chestPosition = block.getStartingPosition().getRelativePosition(
