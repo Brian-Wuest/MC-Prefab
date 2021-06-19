@@ -13,6 +13,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: 'idea'
+apply plugin: 'java'
 
 idea {
     module {
@@ -25,10 +26,14 @@ ext.configFile = file('gradle.properties')
 ext.config = parseConfig(configFile)
 
 version = "${config.mod_version}"
-group= "com.wuest.prefab" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = "com.wuest.prefab" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "prefab"
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+
+// Make sure to delete the temporary sources folder before build.
+// This way any build-time modifications are always done.
+project.delete(files('build/src'))
 
 minecraft {
     mappings channel: 'snapshot', version: "${config.forge_snapshot}"
@@ -63,15 +68,6 @@ dependencies {
     minecraft 'net.minecraftforge:forge:' + "${config.forge_version}"
 }
 
-task sourcesJar(type: Jar) {
-    from sourceSets.main.allJava
-    classifier = 'sources'
-}
-
-artifacts {
-    archives sourcesJar
-}
-
 def parseConfig(File config) {
     config.withReader {
         def prop = new Properties()
@@ -81,33 +77,34 @@ def parseConfig(File config) {
 }
 
 sourceSets {
-  main {
-    java.outputDir = file("build/bin/main")
-    output.resourcesDir = "build/bin/main"
-  }
-  test {
-    output.resourcesDir = "build/classes/test"
-  }
+    main {
+        java.outputDir = file("build/bin/main")
+        output.resourcesDir = "build/bin/main"
+    }
+    test {
+        output.resourcesDir = "build/classes/test"
+    }
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..
 jar {
     manifest {
         attributes([
-            "Specification-Title": "prefab",
-            "Specification-Vendor": "WuestMan",
-            "Specification-Version": "1", // We are version 1 of ourselves
-            "Implementation-Title": project.name,
-            "Implementation-Version": "${version}",
-            "Implementation-Vendor" :"WuestMan",
-            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+                "Specification-Title"     : "prefab",
+                "Specification-Vendor"    : "WuestMan",
+                "Specification-Version"   : "1", // We are version 1 of ourselves
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : "${version}",
+                "Implementation-Vendor"   : "WuestMan",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
 }
 
 // Example configuration to allow publishing using the maven-publish task
 // This is the preferred method to reobfuscate your jar file
-jar.finalizedBy('reobfJar') 
+jar.finalizedBy('reobfJar')
+
 // However if you are in a multi-project build, dev time needs unobfed jar files, so you can delay the obfuscation until publishing by doing
 //publish.dependsOn('reobfJar')																		 
 publishing {
@@ -121,4 +118,36 @@ publishing {
             url "file:///${project.projectDir}/mcmodsrepo"
         }
     }
+}
+
+// This task will update the mcmod.info file with the mod version.
+processResources {
+    // this will ensure that this task is redone when the versions change.
+    inputs.property "version", project.version
+
+    // replace stuff in mcmod.info, nothing else
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+
+        // replace version and mcversion
+        expand 'version': project.version
+    }
+
+    // copy everything else except the mcmod.info
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
+
+// This task will sync the target folder (build/src) with the source folder (src/main/java)
+// It will then update the version string with the mod's version.
+task processSource(type: Sync) {
+    from sourceSets.main.java
+    inputs.property 'version', version
+    filter { String line -> line.replaceAll("@VERSION@", "${config.mod_version}") }
+    into "$buildDir/src"
+}
+
+compileJava {
+    source = processSource.outputs
 }
