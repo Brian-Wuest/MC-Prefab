@@ -1,16 +1,20 @@
 [
-{
-  "modid": "prefab",
-  "name": "Prefab",
-  "description": "Provides ways of making pre-fabricated houses and other structures.",
-  "version": "${version}",
-  "mcversion": "1.12",
-  "url": "https://minecraft.curseforge.com/projects/prefab",
-  "updateUrl": "",
-  "authorList": ["WuestMan"],
-  "credits": "Kaojinn for making the textures and the construction of the ideas. Structure Preview functionality adapted from Botania by Vazkii http://botaniamod.net/license.php.",
-  "logoFile": "",
-  "screenshots": [],
-  "dependencies": []
-}
+  {
+    "modid": "prefab",
+    "name": "Prefab",
+    "description": "Provides ways of making pre-fabricated houses and other structures.",
+    "version": "${version}",
+    "mcversion": "1.12",
+    "url": "https://minecraft.curseforge.com/projects/prefab",
+    "updateUrl": "",
+    "authorList": [
+      "WuestMan",
+      "Kaojinn",
+      "NerdySpider"
+    ],
+    "credits": "Kaojinn for making the textures and the construction of the ideas. Structure Preview functionality adapted from Botania by Vazkii http://botaniamod.net/license.php.",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
 ]
