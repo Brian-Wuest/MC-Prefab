@@ -22,7 +22,6 @@ import java.io.IOException;
  * @author WuestMan
  */
 public abstract class GuiStructure extends GuiBase {
-    public final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/default_background.png");
     public BlockPos pos;
     protected EntityPlayer player;
     protected EnumFacing structureFacing;
@@ -31,7 +30,6 @@ public abstract class GuiStructure extends GuiBase {
     protected GuiButtonExt btnBuild;
     protected GuiButtonExt btnVisualize;
 
-    protected int textColor = Color.DARK_GRAY.getRGB();
     protected EnumStructureConfiguration structureConfiguration;
     protected boolean pauseGame;
 
@@ -49,14 +47,6 @@ public abstract class GuiStructure extends GuiBase {
         if (!Prefab.proxy.proxyConfiguration.enableStructurePreview) {
             this.btnVisualize.visible = false;
         }
-    }
-
-    protected int getCenteredXAxis() {
-        return this.width / 2;
-    }
-
-    protected int getCenteredYAxis() {
-        return this.height / 2;
     }
 
     @Override

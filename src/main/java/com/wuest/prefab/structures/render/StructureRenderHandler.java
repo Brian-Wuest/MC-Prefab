@@ -157,6 +157,7 @@ public class StructureRenderHandler {
                                 .setStyle(new Style().setColor(TextFormatting.GREEN)));
             } else if (!StructureRenderHandler.showedMessage) {
                 player.sendMessage(new TextComponentTranslation(GuiLangKeys.GUI_PREVIEW_NOTICE).setStyle(new Style().setColor(TextFormatting.GREEN)));
+                player.sendMessage(new TextComponentTranslation(GuiLangKeys.GUI_BLOCK_CLICKED).setStyle(new Style().setColor(TextFormatting.YELLOW)));
                 StructureRenderHandler.showedMessage = true;
             }
 

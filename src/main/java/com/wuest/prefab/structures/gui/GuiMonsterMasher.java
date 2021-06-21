@@ -61,10 +61,8 @@ public class GuiMonsterMasher extends GuiStructure {
 
     @Override
     protected void postButtonRender(int x, int y, int mouseX, int mouseY, float partialTicks) {
-        this.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS), x + 10, y + 10, this.textColor);
-
         // Draw the text here.
-        this.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, y + 10, 100, this.textColor);
+        this.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS), x + 10, y + 10, this.textColor);
     }
 
     /**

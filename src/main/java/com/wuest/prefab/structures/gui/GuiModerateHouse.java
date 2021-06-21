@@ -1,6 +1,7 @@
 package com.wuest.prefab.structures.gui;
 
 import com.wuest.prefab.Prefab;
+import com.wuest.prefab.Tuple;
 import com.wuest.prefab.config.ModConfiguration;
 import com.wuest.prefab.events.ClientEventHandler;
 import com.wuest.prefab.gui.GuiLangKeys;
@@ -11,6 +12,7 @@ import com.wuest.prefab.structures.messages.StructureTagMessage.EnumStructureCon
 import com.wuest.prefab.structures.predefined.StructureModerateHouse;
 import com.wuest.prefab.structures.render.StructureRenderHandler;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.EnumFacing;
@@ -37,12 +39,13 @@ public class GuiModerateHouse extends GuiStructure {
         super();
 
         this.structureConfiguration = EnumStructureConfiguration.ModerateHouse;
-        this.modifiedInitialXAxis = 212;
-        this.modifiedInitialYAxis = 83;
     }
 
     @Override
     protected void Initialize() {
+        this.modifiedInitialXAxis = 212;
+        this.modifiedInitialYAxis = 117;
+
         if (!Minecraft.getMinecraft().player.isCreative()) {
             this.allowItemsInChestAndFurnace = !ClientEventHandler.playerConfig.builtStarterHouse;
         }
@@ -53,42 +56,48 @@ public class GuiModerateHouse extends GuiStructure {
         int color = Color.DARK_GRAY.getRGB();
 
         // Get the upper left hand corner of the GUI box.
-        int grayBoxX = this.getCenteredXAxis() - 212;
-        int grayBoxY = this.getCenteredYAxis() - 83;
+        Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
+        int grayBoxX = adjustedXYValue.getFirst();
+        int grayBoxY = adjustedXYValue.getSecond();
 
-        this.btnHouseStyle = this.createAndAddButton(4, grayBoxX + 10, grayBoxY + 20, 90, 20, this.configuration.houseStyle.getDisplayName(), false);
+        this.btnHouseStyle = this.createAndAddButton(4, grayBoxX + 15, grayBoxY + 45, 90, 20, this.configuration.houseStyle.getDisplayName(), false);
 
         // Create the buttons.
-        this.btnVisualize = this.createAndAddButton(4, grayBoxX + 10, grayBoxY + 60, 90, 20, GuiLangKeys.GUI_BUTTON_PREVIEW);
+        this.btnVisualize = this.createAndAddButton(4, grayBoxX + 155, grayBoxY + 75, 90, 20, GuiLangKeys.GUI_BUTTON_PREVIEW);
 
         // Create the done and cancel buttons.
-        this.btnBuild = this.createAndAddButton(1, grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.GUI_BUTTON_BUILD);
+        this.btnBuild = this.createAndAddButton(1, grayBoxX + 155, grayBoxY + 120, 90, 20, GuiLangKeys.GUI_BUTTON_BUILD);
 
-        this.btnCancel = this.createAndAddButton(2, grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.GUI_BUTTON_CANCEL);
+        this.btnCancel = this.createAndAddButton(2, grayBoxX + 155, grayBoxY + 165, 90, 20, GuiLangKeys.GUI_BUTTON_CANCEL);
 
         int x = grayBoxX + 130;
         int y = grayBoxY + 20;
 
-        this.btnBedColor = this.createAndAddDyeButton(19, x, y, 90, 20, this.configuration.bedColor);
-
-        y += 30;
-
-        this.btnAddChest = this.createAndAddCheckBox(6, x, y, GuiLangKeys.STARTER_HOUSE_ADD_CHEST, this.configuration.addChests);
-        y += 15;
-
-        this.btnAddMineShaft = this.createAndAddCheckBox(7, x, y, GuiLangKeys.STARTER_HOUSE_BUILD_MINESHAFT, this.configuration.addChestContents);
-        y += 15;
-
-        this.btnAddChestContents = this.createAndAddCheckBox(8, x, y, GuiLangKeys.STARTER_HOUSE_ADD_CHEST_CONTENTS, this.configuration.addMineshaft);
+        this.btnBedColor = this.createAndAddDyeButton(19, grayBoxX + 15, grayBoxY + 90, 90, 20, this.configuration.bedColor);
+        this.btnAddChest = this.createAndAddCheckBox(6, grayBoxX + 15, grayBoxY + 125, GuiLangKeys.STARTER_HOUSE_ADD_CHEST, this.configuration.addChests);
+        this.btnAddMineShaft = this.createAndAddCheckBox(7, grayBoxX + 15, grayBoxY + 140, GuiLangKeys.STARTER_HOUSE_BUILD_MINESHAFT, this.configuration.addChestContents);
+        this.btnAddChestContents = this.createAndAddCheckBox(8, grayBoxX + 15, grayBoxY + 155, GuiLangKeys.STARTER_HOUSE_ADD_CHEST_CONTENTS, this.configuration.addMineshaft);
     }
 
     @Override
     protected void preButtonRender(int x, int y, int mouseX, int mouseY, float partialTicks) {
-        super.preButtonRender(x, y, mouseX, mouseY, partialTicks);
+        this.drawDefaultBackground();
 
-        GuiUtils.bindAndDrawModalRectWithCustomSizedTexture(this.configuration.houseStyle.getHousePicture(), x + 249, y, 1,
-                this.configuration.houseStyle.getImageWidth(), this.configuration.houseStyle.getImageHeight(),
-                this.configuration.houseStyle.getImageWidth(), this.configuration.houseStyle.getImageHeight());
+        this.drawControlBackGround(x + 10, y + 10, 125, 190);
+        this.drawControlBackGround(x + 140, y + 10, 125, 190);
+        this.drawControlBackGround(x + 270, y + 10, 150, 190);
+
+        int imageWidth = this.configuration.houseStyle.getImageWidth();
+        int shownWidth = 140;
+        int shownHeight = 150;
+
+        if (imageWidth < shownWidth) {
+            shownWidth = imageWidth;
+        }
+
+        GuiUtils.bindTexture(this.configuration.houseStyle.getHousePicture());
+
+        Gui.drawScaledCustomSizeModalRect(x + 275, y + 35, 0, 0, shownWidth, shownHeight, shownWidth, shownHeight, shownWidth, shownHeight);
     }
 
     @Override
@@ -98,9 +107,12 @@ public class GuiModerateHouse extends GuiStructure {
         this.btnAddMineShaft.visible = this.serverConfiguration.addMineshaft;
 
         // Draw the text here.
-        this.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), x + 10, y + 10, this.textColor);
+        this.drawString("Structure Options", x + 15, y + 17, this.textColor);
+        this.drawString(GuiLangKeys.translateString("item.prefab:item_moderate_house.name"), x + 145, y + 17, this.textColor);
 
-        this.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), x + 130, y + 10, this.textColor);
+        this.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), x + 15, y + 35, this.textColor);
+
+        this.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), x + 15, y + 80, this.textColor);
     }
 
     /**

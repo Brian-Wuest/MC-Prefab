@@ -13,9 +13,13 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 import net.minecraftforge.fml.client.config.GuiSlider;
 
+import java.awt.*;
+
 public abstract class GuiBase extends GuiScreen {
 
     private final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/default_background.png");
+    private final ResourceLocation customBackgroundTextures = new ResourceLocation("prefab", "textures/gui/custom_background.png");
+    protected int textColor = Color.DARK_GRAY.getRGB();
     protected int modifiedInitialXAxis = 213;
     protected int modifiedInitialYAxis = 83;
     private boolean pauseGame;
@@ -144,6 +148,7 @@ public abstract class GuiBase extends GuiScreen {
     public GuiCheckBox createAndAddCheckBox(int id, int xPos, int yPos, String displayString, boolean isChecked) {
         GuiCheckBox checkBox = new GuiCheckBox(id, xPos, yPos, GuiLangKeys.translateString(displayString), isChecked);
 
+        checkBox.setStringColor(this.textColor);
         this.addButton(checkBox);
         return checkBox;
     }
@@ -160,6 +165,24 @@ public abstract class GuiBase extends GuiScreen {
     protected void drawControlBackground(int grayBoxX, int grayBoxY) {
         GuiUtils.bindTexture(this.backgroundTextures);
         this.drawTexturedModalRect(grayBoxX, grayBoxY, 0, 0, 256, 256);
+    }
+
+    protected void drawControlBackGround(int grayBoxX, int grayBoxY, int width, int height) {
+        net.minecraftforge.fml.client.config.GuiUtils.drawContinuousTexturedBox(
+                this.customBackgroundTextures,
+                grayBoxX,
+                grayBoxY,
+                0,
+                0,
+                width,
+                height,
+                89,
+                233,
+                2,
+                2,
+                4,
+                4,
+                0);
     }
 
     protected void renderButtons(int mouseX, int mouseY) {

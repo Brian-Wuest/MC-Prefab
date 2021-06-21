@@ -37,7 +37,6 @@ public class GuiChickenCoop extends GuiStructure {
 
     @Override
     protected void postButtonRender(int x, int y, int mouseX, int mouseY, float partialTicks) {
-        this.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, y + 10, 95, this.textColor);
     }
 
     /**

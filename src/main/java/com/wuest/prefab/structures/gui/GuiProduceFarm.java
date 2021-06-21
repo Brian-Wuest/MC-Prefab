@@ -68,7 +68,7 @@ public class GuiProduceFarm extends GuiStructure {
         this.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS), x + 10, y + 10, this.textColor);
 
         // Draw the text here.
-        String strToDraw = GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED) + "\n \n" + GuiLangKeys.translateString(GuiLangKeys.PRODUCE_FARM_SIZE);
+        String strToDraw = GuiLangKeys.translateString(GuiLangKeys.PRODUCE_FARM_SIZE);
         this.drawSplitString(strToDraw, x + 147, y + 10, 100, this.textColor);
     }
 

@@ -70,7 +70,6 @@ public class GuiBasicStructure extends GuiStructure {
 
         // Second column
         yValue = y + 10;
-        this.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, yValue, 95, this.textColor);
     }
 
     /**
