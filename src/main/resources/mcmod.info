@@ -13,7 +13,7 @@
       "NerdySpider"
     ],
     "credits": "Kaojinn for making the textures and the construction of the ideas. Structure Preview functionality adapted from Botania by Vazkii http://botaniamod.net/license.php.",
-    "logoFile": "",
+    "logoFile": "assets/prefab/textures/gui/prefablogo.png",
     "screenshots": [],
     "dependencies": []
   }
