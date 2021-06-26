@@ -24,15 +24,43 @@ public class GuiChickenCoop extends GuiStructure {
     public GuiChickenCoop() {
         super();
         this.structureConfiguration = EnumStructureConfiguration.ChickenCoop;
-        this.modifiedInitialXAxis = 213;
-        this.modifiedInitialYAxis = 83;
+    }
+
+    @Override
+    protected void Initialize() {
+        this.modifiedInitialXAxis = 160;;
+        this.modifiedInitialYAxis = 120;
+        this.configuration = ClientEventHandler.playerConfig.getClientConfig("Chicken Coop", ChickenCoopConfiguration.class);
+        this.configuration.pos = this.pos;
+
+        // Get the upper left hand corner of the GUI box.
+        Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
+        int grayBoxX = adjustedXYValue.getFirst();
+        int grayBoxY = adjustedXYValue.getSecond();
+
+        // Create the buttons.
+        this.btnVisualize = this.createAndAddCustomButton(4, grayBoxX + 113, grayBoxY + 165, 90, 20, GuiLangKeys.GUI_BUTTON_PREVIEW);
+        this.btnBuild = this.createAndAddCustomButton(1, grayBoxX + 215, grayBoxY + 165, 90, 20, GuiLangKeys.GUI_BUTTON_BUILD);
+        this.btnCancel = this.createAndAddButton(2, grayBoxX + 10, grayBoxY + 165, 90, 20, GuiLangKeys.GUI_BUTTON_CANCEL);
     }
 
     @Override
     protected void preButtonRender(int x, int y, int mouseX, int mouseY, float partialTicks) {
-        super.preButtonRender(x, y, mouseX, mouseY, partialTicks);
+        int imagePanelWidth = 330;
+        int imagePanelHeight = 300;
+        this.drawDefaultBackground();
 
-        GuiUtils.bindAndDrawModalRectWithCustomSizedTexture(structureTopDown, x + 250, y, 1, 171, 87, 171, 87);
+        this.drawControlBackground(x, y, imagePanelWidth, imagePanelHeight);
+
+
+        int imagePanelMiddle = imagePanelWidth / 2;
+
+        int imageWidth = 268;
+        int shownHeight = 150;
+        int middleOfImage = imageWidth / 2;
+        int imageLocation = x + (imagePanelMiddle - middleOfImage);
+
+        GuiUtils.bindAndDrawModalRectWithCustomSizedTexture(structureTopDown, imageLocation, y + 10, 1, imageWidth, shownHeight, imageWidth, shownHeight);
     }
 
     @Override
@@ -52,24 +80,4 @@ public class GuiChickenCoop extends GuiStructure {
             this.closeScreen();
         }
     }
-
-    @Override
-    protected void Initialize() {
-        this.configuration = ClientEventHandler.playerConfig.getClientConfig("Chicken Coop", ChickenCoopConfiguration.class);
-        this.configuration.pos = this.pos;
-
-        // Get the upper left hand corner of the GUI box.
-        Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
-        int grayBoxX = adjustedXYValue.getFirst();
-        int grayBoxY = adjustedXYValue.getSecond();
-
-        // Create the buttons.
-        this.btnVisualize = this.createAndAddButton(4, grayBoxX + 10, grayBoxY + 90, 90, 20, GuiLangKeys.GUI_BUTTON_PREVIEW);
-
-        // Create the done and cancel buttons.
-        this.btnBuild = this.createAndAddButton(1, grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.GUI_BUTTON_BUILD);
-
-        this.btnCancel = this.createAndAddButton(2, grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.GUI_BUTTON_CANCEL);
-    }
-
 }

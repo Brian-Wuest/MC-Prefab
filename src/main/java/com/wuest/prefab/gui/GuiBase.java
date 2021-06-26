@@ -5,10 +5,7 @@ import com.wuest.prefab.blocks.FullDyeColor;
 import com.wuest.prefab.gui.controls.GuiCheckBox;
 import com.wuest.prefab.gui.controls.GuiExtendedButton;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiLabel;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.*;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
@@ -173,8 +170,22 @@ public abstract class GuiBase extends GuiScreen {
     }
 
     protected void drawControlBackground(int grayBoxX, int grayBoxY) {
+        this.drawControlBackground(grayBoxX, grayBoxY, 256, 256);
+    }
+
+    protected void drawControlBackground(int grayBoxX, int grayBoxY, int width, int height) {
         GuiUtils.bindTexture(this.backgroundTextures);
-        this.drawTexturedModalRect(grayBoxX, grayBoxY, 0, 0, 256, 256);
+        Gui.drawScaledCustomSizeModalRect(
+                grayBoxX,
+                grayBoxY,
+                0,
+                0,
+                width,
+                height,
+                width,
+                height,
+                width,
+                height);
     }
 
     protected void drawControlPanel(int grayBoxX, int grayBoxY, int width, int height) {
