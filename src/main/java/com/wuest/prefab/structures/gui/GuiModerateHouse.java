@@ -69,29 +69,31 @@ public class GuiModerateHouse extends GuiStructure {
         this.btnAddMineShaft = this.createAndAddCheckBox(21, grayBoxX + 15, grayBoxY + 140, GuiLangKeys.STARTER_HOUSE_BUILD_MINESHAFT, this.configuration.addChestContents);
 
         // Create the standard buttons.
-        this.btnVisualize = this.createAndAddButton(4, grayBoxX + 150, grayBoxY + 75, 90, 20, GuiLangKeys.GUI_BUTTON_PREVIEW);
-        this.btnBuild = this.createAndAddButton(1, grayBoxX + 150, grayBoxY + 120, 90, 20, GuiLangKeys.GUI_BUTTON_BUILD);
-        this.btnCancel = this.createAndAddButton(2, grayBoxX + 150, grayBoxY + 165, 90, 20, GuiLangKeys.GUI_BUTTON_CANCEL);
+        this.btnVisualize = this.createAndAddCustomButton(4, grayBoxX + 25, grayBoxY + 175, 90, 20, GuiLangKeys.GUI_BUTTON_PREVIEW);
+        this.btnBuild = this.createAndAddCustomButton(1, grayBoxX + 310, grayBoxY + 175, 90, 20, GuiLangKeys.GUI_BUTTON_BUILD);
+        this.btnCancel = this.createAndAddButton(2, grayBoxX + 150, grayBoxY + 175, 90, 20, GuiLangKeys.GUI_BUTTON_CANCEL);
     }
 
     @Override
     protected void preButtonRender(int x, int y, int mouseX, int mouseY, float partialTicks) {
+        int imagePanelUpperLeft = x + 132;
+        int imagePanelWidth = 285;
+        int imagePanelMiddle = imagePanelWidth / 2;
+
         this.drawDefaultBackground();
 
         this.drawControlLeftPanel(x + 10, y + 10, 125, 190);
-        this.drawControlMiddlePanel(x + 132, y + 10, 125, 190);
-        this.drawControlRightPanel(x + 255, y + 10, 160, 190);
+        this.drawControlRightPanel(imagePanelUpperLeft, y + 10, imagePanelWidth, 190);
 
         int imageWidth = this.configuration.houseStyle.getImageWidth();
-        int shownWidth = 140;
         int shownHeight = 150;
 
-        if (imageWidth < shownWidth) {
-            shownWidth = imageWidth;
-        }
+        int middleOfImage = imageWidth / 2;
+        int imageLocation = imagePanelUpperLeft + (imagePanelMiddle - middleOfImage);
+
 
         GuiUtils.bindTexture(this.configuration.houseStyle.getHousePicture());
-        Gui.drawScaledCustomSizeModalRect(x + 265, y + 35, 0, 0, shownWidth, shownHeight, shownWidth, shownHeight, shownWidth, shownHeight);
+        Gui.drawScaledCustomSizeModalRect(imageLocation, y + 15, 0, 0, imageWidth, shownHeight, imageWidth, shownHeight, imageWidth, shownHeight);
 
         this.btnAddChest.visible = this.serverConfiguration.addChests;
         this.btnAddChestContents.visible = this.allowItemsInChestAndFurnace && this.serverConfiguration.addChestContents;
@@ -101,8 +103,8 @@ public class GuiModerateHouse extends GuiStructure {
     @Override
     protected void postButtonRender(int x, int y, int mouseX, int mouseY, float partialTicks) {
         // Draw the text here.
-        this.drawString("Structure Options", x + 15, y + 17, this.textColor);
-        this.drawString(GuiLangKeys.translateString("item.prefab:item_moderate_house.name"), x + 140, y + 17, this.textColor);
+        //this.drawString("Structure Options", x + 15, y + 17, this.textColor);
+        this.drawString(GuiLangKeys.translateString("item.prefab:item_moderate_house.name"), x + 15, y + 17, this.textColor);
 
         this.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), x + 15, y + 35, this.textColor);
 

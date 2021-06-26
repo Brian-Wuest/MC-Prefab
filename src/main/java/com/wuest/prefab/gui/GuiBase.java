@@ -3,6 +3,7 @@ package com.wuest.prefab.gui;
 import com.wuest.prefab.Tuple;
 import com.wuest.prefab.blocks.FullDyeColor;
 import com.wuest.prefab.gui.controls.GuiCheckBox;
+import com.wuest.prefab.gui.controls.GuiExtendedButton;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
@@ -109,6 +110,16 @@ public abstract class GuiBase extends GuiScreen {
         GuiButtonExt returnValue = new GuiButtonExt(id, x, y, width, height, translate ? GuiLangKeys.translateString(text) : text);
 
        return this.addButton(returnValue);
+    }
+
+    public GuiExtendedButton createAndAddCustomButton(int id, int x, int y, int width, int height, String text) {
+        return this.createAndAddCustomButton(id, x, y, width, height, text, true);
+    }
+
+    public GuiExtendedButton createAndAddCustomButton(int id, int x, int y, int width, int height, String text, boolean translate) {
+        GuiExtendedButton returnValue = new GuiExtendedButton(id, x, y, width, height, translate ? GuiLangKeys.translateString(text) : text);
+
+        return this.addButton(returnValue);
     }
 
     /**
