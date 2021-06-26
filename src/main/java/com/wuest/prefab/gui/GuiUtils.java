@@ -1,6 +1,8 @@
 package com.wuest.prefab.gui;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -136,7 +138,12 @@ public class GuiUtils {
         GuiUtils.drawModalRectWithCustomSizedTexture(x, y, z, width, height, textureWidth, textureHeight);
     }
 
-    public static void setButtonText(GuiButtonExt button, String message) {
+    public static void setButtonText(GuiButton button, String message) {
         button.displayString = message;
+    }
+
+    public static void drawCenteredString(FontRenderer fontRendererIn, String text, int x, int y, int color, boolean withShadow)
+    {
+        fontRendererIn.drawString(text, (float) (x - fontRendererIn.getStringWidth(text) / 2), y, color, withShadow);
     }
 }

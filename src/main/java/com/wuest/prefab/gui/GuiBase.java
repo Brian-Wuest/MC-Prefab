@@ -14,6 +14,7 @@ import net.minecraftforge.fml.client.config.GuiButtonExt;
 import net.minecraftforge.fml.client.config.GuiSlider;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public abstract class GuiBase extends GuiScreen {
 
@@ -72,7 +73,7 @@ public abstract class GuiBase extends GuiScreen {
 
         this.preButtonRender(adjustedXYValue.getFirst(), adjustedXYValue.getSecond(), x, y, f);
 
-        this.renderButtons(x, y);
+        this.renderButtons(x, y, f);
 
         this.postButtonRender(adjustedXYValue.getFirst(), adjustedXYValue.getSecond(), x, y, f);
     }
@@ -104,9 +105,7 @@ public abstract class GuiBase extends GuiScreen {
     public GuiButtonExt createAndAddButton(int id, int x, int y, int width, int height, String text, boolean translate) {
         GuiButtonExt returnValue = new GuiButtonExt(id, x, y, width, height, translate ? GuiLangKeys.translateString(text) : text);
 
-        this.addButton(returnValue);
-
-        return returnValue;
+       return this.addButton(returnValue);
     }
 
     /**
@@ -122,9 +121,7 @@ public abstract class GuiBase extends GuiScreen {
     public GuiButtonExt createAndAddDyeButton(int id, int x, int y, int width, int height, EnumDyeColor color) {
         GuiButtonExt returnValue = new GuiButtonExt(id, x, y, width, height, GuiLangKeys.translateDye(color));
 
-        this.addButton(returnValue);
-
-        return returnValue;
+        return this.addButton(returnValue);
     }
 
     /**
@@ -147,10 +144,9 @@ public abstract class GuiBase extends GuiScreen {
 
     public GuiCheckBox createAndAddCheckBox(int id, int xPos, int yPos, String displayString, boolean isChecked) {
         GuiCheckBox checkBox = new GuiCheckBox(id, xPos, yPos, GuiLangKeys.translateString(displayString), isChecked);
-
         checkBox.setStringColor(this.textColor);
-        this.addButton(checkBox);
-        return checkBox;
+
+        return this.addButton(checkBox);
     }
 
     public GuiSlider createAndAddSlider(int id, int xPos, int yPos, int width, int height, String prefix, String suf,
@@ -185,10 +181,10 @@ public abstract class GuiBase extends GuiScreen {
                 0);
     }
 
-    protected void renderButtons(int mouseX, int mouseY) {
+    protected void renderButtons(int mouseX, int mouseY, float partialTicks) {
         for (GuiButton currentButton : this.buttonList) {
             if (currentButton != null && currentButton.visible) {
-                currentButton.drawButton(this.mc, mouseX, mouseY, this.mc.getRenderPartialTicks());
+                currentButton.drawButton(this.mc, mouseX, mouseY, partialTicks);
             }
         }
 

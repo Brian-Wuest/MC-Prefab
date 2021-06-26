@@ -7,6 +7,7 @@ import com.wuest.prefab.events.ClientEventHandler;
 import com.wuest.prefab.gui.GuiLangKeys;
 import com.wuest.prefab.gui.GuiUtils;
 import com.wuest.prefab.gui.controls.GuiCheckBox;
+import com.wuest.prefab.gui.controls.GuiExtendedButton;
 import com.wuest.prefab.structures.config.ModerateHouseConfiguration;
 import com.wuest.prefab.structures.messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.structures.predefined.StructureModerateHouse;
@@ -60,23 +61,18 @@ public class GuiModerateHouse extends GuiStructure {
         int grayBoxX = adjustedXYValue.getFirst();
         int grayBoxY = adjustedXYValue.getSecond();
 
-        this.btnHouseStyle = this.createAndAddButton(4, grayBoxX + 15, grayBoxY + 45, 90, 20, this.configuration.houseStyle.getDisplayName(), false);
-
         // Create the buttons.
+        this.btnHouseStyle = this.createAndAddButton(4, grayBoxX + 15, grayBoxY + 45, 90, 20, this.configuration.houseStyle.getDisplayName(), false);
+        this.btnBedColor = this.createAndAddDyeButton(19, grayBoxX + 15, grayBoxY + 90, 90, 20, this.configuration.bedColor);
+        this.btnAddChest = this.createAndAddCheckBox(20, grayBoxX + 15, grayBoxY + 125, GuiLangKeys.STARTER_HOUSE_ADD_CHEST, this.configuration.addChests);
+        this.btnAddChestContents = this.createAndAddCheckBox(22, grayBoxX + 15, grayBoxY + 155, GuiLangKeys.STARTER_HOUSE_ADD_CHEST_CONTENTS, this.configuration.addMineshaft);
+        this.btnAddMineShaft = this.createAndAddCheckBox(21, grayBoxX + 15, grayBoxY + 140, GuiLangKeys.STARTER_HOUSE_BUILD_MINESHAFT, this.configuration.addChestContents);
+
+        // Create the standard buttons.
         this.btnVisualize = this.createAndAddButton(4, grayBoxX + 155, grayBoxY + 75, 90, 20, GuiLangKeys.GUI_BUTTON_PREVIEW);
 
-        // Create the done and cancel buttons.
         this.btnBuild = this.createAndAddButton(1, grayBoxX + 155, grayBoxY + 120, 90, 20, GuiLangKeys.GUI_BUTTON_BUILD);
-
         this.btnCancel = this.createAndAddButton(2, grayBoxX + 155, grayBoxY + 165, 90, 20, GuiLangKeys.GUI_BUTTON_CANCEL);
-
-        int x = grayBoxX + 130;
-        int y = grayBoxY + 20;
-
-        this.btnBedColor = this.createAndAddDyeButton(19, grayBoxX + 15, grayBoxY + 90, 90, 20, this.configuration.bedColor);
-        this.btnAddChest = this.createAndAddCheckBox(6, grayBoxX + 15, grayBoxY + 125, GuiLangKeys.STARTER_HOUSE_ADD_CHEST, this.configuration.addChests);
-        this.btnAddMineShaft = this.createAndAddCheckBox(7, grayBoxX + 15, grayBoxY + 140, GuiLangKeys.STARTER_HOUSE_BUILD_MINESHAFT, this.configuration.addChestContents);
-        this.btnAddChestContents = this.createAndAddCheckBox(8, grayBoxX + 15, grayBoxY + 155, GuiLangKeys.STARTER_HOUSE_ADD_CHEST_CONTENTS, this.configuration.addMineshaft);
     }
 
     @Override
@@ -96,16 +92,15 @@ public class GuiModerateHouse extends GuiStructure {
         }
 
         GuiUtils.bindTexture(this.configuration.houseStyle.getHousePicture());
-
         Gui.drawScaledCustomSizeModalRect(x + 275, y + 35, 0, 0, shownWidth, shownHeight, shownWidth, shownHeight, shownWidth, shownHeight);
+
+        this.btnAddChest.visible = this.serverConfiguration.addChests;
+        this.btnAddChestContents.visible = this.allowItemsInChestAndFurnace && this.serverConfiguration.addChestContents;
+        this.btnAddMineShaft.visible = this.serverConfiguration.addMineshaft;
     }
 
     @Override
     protected void postButtonRender(int x, int y, int mouseX, int mouseY, float partialTicks) {
-        this.btnAddChest.visible = this.serverConfiguration.addChests;
-        this.btnAddChestContents.visible = this.allowItemsInChestAndFurnace && this.serverConfiguration.addChestContents;
-        this.btnAddMineShaft.visible = this.serverConfiguration.addMineshaft;
-
         // Draw the text here.
         this.drawString("Structure Options", x + 15, y + 17, this.textColor);
         this.drawString(GuiLangKeys.translateString("item.prefab:item_moderate_house.name"), x + 145, y + 17, this.textColor);

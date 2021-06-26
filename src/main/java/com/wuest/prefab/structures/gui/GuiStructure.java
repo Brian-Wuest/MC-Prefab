@@ -62,7 +62,7 @@ public abstract class GuiStructure extends GuiBase {
 
         this.preButtonRender(adjustedXYValue.getFirst(), adjustedXYValue.getSecond(), x, y, f);
 
-        this.renderButtons(x, y);
+        this.renderButtons(x, y, f);
 
         this.postButtonRender(adjustedXYValue.getFirst(), adjustedXYValue.getSecond(), x, y, f);
 
