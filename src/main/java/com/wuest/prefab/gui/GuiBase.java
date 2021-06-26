@@ -19,7 +19,10 @@ import java.util.ArrayList;
 public abstract class GuiBase extends GuiScreen {
 
     private final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/default_background.png");
-    private final ResourceLocation customBackgroundTextures = new ResourceLocation("prefab", "textures/gui/custom_background.png");
+    private final ResourceLocation narrowPanelTexture = new ResourceLocation("prefab", "textures/gui/custom_background.png");
+    private final ResourceLocation leftPanelTexture = new ResourceLocation("prefab", "textures/gui/custom_left_panel.png");
+    private final ResourceLocation middlePanelTexture = new ResourceLocation("prefab", "textures/gui/custom_middle_panel.png");
+    private final ResourceLocation rightPanelTexture = new ResourceLocation("prefab", "textures/gui/custom_right_panel.png");
     protected int textColor = Color.DARK_GRAY.getRGB();
     protected int modifiedInitialXAxis = 213;
     protected int modifiedInitialYAxis = 83;
@@ -163,9 +166,63 @@ public abstract class GuiBase extends GuiScreen {
         this.drawTexturedModalRect(grayBoxX, grayBoxY, 0, 0, 256, 256);
     }
 
-    protected void drawControlBackGround(int grayBoxX, int grayBoxY, int width, int height) {
+    protected void drawControlPanel(int grayBoxX, int grayBoxY, int width, int height) {
         net.minecraftforge.fml.client.config.GuiUtils.drawContinuousTexturedBox(
-                this.customBackgroundTextures,
+                this.narrowPanelTexture,
+                grayBoxX,
+                grayBoxY,
+                0,
+                0,
+                width,
+                height,
+                89,
+                233,
+                2,
+                2,
+                4,
+                4,
+                0);
+    }
+
+    protected void drawControlLeftPanel(int grayBoxX, int grayBoxY, int width, int height) {
+        net.minecraftforge.fml.client.config.GuiUtils.drawContinuousTexturedBox(
+                this.leftPanelTexture,
+                grayBoxX,
+                grayBoxY,
+                0,
+                0,
+                width,
+                height,
+                89,
+                233,
+                2,
+                2,
+                4,
+                4,
+                0);
+    }
+
+    protected void drawControlMiddlePanel(int grayBoxX, int grayBoxY, int width, int height) {
+        net.minecraftforge.fml.client.config.GuiUtils.drawContinuousTexturedBox(
+                this.middlePanelTexture,
+                grayBoxX,
+                grayBoxY,
+                0,
+                0,
+                width,
+                height,
+                89,
+                233,
+                2,
+                2,
+                4,
+                4,
+                0);
+    }
+
+    protected void drawControlRightPanel(int grayBoxX, int grayBoxY, int width, int height) {
+        net.minecraftforge.fml.client.config.GuiUtils.drawContinuousTexturedBox(
+                this.rightPanelTexture,
                 grayBoxX,
                 grayBoxY,
                 0,
