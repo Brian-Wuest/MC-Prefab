@@ -17,6 +17,7 @@ public class GuiAdvancedWareHouse extends GuiWareHouse {
         super.Initialize();
         this.configuration.advanced = true;
         this.structureConfiguration = EnumStructureConfiguration.AdvancedWareHouse;
+        this.structureIdentifier = "item.prefab:item_advanced_warehouse.name";
     }
 
 }
