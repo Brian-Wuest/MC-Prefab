@@ -164,22 +164,22 @@ public class BasicStructureConfiguration extends StructureConfiguration {
     @SuppressWarnings("SpellCheckingInspection")
     public enum EnumBasicStructureName {
         Custom("custom", null, null, null),
-        AdvancedCoop("advancedcoop", "item.prefab.advanced.chicken.coop", "item_advanced_chicken_coop", AdvancedCoopOptions.Default),
-        AdvancedHorseStable("advanced_horse_stable", "item.prefab.advanced.horse.stable", "item_advanced_horse_stable", AdvancedHorseStableOptions.Default),
-        Barn("barn", "item.prefab.barn", "item_barn", BarnOptions.Default),
-        MachineryTower("machinery_tower", "item.prefab.machinery.tower", "item_machinery_tower", MachineryTowerOptions.Default),
-        DefenseBunker("defense_bunker", "item.prefab.defense.bunker", "item_defense_bunker", DefenseBunkerOptions.Default),
-        MineshaftEntrance("mineshaft_entrance", "item.prefab.mineshaft.entrance", "item_mineshaft_entrance", MineshaftEntranceOptions.Default),
-        EnderGateway("ender_gateway", "item.prefab.ender_gateway", "item_ender_gateway", EnderGatewayOptions.Default),
-        AquaBase("aqua_base", "item.prefab.aqua_base", "item_aqua_base", AquaBaseOptions.Default),
-        GrassyPlain("grassy_plain", "item.prefab.grassy_plain", "item_grassy_plain", GrassyPlainOptions.Default),
-        MagicTemple("magic_temple", "item.prefab.magic_temple", "item_magic_temple", MagicTempleOptions.Default),
-        GreenHouse("green_house", "item.prefab.green_house", "item_green_house", GreenHouseOptions.Default),
-        WatchTower("watch_tower", "item.prefab.watch_tower", "item_watch_tower", WatchTowerOptions.Default),
-        WelcomeCenter("welcome_center", "item.prefab.welcome_center", "item_welcome_center", WelcomeCenterOptions.Default),
-        Jail("jail", "item.prefab.jail", "item_jail", JailOptions.Default),
-        Saloon("saloon", "item.prefab.saloon", "item_saloon", SaloonOptions.Default),
-        NetherGate("nether_gate", "item.prefab.nether_gate", "item_nether_gate", NetherGateOptions.AncientSkull);
+        AdvancedCoop("advancedcoop", "item.prefab:item_advanced_chicken_coop.name", "item_advanced_chicken_coop", AdvancedCoopOptions.Default),
+        AdvancedHorseStable("advanced_horse_stable", "item.prefab:item_advanced_horse_stable.name", "item_advanced_horse_stable", AdvancedHorseStableOptions.Default),
+        Barn("barn", "item.prefab:item_barn.name", "item_barn", BarnOptions.Default),
+        MachineryTower("machinery_tower", "item.prefab:item_machinery_tower.name", "item_machinery_tower", MachineryTowerOptions.Default),
+        DefenseBunker("defense_bunker", "item.prefab:item_defense_bunker.name", "item_defense_bunker", DefenseBunkerOptions.Default),
+        MineshaftEntrance("mineshaft_entrance", "item.prefab:item_mineshaft_entrance.name", "item_mineshaft_entrance", MineshaftEntranceOptions.Default),
+        EnderGateway("ender_gateway", "item.prefab:item_ender_gateway.name", "item_ender_gateway", EnderGatewayOptions.Default),
+        AquaBase("aqua_base", "item.prefab:item_aqua_base.name", "item_aqua_base", AquaBaseOptions.Default),
+        GrassyPlain("grassy_plain", "item.prefab:item_grassy_plain.name", "item_grassy_plain", GrassyPlainOptions.Default),
+        MagicTemple("magic_temple", "item.prefab:item_magic_temple.name", "item_magic_temple", MagicTempleOptions.Default),
+        GreenHouse("green_house", "item.prefab:item_green_house.name", "item_green_house", GreenHouseOptions.Default),
+        WatchTower("watch_tower", "item.prefab:item_watch_tower.name", "item_watch_tower", WatchTowerOptions.Default),
+        WelcomeCenter("welcome_center", "item.prefab:item_welcome_center.name", "item_welcome_center", WelcomeCenterOptions.Default),
+        Jail("jail", "item.prefab:item_jail.name", "item_jail", JailOptions.Default),
+        Saloon("saloon", "item.prefab:item_saloon.name", "item_saloon", SaloonOptions.Default),
+        NetherGate("nether_gate", "item.prefab:item_nether_gate.name", "item_nether_gate", NetherGateOptions.AncientSkull);
 
         private final String name;
         private final String itemTranslationString;

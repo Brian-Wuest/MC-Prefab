@@ -46,6 +46,8 @@ public class GuiModerateHouse extends GuiStructure {
     protected void Initialize() {
         this.modifiedInitialXAxis = 212;
         this.modifiedInitialYAxis = 117;
+        this.shownImageHeight = 150;
+        this.shownImageWidth = 268;
 
         if (!Minecraft.getMinecraft().player.isCreative()) {
             this.allowItemsInChestAndFurnace = !ClientEventHandler.playerConfig.builtStarterHouse;
@@ -54,7 +56,6 @@ public class GuiModerateHouse extends GuiStructure {
         this.serverConfiguration = Prefab.proxy.getServerConfiguration();
         this.configuration = ClientEventHandler.playerConfig.getClientConfig("Moderate Houses", ModerateHouseConfiguration.class);
         this.configuration.pos = this.pos;
-        int color = Color.DARK_GRAY.getRGB();
 
         // Get the upper left hand corner of the GUI box.
         Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
@@ -63,13 +64,13 @@ public class GuiModerateHouse extends GuiStructure {
 
         // Create the buttons.
         this.btnHouseStyle = this.createAndAddButton(4, grayBoxX + 15, grayBoxY + 45, 90, 20, this.configuration.houseStyle.getDisplayName(), false);
-        this.btnBedColor = this.createAndAddDyeButton(19, grayBoxX + 15, grayBoxY + 90, 90, 20, this.configuration.bedColor);
-        this.btnAddChest = this.createAndAddCheckBox(20, grayBoxX + 15, grayBoxY + 125, GuiLangKeys.STARTER_HOUSE_ADD_CHEST, this.configuration.addChests);
-        this.btnAddChestContents = this.createAndAddCheckBox(22, grayBoxX + 15, grayBoxY + 155, GuiLangKeys.STARTER_HOUSE_ADD_CHEST_CONTENTS, this.configuration.addMineshaft);
-        this.btnAddMineShaft = this.createAndAddCheckBox(21, grayBoxX + 15, grayBoxY + 140, GuiLangKeys.STARTER_HOUSE_BUILD_MINESHAFT, this.configuration.addChestContents);
+        this.btnBedColor = this.createAndAddDyeButton(5, grayBoxX + 15, grayBoxY + 90, 90, 20, this.configuration.bedColor);
+        this.btnAddChest = this.createAndAddCheckBox(6, grayBoxX + 15, grayBoxY + 125, GuiLangKeys.STARTER_HOUSE_ADD_CHEST, this.configuration.addChests);
+        this.btnAddChestContents = this.createAndAddCheckBox(7, grayBoxX + 15, grayBoxY + 155, GuiLangKeys.STARTER_HOUSE_ADD_CHEST_CONTENTS, this.configuration.addMineshaft);
+        this.btnAddMineShaft = this.createAndAddCheckBox(8, grayBoxX + 15, grayBoxY + 140, GuiLangKeys.STARTER_HOUSE_BUILD_MINESHAFT, this.configuration.addChestContents);
 
         // Create the standard buttons.
-        this.btnVisualize = this.createAndAddCustomButton(4, grayBoxX + 25, grayBoxY + 175, 90, 20, GuiLangKeys.GUI_BUTTON_PREVIEW);
+        this.btnVisualize = this.createAndAddCustomButton(3, grayBoxX + 25, grayBoxY + 175, 90, 20, GuiLangKeys.GUI_BUTTON_PREVIEW);
         this.btnBuild = this.createAndAddCustomButton(1, grayBoxX + 310, grayBoxY + 175, 90, 20, GuiLangKeys.GUI_BUTTON_BUILD);
         this.btnCancel = this.createAndAddButton(2, grayBoxX + 150, grayBoxY + 175, 90, 20, GuiLangKeys.GUI_BUTTON_CANCEL);
     }
@@ -85,15 +86,11 @@ public class GuiModerateHouse extends GuiStructure {
         this.drawControlLeftPanel(x + 10, y + 10, 125, 190);
         this.drawControlRightPanel(imagePanelUpperLeft, y + 10, imagePanelWidth, 190);
 
-        int imageWidth = this.configuration.houseStyle.getImageWidth();
-        int shownHeight = 150;
-
-        int middleOfImage = imageWidth / 2;
+        int middleOfImage = this.shownImageWidth / 2;
         int imageLocation = imagePanelUpperLeft + (imagePanelMiddle - middleOfImage);
 
-
         GuiUtils.bindTexture(this.configuration.houseStyle.getHousePicture());
-        Gui.drawScaledCustomSizeModalRect(imageLocation, y + 15, 0, 0, imageWidth, shownHeight, imageWidth, shownHeight, imageWidth, shownHeight);
+        Gui.drawScaledCustomSizeModalRect(imageLocation, y + 15, 0, 0, this.shownImageWidth, this.shownImageHeight, this.shownImageWidth, this.shownImageHeight, this.shownImageWidth, this.shownImageHeight);
 
         this.btnAddChest.visible = this.serverConfiguration.addChests;
         this.btnAddChestContents.visible = this.allowItemsInChestAndFurnace && this.serverConfiguration.addChestContents;
@@ -103,7 +100,6 @@ public class GuiModerateHouse extends GuiStructure {
     @Override
     protected void postButtonRender(int x, int y, int mouseX, int mouseY, float partialTicks) {
         // Draw the text here.
-        //this.drawString("Structure Options", x + 15, y + 17, this.textColor);
         this.drawString(GuiLangKeys.translateString("item.prefab:item_moderate_house.name"), x + 15, y + 17, this.textColor);
 
         this.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), x + 15, y + 35, this.textColor);
@@ -129,8 +125,7 @@ public class GuiModerateHouse extends GuiStructure {
             this.btnHouseStyle.displayString = this.configuration.houseStyle.getDisplayName();
         } else if (button == this.btnVisualize) {
             StructureModerateHouse structure = StructureModerateHouse.CreateInstance(this.configuration.houseStyle.getStructureLocation(), StructureModerateHouse.class);
-            StructureRenderHandler.setStructure(structure, EnumFacing.NORTH, this.configuration);
-            this.closeScreen();
+            this.performPreview(structure, this.configuration);
         } else if (button == this.btnBedColor) {
             this.configuration.bedColor = EnumDyeColor.byMetadata(this.configuration.bedColor.getMetadata() + 1);
             GuiUtils.setButtonText(btnBedColor, GuiLangKeys.translateDye(this.configuration.bedColor));

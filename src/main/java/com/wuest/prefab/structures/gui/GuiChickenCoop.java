@@ -28,43 +28,12 @@ public class GuiChickenCoop extends GuiStructure {
 
     @Override
     protected void Initialize() {
-        this.modifiedInitialXAxis = 160;;
-        this.modifiedInitialYAxis = 120;
+        super.Initialize();
+        this.structureImageLocation = structureTopDown;
         this.configuration = ClientEventHandler.playerConfig.getClientConfig("Chicken Coop", ChickenCoopConfiguration.class);
         this.configuration.pos = this.pos;
 
-        // Get the upper left hand corner of the GUI box.
-        Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
-        int grayBoxX = adjustedXYValue.getFirst();
-        int grayBoxY = adjustedXYValue.getSecond();
-
-        // Create the buttons.
-        this.btnVisualize = this.createAndAddCustomButton(4, grayBoxX + 113, grayBoxY + 165, 90, 20, GuiLangKeys.GUI_BUTTON_PREVIEW);
-        this.btnBuild = this.createAndAddCustomButton(1, grayBoxX + 215, grayBoxY + 165, 90, 20, GuiLangKeys.GUI_BUTTON_BUILD);
-        this.btnCancel = this.createAndAddButton(2, grayBoxX + 10, grayBoxY + 165, 90, 20, GuiLangKeys.GUI_BUTTON_CANCEL);
-    }
-
-    @Override
-    protected void preButtonRender(int x, int y, int mouseX, int mouseY, float partialTicks) {
-        int imagePanelWidth = 330;
-        int imagePanelHeight = 300;
-        this.drawDefaultBackground();
-
-        this.drawControlBackground(x, y, imagePanelWidth, imagePanelHeight);
-
-
-        int imagePanelMiddle = imagePanelWidth / 2;
-
-        int imageWidth = 268;
-        int shownHeight = 150;
-        int middleOfImage = imageWidth / 2;
-        int imageLocation = x + (imagePanelMiddle - middleOfImage);
-
-        GuiUtils.bindAndDrawModalRectWithCustomSizedTexture(structureTopDown, imageLocation, y + 10, 1, imageWidth, shownHeight, imageWidth, shownHeight);
-    }
-
-    @Override
-    protected void postButtonRender(int x, int y, int mouseX, int mouseY, float partialTicks) {
+        this.InitializeStandardButtons();
     }
 
     /**
@@ -76,8 +45,7 @@ public class GuiChickenCoop extends GuiStructure {
 
         if (button == this.btnVisualize) {
             StructureChickenCoop structure = StructureChickenCoop.CreateInstance(StructureChickenCoop.ASSETLOCATION, StructureChickenCoop.class);
-            StructureRenderHandler.setStructure(structure, EnumFacing.NORTH, this.configuration);
-            this.closeScreen();
+            this.performPreview(structure, this.configuration);
         }
     }
 }

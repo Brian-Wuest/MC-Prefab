@@ -12,7 +12,6 @@ import net.minecraftforge.fml.client.config.GuiButtonExt;
 import net.minecraftforge.fml.client.config.GuiSlider;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 public abstract class GuiBase extends GuiScreen {
 
@@ -22,8 +21,12 @@ public abstract class GuiBase extends GuiScreen {
     private final ResourceLocation middlePanelTexture = new ResourceLocation("prefab", "textures/gui/custom_middle_panel.png");
     private final ResourceLocation rightPanelTexture = new ResourceLocation("prefab", "textures/gui/custom_right_panel.png");
     protected int textColor = Color.DARK_GRAY.getRGB();
-    protected int modifiedInitialXAxis = 213;
-    protected int modifiedInitialYAxis = 83;
+    protected int modifiedInitialXAxis = 0;
+    protected int modifiedInitialYAxis = 0;
+    protected int imagePanelWidth = 0;
+    protected int imagePanelHeight = 0;
+    protected int shownImageHeight = 0;
+    protected int shownImageWidth = 0;
     private boolean pauseGame;
 
     public GuiBase() {
@@ -40,6 +43,12 @@ public abstract class GuiBase extends GuiScreen {
      * This method is used to initialize GUI specific items.
      */
     protected void Initialize() {
+        this.modifiedInitialXAxis = 160;
+        this.modifiedInitialYAxis = 120;
+        this.imagePanelWidth = 325;
+        this.imagePanelHeight = 300;
+        this.shownImageHeight = 150;
+        this.shownImageWidth = 268;
     }
 
     /**
@@ -106,7 +115,7 @@ public abstract class GuiBase extends GuiScreen {
     public GuiButtonExt createAndAddButton(int id, int x, int y, int width, int height, String text, boolean translate) {
         GuiButtonExt returnValue = new GuiButtonExt(id, x, y, width, height, translate ? GuiLangKeys.translateString(text) : text);
 
-       return this.addButton(returnValue);
+        return this.addButton(returnValue);
     }
 
     public GuiExtendedButton createAndAddCustomButton(int id, int x, int y, int width, int height, String text) {
@@ -258,6 +267,28 @@ public abstract class GuiBase extends GuiScreen {
                 4,
                 4,
                 0);
+    }
+
+    protected void drawStandardControlBoxAndImage(ResourceLocation imageLocation, int x, int y, int mouseX, int mouseY, float partialTicks) {
+        this.drawDefaultBackground();
+        this.drawControlBackground(x, y, this.imagePanelWidth, this.imagePanelHeight);
+
+        if (imageLocation != null) {
+            int imagePanelMiddle = this.imagePanelWidth / 2;
+
+            int middleOfImage = this.shownImageWidth / 2;
+            int imagePos = x + (imagePanelMiddle - middleOfImage - 5);
+
+            GuiUtils.bindAndDrawModalRectWithCustomSizedTexture(
+                    imageLocation,
+                    imagePos,
+                    y + 10,
+                    1,
+                    this.shownImageWidth,
+                    this.shownImageHeight,
+                    this.shownImageWidth,
+                    this.shownImageHeight);
+        }
     }
 
     protected void renderButtons(int mouseX, int mouseY, float partialTicks) {

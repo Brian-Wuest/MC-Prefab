@@ -23,20 +23,16 @@ public class GuiHorseStable extends GuiStructure {
     public GuiHorseStable() {
         super();
         this.structureConfiguration = EnumStructureConfiguration.HorseStable;
-        this.modifiedInitialXAxis = 213;
-        this.modifiedInitialYAxis = 83;
     }
 
     @Override
-    protected void preButtonRender(int x, int y, int mouseX, int mouseY, float partialTicks) {
-        super.preButtonRender(x, y, mouseX, mouseY, partialTicks);
+    protected void Initialize() {
+        super.Initialize();
+        this.structureImageLocation = structureTopDown;
+        this.configuration = ClientEventHandler.playerConfig.getClientConfig("Horse Stable", HorseStableConfiguration.class);
+        this.configuration.pos = this.pos;
 
-        GuiUtils.bindAndDrawModalRectWithCustomSizedTexture(structureTopDown, x + 250, y, 1, 104, 166, 104, 166);
-    }
-
-    @Override
-    protected void postButtonRender(int x, int y, int mouseX, int mouseY, float partialTicks) {
-        // Draw the text here.
+        this.InitializeStandardButtons();
     }
 
     /**
@@ -48,27 +44,7 @@ public class GuiHorseStable extends GuiStructure {
 
         if (button == this.btnVisualize) {
             StructureHorseStable structure = StructureHorseStable.CreateInstance(StructureHorseStable.ASSETLOCATION, StructureHorseStable.class);
-            StructureRenderHandler.setStructure(structure, EnumFacing.NORTH, this.configuration);
-            this.mc.displayGuiScreen(null);
+            this.performPreview(structure, this.configuration);
         }
-    }
-
-    @Override
-    protected void Initialize() {
-        this.configuration = ClientEventHandler.playerConfig.getClientConfig("Horse Stable", HorseStableConfiguration.class);
-        this.configuration.pos = this.pos;
-
-        // Get the upper left hand corner of the GUI box.
-        int grayBoxX = (this.width / 2) - 213;
-        int grayBoxY = (this.height / 2) - 83;
-
-        // Create the buttons.
-        this.btnVisualize = this.createAndAddButton(4, grayBoxX + 10, grayBoxY + 20, 90, 20, GuiLangKeys.GUI_BUTTON_PREVIEW);
-
-        // Create the done and cancel buttons.
-        this.btnBuild = this.createAndAddButton(1, grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.GUI_BUTTON_BUILD);
-        this.buttonList.add(this.btnBuild);
-
-        this.btnCancel = this.createAndAddButton(2, grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.GUI_BUTTON_CANCEL);
     }
 }

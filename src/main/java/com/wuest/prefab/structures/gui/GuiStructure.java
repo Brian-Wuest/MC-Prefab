@@ -3,9 +3,12 @@ package com.wuest.prefab.structures.gui;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Tuple;
 import com.wuest.prefab.gui.GuiBase;
+import com.wuest.prefab.gui.GuiLangKeys;
+import com.wuest.prefab.structures.base.Structure;
 import com.wuest.prefab.structures.config.StructureConfiguration;
 import com.wuest.prefab.structures.messages.StructureTagMessage;
 import com.wuest.prefab.structures.messages.StructureTagMessage.EnumStructureConfiguration;
+import com.wuest.prefab.structures.render.StructureRenderHandler;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
@@ -31,6 +34,7 @@ public abstract class GuiStructure extends GuiBase {
     protected GuiButtonExt btnVisualize;
 
     protected EnumStructureConfiguration structureConfiguration;
+    protected ResourceLocation structureImageLocation;
     protected boolean pauseGame;
 
     public GuiStructure() {
@@ -41,6 +45,19 @@ public abstract class GuiStructure extends GuiBase {
      * This method is used to initialize GUI specific items.
      */
     protected void Initialize() {
+        super.Initialize();
+    }
+
+    protected void InitializeStandardButtons() {
+        // Get the upper left hand corner of the GUI box.
+        Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
+        int grayBoxX = adjustedXYValue.getFirst();
+        int grayBoxY = adjustedXYValue.getSecond();
+
+        // Create the buttons.
+        this.btnVisualize = this.createAndAddCustomButton(4, grayBoxX + 113, grayBoxY + 165, 90, 20, GuiLangKeys.GUI_BUTTON_PREVIEW);
+        this.btnBuild = this.createAndAddCustomButton(1, grayBoxX + 215, grayBoxY + 165, 90, 20, GuiLangKeys.GUI_BUTTON_BUILD);
+        this.btnCancel = this.createAndAddButton(2, grayBoxX + 10, grayBoxY + 165, 90, 20, GuiLangKeys.GUI_BUTTON_CANCEL);
     }
 
     public void checkVisualizationSetting() {
@@ -81,9 +98,11 @@ public abstract class GuiStructure extends GuiBase {
 
     @Override
     protected void preButtonRender(int x, int y, int mouseX, int mouseY, float partialTicks) {
-        this.drawDefaultBackground();
+        this.drawStandardControlBoxAndImage(this.structureImageLocation, x, y, mouseX, mouseY, partialTicks);
+    }
 
-        this.drawControlBackground(x, y);
+    @Override
+    protected void postButtonRender(int x, int y, int mouseX, int mouseY, float partialTicks) {
     }
 
     /**
@@ -98,5 +117,10 @@ public abstract class GuiStructure extends GuiBase {
             Prefab.network.sendToServer(new StructureTagMessage(configuration.WriteToNBTTagCompound(), this.structureConfiguration));
             this.closeScreen();
         }
+    }
+
+    protected void performPreview(Structure structure, StructureConfiguration structureConfiguration) {
+        StructureRenderHandler.setStructure(structure, EnumFacing.NORTH, structureConfiguration);
+        this.closeScreen();
     }
 }
