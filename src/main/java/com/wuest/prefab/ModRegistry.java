@@ -171,7 +171,7 @@ public class ModRegistry {
         ModRegistry.AndesiteStairs = ModRegistry.registerBlock(new BlockAndesiteStairs("block_andesite_stairs"));
         ModRegistry.DioriteStairs = ModRegistry.registerBlock(new BlockDioriteStairs("block_diorite_stairs"));
         ModRegistry.GraniteStairs = ModRegistry.registerBlock(new BlockGraniteStairs("block_granite_stairs"));
-        ////ModRegistry.Drafter = ModRegistry.registerBlock(new BlockDrafter());
+        ModRegistry.Drafter = ModRegistry.registerBlock(new BlockDrafter());
 
         /* *********************************** Item Blocks *********************************** */
         ModRegistry.CompressedStoneItem = ModRegistry.setItemBlockName(ModRegistry.registerItem(new ItemBlock(ModRegistry.CompressedStoneBlock)), BlockCompressedStone.EnumType.COMPRESSED_STONE.getUnlocalizedName());

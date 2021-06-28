@@ -40,6 +40,7 @@ import java.util.ArrayList;
 public class GuiDrafter extends GuiTabScreen {
     private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/default_background.png");
     public AvailableRoomType selectedRoomType;
+    public BlockPos pos;
     protected GuiTab tabGeneral;
     protected GuiTab tabDesignRoom;
     protected GuiTab tabPendingChanges;
@@ -63,8 +64,6 @@ public class GuiDrafter extends GuiTabScreen {
      */
     protected ArrayList<GuiRoomInfoButton> roomButtons;
     protected ArrayList<HoverChecker> roomHovers;
-
-    protected BlockPos pos;
     protected ModConfiguration serverConfiguration;
     protected DrafterTileEntityConfig drafterConfig;
     protected TileEntityDrafter tileEntity;
@@ -139,7 +138,10 @@ public class GuiDrafter extends GuiTabScreen {
         }
 
         // Draw the buttons, labels and tabs.
-        super.drawScreen(x, y, f);
+        this.renderButtons(x, y, f);
+
+        // Draw the tabs.
+        this.Tabs.DrawTabs(this.mc, x, y);
 
         for (int i = 0; i < 49; i++) {
             HoverChecker hoverChecker = this.roomHovers.get(i);

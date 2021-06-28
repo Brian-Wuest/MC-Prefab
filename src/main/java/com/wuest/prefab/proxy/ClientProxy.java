@@ -1,8 +1,10 @@
 package com.wuest.prefab.proxy;
 
+import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.config.ModConfiguration;
 import com.wuest.prefab.events.ClientEventHandler;
+import com.wuest.prefab.gui.GuiDrafter;
 import com.wuest.prefab.structures.events.StructureClientEventHandler;
 import com.wuest.prefab.structures.gui.GuiStructure;
 import com.wuest.prefab.structures.items.StructureItem;
@@ -73,6 +75,13 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+        if (ID == ModRegistry.GuiDrafter) {
+
+            GuiDrafter drafterScreen = new GuiDrafter();
+            drafterScreen.pos = new BlockPos(x, y, z);
+            return drafterScreen;
+        }
+
         GuiStructure screen = null;
         for (Map.Entry<StructureItem, GuiStructure> entry : ClientProxy.ModGuis.entrySet()) {
             ItemStack mainHelditem = player.getHeldItem(EnumHand.MAIN_HAND);

@@ -41,20 +41,20 @@ public class DrafterTileEntityConfig extends BaseConfig {
     static void InitializeMaterials() {
         // Set the materials for the field.
         AvailableRoomType.Field.getRoomMaterials()
-                .add(new RoomMaterial(ModRegistry.CompressedDirtBlock.getRegistryName(), BlockCompressedStone.EnumType.COMPRESSED_DIRT.getMetadata(), 4));
+                .add(new RoomMaterial(ModRegistry.CompressedDirtBlock.getRegistryName(), -1, 4));
 
         // Set the materials for the farmland.
         AvailableRoomType.FarmLand.getRoomMaterials()
-                .add(new RoomMaterial(ModRegistry.CompressedDirtBlock.getRegistryName(), BlockCompressedStone.EnumType.COMPRESSED_DIRT.getMetadata(), 4));
+                .add(new RoomMaterial(ModRegistry.CompressedDirtBlock.getRegistryName(), -1, 4));
         AvailableRoomType.FarmLand.getRoomMaterials().add(new RoomMaterial(Items.WATER_BUCKET.getRegistryName(), -1, 3));
 
         // Set the materials for the Plain stone room.
         AvailableRoomType.PlainStoneRoom.getRoomMaterials()
-                .add(new RoomMaterial(ModRegistry.CompressedStoneBlock.getRegistryName(), BlockCompressedStone.EnumType.COMPRESSED_STONE.getMetadata(), 12));
+                .add(new RoomMaterial(ModRegistry.CompressedStoneBlock.getRegistryName(), -1, 12));
 
         // Set the materials for the tree farm.
         AvailableRoomType.TreeFarm.getRoomMaterials()
-                .add(new RoomMaterial(ModRegistry.CompressedDirtBlock.getRegistryName(), BlockCompressedStone.EnumType.COMPRESSED_DIRT.getMetadata(), 4));
+                .add(new RoomMaterial(ModRegistry.CompressedDirtBlock.getRegistryName(), -1, 4));
         AvailableRoomType.TreeFarm.getRoomMaterials().add(new RoomMaterial(Items.WATER_BUCKET.getRegistryName(), -1, 3));
         AvailableRoomType.TreeFarm.getRoomMaterials().add(new RoomMaterial(ModRegistry.BundleOfTimber.getRegistryName(), -1, 2));
     }
