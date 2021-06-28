@@ -10,12 +10,14 @@ import com.wuest.prefab.structures.config.BasicStructureConfiguration;
 import com.wuest.prefab.structures.items.*;
 import com.wuest.prefab.structures.messages.StructureHandler;
 import com.wuest.prefab.structures.messages.StructureTagMessage;
+import com.wuest.prefab.tileEntities.TileEntityDrafter;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -95,6 +97,7 @@ public class ModRegistry {
     public static ItemBlockAndesiteSlab AndesiteSlabItem;
     public static ItemBlockDioriteSlab DioriteSlabItem;
     public static ItemBlockGraniteSlab GraniteSlabItem;
+    public static ItemBlock DrafterItem;
 
     /* *********************************** Items *********************************** */
     public static ItemCompressedChest CompressedChestItem;
@@ -168,6 +171,7 @@ public class ModRegistry {
         ModRegistry.AndesiteStairs = ModRegistry.registerBlock(new BlockAndesiteStairs("block_andesite_stairs"));
         ModRegistry.DioriteStairs = ModRegistry.registerBlock(new BlockDioriteStairs("block_diorite_stairs"));
         ModRegistry.GraniteStairs = ModRegistry.registerBlock(new BlockGraniteStairs("block_granite_stairs"));
+        ////ModRegistry.Drafter = ModRegistry.registerBlock(new BlockDrafter());
 
         /* *********************************** Item Blocks *********************************** */
         ModRegistry.CompressedStoneItem = ModRegistry.setItemBlockName(ModRegistry.registerItem(new ItemBlock(ModRegistry.CompressedStoneBlock)), BlockCompressedStone.EnumType.COMPRESSED_STONE.getUnlocalizedName());
@@ -186,6 +190,7 @@ public class ModRegistry {
         ModRegistry.AndesiteStairsItem = ModRegistry.setItemBlockName(ModRegistry.registerItem(new ItemBlock(ModRegistry.AndesiteStairs)), "block_andesite_stairs");
         ModRegistry.DioriteStairsItem = ModRegistry.setItemBlockName(ModRegistry.registerItem(new ItemBlock(ModRegistry.DioriteStairs)), "block_diorite_stairs");
         ModRegistry.GraniteStairsItem = ModRegistry.setItemBlockName(ModRegistry.registerItem(new ItemBlock(ModRegistry.GraniteStairs)), "block_granite_stairs");
+        ////ModRegistry.DrafterItem = ModRegistry.setItemBlockName(ModRegistry.registerItem(new ItemBlock(ModRegistry.Drafter)), "block_drafter");
 
         /* *********************************** Items *********************************** */
 
@@ -212,6 +217,7 @@ public class ModRegistry {
         ModRegistry.Bulldozer = ModRegistry.registerItem(new ItemBulldozer("item_creative_bulldozer", true));
         ModRegistry.StructurePart = ModRegistry.registerItem(new ItemStructurePart("item_structure_part"));
         ModRegistry.VillagerHouses = ModRegistry.registerItem(new ItemVillagerHouses("item_villager_houses"));
+        ////ModRegistry.ModularHouse = ModRegistry.registerItem(new ItemModularHouse("item_modular_house"));
         ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.AdvancedCoop.getItemTextureLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.AdvancedCoop));
         ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.AdvancedHorseStable.getItemTextureLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.AdvancedHorseStable));
         ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.Barn.getItemTextureLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.Barn));
@@ -260,6 +266,9 @@ public class ModRegistry {
         ModRegistry.registerBlock(registeredDoubleGraniteSlab);
 
         Blocks.STRUCTURE_BLOCK.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+
+        /* *********************************** Tile Entities *********************************** */
+        ////GameRegistry.registerTileEntity(TileEntityDrafter.class, "Drafter");
     }
 
     /**
