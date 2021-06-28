@@ -18,7 +18,7 @@ import java.io.IOException;
  * @author WuestMan
  */
 public class GuiChickenCoop extends GuiStructure {
-    private static final ResourceLocation structureTopDown = new ResourceLocation("prefab", "textures/gui/chicken_coop_top_down.png");
+    private static final ResourceLocation structureTopDown = new ResourceLocation("prefab", "textures/gui/chicken_coop_topdown.png");
     protected ChickenCoopConfiguration configuration;
 
     public GuiChickenCoop() {
