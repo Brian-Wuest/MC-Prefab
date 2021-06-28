@@ -144,7 +144,7 @@ prefab.gui.structure.glass=Colore Vetro
 prefab.gui.structure.bed_color=Colore Letto
 
 prefab.gui.structure.facing.player=Nota: Se sei rivolto a nord, scegli il sud così la struttura è rivolta verso di te.
-prefab.gui.structure.block.clicked=La casella rossa nella immagine a destra mostra il blocco su cui hai fatto clic.
+prefab.gui.structure.block.clicked=Il contorno giallo è il blocco su cui hai fatto clic.
 prefab.gui.structure.door.facing=Nota: Se sei rivolto a nord, scegli il sud così la porta è rivolta verso di te.
 prefab.gui.structure.nobuild=Impossibile costruire la struttura a causa di blocchi/area protetti o ci sono blocchi indistruttibili nell'area. Nome Blocco: %1$s Posizione Blocco: x=%2$s, y=%3$s, z=%4$s
 

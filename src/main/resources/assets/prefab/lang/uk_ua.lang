@@ -144,7 +144,7 @@ prefab.gui.structure.glass=Колір Скла
 prefab.gui.structure.bed_color=Колір Ліжка
 
 prefab.gui.structure.facing.player=Примітка: Якщо ви дивитесь на північ, обирайте південь, щоб структура дивилася на вас.
-prefab.gui.structure.block.clicked=Червоний прямокутник справа на зображенні відображає блок на який ви натиснули.
+prefab.gui.structure.block.clicked=Жовтий контур - це блок, на який ви натиснули.
 prefab.gui.structure.door.facing=Примітка: Якщо ви дивитесь на північ, обирайте південь, щоб двері дивилися на вас.
 prefab.gui.structure.nobuild=Неможливо побудувати структуру через захищенні блоки/область або неруйнівні блоки у області. Блок: %1$s Координати: x=%2$s, y=%3$s, z=%4$s
 

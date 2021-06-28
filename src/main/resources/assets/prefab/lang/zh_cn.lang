@@ -144,7 +144,7 @@ prefab.gui.structure.glass=玻璃颜色
 prefab.gui.structure.bed_color=床的顏色
 
 prefab.gui.structure.facing.player=注意：如果你面朝北方，此时选择南方结构会面朝你。
-prefab.gui.structure.block.clicked=右图中的红色方框展示了可点击的方块。
+prefab.gui.structure.block.clicked=黄色轮廓是您单击的块。
 prefab.gui.structure.door.facing=注意：如果你面朝北方，此时选择南方大门会面朝你。
 prefab.gui.structure.nobuild=区域内有被保护的或无法破坏的方块，无法建造结构。
 
