@@ -535,17 +535,7 @@ public class StructureAlternateStart extends Structure {
             return true;
         } else if (foundBlock instanceof BlockStainedGlassPane) {
             blockState = this.getStainedGlassPaneBlock(houseConfig.glassColor);
-
-            BuildBlock.SetBlockState(
-                    configuration,
-                    world,
-                    originalPos,
-                    assumedNorth,
-                    block,
-                    foundBlock,
-                    blockState,
-                    this);
-
+            block.setBlockState(blockState);
             this.priorityOneBlocks.add(block);
             return true;
         }
