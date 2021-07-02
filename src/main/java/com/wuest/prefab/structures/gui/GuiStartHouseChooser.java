@@ -47,8 +47,6 @@ public class GuiStartHouseChooser extends GuiStructure {
 
     public GuiStartHouseChooser() {
         super();
-        this.modifiedInitialXAxis = 198;
-        this.modifiedInitialYAxis = 83;
         this.structureConfiguration = EnumStructureConfiguration.StartHouse;
     }
 
