@@ -16,7 +16,9 @@ public class FishPondOptions extends BaseOption{
             32,
             1,
             16,
-            -3);
+            -3,
+            false,
+            false);
 
     protected FishPondOptions(String translationString,
                               String assetLocation,
@@ -29,7 +31,23 @@ public class FishPondOptions extends BaseOption{
                               int length,
                               int offsetParallelToPlayer,
                               int offsetToLeftOfPlayer,
-                              int heightOffset) {
-        super(translationString, assetLocation, pictureLocation, imageWidth, imageHeight, direction, height, width, length, offsetParallelToPlayer, offsetToLeftOfPlayer, heightOffset);
+                              int heightOffset,
+                              boolean hasBedColor,
+                              boolean hasGlassColor) {
+        super(
+                translationString,
+                assetLocation,
+                pictureLocation,
+                imageWidth,
+                imageHeight,
+                direction,
+                height,
+                width,
+                length,
+                offsetParallelToPlayer,
+                offsetToLeftOfPlayer,
+                heightOffset,
+                hasBedColor,
+                hasGlassColor);
     }
 }

@@ -15,7 +15,9 @@ public class NetherGateOptions extends BaseOption {
             15,
             1,
             7,
-            -2);
+            -2,
+            false,
+            false);
 
     public static NetherGateOptions CorruptedTree = new NetherGateOptions(
             "item.prefab.item_nether_gate_tree",
@@ -29,7 +31,9 @@ public class NetherGateOptions extends BaseOption {
             16,
             1,
             9,
-            -7);
+            -7,
+            false,
+            false);
 
     protected NetherGateOptions(String translationString,
                                 String assetLocation,
@@ -42,7 +46,23 @@ public class NetherGateOptions extends BaseOption {
                                 int length,
                                 int offsetParallelToPlayer,
                                 int offsetToLeftOfPlayer,
-                                int heightOffset) {
-        super(translationString, assetLocation, pictureLocation, imageWidth, imageHeight, direction, height, width, length, offsetParallelToPlayer, offsetToLeftOfPlayer, heightOffset);
+                                int heightOffset,
+                                boolean hasBedColor,
+                                boolean hasGlassColor) {
+        super(
+                translationString,
+                assetLocation,
+                pictureLocation,
+                imageWidth,
+                imageHeight,
+                direction,
+                height,
+                width,
+                length,
+                offsetParallelToPlayer,
+                offsetToLeftOfPlayer,
+                heightOffset,
+                hasBedColor,
+                hasGlassColor);
     }
 }

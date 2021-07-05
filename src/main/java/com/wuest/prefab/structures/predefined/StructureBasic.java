@@ -4,6 +4,7 @@ import com.wuest.prefab.Tuple;
 import com.wuest.prefab.structures.base.*;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration.EnumBasicStructureName;
+import com.wuest.prefab.structures.config.ProduceFarmConfiguration;
 import com.wuest.prefab.structures.config.StructureConfiguration;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -106,6 +107,13 @@ public class StructureBasic extends Structure {
                     configuration.houseFacing);
 
             this.bedPositions.add(new Tuple<>(bedHeadPosition, bedFootPosition));
+
+            return true;
+        } else if (foundBlock.getRegistryName().getNamespace().equals(Blocks.WHITE_STAINED_GLASS.getRegistryName().getNamespace())
+                && foundBlock.getRegistryName().getPath().endsWith("stained_glass")) {
+            blockState = this.getStainedGlassBlock(config.glassColor);
+            block.setBlockState(blockState);
+            this.priorityOneBlocks.add(block);
 
             return true;
         }

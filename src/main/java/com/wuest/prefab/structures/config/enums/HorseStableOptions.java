@@ -15,20 +15,38 @@ public class HorseStableOptions extends BaseOption {
             10,
             1,
             4,
-            -4);
+            -4,
+            false,
+            false);
 
     protected HorseStableOptions(String translationString,
-                          String assetLocation,
-                          String pictureLocation,
-                          int imageWidth,
-                          int imageHeight,
-                          Direction direction,
-                          int height,
-                          int width,
-                          int length,
-                          int offsetParallelToPlayer,
-                          int offsetToLeftOfPlayer,
-                          int heightOffset) {
-        super(translationString, assetLocation, pictureLocation, imageWidth, imageHeight, direction, height, width, length, offsetParallelToPlayer, offsetToLeftOfPlayer, heightOffset);
+                                 String assetLocation,
+                                 String pictureLocation,
+                                 int imageWidth,
+                                 int imageHeight,
+                                 Direction direction,
+                                 int height,
+                                 int width,
+                                 int length,
+                                 int offsetParallelToPlayer,
+                                 int offsetToLeftOfPlayer,
+                                 int heightOffset,
+                                 boolean hasBedColor,
+                                 boolean hasGlassColor) {
+        super(
+                translationString,
+                assetLocation,
+                pictureLocation,
+                imageWidth,
+                imageHeight,
+                direction,
+                height,
+                width,
+                length,
+                offsetParallelToPlayer,
+                offsetToLeftOfPlayer,
+                heightOffset,
+                hasBedColor,
+                hasGlassColor);
     }
 }

@@ -15,7 +15,9 @@ public class SaloonOptions extends BaseOption {
             16,
             1,
             10,
-            -1);
+            -1,
+            false,
+            false);
 
     protected SaloonOptions(String translationString,
                             String assetLocation,
@@ -28,7 +30,23 @@ public class SaloonOptions extends BaseOption {
                             int length,
                             int offsetParallelToPlayer,
                             int offsetToLeftOfPlayer,
-                            int heightOffset) {
-        super(translationString, assetLocation, pictureLocation, imageWidth, imageHeight, direction, height, width, length, offsetParallelToPlayer, offsetToLeftOfPlayer, heightOffset);
+                            int heightOffset,
+                            boolean hasBedColor,
+                            boolean hasGlassColor) {
+        super(
+                translationString,
+                assetLocation,
+                pictureLocation,
+                imageWidth,
+                imageHeight,
+                direction,
+                height,
+                width,
+                length,
+                offsetParallelToPlayer,
+                offsetToLeftOfPlayer,
+                heightOffset,
+                hasBedColor,
+                hasGlassColor);
     }
 }

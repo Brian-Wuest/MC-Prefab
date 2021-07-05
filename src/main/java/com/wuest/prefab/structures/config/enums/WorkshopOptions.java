@@ -15,7 +15,9 @@ public class WorkshopOptions extends BaseOption {
             21,
             1,
             10,
-            0);
+            0,
+            false,
+            false);
 
     protected WorkshopOptions(String translationString,
                               String assetLocation,
@@ -28,7 +30,23 @@ public class WorkshopOptions extends BaseOption {
                               int length,
                               int offsetParallelToPlayer,
                               int offsetToLeftOfPlayer,
-                              int heightOffset) {
-        super(translationString, assetLocation, pictureLocation, imageWidth, imageHeight, direction, height, width, length, offsetParallelToPlayer, offsetToLeftOfPlayer, heightOffset);
+                              int heightOffset,
+                              boolean hasBedColor,
+                              boolean hasGlassColor) {
+        super(
+                translationString,
+                assetLocation,
+                pictureLocation,
+                imageWidth,
+                imageHeight,
+                direction,
+                height,
+                width,
+                length,
+                offsetParallelToPlayer,
+                offsetToLeftOfPlayer,
+                heightOffset,
+                hasBedColor,
+                hasGlassColor);
     }
 }

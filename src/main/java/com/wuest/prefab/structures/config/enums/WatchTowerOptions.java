@@ -15,7 +15,9 @@ public class WatchTowerOptions extends BaseOption {
             9,
             1,
             4,
-            0);
+            0,
+            true,
+            false);
 
     protected WatchTowerOptions(String translationString,
                                 String assetLocation,
@@ -28,7 +30,23 @@ public class WatchTowerOptions extends BaseOption {
                                 int length,
                                 int offsetParallelToPlayer,
                                 int offsetToLeftOfPlayer,
-                                int heightOffset) {
-        super(translationString, assetLocation, pictureLocation, imageWidth, imageHeight, direction, height, width, length, offsetParallelToPlayer, offsetToLeftOfPlayer, heightOffset);
+                                int heightOffset,
+                                boolean hasBedColor,
+                                boolean hasGlassColor) {
+        super(
+                translationString,
+                assetLocation,
+                pictureLocation,
+                imageWidth,
+                imageHeight,
+                direction,
+                height,
+                width,
+                length,
+                offsetParallelToPlayer,
+                offsetToLeftOfPlayer,
+                heightOffset,
+                hasBedColor,
+                hasGlassColor);
     }
 }

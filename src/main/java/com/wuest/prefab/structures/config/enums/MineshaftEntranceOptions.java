@@ -15,7 +15,9 @@ public class MineshaftEntranceOptions extends BaseOption {
             7,
             1,
             3,
-            0);
+            0,
+            true,
+            false);
 
     protected MineshaftEntranceOptions(String translationString,
                                        String assetLocation,
@@ -28,8 +30,24 @@ public class MineshaftEntranceOptions extends BaseOption {
                                        int length,
                                        int offsetParallelToPlayer,
                                        int offsetToLeftOfPlayer,
-                                       int heightOffset) {
-        super(translationString, assetLocation, pictureLocation, imageWidth, imageHeight, direction, height, width, length, offsetParallelToPlayer, offsetToLeftOfPlayer, heightOffset);
+                                       int heightOffset,
+                                       boolean hasBedColor,
+                                       boolean hasGlassColor) {
+        super(
+                translationString,
+                assetLocation,
+                pictureLocation,
+                imageWidth,
+                imageHeight,
+                direction,
+                height,
+                width,
+                length,
+                offsetParallelToPlayer,
+                offsetToLeftOfPlayer,
+                heightOffset,
+                hasBedColor,
+                hasGlassColor);
     }
 
 }

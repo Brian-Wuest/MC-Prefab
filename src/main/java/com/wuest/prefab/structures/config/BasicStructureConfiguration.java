@@ -1,5 +1,6 @@
 package com.wuest.prefab.structures.config;
 
+import com.wuest.prefab.blocks.FullDyeColor;
 import com.wuest.prefab.structures.config.enums.*;
 import com.wuest.prefab.structures.items.ItemBasicStructure;
 import com.wuest.prefab.structures.predefined.StructureBasic;
@@ -22,6 +23,7 @@ public class BasicStructureConfiguration extends StructureConfiguration {
     private static final String structureEnumNameTag = "structureEnumName";
     private static final String structureDisplayNameTag = "structureDisplayName";
     private static final String bedColorTag = "bedColor";
+    private static final String glassColorTag = "glassColor";
     private static final String chosenOptionTag = "chosenOption";
 
     /**
@@ -35,6 +37,8 @@ public class BasicStructureConfiguration extends StructureConfiguration {
     public String structureDisplayName;
 
     public DyeColor bedColor;
+
+    public FullDyeColor glassColor;
 
     public BaseOption chosenOption;
 
@@ -73,6 +77,7 @@ public class BasicStructureConfiguration extends StructureConfiguration {
         this.houseFacing = Direction.NORTH;
         this.basicStructureName = EnumBasicStructureName.AdvancedCoop;
         this.bedColor = DyeColor.RED;
+        this.glassColor = FullDyeColor.CLEAR;
         this.chosenOption = this.basicStructureName.baseOption.getSpecificOptions().get(0);
     }
 
@@ -92,6 +97,10 @@ public class BasicStructureConfiguration extends StructureConfiguration {
             basicConfig.bedColor = DyeColor.valueOf(messageTag.getString(BasicStructureConfiguration.bedColorTag));
         }
 
+        if (messageTag.contains(BasicStructureConfiguration.glassColorTag)) {
+            basicConfig.glassColor = FullDyeColor.valueOf(messageTag.getString(BasicStructureConfiguration.glassColorTag));
+        }
+
         if (messageTag.contains(BasicStructureConfiguration.chosenOptionTag)) {
             basicConfig.chosenOption = BaseOption.getOptionByTranslationString(messageTag.getString(BasicStructureConfiguration.chosenOptionTag));
         }
@@ -106,6 +115,7 @@ public class BasicStructureConfiguration extends StructureConfiguration {
         }
 
         tag.putString(BasicStructureConfiguration.bedColorTag, this.bedColor.getSerializedName().toUpperCase());
+        tag.putString(BasicStructureConfiguration.glassColorTag, this.glassColor.getSerializedName().toUpperCase());
         tag.putString(BasicStructureConfiguration.chosenOptionTag, this.chosenOption.getTranslationString());
 
         return tag;

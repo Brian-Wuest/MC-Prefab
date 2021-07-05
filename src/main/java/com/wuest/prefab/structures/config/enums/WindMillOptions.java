@@ -15,7 +15,9 @@ public class WindMillOptions extends BaseOption {
             13,
             1,
             8,
-            -1);
+            -1,
+            false,
+            false);
 
     protected WindMillOptions(String translationString,
                               String assetLocation,
@@ -28,7 +30,23 @@ public class WindMillOptions extends BaseOption {
                               int length,
                               int offsetParallelToPlayer,
                               int offsetToLeftOfPlayer,
-                              int heightOffset) {
-        super(translationString, assetLocation, pictureLocation, imageWidth, imageHeight, direction, height, width, length, offsetParallelToPlayer, offsetToLeftOfPlayer, heightOffset);
+                              int heightOffset,
+                              boolean hasBedColor,
+                              boolean hasGlassColor) {
+        super(
+                translationString,
+                assetLocation,
+                pictureLocation,
+                imageWidth,
+                imageHeight,
+                direction,
+                height,
+                width,
+                length,
+                offsetParallelToPlayer,
+                offsetToLeftOfPlayer,
+                heightOffset,
+                hasBedColor,
+                hasGlassColor);
     }
 }

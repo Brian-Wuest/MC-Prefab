@@ -16,7 +16,9 @@ public class VillagerHouseOptions extends BaseOption {
             5,
             1,
             2,
-            0);
+            0,
+            false,
+            false);
 
     public static VillagerHouseOptions ANGLED_ROOF = new VillagerHouseOptions(
             GuiLangKeys.VILLAGER_HOUSE_ANGLED_ROOF,
@@ -30,7 +32,9 @@ public class VillagerHouseOptions extends BaseOption {
             5,
             1,
             2,
-            0);
+            0,
+            false,
+            false);
 
     public static VillagerHouseOptions FENCED_ROOF = new VillagerHouseOptions(
             GuiLangKeys.VILLAGER_HOUSE_FENCED_ROOF,
@@ -44,7 +48,9 @@ public class VillagerHouseOptions extends BaseOption {
             5,
             1,
             2,
-            0);
+            0,
+            false,
+            false);
 
     public static VillagerHouseOptions BLACKSMITH = new VillagerHouseOptions(
             GuiLangKeys.VILLAGER_HOUSE_BLACKSMITH,
@@ -58,7 +64,9 @@ public class VillagerHouseOptions extends BaseOption {
             5,
             1,
             5,
-            0);
+            0,
+            false,
+            false);
 
     public static VillagerHouseOptions LONG_HOUSE = new VillagerHouseOptions(
             GuiLangKeys.VILLAGER_HOUSE_LONGHOUSE,
@@ -72,20 +80,38 @@ public class VillagerHouseOptions extends BaseOption {
             6,
             1,
             4,
-            0);
+            0,
+            true,
+            false);
 
     protected VillagerHouseOptions(String translationString,
-                          String assetLocation,
-                          String pictureLocation,
-                          int imageWidth,
-                          int imageHeight,
-                          Direction direction,
-                          int height,
-                          int width,
-                          int length,
-                          int offsetParallelToPlayer,
-                          int offsetToLeftOfPlayer,
-                          int heightOffset) {
-        super(translationString, assetLocation, pictureLocation, imageWidth, imageHeight, direction, height, width, length, offsetParallelToPlayer, offsetToLeftOfPlayer, heightOffset);
+                                   String assetLocation,
+                                   String pictureLocation,
+                                   int imageWidth,
+                                   int imageHeight,
+                                   Direction direction,
+                                   int height,
+                                   int width,
+                                   int length,
+                                   int offsetParallelToPlayer,
+                                   int offsetToLeftOfPlayer,
+                                   int heightOffset,
+                                   boolean hasBedColor,
+                                   boolean hasGlassColor) {
+        super(
+                translationString,
+                assetLocation,
+                pictureLocation,
+                imageWidth,
+                imageHeight,
+                direction,
+                height,
+                width,
+                length,
+                offsetParallelToPlayer,
+                offsetToLeftOfPlayer,
+                heightOffset,
+                hasBedColor,
+                hasGlassColor);
     }
 }
