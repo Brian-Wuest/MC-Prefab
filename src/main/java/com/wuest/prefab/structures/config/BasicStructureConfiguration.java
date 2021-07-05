@@ -198,7 +198,8 @@ public class BasicStructureConfiguration extends StructureConfiguration {
         HorseStable("horse_stable", "item.prefab.item_horse_stable", "item_horse_stable", HorseStableOptions.Default),
         TreeFarm("tree_farm", "item.prefab.item_tree_farm", "item_tree_farm", TreeFarmOptions.Default),
         VillagerHouses("villager_houses", "item.prefab.item_villager_houses", "item_villager_houses", VillagerHouseOptions.FLAT_ROOF),
-        ChickenCoop("chicken_coop", "item.prefab.item_chicken_coop", "item_chicken_coop", ChickenCoopOptions.Default);
+        ChickenCoop("chicken_coop", "item.prefab.item_chicken_coop", "item_chicken_coop", ChickenCoopOptions.Default),
+        ProduceFarm("produce_farm", "item.prefab.item_produce_farm", "item_produce_farm", ProduceFarmOptions.Default);
 
         private final String name;
         private final String itemTranslationString;

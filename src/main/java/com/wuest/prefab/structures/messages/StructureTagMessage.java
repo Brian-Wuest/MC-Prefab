@@ -61,7 +61,6 @@ public class StructureTagMessage extends TagMessage {
         Basic(0, new BasicStructureConfiguration()),
         AdvancedWareHouse(2, new WareHouseConfiguration()),
         MonsterMasher(6, new MonsterMasherConfiguration()),
-        ProduceFarm(8, new ProduceFarmConfiguration()),
         StartHouse(9, new HouseConfiguration()),
         WareHouse(12, new WareHouseConfiguration()),
         ModerateHouse(13, new ModerateHouseConfiguration()),

@@ -60,7 +60,8 @@ public class GuiBasicStructure extends GuiStructure {
                 || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.MineshaftEntrance
                 || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WatchTower
                 || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WelcomeCenter
-                || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.VillagerHouses) {
+                || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.VillagerHouses
+                || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.ProduceFarm) {
             this.showConfigurationOptions = true;
         }
 

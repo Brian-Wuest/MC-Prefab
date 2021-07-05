@@ -4,7 +4,6 @@ import com.wuest.prefab.Tuple;
 import com.wuest.prefab.structures.base.*;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration.EnumBasicStructureName;
-import com.wuest.prefab.structures.config.ProduceFarmConfiguration;
 import com.wuest.prefab.structures.config.StructureConfiguration;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;

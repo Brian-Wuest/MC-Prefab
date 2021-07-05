@@ -88,7 +88,6 @@ public class ModRegistry {
 
     public static final RegistryObject<ItemStartHouse> StartHouse = ITEMS.register("item_start_house", ItemStartHouse::new);
     public static final RegistryObject<ItemWareHouse> WareHouse = ITEMS.register("item_warehouse", com.wuest.prefab.structures.items.ItemWareHouse::new);
-    public static final RegistryObject<ItemProduceFarm> ProduceFarm = ITEMS.register("item_produce_farm", com.wuest.prefab.structures.items.ItemProduceFarm::new);
     public static final RegistryObject<ItemAdvancedWareHouse> AdvancedWareHouse = ITEMS.register("item_advanced_warehouse", com.wuest.prefab.structures.items.ItemAdvancedWareHouse::new);
     public static final RegistryObject<ItemMonsterMasher> MonsterMasher = ITEMS.register("item_monster_masher", com.wuest.prefab.structures.items.ItemMonsterMasher::new);
     public static final RegistryObject<ItemWarehouseUpgrade> WarehouseUpgrade = ITEMS.register("item_warehouse_upgrade", com.wuest.prefab.items.ItemWarehouseUpgrade::new);
@@ -125,6 +124,7 @@ public class ModRegistry {
     public static final RegistryObject<ItemBasicStructure> TreeFarm = ITEMS.register(EnumBasicStructureName.TreeFarm.getItemTextureLocation().getPath(), () -> new ItemBasicStructure(EnumBasicStructureName.TreeFarm));
     public static final RegistryObject<ItemBasicStructure> VillagerHouses = ITEMS.register(EnumBasicStructureName.VillagerHouses.getItemTextureLocation().getPath(), () -> new ItemBasicStructure(EnumBasicStructureName.VillagerHouses));
     public static final RegistryObject<ItemBasicStructure> ChickenCoop = ITEMS.register(EnumBasicStructureName.ChickenCoop.getItemTextureLocation().getPath(), () -> new ItemBasicStructure(EnumBasicStructureName.ChickenCoop));
+    public static final RegistryObject<ItemBasicStructure> ProduceFarm = ITEMS.register(EnumBasicStructureName.ProduceFarm.getItemTextureLocation().getPath(), () -> new ItemBasicStructure(EnumBasicStructureName.ProduceFarm));
 
     /**
      * This is where the mod messages are registered.
