@@ -95,7 +95,7 @@ public class GuiTab extends Widget {
 			GuiUtils.bindTexture(TAB_TEXTURES);
 		}
 
-		GuiUtils.drawModalRectWithCustomSizedTexture(matrixStack, this.x, this.y, 0, this.width, this.height, this.width, this.height);
+		GuiUtils.drawTexture(matrixStack, this.x, this.y, 0, this.width, this.height, this.width, this.height);
 		int j = Color.LIGHT_GRAY.getRGB();
 
 		String buttonText = this.name;

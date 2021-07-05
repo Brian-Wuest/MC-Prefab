@@ -36,59 +36,76 @@ public class GuiStructurePart extends GuiStructure {
     public GuiStructurePart() {
         super("Structure Part");
         this.structureConfiguration = EnumStructureConfiguration.Parts;
-        this.modifiedInitialXAxis = 213;
-        this.modifiedInitialYAxis = 83;
     }
 
     @Override
     protected void Initialize() {
+        this.modifiedInitialXAxis = 212;
+        this.modifiedInitialYAxis = 117;
+        this.shownImageHeight = 150;
+        this.shownImageWidth = 268;
+
         this.configuration = ClientEventHandler.playerConfig.getClientConfig("Parts", StructurePartConfiguration.class);
         this.configuration.pos = this.pos;
+        this.structureImageLocation = this.configuration.style.getPictureLocation();
 
         // Get the upper left hand corner of the GUI box.
         Tuple<Integer, Integer> adjustedValue = this.getAdjustedXYValue();
         int grayBoxX = adjustedValue.getFirst();
         int grayBoxY = adjustedValue.getSecond();
 
-        // Create the done and cancel buttons.
-        this.btnBuild = this.createAndAddButton(grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.GUI_BUTTON_BUILD);
+        this.btnPartStyle = this.createAndAddButton(grayBoxX + 15, grayBoxY + 40, 90, 20, this.configuration.style.translateKey);
+        this.btnMaterialType = this.createAndAddButton(grayBoxX + 15, grayBoxY + 75, 90, 20, this.configuration.partMaterial.getTranslatedName(), false);
 
-        this.btnCancel = this.createAndAddButton(grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.GUI_BUTTON_CANCEL);
+        this.btnStairsMaterialType = this.createAndAddButton(grayBoxX + 15, grayBoxY + 75, 90, 20, this.configuration.stairsMaterial.getTranslatedName(), false);
+        this.sldrStairHeight = this.createAndAddSlider(grayBoxX + 15, grayBoxY + 110, 90, 20, "", "", 1, 9, this.configuration.stairHeight, false, true, this::buttonClicked);
+        this.sldrStairWidth = this.createAndAddSlider(grayBoxX + 15, grayBoxY + 145, 90, 20, "", "", 1, 9, this.configuration.stairWidth, false, true, this::buttonClicked);
+        this.sldrGeneralHeight = this.createAndAddSlider(grayBoxX + 15, grayBoxY + 110, 90, 20, "", "", 3, 9, this.configuration.generalHeight, false, true, this::buttonClicked);
+        this.sldrGeneralWidth = this.createAndAddSlider(grayBoxX + 15, grayBoxY + 145, 90, 20, "", "", 3, 9, this.configuration.generalWidth, false, true, this::buttonClicked);
 
-        this.btnVisualize = this.createAndAddButton(grayBoxX + 10, grayBoxY + 90, 90, 20, GuiLangKeys.GUI_BUTTON_PREVIEW);
-
-        this.sldrStairHeight = this.createAndAddSlider(grayBoxX + 147, grayBoxY + 100, 90, 20, "", "", 1, 9, this.configuration.stairHeight, false, true, this::buttonClicked);
-
-        this.sldrStairWidth = this.createAndAddSlider(grayBoxX + 147, grayBoxY + 60, 90, 20, "", "", 1, 9, this.configuration.stairWidth, false, true, this::buttonClicked);
-
-        this.sldrGeneralHeight = this.createAndAddSlider(grayBoxX + 147, grayBoxY + 100, 90, 20, "", "", 3, 9, this.configuration.generalHeight, false, true, this::buttonClicked);
-
-        this.sldrGeneralWidth = this.createAndAddSlider(grayBoxX + 147, grayBoxY + 60, 90, 20, "", "", 3, 9, this.configuration.generalWidth, false, true, this::buttonClicked);
-
-        this.btnPartStyle = this.createAndAddButton(grayBoxX + 10, grayBoxY + 20, 90, 20, this.configuration.style.translateKey);
-
-        this.btnMaterialType = this.createAndAddButton(grayBoxX + 147, grayBoxY + 20, 90, 20, this.configuration.partMaterial.getTranslatedName(), false);
-
-        this.btnStairsMaterialType = this.createAndAddButton(grayBoxX + 147, grayBoxY + 20, 90, 20, this.configuration.stairsMaterial.getTranslatedName(), false);
+        this.btnVisualize = this.createAndAddCustomButton(grayBoxX + 25, grayBoxY + 175, 90, 20, GuiLangKeys.GUI_BUTTON_PREVIEW);
+        this.btnBuild = this.createAndAddCustomButton(grayBoxX + 310, grayBoxY + 175, 90, 20, GuiLangKeys.GUI_BUTTON_BUILD);
+        this.btnCancel = this.createAndAddButton(grayBoxX + 150, grayBoxY + 175, 90, 20, GuiLangKeys.GUI_BUTTON_CANCEL);
     }
 
     @Override
     protected void preButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
-        super.preButtonRender(matrixStack, x, y, mouseX, mouseY, partialTicks);
+        int imagePanelUpperLeft = x + 132;
+        int imagePanelWidth = 285;
+        int imagePanelMiddle = imagePanelWidth / 2;
 
-        GuiUtils.bindAndDrawModalRectWithCustomSizedTexture(this.configuration.style.getPictureLocation(), matrixStack, x + 250, y, 1,
-                this.configuration.style.imageWidth, this.configuration.style.imageHeight,
-                this.configuration.style.imageWidth, this.configuration.style.imageHeight);
+        this.renderBackground(matrixStack);
+
+        this.drawControlLeftPanel(matrixStack, x + 10, y + 10, 125, 190);
+        this.drawControlRightPanel(matrixStack, imagePanelUpperLeft, y + 10, imagePanelWidth, 190);
+
+        int middleOfImage = this.shownImageWidth / 2;
+        int imageLocation = imagePanelUpperLeft + (imagePanelMiddle - middleOfImage);
+
+        GuiUtils.bindAndDrawScaledTexture(
+                this.structureImageLocation,
+                matrixStack,
+                imageLocation,
+                y + 15,
+                this.shownImageWidth,
+                this.shownImageHeight,
+                this.shownImageWidth,
+                this.shownImageHeight,
+                this.shownImageWidth,
+                this.shownImageHeight);
     }
 
     @Override
     protected void postButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
-        this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.STYLE), x + 10, y + 10, this.textColor);
-        this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.MATERIAL), x + 147, y + 10, this.textColor);
+        // Draw the text here.
+        this.drawString(matrixStack, GuiLangKeys.translateString("item.prefab.item_structure_part"), x + 15, y + 17, this.textColor);
 
-        if (this.configuration.style == EnumStyle.Stairs
-                || this.configuration.style == EnumStyle.Roof) {
-            this.sldrStairHeight.visible = this.configuration.style != EnumStyle.Roof;
+        this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.STYLE), x + 15, y + 30, this.textColor);
+        this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.MATERIAL), x + 15, y + 65, this.textColor);
+
+        if (this.configuration.style == StructurePartConfiguration.EnumStyle.Stairs
+                || this.configuration.style == StructurePartConfiguration.EnumStyle.Roof) {
+            this.sldrStairHeight.visible = this.configuration.style != StructurePartConfiguration.EnumStyle.Roof;
             this.sldrStairWidth.visible = true;
             this.sldrGeneralHeight.visible = false;
             this.sldrGeneralWidth.visible = false;
@@ -103,19 +120,15 @@ public class GuiStructurePart extends GuiStructure {
             this.sldrGeneralWidth.visible = true;
         }
 
-        if (this.configuration.style != EnumStyle.Roof) {
-            if (this.configuration.style == EnumStyle.Floor) {
-                this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.LENGTH), x + 147, y + 90, this.textColor);
+        if (this.configuration.style != StructurePartConfiguration.EnumStyle.Roof) {
+            if (this.configuration.style == StructurePartConfiguration.EnumStyle.Floor) {
+                this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.LENGTH), x + 15, y + 100, this.textColor);
             } else {
-                this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.HEIGHT), x + 147, y + 90, this.textColor);
+                this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.HEIGHT), x + 15, y + 100, this.textColor);
             }
         }
 
-        if (this.configuration.style == EnumStyle.Roof) {
-            this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.HEIGHT), x + 147, y + 50, this.textColor);
-        } else {
-            this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.WIDTH), x + 147, y + 50, this.textColor);
-        }
+        this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.WIDTH), x + 15, y + 135, this.textColor);
     }
 
     /**
@@ -140,13 +153,13 @@ public class GuiStructurePart extends GuiStructure {
         } else if (button == this.btnPartStyle) {
             this.configuration.style = EnumStyle.getByOrdinal(this.configuration.style.ordinal() + 1);
             GuiUtils.setButtonText(btnPartStyle, GuiLangKeys.translateString(this.configuration.style.translateKey));
+            this.structureImageLocation = this.configuration.style.getPictureLocation();
         } else if (button == this.btnVisualize) {
             StructurePart structure = new StructurePart();
             structure.getClearSpace().getShape().setDirection(Direction.NORTH);
             structure.setupStructure(this.minecraft.level, this.configuration, this.pos);
 
-            StructureRenderHandler.setStructure(structure, Direction.SOUTH, this.configuration);
-            this.closeScreen();
+            this.performPreview(structure, this.configuration);
         }
     }
 }

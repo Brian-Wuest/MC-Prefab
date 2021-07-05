@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.wuest.prefab.Utils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -25,10 +26,30 @@ public class GuiUtils {
         Minecraft.getInstance().getTextureManager().bind(resourceLocation);
     }
 
+    /**
+     * Draws a textured rectangle Args: x, y, z, width, height, textureWidth, textureHeight
+     *
+     * @param x             The X-Axis screen coordinate.
+     * @param y             The Y-Axis screen coordinate.
+     * @param z             The Z-Axis screen coordinate.
+     * @param width         The width of the rectangle.
+     * @param height        The height of the rectangle.
+     * @param textureWidth  The width of the texture.
+     * @param textureHeight The height of the texture.
+     */
+    public static void drawTexture(MatrixStack matrixStack, int x, int y, int z, int width, int height, int textureWidth, int textureHeight) {
+        AbstractGui.blit(matrixStack, x, y, z, 0, 0, width, height, textureHeight, textureWidth);
+    }
+
+    public static void bindAndDrawTexture(ResourceLocation resourceLocation, MatrixStack matrixStack, int x, int y, int z, int width, int height, int textureWidth, int textureHeight) {
+        GuiUtils.bindTexture(resourceLocation);
+        GuiUtils.drawTexture(matrixStack, x, y, z, width, height, textureWidth, textureHeight);
+    }
+
     public static void drawContinuousTexturedBox(ResourceLocation res, int x, int y, int u, int v, int width, int height, int textureWidth, int textureHeight,
                                                  int topBorder, int bottomBorder, int leftBorder, int rightBorder, float zLevel) {
         GuiUtils.bindTexture(res);
-        drawContinuousTexturedBox(x, y, u, v, width, height, textureWidth, textureHeight, topBorder, bottomBorder, leftBorder, rightBorder, zLevel);
+        GuiUtils.drawContinuousTexturedBox(x, y, u, v, width, height, textureWidth, textureHeight, topBorder, bottomBorder, leftBorder, rightBorder, zLevel);
     }
 
     public static void drawContinuousTexturedBox(int x, int y, int u, int v, int width, int height, int textureWidth, int textureHeight,
@@ -107,7 +128,7 @@ public class GuiUtils {
      * @param textureWidth  The width of the texture.
      * @param textureHeight The height of the texture.
      */
-    public static void drawModalRectWithCustomSizedTexture(MatrixStack matrixStack, int x, int y, int z, int width, int height, float textureWidth, float textureHeight) {
+    public static void drawTexture(MatrixStack matrixStack, int x, int y, int z, int width, int height, float textureWidth, float textureHeight) {
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.enableBlend();
         RenderSystem.blendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
@@ -135,7 +156,17 @@ public class GuiUtils {
 
     public static void bindAndDrawModalRectWithCustomSizedTexture(ResourceLocation resourceLocation, MatrixStack matrixStack, int x, int y, int z, int width, int height, float textureWidth, float textureHeight) {
         GuiUtils.bindTexture(resourceLocation);
-        GuiUtils.drawModalRectWithCustomSizedTexture(matrixStack, x, y, z, width, height, textureWidth, textureHeight);
+        GuiUtils.drawTexture(matrixStack, x, y, z, width, height, textureWidth, textureHeight);
+    }
+
+    public static void bindAndDrawScaledTexture(ResourceLocation resourceLocation, MatrixStack matrixStack, int x, int y, int width, int height, int regionWidth, int regionHeight, int textureWidth, int textureHeight) {
+        GuiUtils.bindTexture(resourceLocation);
+        GuiUtils.drawScaledTexture(matrixStack, x, y, width, height, regionWidth, regionHeight, textureWidth, textureHeight);
+    }
+
+    public static void drawScaledTexture(MatrixStack matrixStack, int x, int y, int width, int height, int regionWidth, int regionHeight, int textureWidth, int textureHeight) {
+        // This is "drawTexture" in fabric.
+        AbstractGui.blit(matrixStack, x, y, width, height, 0, 0, regionWidth, regionHeight, textureWidth, textureHeight);
     }
 
     public static void setButtonText(ExtendedButton button, String message) {

@@ -1,6 +1,7 @@
 package com.wuest.prefab.structures.gui;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.wuest.prefab.Tuple;
 import com.wuest.prefab.events.ClientEventHandler;
 import com.wuest.prefab.gui.GuiLangKeys;
 import com.wuest.prefab.gui.GuiUtils;
@@ -9,7 +10,6 @@ import com.wuest.prefab.structures.base.EnumStructureMaterial;
 import com.wuest.prefab.structures.config.InstantBridgeConfiguration;
 import com.wuest.prefab.structures.messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.structures.predefined.StructureInstantBridge;
-import com.wuest.prefab.structures.render.StructureRenderHandler;
 import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
@@ -28,54 +28,74 @@ public class GuiInstantBridge extends GuiStructure {
     public GuiInstantBridge() {
         super("Instant Bridge");
         this.structureConfiguration = EnumStructureConfiguration.InstantBridge;
-        this.modifiedInitialXAxis = 210;
-        this.modifiedInitialYAxis = 83;
     }
 
     @Override
     protected void Initialize() {
+        this.modifiedInitialXAxis = 212;
+        this.modifiedInitialYAxis = 117;
+        this.shownImageHeight = 150;
+        this.shownImageWidth = 268;
         this.configuration = ClientEventHandler.playerConfig.getClientConfig("InstantBridge", InstantBridgeConfiguration.class);
         this.configuration.pos = this.pos;
+        this.structureImageLocation = structureTopDown;
 
         // Get the upper left hand corner of the GUI box.
-        int grayBoxX = this.getCenteredXAxis() - 213;
-        int grayBoxY = this.getCenteredYAxis() - 83;
+        Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
+        int grayBoxX = adjustedXYValue.getFirst();
+        int grayBoxY = adjustedXYValue.getSecond();
 
         // Create the buttons.
-        this.btnMaterialType = this.createAndAddButton(grayBoxX + 10, grayBoxY + 20, 90, 20, this.configuration.bridgeMaterial.getName());
+        this.btnMaterialType = this.createAndAddButton(grayBoxX + 15, grayBoxY + 45, 90, 20, this.configuration.bridgeMaterial.getName());
+        this.sldrBridgeLength = this.createAndAddSlider(grayBoxX + 15, grayBoxY + 85, 90, 20, "", "", 25, 75, this.configuration.bridgeLength, false, true, this::buttonClicked);
+        this.chckIncludeRoof = this.createAndAddCheckBox(grayBoxX + 15, grayBoxY + 112, GuiLangKeys.INCLUDE_ROOF, this.configuration.includeRoof, this::buttonClicked);
+        this.sldrInteriorHeight = this.createAndAddSlider(grayBoxX + 15, grayBoxY + 140, 90, 20, "", "", 3, 8, this.configuration.interiorHeight, false, true, this::buttonClicked);
+        this.sldrInteriorHeight.visible = this.chckIncludeRoof.isChecked();
 
-        this.sldrBridgeLength = this.createAndAddSlider(grayBoxX + 147, grayBoxY + 20, 90, 20, "", "", 25, 75, this.configuration.bridgeLength, false, true, this::buttonClicked);
-
-        this.chckIncludeRoof = this.createAndAddCheckBox(grayBoxX + 147, grayBoxY + 55, GuiLangKeys.INCLUDE_ROOF, this.configuration.includeRoof, this::buttonClicked);
-
-        this.sldrInteriorHeight = this.createAndAddSlider(grayBoxX + 147, grayBoxY + 90, 90, 20, "", "", 3, 8, this.configuration.interiorHeight, false, true, this::buttonClicked);
-
-        this.sldrInteriorHeight.visible = this.chckIncludeRoof.selected();
-
-        this.btnVisualize = this.createAndAddButton(grayBoxX + 10, grayBoxY + 90, 90, 20, GuiLangKeys.GUI_BUTTON_PREVIEW);
-
-        // Create the done and cancel buttons.
-        this.btnBuild = this.createAndAddButton(grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.GUI_BUTTON_BUILD);
-
-        this.btnCancel = this.createAndAddButton(grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.GUI_BUTTON_CANCEL);
+        // Create the standard buttons.
+        this.btnVisualize = this.createAndAddCustomButton(grayBoxX + 25, grayBoxY + 175, 90, 20, GuiLangKeys.GUI_BUTTON_PREVIEW);
+        this.btnBuild = this.createAndAddCustomButton(grayBoxX + 310, grayBoxY + 175, 90, 20, GuiLangKeys.GUI_BUTTON_BUILD);
+        this.btnCancel = this.createAndAddButton(grayBoxX + 150, grayBoxY + 175, 90, 20, GuiLangKeys.GUI_BUTTON_CANCEL);
     }
 
     @Override
     protected void preButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
-        super.preButtonRender(matrixStack, x, y, mouseX, mouseY, partialTicks);
+        int imagePanelUpperLeft = x + 132;
+        int imagePanelWidth = 285;
+        int imagePanelMiddle = imagePanelWidth / 2;
 
-        GuiUtils.bindAndDrawModalRectWithCustomSizedTexture(structureTopDown, matrixStack, x + 250, y, 1, 165, 58, 165, 58);
+        this.renderBackground(matrixStack);
+
+        this.drawControlLeftPanel(matrixStack, x + 10, y + 10, 125, 190);
+        this.drawControlRightPanel(matrixStack, imagePanelUpperLeft, y + 10, imagePanelWidth, 190);
+
+        int middleOfImage = this.shownImageWidth / 2;
+        int imageLocation = imagePanelUpperLeft + (imagePanelMiddle - middleOfImage);
+
+        GuiUtils.bindAndDrawScaledTexture(
+                this.structureImageLocation,
+                matrixStack,
+                imageLocation,
+                y + 15,
+                this.shownImageWidth,
+                this.shownImageHeight,
+                this.shownImageWidth,
+                this.shownImageHeight,
+                this.shownImageWidth,
+                this.shownImageHeight);
     }
 
     @Override
     protected void postButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
-        this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.BRIDGE_MATERIAL), x + 10, y + 10, this.textColor);
+        this.drawString(matrixStack, GuiLangKeys.translateString("item.prefab.item_instant_bridge"), x + 15, y + 17, this.textColor);
 
-        if (this.chckIncludeRoof.selected()) {
-            this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.INTERIOR_HEIGHT), x + 144, y + 80, this.textColor);
+        this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.BRIDGE_MATERIAL), x + 15, y + 35, this.textColor);
+
+        this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.BRIDGE_LENGTH), x + 15, y + 75, this.textColor);
+
+        if (this.chckIncludeRoof.isChecked()) {
+            this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.INTERIOR_HEIGHT), x + 15, y + 130, this.textColor);
         }
-
-        this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.BRIDGE_LENGTH), x + 147, y + 10, this.textColor);
     }
 
     /**
@@ -102,14 +122,14 @@ public class GuiInstantBridge extends GuiStructure {
         }
 
         this.configuration.interiorHeight = sliderValue;
-        this.configuration.includeRoof = this.chckIncludeRoof.selected();
+        this.configuration.includeRoof = this.chckIncludeRoof.isChecked();
         this.configuration.houseFacing = player.getDirection().getOpposite();
         this.configuration.pos = this.pos;
 
         this.performCancelOrBuildOrHouseFacing(this.configuration, button);
 
         if (button == this.chckIncludeRoof) {
-            this.configuration.includeRoof = this.chckIncludeRoof.selected();
+            this.configuration.includeRoof = this.chckIncludeRoof.isChecked();
 
             this.sldrInteriorHeight.visible = this.configuration.includeRoof;
         }
@@ -121,8 +141,7 @@ public class GuiInstantBridge extends GuiStructure {
             structure.getClearSpace().getShape().setDirection(Direction.SOUTH);
             structure.setupStructure(this.configuration, this.pos);
 
-            StructureRenderHandler.setStructure(structure, Direction.SOUTH, this.configuration);
-            this.closeScreen();
+            this.performPreview(structure, this.configuration);
         }
     }
 }

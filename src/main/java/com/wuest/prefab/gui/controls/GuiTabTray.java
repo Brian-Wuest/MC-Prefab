@@ -88,8 +88,7 @@ public class GuiTabTray extends Widget {
     }
 
     public void DrawTabs(Minecraft mc, MatrixStack matrixStack, int mouseX, int mouseY) {
-        GuiUtils.bindTexture(backgroundTextures);
-        GuiUtils.drawModalRectWithCustomSizedTexture(matrixStack, this.x, this.y, 0, this.width, this.height, this.width, 35);
+        GuiUtils.bindAndDrawTexture(backgroundTextures, matrixStack, this.x, this.y, 0, this.width, this.height, this.width, 35);
 
         for (GuiTab tab : this.tabs) {
             tab.drawTab(mc, matrixStack, mouseX, mouseY);

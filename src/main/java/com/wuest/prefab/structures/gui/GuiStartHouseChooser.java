@@ -7,158 +7,113 @@ import com.wuest.prefab.blocks.FullDyeColor;
 import com.wuest.prefab.config.ServerModConfiguration;
 import com.wuest.prefab.events.ClientEventHandler;
 import com.wuest.prefab.gui.GuiLangKeys;
-import com.wuest.prefab.gui.GuiTabScreen;
 import com.wuest.prefab.gui.GuiUtils;
 import com.wuest.prefab.gui.controls.GuiCheckBox;
-import com.wuest.prefab.gui.controls.GuiTab;
-import com.wuest.prefab.proxy.CommonProxy;
 import com.wuest.prefab.structures.config.HouseConfiguration;
-import com.wuest.prefab.structures.config.HouseConfiguration.HouseStyle;
 import com.wuest.prefab.structures.messages.StructureTagMessage;
-import com.wuest.prefab.structures.messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.structures.predefined.StructureAlternateStart;
-import com.wuest.prefab.structures.render.StructureRenderHandler;
-import net.minecraft.client.gui.widget.Widget;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.item.DyeColor;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
-
-import java.awt.*;
 
 /**
  * @author WuestMan
  */
-public class GuiStartHouseChooser extends GuiTabScreen {
-    private static final ResourceLocation backgroundTextures = new ResourceLocation("prefab", "textures/gui/default_background.png");
-    protected ExtendedButton btnCancel;
-    protected ExtendedButton btnBuild;
-    protected ExtendedButton btnVisualize;
+public class GuiStartHouseChooser extends GuiStructure {
     protected ServerModConfiguration serverConfiguration;
-    // Tabs
-    private GuiTab tabGeneral;
-    private GuiTab tabConfig;
-    private GuiTab tabBlockTypes;
+
     // General:
     private ExtendedButton btnHouseStyle;
     // Blocks/Size
     private ExtendedButton btnGlassColor;
     private ExtendedButton btnBedColor;
     // Config:
-    private GuiCheckBox btnAddTorches;
-    private GuiCheckBox btnAddBed;
-    private GuiCheckBox btnAddCraftingTable;
-    private GuiCheckBox btnAddFurnace;
     private GuiCheckBox btnAddChest;
     private GuiCheckBox btnAddChestContents;
     private GuiCheckBox btnAddMineShaft;
     private boolean allowItemsInChestAndFurnace = true;
 
-    private HouseConfiguration houseConfiguration;
+    private HouseConfiguration configuration;
 
     public GuiStartHouseChooser() {
-        super();
-        this.Tabs.setWidth(256);
-        this.modifiedInitialXAxis = 198;
-        this.modifiedInitialYAxis = 83;
-        this.structureConfiguration = EnumStructureConfiguration.StartHouse;
+        super("Starter House");
+        this.structureConfiguration = StructureTagMessage.EnumStructureConfiguration.StartHouse;
     }
 
     @Override
-    public void init() {
-        super.init();
+    protected void Initialize() {
+        this.modifiedInitialXAxis = 212;
+        this.modifiedInitialYAxis = 117;
+        this.shownImageHeight = 150;
+        this.shownImageWidth = 268;
 
-        assert this.minecraft != null;
-        if (!this.minecraft.player.isCreative()) {
+        if (!Minecraft.getInstance().player.isCreative()) {
             this.allowItemsInChestAndFurnace = !ClientEventHandler.playerConfig.builtStarterHouse;
         }
 
-        this.Initialize();
+        this.serverConfiguration = Prefab.proxy.getServerConfiguration();
+        this.configuration = ClientEventHandler.playerConfig.getClientConfig("Starter House", HouseConfiguration.class);
+        this.configuration.pos = this.pos;
+
+        // Get the upper left hand corner of the GUI box.
+        Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
+        int grayBoxX = adjustedXYValue.getFirst();
+        int grayBoxY = adjustedXYValue.getSecond();
+
+        // Create the buttons.
+        this.btnHouseStyle = this.createAndAddButton(grayBoxX + 15, grayBoxY + 30, 90, 20, this.configuration.houseStyle.getDisplayName(), false);
+        this.btnBedColor = this.createAndAddDyeButton(grayBoxX + 15, grayBoxY + 65, 90, 20, this.configuration.bedColor);
+        this.btnGlassColor = this.createAndAddFullDyeButton(grayBoxX + 15, grayBoxY + 100, 90, 20, this.configuration.glassColor);
+        this.btnAddChest = this.createAndAddCheckBox(grayBoxX + 15, grayBoxY + 125, GuiLangKeys.STARTER_HOUSE_ADD_CHEST, this.configuration.addChest, null);
+        this.btnAddMineShaft = this.createAndAddCheckBox(grayBoxX + 15, grayBoxY + 140, GuiLangKeys.STARTER_HOUSE_BUILD_MINESHAFT, this.configuration.addChestContents, null);
+        this.btnAddChestContents = this.createAndAddCheckBox(grayBoxX + 15, grayBoxY + 155, GuiLangKeys.STARTER_HOUSE_ADD_CHEST_CONTENTS, this.configuration.addMineShaft, null);
+
+        // Create the standard buttons.
+        this.btnVisualize = this.createAndAddCustomButton(grayBoxX + 25, grayBoxY + 175, 90, 20, GuiLangKeys.GUI_BUTTON_PREVIEW);
+        this.btnBuild = this.createAndAddCustomButton(grayBoxX + 310, grayBoxY + 175, 90, 20, GuiLangKeys.GUI_BUTTON_BUILD);
+        this.btnCancel = this.createAndAddButton(grayBoxX + 150, grayBoxY + 175, 90, 20, GuiLangKeys.GUI_BUTTON_CANCEL);
     }
 
-    /**
-     * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
-     */
     @Override
-    public void render(MatrixStack matrixStack, int x, int y, float f) {
-        Tuple<Integer, Integer> adjustedValueCoords = this.getAdjustedXYValue();
-        int grayBoxX = adjustedValueCoords.getFirst();
-        int grayBoxY = adjustedValueCoords.getSecond();
-
-        this.Tabs.x = adjustedValueCoords.getFirst();
-        this.Tabs.y = adjustedValueCoords.getSecond() - 21;
+    protected void preButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
+        int imagePanelUpperLeft = x + 132;
+        int imagePanelWidth = 285;
+        int imagePanelMiddle = imagePanelWidth / 2;
 
         this.renderBackground(matrixStack);
 
-        // Draw the control background.
-        GuiUtils.bindTexture(backgroundTextures);
-        this.blit(matrixStack, grayBoxX, grayBoxY, 0, 0, 256, 256);
+        this.drawControlLeftPanel(matrixStack, x + 10, y + 10, 125, 190);
+        this.drawControlRightPanel(matrixStack, imagePanelUpperLeft, y + 10, imagePanelWidth, 190);
 
-        for (Widget button : this.buttons) {
-            // Make all buttons invisible.
-            if (button != this.btnCancel && button != this.btnBuild) {
-                button.visible = false;
-            }
-        }
+        int middleOfImage = this.shownImageWidth / 2;
+        int imageLocation = imagePanelUpperLeft + (imagePanelMiddle - middleOfImage);
 
-        this.btnAddTorches.visible = false;
-        this.btnAddBed.visible = false;
-        this.btnAddChest.visible = false;
-        this.btnAddChestContents.visible = false;
-        this.btnAddCraftingTable.visible = false;
-        this.btnAddFurnace.visible = false;
-        this.btnAddMineShaft.visible = false;
-        this.btnBedColor.visible = false;
+        GuiUtils.bindAndDrawScaledTexture(
+                this.configuration.houseStyle.getHousePicture(),
+                matrixStack,
+                imageLocation,
+                y + 15,
+                this.shownImageWidth,
+                this.shownImageHeight,
+                this.shownImageWidth,
+                this.shownImageHeight,
+                this.shownImageWidth,
+                this.shownImageHeight);
 
-        // Update visibility on controls based on the selected tab.
-        if (this.getSelectedTab() == this.tabGeneral) {
-            this.btnHouseStyle.visible = true;
-            this.btnVisualize.visible = true;
-        } else if (this.getSelectedTab() == this.tabConfig) {
-            this.btnAddTorches.visible = this.serverConfiguration.addTorches;
-            this.btnAddBed.visible = this.serverConfiguration.addBed;
-            this.btnAddChest.visible = this.serverConfiguration.addChests;
-            this.btnAddChestContents.visible = this.allowItemsInChestAndFurnace && this.serverConfiguration.addChestContents;
-            this.btnAddCraftingTable.visible = this.serverConfiguration.addCraftingTable;
-            this.btnAddFurnace.visible = this.serverConfiguration.addFurnace;
-            this.btnAddMineShaft.visible = this.serverConfiguration.addMineshaft;
+        this.btnAddChest.visible = this.serverConfiguration.addChests;
+        this.btnAddChestContents.visible = this.allowItemsInChestAndFurnace && this.serverConfiguration.addChestContents;
+        this.btnAddMineShaft.visible = this.serverConfiguration.addMineshaft;
+    }
 
-        } else if (this.getSelectedTab() == this.tabBlockTypes) {
-            this.btnGlassColor.visible = this.houseConfiguration.houseStyle != HouseStyle.SNOWY
-                    && this.houseConfiguration.houseStyle != HouseStyle.DESERT;
-
-            this.btnBedColor.visible = true;
-        }
-
-        // Draw the buttons, labels and tabs.
-        super.render(matrixStack, x, y, f);
-
+    @Override
+    protected void postButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
         // Draw the text here.
-        int color = Color.DARK_GRAY.getRGB();
+        this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), x + 15, y + 20, this.textColor);
 
-        // Draw the appropriate text based on the selected tab.
-        if (this.getSelectedTab() == this.tabGeneral) {
-            this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), grayBoxX + 10, grayBoxY + 10, color);
-            this.drawSplitString(this.houseConfiguration.houseStyle.getHouseNotes(), grayBoxX + 147, grayBoxY + 10, 95, color);
+        this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), x + 15, y + 55, this.textColor);
 
-            GuiUtils.bindAndDrawModalRectWithCustomSizedTexture(this.houseConfiguration.houseStyle.getHousePicture(), matrixStack, grayBoxX + 250, grayBoxY, 1,
-                    this.houseConfiguration.houseStyle.getImageWidth(), this.houseConfiguration.houseStyle.getImageHeight(),
-                    this.houseConfiguration.houseStyle.getImageWidth(), this.houseConfiguration.houseStyle.getImageHeight());
-        } else if (this.getSelectedTab() == this.tabBlockTypes) {
-            if (!(this.houseConfiguration.houseStyle == HouseConfiguration.HouseStyle.SNOWY
-                    || this.houseConfiguration.houseStyle == HouseConfiguration.HouseStyle.DESERT)) {
-                // Column 1:
-                this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS), grayBoxX + 10, grayBoxY + 10, color);
-            }
-
-            // Column 2:
-            this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), grayBoxX + 147, grayBoxY + 10, color);
-        }
-
-        if (!CommonProxy.proxyConfiguration.serverConfiguration.enableStructurePreview) {
-            this.btnVisualize.visible = false;
-        }
+        this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS), x + 15, y + 90, this.textColor);
     }
 
     /**
@@ -166,178 +121,38 @@ public class GuiStartHouseChooser extends GuiTabScreen {
      */
     @Override
     public void buttonClicked(AbstractButton button) {
-        if (button == this.btnCancel || button == this.btnVisualize
-                || button == this.btnBuild) {
-            this.houseConfiguration.addBed = this.serverConfiguration.addBed && this.btnAddBed.selected();
-            this.houseConfiguration.addChest = this.serverConfiguration.addChests && this.btnAddChest.selected();
-            this.houseConfiguration.addChestContents = this.allowItemsInChestAndFurnace && (this.serverConfiguration.addChestContents && this.btnAddChestContents.selected());
-            this.houseConfiguration.addCraftingTable = this.serverConfiguration.addCraftingTable && this.btnAddCraftingTable.selected();
-            this.houseConfiguration.addFurnace = this.serverConfiguration.addFurnace && this.btnAddFurnace.selected();
-            this.houseConfiguration.addMineShaft = this.serverConfiguration.addMineshaft && this.btnAddMineShaft.selected();
-            this.houseConfiguration.addTorches = this.serverConfiguration.addTorches && this.btnAddTorches.selected();
-            assert this.minecraft != null;
-            this.houseConfiguration.houseFacing = this.minecraft.player.getDirection().getOpposite();
-        }
+        this.configuration.addBed = this.serverConfiguration.addBed;
+        this.configuration.addChest = this.serverConfiguration.addChests && this.btnAddChest.isChecked();
+        this.configuration.addChestContents = this.allowItemsInChestAndFurnace && (this.serverConfiguration.addChestContents && this.btnAddChestContents.isChecked());
+        this.configuration.addCraftingTable = this.serverConfiguration.addCraftingTable;
+        this.configuration.addFurnace = this.serverConfiguration.addFurnace;
+        this.configuration.addMineShaft = this.serverConfiguration.addMineshaft && this.btnAddMineShaft.isChecked();
+        this.configuration.addTorches = this.serverConfiguration.addTorches;
+        this.configuration.houseFacing = this.getMinecraft().player.getDirection().getOpposite();
 
-        if (button == this.btnCancel) {
-            this.closeScreen();
-        } else if (button == this.btnBuild) {
-            Prefab.network.sendToServer(new StructureTagMessage(this.houseConfiguration.WriteToCompoundNBT(), this.structureConfiguration));
+        this.performCancelOrBuildOrHouseFacing(this.configuration, button);
 
-            this.closeScreen();
-        } else if (button == this.btnHouseStyle) {
-            int id = this.houseConfiguration.houseStyle.getValue() + 1;
-            this.houseConfiguration.houseStyle = HouseConfiguration.HouseStyle.ValueOf(id);
+        if (button == this.btnHouseStyle) {
+            int id = this.configuration.houseStyle.getValue() + 1;
+            this.configuration.houseStyle = HouseConfiguration.HouseStyle.ValueOf(id);
 
             // Skip the loft if it's not enabled.
-            if (this.houseConfiguration.houseStyle == HouseStyle.LOFT
+            if (this.configuration.houseStyle == HouseConfiguration.HouseStyle.LOFT
                     && !this.serverConfiguration.enableLoftHouse) {
-                id = this.houseConfiguration.houseStyle.getValue() + 1;
-                this.houseConfiguration.houseStyle = HouseConfiguration.HouseStyle.ValueOf(id);
+                id = this.configuration.houseStyle.getValue() + 1;
+                this.configuration.houseStyle = HouseConfiguration.HouseStyle.ValueOf(id);
             }
 
-            GuiUtils.setButtonText(btnHouseStyle, this.houseConfiguration.houseStyle.getDisplayName());
-
-            // Set the default glass colors for this style.
-            if (this.houseConfiguration.houseStyle == HouseConfiguration.HouseStyle.HOBBIT) {
-                this.houseConfiguration.glassColor = FullDyeColor.GREEN;
-                GuiUtils.setButtonText(btnGlassColor, GuiLangKeys.translateDye(DyeColor.GREEN));
-            } else if (this.houseConfiguration.houseStyle == HouseConfiguration.HouseStyle.LOFT) {
-                this.houseConfiguration.glassColor = FullDyeColor.BLACK;
-                GuiUtils.setButtonText(btnGlassColor, GuiLangKeys.translateDye(DyeColor.BLACK));
-            } else if (this.houseConfiguration.houseStyle == HouseStyle.BASIC) {
-                this.houseConfiguration.glassColor = FullDyeColor.LIGHT_GRAY;
-                GuiUtils.setButtonText(btnGlassColor, GuiLangKeys.translateDye(DyeColor.LIGHT_GRAY));
-            } else if (this.houseConfiguration.houseStyle == HouseStyle.DESERT2) {
-                this.houseConfiguration.glassColor = FullDyeColor.RED;
-                GuiUtils.setButtonText(btnGlassColor, GuiLangKeys.translateDye(DyeColor.RED));
-            } else {
-                this.houseConfiguration.glassColor = FullDyeColor.CYAN;
-                GuiUtils.setButtonText(btnGlassColor, GuiLangKeys.translateDye(DyeColor.CYAN));
-            }
-
-            this.tabBlockTypes.visible = true;
-
+            GuiUtils.setButtonText(btnHouseStyle, this.configuration.houseStyle.getDisplayName());
         } else if (button == this.btnGlassColor) {
-            this.houseConfiguration.glassColor = FullDyeColor.ById(this.houseConfiguration.glassColor.getId() + 1);
-            GuiUtils.setButtonText(btnGlassColor, GuiLangKeys.translateFullDye(this.houseConfiguration.glassColor));
+            this.configuration.glassColor = FullDyeColor.ById(this.configuration.glassColor.getId() + 1);
+            GuiUtils.setButtonText(this.btnGlassColor, GuiLangKeys.translateFullDye(this.configuration.glassColor));
         } else if (button == this.btnBedColor) {
-            this.houseConfiguration.bedColor = DyeColor.byId(this.houseConfiguration.bedColor.getId() + 1);
-            GuiUtils.setButtonText(btnBedColor, GuiLangKeys.translateDye(this.houseConfiguration.bedColor));
+            this.configuration.bedColor = DyeColor.byId(this.configuration.bedColor.getId() + 1);
+            GuiUtils.setButtonText(btnBedColor, GuiLangKeys.translateDye(this.configuration.bedColor));
         } else if (button == this.btnVisualize) {
-            StructureAlternateStart structure = StructureAlternateStart.CreateInstance(this.houseConfiguration.houseStyle.getStructureLocation(), StructureAlternateStart.class);
-
-            StructureRenderHandler.setStructure(structure, Direction.NORTH, this.houseConfiguration);
-            this.closeScreen();
+            StructureAlternateStart structure = StructureAlternateStart.CreateInstance(this.configuration.houseStyle.getStructureLocation(), StructureAlternateStart.class);
+            this.performPreview(structure, this.configuration);
         }
-    }
-
-    /**
-     * Returns true if this GUI should pause the game when it is displayed in single-player
-     */
-    @Override
-    public boolean isPauseScreen() {
-        return true;
-    }
-
-    @Override
-    protected void Initialize() {
-        // Get the upper left hand corner of the GUI box.
-        Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
-        int grayBoxX = adjustedXYValue.getFirst();
-        int grayBoxY = adjustedXYValue.getSecond();
-        int color = Color.DARK_GRAY.getRGB();
-        this.serverConfiguration = Prefab.proxy.getServerConfiguration();
-        this.houseConfiguration = ClientEventHandler.playerConfig.getClientConfig("Starter House", HouseConfiguration.class);
-        this.houseConfiguration.pos = this.pos;
-
-        // Create the Controls.
-        // Column 1:
-        this.btnHouseStyle = this.createAndAddButton(grayBoxX + 10, grayBoxY + 20, 90, 20, this.houseConfiguration.houseStyle.getDisplayName(), false);
-
-        this.btnVisualize = this.createAndAddButton(grayBoxX + 10, grayBoxY + 60, 90, 20, GuiLangKeys.GUI_BUTTON_PREVIEW);
-
-        int x = grayBoxX + 10;
-        int y = grayBoxY + 10;
-        int secondColumnY = y;
-        int secondColumnX = x + 137;
-
-        this.btnAddFurnace = this.createAndAddCheckBox(secondColumnX - 10, secondColumnY, GuiLangKeys.STARTER_HOUSE_ADD_FURNACE, this.houseConfiguration.addFurnace, null);
-        this.btnAddFurnace.visible = false;
-
-        if (this.serverConfiguration.addFurnace) {
-            secondColumnY += 20;
-        }
-
-        this.btnAddBed = this.createAndAddCheckBox(secondColumnX - 10, secondColumnY, GuiLangKeys.STARTER_HOUSE_ADD_BED, this.houseConfiguration.addBed, null);
-        this.btnAddBed.visible = false;
-
-        if (this.serverConfiguration.addBed) {
-            secondColumnY += 20;
-        }
-
-        this.btnAddCraftingTable = this.createAndAddCheckBox(x, y, GuiLangKeys.STARTER_HOUSE_ADD_CRAFTING_TABLE, this.houseConfiguration.addCraftingTable, null);
-        this.btnAddCraftingTable.visible = false;
-
-        if (this.serverConfiguration.addCraftingTable) {
-            y += 20;
-        }
-
-        this.btnAddTorches = this.createAndAddCheckBox(x, y, GuiLangKeys.STARTER_HOUSE_ADD_TORCHES, this.houseConfiguration.addTorches, null);
-        this.btnAddTorches.visible = false;
-
-        if (this.serverConfiguration.addTorches) {
-            y += 20;
-        }
-
-        this.btnAddChest = this.createAndAddCheckBox(x, y, GuiLangKeys.STARTER_HOUSE_ADD_CHEST, this.houseConfiguration.addChest, null);
-        this.btnAddChest.visible = false;
-
-        if (this.serverConfiguration.addChests) {
-            y += 20;
-        }
-
-        this.btnAddMineShaft = this.createAndAddCheckBox(x, y, GuiLangKeys.STARTER_HOUSE_BUILD_MINESHAFT, this.houseConfiguration.addMineShaft, null);
-        this.btnAddMineShaft.visible = false;
-
-        if (this.serverConfiguration.addMineshaft) {
-            y += 20;
-        }
-
-        this.btnAddChestContents = this.createAndAddCheckBox(x, y, GuiLangKeys.STARTER_HOUSE_ADD_CHEST_CONTENTS, this.houseConfiguration.addChestContents, null);
-        this.btnAddChestContents.visible = false;
-
-        if (this.allowItemsInChestAndFurnace) {
-            y += 20;
-        }
-
-        x = grayBoxX + 10;
-        y = grayBoxY + 20;
-
-        this.btnGlassColor = this.createAndAddFullDyeButton(x, y, 90, 20, this.houseConfiguration.glassColor);
-
-        // Column 2:
-        x = secondColumnX;
-        this.btnBedColor = this.createAndAddDyeButton(x, y, 90, 20, this.houseConfiguration.bedColor);
-
-        // Column 3:
-
-        // Tabs:
-        this.tabGeneral = new GuiTab(this.Tabs, GuiLangKeys.translateString(GuiLangKeys.STARTER_TAB_GENERAL), grayBoxX + 3, grayBoxY - 20);
-        this.tabGeneral.setWidth(80);
-        this.Tabs.AddTab(this.tabGeneral);
-
-        this.tabConfig = new GuiTab(this.Tabs, GuiLangKeys.translateString(GuiLangKeys.STARTER_TAB_CONFIG), grayBoxX + 84, grayBoxY - 20);
-        this.tabConfig.setWidth(80);
-        this.Tabs.AddTab(this.tabConfig);
-
-        this.tabBlockTypes = new GuiTab(this.Tabs, GuiLangKeys.translateString(GuiLangKeys.STARTER_TAB_BLOCK), grayBoxX + 165, grayBoxY - 20);
-        this.tabBlockTypes.setWidth(80);
-        this.Tabs.AddTab(this.tabBlockTypes);
-
-        // Create the done and cancel buttons.
-        this.btnBuild = this.createAndAddButton(grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.GUI_BUTTON_BUILD);
-
-        this.btnCancel = this.createAndAddButton(grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.GUI_BUTTON_CANCEL);
     }
 }

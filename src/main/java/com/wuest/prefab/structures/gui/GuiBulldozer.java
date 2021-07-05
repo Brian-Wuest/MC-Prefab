@@ -22,12 +22,15 @@ public class GuiBulldozer extends GuiStructure {
 		super("Bulldozer");
 
 		this.structureConfiguration = EnumStructureConfiguration.Bulldozer;
-		this.modifiedInitialXAxis = 125;
-		this.modifiedInitialYAxis = 83;
 	}
 
 	@Override
 	protected void Initialize() {
+		this.modifiedInitialXAxis = 125;
+		this.modifiedInitialYAxis = 83;
+		this.imagePanelWidth = 256;
+		this.imagePanelHeight = 256;
+
 		this.configuration = ClientEventHandler.playerConfig.getClientConfig("Bulldozer", BulldozerConfiguration.class);
 		this.configuration.pos = this.pos;
 
@@ -38,7 +41,6 @@ public class GuiBulldozer extends GuiStructure {
 
 		// Create the done and cancel buttons.
 		this.btnBuild = this.createAndAddButton(grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.GUI_BUTTON_BUILD);
-
 		this.btnCancel = this.createAndAddButton(grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.GUI_BUTTON_CANCEL);
 	}
 
@@ -57,5 +59,4 @@ public class GuiBulldozer extends GuiStructure {
 		this.configuration.houseFacing = this.minecraft.player.getDirection().getOpposite();
 		this.performCancelOrBuildOrHouseFacing(this.configuration, button);
 	}
-
 }

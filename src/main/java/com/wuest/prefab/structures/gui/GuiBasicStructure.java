@@ -10,14 +10,11 @@ import com.wuest.prefab.structures.config.enums.BaseOption;
 import com.wuest.prefab.structures.items.ItemBasicStructure;
 import com.wuest.prefab.structures.messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.structures.predefined.StructureBasic;
-import com.wuest.prefab.structures.render.StructureRenderHandler;
 import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Direction;
 import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -28,54 +25,21 @@ import java.util.ArrayList;
 @SuppressWarnings({"ConstantConditions", "SpellCheckingInspection"})
 public class GuiBasicStructure extends GuiStructure {
     protected BasicStructureConfiguration configuration;
-    private boolean includePicture = true;
     private ExtendedButton btnBedColor = null;
     private ExtendedButton btnStructureOptions = null;
     private ArrayList<BaseOption> availableOptions;
+    private boolean showConfigurationOptions;
 
     public GuiBasicStructure() {
         super("Basic Structure");
         this.structureConfiguration = EnumStructureConfiguration.Basic;
-        this.modifiedInitialXAxis = 213;
-        this.modifiedInitialYAxis = 83;
-    }
-
-    @Override
-    protected void preButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
-        super.preButtonRender(matrixStack, x, y, mouseX, mouseY, partialTicks);
-
-        if (this.includePicture) {
-            // Draw the control background.
-            GuiUtils.bindAndDrawModalRectWithCustomSizedTexture(this.configuration.chosenOption.getPictureLocation(), matrixStack, x + 250, y, 1,
-                    this.configuration.chosenOption.getImageWidth(), this.configuration.chosenOption.getImageHeight(),
-                    this.configuration.chosenOption.getImageWidth(), this.configuration.chosenOption.getImageHeight());
-        }
-    }
-
-    @Override
-    protected void postButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
-        int yValue = y + 10;
-
-        // Draw the text here.
-        if (this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.MineshaftEntrance
-                || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WatchTower
-                || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WelcomeCenter) {
-
-            this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), x + 10, yValue, this.textColor);
-            yValue += 40;
-        }
-
-        if (this.availableOptions.size() > 1) {
-            this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.BUILDING_OPTIONS), x + 10, yValue, this.textColor);
-        }
-
-        // Second column
-        yValue = y + 10;
-        this.drawSplitString(GuiLangKeys.translateString(GuiLangKeys.GUI_BLOCK_CLICKED), x + 147, yValue, 95, this.textColor);
+        this.showConfigurationOptions = false;
     }
 
     @Override
     protected void Initialize() {
+        super.Initialize();
+
         // Get the structure configuration for this itemstack.
         ItemStack stack = ItemBasicStructure.getBasicStructureItemInHand(this.player);
 
@@ -84,66 +48,113 @@ public class GuiBasicStructure extends GuiStructure {
             this.configuration = ClientEventHandler.playerConfig.getClientConfig(item.structureType.getName(), BasicStructureConfiguration.class);
             this.configuration.basicStructureName = item.structureType;
             this.configuration.chosenOption = item.structureType.getBaseOption();
-            this.includePicture = this.doesPictureExist();
+            this.structureImageLocation = this.configuration.chosenOption.getPictureLocation();
             this.availableOptions = this.configuration.chosenOption.getSpecificOptions();
         }
 
         this.configuration.pos = this.pos;
 
-        if (!this.includePicture) {
-            this.modifiedInitialXAxis = 125;
-        }
-
-        // Get the upper left hand corner of the GUI box.
-        Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
-        int grayBoxX = adjustedXYValue.getFirst();
-        int grayBoxY = adjustedXYValue.getSecond();
-
-        // Create the buttons.
-        int x = grayBoxX + 10;
-        int y = grayBoxY + 20;
-
-        this.btnBedColor = this.createAndAddDyeButton(x, y, 90, 20, this.configuration.bedColor);
-
-        if (this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.MineshaftEntrance
+        if (this.availableOptions.size() > 1
+                || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.MineshaftEntrance
                 || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WatchTower
                 || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WelcomeCenter) {
-            this.btnBedColor.visible = true;
-            y += 40;
+            this.showConfigurationOptions = true;
+        }
+
+        if (!this.showConfigurationOptions) {
+            this.InitializeStandardButtons();
         } else {
-            this.btnBedColor.visible = false;
+            this.modifiedInitialXAxis = 212;
+            this.modifiedInitialYAxis = 117;
+            this.imagePanelWidth = 285;
+
+            // Get the upper left hand corner of the GUI box.
+            Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
+            int grayBoxX = adjustedXYValue.getFirst();
+            int grayBoxY = adjustedXYValue.getSecond();
+
+            // Create the buttons.
+            int x = grayBoxX + 15;
+            int y = grayBoxY + 45;
+
+            this.btnBedColor = this.createAndAddDyeButton(x, y, 90, 20, this.configuration.bedColor);
+
+            if (this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.MineshaftEntrance
+                    || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WatchTower
+                    || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WelcomeCenter) {
+                this.btnBedColor.visible = true;
+                y += 45;
+            } else {
+                this.btnBedColor.visible = false;
+            }
+
+            if (this.availableOptions.size() > 1) {
+                this.btnStructureOptions = this.createAndAddButton(x, y, 90, 20, this.configuration.chosenOption.getTranslationString());
+                this.btnStructureOptions.visible = true;
+            } else if (this.btnStructureOptions != null) {
+                this.btnStructureOptions.visible = false;
+            }
+
+            // Create the standard buttons.
+            this.btnVisualize = this.createAndAddCustomButton(grayBoxX + 25, grayBoxY + 175, 90, 20, GuiLangKeys.GUI_BUTTON_PREVIEW);
+            this.btnBuild = this.createAndAddCustomButton(grayBoxX + 310, grayBoxY + 175, 90, 20, GuiLangKeys.GUI_BUTTON_BUILD);
+            this.btnCancel = this.createAndAddButton(grayBoxX + 150, grayBoxY + 175, 90, 20, GuiLangKeys.GUI_BUTTON_CANCEL);
         }
-
-        if (this.availableOptions.size() > 1) {
-            this.btnStructureOptions = this.createAndAddButton(x, y, 90, 20, this.configuration.chosenOption.getTranslationString());
-            this.btnStructureOptions.visible = true;
-            y += 40;
-        } else if (this.btnStructureOptions != null) {
-            this.btnStructureOptions.visible = false;
-        }
-
-        this.btnVisualize = this.createAndAddButton(x, y, 90, 20, GuiLangKeys.GUI_BUTTON_PREVIEW);
-
-        // Create the done and cancel buttons.
-        this.btnBuild = this.createAndAddButton(grayBoxX + 10, grayBoxY + 136, 90, 20, GuiLangKeys.GUI_BUTTON_BUILD);
-
-        this.btnCancel = this.createAndAddButton(grayBoxX + 147, grayBoxY + 136, 90, 20, GuiLangKeys.GUI_BUTTON_CANCEL);
     }
 
-    /**
-     * Determines if the picture for this screen exists in the resources.
-     *
-     * @return A value indicating whether the picture exists.
-     */
-    private boolean doesPictureExist() {
-        try {
-            this.getMinecraft().getResourceManager().getResource(this.configuration.chosenOption.getPictureLocation());
-            return true;
-        } catch (IOException e) {
-            return false;
+    @Override
+    protected void preButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
+        if (!this.showConfigurationOptions) {
+            super.preButtonRender(matrixStack, x, y, mouseX, mouseY, partialTicks);
+        } else {
+            // Draw the control background.
+            int imagePanelUpperLeft = x + 132;
+            int imagePanelMiddle = this.imagePanelWidth / 2;
+
+            this.renderBackground(matrixStack);
+
+            this.drawControlLeftPanel(matrixStack, x + 10, y + 10, 175, 190);
+            this.drawControlRightPanel(matrixStack, imagePanelUpperLeft, y + 10, this.imagePanelWidth, 190);
+
+            int middleOfImage = this.shownImageWidth / 2;
+            int imageLocation = imagePanelUpperLeft + (imagePanelMiddle - middleOfImage);
+
+            // Draw the picture.
+            GuiUtils.bindAndDrawScaledTexture(
+                    this.structureImageLocation,
+                    matrixStack,
+                    imageLocation,
+                    y + 15,
+                    this.shownImageWidth,
+                    this.shownImageHeight,
+                    this.shownImageWidth,
+                    this.shownImageHeight,
+                    this.shownImageWidth,
+                    this.shownImageHeight);
         }
     }
 
+    @Override
+    protected void postButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
+        if (this.showConfigurationOptions) {
+            this.drawString(matrixStack, GuiLangKeys.translateString(this.configuration.basicStructureName.getItemTranslationString()), x + 15, y + 17, this.textColor);
+
+            int yValue = y + 35;
+
+            // Draw the text here.
+            if (this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.MineshaftEntrance
+                    || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WatchTower
+                    || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WelcomeCenter) {
+
+                this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), x + 15, yValue, this.textColor);
+                yValue += 45;
+            }
+
+            if (this.availableOptions.size() > 1) {
+                this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.BUILDING_OPTIONS), x + 15, yValue, this.textColor);
+            }
+        }
+    }
 
     @Override
     public void buttonClicked(AbstractButton button) {
@@ -151,8 +162,7 @@ public class GuiBasicStructure extends GuiStructure {
 
         if (button == this.btnVisualize) {
             StructureBasic structure = StructureBasic.CreateInstance(this.configuration.chosenOption.getAssetLocation(), StructureBasic.class);
-            StructureRenderHandler.setStructure(structure, Direction.NORTH, this.configuration);
-            this.closeScreen();
+            this.performPreview(structure, this.configuration);
         } else if (button == this.btnBedColor) {
             this.configuration.bedColor = DyeColor.byId(this.configuration.bedColor.getId() + 1);
             GuiUtils.setButtonText(btnBedColor, GuiLangKeys.translateDye(this.configuration.bedColor));
@@ -172,6 +182,7 @@ public class GuiBasicStructure extends GuiStructure {
 
                 if (chosenOption != null) {
                     this.configuration.chosenOption = chosenOption;
+                    this.structureImageLocation = this.configuration.chosenOption.getPictureLocation();
                     GuiUtils.setButtonText(btnStructureOptions, GuiLangKeys.translateString(chosenOption.getTranslationString()));
                     break;
                 }
