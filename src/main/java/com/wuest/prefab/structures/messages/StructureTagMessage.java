@@ -59,11 +59,11 @@ public class StructureTagMessage extends TagMessage {
      */
     public enum EnumStructureConfiguration {
         Basic(0, new BasicStructureConfiguration()),
-        StartHouse(9, new HouseConfiguration()),
-        ModerateHouse(13, new ModerateHouseConfiguration()),
-        Bulldozer(14, new BulldozerConfiguration()),
-        InstantBridge(15, new InstantBridgeConfiguration()),
-        Parts(16, new StructurePartConfiguration());
+        StartHouse(1, new HouseConfiguration()),
+        ModerateHouse(2, new ModerateHouseConfiguration()),
+        Bulldozer(3, new BulldozerConfiguration()),
+        InstantBridge(4, new InstantBridgeConfiguration()),
+        Parts(5, new StructurePartConfiguration());
 
         public int identifier;
         public StructureConfiguration structureConfig;
