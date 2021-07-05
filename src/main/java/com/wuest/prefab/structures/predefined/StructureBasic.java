@@ -79,6 +79,13 @@ public class StructureBasic extends Structure {
                     originalPos,
                     this.getClearSpace().getShape().getDirection(),
                     configuration.houseFacing);
+        } else if (foundBlock instanceof FenceGateBlock && config.basicStructureName.getName().equals(EnumBasicStructureName.ChickenCoop.getName())) {
+            this.customBlockPos = block.getStartingPosition().getRelativePosition(
+                    originalPos,
+                    this.getClearSpace().getShape().getDirection(),
+                    configuration.houseFacing)
+                    .relative(configuration.houseFacing.getOpposite(), 2)
+                    .above();
         } else if (foundBlock instanceof TrapDoorBlock && config.basicStructureName.getName().equals(EnumBasicStructureName.MineshaftEntrance.getName())) {
             this.customBlockPos = block.getStartingPosition().getRelativePosition(
                     originalPos,
@@ -141,6 +148,11 @@ public class StructureBasic extends Structure {
                     entity.setPos(this.customBlockPos.getX(), this.customBlockPos.above().getY(), this.customBlockPos.getZ());
                     world.addFreshEntity(entity);
                 }
+            } else if (config.basicStructureName.getName().equals(EnumBasicStructureName.ChickenCoop.getName())) {
+                // For the advanced chicken coop, spawn 4 chickens above the hopper.
+                ChickenEntity entity = new ChickenEntity(EntityType.CHICKEN, world);
+                entity.setPos(this.customBlockPos.getX(), this.customBlockPos.above().getY(), this.customBlockPos.getZ());
+                world.addFreshEntity(entity);
             } else if (config.basicStructureName.getName().equals(EnumBasicStructureName.MineshaftEntrance.getName())
                     || config.basicStructureName.getName().equals(BasicStructureConfiguration.EnumBasicStructureName.WorkShop.getName())) {
                 // Build the mineshaft where the trap door exists.

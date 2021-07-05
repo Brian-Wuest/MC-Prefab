@@ -77,22 +77,24 @@ public class GuiBasicStructure extends GuiStructure {
             int x = grayBoxX + 15;
             int y = grayBoxY + 45;
 
+            if (this.availableOptions.size() > 1) {
+                this.btnStructureOptions = this.createAndAddButton(x, y, 90, 20, this.configuration.chosenOption.getTranslationString());
+                this.btnStructureOptions.visible = true;
+                y += 45;
+            } else if (this.btnStructureOptions != null) {
+                this.btnStructureOptions.visible = false;
+            }
+
             this.btnBedColor = this.createAndAddDyeButton(x, y, 90, 20, this.configuration.bedColor);
 
             if (this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.MineshaftEntrance
                     || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WatchTower
-                    || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WelcomeCenter) {
+                    || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WelcomeCenter
+                    || (this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.VillagerHouses
+                    && this.configuration.chosenOption.getTranslationString().equals(GuiLangKeys.VILLAGER_HOUSE_LONGHOUSE))) {
                 this.btnBedColor.visible = true;
-                y += 45;
             } else {
                 this.btnBedColor.visible = false;
-            }
-
-            if (this.availableOptions.size() > 1) {
-                this.btnStructureOptions = this.createAndAddButton(x, y, 90, 20, this.configuration.chosenOption.getTranslationString());
-                this.btnStructureOptions.visible = true;
-            } else if (this.btnStructureOptions != null) {
-                this.btnStructureOptions.visible = false;
             }
 
             // Create the standard buttons.
@@ -132,6 +134,21 @@ public class GuiBasicStructure extends GuiStructure {
                     this.shownImageWidth,
                     this.shownImageHeight);
         }
+
+        if (this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.MineshaftEntrance
+                || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WatchTower
+                || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WelcomeCenter
+                || (this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.VillagerHouses
+                && this.configuration.chosenOption.getTranslationString().equals(GuiLangKeys.VILLAGER_HOUSE_LONGHOUSE))) {
+            this.btnBedColor.visible = true;
+            int yValue = y + 45;
+
+            if (this.configuration.chosenOption.getTranslationString().equals(GuiLangKeys.VILLAGER_HOUSE_LONGHOUSE)) {
+                yValue = yValue + 45;
+            }
+
+            this.btnBedColor.y = yValue;
+        }
     }
 
     @Override
@@ -141,17 +158,19 @@ public class GuiBasicStructure extends GuiStructure {
 
             int yValue = y + 35;
 
-            // Draw the text here.
-            if (this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.MineshaftEntrance
-                    || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WatchTower
-                    || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WelcomeCenter) {
-
-                this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), x + 15, yValue, this.textColor);
+            if (this.availableOptions.size() > 1) {
+                this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.BUILDING_OPTIONS), x + 15, yValue, this.textColor);
                 yValue += 45;
             }
 
-            if (this.availableOptions.size() > 1) {
-                this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.BUILDING_OPTIONS), x + 15, yValue, this.textColor);
+            // Draw the text here.
+            if (this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.MineshaftEntrance
+                    || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WatchTower
+                    || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WelcomeCenter
+                    || (this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.VillagerHouses
+                    && this.configuration.chosenOption.getTranslationString().equals(GuiLangKeys.VILLAGER_HOUSE_LONGHOUSE))) {
+
+                this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), x + 15, yValue, this.textColor);
             }
         }
     }

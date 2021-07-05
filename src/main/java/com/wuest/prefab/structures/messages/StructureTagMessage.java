@@ -59,15 +59,10 @@ public class StructureTagMessage extends TagMessage {
      */
     public enum EnumStructureConfiguration {
         Basic(0, new BasicStructureConfiguration()),
-        ChickenCoop(1, new ChickenCoopConfiguration()),
         AdvancedWareHouse(2, new WareHouseConfiguration()),
-        FishPond(3, new FishPondConfiguration()),
-        HorseStable(4, new HorseStableConfiguration()),
         MonsterMasher(6, new MonsterMasherConfiguration()),
         ProduceFarm(8, new ProduceFarmConfiguration()),
         StartHouse(9, new HouseConfiguration()),
-        TreeFarm(10, new TreeFarmConfiguration()),
-        VillagerHouses(11, new VillagerHouseConfiguration()),
         WareHouse(12, new WareHouseConfiguration()),
         ModerateHouse(13, new ModerateHouseConfiguration()),
         Bulldozer(14, new BulldozerConfiguration()),

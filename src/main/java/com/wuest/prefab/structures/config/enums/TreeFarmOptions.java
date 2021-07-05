@@ -2,22 +2,22 @@ package com.wuest.prefab.structures.config.enums;
 
 import net.minecraft.util.Direction;
 
-public class BarnOptions extends BaseOption {
-    public static BarnOptions Default = new BarnOptions(
-            "item.prefab.item_barn",
-            "assets/prefab/structures/barn.zip",
-            "textures/gui/barn_topdown.png",
+public class TreeFarmOptions extends BaseOption {
+    public static TreeFarmOptions Default = new TreeFarmOptions(
+            "item.prefab.item_tree_farm",
+            "assets/prefab/structures/treefarm.zip",
+            "textures/gui/tree_farm_top_down.png",
             164,
             160,
             Direction.SOUTH,
-            10,
-            30,
-            25,
+            7,
+            38,
+            38,
             1,
-            15,
+            18,
             0);
 
-    protected BarnOptions(String translationString,
+    protected TreeFarmOptions(String translationString,
                           String assetLocation,
                           String pictureLocation,
                           int imageWidth,

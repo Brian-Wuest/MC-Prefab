@@ -183,7 +183,12 @@ public class BasicStructureConfiguration extends StructureConfiguration {
         NetherGate("nether_gate", "item.prefab.item_nether_gate", "item_nether_gate", NetherGateOptions.AncientSkull),
         SugarCaneFarm("sugar_cane_farm", "item.prefab.item_sugar_cane_farm", "item_sugar_cane_farm", SugarCaneFarmOptions.Default),
         AdvancedAquaBase("advanced_aqua_base", "item.prefab.item_advanced_aqua_base", "item_advanced_aqua_base", AdvancedAquaBaseOptions.Default),
-        WorkShop("workshop", "item.prefab.item_workshop", "item_workshop", WorkshopOptions.Default);
+        WorkShop("workshop", "item.prefab.item_workshop", "item_workshop", WorkshopOptions.Default),
+        FishPond("fishpond", "item.prefab.item_fishpond", "item_fish_pond", FishPondOptions.Default),
+        HorseStable("horse_stable", "item.prefab.item_horse_stable", "item_horse_stable", HorseStableOptions.Default),
+        TreeFarm("tree_farm", "item.prefab.item_tree_farm", "item_tree_farm", TreeFarmOptions.Default),
+        VillagerHouses("villager_houses", "item.prefab.item_villager_houses", "item_villager_houses", VillagerHouseOptions.FLAT_ROOF),
+        ChickenCoop("chicken_coop", "item.prefab.item_chicken_coop", "item_chicken_coop", ChickenCoopOptions.Default);
 
         private final String name;
         private final String itemTranslationString;

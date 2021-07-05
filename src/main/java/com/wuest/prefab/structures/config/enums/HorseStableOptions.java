@@ -2,22 +2,22 @@ package com.wuest.prefab.structures.config.enums;
 
 import net.minecraft.util.Direction;
 
-public class BarnOptions extends BaseOption {
-    public static BarnOptions Default = new BarnOptions(
-            "item.prefab.item_barn",
-            "assets/prefab/structures/barn.zip",
-            "textures/gui/barn_topdown.png",
+public class HorseStableOptions extends BaseOption {
+    public static HorseStableOptions Default = new HorseStableOptions(
+            "item.prefab.item_horse_stable",
+            "assets/prefab/structures/horsestable.zip",
+            "textures/gui/horse_stable_top_down.png",
             164,
             160,
             Direction.SOUTH,
+            11,
+            8,
             10,
-            30,
-            25,
             1,
-            15,
-            0);
+            4,
+            -4);
 
-    protected BarnOptions(String translationString,
+    protected HorseStableOptions(String translationString,
                           String assetLocation,
                           String pictureLocation,
                           int imageWidth,

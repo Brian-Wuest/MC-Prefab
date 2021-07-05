@@ -2,22 +2,22 @@ package com.wuest.prefab.structures.config.enums;
 
 import net.minecraft.util.Direction;
 
-public class BarnOptions extends BaseOption {
-    public static BarnOptions Default = new BarnOptions(
-            "item.prefab.item_barn",
-            "assets/prefab/structures/barn.zip",
-            "textures/gui/barn_topdown.png",
+public class ChickenCoopOptions extends BaseOption {
+    public static ChickenCoopOptions Default = new ChickenCoopOptions(
+            "item.prefab.item_chicken_coop",
+            "assets/prefab/structures/chickencoop.zip",
+            "textures/gui/chicken_coop_topdown.png",
             164,
             160,
             Direction.SOUTH,
-            10,
-            30,
-            25,
+            7,
+            12,
+            5,
             1,
-            15,
+            9,
             0);
 
-    protected BarnOptions(String translationString,
+    protected ChickenCoopOptions(String translationString,
                           String assetLocation,
                           String pictureLocation,
                           int imageWidth,
