@@ -59,10 +59,7 @@ public class StructureTagMessage extends TagMessage {
      */
     public enum EnumStructureConfiguration {
         Basic(0, new BasicStructureConfiguration()),
-        AdvancedWareHouse(2, new WareHouseConfiguration()),
-        MonsterMasher(6, new MonsterMasherConfiguration()),
         StartHouse(9, new HouseConfiguration()),
-        WareHouse(12, new WareHouseConfiguration()),
         ModerateHouse(13, new ModerateHouseConfiguration()),
         Bulldozer(14, new BulldozerConfiguration()),
         InstantBridge(15, new InstantBridgeConfiguration()),

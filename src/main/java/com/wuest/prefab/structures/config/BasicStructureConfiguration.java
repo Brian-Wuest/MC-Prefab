@@ -199,7 +199,10 @@ public class BasicStructureConfiguration extends StructureConfiguration {
         TreeFarm("tree_farm", "item.prefab.item_tree_farm", "item_tree_farm", TreeFarmOptions.Default),
         VillagerHouses("villager_houses", "item.prefab.item_villager_houses", "item_villager_houses", VillagerHouseOptions.FLAT_ROOF),
         ChickenCoop("chicken_coop", "item.prefab.item_chicken_coop", "item_chicken_coop", ChickenCoopOptions.Default),
-        ProduceFarm("produce_farm", "item.prefab.item_produce_farm", "item_produce_farm", ProduceFarmOptions.Default);
+        ProduceFarm("produce_farm", "item.prefab.item_produce_farm", "item_produce_farm", ProduceFarmOptions.Default),
+        MonsterMasher("monster_masher", "item.prefab.item_monster_masher", "item_monster_masher", MonsterMasherOptions.Default),
+        AdvancedWarehouse("advanced_warehouse", "item.prefab.item_advanced_warehouse", "item_advanced_warehouse", AdvancedWarehouseOptions.Default),
+        Warehouse("warehouse", "item.prefab.item_warehouse", "item_warehouse", WarehouseOptions.Default);
 
         private final String name;
         private final String itemTranslationString;
