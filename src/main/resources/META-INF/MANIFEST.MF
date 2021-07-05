@@ -1,0 +1,1 @@
+MixinConnector: com.wuest.prefab.MixinConnector

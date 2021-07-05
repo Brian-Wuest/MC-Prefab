@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_8",
+  "package": "com.wuest.prefab.mixins",
+  "refmap": "prefab.refmap.json",
+  "mixins": [
+  ],
+  "client": [
+    "RenderIndicatorMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

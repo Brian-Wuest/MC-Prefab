@@ -162,10 +162,6 @@ public class StructureRenderHandler {
                 player.sendMessage(message, player.getUUID());
                 StructureRenderHandler.showedMessage = true;
             }
-
-            if (didAny) {
-                StructureRenderHandler.RenderTest(player.getCommandSenderWorld(), matrixStack);
-            }
         }
     }
 
@@ -269,87 +265,83 @@ public class StructureRenderHandler {
         matrixStack.popPose();
     }
 
-    private static void renderModel(MatrixStack matrixStack, Vector3d pos, BlockState state, IRenderTypeBuffer entityVertexConsumer) {
+    public static void renderClickedBlock(World worldIn, MatrixStack matrixStack, double cameraX, double cameraY, double cameraZ) {
+        if (StructureRenderHandler.currentStructure != null
+                && StructureRenderHandler.dimension == Minecraft.getInstance().player.level.dimensionType().logicalHeight()
+                && StructureRenderHandler.currentConfiguration != null
+                && CommonProxy.proxyConfiguration.serverConfiguration.enableStructurePreview) {
+            BlockPos originalPos = StructureRenderHandler.currentConfiguration.pos.above();
+            // This makes the block north and in-line with the player's line of sight.
+            double blockXOffset = originalPos.getX();
+            double blockZOffset = originalPos.getZ();
+            double blockStartYOffset = originalPos.getY();
+            double blockEndYOffset = originalPos.above().getY();
 
+            StructureRenderHandler.drawBox(matrixStack, blockXOffset, blockZOffset, blockStartYOffset, blockEndYOffset, cameraX, cameraY, cameraZ);
+        }
     }
 
-    private static void RenderTest(World worldIn, MatrixStack matrixStack) {
-        BlockPos originalPos = StructureRenderHandler.currentConfiguration.pos.above();
-        // This makes the block north and in-line with the player's line of sight.
-        double blockXOffset = originalPos.getX();
-        double blockZOffset = originalPos.getZ();
-        double blockStartYOffset = originalPos.getY();
-        double blockEndYOffset = originalPos.above().getY();
-
-        StructureRenderHandler.drawBox(matrixStack, blockXOffset, blockZOffset, blockStartYOffset, blockEndYOffset);
-    }
-
-    private static void drawBox(MatrixStack matrixStack, double blockXOffset, double blockZOffset, double blockStartYOffset, double blockEndYOffset) {
-        RenderSystem.pushMatrix();
-        RenderSystem.multMatrix(matrixStack.last().pose());
-
-        final Vector3d view = Minecraft.getInstance().getEntityRenderDispatcher().camera.getPosition();
-
+    private static void drawBox(MatrixStack matrixStack, double blockXOffset, double blockZOffset, double blockStartYOffset, double blockEndYOffset, double cameraX, double cameraY, double cameraZ) {
         RenderSystem.enableDepthTest();
         RenderSystem.shadeModel(7425);
         RenderSystem.enableAlphaTest();
         RenderSystem.defaultAlphaFunc();
 
         Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder vertexBuffer = tessellator.getBuilder();
+        BufferBuilder bufferBuilder = tessellator.getBuilder();
 
         RenderSystem.disableTexture();
         RenderSystem.disableBlend();
 
-        double translatedX = blockXOffset - view.x();
-        double translatedY = blockStartYOffset - view.y();
-        double translatedYEnd = translatedY + 1;
-        double translatedZ = blockZOffset - view.z();
+        double translatedX = blockXOffset - cameraX;
+        double translatedY = blockStartYOffset - cameraY + .02;
+        double translatedYEnd = translatedY + 1.0D - .02D;
+        double translatedZ = blockZOffset - cameraZ;
 
-        vertexBuffer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION_COLOR);
+        bufferBuilder.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION_COLOR);
 
         RenderSystem.lineWidth(2.0f);
 
         // Draw the verticals of the box.
-        for (int k = 1; k < 2; k += 1) {
-            vertexBuffer.vertex(translatedX, translatedY, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-            vertexBuffer.vertex(translatedX, translatedYEnd, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+        bufferBuilder.vertex(translatedX, translatedY, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+        bufferBuilder.vertex(translatedX, translatedYEnd, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+        tessellator.end();
 
-            vertexBuffer.vertex(translatedX + (double) k, translatedY, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-            vertexBuffer.vertex(translatedX + (double) k, translatedYEnd, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+        bufferBuilder.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION_COLOR);
+        bufferBuilder.vertex(translatedX, translatedY, translatedZ + 1.0D).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+        bufferBuilder.vertex(translatedX, translatedYEnd, translatedZ + 1.0D).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+        tessellator.end();
 
-            vertexBuffer.vertex(translatedX, translatedY, translatedZ + (double) k).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-            vertexBuffer.vertex(translatedX, translatedYEnd, translatedZ + (double) k).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+        bufferBuilder.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION_COLOR);
+        bufferBuilder.vertex(translatedX + 1.0D, translatedY, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+        bufferBuilder.vertex(translatedX + 1.0D, translatedYEnd, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+        tessellator.end();
 
-            vertexBuffer.vertex(translatedX + 1.0D, translatedY, translatedZ + (double) k).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-            vertexBuffer.vertex(translatedX + 1.0D, translatedYEnd, translatedZ + (double) k).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-        }
+        bufferBuilder.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION_COLOR);
+        bufferBuilder.vertex(translatedX + 1.0D, translatedY, translatedZ + 1.0D).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+        bufferBuilder.vertex(translatedX + 1.0D, translatedYEnd, translatedZ + 1.0D).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+        tessellator.end();
 
         // All horizontals.
-        for (double i1 = translatedY; i1 <= translatedYEnd; i1 += 1) {
-            // RED
-            vertexBuffer.vertex(translatedX, i1, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-            vertexBuffer.vertex(translatedX, i1, translatedZ + 1.0D).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+        for (double i1 = translatedY; i1 <= translatedYEnd; i1 += .98D) {
+            bufferBuilder.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION_COLOR);
+            bufferBuilder.vertex(translatedX, i1, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+            bufferBuilder.vertex(translatedX, i1, translatedZ + 1.0D).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
 
-            vertexBuffer.vertex(translatedX + 1.0D, i1, translatedZ + 1.0D).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-            vertexBuffer.vertex(translatedX + 1.0D, i1, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+            bufferBuilder.vertex(translatedX + 1.0D, i1, translatedZ + 1.0D).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+            bufferBuilder.vertex(translatedX + 1.0D, i1, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
 
-            // BLUE
-            vertexBuffer.vertex(translatedX, i1, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-            vertexBuffer.vertex(translatedX + 1, i1, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+            bufferBuilder.vertex(translatedX, i1, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+            bufferBuilder.vertex(translatedX + 1, i1, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
 
-            // Purple
-            vertexBuffer.vertex(translatedX + 1, i1, translatedZ + 1).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-            vertexBuffer.vertex(translatedX, i1, translatedZ + 1).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+            bufferBuilder.vertex(translatedX + 1, i1, translatedZ + 1).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+            bufferBuilder.vertex(translatedX, i1, translatedZ + 1).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+            tessellator.end();
         }
-
-        tessellator.end();
 
         RenderSystem.lineWidth(1.0F);
         RenderSystem.enableBlend();
         RenderSystem.enableTexture();
         RenderSystem.shadeModel(7424);
-
-        RenderSystem.popMatrix();
     }
 }
