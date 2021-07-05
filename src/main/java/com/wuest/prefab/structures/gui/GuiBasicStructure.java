@@ -136,8 +136,13 @@ public class GuiBasicStructure extends GuiStructure {
                     this.shownImageHeight);
         }
 
-        this.btnBedColor.visible = false;
-        this.btnGlassColor.visible = false;
+        if (this.btnBedColor != null) {
+            this.btnBedColor.visible = false;
+        }
+
+        if (this.btnGlassColor != null) {
+            this.btnGlassColor.visible = false;
+        }
 
         int yValue = y + 45;
 
