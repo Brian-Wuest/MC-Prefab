@@ -7,6 +7,8 @@ import com.wuest.prefab.structures.config.enums.AdvancedAquaBaseOptions;
 import com.wuest.prefab.structures.gui.GuiBasicStructure;
 import com.wuest.prefab.structures.predefined.StructureBasic;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 
@@ -21,6 +23,13 @@ public class ItemBasicStructure extends StructureItem {
 
     public ItemBasicStructure(EnumBasicStructureName structureType) {
         super();
+        this.structureType = structureType;
+    }
+
+    public ItemBasicStructure(EnumBasicStructureName structureType, int durability) {
+        super(new Item.Properties()
+                .tab(ItemGroup.TAB_MISC)
+                .durability(durability));
         this.structureType = structureType;
     }
 

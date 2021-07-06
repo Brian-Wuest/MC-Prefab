@@ -154,13 +154,18 @@ public class BasicStructureConfiguration extends StructureConfiguration {
         if (structure.BuildStructure(this, world, hitBlockPos, Direction.NORTH, player)) {
             ItemStack stack = ItemBasicStructure.getBasicStructureItemInHand(player);
 
-            if (stack.getCount() == 1) {
-                player.inventory.removeItem(stack);
-            } else {
-                stack.setCount(stack.getCount() - 1);
-            }
+            if (!stack.isDamageableItem()) {
+                if (stack.getCount() == 1) {
+                    player.inventory.removeItem(stack);
+                } else {
+                    stack.setCount(stack.getCount() - 1);
+                }
 
-            player.containerMenu.broadcastChanges();
+                player.containerMenu.broadcastChanges();
+            } else {
+                // The item has durability; damage it since the building was constructed.
+                this.DamageHeldItem(player, stack.getItem());
+            }
         }
     }
 

@@ -4,6 +4,7 @@ import com.wuest.prefab.structures.items.StructureItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
@@ -181,7 +182,7 @@ public class StructureConfiguration {
         player.containerMenu.broadcastChanges();
     }
 
-    protected void DamageHeldItem(PlayerEntity player, StructureItem item) {
+    protected void DamageHeldItem(PlayerEntity player, Item item) {
         ItemStack stack = player.getMainHandItem().getItem() == item ? player.getMainHandItem() : player.getOffhandItem();
         Hand hand = player.getMainHandItem().getItem() == item ? Hand.MAIN_HAND : Hand.OFF_HAND;
 
