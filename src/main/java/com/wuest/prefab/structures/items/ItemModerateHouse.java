@@ -34,6 +34,6 @@ public class ItemModerateHouse extends StructureItem {
                 context.getLevel(),
                 context.getClickedPos(),
                 context.getPlayer().getDirection(),
-                ModerateHouseConfiguration.HouseStyle.MOUNTAIN_HOME);
+                ModerateHouseConfiguration.HouseStyle.ACACIA_HOME2);
     }
 }

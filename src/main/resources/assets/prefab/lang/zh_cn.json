@@ -125,6 +125,7 @@
   "prefab.gui.moderate_house.workshop": "作坊",
   "prefab.gui.moderate_house.nether": "虚空之屋",
   "prefab.gui.moderate_house.mountain": "山房",
+  "prefab.gui.moderate_house.acacia_2": "相思之家2",
 
   "prefab.gui.bulldozer_desc": "此物品将清空 16x16x16 的区域，并将原方块变为掉落物。",
 
@@ -144,6 +145,7 @@
 
   "prefab.gui.structure.facing": "结构朝向",
   "prefab.gui.structure.glass": "玻璃颜色",
+  "prefab.gui.structure.bed_color": "床的颜色",
 
   "prefab.gui.structure.facing.player": "注意：如果你面朝北方，此时选择南方结构会面朝你。",
   "prefab.gui.structure.block.clicked": "右图中的红色方框表示你点击的方块。",
@@ -221,4 +223,5 @@
   "prefab.gui.stairs_height": "楼梯高度",
   "prefab.gui.stairs_width": "楼梯宽度",
   "prefab.gui.building_options": "建筑选择"
+
 }

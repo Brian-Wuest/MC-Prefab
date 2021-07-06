@@ -117,6 +117,7 @@
     "prefab.gui.moderate_house.workshop": "Taller",
     "prefab.gui.moderate_house.nether": "Casa abisal",
     "prefab.gui.moderate_house.mountain": "Casa de la montaña",
+    "prefab.gui.moderate_house.acacia_2": "Casa Acacia 2",
 
     "prefab.gui.bulldozer_desc": "Este artículo limpiará un espacio de 16x16x16 y proporcionará las gotas de cada bloque.",
     "prefab.gui.cleared_area": "El área despejada será en la dirección que estás enfrentando.",

@@ -125,6 +125,7 @@
     "prefab.gui.moderate_house.workshop": "Мастерская",
     "prefab.gui.moderate_house.nether": "Адский Дом",
     "prefab.gui.moderate_house.mountain": "Горный Дом",
+    "prefab.gui.moderate_house.acacia_2": "Акация Дом 2",
 
     "prefab.gui.bulldozer_desc": "Этот предмет очистит местность размером в 16x16x16 блоков и отдаст разрушенные блоки.",
 

@@ -118,6 +118,7 @@
   "prefab.gui.moderate_house.workshop": "atelier",
   "prefab.gui.moderate_house.nether": "Maison du Néant",
   "prefab.gui.moderate_house.mountain": "Maison de montagne",
+  "prefab.gui.moderate_house.acacia_2": "Maison Acacia 2",
 
   "prefab.gui.bulldozer_desc": "Cet objet va nettoyer un espace 16x16x16 et fournir les gouttes de chaque bloc.",
   "prefab.gui.cleared_area": "La zone dégagée sera dans la direction que vous affrontez.",

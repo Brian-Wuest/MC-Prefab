@@ -24,15 +24,15 @@
     "item.prefab.item_heap_of_timber": "木材の山",
     "item.prefab.item_ton_of_timber": "木材のトン",
 
-    "item.prefab.item_advanced.chicken.coop": "上位鶏舎",
-    "item.prefab.item_advanced.horse.stable": "上位厩舎",
+    "item.prefab.item_advanced_chicken_coop": "上位鶏舎",
+    "item.prefab.item_advanced_horse_stable": "上位厩舎",
     "item.prefab.item_barn": "納屋",
-    "item.prefab.item_machinery.tower": "機械タワー",
+    "item.prefab.item_machinery_tower": "機械タワー",
     "item.prefab.item_string_of_lanterns": "提灯のストリング",
     "item.prefab.item_coil_of_lanterns": "提灯のコイル",
-    "item.prefab.item_defense.bunker": "防衛バンカー",
+    "item.prefab.item_defense_bunker": "防衛バンカー",
     "item.prefab.item_villager_houses": "村人の家",
-    "item.prefab.item_mineshaft.entrance": "坑道入口",
+    "item.prefab.item_mineshaft_entrance": "坑道入口",
     "item.prefab.item_ender_gateway": "エンダーゲートウェイ",
     "item.prefab.item_aqua_base": "アクアベース",
     "item.prefab.item_advanced_aqua_base": "高度な海軍基地",
@@ -125,6 +125,7 @@
     "prefab.gui.moderate_house.workshop": "ワークショップ",
     "prefab.gui.moderate_house.nether": "ネザーハウス",
     "prefab.gui.moderate_house.mountain": "マウンテンハウス",
+    "prefab.gui.moderate_house.acacia_2": "アカシアハウス2",
 
     "prefab.gui.bulldozer_desc": "このアイテムは16x16x16のスペースを空にし、各ブロックからのドロップを提供します。",
 

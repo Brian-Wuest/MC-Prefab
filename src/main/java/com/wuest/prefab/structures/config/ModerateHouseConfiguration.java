@@ -148,7 +148,9 @@ public class ModerateHouseConfiguration extends StructureConfiguration {
         NETHER_HOME(4, GuiLangKeys.MODERATE_NETHER_HOME, new ResourceLocation("prefab", "textures/gui/moderate_house_nether_topdown.png"), 141, 165,
                 "assets/prefab/structures/moderate_house_nether.zip", 16, 15, 22, 0, 0),
         MOUNTAIN_HOME(5, GuiLangKeys.MODERATE_MOUNTAIN_HOME, new ResourceLocation("prefab", "textures/gui/moderate_house_mountain_topdown.png"), 174, 99,
-                "assets/prefab/structures/moderate_house_mountain.zip", 20, 21, 12, 10, 0);
+                "assets/prefab/structures/moderate_house_mountain.zip", 20, 21, 12, 10, 0),
+        ACACIA_HOME2(6, GuiLangKeys.MODERATE_HOUSE_ACACIA_2, new ResourceLocation("prefab", "textures/gui/moderate_house_acacia_2_topdown.png"), 174, 99,
+                "assets/prefab/structures/moderate_house_acacia_2.zip", 31, 31, 21, 12, 6);
 
         private final int value;
         private final String displayName;
@@ -178,26 +180,13 @@ public class ModerateHouseConfiguration extends StructureConfiguration {
         }
 
         public static HouseStyle ValueOf(int value) {
-            switch (value) {
-                case 1: {
-                    return HouseStyle.ACACIA_HOME;
-                }
-                case 2: {
-                    return HouseStyle.EARTHEN_HOME;
-                }
-                case 3: {
-                    return HouseStyle.JUNGLE_TREE_HOME;
-                }
-                case 4: {
-                    return HouseStyle.NETHER_HOME;
-                }
-                case 5: {
-                    return HouseStyle.MOUNTAIN_HOME;
-                }
-                default: {
-                    return HouseStyle.SPRUCE_HOME;
+            for (HouseStyle currentValue : HouseStyle.values()) {
+                if (currentValue.value == value) {
+                    return currentValue;
                 }
             }
+
+            return HouseStyle.SPRUCE_HOME;
         }
 
         public int getValue() {

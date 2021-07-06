@@ -125,6 +125,7 @@
     "prefab.gui.moderate_house.workshop": "Workshop House",
     "prefab.gui.moderate_house.nether": "Nether House",
     "prefab.gui.moderate_house.mountain": "Mountain House",
+    "prefab.gui.moderate_house.acacia_2": "Acacia House 2",
 
     "prefab.gui.bulldozer_desc": "This item will clear out a 16x16x16 space and provide the drops from each block.",
 
