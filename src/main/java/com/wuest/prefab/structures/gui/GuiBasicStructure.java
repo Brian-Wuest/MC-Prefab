@@ -49,7 +49,11 @@ public class GuiBasicStructure extends GuiStructure {
             ItemBasicStructure item = (ItemBasicStructure) stack.getItem();
             this.configuration = ClientEventHandler.playerConfig.getClientConfig(item.structureType.getName(), BasicStructureConfiguration.class);
             this.configuration.basicStructureName = item.structureType;
-            this.configuration.chosenOption = item.structureType.getBaseOption();
+
+            if (this.configuration.chosenOption.getClass() != item.structureType.getBaseOption().getClass()) {
+                this.configuration.chosenOption = item.structureType.getBaseOption();
+            }
+
             this.structureImageLocation = this.configuration.chosenOption.getPictureLocation();
             this.availableOptions = this.configuration.chosenOption.getSpecificOptions();
         }
@@ -166,7 +170,7 @@ public class GuiBasicStructure extends GuiStructure {
     @Override
     protected void postButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
         if (this.showConfigurationOptions) {
-            this.drawString(matrixStack, GuiLangKeys.translateString(this.configuration.basicStructureName.getItemTranslationString()), x + 15, y + 17, this.textColor);
+            this.drawSplitString(GuiLangKeys.translateString(this.configuration.basicStructureName.getItemTranslationString()), x + 15, y + 17, 100, this.textColor);
 
             int yValue = y + 35;
 
