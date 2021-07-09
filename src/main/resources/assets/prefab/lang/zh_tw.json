@@ -48,6 +48,7 @@
     "item.prefab.item_town_hall": "市政廳",
     "item.prefab.item_sugar_cane_farm": "甘蔗農場",
     "item.prefab.item_workshop": "作坊",
+    "item.prefab.item_modern_buildings": "現代建築",
 
     "item.prefab.item_nether_gate_tree": "腐敗的樹",
     "item.prefab.item_nether_gate_skull": "古代骷髏",
@@ -68,7 +69,6 @@
     "block.prefab.block_glass_stairs": "玻璃階梯",
     "block.prefab.block_glass_slab": "玻璃半磚",
 
-    "prefab.gui.fishpond.structure.facing": "注意：如果你面向北邊的話，選擇南方會使碼頭離你很遠。白色邊框顯示其尺寸。",
     "prefab.gui.cleared_area": "在你朝的方向會有一塊區域被清空。",
 
     "prefab.gui.producefarm.structure.size": "這個建築尺寸為 32x32。",
@@ -127,6 +127,13 @@
     "prefab.gui.moderate_house.mountain": "山房",
     "prefab.gui.moderate_house.acacia_2": "相思之家2",
 
+    "prefab.gui.item_modern_mall_store": "購物中心",
+    "prefab.gui.item_modern_hipster_fruit_stand": "水果店",
+    "prefab.gui.item_modern_cinema": "電影",
+    "prefab.gui.item_modern_water_park": "水上樂園",
+    "prefab.gui.item_modern_construction_site": "工地",
+    "prefab.gui.item_modern_apartment": "公寓",
+
     "prefab.gui.bulldozer_desc": "此物品會清出一個 16x16x16 的空間，並將方塊變為掉落物。",
 
     "prefab.ceiling.block.type.stone": "石磚",
@@ -140,16 +147,11 @@
     "prefab.wall.block.type.acacia": "相思木",
     "prefab.wall.block.type.darkoak": "黑橡木",
 
-    "prefab.gui.treefarm.facing": "林場朝向",
     "prefab.gui.treefarm.structure.size": "這個建築尺寸為 38x38。",
 
-    "prefab.gui.structure.facing": "建築朝向",
     "prefab.gui.structure.glass": "玻璃顏色",
     "prefab.gui.structure.bed_color": "床顏色",
 
-    "prefab.gui.structure.facing.player": "注意：如果你面向北邊的話，選擇南方會使建築朝向你。",
-    "prefab.gui.structure.block.clicked": "右圖中的紅色方塊顯示你點擊的方塊。",
-    "prefab.gui.structure.door.facing": "注意：如果你面向北邊的話，選擇南方會使門朝向你。",
     "prefab.gui.structure.nobuild": "有被保護或是無法被破壞的方塊（區域），無法建造。塊名：%1$s 塊位置：x=%2$s, y=%3$s, z=%4$s。",
 
     "prefab.gui.button.build": "建造！",

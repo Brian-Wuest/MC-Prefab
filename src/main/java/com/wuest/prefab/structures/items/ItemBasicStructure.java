@@ -4,6 +4,9 @@ import com.wuest.prefab.Prefab;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration.EnumBasicStructureName;
 import com.wuest.prefab.structures.config.enums.AdvancedAquaBaseOptions;
+import com.wuest.prefab.structures.config.enums.ModernBuildingsOptions;
+import com.wuest.prefab.structures.config.enums.SaloonOptions;
+import com.wuest.prefab.structures.config.enums.WelcomeCenterOptions;
 import com.wuest.prefab.structures.gui.GuiBasicStructure;
 import com.wuest.prefab.structures.predefined.StructureBasic;
 import net.minecraft.entity.player.PlayerEntity;
@@ -68,7 +71,7 @@ public class ItemBasicStructure extends StructureItem {
         ItemStack stack = context.getPlayer().getItemInHand(context.getHand());
         BasicStructureConfiguration structureConfiguration = new BasicStructureConfiguration();
         structureConfiguration.basicStructureName = ((ItemBasicStructure) stack.getItem()).structureType;
-        structureConfiguration.chosenOption = AdvancedAquaBaseOptions.Default;
+        structureConfiguration.chosenOption = ModernBuildingsOptions.ApartmentBuilding;
 
         boolean isWaterStructure = structureConfiguration.basicStructureName == EnumBasicStructureName.AquaBase
                 || structureConfiguration.basicStructureName == EnumBasicStructureName.AdvancedAquaBase;

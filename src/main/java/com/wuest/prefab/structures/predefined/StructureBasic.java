@@ -98,7 +98,8 @@ public class StructureBasic extends Structure {
                     originalPos,
                     this.getClearSpace().getShape().getDirection(),
                     configuration.houseFacing).above();
-        } else if (foundBlock instanceof BedBlock) {
+        } else if (foundBlock instanceof BedBlock && config.chosenOption.getHasBedColor()) {
+            // Even if a structure has a bed; we may want to keep a specific color to match what the design of the structure is.
             BlockPos bedHeadPosition = block.getStartingPosition().getRelativePosition(originalPos, this.getClearSpace().getShape().getDirection(), configuration.houseFacing);
             BlockPos bedFootPosition = block.getSubBlock().getStartingPosition().getRelativePosition(
                     originalPos,
@@ -109,11 +110,29 @@ public class StructureBasic extends Structure {
 
             return true;
         } else if (foundBlock.getRegistryName().getNamespace().equals(Blocks.WHITE_STAINED_GLASS.getRegistryName().getNamespace())
-                && foundBlock.getRegistryName().getPath().endsWith("stained_glass")) {
+                && foundBlock.getRegistryName().getPath().endsWith("stained_glass")
+                && config.chosenOption.getHasGlassColor()) {
             blockState = this.getStainedGlassBlock(config.glassColor);
             block.setBlockState(blockState);
             this.priorityOneBlocks.add(block);
 
+            return true;
+        } else if (foundBlock.getRegistryName().getNamespace().equals(Blocks.WHITE_STAINED_GLASS_PANE.getRegistryName().getNamespace())
+                && foundBlock.getRegistryName().getPath().endsWith("stained_glass_pane")
+                && config.chosenOption.getHasGlassColor()) {
+            blockState = this.getStainedGlassPaneBlock(config.glassColor);
+
+            BuildBlock.SetBlockState(
+                    configuration,
+                    world,
+                    originalPos,
+                    assumedNorth,
+                    block,
+                    foundBlock,
+                    blockState,
+                    this);
+
+            this.priorityOneBlocks.add(block);
             return true;
         }
 

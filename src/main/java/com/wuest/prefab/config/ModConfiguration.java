@@ -80,6 +80,7 @@ public class ModConfiguration {
     private static final String tonOfTimberKey = "Ton of Timber";
     private static final String sugarCaneFarmKey = "Sugar Cane Farm";
     private static final String workshopKey = "Workshop";
+    private static final String modernBuildingsKey = "Modern Buildings";
     public static String tagKey = "PrefabConfig";
     // Config file option names.
     static String enableVersionCheckMessageName = "Enable Version Checking";
@@ -115,7 +116,7 @@ public class ModConfiguration {
                     machineryTowerKey, defenseBunkerKey, mineshaftEntranceKey, enderGatewayKey, magicTempleKey, instantBridgeKey, paperLanternKey, compressedObsidianKey, villagerHousesKey,
                     phasicBlockKey, smartGlassKey, greenHouseKey, startingHouseKey, glassStairsKey, glassSlabsKey, andesiteStairsKey, andesiteSlabsKey, dioriteStairsKey, dioriteSlabKey,
                     graniteStairsKey, grantiteSlabKey, moderateHouseKey, grassyPlainsKey, aquaBaseKey, watchTowerKey, bulldozerKey, structurePartKey, jailKey, saloonKey, skiLodgeKey,
-                    windMillKey, townHallKey, heapOfTimberKey, tonOfTimberKey, sugarCaneFarmKey, workshopKey};
+                    windMillKey, townHallKey, heapOfTimberKey, tonOfTimberKey, sugarCaneFarmKey, workshopKey, modernBuildingsKey};
     private static ForgeConfigSpec SPEC;
     private final HashMap<String, BooleanValue> recipeConfiguration;
     public ServerModConfiguration serverConfiguration;

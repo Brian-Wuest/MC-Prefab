@@ -48,6 +48,7 @@
     "item.prefab.item_town_hall": "Ратуша",
     "item.prefab.item_sugar_cane_farm": "Ферма Цукрової Тростини",
     "item.prefab.item_workshop": "Майстерня",
+    "item.prefab.item_modern_buildings": "Сучасні будівлі",
 
     "item.prefab.item_nether_gate_tree": "Химерне Дерево",
     "item.prefab.item_nether_gate_skull": "Древній Череп",
@@ -68,7 +69,6 @@
     "block.prefab.block_glass_stairs": "Скляні Сходи",
     "block.prefab.block_glass_slab": "Скляна Плита",
 
-    "prefab.gui.fishpond.structure.facing": "Примітка: Якщо ви дивитесь на північ, оберіть південь щоб причал відходив від вас. Біла окантовка - лише для показу розміру.",
     "prefab.gui.cleared_area": "Очищена зона буде в тому напрямку, в який ви спрямовані.",
 
     "prefab.gui.producefarm.structure.size": "Ця структура розміром 32x32 блока.",
@@ -127,6 +127,13 @@
     "prefab.gui.moderate_house.mountain": "Гірський Будинок",
     "prefab.gui.moderate_house.acacia_2": "Акацієвий Будинок 2",
 
+    "prefab.gui.item_modern_mall_store": "Торговий центр",
+    "prefab.gui.item_modern_hipster_fruit_stand": "Фруктовий магазин",
+    "prefab.gui.item_modern_cinema": "Кінотеатр",
+    "prefab.gui.item_modern_water_park": "Аквапарк",
+    "prefab.gui.item_modern_construction_site": "Будівельна площадка",
+    "prefab.gui.item_modern_apartment": "Квартири",
+
     "prefab.gui.bulldozer_desc": "Цей предмет почистить область розміром 16x16x16 блоків та віддасть зламані блоки.",
 
     "prefab.ceiling.block.type.stone": "Кам'яна Цегла",
@@ -140,16 +147,11 @@
     "prefab.wall.block.type.acacia": "Акація",
     "prefab.wall.block.type.darkoak": "Темний Дуб",
 
-    "prefab.gui.treefarm.facing": "Направлення Ферми Дерев",
     "prefab.gui.treefarm.structure.size": "Ця структура розміром 38x38 блоків.",
 
-    "prefab.gui.structure.facing": "Направлення Структури",
     "prefab.gui.structure.glass": "Колір Скла",
     "prefab.gui.structure.bed_color": "Колір Ліжка",
 
-    "prefab.gui.structure.facing.player": "Примітка: Якщо ви дивитесь на північ, обирайте південь, щоб структура дивилася на вас.",
-    "prefab.gui.structure.block.clicked": "Червоний прямокутник справа на зображенні відображає блок на який ви натиснули.",
-    "prefab.gui.structure.door.facing": "Примітка: Якщо ви дивитесь на північ, обирайте південь, щоб двері дивилися на вас.",
     "prefab.gui.structure.nobuild": "Неможливо побудувати структуру через захищенні блоки/область або неруйнівні блоки у області. Блок: %1$s Координати: x=%2$s, y=%3$s, z=%4$s",
 
     "prefab.gui.button.build": "Побудувати!",

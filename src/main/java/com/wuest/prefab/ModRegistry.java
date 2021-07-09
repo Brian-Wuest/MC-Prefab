@@ -125,6 +125,7 @@ public class ModRegistry {
     public static final RegistryObject<ItemBasicStructure> MonsterMasher = ITEMS.register(EnumBasicStructureName.MonsterMasher.getItemTextureLocation().getPath(), () -> new ItemBasicStructure(EnumBasicStructureName.MonsterMasher));
     public static final RegistryObject<ItemBasicStructure> AdvancedWareHouse = ITEMS.register(EnumBasicStructureName.AdvancedWarehouse.getItemTextureLocation().getPath(), () -> new ItemBasicStructure(EnumBasicStructureName.AdvancedWarehouse));
     public static final RegistryObject<ItemBasicStructure> WareHouse = ITEMS.register(EnumBasicStructureName.Warehouse.getItemTextureLocation().getPath(), () -> new ItemBasicStructure(EnumBasicStructureName.Warehouse));
+    public static final RegistryObject<ItemBasicStructure> ModernBuilding = ITEMS.register(EnumBasicStructureName.ModernBuildings.getItemTextureLocation().getPath(), () -> new ItemBasicStructure(EnumBasicStructureName.ModernBuildings, 5));
 
     /**
      * This is where the mod messages are registered.

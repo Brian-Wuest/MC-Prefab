@@ -89,7 +89,7 @@ public class GuiBasicStructure extends GuiStructure {
             int y = grayBoxY + 45;
 
             if (this.availableOptions.size() > 1) {
-                this.btnStructureOptions = this.createAndAddButton(x, y, 90, 20, this.configuration.chosenOption.getTranslationString());
+                this.btnStructureOptions = this.createAndAddButton(x, y, 100, 20, this.configuration.chosenOption.getTranslationString());
                 this.btnStructureOptions.visible = true;
                 y += 45;
             } else if (this.btnStructureOptions != null) {

@@ -48,6 +48,7 @@
   "item.prefab.item_town_hall": "Ayuntamiento",
   "item.prefab.item_sugar_cane_farm": "Granja de caña de azúcar",
   "item.prefab.item_workshop": "Taller",
+  "item.prefab.item_modern_buildings": "Edificios modernos",
 
   "item.prefab.item_nether_gate_tree": "Árbol corrupto",
   "item.prefab.item_nether_gate_skull": "Calavera Antigua",
@@ -67,7 +68,6 @@
   "block.prefab.block_boundary": "Bloque de límites",
   "block.prefab.block_glass_stairs": "Escaleras de vidrio",
   "block.prefab.block_glass_slab": "Losa de vidrio",
-  "prefab.gui.fishpond.structure.facing": "Nota: Si usted está mirando hacia el norte, elija el sur por lo que el muelle se va lejos de ti. El borde blanco es sólo para mostrar el tamaño.",
 
   "prefab.gui.producefarm.structure.size": "Esta estructura es 32x32 bloques de tamaño.",
 
@@ -119,6 +119,13 @@
   "prefab.gui.moderate_house.mountain": "Casa de la montaña",
   "prefab.gui.moderate_house.acacia_2": "Casa Acacia 2",
 
+  "prefab.gui.item_modern_mall_store": "Centro comercial",
+  "prefab.gui.item_modern_hipster_fruit_stand": "Frutería",
+  "prefab.gui.item_modern_cinema": "Cine",
+  "prefab.gui.item_modern_water_park": "Parque acuatico",
+  "prefab.gui.item_modern_construction_site": "Sitio de construcción",
+  "prefab.gui.item_modern_apartment": "Apartamentos",
+
   "prefab.gui.bulldozer_desc": "Este artículo limpiará un espacio de 16x16x16 y proporcionará las gotas de cada bloque.",
   "prefab.gui.cleared_area": "El área despejada será en la dirección que estás enfrentando.",
 
@@ -139,16 +146,11 @@
   "prefab.wall.block.type.acacia": "Acacia",
   "prefab.wall.block.type.darkoak": "Roble oscuro",
 
-  "prefab.gui.treefarm.facing": "Dirección de la granja",
   "prefab.gui.treefarm.structure.size": "Esta estructura es 38x38 bloques de tamaño.",
 
-  "prefab.gui.structure.facing": "Dirección de la estructura",
   "prefab.gui.structure.glass": "Color de cristal",
   "prefab.gui.structure.bed_color": "Color de la cama",
 
-  "prefab.gui.structure.facing.player": "Nota: Si está mirando hacia el norte, elija el sur para que la estructura se enfrente a usted.",
-  "prefab.gui.structure.block.clicked": "El cuadro rojo de la imagen de la derecha muestra el bloque en el que hizo clic.",
-  "prefab.gui.structure.door.facing": "Nota: Si está mirando hacia el norte, elija el sur para que las puertas se enfrentan a usted.",
   "prefab.gui.structure.nobuild": "No se puede construir la estructura debido a bloques protegidos / área o bloques irrompibles están en el área. Nombre de bloque: %1$s Posición de bloque: x=%2$s, y=%3$s, z=%4$s.",
 
   "prefab.gui.button.build": "Construir!",

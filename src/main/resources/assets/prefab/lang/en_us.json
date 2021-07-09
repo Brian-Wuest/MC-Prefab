@@ -48,6 +48,7 @@
     "item.prefab.item_town_hall": "Town Hall",
     "item.prefab.item_sugar_cane_farm": "Sugar Cane Farm",
     "item.prefab.item_workshop": "Workshop",
+    "item.prefab.item_modern_buildings": "Modern Buildings",
 
     "item.prefab.item_nether_gate_tree": "Corrupted Tree",
     "item.prefab.item_nether_gate_skull": "Ancient Skull",
@@ -68,7 +69,6 @@
     "block.prefab.block_glass_stairs": "Glass Stairs",
     "block.prefab.block_glass_slab": "Glass Slab",
 
-    "prefab.gui.fishpond.structure.facing": "Note: If you're facing north, choose south so the pier is going away from you. The white border is just to show the size.",
     "prefab.gui.cleared_area": "The area cleared will be in the direction you are facing.",
 
     "prefab.gui.producefarm.structure.size": "This structure is 32x32 blocks in size.",
@@ -127,6 +127,13 @@
     "prefab.gui.moderate_house.mountain": "Mountain House",
     "prefab.gui.moderate_house.acacia_2": "Acacia House 2",
 
+    "prefab.gui.item_modern_mall_store": "Shopping Centre",
+    "prefab.gui.item_modern_hipster_fruit_stand": "Fruit Shop",
+    "prefab.gui.item_modern_cinema": "Cinema",
+    "prefab.gui.item_modern_water_park": "Water Park",
+    "prefab.gui.item_modern_construction_site": "Construction Site",
+    "prefab.gui.item_modern_apartment": "Apartments",
+
     "prefab.gui.bulldozer_desc": "This item will clear out a 16x16x16 space and provide the drops from each block.",
 
     "prefab.ceiling.block.type.stone": "Stonebrick",
@@ -140,16 +147,11 @@
     "prefab.wall.block.type.acacia": "Acacia",
     "prefab.wall.block.type.darkoak": "Dark Oak",
 
-    "prefab.gui.treefarm.facing": "Tree Farm Facing",
     "prefab.gui.treefarm.structure.size": "This structure is 38x38 blocks in size.",
 
-    "prefab.gui.structure.facing": "Structure Facing",
     "prefab.gui.structure.glass": "Glass Color",
     "prefab.gui.structure.bed_color": "Bed Color",
 
-    "prefab.gui.structure.facing.player": "Note: If you're facing north, choose south so the structure is facing you.",
-    "prefab.gui.structure.block.clicked": "The red box in the image on the right shows the block you clicked on.",
-    "prefab.gui.structure.door.facing": "Note: If you're facing north, choose south so the doors are facing you.",
     "prefab.gui.structure.nobuild": "Cannot build structure due to protected blocks/area or unbreakable blocks are in the area. Block Name: %1$s Block Position: x=%2$s, y=%3$s, z=%4$s",
 
     "prefab.gui.button.build": "Build!",

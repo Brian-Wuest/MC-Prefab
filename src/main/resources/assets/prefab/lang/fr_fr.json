@@ -48,6 +48,7 @@
   "item.prefab.item_town_hall": "Mairie",
   "item.prefab.item_sugar_cane_farm": "Ferme de canne à sucre",
   "item.prefab.item_workshop": "Atelier",
+  "item.prefab.item_modern_buildings": "Bâtiments modernes",
 
   "item.prefab.item_nether_gate_tree": "Arbre corrompu",
   "item.prefab.item_nether_gate_skull": "Crâne antique",
@@ -67,8 +68,6 @@
   "block.prefab.block_boundary": "Bloc de limite",
   "block.prefab.block_glass_stairs": "Escalier en verre",
   "block.prefab.block_glass_slab": "Dalle de verre",
-
-  "prefab.gui.fishpond.structure.facing": "Remarque: Si vous êtes face au nord, choisissez le sud pour que la jetée s'éloigne de vous. La bordure blanche est juste pour montrer la taille.",
 
   "prefab.gui.producefarm.structure.size": "Cette structure est 32x32 blocs de taille.",
 
@@ -120,6 +119,13 @@
   "prefab.gui.moderate_house.mountain": "Maison de montagne",
   "prefab.gui.moderate_house.acacia_2": "Maison Acacia 2",
 
+  "prefab.gui.item_modern_mall_store": "Centre commercial",
+  "prefab.gui.item_modern_hipster_fruit_stand": "Magasin de fruits",
+  "prefab.gui.item_modern_cinema": "Cinéma",
+  "prefab.gui.item_modern_water_park": "Parc aquatique",
+  "prefab.gui.item_modern_construction_site": "Chantier de construction",
+  "prefab.gui.item_modern_apartment": "Appartements",
+
   "prefab.gui.bulldozer_desc": "Cet objet va nettoyer un espace 16x16x16 et fournir les gouttes de chaque bloc.",
   "prefab.gui.cleared_area": "La zone dégagée sera dans la direction que vous affrontez.",
 
@@ -140,16 +146,11 @@
   "prefab.wall.block.type.acacia": "Acacia",
   "prefab.wall.block.type.darkoak": "Chêne foncé",
 
-  "prefab.gui.treefarm.facing": "Direction de ferme d'arbre",
   "prefab.gui.treefarm.structure.size": "Cette structure est 38x38 blocs de taille.",
 
-  "prefab.gui.structure.facing": "Direction de la structure",
   "prefab.gui.structure.glass": "Couleur de verre",
   "prefab.gui.structure.bed_color": "Couleur du lit",
 
-  "prefab.gui.structure.facing.player": "Remarque: Si vous faites face au nord, choisissez le sud pour que la structure soit face à vous.",
-  "prefab.gui.structure.block.clicked": "La boîte rouge de l'image à droite montre le bloc sur lequel vous avez cliqué.",
-  "prefab.gui.structure.door.facing": "Remarque: Si vous faites face au nord, choisissez le sud pour que les portes soient face à vous.",
   "prefab.gui.structure.nobuild": "Impossible de construire une structure en raison de blocs protégés / zone ou blocs incassables dans la zone. Nom du bloc: %1$s Position du bloc: x=%2$s, y=%3$s, z=%4$s.",
 
   "prefab.gui.button.build": "Construire!",

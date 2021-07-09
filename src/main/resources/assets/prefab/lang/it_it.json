@@ -48,6 +48,7 @@
     "item.prefab.item_town_hall": "Municipio",
     "item.prefab.item_sugar_cane_farm": "Fattoria di canna da zucchero",
     "item.prefab.item_workshop": "Officina",
+    "item.prefab.item_modern_buildings": "Edifici moderni",
 
     "item.prefab.item_nether_gate_tree": "Albero Corrotto",
     "item.prefab.item_nether_gate_skull": "Teschio Antico",
@@ -68,7 +69,6 @@
     "block.prefab.block_glass_stairs": "Scala di Vetro",
     "block.prefab.block_glass_slab": "Lastra di Vetro",
 
-    "prefab.gui.fishpond.structure.facing": "Nota: Se sei rivolto a nord, scegli il sud così il molo si allontanerà da te. Il bordo bianco è solo per mostrare la dimensione.",
     "prefab.gui.cleared_area": "L'area verrà sgombrata nella direzione che stai guardando.",
 
     "prefab.gui.producefarm.structure.size": "Questa struttura misura 32x32 blocchi.",
@@ -127,6 +127,13 @@
     "prefab.gui.moderate_house.mountain": "Casa nella Montagna",
     "prefab.gui.moderate_house.acacia_2": "Casa Acacia 2",
 
+    "prefab.gui.item_modern_mall_store": "Centro commerciale",
+    "prefab.gui.item_modern_hipster_fruit_stand": "Fruttivendolo",
+    "prefab.gui.item_modern_cinema": "Cinema",
+    "prefab.gui.item_modern_water_park": "Parco acquatico",
+    "prefab.gui.item_modern_construction_site": "Sito di costruzione",
+    "prefab.gui.item_modern_apartment": "Appartamenti",
+
     "prefab.gui.bulldozer_desc": "Questo oggetto sgombrerà uno spazio di 16x16x16 e fornirà il drop di ogni blocco.",
 
     "prefab.ceiling.block.type.stone": "Mattoni di Pietra",
@@ -140,16 +147,11 @@
     "prefab.wall.block.type.acacia": "Acacia",
     "prefab.wall.block.type.darkoak": "Quercia Scura",
 
-    "prefab.gui.treefarm.facing": "Direzione Piantagione Di Alberi",
     "prefab.gui.treefarm.structure.size": "Questa struttura misura 38x38 blocchi.",
 
-    "prefab.gui.structure.facing": "Direzione Struttura",
     "prefab.gui.structure.glass": "Colore Vetro",
     "prefab.gui.structure.bed_color": "Colore Letto",
 
-    "prefab.gui.structure.facing.player": "Nota: Se sei rivolto a nord, scegli il sud così la struttura è rivolta verso di te.",
-    "prefab.gui.structure.block.clicked": "La casella rossa nella immagine a destra mostra il blocco su cui hai fatto clic.",
-    "prefab.gui.structure.door.facing": "Nota: Se sei rivolto a nord, scegli il sud così la porta è rivolta verso di te.",
     "prefab.gui.structure.nobuild": "Impossibile costruire la struttura a causa di blocchi/area protetti o ci sono blocchi indistruttibili nell'area. Nome Blocco: %1$s Posizione Blocco: x=%2$s, y=%3$s, z=%4$s",
 
     "prefab.gui.button.build": "Costruisci!",

@@ -214,6 +214,11 @@ public class Structure {
             // TODO: This was the "getPosition" method.
             BlockPos entityPos = entity.blockPosition();
 
+            if (entity instanceof HangingEntity) {
+                // Use the HangingEntity getPos function instead since it is more accurate for itemframes and paintings.
+                entityPos = ((HangingEntity)entity).getPos();
+            }
+
             if (entityPos.getX() >= x_radiusRangeBegin && entityPos.getX() <= x_radiusRangeEnd
                     && entityPos.getZ() >= z_radiusRangeBegin && entityPos.getZ() <= z_radiusRangeEnd
                     && entityPos.getY() >= y_radiusRangeBegin && entityPos.getY() <= y_radiusRangeEnd) {

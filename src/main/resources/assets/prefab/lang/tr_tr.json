@@ -48,6 +48,7 @@
     "item.prefab.item_town_hall": "Belediye binası",
     "item.prefab.item_sugar_cane_farm": "Şeker Kamışı Çiftliği",
     "item.prefab.item_workshop": "atölye",
+    "item.prefab.item_modern_buildings": "Modern Binalar",
 
     "item.prefab.item_nether_gate_tree": "Bozuk ağaç",
     "item.prefab.item_nether_gate_skull": "Antik kurukafa",
@@ -68,7 +69,6 @@
     "block.prefab.block_glass_stairs": "Cam Merdiven",
     "block.prefab.block_glass_slab": "Cam Basamak",
 
-    "prefab.gui.fishpond.structure.facing": "Not: Eğer kuzeye bakıyorsan, güneyi seç ki iskele senden uzakta olsun. Beyaz kenarlıklar boyutu göstermek içindir.",
     "prefab.gui.cleared_area": "Temizlenecek alan baktığın yönde olacaktır.",
 
     "prefab.gui.producefarm.structure.size": "Bu yapıt 32x32 blok boyutunda.",
@@ -127,6 +127,13 @@
     "prefab.gui.moderate_house.mountain": "Dağ evi",
     "prefab.gui.moderate_house.acacia_2": "Akasya Evi 2",
 
+    "prefab.gui.item_modern_mall_store": "Alışveriş Merkezi",
+    "prefab.gui.item_modern_hipster_fruit_stand": "Manav",
+    "prefab.gui.item_modern_cinema": "Sinema",
+    "prefab.gui.item_modern_water_park": "Su parkı",
+    "prefab.gui.item_modern_construction_site": "İnşaat sahası",
+    "prefab.gui.item_modern_apartment": "Daireler",
+
     "prefab.gui.bulldozer_desc": "Bu eşya 16x16x16'lık bir alanı temizleyecek ve düşen bloklar eşya olarak geri dönecek.",
 
     "prefab.ceiling.block.type.stone": "Taş Tuğla",
@@ -140,16 +147,11 @@
     "prefab.wall.block.type.acacia": "Akasya",
     "prefab.wall.block.type.darkoak": "Koyu Meşe",
 
-    "prefab.gui.treefarm.facing": "Ağaç Çiftliği Yönü",
     "prefab.gui.treefarm.structure.size": "Bu yapı 38x38 blok boyutunda.",
 
-    "prefab.gui.structure.facing": "Yapının Baktığı Yön",
     "prefab.gui.structure.glass": "Cam Rengi",
     "prefab.gui.structure.bed_color": "Yatak Rengi",
 
-    "prefab.gui.structure.facing.player": "Not: Eğer kuzeye bakıyorsan, güneyi seç ki yapı sana baksın.",
-    "prefab.gui.structure.block.clicked": "Sağdaki resimde bulunan kırmızı kutu, tıkladığın bloğu gösterir.",
-    "prefab.gui.structure.door.facing": "Not: Eğer kuzeye bakıyorsan, güneyi seç ki kapılar sana baksın.",
     "prefab.gui.structure.nobuild": "Etrafta koruma bulunan bloklar veya kırılamayan bloklar olduğu için yapı inşa edilemiyor. Blok Adı: %1$s Blok Konumu: x=%2$s, y=%3$s, z=%4$s.",
 
     "prefab.gui.button.build": "İnşa Et!",

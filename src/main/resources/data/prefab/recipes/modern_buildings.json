@@ -1,0 +1,33 @@
+{
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Modern Buildings"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Modern Buildings",
+  "pattern": [
+    "a a",
+    "bcb",
+    "d d"
+  ],
+  "key": {
+    "a": {
+      "item": "prefab:item_coil_of_lanterns"
+    },
+    "b": {
+      "tag": "forge:storage_blocks/double_compressed_stone"
+    },
+    "c": {
+      "tag": "forge:storage_blocks/triple_compressed_stone"
+    },
+    "d": {
+      "item": "minecraft:iron_block"
+    }
+  },
+  "result": {
+    "item": "prefab:item_modern_buildings",
+    "count": 1
+  }
+}

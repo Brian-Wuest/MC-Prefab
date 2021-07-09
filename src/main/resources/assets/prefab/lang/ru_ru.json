@@ -48,6 +48,7 @@
     "item.prefab.item_town_hall": "Ратуша",
     "item.prefab.item_sugar_cane_farm": "Ферма Тростника",
     "item.prefab.item_workshop": "Мастерская",
+    "item.prefab.item_modern_buildings": "Современные Здания",
 
     "item.prefab.item_nether_gate_tree": "Искажённое Дерево",
     "item.prefab.item_nether_gate_skull": "Древний Череп",
@@ -68,7 +69,6 @@
     "block.prefab.block_glass_stairs": "Стеклянные Ступеньки",
     "block.prefab.block_glass_slab": "Стеклянная Плита",
 
-    "prefab.gui.fishpond.structure.facing": "Примечание: Если вы смотрите на север, выберите юг чтобы причал шел от вас. Белая окантовка просто отображает размер.",
     "prefab.gui.cleared_area": "Очищенная область будет находиться в направлении, куда вы смотрите",
 
     "prefab.gui.producefarm.structure.size": "Эта структура размером 32x32 блока.",
@@ -127,6 +127,13 @@
     "prefab.gui.moderate_house.mountain": "Горный Дом",
     "prefab.gui.moderate_house.acacia_2": "Акациевый Дом 2",
 
+    "prefab.gui.item_modern_mall_store": "Торговый центр",
+    "prefab.gui.item_modern_hipster_fruit_stand": "Магазин фруктов",
+    "prefab.gui.item_modern_cinema": "Кино",
+    "prefab.gui.item_modern_water_park": "Аквапарк",
+    "prefab.gui.item_modern_construction_site": "Строительная площадка",
+    "prefab.gui.item_modern_apartment": "Квартиры",
+
     "prefab.gui.bulldozer_desc": "Этот предмет очистит местность размером в 16x16x16 блоков и отдаст разрушенные блоки.",
 
     "prefab.ceiling.block.type.stone": "Каменный Кирпич",
@@ -140,16 +147,11 @@
     "prefab.wall.block.type.acacia": "Акация",
     "prefab.wall.block.type.darkoak": "Тёмный Дуб",
 
-    "prefab.gui.treefarm.facing": "Поворот Фермы Дерева",
     "prefab.gui.treefarm.structure.size": "Эта структура размером в 38x38 блоков.",
 
-    "prefab.gui.structure.facing": "Поворот Структуры",
     "prefab.gui.structure.glass": "Цвет Стекла",
     "prefab.gui.structure.bed_color": "Цвет Кровати",
 
-    "prefab.gui.structure.facing.player": "Примечание: Если вы смотрите на север, выберите юг, чтобы структура была обращена к вам.",
-    "prefab.gui.structure.block.clicked": "Красный прямоугольник на изображении справа показывает блок на который вы нажали.",
-    "prefab.gui.structure.door.facing": "Примечание: Если вы смотрите на север, выберите юг, чтобы двери были обращены к вам.",
     "prefab.gui.structure.nobuild": "Не удается построить структуру из-за защищенных блоков/местности или неразрушаемых блоков в области. Блок: %1$s Координаты: x=%2$s, y=%3$s, z=%4$s",
 
     "prefab.gui.button.build": "Построить!",
