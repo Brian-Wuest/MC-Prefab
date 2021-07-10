@@ -135,6 +135,7 @@
     "prefab.gui.item_modern_apartment": "Квартири",
 
     "prefab.gui.bulldozer_desc": "Цей предмет почистить область розміром 16x16x16 блоків та віддасть зламані блоки.",
+    "prefab.gui.compressed_chest_desc": "Використовується в рецептах конструкцій, а не для безпосереднього зберігання",
 
     "prefab.ceiling.block.type.stone": "Кам'яна Цегла",
     "prefab.ceiling.block.type.brick": "Цегла",

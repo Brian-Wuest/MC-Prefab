@@ -127,6 +127,7 @@
   "prefab.gui.item_modern_apartment": "Appartements",
 
   "prefab.gui.bulldozer_desc": "Cet objet va nettoyer un espace 16x16x16 et fournir les gouttes de chaque bloc.",
+  "prefab.gui.compressed_chest_desc": "Utilisé dans les recettes pour les structures, pas pour le stockage direct",
   "prefab.gui.cleared_area": "La zone dégagée sera dans la direction que vous affrontez.",
 
   "prefab.gui.villager.house.flat": "Toit plat",

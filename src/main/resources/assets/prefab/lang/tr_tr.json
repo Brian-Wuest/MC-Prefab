@@ -135,6 +135,7 @@
     "prefab.gui.item_modern_apartment": "Daireler",
 
     "prefab.gui.bulldozer_desc": "Bu eşya 16x16x16'lık bir alanı temizleyecek ve düşen bloklar eşya olarak geri dönecek.",
+    "prefab.gui.compressed_chest_desc": "Doğrudan depolama için değil, yapılar için tariflerde kullanılır",
 
     "prefab.ceiling.block.type.stone": "Taş Tuğla",
     "prefab.ceiling.block.type.brick": "Tuğla",

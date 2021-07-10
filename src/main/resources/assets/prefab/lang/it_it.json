@@ -135,6 +135,7 @@
     "prefab.gui.item_modern_apartment": "Appartamenti",
 
     "prefab.gui.bulldozer_desc": "Questo oggetto sgombrerà uno spazio di 16x16x16 e fornirà il drop di ogni blocco.",
+    "prefab.gui.compressed_chest_desc": "Utilizzato nelle ricette per strutture, non per lo stoccaggio diretto",
 
     "prefab.ceiling.block.type.stone": "Mattoni di Pietra",
     "prefab.ceiling.block.type.brick": "Mattone",

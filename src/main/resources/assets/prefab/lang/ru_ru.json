@@ -135,6 +135,7 @@
     "prefab.gui.item_modern_apartment": "Квартиры",
 
     "prefab.gui.bulldozer_desc": "Этот предмет очистит местность размером в 16x16x16 блоков и отдаст разрушенные блоки.",
+    "prefab.gui.compressed_chest_desc": "Используется в рецептах для конструкций, а не для непосредственного хранения",
 
     "prefab.ceiling.block.type.stone": "Каменный Кирпич",
     "prefab.ceiling.block.type.brick": "Кирпич",

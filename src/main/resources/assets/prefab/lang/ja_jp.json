@@ -135,6 +135,7 @@
     "prefab.gui.item_modern_apartment": "アパート",
 
     "prefab.gui.bulldozer_desc": "このアイテムは16x16x16のスペースを空にし、各ブロックからのドロップを提供します。",
+    "prefab.gui.compressed_chest_desc": "直接保管ではなく、構造物のレシピで使用されます",
 
     "prefab.ceiling.block.type.stone": "石レンガ",
     "prefab.ceiling.block.type.brick": "レンガ",

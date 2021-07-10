@@ -127,6 +127,7 @@
     "prefab.gui.item_modern_apartment": "Apartamentos",
 
     "prefab.gui.bulldozer_desc": "Este artículo limpiará un espacio de 16x16x16 y proporcionará las gotas de cada bloque.",
+    "prefab.gui.compressed_chest_desc": "Se utiliza en las recetas de estructuras, no para almacenamiento directo.",
     "prefab.gui.cleared_area": "El área despejada será en la dirección que estás enfrentando.",
 
     "prefab.gui.villager.house.flat": "Azotea plana",

@@ -135,6 +135,7 @@
   "prefab.gui.item_modern_apartment": "公寓",
 
   "prefab.gui.bulldozer_desc": "此物品将清空 16x16x16 的区域，并将原方块变为掉落物。",
+  "prefab.gui.compressed_chest_desc": "用于结构配方，不用于直接存储",
 
   "prefab.ceiling.block.type.stone": "石砖",
   "prefab.ceiling.block.type.brick": "砖块",

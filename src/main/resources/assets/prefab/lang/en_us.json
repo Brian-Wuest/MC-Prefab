@@ -135,6 +135,7 @@
     "prefab.gui.item_modern_apartment": "Apartments",
 
     "prefab.gui.bulldozer_desc": "This item will clear out a 16x16x16 space and provide the drops from each block.",
+    "prefab.gui.compressed_chest_desc": "Used in the recipes for structures, not for direct storage",
 
     "prefab.ceiling.block.type.stone": "Stonebrick",
     "prefab.ceiling.block.type.brick": "Brick",
