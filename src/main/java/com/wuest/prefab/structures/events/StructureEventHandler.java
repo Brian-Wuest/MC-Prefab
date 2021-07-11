@@ -420,20 +420,16 @@ public final class StructureEventHandler {
     private static Entity setPaintingFacingAndRotation(PaintingEntity entity, BuildEntity buildEntity, BlockPos entityPos, Structure structure) {
         float yaw = entity.yRot;
         Rotation rotation = Rotation.NONE;
-        double x_axis_offset = buildEntity.entityXAxisOffset;
-        double z_axis_offset = buildEntity.entityZAxisOffset;
+        double x_axis_offset = 0;
+        double z_axis_offset = 0;
         Direction facing = entity.getDirection();
         double y_axis_offset = buildEntity.entityYAxisOffset * -1;
 
         if (structure.configuration.houseFacing == structure.assumedNorth.getOpposite()) {
             rotation = Rotation.CLOCKWISE_180;
-            x_axis_offset = x_axis_offset * -1;
-            z_axis_offset = z_axis_offset * -1;
             facing = facing.getOpposite();
         } else if (structure.configuration.houseFacing == structure.assumedNorth.getClockWise()) {
             rotation = Rotation.CLOCKWISE_90;
-            x_axis_offset = x_axis_offset * -1;
-            z_axis_offset = z_axis_offset * -1;
 
             if (structure.getClearSpace().getShape().getDirection() == Direction.NORTH) {
                 facing = facing.getCounterClockWise();
@@ -442,21 +438,13 @@ public final class StructureEventHandler {
             }
         } else if (structure.configuration.houseFacing == structure.assumedNorth.getCounterClockWise()) {
             rotation = Rotation.COUNTERCLOCKWISE_90;
-            x_axis_offset = x_axis_offset * -1;
-            z_axis_offset = z_axis_offset * -1;
 
             if (structure.getClearSpace().getShape().getDirection() == Direction.NORTH) {
                 facing = facing.getClockWise();
             } else if (structure.getClearSpace().getShape().getDirection() == Direction.SOUTH) {
                 facing = facing.getCounterClockWise();
             }
-        } else {
-            x_axis_offset = 0;
-            z_axis_offset = 0;
         }
-
-        x_axis_offset = 0;
-        z_axis_offset = 0;
 
         if (entity.motive.getHeight() > entity.motive.getWidth()
                 || entity.motive.getHeight() > 16) {
@@ -500,15 +488,15 @@ public final class StructureEventHandler {
             } else if (structure.configuration.houseFacing == structure.assumedNorth.getClockWise()) {
                 if (structure.getClearSpace().getShape().getDirection() == Direction.NORTH) {
                     rotation = Rotation.CLOCKWISE_90;
-                    facing = facing.getCounterClockWise();
+                    facing = facing.getCounterClockWise() ;
                 } else if (structure.getClearSpace().getShape().getDirection() == Direction.SOUTH) {
-                    facing = facing.getClockWise();
+                    facing = facing.getClockWise() ;
                     rotation = Rotation.COUNTERCLOCKWISE_90;
                 }
             } else if (structure.configuration.houseFacing == structure.assumedNorth.getCounterClockWise()) {
                 if (structure.getClearSpace().getShape().getDirection() == Direction.NORTH) {
                     rotation = Rotation.COUNTERCLOCKWISE_90;
-                    facing = facing.getClockWise();
+                    facing = facing.getClockWise() ;
                 } else if (structure.getClearSpace().getShape().getDirection() == Direction.SOUTH) {
                     facing = facing.getCounterClockWise();
                     rotation = Rotation.CLOCKWISE_90;
