@@ -10,7 +10,7 @@ public class ModernBuildingsOptions extends BaseOption{
             164,
             160,
             Direction.SOUTH,
-            10,
+            18,
             31,
             27,
             1,
