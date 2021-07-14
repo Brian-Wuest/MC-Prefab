@@ -16,8 +16,8 @@ public class WorkshopOptions extends BaseOption {
             1,
             10,
             0,
-            false,
-            false);
+            true,
+            true);
 
     protected WorkshopOptions(String translationString,
                               String assetLocation,
