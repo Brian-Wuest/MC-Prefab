@@ -153,6 +153,7 @@
     "prefab.gui.structure.glass": "ガラス色",
     "prefab.gui.structure.bed_color": "ベッド色",
 
+    "prefab.gui.structure.block.clicked": "黄色のアウトラインは、クリックしたブロックです。",
     "prefab.gui.structure.nobuild": "保護されたブロック/エリアのために構造を構築できないか、そのエリアに破損しないブロックがあります。 ブロック名：%1$s ブロック位置：x=%2$s, y=%3$s, z=%4$s。",
 
     "prefab.gui.button.build": "建築",

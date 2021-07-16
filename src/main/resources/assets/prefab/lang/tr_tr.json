@@ -153,6 +153,7 @@
     "prefab.gui.structure.glass": "Cam Rengi",
     "prefab.gui.structure.bed_color": "Yatak Rengi",
 
+    "prefab.gui.structure.block.clicked": "Sarı anahat, tıkladığınız bloktur.",
     "prefab.gui.structure.nobuild": "Etrafta koruma bulunan bloklar veya kırılamayan bloklar olduğu için yapı inşa edilemiyor. Blok Adı: %1$s Blok Konumu: x=%2$s, y=%3$s, z=%4$s.",
 
     "prefab.gui.button.build": "İnşa Et!",

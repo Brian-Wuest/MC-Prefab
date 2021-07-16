@@ -153,6 +153,7 @@
     "prefab.gui.structure.glass": "Glass Color",
     "prefab.gui.structure.bed_color": "Bed Color",
 
+    "prefab.gui.structure.block.clicked": "The yellow outline is the block you clicked on.",
     "prefab.gui.structure.nobuild": "Cannot build structure due to protected blocks/area or unbreakable blocks are in the area. Block Name: %1$s Block Position: x=%2$s, y=%3$s, z=%4$s",
 
     "prefab.gui.button.build": "Build!",

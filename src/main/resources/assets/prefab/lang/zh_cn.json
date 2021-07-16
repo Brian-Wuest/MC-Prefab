@@ -153,6 +153,7 @@
   "prefab.gui.structure.glass": "玻璃颜色",
   "prefab.gui.structure.bed_color": "床的颜色",
 
+  "prefab.gui.structure.block.clicked": "黄色轮廓是您单击的块。",
   "prefab.gui.structure.nobuild": "区域内有被保护的或无法破坏的方块，无法建造结构。方块名：%1$s 方块位置：x=%2$s, y=%3$s, z=%4$s。",
 
   "prefab.gui.button.build": "建造！",

@@ -152,6 +152,7 @@
   "prefab.gui.structure.glass": "Couleur de verre",
   "prefab.gui.structure.bed_color": "Couleur du lit",
 
+  "prefab.gui.structure.block.clicked": "Le contour jaune est le bloc sur lequel vous avez cliqué.",
   "prefab.gui.structure.nobuild": "Impossible de construire une structure en raison de blocs protégés / zone ou blocs incassables dans la zone. Nom du bloc: %1$s Position du bloc: x=%2$s, y=%3$s, z=%4$s.",
 
   "prefab.gui.button.build": "Construire!",

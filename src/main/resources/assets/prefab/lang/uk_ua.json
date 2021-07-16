@@ -153,6 +153,7 @@
     "prefab.gui.structure.glass": "Колір Скла",
     "prefab.gui.structure.bed_color": "Колір Ліжка",
 
+    "prefab.gui.structure.block.clicked": "Жовтий контур - це блок, на який ви натиснули.",
     "prefab.gui.structure.nobuild": "Неможливо побудувати структуру через захищенні блоки/область або неруйнівні блоки у області. Блок: %1$s Координати: x=%2$s, y=%3$s, z=%4$s",
 
     "prefab.gui.button.build": "Побудувати!",

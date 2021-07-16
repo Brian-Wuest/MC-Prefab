@@ -152,6 +152,7 @@
     "prefab.gui.structure.glass": "Color de cristal",
     "prefab.gui.structure.bed_color": "Color de la cama",
 
+    "prefab.gui.structure.block.clicked": "El contorno amarillo es el bloque en el que hizo clic.",
     "prefab.gui.structure.nobuild": "No se puede construir la estructura debido a bloques protegidos / área o bloques irrompibles están en el área. Nombre de bloque: %1$s Posición de bloque: x=%2$s, y=%3$s, z=%4$s",
 
     "prefab.gui.button.build": "Construir!",
