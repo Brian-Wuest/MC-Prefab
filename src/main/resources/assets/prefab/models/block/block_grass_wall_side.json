@@ -1,0 +1,31 @@
+{
+    "textures": {
+        "particle": "minecraft:block/dirt",
+        "wall": "minecraft:block/grass_block_side",
+        "top": "minecraft:block/grass_block_top",
+        "bottom": "minecraft:block/dirt",
+        "overlay": "minecraft:block/grass_block_side_overlay"
+    },
+    "elements": [
+        {   "from": [ 5, 0, 0 ],
+            "to": [ 11, 14, 8 ],
+            "faces": {
+                "down":  { "texture": "#bottom", "cullface": "down" },
+                "up":    { "texture": "#top", "tintindex": 0 },
+                "north": { "uv": [ 0, 0,  11, 8 ], "texture": "#wall", "cullface": "north" },
+                "west":  { "uv": [ 0, 0,  8, 14 ], "texture": "#wall" },
+                "east":  { "uv": [ 0, 0,  8, 14 ], "texture": "#wall" }
+            },
+            "__comment": "wall"
+        },
+        {   "from": [ 5, 0, 0 ],
+            "to": [ 11, 14, 8 ],
+            "faces": {
+                "north": { "uv": [ 0, 0,  11, 8 ], "texture": "#overlay", "cullface": "north", "tintindex": 0 },
+                "west":  { "uv": [ 0, 0,  8, 14 ], "texture": "#overlay", "tintindex": 0 },
+                "east":  { "uv": [ 0, 0,  8, 14 ], "texture": "#overlay", "tintindex": 0 }
+            },
+            "__comment": "wall overlay"
+        }
+    ]
+}

@@ -1,0 +1,33 @@
+{
+    "textures": {
+        "wall": "minecraft:block/grass_block_side",
+        "top": "minecraft:block/grass_block_top",
+        "bottom": "minecraft:block/dirt",
+        "particle": "minecraft:block/dirt",
+        "overlay": "minecraft:block/grass_block_side_overlay"
+    },
+    "elements": [
+        {   "from": [ 4, 0, 4 ],
+            "to": [ 12, 16, 12 ],
+            "faces": {
+                "down":  { "texture": "#bottom", "cullface": "down" },
+                "up":    { "texture": "#top", "cullface": "up", "tintindex": 0},
+                "north": { "texture": "#wall" },
+                "south": { "texture": "#wall" },
+                "west":  { "texture": "#wall" },
+                "east":  { "texture": "#wall" }
+            },
+            "__comment": "Center post"
+        },
+		{   "from": [ 4, 0, 4 ],
+            "to": [ 12, 16, 12 ],
+            "faces": {
+                "north": { "texture": "#overlay", "tintindex": 0 },
+                "south": { "texture": "#overlay", "tintindex": 0 },
+                "west":  { "texture": "#overlay", "tintindex": 0 },
+                "east":  { "texture": "#overlay", "tintindex": 0 }
+            },
+            "__comment": "Center post Grass Overlay"
+        }
+    ]
+}

@@ -388,6 +388,9 @@ public class GuiLangKeys {
     @Unlocalized(name = "Used in the recipes for structures, not for direct storage")
     public static final String COMPRESSED_CHEST = "prefab.gui.compressed_chest_desc";
 
+    @Unlocalized(name = "Cut grass, flowers, and leaves with ease!")
+    public static final String SICKLE_DESC = "prefab.gui.sickle_desc";
+
     /**
      * Translates the specified language key for the current language.
      *

@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "prefab:block_grass_slab",
+    "prefab:block_dirt_slab",
+    "prefab:block_grass_stairs",
+    "prefab:block_dirt_stairs",
+    "prefab:block_dirt_wall",
+    "prefab:block_grass_wall"
+  ]
+}

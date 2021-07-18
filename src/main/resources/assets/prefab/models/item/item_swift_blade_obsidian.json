@@ -1,0 +1,6 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer0": "prefab:items/item_swift_blade_obsidian"
+    }
+}

@@ -53,6 +53,33 @@
   "item.prefab.item_nether_gate_tree": "Arbre corrompu",
   "item.prefab.item_nether_gate_skull": "Crâne antique",
 
+  "item.prefab.item_swift_blade_wood": "Épée rapide : Bois",
+  "item.prefab.item_swift_blade_stone": "Épée rapide : Pierre",
+  "item.prefab.item_swift_blade_iron": "Épée rapide : fer",
+  "item.prefab.item_swift_blade_gold": "Épée rapide : Or",
+  "item.prefab.item_swift_blade_diamond": "Épée rapide : Diamant",
+  "item.prefab.item_swift_blade_copper": "Épée rapide : Cuivre",
+  "item.prefab.item_swift_blade_osmium": "Épée rapide : Osmium",
+  "item.prefab.item_swift_blade_bronze": "Épée rapide : Bronze",
+  "item.prefab.item_swift_blade_steel": "Épée rapide : Acier",
+  "item.prefab.item_swift_blade_obsidian": "Épée rapide : obsidienne",
+
+  "item.prefab.item_sickle_wood": "Faucille : Bois",
+  "item.prefab.item_sickle_stone": "Faucille : Pierre",
+  "item.prefab.item_sickle_iron": "Faucille : Fer",
+  "item.prefab.item_sickle_diamond": "Faucille : Diamant",
+  "item.prefab.item_sickle_gold": "Faucille : Or",
+
+  "item.prefab.item_wooden_crate": "Caisse en bois",
+  "item.prefab.item_clutch_of_eggs": "Bouquet d'oeufs",
+  "item.prefab.item_carton_of_eggs": "Boite d'œufs",
+  "item.prefab.item_bunch_of_potatoes": "Tas de pommes de terre",
+  "item.prefab.item_crate_of_potatoes": "Caisse de pommes de terre",
+  "item.prefab.item_bunch_of_carrots": "Botte de carottes",
+  "item.prefab.item_crate_of_carrots": "Caisse de carottes",
+  "item.prefab.item_bunch_of_beets": "Bouquet de betteraves",
+  "item.prefab.item_crate_of_beets": "Caisse de betteraves",
+
   "block.prefab.block_compressed_stone": "Pierre compressée",
   "block.prefab.block_double_compressed_stone": "Double Pierre compressée",
   "block.prefab.block_triple_compressed_stone": "Triple Pierre compressée",
@@ -68,6 +95,13 @@
   "block.prefab.block_boundary": "Bloc de limite",
   "block.prefab.block_glass_stairs": "Escalier en verre",
   "block.prefab.block_glass_slab": "Dalle de verre",
+
+  "block.prefab.block_dirt_stairs": "Escaliers en terre",
+  "block.prefab.block_grass_stairs": "Escaliers en herbe",
+  "block.prefab.block_dirt_slab": "Dalle de terre",
+  "block.prefab.block_grass_slab": "Dalle d'herbe",
+  "block.prefab.block_dirt_wall": "Mur de terre",
+  "block.prefab.block_grass_wall": "Mur d'herbe",
 
   "prefab.gui.producefarm.structure.size": "Cette structure est 32x32 blocs de taille.",
 
@@ -128,6 +162,7 @@
 
   "prefab.gui.bulldozer_desc": "Cet objet va nettoyer un espace 16x16x16 et fournir les gouttes de chaque bloc.",
   "prefab.gui.compressed_chest_desc": "Utilisé dans les recettes pour les structures, pas pour le stockage direct",
+  "prefab.gui.sickle_desc": "Coupez facilement l'herbe, les fleurs et les feuilles!",
   "prefab.gui.cleared_area": "La zone dégagée sera dans la direction que vous affrontez.",
 
   "prefab.gui.villager.house.flat": "Toit plat",

@@ -1,0 +1,31 @@
+{
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Bunch of Beets"
+        }
+    ],
+    "type": "minecraft:crafting_shaped",
+    "group": "Bunch of Beets",
+    "pattern": [
+        "AAA",
+        "ABA",
+        "AAA"
+    ],
+    "key": {
+        "A": [
+            {
+                "item": "prefab:item_bunch_of_beets"
+            }
+        ],
+        "B": [
+            {
+                "item": "prefab:item_wooden_crate"
+            }
+        ]
+    },
+    "result": {
+        "item": "prefab:item_crate_of_beets",
+        "count": 1
+    }
+}

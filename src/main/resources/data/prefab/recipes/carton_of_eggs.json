@@ -1,0 +1,36 @@
+{
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Bunch of Eggs"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Bunch of Eggs",
+  "pattern": [
+    "CCC",
+    "ABA",
+    "CCC"
+  ],
+  "key": {
+    "A": [
+      {
+        "item": "prefab:item_clutch_of_eggs"
+      }
+    ],
+    "B": [
+      {
+        "item": "prefab:item_wooden_crate"
+      }
+    ],
+    "C": [
+      {
+        "item": "minecraft:paper"
+      }
+    ]
+  },
+  "result": {
+    "item": "prefab:item_carton_of_eggs",
+    "count": 1
+  }
+}

@@ -1,0 +1,31 @@
+{
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Swift Blade"
+        }
+    ],
+    "type": "minecraft:crafting_shaped",
+    "group": "Swift Blade",
+    "pattern": [
+        "  b",
+        " b ",
+        "a  "
+    ],
+    "key": {
+        "a": [
+            {
+                "item": "minecraft:stick"
+            }
+        ],
+        "b": [
+            {
+                "item": "minecraft:obsidian"
+            }
+        ]
+    },
+    "result": {
+        "item": "prefab:item_swift_blade_obsidian",
+        "count": 1
+    }
+}

@@ -53,6 +53,33 @@
     "item.prefab.item_nether_gate_tree": "Химерне Дерево",
     "item.prefab.item_nether_gate_skull": "Древній Череп",
 
+    "item.prefab.item_swift_blade_wood": "Швидкий меч: Дерево",
+    "item.prefab.item_swift_blade_stone": "Швидкий меч: Камінь",
+    "item.prefab.item_swift_blade_iron": "Швидкий меч: залізо",
+    "item.prefab.item_swift_blade_gold": "Швидкий меч: золото",
+    "item.prefab.item_swift_blade_diamond": "Швидкий меч: Діамант",
+    "item.prefab.item_swift_blade_copper": "Швидкий меч: мідь",
+    "item.prefab.item_swift_blade_osmium": "Швидкий меч: Осмій",
+    "item.prefab.item_swift_blade_bronze": "Швидкий меч: Бронза",
+    "item.prefab.item_swift_blade_steel": "Швидкий меч: сталь",
+    "item.prefab.item_swift_blade_obsidian": "Швидкий меч: Обсидіан",
+
+    "item.prefab.item_sickle_wood": "Серп: Деревина",
+    "item.prefab.item_sickle_stone": "Серп: Камінь",
+    "item.prefab.item_sickle_iron": "Серп: Залізний",
+    "item.prefab.item_sickle_diamond": "Серп: Діамант",
+    "item.prefab.item_sickle_gold": "Серп: Золото",
+
+    "item.prefab.item_wooden_crate": "Дерев’яний ящик",
+    "item.prefab.item_clutch_of_eggs": "Пучок яєць",
+    "item.prefab.item_carton_of_eggs": "Коробка яєць",
+    "item.prefab.item_bunch_of_potatoes": "Пучок картоплі",
+    "item.prefab.item_crate_of_potatoes": "Ящик з картоплею",
+    "item.prefab.item_bunch_of_carrots": "Пучок моркви",
+    "item.prefab.item_crate_of_carrots": "Ящик з морквою",
+    "item.prefab.item_bunch_of_beets": "Букет буряків",
+    "item.prefab.item_crate_of_beets": "Ящик з буряком",
+
     "block.prefab.block_compressed_stone": "Стиснений Камінь",
     "block.prefab.block_double_compressed_stone": "Подвійно Стиснений Камінь",
     "block.prefab.block_triple_compressed_stone": "Потрійно Стиснений Камінь",
@@ -68,6 +95,13 @@
     "block.prefab.block_boundary": "Бар'єрний Блок",
     "block.prefab.block_glass_stairs": "Скляні Сходи",
     "block.prefab.block_glass_slab": "Скляна Плита",
+
+    "block.prefab.block_dirt_stairs": "Грунтові сходи",
+    "block.prefab.block_grass_stairs": "Трав'яні сходи",
+    "block.prefab.block_dirt_slab": "Брудна плита",
+    "block.prefab.block_grass_slab": "Трав'яна плита",
+    "block.prefab.block_dirt_wall": "Брудна стіна",
+    "block.prefab.block_grass_wall": "Трав'яна стіна",
 
     "prefab.gui.cleared_area": "Очищена зона буде в тому напрямку, в який ви спрямовані.",
 
@@ -136,6 +170,7 @@
 
     "prefab.gui.bulldozer_desc": "Цей предмет почистить область розміром 16x16x16 блоків та віддасть зламані блоки.",
     "prefab.gui.compressed_chest_desc": "Використовується в рецептах конструкцій, а не для безпосереднього зберігання",
+    "prefab.gui.sickle_desc": "Скосити траву, квіти та листя з легкістю!",
 
     "prefab.ceiling.block.type.stone": "Кам'яна Цегла",
     "prefab.ceiling.block.type.brick": "Цегла",

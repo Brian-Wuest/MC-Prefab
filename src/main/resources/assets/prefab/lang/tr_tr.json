@@ -53,6 +53,33 @@
     "item.prefab.item_nether_gate_tree": "Bozuk ağaç",
     "item.prefab.item_nether_gate_skull": "Antik kurukafa",
 
+    "item.prefab.item_swift_blade_wood": "Hızlı Kılıç: Ahşap",
+    "item.prefab.item_swift_blade_stone": "Hızlı Kılıç: Taş",
+    "item.prefab.item_swift_blade_iron": "Hızlı Kılıç: Demir",
+    "item.prefab.item_swift_blade_gold": "Hızlı Kılıç: Altın",
+    "item.prefab.item_swift_blade_diamond": "Hızlı Kılıç: Elmas",
+    "item.prefab.item_swift_blade_copper": "Hızlı Kılıç: Bakır",
+    "item.prefab.item_swift_blade_osmium": "Hızlı Kılıç: Osmiyum",
+    "item.prefab.item_swift_blade_bronze": "Hızlı Kılıç: Bronz",
+    "item.prefab.item_swift_blade_steel": "Hızlı Kılıç: Çelik",
+    "item.prefab.item_swift_blade_obsidian": "Быстрый меч: обсидиан",
+
+    "item.prefab.item_sickle_wood": "Orak: Ahşap",
+    "item.prefab.item_sickle_stone": "Orak: Taş",
+    "item.prefab.item_sickle_iron": "Orak: Demir",
+    "item.prefab.item_sickle_diamond": "Orak: Elmas",
+    "item.prefab.item_sickle_gold": "Orak: Altın",
+
+    "item.prefab.item_wooden_crate": "ahşap sandık",
+    "item.prefab.item_clutch_of_eggs": "bir avuç yumurta",
+    "item.prefab.item_carton_of_eggs": "Yumurta Karton",
+    "item.prefab.item_bunch_of_potatoes": "bir demet patates",
+    "item.prefab.item_crate_of_potatoes": "Patates Sandığı",
+    "item.prefab.item_bunch_of_carrots": "bir demet havuç",
+    "item.prefab.item_crate_of_carrots": "Havuç Sandığı",
+    "item.prefab.item_bunch_of_beets": "pancar demeti",
+    "item.prefab.item_crate_of_beets": "Pancar Sandığı",
+
     "block.prefab.block_compressed_stone": "Sıkıştırılmış Taş",
     "block.prefab.block_double_compressed_stone": "Çifte Sıkıştırılmış Taş",
     "block.prefab.block_triple_compressed_stone": "Üçlü Sıkıştırılmış Taş",
@@ -68,6 +95,13 @@
     "block.prefab.block_boundary": "Sınır Bloğu",
     "block.prefab.block_glass_stairs": "Cam Merdiven",
     "block.prefab.block_glass_slab": "Cam Basamak",
+
+    "block.prefab.block_dirt_stairs": "Kirli Merdivenler",
+    "block.prefab.block_grass_stairs": "Çim Merdivenler",
+    "block.prefab.block_dirt_slab": "Kir Levha",
+    "block.prefab.block_grass_slab": "çim levha",
+    "block.prefab.block_dirt_wall": "Kir Duvar",
+    "block.prefab.block_grass_wall": "çim duvar",
 
     "prefab.gui.cleared_area": "Temizlenecek alan baktığın yönde olacaktır.",
 
@@ -136,6 +170,7 @@
 
     "prefab.gui.bulldozer_desc": "Bu eşya 16x16x16'lık bir alanı temizleyecek ve düşen bloklar eşya olarak geri dönecek.",
     "prefab.gui.compressed_chest_desc": "Doğrudan depolama için değil, yapılar için tariflerde kullanılır",
+    "prefab.gui.sickle_desc": "Çimleri, çiçekleri ve yaprakları kolaylıkla kesin!",
 
     "prefab.ceiling.block.type.stone": "Taş Tuğla",
     "prefab.ceiling.block.type.brick": "Tuğla",

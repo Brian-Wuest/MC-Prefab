@@ -1,5 +1,6 @@
 package com.wuest.prefab.structures.base;
 
+import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Triple;
 import com.wuest.prefab.Tuple;
 import com.wuest.prefab.proxy.CommonProxy;
@@ -415,15 +416,7 @@ public class BuildingMethods {
             }
 
             if (CommonProxy.proxyConfiguration.serverConfiguration.addSword) {
-                Item sword = Items.STONE_SWORD;
-
-                if (ModList.get().isLoaded("repurpose")) {
-                    ResourceLocation name = new ResourceLocation("repurpose", "item_swift_blade_stone");
-
-                    if (ForgeRegistries.ITEMS.containsKey(name)) {
-                        sword = ForgeRegistries.ITEMS.getValue(name);
-                    }
-                }
+                Item sword = ModRegistry.SwiftBladeStone.get();
 
                 chestTile.setItem(itemSlot++, new ItemStack(sword));
             }

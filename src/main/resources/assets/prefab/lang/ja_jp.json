@@ -53,6 +53,33 @@
     "item.prefab.item_nether_gate_tree": "壊れた木",
     "item.prefab.item_nether_gate_skull": "古代の頭蓋骨",
 
+    "item.prefab.item_swift_blade_wood": "ファストソード：ウッド",
+    "item.prefab.item_swift_blade_stone": "ファストソード：ストーン",
+    "item.prefab.item_swift_blade_iron": "ファストソード：アイアン",
+    "item.prefab.item_swift_blade_gold": "ファストソード：ゴールド",
+    "item.prefab.item_swift_blade_diamond": "ファストソード：ダイアモンド",
+    "item.prefab.item_swift_blade_copper": "ファストソード：銅",
+    "item.prefab.item_swift_blade_osmium": "ファストソード：オスミウム",
+    "item.prefab.item_swift_blade_bronze": "ファストソード：ブロンズ",
+    "item.prefab.item_swift_blade_steel": "ファストソード：スチール",
+    "item.prefab.item_swift_blade_obsidian": "ファストソード：オブシディアン",
+
+    "item.prefab.item_sickle_wood": "鎌：木",
+    "item.prefab.item_sickle_stone": "鎌：石",
+    "item.prefab.item_sickle_iron": "鎌：鉄",
+    "item.prefab.item_sickle_diamond": "鎌：ダイヤモンド",
+    "item.prefab.item_sickle_gold": "鎌：ゴールド",
+
+    "item.prefab.item_wooden_crate": "木枠",
+    "item.prefab.item_clutch_of_eggs": "卵の束",
+    "item.prefab.item_carton_of_eggs": "卵のカートン",
+    "item.prefab.item_bunch_of_potatoes": "ジャガイモの束",
+    "item.prefab.item_crate_of_potatoes": "ジャガイモの木枠",
+    "item.prefab.item_bunch_of_carrots": "ニンジンの束",
+    "item.prefab.item_crate_of_carrots": "にんじんの木枠",
+    "item.prefab.item_bunch_of_beets": "ビートの束",
+    "item.prefab.item_crate_of_beets": "ビートの箱",
+
     "block.prefab.block_compressed_stone": "圧縮石",
     "block.prefab.block_double_compressed_stone": "二重圧縮石",
     "block.prefab.block_triple_compressed_stone": "三重圧縮ストーン",
@@ -68,6 +95,13 @@
     "block.prefab.block_boundary": "境界ブロック",
     "block.prefab.block_glass_stairs": "ガラス階段",
     "block.prefab.block_glass_slab": "ガラスのハーフブロック",
+
+    "block.prefab.block_dirt_stairs": "汚れた階段",
+    "block.prefab.block_grass_stairs": "草の階段",
+    "block.prefab.block_dirt_slab": "ダートスラブ",
+    "block.prefab.block_grass_slab": "グラススラブ",
+    "block.prefab.block_dirt_wall": "汚れた壁",
+    "block.prefab.block_grass_wall": "草の壁",
 
     "prefab.gui.cleared_area": "クリアされたエリアは、あなたが向いている方向になります。",
 
@@ -136,6 +170,7 @@
 
     "prefab.gui.bulldozer_desc": "このアイテムは16x16x16のスペースを空にし、各ブロックからのドロップを提供します。",
     "prefab.gui.compressed_chest_desc": "直接保管ではなく、構造物のレシピで使用されます",
+    "prefab.gui.sickle_desc": "草、花、葉を簡単にカット！",
 
     "prefab.ceiling.block.type.stone": "石レンガ",
     "prefab.ceiling.block.type.brick": "レンガ",

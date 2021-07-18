@@ -1,0 +1,31 @@
+{
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Sickle"
+        }
+    ],
+    "type": "minecraft:crafting_shaped",
+    "group": "Sickle",
+    "pattern": [
+        " a ",
+        "  a",
+        "ba "
+    ],
+    "key": {
+        "a": [
+            {
+                "item": "minecraft:gold_ingot"
+            }
+        ],
+        "b" : [
+            {
+                "item": "minecraft:stick"
+            }
+        ]
+    },
+    "result": {
+        "item": "prefab:item_sickle_gold",
+        "count": 1
+    }
+}

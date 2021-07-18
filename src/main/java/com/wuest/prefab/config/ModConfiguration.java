@@ -81,6 +81,14 @@ public class ModConfiguration {
     private static final String sugarCaneFarmKey = "Sugar Cane Farm";
     private static final String workshopKey = "Workshop";
     private static final String modernBuildingsKey = "Modern Buildings";
+    public static String SwiftBladeKey = "Swift Blade";
+    public static String SickleKey = "Sickle";
+    public static String DirtRecipesKey = "Dirt Recipes";
+    public static String BunchOfBeetsKey = "Bunch Of Beets";
+    public static String BunchOfCarrotsKey = "Bunch Of Carrots";
+    public static String BunchOfPotatoesKey = "Bunch Of Potatoes";
+    public static String WoodenCrateKey = "WoodenCrate";
+
     public static String tagKey = "PrefabConfig";
     // Config file option names.
     static String enableVersionCheckMessageName = "Enable Version Checking";
@@ -116,7 +124,9 @@ public class ModConfiguration {
                     machineryTowerKey, defenseBunkerKey, mineshaftEntranceKey, enderGatewayKey, magicTempleKey, instantBridgeKey, paperLanternKey, compressedObsidianKey, villagerHousesKey,
                     phasicBlockKey, smartGlassKey, greenHouseKey, startingHouseKey, glassStairsKey, glassSlabsKey, andesiteStairsKey, andesiteSlabsKey, dioriteStairsKey, dioriteSlabKey,
                     graniteStairsKey, grantiteSlabKey, moderateHouseKey, grassyPlainsKey, aquaBaseKey, watchTowerKey, bulldozerKey, structurePartKey, jailKey, saloonKey, skiLodgeKey,
-                    windMillKey, townHallKey, heapOfTimberKey, tonOfTimberKey, sugarCaneFarmKey, workshopKey, modernBuildingsKey};
+                    windMillKey, townHallKey, heapOfTimberKey, tonOfTimberKey, sugarCaneFarmKey, workshopKey, modernBuildingsKey, SwiftBladeKey, SickleKey, DirtRecipesKey, BunchOfBeetsKey,
+                    BunchOfCarrotsKey, BunchOfPotatoesKey};
+
     private static ForgeConfigSpec SPEC;
     private final HashMap<String, BooleanValue> recipeConfiguration;
     public ServerModConfiguration serverConfiguration;

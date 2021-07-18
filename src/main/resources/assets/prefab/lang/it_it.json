@@ -53,6 +53,33 @@
     "item.prefab.item_nether_gate_tree": "Albero Corrotto",
     "item.prefab.item_nether_gate_skull": "Teschio Antico",
 
+    "item.prefab.item_swift_blade_wood": "Spada veloce: legno:",
+    "item.prefab.item_swift_blade_stone": "Spada veloce: pietra:",
+    "item.prefab.item_swift_blade_iron": "Spada Veloce: Ferro",
+    "item.prefab.item_swift_blade_gold": "Spada veloce: oro:",
+    "item.prefab.item_swift_blade_diamond": "Spada Veloce: Diamante",
+    "item.prefab.item_swift_blade_copper": "Spada veloce: rame",
+    "item.prefab.item_swift_blade_osmium": "Spada veloce: Osmio",
+    "item.prefab.item_swift_blade_bronze": "Spada veloce: bronzo",
+    "item.prefab.item_swift_blade_steel": "Spada veloce: Acciaio",
+    "item.prefab.item_swift_blade_obsidian": "Spada Veloce: Ossidiana",
+
+    "item.prefab.item_sickle_wood": "Falce: legno",
+    "item.prefab.item_sickle_stone": "Falce: Pietra",
+    "item.prefab.item_sickle_iron": "Falce: Ferro",
+    "item.prefab.item_sickle_diamond": "Falce: Diamante",
+    "item.prefab.item_sickle_gold": "Falce: Oro",
+
+    "item.prefab.item_wooden_crate": "Cassa di legno",
+    "item.prefab.item_clutch_of_eggs": "mazzo di uova",
+    "item.prefab.item_carton_of_eggs": "Cartone di uova",
+    "item.prefab.item_bunch_of_potatoes": "mazzo di patate",
+    "item.prefab.item_crate_of_potatoes": "Cassa di patate",
+    "item.prefab.item_bunch_of_carrots": "Mazzo di carote",
+    "item.prefab.item_crate_of_carrots": "Cassa di carote",
+    "item.prefab.item_bunch_of_beets": "mazzo di barbabietole",
+    "item.prefab.item_crate_of_beets": "Cassa di barbabietole",
+
     "block.prefab.block_compressed_stone": "Pietra Compressa",
     "block.prefab.block_double_compressed_stone": "Pietra Doppiamente Compressa",
     "block.prefab.block_triple_compressed_stone": "Pietra Triplamente Compressa",
@@ -68,6 +95,13 @@
     "block.prefab.block_boundary": "Blocco di Confine",
     "block.prefab.block_glass_stairs": "Scala di Vetro",
     "block.prefab.block_glass_slab": "Lastra di Vetro",
+
+    "block.prefab.block_dirt_stairs": "Scale sporche",
+    "block.prefab.block_grass_stairs": "Scale d'erba",
+    "block.prefab.block_dirt_slab": "Lastra di terra",
+    "block.prefab.block_grass_slab": "Lastra d'erba",
+    "block.prefab.block_dirt_wall": "Muro di terra",
+    "block.prefab.block_grass_wall": "Muro d'erba",
 
     "prefab.gui.cleared_area": "L'area verrà sgombrata nella direzione che stai guardando.",
 
@@ -136,6 +170,7 @@
 
     "prefab.gui.bulldozer_desc": "Questo oggetto sgombrerà uno spazio di 16x16x16 e fornirà il drop di ogni blocco.",
     "prefab.gui.compressed_chest_desc": "Utilizzato nelle ricette per strutture, non per lo stoccaggio diretto",
+    "prefab.gui.sickle_desc": "Taglia erba, fiori e foglie con facilità!",
 
     "prefab.ceiling.block.type.stone": "Mattoni di Pietra",
     "prefab.ceiling.block.type.brick": "Mattone",
