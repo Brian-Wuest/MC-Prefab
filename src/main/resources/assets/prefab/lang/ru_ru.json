@@ -188,7 +188,7 @@
     "prefab.gui.structure.glass": "Цвет Стекла",
     "prefab.gui.structure.bed_color": "Цвет Кровати",
 
-    "prefab.gui.structure.block.clicked": "Жёлтый контур - это блок, на которой вы нажали.",
+    "prefab.gui.structure.block.clicked": "Жёлтый контур - это блок, на который вы нажали.",
     "prefab.gui.structure.nobuild": "Не удается построить структуру из-за защищенных блоков/местности или неразрушаемых блоков в области. Блок: %1$s Координаты: x=%2$s, y=%3$s, z=%4$s",
 
     "prefab.gui.button.build": "Построить!",
