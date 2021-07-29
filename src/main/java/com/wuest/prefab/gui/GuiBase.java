@@ -5,9 +5,9 @@ import com.wuest.prefab.Tuple;
 import com.wuest.prefab.Utils;
 import com.wuest.prefab.blocks.FullDyeColor;
 import com.wuest.prefab.gui.controls.CustomButton;
+import com.wuest.prefab.gui.controls.ExtendedButton;
 import com.wuest.prefab.gui.controls.GuiCheckBox;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.AbstractButton;
@@ -16,9 +16,9 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
 import net.minecraftforge.fml.client.gui.widget.Slider;
 
+import java.awt.*;
 import java.util.List;
 
 public abstract class GuiBase extends Screen {
@@ -35,6 +35,7 @@ public abstract class GuiBase extends Screen {
     protected int shownImageHeight = 0;
     protected int shownImageWidth = 0;
     private boolean pauseGame;
+    protected int textColor = Color.DARK_GRAY.getRGB();
 
     public GuiBase(String title) {
         super(Utils.createTextComponent(title));
@@ -283,11 +284,9 @@ public abstract class GuiBase extends Screen {
     }
 
     protected void renderButtons(MatrixStack matrixStack, int mouseX, int mouseY) {
-        for (net.minecraft.client.gui.widget.Widget button : this.buttons) {
-            AbstractButton currentButton = (AbstractButton) button;
-
-            if (currentButton != null && currentButton.visible) {
-                currentButton.renderButton(matrixStack, mouseX, mouseY, this.getMinecraft().getFrameTime());
+        for (net.minecraft.client.gui.widget.Widget widget : this.buttons) {
+            if (widget.visible) {
+                widget.renderButton(matrixStack, mouseX, mouseY, this.getMinecraft().getFrameTime());
             }
         }
     }

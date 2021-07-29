@@ -1,6 +1,7 @@
 package com.wuest.prefab.mixins;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.wuest.prefab.Prefab;
 import com.wuest.prefab.structures.render.StructureRenderHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -16,8 +17,13 @@ public class RenderIndicatorMixin {
     public void renderWorldLast(MatrixStack matrices, IRenderTypeBuffer.Impl vertexConsumers, double cameraX, double cameraY, double cameraZ, CallbackInfo ci) {
         Minecraft mc = Minecraft.getInstance();
 
-        if (!mc.player.isCrouching()) {
+        if (mc.player != null && (!mc.player.isCrouching())) {
             StructureRenderHandler.renderClickedBlock(mc.level, matrices, cameraX, cameraY, cameraZ);
+        }
+
+        // It there are structure scanners; run the rendering for them now.
+        if (Prefab.proxy.structureScanners != null && Prefab.proxy.structureScanners.size() != 0) {
+            StructureRenderHandler.renderScanningBoxes(matrices, cameraX, cameraY, cameraZ);
         }
     }
 }

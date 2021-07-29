@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "prefab:block/block_structure_scanner",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "prefab:block/block_structure_scanner"
+    },
+    "facing=south": {
+      "model": "prefab:block/block_structure_scanner",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "prefab:block/block_structure_scanner",
+      "y": 270
+    }
+  }
+}

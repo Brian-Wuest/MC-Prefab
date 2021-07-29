@@ -103,6 +103,8 @@
     "block.prefab.block_dirt_wall": "汚れた壁",
     "block.prefab.block_grass_wall": "草の壁",
 
+    "block.prefab.block_structure_scanner": "Structure Scanner",
+
     "prefab.gui.cleared_area": "クリアされたエリアは、あなたが向いている方向になります。",
 
     "prefab.gui.producefarm.structure.size": "この構造は、サイズが32x32ブロックです。",
@@ -132,6 +134,8 @@
     "prefab.gui.starter.desert.notes2": "砂漠の生活のために設計された家。",
     "prefab.gui.starter.subaquatic.display": "水中生物のスタイル",
     "prefab.gui.starter.subaquatic.notes": "水中生活のために設計された家。",
+    "prefab.gui.starter.modern.display": "モダンスタイル",
+    "prefab.gui.starter.modern.notes": "現代の生活のために設計された家",
 
     "prefab.gui.starter.addtorches": "トーチを追加",
     "prefab.gui.starter.addbed": "ベッドを追加",
@@ -167,6 +171,12 @@
     "prefab.gui.item_modern_water_park": "親水公園",
     "prefab.gui.item_modern_construction_site": "建設現場",
     "prefab.gui.item_modern_apartment": "アパート",
+    "prefab.gui.item_modern_library": "図書館",
+    "prefab.gui.item_modern_mini_hotel": "小さなホテル",
+    "prefab.gui.item_modern_house": "モダンハウス",
+    "prefab.gui.item_modern_gas_station": "ガソリンスタンド",
+    "prefab.gui.item_modern_cottage": "コテージ",
+    "prefab.gui.item_modern_bank": "銀行",
 
     "prefab.gui.bulldozer_desc": "このアイテムは16x16x16のスペースを空にし、各ブロックからのドロップを提供します。",
     "prefab.gui.compressed_chest_desc": "直接保管ではなく、構造物のレシピで使用されます",

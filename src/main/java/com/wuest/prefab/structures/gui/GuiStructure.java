@@ -3,22 +3,20 @@ package com.wuest.prefab.structures.gui;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Tuple;
+import com.wuest.prefab.Utils;
 import com.wuest.prefab.gui.GuiBase;
 import com.wuest.prefab.gui.GuiLangKeys;
 import com.wuest.prefab.proxy.CommonProxy;
 import com.wuest.prefab.structures.base.Structure;
 import com.wuest.prefab.structures.config.StructureConfiguration;
 import com.wuest.prefab.structures.messages.StructureTagMessage;
-import com.wuest.prefab.structures.messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.structures.render.StructureRenderHandler;
 import net.minecraft.client.gui.widget.button.AbstractButton;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
-
-import java.awt.*;
 
 /**
  * Generic GUI for all structures.
@@ -28,11 +26,10 @@ import java.awt.*;
 public abstract class GuiStructure extends GuiBase {
     public BlockPos pos;
     protected PlayerEntity player;
-    protected ExtendedButton btnCancel;
-    protected ExtendedButton btnBuild;
-    protected ExtendedButton btnVisualize;
-    protected int textColor = Color.DARK_GRAY.getRGB();
-    protected EnumStructureConfiguration structureConfiguration;
+    protected Button btnCancel;
+    protected Button btnBuild;
+    protected Button btnVisualize;
+    protected StructureTagMessage.EnumStructureConfiguration structureConfiguration;
     protected ResourceLocation structureImageLocation;
     private Direction structureFacing;
 
@@ -65,7 +62,6 @@ public abstract class GuiStructure extends GuiBase {
         this.btnBuild = this.createAndAddCustomButton(grayBoxX + 215, grayBoxY + 165, 90, 20, GuiLangKeys.GUI_BUTTON_BUILD);
         this.btnCancel = this.createAndAddButton(grayBoxX + 10, grayBoxY + 165, 90, 20, GuiLangKeys.GUI_BUTTON_CANCEL);
     }
-
 
     public void checkVisualizationSetting() {
         if (!CommonProxy.proxyConfiguration.serverConfiguration.enableStructurePreview) {
@@ -106,7 +102,7 @@ public abstract class GuiStructure extends GuiBase {
         if (button == this.btnCancel) {
             this.closeScreen();
         } else if (button == this.btnBuild) {
-            Prefab.network.sendToServer(new StructureTagMessage(configuration.WriteToCompoundNBT(), this.structureConfiguration));
+            Prefab.network.sendToServer(Utils.createStructureMessage(configuration.WriteToCompoundNBT(), this.structureConfiguration));
             this.closeScreen();
         }
     }

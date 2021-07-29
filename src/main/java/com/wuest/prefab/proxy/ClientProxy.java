@@ -2,13 +2,17 @@ package com.wuest.prefab.proxy;
 
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
+import com.wuest.prefab.base.BaseConfig;
 import com.wuest.prefab.blocks.BlockBoundary;
 import com.wuest.prefab.blocks.BlockCustomWall;
 import com.wuest.prefab.blocks.BlockGrassSlab;
 import com.wuest.prefab.blocks.BlockGrassStairs;
 import com.wuest.prefab.config.ServerModConfiguration;
+import com.wuest.prefab.config.StructureScannerConfig;
 import com.wuest.prefab.events.ClientEventHandler;
+import com.wuest.prefab.gui.GuiBase;
 import com.wuest.prefab.gui.GuiPrefab;
+import com.wuest.prefab.gui.screens.GuiStructureScanner;
 import com.wuest.prefab.structures.gui.GuiStructure;
 import com.wuest.prefab.structures.items.StructureItem;
 import com.wuest.prefab.structures.render.ShaderHelper;
@@ -25,6 +29,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.GrassColors;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeColors;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -125,6 +130,19 @@ public class ClientProxy extends CommonProxy {
 
                 Minecraft.getInstance().setScreen(screen);
             }
+        }
+    }
+
+    @Override
+    public void openGuiForBlock(BlockPos blockPos, World world, BaseConfig config) {
+        GuiBase screen = null;
+
+        if (config instanceof StructureScannerConfig) {
+            screen = new GuiStructureScanner(blockPos, world, (StructureScannerConfig) config);
+        }
+
+        if (screen != null) {
+            Minecraft.getInstance().setScreen(screen);
         }
     }
 

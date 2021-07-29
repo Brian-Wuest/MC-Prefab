@@ -5,19 +5,16 @@ import com.wuest.prefab.structures.base.BuildShape;
 import com.wuest.prefab.structures.base.PositionOffset;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class BaseOption {
+public class BaseOption {
 
     private static final HashMap<String, ArrayList<BaseOption>> classOptions = new HashMap<>();
     private final String translationString;
     private final String assetLocation;
     private final ResourceLocation pictureLocation;
-    private final int imageWidth;
-    private final int imageHeight;
     private final BuildShape clearShape;
     private final PositionOffset clearPositionOffset;
     private final boolean hasBedColor;
@@ -27,8 +24,6 @@ public abstract class BaseOption {
             String translationString,
             String assetLocation,
             String pictureLocation,
-            int imageWidth,
-            int imageHeight,
             Direction direction,
             int height,
             int width,
@@ -41,8 +36,6 @@ public abstract class BaseOption {
         this.translationString = translationString;
         this.assetLocation = assetLocation;
         this.pictureLocation = new ResourceLocation(Prefab.MODID, pictureLocation);
-        this.imageWidth = imageWidth;
-        this.imageHeight = imageHeight;
         this.clearShape = new BuildShape();
         this.clearPositionOffset = new PositionOffset();
         this.hasBedColor = hasBedColor;
@@ -109,20 +102,6 @@ public abstract class BaseOption {
      */
     public ResourceLocation getPictureLocation() {
         return this.pictureLocation;
-    }
-
-    /**
-     * @return Get the image width when this option's picture is shown.
-     */
-    public int getImageWidth() {
-        return this.imageWidth;
-    }
-
-    /**
-     * @return Get the image height when this option's picture is shown.
-     */
-    public int getImageHeight() {
-        return this.imageHeight;
     }
 
     /**

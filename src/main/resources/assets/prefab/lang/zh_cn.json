@@ -103,6 +103,8 @@
   "block.prefab.block_dirt_wall": "土墙",
   "block.prefab.block_grass_wall": "草墙",
 
+  "block.prefab.block_structure_scanner": "Structure Scanner",
+
   "prefab.gui.cleared_area": "你面朝方向的一片区域将被清除。",
 
   "prefab.gui.producefarm.structure.size": "此结构的尺寸为 32x32。",
@@ -132,6 +134,8 @@
   "prefab.gui.starter.desert.notes2": "为沙漠生活设计的房子。",
   "prefab.gui.starter.subaquatic.display": "水下风格",
   "prefab.gui.starter.subaquatic.notes": "为水下生活设计的房子。",
+  "prefab.gui.starter.modern.display": "现代风格",
+  "prefab.gui.starter.modern.notes": "为现代生活而设计的房子。",
 
   "prefab.gui.starter.addtorches": "添加火炬",
   "prefab.gui.starter.addbed": "添加床",
@@ -167,6 +171,12 @@
   "prefab.gui.item_modern_water_park": "水上乐园",
   "prefab.gui.item_modern_construction_site": "工地",
   "prefab.gui.item_modern_apartment": "公寓",
+  "prefab.gui.item_modern_library": "图书馆",
+  "prefab.gui.item_modern_mini_hotel": "小旅馆",
+  "prefab.gui.item_modern_house": "现代住宅",
+  "prefab.gui.item_modern_gas_station": "加油站",
+  "prefab.gui.item_modern_cottage": "小屋",
+  "prefab.gui.item_modern_bank": "银行",
 
   "prefab.gui.bulldozer_desc": "此物品将清空 16x16x16 的区域，并将原方块变为掉落物。",
   "prefab.gui.compressed_chest_desc": "用于结构配方，不用于直接存储",
@@ -262,5 +272,4 @@
   "prefab.gui.stairs_height": "楼梯高度",
   "prefab.gui.stairs_width": "楼梯宽度",
   "prefab.gui.building_options": "建筑选择"
-
 }

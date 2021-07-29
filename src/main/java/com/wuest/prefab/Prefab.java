@@ -1,16 +1,21 @@
 package com.wuest.prefab;
 
+import com.wuest.prefab.items.ItemSickle;
 import com.wuest.prefab.proxy.ClientProxy;
 import com.wuest.prefab.proxy.CommonProxy;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.material.PushReaction;
+import net.minecraft.command.Commands;
+import net.minecraft.server.MinecraftServer;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 import org.apache.commons.lang3.tuple.Pair;
@@ -76,11 +81,13 @@ public class Prefab {
 		// Register the blocks and items for this mod.
 		ModRegistry.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
 		ModRegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
+		ModRegistry.TILE_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
 
 		// Register the setup method for mod-loading
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
 
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
+		MinecraftForge.EVENT_BUS.addListener(this::serverStart);
 
 		Prefab.proxy = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
@@ -97,5 +104,17 @@ public class Prefab {
 
 	private void doClientStuff(final FMLClientSetupEvent event) {
 		Prefab.proxy.clientSetup(event);
+	}
+
+	// The method that gets called when a server starts up(Singleplayer and multiplayer are both affected)
+	public void serverStart(FMLServerStartingEvent event) {
+		// Get's the current server instance.
+		MinecraftServer server = event.getServer();
+
+		// Get's the Command manager for the server.
+		// This is used to register available commands for the server.
+		Commands command = server.getCommands();
+
+		ItemSickle.setEffectiveBlocks();
 	}
 }

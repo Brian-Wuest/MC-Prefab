@@ -103,6 +103,8 @@
     "block.prefab.block_dirt_wall": "土牆",
     "block.prefab.block_grass_wall": "草牆",
 
+    "block.prefab.block_structure_scanner": "Structure Scanner",
+
     "prefab.gui.cleared_area": "在你朝的方向會有一塊區域被清空。",
 
     "prefab.gui.producefarm.structure.size": "這個建築尺寸為 32x32。",
@@ -132,6 +134,8 @@
     "prefab.gui.starter.desert.notes2": "能在沙漠中生存的小屋。",
     "prefab.gui.starter.subaquatic.display": "水下風格",
     "prefab.gui.starter.subaquatic.notes": "能在水下生存的小屋。",
+    "prefab.gui.starter.modern.display": "現代風格",
+    "prefab.gui.starter.modern.notes": "為現代生活而設計的房子。",
 
     "prefab.gui.starter.addtorches": "增加火把",
     "prefab.gui.starter.addbed": "增加床",
@@ -167,6 +171,12 @@
     "prefab.gui.item_modern_water_park": "水上樂園",
     "prefab.gui.item_modern_construction_site": "工地",
     "prefab.gui.item_modern_apartment": "公寓",
+    "prefab.gui.item_modern_library": "圖書館",
+    "prefab.gui.item_modern_mini_hotel": "小旅館",
+    "prefab.gui.item_modern_house": "現代住宅",
+    "prefab.gui.item_modern_gas_station": "加油站",
+    "prefab.gui.item_modern_cottage": "小屋",
+    "prefab.gui.item_modern_bank": "銀行",
 
     "prefab.gui.bulldozer_desc": "此物品會清出一個 16x16x16 的空間，並將方塊變為掉落物。",
     "prefab.gui.compressed_chest_desc": "用於結構配方，不用於直接存儲",

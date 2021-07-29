@@ -103,6 +103,12 @@ public class GuiLangKeys {
     @Unlocalized(name = "A house designed for under water life.")
     public static final String STARTER_HOUSE_SUBAQUATIC_NOTES = "prefab.gui.starter.subaquatic.notes";
 
+    @Unlocalized(name = "Modern Style")
+    public static final String STARTER_HOUSE_MODERN_DISPLAY = "prefab.gui.starter.modern.display";
+
+    @Unlocalized(name = "A house designed for modern life.")
+    public static final String STARTER_HOUSE_MODERN_NOTES = "prefab.gui.starter.modern.notes";
+
     @Unlocalized(name = "Add Torches")
     public static final String STARTER_HOUSE_ADD_TORCHES = "prefab.gui.starter.addtorches";
 

@@ -1,6 +1,7 @@
 package com.wuest.prefab.structures.predefined;
 
 import com.wuest.prefab.Prefab;
+import com.wuest.prefab.Tuple;
 import com.wuest.prefab.Utils;
 import com.wuest.prefab.config.EntityPlayerConfiguration;
 import com.wuest.prefab.proxy.messages.PlayerEntityTagMessage;
@@ -29,8 +30,7 @@ public class StructureAlternateStart extends Structure {
     private BlockPos furnacePosition = null;
     private BlockPos trapDoorPosition = null;
     private BlockPos signPosition = null;
-    private BlockPos bedHeadPosition = null;
-    private BlockPos bedFootPosition = null;
+    private ArrayList<Tuple<BlockPos, BlockPos>> bedPositions = new ArrayList<>();
 
     public static void ScanBasicHouseStructure(World world, BlockPos originalPos, Direction playerFacing) {
         BuildClear clearedSpace = new BuildClear();
@@ -179,7 +179,7 @@ public class StructureAlternateStart extends Structure {
                     originalPos,
                     this.getClearSpace().getShape().getDirection(),
                     configuration.houseFacing);
-        } else if (foundBlock instanceof TrapDoorBlock && houseConfig.addMineShaft) {
+        } else if (foundBlock instanceof TrapDoorBlock && houseConfig.addMineShaft && this.trapDoorPosition == null) {
             // The trap door will still be added, but the mine shaft may not be
             // built.
             this.trapDoorPosition = block.getStartingPosition().getRelativePosition(
@@ -197,12 +197,23 @@ public class StructureAlternateStart extends Structure {
                     originalPos,
                     this.getClearSpace().getShape().getDirection(),
                     configuration.houseFacing);
-        } else if (foundBlock instanceof BedBlock && houseConfig.addBed) {
-            this.bedHeadPosition = block.getStartingPosition().getRelativePosition(originalPos, this.getClearSpace().getShape().getDirection(), configuration.houseFacing);
-            this.bedFootPosition = block.getSubBlock().getStartingPosition().getRelativePosition(
+        } else if (foundBlock == Blocks.SPONGE && houseConfig.addMineShaft) {
+            // Sponges are sometimes used in-place of trapdoors when trapdoors are used for decoration.
+            this.trapDoorPosition = block.getStartingPosition().getRelativePosition(
+                    originalPos,
+                    this.getClearSpace().getShape().getDirection(),
+                    configuration.houseFacing).above();
+        }  else if (foundBlock instanceof BedBlock && houseConfig.addBed) {
+            BlockPos bedHeadPosition = block.getStartingPosition().getRelativePosition(originalPos, this.getClearSpace().getShape().getDirection(), configuration.houseFacing);
+            BlockPos bedFootPosition = block.getSubBlock().getStartingPosition().getRelativePosition(
                     originalPos,
                     this.getClearSpace().getShape().getDirection(),
                     configuration.houseFacing);
+
+            this.bedPositions.add(new Tuple<>(bedHeadPosition, bedFootPosition));
+
+            // Return true so the bed is not placed.
+            return true;
         }
 
         if (foundBlock.getRegistryName().getNamespace().equals(Blocks.WHITE_STAINED_GLASS.getRegistryName().getNamespace())
@@ -283,8 +294,10 @@ public class StructureAlternateStart extends Structure {
             }
         }
 
-        if (this.bedHeadPosition != null && houseConfig.addBed) {
-            BuildingMethods.PlaceColoredBed(world, this.bedHeadPosition, this.bedFootPosition, houseConfig.bedColor);
+        if (this.bedPositions.size() > 0 && houseConfig.addBed) {
+            for (Tuple<BlockPos, BlockPos> bedPosition : this.bedPositions) {
+                BuildingMethods.PlaceColoredBed(world, bedPosition.getFirst(), bedPosition.getSecond(), houseConfig.bedColor);
+            }
         }
 
         // Make sure to set this value so the player cannot fill the chest a second time.

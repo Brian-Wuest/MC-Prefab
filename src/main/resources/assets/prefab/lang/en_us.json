@@ -103,6 +103,8 @@
     "block.prefab.block_dirt_wall": "Dirt Wall",
     "block.prefab.block_grass_wall": "Grass Wall",
 
+    "block.prefab.block_structure_scanner": "Structure Scanner",
+
     "prefab.gui.cleared_area": "The area cleared will be in the direction you are facing.",
 
     "prefab.gui.producefarm.structure.size": "This structure is 32x32 blocks in size.",
@@ -132,6 +134,8 @@
     "prefab.gui.starter.desert.notes2": "A house designed for desert living.",
     "prefab.gui.starter.subaquatic.display": "Subaquatic Style",
     "prefab.gui.starter.subaquatic.notes": "A house designed for under water life.",
+    "prefab.gui.starter.modern.display": "Modern Style",
+    "prefab.gui.starter.modern.notes": "A house designed for modern life.",
 
     "prefab.gui.starter.addtorches": "Add Torches",
     "prefab.gui.starter.addbed": "Add Bed",
@@ -167,6 +171,12 @@
     "prefab.gui.item_modern_water_park": "Water Park",
     "prefab.gui.item_modern_construction_site": "Construction Site",
     "prefab.gui.item_modern_apartment": "Apartments",
+    "prefab.gui.item_modern_library": "Library",
+    "prefab.gui.item_modern_mini_hotel": "Mini Hotel",
+    "prefab.gui.item_modern_house": "Modern House",
+    "prefab.gui.item_modern_gas_station": "Gas Station",
+    "prefab.gui.item_modern_cottage": "Cottage",
+    "prefab.gui.item_modern_bank": "Bank",
 
     "prefab.gui.bulldozer_desc": "This item will clear out a 16x16x16 space and provide the drops from each block.",
     "prefab.gui.compressed_chest_desc": "Used in the recipes for structures, not for direct storage",

@@ -1,6 +1,7 @@
 package com.wuest.prefab;
 
 import com.wuest.prefab.blocks.*;
+import com.wuest.prefab.blocks.entities.StructureScannerBlockEntity;
 import com.wuest.prefab.items.*;
 import com.wuest.prefab.proxy.messages.ConfigSyncMessage;
 import com.wuest.prefab.proxy.messages.PlayerEntityTagMessage;
@@ -8,19 +9,21 @@ import com.wuest.prefab.proxy.messages.handlers.ConfigSyncHandler;
 import com.wuest.prefab.proxy.messages.handlers.PlayerEntityHandler;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration.EnumBasicStructureName;
 import com.wuest.prefab.structures.items.*;
-import com.wuest.prefab.structures.messages.StructureHandler;
-import com.wuest.prefab.structures.messages.StructureTagMessage;
+import com.wuest.prefab.structures.messages.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.LazyValue;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
 
@@ -32,6 +35,8 @@ import java.util.function.Supplier;
 @SuppressWarnings({"unused", "ConstantConditions"})
 public class ModRegistry {
 
+    public static TileEntityType<StructureScannerBlockEntity> StructureScannerEntityType = null;
+
     /**
      * Deferred registry for items.
      */
@@ -41,6 +46,11 @@ public class ModRegistry {
      * Deferred registry for blocks.
      */
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Prefab.MODID);
+
+    /**
+     * Deferred registry for tile entities.
+     */
+    public static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, Prefab.MODID);
 
     /* *********************************** Blocks *********************************** */
 
@@ -66,6 +76,8 @@ public class ModRegistry {
     public static final RegistryObject<BlockDirtStairs> DirtStairs = BLOCKS.register("block_dirt_stairs", com.wuest.prefab.blocks.BlockDirtStairs::new);
     public static final RegistryObject<BlockGrassStairs> GrassStairs = BLOCKS.register("block_grass_stairs", com.wuest.prefab.blocks.BlockGrassStairs::new);
 
+   /* public static final RegistryObject<BlockStructureScanner> StructureScanner = BLOCKS.register("block_structure_scanner", com.wuest.prefab.blocks.BlockStructureScanner::new);
+*/
     /* *********************************** Item Blocks *********************************** */
 
     public static final RegistryObject<BlockItem> CompressedStoneItem = ITEMS.register(BlockCompressedStone.EnumType.COMPRESSED_STONE.getUnlocalizedName(), () -> new BlockItem(CompressedStone.get(), new Item.Properties().tab(ItemGroup.TAB_BUILDING_BLOCKS)));
@@ -89,6 +101,16 @@ public class ModRegistry {
     public static final RegistryObject<BlockItem> GrassSlabItem = ITEMS.register("block_grass_slab", () -> new BlockItem(GrassSlab.get(), new Item.Properties().tab(ItemGroup.TAB_BUILDING_BLOCKS)));
     public static final RegistryObject<BlockItem> DirtStairsItem = ITEMS.register("block_dirt_stairs", () -> new BlockItem(DirtStairs.get(), new Item.Properties().tab(ItemGroup.TAB_BUILDING_BLOCKS)));
     public static final RegistryObject<BlockItem> GrassStairsItem = ITEMS.register("block_grass_stairs", () -> new BlockItem(GrassStairs.get(), new Item.Properties().tab(ItemGroup.TAB_BUILDING_BLOCKS)));
+
+    /*public static final RegistryObject<BlockItem> StructureScannerItem = ITEMS.register("block_structure_scanner", () -> new BlockItem(StructureScanner.get(), new Item.Properties().tab(ItemGroup.TAB_BUILDING_BLOCKS)) );
+*/
+    /* *********************************** Tile Entities *********************************** */
+    /*public static final RegistryObject<TileEntityType<StructureScannerBlockEntity>> StructureScannerTileEntity = TILE_ENTITIES.register("structure_scanner_entity", () -> {
+        ModRegistry.StructureScannerEntityType = new TileEntityType<>(
+                StructureScannerBlockEntity::new, new HashSet<>(Arrays.asList(ModRegistry.StructureScanner.get())), null);
+
+        return ModRegistry.StructureScannerEntityType;
+    });*/
 
     /* *********************************** Items *********************************** */
 
@@ -193,6 +215,18 @@ public class ModRegistry {
                 .decoder(StructureTagMessage::decode)
                 .consumer(StructureHandler::handle)
                 .add();
+
+        Prefab.network.messageBuilder(StructureScannerActionMessage.class, index.getAndIncrement())
+                .encoder(StructureScannerActionMessage::encode)
+                .decoder(StructureScannerActionMessage::decode)
+                .consumer(StructureScannerActionHandler::handle)
+                .add();
+
+        Prefab.network.messageBuilder(StructureScannerSyncMessage.class, index.getAndIncrement())
+                .encoder(StructureScannerSyncMessage::encode)
+                .decoder(StructureScannerSyncMessage::decode)
+                .consumer(StructureScannerSyncHandler::handle)
+                .add();
     }
 
     /**
@@ -224,7 +258,7 @@ public class ModRegistry {
                     .of(ItemTags.getAllTags().getTag(new ResourceLocation("c", "steel_ingots")));
         }),
         OBSIDIAN("Obsidian", ItemTier.DIAMOND.getLevel() + 1, (int) (ItemTier.DIAMOND.getUses() * 1.5),
-                ItemTier.DIAMOND.getSpeed(), ItemTier.DIAMOND.getAttackDamageBonus() + 2,
+                ItemTier.DIAMOND.getSpeed(), ItemTier.DIAMOND.getAttackDamageBonus() + 1,
                 ItemTier.DIAMOND.getEnchantmentValue(), () -> {
             return Ingredient.of(Item.byBlock(Blocks.OBSIDIAN));
         });

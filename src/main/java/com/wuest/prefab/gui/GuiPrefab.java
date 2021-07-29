@@ -7,6 +7,7 @@ import com.wuest.prefab.Utils;
 import com.wuest.prefab.config.ConfigCategory;
 import com.wuest.prefab.config.ConfigOption;
 import com.wuest.prefab.config.ModConfiguration;
+import com.wuest.prefab.gui.controls.ExtendedButton;
 import com.wuest.prefab.proxy.CommonProxy;
 import net.minecraft.client.AbstractOption;
 import net.minecraft.client.Minecraft;
@@ -20,7 +21,6 @@ import net.minecraft.client.settings.BooleanOption;
 import net.minecraft.client.settings.IteratableOption;
 import net.minecraft.client.settings.SliderPercentageOption;
 import net.minecraft.util.IReorderingProcessor;
-import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;

@@ -5,16 +5,15 @@ import com.wuest.prefab.Tuple;
 import com.wuest.prefab.events.ClientEventHandler;
 import com.wuest.prefab.gui.GuiLangKeys;
 import com.wuest.prefab.gui.GuiUtils;
+import com.wuest.prefab.gui.controls.ExtendedButton;
 import com.wuest.prefab.structures.base.EnumStairsMaterial;
 import com.wuest.prefab.structures.base.EnumStructureMaterial;
 import com.wuest.prefab.structures.config.StructurePartConfiguration;
 import com.wuest.prefab.structures.config.StructurePartConfiguration.EnumStyle;
 import com.wuest.prefab.structures.messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.structures.predefined.StructurePart;
-import com.wuest.prefab.structures.render.StructureRenderHandler;
 import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.util.Direction;
-import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
 import net.minecraftforge.fml.client.gui.widget.Slider;
 
 /**

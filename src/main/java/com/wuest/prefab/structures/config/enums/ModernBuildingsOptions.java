@@ -1,5 +1,6 @@
 package com.wuest.prefab.structures.config.enums;
 
+
 import net.minecraft.util.Direction;
 
 public class ModernBuildingsOptions extends BaseOption{
@@ -7,10 +8,8 @@ public class ModernBuildingsOptions extends BaseOption{
             "prefab.gui.item_modern_mall_store",
             "assets/prefab/structures/modern_mall_store.zip",
             "textures/gui/modern_mall_store_topdown.png",
-            164,
-            160,
             Direction.SOUTH,
-            18,
+            10,
             31,
             27,
             1,
@@ -23,8 +22,6 @@ public class ModernBuildingsOptions extends BaseOption{
             "prefab.gui.item_modern_hipster_fruit_stand",
             "assets/prefab/structures/modern_hipster_fruit_stand.zip",
             "textures/gui/modern_hipster_fruit_stand_topdown.png",
-            164,
-            160,
             Direction.SOUTH,
             9,
             19,
@@ -39,8 +36,6 @@ public class ModernBuildingsOptions extends BaseOption{
             "prefab.gui.item_modern_cinema",
             "assets/prefab/structures/modern_cinema.zip",
             "textures/gui/modern_cinema_topdown.png",
-            164,
-            160,
             Direction.SOUTH,
             12,
             20,
@@ -55,8 +50,6 @@ public class ModernBuildingsOptions extends BaseOption{
             "prefab.gui.item_modern_water_park",
             "assets/prefab/structures/modern_water_park.zip",
             "textures/gui/modern_water_park_topdown.png",
-            164,
-            160,
             Direction.SOUTH,
             18,
             46,
@@ -71,8 +64,6 @@ public class ModernBuildingsOptions extends BaseOption{
             "prefab.gui.item_modern_construction_site",
             "assets/prefab/structures/modern_construction_site.zip",
             "textures/gui/modern_construction_site_topdown.png",
-            164,
-            160,
             Direction.SOUTH,
             16,
             37,
@@ -87,8 +78,6 @@ public class ModernBuildingsOptions extends BaseOption{
             "prefab.gui.item_modern_apartment",
             "assets/prefab/structures/modern_apartment.zip",
             "textures/gui/modern_apartment_topdown.png",
-            164,
-            160,
             Direction.SOUTH,
             23,
             12,
@@ -99,11 +88,94 @@ public class ModernBuildingsOptions extends BaseOption{
             false,
             false);
 
+    // TODO: Re-add when upgrading to 1.17
+    /*public static ModernBuildingsOptions Library = new ModernBuildingsOptions(
+            "prefab.gui.item_modern_library",
+            "assets/prefab/structures/modern_library.zip",
+            "textures/gui/modern_library_topdown.png",
+            Direction.SOUTH,
+            14,
+            38,
+            23,
+            1,
+            19,
+            0,
+            false,
+            false);*/
+
+    public static ModernBuildingsOptions MiniHotel = new ModernBuildingsOptions(
+            "prefab.gui.item_modern_mini_hotel",
+            "assets/prefab/structures/modern_mini_hotel.zip",
+            "textures/gui/modern_mini_hotel_topdown.png",
+            Direction.SOUTH,
+            11,
+            29,
+            28,
+            1,
+            17,
+            0,
+            false,
+            false);
+
+    public static ModernBuildingsOptions House = new ModernBuildingsOptions(
+            "prefab.gui.item_modern_house",
+            "assets/prefab/structures/modern_house.zip",
+            "textures/gui/modern_house_topdown.png",
+            Direction.SOUTH,
+            15,
+            24,
+            18,
+            1,
+            7,
+            0,
+            false,
+            false);
+
+    public static ModernBuildingsOptions GasStation = new ModernBuildingsOptions(
+            "prefab.gui.item_modern_gas_station",
+            "assets/prefab/structures/modern_gas_station.zip",
+            "textures/gui/modern_gas_station_topdown.png",
+            Direction.SOUTH,
+            14,
+            39,
+            36,
+            1,
+            19,
+            0,
+            false,
+            false);
+
+    public static ModernBuildingsOptions Cottage = new ModernBuildingsOptions(
+            "prefab.gui.item_modern_cottage",
+            "assets/prefab/structures/modern_cottage.zip",
+            "textures/gui/modern_cottage_topdown.png",
+            Direction.SOUTH,
+            14,
+            17,
+            16,
+            1,
+            15,
+            0,
+            false,
+            false);
+
+    public static ModernBuildingsOptions Bank = new ModernBuildingsOptions(
+            "prefab.gui.item_modern_bank",
+            "assets/prefab/structures/modern_bank.zip",
+            "textures/gui/modern_bank_topdown.png",
+            Direction.SOUTH,
+            10,
+            16,
+            16,
+            1,
+            8,
+            0,
+            false,
+            false);
+
     protected ModernBuildingsOptions(String translationString,
                           String assetLocation,
                           String pictureLocation,
-                          int imageWidth,
-                          int imageHeight,
                           Direction direction,
                           int height,
                           int width,
@@ -117,8 +189,6 @@ public class ModernBuildingsOptions extends BaseOption{
                 translationString,
                 assetLocation,
                 pictureLocation,
-                imageWidth,
-                imageHeight,
                 direction,
                 height,
                 width,

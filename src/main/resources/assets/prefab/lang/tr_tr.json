@@ -103,6 +103,8 @@
     "block.prefab.block_dirt_wall": "Kir Duvar",
     "block.prefab.block_grass_wall": "çim duvar",
 
+    "block.prefab.block_structure_scanner": "Structure Scanner",
+
     "prefab.gui.cleared_area": "Temizlenecek alan baktığın yönde olacaktır.",
 
     "prefab.gui.producefarm.structure.size": "Bu yapıt 32x32 blok boyutunda.",
@@ -128,10 +130,12 @@
     "prefab.gui.starter.desert.notes": "Piramitlere benzeyen bir ev.",
     "prefab.gui.starter.snowy.display": "Kar Stili",
     "prefab.gui.starter.snowy.notes": "İglolara benzeyen bir ev.",
-	"prefab.gui.starter.desert.display2": "Çöl Stili 2",
+    "prefab.gui.starter.desert.display2": "Çöl Stili 2",
     "prefab.gui.starter.desert.notes2": "Çöl hayatı için dizayn edilmiş bir ev.",
     "prefab.gui.starter.subaquatic.display": "Denizaltı Stili",
     "prefab.gui.starter.subaquatic.notes": "Denizin altında yaşamak için bir ev.",
+    "prefab.gui.starter.modern.display": "Modern Tarz",
+    "prefab.gui.starter.modern.notes": "Modern yaşam için tasarlanmış bir ev",
 
     "prefab.gui.starter.addtorches": "Meşale Ekle",
     "prefab.gui.starter.addbed": "Yatak Ekle",
@@ -167,6 +171,12 @@
     "prefab.gui.item_modern_water_park": "Su parkı",
     "prefab.gui.item_modern_construction_site": "İnşaat sahası",
     "prefab.gui.item_modern_apartment": "Daireler",
+    "prefab.gui.item_modern_library": "Kütüphane",
+    "prefab.gui.item_modern_mini_hotel": "Küçük otel",
+    "prefab.gui.item_modern_house": "Modern ev",
+    "prefab.gui.item_modern_gas_station": "Petrol istasyonu",
+    "prefab.gui.item_modern_cottage": "Kulübe",
+    "prefab.gui.item_modern_bank": "Banka",
 
     "prefab.gui.bulldozer_desc": "Bu eşya 16x16x16'lık bir alanı temizleyecek ve düşen bloklar eşya olarak geri dönecek.",
     "prefab.gui.compressed_chest_desc": "Doğrudan depolama için değil, yapılar için tariflerde kullanılır",

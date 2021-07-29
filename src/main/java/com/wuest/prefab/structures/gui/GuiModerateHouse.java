@@ -7,6 +7,7 @@ import com.wuest.prefab.config.ServerModConfiguration;
 import com.wuest.prefab.events.ClientEventHandler;
 import com.wuest.prefab.gui.GuiLangKeys;
 import com.wuest.prefab.gui.GuiUtils;
+import com.wuest.prefab.gui.controls.ExtendedButton;
 import com.wuest.prefab.gui.controls.GuiCheckBox;
 import com.wuest.prefab.structures.config.ModerateHouseConfiguration;
 import com.wuest.prefab.structures.messages.StructureTagMessage.EnumStructureConfiguration;
@@ -14,7 +15,6 @@ import com.wuest.prefab.structures.predefined.StructureModerateHouse;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.item.DyeColor;
-import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
 
 /**
  * @author WuestMan

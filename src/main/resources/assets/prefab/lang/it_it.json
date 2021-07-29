@@ -103,6 +103,8 @@
     "block.prefab.block_dirt_wall": "Muro di terra",
     "block.prefab.block_grass_wall": "Muro d'erba",
 
+    "block.prefab.block_structure_scanner": "Structure Scanner",
+
     "prefab.gui.cleared_area": "L'area verrà sgombrata nella direzione che stai guardando.",
 
     "prefab.gui.producefarm.structure.size": "Questa struttura misura 32x32 blocchi.",
@@ -132,6 +134,8 @@
     "prefab.gui.starter.desert.notes2": "Una casa progettata per la vita nel deserto.",
     "prefab.gui.starter.subaquatic.display": "Stile Subacqueo",
     "prefab.gui.starter.subaquatic.notes": "Una casa progettata per la vita sottomarina.",
+    "prefab.gui.starter.modern.display": "Stile moderno",
+    "prefab.gui.starter.modern.notes": "Una casa pensata per la vita moderna",
 
     "prefab.gui.starter.addtorches": "Aggiungi Torce",
     "prefab.gui.starter.addbed": "Aggiungi Letto",
@@ -167,6 +171,12 @@
     "prefab.gui.item_modern_water_park": "Parco acquatico",
     "prefab.gui.item_modern_construction_site": "Sito di costruzione",
     "prefab.gui.item_modern_apartment": "Appartamenti",
+    "prefab.gui.item_modern_library": "Biblioteca",
+    "prefab.gui.item_modern_mini_hotel": "Piccolo Hotel",
+    "prefab.gui.item_modern_house": "Casa moderna",
+    "prefab.gui.item_modern_gas_station": "Stazione di rifornimento",
+    "prefab.gui.item_modern_cottage": "Villetta",
+    "prefab.gui.item_modern_bank": "Banca",
 
     "prefab.gui.bulldozer_desc": "Questo oggetto sgombrerà uno spazio di 16x16x16 e fornirà il drop di ogni blocco.",
     "prefab.gui.compressed_chest_desc": "Utilizzato nelle ricette per strutture, non per lo stoccaggio diretto",

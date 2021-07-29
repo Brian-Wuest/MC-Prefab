@@ -6,6 +6,7 @@ import com.wuest.prefab.blocks.FullDyeColor;
 import com.wuest.prefab.events.ClientEventHandler;
 import com.wuest.prefab.gui.GuiLangKeys;
 import com.wuest.prefab.gui.GuiUtils;
+import com.wuest.prefab.gui.controls.ExtendedButton;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration;
 import com.wuest.prefab.structures.config.enums.BaseOption;
 import com.wuest.prefab.structures.items.ItemBasicStructure;
@@ -14,7 +15,6 @@ import com.wuest.prefab.structures.predefined.StructureBasic;
 import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
 
 import java.util.ArrayList;
 

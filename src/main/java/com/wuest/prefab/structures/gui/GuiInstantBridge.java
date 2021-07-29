@@ -5,6 +5,7 @@ import com.wuest.prefab.Tuple;
 import com.wuest.prefab.events.ClientEventHandler;
 import com.wuest.prefab.gui.GuiLangKeys;
 import com.wuest.prefab.gui.GuiUtils;
+import com.wuest.prefab.gui.controls.ExtendedButton;
 import com.wuest.prefab.gui.controls.GuiCheckBox;
 import com.wuest.prefab.structures.base.EnumStructureMaterial;
 import com.wuest.prefab.structures.config.InstantBridgeConfiguration;
@@ -13,7 +14,6 @@ import com.wuest.prefab.structures.predefined.StructureInstantBridge;
 import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
 import net.minecraftforge.fml.client.gui.widget.Slider;
 
 @SuppressWarnings("SpellCheckingInspection")

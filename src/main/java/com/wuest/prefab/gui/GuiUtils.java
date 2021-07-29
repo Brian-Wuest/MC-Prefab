@@ -5,11 +5,11 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.wuest.prefab.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
 import org.lwjgl.opengl.GL11;
 
 public class GuiUtils {
@@ -169,7 +169,7 @@ public class GuiUtils {
         AbstractGui.blit(matrixStack, x, y, width, height, 0, 0, regionWidth, regionHeight, textureWidth, textureHeight);
     }
 
-    public static void setButtonText(ExtendedButton button, String message) {
+    public static void setButtonText(Button button, String message) {
         button.setMessage(Utils.createTextComponent(message));
     }
 }

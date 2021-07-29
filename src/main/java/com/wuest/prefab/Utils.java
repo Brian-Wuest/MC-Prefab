@@ -1,10 +1,16 @@
 package com.wuest.prefab;
 
+import com.wuest.prefab.proxy.messages.TagMessage;
+import com.wuest.prefab.structures.messages.StructureTagMessage;
+import io.netty.buffer.Unpooled;
 import io.netty.util.internal.StringUtil;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.text.StringTextComponent;
 import org.apache.commons.lang3.text.WordUtils;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 public class Utils {
@@ -48,6 +54,24 @@ public class Utils {
         }
 
         return returnValue;
+    }
+
+    public static TagMessage createMessage(CompoundNBT tag) {
+        return new TagMessage(tag);
+    }
+
+    public static <T extends TagMessage> T createGenericMessage(CompoundNBT tag, Class<T> tClass) {
+        try {
+            return tClass.getConstructor(CompoundNBT.class).newInstance(tag);
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static StructureTagMessage createStructureMessage(CompoundNBT tag, StructureTagMessage.EnumStructureConfiguration structureConfiguration) {
+        return new StructureTagMessage(tag, structureConfiguration);
     }
 
     public static Direction getDirectionByName(String name) {

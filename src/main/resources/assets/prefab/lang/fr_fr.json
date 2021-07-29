@@ -103,6 +103,8 @@
   "block.prefab.block_dirt_wall": "Mur de terre",
   "block.prefab.block_grass_wall": "Mur d'herbe",
 
+  "block.prefab.block_structure_scanner": "Structure Scanner",
+
   "prefab.gui.producefarm.structure.size": "Cette structure est 32x32 blocs de taille.",
 
   "prefab.gui.starter.tab.general": "Général",
@@ -130,6 +132,8 @@
   "prefab.gui.starter.desert.notes2": "Une maison conçue pour la vie dans le désert.",
   "prefab.gui.starter.subaquatic.display": "Style subaquatique",
   "prefab.gui.starter.subaquatic.notes": "Une maison conçue pour la vie sous-marine.",
+  "prefab.gui.starter.modern.display": "Style moderne",
+  "prefab.gui.starter.modern.notes": "Une maison conçue pour la vie moderne",
 
   "prefab.gui.starter.addtorches": "Ajouter des torches",
   "prefab.gui.starter.addbed": "Ajouter un lit",
@@ -159,6 +163,12 @@
   "prefab.gui.item_modern_water_park": "Parc aquatique",
   "prefab.gui.item_modern_construction_site": "Chantier de construction",
   "prefab.gui.item_modern_apartment": "Appartements",
+  "prefab.gui.item_modern_library": "Bibliothèque",
+  "prefab.gui.item_modern_mini_hotel": "Petit Hôtel",
+  "prefab.gui.item_modern_house": "Maison moderne",
+  "prefab.gui.item_modern_gas_station": "Station d'essence",
+  "prefab.gui.item_modern_cottage": "Cottage",
+  "prefab.gui.item_modern_bank": "Banque",
 
   "prefab.gui.bulldozer_desc": "Cet objet va nettoyer un espace 16x16x16 et fournir les gouttes de chaque bloc.",
   "prefab.gui.compressed_chest_desc": "Utilisé dans les recettes pour les structures, pas pour le stockage direct",

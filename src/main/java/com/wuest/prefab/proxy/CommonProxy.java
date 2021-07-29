@@ -2,11 +2,15 @@ package com.wuest.prefab.proxy;
 
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
+import com.wuest.prefab.base.BaseConfig;
 import com.wuest.prefab.config.ModConfiguration;
 import com.wuest.prefab.config.ServerModConfiguration;
+import com.wuest.prefab.config.StructureScannerConfig;
 import com.wuest.prefab.crafting.RecipeCondition;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -16,6 +20,7 @@ import net.minecraftforge.fml.network.NetworkRegistry;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 
 /**
  * This is the server side proxy.
@@ -29,6 +34,7 @@ public class CommonProxy {
     public static Path Config_File_Path;
 
     public boolean isClient;
+    public ArrayList<StructureScannerConfig> structureScanners;
 
     public CommonProxy() {
         // Builder.build is called during this method.
@@ -41,6 +47,7 @@ public class CommonProxy {
         ModConfiguration.loadConfig(CommonProxy.COMMON_SPEC, CommonProxy.Config_File_Path);
 
         this.isClient = false;
+        this.structureScanners = new ArrayList<>();
     }
 
     /*
@@ -80,6 +87,9 @@ public class CommonProxy {
     }
 
     public void openGuiForItem(ItemUseContext itemUseContext) {
+    }
+
+    public void openGuiForBlock(BlockPos blockPos, World world, BaseConfig config) {
     }
 
     public void clientSetup(FMLClientSetupEvent clientSetupEvent) {
