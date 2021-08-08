@@ -346,7 +346,7 @@ public final class StructureEventHandler {
                     SUpdateTileEntityPacket packet = tileEntity.getUpdatePacket();
 
                     if (packet != null) {
-                        structure.world.getServer().getPlayerList().broadcastAll(tileEntity.getUpdatePacket());
+                        structure.world.getServer().getPlayerList().broadcastAll(packet);
                     }
                 }
             }
