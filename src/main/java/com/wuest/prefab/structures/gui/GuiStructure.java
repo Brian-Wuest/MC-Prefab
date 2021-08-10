@@ -1,6 +1,6 @@
 package com.wuest.prefab.structures.gui;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Tuple;
 import com.wuest.prefab.Utils;
@@ -11,12 +11,12 @@ import com.wuest.prefab.structures.base.Structure;
 import com.wuest.prefab.structures.config.StructureConfiguration;
 import com.wuest.prefab.structures.messages.StructureTagMessage;
 import com.wuest.prefab.structures.render.StructureRenderHandler;
-import net.minecraft.client.gui.widget.button.AbstractButton;
-import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.client.gui.components.AbstractButton;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
 
 /**
  * Generic GUI for all structures.
@@ -25,7 +25,7 @@ import net.minecraft.util.math.BlockPos;
  */
 public abstract class GuiStructure extends GuiBase {
     public BlockPos pos;
-    protected PlayerEntity player;
+    protected Player player;
     protected Button btnCancel;
     protected Button btnBuild;
     protected Button btnVisualize;
@@ -70,7 +70,7 @@ public abstract class GuiStructure extends GuiBase {
     }
 
     @Override
-    public void render(MatrixStack matrixStack, int x, int y, float f) {
+    public void render(PoseStack matrixStack, int x, int y, float f) {
         Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
 
         this.preButtonRender(matrixStack, adjustedXYValue.getFirst(), adjustedXYValue.getSecond(), x, y, f);
@@ -85,12 +85,12 @@ public abstract class GuiStructure extends GuiBase {
     }
 
     @Override
-    protected void preButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
+    protected void preButtonRender(PoseStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
         this.drawStandardControlBoxAndImage(matrixStack, this.structureImageLocation, x, y, mouseX, mouseY, partialTicks);
     }
 
     @Override
-    protected void postButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
+    protected void postButtonRender(PoseStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
     }
 
     /**
@@ -102,7 +102,7 @@ public abstract class GuiStructure extends GuiBase {
         if (button == this.btnCancel) {
             this.closeScreen();
         } else if (button == this.btnBuild) {
-            Prefab.network.sendToServer(Utils.createStructureMessage(configuration.WriteToCompoundNBT(), this.structureConfiguration));
+            Prefab.network.sendToServer(Utils.createStructureMessage(configuration.WriteToCompoundTag(), this.structureConfiguration));
             this.closeScreen();
         }
     }

@@ -1,10 +1,10 @@
 package com.wuest.prefab.blocks;
 
 import com.google.common.base.Strings;
-import net.minecraft.item.DyeColor;
-import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.item.DyeColor;
 
-public enum FullDyeColor implements IStringSerializable {
+public enum FullDyeColor implements StringRepresentable {
     WHITE(0, "white", DyeColor.WHITE),
     ORANGE(1, "orange", DyeColor.ORANGE),
     MAGENTA(2, "magenta", DyeColor.MAGENTA),

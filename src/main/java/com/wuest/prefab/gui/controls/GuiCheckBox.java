@@ -1,11 +1,15 @@
 package com.wuest.prefab.gui.controls;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.wuest.prefab.Utils;
+import com.wuest.prefab.gui.GuiUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.widget.button.AbstractButton;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.gui.components.AbstractButton;
+import net.minecraft.client.gui.narration.NarratedElementType;
+import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -109,10 +113,10 @@ public class GuiCheckBox extends AbstractButton {
      * Draws this button to the screen.
      */
     @Override
-    public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partial) {
+    public void renderButton(PoseStack matrixStack, int mouseX, int mouseY, float partial) {
         if (this.visible) {
             ResourceLocation resourceLocation = GuiCheckBox.buttonTexture;
-            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             this.isHovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.boxWidth && mouseY < this.y + this.height;
 
             if (this.isChecked()) {
@@ -121,8 +125,9 @@ public class GuiCheckBox extends AbstractButton {
                 resourceLocation = GuiCheckBox.buttonTextureHover;
             }
 
-            com.wuest.prefab.gui.GuiUtils.bindTexture(resourceLocation);
-            com.wuest.prefab.gui.GuiUtils.drawTexture(matrixStack, this.x, this.y, 1, 11, 11, 11, 11);
+            GuiUtils.bindTexture(resourceLocation);
+
+            GuiUtils.drawTexture(matrixStack, this.x, this.y, 1, 11, 11, 11, 11);
 
             int color = this.stringColor;
 
@@ -130,6 +135,18 @@ public class GuiCheckBox extends AbstractButton {
                 this.drawString(matrixStack, this.mineCraft.font, displayString, x + this.boxWidth + 2, y + 2, color);
             } else {
                 this.mineCraft.font.drawWordWrap(Utils.createTextComponent(displayString), x + this.boxWidth + 2, y + 2, this.labelWidth, color);
+            }
+        }
+    }
+
+    @Override
+    public void updateNarration(NarrationElementOutput builder) {
+        builder.add(NarratedElementType.TITLE, this.createNarrationMessage());
+        if (this.active) {
+            if (this.isFocused()) {
+                builder.add(NarratedElementType.USAGE, new TranslatableComponent("narration.checkbox.usage.focused"));
+            } else {
+                builder.add(NarratedElementType.USAGE, new TranslatableComponent("narration.checkbox.usage.hovered"));
             }
         }
     }

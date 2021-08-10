@@ -1,15 +1,15 @@
 package com.wuest.prefab.blocks;
 
 import com.wuest.prefab.ModRegistry;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SlabBlock;
-import net.minecraft.block.StairsBlock;
-import net.minecraft.state.properties.SlabType;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ITag;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -18,7 +18,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
  *
  * @author Brian
  */
-public class BlockGlassStairs extends StairsBlock {
+public class BlockGlassStairs extends StairBlock {
     public BlockGlassStairs(BlockState state, Block.Properties properties) {
         super(state, properties);
     }
@@ -26,7 +26,7 @@ public class BlockGlassStairs extends StairsBlock {
     @Override
     @OnlyIn(Dist.CLIENT)
     public boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction side) {
-        ITag<Block> tags = BlockTags.getAllTags().getTag(new ResourceLocation("forge", "glass"));
+        Tag<Block> tags = BlockTags.getAllTags().getTag(new ResourceLocation("forge", "glass"));
         Block adjacentBlock = adjacentBlockState.getBlock();
 
         return tags.contains(adjacentBlock) || adjacentBlock == this

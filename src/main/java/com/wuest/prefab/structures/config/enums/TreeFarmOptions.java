@@ -1,6 +1,6 @@
 package com.wuest.prefab.structures.config.enums;
 
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
 
 public class TreeFarmOptions extends BaseOption {
     public static TreeFarmOptions Default = new TreeFarmOptions(

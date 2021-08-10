@@ -1,8 +1,8 @@
 package com.wuest.prefab.structures.base;
 
 import com.google.gson.annotations.Expose;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
 
 /**
  * This class represents the offsets for a particular position.

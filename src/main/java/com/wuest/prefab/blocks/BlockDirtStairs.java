@@ -1,12 +1,13 @@
 package com.wuest.prefab.blocks;
 
 import com.wuest.prefab.ModRegistry;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.StairsBlock;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.common.ToolType;
 
 import java.util.Random;
@@ -16,12 +17,12 @@ import java.util.Random;
  *
  * @author WuestMan
  */
-public class BlockDirtStairs extends StairsBlock implements IGrassSpreadable {
+public class BlockDirtStairs extends StairBlock implements IGrassSpreadable {
     /**
      * Initializes a new instance of the BlockDirtStairs class.
      */
     public BlockDirtStairs() {
-        super(Blocks.DIRT.defaultBlockState(), AbstractBlock.Properties.copy(Blocks.DIRT)
+        super(Blocks.DIRT.defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.DIRT)
                 .harvestTool(ToolType.SHOVEL)
                 .harvestLevel(0));
     }
@@ -37,15 +38,15 @@ public class BlockDirtStairs extends StairsBlock implements IGrassSpreadable {
     }
 
     @Override
-    public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
+    public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, Random random) {
         this.DetermineGrassSpread(state, worldIn, pos, random);
     }
 
     @Override
     public BlockState getGrassBlockState(BlockState originalState) {
         return ModRegistry.GrassStairs.get().defaultBlockState()
-                .setValue(StairsBlock.FACING, originalState.getValue(StairsBlock.FACING))
-                .setValue(StairsBlock.HALF, originalState.getValue(StairsBlock.HALF))
-                .setValue(StairsBlock.SHAPE, originalState.getValue(StairsBlock.SHAPE));
+                .setValue(StairBlock.FACING, originalState.getValue(StairBlock.FACING))
+                .setValue(StairBlock.HALF, originalState.getValue(StairBlock.HALF))
+                .setValue(StairBlock.SHAPE, originalState.getValue(StairBlock.SHAPE));
     }
 }

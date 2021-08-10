@@ -1,6 +1,6 @@
 package com.wuest.prefab.structures.gui;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Tuple;
 import com.wuest.prefab.blocks.FullDyeColor;
@@ -14,8 +14,8 @@ import com.wuest.prefab.structures.config.HouseConfiguration;
 import com.wuest.prefab.structures.messages.StructureTagMessage;
 import com.wuest.prefab.structures.predefined.StructureAlternateStart;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.widget.button.AbstractButton;
-import net.minecraft.item.DyeColor;
+import net.minecraft.client.gui.components.AbstractButton;
+import net.minecraft.world.item.DyeColor;
 
 /**
  * @author WuestMan
@@ -76,7 +76,7 @@ public class GuiStartHouseChooser extends GuiStructure {
     }
 
     @Override
-    protected void preButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
+    protected void preButtonRender(PoseStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
         int imagePanelUpperLeft = x + 132;
         int imagePanelWidth = 285;
         int imagePanelMiddle = imagePanelWidth / 2;
@@ -107,7 +107,7 @@ public class GuiStartHouseChooser extends GuiStructure {
     }
 
     @Override
-    protected void postButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
+    protected void postButtonRender(PoseStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
         // Draw the text here.
         this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), x + 15, y + 20, this.textColor);
 

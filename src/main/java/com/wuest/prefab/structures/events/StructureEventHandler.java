@@ -6,37 +6,37 @@ import com.wuest.prefab.config.EntityPlayerConfiguration;
 import com.wuest.prefab.proxy.CommonProxy;
 import com.wuest.prefab.proxy.messages.PlayerEntityTagMessage;
 import com.wuest.prefab.structures.base.*;
-import net.minecraft.block.*;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.HangingEntity;
-import net.minecraft.entity.item.ItemFrameEntity;
-import net.minecraft.entity.item.PaintingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.DoubleNBT;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.state.properties.DoubleBlockHalf;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Rotation;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.chunk.Chunk;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.DoubleTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.decoration.HangingEntity;
+import net.minecraft.world.entity.decoration.ItemFrame;
+import net.minecraft.world.entity.decoration.Painting;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.chunk.ChunkAccess;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.TickEvent.ServerTickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.network.NetworkDirection;
+import net.minecraftforge.fmllegacy.network.NetworkDirection;
 
 import java.util.*;
 import java.util.Map.Entry;
@@ -52,7 +52,7 @@ public final class StructureEventHandler {
     /**
      * Contains a hashmap for the structures to build and for whom.
      */
-    public static HashMap<PlayerEntity, ArrayList<Structure>> structuresToBuild = new HashMap<PlayerEntity, ArrayList<Structure>>();
+    public static HashMap<Player, ArrayList<Structure>> structuresToBuild = new HashMap<Player, ArrayList<Structure>>();
 
     /**
      * This event is used to determine if the player should be given the starting house item when they log in.
@@ -61,8 +61,8 @@ public final class StructureEventHandler {
      */
     @SubscribeEvent
     public static void PlayerLoggedIn(PlayerLoggedInEvent event) {
-        if (!event.getPlayer().level.isClientSide() && event.getPlayer() instanceof ServerPlayerEntity) {
-            ServerPlayerEntity player = (ServerPlayerEntity) event.getPlayer();
+        if (!event.getPlayer().level.isClientSide() && event.getPlayer() instanceof ServerPlayer) {
+            ServerPlayer player = (ServerPlayer) event.getPlayer();
             EntityPlayerConfiguration playerConfig = EntityPlayerConfiguration.loadFromEntityData(player);
 
             String startingItem = CommonProxy.proxyConfiguration.serverConfiguration.startingItem;
@@ -90,7 +90,7 @@ public final class StructureEventHandler {
                 if (!stack.isEmpty()) {
                     System.out.println(player.getDisplayName().getString() + " joined the game for the first time. Giving them starting item.");
 
-                    player.inventory.add(stack);
+                    player.getInventory().add(stack);
                     player.containerMenu.broadcastChanges();
 
                     // Make sure to set the tag for this player so they don't get the item again.
@@ -102,7 +102,7 @@ public final class StructureEventHandler {
             // Send the persist tag to the client.
             Prefab.network.sendTo(
                     new PlayerEntityTagMessage(playerConfig.getModIsPlayerNewTag(player)),
-                    ((ServerPlayerEntity) event.getPlayer()).connection.connection,
+                    ((ServerPlayer) event.getPlayer()).connection.connection,
                     NetworkDirection.PLAY_TO_CLIENT);
         }
     }
@@ -115,9 +115,9 @@ public final class StructureEventHandler {
     @SubscribeEvent
     public static void onServerTick(ServerTickEvent event) {
         if (event.phase == TickEvent.Phase.START) {
-            ArrayList<PlayerEntity> playersToRemove = new ArrayList<PlayerEntity>();
+            ArrayList<Player> playersToRemove = new ArrayList<Player>();
 
-            for (Entry<PlayerEntity, ArrayList<Structure>> entry : StructureEventHandler.structuresToBuild.entrySet()) {
+            for (Entry<Player, ArrayList<Structure>> entry : StructureEventHandler.structuresToBuild.entrySet()) {
                 ArrayList<Structure> structuresToRemove = new ArrayList<Structure>();
 
                 // Build the first 100 blocks of each structure for this player.
@@ -126,7 +126,7 @@ public final class StructureEventHandler {
                         // Go through each block and find any entities there. If there are any; kill them if they aren't players.
                         // If there is a player there...they will probably die anyways.....
                         for (BlockPos clearedPos : structure.clearedBlockPos) {
-                            AxisAlignedBB axisPos = VoxelShapes.block().bounds().move(clearedPos);
+                            AABB axisPos = Shapes.block().bounds().move(clearedPos);
 
                             List<Entity> list = structure.world.getEntities((Entity) null, axisPos);
 
@@ -168,7 +168,7 @@ public final class StructureEventHandler {
             }
 
             // Remove each player that has their structure's built.
-            for (PlayerEntity player : playersToRemove) {
+            for (Player player : playersToRemove) {
                 StructureEventHandler.structuresToBuild.remove(player);
             }
         }
@@ -181,23 +181,23 @@ public final class StructureEventHandler {
      */
     @SubscribeEvent
     public static void onClone(PlayerEvent.Clone event) {
-        if (event.getPlayer() instanceof ServerPlayerEntity) {
+        if (event.getPlayer() instanceof ServerPlayer) {
             // Don't add the tag unless the house item was added. This way it can be added if the feature is turned on.
             // When the player is cloned, make sure to copy the tag. If this is not done the item can be given to the
             // player again if they die before the log out and log back in.
-            CompoundNBT originalTag = event.getOriginal().getPersistentData();
+            CompoundTag originalTag = event.getOriginal().getPersistentData();
 
             // Use the server configuration to determine if the house should be added for this player.
             String startingItem = CommonProxy.proxyConfiguration.serverConfiguration.startingItem;
             if (startingItem != null && !startingItem.equalsIgnoreCase("Nothing")) {
                 if (originalTag.contains(EntityPlayerConfiguration.PLAYER_ENTITY_TAG)) {
-                    CompoundNBT newPlayerTag = event.getPlayer().getPersistentData();
+                    CompoundTag newPlayerTag = event.getPlayer().getPersistentData();
                     newPlayerTag.put(EntityPlayerConfiguration.PLAYER_ENTITY_TAG, originalTag.get(EntityPlayerConfiguration.PLAYER_ENTITY_TAG));
 
                     // Send the persist tag to the client.
                     Prefab.network.sendTo(
                             new PlayerEntityTagMessage(originalTag.getCompound(EntityPlayerConfiguration.PLAYER_ENTITY_TAG)),
-                            ((ServerPlayerEntity) event.getPlayer()).connection.connection,
+                            ((ServerPlayer) event.getPlayer()).connection.connection,
                             NetworkDirection.PLAY_TO_CLIENT);
                 }
             }
@@ -217,7 +217,7 @@ public final class StructureEventHandler {
             // If this block is not specifically air then set it to air.
             // This will also break other mod's logic blocks but they would probably be broken due to structure
             // generation anyways.
-            if (!clearBlockState.isAir(structure.world, currentPos)) {
+            if (clearBlockState.getMaterial() != Material.AIR) {
                 structure.BeforeClearSpaceBlockReplaced(currentPos);
 
                 for (Direction adjacentBlock : Direction.values()) {
@@ -227,22 +227,22 @@ public final class StructureEventHandler {
 
                     // Check if this block is one that is attached to a facing, if it is, remove it first.
                     if (foundBlock instanceof TorchBlock
-                            || foundBlock instanceof AbstractSignBlock
+                            || foundBlock instanceof SignBlock
                             || foundBlock instanceof LeverBlock
-                            || foundBlock instanceof AbstractButtonBlock
+                            || foundBlock instanceof ButtonBlock
                             || foundBlock instanceof BedBlock
                             || foundBlock instanceof CarpetBlock
                             || foundBlock instanceof FlowerPotBlock
                             || foundBlock instanceof SugarCaneBlock
-                            || foundBlock instanceof AbstractPressurePlateBlock
+                            || foundBlock instanceof BasePressurePlateBlock
                             || foundBlock instanceof DoorBlock
                             || foundBlock instanceof LadderBlock
                             || foundBlock instanceof VineBlock
-                            || foundBlock instanceof RedstoneWireBlock
-                            || foundBlock instanceof RedstoneDiodeBlock
+                            || foundBlock instanceof RedStoneWireBlock
+                            || foundBlock instanceof DiodeBlock
                             || foundBlock instanceof AbstractBannerBlock
                             || foundBlock instanceof LanternBlock
-                            || foundBlock instanceof AbstractRailBlock) {
+                            || foundBlock instanceof BaseRailBlock) {
                         structure.BeforeClearSpaceBlockReplaced(currentPos);
 
                         if (!(foundBlock instanceof BedBlock)) {
@@ -327,23 +327,23 @@ public final class StructureEventHandler {
         return i;
     }
 
-    private static void removeStructuresFromList(ArrayList<Structure> structuresToRemove, Entry<PlayerEntity, ArrayList<Structure>> entry) {
+    private static void removeStructuresFromList(ArrayList<Structure> structuresToRemove, Entry<Player, ArrayList<Structure>> entry) {
         for (Structure structure : structuresToRemove) {
             for (BuildTileEntity buildTileEntity : structure.tileEntities) {
                 BlockPos tileEntityPos = buildTileEntity.getStartingPosition().getRelativePosition(structure.originalPos,
                         structure.getClearSpace().getShape().getDirection(), structure.configuration.houseFacing);
-                TileEntity tileEntity = structure.world.getBlockEntity(tileEntityPos);
+                BlockEntity tileEntity = structure.world.getBlockEntity(tileEntityPos);
                 BlockState tileBlock = structure.world.getBlockState(tileEntityPos);
 
                 if (tileEntity == null) {
-                    TileEntity.loadStatic(tileBlock, buildTileEntity.getEntityDataTag());
+                    BlockEntity.loadStatic(tileEntityPos, tileBlock, buildTileEntity.getEntityDataTag());
                 } else {
                     structure.world.removeBlockEntity(tileEntityPos);
-                    tileEntity = TileEntity.loadStatic(tileBlock, buildTileEntity.getEntityDataTag());
-                    structure.world.setBlockEntity(tileEntityPos, tileEntity);
+                    tileEntity = BlockEntity.loadStatic(tileEntityPos, tileBlock, buildTileEntity.getEntityDataTag());
+                    structure.world.setBlockEntity(tileEntity);
                     structure.world.getChunkAt(tileEntityPos).markUnsaved();
                     tileEntity.setChanged();
-                    SUpdateTileEntityPacket packet = tileEntity.getUpdatePacket();
+                    ClientboundBlockEntityDataPacket packet = tileEntity.getUpdatePacket();
 
                     if (packet != null) {
                         structure.world.getServer().getPlayerList().broadcastAll(tileEntity.getUpdatePacket());
@@ -360,7 +360,7 @@ public final class StructureEventHandler {
                     Entity entity = entityType.get().create(structure.world);
 
                     if (entity != null) {
-                        CompoundNBT tagCompound = buildEntity.getEntityDataTag();
+                        CompoundTag tagCompound = buildEntity.getEntityDataTag();
                         BlockPos entityPos = buildEntity.getStartingPosition().getRelativePosition(structure.originalPos,
                                 structure.getClearSpace().getShape().getDirection(), structure.configuration.houseFacing);
 
@@ -369,22 +369,20 @@ public final class StructureEventHandler {
                                 tagCompound.putUUID("UUID", UUID.randomUUID());
                             }
 
-                            ListNBT nbttaglist = new ListNBT();
-                            nbttaglist.add(DoubleNBT.valueOf(entityPos.getX()));
-                            nbttaglist.add(DoubleNBT.valueOf(entityPos.getY()));
-                            nbttaglist.add(DoubleNBT.valueOf(entityPos.getZ()));
+                            ListTag nbttaglist = new ListTag();
+                            nbttaglist.add(DoubleTag.valueOf(entityPos.getX()));
+                            nbttaglist.add(DoubleTag.valueOf(entityPos.getY()));
+                            nbttaglist.add(DoubleTag.valueOf(entityPos.getZ()));
                             tagCompound.put("Pos", nbttaglist);
 
                             entity.load(tagCompound);
                         }
 
-                        entity.forcedLoading = true;
-
                         // Set item frame facing and rotation here.
-                        if (entity instanceof ItemFrameEntity) {
-                            entity = StructureEventHandler.setItemFrameFacingAndRotation((ItemFrameEntity) entity, buildEntity, entityPos, structure);
-                        } else if (entity instanceof PaintingEntity) {
-                            entity = StructureEventHandler.setPaintingFacingAndRotation((PaintingEntity) entity, buildEntity, entityPos, structure);
+                        if (entity instanceof ItemFrame) {
+                            entity = StructureEventHandler.setItemFrameFacingAndRotation((ItemFrame) entity, buildEntity, entityPos, structure);
+                        } else if (entity instanceof Painting) {
+                            entity = StructureEventHandler.setPaintingFacingAndRotation((Painting) entity, buildEntity, entityPos, structure);
                         } else {
                             // All other entities
                             entity = StructureEventHandler.setEntityFacingAndRotation(entity, buildEntity, entityPos, structure);
@@ -417,8 +415,8 @@ public final class StructureEventHandler {
         }
     }
 
-    private static Entity setPaintingFacingAndRotation(PaintingEntity entity, BuildEntity buildEntity, BlockPos entityPos, Structure structure) {
-        float yaw = entity.yRot;
+    private static Entity setPaintingFacingAndRotation(Painting entity, BuildEntity buildEntity, BlockPos entityPos, Structure structure) {
+        float yaw = entity.getYRot();
         Rotation rotation = Rotation.NONE;
         double x_axis_offset = 0;
         double z_axis_offset = 0;
@@ -454,25 +452,25 @@ public final class StructureEventHandler {
         yaw = entity.rotate(rotation);
 
         HangingEntity hangingEntity = entity;
-        CompoundNBT compound = new CompoundNBT();
+        CompoundTag compound = new CompoundTag();
         hangingEntity.addAdditionalSaveData(compound);
         compound.putByte("Facing", (byte) facing.get2DDataValue());
         hangingEntity.readAdditionalSaveData(compound);
         StructureEventHandler.updateEntityHangingBoundingBox(hangingEntity);
 
         entity.moveTo(entityPos.getX() + x_axis_offset, entityPos.getY() + y_axis_offset, entityPos.getZ() + z_axis_offset, yaw,
-                entity.xRot);
+                entity.getXRot());
 
         StructureEventHandler.updateEntityHangingBoundingBox(entity);
-        Chunk chunk = structure.world.getChunkAt(entityPos);
+        ChunkAccess chunk = structure.world.getChunkAt(entityPos);
 
-        chunk.markUnsaved();
+        chunk.setUnsaved(true);
 
         return entity;
     }
 
-    private static Entity setItemFrameFacingAndRotation(ItemFrameEntity frame, BuildEntity buildEntity, BlockPos entityPos, Structure structure) {
-        float yaw = frame.yRot;
+    private static Entity setItemFrameFacingAndRotation(ItemFrame frame, BuildEntity buildEntity, BlockPos entityPos, Structure structure) {
+        float yaw = frame.getYRot();
         Rotation rotation = Rotation.NONE;
         double x_axis_offset = buildEntity.entityXAxisOffset;
         double z_axis_offset = buildEntity.entityZAxisOffset;
@@ -488,15 +486,15 @@ public final class StructureEventHandler {
             } else if (structure.configuration.houseFacing == structure.assumedNorth.getClockWise()) {
                 if (structure.getClearSpace().getShape().getDirection() == Direction.NORTH) {
                     rotation = Rotation.CLOCKWISE_90;
-                    facing = facing.getCounterClockWise() ;
+                    facing = facing.getCounterClockWise();
                 } else if (structure.getClearSpace().getShape().getDirection() == Direction.SOUTH) {
-                    facing = facing.getClockWise() ;
+                    facing = facing.getClockWise();
                     rotation = Rotation.COUNTERCLOCKWISE_90;
                 }
             } else if (structure.configuration.houseFacing == structure.assumedNorth.getCounterClockWise()) {
                 if (structure.getClearSpace().getShape().getDirection() == Direction.NORTH) {
                     rotation = Rotation.COUNTERCLOCKWISE_90;
-                    facing = facing.getClockWise() ;
+                    facing = facing.getClockWise();
                 } else if (structure.getClearSpace().getShape().getDirection() == Direction.SOUTH) {
                     facing = facing.getCounterClockWise();
                     rotation = Rotation.CLOCKWISE_90;
@@ -510,25 +508,25 @@ public final class StructureEventHandler {
         yaw = frame.rotate(rotation);
 
         HangingEntity hangingEntity = frame;
-        CompoundNBT compound = new CompoundNBT();
+        CompoundTag compound = new CompoundTag();
         hangingEntity.addAdditionalSaveData(compound);
         compound.putByte("Facing", (byte) facing.get3DDataValue());
         hangingEntity.readAdditionalSaveData(compound);
         StructureEventHandler.updateEntityHangingBoundingBox(hangingEntity);
 
         frame.moveTo(entityPos.getX() + x_axis_offset, entityPos.getY() + y_axis_offset, entityPos.getZ() + z_axis_offset, yaw,
-                frame.xRot);
+                frame.getXRot());
 
         StructureEventHandler.updateEntityHangingBoundingBox(frame);
-        Chunk chunk = structure.world.getChunkAt(entityPos);
+        ChunkAccess chunk = structure.world.getChunkAt(entityPos);
 
-        chunk.markUnsaved();
+        chunk.setUnsaved(true);
 
         return frame;
     }
 
     private static Entity setEntityFacingAndRotation(Entity entity, BuildEntity buildEntity, BlockPos entityPos, Structure structure) {
-        float yaw = entity.yRot;
+        float yaw = entity.getYRot();
         Rotation rotation = Rotation.NONE;
         double x_axis_offset = buildEntity.entityXAxisOffset;
         double z_axis_offset = buildEntity.entityZAxisOffset;
@@ -558,7 +556,7 @@ public final class StructureEventHandler {
         yaw = entity.rotate(rotation);
 
         entity.moveTo(entityPos.getX() + x_axis_offset, entityPos.getY() + y_axis_offset, entityPos.getZ() + z_axis_offset, yaw,
-                entity.xRot);
+                entity.getXRot());
 
         return entity;
     }
@@ -594,6 +592,6 @@ public final class StructureEventHandler {
         d6 = d6 / 32.0D;
         d7 = d7 / 32.0D;
         d8 = d8 / 32.0D;
-        entity.setBoundingBox(new AxisAlignedBB(d0 - d6, d1 - d7, d2 - d8, d0 + d6, d1 + d7, d2 + d8));
+        entity.setBoundingBox(new AABB(d0 - d6, d1 - d7, d2 - d8, d0 + d6, d1 + d7, d2 + d8));
     }
 }

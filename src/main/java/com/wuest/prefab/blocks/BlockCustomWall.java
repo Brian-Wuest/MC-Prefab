@@ -2,13 +2,14 @@ package com.wuest.prefab.blocks;
 
 
 import com.wuest.prefab.ModRegistry;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.WallBlock;
-import net.minecraft.block.material.Material;
-import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.block.Block;
+
+import net.minecraft.world.level.block.WallBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.util.StringRepresentable;
 import net.minecraftforge.common.ToolType;
 
 import java.util.Random;
@@ -38,7 +39,7 @@ public class BlockCustomWall extends WallBlock implements IGrassSpreadable {
     }
 
     @Override
-    public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
+    public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, Random random) {
         this.DetermineGrassSpread(state, worldIn, pos, random);
     }
 
@@ -53,7 +54,7 @@ public class BlockCustomWall extends WallBlock implements IGrassSpreadable {
                 .setValue(WallBlock.UP, originalState.getValue(WallBlock.UP));
     }
 
-    public enum EnumType implements IStringSerializable {
+    public enum EnumType implements StringRepresentable {
         DIRT(0, "block_dirt_wall", "block_dirt_wall", Material.DIRT),
         GRASS(1, "block_grass_wall", "block_grass_wall", Material.DIRT);
 

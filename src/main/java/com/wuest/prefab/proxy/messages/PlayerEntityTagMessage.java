@@ -1,7 +1,7 @@
 package com.wuest.prefab.proxy.messages;
 
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
 
 /**
  * This message is used to sync up server saved player information to the client.
@@ -14,7 +14,7 @@ public class PlayerEntityTagMessage extends TagMessage {
      *
      * @param tagMessage The message to send.
      */
-    public PlayerEntityTagMessage(CompoundNBT tagMessage) {
+    public PlayerEntityTagMessage(CompoundTag tagMessage) {
         super(tagMessage);
     }
 
@@ -22,7 +22,7 @@ public class PlayerEntityTagMessage extends TagMessage {
         super();
     }
 
-    public static PlayerEntityTagMessage decode(PacketBuffer buf) {
+    public static PlayerEntityTagMessage decode(FriendlyByteBuf buf) {
         return TagMessage.decode(buf, PlayerEntityTagMessage.class);
     }
 }

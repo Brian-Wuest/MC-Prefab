@@ -1,6 +1,6 @@
 package com.wuest.prefab.structures.config.enums;
 
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
 
 public class ProduceFarmOptions extends BaseOption {
     public static ProduceFarmOptions Default = new ProduceFarmOptions(

@@ -5,13 +5,13 @@ import com.wuest.prefab.structures.base.BuildClear;
 import com.wuest.prefab.structures.base.BuildingMethods;
 import com.wuest.prefab.structures.base.Structure;
 import com.wuest.prefab.structures.config.BulldozerConfiguration;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FlowingFluidBlock;
-import net.minecraft.entity.item.HangingEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.entity.decoration.HangingEntity;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
 
 import java.util.ArrayList;
 
@@ -52,7 +52,7 @@ public class StructureBulldozer extends Structure {
             Block.dropResources(state, this.world, pos);
         }
 
-        if (configuration.creativeMode && state.getBlock() instanceof FlowingFluidBlock) {
+        if (configuration.creativeMode && state.getBlock() instanceof LiquidBlock) {
             // This is a fluid block, replace it with stone so it can be cleared.
             BuildingMethods.ReplaceBlock(this.world, pos, Blocks.STONE);
         }

@@ -5,16 +5,16 @@ import com.wuest.prefab.Prefab;
 import com.wuest.prefab.proxy.CommonProxy;
 import com.wuest.prefab.proxy.messages.ConfigSyncMessage;
 import com.wuest.prefab.structures.items.ItemBulldozer;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.network.NetworkDirection;
+import net.minecraftforge.fmllegacy.network.NetworkDirection;
 
 import java.util.ArrayList;
 
@@ -43,8 +43,8 @@ public final class ModEventHandler {
     @SubscribeEvent
     public static void onPlayerLoginEvent(PlayerLoggedInEvent event) {
         if (!event.getPlayer().level.isClientSide) {
-            CompoundNBT tag = CommonProxy.proxyConfiguration.serverConfiguration.ToNBTTagCompound();
-            Prefab.network.sendTo(new ConfigSyncMessage(tag), ((ServerPlayerEntity) event.getPlayer()).connection.connection, NetworkDirection.PLAY_TO_CLIENT);
+            CompoundTag tag = CommonProxy.proxyConfiguration.serverConfiguration.ToNBTTagCompound();
+            Prefab.network.sendTo(new ConfigSyncMessage(tag), ((ServerPlayer) event.getPlayer()).connection.connection, NetworkDirection.PLAY_TO_CLIENT);
 
             Prefab.LOGGER.info("Sent config to '" + event.getPlayer().getDisplayName().getString() + "'.");
         }

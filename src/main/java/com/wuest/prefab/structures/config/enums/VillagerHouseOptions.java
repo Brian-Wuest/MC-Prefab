@@ -1,7 +1,7 @@
 package com.wuest.prefab.structures.config.enums;
 
 import com.wuest.prefab.gui.GuiLangKeys;
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
 
 public class VillagerHouseOptions extends BaseOption {
     public static VillagerHouseOptions FLAT_ROOF = new VillagerHouseOptions(

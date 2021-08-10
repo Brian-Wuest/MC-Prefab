@@ -1,13 +1,12 @@
 package com.wuest.prefab.items;
 
-import com.wuest.prefab.Utils;
 import com.wuest.prefab.gui.GuiLangKeys;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.World;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -24,7 +23,7 @@ public class ItemCompressedChest extends Item {
      * Initializes a new instance of the ItemCondensedChest class.
      */
     public ItemCompressedChest() {
-        super(new Item.Properties().tab(ItemGroup.TAB_MATERIALS));
+        super(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS));
 
     }
 
@@ -33,7 +32,7 @@ public class ItemCompressedChest extends Item {
      */
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
         tooltip.add(GuiLangKeys.translateToComponent(GuiLangKeys.COMPRESSED_CHEST));
     }
 }

@@ -5,12 +5,11 @@ import com.wuest.prefab.config.EntityPlayerConfiguration;
 import com.wuest.prefab.proxy.ClientProxy;
 import com.wuest.prefab.structures.messages.StructureTagMessage;
 import com.wuest.prefab.structures.render.StructureRenderHandler;
+import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.InputEvent;
@@ -46,7 +45,7 @@ public final class ClientEventHandler {
     /**
      * Contains the keybindings registered.
      */
-    public static ArrayList<KeyBinding> keyBindings = new ArrayList<KeyBinding>();
+    public static ArrayList<KeyMapping> keyBindings = new ArrayList<KeyMapping>();
 
     /**
      * The world render last event. This is used for structure rendering.
@@ -69,7 +68,7 @@ public final class ClientEventHandler {
      */
     @SubscribeEvent
     public static void EntityJoinWorldEvent(EntityJoinWorldEvent event) {
-        if (event.getWorld().isClientSide && event.getEntity() instanceof PlayerEntity) {
+        if (event.getWorld().isClientSide && event.getEntity() instanceof Player) {
             // When the player logs out, make sure to re-set the server configuration.
             // This is so a new configuration can be successfully loaded when they switch servers or worlds (on single
             // player.
@@ -102,11 +101,11 @@ public final class ClientEventHandler {
     @SubscribeEvent(priority = EventPriority.NORMAL)
     @OnlyIn(Dist.CLIENT)
     public static void KeyInput(InputEvent.KeyInputEvent event) {
-        for (KeyBinding binding : ClientEventHandler.keyBindings) {
+        for (KeyMapping binding : ClientEventHandler.keyBindings) {
             if (binding.isDown()) {
                 if (StructureRenderHandler.currentStructure != null) {
                     Prefab.network.sendToServer(new StructureTagMessage(
-                            StructureRenderHandler.currentConfiguration.WriteToCompoundNBT(),
+                            StructureRenderHandler.currentConfiguration.WriteToCompoundTag(),
                             StructureTagMessage.EnumStructureConfiguration.getByConfigurationInstance(StructureRenderHandler.currentConfiguration)));
 
                     StructureRenderHandler.currentStructure = null;
@@ -115,70 +114,5 @@ public final class ClientEventHandler {
                 break;
             }
         }
-    }
-
-    private static void RenderTest(World worldIn, PlayerEntity playerIn) {
-/*        float partialTicks = Minecraft.getInstance().getRenderPartialTicks();
-        Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder vertexBuffer = tessellator.getBuffer();
-        BlockPos playerPosition = new BlockPos(playerIn.posX, playerIn.posY, playerIn.posZ);
-        BlockPos blockPos = playerPosition.offset(playerIn.getHorizontalFacing().getOpposite());
-
-        double playerVertical = playerIn.lastTickPosY + (playerIn.posY - playerIn.lastTickPosY) * (double) partialTicks;
-
-        double playerLevelYCoordinate = blockPos.getY() - Math.abs(playerPosition.getY()) + (playerPosition.getY() - playerIn.posY);
-        double playerLevelUpOneYCoordinate = blockPos.getY() - Math.abs(playerPosition.getY()) + 1 + (playerPosition.getY() - playerIn.posY);
-
-        // This makes the block north and in-line with the player's line of sight.
-        double blockXOffset = (playerPosition.getX() - blockPos.getX()) + (playerPosition.getX() - playerIn.posX);
-        double blocZOffset = (playerPosition.getZ() - blockPos.getZ()) + (playerPosition.getZ() - playerIn.posZ);
-
-        GlStateManager.disableTexture();
-        GlStateManager.disableBlend();
-
-        GlStateManager.lineWidth(3.0F);
-        vertexBuffer.begin(3, DefaultVertexFormats.POSITION_COLOR);
-
-        // Draw the verticals of the box.
-        for (int k = 1; k < 2; k += 1) {
-            // Green
-            vertexBuffer.pos(blockXOffset, playerLevelYCoordinate, blocZOffset).color(0.6F, 1.0F, 0.0F, 0.0F).endVertex();
-            vertexBuffer.pos(blockXOffset, playerLevelUpOneYCoordinate, blocZOffset).color(0.6F, 1.0F, 0.0F, 1.0F).endVertex();
-
-            // Orange
-            vertexBuffer.pos(blockXOffset + (double) k, playerLevelYCoordinate, blocZOffset).color(1.0F, 0.6F, 0.0F, 0.0F).endVertex();
-            vertexBuffer.pos(blockXOffset + (double) k, playerLevelUpOneYCoordinate, blocZOffset).color(1.0F, 0.6F, 0.0F, 1.0F).endVertex();
-
-            vertexBuffer.pos(blockXOffset, playerLevelYCoordinate, blocZOffset + (double) k).color(1.0F, 1.0F, 0.0F, 0.0F).endVertex();
-            vertexBuffer.pos(blockXOffset, playerLevelUpOneYCoordinate, blocZOffset + (double) k).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-
-            vertexBuffer.pos(blockXOffset + 1.0D, playerLevelYCoordinate, blocZOffset + (double) k).color(1.0F, 1.0F, 0.0F, 0.0F).endVertex();
-            vertexBuffer.pos(blockXOffset + 1.0D, playerLevelUpOneYCoordinate, blocZOffset + (double) k).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-        }
-
-        // All horizontals.
-        for (int i1 = playerPosition.getY(); i1 <= playerPosition.getY() + 1; i1 += 1) {
-            double d7 = i1 - playerVertical;
-            vertexBuffer.pos(blockXOffset, d7, blocZOffset).color(1.0F, 1.0F, 0.0F, 0.0F).endVertex();
-            vertexBuffer.pos(blockXOffset, d7, blocZOffset + 1.0D).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-            vertexBuffer.pos(blockXOffset + 1.0D, d7, blocZOffset + 1.0D).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-            vertexBuffer.pos(blockXOffset + 1.0D, d7, blocZOffset).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-            vertexBuffer.pos(blockXOffset, d7, blocZOffset).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-        }
-
-        tessellator.draw();
-        GlStateManager.enableBlend();
-        GlStateManager.enableTexture();*/
-    }
-
-    private static void drawLineWithGL(Vector3d blockA, Vector3d blockB) {
-        GL11.glColor4f(1F, 0F, 1F, 0F); // change color an set alpha
-
-        GL11.glBegin(GL11.GL_LINE_STRIP);
-
-        GL11.glVertex3d(blockA.x, blockA.y, blockA.z);
-        GL11.glVertex3d(blockB.x, blockB.y, blockB.z);
-
-        GL11.glEnd();
     }
 }

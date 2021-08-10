@@ -1,6 +1,6 @@
 package com.wuest.prefab.structures.config.enums;
 
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
 
 public class SkiLodgeOptions extends BaseOption {
     public static SkiLodgeOptions Default = new SkiLodgeOptions(

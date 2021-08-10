@@ -4,28 +4,26 @@ import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Triple;
 import com.wuest.prefab.Tuple;
 import com.wuest.prefab.proxy.CommonProxy;
-import net.minecraft.block.*;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.DyeColor;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.state.properties.BedPart;
-import net.minecraft.tileentity.ChestTileEntity;
-import net.minecraft.tileentity.FurnaceTileEntity;
-import net.minecraft.tileentity.LockableLootTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import net.minecraft.world.level.block.entity.FurnaceBlockEntity;
+import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.BlockEvent.EntityPlaceEvent;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 
@@ -46,7 +44,7 @@ public class BuildingMethods {
      * @param itemsToNotAdd  The items to not add to the list.
      * @return An updated list of item stacks.
      */
-    public static ArrayList<ItemStack> ConsolidateDrops(ServerWorld world, BlockPos pos, BlockState state, ArrayList<ItemStack> originalStacks,
+    public static ArrayList<ItemStack> ConsolidateDrops(ServerLevel world, BlockPos pos, BlockState state, ArrayList<ItemStack> originalStacks,
                                                         ArrayList<Item> itemsToNotAdd) {
         for (ItemStack stack : Block.getDrops(state, world, pos, null)) {
             if (itemsToNotAdd != null) {
@@ -91,7 +89,7 @@ public class BuildingMethods {
      * @param itemsToNotAdd    When consolidating drops, the items to not include in the returned list.
      * @return An Arraylist of Itemstacks which contains the drops from any destroyed blocks.
      */
-    public static ArrayList<ItemStack> CreateWall(ServerWorld world, int height, int length, Direction direction, BlockPos startingPosition, Block replacementBlock,
+    public static ArrayList<ItemStack> CreateWall(ServerLevel world, int height, int length, Direction direction, BlockPos startingPosition, Block replacementBlock,
                                                   ArrayList<Item> itemsToNotAdd) {
         ArrayList<ItemStack> itemsDropped = new ArrayList<>();
 
@@ -137,7 +135,7 @@ public class BuildingMethods {
      * @param itemsToNotAdd The items to not include in the returned consolidated items.
      * @return An ArrayList of Itemstacks which contains the drops from all harvested blocks.
      */
-    public static ArrayList<ItemStack> SetFloor(ServerWorld world, BlockPos pos, Block block, int width, int depth, ArrayList<ItemStack> originalStack, Direction facing,
+    public static ArrayList<ItemStack> SetFloor(ServerLevel world, BlockPos pos, Block block, int width, int depth, ArrayList<ItemStack> originalStack, Direction facing,
                                                 ArrayList<Item> itemsToNotAdd) {
         for (int i = 0; i < width; i++) {
             originalStack.addAll(BuildingMethods.CreateWall(world, 1, depth, facing, pos, block, itemsToNotAdd));
@@ -156,7 +154,7 @@ public class BuildingMethods {
      * @param pos              The position to update.
      * @param replacementBlock The block object to place at this position. The default state is used.
      */
-    public static void ReplaceBlock(World world, BlockPos pos, Block replacementBlock) {
+    public static void ReplaceBlock(Level world, BlockPos pos, Block replacementBlock) {
         BuildingMethods.ReplaceBlock(world, pos, replacementBlock.defaultBlockState(), 3);
     }
 
@@ -167,7 +165,7 @@ public class BuildingMethods {
      * @param pos              The position to update.
      * @param replacementBlock The block object to place at this position. The default state is used.
      */
-    public static void ReplaceBlockNoAir(World world, BlockPos pos, Block replacementBlock) {
+    public static void ReplaceBlockNoAir(Level world, BlockPos pos, Block replacementBlock) {
         BuildingMethods.ReplaceBlockNoAir(world, pos, replacementBlock.defaultBlockState(), 3);
     }
 
@@ -179,7 +177,7 @@ public class BuildingMethods {
      * @param pos                   The position to update.
      * @param replacementBlockState The block state to place at this position.
      */
-    public static void ReplaceBlock(World world, BlockPos pos, BlockState replacementBlockState) {
+    public static void ReplaceBlock(Level world, BlockPos pos, BlockState replacementBlockState) {
         BuildingMethods.ReplaceBlock(world, pos, replacementBlockState, 3);
     }
 
@@ -192,7 +190,7 @@ public class BuildingMethods {
      * @param replacementBlockState The block state to place at this position.
      * @param flags                 The trigger flags, this should always be set to 3 so the clients are updated.
      */
-    public static void ReplaceBlock(World world, BlockPos pos, BlockState replacementBlockState, int flags) {
+    public static void ReplaceBlock(Level world, BlockPos pos, BlockState replacementBlockState, int flags) {
         world.removeBlock(pos, false);
         world.setBlock(pos, replacementBlockState, flags);
     }
@@ -205,7 +203,7 @@ public class BuildingMethods {
      * @param replacementBlockState The block state to place at this position.
      * @param flags                 The trigger flags, this should always be set to 3 so the clients are updated.
      */
-    public static void ReplaceBlockNoAir(World world, BlockPos pos, BlockState replacementBlockState, int flags) {
+    public static void ReplaceBlockNoAir(Level world, BlockPos pos, BlockState replacementBlockState, int flags) {
         world.setBlock(pos, replacementBlockState, flags);
     }
 
@@ -219,8 +217,8 @@ public class BuildingMethods {
      * @param player        The player running this build request.
      * @return True if all blocks can be replaced. Otherwise false and send a message to the player.
      */
-    public static Triple<Boolean, BlockState, BlockPos> CheckBuildSpaceForAllowedBlockReplacement(ServerWorld world, BlockPos startBlockPos, BlockPos endBlockPos,
-                                                                                                  PlayerEntity player) {
+    public static Triple<Boolean, BlockState, BlockPos> CheckBuildSpaceForAllowedBlockReplacement(ServerLevel world, BlockPos startBlockPos, BlockPos endBlockPos,
+                                                                                                  Player player) {
         if (!world.isClientSide()) {
             // Check each block in the space to be cleared if it's protected from
             // breaking or placing, if it is return false.
@@ -233,7 +231,7 @@ public class BuildingMethods {
                     return new Triple<>(false, blockState, currentPos);
                 }
 
-                if (!blockState.getBlock().isAir(blockState, world, currentPos)) {
+                if (!world.isEmptyBlock(currentPos)) {
                     BlockEvent.BreakEvent breakEvent = new BlockEvent.BreakEvent(world, currentPos, world.getBlockState(currentPos), player);
 
                     if (MinecraftForge.EVENT_BUS.post(breakEvent)) {
@@ -267,7 +265,7 @@ public class BuildingMethods {
      * @param bedFootPos The position of the foot of the bed.
      * @param bedColor   The color of the bed to place.
      */
-    public static void PlaceColoredBed(World world, BlockPos bedHeadPos, BlockPos bedFootPos, DyeColor bedColor) {
+    public static void PlaceColoredBed(Level world, BlockPos bedHeadPos, BlockPos bedFootPos, DyeColor bedColor) {
         BlockState bedHead = null;
         BlockState bedFoot = null;
 
@@ -389,12 +387,12 @@ public class BuildingMethods {
      * @param world        - The world where the chest resides.
      * @param itemPosition - The block position of the chest.
      */
-    public static void FillChest(World world, BlockPos itemPosition) {
+    public static void FillChest(Level world, BlockPos itemPosition) {
         // Add each stone tool to the chest and leather armor.
-        TileEntity tileEntity = world.getBlockEntity(itemPosition);
+        BlockEntity tileEntity = world.getBlockEntity(itemPosition);
 
-        if (tileEntity instanceof LockableLootTileEntity) {
-            LockableLootTileEntity chestTile = (LockableLootTileEntity) tileEntity;
+        if (tileEntity instanceof RandomizableContainerBlockEntity) {
+            RandomizableContainerBlockEntity chestTile = (RandomizableContainerBlockEntity) tileEntity;
 
             int itemSlot = 0;
 
@@ -473,14 +471,14 @@ public class BuildingMethods {
      * @param world            The world where the furnaces reside.
      * @param furnacePositions A collection of furnace positions.
      */
-    public static void FillFurnaces(World world, ArrayList<BlockPos> furnacePositions) {
+    public static void FillFurnaces(Level world, ArrayList<BlockPos> furnacePositions) {
         if (furnacePositions != null && furnacePositions.size() > 0) {
             for (BlockPos furnacePos : furnacePositions) {
                 // Fill the furnace.
-                TileEntity tileEntity = world.getBlockEntity(furnacePos);
+                BlockEntity tileEntity = world.getBlockEntity(furnacePos);
 
-                if (tileEntity instanceof FurnaceTileEntity) {
-                    FurnaceTileEntity furnaceTile = (FurnaceTileEntity) tileEntity;
+                if (tileEntity instanceof FurnaceBlockEntity) {
+                    FurnaceBlockEntity furnaceTile = (FurnaceBlockEntity) tileEntity;
                     furnaceTile.setItem(1, new ItemStack(Items.COAL, 20));
                 }
             }
@@ -495,7 +493,7 @@ public class BuildingMethods {
      * @param facing         - The direction where the ladder will be placed.
      * @param onlyGatherOres - Determines if vanilla non-ore blocks will be gathered.
      */
-    public static void PlaceMineShaft(ServerWorld world, BlockPos pos, Direction facing, boolean onlyGatherOres) {
+    public static void PlaceMineShaft(ServerLevel world, BlockPos pos, Direction facing, boolean onlyGatherOres) {
         // Keep track of all of the items to add to the chest at the end of the
         // shaft.
         ArrayList<ItemStack> stacks = new ArrayList<ItemStack>();
@@ -620,12 +618,12 @@ public class BuildingMethods {
                 BuildingMethods.ReplaceBlock(world, pos.relative(facing.getClockWise()).relative(facing.getOpposite()), chestState);
             }
 
-            TileEntity tileEntity = world.getBlockEntity(pos.relative(facing.getClockWise()));
-            TileEntity tileEntity2 = world.getBlockEntity(pos.relative(facing.getClockWise()).relative(facing.getOpposite()));
+            BlockEntity tileEntity = world.getBlockEntity(pos.relative(facing.getClockWise()));
+            BlockEntity tileEntity2 = world.getBlockEntity(pos.relative(facing.getClockWise()).relative(facing.getOpposite()));
 
-            if (tileEntity instanceof ChestTileEntity) {
-                ChestTileEntity chestTile = (ChestTileEntity) tileEntity;
-                ChestTileEntity chestTile2 = (ChestTileEntity) tileEntity2;
+            if (tileEntity instanceof ChestBlockEntity) {
+                ChestBlockEntity chestTile = (ChestBlockEntity) tileEntity;
+                ChestBlockEntity chestTile2 = (ChestBlockEntity) tileEntity2;
 
                 int i = 0;
                 boolean fillSecond = false;
@@ -652,7 +650,7 @@ public class BuildingMethods {
         }
     }
 
-    private static Tuple<ArrayList<ItemStack>, ArrayList<BlockPos>> CreateLadderShaft(ServerWorld world, BlockPos pos, ArrayList<ItemStack> originalStacks, Direction houseFacing,
+    private static Tuple<ArrayList<ItemStack>, ArrayList<BlockPos>> CreateLadderShaft(ServerLevel world, BlockPos pos, ArrayList<ItemStack> originalStacks, Direction houseFacing,
                                                                                       ArrayList<Item> blocksToNotAdd) {
         int torchCounter = 0;
 
@@ -735,7 +733,7 @@ public class BuildingMethods {
                     Block surroundingBlock = surroundingState.getBlock();
 
                     if (!surroundingState.isRedstoneConductor(world, tempPos)
-                            || surroundingBlock instanceof FlowingFluidBlock) {
+                            || surroundingBlock instanceof LiquidBlock) {
                         // This is not a solid block. Get the drops then replace
                         // it with stone.
                         originalStacks = BuildingMethods.ConsolidateDrops(world, tempPos, surroundingState, originalStacks, blocksToNotAdd);

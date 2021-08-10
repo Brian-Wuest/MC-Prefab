@@ -1,10 +1,10 @@
 package com.wuest.prefab.config;
 
 import com.wuest.prefab.base.BaseConfig;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.NBTUtil;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.NbtUtils;
 
 public class StructureScannerConfig extends BaseConfig {
     public int blocksToTheLeft = 0;
@@ -24,7 +24,7 @@ public class StructureScannerConfig extends BaseConfig {
     }
 
     @Override
-    public void WriteToNBTCompound(CompoundNBT compound) {
+    public void WriteToNBTCompound(CompoundTag compound) {
         compound.putInt("blocksToTheLeft", this.blocksToTheLeft);
         compound.putInt("blocksDown", this.blocksDown);
         compound.putInt("blocksWide", this.blocksWide);
@@ -35,12 +35,12 @@ public class StructureScannerConfig extends BaseConfig {
         compound.putInt("blocksParallel", this.blocksParallel);
 
         if (this.blockPos != null) {
-            compound.put("pos", NBTUtil.writeBlockPos(this.blockPos));
+            compound.put("pos", NbtUtils.writeBlockPos(this.blockPos));
         }
     }
 
     @Override
-    public StructureScannerConfig ReadFromCompoundNBT(CompoundNBT compound) {
+    public StructureScannerConfig ReadFromCompoundTag(CompoundTag compound) {
         this.blocksToTheLeft = compound.getInt("blocksToTheLeft");
         this.blocksDown = compound.getInt("blocksDown");
         this.blocksWide = compound.getInt("blocksWide");
@@ -51,7 +51,7 @@ public class StructureScannerConfig extends BaseConfig {
         this.blocksParallel = compound.getInt("blocksParallel");
 
         if (compound.contains("pos")) {
-            this.blockPos = NBTUtil.readBlockPos(compound.getCompound("pos"));
+            this.blockPos = NbtUtils.readBlockPos(compound.getCompound("pos"));
         }
 
         return this;

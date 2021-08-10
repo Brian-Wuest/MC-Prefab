@@ -4,19 +4,19 @@ import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.gui.GuiLangKeys;
 import com.wuest.prefab.structures.gui.GuiBulldozer;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.World;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -36,7 +36,7 @@ public class ItemBulldozer extends StructureItem {
      */
     public ItemBulldozer() {
         super(new Item.Properties()
-                .tab(ItemGroup.TAB_MISC)
+                .tab(CreativeModeTab.TAB_MISC)
                 .durability(4));
     }
 
@@ -47,7 +47,7 @@ public class ItemBulldozer extends StructureItem {
      */
     public ItemBulldozer(boolean creativePowered) {
         super(new Item.Properties()
-                .tab(ItemGroup.TAB_MISC));
+                .tab(CreativeModeTab.TAB_MISC));
 
         this.creativePowered = creativePowered;
     }
@@ -57,25 +57,23 @@ public class ItemBulldozer extends StructureItem {
      */
     @Override
     protected void Initialize() {
-        if (Prefab.proxy.isClient) {
-            this.RegisterGui(GuiBulldozer.class);
-        }
+        ModRegistry.guiRegistrations.add(x -> this.RegisterGui(GuiBulldozer.class));
     }
 
     /**
      * Does something when the item is right-clicked.
      */
     @Override
-    public ActionResultType useOn(ItemUseContext context) {
+    public InteractionResult useOn(UseOnContext context) {
         if (context.getLevel().isClientSide()) {
             if (context.getClickedFace() == Direction.UP && this.getPoweredValue(context.getPlayer(), context.getHand())) {
                 // Open the client side gui to determine the house options.
                 Prefab.proxy.openGuiForItem(context);
-                return ActionResultType.PASS;
+                return InteractionResult.PASS;
             }
         }
 
-        return ActionResultType.FAIL;
+        return InteractionResult.FAIL;
     }
 
     /**
@@ -83,7 +81,7 @@ public class ItemBulldozer extends StructureItem {
      */
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
 
         boolean advancedKeyDown = Screen.hasShiftDown();
@@ -120,7 +118,7 @@ public class ItemBulldozer extends StructureItem {
      * @return The NBT tag
      */
     @Override
-    public CompoundNBT getShareTag(ItemStack stack) {
+    public CompoundTag getShareTag(ItemStack stack) {
         if (stack.getTag() == null
                 || stack.getTag().isEmpty()) {
             // Make sure to serialize the NBT for this stack so the information is pushed to the client and the
@@ -131,7 +129,7 @@ public class ItemBulldozer extends StructureItem {
         return stack.getTag();
     }
 
-    private boolean getPoweredValue(PlayerEntity player, Hand hand) {
+    private boolean getPoweredValue(Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 
         return this.getPoweredValue(stack);
@@ -147,10 +145,10 @@ public class ItemBulldozer extends StructureItem {
                     || stack.getTag().isEmpty()) {
                 stack.setTag(stack.serializeNBT());
             } else {
-                CompoundNBT tag = stack.getTag();
+                CompoundTag tag = stack.getTag();
 
                 if (tag.contains("prefab")) {
-                    CompoundNBT prefabTag = tag.getCompound("prefab");
+                    CompoundTag prefabTag = tag.getCompound("prefab");
 
                     if (prefabTag.contains("powered")) {
                         return prefabTag.getBoolean("powered");
@@ -168,7 +166,7 @@ public class ItemBulldozer extends StructureItem {
             stack.setTag(stack.serializeNBT());
         }
 
-        CompoundNBT prefabTag = new CompoundNBT();
+        CompoundTag prefabTag = new CompoundTag();
         prefabTag.putBoolean("powered", value);
         stack.getTag().put("prefab", prefabTag);
     }

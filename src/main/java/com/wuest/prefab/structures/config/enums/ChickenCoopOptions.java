@@ -1,6 +1,6 @@
 package com.wuest.prefab.structures.config.enums;
 
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
 
 public class ChickenCoopOptions extends BaseOption {
     public static ChickenCoopOptions Default = new ChickenCoopOptions(

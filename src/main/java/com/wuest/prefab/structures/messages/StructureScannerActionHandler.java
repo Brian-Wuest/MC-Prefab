@@ -2,7 +2,7 @@ package com.wuest.prefab.structures.messages;
 
 import com.wuest.prefab.blocks.entities.StructureScannerBlockEntity;
 import com.wuest.prefab.config.StructureScannerConfig;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
@@ -11,7 +11,7 @@ public class StructureScannerActionHandler {
         NetworkEvent.Context context = ctx.get();
 
         context.enqueueWork(() -> {
-            StructureScannerConfig config = (new StructureScannerConfig()).ReadFromCompoundNBT(message.getMessageTag());
+            StructureScannerConfig config = (new StructureScannerConfig()).ReadFromCompoundTag(message.getMessageTag());
 
             StructureScannerBlockEntity.ScanShape(config, context.getSender(), context.getSender().getLevel());
         });

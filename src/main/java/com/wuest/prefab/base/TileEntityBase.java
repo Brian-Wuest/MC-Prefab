@@ -1,12 +1,12 @@
 package com.wuest.prefab.base;
 
 import com.wuest.prefab.Prefab;
-import net.minecraft.block.BlockState;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import org.apache.logging.log4j.Level;
 
 import java.lang.reflect.ParameterizedType;
@@ -18,11 +18,11 @@ import java.lang.reflect.Type;
  * @param <T> The base configuration used by this tile entity.
  * @author WuestMan
  */
-public abstract class TileEntityBase<T extends BaseConfig> extends TileEntity {
+public abstract class TileEntityBase<T extends BaseConfig> extends BlockEntity {
 	protected T config;
 
-	protected TileEntityBase(TileEntityType<?> tileEntityTypeIn) {
-		super(tileEntityTypeIn);
+	protected TileEntityBase(BlockEntityType<?> tileEntityTypeIn, BlockPos pos, BlockState state) {
+		super(tileEntityTypeIn, pos, state);
 	}
 
 	/**
@@ -54,16 +54,16 @@ public abstract class TileEntityBase<T extends BaseConfig> extends TileEntity {
 	 * this is used by signs to synchronize the text to be displayed.
 	 */
 	@Override
-	public SUpdateTileEntityPacket getUpdatePacket() {
+	public ClientboundBlockEntityDataPacket getUpdatePacket() {
 		// Don't send the packet until the position has been set.
 		if (this.worldPosition.getX() == 0 && this.worldPosition.getY() == 0 && this.worldPosition.getZ() == 0) {
 			return super.getUpdatePacket();
 		}
 
-		CompoundNBT tag = new CompoundNBT();
+		CompoundTag tag = new CompoundTag();
 		this.save(tag);
 
-		return new SUpdateTileEntityPacket(this.getBlockPos(), 1, tag);
+		return new ClientboundBlockEntityDataPacket(this.getBlockPos(), 1, tag);
 	}
 
 	@Override
@@ -72,13 +72,13 @@ public abstract class TileEntityBase<T extends BaseConfig> extends TileEntity {
 	}
 
 	@Override
-	public CompoundNBT getUpdateTag() {
+	public CompoundTag getUpdateTag() {
 		// This is overwritten so our custom save event is done.
-		return this.save(new CompoundNBT());
+		return this.save(new CompoundTag());
 	}
 
 	@Override
-	public CompoundNBT save(CompoundNBT compound) {
+	public CompoundTag save(CompoundTag compound) {
 		compound = super.save(compound);
 
 		if (this.config != null) {
@@ -89,10 +89,10 @@ public abstract class TileEntityBase<T extends BaseConfig> extends TileEntity {
 	}
 
 	@Override
-	public void load(BlockState blockState, CompoundNBT compound) {
-		super.load(blockState, compound);
+	public void load(CompoundTag compound) {
+		super.load(compound);
 
-		this.config = this.createConfigInstance().ReadFromCompoundNBT(compound);
+		this.config = this.createConfigInstance().ReadFromCompoundTag(compound);
 	}
 
 	public T createConfigInstance() {

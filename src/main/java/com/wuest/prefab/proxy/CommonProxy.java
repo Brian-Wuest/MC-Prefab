@@ -7,16 +7,17 @@ import com.wuest.prefab.config.ModConfiguration;
 import com.wuest.prefab.config.ServerModConfiguration;
 import com.wuest.prefab.config.StructureScannerConfig;
 import com.wuest.prefab.crafting.RecipeCondition;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.ParallelDispatchEvent;
 import net.minecraftforge.fml.loading.FMLPaths;
-import net.minecraftforge.fml.network.NetworkRegistry;
+import net.minecraftforge.fmllegacy.network.NetworkRegistry;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.nio.file.Path;
@@ -59,15 +60,10 @@ public class CommonProxy {
     public void RegisterEventHandler() {
     }
 
-    public void preInit(FMLCommonSetupEvent event) {
+    public void preInit(ParallelDispatchEvent event) {
         CraftingHelper.register(new RecipeCondition.Serializer());
 
-        Prefab.network = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(Prefab.MODID, "main_channel"))
-                .clientAcceptedVersions(Prefab.PROTOCOL_VERSION::equals)
-                .serverAcceptedVersions(Prefab.PROTOCOL_VERSION::equals)
-                .networkProtocolVersion(() -> Prefab.PROTOCOL_VERSION)
-                .simpleChannel();
-
+        this.createNetworkInstance();
 
         // Register messages.
         ModRegistry.RegisterMessages();
@@ -76,20 +72,28 @@ public class CommonProxy {
         ModRegistry.RegisterCapabilities();
     }
 
-    public void init(FMLCommonSetupEvent event) {
+    public void createNetworkInstance() {
+        Prefab.network = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(Prefab.MODID, "main_channel"))
+                .clientAcceptedVersions(Prefab.PROTOCOL_VERSION::equals)
+                .serverAcceptedVersions(Prefab.PROTOCOL_VERSION::equals)
+                .networkProtocolVersion(() -> Prefab.PROTOCOL_VERSION)
+                .simpleChannel();
     }
 
-    public void postinit(FMLCommonSetupEvent event) {
+    public void init(ParallelDispatchEvent event) {
+    }
+
+    public void postinit(ParallelDispatchEvent event) {
     }
 
     public ServerModConfiguration getServerConfiguration() {
         return CommonProxy.proxyConfiguration.serverConfiguration;
     }
 
-    public void openGuiForItem(ItemUseContext itemUseContext) {
+    public void openGuiForItem(UseOnContext itemUseContext) {
     }
 
-    public void openGuiForBlock(BlockPos blockPos, World world, BaseConfig config) {
+    public void openGuiForBlock(BlockPos blockPos, Level world, BaseConfig config) {
     }
 
     public void clientSetup(FMLClientSetupEvent clientSetupEvent) {

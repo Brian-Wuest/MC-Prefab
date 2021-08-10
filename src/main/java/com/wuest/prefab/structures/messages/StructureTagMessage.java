@@ -2,8 +2,8 @@ package com.wuest.prefab.structures.messages;
 
 import com.wuest.prefab.proxy.messages.TagMessage;
 import com.wuest.prefab.structures.config.*;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
 
 /**
  * @author WuestMan
@@ -22,15 +22,15 @@ public class StructureTagMessage extends TagMessage {
      *
      * @param tagMessage The message to send.
      */
-    public StructureTagMessage(CompoundNBT tagMessage, EnumStructureConfiguration structureConfig) {
+    public StructureTagMessage(CompoundTag tagMessage, EnumStructureConfiguration structureConfig) {
         super(tagMessage);
 
         this.structureConfig = structureConfig;
     }
 
-    public static StructureTagMessage decode(PacketBuffer buf) {
+    public static StructureTagMessage decode(FriendlyByteBuf buf) {
         // This class is very useful in general for writing more complex objects.
-        CompoundNBT tag = buf.readNbt();
+        CompoundTag tag = buf.readNbt();
         StructureTagMessage returnValue = new StructureTagMessage();
 
         returnValue.structureConfig = EnumStructureConfiguration.getFromIdentifier(tag.getInt("config"));
@@ -40,8 +40,8 @@ public class StructureTagMessage extends TagMessage {
         return returnValue;
     }
 
-    public static void encode(StructureTagMessage message, PacketBuffer buf) {
-        CompoundNBT tag = new CompoundNBT();
+    public static void encode(StructureTagMessage message, FriendlyByteBuf buf) {
+        CompoundTag tag = new CompoundTag();
         tag.putInt("config", message.structureConfig.identifier);
         tag.put("dataTag", message.tagMessage);
 

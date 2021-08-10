@@ -1,6 +1,6 @@
 package com.wuest.prefab.config;
 
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -49,7 +49,7 @@ public class ServerModConfiguration {
         this.recipeConfiguration = new HashMap<>();
     }
 
-    public static ServerModConfiguration getFromNBTTagCompound(CompoundNBT tag) {
+    public static ServerModConfiguration getFromNBTTagCompound(CompoundTag tag) {
         ServerModConfiguration configuration = new ServerModConfiguration();
 
         configuration.startingItem = tag.getString(ModConfiguration.startingItemName);
@@ -87,8 +87,8 @@ public class ServerModConfiguration {
         return configuration;
     }
 
-    public CompoundNBT ToNBTTagCompound() {
-        CompoundNBT tag = new CompoundNBT();
+    public CompoundTag ToNBTTagCompound() {
+        CompoundTag tag = new CompoundTag();
 
         tag.putString(ModConfiguration.startingItemName, this.startingItem);
         tag.putBoolean(ModConfiguration.enableVersionCheckMessageName, this.enableVersionCheckMessage);

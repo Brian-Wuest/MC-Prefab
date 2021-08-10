@@ -2,12 +2,10 @@ package com.wuest.prefab;
 
 import com.wuest.prefab.proxy.messages.TagMessage;
 import com.wuest.prefab.structures.messages.StructureTagMessage;
-import io.netty.buffer.Unpooled;
 import io.netty.util.internal.StringUtil;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.Direction;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.TextComponent;
 import org.apache.commons.lang3.text.WordUtils;
 
 import java.lang.reflect.InvocationTargetException;
@@ -31,7 +29,7 @@ public class Utils {
         return returnValue;
     }
 
-    public static ArrayList<StringTextComponent> WrapStringToLiterals(String value) {
+    public static ArrayList<TextComponent> WrapStringToLiterals(String value) {
         return Utils.WrapStringToLiterals(value, 50);
     }
 
@@ -41,13 +39,13 @@ public class Utils {
      * @param value The text to create the object from.
      * @return A StringTextComponent object.
      */
-    public static StringTextComponent createTextComponent(String value) {
-        return new StringTextComponent(value);
+    public static TextComponent createTextComponent(String value) {
+        return new TextComponent(value);
     }
 
-    public static ArrayList<StringTextComponent> WrapStringToLiterals(String value, int width) {
+    public static ArrayList<TextComponent> WrapStringToLiterals(String value, int width) {
         String[] values = Utils.WrapString(value, width);
-        ArrayList<StringTextComponent> returnValue = new ArrayList<>();
+        ArrayList<TextComponent> returnValue = new ArrayList<>();
 
         for (String stringValue : values) {
             returnValue.add(Utils.createTextComponent(stringValue));
@@ -56,13 +54,13 @@ public class Utils {
         return returnValue;
     }
 
-    public static TagMessage createMessage(CompoundNBT tag) {
+    public static TagMessage createMessage(CompoundTag tag) {
         return new TagMessage(tag);
     }
 
-    public static <T extends TagMessage> T createGenericMessage(CompoundNBT tag, Class<T> tClass) {
+    public static <T extends TagMessage> T createGenericMessage(CompoundTag tag, Class<T> tClass) {
         try {
-            return tClass.getConstructor(CompoundNBT.class).newInstance(tag);
+            return tClass.getConstructor(CompoundTag.class).newInstance(tag);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             e.printStackTrace();
         }
@@ -70,7 +68,7 @@ public class Utils {
         return null;
     }
 
-    public static StructureTagMessage createStructureMessage(CompoundNBT tag, StructureTagMessage.EnumStructureConfiguration structureConfiguration) {
+    public static StructureTagMessage createStructureMessage(CompoundTag tag, StructureTagMessage.EnumStructureConfiguration structureConfiguration) {
         return new StructureTagMessage(tag, structureConfiguration);
     }
 

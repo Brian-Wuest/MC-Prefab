@@ -1,7 +1,7 @@
 package com.wuest.prefab.structures.config.enums;
 
 
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
 
 public class ModernBuildingsOptions extends BaseOption{
     public static ModernBuildingsOptions Mall = new ModernBuildingsOptions(

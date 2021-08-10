@@ -1,6 +1,6 @@
 package com.wuest.prefab.structures.gui;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.wuest.prefab.Tuple;
 import com.wuest.prefab.events.ClientEventHandler;
 import com.wuest.prefab.gui.GuiLangKeys;
@@ -12,9 +12,9 @@ import com.wuest.prefab.structures.config.StructurePartConfiguration;
 import com.wuest.prefab.structures.config.StructurePartConfiguration.EnumStyle;
 import com.wuest.prefab.structures.messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.structures.predefined.StructurePart;
-import net.minecraft.client.gui.widget.button.AbstractButton;
-import net.minecraft.util.Direction;
-import net.minecraftforge.fml.client.gui.widget.Slider;
+import net.minecraft.client.gui.components.AbstractButton;
+import net.minecraft.core.Direction;
+import net.minecraftforge.fmlclient.gui.widget.Slider;
 
 /**
  * This class is used as the gui for structure parts.
@@ -68,7 +68,7 @@ public class GuiStructurePart extends GuiStructure {
     }
 
     @Override
-    protected void preButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
+    protected void preButtonRender(PoseStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
         int imagePanelUpperLeft = x + 132;
         int imagePanelWidth = 285;
         int imagePanelMiddle = imagePanelWidth / 2;
@@ -95,7 +95,7 @@ public class GuiStructurePart extends GuiStructure {
     }
 
     @Override
-    protected void postButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
+    protected void postButtonRender(PoseStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
         // Draw the text here.
         this.drawString(matrixStack, GuiLangKeys.translateString("item.prefab.item_structure_part"), x + 15, y + 17, this.textColor);
 

@@ -1,34 +1,39 @@
 package com.wuest.prefab.blocks;
 
-import net.minecraft.block.*;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.pathfinding.PathType;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.state.properties.SlabType;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.ITag;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.GlassBlock;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.SlabType;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 
 @SuppressWarnings("NullableProblems")
-public class BlockGlassSlab extends GlassBlock implements IWaterLoggable {
+public class BlockGlassSlab extends GlassBlock implements SimpleWaterloggedBlock {
 
     private static final VoxelShape BOTTOM_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D);
     private static final VoxelShape TOP_SHAPE = Block.box(0.0D, 8.0D, 0.0D, 16.0D, 16.0D, 16.0D);
@@ -46,14 +51,14 @@ public class BlockGlassSlab extends GlassBlock implements IWaterLoggable {
     }
 
     @Override
-    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(SlabBlock.TYPE, WATERLOGGED);
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
     public boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction side) {
-        ITag<Block> tags = BlockTags.getAllTags().getTag(new ResourceLocation("forge", "glass"));
+        Tag<Block> tags = BlockTags.getAllTags().getTag(new ResourceLocation("forge", "glass"));
         Block adjacentBlock = adjacentBlockState.getBlock();
 
 		/*
@@ -69,11 +74,11 @@ public class BlockGlassSlab extends GlassBlock implements IWaterLoggable {
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         SlabType slabtype = state.getValue(SlabBlock.TYPE);
         switch (slabtype) {
             case DOUBLE:
-                return VoxelShapes.block();
+                return Shapes.block();
             case TOP:
                 return BlockGlassSlab.TOP_SHAPE;
             default:
@@ -83,7 +88,7 @@ public class BlockGlassSlab extends GlassBlock implements IWaterLoggable {
 
     @Override
     @Nullable
-    public BlockState getStateForPlacement(BlockItemUseContext context) {
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
         BlockPos blockpos = context.getClickedPos();
         BlockState blockstate = context.getLevel().getBlockState(blockpos);
         if (blockstate.getBlock() == this) {
@@ -98,7 +103,7 @@ public class BlockGlassSlab extends GlassBlock implements IWaterLoggable {
     }
 
     @Override
-    public boolean canBeReplaced(BlockState state, BlockItemUseContext useContext) {
+    public boolean canBeReplaced(BlockState state, BlockPlaceContext useContext) {
         ItemStack itemstack = useContext.getItemInHand();
         SlabType slabtype = state.getValue(SlabBlock.TYPE);
         if (slabtype != SlabType.DOUBLE && itemstack.getItem() == this.asItem()) {
@@ -124,20 +129,20 @@ public class BlockGlassSlab extends GlassBlock implements IWaterLoggable {
     }
 
     @Override
-    public boolean placeLiquid(IWorld worldIn, BlockPos pos, BlockState state, FluidState fluidStateIn) {
+    public boolean placeLiquid(LevelAccessor worldIn, BlockPos pos, BlockState state, FluidState fluidStateIn) {
         return state.getValue(SlabBlock.TYPE) != SlabType.DOUBLE && this.slabReceiveFluid(worldIn, pos, state, fluidStateIn);
     }
 
     @Override
-    public boolean canPlaceLiquid(IBlockReader worldIn, BlockPos pos, BlockState state, Fluid fluidIn) {
+    public boolean canPlaceLiquid(BlockGetter worldIn, BlockPos pos, BlockState state, Fluid fluidIn) {
         return state.getValue(SlabBlock.TYPE) != SlabType.DOUBLE && this.slabCanContainFluid(worldIn, pos, state, fluidIn);
     }
 
-    private boolean slabCanContainFluid(IBlockReader worldIn, BlockPos pos, BlockState state, Fluid fluidIn) {
+    private boolean slabCanContainFluid(BlockGetter worldIn, BlockPos pos, BlockState state, Fluid fluidIn) {
         return !state.getValue(BlockStateProperties.WATERLOGGED) && fluidIn == Fluids.WATER;
     }
 
-    private boolean slabReceiveFluid(IWorld worldIn, BlockPos pos, BlockState state, FluidState fluidStateIn) {
+    private boolean slabReceiveFluid(LevelAccessor worldIn, BlockPos pos, BlockState state, FluidState fluidStateIn) {
         if (!state.getValue(BlockStateProperties.WATERLOGGED) && fluidStateIn.getType() == Fluids.WATER) {
             if (!worldIn.isClientSide()) {
                 worldIn.setBlock(pos, state.setValue(BlockStateProperties.WATERLOGGED, Boolean.TRUE), 3);
@@ -151,12 +156,12 @@ public class BlockGlassSlab extends GlassBlock implements IWaterLoggable {
     }
 
     @Override
-    public Fluid takeLiquid(IWorld worldIn, BlockPos pos, BlockState state) {
+    public ItemStack pickupBlock(LevelAccessor worldIn, BlockPos pos, BlockState state) {
         if (state.getValue(BlockStateProperties.WATERLOGGED) && state.getValue(SlabBlock.TYPE) != SlabType.DOUBLE) {
             worldIn.setBlock(pos, state.setValue(BlockStateProperties.WATERLOGGED, Boolean.FALSE), 3);
-            return Fluids.WATER;
+            return new ItemStack(Items.WATER_BUCKET);
         } else {
-            return Fluids.EMPTY;
+            return ItemStack.EMPTY;
         }
     }
 
@@ -167,7 +172,7 @@ public class BlockGlassSlab extends GlassBlock implements IWaterLoggable {
      * Note that this method should ideally consider only the specific face passed in.
      */
     @Override
-    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn, BlockPos currentPos, BlockPos facingPos) {
         if (stateIn.getValue(WATERLOGGED)) {
             worldIn.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(worldIn));
         }
@@ -176,8 +181,8 @@ public class BlockGlassSlab extends GlassBlock implements IWaterLoggable {
     }
 
     @Override
-    public boolean isPathfindable(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
-        if (type == PathType.WATER) {
+    public boolean isPathfindable(BlockState state, BlockGetter worldIn, BlockPos pos, PathComputationType type) {
+        if (type == PathComputationType.WATER) {
             return worldIn.getFluidState(pos).is(FluidTags.WATER);
         }
 

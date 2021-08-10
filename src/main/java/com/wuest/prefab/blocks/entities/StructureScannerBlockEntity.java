@@ -6,19 +6,20 @@ import com.wuest.prefab.config.StructureScannerConfig;
 import com.wuest.prefab.structures.base.BuildClear;
 import com.wuest.prefab.structures.base.BuildShape;
 import com.wuest.prefab.structures.base.Structure;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class StructureScannerBlockEntity extends TileEntityBase<StructureScannerConfig> {
-    public StructureScannerBlockEntity() {
-        super(ModRegistry.StructureScannerEntityType);
+    public StructureScannerBlockEntity(BlockPos pos, BlockState state) {
+        super(ModRegistry.StructureScannerEntityType, pos, state);
 
         this.config = new StructureScannerConfig();
     }
 
-    public static void ScanShape(StructureScannerConfig config, ServerPlayerEntity playerEntity, ServerWorld serverWorld) {
+    public static void ScanShape(StructureScannerConfig config, ServerPlayer playerEntity, ServerLevel serverWorld) {
         BuildClear clearedSpace = new BuildClear();
         clearedSpace.getShape().setDirection(config.direction);
         clearedSpace.getShape().setHeight(config.blocksTall);

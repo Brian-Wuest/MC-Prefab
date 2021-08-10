@@ -4,8 +4,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.wuest.prefab.events.ClientEventHandler;
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.IReloadableResourceManager;
-import net.minecraft.resources.IResourceManagerReloadListener;
+import net.minecraft.server.packs.resources.ReloadableResourceManager;
 import net.minecraftforge.fml.ModList;
 import org.lwjgl.opengl.ARBFragmentShader;
 import org.lwjgl.opengl.ARBShaderObjects;
@@ -18,6 +17,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.FloatBuffer;
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 /**
@@ -37,16 +37,17 @@ public class ShaderHelper {
     private static boolean checkedIncompatibility = false;
 
     public static void Initialize() {
-        if (Minecraft.getInstance().getResourceManager() instanceof IReloadableResourceManager) {
-            ((IReloadableResourceManager) Minecraft.getInstance().getResourceManager()).registerReloadListener(
-                    (IResourceManagerReloadListener) manager -> {
-                        ShaderHelper.checkIncompatibleMods();
+        if (Minecraft.getInstance().getResourceManager() instanceof ReloadableResourceManager) {
+            ReloadableResourceManager manager = (ReloadableResourceManager) Minecraft.getInstance().getResourceManager();
+            manager.registerReloadListener((synchronizer, resourceManager, prepareProfiler, applyProfiler, prepareExecutor, applyExecutor) -> {
+                ShaderHelper.checkIncompatibleMods();
 
-                        ShaderHelper.deleteShader(alphaShader);
-                        ShaderHelper.alphaShader = 0;
+                ShaderHelper.deleteShader(alphaShader);
+                ShaderHelper.alphaShader = 0;
 
-                        ShaderHelper.alphaShader = ShaderHelper.createProgram("/assets/prefab/shader/alpha.vert", "/assets/prefab/shader/alpha.frag");
-                    });
+                ShaderHelper.alphaShader = ShaderHelper.createProgram("/assets/prefab/shader/alpha.vert", "/assets/prefab/shader/alpha.frag");
+                return new CompletableFuture<>();
+            });
         }
     }
 
@@ -57,9 +58,6 @@ public class ShaderHelper {
         }
 
         lighting = GL11.glGetBoolean(GL11.GL_LIGHTING);
-
-        // disableLighting
-        GlStateManager._disableLighting();
 
         // useProgram
         GlStateManager._glUseProgram(shader);
@@ -81,10 +79,6 @@ public class ShaderHelper {
     }
 
     public static void releaseShader() {
-        if (lighting) {
-            RenderSystem.enableLighting();
-        }
-
         ShaderHelper.useShader(0);
     }
 

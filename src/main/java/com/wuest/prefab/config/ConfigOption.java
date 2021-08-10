@@ -1,7 +1,7 @@
 package com.wuest.prefab.config;
 
 import com.wuest.prefab.Utils;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ public class ConfigOption<T> {
     private ConfigCategory category;
     private String configType;
     private String hoverText;
-    private StringTextComponent hoverTextComponent;
+    private TextComponent hoverTextComponent;
 
     public ConfigOption() {
         this.validValues = new ArrayList<>();
@@ -116,7 +116,7 @@ public class ConfigOption<T> {
         return this;
     }
 
-    public StringTextComponent getHoverTextComponent() {
+    public TextComponent getHoverTextComponent() {
         return this.hoverTextComponent;
     }
 

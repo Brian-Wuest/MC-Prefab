@@ -8,16 +8,17 @@ import com.wuest.prefab.proxy.messages.PlayerEntityTagMessage;
 import com.wuest.prefab.structures.base.*;
 import com.wuest.prefab.structures.config.HouseConfiguration;
 import com.wuest.prefab.structures.config.StructureConfiguration;
-import net.minecraft.block.*;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.tileentity.SignTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.fml.network.NetworkDirection;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.SignBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.fmllegacy.network.NetworkDirection;
 
 import java.util.ArrayList;
 
@@ -32,7 +33,7 @@ public class StructureAlternateStart extends Structure {
     private BlockPos signPosition = null;
     private ArrayList<Tuple<BlockPos, BlockPos>> bedPositions = new ArrayList<>();
 
-    public static void ScanBasicHouseStructure(World world, BlockPos originalPos, Direction playerFacing) {
+    public static void ScanBasicHouseStructure(Level world, BlockPos originalPos, Direction playerFacing) {
         BuildClear clearedSpace = new BuildClear();
         clearedSpace.getShape().setDirection(Direction.SOUTH);
         clearedSpace.getShape().setHeight(10);
@@ -50,7 +51,7 @@ public class StructureAlternateStart extends Structure {
                 playerFacing, false, false);
     }
 
-    public static void ScanRanchStructure(World world, BlockPos originalPos, Direction playerFacing) {
+    public static void ScanRanchStructure(Level world, BlockPos originalPos, Direction playerFacing) {
         BuildClear clearedSpace = new BuildClear();
         clearedSpace.getShape().setDirection(Direction.SOUTH);
         clearedSpace.getShape().setHeight(7);
@@ -65,7 +66,7 @@ public class StructureAlternateStart extends Structure {
                 playerFacing, false, false);
     }
 
-    public static void ScanLoftStructure(World world, BlockPos originalPos, Direction playerFacing) {
+    public static void ScanLoftStructure(Level world, BlockPos originalPos, Direction playerFacing) {
         BuildClear clearedSpace = new BuildClear();
         clearedSpace.getShape().setDirection(Direction.SOUTH);
         clearedSpace.getShape().setHeight(9);
@@ -78,7 +79,7 @@ public class StructureAlternateStart extends Structure {
                 "..\\src\\main\\resources\\assets\\prefab\\structures\\loft_house.zip", clearedSpace, playerFacing, false, false);
     }
 
-    public static void ScanHobbitStructure(World world, BlockPos originalPos, Direction playerFacing) {
+    public static void ScanHobbitStructure(Level world, BlockPos originalPos, Direction playerFacing) {
         BuildClear clearedSpace = new BuildClear();
         clearedSpace.getShape().setDirection(Direction.SOUTH);
         clearedSpace.getShape().setHeight(12);
@@ -93,7 +94,7 @@ public class StructureAlternateStart extends Structure {
                 playerFacing, false, false);
     }
 
-    public static void ScanDesert2Structure(World world, BlockPos originalPos, Direction playerFacing) {
+    public static void ScanDesert2Structure(Level world, BlockPos originalPos, Direction playerFacing) {
         BuildClear clearedSpace = new BuildClear();
         clearedSpace.getShape().setDirection(Direction.SOUTH);
         clearedSpace.getShape().setHeight(10);
@@ -111,7 +112,7 @@ public class StructureAlternateStart extends Structure {
                 playerFacing, false, false);
     }
 
-    public static void ScanSubAquaticStructure(World world, BlockPos originalPos, Direction playerFacing) {
+    public static void ScanSubAquaticStructure(Level world, BlockPos originalPos, Direction playerFacing) {
         BuildClear clearedSpace = new BuildClear();
         clearedSpace.getShape().setDirection(Direction.SOUTH);
         clearedSpace.getShape().setHeight(13);
@@ -129,7 +130,7 @@ public class StructureAlternateStart extends Structure {
                 playerFacing, true, true);
     }
 
-    public static void ScanStructure(World world, BlockPos originalPos, Direction playerFacing, String structureFileName, boolean includeAir, boolean excludeWater) {
+    public static void ScanStructure(Level world, BlockPos originalPos, Direction playerFacing, String structureFileName, boolean includeAir, boolean excludeWater) {
         BuildClear clearedSpace = new BuildClear();
         clearedSpace.getShape().setDirection(Direction.SOUTH);
         clearedSpace.getShape().setHeight(8);
@@ -158,8 +159,8 @@ public class StructureAlternateStart extends Structure {
     }
 
     @Override
-    protected Boolean CustomBlockProcessingHandled(StructureConfiguration configuration, BuildBlock block, World world, BlockPos originalPos,
-                                                   Direction assumedNorth, Block foundBlock, BlockState blockState, PlayerEntity player) {
+    protected Boolean CustomBlockProcessingHandled(StructureConfiguration configuration, BuildBlock block, Level world, BlockPos originalPos,
+                                                   Direction assumedNorth, Block foundBlock, BlockState blockState, Player player) {
         HouseConfiguration houseConfig = (HouseConfiguration) configuration;
 
         if ((!houseConfig.addBed && foundBlock instanceof BedBlock) || (!houseConfig.addChest && foundBlock instanceof ChestBlock)
@@ -167,8 +168,8 @@ public class StructureAlternateStart extends Structure {
                 || (!houseConfig.addCraftingTable && foundBlock instanceof CraftingTableBlock)
                 || (!houseConfig.addFurnace && foundBlock instanceof FurnaceBlock)
                 || (!houseConfig.addChest && foundBlock instanceof BarrelBlock)
-                || (foundBlock instanceof SeaGrassBlock)
-                || (foundBlock instanceof TallSeaGrassBlock)) {
+                || (foundBlock instanceof SeagrassBlock)
+                || (foundBlock instanceof TallSeagrassBlock)) {
             // Don't place the block, returning true means that this has been
             // "handled"
             return true;
@@ -203,7 +204,7 @@ public class StructureAlternateStart extends Structure {
                     originalPos,
                     this.getClearSpace().getShape().getDirection(),
                     configuration.houseFacing).above();
-        }  else if (foundBlock instanceof BedBlock && houseConfig.addBed) {
+        } else if (foundBlock instanceof BedBlock && houseConfig.addBed) {
             BlockPos bedHeadPosition = block.getStartingPosition().getRelativePosition(originalPos, this.getClearSpace().getShape().getDirection(), configuration.houseFacing);
             BlockPos bedFootPosition = block.getSubBlock().getStartingPosition().getRelativePosition(
                     originalPos,
@@ -255,7 +256,7 @@ public class StructureAlternateStart extends Structure {
      * @param player        The player which initiated the construction.
      */
     @Override
-    public void AfterBuilding(StructureConfiguration configuration, ServerWorld world, BlockPos originalPos, Direction assumedNorth, PlayerEntity player) {
+    public void AfterBuilding(StructureConfiguration configuration, ServerLevel world, BlockPos originalPos, Direction assumedNorth, Player player) {
         HouseConfiguration houseConfig = (HouseConfiguration) configuration;
         EntityPlayerConfiguration playerConfig = EntityPlayerConfiguration.loadFromEntityData(player);
 
@@ -278,10 +279,10 @@ public class StructureAlternateStart extends Structure {
         }
 
         if (this.signPosition != null) {
-            TileEntity tileEntity = world.getBlockEntity(this.signPosition);
+            BlockEntity tileEntity = world.getBlockEntity(this.signPosition);
 
-            if (tileEntity instanceof SignTileEntity) {
-                SignTileEntity signTile = (SignTileEntity) tileEntity;
+            if (tileEntity instanceof SignBlockEntity) {
+                SignBlockEntity signTile = (SignBlockEntity) tileEntity;
                 signTile.setMessage(0, Utils.createTextComponent("This is"));
 
                 if (player.getDisplayName().getString().length() >= 15) {
@@ -306,7 +307,7 @@ public class StructureAlternateStart extends Structure {
 
         // Make sure to send a message to the client to sync up the server player information and the client player
         // information.
-        Prefab.network.sendTo(new PlayerEntityTagMessage(playerConfig.getModIsPlayerNewTag(player)), ((ServerPlayerEntity) player).connection.connection,
+        Prefab.network.sendTo(new PlayerEntityTagMessage(playerConfig.getModIsPlayerNewTag(player)), ((ServerPlayer) player).connection.connection,
                 NetworkDirection.PLAY_TO_CLIENT);
     }
 }

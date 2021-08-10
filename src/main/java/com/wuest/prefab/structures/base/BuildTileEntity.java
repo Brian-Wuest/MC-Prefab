@@ -2,8 +2,8 @@ package com.wuest.prefab.structures.base;
 
 import com.google.gson.annotations.Expose;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.JsonToNBT;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.TagParser;
 
 /**
  * This class is used to define the necessary properties to describe a tile entity to be generated when a structure is
@@ -64,7 +64,7 @@ public class BuildTileEntity {
 		this.entityNBTData = value;
 	}
 
-	public void setEntityNBTData(CompoundNBT tagCompound) {
+	public void setEntityNBTData(CompoundTag tagCompound) {
 		this.entityNBTData = tagCompound.toString();
 	}
 
@@ -78,12 +78,12 @@ public class BuildTileEntity {
 		this.entityNBTData = "";
 	}
 
-	public CompoundNBT getEntityDataTag() {
-		CompoundNBT tag = null;
+	public CompoundTag getEntityDataTag() {
+		CompoundTag tag = null;
 
 		if (!this.entityNBTData.equals("")) {
 			try {
-				tag = JsonToNBT.parseTag(this.entityNBTData);
+				tag = TagParser.parseTag(this.entityNBTData);
 			} catch (CommandSyntaxException e) {
 				e.printStackTrace();
 			}

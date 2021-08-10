@@ -1,8 +1,8 @@
 package com.wuest.prefab.structures.messages;
 
 import com.wuest.prefab.proxy.messages.TagMessage;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
 
 public class StructureScannerSyncMessage extends TagMessage {
     /**
@@ -10,7 +10,7 @@ public class StructureScannerSyncMessage extends TagMessage {
      *
      * @param writeToNBTTagCompound The NBTTagCompound to write the data too.
      */
-    public StructureScannerSyncMessage(CompoundNBT writeToNBTTagCompound) {
+    public StructureScannerSyncMessage(CompoundTag writeToNBTTagCompound) {
         super(writeToNBTTagCompound);
     }
 
@@ -18,7 +18,7 @@ public class StructureScannerSyncMessage extends TagMessage {
         super();
     }
 
-    public static StructureScannerSyncMessage decode(PacketBuffer buf) {
+    public static StructureScannerSyncMessage decode(FriendlyByteBuf buf) {
         return TagMessage.decode(buf, StructureScannerSyncMessage.class);
     }
 }

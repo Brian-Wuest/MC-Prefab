@@ -1,6 +1,6 @@
 package com.wuest.prefab.gui;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.wuest.prefab.Tuple;
 import com.wuest.prefab.Utils;
 import com.wuest.prefab.blocks.FullDyeColor;
@@ -8,18 +8,20 @@ import com.wuest.prefab.gui.controls.CustomButton;
 import com.wuest.prefab.gui.controls.ExtendedButton;
 import com.wuest.prefab.gui.controls.GuiCheckBox;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.button.AbstractButton;
-import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.item.DyeColor;
-import net.minecraft.util.IReorderingProcessor;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraftforge.fml.client.gui.widget.Slider;
-
-import java.awt.*;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.components.AbstractButton;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.events.GuiEventListener;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.FormattedText;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FormattedCharSequence;
+import net.minecraft.world.item.DyeColor;
+import net.minecraftforge.fmlclient.gui.widget.Slider;
+import java.awt.Color;
 import java.util.List;
+
 
 public abstract class GuiBase extends Screen {
 
@@ -86,7 +88,7 @@ public abstract class GuiBase extends Screen {
     }
 
     @Override
-    public void render(MatrixStack matrixStack, int x, int y, float f) {
+    public void render(PoseStack matrixStack, int x, int y, float f) {
         Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
 
         this.preButtonRender(matrixStack, adjustedXYValue.getFirst(), adjustedXYValue.getSecond(), x, y, f);
@@ -97,7 +99,7 @@ public abstract class GuiBase extends Screen {
     }
 
     /**
-     * Creates a {@link net.minecraftforge.fml.client.gui.widget.ExtendedButton} using the button clicked event as the handler. Then adds it to the buttons list and returns the created object.
+     * Creates an ExtendedButton using the button clicked event as the handler. Then adds it to the buttons list and returns the created object.
      *
      * @param x      The x-axis position.
      * @param y      The y-axis position.
@@ -111,7 +113,7 @@ public abstract class GuiBase extends Screen {
     }
 
     /**
-     * Creates a {@link net.minecraftforge.fml.client.gui.widget.ExtendedButton} using the button clicked event as the handler. Then adds it to the buttons list and returns the created object.
+     * Creates an ExtendedButton using the button clicked event as the handler. Then adds it to the buttons list and returns the created object.
      *
      * @param x      The x-axis position.
      * @param y      The y-axis position.
@@ -123,7 +125,7 @@ public abstract class GuiBase extends Screen {
     public ExtendedButton createAndAddButton(int x, int y, int width, int height, String text, boolean translate) {
         ExtendedButton returnValue = new ExtendedButton(x, y, width, height, translate ? GuiLangKeys.translateToComponent(text) : Utils.createTextComponent(text), this::buttonClicked);
 
-        this.addButton(returnValue);
+        this.addRenderableWidget(returnValue);
 
         return returnValue;
     }
@@ -135,11 +137,11 @@ public abstract class GuiBase extends Screen {
     public CustomButton createAndAddCustomButton(int x, int y, int width, int height, String text, boolean translate) {
         CustomButton returnValue = new CustomButton(x, y, width, height, translate ? GuiLangKeys.translateToComponent(text) : Utils.createTextComponent(text), this::buttonClicked);
 
-        return this.addButton(returnValue);
+        return this.addRenderableWidget(returnValue);
     }
 
     /**
-     * Creates a {@link net.minecraftforge.fml.client.gui.widget.ExtendedButton} using the button clicked event as the handler. Then adds it to the buttons list and returns the created object.
+     * Creates an ExtendedButton using the button clicked event as the handler. Then adds it to the buttons list and returns the created object.
      *
      * @param x      The x-axis position.
      * @param y      The y-axis position.
@@ -151,13 +153,13 @@ public abstract class GuiBase extends Screen {
     public ExtendedButton createAndAddDyeButton(int x, int y, int width, int height, DyeColor color) {
         ExtendedButton returnValue = new ExtendedButton(x, y, width, height, Utils.createTextComponent(GuiLangKeys.translateDye(color)), this::buttonClicked);
 
-        this.addButton(returnValue);
+        this.addRenderableWidget(returnValue);
 
         return returnValue;
     }
 
     /**
-     * Creates a {@link net.minecraftforge.fml.client.gui.widget.ExtendedButton} using the button clicked event as the handler. Then adds it to the buttons list and returns the created object.
+     * Creates an ExtendedButton using the button clicked event as the handler. Then adds it to the buttons list and returns the created object.
      *
      * @param x      The x-axis position.
      * @param y      The y-axis position.
@@ -169,7 +171,7 @@ public abstract class GuiBase extends Screen {
     public ExtendedButton createAndAddFullDyeButton(int x, int y, int width, int height, FullDyeColor color) {
         ExtendedButton returnValue = new ExtendedButton(x, y, width, height, Utils.createTextComponent(GuiLangKeys.translateFullDye(color)), this::buttonClicked);
 
-        this.addButton(returnValue);
+        this.addRenderableWidget(returnValue);
 
         return returnValue;
     }
@@ -178,21 +180,21 @@ public abstract class GuiBase extends Screen {
                                             GuiCheckBox.IPressable handler) {
         GuiCheckBox checkBox = new GuiCheckBox(xPos, yPos, GuiLangKeys.translateString(displayString), isChecked, handler);
 
-        this.addButton(checkBox);
+        this.addRenderableWidget(checkBox);
         return checkBox;
     }
 
     public Slider createAndAddSlider(int xPos, int yPos, int width, int height, String prefix, String suf,
                                      double minVal, double maxVal, double currentVal, boolean showDec, boolean drawStr,
-                                     Button.IPressable handler) {
+                                     Button.OnPress handler) {
         Slider slider = new Slider(xPos, yPos, width, height, Utils.createTextComponent(prefix), Utils.createTextComponent(suf), minVal, maxVal, currentVal, showDec,
                 drawStr, handler);
 
-        this.addButton(slider);
+        this.addRenderableWidget(slider);
         return slider;
     }
 
-    protected void drawControlBackground(MatrixStack matrixStack,int grayBoxX, int grayBoxY, int width, int height) {
+    protected void drawControlBackground(PoseStack matrixStack,int grayBoxX, int grayBoxY, int width, int height) {
         GuiUtils.bindAndDrawScaledTexture(
                 this.backgroundTextures,
                 matrixStack,
@@ -206,7 +208,7 @@ public abstract class GuiBase extends Screen {
                 height);
     }
 
-    protected void drawControlLeftPanel(MatrixStack matrixStack, int grayBoxX, int grayBoxY, int width, int height) {
+    protected void drawControlLeftPanel(PoseStack matrixStack, int grayBoxX, int grayBoxY, int width, int height) {
         GuiUtils.drawContinuousTexturedBox(
                 this.leftPanelTexture,
                 grayBoxX,
@@ -224,7 +226,7 @@ public abstract class GuiBase extends Screen {
                 0);
     }
 
-    protected void drawControlMiddlePanel(MatrixStack matrixStack, int grayBoxX, int grayBoxY, int width, int height) {
+    protected void drawControlMiddlePanel(PoseStack matrixStack, int grayBoxX, int grayBoxY, int width, int height) {
         GuiUtils.drawContinuousTexturedBox(
                 this.middlePanelTexture,
                 grayBoxX,
@@ -242,7 +244,7 @@ public abstract class GuiBase extends Screen {
                 0);
     }
 
-    protected void drawControlRightPanel(MatrixStack matrixStack, int grayBoxX, int grayBoxY, int width, int height) {
+    protected void drawControlRightPanel(PoseStack matrixStack, int grayBoxX, int grayBoxY, int width, int height) {
         GuiUtils.drawContinuousTexturedBox(
                 this.rightPanelTexture,
                 grayBoxX,
@@ -260,7 +262,7 @@ public abstract class GuiBase extends Screen {
                 0);
     }
 
-    protected void drawStandardControlBoxAndImage(MatrixStack matrixStack, ResourceLocation imageLocation, int x, int y, int mouseX, int mouseY, float partialTicks) {
+    protected void drawStandardControlBoxAndImage(PoseStack matrixStack, ResourceLocation imageLocation, int x, int y, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(matrixStack);
         this.drawControlBackground(matrixStack, x, y, this.imagePanelWidth, this.imagePanelHeight);
 
@@ -283,10 +285,12 @@ public abstract class GuiBase extends Screen {
         }
     }
 
-    protected void renderButtons(MatrixStack matrixStack, int mouseX, int mouseY) {
-        for (net.minecraft.client.gui.widget.Widget widget : this.buttons) {
-            if (widget.visible) {
-                widget.renderButton(matrixStack, mouseX, mouseY, this.getMinecraft().getFrameTime());
+    protected void renderButtons(PoseStack matrixStack, int mouseX, int mouseY) {
+        for (GuiEventListener widget : this.children()) {
+            if (widget instanceof AbstractWidget currentButton) {
+                if (currentButton.visible) {
+                    currentButton.renderButton(matrixStack, mouseX, mouseY, this.getMinecraft().getFrameTime());
+                }
             }
         }
     }
@@ -309,7 +313,7 @@ public abstract class GuiBase extends Screen {
      * @param color The color of the text.
      * @return Some integer value.
      */
-    public int drawString(MatrixStack matrixStack, String text, float x, float y, int color) {
+    public int drawString(PoseStack matrixStack, String text, float x, float y, int color) {
         return this.getFontRenderer().draw(matrixStack, text, x, y, color);
     }
 
@@ -326,11 +330,11 @@ public abstract class GuiBase extends Screen {
         this.getFontRenderer().drawWordWrap(Utils.createTextComponent(str), x, y, wrapWidth, textColor);
     }
 
-    public List<IReorderingProcessor> getSplitString(String str, int wrapWidth) {
+    public List<FormattedCharSequence> getSplitString(String str, int wrapWidth) {
         return this.getFontRenderer().split(Utils.createTextComponent(str), wrapWidth);
     }
 
-    public List<IReorderingProcessor> getSplitString(StringTextComponent str, int wrapWidth) {
+    public List<FormattedCharSequence> getSplitString(FormattedText str, int wrapWidth) {
         return this.getFontRenderer().split(str, wrapWidth);
     }
 
@@ -345,7 +349,7 @@ public abstract class GuiBase extends Screen {
         return this.minecraft;
     }
 
-    public FontRenderer getFontRenderer() {
+    public Font getFontRenderer() {
         return this.getMinecraft().font;
     }
 
@@ -356,7 +360,7 @@ public abstract class GuiBase extends Screen {
      */
     public abstract void buttonClicked(AbstractButton button);
 
-    protected abstract void preButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks);
+    protected abstract void preButtonRender(PoseStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks);
 
-    protected abstract void postButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks);
+    protected abstract void postButtonRender(PoseStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks);
 }

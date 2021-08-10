@@ -4,7 +4,7 @@ import com.wuest.prefab.Prefab;
 import com.wuest.prefab.config.ServerModConfiguration;
 import com.wuest.prefab.proxy.ClientProxy;
 import com.wuest.prefab.proxy.messages.ConfigSyncMessage;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 import java.util.function.Supplier;
 

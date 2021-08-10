@@ -1,8 +1,8 @@
 package com.wuest.prefab.structures.base;
 
 import com.wuest.prefab.gui.GuiLangKeys;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
 
 /**
  * This enum is used to list the names of the structure materials.

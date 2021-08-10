@@ -1,6 +1,6 @@
 package com.wuest.prefab.gui;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.wuest.prefab.Quadruple;
 import com.wuest.prefab.Tuple;
 import com.wuest.prefab.Utils;
@@ -9,18 +9,17 @@ import com.wuest.prefab.config.ConfigOption;
 import com.wuest.prefab.config.ModConfiguration;
 import com.wuest.prefab.gui.controls.ExtendedButton;
 import com.wuest.prefab.proxy.CommonProxy;
-import net.minecraft.client.AbstractOption;
+import net.minecraft.client.CycleOption;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.AbstractGui;
-import net.minecraft.client.gui.IBidiTooltip;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.Widget;
-import net.minecraft.client.gui.widget.button.AbstractButton;
-import net.minecraft.client.gui.widget.list.OptionsRowList;
-import net.minecraft.client.settings.BooleanOption;
-import net.minecraft.client.settings.IteratableOption;
-import net.minecraft.client.settings.SliderPercentageOption;
-import net.minecraft.util.IReorderingProcessor;
+import net.minecraft.client.Option;
+import net.minecraft.client.ProgressOption;
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.components.AbstractButton;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.OptionsList;
+import net.minecraft.client.gui.components.TooltipAccessor;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.util.FormattedCharSequence;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -60,12 +59,12 @@ public class GuiPrefab extends GuiBase {
 
     private ConfigCategory currentOption = ConfigCategory.General;
 
-    private OptionsRowList currentRowList;
-    private ArrayList<Quadruple<ConfigCategory, OptionsRowList, OptionsRowList, ConfigCategory>> optionCollection;
-    private OptionsRowList optionsRowList;
-    private OptionsRowList chestOptionsRowList;
-    private OptionsRowList recipeOptionsRowList;
-    private OptionsRowList starterHouseOptionsRowList;
+    private OptionsList currentRowList;
+    private ArrayList<Quadruple<ConfigCategory, OptionsList, OptionsList, ConfigCategory>> optionCollection;
+    private OptionsList optionsRowList;
+    private OptionsList chestOptionsRowList;
+    private OptionsList recipeOptionsRowList;
+    private OptionsList starterHouseOptionsRowList;
 
     public GuiPrefab(Minecraft minecraft, Screen parent) {
         super("Prefab Configuration");
@@ -74,13 +73,12 @@ public class GuiPrefab extends GuiBase {
     }
 
     @Nullable
-    public static List<IReorderingProcessor> tooltipAt(OptionsRowList optionsRowList, int mouseX, int mouseY) {
+    public static List<FormattedCharSequence> tooltipAt(OptionsList optionsRowList, int mouseX, int mouseY) {
         if (optionsRowList.isMouseOver(mouseX, mouseY)) {
-            Optional<Widget> optional = optionsRowList.getMouseOver(mouseX, mouseY);
+            Optional<AbstractWidget> optional = optionsRowList.getMouseOver(mouseX, mouseY);
 
-            if (optional.isPresent() && optional.get() instanceof IBidiTooltip) {
-                Optional<List<IReorderingProcessor>> tooltip = ((IBidiTooltip) optional.get()).getTooltip();
-                return tooltip.orElse(null);
+            if (optional.isPresent() && optional.get() instanceof TooltipAccessor) {
+                return ((TooltipAccessor) optional.get()).getTooltip();
             }
         }
 
@@ -101,7 +99,7 @@ public class GuiPrefab extends GuiBase {
         this.generalGroupButton = this.createAndAddButton(this.width / 2, 30, 120, 20, "General", false);
 
         for (ConfigCategory category : ConfigCategory.values()) {
-            OptionsRowList nextOptions = new OptionsRowList(
+            OptionsList nextOptions = new OptionsList(
                     this.getMinecraft(),
                     this.width,
                     this.height,
@@ -110,11 +108,11 @@ public class GuiPrefab extends GuiBase {
                     OPTIONS_LIST_ITEM_HEIGHT
             );
 
-            OptionsRowList currentOptions = null;
+            OptionsList currentOptions = null;
             int currentLocation = category.ordinal();
 
             if (currentLocation == 0) {
-                currentOptions = new OptionsRowList(
+                currentOptions = new OptionsList(
                         this.getMinecraft(),
                         this.width,
                         this.height,
@@ -139,7 +137,7 @@ public class GuiPrefab extends GuiBase {
         }
 
         for (ConfigOption<?> configOption : CommonProxy.proxyConfiguration.configOptions) {
-            Quadruple<ConfigCategory, OptionsRowList, OptionsRowList, ConfigCategory> rowList = this.getOptionsRowList(configOption.getCategory());
+            Quadruple<ConfigCategory, OptionsList, OptionsList, ConfigCategory> rowList = this.getOptionsRowList(configOption.getCategory());
 
             if (rowList != null) {
                 switch (configOption.getConfigType()) {
@@ -163,7 +161,7 @@ public class GuiPrefab extends GuiBase {
 
         // Only add the general OptionsList when starting the screen.
         // This list will be removed and re-added depending on the group of options chosen.
-        this.children.add(this.optionCollection.get(0).getSecond());
+        this.addWidget(this.optionCollection.get(0).getSecond());
     }
 
     @Override
@@ -172,11 +170,11 @@ public class GuiPrefab extends GuiBase {
             ModConfiguration.UpdateServerConfig();
             this.getMinecraft().setScreen(this.parentScreen);
         } else if (button == this.generalGroupButton) {
-            Quadruple<ConfigCategory, OptionsRowList, OptionsRowList, ConfigCategory> option = this.getOptionsRowList(this.currentOption);
+            Quadruple<ConfigCategory, OptionsList, OptionsList, ConfigCategory> option = this.getOptionsRowList(this.currentOption);
 
             if (option != null) {
-                this.children.remove(option.getSecond());
-                this.children.add(option.getThird());
+                this.removeWidget(option.getSecond());
+                this.addWidget(option.getThird());
                 GuiUtils.setButtonText(generalGroupButton, option.getFourth().getName());
                 this.currentOption = option.getFourth();
             }
@@ -185,8 +183,7 @@ public class GuiPrefab extends GuiBase {
                 configOption.resetToDefault();
             }
 
-            this.buttons.clear();
-            this.children.clear();
+            this.clearWidgets();
             this.currentOption = ConfigCategory.General;
             this.Initialize();
         }
@@ -198,16 +195,16 @@ public class GuiPrefab extends GuiBase {
     }
 
     @Override
-    protected void preButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
+    protected void preButtonRender(PoseStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
         this.renderDirtBackground(0);
 
         // Only render the appropriate options row list based on the currently selected option.
-        Quadruple<ConfigCategory, OptionsRowList, OptionsRowList, ConfigCategory> rowList = this.getOptionsRowList(this.currentOption);
+        Quadruple<ConfigCategory, OptionsList, OptionsList, ConfigCategory> rowList = this.getOptionsRowList(this.currentOption);
 
         if (rowList != null) {
             rowList.getSecond().render(matrixStack, x, y, partialTicks);
 
-            List<IReorderingProcessor> list = GuiPrefab.tooltipAt(rowList.getSecond(), mouseX, mouseY);
+            List<FormattedCharSequence> list = GuiPrefab.tooltipAt(rowList.getSecond(), mouseX, mouseY);
 
             if (list != null) {
                 int mousePosition = mouseY > this.height / 2 ? mouseY - 25 : mouseY + 25;
@@ -216,7 +213,7 @@ public class GuiPrefab extends GuiBase {
         }
 
         // Draw the title
-        AbstractGui.drawCenteredString(
+        GuiComponent.drawCenteredString(
                 matrixStack,
                 this.font,
                 this.title.getString(),
@@ -224,7 +221,7 @@ public class GuiPrefab extends GuiBase {
                 TITLE_HEIGHT,
                 0xFFFFFF);
 
-        AbstractGui.drawCenteredString(
+        GuiComponent.drawCenteredString(
                 matrixStack,
                 this.font,
                 "Category",
@@ -234,25 +231,25 @@ public class GuiPrefab extends GuiBase {
     }
 
     @Override
-    protected void postButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
+    protected void postButtonRender(PoseStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
     }
 
-    private void addBooleanOption(OptionsRowList rowList, ConfigOption<?> configOption) {
-        AbstractOption abstractOption = new BooleanOption(
+    private void addBooleanOption(OptionsList rowList, ConfigOption<?> configOption) {
+        CycleOption<Boolean> abstractOption = CycleOption.createOnOff(
                 configOption.getName(),
                 unused -> configOption.getConfigValueAsBoolean().get(),
-                (unused, newValue) -> configOption.getConfigValueAsBoolean().set(newValue)
+                (unused, originalOption, newValue) -> configOption.getConfigValueAsBoolean().set(newValue)
         );
 
         if (!configOption.getHoverText().isEmpty()) {
-            abstractOption.setTooltip(this.getSplitString(configOption.getHoverTextComponent(), 250));
+            abstractOption.setTooltip((minecraft) -> (supplierValue) -> this.getSplitString(configOption.getHoverTextComponent(), 250));
         }
 
         rowList.addBig(abstractOption);
     }
 
-    private void addIntegerOption(OptionsRowList rowList, ConfigOption<?> configOption) {
-        AbstractOption abstractOption = new SliderPercentageOption(
+    private void addIntegerOption(OptionsList rowList, ConfigOption<?> configOption) {
+        Option abstractOption = new ProgressOption(
                 configOption.getName(),
                 // Range
                 configOption.getMinRange(),
@@ -269,44 +266,52 @@ public class GuiPrefab extends GuiBase {
                         configOption.getName()
                                 + ": "
                                 + (int) option.get(gs)
-                )
-        );
+                ),
+                minecraft1 -> {
+                    if (configOption.getHoverText().isEmpty()) {
+                        return null;
+                    }
 
-        if (!configOption.getHoverText().isEmpty()) {
-            abstractOption.setTooltip(this.getSplitString(configOption.getHoverTextComponent(), 250));
-        }
+                    return this.getSplitString(configOption.getHoverTextComponent(), 250);
+                }
+        );
 
         rowList.addBig(abstractOption);
     }
 
-    private void addStringOption(OptionsRowList rowList, ConfigOption<?> configOption) {
-        AbstractOption abstractOption = new IteratableOption(
+    private void addStringOption(OptionsList rowList, ConfigOption<?> configOption) {
+        CycleOption<?> abstractOption = CycleOption.create(
                 configOption.getName(),
-                (unused, newValue) -> {
+                configOption.getValidValues().toArray(),
+                (selectedOption) -> Utils.createTextComponent(
+                        configOption.getName()
+                                + ": "
+                                + configOption.getConfigValueAsString().get()),
+                (gameOption) -> Utils.createTextComponent(
+                        configOption.getName()
+                                + ": "
+                                + configOption.getConfigValueAsString().get()),
+                (unused, otherUnused, newValue) -> {
                     // 'newValue' is always 1.
-                    int nextIndex = configOption.getValidValues().indexOf(configOption.getConfigValueAsString().get()) + newValue;
+                    int nextIndex = configOption.getValidValues().indexOf(configOption.getConfigValueAsString().get()) + 1;
 
                     if (nextIndex >= configOption.getValidValues().size()) {
                         nextIndex = 0;
                     }
 
                     configOption.getConfigValueAsString().set(configOption.getValidValues().get(nextIndex));
-                },
-                (unused, option) -> Utils.createTextComponent(
-                        configOption.getName()
-                                + ": "
-                                + configOption.getConfigValueAsString().get())
+                }
         );
 
         if (!configOption.getHoverText().isEmpty()) {
-            abstractOption.setTooltip(this.getSplitString(configOption.getHoverTextComponent(), 250));
+            abstractOption.setTooltip((minecraft) -> (supplierValue) -> this.getSplitString(configOption.getHoverTextComponent(), 250));
         }
 
         rowList.addBig(abstractOption);
     }
 
-    private Quadruple<ConfigCategory, OptionsRowList, OptionsRowList, ConfigCategory> getOptionsRowList(ConfigCategory listName) {
-        for (Quadruple<ConfigCategory, OptionsRowList, OptionsRowList, ConfigCategory> option : this.optionCollection) {
+    private Quadruple<ConfigCategory, OptionsList, OptionsList, ConfigCategory> getOptionsRowList(ConfigCategory listName) {
+        for (Quadruple<ConfigCategory, OptionsList, OptionsList, ConfigCategory> option : this.optionCollection) {
             if (option.getFirst() == listName) {
                 return option;
             }

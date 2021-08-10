@@ -1,8 +1,8 @@
 package com.wuest.prefab.structures.render;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.*;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Tuple;
 import com.wuest.prefab.blocks.BlockStructureScanner;
@@ -12,26 +12,28 @@ import com.wuest.prefab.proxy.CommonProxy;
 import com.wuest.prefab.structures.base.BuildBlock;
 import com.wuest.prefab.structures.base.Structure;
 import com.wuest.prefab.structures.config.StructureConfiguration;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.core.Registry;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.text.Style;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.model.ModelDataManager;
 import net.minecraftforge.client.model.data.IModelData;
 import org.lwjgl.opengl.GL11;
@@ -81,7 +83,7 @@ public class StructureRenderHandler {
      * @param player The player to render the structure for.
      * @param src    The ray trace for where the player is currently looking.
      */
-    public static void renderPlayerLook(PlayerEntity player, RayTraceResult src, MatrixStack matrixStack) {
+    public static void renderPlayerLook(Player player, HitResult src, PoseStack matrixStack) {
         if (StructureRenderHandler.currentStructure != null
                 && StructureRenderHandler.dimension == player.level.dimensionType().logicalHeight()
                 && StructureRenderHandler.currentConfiguration != null
@@ -89,7 +91,7 @@ public class StructureRenderHandler {
             rendering = true;
             boolean didAny = false;
 
-            IRenderTypeBuffer.Impl entityVertexConsumer = Minecraft.getInstance().renderBuffers().bufferSource();
+            MultiBufferSource.BufferSource entityVertexConsumer = Minecraft.getInstance().renderBuffers().bufferSource();
             ArrayList<Tuple<BlockState, BlockPos>> entityModels = new ArrayList<>();
 
             for (BuildBlock buildBlock : StructureRenderHandler.currentStructure.getBlocks()) {
@@ -114,9 +116,9 @@ public class StructureRenderHandler {
                             StructureRenderHandler.currentStructure.getClearSpace().getShape().getDirection(),
                             StructureRenderHandler.currentConfiguration.houseFacing);
 
-                    BlockRenderType blockRenderType = blockState.getRenderShape();
+                    RenderShape blockRenderType = blockState.getRenderShape();
 
-                    if (blockRenderType == BlockRenderType.ENTITYBLOCK_ANIMATED) {
+                    if (blockRenderType == RenderShape.ENTITYBLOCK_ANIMATED) {
                         if (ShaderHelper.hasIncompatibleMods) {
                             entityModels.add(new Tuple<>(buildBlock.getBlockState(), pos));
                         }
@@ -141,26 +143,21 @@ public class StructureRenderHandler {
             });
 
             // Draw function.
-            entityVertexConsumer.endBatch(Atlases.translucentItemSheet());
+            entityVertexConsumer.endBatch(Sheets.translucentItemSheet());
 
             ShaderHelper.releaseShader();
-
-            for (Tuple<BlockState, BlockPos> pair : entityModels) {
-                BlockPos blockPos = pair.getSecond();
-                StructureRenderHandler.renderBlock(matrixStack, new Vector3d(blockPos.getX(), blockPos.getY(), blockPos.getZ()), pair.getFirst(), entityVertexConsumer, BlockRenderType.ENTITYBLOCK_ANIMATED);
-            }
 
             if (!didAny) {
                 // Nothing was generated, tell the user this through a chat message and re-set the structure information.
                 StructureRenderHandler.setStructure(null, Direction.NORTH, null);
 
-                TranslationTextComponent message = new TranslationTextComponent(GuiLangKeys.GUI_PREVIEW_COMPLETE);
-                message.setStyle(Style.EMPTY.withColor(TextFormatting.GREEN));
+                TranslatableComponent message = new TranslatableComponent(GuiLangKeys.GUI_PREVIEW_COMPLETE);
+                message.setStyle(Style.EMPTY.withColor(ChatFormatting.GREEN));
                 player.sendMessage(message, player.getUUID());
 
             } else if (!StructureRenderHandler.showedMessage) {
-                TranslationTextComponent message = new TranslationTextComponent(GuiLangKeys.GUI_PREVIEW_NOTICE);
-                message.setStyle(Style.EMPTY.withColor(TextFormatting.GREEN));
+                TranslatableComponent message = new TranslatableComponent(GuiLangKeys.GUI_PREVIEW_NOTICE);
+                message.setStyle(Style.EMPTY.withColor(ChatFormatting.GREEN));
 
                 player.sendMessage(message, player.getUUID());
                 StructureRenderHandler.showedMessage = true;
@@ -168,7 +165,7 @@ public class StructureRenderHandler {
         }
     }
 
-    private static boolean renderComponentInWorld(World world, BuildBlock buildBlock, IRenderTypeBuffer entityVertexConsumer, MatrixStack matrixStack, BlockPos pos, BlockRenderType blockRenderType) {
+    private static boolean renderComponentInWorld(Level world, BuildBlock buildBlock, MultiBufferSource.BufferSource entityVertexConsumer, PoseStack matrixStack, BlockPos pos, RenderShape blockRenderType) {
         // Don't render this block if it's going to overlay a non-air/water block.
         BlockState targetBlock = world.getBlockState(pos);
         if (targetBlock.getMaterial() != Material.AIR && targetBlock.getMaterial() != Material.WATER) {
@@ -195,7 +192,7 @@ public class StructureRenderHandler {
                     StructureRenderHandler.currentStructure.getClearSpace().getShape().getDirection(),
                     StructureRenderHandler.currentConfiguration.houseFacing);
 
-            BlockRenderType subBlockRenderType = subBlock.getBlockState().getRenderShape();
+            RenderShape subBlockRenderType = subBlock.getBlockState().getRenderShape();
 
             return StructureRenderHandler.renderComponentInWorld(world, subBlock, entityVertexConsumer, matrixStack, subBlockPos, subBlockRenderType);
         }
@@ -203,14 +200,14 @@ public class StructureRenderHandler {
         return true;
     }
 
-    private static void doRenderComponent(BuildBlock buildBlock, BlockPos pos, IRenderTypeBuffer entityVertexConsumer, MatrixStack matrixStack, BlockRenderType blockRenderType) {
+    private static void doRenderComponent(BuildBlock buildBlock, BlockPos pos, MultiBufferSource.BufferSource entityVertexConsumer, PoseStack matrixStack, RenderShape blockRenderType) {
         BlockState state = buildBlock.getBlockState();
-        StructureRenderHandler.renderBlock(matrixStack, new Vector3d(pos.getX(), pos.getY(), pos.getZ()), state, entityVertexConsumer, blockRenderType);
+        StructureRenderHandler.renderBlock(matrixStack, new Vec3(pos.getX(), pos.getY(), pos.getZ()), state, entityVertexConsumer, blockRenderType);
     }
 
-    private static void renderBlock(MatrixStack matrixStack, Vector3d pos, BlockState state, IRenderTypeBuffer entityVertexConsumer, BlockRenderType blockRenderType) {
+    private static void renderBlock(PoseStack matrixStack, Vec3 pos, BlockState state, MultiBufferSource.BufferSource entityVertexConsumer, RenderShape blockRenderType) {
         Minecraft minecraft = Minecraft.getInstance();
-        Vector3d projectedView = minecraft.getEntityRenderDispatcher().camera.getPosition();
+        Vec3 projectedView = minecraft.getEntityRenderDispatcher().camera.getPosition();
         double renderPosX = projectedView.x();
         double renderPosY = projectedView.y();
         double renderPosZ = projectedView.z();
@@ -221,14 +218,14 @@ public class StructureRenderHandler {
         // Translate function.
         matrixStack.translate(-renderPosX, -renderPosY, -renderPosZ);
 
-        BlockRendererDispatcher renderer = minecraft.getBlockRenderer();
+        BlockRenderDispatcher renderer = minecraft.getBlockRenderer();
 
         // Translate.
         matrixStack.translate(pos.x(), pos.y(), pos.z());
 
-        IBakedModel bakedModel = renderer.getBlockModel(state);
+        BakedModel bakedModel = renderer.getBlockModel(state);
 
-        if (blockRenderType == BlockRenderType.MODEL) {
+        if (blockRenderType == RenderShape.MODEL) {
             // getColor function.
             int color = minecraft.getBlockColors().getColor(state, null, null, 0);
             float r = (float) (color >> 16 & 255) / 255.0F;
@@ -237,7 +234,7 @@ public class StructureRenderHandler {
 
             renderer.getModelRenderer().renderModel(
                     matrixStack.last(),
-                    entityVertexConsumer.getBuffer(Atlases.translucentItemSheet()),
+                    entityVertexConsumer.getBuffer(Sheets.translucentItemSheet()),
                     state,
                     bakedModel,
                     r,
@@ -245,23 +242,6 @@ public class StructureRenderHandler {
                     b,
                     0xF000F0,
                     OverlayTexture.NO_OVERLAY);
-        } else if (blockRenderType == BlockRenderType.ENTITYBLOCK_ANIMATED) {
-            ClientWorld world = Minecraft.getInstance().level;
-            IModelData modelData = ModelDataManager.getModelData(world, new BlockPos(pos));
-
-            if (modelData == null) {
-                modelData = net.minecraftforge.client.model.data.EmptyModelData.INSTANCE;
-            }
-
-            IModelData model = renderer.getBlockModel(state).getModelData(world, new BlockPos(pos), state, modelData);
-
-            renderer.renderBlock(
-                    state,
-                    matrixStack,
-                    entityVertexConsumer,
-                    0xF000F0,
-                    StructureRenderHandler.overlay,
-                    model);
         }
 
         // pop
@@ -269,8 +249,8 @@ public class StructureRenderHandler {
     }
 
     public static void renderClickedBlock(
-            World worldIn,
-            MatrixStack matrixStack,
+            Level worldIn,
+            PoseStack matrixStack,
             double cameraX,
             double cameraY,
             double cameraZ) {
@@ -299,7 +279,7 @@ public class StructureRenderHandler {
     }
 
     private static void drawBox(
-            MatrixStack matrixStack,
+            PoseStack matrixStack,
             double blockXOffset,
             double blockZOffset,
             double blockStartYOffset,
@@ -310,11 +290,9 @@ public class StructureRenderHandler {
             int zLength,
             int height) {
         RenderSystem.enableDepthTest();
-        RenderSystem.shadeModel(7425);
-        RenderSystem.enableAlphaTest();
-        RenderSystem.defaultAlphaFunc();
+        RenderSystem.setShader(GameRenderer::getPositionColorShader);
 
-        Tessellator tessellator = Tessellator.getInstance();
+        Tesselator tessellator = Tesselator.getInstance();
         BufferBuilder bufferBuilder = tessellator.getBuilder();
 
         RenderSystem.disableTexture();
@@ -328,28 +306,28 @@ public class StructureRenderHandler {
         RenderSystem.lineWidth(2.0f);
 
         // Draw the verticals of the box.
-        bufferBuilder.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION_COLOR);
+        bufferBuilder.begin(VertexFormat.Mode.DEBUG_LINE_STRIP, DefaultVertexFormat.POSITION_COLOR);
         bufferBuilder.vertex(translatedX, translatedY, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
         bufferBuilder.vertex(translatedX, translatedYEnd, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
         tessellator.end();
 
-        bufferBuilder.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION_COLOR);
+        bufferBuilder.begin(VertexFormat.Mode.DEBUG_LINE_STRIP, DefaultVertexFormat.POSITION_COLOR);
         bufferBuilder.vertex(translatedX + xLength, translatedY, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
         bufferBuilder.vertex(translatedX + xLength, translatedYEnd, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
         tessellator.end();
 
-        bufferBuilder.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION_COLOR);
+        bufferBuilder.begin(VertexFormat.Mode.DEBUG_LINE_STRIP, DefaultVertexFormat.POSITION_COLOR);
         bufferBuilder.vertex(translatedX, translatedY, translatedZ + zLength).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
         bufferBuilder.vertex(translatedX, translatedYEnd, translatedZ + zLength).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
         tessellator.end();
 
-        bufferBuilder.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION_COLOR);
+        bufferBuilder.begin(VertexFormat.Mode.DEBUG_LINE_STRIP, DefaultVertexFormat.POSITION_COLOR);
         bufferBuilder.vertex(translatedX + xLength, translatedY, translatedZ + zLength).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
         bufferBuilder.vertex(translatedX + xLength, translatedYEnd, translatedZ + zLength).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
         tessellator.end();
 
         // Draw bottom horizontals.
-        bufferBuilder.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION_COLOR);
+        bufferBuilder.begin(VertexFormat.Mode.DEBUG_LINE_STRIP, DefaultVertexFormat.POSITION_COLOR);
 
         bufferBuilder.vertex(translatedX, translatedY, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
         bufferBuilder.vertex(translatedX, translatedY, translatedZ + zLength).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
@@ -365,7 +343,7 @@ public class StructureRenderHandler {
         tessellator.end();
 
         // Draw top horizontals
-        bufferBuilder.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION_COLOR);
+        bufferBuilder.begin(VertexFormat.Mode.DEBUG_LINE_STRIP, DefaultVertexFormat.POSITION_COLOR);
 
         bufferBuilder.vertex(translatedX, translatedYEnd, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
         bufferBuilder.vertex(translatedX, translatedYEnd, translatedZ + zLength).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
@@ -383,10 +361,9 @@ public class StructureRenderHandler {
         RenderSystem.lineWidth(1.0F);
         RenderSystem.enableBlend();
         RenderSystem.enableTexture();
-        RenderSystem.shadeModel(7424);
     }
 
-    public static void renderScanningBoxes(MatrixStack matrixStack,
+    public static void renderScanningBoxes(PoseStack matrixStack,
                                            double cameraX,
                                            double cameraY,
                                            double cameraZ) {

@@ -3,11 +3,11 @@ package com.wuest.prefab.structures.items;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.proxy.ClientProxy;
 import com.wuest.prefab.structures.gui.GuiStructure;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.context.UseOnContext;
 
 /**
  * @author WuestMan
@@ -19,7 +19,7 @@ public class StructureItem extends Item {
      * Initializes a new instance of the StructureItem class.
      */
     public StructureItem() {
-        super(new Item.Properties().tab(ItemGroup.TAB_MISC));
+        super(new Item.Properties().tab(CreativeModeTab.TAB_MISC));
         this.Initialize();
     }
 
@@ -32,7 +32,7 @@ public class StructureItem extends Item {
      * Does something when the item is right-clicked.
      */
     @Override
-    public ActionResultType useOn(ItemUseContext context) {
+    public InteractionResult useOn(UseOnContext context) {
         if (context.getLevel().isClientSide) {
             if (context.getClickedFace() == Direction.UP) {
                 if (Prefab.useScanningMode) {
@@ -42,14 +42,14 @@ public class StructureItem extends Item {
                     Prefab.proxy.openGuiForItem(context);
                 }
 
-                return ActionResultType.PASS;
+                return InteractionResult.PASS;
             }
         }
 
-        return ActionResultType.FAIL;
+        return InteractionResult.FAIL;
     }
 
-    public void scanningMode(ItemUseContext context) {
+    public void scanningMode(UseOnContext context) {
     }
 
     /**
@@ -60,10 +60,8 @@ public class StructureItem extends Item {
 
     protected void RegisterGui(Class<?> classToRegister) {
         try {
-            if (Prefab.proxy.isClient) {
-                GuiStructure userInterface = (GuiStructure) classToRegister.newInstance();
-                ClientProxy.ModGuis.put(this, userInterface);
-            }
+            GuiStructure userInterface = (GuiStructure) classToRegister.newInstance();
+            ClientProxy.ModGuis.put(this, userInterface);
         } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }

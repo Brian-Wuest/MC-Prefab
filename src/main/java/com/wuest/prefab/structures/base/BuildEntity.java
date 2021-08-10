@@ -2,10 +2,10 @@ package com.wuest.prefab.structures.base;
 
 import com.google.gson.annotations.Expose;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.JsonToNBT;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.TagParser;
+import net.minecraft.resources.ResourceLocation;
 
 /**
  * This class is used to define the necessary properties to describe an entity to be generated when a structure is
@@ -79,7 +79,7 @@ public class BuildEntity {
 		this.entityNBTData = value;
 	}
 
-	public void setEntityNBTData(CompoundNBT tagCompound) {
+	public void setEntityNBTData(CompoundTag tagCompound) {
 		this.entityNBTData = tagCompound.toString();
 	}
 
@@ -96,12 +96,12 @@ public class BuildEntity {
 		this.entityFacing = Direction.NORTH;
 	}
 
-	public CompoundNBT getEntityDataTag() {
-		CompoundNBT tag = null;
+	public CompoundTag getEntityDataTag() {
+		CompoundTag tag = null;
 
 		if (!this.entityNBTData.equals("")) {
 			try {
-				tag = JsonToNBT.parseTag(this.entityNBTData);
+				tag = TagParser.parseTag(this.entityNBTData);
 			} catch (CommandSyntaxException e) {
 				e.printStackTrace();
 			}

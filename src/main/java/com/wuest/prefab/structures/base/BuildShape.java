@@ -1,7 +1,7 @@
 package com.wuest.prefab.structures.base;
 
 import com.google.gson.annotations.Expose;
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
 
 /**
  * This class holds the general shape of the structure.

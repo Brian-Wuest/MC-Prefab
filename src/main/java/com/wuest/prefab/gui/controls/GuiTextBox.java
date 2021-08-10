@@ -1,27 +1,27 @@
 package com.wuest.prefab.gui.controls;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.*;
+import net.minecraft.SharedConstants;
+import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.AbstractGui;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.IGuiEventListener;
-import net.minecraft.client.gui.IRenderable;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.TextFieldWidget;
-import net.minecraft.client.gui.widget.Widget;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.util.IReorderingProcessor;
-import net.minecraft.util.SharedConstants;
-import net.minecraft.util.Util;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.IFormattableTextComponent;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.Style;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.gui.components.Widget;
+import net.minecraft.client.gui.components.events.GuiEventListener;
+import net.minecraft.client.gui.narration.NarratedElementType;
+import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.util.FormattedCharSequence;
+import net.minecraft.util.Mth;
 
 import javax.annotation.Nullable;
 import java.awt.*;
@@ -30,8 +30,12 @@ import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-public class GuiTextBox extends Widget implements IRenderable, IGuiEventListener {
-    private final FontRenderer font;
+public class GuiTextBox extends AbstractWidget implements Widget, GuiEventListener {
+    private final net.minecraft.client.gui.Font font;
+    public int backgroundColor;
+    public boolean drawsTextShadow;
+    @Nullable
+    public String suggestion;
     private String value;
     private int maxLength;
     private int frame;
@@ -44,22 +48,17 @@ public class GuiTextBox extends Widget implements IRenderable, IGuiEventListener
     private int highlightPos;
     private int textColor;
     private int textColorUneditable;
-    public int backgroundColor;
-    public boolean drawsTextShadow;
-    private String suggestion;
+    @Nullable
     private Consumer<String> responder;
     private Predicate<String> filter;
-    private BiFunction<String, Integer, IReorderingProcessor> formatter = (p_195610_0_, p_195610_1_) -> {
-        return IReorderingProcessor.forward(p_195610_0_, Style.EMPTY);
-    };
+    private BiFunction<String, Integer, FormattedCharSequence> formatter;
 
-    public GuiTextBox(FontRenderer p_i232260_1_, int p_i232260_2_, int p_i232260_3_, int p_i232260_4_, int p_i232260_5_, ITextComponent p_i232260_6_) {
-        this(p_i232260_1_, p_i232260_2_, p_i232260_3_, p_i232260_4_, p_i232260_5_, (TextFieldWidget) null, p_i232260_6_);
+    public GuiTextBox(net.minecraft.client.gui.Font textRenderer, int x, int y, int width, int height, net.minecraft.network.chat.Component text) {
+        this(textRenderer, x, y, width, height, (EditBox) null, text);
     }
 
-    public GuiTextBox(FontRenderer p_i232259_1_, int p_i232259_2_, int p_i232259_3_, int p_i232259_4_, int p_i232259_5_, @Nullable TextFieldWidget p_i232259_6_, ITextComponent p_i232259_7_) {
-        super(p_i232259_2_, p_i232259_3_, p_i232259_4_, p_i232259_5_, p_i232259_7_);
-        this.font = p_i232259_1_;
+    public GuiTextBox(Font textRenderer, int x, int y, int width, int height, @Nullable EditBox copyFrom, net.minecraft.network.chat.Component text) {
+        super(x, y, width, height, text);
         this.value = "";
         this.maxLength = 32;
         this.bordered = true;
@@ -69,117 +68,122 @@ public class GuiTextBox extends Widget implements IRenderable, IGuiEventListener
         this.textColorUneditable = 7368816;
         this.backgroundColor = Color.WHITE.getRGB();
         this.filter = Objects::nonNull;
-        this.drawsTextShadow = false;
 
-        if (p_i232259_6_ != null) {
-            this.setValue(p_i232259_6_.getValue());
+        this.formatter = (string, integer) -> {
+            return FormattedCharSequence.forward(string, Style.EMPTY);
+        };
+
+        this.font = textRenderer;
+
+        if (copyFrom != null) {
+            this.setValue(copyFrom.getValue());
         }
+
     }
 
-    public void setResponder(Consumer<String> p_212954_1_) {
-        this.responder = p_212954_1_;
+    public void setResponder(Consumer<String> rssponder) {
+        this.responder = rssponder;
     }
 
-    public void setFormatter(BiFunction<String, Integer, IReorderingProcessor> p_195607_1_) {
-        this.formatter = p_195607_1_;
+    public void setFormatter(BiFunction<String, Integer, FormattedCharSequence> textFormatter) {
+        this.formatter = textFormatter;
     }
 
     public void tick() {
         ++this.frame;
     }
 
-    protected IFormattableTextComponent createNarrationMessage() {
-        ITextComponent itextcomponent = this.getMessage();
-        return new TranslationTextComponent("gui.narrate.editBox", itextcomponent, this.value);
+    protected MutableComponent createNarrationMessage() {
+        Component component = this.getMessage();
+        return new TranslatableComponent("gui.narrate.editBox", new Object[]{component, this.value});
     }
 
     public String getValue() {
         return this.value;
     }
 
-    public void setValue(String p_146180_1_) {
-        if (this.filter.test(p_146180_1_)) {
-            if (p_146180_1_.length() > this.maxLength) {
-                this.value = p_146180_1_.substring(0, this.maxLength);
+    public void setValue(String text) {
+        if (this.filter.test(text)) {
+            if (text.length() > this.maxLength) {
+                this.value = text.substring(0, this.maxLength);
             } else {
-                this.value = p_146180_1_;
+                this.value = text;
             }
 
             this.moveCursorToEnd();
             this.setHighlightPos(this.cursorPos);
-            this.onValueChange(p_146180_1_);
+            this.onValueChange(text);
         }
     }
 
     public String getHighlighted() {
-        int i = this.cursorPos < this.highlightPos ? this.cursorPos : this.highlightPos;
-        int j = this.cursorPos < this.highlightPos ? this.highlightPos : this.cursorPos;
+        int i = Math.min(this.cursorPos, this.highlightPos);
+        int j = Math.max(this.cursorPos, this.highlightPos);
         return this.value.substring(i, j);
     }
 
-    public void setFilter(Predicate<String> p_200675_1_) {
-        this.filter = p_200675_1_;
+    public void setFilter(Predicate<String> validator) {
+        this.filter = validator;
     }
 
-    public void insertText(String p_146191_1_) {
-        int i = this.cursorPos < this.highlightPos ? this.cursorPos : this.highlightPos;
-        int j = this.cursorPos < this.highlightPos ? this.highlightPos : this.cursorPos;
+    public void insertText(String textToWrite) {
+        int i = Math.min(this.cursorPos, this.highlightPos);
+        int j = Math.max(this.cursorPos, this.highlightPos);
         int k = this.maxLength - this.value.length() - (i - j);
-        String s = SharedConstants.filterText(p_146191_1_);
-        int l = s.length();
+        String string = SharedConstants.filterText(textToWrite);
+        int l = string.length();
         if (k < l) {
-            s = s.substring(0, k);
+            string = string.substring(0, k);
             l = k;
         }
 
-        String s1 = (new StringBuilder(this.value)).replace(i, j, s).toString();
-        if (this.filter.test(s1)) {
-            this.value = s1;
+        String string2 = (new StringBuilder(this.value)).replace(i, j, string).toString();
+        if (this.filter.test(string2)) {
+            this.value = string2;
             this.setCursorPosition(i + l);
             this.setHighlightPos(this.cursorPos);
             this.onValueChange(this.value);
         }
     }
 
-    private void onValueChange(String p_212951_1_) {
+    private void onValueChange(String newText) {
         if (this.responder != null) {
-            this.responder.accept(p_212951_1_);
+            this.responder.accept(newText);
         }
 
-        this.nextNarration = Util.getMillis() + 500L;
     }
 
-    private void deleteText(int p_212950_1_) {
+    private void deleteText(int i) {
         if (Screen.hasControlDown()) {
-            this.deleteWords(p_212950_1_);
+            this.deleteWords(i);
         } else {
-            this.deleteChars(p_212950_1_);
+            this.deleteChars(i);
         }
 
     }
 
-    public void deleteWords(int p_146177_1_) {
+    public void deleteWords(int num) {
         if (!this.value.isEmpty()) {
             if (this.highlightPos != this.cursorPos) {
                 this.insertText("");
             } else {
-                this.deleteChars(this.getWordPosition(p_146177_1_) - this.cursorPos);
+                this.deleteChars(this.getWordPosition(num) - this.cursorPos);
             }
         }
     }
 
-    public void deleteChars(int p_146175_1_) {
+    public void deleteChars(int num) {
         if (!this.value.isEmpty()) {
             if (this.highlightPos != this.cursorPos) {
                 this.insertText("");
             } else {
-                int i = this.getCursorPos(p_146175_1_);
+                int i = this.getCursorPos(num);
                 int j = Math.min(i, this.cursorPos);
                 int k = Math.max(i, this.cursorPos);
                 if (j != k) {
-                    String s = (new StringBuilder(this.value)).delete(j, k).toString();
-                    if (this.filter.test(s)) {
-                        this.value = s;
+                    String string = (new StringBuilder(this.value)).delete(j, k).toString();
+                    if (this.filter.test(string)) {
+                        this.value = string;
                         this.moveCursorTo(j);
                     }
                 }
@@ -187,32 +191,32 @@ public class GuiTextBox extends Widget implements IRenderable, IGuiEventListener
         }
     }
 
-    public int getWordPosition(int p_146187_1_) {
-        return this.getWordPosition(p_146187_1_, this.getCursorPosition());
+    public int getWordPosition(int numWords) {
+        return this.getWordPosition(numWords, this.getCursorPosition());
     }
 
-    private int getWordPosition(int p_146183_1_, int p_146183_2_) {
-        return this.getWordPosition(p_146183_1_, p_146183_2_, true);
+    private int getWordPosition(int n, int pos) {
+        return this.getWordPosition(n, pos, true);
     }
 
-    private int getWordPosition(int p_146197_1_, int p_146197_2_, boolean p_146197_3_) {
-        int i = p_146197_2_;
-        boolean flag = p_146197_1_ < 0;
-        int j = Math.abs(p_146197_1_);
+    private int getWordPosition(int n, int pos, boolean skipWs) {
+        int i = pos;
+        boolean bl = n < 0;
+        int j = Math.abs(n);
 
         for (int k = 0; k < j; ++k) {
-            if (!flag) {
+            if (!bl) {
                 int l = this.value.length();
                 i = this.value.indexOf(32, i);
                 if (i == -1) {
                     i = l;
                 } else {
-                    while (p_146197_3_ && i < l && this.value.charAt(i) == ' ') {
+                    while (skipWs && i < l && this.value.charAt(i) == ' ') {
                         ++i;
                     }
                 }
             } else {
-                while (p_146197_3_ && i > 0 && this.value.charAt(i - 1) == ' ') {
+                while (skipWs && i > 0 && this.value.charAt(i - 1) == ' ') {
                     --i;
                 }
 
@@ -225,16 +229,16 @@ public class GuiTextBox extends Widget implements IRenderable, IGuiEventListener
         return i;
     }
 
-    public void moveCursor(int p_146182_1_) {
-        this.moveCursorTo(this.getCursorPos(p_146182_1_));
+    public void moveCursor(int num) {
+        this.moveCursorTo(this.getCursorPos(num));
     }
 
-    private int getCursorPos(int p_238516_1_) {
-        return Util.offsetByCodepoints(this.value, this.cursorPos, p_238516_1_);
+    private int getCursorPos(int i) {
+        return Util.offsetByCodepoints(this.value, this.cursorPos, i);
     }
 
-    public void moveCursorTo(int p_146190_1_) {
-        this.setCursorPosition(p_146190_1_);
+    public void moveCursorTo(int pos) {
+        this.setCursorPosition(pos);
         if (!this.shiftPressed) {
             this.setHighlightPos(this.cursorPos);
         }
@@ -250,25 +254,25 @@ public class GuiTextBox extends Widget implements IRenderable, IGuiEventListener
         this.moveCursorTo(this.value.length());
     }
 
-    public boolean keyPressed(int p_231046_1_, int p_231046_2_, int p_231046_3_) {
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (!this.canConsumeInput()) {
             return false;
         } else {
             this.shiftPressed = Screen.hasShiftDown();
-            if (Screen.isSelectAll(p_231046_1_)) {
+            if (Screen.isSelectAll(keyCode)) {
                 this.moveCursorToEnd();
                 this.setHighlightPos(0);
                 return true;
-            } else if (Screen.isCopy(p_231046_1_)) {
+            } else if (Screen.isCopy(keyCode)) {
                 Minecraft.getInstance().keyboardHandler.setClipboard(this.getHighlighted());
                 return true;
-            } else if (Screen.isPaste(p_231046_1_)) {
+            } else if (Screen.isPaste(keyCode)) {
                 if (this.isEditable) {
                     this.insertText(Minecraft.getInstance().keyboardHandler.getClipboard());
                 }
 
                 return true;
-            } else if (Screen.isCut(p_231046_1_)) {
+            } else if (Screen.isCut(keyCode)) {
                 Minecraft.getInstance().keyboardHandler.setClipboard(this.getHighlighted());
                 if (this.isEditable) {
                     this.insertText("");
@@ -276,7 +280,7 @@ public class GuiTextBox extends Widget implements IRenderable, IGuiEventListener
 
                 return true;
             } else {
-                switch (p_231046_1_) {
+                switch (keyCode) {
                     case 259:
                         if (this.isEditable) {
                             this.shiftPressed = false;
@@ -331,12 +335,12 @@ public class GuiTextBox extends Widget implements IRenderable, IGuiEventListener
         return this.isVisible() && this.isFocused() && this.isEditable();
     }
 
-    public boolean charTyped(char p_231042_1_, int p_231042_2_) {
+    public boolean charTyped(char codePoint, int modifiers) {
         if (!this.canConsumeInput()) {
             return false;
-        } else if (SharedConstants.isAllowedChatCharacter(p_231042_1_)) {
+        } else if (SharedConstants.isAllowedChatCharacter(codePoint)) {
             if (this.isEditable) {
-                this.insertText(Character.toString(p_231042_1_));
+                this.insertText(Character.toString(codePoint));
             }
 
             return true;
@@ -345,23 +349,23 @@ public class GuiTextBox extends Widget implements IRenderable, IGuiEventListener
         }
     }
 
-    public boolean mouseClicked(double p_231044_1_, double p_231044_3_, int p_231044_5_) {
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (!this.isVisible()) {
             return false;
         } else {
-            boolean flag = p_231044_1_ >= (double) this.x && p_231044_1_ < (double) (this.x + this.width) && p_231044_3_ >= (double) this.y && p_231044_3_ < (double) (this.y + this.height);
+            boolean bl = mouseX >= (double) this.x && mouseX < (double) (this.x + this.width) && mouseY >= (double) this.y && mouseY < (double) (this.y + this.height);
             if (this.canLoseFocus) {
-                this.setFocus(flag);
+                this.setFocus(bl);
             }
 
-            if (this.isFocused() && flag && p_231044_5_ == 0) {
-                int i = MathHelper.floor(p_231044_1_) - this.x;
+            if (this.isFocused() && bl && button == 0) {
+                int i = Mth.floor(mouseX) - this.x;
                 if (this.bordered) {
                     i -= 4;
                 }
 
-                String s = this.font.plainSubstrByWidth(this.value.substring(this.displayPos), this.getInnerWidth());
-                this.moveCursorTo(this.font.plainSubstrByWidth(s, i).length() + this.displayPos);
+                String string = this.font.plainSubstrByWidth(this.value.substring(this.displayPos), this.getInnerWidth());
+                this.moveCursorTo(this.font.plainSubstrByWidth(string, i).length() + this.displayPos);
                 return true;
             } else {
                 return false;
@@ -369,118 +373,134 @@ public class GuiTextBox extends Widget implements IRenderable, IGuiEventListener
         }
     }
 
-    public void setFocus(boolean p_146195_1_) {
-        super.setFocused(p_146195_1_);
+    public void setFocus(boolean isFocused) {
+        this.setFocused(isFocused);
     }
 
-    public void renderButton(MatrixStack p_230431_1_, int p_230431_2_, int p_230431_3_, float p_230431_4_) {
+    public void renderButton(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
         if (this.isVisible()) {
+            int j;
             if (this.isBordered()) {
-                int i = this.isFocused() ? -1 : -6250336;
-                fill(p_230431_1_, this.x - 1, this.y - 1, this.x + this.width + 1, this.y + this.height + 1, i);
-                fill(p_230431_1_, this.x, this.y, this.x + this.width, this.y + this.height, this.backgroundColor);
+                j = this.isFocused() ? -1 : -6250336;
+                fill(poseStack, this.x - 1, this.y - 1, this.x + this.width + 1, this.y + this.height + 1, j);
+                fill(poseStack, this.x, this.y, this.x + this.width, this.y + this.height, this.backgroundColor);
             }
 
-            int i2 = this.isEditable ? this.textColor : this.textColorUneditable;
-            int j = this.cursorPos - this.displayPos;
-            int k = this.highlightPos - this.displayPos;
-            String s = this.font.plainSubstrByWidth(this.value.substring(this.displayPos), this.getInnerWidth());
-            boolean flag = j >= 0 && j <= s.length();
-            boolean flag1 = this.isFocused() && this.frame / 6 % 2 == 0 && flag;
-            int l = this.bordered ? this.x + 4 : this.x;
-            int i1 = this.bordered ? this.y + (this.height - 8) / 2 : this.y;
-            int j1 = l;
-            if (k > s.length()) {
-                k = s.length();
+            j = this.isEditable ? this.textColor : this.textColorUneditable;
+            int k = this.cursorPos - this.displayPos;
+            int l = this.highlightPos - this.displayPos;
+            String string = this.font.plainSubstrByWidth(this.value.substring(this.displayPos), this.getInnerWidth());
+            boolean bl = k >= 0 && k <= string.length();
+            boolean bl2 = this.isFocused() && this.frame / 6 % 2 == 0 && bl;
+            int m = this.bordered ? this.x + 4 : this.x;
+            int n = this.bordered ? this.y + (this.height - 8) / 2 : this.y;
+            int o = m;
+            if (l > string.length()) {
+                l = string.length();
             }
 
-            if (!s.isEmpty()) {
-                String s1 = flag ? s.substring(0, j) : s;
+            if (!string.isEmpty()) {
+                String string2 = bl ? string.substring(0, k) : string;
 
                 if (!this.drawsTextShadow) {
-                    j1 = this.font.draw(p_230431_1_, this.formatter.apply(s1, this.displayPos), (float) l, (float) i1, i2);
+                    o = this.font.draw(poseStack, this.formatter.apply(string2, this.displayPos), (float) m, (float) n, j);
                 } else {
-                    j1 = this.font.drawShadow(p_230431_1_, this.formatter.apply(s1, this.displayPos), (float) l, (float) i1, i2);
+                    o = this.font.drawShadow(poseStack, this.formatter.apply(string2, this.displayPos), (float) m, (float) n, j);
                 }
             }
 
-            boolean flag2 = this.cursorPos < this.value.length() || this.value.length() >= this.getMaxLength();
-            int k1 = j1;
-            if (!flag) {
-                k1 = j > 0 ? l + this.width : l;
-            } else if (flag2) {
-                k1 = j1 - 1;
-                --j1;
+            boolean bl3 = this.cursorPos < this.value.length() || this.value.length() >= this.getMaxLength();
+            int p = o;
+            if (!bl) {
+                p = k > 0 ? m + this.width : m;
+            } else if (bl3) {
+                p = o - 1;
+                --o;
             }
 
-            if (!s.isEmpty() && flag && j < s.length()) {
+            if (!string.isEmpty() && bl && k < string.length()) {
                 if (!this.drawsTextShadow) {
-                    this.font.draw(p_230431_1_, this.formatter.apply(s.substring(j), this.cursorPos), (float) j1, (float) i1, i2);
+                    this.font.draw(poseStack, this.formatter.apply(string.substring(k), this.cursorPos), (float) o, (float) n, j);
                 } else {
-                    this.font.drawShadow(p_230431_1_, this.formatter.apply(s.substring(j), this.cursorPos), (float) j1, (float) i1, i2);
+                    this.font.drawShadow(poseStack, this.formatter.apply(string.substring(k), this.cursorPos), (float) o, (float) n, j);
                 }
             }
 
-            if (!flag2 && this.suggestion != null) {
+            if (!bl3 && this.suggestion != null) {
                 if (!this.drawsTextShadow) {
-                    this.font.draw(p_230431_1_, this.suggestion, (float) (k1 - 1), (float) i1, -8355712);
+                    this.font.draw(poseStack, this.suggestion, (float) (p - 1), (float) n, -8355712);
                 } else {
-                    this.font.drawShadow(p_230431_1_, this.suggestion, (float) (k1 - 1), (float) i1, -8355712);
+                    this.font.drawShadow(poseStack, this.suggestion, (float) (p - 1), (float) n, -8355712);
                 }
             }
 
-            if (flag1) {
-                if (flag2) {
-                    AbstractGui.fill(p_230431_1_, k1, i1 - 1, k1 + 1, i1 + 1 + 9, -3092272);
+            int var10002;
+            int var10003;
+            int var10004;
+            if (bl2) {
+                if (bl3) {
+                    var10002 = n - 1;
+                    var10003 = p + 1;
+                    var10004 = n + 1;
+                    Objects.requireNonNull(this.font);
+                    GuiComponent.fill(poseStack, p, var10002, var10003, var10004 + 9, -3092272);
                 } else {
                     if (!this.drawsTextShadow) {
-                        this.font.draw(p_230431_1_, "_", (float) k1, (float) i1, i2);
+                        this.font.draw(poseStack, "_", (float) p, (float) n, j);
                     } else {
-                        this.font.drawShadow(p_230431_1_, "_", (float) k1, (float) i1, i2);
+                        this.font.drawShadow(poseStack, "_", (float) p, (float) n, j);
                     }
                 }
             }
 
-            if (k != j) {
-                int l1 = l + this.font.width(s.substring(0, k));
-                this.renderHighlight(k1, i1 - 1, l1 - 1, i1 + 1 + 9);
+            if (l != k) {
+                int q = m + this.font.width(string.substring(0, l));
+                var10002 = n - 1;
+                var10003 = q - 1;
+                var10004 = n + 1;
+                Objects.requireNonNull(this.font);
+                this.renderHighlight(p, var10002, var10003, var10004 + 9);
             }
+
         }
     }
 
-    private void renderHighlight(int p_146188_1_, int p_146188_2_, int p_146188_3_, int p_146188_4_) {
-        if (p_146188_1_ < p_146188_3_) {
-            int i = p_146188_1_;
-            p_146188_1_ = p_146188_3_;
-            p_146188_3_ = i;
+    private void renderHighlight(int startX, int startY, int endX, int endY) {
+        int j;
+        if (startX < endX) {
+            j = startX;
+            startX = endX;
+            endX = j;
         }
 
-        if (p_146188_2_ < p_146188_4_) {
-            int j = p_146188_2_;
-            p_146188_2_ = p_146188_4_;
-            p_146188_4_ = j;
+        if (startY < endY) {
+            j = startY;
+            startY = endY;
+            endY = j;
         }
 
-        if (p_146188_3_ > this.x + this.width) {
-            p_146188_3_ = this.x + this.width;
+        if (endX > this.x + this.width) {
+            endX = this.x + this.width;
         }
 
-        if (p_146188_1_ > this.x + this.width) {
-            p_146188_1_ = this.x + this.width;
+        if (startX > this.x + this.width) {
+            startX = this.x + this.width;
         }
 
-        Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder bufferbuilder = tessellator.getBuilder();
-        RenderSystem.color4f(0.0F, 0.0F, 255.0F, 255.0F);
+        Tesselator tesselator = Tesselator.getInstance();
+        BufferBuilder bufferBuilder = tesselator.getBuilder();
+        RenderSystem.setShader(GameRenderer::getPositionShader);
+        RenderSystem.setShaderColor(0.0F, 0.0F, 1.0F, 1.0F);
         RenderSystem.disableTexture();
         RenderSystem.enableColorLogicOp();
         RenderSystem.logicOp(GlStateManager.LogicOp.OR_REVERSE);
-        bufferbuilder.begin(7, DefaultVertexFormats.POSITION);
-        bufferbuilder.vertex((double) p_146188_1_, (double) p_146188_4_, 0.0D).endVertex();
-        bufferbuilder.vertex((double) p_146188_3_, (double) p_146188_4_, 0.0D).endVertex();
-        bufferbuilder.vertex((double) p_146188_3_, (double) p_146188_2_, 0.0D).endVertex();
-        bufferbuilder.vertex((double) p_146188_1_, (double) p_146188_2_, 0.0D).endVertex();
-        tessellator.end();
+        bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION);
+        bufferBuilder.vertex((double) startX, (double) endY, 0.0D).endVertex();
+        bufferBuilder.vertex((double) endX, (double) endY, 0.0D).endVertex();
+        bufferBuilder.vertex((double) endX, (double) startY, 0.0D).endVertex();
+        bufferBuilder.vertex((double) startX, (double) startY, 0.0D).endVertex();
+        tesselator.end();
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.disableColorLogicOp();
         RenderSystem.enableTexture();
     }
@@ -489,10 +509,10 @@ public class GuiTextBox extends Widget implements IRenderable, IGuiEventListener
         return this.maxLength;
     }
 
-    public void setMaxLength(int p_146203_1_) {
-        this.maxLength = p_146203_1_;
-        if (this.value.length() > p_146203_1_) {
-            this.value = this.value.substring(0, p_146203_1_);
+    public void setMaxLength(int length) {
+        this.maxLength = length;
+        if (this.value.length() > length) {
+            this.value = this.value.substring(0, length);
             this.onValueChange(this.value);
         }
 
@@ -502,36 +522,36 @@ public class GuiTextBox extends Widget implements IRenderable, IGuiEventListener
         return this.cursorPos;
     }
 
-    public void setCursorPosition(int p_212422_1_) {
-        this.cursorPos = MathHelper.clamp(p_212422_1_, 0, this.value.length());
+    public void setCursorPosition(int pos) {
+        this.cursorPos = Mth.clamp(pos, 0, this.value.length());
     }
 
     private boolean isBordered() {
         return this.bordered;
     }
 
-    public void setBordered(boolean p_146185_1_) {
-        this.bordered = p_146185_1_;
+    public void setBordered(boolean enableBackgroundDrawing) {
+        this.bordered = enableBackgroundDrawing;
     }
 
-    public void setTextColor(int p_146193_1_) {
-        this.textColor = p_146193_1_;
+    public void setTextColor(int color) {
+        this.textColor = color;
     }
 
-    public void setTextColorUneditable(int p_146204_1_) {
-        this.textColorUneditable = p_146204_1_;
+    public void setTextColorUneditable(int color) {
+        this.textColorUneditable = color;
     }
 
-    public boolean changeFocus(boolean p_231049_1_) {
-        return this.visible && this.isEditable ? super.changeFocus(p_231049_1_) : false;
+    public boolean changeFocus(boolean focus) {
+        return this.visible && this.isEditable ? super.changeFocus(focus) : false;
     }
 
-    public boolean isMouseOver(double p_231047_1_, double p_231047_3_) {
-        return this.visible && p_231047_1_ >= (double) this.x && p_231047_1_ < (double) (this.x + this.width) && p_231047_3_ >= (double) this.y && p_231047_3_ < (double) (this.y + this.height);
+    public boolean isMouseOver(double mouseX, double mouseY) {
+        return this.visible && mouseX >= (double) this.x && mouseX < (double) (this.x + this.width) && mouseY >= (double) this.y && mouseY < (double) (this.y + this.height);
     }
 
-    protected void onFocusedChanged(boolean p_230995_1_) {
-        if (p_230995_1_) {
+    protected void onFocusedChanged(boolean focused) {
+        if (focused) {
             this.frame = 0;
         }
 
@@ -541,25 +561,25 @@ public class GuiTextBox extends Widget implements IRenderable, IGuiEventListener
         return this.isEditable;
     }
 
-    public void setEditable(boolean p_146184_1_) {
-        this.isEditable = p_146184_1_;
+    public void setEditable(boolean enabled) {
+        this.isEditable = enabled;
     }
 
     public int getInnerWidth() {
         return this.isBordered() ? this.width - 8 : this.width;
     }
 
-    public void setHighlightPos(int p_146199_1_) {
+    public void setHighlightPos(int position) {
         int i = this.value.length();
-        this.highlightPos = MathHelper.clamp(p_146199_1_, 0, i);
+        this.highlightPos = Mth.clamp(position, 0, i);
         if (this.font != null) {
             if (this.displayPos > i) {
                 this.displayPos = i;
             }
 
             int j = this.getInnerWidth();
-            String s = this.font.plainSubstrByWidth(this.value.substring(this.displayPos), j);
-            int k = s.length() + this.displayPos;
+            String string = this.font.plainSubstrByWidth(this.value.substring(this.displayPos), j);
+            int k = string.length() + this.displayPos;
             if (this.highlightPos == this.displayPos) {
                 this.displayPos -= this.font.plainSubstrByWidth(this.value, j, true).length();
             }
@@ -570,32 +590,36 @@ public class GuiTextBox extends Widget implements IRenderable, IGuiEventListener
                 this.displayPos -= this.displayPos - this.highlightPos;
             }
 
-            this.displayPos = MathHelper.clamp(this.displayPos, 0, i);
+            this.displayPos = Mth.clamp(this.displayPos, 0, i);
         }
 
     }
 
-    public void setCanLoseFocus(boolean p_146205_1_) {
-        this.canLoseFocus = p_146205_1_;
+    public void setCanLoseFocus(boolean canLoseFocus) {
+        this.canLoseFocus = canLoseFocus;
     }
 
     public boolean isVisible() {
         return this.visible;
     }
 
-    public void setVisible(boolean p_146189_1_) {
-        this.visible = p_146189_1_;
+    public void setVisible(boolean isVisible) {
+        this.visible = isVisible;
     }
 
-    public void setSuggestion(@Nullable String p_195612_1_) {
-        this.suggestion = p_195612_1_;
+    public void setSuggestion(@Nullable String string) {
+        this.suggestion = string;
     }
 
-    public int getScreenX(int p_195611_1_) {
-        return p_195611_1_ > this.value.length() ? this.x : this.x + this.font.width(this.value.substring(0, p_195611_1_));
+    public int getScreenX(int i) {
+        return i > this.value.length() ? this.x : this.x + this.font.width(this.value.substring(0, i));
     }
 
-    public void setX(int p_212952_1_) {
-        this.x = p_212952_1_;
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void updateNarration(NarrationElementOutput narrationElementOutput) {
+        narrationElementOutput.add(NarratedElementType.TITLE, new TranslatableComponent("narration.edit_box", new Object[]{this.getValue()}));
     }
 }

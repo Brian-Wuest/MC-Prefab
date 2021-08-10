@@ -4,8 +4,8 @@ import com.wuest.prefab.config.EntityPlayerConfiguration;
 import com.wuest.prefab.events.ClientEventHandler;
 import com.wuest.prefab.proxy.messages.PlayerEntityTagMessage;
 import net.minecraft.client.Minecraft;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
@@ -25,7 +25,7 @@ public class PlayerEntityHandler {
 
         context.enqueueWork(() -> {
             // This is client side.
-            CompoundNBT newPlayerTag = Minecraft.getInstance().player.getPersistentData();
+            CompoundTag newPlayerTag = Minecraft.getInstance().player.getPersistentData();
             newPlayerTag.put(EntityPlayerConfiguration.PLAYER_ENTITY_TAG, message.getMessageTag());
             ClientEventHandler.playerConfig.loadFromNBTTagCompound(message.getMessageTag());
         });

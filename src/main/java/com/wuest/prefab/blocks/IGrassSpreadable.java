@@ -1,10 +1,10 @@
 package com.wuest.prefab.blocks;
 
 import com.wuest.prefab.ModRegistry;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 
 import java.util.Random;
 
@@ -18,7 +18,7 @@ public interface IGrassSpreadable {
      * @param pos     The position of the block.
      * @param random  The random value used for checking.
      */
-    default void DetermineGrassSpread(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
+    default void DetermineGrassSpread(BlockState state, ServerLevel worldIn, BlockPos pos, Random random) {
         if (!worldIn.isClientSide) {
             // This is equivalent to light level 9.
             if (worldIn.getBrightness(pos.above()) >= 0.2727273) {

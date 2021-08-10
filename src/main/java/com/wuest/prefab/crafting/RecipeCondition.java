@@ -2,7 +2,7 @@ package com.wuest.prefab.crafting;
 
 import com.google.gson.JsonObject;
 import com.wuest.prefab.Prefab;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.IConditionSerializer;
 

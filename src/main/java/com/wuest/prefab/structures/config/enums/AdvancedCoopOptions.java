@@ -1,6 +1,6 @@
 package com.wuest.prefab.structures.config.enums;
 
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
 
 public class AdvancedCoopOptions extends BaseOption {
     public static AdvancedCoopOptions Default = new AdvancedCoopOptions(

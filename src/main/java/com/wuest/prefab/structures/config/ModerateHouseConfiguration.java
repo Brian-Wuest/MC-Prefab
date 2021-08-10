@@ -3,13 +3,13 @@ package com.wuest.prefab.structures.config;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.gui.GuiLangKeys;
 import com.wuest.prefab.structures.predefined.StructureModerateHouse;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.DyeColor;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeColor;
 
 /**
  * This class is used for the moderate houses in the mod.
@@ -67,7 +67,7 @@ public class ModerateHouseConfiguration extends StructureConfiguration {
     }
 
     @Override
-    protected CompoundNBT CustomWriteToCompoundNBT(CompoundNBT tag) {
+    protected CompoundTag CustomWriteToCompoundTag(CompoundTag tag) {
         tag.putInt(ModerateHouseConfiguration.houseStyleTag, this.houseStyle.value);
         tag.putBoolean(ModerateHouseConfiguration.addChestTag, this.addChests);
         tag.putBoolean(ModerateHouseConfiguration.addChestContentsTag, this.addChestContents);
@@ -78,7 +78,7 @@ public class ModerateHouseConfiguration extends StructureConfiguration {
     }
 
     @Override
-    protected void CustomReadFromNBTTag(CompoundNBT messageTag, StructureConfiguration config) {
+    protected void CustomReadFromNBTTag(CompoundTag messageTag, StructureConfiguration config) {
         ModerateHouseConfiguration houseConfiguration = ((ModerateHouseConfiguration) config);
 
         if (messageTag.contains(ModerateHouseConfiguration.houseStyleTag)) {
@@ -103,16 +103,16 @@ public class ModerateHouseConfiguration extends StructureConfiguration {
     }
 
     /**
-     * Custom method to read the CompoundNBT message.
+     * Custom method to read the CompoundTag message.
      *
      * @param messageTag The message to create the configuration from.
-     * @return An new configuration object with the values derived from the CompoundNBT.
+     * @return An new configuration object with the values derived from the CompoundTag.
      */
     @Override
-    public ModerateHouseConfiguration ReadFromCompoundNBT(CompoundNBT messageTag) {
+    public ModerateHouseConfiguration ReadFromCompoundTag(CompoundTag messageTag) {
         ModerateHouseConfiguration config = new ModerateHouseConfiguration();
 
-        return (ModerateHouseConfiguration) super.ReadFromCompoundNBT(messageTag, config);
+        return (ModerateHouseConfiguration) super.ReadFromCompoundTag(messageTag, config);
     }
 
     /**
@@ -123,7 +123,7 @@ public class ModerateHouseConfiguration extends StructureConfiguration {
      * @param hitBlockPos This hit block position.
      */
     @Override
-    protected void ConfigurationSpecificBuildStructure(PlayerEntity player, ServerWorld world, BlockPos hitBlockPos) {
+    protected void ConfigurationSpecificBuildStructure(Player player, ServerLevel world, BlockPos hitBlockPos) {
         StructureModerateHouse structure = StructureModerateHouse.CreateInstance(this.houseStyle.getStructureLocation(), StructureModerateHouse.class);
 
         if (structure.BuildStructure(this, world, hitBlockPos, Direction.NORTH, player)) {

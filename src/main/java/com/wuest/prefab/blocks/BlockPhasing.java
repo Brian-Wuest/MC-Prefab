@@ -2,28 +2,28 @@ package com.wuest.prefab.blocks;
 
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.events.ModEventHandler;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.EnumProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.core.Direction;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -66,12 +66,12 @@ public class BlockPhasing extends Block {
     }
 
     @Override
-    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(BlockPhasing.Phasing_Out, BlockPhasing.Phasing_Progress);
     }
 
     @Override
-    public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTrace) {
+    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult rayTrace) {
         if (!world.isClientSide()) {
             EnumPhasingProgress progress = state.getValue(Phasing_Progress);
 
@@ -81,17 +81,17 @@ public class BlockPhasing extends Block {
             }
         }
 
-        return ActionResultType.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     /**
      * Gets the {@link BlockState} to place
      *
-     * @param context The {@link BlockItemUseContext}.
+     * @param context The {@link BlockPlaceContext}.
      * @return The state to be placed in the world
      */
     @Override
-    public BlockState getStateForPlacement(BlockItemUseContext context) {
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
         /*
          * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
          * BlockState
@@ -109,7 +109,7 @@ public class BlockPhasing extends Block {
      * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
      */
     @Override
-    public boolean removedByPlayer(BlockState state, World world, BlockPos pos, PlayerEntity player, boolean willHarvest, FluidState fluid) {
+    public boolean removedByPlayer(BlockState state, Level world, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
         EnumPhasingProgress currentState = state.getValue(Phasing_Progress);
 
         boolean returnValue = super.removedByPlayer(state, world, pos, player, willHarvest, fluid);
@@ -132,7 +132,7 @@ public class BlockPhasing extends Block {
      * block, etc.
      */
     @Override
-    public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos p_189540_5_, boolean p_220069_6_) {
+    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos p_189540_5_, boolean p_220069_6_) {
         if (!worldIn.isClientSide()) {
             // Only worry about powering blocks.
             if (blockIn.defaultBlockState().isSignalSource()) {
@@ -153,7 +153,7 @@ public class BlockPhasing extends Block {
 
     // TODO: This used to be "tick"
     @Override
-    public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
+    public void tick(BlockState state, ServerLevel worldIn, BlockPos pos, Random random) {
         int tickDelay = this.tickRate;
 
         if (ModEventHandler.RedstoneAffectedBlockPositions.contains(pos)) {
@@ -204,7 +204,7 @@ public class BlockPhasing extends Block {
         worldIn.setBlock(pos, state, 3);
 
         /*if (worldIn.isRemote) {
-            ClientWorld clientWorld = (ClientWorld) worldIn;
+            ClientLevelclientLevel= (ClientWorld) worldIn;
             clientWorld.markSurroundingsForRerender(pos.getX(), pos.getY(), pos.getZ());
         }*/
 
@@ -218,36 +218,36 @@ public class BlockPhasing extends Block {
      * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
      */
     @Override
-    public BlockRenderType getRenderShape(BlockState state) {
+    public RenderShape getRenderShape(BlockState state) {
         EnumPhasingProgress progress = state.getValue(Phasing_Progress);
-        return progress != EnumPhasingProgress.transparent ? BlockRenderType.MODEL : BlockRenderType.INVISIBLE;
+        return progress != EnumPhasingProgress.transparent ? RenderShape.MODEL : RenderShape.INVISIBLE;
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         EnumPhasingProgress progress = state.getValue(Phasing_Progress);
 
-        return progress != EnumPhasingProgress.transparent ? VoxelShapes.block() : VoxelShapes.empty();
+        return progress != EnumPhasingProgress.transparent ? Shapes.block() : Shapes.empty();
     }
 
     @Nullable
     @Override
-    public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getCollisionShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         EnumPhasingProgress progress = state.getValue(Phasing_Progress);
 
         if (progress == EnumPhasingProgress.transparent) {
-            return VoxelShapes.empty();
+            return Shapes.empty();
         }
 
         return super.getCollisionShape(state, worldIn, pos, context);
     }
 
     @Override
-    public VoxelShape getInteractionShape(BlockState state, IBlockReader worldIn, BlockPos pos) {
+    public VoxelShape getInteractionShape(BlockState state, BlockGetter worldIn, BlockPos pos) {
         EnumPhasingProgress progress = state.getValue(Phasing_Progress);
 
         if (progress == EnumPhasingProgress.transparent) {
-            return VoxelShapes.empty();
+            return Shapes.empty();
         }
 
         VoxelShape aabb = super.getInteractionShape(state, worldIn, pos);
@@ -263,7 +263,7 @@ public class BlockPhasing extends Block {
         return progress == EnumPhasingProgress.transparent;
     }
 
-    protected void updateNeighborPhasicBlocks(boolean setToTransparent, World worldIn, BlockPos pos, BlockState phasicBlockState, boolean setCurrentBlock,
+    protected void updateNeighborPhasicBlocks(boolean setToTransparent, Level worldIn, BlockPos pos, BlockState phasicBlockState, boolean setCurrentBlock,
                                               boolean triggeredByRedstone) {
         ArrayList<BlockPos> blocksToUpdate = new ArrayList<BlockPos>();
         BlockState updatedBlockState = phasicBlockState
@@ -298,7 +298,7 @@ public class BlockPhasing extends Block {
      *                          be processed again.
      * @param setCurrentBlock   Determines if the current block should be set.
      */
-    private int findNeighborPhasicBlocks(World worldIn, BlockPos pos, BlockState desiredBlockState, int cascadeCount,
+    private int findNeighborPhasicBlocks(Level worldIn, BlockPos pos, BlockState desiredBlockState, int cascadeCount,
                                          ArrayList<BlockPos> cascadedBlockPos, boolean setCurrentBlock) {
         cascadeCount++;
 
@@ -341,7 +341,7 @@ public class BlockPhasing extends Block {
      *
      * @author WuestMan
      */
-    public enum EnumPhasingProgress implements IStringSerializable {
+    public enum EnumPhasingProgress implements StringRepresentable {
         base(0, "base"),
         twenty_percent(2, "twenty_percent"),
         forty_percent(4, "forty_percent"),

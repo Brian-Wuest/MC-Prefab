@@ -1,19 +1,16 @@
 package com.wuest.prefab.structures.items;
 
-import com.wuest.prefab.Prefab;
+import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration.EnumBasicStructureName;
-import com.wuest.prefab.structures.config.enums.AdvancedAquaBaseOptions;
 import com.wuest.prefab.structures.config.enums.ModernBuildingsOptions;
-import com.wuest.prefab.structures.config.enums.SaloonOptions;
-import com.wuest.prefab.structures.config.enums.WelcomeCenterOptions;
 import com.wuest.prefab.structures.gui.GuiBasicStructure;
 import com.wuest.prefab.structures.predefined.StructureBasic;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
 
 /**
  * This class is used for basic structures to show the basic GUI.
@@ -31,12 +28,12 @@ public class ItemBasicStructure extends StructureItem {
 
     public ItemBasicStructure(EnumBasicStructureName structureType, int durability) {
         super(new Item.Properties()
-                .tab(ItemGroup.TAB_MISC)
+                .tab(CreativeModeTab.TAB_MISC)
                 .durability(durability));
         this.structureType = structureType;
     }
 
-    public static ItemStack getBasicStructureItemInHand(PlayerEntity player) {
+    public static ItemStack getBasicStructureItemInHand(Player player) {
         ItemStack stack = player.getOffhandItem();
 
         // Get off hand first since that is the right-click hand if there is
@@ -57,16 +54,14 @@ public class ItemBasicStructure extends StructureItem {
      */
     @Override
     protected void Initialize() {
-        if (Prefab.proxy.isClient) {
-            this.RegisterGui(GuiBasicStructure.class);
-        }
+        ModRegistry.guiRegistrations.add(x -> this.RegisterGui(GuiBasicStructure.class));
     }
 
     /**
      * Does something when the item is right-clicked.
      */
     @Override
-    public void scanningMode(ItemUseContext context) {
+    public void scanningMode(UseOnContext context) {
         StructureBasic basicStructure = new StructureBasic();
         ItemStack stack = context.getPlayer().getItemInHand(context.getHand());
         BasicStructureConfiguration structureConfiguration = new BasicStructureConfiguration();

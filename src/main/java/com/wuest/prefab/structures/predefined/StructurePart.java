@@ -5,18 +5,18 @@ import com.wuest.prefab.structures.base.BuildClear;
 import com.wuest.prefab.structures.base.Structure;
 import com.wuest.prefab.structures.config.StructureConfiguration;
 import com.wuest.prefab.structures.config.StructurePartConfiguration;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.DoorBlock;
-import net.minecraft.block.StairsBlock;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.state.properties.DoubleBlockHalf;
-import net.minecraft.state.properties.Half;
-import net.minecraft.state.properties.StairsShape;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DoorBlock;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.block.state.properties.Half;
+import net.minecraft.world.level.block.state.properties.StairsShape;
 
 import java.util.ArrayList;
 
@@ -53,7 +53,7 @@ public class StructurePart extends Structure {
      * @return True if the build can occur, otherwise false.
      */
     @Override
-    public boolean BuildStructure(StructureConfiguration configuration, ServerWorld world, BlockPos originalPos, Direction assumedNorth, PlayerEntity player) {
+    public boolean BuildStructure(StructureConfiguration configuration, ServerLevel world, BlockPos originalPos, Direction assumedNorth, Player player) {
         StructurePartConfiguration specificConfig = (StructurePartConfiguration) configuration;
 
         this.setClearSpace(new BuildClear());
@@ -63,7 +63,7 @@ public class StructurePart extends Structure {
         return super.BuildStructure(specificConfig, world, originalPos, assumedNorth, player);
     }
 
-    public void setupStructure(World world, StructurePartConfiguration configuration, BlockPos originalPos) {
+    public void setupStructure(Level world, StructurePartConfiguration configuration, BlockPos originalPos) {
         ArrayList<BuildBlock> buildingBlocks = new ArrayList<BuildBlock>();
         BlockState materialState = configuration.partMaterial.getBlockType();
         Direction facing = Direction.SOUTH;
@@ -297,7 +297,7 @@ public class StructurePart extends Structure {
         BlockPos wallOriginalPos = originalPos.west(configuration.stairWidth / 2).above();
 
         // Get the stairs state without the facing since it will change.
-        BlockState stateWithoutFacing = materialState.setValue(StairsBlock.HALF, Half.BOTTOM).setValue(StairsBlock.SHAPE,
+        BlockState stateWithoutFacing = materialState.setValue(StairBlock.HALF, Half.BOTTOM).setValue(StairBlock.SHAPE,
                 StairsShape.STRAIGHT);
 
         int wallWidth = configuration.stairWidth;
@@ -345,7 +345,7 @@ public class StructurePart extends Structure {
 
                 for (int k = 0; k <= wallSize; k++) {
                     // j is the north/south counter.
-                    buildingBlocks.add(Structure.createBuildBlockFromBlockState(stateWithoutFacing.setValue(StairsBlock.FACING, tempFacing),
+                    buildingBlocks.add(Structure.createBuildBlockFromBlockState(stateWithoutFacing.setValue(StairBlock.FACING, tempFacing),
                             materialState.getBlock(), wallPos, originalPos));
 
                     wallPos = wallPos.relative(flowDirection);

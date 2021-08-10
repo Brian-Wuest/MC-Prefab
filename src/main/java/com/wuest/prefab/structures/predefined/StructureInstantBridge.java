@@ -5,12 +5,12 @@ import com.wuest.prefab.structures.base.BuildClear;
 import com.wuest.prefab.structures.base.Structure;
 import com.wuest.prefab.structures.config.InstantBridgeConfiguration;
 import com.wuest.prefab.structures.config.StructureConfiguration;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.ArrayList;
 
@@ -45,7 +45,7 @@ public class StructureInstantBridge extends Structure {
      * @return True if the build can occur, otherwise false.
      */
     @Override
-    public boolean BuildStructure(StructureConfiguration configuration, ServerWorld world, BlockPos originalPos, Direction assumedNorth, PlayerEntity player) {
+    public boolean BuildStructure(StructureConfiguration configuration, ServerLevel world, BlockPos originalPos, Direction assumedNorth, Player player) {
         InstantBridgeConfiguration specificConfig = (InstantBridgeConfiguration) configuration;
         this.setupClearSpace(specificConfig);
 

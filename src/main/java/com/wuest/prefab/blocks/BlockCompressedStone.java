@@ -1,9 +1,9 @@
 package com.wuest.prefab.blocks;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.util.IStringSerializable;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.util.StringRepresentable;
 
 /**
  * Provides a way to store large amounts of stone.
@@ -33,7 +33,7 @@ public class BlockCompressedStone extends Block {
      * @author WuestMan
      */
     @SuppressWarnings({"NullableProblems", "SpellCheckingInspection"})
-    public enum EnumType implements IStringSerializable {
+    public enum EnumType implements StringRepresentable {
         COMPRESSED_STONE(0, "block_compressed_stone", "block_compressed_stone"),
         DOUBLE_COMPRESSED_STONE(1, "block_double_compressed_stone", "block_double_compressed_stone"),
         TRIPLE_COMPRESSED_STONE(2, "block_triple_compressed_stone", "block_triple_compressed_stone"),

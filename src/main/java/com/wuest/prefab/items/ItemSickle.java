@@ -1,18 +1,21 @@
 package com.wuest.prefab.items;
 
 import com.wuest.prefab.gui.GuiLangKeys;
-import net.minecraft.block.*;
-import net.minecraft.block.material.Material;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.*;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -20,13 +23,13 @@ import javax.annotation.Nullable;
 import java.util.HashSet;
 import java.util.List;
 
-public class ItemSickle extends ToolItem {
+public class ItemSickle extends TieredItem {
     public static HashSet<Block> effectiveBlocks = new HashSet<>();
     protected int breakRadius = 0;
-    protected IItemTier toolMaterial;
+    protected Tier toolMaterial;
 
-    public ItemSickle(IItemTier toolMaterial) {
-        super(1.0f, -2.4000000953674316f, toolMaterial, effectiveBlocks, new Item.Properties().tab(ItemGroup.TAB_TOOLS));
+    public ItemSickle(Tier toolMaterial) {
+        super(toolMaterial, new Item.Properties().tab(CreativeModeTab.TAB_TOOLS));
         this.breakRadius = 1 + toolMaterial.getLevel();
         this.toolMaterial = toolMaterial;
     }
@@ -61,15 +64,15 @@ public class ItemSickle extends ToolItem {
      * "Use Item" statistic.
      */
     @Override
-    public boolean mineBlock(ItemStack stack, World worldIn, BlockState state, BlockPos pos,
-                            LivingEntity entityLiving) {
+    public boolean mineBlock(ItemStack stack, Level worldIn, BlockState state, BlockPos pos,
+                             LivingEntity entityLiving) {
         if (!worldIn.isClientSide) {
-            stack.hurtAndBreak(1, entityLiving, (livingEntity) -> livingEntity.broadcastBreakEvent(EquipmentSlotType.MAINHAND));
+            stack.hurtAndBreak(1, entityLiving, (livingEntity) -> livingEntity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
 
             if ((double) state.getDestroySpeed(worldIn, pos) != 0.0D && !(state.getBlock() instanceof LeavesBlock)) {
-                stack.hurtAndBreak(1, entityLiving, (livingEntity) -> livingEntity.broadcastBreakEvent(EquipmentSlotType.MAINHAND));
+                stack.hurtAndBreak(1, entityLiving, (livingEntity) -> livingEntity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
             } else if ((state.getBlock() instanceof BushBlock || state.getBlock() instanceof LeavesBlock)
-                    && entityLiving instanceof PlayerEntity) {
+                    && entityLiving instanceof Player) {
                 BlockPos corner1 = pos.north(this.breakRadius).east(this.breakRadius).above(this.breakRadius);
                 BlockPos corner2 = pos.south(this.breakRadius).west(this.breakRadius).below(this.breakRadius);
 
@@ -91,8 +94,8 @@ public class ItemSickle extends ToolItem {
      */
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
-                                ITooltipFlag advanced) {
+    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
+                                TooltipFlag advanced) {
         super.appendHoverText(stack, worldIn, tooltip, advanced);
 
         boolean advancedKeyDown = Screen.hasShiftDown();

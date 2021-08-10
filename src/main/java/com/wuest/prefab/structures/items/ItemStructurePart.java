@@ -1,9 +1,9 @@
 package com.wuest.prefab.structures.items;
 
-import com.wuest.prefab.Prefab;
+import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.structures.gui.GuiStructurePart;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 
 /**
  * @author WuestMan
@@ -11,7 +11,7 @@ import net.minecraft.item.ItemGroup;
 public class ItemStructurePart extends StructureItem {
     public ItemStructurePart() {
         super(new Item.Properties()
-                .tab(ItemGroup.TAB_MISC)
+                .tab(CreativeModeTab.TAB_MISC)
                 .durability(10));
     }
 
@@ -20,8 +20,6 @@ public class ItemStructurePart extends StructureItem {
      */
     @Override
     protected void Initialize() {
-        if (Prefab.proxy.isClient) {
-            this.RegisterGui(GuiStructurePart.class);
-        }
+        ModRegistry.guiRegistrations.add(x -> this.RegisterGui(GuiStructurePart.class));
     }
 }

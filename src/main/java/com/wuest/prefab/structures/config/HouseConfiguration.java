@@ -7,15 +7,15 @@ import com.wuest.prefab.config.EntityPlayerConfiguration;
 import com.wuest.prefab.gui.GuiLangKeys;
 import com.wuest.prefab.proxy.messages.PlayerEntityTagMessage;
 import com.wuest.prefab.structures.predefined.StructureAlternateStart;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.DyeColor;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.fml.network.NetworkDirection;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeColor;
+import net.minecraftforge.fmllegacy.network.NetworkDirection;
 
 /**
  * This class is used to determine the configuration for a particular house.
@@ -72,8 +72,8 @@ public class HouseConfiguration extends StructureConfiguration {
     }
 
     @Override
-    public CompoundNBT WriteToCompoundNBT() {
-        CompoundNBT tag = new CompoundNBT();
+    public CompoundTag WriteToCompoundTag() {
+        CompoundTag tag = new CompoundTag();
 
         // This tag should only be written for options which will NOT be overwritten by server options.
         // Server configuration settings will be used for all other options.
@@ -97,13 +97,13 @@ public class HouseConfiguration extends StructureConfiguration {
     }
 
     /**
-     * Custom method to read the CompoundNBT message.
+     * Custom method to read the CompoundTag message.
      *
      * @param tag The message to create the configuration from.
-     * @return An new configuration object with the values derived from the CompoundNBT.
+     * @return An new configuration object with the values derived from the CompoundTag.
      */
     @Override
-    public HouseConfiguration ReadFromCompoundNBT(CompoundNBT tag) {
+    public HouseConfiguration ReadFromCompoundTag(CompoundTag tag) {
         HouseConfiguration config = null;
 
         if (tag != null) {
@@ -169,7 +169,7 @@ public class HouseConfiguration extends StructureConfiguration {
      * @param hitBlockPos This hit block position.
      */
     @Override
-    protected void ConfigurationSpecificBuildStructure(PlayerEntity player, ServerWorld world, BlockPos hitBlockPos) {
+    protected void ConfigurationSpecificBuildStructure(Player player, ServerLevel world, BlockPos hitBlockPos) {
         boolean houseBuilt = true;
 
         // Build the alternate starter house instead.
@@ -186,7 +186,7 @@ public class HouseConfiguration extends StructureConfiguration {
 
             // Make sure to send a message to the client to sync up the server player information and the client player
             // information.
-            Prefab.network.sendTo(new PlayerEntityTagMessage(playerConfig.getModIsPlayerNewTag(player)), ((ServerPlayerEntity) player).connection.connection,
+            Prefab.network.sendTo(new PlayerEntityTagMessage(playerConfig.getModIsPlayerNewTag(player)), ((ServerPlayer) player).connection.connection,
                     NetworkDirection.PLAY_TO_CLIENT);
         }
     }
@@ -229,13 +229,13 @@ public class HouseConfiguration extends StructureConfiguration {
                 144,
                 162,
                 "assets/prefab/structures/subaqua_house.zip"),
-		MODERN(8,
-				GuiLangKeys.STARTER_HOUSE_MODERN_DISPLAY,
-				new ResourceLocation("prefab", "textures/gui/modern_starting_house.png"),
-				GuiLangKeys.STARTER_HOUSE_MODERN_NOTES,
-				144,
-				162,
-				"assets/prefab/structures/modern_starting_house.zip");
+        MODERN(8,
+                GuiLangKeys.STARTER_HOUSE_MODERN_DISPLAY,
+                new ResourceLocation("prefab", "textures/gui/modern_starting_house.png"),
+                GuiLangKeys.STARTER_HOUSE_MODERN_NOTES,
+                144,
+                162,
+                "assets/prefab/structures/modern_starting_house.zip");
 
         private final int value;
         private final String displayName;

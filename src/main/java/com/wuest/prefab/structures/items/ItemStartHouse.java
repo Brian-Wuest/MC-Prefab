@@ -1,11 +1,12 @@
 package com.wuest.prefab.structures.items;
 
+import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.structures.gui.GuiStartHouseChooser;
 import com.wuest.prefab.structures.predefined.StructureAlternateStart;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.context.UseOnContext;
 
 /**
  * @author WuestMan
@@ -21,16 +22,14 @@ public class ItemStartHouse extends StructureItem {
      */
     @Override
     protected void Initialize() {
-        if (Prefab.proxy.isClient) {
-            this.RegisterGui(GuiStartHouseChooser.class);
-        }
+        ModRegistry.guiRegistrations.add(x -> this.RegisterGui(GuiStartHouseChooser.class));
     }
 
     /**
      * Does something when the item is right-clicked.
      */
     @Override
-    public ActionResultType useOn(ItemUseContext context) {
+    public InteractionResult useOn(UseOnContext context) {
         if (context.getLevel().isClientSide()) {
             if (context.getClickedFace() == Direction.UP) {
                 if (!Prefab.useScanningMode) {
@@ -39,15 +38,15 @@ public class ItemStartHouse extends StructureItem {
                 } else {
                     this.scanningMode(context);
                 }
-                return ActionResultType.PASS;
+                return InteractionResult.PASS;
             }
         }
 
-        return ActionResultType.FAIL;
+        return InteractionResult.FAIL;
     }
 
     @Override
-    public void scanningMode(ItemUseContext context) {
+    public void scanningMode(UseOnContext context) {
         StructureAlternateStart.ScanBasicHouseStructure(
                 context.getLevel(),
                 context.getClickedPos(),

@@ -4,12 +4,12 @@ import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.structures.base.EnumStairsMaterial;
 import com.wuest.prefab.structures.base.EnumStructureMaterial;
 import com.wuest.prefab.structures.predefined.StructurePart;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.player.Player;
 
 /**
  * @author WuestMan
@@ -67,20 +67,20 @@ public class StructurePartConfiguration extends StructureConfiguration {
     }
 
     /**
-     * Custom method to read the CompoundNBT message.
+     * Custom method to read the CompoundTag message.
      *
      * @param messageTag The message to create the configuration from.
-     * @return An new configuration object with the values derived from the CompoundNBT.
+     * @return An new configuration object with the values derived from the CompoundTag.
      */
     @Override
-    public StructurePartConfiguration ReadFromCompoundNBT(CompoundNBT messageTag) {
+    public StructurePartConfiguration ReadFromCompoundTag(CompoundTag messageTag) {
         StructurePartConfiguration config = new StructurePartConfiguration();
 
-        return (StructurePartConfiguration) super.ReadFromCompoundNBT(messageTag, config);
+        return (StructurePartConfiguration) super.ReadFromCompoundTag(messageTag, config);
     }
 
     @Override
-    protected void ConfigurationSpecificBuildStructure(PlayerEntity player, ServerWorld world, BlockPos hitBlockPos) {
+    protected void ConfigurationSpecificBuildStructure(Player player, ServerLevel world, BlockPos hitBlockPos) {
         StructurePart structure = StructurePart.CreateInstance();
 
         if (structure.BuildStructure(this, world, hitBlockPos, Direction.NORTH, player)) {
@@ -91,11 +91,11 @@ public class StructurePartConfiguration extends StructureConfiguration {
     /**
      * Custom method which can be overridden to write custom properties to the tag.
      *
-     * @param tag The CompoundNBT to write the custom properties too.
+     * @param tag The CompoundTag to write the custom properties too.
      * @return The updated tag.
      */
     @Override
-    protected CompoundNBT CustomWriteToCompoundNBT(CompoundNBT tag) {
+    protected CompoundTag CustomWriteToCompoundTag(CompoundTag tag) {
         tag.putString("material", this.partMaterial.name());
         tag.putString("style", this.style.name());
         tag.putInt("stair_height", this.stairHeight);
@@ -107,13 +107,13 @@ public class StructurePartConfiguration extends StructureConfiguration {
     }
 
     /**
-     * Custom method to read the CompoundNBT message.
+     * Custom method to read the CompoundTag message.
      *
      * @param messageTag The message to create the configuration from.
      * @param config     The configuration to read the settings into.
      */
     @Override
-    protected void CustomReadFromNBTTag(CompoundNBT messageTag, StructureConfiguration config) {
+    protected void CustomReadFromNBTTag(CompoundTag messageTag, StructureConfiguration config) {
         if (messageTag.contains("material")) {
             ((StructurePartConfiguration) config).partMaterial = EnumStructureMaterial.valueOf(messageTag.getString("material"));
         }

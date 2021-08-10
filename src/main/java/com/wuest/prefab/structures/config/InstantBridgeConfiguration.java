@@ -3,11 +3,11 @@ package com.wuest.prefab.structures.config;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.structures.base.EnumStructureMaterial;
 import com.wuest.prefab.structures.predefined.StructureInstantBridge;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.player.Player;
 
 /**
  * @author WuestMan
@@ -46,20 +46,20 @@ public class InstantBridgeConfiguration extends StructureConfiguration {
     }
 
     /**
-     * Custom method to read the CompoundNBT message.
+     * Custom method to read the CompoundTag message.
      *
      * @param messageTag The message to create the configuration from.
-     * @return An new configuration object with the values derived from the CompoundNBT.
+     * @return An new configuration object with the values derived from the CompoundTag.
      */
     @Override
-    public InstantBridgeConfiguration ReadFromCompoundNBT(CompoundNBT messageTag) {
+    public InstantBridgeConfiguration ReadFromCompoundTag(CompoundTag messageTag) {
         InstantBridgeConfiguration config = new InstantBridgeConfiguration();
 
-        return (InstantBridgeConfiguration) super.ReadFromCompoundNBT(messageTag, config);
+        return (InstantBridgeConfiguration) super.ReadFromCompoundTag(messageTag, config);
     }
 
     @Override
-    protected void ConfigurationSpecificBuildStructure(PlayerEntity player, ServerWorld world, BlockPos hitBlockPos) {
+    protected void ConfigurationSpecificBuildStructure(Player player, ServerLevel world, BlockPos hitBlockPos) {
         StructureInstantBridge structure = StructureInstantBridge.CreateInstance();
 
         if (structure.BuildStructure(this, world, hitBlockPos, Direction.NORTH, player)) {
@@ -70,11 +70,11 @@ public class InstantBridgeConfiguration extends StructureConfiguration {
     /**
      * Custom method which can be overridden to write custom properties to the tag.
      *
-     * @param tag The CompoundNBT to write the custom properties too.
+     * @param tag The CompoundTag to write the custom properties too.
      * @return The updated tag.
      */
     @Override
-    protected CompoundNBT CustomWriteToCompoundNBT(CompoundNBT tag) {
+    protected CompoundTag CustomWriteToCompoundTag(CompoundTag tag) {
         tag.putInt("bridgeLength", this.bridgeLength);
         tag.putInt("bridgeMaterial", this.bridgeMaterial.getNumber());
         tag.putBoolean("includeRoof", this.includeRoof);
@@ -83,13 +83,13 @@ public class InstantBridgeConfiguration extends StructureConfiguration {
     }
 
     /**
-     * Custom method to read the CompoundNBT message.
+     * Custom method to read the CompoundTag message.
      *
      * @param messageTag The message to create the configuration from.
      * @param config     The configuration to read the settings into.
      */
     @Override
-    protected void CustomReadFromNBTTag(CompoundNBT messageTag, StructureConfiguration config) {
+    protected void CustomReadFromNBTTag(CompoundTag messageTag, StructureConfiguration config) {
         if (messageTag.contains("bridgeLength")) {
             ((InstantBridgeConfiguration) config).bridgeLength = messageTag.getInt("bridgeLength");
         }

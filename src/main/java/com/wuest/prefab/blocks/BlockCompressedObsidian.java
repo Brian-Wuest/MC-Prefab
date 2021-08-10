@@ -1,10 +1,10 @@
 package com.wuest.prefab.blocks;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
 import net.minecraftforge.common.ToolType;
 
 import javax.annotation.Nullable;
@@ -45,7 +45,7 @@ public class BlockCompressedObsidian extends Block {
      * @author WuestMan
      */
     @SuppressWarnings("NullableProblems")
-    public enum EnumType implements IStringSerializable {
+    public enum EnumType implements StringRepresentable {
         COMPRESSED_OBSIDIAN(0, "block_compressed_obsidian", "block_compressed_obsidian"),
         DOUBLE_COMPRESSED_OBSIDIAN(1, "block_double_compressed_obsidian", "block_double_compressed_obsidian"),
         ;

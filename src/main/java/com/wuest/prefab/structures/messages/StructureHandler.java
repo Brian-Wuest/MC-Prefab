@@ -2,7 +2,7 @@ package com.wuest.prefab.structures.messages;
 
 import com.wuest.prefab.structures.config.StructureConfiguration;
 import com.wuest.prefab.structures.messages.StructureTagMessage.EnumStructureConfiguration;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
@@ -24,7 +24,7 @@ public class StructureHandler {
             // This is server side. Build the structure.
             EnumStructureConfiguration structureConfig = message.getStructureConfig();
 
-            StructureConfiguration configuration = structureConfig.structureConfig.ReadFromCompoundNBT(message.getMessageTag());
+            StructureConfiguration configuration = structureConfig.structureConfig.ReadFromCompoundTag(message.getMessageTag());
             configuration.BuildStructure(context.getSender(), context.getSender().getLevel());
         });
 

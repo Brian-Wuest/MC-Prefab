@@ -4,14 +4,14 @@ import com.wuest.prefab.blocks.FullDyeColor;
 import com.wuest.prefab.structures.config.enums.*;
 import com.wuest.prefab.structures.items.ItemBasicStructure;
 import com.wuest.prefab.structures.predefined.StructureBasic;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.DyeColor;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.ItemStack;
 
 /**
  * This class is used for the basic structures in the mod.
@@ -82,7 +82,7 @@ public class BasicStructureConfiguration extends StructureConfiguration {
     }
 
     @Override
-    protected void CustomReadFromNBTTag(CompoundNBT messageTag, StructureConfiguration config) {
+    protected void CustomReadFromNBTTag(CompoundTag messageTag, StructureConfiguration config) {
         BasicStructureConfiguration basicConfig = (BasicStructureConfiguration) config;
 
         if (messageTag.contains(BasicStructureConfiguration.structureEnumNameTag)) {
@@ -107,7 +107,7 @@ public class BasicStructureConfiguration extends StructureConfiguration {
     }
 
     @Override
-    protected CompoundNBT CustomWriteToCompoundNBT(CompoundNBT tag) {
+    protected CompoundTag CustomWriteToCompoundTag(CompoundTag tag) {
         tag.putString(BasicStructureConfiguration.structureEnumNameTag, this.basicStructureName.name());
 
         if (this.structureDisplayName != null) {
@@ -128,10 +128,10 @@ public class BasicStructureConfiguration extends StructureConfiguration {
      * @return An instance of {@link BasicStructureConfiguration} with vaules pulled from the NBTTagCompound.
      */
     @Override
-    public BasicStructureConfiguration ReadFromCompoundNBT(CompoundNBT messageTag) {
+    public BasicStructureConfiguration ReadFromCompoundTag(CompoundTag messageTag) {
         BasicStructureConfiguration config = new BasicStructureConfiguration();
 
-        return (BasicStructureConfiguration) super.ReadFromCompoundNBT(messageTag, config);
+        return (BasicStructureConfiguration) super.ReadFromCompoundTag(messageTag, config);
     }
 
     /**
@@ -142,7 +142,7 @@ public class BasicStructureConfiguration extends StructureConfiguration {
      * @param hitBlockPos This hit block position.
      */
     @Override
-    protected void ConfigurationSpecificBuildStructure(PlayerEntity player, ServerWorld world, BlockPos hitBlockPos) {
+    protected void ConfigurationSpecificBuildStructure(Player player, ServerLevel world, BlockPos hitBlockPos) {
         String assetLocation = "";
 
         if (!this.IsCustomStructure()) {
@@ -156,7 +156,7 @@ public class BasicStructureConfiguration extends StructureConfiguration {
 
             if (!stack.isDamageableItem()) {
                 if (stack.getCount() == 1) {
-                    player.inventory.removeItem(stack);
+                    player.getInventory().removeItem(stack);
                 } else {
                     stack.setCount(stack.getCount() - 1);
                 }
@@ -218,11 +218,11 @@ public class BasicStructureConfiguration extends StructureConfiguration {
         /**
          * This is a basic structure which doesn't have any (or limited) custom processing.
          *
-         * @param name             - This is the name for this structure. This is used for comparative purposes in
-         *                         item stacks.
-         * @param itemTranslationString  - This is the localization key to determine the displayed name to the user.
-         * @param itemTextureLocation - This is the resource location for the item's texture when it's in the players
-         *                         and or in inventories/the world.
+         * @param name                  - This is the name for this structure. This is used for comparative purposes in
+         *                              item stacks.
+         * @param itemTranslationString - This is the localization key to determine the displayed name to the user.
+         * @param itemTextureLocation   - This is the resource location for the item's texture when it's in the players
+         *                              and or in inventories/the world.
          */
         EnumBasicStructureName(
                 String name,
