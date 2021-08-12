@@ -4,13 +4,11 @@ package com.wuest.prefab.blocks;
 import com.wuest.prefab.ModRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.block.Block;
-
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
-import net.minecraft.util.StringRepresentable;
-import net.minecraftforge.common.ToolType;
 
 import java.util.Random;
 
@@ -21,9 +19,7 @@ public class BlockCustomWall extends WallBlock implements IGrassSpreadable {
         super(Properties.of(Material.DIRT)
                 .strength(modelBlock.defaultBlockState().getDestroySpeed(null, null),
                         modelBlock.getExplosionResistance() * 5.0F / 3.0F)
-                .sound(modelBlock.getSoundType(null))
-                .harvestTool(ToolType.SHOVEL)
-                .harvestLevel(0));
+                .sound(modelBlock.getSoundType(null)));
 
         this.BlockVariant = variant;
     }

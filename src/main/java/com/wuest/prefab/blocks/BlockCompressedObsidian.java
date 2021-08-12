@@ -3,11 +3,7 @@ package com.wuest.prefab.blocks;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
-import net.minecraftforge.common.ToolType;
-
-import javax.annotation.Nullable;
 
 /**
  * This is the compressed Obsidian block class.
@@ -23,20 +19,10 @@ public class BlockCompressedObsidian extends Block {
     public BlockCompressedObsidian(EnumType stoneType) {
         super(Block.Properties.of(Material.STONE)
                 .strength(50.0f, 2000.0f)
-                .sound(SoundType.STONE));
+                .sound(SoundType.STONE)
+                .requiresCorrectToolForDrops());
 
         this.typeofStone = stoneType;
-    }
-
-    @Nullable
-    @Override
-    public ToolType getHarvestTool(BlockState state) {
-        return ToolType.PICKAXE;
-    }
-
-    @Override
-    public int getHarvestLevel(BlockState state) {
-        return 3;
     }
 
     /**

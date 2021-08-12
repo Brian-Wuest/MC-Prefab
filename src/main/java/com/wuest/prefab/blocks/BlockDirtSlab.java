@@ -11,16 +11,13 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.material.MaterialColor;
-import net.minecraftforge.common.ToolType;
 
 import java.util.Random;
 
 public class BlockDirtSlab extends SlabBlock implements IGrassSpreadable {
     public BlockDirtSlab() {
         super(BlockBehaviour.Properties.of(Material.DIRT, MaterialColor.DIRT).sound(SoundType.GRAVEL)
-                .strength(0.5f, 0.5f)
-                .harvestTool(ToolType.SHOVEL)
-                .harvestLevel(0));
+                .strength(0.5f, 0.5f));
     }
 
     /**

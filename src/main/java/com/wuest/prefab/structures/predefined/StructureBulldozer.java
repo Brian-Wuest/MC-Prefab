@@ -6,12 +6,14 @@ import com.wuest.prefab.structures.base.BuildingMethods;
 import com.wuest.prefab.structures.base.Structure;
 import com.wuest.prefab.structures.config.BulldozerConfiguration;
 import net.minecraft.world.entity.decoration.HangingEntity;
+import net.minecraft.world.item.Tiers;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
+import net.minecraftforge.common.TierSortingRegistry;
 
 import java.util.ArrayList;
 
@@ -47,8 +49,9 @@ public class StructureBulldozer extends Structure {
         BlockState state = this.world.getBlockState(pos);
         BulldozerConfiguration configuration = (BulldozerConfiguration) this.configuration;
 
-        // Only harvest up to diamond level and non-indestructable blocks.
-        if (!configuration.creativeMode && Prefab.proxy.getServerConfiguration().allowBulldozerToCreateDrops && state.getBlock().getHarvestLevel(state) < 4 && state.getDestroySpeed(world, pos) >= 0.0f) {
+        // Only harvest up to diamond level and non-indestructible blocks.
+        if (!configuration.creativeMode && Prefab.proxy.getServerConfiguration().allowBulldozerToCreateDrops
+                && TierSortingRegistry.isCorrectTierForDrops(Tiers.DIAMOND, state) && state.getDestroySpeed(world, pos) >= 0.0f) {
             Block.dropResources(state, this.world, pos);
         }
 

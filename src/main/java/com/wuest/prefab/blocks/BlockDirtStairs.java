@@ -1,14 +1,12 @@
 package com.wuest.prefab.blocks;
 
 import com.wuest.prefab.ModRegistry;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-
-import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraftforge.common.ToolType;
 
 import java.util.Random;
 
@@ -22,9 +20,7 @@ public class BlockDirtStairs extends StairBlock implements IGrassSpreadable {
      * Initializes a new instance of the BlockDirtStairs class.
      */
     public BlockDirtStairs() {
-        super(Blocks.DIRT.defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.DIRT)
-                .harvestTool(ToolType.SHOVEL)
-                .harvestLevel(0));
+        super(Blocks.DIRT.defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.DIRT));
     }
 
     /**
