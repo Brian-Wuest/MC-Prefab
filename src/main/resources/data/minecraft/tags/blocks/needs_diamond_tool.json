@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "prefab:compressed_obsidian",
-    "prefab:double_compressed_obsidian"
+    "prefab:block_compressed_obsidian",
+    "prefab:block_double_compressed_obsidian"
   ]
 }

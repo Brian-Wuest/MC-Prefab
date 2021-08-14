@@ -50,7 +50,7 @@ minecraft {
             property 'forge.logging.markers', 'REGISTRIES'
 
             // Recommended logging level for the console
-            property 'forge.logging.console.level', 'info'
+            property 'forge.logging.console.level', 'debug'
 
             // Set mixin stuff
             property 'mixin.env.remapRefMap', 'true'
