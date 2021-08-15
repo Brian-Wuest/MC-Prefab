@@ -8,17 +8,14 @@ body:
     value: "### What version of Minecraft, Forge and Mod are you running?"
 - type: input
   attributes:
-    id: mc-version
     label: Minecraft Version
     placeholder: Minecraft Version
 - type: input
   attributes:
-    id: forge-version
     label: Forge Version
     placeholder: Forge Version
 - type: input
   attributes:
-    id: mod-version
     label: Mod Version
     placeholder: Mod Version
 - type: markdown
@@ -27,3 +24,4 @@ body:
 - type: textarea
   attributes:
     id: info
+    label: Details
