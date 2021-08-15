@@ -5,7 +5,7 @@ labels: [bug]
 body:
 - type: markdown
   attributes:
-    value: '### What version of Minecraft, Forge and Mod are you running?"
+    value: "### What version of Minecraft, Forge and Mod are you running?"
 - type: input
   attributes:
     id: mc-version
