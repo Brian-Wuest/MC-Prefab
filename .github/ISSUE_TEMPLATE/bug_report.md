@@ -1,0 +1,29 @@
+name: Bug Report
+description: Something doesn't work the way you expect or the game crashes/has an issue
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: ### What version of Minecraft, Forge and Mod are you running?
+  - type: input
+    attributes:
+      id: mc-version
+      label: Minecraft Version
+      placeholder: Minecraft Version
+  - type: input
+    attributes:
+      id: forge-version
+      label: Forge Version
+      placeholder: Forge Version
+  - type: input
+    attributes:
+      id: mod-version
+      label: Mod Version
+      placeholder: Mod Version
+  - type: markdown
+    attributes:
+      value: ### Please, provide as much detail as possible for the issue that you are running into. If possible post a log file to PasteBin or another similar site.
+  - type: textarea
+    attributes:
+      id: info
