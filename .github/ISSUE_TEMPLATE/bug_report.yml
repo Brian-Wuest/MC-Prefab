@@ -5,7 +5,7 @@ labels: [bug]
 body:
 - type: markdown
   attributes:
-    value: "### What version of Minecraft, Forge and Mod are you running?"
+    value: "# What version of Minecraft, Forge and Mod are you running?"
 - type: input
   attributes:
     label: Minecraft Version
@@ -20,7 +20,7 @@ body:
     placeholder: Mod Version
 - type: markdown
   attributes:
-    value: "### Please, provide as much detail as possible for the issue that you are running into. If possible post a log file to PasteBin or another similar site."
+    value: "# Please, provide as much detail as possible for the issue that you are running into. If possible post a log file to PasteBin or another similar site."
 - type: textarea
   attributes:
     id: info
