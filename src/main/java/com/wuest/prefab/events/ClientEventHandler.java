@@ -3,6 +3,10 @@ package com.wuest.prefab.events;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.config.EntityPlayerConfiguration;
 import com.wuest.prefab.proxy.ClientProxy;
+import com.wuest.prefab.structures.config.BasicStructureConfiguration;
+import com.wuest.prefab.structures.gui.GuiStructure;
+import com.wuest.prefab.structures.items.ItemBasicStructure;
+import com.wuest.prefab.structures.items.StructureItem;
 import com.wuest.prefab.structures.messages.StructureTagMessage;
 import com.wuest.prefab.structures.render.StructureRenderHandler;
 import net.minecraft.client.KeyMapping;
@@ -20,7 +24,6 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 
@@ -104,15 +107,53 @@ public final class ClientEventHandler {
         for (KeyMapping binding : ClientEventHandler.keyBindings) {
             if (binding.isDown()) {
                 if (StructureRenderHandler.currentStructure != null) {
-                    Prefab.network.sendToServer(new StructureTagMessage(
-                            StructureRenderHandler.currentConfiguration.WriteToCompoundTag(),
-                            StructureTagMessage.EnumStructureConfiguration.getByConfigurationInstance(StructureRenderHandler.currentConfiguration)));
+                    ItemStack mainHandStack = Minecraft.getInstance().player.getMainHandItem();
+                    ItemStack offHandStack = Minecraft.getInstance().player.getOffhandItem();
+                    boolean foundCorrectStructureItem = false;
 
+                    if (mainHandStack != ItemStack.EMPTY || offHandStack != ItemStack.EMPTY) {
+                        StructureTagMessage.EnumStructureConfiguration structureConfigurationEnum = StructureTagMessage.EnumStructureConfiguration.getByConfigurationInstance(StructureRenderHandler.currentConfiguration);
+
+                        if (mainHandStack != ItemStack.EMPTY && mainHandStack.getItem() instanceof StructureItem) {
+                            // Check main hand.
+                            foundCorrectStructureItem = ClientEventHandler.checkIfStackIsCorrectGui(structureConfigurationEnum, mainHandStack);
+                        }
+
+                        if (!foundCorrectStructureItem && offHandStack != ItemStack.EMPTY && offHandStack.getItem() instanceof StructureItem) {
+                            // Main hand is not correct item; check off-hand
+                            foundCorrectStructureItem = ClientEventHandler.checkIfStackIsCorrectGui(structureConfigurationEnum, offHandStack);
+                        }
+                    }
+
+                    if (foundCorrectStructureItem) {
+                        Prefab.network.sendToServer(new StructureTagMessage(
+                                StructureRenderHandler.currentConfiguration.WriteToCompoundNBT(),
+                                StructureTagMessage.EnumStructureConfiguration.getByConfigurationInstance(StructureRenderHandler.currentConfiguration)));
+                    }
+                    
                     StructureRenderHandler.currentStructure = null;
                 }
 
                 break;
             }
         }
+    }
+
+    public static boolean checkIfStackIsCorrectGui(StructureTagMessage.EnumStructureConfiguration currentConfiguration, ItemStack stack) {
+        GuiStructure mainHandGui = ClientProxy.ModGuis.get(stack.getItem());
+        mainHandGui.init();
+
+        if (currentConfiguration == mainHandGui.structureConfiguration) {
+            if (currentConfiguration == StructureTagMessage.EnumStructureConfiguration.Basic) {
+                ItemBasicStructure item = (ItemBasicStructure) stack.getItem();
+                BasicStructureConfiguration.EnumBasicStructureName basicStructureName = ((BasicStructureConfiguration) StructureRenderHandler.currentConfiguration).basicStructureName;
+
+                return item.structureType == basicStructureName;
+            } else {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

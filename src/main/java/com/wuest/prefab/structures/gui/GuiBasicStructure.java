@@ -25,7 +25,7 @@ import java.util.ArrayList;
  */
 @SuppressWarnings({"ConstantConditions", "SpellCheckingInspection"})
 public class GuiBasicStructure extends GuiStructure {
-    protected BasicStructureConfiguration configuration;
+    public BasicStructureConfiguration configuration;
     private ExtendedButton btnBedColor = null;
     private ExtendedButton btnGlassColor = null;
     private ExtendedButton btnStructureOptions = null;
