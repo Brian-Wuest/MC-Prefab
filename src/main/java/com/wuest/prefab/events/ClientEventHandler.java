@@ -130,7 +130,7 @@ public final class ClientEventHandler {
                                 StructureRenderHandler.currentConfiguration.WriteToCompoundNBT(),
                                 StructureTagMessage.EnumStructureConfiguration.getByConfigurationInstance(StructureRenderHandler.currentConfiguration)));
                     }
-                    
+
                     StructureRenderHandler.currentStructure = null;
                 }
 

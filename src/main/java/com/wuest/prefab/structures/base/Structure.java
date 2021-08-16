@@ -20,6 +20,7 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.Property;
 import net.minecraft.state.properties.BedPart;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.tileentity.ChestTileEntity;
 import net.minecraft.tileentity.FurnaceTileEntity;
@@ -29,6 +30,7 @@ import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -216,7 +218,7 @@ public class Structure {
 
             if (entity instanceof HangingEntity) {
                 // Use the HangingEntity getPos function instead since it is more accurate for itemframes and paintings.
-                entityPos = ((HangingEntity)entity).getPos();
+                entityPos = ((HangingEntity) entity).getPos();
             }
 
             if (entityPos.getX() >= x_radiusRangeBegin && entityPos.getX() <= x_radiusRangeEnd
@@ -703,16 +705,36 @@ public class Structure {
      */
     protected Boolean WaterReplacedWithCobbleStone(StructureConfiguration configuration, BuildBlock block, World world, BlockPos originalPos,
                                                    Direction assumedNorth, Block foundBlock, BlockState blockState, PlayerEntity player) {
-        // Replace water blocks with cobblestone when this is not the overworld.
-        if (foundBlock instanceof FlowingFluidBlock && blockState.getMaterial() == Material.WATER
-                && (World.OVERWORLD.compareTo(world.dimension()) != 0)) {
-            block.setBlockDomain(Blocks.COBBLESTONE.getRegistryName().getNamespace());
-            block.setBlockName(Blocks.COBBLESTONE.getRegistryName().getPath());
-            block.setBlockState(Blocks.COBBLESTONE.defaultBlockState());
+        // Replace water blocks and waterlogged blocks with cobblestone when this is not an ultra warm world type.
+        // Also check a configuration value to determine if water blocks are allowed in non-overworld dimensions.
+        boolean isOverworld = World.OVERWORLD.compareTo(world.dimension()) != 0;
 
-            // Add this as a priority 3 block since it should be done at the end.
-            this.priorityThreeBlocks.add(block);
-            return true;
+        if (!world.dimensionType().ultraWarm()
+            && (isOverworld || Prefab.proxy.getServerConfiguration().allowWaterInNonOverworldDimensions)) {
+            boolean foundWaterLikeBlock = (foundBlock instanceof FlowingFluidBlock && blockState.getMaterial() == Material.WATER)
+                    || foundBlock instanceof SeaGrassBlock;
+
+            if (!foundWaterLikeBlock) {
+                for (BuildProperty property : block.getProperties()) {
+                    if (property.getName().equalsIgnoreCase(BlockStateProperties.WATERLOGGED.getName())
+                            && property.getValue().equalsIgnoreCase(BlockStateProperties.WATERLOGGED.getName(true))) {
+                        // Found a waterlogged block. Replace with cobblestone.
+                        foundWaterLikeBlock = true;
+                        break;
+                    }
+                }
+            }
+
+            if (foundWaterLikeBlock) {
+                ResourceLocation cobbleIdentifier = Registry.BLOCK.getKey(Blocks.COBBLESTONE);
+                block.setBlockDomain(cobbleIdentifier.getNamespace());
+                block.setBlockName(cobbleIdentifier.getPath());
+                block.setBlockState(Blocks.COBBLESTONE.defaultBlockState());
+
+                // Add this as a priority 3 block since it should be done at the end.
+                this.priorityThreeBlocks.add(block);
+                return true;
+            }
         }
 
         return false;

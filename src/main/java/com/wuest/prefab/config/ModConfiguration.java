@@ -96,6 +96,8 @@ public class ModConfiguration {
     static String includeSpawnersInMasherName = "Include Spawners in Monster Masher";
     static String enableStructurePreviewName = "Include Structure Previews";
     static String includeMineshaftChestName = "Include Mineshaft Chest";
+    static String allowWaterInNonOverworldDimensionsName = "Include Water In Non-Overworld Dimesions";
+
     // Chest content option names.
     static String addSwordName = "Add Sword";
     static String addAxeName = "Add Axe";
@@ -125,7 +127,7 @@ public class ModConfiguration {
                     phasicBlockKey, smartGlassKey, greenHouseKey, startingHouseKey, glassStairsKey, glassSlabsKey, andesiteStairsKey, andesiteSlabsKey, dioriteStairsKey, dioriteSlabKey,
                     graniteStairsKey, grantiteSlabKey, moderateHouseKey, grassyPlainsKey, aquaBaseKey, watchTowerKey, bulldozerKey, structurePartKey, jailKey, saloonKey, skiLodgeKey,
                     windMillKey, townHallKey, heapOfTimberKey, tonOfTimberKey, sugarCaneFarmKey, workshopKey, modernBuildingsKey, SwiftBladeKey, SickleKey, DirtRecipesKey, BunchOfBeetsKey,
-                    BunchOfCarrotsKey, BunchOfPotatoesKey};
+                    BunchOfCarrotsKey, BunchOfPotatoesKey, WoodenCrateKey};
 
     private static ForgeConfigSpec SPEC;
     private final HashMap<String, BooleanValue> recipeConfiguration;
@@ -136,6 +138,8 @@ public class ModConfiguration {
     private BooleanValue includeSpawnersInMasher;
     private BooleanValue enableStructurePreview;
     private BooleanValue allowBulldozerToCreateDrops;
+    private BooleanValue allowWaterInNonOverworldDimensions;
+
     // Chest content options.
     private BooleanValue includeMineshaftChest;
     private BooleanValue addSword;
@@ -242,6 +246,18 @@ public class ModConfiguration {
                 .setConfigType("Boolean")
                 .setCategory(ConfigCategory.General)
                 .setHoverText("Determines if the bulldozer item can create drops when it clears an area.")
+                .setDefaultValue(true));
+
+        Prefab.proxy.proxyConfiguration.allowWaterInNonOverworldDimensions = builder
+                .comment("Determines if water can be generated in structures when the current dimension is not the oveworld. Does not affect Nether")
+                .define(OPTIONS + ModConfiguration.allowWaterInNonOverworldDimensionsName, true);
+
+        config.configOptions.add(new ConfigOption<Boolean>()
+                .setConfigValue(Prefab.proxy.proxyConfiguration.allowWaterInNonOverworldDimensions)
+                .setName(ModConfiguration.allowWaterInNonOverworldDimensionsName)
+                .setConfigType("Boolean")
+                .setCategory(ConfigCategory.General)
+                .setHoverText("Determines if water can be generated in structures when the current dimension is not the oveworld. Does not affect Nether")
                 .setDefaultValue(true));
 
         builder.comment("Chest Options");
@@ -514,6 +530,7 @@ public class ModConfiguration {
         Prefab.proxy.proxyConfiguration.serverConfiguration.addChestContents = Prefab.proxy.proxyConfiguration.addChestContents.get();
         Prefab.proxy.proxyConfiguration.serverConfiguration.addMineshaft = Prefab.proxy.proxyConfiguration.addMineshaft.get();
         Prefab.proxy.proxyConfiguration.serverConfiguration.allowBulldozerToCreateDrops = Prefab.proxy.proxyConfiguration.allowBulldozerToCreateDrops.get();
+        Prefab.proxy.proxyConfiguration.serverConfiguration.allowWaterInNonOverworldDimensions = Prefab.proxy.proxyConfiguration.allowWaterInNonOverworldDimensions.get();
 
         // Recipe configuration.
         for (String key : ModConfiguration.recipeKeys) {
