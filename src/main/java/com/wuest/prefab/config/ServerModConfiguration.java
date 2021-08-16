@@ -18,6 +18,7 @@ public class ServerModConfiguration {
     public boolean enableStructurePreview;
     public boolean includeMineshaftChest;
     public boolean allowBulldozerToCreateDrops;
+    public boolean allowWaterInNonOverworldDimensions;
 
     // Chest content options.
     public boolean addSword;
@@ -59,6 +60,7 @@ public class ServerModConfiguration {
         configuration.enableStructurePreview = tag.getBoolean(ModConfiguration.enableStructurePreviewName);
         configuration.includeMineshaftChest = tag.getBoolean(ModConfiguration.includeMineshaftChestName);
         configuration.allowBulldozerToCreateDrops = tag.getBoolean(ModConfiguration.allowBulldozerToCreateDropsName);
+        configuration.allowWaterInNonOverworldDimensions = tag.getBoolean(ModConfiguration.allowWaterInNonOverworldDimensionsName);
 
         configuration.addSword = tag.getBoolean(ModConfiguration.addSwordName);
         configuration.addAxe = tag.getBoolean(ModConfiguration.addAxeName);
@@ -97,6 +99,7 @@ public class ServerModConfiguration {
         tag.putBoolean(ModConfiguration.enableStructurePreviewName, this.enableStructurePreview);
         tag.putBoolean(ModConfiguration.includeMineshaftChestName, this.includeMineshaftChest);
         tag.putBoolean(ModConfiguration.allowBulldozerToCreateDropsName, this.allowBulldozerToCreateDrops);
+        tag.putBoolean(ModConfiguration.allowWaterInNonOverworldDimensionsName, this.allowWaterInNonOverworldDimensions);
 
         tag.putBoolean(ModConfiguration.addSwordName, this.addSword);
         tag.putBoolean(ModConfiguration.addAxeName, this.addAxe);
