@@ -13,7 +13,7 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.InputEvent;
@@ -127,7 +127,7 @@ public final class ClientEventHandler {
 
                     if (foundCorrectStructureItem) {
                         Prefab.network.sendToServer(new StructureTagMessage(
-                                StructureRenderHandler.currentConfiguration.WriteToCompoundNBT(),
+                                StructureRenderHandler.currentConfiguration.WriteToCompoundTag(),
                                 StructureTagMessage.EnumStructureConfiguration.getByConfigurationInstance(StructureRenderHandler.currentConfiguration)));
                     }
 

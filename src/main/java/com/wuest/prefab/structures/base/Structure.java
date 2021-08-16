@@ -11,6 +11,7 @@ import com.wuest.prefab.gui.GuiLangKeys;
 import com.wuest.prefab.structures.config.StructureConfiguration;
 import com.wuest.prefab.structures.events.StructureEventHandler;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.Entity;
@@ -25,6 +26,7 @@ import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.entity.FurnaceBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BedPart;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.material.Material;
@@ -702,16 +704,16 @@ public class Structure {
      * @param player        The player requesting this build.
      * @return Returns true if the water block was replaced by cobblestone, otherwise false.
      */
-    protected Boolean WaterReplacedWithCobbleStone(StructureConfiguration configuration, BuildBlock block, World world, BlockPos originalPos,
-                                                   Direction assumedNorth, Block foundBlock, BlockState blockState, PlayerEntity player) {
+    protected Boolean WaterReplacedWithCobbleStone(StructureConfiguration configuration, BuildBlock block, Level world, BlockPos originalPos,
+                                                   Direction assumedNorth, Block foundBlock, BlockState blockState, Player player) {
         // Replace water blocks and waterlogged blocks with cobblestone when this is not an ultra warm world type.
         // Also check a configuration value to determine if water blocks are allowed in non-overworld dimensions.
-        boolean isOverworld = World.OVERWORLD.compareTo(world.dimension()) != 0;
+        boolean isOverworld = Level.OVERWORLD.compareTo(world.dimension()) != 0;
 
         if (!world.dimensionType().ultraWarm()
             && (isOverworld || Prefab.proxy.getServerConfiguration().allowWaterInNonOverworldDimensions)) {
-            boolean foundWaterLikeBlock = (foundBlock instanceof FlowingFluidBlock && blockState.getMaterial() == Material.WATER)
-                    || foundBlock instanceof SeaGrassBlock;
+            boolean foundWaterLikeBlock = (foundBlock instanceof LiquidBlock && blockState.getMaterial() == Material.WATER)
+                    || foundBlock instanceof SeagrassBlock;
 
             if (!foundWaterLikeBlock) {
                 for (BuildProperty property : block.getProperties()) {

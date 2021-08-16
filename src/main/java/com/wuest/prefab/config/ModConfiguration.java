@@ -96,7 +96,7 @@ public class ModConfiguration {
     static String includeSpawnersInMasherName = "Include Spawners in Monster Masher";
     static String enableStructurePreviewName = "Include Structure Previews";
     static String includeMineshaftChestName = "Include Mineshaft Chest";
-    static String allowWaterInNonOverworldDimensionsName = "Include Water In Non-Overworld Dimesions";
+    static String allowWaterInNonOverworldDimensionsName = "Include Water In Overworld Dimension Only";
 
     // Chest content option names.
     static String addSwordName = "Add Sword";
