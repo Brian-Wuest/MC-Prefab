@@ -1,0 +1,27 @@
+name: Enhancement
+description: Add/Change something
+title: "[Enhancement]: "
+labels: [Enhancement]
+body:
+- type: markdown
+  attributes:
+    value: "# What version of Minecraft, Forge and Mod are you running?"
+- type: input
+  attributes:
+    label: Minecraft Version
+    placeholder: Minecraft Version
+- type: input
+  attributes:
+    label: Forge Version
+    placeholder: Forge Version
+- type: input
+  attributes:
+    label: Mod Version
+    placeholder: Mod Version
+- type: markdown
+  attributes:
+    value: "# Please, provide as much detail as possible for what you would like to see changed or added. This will reduce the amount of questions we have later and provides you with what you need."
+- type: textarea
+  attributes:
+    id: info
+    label: Details
