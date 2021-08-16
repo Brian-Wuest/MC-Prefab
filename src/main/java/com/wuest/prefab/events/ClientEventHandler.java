@@ -3,14 +3,17 @@ package com.wuest.prefab.events;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.config.EntityPlayerConfiguration;
 import com.wuest.prefab.proxy.ClientProxy;
+import com.wuest.prefab.structures.config.BasicStructureConfiguration;
+import com.wuest.prefab.structures.gui.GuiStructure;
+import com.wuest.prefab.structures.items.ItemBasicStructure;
+import com.wuest.prefab.structures.items.StructureItem;
 import com.wuest.prefab.structures.messages.StructureTagMessage;
 import com.wuest.prefab.structures.render.StructureRenderHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.InputEvent;
@@ -21,7 +24,6 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 
@@ -105,10 +107,30 @@ public final class ClientEventHandler {
         for (KeyBinding binding : ClientEventHandler.keyBindings) {
             if (binding.isDown()) {
                 if (StructureRenderHandler.currentStructure != null) {
-                    Prefab.network.sendToServer(new StructureTagMessage(
-                            StructureRenderHandler.currentConfiguration.WriteToCompoundNBT(),
-                            StructureTagMessage.EnumStructureConfiguration.getByConfigurationInstance(StructureRenderHandler.currentConfiguration)));
+                    ItemStack mainHandStack = Minecraft.getInstance().player.getMainHandItem();
+                    ItemStack offHandStack = Minecraft.getInstance().player.getOffhandItem();
+                    boolean foundCorrectStructureItem = false;
 
+                    if (mainHandStack != ItemStack.EMPTY || offHandStack != ItemStack.EMPTY) {
+                        StructureTagMessage.EnumStructureConfiguration structureConfigurationEnum = StructureTagMessage.EnumStructureConfiguration.getByConfigurationInstance(StructureRenderHandler.currentConfiguration);
+
+                        if (mainHandStack != ItemStack.EMPTY && mainHandStack.getItem() instanceof StructureItem) {
+                            // Check main hand.
+                            foundCorrectStructureItem = ClientEventHandler.checkIfStackIsCorrectGui(structureConfigurationEnum, mainHandStack);
+                        }
+
+                        if (!foundCorrectStructureItem && offHandStack != ItemStack.EMPTY && offHandStack.getItem() instanceof StructureItem) {
+                            // Main hand is not correct item; check off-hand
+                            foundCorrectStructureItem = ClientEventHandler.checkIfStackIsCorrectGui(structureConfigurationEnum, offHandStack);
+                        }
+                    }
+
+                    if (foundCorrectStructureItem) {
+                        Prefab.network.sendToServer(new StructureTagMessage(
+                                StructureRenderHandler.currentConfiguration.WriteToCompoundNBT(),
+                                StructureTagMessage.EnumStructureConfiguration.getByConfigurationInstance(StructureRenderHandler.currentConfiguration)));
+                    }
+                    
                     StructureRenderHandler.currentStructure = null;
                 }
 
@@ -117,68 +139,21 @@ public final class ClientEventHandler {
         }
     }
 
-    private static void RenderTest(World worldIn, PlayerEntity playerIn) {
-/*        float partialTicks = Minecraft.getInstance().getRenderPartialTicks();
-        Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder vertexBuffer = tessellator.getBuffer();
-        BlockPos playerPosition = new BlockPos(playerIn.posX, playerIn.posY, playerIn.posZ);
-        BlockPos blockPos = playerPosition.offset(playerIn.getHorizontalFacing().getOpposite());
+    public static boolean checkIfStackIsCorrectGui(StructureTagMessage.EnumStructureConfiguration currentConfiguration, ItemStack stack) {
+        GuiStructure mainHandGui = ClientProxy.ModGuis.get(stack.getItem());
+        mainHandGui.init();
 
-        double playerVertical = playerIn.lastTickPosY + (playerIn.posY - playerIn.lastTickPosY) * (double) partialTicks;
+        if (currentConfiguration == mainHandGui.structureConfiguration) {
+            if (currentConfiguration == StructureTagMessage.EnumStructureConfiguration.Basic) {
+                ItemBasicStructure item = (ItemBasicStructure) stack.getItem();
+                BasicStructureConfiguration.EnumBasicStructureName basicStructureName = ((BasicStructureConfiguration) StructureRenderHandler.currentConfiguration).basicStructureName;
 
-        double playerLevelYCoordinate = blockPos.getY() - Math.abs(playerPosition.getY()) + (playerPosition.getY() - playerIn.posY);
-        double playerLevelUpOneYCoordinate = blockPos.getY() - Math.abs(playerPosition.getY()) + 1 + (playerPosition.getY() - playerIn.posY);
-
-        // This makes the block north and in-line with the player's line of sight.
-        double blockXOffset = (playerPosition.getX() - blockPos.getX()) + (playerPosition.getX() - playerIn.posX);
-        double blocZOffset = (playerPosition.getZ() - blockPos.getZ()) + (playerPosition.getZ() - playerIn.posZ);
-
-        GlStateManager.disableTexture();
-        GlStateManager.disableBlend();
-
-        GlStateManager.lineWidth(3.0F);
-        vertexBuffer.begin(3, DefaultVertexFormats.POSITION_COLOR);
-
-        // Draw the verticals of the box.
-        for (int k = 1; k < 2; k += 1) {
-            // Green
-            vertexBuffer.pos(blockXOffset, playerLevelYCoordinate, blocZOffset).color(0.6F, 1.0F, 0.0F, 0.0F).endVertex();
-            vertexBuffer.pos(blockXOffset, playerLevelUpOneYCoordinate, blocZOffset).color(0.6F, 1.0F, 0.0F, 1.0F).endVertex();
-
-            // Orange
-            vertexBuffer.pos(blockXOffset + (double) k, playerLevelYCoordinate, blocZOffset).color(1.0F, 0.6F, 0.0F, 0.0F).endVertex();
-            vertexBuffer.pos(blockXOffset + (double) k, playerLevelUpOneYCoordinate, blocZOffset).color(1.0F, 0.6F, 0.0F, 1.0F).endVertex();
-
-            vertexBuffer.pos(blockXOffset, playerLevelYCoordinate, blocZOffset + (double) k).color(1.0F, 1.0F, 0.0F, 0.0F).endVertex();
-            vertexBuffer.pos(blockXOffset, playerLevelUpOneYCoordinate, blocZOffset + (double) k).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-
-            vertexBuffer.pos(blockXOffset + 1.0D, playerLevelYCoordinate, blocZOffset + (double) k).color(1.0F, 1.0F, 0.0F, 0.0F).endVertex();
-            vertexBuffer.pos(blockXOffset + 1.0D, playerLevelUpOneYCoordinate, blocZOffset + (double) k).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+                return item.structureType == basicStructureName;
+            } else {
+                return true;
+            }
         }
 
-        // All horizontals.
-        for (int i1 = playerPosition.getY(); i1 <= playerPosition.getY() + 1; i1 += 1) {
-            double d7 = i1 - playerVertical;
-            vertexBuffer.pos(blockXOffset, d7, blocZOffset).color(1.0F, 1.0F, 0.0F, 0.0F).endVertex();
-            vertexBuffer.pos(blockXOffset, d7, blocZOffset + 1.0D).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-            vertexBuffer.pos(blockXOffset + 1.0D, d7, blocZOffset + 1.0D).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-            vertexBuffer.pos(blockXOffset + 1.0D, d7, blocZOffset).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-            vertexBuffer.pos(blockXOffset, d7, blocZOffset).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-        }
-
-        tessellator.draw();
-        GlStateManager.enableBlend();
-        GlStateManager.enableTexture();*/
-    }
-
-    private static void drawLineWithGL(Vector3d blockA, Vector3d blockB) {
-        GL11.glColor4f(1F, 0F, 1F, 0F); // change color an set alpha
-
-        GL11.glBegin(GL11.GL_LINE_STRIP);
-
-        GL11.glVertex3d(blockA.x, blockA.y, blockA.z);
-        GL11.glVertex3d(blockB.x, blockB.y, blockB.z);
-
-        GL11.glEnd();
+        return false;
     }
 }

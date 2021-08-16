@@ -29,7 +29,7 @@ public abstract class GuiStructure extends GuiBase {
     protected Button btnCancel;
     protected Button btnBuild;
     protected Button btnVisualize;
-    protected StructureTagMessage.EnumStructureConfiguration structureConfiguration;
+    public StructureTagMessage.EnumStructureConfiguration structureConfiguration;
     protected ResourceLocation structureImageLocation;
     private Direction structureFacing;
 
