@@ -66,7 +66,7 @@ public class ItemBasicStructure extends StructureItem {
         ItemStack stack = context.getPlayer().getItemInHand(context.getHand());
         BasicStructureConfiguration structureConfiguration = new BasicStructureConfiguration();
         structureConfiguration.basicStructureName = ((ItemBasicStructure) stack.getItem()).structureType;
-        structureConfiguration.chosenOption = ModernBuildingsOptions.Mall;
+        structureConfiguration.chosenOption = ModernBuildingsOptions.Library;
 
         boolean isWaterStructure = structureConfiguration.basicStructureName == EnumBasicStructureName.AquaBase
                 || structureConfiguration.basicStructureName == EnumBasicStructureName.AdvancedAquaBase;

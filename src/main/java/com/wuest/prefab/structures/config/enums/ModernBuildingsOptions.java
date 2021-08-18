@@ -88,8 +88,7 @@ public class ModernBuildingsOptions extends BaseOption{
             false,
             false);
 
-    // TODO: Re-add when upgrading to 1.17
-    /*public static ModernBuildingsOptions Library = new ModernBuildingsOptions(
+    public static ModernBuildingsOptions Library = new ModernBuildingsOptions(
             "prefab.gui.item_modern_library",
             "assets/prefab/structures/modern_library.zip",
             "textures/gui/modern_library_topdown.png",
@@ -101,7 +100,7 @@ public class ModernBuildingsOptions extends BaseOption{
             19,
             0,
             false,
-            false);*/
+            false);
 
     public static ModernBuildingsOptions MiniHotel = new ModernBuildingsOptions(
             "prefab.gui.item_modern_mini_hotel",
