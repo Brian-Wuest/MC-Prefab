@@ -3,7 +3,7 @@ package com.wuest.prefab.structures.items;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration.EnumBasicStructureName;
-import com.wuest.prefab.structures.config.enums.ModernBuildingsOptions;
+import com.wuest.prefab.structures.config.enums.*;
 import com.wuest.prefab.structures.gui.GuiBasicStructure;
 import com.wuest.prefab.structures.predefined.StructureBasic;
 import net.minecraft.world.entity.player.Player;
@@ -66,7 +66,7 @@ public class ItemBasicStructure extends StructureItem {
         ItemStack stack = context.getPlayer().getItemInHand(context.getHand());
         BasicStructureConfiguration structureConfiguration = new BasicStructureConfiguration();
         structureConfiguration.basicStructureName = ((ItemBasicStructure) stack.getItem()).structureType;
-        structureConfiguration.chosenOption = ModernBuildingsOptions.Library;
+        structureConfiguration.chosenOption = VillagerHouseOptions.FENCED_ROOF;
 
         boolean isWaterStructure = structureConfiguration.basicStructureName == EnumBasicStructureName.AquaBase
                 || structureConfiguration.basicStructureName == EnumBasicStructureName.AdvancedAquaBase;

@@ -154,7 +154,7 @@ public class ModernBuildingsOptions extends BaseOption{
             16,
             1,
             15,
-            0,
+            -2,
             false,
             false);
 

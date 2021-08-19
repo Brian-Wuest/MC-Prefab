@@ -158,6 +158,24 @@ public class StructureAlternateStart extends Structure {
                 excludeWater);
     }
 
+    public static void ScanModernHouseStructure(Level world, BlockPos originalPos, Direction playerFacing) {
+        BuildClear clearedSpace = new BuildClear();
+        clearedSpace.getShape().setDirection(Direction.SOUTH);
+        clearedSpace.getShape().setHeight(11);
+        clearedSpace.getShape().setLength(18);
+        clearedSpace.getShape().setWidth(14);
+        clearedSpace.getStartingPosition().setSouthOffset(1);
+        clearedSpace.getStartingPosition().setEastOffset(4);
+        clearedSpace.getStartingPosition().setHeightOffset(-1);
+
+        BlockPos corner = originalPos.east(4).south().below();
+        BlockPos corner2 = originalPos.west(9).south(19).above(11);
+
+        Structure.ScanStructure(world, originalPos, corner, corner2,
+                "..\\src\\main\\resources\\assets\\prefab\\structures\\modern_starting_house.zip", clearedSpace,
+                playerFacing, false, false);
+    }
+
     @Override
     protected Boolean CustomBlockProcessingHandled(StructureConfiguration configuration, BuildBlock block, Level world, BlockPos originalPos,
                                                    Direction assumedNorth, Block foundBlock, BlockState blockState, Player player) {
