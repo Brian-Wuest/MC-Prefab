@@ -707,10 +707,10 @@ public class Structure {
                                                    Direction assumedNorth, Block foundBlock, BlockState blockState, PlayerEntity player) {
         // Replace water blocks and waterlogged blocks with cobblestone when this is not an ultra warm world type.
         // Also check a configuration value to determine if water blocks are allowed in non-overworld dimensions.
-        boolean isOverworld = World.OVERWORLD.compareTo(world.dimension()) != 0;
+        boolean isOverworld = World.OVERWORLD.compareTo(world.dimension()) == 0;
 
-        if (!world.dimensionType().ultraWarm()
-            && (isOverworld || Prefab.proxy.getServerConfiguration().allowWaterInNonOverworldDimensions)) {
+        if (world.dimensionType().ultraWarm()
+                || (!isOverworld && Prefab.proxy.getServerConfiguration().allowWaterInNonOverworldDimensions)) {
             boolean foundWaterLikeBlock = (foundBlock instanceof FlowingFluidBlock && blockState.getMaterial() == Material.WATER)
                     || foundBlock instanceof SeaGrassBlock;
 
