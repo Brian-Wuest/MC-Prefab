@@ -16,7 +16,7 @@ public class ModernBuildingsOptions extends BaseOption{
             19,
             1,
             false,
-            false);
+            true);
 
     public static ModernBuildingsOptions HipsterFruitStand = new ModernBuildingsOptions(
             "prefab.gui.item_modern_hipster_fruit_stand",
@@ -30,7 +30,7 @@ public class ModernBuildingsOptions extends BaseOption{
             9,
             0,
             false,
-            false);
+            true);
 
     public static ModernBuildingsOptions Cinema = new ModernBuildingsOptions(
             "prefab.gui.item_modern_cinema",
@@ -72,7 +72,7 @@ public class ModernBuildingsOptions extends BaseOption{
             9,
             -1,
             true,
-            false);
+            true);
 
     public static ModernBuildingsOptions ApartmentBuilding = new ModernBuildingsOptions(
             "prefab.gui.item_modern_apartment",
@@ -86,22 +86,7 @@ public class ModernBuildingsOptions extends BaseOption{
             10,
             -1,
             false,
-            false);
-
-    // TODO: Re-add when upgrading to 1.17
-    /*public static ModernBuildingsOptions Library = new ModernBuildingsOptions(
-            "prefab.gui.item_modern_library",
-            "assets/prefab/structures/modern_library.zip",
-            "textures/gui/modern_library_topdown.png",
-            Direction.SOUTH,
-            14,
-            38,
-            23,
-            1,
-            19,
-            0,
-            false,
-            false);*/
+            true);
 
     public static ModernBuildingsOptions MiniHotel = new ModernBuildingsOptions(
             "prefab.gui.item_modern_mini_hotel",
@@ -115,7 +100,7 @@ public class ModernBuildingsOptions extends BaseOption{
             17,
             0,
             false,
-            false);
+            true);
 
     public static ModernBuildingsOptions House = new ModernBuildingsOptions(
             "prefab.gui.item_modern_house",
@@ -129,7 +114,7 @@ public class ModernBuildingsOptions extends BaseOption{
             7,
             0,
             false,
-            false);
+            true);
 
     public static ModernBuildingsOptions GasStation = new ModernBuildingsOptions(
             "prefab.gui.item_modern_gas_station",
@@ -143,7 +128,7 @@ public class ModernBuildingsOptions extends BaseOption{
             19,
             0,
             false,
-            false);
+            true);
 
     public static ModernBuildingsOptions Cottage = new ModernBuildingsOptions(
             "prefab.gui.item_modern_cottage",
@@ -157,7 +142,7 @@ public class ModernBuildingsOptions extends BaseOption{
             15,
             0,
             false,
-            false);
+            true);
 
     public static ModernBuildingsOptions Bank = new ModernBuildingsOptions(
             "prefab.gui.item_modern_bank",
@@ -171,7 +156,7 @@ public class ModernBuildingsOptions extends BaseOption{
             8,
             0,
             false,
-            false);
+            true);
 
     protected ModernBuildingsOptions(String translationString,
                           String assetLocation,

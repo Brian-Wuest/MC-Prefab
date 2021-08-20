@@ -110,7 +110,7 @@ public class StructureBasic extends Structure {
 
             return true;
         } else if (foundBlock.getRegistryName().getNamespace().equals(Blocks.WHITE_STAINED_GLASS.getRegistryName().getNamespace())
-                && foundBlock.getRegistryName().getPath().endsWith("stained_glass")
+                && foundBlock.getRegistryName().getPath().endsWith("glass")
                 && config.chosenOption.getHasGlassColor()) {
             blockState = this.getStainedGlassBlock(config.glassColor);
             block.setBlockState(blockState);
@@ -118,7 +118,7 @@ public class StructureBasic extends Structure {
 
             return true;
         } else if (foundBlock.getRegistryName().getNamespace().equals(Blocks.WHITE_STAINED_GLASS_PANE.getRegistryName().getNamespace())
-                && foundBlock.getRegistryName().getPath().endsWith("stained_glass_pane")
+                && foundBlock.getRegistryName().getPath().endsWith("glass_pane")
                 && config.chosenOption.getHasGlassColor()) {
             blockState = this.getStainedGlassPaneBlock(config.glassColor);
 
