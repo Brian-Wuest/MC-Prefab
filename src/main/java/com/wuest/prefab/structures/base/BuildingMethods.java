@@ -3,6 +3,7 @@ package com.wuest.prefab.structures.base;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Triple;
 import com.wuest.prefab.Tuple;
+import com.wuest.prefab.config.ModConfiguration;
 import com.wuest.prefab.proxy.CommonProxy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
@@ -415,6 +416,11 @@ public class BuildingMethods {
 
             if (CommonProxy.proxyConfiguration.serverConfiguration.addSword) {
                 Item sword = ModRegistry.SwiftBladeStone.get();
+
+                if (!CommonProxy.proxyConfiguration.serverConfiguration.recipeConfiguration.get(ModConfiguration.SwiftBladeKey)) {
+                    // Swift blades are disabled; use a regular stone sword instead.
+                    sword = Items.STONE_SWORD;
+                }
 
                 chestTile.setItem(itemSlot++, new ItemStack(sword));
             }
