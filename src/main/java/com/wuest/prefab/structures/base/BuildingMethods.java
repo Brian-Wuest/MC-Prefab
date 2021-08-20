@@ -3,6 +3,7 @@ package com.wuest.prefab.structures.base;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Triple;
 import com.wuest.prefab.Tuple;
+import com.wuest.prefab.config.ModConfiguration;
 import com.wuest.prefab.proxy.CommonProxy;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,7 +17,6 @@ import net.minecraft.tileentity.FurnaceTileEntity;
 import net.minecraft.tileentity.LockableLootTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -24,8 +24,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.BlockEvent.EntityPlaceEvent;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 
@@ -417,6 +415,11 @@ public class BuildingMethods {
 
             if (CommonProxy.proxyConfiguration.serverConfiguration.addSword) {
                 Item sword = ModRegistry.SwiftBladeStone.get();
+
+                if (!CommonProxy.proxyConfiguration.serverConfiguration.recipeConfiguration.get(ModConfiguration.SwiftBladeKey)) {
+                    // Swift blades are disabled; use a regular stone sword instead.
+                    sword = Items.STONE_SWORD;
+                }
 
                 chestTile.setItem(itemSlot++, new ItemStack(sword));
             }
