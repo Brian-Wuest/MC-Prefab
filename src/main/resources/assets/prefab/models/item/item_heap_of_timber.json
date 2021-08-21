@@ -1,6 +1,135 @@
 {
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "prefab:items/item_heap_of_timber"
-  }
+	"credit": "Made with Blockbench by Dqu1J",
+	"textures": {
+		"0": "minecraft:block/oak_log",
+		"1": "minecraft:block/oak_log_top",
+		"particle": "minecraft:block/oak_log"
+	},
+	"elements": [
+		{
+			"name": "log",
+			"from": [10.25, 0, 2],
+			"to": [12.25, 2, 14],
+			"faces": {
+				"north": {"uv": [6, 6, 10, 10], "texture": "#1"},
+				"east": {"uv": [0, 4, 2, 16], "rotation": 90, "texture": "#0"},
+				"south": {"uv": [6, 6, 10, 10], "texture": "#1"},
+				"west": {"uv": [0, 0, 2, 12], "rotation": 90, "texture": "#0"},
+				"up": {"uv": [2, 0, 4, 12], "texture": "#0"},
+				"down": {"uv": [2, 4, 4, 16], "texture": "#0"}
+			}
+		},
+		{
+			"name": "log",
+			"from": [8.25, -5, 2],
+			"to": [10.25, -3, 14],
+			"rotation": {"angle": 45, "axis": "z", "origin": [1.25, 0, 0]},
+			"faces": {
+				"north": {"uv": [6, 6, 10, 10], "texture": "#1"},
+				"east": {"uv": [0, 0, 2, 12], "rotation": 90, "texture": "#0"},
+				"south": {"uv": [6, 6, 10, 10], "texture": "#1"},
+				"west": {"uv": [0, 0, 2, 12], "rotation": 90, "texture": "#0"},
+				"up": {"uv": [4, 0, 6, 12], "texture": "#0"},
+				"down": {"uv": [0, 0, 2, 12], "texture": "#0"}
+			}
+		},
+		{
+			"name": "log",
+			"from": [7, 0, 2],
+			"to": [9, 2, 14],
+			"faces": {
+				"north": {"uv": [6, 6, 10, 10], "texture": "#1"},
+				"east": {"uv": [0, 0, 2, 12], "rotation": 90, "texture": "#0"},
+				"south": {"uv": [6, 6, 10, 10], "texture": "#1"},
+				"west": {"uv": [0, 0, 2, 12], "rotation": 90, "texture": "#0"},
+				"up": {"uv": [0, 4, 2, 16], "texture": "#0"},
+				"down": {"uv": [0, 0, 2, 12], "texture": "#0"}
+			}
+		},
+		{
+			"name": "log",
+			"from": [4.75, -4.75, 2],
+			"to": [6.75, -2.75, 14],
+			"rotation": {"angle": 45, "axis": "z", "origin": [-1.75, 0, 0]},
+			"faces": {
+				"north": {"uv": [6, 6, 10, 10], "rotation": 180, "texture": "#1"},
+				"east": {"uv": [0, 0, 2, 12], "rotation": 270, "texture": "#0"},
+				"south": {"uv": [6, 6, 10, 10], "rotation": 180, "texture": "#1"},
+				"west": {"uv": [0, 0, 2, 12], "rotation": 270, "texture": "#0"},
+				"up": {"uv": [0, 0, 2, 12], "rotation": 180, "texture": "#0"},
+				"down": {"uv": [4, 0, 6, 12], "rotation": 180, "texture": "#0"}
+			}
+		},
+		{
+			"name": "log",
+			"from": [7, 3.5, 2],
+			"to": [9, 5.5, 14],
+			"faces": {
+				"north": {"uv": [6, 6, 10, 10], "rotation": 180, "texture": "#1"},
+				"east": {"uv": [0, 0, 2, 12], "rotation": 270, "texture": "#0"},
+				"south": {"uv": [6, 6, 10, 10], "rotation": 180, "texture": "#1"},
+				"west": {"uv": [0, 0, 2, 12], "rotation": 270, "texture": "#0"},
+				"up": {"uv": [0, 0, 2, 12], "rotation": 180, "texture": "#0"},
+				"down": {"uv": [0, 4, 2, 16], "rotation": 180, "texture": "#0"}
+			}
+		},
+		{
+			"name": "log",
+			"from": [3.25, 0, 2],
+			"to": [5.25, 2, 14],
+			"faces": {
+				"north": {"uv": [6, 6, 10, 10], "texture": "#1"},
+				"east": {"uv": [0, 4, 2, 16], "rotation": 90, "texture": "#0"},
+				"south": {"uv": [6, 6, 10, 10], "texture": "#1"},
+				"west": {"uv": [0, 0, 2, 12], "rotation": 90, "texture": "#0"},
+				"up": {"uv": [2, 0, 4, 12], "texture": "#0"},
+				"down": {"uv": [2, 4, 4, 16], "texture": "#0"}
+			}
+		}
+	],
+	"gui_light": "front",
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [69, 0, 0],
+			"translation": [0, 0, 3]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [69, 0, 0],
+			"translation": [0, 0, 3]
+		},
+		"firstperson_righthand": {
+			"translation": [-1.5, 8, 3]
+		},
+		"firstperson_lefthand": {
+			"translation": [-1.5, 8, 3]
+		},
+		"ground": {
+			"translation": [0, 4.25, 0]
+		},
+		"gui": {
+			"rotation": [25, 45, 0],
+			"translation": [0, 4, 0]
+		},
+		"head": {
+			"translation": [0, 14.25, 0]
+		},
+		"fixed": {
+			"rotation": [0, 90, 0],
+			"translation": [0, 5, -2]
+		}
+	},
+	"groups": [
+		{
+			"name": "heap",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [0, 1, 2]
+		},
+		{
+			"name": "heap",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [3, 4, 5]
+		}
+	]
 }
