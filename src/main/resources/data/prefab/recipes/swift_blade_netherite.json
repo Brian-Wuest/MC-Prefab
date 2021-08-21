@@ -1,0 +1,31 @@
+{
+    "conditions": [
+        {
+            "type": "prefab:config_recipe",
+            "recipeKey": "Swift Blade"
+        }
+    ],
+    "type": "minecraft:crafting_shaped",
+    "group": "Swift Blade",
+    "pattern": [
+        "  b",
+        " b ",
+        "a  "
+    ],
+    "key": {
+        "a": [
+            {
+                "item": "minecraft:stick"
+            }
+        ],
+        "b": [
+            {
+                "item": "minecraft:netherite_ingot"
+            }
+        ]
+    },
+    "result": {
+        "item": "prefab:item_swift_blade_netherite",
+        "count": 1
+    }
+}
