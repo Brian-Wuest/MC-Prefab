@@ -115,24 +115,24 @@ public class ModRegistry {
     public static final RegistryObject<ItemStringOfLanterns> ItemStringOfLanterns = ITEMS.register("item_string_of_lanterns", com.wuest.prefab.items.ItemStringOfLanterns::new);
     public static final RegistryObject<ItemCoilOfLanterns> ItemCoilOfLanterns = ITEMS.register("item_coil_of_lanterns", com.wuest.prefab.items.ItemCoilOfLanterns::new);
 
-    public static final RegistryObject<ItemSwiftBlade> SwiftBladeWood = ITEMS.register("item_swift_blade_wood", () -> new ItemSwiftBlade(ItemTier.WOOD, 2, .5f));
-    public static final RegistryObject<ItemSwiftBlade> SwiftBladeStone = ITEMS.register("item_swift_blade_stone", () -> new ItemSwiftBlade(ItemTier.STONE, 2, .5f));
-    public static final RegistryObject<ItemSwiftBlade> SwiftBladeIron = ITEMS.register("item_swift_blade_iron", () -> new ItemSwiftBlade(ItemTier.IRON, 2, .5f));
-    public static final RegistryObject<ItemSwiftBlade> SwiftBladeDiamond = ITEMS.register("item_swift_blade_diamond", () -> new ItemSwiftBlade(ItemTier.DIAMOND, 2, .5f));
-    public static final RegistryObject<ItemSwiftBlade> SwiftBladeGold = ITEMS.register("item_swift_blade_gold", () -> new ItemSwiftBlade(ItemTier.GOLD, 2, .5f));
+    public static final RegistryObject<ItemSwiftBlade> SwiftBladeWood = ITEMS.register("item_swift_blade_wood", () -> new ItemSwiftBlade(Tiers.WOOD, 2, .5f));
+    public static final RegistryObject<ItemSwiftBlade> SwiftBladeStone = ITEMS.register("item_swift_blade_stone", () -> new ItemSwiftBlade(Tiers.STONE, 2, .5f));
+    public static final RegistryObject<ItemSwiftBlade> SwiftBladeIron = ITEMS.register("item_swift_blade_iron", () -> new ItemSwiftBlade(Tiers.IRON, 2, .5f));
+    public static final RegistryObject<ItemSwiftBlade> SwiftBladeDiamond = ITEMS.register("item_swift_blade_diamond", () -> new ItemSwiftBlade(Tiers.DIAMOND, 2, .5f));
+    public static final RegistryObject<ItemSwiftBlade> SwiftBladeGold = ITEMS.register("item_swift_blade_gold", () -> new ItemSwiftBlade(Tiers.GOLD, 2, .5f));
     public static final RegistryObject<ItemSwiftBlade> SwiftBladeCopper = ITEMS.register("item_swift_blade_copper", () -> new ItemSwiftBlade(CustomItemTier.COPPER, 2, .5f));
     public static final RegistryObject<ItemSwiftBlade> SwiftBladeOsmium = ITEMS.register("item_swift_blade_osmium", () -> new ItemSwiftBlade(CustomItemTier.OSMIUM, 2, .5f));
     public static final RegistryObject<ItemSwiftBlade> SwiftBladeBronze = ITEMS.register("item_swift_blade_bronze", () -> new ItemSwiftBlade(CustomItemTier.BRONZE, 2, .5f));
     public static final RegistryObject<ItemSwiftBlade> SwiftBladeSteel = ITEMS.register("item_swift_blade_steel", () -> new ItemSwiftBlade(CustomItemTier.STEEL, 2, .5f));
     public static final RegistryObject<ItemSwiftBlade> SwiftBladeObsidian = ITEMS.register("item_swift_blade_obsidian", () -> new ItemSwiftBlade(CustomItemTier.OBSIDIAN, 2, .5f));
-    public static final RegistryObject<ItemSwiftBlade> SwiftBladeNetherite = ITEMS.register("item_swift_blade_netherite", () -> new ItemSwiftBlade(ItemTier.NETHERITE, 2, .5f));
+    public static final RegistryObject<ItemSwiftBlade> SwiftBladeNetherite = ITEMS.register("item_swift_blade_netherite", () -> new ItemSwiftBlade(Tiers.NETHERITE, 2, .5f));
 
-    public static final RegistryObject<ItemSickle> SickleWood = ITEMS.register("item_sickle_wood", () -> new ItemSickle(ItemTier.WOOD));
-    public static final RegistryObject<ItemSickle> SickleStone = ITEMS.register("item_sickle_stone", () -> new ItemSickle(ItemTier.STONE));
-    public static final RegistryObject<ItemSickle> SickleGold = ITEMS.register("item_sickle_gold", () -> new ItemSickle(ItemTier.GOLD));
-    public static final RegistryObject<ItemSickle> SickleIron = ITEMS.register("item_sickle_iron", () -> new ItemSickle(ItemTier.IRON));
-    public static final RegistryObject<ItemSickle> SickleDiamond = ITEMS.register("item_sickle_diamond", () -> new ItemSickle(ItemTier.DIAMOND));
-    public static final RegistryObject<ItemSickle> SickleNetherite = ITEMS.register("item_sickle_netherite", () -> new ItemSickle(ItemTier.NETHERITE));
+    public static final RegistryObject<ItemSickle> SickleWood = ITEMS.register("item_sickle_wood", () -> new ItemSickle(Tiers.WOOD));
+    public static final RegistryObject<ItemSickle> SickleStone = ITEMS.register("item_sickle_stone", () -> new ItemSickle(Tiers.STONE));
+    public static final RegistryObject<ItemSickle> SickleGold = ITEMS.register("item_sickle_gold", () -> new ItemSickle(Tiers.GOLD));
+    public static final RegistryObject<ItemSickle> SickleIron = ITEMS.register("item_sickle_iron", () -> new ItemSickle(Tiers.IRON));
+    public static final RegistryObject<ItemSickle> SickleDiamond = ITEMS.register("item_sickle_diamond", () -> new ItemSickle(Tiers.DIAMOND));
+    public static final RegistryObject<ItemSickle> SickleNetherite = ITEMS.register("item_sickle_netherite", () -> new ItemSickle(Tiers.NETHERITE));
 
     public static final RegistryObject<ItemWoodenCrate> EmptyCrate = ITEMS.register("item_wooden_crate", () -> new ItemWoodenCrate(ItemWoodenCrate.CrateType.Empty));
     public static final RegistryObject<ItemWoodenCrate> ClutchOfEggs = ITEMS.register("item_clutch_of_eggs", () -> new ItemWoodenCrate(ItemWoodenCrate.CrateType.Empty));
@@ -250,9 +250,9 @@ public class ModRegistry {
             return Ingredient
                     .of(ItemTags.getAllTags().getTag(new ResourceLocation("c", "steel_ingots")));
         }),
-        OBSIDIAN("Obsidian", ItemTier.DIAMOND.getLevel(), (int) (ItemTier.DIAMOND.getUses() * 1.5),
-                ItemTier.DIAMOND.getSpeed(), ItemTier.DIAMOND.getAttackDamageBonus(),
-                ItemTier.DIAMOND.getEnchantmentValue(), () -> {
+        OBSIDIAN("Obsidian", Tiers.DIAMOND.getLevel(), (int) (Tiers.DIAMOND.getUses() * 1.5),
+                Tiers.DIAMOND.getSpeed(), Tiers.DIAMOND.getAttackDamageBonus(),
+                Tiers.DIAMOND.getEnchantmentValue(), () -> {
             return Ingredient.of(Item.byBlock(Blocks.OBSIDIAN));
         });
 
