@@ -36,7 +36,7 @@ public class StructureScannerBlockEntity extends TileEntityBase<StructureScanner
         clearedSpace.getShape().setWidth(clearedSpace.getShape().getWidth());
         clearedSpace.getShape().setLength(clearedSpace.getShape().getLength());
 
-        int downOffset = config.blocksDown < 0 ? Math.abs(config.blocksDown) : 0;
+        int downOffset = Math.max(config.blocksDown, 0);
 
         clearedSpace.getStartingPosition().setHeightOffset(downOffset);
         clearedSpace.getStartingPosition().setHorizontalOffset(playerFacing, config.blocksParallel);

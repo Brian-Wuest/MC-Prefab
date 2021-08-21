@@ -58,26 +58,14 @@ public class GuiLangKeys {
     @Unlocalized(name = "Basic House")
     public static final String STARTER_HOUSE_BASIC_DISPLAY = "prefab.gui.starter.basic.display";
 
-    @Unlocalized(name = "A basic stone and brick house.")
-    public static final String STARTER_HOUSE_BASIC_NOTES = "prefab.gui.starter.basic.notes";
-
     @Unlocalized(name = "Ranch Style")
     public static final String STARTER_HOUSE_RANCH_DISPLAY = "prefab.gui.starter.ranch.display";
-
-    @Unlocalized(name = "A house designed in a ranch style.")
-    public static final String STARTER_HOUSE_RANCH_NOTES = "prefab.gui.starter.ranch.notes";
 
     @Unlocalized(name = "Loft Style")
     public static final String STARTER_HOUSE_LOFT_DISPLAY = "prefab.gui.starter.loft.display";
 
-    @Unlocalized(name = "A house designed with a lofted area for the chests.")
-    public static final String STARTER_HOUSE_LOFT_NOTES = "prefab.gui.starter.loft.notes";
-
     @Unlocalized(name = "Hobbit Style")
     public static final String STARTER_HOUSE_HOBBIT_DISPLAY = "prefab.gui.starter.hobbit.display";
-
-    @Unlocalized(name = "A house designed into the ground like a hobbit.")
-    public static final String STARTER_HOUSE_HOBBIT_NOTES = "prefab.gui.starter.hobbit.notes";
 
     @Unlocalized(name = "Desert Style")
     public static final String STARTER_HOUSE_DESERT_DISPLAY = "prefab.gui.starter.desert.display";
@@ -85,29 +73,17 @@ public class GuiLangKeys {
     @Unlocalized(name = "Desert Style 2")
     public static final String STARTER_HOUSE_DESERT_DISPLAY2 = "prefab.gui.starter.desert.display2";
 
-    @Unlocalized(name = "A house designed like a pyramid.")
-    public static final String STARTER_HOUSE_DESERT_NOTES = "prefab.gui.starter.desert.notes";
-
-    @Unlocalized(name = "A house designed for desert living.")
-    public static final String STARTER_HOUSE_DESERT_NOTES2 = "prefab.gui.starter.desert.notes2";
-
     @Unlocalized(name = "Snowy Style")
     public static final String STARTER_HOUSE_SNOWY_DISPLAY = "prefab.gui.starter.snowy.display";
-
-    @Unlocalized(name = "A house designed like an igloo.")
-    public static final String STARTER_HOUSE_SNOWY_NOTES = "prefab.gui.starter.snowy.notes";
 
     @Unlocalized(name = "Subaquatic Style")
     public static final String STARTER_HOUSE_SUBAQUATIC_DISPLAY = "prefab.gui.starter.subaquatic.display";
 
-    @Unlocalized(name = "A house designed for under water life.")
-    public static final String STARTER_HOUSE_SUBAQUATIC_NOTES = "prefab.gui.starter.subaquatic.notes";
-
     @Unlocalized(name = "Modern Style")
     public static final String STARTER_HOUSE_MODERN_DISPLAY = "prefab.gui.starter.modern.display";
 
-    @Unlocalized(name = "A house designed for modern life.")
-    public static final String STARTER_HOUSE_MODERN_NOTES = "prefab.gui.starter.modern.notes";
+    @Unlocalized(name = "Camping Style")
+    public static final String STARTER_HOUSE_CAMPING_DISPLAY = "prefab.gui.starter.camping.display";
 
     @Unlocalized(name = "Add Torches")
     public static final String STARTER_HOUSE_ADD_TORCHES = "prefab.gui.starter.addtorches";

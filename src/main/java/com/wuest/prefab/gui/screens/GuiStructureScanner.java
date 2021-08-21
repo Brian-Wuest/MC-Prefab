@@ -1,7 +1,6 @@
 package com.wuest.prefab.gui.screens;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Tuple;
 import com.wuest.prefab.Utils;
@@ -11,7 +10,6 @@ import com.wuest.prefab.gui.GuiBase;
 import com.wuest.prefab.gui.controls.CustomButton;
 import com.wuest.prefab.gui.controls.ExtendedButton;
 import com.wuest.prefab.gui.controls.GuiTextBox;
-import com.wuest.prefab.proxy.messages.TagMessage;
 import com.wuest.prefab.structures.messages.StructureScannerActionMessage;
 import com.wuest.prefab.structures.messages.StructureScannerSyncMessage;
 import net.minecraft.client.gui.widget.button.AbstractButton;
@@ -204,6 +202,6 @@ public class GuiStructureScanner extends GuiBase {
 
     private void sendScanPacket() {
         StructureScannerActionMessage messagePacket = Utils.createGenericMessage(this.config.GetCompoundNBT(), StructureScannerActionMessage.class);
-       Prefab.network.sendToServer(messagePacket);
+        Prefab.network.sendToServer(messagePacket);
     }
 }
