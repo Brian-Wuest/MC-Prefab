@@ -8,7 +8,7 @@ import net.minecraft.world.item.CreativeModeTab;
  */
 public class ItemStringOfLanterns extends Item {
     public ItemStringOfLanterns() {
-        super(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS));
+        super(new Item.Properties().tab(ModRegistry.PREFAB_GROUP));
 
     }
 }

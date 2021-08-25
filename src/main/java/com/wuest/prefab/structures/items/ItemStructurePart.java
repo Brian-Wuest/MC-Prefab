@@ -11,7 +11,7 @@ import net.minecraft.world.item.Item;
 public class ItemStructurePart extends StructureItem {
     public ItemStructurePart() {
         super(new Item.Properties()
-                .tab(CreativeModeTab.TAB_MISC)
+                .tab(ModRegistry.PREFAB_GROUP)
                 .durability(10));
     }
 

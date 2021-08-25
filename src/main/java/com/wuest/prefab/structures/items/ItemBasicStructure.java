@@ -28,7 +28,7 @@ public class ItemBasicStructure extends StructureItem {
 
     public ItemBasicStructure(EnumBasicStructureName structureType, int durability) {
         super(new Item.Properties()
-                .tab(CreativeModeTab.TAB_MISC)
+                .tab(ModRegistry.PREFAB_GROUP)
                 .durability(durability));
         this.structureType = structureType;
     }

@@ -8,7 +8,7 @@ import net.minecraft.world.item.Item;
  */
 public class ItemCoilOfLanterns extends Item {
     public ItemCoilOfLanterns() {
-        super(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS));
+        super(new Item.Properties().tab(ModRegistry.PREFAB_GROUP));
 
     }
 }

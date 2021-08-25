@@ -8,7 +8,7 @@ import net.minecraft.world.item.Item;
  */
 public class ItemBundleOfTimber extends Item {
     public ItemBundleOfTimber() {
-        super(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS));
+        super(new Item.Properties().tab(ModRegistry.PREFAB_GROUP));
 
     }
 }

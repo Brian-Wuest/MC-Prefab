@@ -1,5 +1,6 @@
 package com.wuest.prefab.items;
 
+import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.gui.GuiLangKeys;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
@@ -29,7 +30,7 @@ public class ItemSickle extends TieredItem {
     protected Tier toolMaterial;
 
     public ItemSickle(Tier toolMaterial) {
-        super(toolMaterial, new Item.Properties().tab(CreativeModeTab.TAB_TOOLS));
+        super(toolMaterial, new Item.Properties().tab(ModRegistry.PREFAB_GROUP));
         this.breakRadius = 1 + toolMaterial.getLevel();
         this.toolMaterial = toolMaterial;
     }
