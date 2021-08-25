@@ -1,6 +1,6 @@
 package com.wuest.prefab.items;
 
-import net.minecraft.world.item.CreativeModeTab;
+import com.wuest.prefab.ModRegistry;
 import net.minecraft.world.item.Item;
 
 /**
