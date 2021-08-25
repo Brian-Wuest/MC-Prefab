@@ -1,5 +1,6 @@
 package com.wuest.prefab.structures.items;
 
+import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration.EnumBasicStructureName;
@@ -31,7 +32,7 @@ public class ItemBasicStructure extends StructureItem {
 
     public ItemBasicStructure(EnumBasicStructureName structureType, int durability) {
         super(new Item.Properties()
-                .tab(ItemGroup.TAB_MISC)
+                .tab(ModRegistry.PREFAB_GROUP)
                 .durability(durability));
         this.structureType = structureType;
     }

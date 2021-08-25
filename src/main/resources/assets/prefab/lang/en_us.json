@@ -1,4 +1,6 @@
 {
+    "itemGroup.prefab.logo": "Prefab",
+
     "item.prefab.item_start_house": "Starting House",
     "item.prefab.item_warehouse": "Warehouse",
     "item.prefab.item_chicken_coop": "Chicken Coop",

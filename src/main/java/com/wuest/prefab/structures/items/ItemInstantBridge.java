@@ -1,5 +1,6 @@
 package com.wuest.prefab.structures.items;
 
+import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.structures.gui.GuiInstantBridge;
 import net.minecraft.item.Item;
@@ -13,7 +14,7 @@ import net.minecraft.item.ItemGroup;
 public class ItemInstantBridge extends StructureItem {
     public ItemInstantBridge() {
         super(new Item.Properties()
-                .tab(ItemGroup.TAB_MISC)
+                .tab(ModRegistry.PREFAB_GROUP)
                 .durability(10));
     }
 

@@ -1,5 +1,6 @@
 package com.wuest.prefab.items;
 
+import com.wuest.prefab.ModRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 
@@ -8,7 +9,7 @@ import net.minecraft.item.ItemGroup;
  */
 public class ItemWarehouseUpgrade extends Item {
     public ItemWarehouseUpgrade() {
-        super(new Item.Properties().tab(ItemGroup.TAB_MATERIALS));
+        super(new Item.Properties().tab(ModRegistry.PREFAB_GROUP));
 
 
     }

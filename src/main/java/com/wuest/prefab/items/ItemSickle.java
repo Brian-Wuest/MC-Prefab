@@ -1,5 +1,6 @@
 package com.wuest.prefab.items;
 
+import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.gui.GuiLangKeys;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -26,7 +27,7 @@ public class ItemSickle extends ToolItem {
     protected IItemTier toolMaterial;
 
     public ItemSickle(IItemTier toolMaterial) {
-        super(1.0f, -2.4000000953674316f, toolMaterial, effectiveBlocks, new Item.Properties().tab(ItemGroup.TAB_TOOLS));
+        super(1.0f, -2.4000000953674316f, toolMaterial, effectiveBlocks, new Item.Properties().tab(ModRegistry.PREFAB_GROUP));
         this.breakRadius = 1 + toolMaterial.getLevel();
         this.toolMaterial = toolMaterial;
     }
