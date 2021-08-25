@@ -15,7 +15,7 @@ public class VillagerHouseOptions extends BaseOption {
             1,
             2,
             0,
-            false,
+            true,
             false);
 
     public static VillagerHouseOptions ANGLED_ROOF = new VillagerHouseOptions(
@@ -29,7 +29,7 @@ public class VillagerHouseOptions extends BaseOption {
             1,
             2,
             0,
-            false,
+            true,
             false);
 
     public static VillagerHouseOptions FENCED_ROOF = new VillagerHouseOptions(
@@ -43,7 +43,7 @@ public class VillagerHouseOptions extends BaseOption {
             1,
             2,
             0,
-            false,
+            true,
             false);
 
     public static VillagerHouseOptions BLACKSMITH = new VillagerHouseOptions(
@@ -57,7 +57,7 @@ public class VillagerHouseOptions extends BaseOption {
             1,
             5,
             0,
-            false,
+            true,
             false);
 
     public static VillagerHouseOptions LONG_HOUSE = new VillagerHouseOptions(
