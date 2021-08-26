@@ -16,7 +16,6 @@ import com.wuest.prefab.gui.GuiPrefab;
 import com.wuest.prefab.gui.screens.GuiStructureScanner;
 import com.wuest.prefab.structures.gui.GuiStructure;
 import com.wuest.prefab.structures.items.StructureItem;
-import com.wuest.prefab.structures.render.ShaderHelper;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -37,7 +36,6 @@ import net.minecraftforge.client.settings.KeyModifier;
 import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.ParallelDispatchEvent;
 import net.minecraftforge.fmlclient.ConfigGuiHandler;
 import net.minecraftforge.fmlclient.registry.ClientRegistry;
@@ -152,7 +150,6 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void registerRenderers() {
-        ShaderHelper.Initialize();
     }
 
     @Override

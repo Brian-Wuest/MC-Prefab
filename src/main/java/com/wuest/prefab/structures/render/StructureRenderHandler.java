@@ -1,10 +1,8 @@
 package com.wuest.prefab.structures.render;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Tuple;
 import com.wuest.prefab.blocks.BlockStructureScanner;
 import com.wuest.prefab.config.StructureScannerConfig;
 import com.wuest.prefab.gui.GuiLangKeys;
@@ -13,12 +11,16 @@ import com.wuest.prefab.structures.base.BuildBlock;
 import com.wuest.prefab.structures.base.Structure;
 import com.wuest.prefab.structures.config.StructureConfiguration;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.Camera;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
-import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.renderer.culling.Frustum;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -28,17 +30,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.core.Direction;
-import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.client.model.ModelDataManager;
-import net.minecraftforge.client.model.data.IModelData;
-import org.lwjgl.opengl.GL11;
-
-import java.util.ArrayList;
 
 /**
  * @author WuestMan
@@ -89,15 +83,29 @@ public class StructureRenderHandler {
                 && StructureRenderHandler.currentConfiguration != null
                 && CommonProxy.proxyConfiguration.serverConfiguration.enableStructurePreview) {
             rendering = true;
-            boolean didAny = false;
 
             MultiBufferSource.BufferSource entityVertexConsumer = Minecraft.getInstance().renderBuffers().bufferSource();
-            ArrayList<Tuple<BlockState, BlockPos>> entityModels = new ArrayList<>();
+
+            Frustum frustum = new Frustum(matrixStack.last().pose(), RenderSystem.getProjectionMatrix());
+            BlockPos cameraPos = player.eyeBlockPosition();
+            frustum.prepare(cameraPos.getX(), cameraPos.getY(), cameraPos.getZ());
 
             for (BuildBlock buildBlock : StructureRenderHandler.currentStructure.getBlocks()) {
                 Block foundBlock = Registry.BLOCK.get(buildBlock.getResourceLocation());
 
                 if (foundBlock != null) {
+                    // In order to get the proper relative position I also need the structure's original facing.
+                    BlockPos pos = buildBlock.getStartingPosition().getRelativePosition(
+                            StructureRenderHandler.currentConfiguration.pos,
+                            StructureRenderHandler.currentStructure.getClearSpace().getShape().getDirection(),
+                            StructureRenderHandler.currentConfiguration.houseFacing);
+
+                    // Don't render the block if it isn't visible (cull)
+                    AABB box = new AABB(pos.getX() - 0.5, pos.getY() - 0.5, pos.getZ() - 0.5, pos.getX() + 1.5, pos.getY() + 1.5, pos.getZ() + 1.5);
+                    if (!frustum.isVisible(box)) {
+                        continue;
+                    }
+
                     // Get the unique block state for this block.
                     BlockState blockState = foundBlock.defaultBlockState();
                     buildBlock = BuildBlock.SetBlockState(
@@ -110,69 +118,35 @@ public class StructureRenderHandler {
                             blockState,
                             StructureRenderHandler.currentStructure);
 
-                    // In order to get the proper relative position I also need the structure's original facing.
-                    BlockPos pos = buildBlock.getStartingPosition().getRelativePosition(
-                            StructureRenderHandler.currentConfiguration.pos,
-                            StructureRenderHandler.currentStructure.getClearSpace().getShape().getDirection(),
-                            StructureRenderHandler.currentConfiguration.houseFacing);
-
-                    RenderShape blockRenderType = blockState.getRenderShape();
-
-                    if (blockRenderType == RenderShape.ENTITYBLOCK_ANIMATED) {
-                        if (ShaderHelper.hasIncompatibleMods) {
-                            entityModels.add(new Tuple<>(buildBlock.getBlockState(), pos));
-                        }
-
-                        continue;
-                    }
-
-                    if (StructureRenderHandler.renderComponentInWorld(player.level, buildBlock, entityVertexConsumer, matrixStack, pos, blockRenderType)) {
-                        didAny = true;
-                    }
+                    StructureRenderHandler.renderComponentInWorld(player.level, buildBlock, entityVertexConsumer, matrixStack, pos);
                 }
             }
-
-            ShaderHelper.useShader(ShaderHelper.alphaShader, shader -> {
-                // getUniformLocation
-                int alpha = GlStateManager._glGetUniformLocation(shader, "alpha");
-                ShaderHelper.FLOAT_BUF.position(0);
-                ShaderHelper.FLOAT_BUF.put(0, 0.4F);
-
-                // uniform1
-                GlStateManager._glUniform1(alpha, ShaderHelper.FLOAT_BUF);
-            });
 
             // Draw function.
             entityVertexConsumer.endBatch(Sheets.translucentItemSheet());
 
-            ShaderHelper.releaseShader();
-
-            if (!didAny) {
-                // Nothing was generated, tell the user this through a chat message and re-set the structure information.
-                StructureRenderHandler.setStructure(null, Direction.NORTH, null);
-
-                TranslatableComponent message = new TranslatableComponent(GuiLangKeys.GUI_PREVIEW_COMPLETE);
-                message.setStyle(Style.EMPTY.withColor(ChatFormatting.GREEN));
-                player.sendMessage(message, player.getUUID());
-
-            } else if (!StructureRenderHandler.showedMessage) {
+            if (!StructureRenderHandler.showedMessage) {
                 TranslatableComponent message = new TranslatableComponent(GuiLangKeys.GUI_PREVIEW_NOTICE);
                 message.setStyle(Style.EMPTY.withColor(ChatFormatting.GREEN));
-
                 player.sendMessage(message, player.getUUID());
+
+                message = new TranslatableComponent(GuiLangKeys.GUI_BLOCK_CLICKED);
+                message.setStyle(Style.EMPTY.withColor(ChatFormatting.YELLOW));
+                player.sendMessage(message, player.getUUID());
+
                 StructureRenderHandler.showedMessage = true;
             }
         }
     }
 
-    private static boolean renderComponentInWorld(Level world, BuildBlock buildBlock, MultiBufferSource.BufferSource entityVertexConsumer, PoseStack matrixStack, BlockPos pos, RenderShape blockRenderType) {
+    private static boolean renderComponentInWorld(Level world, BuildBlock buildBlock, MultiBufferSource.BufferSource entityVertexConsumer, PoseStack matrixStack, BlockPos pos) {
         // Don't render this block if it's going to overlay a non-air/water block.
         BlockState targetBlock = world.getBlockState(pos);
         if (targetBlock.getMaterial() != Material.AIR && targetBlock.getMaterial() != Material.WATER) {
             return false;
         }
 
-        StructureRenderHandler.doRenderComponent(buildBlock, pos, entityVertexConsumer, matrixStack, blockRenderType);
+        StructureRenderHandler.doRenderComponent(world, buildBlock, pos, entityVertexConsumer, matrixStack);
 
         if (buildBlock.getSubBlock() != null) {
             Block foundBlock = Registry.BLOCK.get(buildBlock.getSubBlock().getResourceLocation());
@@ -194,58 +168,49 @@ public class StructureRenderHandler {
 
             RenderShape subBlockRenderType = subBlock.getBlockState().getRenderShape();
 
-            return StructureRenderHandler.renderComponentInWorld(world, subBlock, entityVertexConsumer, matrixStack, subBlockPos, subBlockRenderType);
+            return StructureRenderHandler.renderComponentInWorld(world, subBlock, entityVertexConsumer, matrixStack, subBlockPos);
         }
 
         return true;
     }
 
-    private static void doRenderComponent(BuildBlock buildBlock, BlockPos pos, MultiBufferSource.BufferSource entityVertexConsumer, PoseStack matrixStack, RenderShape blockRenderType) {
+    private static void doRenderComponent(Level world, BuildBlock buildBlock, BlockPos pos, MultiBufferSource.BufferSource entityVertexConsumer, PoseStack matrixStack) {
         BlockState state = buildBlock.getBlockState();
-        StructureRenderHandler.renderBlock(matrixStack, new Vec3(pos.getX(), pos.getY(), pos.getZ()), state, entityVertexConsumer, blockRenderType);
+        StructureRenderHandler.renderBlock(world, matrixStack, new Vec3(pos.getX(), pos.getY(), pos.getZ()), state, entityVertexConsumer, pos);
     }
 
-    private static void renderBlock(PoseStack matrixStack, Vec3 pos, BlockState state, MultiBufferSource.BufferSource entityVertexConsumer, RenderShape blockRenderType) {
+    private static void renderBlock(Level world, PoseStack matrixStack, Vec3 pos, BlockState state, MultiBufferSource.BufferSource entityVertexConsumer, BlockPos blockPos) {
         Minecraft minecraft = Minecraft.getInstance();
-        Vec3 projectedView = minecraft.getEntityRenderDispatcher().camera.getPosition();
-        double renderPosX = projectedView.x();
-        double renderPosY = projectedView.y();
-        double renderPosZ = projectedView.z();
+        Camera camera = minecraft.getEntityRenderDispatcher().camera;
+        Vec3 projectedView = camera.getPosition();
 
-        // push
-        matrixStack.pushPose();
+        if (state.getRenderShape() != RenderShape.INVISIBLE && state.getRenderShape() == RenderShape.MODEL) {
+            matrixStack.pushPose();
+            matrixStack.translate(-projectedView.x(), -projectedView.y(), -projectedView.z());
+            matrixStack.translate(pos.x(), pos.y(), pos.z());
 
-        // Translate function.
-        matrixStack.translate(-renderPosX, -renderPosY, -renderPosZ);
+            BlockRenderDispatcher renderer = minecraft.getBlockRenderer();
+            VertexConsumer consumer = entityVertexConsumer.getBuffer(Sheets.translucentItemSheet());
+            TranslucentVertexConsumer translucentConsumer = new TranslucentVertexConsumer(consumer, 100);
 
-        BlockRenderDispatcher renderer = minecraft.getBlockRenderer();
-
-        // Translate.
-        matrixStack.translate(pos.x(), pos.y(), pos.z());
-
-        BakedModel bakedModel = renderer.getBlockModel(state);
-
-        if (blockRenderType == RenderShape.MODEL) {
-            // getColor function.
-            int color = minecraft.getBlockColors().getColor(state, null, null, 0);
+            int color = minecraft.getBlockColors().getColor(state, world, blockPos, 50);
             float r = (float) (color >> 16 & 255) / 255.0F;
             float g = (float) (color >> 8 & 255) / 255.0F;
             float b = (float) (color & 255) / 255.0F;
 
             renderer.getModelRenderer().renderModel(
                     matrixStack.last(),
-                    entityVertexConsumer.getBuffer(Sheets.translucentItemSheet()),
+                    translucentConsumer,
                     state,
-                    bakedModel,
+                    renderer.getBlockModel(state),
                     r,
                     g,
                     b,
                     0xF000F0,
                     OverlayTexture.NO_OVERLAY);
-        }
 
-        // pop
-        matrixStack.popPose();
+            matrixStack.popPose();
+        }
     }
 
     public static void renderClickedBlock(
