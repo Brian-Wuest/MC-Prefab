@@ -172,6 +172,7 @@
     "prefab.gui.item_modern_gas_station": "Заправка",
     "prefab.gui.item_modern_cottage": "Котедж",
     "prefab.gui.item_modern_bank": "Банк",
+    "prefab.gui.item_modern_tree_house": "Будинок на дереві",
 
     "prefab.gui.bulldozer_desc": "Цей предмет почистить область розміром 16x16x16 блоків та віддасть зламані блоки.",
     "prefab.gui.compressed_chest_desc": "Використовується в рецептах конструкцій, а не для безпосереднього зберігання",

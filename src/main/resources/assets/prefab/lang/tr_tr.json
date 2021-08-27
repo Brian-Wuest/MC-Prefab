@@ -172,6 +172,7 @@
     "prefab.gui.item_modern_gas_station": "Petrol istasyonu",
     "prefab.gui.item_modern_cottage": "Kulübe",
     "prefab.gui.item_modern_bank": "Banka",
+    "prefab.gui.item_modern_tree_house": "Ağaç ev",
 
     "prefab.gui.bulldozer_desc": "Bu eşya 16x16x16'lık bir alanı temizleyecek ve düşen bloklar eşya olarak geri dönecek.",
     "prefab.gui.compressed_chest_desc": "Doğrudan depolama için değil, yapılar için tariflerde kullanılır",

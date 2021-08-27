@@ -173,6 +173,7 @@
     "prefab.gui.item_modern_gas_station": "Gas Station",
     "prefab.gui.item_modern_cottage": "Cottage",
     "prefab.gui.item_modern_bank": "Bank",
+    "prefab.gui.item_modern_tree_house": "Tree House",
 
     "prefab.gui.bulldozer_desc": "This item will clear out a 16x16x16 space and provide the drops from each block.",
     "prefab.gui.compressed_chest_desc": "Used in the recipes for structures, not for direct storage",

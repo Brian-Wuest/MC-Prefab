@@ -172,6 +172,7 @@
     "prefab.gui.item_modern_gas_station": "Stazione di rifornimento",
     "prefab.gui.item_modern_cottage": "Villetta",
     "prefab.gui.item_modern_bank": "Banca",
+    "prefab.gui.item_modern_tree_house": "Casa sull'albero",
 
     "prefab.gui.bulldozer_desc": "Questo oggetto sgombrerà uno spazio di 16x16x16 e fornirà il drop di ogni blocco.",
     "prefab.gui.compressed_chest_desc": "Utilizzato nelle ricette per strutture, non per lo stoccaggio diretto",

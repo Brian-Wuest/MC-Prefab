@@ -172,6 +172,7 @@
     "prefab.gui.item_modern_gas_station": "ガソリンスタンド",
     "prefab.gui.item_modern_cottage": "コテージ",
     "prefab.gui.item_modern_bank": "銀行",
+    "prefab.gui.item_modern_tree_house": "樹上の家",
 
     "prefab.gui.bulldozer_desc": "このアイテムは16x16x16のスペースを空にし、各ブロックからのドロップを提供します。",
     "prefab.gui.compressed_chest_desc": "直接保管ではなく、構造物のレシピで使用されます",

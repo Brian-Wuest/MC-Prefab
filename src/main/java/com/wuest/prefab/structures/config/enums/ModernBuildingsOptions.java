@@ -158,6 +158,20 @@ public class ModernBuildingsOptions extends BaseOption{
             false,
             true);
 
+    public static ModernBuildingsOptions TreeHouse = new ModernBuildingsOptions(
+            "prefab.gui.item_modern_tree_house",
+            "assets/prefab/structures/modern_tree_house.zip",
+            "textures/gui/modern_tree_house_topdown.png",
+            Direction.SOUTH,
+            41,
+            41,
+            41,
+            1,
+            20,
+            0,
+            true,
+            true);
+
     protected ModernBuildingsOptions(String translationString,
                           String assetLocation,
                           String pictureLocation,
