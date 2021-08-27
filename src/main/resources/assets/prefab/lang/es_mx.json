@@ -164,6 +164,7 @@
   "prefab.gui.item_modern_gas_station": "Gasolinera",
   "prefab.gui.item_modern_cottage": "Cabaña",
   "prefab.gui.item_modern_bank": "Banco",
+  "prefab.gui.item_modern_tree_house": "Casa del árbol",
 
   "prefab.gui.bulldozer_desc": "Este artículo limpiará un espacio de 16x16x16 y proporcionará las gotas de cada bloque.",
   "prefab.gui.compressed_chest_desc": "Se utiliza en las recetas de estructuras, no para almacenamiento directo.",

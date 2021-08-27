@@ -172,6 +172,7 @@
   "prefab.gui.item_modern_gas_station": "加油站",
   "prefab.gui.item_modern_cottage": "小屋",
   "prefab.gui.item_modern_bank": "银行",
+  "prefab.gui.item_modern_tree_house": "树屋",
 
   "prefab.gui.bulldozer_desc": "此物品将清空 16x16x16 的区域，并将原方块变为掉落物。",
   "prefab.gui.compressed_chest_desc": "用于结构配方，不用于直接存储",
