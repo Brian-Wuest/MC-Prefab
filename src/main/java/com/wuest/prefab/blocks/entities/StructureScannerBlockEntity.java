@@ -39,7 +39,8 @@ public class StructureScannerBlockEntity extends TileEntityBase<StructureScanner
 
         int downOffset = Math.max(config.blocksDown, 0);
 
-        clearedSpace.getStartingPosition().setHeightOffset(downOffset);
+        // Down is inverse on the GUI so make sure that it's negative when saving to the file.
+        clearedSpace.getStartingPosition().setHeightOffset(-downOffset);
         clearedSpace.getStartingPosition().setHorizontalOffset(playerFacing, config.blocksParallel);
         clearedSpace.getStartingPosition().setHorizontalOffset(playerFacing.getCounterClockWise(), config.blocksToTheLeft);
 
