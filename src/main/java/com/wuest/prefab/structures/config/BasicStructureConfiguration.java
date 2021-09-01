@@ -1,13 +1,12 @@
 package com.wuest.prefab.structures.config;
 
+import com.wuest.prefab.blocks.FullDyeColor;
 import com.wuest.prefab.structures.config.enums.*;
 import com.wuest.prefab.structures.items.ItemBasicStructure;
 import com.wuest.prefab.structures.predefined.StructureBasic;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
-
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
@@ -24,6 +23,7 @@ public class BasicStructureConfiguration extends StructureConfiguration {
     private static final String structureEnumNameTag = "structureEnumName";
     private static final String structureDisplayNameTag = "structureDisplayName";
     private static final String bedColorTag = "bedColor";
+    private static final String glassColorTag = "glassColor";
     private static final String chosenOptionTag = "chosenOption";
 
     /**
@@ -37,6 +37,8 @@ public class BasicStructureConfiguration extends StructureConfiguration {
     public String structureDisplayName;
 
     public EnumDyeColor bedColor;
+
+    public FullDyeColor glassColor;
 
     public BaseOption chosenOption;
 
@@ -75,6 +77,7 @@ public class BasicStructureConfiguration extends StructureConfiguration {
         this.houseFacing = EnumFacing.NORTH;
         this.basicStructureName = EnumBasicStructureName.AdvancedCoop;
         this.bedColor = EnumDyeColor.RED;
+        this.glassColor = FullDyeColor.CLEAR;
         this.chosenOption = this.basicStructureName.baseOption.getSpecificOptions().get(0);
     }
 
@@ -94,6 +97,10 @@ public class BasicStructureConfiguration extends StructureConfiguration {
             basicConfig.bedColor = EnumDyeColor.valueOf(messageTag.getString(BasicStructureConfiguration.bedColorTag));
         }
 
+        if (messageTag.hasKey(BasicStructureConfiguration.glassColorTag)) {
+            basicConfig.glassColor = FullDyeColor.valueOf(messageTag.getString(BasicStructureConfiguration.glassColorTag));
+        }
+
         if (messageTag.hasKey(BasicStructureConfiguration.chosenOptionTag)) {
             basicConfig.chosenOption = BaseOption.getOptionByTranslationString(messageTag.getString(BasicStructureConfiguration.chosenOptionTag));
         }
@@ -108,6 +115,7 @@ public class BasicStructureConfiguration extends StructureConfiguration {
         }
 
         tag.setString(BasicStructureConfiguration.bedColorTag, this.bedColor.getName().toUpperCase());
+        tag.setString(BasicStructureConfiguration.glassColorTag, this.glassColor.getName().toUpperCase());
         tag.setString(BasicStructureConfiguration.chosenOptionTag, this.chosenOption.getTranslationString());
 
         return tag;
@@ -179,7 +187,16 @@ public class BasicStructureConfiguration extends StructureConfiguration {
         WelcomeCenter("welcome_center", "item.prefab:item_welcome_center.name", "item_welcome_center", WelcomeCenterOptions.Default),
         Jail("jail", "item.prefab:item_jail.name", "item_jail", JailOptions.Default),
         Saloon("saloon", "item.prefab:item_saloon.name", "item_saloon", SaloonOptions.Default),
-        NetherGate("nether_gate", "item.prefab:item_nether_gate.name", "item_nether_gate", NetherGateOptions.AncientSkull);
+        NetherGate("nether_gate", "item.prefab:item_nether_gate.name", "item_nether_gate", NetherGateOptions.AncientSkull),
+        FishPond("fishpond", "item.prefab:item_fish_pond.name", "item_fish_pond", FishPondOptions.Default),
+        HorseStable("horse_stable", "item.prefab:item_horse_stable.name", "item_horse_stable", HorseStableOptions.Default),
+        TreeFarm("tree_farm", "item.prefab:item_tree_farm.name", "item_tree_farm", TreeFarmOptions.Default),
+        VillagerHouses("villager_houses", "item.prefab:item_villager_houses.name", "item_villager_houses", VillagerHouseOptions.FLAT_ROOF),
+        ChickenCoop("chicken_coop", "item.prefab:item_chicken_coop.name", "item_chicken_coop", ChickenCoopOptions.Default),
+        ProduceFarm("produce_farm", "item.prefab:item_produce_farm.name", "item_produce_farm", ProduceFarmOptions.Default),
+        MonsterMasher("monster_masher", "item.prefab:item_monster_masher.name", "item_monster_masher", MonsterMasherOptions.Default),
+        AdvancedWarehouse("advanced_warehouse", "item.prefab:item_advanced_warehouse.name", "item_advanced_warehouse", AdvancedWarehouseOptions.Default),
+        Warehouse("warehouse", "item.prefab:item_warehouse.name", "item_warehouse", WarehouseOptions.Default);
 
         private final String name;
         private final String itemTranslationString;
@@ -189,11 +206,11 @@ public class BasicStructureConfiguration extends StructureConfiguration {
         /**
          * This is a basic structure which doesn't have any (or limited) custom processing.
          *
-         * @param name             - This is the name for this structure. This is used for comparative purposes in
-         *                         item stacks.
-         * @param itemTranslationString  - This is the localization key to determine the displayed name to the user.
-         * @param itemTextureLocation - This is the resource location for the item's texture when it's in the players
-         *                         and or in inventories/the world.
+         * @param name                  - This is the name for this structure. This is used for comparative purposes in
+         *                              item stacks.
+         * @param itemTranslationString - This is the localization key to determine the displayed name to the user.
+         * @param itemTextureLocation   - This is the resource location for the item's texture when it's in the players
+         *                              and or in inventories/the world.
          */
         EnumBasicStructureName(
                 String name,

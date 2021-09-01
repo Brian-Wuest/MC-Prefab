@@ -12,7 +12,9 @@ import net.minecraft.block.BlockTrapDoor;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -25,51 +27,7 @@ import java.util.ArrayList;
  */
 public class StructureBasic extends Structure {
     BlockPos customBlockPos = null;
-    private ArrayList<Tuple<BlockPos, BlockPos>> bedPositions = new ArrayList<>();
-
-    public static void ScanStructure(World world, BlockPos originalPos, EnumFacing playerFacing, BasicStructureConfiguration configuration, boolean includeAir, boolean excludeWater) {
-        BuildClear clearedSpace = new BuildClear();
-        clearedSpace.setShape(configuration.chosenOption.getClearShape());
-        clearedSpace.setStartingPosition(configuration.chosenOption.getClearPositionOffset());
-        clearedSpace.getShape().setDirection(playerFacing);
-
-        if (configuration.IsCustomStructure()) {
-            // TODO: This needs to be programmed when custom structures are allowed.
-        } else {
-            BuildShape buildShape = configuration.chosenOption.getClearShape().Clone();
-
-            // Scanning the structure doesn't contain the starting corner block but the clear does.
-            buildShape.setWidth(buildShape.getWidth() - 1);
-            buildShape.setLength(buildShape.getLength() - 1);
-
-            PositionOffset offset = configuration.chosenOption.getClearPositionOffset();
-
-            clearedSpace.getShape().setWidth(clearedSpace.getShape().getWidth());
-            clearedSpace.getShape().setLength(clearedSpace.getShape().getLength());
-
-            int downOffset = offset.getHeightOffset() < 0 ? Math.abs(offset.getHeightOffset()) : 0;
-            BlockPos cornerPos = originalPos
-                    .offset(playerFacing.rotateYCCW(), offset.getOffSetValueForFacing(playerFacing.rotateYCCW()))
-                    .offset(playerFacing, offset.getOffSetValueForFacing(playerFacing))
-                    .down(downOffset);
-
-            BlockPos otherCorner = cornerPos
-                    .offset(playerFacing, buildShape.getLength())
-                    .offset(playerFacing.rotateY(), buildShape.getWidth())
-                    .up(buildShape.getHeight());
-
-            Structure.ScanStructure(
-                    world,
-                    originalPos,
-                    cornerPos,
-                    otherCorner,
-                    "..\\src\\main\\resources\\assets\\prefab\\structures\\" + configuration.basicStructureName.getName() + ".zip",
-                    clearedSpace,
-                    playerFacing,
-                    includeAir,
-                    excludeWater);
-        }
-    }
+    private final ArrayList<Tuple<BlockPos, BlockPos>> bedPositions = new ArrayList<>();
 
     @Override
     protected Boolean CustomBlockProcessingHandled(StructureConfiguration configuration, BuildBlock block, World world, BlockPos originalPos,
@@ -86,7 +44,8 @@ public class StructureBasic extends Structure {
                     originalPos,
                     this.getClearSpace().getShape().getDirection(),
                     configuration.houseFacing);
-        } else if (foundBlock instanceof BlockBed) {
+        }  else if (foundBlock instanceof BlockBed && config.chosenOption.getHasBedColor()) {
+            // Even if a structure has a bed; we may want to keep a specific color to match what the design of the structure is.
             BlockPos bedHeadPosition = block.getStartingPosition().getRelativePosition(originalPos, this.getClearSpace().getShape().getDirection(), configuration.houseFacing);
             BlockPos bedFootPosition = block.getSubBlock().getStartingPosition().getRelativePosition(
                     originalPos,
@@ -95,6 +54,33 @@ public class StructureBasic extends Structure {
 
             this.bedPositions.add(new Tuple<>(bedHeadPosition, bedFootPosition));
 
+            return true;
+        }
+
+        if (foundBlock.getRegistryName().getNamespace().equals(Blocks.STAINED_GLASS.getRegistryName().getNamespace())
+                && foundBlock.getRegistryName().getPath().equals(Blocks.STAINED_GLASS.getRegistryName().getPath())
+                && config.chosenOption.getHasGlassColor()) {
+            blockState = this.getStainedGlassBlock(config.glassColor);
+            block.setBlockState(blockState);
+            this.priorityOneBlocks.add(block);
+
+            return true;
+        } else         if (foundBlock.getRegistryName().getNamespace().equals(Blocks.STAINED_GLASS_PANE.getRegistryName().getNamespace())
+                && foundBlock.getRegistryName().getPath().equals(Blocks.STAINED_GLASS_PANE.getRegistryName().getPath())
+                && config.chosenOption.getHasGlassColor()) {
+            blockState = this.getStainedGlassPaneBlock(config.glassColor);
+
+            BuildBlock.SetBlockState(
+                    configuration,
+                    world,
+                    originalPos,
+                    assumedNorth,
+                    block,
+                    foundBlock,
+                    blockState,
+                    this);
+
+            this.priorityOneBlocks.add(block);
             return true;
         }
 
@@ -123,6 +109,11 @@ public class StructureBasic extends Structure {
                     entity.setPosition(this.customBlockPos.getX(), this.customBlockPos.up().getY(), this.customBlockPos.getZ());
                     world.spawnEntity(entity);
                 }
+            } else if (config.basicStructureName.getName().equals(EnumBasicStructureName.ChickenCoop.getName())) {
+                // For the chicken coop, spawn 4 chickens above the hopper.
+                EntityChicken entity = new EntityChicken(world);
+                entity.setPosition(this.customBlockPos.getX(), this.customBlockPos.down().getY(), this.customBlockPos.getZ());
+                world.spawnEntity(entity);
             } else if (config.basicStructureName.getName().equals(EnumBasicStructureName.MineshaftEntrance.getName())) {
                 // Build the mineshaft where the trap door exists.
                 StructureAlternateStart.PlaceMineShaft(world, this.customBlockPos.down(), configuration.houseFacing, true);

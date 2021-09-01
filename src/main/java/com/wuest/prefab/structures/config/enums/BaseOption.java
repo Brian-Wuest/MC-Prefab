@@ -16,40 +16,20 @@ public abstract class BaseOption {
     private final String translationString;
     private final String assetLocation;
     private final ResourceLocation pictureLocation;
-    private final int imageWidth;
-    private final int imageHeight;
-    private final BuildShape clearShape;
-    private final PositionOffset clearPositionOffset;
+    private final boolean hasBedColor;
+    private final boolean hasGlassColor;
 
     protected BaseOption(
             String translationString,
             String assetLocation,
             String pictureLocation,
-            int imageWidth,
-            int imageHeight,
-            EnumFacing direction,
-            int height,
-            int width,
-            int length,
-            int offsetParallelToPlayer,
-            int offsetToLeftOfPlayer,
-            int heightOffset) {
+            boolean hasBedColor,
+            boolean hasGlassColor) {
         this.translationString = translationString;
         this.assetLocation = assetLocation;
         this.pictureLocation = new ResourceLocation(Prefab.MODID, pictureLocation);
-        this.imageWidth = imageWidth;
-        this.imageHeight = imageHeight;
-        this.clearShape = new BuildShape();
-        this.clearPositionOffset = new PositionOffset();
-
-        this.clearShape.setDirection(direction);
-        this.clearShape.setHeight(height);
-        this.clearShape.setWidth(width);
-        this.clearShape.setLength(length);
-        this.clearPositionOffset.setHorizontalOffset(direction, offsetParallelToPlayer);
-        this.clearPositionOffset.setHorizontalOffset(direction.rotateYCCW(), offsetToLeftOfPlayer);
-        this.clearPositionOffset.setHeightOffset(heightOffset);
-
+        this.hasBedColor = hasBedColor;
+        this.hasGlassColor = hasGlassColor;
         BaseOption.addOption(this);
     }
 
@@ -85,54 +65,38 @@ public abstract class BaseOption {
     }
 
     /**
-     * @return Get's the translation string for the button when choosing this option.
+     * @return Gets the translation string for the button when choosing this option.
      */
     public String getTranslationString() {
         return this.translationString;
     }
 
     /**
-     * @return Get's the asset location to use to build the structure.
+     * @return Gets the asset location to use to build the structure.
      */
     public String getAssetLocation() {
         return this.assetLocation;
     }
 
     /**
-     * @return Get's the picture location to show when this option is chosen.
+     * @return Gets the picture location to show when this option is chosen.
      */
     public ResourceLocation getPictureLocation() {
         return this.pictureLocation;
     }
 
     /**
-     * @return Get the image width when this option's picture is shown.
+     * @return A value indicating whether the current option has bed color options.
      */
-    public int getImageWidth() {
-        return this.imageWidth;
+    public boolean getHasBedColor() {
+        return this.hasBedColor;
     }
 
     /**
-     * @return Get the image height when this option's picture is shown.
+     * @return A value indicating whether the current option has glass color options.
      */
-    public int getImageHeight() {
-        return this.imageHeight;
-    }
-
-    /**
-     * @return Get the build shape for this option.
-     */
-    public BuildShape getClearShape() {
-        return this.clearShape;
-    }
-
-    /**
-     * The {@link PositionOffset} for the clear shape.
-     *
-     * @return A {@link PositionOffset} which describes where the clearing should start.
-     */
-    public PositionOffset getClearPositionOffset() {
-        return this.clearPositionOffset;
+    public boolean getHasGlassColor() {
+        return this.hasGlassColor;
     }
 
     public ArrayList<BaseOption> getSpecificOptions() {

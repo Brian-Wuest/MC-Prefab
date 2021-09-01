@@ -26,13 +26,21 @@ public class ItemBasicStructure extends StructureItem {
         this.structureType = structureType;
     }
 
+    public ItemBasicStructure(String name, EnumBasicStructureName structureType, int durability) {
+        super(name);
+
+        this.setMaxDamage(durability);
+        this.setMaxStackSize(1);
+        this.structureType = structureType;
+    }
+
     public static ItemStack getBasicStructureItemInHand(EntityPlayer player) {
         ItemStack stack = player.getHeldItemOffhand();
 
         // Get off hand first since that is the right-click hand if there is
         // something in there.
-        if (stack == null || !(stack.getItem() instanceof ItemBasicStructure)) {
-            if (player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() instanceof ItemBasicStructure) {
+        if (!(stack.getItem() instanceof ItemBasicStructure)) {
+            if (player.getHeldItemMainhand().getItem() instanceof ItemBasicStructure) {
                 stack = player.getHeldItemMainhand();
             } else {
                 stack = null;
@@ -57,17 +65,5 @@ public class ItemBasicStructure extends StructureItem {
      */
     @Override
     public void scanningMode(EntityPlayer player, World world, BlockPos hitBlockPos, EnumHand hand) {
-        ItemStack stack = player.getHeldItem(hand);
-        BasicStructureConfiguration structureConfiguration = new BasicStructureConfiguration();
-        structureConfiguration.basicStructureName = ((ItemBasicStructure) stack.getItem()).structureType;
-        structureConfiguration.chosenOption = BarnOptions.Default;
-
-        boolean isWaterStructure = structureConfiguration.basicStructureName == EnumBasicStructureName.AquaBase;
-
-        StructureBasic.ScanStructure(
-                world,
-                hitBlockPos,
-                player.getHorizontalFacing(),
-                structureConfiguration, isWaterStructure, isWaterStructure);
     }
 }

@@ -7,28 +7,14 @@ public class BarnOptions extends BaseOption {
             "item.prefab.barn",
             "assets/prefab/structures/barn.zip",
             "textures/gui/barn_topdown.png",
-            164,
-            160,
-            EnumFacing.SOUTH,
-            10,
-            30,
-            25,
-            1,
-            15,
-            0);
+            false,
+            false);
 
     protected BarnOptions(String translationString,
                           String assetLocation,
                           String pictureLocation,
-                          int imageWidth,
-                          int imageHeight,
-                          EnumFacing direction,
-                          int height,
-                          int width,
-                          int length,
-                          int offsetParallelToPlayer,
-                          int offsetToLeftOfPlayer,
-                          int heightOffset) {
-        super(translationString, assetLocation, pictureLocation, imageWidth, imageHeight, direction, height, width, length, offsetParallelToPlayer, offsetToLeftOfPlayer, heightOffset);
+                          boolean hasBedColor,
+                          boolean hasGlassColor) {
+        super(translationString, assetLocation, pictureLocation, hasBedColor, hasGlassColor);
     }
 }

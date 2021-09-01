@@ -63,21 +63,12 @@ public class StructureTagMessage extends TagMessage {
      */
     public enum EnumStructureConfiguration {
         Basic(0, new BasicStructureConfiguration()),
-        ChickenCoop(1, new ChickenCoopConfiguration()),
-        AdvancedWareHouse(2, new WareHouseConfiguration()),
-        FishPond(3, new FishPondConfiguration()),
-        HorseStable(4, new HorseStableConfiguration()),
-        ModularHouse(5, new ModularHouseConfiguration()),
-        MonsterMasher(6, new MonsterMasherConfiguration()),
-        ProduceFarm(8, new ProduceFarmConfiguration()),
-        StartHouse(9, new HouseConfiguration()),
-        TreeFarm(10, new TreeFarmConfiguration()),
-        VillagerHouses(11, new VillagerHouseConfiguration()),
-        WareHouse(12, new WareHouseConfiguration()),
-        ModerateHouse(13, new ModerateHouseConfiguration()),
-        Bulldozer(14, new BulldozerConfiguration()),
-        InstantBridge(15, new InstantBridgeConfiguration()),
-        Parts(16, new StructurePartConfiguration());
+        ModularHouse(1, new ModularHouseConfiguration()),
+        StartHouse(2, new HouseConfiguration()),
+        ModerateHouse(3, new ModerateHouseConfiguration()),
+        Bulldozer(4, new BulldozerConfiguration()),
+        InstantBridge(5, new InstantBridgeConfiguration()),
+        Parts(6, new StructurePartConfiguration());
 
         public int identifier;
         public StructureConfiguration structureConfig;
@@ -94,6 +85,19 @@ public class StructureTagMessage extends TagMessage {
             }
 
             return EnumStructureConfiguration.Basic;
+        }
+
+        public static EnumStructureConfiguration getByConfigurationInstance(StructureConfiguration structureConfig)
+        {
+            for (EnumStructureConfiguration configuration : EnumStructureConfiguration.values())
+            {
+                if (configuration.structureConfig.getClass().equals(structureConfig.getClass()))
+                {
+                    return  configuration;
+                }
+            }
+
+            return null;
         }
     }
 }

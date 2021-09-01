@@ -7,28 +7,14 @@ public class SaloonOptions extends BaseOption {
             "item.prefab.saloon",
             "assets/prefab/structures/saloon.zip",
             "textures/gui/saloon_topdown.png",
-            170,
-            130,
-            EnumFacing.SOUTH,
-            14,
-            28,
-            16,
-            1,
-            10,
-            -1);
+            false,
+            false);
 
     protected SaloonOptions(String translationString,
                             String assetLocation,
                             String pictureLocation,
-                            int imageWidth,
-                            int imageHeight,
-                            EnumFacing direction,
-                            int height,
-                            int width,
-                            int length,
-                            int offsetParallelToPlayer,
-                            int offsetToLeftOfPlayer,
-                            int heightOffset) {
-        super(translationString, assetLocation, pictureLocation, imageWidth, imageHeight, direction, height, width, length, offsetParallelToPlayer, offsetToLeftOfPlayer, heightOffset);
+                            boolean hasBedColor,
+                            boolean hasGlassColor) {
+        super(translationString, assetLocation, pictureLocation, hasBedColor, hasGlassColor);
     }
 }

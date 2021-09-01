@@ -109,23 +109,14 @@ public class ModRegistry {
     /* *********************************** Blueprint Items *********************************** */
 
     public static ItemStartHouse StartHouse;
-    public static ItemWareHouse WareHouse;
-    public static ItemAdvancedWareHouse AdvancedWareHouse;
-    public static ItemChickenCoop ChickenCoop;
-    public static ItemProduceFarm ProduceFarm;
-    public static ItemTreeFarm TreeFarm;
-    public static ItemFishPond FishPond;
-    public static ItemMonsterMasher MonsterMasher;
     public static ItemWarehouseUpgrade WareHouseUpgrade;
     public static ItemBundleOfTimber BundleOfTimber;
-    public static ItemHorseStable HorseStable;
     public static ItemModularHouse ModularHouse;
     public static ItemInstantBridge InstantBridge;
     public static ItemStructurePart StructurePart;
     public static ItemModerateHouse ModerateHouse;
     public static ItemBulldozer Bulldozer;
     public static ItemBulldozer Creative_Bulldozer;
-    public static ItemVillagerHouses VillagerHouses;
 
     /**
      * Gets the gui screen for the ID and passes position data to it.
@@ -196,19 +187,11 @@ public class ModRegistry {
 
         /* *********************************** Blueprint Items *********************************** */
         ModRegistry.StartHouse = ModRegistry.registerItem(new ItemStartHouse("item_start_house"));
-        ModRegistry.WareHouse = ModRegistry.registerItem(new ItemWareHouse("item_warehouse"));
-        ModRegistry.ChickenCoop = ModRegistry.registerItem(new ItemChickenCoop("item_chicken_coop"));
-        ModRegistry.ProduceFarm = ModRegistry.registerItem(new ItemProduceFarm("item_produce_farm"));
-        ModRegistry.TreeFarm = ModRegistry.registerItem(new ItemTreeFarm("item_tree_farm"));
         ModRegistry.CompressedChestItem = ModRegistry.registerItem(new ItemCompressedChest("item_compressed_chest"));
         ModRegistry.PileOfBricks = ModRegistry.registerItem(new ItemPileOfBricks("item_pile_of_bricks"));
         ModRegistry.PalletOfBricks = ModRegistry.registerItem(new ItemPalletOfBricks("item_pallet_of_bricks"));
-        ModRegistry.FishPond = ModRegistry.registerItem(new ItemFishPond("item_fish_pond"));
-        ModRegistry.AdvancedWareHouse = ModRegistry.registerItem(new ItemAdvancedWareHouse("item_advanced_warehouse"));
-        ModRegistry.MonsterMasher = ModRegistry.registerItem(new ItemMonsterMasher("item_monster_masher"));
         ModRegistry.WareHouseUpgrade = ModRegistry.registerItem(new ItemWarehouseUpgrade("item_warehouse_upgrade"));
         ModRegistry.BundleOfTimber = ModRegistry.registerItem(new ItemBundleOfTimber("item_bundle_of_timber"));
-        ModRegistry.HorseStable = ModRegistry.registerItem(new ItemHorseStable("item_horse_stable"));
         ModRegistry.InstantBridge = ModRegistry.registerItem(new ItemInstantBridge("item_instant_bridge"));
         ModRegistry.StringOfLanterns = ModRegistry.registerItem(new ItemStringOfLanterns("item_string_of_lanterns"));
         ModRegistry.CoilOfLanterns = ModRegistry.registerItem(new ItemCoilOfLanterns("item_coil_of_lanterns"));
@@ -216,7 +199,6 @@ public class ModRegistry {
         ModRegistry.Bulldozer = ModRegistry.registerItem(new ItemBulldozer("item_bulldozer", false));
         ModRegistry.Bulldozer = ModRegistry.registerItem(new ItemBulldozer("item_creative_bulldozer", true));
         ModRegistry.StructurePart = ModRegistry.registerItem(new ItemStructurePart("item_structure_part"));
-        ModRegistry.VillagerHouses = ModRegistry.registerItem(new ItemVillagerHouses("item_villager_houses"));
         ////ModRegistry.ModularHouse = ModRegistry.registerItem(new ItemModularHouse("item_modular_house"));
         ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.AdvancedCoop.getItemTextureLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.AdvancedCoop));
         ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.AdvancedHorseStable.getItemTextureLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.AdvancedHorseStable));
@@ -234,6 +216,16 @@ public class ModRegistry {
         ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.Jail.getItemTextureLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.Jail));
         ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.Saloon.getItemTextureLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.Saloon));
         ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.NetherGate.getItemTextureLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.NetherGate));
+
+        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.Warehouse.getItemTextureLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.Warehouse));
+        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.FishPond.getItemTextureLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.FishPond));
+        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.AdvancedWarehouse.getItemTextureLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.AdvancedWarehouse));
+        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.MonsterMasher.getItemTextureLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.MonsterMasher));
+        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.HorseStable.getItemTextureLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.HorseStable));
+        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.VillagerHouses.getItemTextureLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.VillagerHouses));
+        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.ChickenCoop.getItemTextureLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.ChickenCoop));
+        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.ProduceFarm.getItemTextureLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.ProduceFarm));
+        ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.TreeFarm.getItemTextureLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.TreeFarm));
 
         /* *********************************** Slabs *********************************** */
 
