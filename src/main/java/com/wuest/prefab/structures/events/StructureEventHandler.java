@@ -71,11 +71,6 @@ public final class StructureEventHandler {
                 ItemStack stack = ItemStack.EMPTY;
 
                 switch (startingItem.toLowerCase()) {
-                    case "structure part": {
-                        stack = new ItemStack(ModRegistry.StructurePart.get());
-                        break;
-                    }
-
                     case "starting house": {
                         stack = new ItemStack(ModRegistry.StartHouse.get());
                         break;
