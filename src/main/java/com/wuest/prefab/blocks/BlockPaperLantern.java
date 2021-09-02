@@ -37,7 +37,7 @@ public class BlockPaperLantern extends Block {
      */
     public BlockPaperLantern(String name) {
         super(BlockMaterial);
-        this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+        this.setCreativeTab(ModRegistry.PREFAB_GROUP);
         this.setSoundType(SoundType.SNOW);
         this.setHardness(0.6F);
 

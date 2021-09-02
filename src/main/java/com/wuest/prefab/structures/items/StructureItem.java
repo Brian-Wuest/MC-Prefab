@@ -56,7 +56,7 @@ public class StructureItem extends Item {
      */
     protected void Initialize(String name) {
         ModRegistry.setItemName(this, name);
-        this.setCreativeTab(CreativeTabs.MISC);
+        this.setCreativeTab(ModRegistry.PREFAB_GROUP);
         this.PostInit();
     }
 

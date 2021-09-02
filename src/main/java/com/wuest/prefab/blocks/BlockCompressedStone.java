@@ -39,7 +39,7 @@ public class BlockCompressedStone extends Block {
      */
     public BlockCompressedStone(EnumType typeOfStone) {
         super(Material.ROCK);
-        this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+        this.setCreativeTab(ModRegistry.PREFAB_GROUP);
         this.setHardness(1.5F);
         this.setResistance(10.0F);
         this.setHarvestLevel(null, 0);

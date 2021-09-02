@@ -1,3 +1,5 @@
+itemGroup.prefab.logo=Prefab
+
 item.prefab:item_start_house.name=Casa Di Partenza
 item.prefab:item_warehouse.name=Magazzino
 item.prefab:item_chicken_coop.name=Pollaio

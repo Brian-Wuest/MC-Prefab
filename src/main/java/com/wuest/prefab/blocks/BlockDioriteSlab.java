@@ -38,7 +38,7 @@ public abstract class BlockDioriteSlab extends BlockSlab {
         if (!this.isDouble()) {
             iblockstate = iblockstate.withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM);
             ModRegistry.setBlockName(this, "block_half_diorite_slab");
-            this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+            this.setCreativeTab(ModRegistry.PREFAB_GROUP);
         } else {
             ModRegistry.setBlockName(this, "block_diorite_slab");
         }

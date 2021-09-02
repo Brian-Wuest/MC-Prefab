@@ -1,7 +1,6 @@
 package com.wuest.prefab.items;
 
 import com.wuest.prefab.ModRegistry;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -24,7 +23,7 @@ public class ItemCompressedChest extends Item {
     public ItemCompressedChest(String name) {
         super();
 
-        this.setCreativeTab(CreativeTabs.MISC);
+        this.setCreativeTab(ModRegistry.PREFAB_GROUP);
         ModRegistry.setItemName(this, name);
     }
 

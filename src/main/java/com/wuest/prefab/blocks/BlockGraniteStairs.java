@@ -17,6 +17,7 @@ public class BlockGraniteStairs extends BlockStairs {
     public BlockGraniteStairs(String name) {
         super(Blocks.STONE.getStateFromMeta(BlockStone.EnumType.GRANITE_SMOOTH.getMetadata()));
 
+        this.setCreativeTab(ModRegistry.PREFAB_GROUP);
         this.setHarvestLevel("pickaxe", 0);
         ModRegistry.setBlockName(this, name);
     }

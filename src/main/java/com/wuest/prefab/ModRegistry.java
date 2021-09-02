@@ -17,8 +17,10 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.lang.reflect.InvocationTargetException;
@@ -52,6 +54,13 @@ public class ModRegistry {
      * The hashmap of mod guis.
      */
     public static HashMap<Integer, Class> ModGuis = new HashMap<>();
+
+    public static final CreativeTabs PREFAB_GROUP = new CreativeTabs("prefab.logo") {
+        @SideOnly(Side.CLIENT)
+        public ItemStack createIcon() {
+            return new ItemStack(ModRegistry.ItemLogo);
+        }
+    };
 
     /* *********************************** Blocks *********************************** */
     public static BlockCompressedStone CompressedStoneBlock;
@@ -105,6 +114,8 @@ public class ModRegistry {
     public static ItemPalletOfBricks PalletOfBricks;
     public static ItemStringOfLanterns StringOfLanterns;
     public static ItemCoilOfLanterns CoilOfLanterns;
+
+    public static Item ItemLogo;
 
     /* *********************************** Blueprint Items *********************************** */
 
@@ -184,6 +195,8 @@ public class ModRegistry {
         ////ModRegistry.DrafterItem = ModRegistry.setItemBlockName(ModRegistry.registerItem(new ItemBlock(ModRegistry.Drafter)), "block_drafter");
 
         /* *********************************** Items *********************************** */
+        ModRegistry.ItemLogo = ModRegistry.setItemName(ModRegistry.registerItem(new Item()), "item_logo");
+        ModRegistry.ItemLogo.setCreativeTab(null);
 
         /* *********************************** Blueprint Items *********************************** */
         ModRegistry.StartHouse = ModRegistry.registerItem(new ItemStartHouse("item_start_house"));
@@ -310,6 +323,8 @@ public class ModRegistry {
      */
     public static <T extends Item> T registerItem(T item) {
         ModRegistry.ModItems.add(item);
+
+        item.setCreativeTab(ModRegistry.PREFAB_GROUP);
 
         return item;
     }

@@ -17,6 +17,7 @@ public class BlockDioriteStairs extends BlockStairs {
     public BlockDioriteStairs(String name) {
         super(Blocks.STONE.getStateFromMeta(BlockStone.EnumType.DIORITE_SMOOTH.getMetadata()));
 
+        this.setCreativeTab(ModRegistry.PREFAB_GROUP);
         this.setHarvestLevel("pickaxe", 0);
         ModRegistry.setBlockName(this, name);
     }

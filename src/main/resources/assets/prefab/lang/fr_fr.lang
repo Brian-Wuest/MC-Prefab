@@ -1,3 +1,5 @@
+itemGroup.prefab.logo=Prefab
+
 item.prefab:item_start_house.name=Maison de départ
 item.prefab:item_warehouse.name=avancé
 item.prefab:item_chicken_coop.name=Poulailler

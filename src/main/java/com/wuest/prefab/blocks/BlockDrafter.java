@@ -38,7 +38,7 @@ public class BlockDrafter extends TileBlockBase<TileEntityDrafter> implements IM
      */
     public BlockDrafter() {
         super(Material.ROCK);
-        this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+        this.setCreativeTab(ModRegistry.PREFAB_GROUP);
         this.setSoundType(SoundType.STONE);
         this.setBlockUnbreakable();
         this.setResistance(6000000.0F);

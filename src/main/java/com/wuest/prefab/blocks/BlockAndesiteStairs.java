@@ -18,6 +18,7 @@ public class BlockAndesiteStairs extends BlockStairs {
         super(Blocks.STONE.getStateFromMeta(BlockStone.EnumType.ANDESITE_SMOOTH.getMetadata()));
 
         this.setHarvestLevel("pickaxe", 0);
+        this.setCreativeTab(ModRegistry.PREFAB_GROUP);
         ModRegistry.setBlockName(this, name);
     }
 }

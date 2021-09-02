@@ -1,5 +1,6 @@
 package com.wuest.prefab.structures.items;
 
+import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.structures.gui.GuiStructurePart;
 import net.minecraft.creativetab.CreativeTabs;
@@ -11,7 +12,7 @@ public class ItemStructurePart extends StructureItem {
     public ItemStructurePart(String name) {
         super(name);
 
-        this.setCreativeTab(CreativeTabs.MISC);
+        this.setCreativeTab(ModRegistry.PREFAB_GROUP);
         this.setMaxDamage(10);
         this.setMaxStackSize(1);
     }

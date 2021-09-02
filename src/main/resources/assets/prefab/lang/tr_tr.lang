@@ -1,3 +1,5 @@
+itemGroup.prefab.logo=Prefab
+
 item.prefab:item_start_house.name=Başlangıç Evi
 item.prefab:item_warehouse.name=Ambar
 item.prefab:item_chicken_coop.name=Tavuk Kümesi

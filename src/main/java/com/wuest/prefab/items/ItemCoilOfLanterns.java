@@ -11,7 +11,7 @@ public class ItemCoilOfLanterns extends Item {
     public ItemCoilOfLanterns(String name) {
         super();
 
-        this.setCreativeTab(CreativeTabs.MATERIALS);
+        this.setCreativeTab(ModRegistry.PREFAB_GROUP);
         ModRegistry.setItemName(this, name);
     }
 }

@@ -68,7 +68,7 @@ public class BlockPhasing extends Block {
      */
     public BlockPhasing(String name) {
         super(BlockPhasing.BlockMaterial);
-        this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+        this.setCreativeTab(ModRegistry.PREFAB_GROUP);
         this.setSoundType(SoundType.STONE);
         this.setHardness(0.6F);
         this.setDefaultState(this.blockState.getBaseState().withProperty(Phasing_Out, false).withProperty(Phasing_Progress, EnumPhasingProgress.base));

@@ -25,6 +25,7 @@ public class BlockGlassStairs extends BlockStairs {
     public BlockGlassStairs(String name) {
         super(Blocks.GLASS.getDefaultState());
 
+        this.setCreativeTab(ModRegistry.PREFAB_GROUP);
         ModRegistry.setBlockName(this, name);
     }
 

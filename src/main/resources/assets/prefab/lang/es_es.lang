@@ -1,3 +1,5 @@
+itemGroup.prefab.logo=Prefab
+
 item.prefab:item_start_house.name=Casa de inicio
 item.prefab:item_warehouse.name=Almacén
 item.prefab:item_chicken_coop.name=Gallinero

@@ -29,7 +29,7 @@ public class BlockCompressedObsidian extends Block {
      */
     public BlockCompressedObsidian(EnumType stoneType) {
         super(Material.ROCK);
-        this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+        this.setCreativeTab(ModRegistry.PREFAB_GROUP);
         this.setHardness(50.0F);
         this.setResistance(2000.0F);
         this.setHarvestLevel(null, 0);

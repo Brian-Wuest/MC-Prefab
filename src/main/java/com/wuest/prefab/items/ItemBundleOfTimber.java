@@ -11,7 +11,7 @@ public class ItemBundleOfTimber extends Item {
     public ItemBundleOfTimber(String name) {
         super();
 
-        this.setCreativeTab(CreativeTabs.MATERIALS);
+        this.setCreativeTab(ModRegistry.PREFAB_GROUP);
         ModRegistry.setItemName(this, name);
     }
 }

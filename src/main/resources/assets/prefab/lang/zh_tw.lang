@@ -1,3 +1,5 @@
+itemGroup.prefab.logo=Prefab
+
 item.prefab:item_start_house.name=起始小屋
 item.prefab:item_warehouse.name=倉庫
 item.prefab:item_chicken_coop.name=雞舍
