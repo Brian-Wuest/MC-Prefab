@@ -7,6 +7,7 @@ import com.wuest.prefab.blocks.FullDyeColor;
 import com.wuest.prefab.gui.controls.CustomButton;
 import com.wuest.prefab.gui.controls.ExtendedButton;
 import com.wuest.prefab.gui.controls.GuiCheckBox;
+import com.wuest.prefab.gui.controls.GuiSlider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.AbstractButton;
@@ -184,10 +185,10 @@ public abstract class GuiBase extends Screen {
         return checkBox;
     }
 
-    public Slider createAndAddSlider(int xPos, int yPos, int width, int height, String prefix, String suf,
-                                     double minVal, double maxVal, double currentVal, boolean showDec, boolean drawStr,
-                                     Button.OnPress handler) {
-        Slider slider = new Slider(xPos, yPos, width, height, Utils.createTextComponent(prefix), Utils.createTextComponent(suf), minVal, maxVal, currentVal, showDec,
+    public GuiSlider createAndAddSlider(int xPos, int yPos, int width, int height, String prefix, String suf,
+                                        double minVal, double maxVal, double currentVal, boolean showDec, boolean drawStr,
+                                        Button.OnPress handler) {
+        GuiSlider slider = new GuiSlider(xPos, yPos, width, height, Utils.createTextComponent(prefix), Utils.createTextComponent(suf), minVal, maxVal, currentVal, showDec,
                 drawStr, handler);
 
         this.addRenderableWidget(slider);

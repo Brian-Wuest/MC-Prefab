@@ -7,6 +7,7 @@ import com.wuest.prefab.gui.GuiLangKeys;
 import com.wuest.prefab.gui.GuiUtils;
 import com.wuest.prefab.gui.controls.ExtendedButton;
 import com.wuest.prefab.gui.controls.GuiCheckBox;
+import com.wuest.prefab.gui.controls.GuiSlider;
 import com.wuest.prefab.structures.base.EnumStructureMaterial;
 import com.wuest.prefab.structures.config.InstantBridgeConfiguration;
 import com.wuest.prefab.structures.messages.StructureTagMessage.EnumStructureConfiguration;
@@ -21,9 +22,9 @@ public class GuiInstantBridge extends GuiStructure {
     private static final ResourceLocation structureTopDown = new ResourceLocation("prefab", "textures/gui/instant_bridge_top_down.png");
     protected InstantBridgeConfiguration configuration;
     private ExtendedButton btnMaterialType;
-    private Slider sldrBridgeLength;
+    private GuiSlider sldrBridgeLength;
     private GuiCheckBox chckIncludeRoof;
-    private Slider sldrInteriorHeight;
+    private GuiSlider sldrInteriorHeight;
 
     public GuiInstantBridge() {
         super("Instant Bridge");

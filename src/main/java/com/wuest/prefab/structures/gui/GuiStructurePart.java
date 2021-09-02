@@ -6,6 +6,7 @@ import com.wuest.prefab.events.ClientEventHandler;
 import com.wuest.prefab.gui.GuiLangKeys;
 import com.wuest.prefab.gui.GuiUtils;
 import com.wuest.prefab.gui.controls.ExtendedButton;
+import com.wuest.prefab.gui.controls.GuiSlider;
 import com.wuest.prefab.structures.base.EnumStairsMaterial;
 import com.wuest.prefab.structures.base.EnumStructureMaterial;
 import com.wuest.prefab.structures.config.StructurePartConfiguration;
@@ -24,10 +25,10 @@ import net.minecraftforge.fmlclient.gui.widget.Slider;
 @SuppressWarnings({"ConstantConditions", "SpellCheckingInspection"})
 public class GuiStructurePart extends GuiStructure {
     protected StructurePartConfiguration configuration;
-    private Slider sldrStairWidth;
-    private Slider sldrStairHeight;
-    private Slider sldrGeneralWidth;
-    private Slider sldrGeneralHeight;
+    private GuiSlider sldrStairWidth;
+    private GuiSlider sldrStairHeight;
+    private GuiSlider sldrGeneralWidth;
+    private GuiSlider sldrGeneralHeight;
     private ExtendedButton btnPartStyle;
     private ExtendedButton btnMaterialType;
     private ExtendedButton btnStairsMaterialType;
