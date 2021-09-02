@@ -335,9 +335,7 @@ public final class StructureEventHandler {
                 BlockEntity tileEntity = structure.world.getBlockEntity(tileEntityPos);
                 BlockState tileBlock = structure.world.getBlockState(tileEntityPos);
 
-                if (tileEntity == null) {
-                    BlockEntity.loadStatic(tileEntityPos, tileBlock, buildTileEntity.getEntityDataTag());
-                } else {
+                if (tileEntity != null) {
                     structure.world.removeBlockEntity(tileEntityPos);
                     tileEntity = BlockEntity.loadStatic(tileEntityPos, tileBlock, buildTileEntity.getEntityDataTag());
                     structure.world.setBlockEntity(tileEntity);
