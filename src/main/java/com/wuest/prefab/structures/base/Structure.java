@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
+import com.wuest.prefab.Prefab;
 import com.wuest.prefab.ZipUtil;
 import com.wuest.prefab.blocks.FullDyeColor;
 import com.wuest.prefab.gui.GuiLangKeys;
@@ -571,7 +572,8 @@ public class Structure {
                                                    EnumFacing assumedNorth, Block foundBlock, IBlockState blockState, EntityPlayer player) {
         // Replace water blocks with cobblestone.
         if (foundBlock instanceof BlockLiquid && blockState.getMaterial() == Material.WATER
-                && (world.provider.getDimensionType() == DimensionType.NETHER)) {
+                && (world.provider.getDimensionType() == DimensionType.NETHER
+            || (world.provider.getDimensionType() != DimensionType.OVERWORLD && !Prefab.proxy.proxyConfiguration.allowWaterInNonOverworldDimensions))) {
             block.setBlockDomain(Blocks.COBBLESTONE.getRegistryName().getNamespace());
             block.setBlockName(Blocks.COBBLESTONE.getRegistryName().getPath());
             block.setBlockState(Blocks.COBBLESTONE.getDefaultState());

@@ -86,6 +86,7 @@ public class ModConfiguration {
     private static String includeSpawnersInMasherName = "Include Spawners in Monster Masher";
     private static String enableStructurePreviewName = "Include Structure Previews";
     private static String includeMineshaftChestName = "Include Mineshaft Chest";
+    private static String allowWaterInNonOverworldDimensionsName = "Include Water In Overworld Dimension Only";
 
     // Chest content option names.
     private static String addSwordName = "Add Sword";
@@ -120,6 +121,7 @@ public class ModConfiguration {
     public boolean includeSpawnersInMasher;
     public boolean enableStructurePreview;
     public boolean includeMineshaftChest;
+    public boolean allowWaterInNonOverworldDimensions;
     public boolean allowBulldozerToCreateDrops;
 
     // Chest content options.
@@ -182,6 +184,9 @@ public class ModConfiguration {
                 "Determines if the Preview buttons in structure GUIs and other structure previews functions are enabled. Client side only.");
         Prefab.proxy.proxyConfiguration.includeMineshaftChest = config.getBoolean(ModConfiguration.includeMineshaftChestName, ModConfiguration.OPTIONS, true,
                 "Determines if the mineshaft chest is included when building mineshafts for various structures.");
+
+        Prefab.proxy.proxyConfiguration.allowWaterInNonOverworldDimensions = config.getBoolean(ModConfiguration.allowWaterInNonOverworldDimensionsName, ModConfiguration.OPTIONS, true,
+                "Determines if water can be generated in structures when the current dimension is not the oveworld. Does not affect Nether.");
 
         Prefab.proxy.proxyConfiguration.allowBulldozerToCreateDrops = config.getBoolean(ModConfiguration.allowBulldozerToCreateDropsName, ModConfiguration.OPTIONS, true,
                 "Determines if the bulldozer item can create drops when it clears an area.");
@@ -284,6 +289,7 @@ public class ModConfiguration {
         config.includeSpawnersInMasher = tag.getBoolean(ModConfiguration.includeSpawnersInMasherName);
         config.enableStructurePreview = tag.getBoolean(ModConfiguration.enableStructurePreviewName);
         config.includeMineshaftChest = tag.getBoolean(ModConfiguration.includeMineshaftChestName);
+        config.allowWaterInNonOverworldDimensions = tag.getBoolean(ModConfiguration.allowWaterInNonOverworldDimensionsName);
         config.allowBulldozerToCreateDrops = tag.getBoolean(ModConfiguration.allowBulldozerToCreateDropsName);
 
         config.addSword = tag.getBoolean(ModConfiguration.addSwordName);
@@ -326,6 +332,7 @@ public class ModConfiguration {
         tag.setBoolean(ModConfiguration.includeSpawnersInMasherName, this.includeSpawnersInMasher);
         tag.setBoolean(ModConfiguration.enableStructurePreviewName, this.enableStructurePreview);
         tag.setBoolean(ModConfiguration.includeMineshaftChestName, this.includeMineshaftChest);
+        tag.setBoolean(ModConfiguration.allowWaterInNonOverworldDimensionsName, this.allowWaterInNonOverworldDimensions);
         tag.setBoolean(ModConfiguration.allowBulldozerToCreateDropsName, this.allowBulldozerToCreateDrops);
 
         tag.setBoolean(ModConfiguration.addSwordName, this.addSword);
