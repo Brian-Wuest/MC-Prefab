@@ -210,7 +210,7 @@ public class ModRegistry {
         ModRegistry.CoilOfLanterns = ModRegistry.registerItem(new ItemCoilOfLanterns("item_coil_of_lanterns"));
         ModRegistry.ModerateHouse = ModRegistry.registerItem(new ItemModerateHouse("item_moderate_house"));
         ModRegistry.Bulldozer = ModRegistry.registerItem(new ItemBulldozer("item_bulldozer", false));
-        ModRegistry.Bulldozer = ModRegistry.registerItem(new ItemBulldozer("item_creative_bulldozer", true));
+        ModRegistry.Creative_Bulldozer = ModRegistry.registerItem(new ItemBulldozer("item_creative_bulldozer", true));
         ModRegistry.StructurePart = ModRegistry.registerItem(new ItemStructurePart("item_structure_part"));
         ////ModRegistry.ModularHouse = ModRegistry.registerItem(new ItemModularHouse("item_modular_house"));
         ModRegistry.registerItem(new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.AdvancedCoop.getItemTextureLocation().getPath(), BasicStructureConfiguration.EnumBasicStructureName.AdvancedCoop));
