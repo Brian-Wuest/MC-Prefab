@@ -1,0 +1,36 @@
+{
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Moderate Farm"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Moderate Farm",
+  "pattern": [
+    "aba",
+    "cdc",
+    "ebe"
+  ],
+  "key": {
+    "a": {
+      "item": "prefab:item_heap_of_timber"
+    },
+    "b": {
+      "tag": "forge:storage_blocks/compressed_stone"
+    },
+    "c": {
+      "tag": "forge:storage_blocks/double_compressed_dirt"
+    },
+    "d": {
+      "item": "minecraft:water_bucket"
+    },
+    "e": {
+      "item": "prefab:item_pile_of_bricks"
+    }
+  },
+  "result": {
+    "item": "prefab:item_moderate_farm",
+    "count": 1
+  }
+}
