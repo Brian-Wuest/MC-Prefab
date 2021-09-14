@@ -78,7 +78,7 @@ public class BasicStructureConfiguration extends StructureConfiguration {
         this.basicStructureName = EnumBasicStructureName.AquaBase;
         this.bedColor = DyeColor.RED;
         this.glassColor = FullDyeColor.CLEAR;
-        this.chosenOption = this.basicStructureName.baseOption.getSpecificOptions().get(0);
+        this.chosenOption = this.basicStructureName.baseOption.getSpecificOptions(false).get(0);
     }
 
     @Override

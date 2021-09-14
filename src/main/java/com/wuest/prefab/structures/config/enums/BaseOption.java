@@ -98,15 +98,29 @@ public class BaseOption {
         return this.hasGlassColor;
     }
 
-    public ArrayList<BaseOption> getSpecificOptions() {
+    public ArrayList<BaseOption> getSpecificOptions(boolean filterOptions) {
         String className = this.getClass().getName();
 
         for (Map.Entry<String, ArrayList<BaseOption>> mapping : BaseOption.classOptions.entrySet()) {
             if (mapping.getKey().equals(className)) {
-                return mapping.getValue();
+                if (filterOptions) {
+                    return this.filterOptions(mapping.getValue());
+                } else {
+                    return mapping.getValue();
+                }
             }
         }
 
         return null;
+    }
+
+    /**
+     * Filters the supplied options to remove any options not available based on configuration.
+     *
+     * @param originalOptions The original options to filter.
+     * @return A modified array list which potentially has some items removed.
+     */
+    public ArrayList<BaseOption> filterOptions(ArrayList<BaseOption> originalOptions) {
+        return originalOptions;
     }
 }

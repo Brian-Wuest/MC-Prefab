@@ -97,6 +97,7 @@ public class ModConfiguration {
     static String enableStructurePreviewName = "Include Structure Previews";
     static String includeMineshaftChestName = "Include Mineshaft Chest";
     static String allowWaterInNonOverworldDimensionsName = "Include Water In Non-Overworld Dimesions";
+    static String enableAutomationOptionsFromModerateFarmName = "Enable Automation Options For Moderate Farm";
 
     // Chest content option names.
     static String addSwordName = "Add Sword";
@@ -139,6 +140,7 @@ public class ModConfiguration {
     private BooleanValue enableStructurePreview;
     private BooleanValue allowBulldozerToCreateDrops;
     private BooleanValue allowWaterInNonOverworldDimensions;
+    private BooleanValue enableAutomationOptionsFromModerateFarm;
 
     // Chest content options.
     private BooleanValue includeMineshaftChest;
@@ -258,6 +260,18 @@ public class ModConfiguration {
                 .setConfigType("Boolean")
                 .setCategory(ConfigCategory.General)
                 .setHoverText("Determines if water can be generated in structures when the current dimension is not the oveworld. Does not affect Nether")
+                .setDefaultValue(true));
+
+        Prefab.proxy.proxyConfiguration.enableAutomationOptionsFromModerateFarm = builder
+                .comment("Enable Automation Options For Moderate Farm")
+                .define(OPTIONS + ModConfiguration.enableAutomationOptionsFromModerateFarmName, true);
+
+        config.configOptions.add(new ConfigOption<Boolean>()
+                .setConfigValue(Prefab.proxy.proxyConfiguration.enableAutomationOptionsFromModerateFarm)
+                .setName(ModConfiguration.enableAutomationOptionsFromModerateFarmName)
+                .setConfigType("Boolean")
+                .setCategory(ConfigCategory.General)
+                .setHoverText("Enable Automation Options For Moderate Farm")
                 .setDefaultValue(true));
 
         builder.comment("Chest Options");

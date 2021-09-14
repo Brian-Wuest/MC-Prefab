@@ -1,6 +1,7 @@
 package com.wuest.prefab.config;
 
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraftforge.common.ForgeConfigSpec;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -19,6 +20,7 @@ public class ServerModConfiguration {
     public boolean includeMineshaftChest;
     public boolean allowBulldozerToCreateDrops;
     public boolean allowWaterInNonOverworldDimensions;
+    public boolean enableAutomationOptionsFromModerateFarm;
 
     // Chest content options.
     public boolean addSword;
@@ -61,6 +63,7 @@ public class ServerModConfiguration {
         configuration.includeMineshaftChest = tag.getBoolean(ModConfiguration.includeMineshaftChestName);
         configuration.allowBulldozerToCreateDrops = tag.getBoolean(ModConfiguration.allowBulldozerToCreateDropsName);
         configuration.allowWaterInNonOverworldDimensions = tag.getBoolean(ModConfiguration.allowWaterInNonOverworldDimensionsName);
+        configuration.enableAutomationOptionsFromModerateFarm = tag.getBoolean(ModConfiguration.enableAutomationOptionsFromModerateFarmName);
 
         configuration.addSword = tag.getBoolean(ModConfiguration.addSwordName);
         configuration.addAxe = tag.getBoolean(ModConfiguration.addAxeName);
@@ -100,6 +103,7 @@ public class ServerModConfiguration {
         tag.putBoolean(ModConfiguration.includeMineshaftChestName, this.includeMineshaftChest);
         tag.putBoolean(ModConfiguration.allowBulldozerToCreateDropsName, this.allowBulldozerToCreateDrops);
         tag.putBoolean(ModConfiguration.allowWaterInNonOverworldDimensionsName, this.allowWaterInNonOverworldDimensions);
+        tag.putBoolean(ModConfiguration.enableAutomationOptionsFromModerateFarmName, this.enableAutomationOptionsFromModerateFarm);
 
         tag.putBoolean(ModConfiguration.addSwordName, this.addSword);
         tag.putBoolean(ModConfiguration.addAxeName, this.addAxe);
