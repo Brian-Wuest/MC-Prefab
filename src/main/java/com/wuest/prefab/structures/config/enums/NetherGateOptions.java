@@ -7,13 +7,6 @@ public class NetherGateOptions extends BaseOption {
             "item.prefab.item_nether_gate_skull",
             "assets/prefab/structures/nethergate.zip",
             "textures/gui/nether_gate_top_down.png",
-            Direction.SOUTH,
-            13,
-            26,
-            15,
-            1,
-            7,
-            -2,
             false,
             false);
 
@@ -21,39 +14,18 @@ public class NetherGateOptions extends BaseOption {
             "item.prefab.item_nether_gate_tree",
             "assets/prefab/structures/nethergate_tree.zip",
             "textures/gui/nether_gate_tree_top_down.png",
-            Direction.SOUTH,
-            20,
-            16,
-            16,
-            1,
-            9,
-            -7,
             false,
             false);
 
     protected NetherGateOptions(String translationString,
                                 String assetLocation,
                                 String pictureLocation,
-                                Direction direction,
-                                int height,
-                                int width,
-                                int length,
-                                int offsetParallelToPlayer,
-                                int offsetToLeftOfPlayer,
-                                int heightOffset,
                                 boolean hasBedColor,
                                 boolean hasGlassColor) {
         super(
                 translationString,
                 assetLocation,
                 pictureLocation,
-                direction,
-                height,
-                width,
-                length,
-                offsetParallelToPlayer,
-                offsetToLeftOfPlayer,
-                heightOffset,
                 hasBedColor,
                 hasGlassColor);
     }

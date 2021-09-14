@@ -69,7 +69,7 @@ public class ModerateFarmOptions extends BaseOption{
      */
     @Override
     public ArrayList<BaseOption> filterOptions(ArrayList<BaseOption> originalOptions) {
-        if (!Prefab.serverConfiguration.enableAutomationOptionsFromModerateFarm) {
+        if (!Prefab.proxy.getServerConfiguration().enableAutomationOptionsFromModerateFarm) {
             ArrayList<BaseOption> modifiedList = (ArrayList<BaseOption>)originalOptions.clone();
             modifiedList.remove(ModerateFarmOptions.SugarCaneFarm);
             modifiedList.remove(ModerateFarmOptions.AutomatedFarm);
