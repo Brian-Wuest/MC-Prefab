@@ -68,19 +68,5 @@ public class ItemBasicStructure extends StructureItem {
      */
     @Override
     public void scanningMode(ItemUseContext context) {
-        StructureBasic basicStructure = new StructureBasic();
-        ItemStack stack = context.getPlayer().getItemInHand(context.getHand());
-        BasicStructureConfiguration structureConfiguration = new BasicStructureConfiguration();
-        structureConfiguration.basicStructureName = ((ItemBasicStructure) stack.getItem()).structureType;
-        structureConfiguration.chosenOption = ModernBuildingsOptions.Mall;
-
-        boolean isWaterStructure = structureConfiguration.basicStructureName == EnumBasicStructureName.AquaBase
-                || structureConfiguration.basicStructureName == EnumBasicStructureName.AdvancedAquaBase;
-
-        basicStructure.ScanStructure(
-                context.getLevel(),
-                context.getClickedPos(),
-                context.getPlayer().getDirection(),
-                structureConfiguration, isWaterStructure, isWaterStructure);
     }
 }

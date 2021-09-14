@@ -29,48 +29,6 @@ public class StructureBasic extends Structure {
     private BlockPos customBlockPos = null;
     private ArrayList<Tuple<BlockPos, BlockPos>> bedPositions = new ArrayList<>();
 
-    public static void ScanStructure(World world, BlockPos originalPos, Direction playerFacing, BasicStructureConfiguration configuration, boolean includeAir, boolean excludeWater) {
-        BuildClear clearedSpace = new BuildClear();
-        clearedSpace.setShape(configuration.chosenOption.getClearShape());
-        clearedSpace.setStartingPosition(configuration.chosenOption.getClearPositionOffset());
-        clearedSpace.getShape().setDirection(playerFacing);
-
-        if (!configuration.IsCustomStructure()) {
-            BuildShape buildShape = configuration.chosenOption.getClearShape().Clone();
-
-            // Scanning the structure doesn't contain the starting corner block but the clear does.
-            buildShape.setWidth(buildShape.getWidth() - 1);
-            buildShape.setLength(buildShape.getLength() - 1);
-
-            PositionOffset offset = configuration.chosenOption.getClearPositionOffset();
-
-            clearedSpace.getShape().setWidth(clearedSpace.getShape().getWidth());
-            clearedSpace.getShape().setLength(clearedSpace.getShape().getLength());
-
-            int downOffset = offset.getHeightOffset() < 0 ? Math.abs(offset.getHeightOffset()) : 0;
-            BlockPos cornerPos = originalPos
-                    .relative(playerFacing.getCounterClockWise(), offset.getOffSetValueForFacing(playerFacing.getCounterClockWise()))
-                    .relative(playerFacing, offset.getOffSetValueForFacing(playerFacing))
-                    .below(downOffset);
-
-            BlockPos otherCorner = cornerPos
-                    .relative(playerFacing, buildShape.getLength())
-                    .relative(playerFacing.getClockWise(), buildShape.getWidth())
-                    .above(buildShape.getHeight());
-
-            Structure.ScanStructure(
-                    world,
-                    originalPos,
-                    cornerPos,
-                    otherCorner,
-                    "..\\src\\main\\resources\\" + configuration.chosenOption.getAssetLocation(),
-                    clearedSpace,
-                    playerFacing,
-                    includeAir,
-                    excludeWater);
-        }
-    }
-
     @Override
     protected Boolean CustomBlockProcessingHandled(StructureConfiguration configuration, BuildBlock block, World world, BlockPos originalPos,
                                                    Direction assumedNorth, Block foundBlock, BlockState blockState, PlayerEntity player) {
