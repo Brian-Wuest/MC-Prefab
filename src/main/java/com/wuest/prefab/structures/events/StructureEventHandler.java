@@ -2,6 +2,7 @@ package com.wuest.prefab.structures.events;
 
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
+import com.wuest.prefab.Tuple;
 import com.wuest.prefab.config.EntityPlayerConfiguration;
 import com.wuest.prefab.proxy.CommonProxy;
 import com.wuest.prefab.proxy.messages.PlayerEntityTagMessage;
@@ -53,6 +54,10 @@ public final class StructureEventHandler {
      * Contains a hashmap for the structures to build and for whom.
      */
     public static HashMap<PlayerEntity, ArrayList<Structure>> structuresToBuild = new HashMap<PlayerEntity, ArrayList<Structure>>();
+
+    public static ArrayList<Tuple<Structure, BuildEntity>> entitiesToGenerate = new ArrayList<>();
+
+    public static int ticksSinceLastEntitiesGenerated = 0;
 
     /**
      * This event is used to determine if the player should be given the starting house item when they log in.
@@ -116,6 +121,15 @@ public final class StructureEventHandler {
     public static void onServerTick(ServerTickEvent event) {
         if (event.phase == TickEvent.Phase.START) {
             ArrayList<PlayerEntity> playersToRemove = new ArrayList<PlayerEntity>();
+
+            StructureEventHandler.ticksSinceLastEntitiesGenerated++;
+
+            if (StructureEventHandler.ticksSinceLastEntitiesGenerated > 40) {
+                // Process any entities; this is done about every 2 seconds.
+                StructureEventHandler.processStructureEntities();
+
+                StructureEventHandler.ticksSinceLastEntitiesGenerated = 0;
+            }
 
             for (Entry<PlayerEntity, ArrayList<Structure>> entry : StructureEventHandler.structuresToBuild.entrySet()) {
                 ArrayList<Structure> structuresToRemove = new ArrayList<Structure>();
@@ -357,41 +371,7 @@ public final class StructureEventHandler {
                 Optional<EntityType<?>> entityType = EntityType.byString(buildEntity.getEntityResourceString());
 
                 if (entityType.isPresent()) {
-                    Entity entity = entityType.get().create(structure.world);
-
-                    if (entity != null) {
-                        CompoundNBT tagCompound = buildEntity.getEntityDataTag();
-                        BlockPos entityPos = buildEntity.getStartingPosition().getRelativePosition(structure.originalPos,
-                                structure.getClearSpace().getShape().getDirection(), structure.configuration.houseFacing);
-
-                        if (tagCompound != null) {
-                            if (tagCompound.hasUUID("UUID")) {
-                                tagCompound.putUUID("UUID", UUID.randomUUID());
-                            }
-
-                            ListNBT nbttaglist = new ListNBT();
-                            nbttaglist.add(DoubleNBT.valueOf(entityPos.getX()));
-                            nbttaglist.add(DoubleNBT.valueOf(entityPos.getY()));
-                            nbttaglist.add(DoubleNBT.valueOf(entityPos.getZ()));
-                            tagCompound.put("Pos", nbttaglist);
-
-                            entity.load(tagCompound);
-                        }
-
-                        entity.forcedLoading = true;
-
-                        // Set item frame facing and rotation here.
-                        if (entity instanceof ItemFrameEntity) {
-                            entity = StructureEventHandler.setItemFrameFacingAndRotation((ItemFrameEntity) entity, buildEntity, entityPos, structure);
-                        } else if (entity instanceof PaintingEntity) {
-                            entity = StructureEventHandler.setPaintingFacingAndRotation((PaintingEntity) entity, buildEntity, entityPos, structure);
-                        } else {
-                            // All other entities
-                            entity = StructureEventHandler.setEntityFacingAndRotation(entity, buildEntity, entityPos, structure);
-                        }
-
-                        structure.world.addFreshEntity(entity);
-                    }
+                    StructureEventHandler.entitiesToGenerate.add(new Tuple<>(structure, buildEntity));
                 }
             }
 
@@ -399,6 +379,56 @@ public final class StructureEventHandler {
             structure.AfterBuilding(structure.configuration, structure.world, structure.originalPos, structure.assumedNorth, entry.getKey());
             entry.getValue().remove(structure);
         }
+    }
+
+    private static void processStructureEntities() {
+        for (Tuple<Structure, BuildEntity> entityRecords : StructureEventHandler.entitiesToGenerate) {
+            BuildEntity buildEntity = entityRecords.getSecond();
+            Structure structure = entityRecords.getFirst();
+
+            Optional<EntityType<?>> entityType = EntityType.byString(buildEntity.getEntityResourceString());
+
+            if (entityType.isPresent()) {
+                Entity entity = entityType.get().create(structure.world);
+
+                if (entity != null) {
+                    CompoundNBT tagCompound = buildEntity.getEntityDataTag();
+                    BlockPos entityPos = buildEntity.getStartingPosition().getRelativePosition(structure.originalPos,
+                            structure.getClearSpace().getShape().getDirection(), structure.configuration.houseFacing);
+
+                    if (tagCompound != null) {
+                        if (tagCompound.hasUUID("UUID")) {
+                            tagCompound.putUUID("UUID", UUID.randomUUID());
+                        }
+
+                        ListNBT nbttaglist = new ListNBT();
+                        nbttaglist.add(DoubleNBT.valueOf(entityPos.getX()));
+                        nbttaglist.add(DoubleNBT.valueOf(entityPos.getY()));
+                        nbttaglist.add(DoubleNBT.valueOf(entityPos.getZ()));
+                        tagCompound.put("Pos", nbttaglist);
+
+                        entity.load(tagCompound);
+                    }
+
+                    entity.forcedLoading = true;
+
+                    // Set item frame facing and rotation here.
+                    if (entity instanceof ItemFrameEntity) {
+                        entity = StructureEventHandler.setItemFrameFacingAndRotation((ItemFrameEntity) entity, buildEntity, entityPos, structure);
+                    } else if (entity instanceof PaintingEntity) {
+                        entity = StructureEventHandler.setPaintingFacingAndRotation((PaintingEntity) entity, buildEntity, entityPos, structure);
+                    } else {
+                        // All other entities
+                        entity = StructureEventHandler.setEntityFacingAndRotation(entity, buildEntity, entityPos, structure);
+                    }
+
+                    structure.world.addFreshEntity(entity);
+                }
+            }
+        }
+
+        // All entities generated; clear out the list.
+        StructureEventHandler.entitiesToGenerate.clear();
     }
 
     private static void removeWaterLogging(Structure structure) {
