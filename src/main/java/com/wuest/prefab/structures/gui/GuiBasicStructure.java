@@ -65,9 +65,10 @@ public class GuiBasicStructure extends GuiStructure {
                 || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WatchTower
                 || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WelcomeCenter
                 || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.VillagerHouses
-                || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.ProduceFarm
+                || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.StarterFarm
                 || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.AdvancedWarehouse
-                || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.MonsterMasher
+                || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.ModerateFarm
+                || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.AdvancedFarm
                 || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.Warehouse
                 || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WorkShop) {
             this.showConfigurationOptions = true;

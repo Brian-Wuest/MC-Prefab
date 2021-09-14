@@ -5,6 +5,8 @@ import com.wuest.prefab.structures.base.*;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration.EnumBasicStructureName;
 import com.wuest.prefab.structures.config.StructureConfiguration;
+import com.wuest.prefab.structures.config.enums.BaseOption;
+import com.wuest.prefab.structures.config.enums.ModerateFarmOptions;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityType;
@@ -74,31 +76,27 @@ public class StructureBasic extends Structure {
                                                    Direction assumedNorth, Block foundBlock, BlockState blockState, PlayerEntity player) {
         BasicStructureConfiguration config = (BasicStructureConfiguration) configuration;
 
-        if (foundBlock instanceof HopperBlock && config.basicStructureName.getName().equals(EnumBasicStructureName.AdvancedCoop.getName())) {
+        String structureName = config.basicStructureName.getName();
+        BaseOption chosenOption = config.chosenOption;
+
+        if (foundBlock instanceof HopperBlock && structureName.equals(EnumBasicStructureName.ModerateFarm.getName()) && chosenOption == ModerateFarmOptions.AutomatedChickenCoop) {
             this.customBlockPos = block.getStartingPosition().getRelativePosition(
                     originalPos,
                     this.getClearSpace().getShape().getDirection(),
                     configuration.houseFacing);
-        } else if (foundBlock instanceof FenceGateBlock && config.basicStructureName.getName().equals(EnumBasicStructureName.ChickenCoop.getName())) {
-            this.customBlockPos = block.getStartingPosition().getRelativePosition(
-                    originalPos,
-                    this.getClearSpace().getShape().getDirection(),
-                    configuration.houseFacing)
-                    .relative(configuration.houseFacing.getOpposite(), 2)
-                    .above();
-        } else if (foundBlock instanceof TrapDoorBlock && config.basicStructureName.getName().equals(EnumBasicStructureName.MineshaftEntrance.getName())) {
+        } else if (foundBlock instanceof TrapDoorBlock && structureName.equals(EnumBasicStructureName.MineshaftEntrance.getName())) {
             this.customBlockPos = block.getStartingPosition().getRelativePosition(
                     originalPos,
                     this.getClearSpace().getShape().getDirection(),
                     configuration.houseFacing);
         } else if (foundBlock == Blocks.SPONGE
-                && config.basicStructureName.getName().equals(BasicStructureConfiguration.EnumBasicStructureName.WorkShop.getName())) {
+                && structureName.equals(BasicStructureConfiguration.EnumBasicStructureName.WorkShop.getName())) {
             // Sponges are sometimes used in-place of trapdoors when trapdoors are used for decoration.
             this.customBlockPos = block.getStartingPosition().getRelativePosition(
                     originalPos,
                     this.getClearSpace().getShape().getDirection(),
                     configuration.houseFacing).above();
-        } else if (foundBlock instanceof BedBlock && config.chosenOption.getHasBedColor()) {
+        } else if (foundBlock instanceof BedBlock && chosenOption.getHasBedColor()) {
             // Even if a structure has a bed; we may want to keep a specific color to match what the design of the structure is.
             BlockPos bedHeadPosition = block.getStartingPosition().getRelativePosition(originalPos, this.getClearSpace().getShape().getDirection(), configuration.houseFacing);
             BlockPos bedFootPosition = block.getSubBlock().getStartingPosition().getRelativePosition(
@@ -165,22 +163,19 @@ public class StructureBasic extends Structure {
     @Override
     public void AfterBuilding(StructureConfiguration configuration, ServerWorld world, BlockPos originalPos, Direction assumedNorth, PlayerEntity player) {
         BasicStructureConfiguration config = (BasicStructureConfiguration) configuration;
+        String structureName = config.basicStructureName.getName();
+        BaseOption chosenOption = config.chosenOption;
 
         if (this.customBlockPos != null) {
-            if (config.basicStructureName.getName().equals(EnumBasicStructureName.AdvancedCoop.getName())) {
+            if (structureName.equals(EnumBasicStructureName.ModerateFarm.getName()) && chosenOption == ModerateFarmOptions.AutomatedChickenCoop) {
                 // For the advanced chicken coop, spawn 4 chickens above the hopper.
                 for (int i = 0; i < 4; i++) {
                     ChickenEntity entity = new ChickenEntity(EntityType.CHICKEN, world);
                     entity.setPos(this.customBlockPos.getX(), this.customBlockPos.above().getY(), this.customBlockPos.getZ());
                     world.addFreshEntity(entity);
                 }
-            } else if (config.basicStructureName.getName().equals(EnumBasicStructureName.ChickenCoop.getName())) {
-                // For the advanced chicken coop, spawn 4 chickens above the hopper.
-                ChickenEntity entity = new ChickenEntity(EntityType.CHICKEN, world);
-                entity.setPos(this.customBlockPos.getX(), this.customBlockPos.above().getY(), this.customBlockPos.getZ());
-                world.addFreshEntity(entity);
-            } else if (config.basicStructureName.getName().equals(EnumBasicStructureName.MineshaftEntrance.getName())
-                    || config.basicStructureName.getName().equals(BasicStructureConfiguration.EnumBasicStructureName.WorkShop.getName())) {
+            } else if (structureName.equals(EnumBasicStructureName.MineshaftEntrance.getName())
+                    || structureName.equals(BasicStructureConfiguration.EnumBasicStructureName.WorkShop.getName())) {
                 // Build the mineshaft where the trap door exists.
                 BuildingMethods.PlaceMineShaft(world, this.customBlockPos.below(), configuration.houseFacing, true);
             }
@@ -194,8 +189,8 @@ public class StructureBasic extends Structure {
             }
         }
 
-        if (config.basicStructureName.getName().equals(EnumBasicStructureName.AquaBase.getName())
-                || config.basicStructureName.getName().equals(EnumBasicStructureName.AdvancedAquaBase.getName())) {
+        if (structureName.equals(EnumBasicStructureName.AquaBase.getName())
+                || structureName.equals(EnumBasicStructureName.AdvancedAquaBase.getName())) {
             // Replace the entrance area with air blocks.
             BlockPos airPos = originalPos.above(4).relative(configuration.houseFacing.getOpposite(), 1);
 
