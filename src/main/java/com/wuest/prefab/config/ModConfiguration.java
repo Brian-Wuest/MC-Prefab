@@ -545,6 +545,7 @@ public class ModConfiguration {
         Prefab.proxy.proxyConfiguration.serverConfiguration.addMineshaft = Prefab.proxy.proxyConfiguration.addMineshaft.get();
         Prefab.proxy.proxyConfiguration.serverConfiguration.allowBulldozerToCreateDrops = Prefab.proxy.proxyConfiguration.allowBulldozerToCreateDrops.get();
         Prefab.proxy.proxyConfiguration.serverConfiguration.allowWaterInNonOverworldDimensions = Prefab.proxy.proxyConfiguration.allowWaterInNonOverworldDimensions.get();
+        Prefab.proxy.proxyConfiguration.serverConfiguration.enableAutomationOptionsFromModerateFarm = Prefab.proxy.proxyConfiguration.enableAutomationOptionsFromModerateFarm.get();
 
         // Recipe configuration.
         for (String key : ModConfiguration.recipeKeys) {
