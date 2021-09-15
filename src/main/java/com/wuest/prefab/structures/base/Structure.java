@@ -417,11 +417,10 @@ public class Structure {
                             block.setSubBlock(subBlock);
                         }
 
-                        boolean priorityTwoBlock = foundBlock instanceof HopperBlock;
+                        boolean priorityTwoBlock = foundBlock instanceof HopperBlock || foundBlock instanceof LeverBlock;
 
                         boolean priorityThreeBlock = foundBlock instanceof TorchBlock
                                 || foundBlock instanceof AbstractSignBlock
-                                || foundBlock instanceof LeverBlock
                                 || foundBlock instanceof AbstractButtonBlock
                                 || foundBlock instanceof BedBlock
                                 || foundBlock instanceof CarpetBlock

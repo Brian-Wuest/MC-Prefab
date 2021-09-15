@@ -15,6 +15,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.HangingEntity;
 import net.minecraft.entity.item.ItemFrameEntity;
 import net.minecraft.entity.item.PaintingEntity;
+import net.minecraft.entity.item.minecart.AbstractMinecartEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -417,6 +418,10 @@ public final class StructureEventHandler {
                         entity = StructureEventHandler.setItemFrameFacingAndRotation((ItemFrameEntity) entity, buildEntity, entityPos, structure);
                     } else if (entity instanceof PaintingEntity) {
                         entity = StructureEventHandler.setPaintingFacingAndRotation((PaintingEntity) entity, buildEntity, entityPos, structure);
+                    }  else if (entity instanceof AbstractMinecartEntity) {
+                        // Minecarts need to be slightly higher to account for the rails; otherwise they will fall through the rail and the block below the rail.
+                        buildEntity.entityYAxisOffset = buildEntity.entityYAxisOffset + .2;
+                        entity = StructureEventHandler.setEntityFacingAndRotation(entity, buildEntity, entityPos, structure);
                     } else {
                         // All other entities
                         entity = StructureEventHandler.setEntityFacingAndRotation(entity, buildEntity, entityPos, structure);

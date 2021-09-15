@@ -41,12 +41,13 @@ public class ModerateFarmOptions extends BaseOption{
             false,
             true);
 
-    public static ModerateFarmOptions MushroomFarm = new ModerateFarmOptions(
+    // This is for 1.17 and later
+/*    public static ModerateFarmOptions MushroomFarm = new ModerateFarmOptions(
             "prefab.gui.starter.farm.mushroom",
             "assets/prefab/structures/mushroom_farm.zip",
             "textures/gui/mushroom_farm_topdown.png",
             false,
-            false);
+            false);*/
 
     protected ModerateFarmOptions(String translationString,
                                   String assetLocation,
