@@ -5,6 +5,8 @@ import com.wuest.prefab.structures.base.*;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration.EnumBasicStructureName;
 import com.wuest.prefab.structures.config.StructureConfiguration;
+import com.wuest.prefab.structures.config.enums.BaseOption;
+import com.wuest.prefab.structures.config.enums.ModerateFarmOptions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;

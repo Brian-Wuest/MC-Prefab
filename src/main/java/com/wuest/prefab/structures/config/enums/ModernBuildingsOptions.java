@@ -50,13 +50,6 @@ public class ModernBuildingsOptions extends BaseOption{
             "prefab.gui.item_modern_library",
             "assets/prefab/structures/modern_library.zip",
             "textures/gui/modern_library_topdown.png",
-            Direction.SOUTH,
-            14,
-            38,
-            23,
-            1,
-            19,
-            0,
             false,
             false);
 

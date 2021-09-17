@@ -21,6 +21,8 @@ import net.minecraft.world.entity.decoration.HangingEntity;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.decoration.Painting;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.vehicle.AbstractMinecart;
+import net.minecraft.world.entity.vehicle.Minecart;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -385,7 +387,7 @@ public final class StructureEventHandler {
                 Entity entity = entityType.get().create(structure.world);
 
                 if (entity != null) {
-                    CompoundNBT tagCompound = buildEntity.getEntityDataTag();
+                    CompoundTag tagCompound = buildEntity.getEntityDataTag();
                     BlockPos entityPos = buildEntity.getStartingPosition().getRelativePosition(structure.originalPos,
                             structure.getClearSpace().getShape().getDirection(), structure.configuration.houseFacing);
 
@@ -403,14 +405,12 @@ public final class StructureEventHandler {
                         entity.load(tagCompound);
                     }
 
-                    entity.forcedLoading = true;
-
                     // Set item frame facing and rotation here.
                     if (entity instanceof ItemFrame) {
-                        entity = StructureEventHandler.setItemFrameFacingAndRotation((ItemFrameEntity) entity, buildEntity, entityPos, structure);
+                        entity = StructureEventHandler.setItemFrameFacingAndRotation((ItemFrame) entity, buildEntity, entityPos, structure);
                     } else if (entity instanceof Painting) {
-                        entity = StructureEventHandler.setPaintingFacingAndRotation((PaintingEntity) entity, buildEntity, entityPos, structure);
-                    }  else if (entity instanceof AbstractMinecartEntity) {
+                        entity = StructureEventHandler.setPaintingFacingAndRotation((Painting) entity, buildEntity, entityPos, structure);
+                    }  else if (entity instanceof AbstractMinecart) {
                         // Minecarts need to be slightly higher to account for the rails; otherwise they will fall through the rail and the block below the rail.
                         buildEntity.entityYAxisOffset = buildEntity.entityYAxisOffset + .2;
                         entity = StructureEventHandler.setEntityFacingAndRotation(entity, buildEntity, entityPos, structure);

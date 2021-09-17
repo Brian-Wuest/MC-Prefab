@@ -62,6 +62,6 @@ public class ItemBasicStructure extends StructureItem {
      * Does something when the item is right-clicked.
      */
     @Override
-    public void scanningMode(ItemUseContext context) {
+    public void scanningMode(UseOnContext context) {
     }
 }
