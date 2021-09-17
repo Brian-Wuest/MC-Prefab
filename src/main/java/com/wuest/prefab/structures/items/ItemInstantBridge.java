@@ -1,6 +1,7 @@
 package com.wuest.prefab.structures.items;
 
 import com.wuest.prefab.ModRegistry;
+import com.wuest.prefab.Prefab;
 import com.wuest.prefab.structures.gui.GuiInstantBridge;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;

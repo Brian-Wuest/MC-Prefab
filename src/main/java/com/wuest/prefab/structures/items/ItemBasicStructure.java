@@ -1,6 +1,7 @@
 package com.wuest.prefab.structures.items;
 
 import com.wuest.prefab.ModRegistry;
+import com.wuest.prefab.Prefab;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration.EnumBasicStructureName;
 import com.wuest.prefab.structures.config.enums.*;
@@ -61,20 +62,6 @@ public class ItemBasicStructure extends StructureItem {
      * Does something when the item is right-clicked.
      */
     @Override
-    public void scanningMode(UseOnContext context) {
-        StructureBasic basicStructure = new StructureBasic();
-        ItemStack stack = context.getPlayer().getItemInHand(context.getHand());
-        BasicStructureConfiguration structureConfiguration = new BasicStructureConfiguration();
-        structureConfiguration.basicStructureName = ((ItemBasicStructure) stack.getItem()).structureType;
-        structureConfiguration.chosenOption = VillagerHouseOptions.FENCED_ROOF;
-
-        boolean isWaterStructure = structureConfiguration.basicStructureName == EnumBasicStructureName.AquaBase
-                || structureConfiguration.basicStructureName == EnumBasicStructureName.AdvancedAquaBase;
-
-        basicStructure.ScanStructure(
-                context.getLevel(),
-                context.getClickedPos(),
-                context.getPlayer().getDirection(),
-                structureConfiguration, isWaterStructure, isWaterStructure);
+    public void scanningMode(ItemUseContext context) {
     }
 }

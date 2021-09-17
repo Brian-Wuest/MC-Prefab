@@ -1,0 +1,39 @@
+{
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Advanced Farm"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Advanced Farm",
+  "pattern": [
+    "abc",
+    "ddd",
+    "efe"
+  ],
+  "key": {
+    "a": {
+      "item": "prefab:item_ton_of_timber"
+    },
+    "b": {
+      "tag": "forge:storage_blocks/compressed_glow_stone"
+    },
+    "c": {
+      "item": "prefab:item_pallet_of_bricks"
+    },
+    "d": {
+      "tag": "forge:storage_blocks/double_compressed_dirt"
+    },
+    "e": {
+      "tag": "forge:storage_blocks/double_compressed_stone"
+    },
+    "f": {
+      "item": "prefab:item_compressed_chest"
+    }
+  },
+  "result": {
+    "item": "prefab:item_advanced_farm",
+    "count": 1
+  }
+}

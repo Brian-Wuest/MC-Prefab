@@ -151,7 +151,6 @@ public class BlockPhasing extends Block {
         }
     }
 
-    // TODO: This used to be "tick"
     @Override
     public void tick(BlockState state, ServerLevel worldIn, BlockPos pos, Random random) {
         int tickDelay = this.tickRate;

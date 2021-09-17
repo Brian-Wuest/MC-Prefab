@@ -15,8 +15,6 @@ public class BaseOption {
     private final String translationString;
     private final String assetLocation;
     private final ResourceLocation pictureLocation;
-    private final BuildShape clearShape;
-    private final PositionOffset clearPositionOffset;
     private final boolean hasBedColor;
     private final boolean hasGlassColor;
 
@@ -24,31 +22,13 @@ public class BaseOption {
             String translationString,
             String assetLocation,
             String pictureLocation,
-            Direction direction,
-            int height,
-            int width,
-            int length,
-            int offsetParallelToPlayer,
-            int offsetToLeftOfPlayer,
-            int heightOffset,
             boolean hasBedColor,
             boolean hasGlassColor) {
         this.translationString = translationString;
         this.assetLocation = assetLocation;
         this.pictureLocation = new ResourceLocation(Prefab.MODID, pictureLocation);
-        this.clearShape = new BuildShape();
-        this.clearPositionOffset = new PositionOffset();
         this.hasBedColor = hasBedColor;
         this.hasGlassColor = hasGlassColor;
-
-        this.clearShape.setDirection(direction);
-        this.clearShape.setHeight(height);
-        this.clearShape.setWidth(width);
-        this.clearShape.setLength(length);
-        this.clearPositionOffset.setHorizontalOffset(direction, offsetParallelToPlayer);
-        this.clearPositionOffset.setHorizontalOffset(direction.getCounterClockWise(), offsetToLeftOfPlayer);
-        this.clearPositionOffset.setHeightOffset(heightOffset);
-
         BaseOption.addOption(this);
     }
 
@@ -105,22 +85,6 @@ public class BaseOption {
     }
 
     /**
-     * @return Get the build shape for this option.
-     */
-    public BuildShape getClearShape() {
-        return this.clearShape;
-    }
-
-    /**
-     * The {@link PositionOffset} for the clear shape.
-     *
-     * @return A {@link PositionOffset} which describes where the clearing should start.
-     */
-    public PositionOffset getClearPositionOffset() {
-        return this.clearPositionOffset;
-    }
-
-    /**
      * @return A value indicating whether the current option has bed color options.
      */
     public boolean getHasBedColor() {
@@ -134,15 +98,29 @@ public class BaseOption {
         return this.hasGlassColor;
     }
 
-    public ArrayList<BaseOption> getSpecificOptions() {
+    public ArrayList<BaseOption> getSpecificOptions(boolean filterOptions) {
         String className = this.getClass().getName();
 
         for (Map.Entry<String, ArrayList<BaseOption>> mapping : BaseOption.classOptions.entrySet()) {
             if (mapping.getKey().equals(className)) {
-                return mapping.getValue();
+                if (filterOptions) {
+                    return this.filterOptions(mapping.getValue());
+                } else {
+                    return mapping.getValue();
+                }
             }
         }
 
         return null;
+    }
+
+    /**
+     * Filters the supplied options to remove any options not available based on configuration.
+     *
+     * @param originalOptions The original options to filter.
+     * @return A modified array list which potentially has some items removed.
+     */
+    public ArrayList<BaseOption> filterOptions(ArrayList<BaseOption> originalOptions) {
+        return originalOptions;
     }
 }

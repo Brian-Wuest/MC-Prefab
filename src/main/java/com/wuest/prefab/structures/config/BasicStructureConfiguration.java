@@ -75,10 +75,10 @@ public class BasicStructureConfiguration extends StructureConfiguration {
     public void Initialize() {
         super.Initialize();
         this.houseFacing = Direction.NORTH;
-        this.basicStructureName = EnumBasicStructureName.AdvancedCoop;
+        this.basicStructureName = EnumBasicStructureName.AquaBase;
         this.bedColor = DyeColor.RED;
         this.glassColor = FullDyeColor.CLEAR;
-        this.chosenOption = this.basicStructureName.baseOption.getSpecificOptions().get(0);
+        this.chosenOption = this.basicStructureName.baseOption.getSpecificOptions(false).get(0);
     }
 
     @Override
@@ -177,9 +177,6 @@ public class BasicStructureConfiguration extends StructureConfiguration {
     @SuppressWarnings("SpellCheckingInspection")
     public enum EnumBasicStructureName {
         Custom("custom", null, null, null),
-        AdvancedCoop("advancedcoop", "item.prefab.item_advanced_chicken_coop", "item_advanced_chicken_coop", AdvancedCoopOptions.Default),
-        AdvancedHorseStable("advanced_horse_stable", "item.prefab.item_advanced_horse_stable", "item_advanced_horse_stable", AdvancedHorseStableOptions.Default),
-        Barn("barn", "item.prefab.barn", "item_barn", BarnOptions.Default),
         MachineryTower("machinery_tower", "item.prefab.item_machinery_tower", "item_machinery_tower", MachineryTowerOptions.Default),
         DefenseBunker("defense_bunker", "item.prefab.item_defense_bunker", "item_defense_bunker", DefenseBunkerOptions.Default),
         MineshaftEntrance("mineshaft_entrance", "item.prefab.item_mineshaft_entrance", "item_mineshaft_entrance", MineshaftEntranceOptions.Default),
@@ -187,7 +184,6 @@ public class BasicStructureConfiguration extends StructureConfiguration {
         AquaBase("aqua_base", "item.prefab.item_aqua_base", "item_aqua_base", AquaBaseOptions.Default),
         GrassyPlain("grassy_plain", "item.prefab.item_grassy_plain", "item_grassy_plain", GrassyPlainOptions.Default),
         MagicTemple("magic_temple", "item.prefab.item_magic_temple", "item_magic_temple", MagicTempleOptions.Default),
-        GreenHouse("green_house", "item.prefab.item_green_house", "item_green_house", GreenHouseOptions.Default),
         WatchTower("watch_tower", "item.prefab.item_watch_tower", "item_watch_tower", WatchTowerOptions.Default),
         WelcomeCenter("welcome_center", "item.prefab.item_welcome_center", "item_welcome_center", WelcomeCenterOptions.Default),
         Jail("jail", "item.prefab.item_jail", "item_jail", JailOptions.Default),
@@ -196,19 +192,15 @@ public class BasicStructureConfiguration extends StructureConfiguration {
         WindMill("wind_mill", "item.prefab.item_wind_mill", "item_wind_mill", WindMillOptions.Default),
         TownHall("town_hall", "item.prefab.item_town_hall", "item_town_hall", TownHallOptions.Default),
         NetherGate("nether_gate", "item.prefab.item_nether_gate", "item_nether_gate", NetherGateOptions.AncientSkull),
-        SugarCaneFarm("sugar_cane_farm", "item.prefab.item_sugar_cane_farm", "item_sugar_cane_farm", SugarCaneFarmOptions.Default),
         AdvancedAquaBase("advanced_aqua_base", "item.prefab.item_advanced_aqua_base", "item_advanced_aqua_base", AdvancedAquaBaseOptions.Default),
         WorkShop("workshop", "item.prefab.item_workshop", "item_workshop", WorkshopOptions.Default),
-        FishPond("fishpond", "item.prefab.item_fishpond", "item_fish_pond", FishPondOptions.Default),
-        HorseStable("horse_stable", "item.prefab.item_horse_stable", "item_horse_stable", HorseStableOptions.Default),
-        TreeFarm("tree_farm", "item.prefab.item_tree_farm", "item_tree_farm", TreeFarmOptions.Default),
         VillagerHouses("villager_houses", "item.prefab.item_villager_houses", "item_villager_houses", VillagerHouseOptions.FLAT_ROOF),
-        ChickenCoop("chicken_coop", "item.prefab.item_chicken_coop", "item_chicken_coop", ChickenCoopOptions.Default),
-        ProduceFarm("produce_farm", "item.prefab.item_produce_farm", "item_produce_farm", ProduceFarmOptions.Default),
-        MonsterMasher("monster_masher", "item.prefab.item_monster_masher", "item_monster_masher", MonsterMasherOptions.Default),
         AdvancedWarehouse("advanced_warehouse", "item.prefab.item_advanced_warehouse", "item_advanced_warehouse", AdvancedWarehouseOptions.Default),
         Warehouse("warehouse", "item.prefab.item_warehouse", "item_warehouse", WarehouseOptions.Default),
-        ModernBuildings("modern_buildings", "item.prefab.item_modern_buildings", "item_modern_buildings", ModernBuildingsOptions.Mall);
+        ModernBuildings("modern_buildings", "item.prefab.item_modern_buildings", "item_modern_buildings", ModernBuildingsOptions.Mall),
+        StarterFarm("starter_farm", "item.prefab.item_starter_farm", "item_starter_farm", StarterFarmOptions.ElevatedFarm),
+        ModerateFarm("moderate_farm", "item.prefab.item_moderate_farm", "item_moderate_farm", ModerateFarmOptions.AutomatedFarm),
+        AdvancedFarm("advanced_farm", "item.prefab.item_advanced_farm", "item_advanced_farm", AdvancedFarmOptions.AutomatedBeeFarm);
 
         private final String name;
         private final String itemTranslationString;
