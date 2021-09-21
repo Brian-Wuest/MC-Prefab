@@ -31,19 +31,10 @@ public class ModConfiguration {
     private static final String compressedChestKey = "Compressed Chest";
     private static final String pileOfBricksKey = "Pile of Bricks";
     private static final String warehouseKey = "Warehouse";
-    private static final String produceFarmKey = "Produce Farm";
-    private static final String treeFarmKey = "Tree Farm";
-    private static final String chickenCoopKey = "Chicken Coop";
-    private static final String fishFarmKey = "Fish Farm";
     private static final String warehouseUpgradeKey = "Warehouse Upgrade";
     private static final String advancedWarehouseKey = "Advanced Warehouse";
-    private static final String monsterMasherKey = "Monster Masher";
     private static final String bundleofTimberKey = "Bundle of Timber";
-    private static final String horseStableKey = "Horse Stable";
     private static final String netherGateKey = "Nether Gate";
-    private static final String advancedChickenCoopKey = "Advanced Chicken Coop";
-    private static final String advancedHorseStableKey = "Advanced Horse Stable";
-    private static final String barnKey = "Barn";
     private static final String machineryTowerKey = "Machinery Tower";
     private static final String defenseBunkerKey = "Defense Bunker";
     private static final String mineshaftEntranceKey = "Mineshaft Entrance";
@@ -60,17 +51,10 @@ public class ModConfiguration {
     private static final String greenHouseKey = "Green House";
     private static final String startingHouseKey = "Starting House";
     private static final String glassStairsKey = "Glass Stairs";
-    private static final String andesiteStairsKey = "Andesite Stairs";
-    private static final String dioriteStairsKey = "Diorite Stairs";
-    private static final String graniteStairsKey = "Granite Stairs";
     private static final String glassSlabsKey = "Glass Slabs";
-    private static final String andesiteSlabsKey = "Andesite Slabs";
-    private static final String dioriteSlabKey = "Diorite Slabs";
-    private static final String grantiteSlabKey = "Granite Slabs";
     private static final String moderateHouseKey = "Moderate House";
     private static final String watchTowerKey = "Watch Tower";
     private static final String bulldozerKey = "Bulldozer";
-    private static final String structurePartKey = "StructurePart";
     private static final String jailKey = "Jail";
     private static final String saloonKey = "Saloon";
     private static final String skiLodgeKey = "Ski Lodge";
@@ -78,7 +62,6 @@ public class ModConfiguration {
     private static final String townHallKey = "Town Hall";
     private static final String heapOfTimberKey = "Heap of Timber";
     private static final String tonOfTimberKey = "Ton of Timber";
-    private static final String sugarCaneFarmKey = "Sugar Cane Farm";
     private static final String workshopKey = "Workshop";
     private static final String modernBuildingsKey = "Modern Buildings";
     public static String SwiftBladeKey = "Swift Blade";
@@ -88,6 +71,9 @@ public class ModConfiguration {
     public static String BunchOfCarrotsKey = "Bunch Of Carrots";
     public static String BunchOfPotatoesKey = "Bunch Of Potatoes";
     public static String WoodenCrateKey = "WoodenCrate";
+    public static String starterFarmKey = "Starter Farm";
+    public static String moderateFarmKey = "Moderate Farm";
+    public static String advancedFarmKey = "Advanced Farm";
 
     public static String tagKey = "PrefabConfig";
     // Config file option names.
@@ -122,13 +108,13 @@ public class ModConfiguration {
     static String addMineshaftName = "Add Mineshaft";
     static String allowBulldozerToCreateDropsName = "Bulldozer Creates Drops";
     static String[] recipeKeys = new String[]
-            {compressedStoneKey, compressedGlowStoneKey, compressedDirteKey, compressedChestKey, pileOfBricksKey, warehouseKey, produceFarmKey, treeFarmKey, chickenCoopKey, fishFarmKey,
-                    warehouseUpgradeKey, advancedWarehouseKey, monsterMasherKey, bundleofTimberKey, horseStableKey, netherGateKey, advancedChickenCoopKey, advancedHorseStableKey, barnKey,
+            {compressedStoneKey, compressedGlowStoneKey, compressedDirteKey, compressedChestKey, pileOfBricksKey, warehouseKey,
+                    warehouseUpgradeKey, advancedWarehouseKey, bundleofTimberKey, netherGateKey,
                     machineryTowerKey, defenseBunkerKey, mineshaftEntranceKey, enderGatewayKey, magicTempleKey, instantBridgeKey, paperLanternKey, compressedObsidianKey, villagerHousesKey,
-                    phasicBlockKey, smartGlassKey, greenHouseKey, startingHouseKey, glassStairsKey, glassSlabsKey, andesiteStairsKey, andesiteSlabsKey, dioriteStairsKey, dioriteSlabKey,
-                    graniteStairsKey, grantiteSlabKey, moderateHouseKey, grassyPlainsKey, aquaBaseKey, watchTowerKey, bulldozerKey, structurePartKey, jailKey, saloonKey, skiLodgeKey,
-                    windMillKey, townHallKey, heapOfTimberKey, tonOfTimberKey, sugarCaneFarmKey, workshopKey, modernBuildingsKey, SwiftBladeKey, SickleKey, DirtRecipesKey, BunchOfBeetsKey,
-                    BunchOfCarrotsKey, BunchOfPotatoesKey, WoodenCrateKey};
+                    phasicBlockKey, smartGlassKey, greenHouseKey, startingHouseKey, glassStairsKey, glassSlabsKey,
+                     moderateHouseKey, grassyPlainsKey, aquaBaseKey, watchTowerKey, bulldozerKey, jailKey, saloonKey, skiLodgeKey,
+                    windMillKey, townHallKey, heapOfTimberKey, tonOfTimberKey, workshopKey, modernBuildingsKey, SwiftBladeKey, SickleKey, DirtRecipesKey, BunchOfBeetsKey,
+                    BunchOfCarrotsKey, BunchOfPotatoesKey, WoodenCrateKey, starterFarmKey, moderateFarmKey, advancedFarmKey};
 
     private static ForgeConfigSpec SPEC;
     private final HashMap<String, BooleanValue> recipeConfiguration;
