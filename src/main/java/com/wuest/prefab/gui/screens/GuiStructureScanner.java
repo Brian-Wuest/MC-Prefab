@@ -59,28 +59,28 @@ public class GuiStructureScanner extends GuiBase {
 
         // Starting position.
         this.btnStartingPositionMoveDown = this.createAndAddButton(adjustedX + 33, adjustedY + 50, 25, 20, "^");
-        this.btnStartingPositionMoveDown.fontScale = 2.0f;
+        this.btnStartingPositionMoveDown.fontScale = 1.4f;
         this.btnStartingPositionMoveLeft = this.createAndAddButton(adjustedX + 20, adjustedY + 75, 25, 20, "<");
-        this.btnStartingPositionMoveLeft.fontScale = 2.0f;
+        this.btnStartingPositionMoveLeft.fontScale = 1.3f;
         this.btnStartingPositionMoveRight = this.createAndAddButton(adjustedX + 47, adjustedY + 75, 25, 20, ">");
-        this.btnStartingPositionMoveRight.fontScale = 2.0f;
+        this.btnStartingPositionMoveRight.fontScale = 1.3f;
 
         this.btnStartingPositionMoveUp = this.createAndAddButton(adjustedX + 33, adjustedY + 100, 25, 20, "v");
 
         // Length
         this.btnLengthShrink = this.createAndAddButton(adjustedX + 120, adjustedY + 30, 25, 20, "v");
         this.btnLengthGrow = this.createAndAddButton(adjustedX + 147, adjustedY + 30, 25, 20, "^");
-        this.btnLengthGrow.fontScale = 2.0f;
+        this.btnLengthGrow.fontScale = 1.4f;
 
         // Width
         this.btnWidthShrink = this.createAndAddButton(adjustedX + 200, adjustedY + 30, 25, 20, "v");
         this.btnWidthGrow = this.createAndAddButton(adjustedX + 227, adjustedY + 30, 25, 20, "^");
-        this.btnWidthGrow.fontScale = 2.0f;
+        this.btnWidthGrow.fontScale = 1.4f;
 
         // Height
         this.btnHeightShrink = this.createAndAddButton(adjustedX + 270, adjustedY + 30, 25, 20, "v");
         this.btnHeightGrow = this.createAndAddButton(adjustedX + 297, adjustedY + 30, 25, 20, "^");
-        this.btnHeightGrow.fontScale = 2.0f;
+        this.btnHeightGrow.fontScale = 1.4f;
 
         // Zip Text Field
         this.txtZipName = new GuiTextBox(this.getMinecraft().font, adjustedX + 120, adjustedY + 75, 150, 20, new TextComponent(""));
