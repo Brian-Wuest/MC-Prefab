@@ -25,6 +25,8 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -81,8 +83,7 @@ public class ModRegistry {
     public static final RegistryObject<BlockItem> BlockPhasingItem = ITEMS.register("block_phasing", () -> new BlockItem(BlockPhasing.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
     public static final RegistryObject<BlockBoundary> BlockBoundary = BLOCKS.register("block_boundary", com.wuest.prefab.blocks.BlockBoundary::new);
 
-    /* public static final RegistryObject<BlockStructureScanner> StructureScanner = BLOCKS.register("block_structure_scanner", com.wuest.prefab.blocks.BlockStructureScanner::new);
-     */
+     public static RegistryObject<BlockStructureScanner> StructureScanner = null;
     /* *********************************** Item Blocks *********************************** */
     public static final RegistryObject<BlockItem> BlockBoundaryItem = ITEMS.register("block_boundary", () -> new BlockItem(BlockBoundary.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
     public static final RegistryObject<BlockPaperLantern> PaperLantern = BLOCKS.register("block_paper_lantern", BlockPaperLantern::new);
@@ -104,15 +105,10 @@ public class ModRegistry {
     public static final RegistryObject<BlockGrassStairs> GrassStairs = BLOCKS.register("block_grass_stairs", com.wuest.prefab.blocks.BlockGrassStairs::new);
     public static final RegistryObject<BlockItem> GrassStairsItem = ITEMS.register("block_grass_stairs", () -> new BlockItem(GrassStairs.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
 
-    /*public static final RegistryObject<BlockItem> StructureScannerItem = ITEMS.register("block_structure_scanner", () -> new BlockItem(StructureScanner.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)) );
-     */
-    /* *********************************** Tile Entities *********************************** */
-    /*public static final RegistryObject<TileEntityType<StructureScannerBlockEntity>> StructureScannerTileEntity = TILE_ENTITIES.register("structure_scanner_entity", () -> {
-        ModRegistry.StructureScannerEntityType = new TileEntityType<>(
-                StructureScannerBlockEntity::new, new HashSet<>(Arrays.asList(ModRegistry.StructureScanner.get())), null);
+    public static RegistryObject<BlockItem> StructureScannerItem = null;
 
-        return ModRegistry.StructureScannerEntityType;
-    });*/
+    /* *********************************** Tile Entities *********************************** */
+    public static RegistryObject<BlockEntityType<StructureScannerBlockEntity>> StructureScannerTileEntity = null;
 
     /* *********************************** Items *********************************** */
     public static final RegistryObject<Item> ItemLogo = ITEMS.register("item_logo", () -> new Item(new Item.Properties()));
@@ -188,6 +184,21 @@ public class ModRegistry {
     public static final RegistryObject<ItemBasicStructure> StarterFarm = ITEMS.register(EnumBasicStructureName.StarterFarm.getItemTextureLocation().getPath(), () -> new ItemBasicStructure(EnumBasicStructureName.StarterFarm));
     public static final RegistryObject<ItemBasicStructure> ModerateFarm = ITEMS.register(EnumBasicStructureName.ModerateFarm.getItemTextureLocation().getPath(), () -> new ItemBasicStructure(EnumBasicStructureName.ModerateFarm));
     public static final RegistryObject<ItemBasicStructure> AdvancedFarm = ITEMS.register(EnumBasicStructureName.AdvancedFarm.getItemTextureLocation().getPath(), () -> new ItemBasicStructure(EnumBasicStructureName.AdvancedFarm));
+
+    static {
+        if (Prefab.isDebug) {
+            ModRegistry.StructureScanner = BLOCKS.register("block_structure_scanner", com.wuest.prefab.blocks.BlockStructureScanner::new);
+
+            ModRegistry.StructureScannerItem = ITEMS.register("block_structure_scanner", () -> new BlockItem(StructureScanner.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
+
+            ModRegistry.StructureScannerTileEntity = TILE_ENTITIES.register("structure_scanner_entity", () -> {
+                ModRegistry.StructureScannerEntityType = new BlockEntityType<>(
+                        StructureScannerBlockEntity::new, new HashSet<>(Arrays.asList(ModRegistry.StructureScanner.get())), null);
+
+                return ModRegistry.StructureScannerEntityType;
+            });
+        }
+    }
 
     /**
      * This is where the mod messages are registered.
