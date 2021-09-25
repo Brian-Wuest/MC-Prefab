@@ -1,32 +1,31 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "Wooden Crate"
-        }
-    ],
-    "type": "minecraft:crafting_shaped",
-    "group": "Wooden Crate",
-    "pattern": [
-        "AAA",
-        "BBB",
-        "AAA"
-    ],
-    "key": {
-        "A": [
-            {
-                "tag": "minecraft:planks"
-            }
-        ],
-        "B": [
-            {
-                "item": "minecraft:stick",
-                "data": 0
-            }
-        ]
-    },
-    "result": {
-        "item": "prefab:item_wooden_crate",
-        "count": 1
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Wooden Crate"
     }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Wooden Crate",
+  "pattern": [
+    "AAA",
+    "BBB",
+    "AAA"
+  ],
+  "key": {
+    "A": [
+      {
+        "tag": "minecraft:planks"
+      }
+    ],
+    "B": [
+      {
+        "item": "minecraft:stick"
+      }
+    ]
+  },
+  "result": {
+    "item": "prefab:item_wooden_crate",
+    "count": 1
+  }
 }

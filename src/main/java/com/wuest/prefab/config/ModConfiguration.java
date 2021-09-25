@@ -23,7 +23,7 @@ public class ModConfiguration {
     private static final String ChestContentOptions = "general.chest contents.";
     private static final String RecipeOptions = "general.recipes.";
     private static final String starterHouseOptions = "general.starter house.";
-    private static final ArrayList<String> validStartingItems = new ArrayList(Arrays.asList("Starting House", "Moderate House", "Structure Part", "Nothing"));
+    private static final ArrayList<String> validStartingItems = new ArrayList(Arrays.asList("Starting House", "Moderate House", "Nothing"));
     // Recipe Options
     private static final String compressedStoneKey = "Compressed Stone";
     private static final String compressedGlowStoneKey = "Compressed Glowstone";
@@ -67,10 +67,11 @@ public class ModConfiguration {
     public static String SwiftBladeKey = "Swift Blade";
     public static String SickleKey = "Sickle";
     public static String DirtRecipesKey = "Dirt Recipes";
-    public static String BunchOfBeetsKey = "Bunch Of Beets";
-    public static String BunchOfCarrotsKey = "Bunch Of Carrots";
-    public static String BunchOfPotatoesKey = "Bunch Of Potatoes";
-    public static String WoodenCrateKey = "WoodenCrate";
+    public static String BunchOfBeetsKey = "Bunch of Beets";
+    public static String BunchOfCarrotsKey = "Bunch of Carrots";
+    public static String BunchOfPotatoesKey = "Bunch of Potatoes";
+    public static String BunchOfEggsKey = "Bunch of Eggs";
+    public static String WoodenCrateKey = "Wooden Crate";
     public static String starterFarmKey = "Starter Farm";
     public static String moderateFarmKey = "Moderate Farm";
     public static String advancedFarmKey = "Advanced Farm";
@@ -114,7 +115,7 @@ public class ModConfiguration {
                     phasicBlockKey, smartGlassKey, greenHouseKey, startingHouseKey, glassStairsKey, glassSlabsKey,
                      moderateHouseKey, grassyPlainsKey, aquaBaseKey, watchTowerKey, bulldozerKey, jailKey, saloonKey, skiLodgeKey,
                     windMillKey, townHallKey, heapOfTimberKey, tonOfTimberKey, workshopKey, modernBuildingsKey, SwiftBladeKey, SickleKey, DirtRecipesKey, BunchOfBeetsKey,
-                    BunchOfCarrotsKey, BunchOfPotatoesKey, WoodenCrateKey, starterFarmKey, moderateFarmKey, advancedFarmKey};
+                    BunchOfCarrotsKey, BunchOfPotatoesKey, BunchOfEggsKey, WoodenCrateKey, starterFarmKey, moderateFarmKey, advancedFarmKey};
 
     private static ForgeConfigSpec SPEC;
     private final HashMap<String, BooleanValue> recipeConfiguration;
@@ -164,7 +165,7 @@ public class ModConfiguration {
         builder.comment("General");
 
         Prefab.proxy.proxyConfiguration.startingItem = builder
-                .comment("Determines which starting item a player gets on first world join. Valid values for this option are: \"Starting House\", \"Moderate House\", \"Structure Part\", \"Nothing\". Server configuration overrides client.")
+                .comment("Determines which starting item a player gets on first world join. Valid values for this option are: \"Starting House\", \"Moderate House\", \"Nothing\". Server configuration overrides client.")
                 .defineInList(OPTIONS + ModConfiguration.startingItemName, "Starting House", validStartingItems);
 
         config.configOptions.add(new ConfigOption<String>()
@@ -173,7 +174,7 @@ public class ModConfiguration {
                 .setCategory(ConfigCategory.General)
                 .setConfigType("String")
                 .setDefaultValue("Starting House")
-                .setHoverText("Determines which starting item a player gets on first world join. Valid values for this option are: \"Starting House\", \"Moderate House\", \"Structure Part\", \"Nothing\". Server configuration overrides client.")
+                .setHoverText("Determines which starting item a player gets on first world join. Valid values for this option are: \"Starting House\", \"Moderate House\", \"Nothing\". Server configuration overrides client.")
                 .setValidValues(validStartingItems));
 
         Prefab.proxy.proxyConfiguration.enableLoftHouse = builder

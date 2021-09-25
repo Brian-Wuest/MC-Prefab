@@ -1,20 +1,20 @@
 {
-    "conditions": [
-        {
-            "type": "prefab:config_recipe",
-            "recipeKey": "Bunch of Carrots"
-        }
-    ],
-    "type": "minecraft:crafting_shaped",
-    "group": "Bunch of Carrots",
-    "ingredients": [
-        {
-            "item": "prefab:item_bunch_of_carrots",
-            "count": 1
-        }
-    ],
-    "result": {
-        "item": "minecraft:carrot",
-        "count": 8
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Bunch of Carrots"
     }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "group": "Bunch of Carrots",
+  "ingredients": [
+    {
+      "item": "prefab:item_bunch_of_carrots",
+      "count": 1
+    }
+  ],
+  "result": {
+    "item": "minecraft:carrot",
+    "count": 8
+  }
 }
