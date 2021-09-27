@@ -20,7 +20,9 @@
     "1.16.4-latest": "1.6.4.3",
     "1.16.4-recommended": "1.6.4.3",
     "1.16.5-latest": "1.6.5.11",
-    "1.16.5-recommended": "1.6.5.11"
+    "1.16.5-recommended": "1.6.5.11",
+    "1.17.1-latest": "1.7.1.0",
+    "1.17.1-recommended": "1.7.1.0"
   },
   "1.10.2": {
     "1.1.1.10": "New Stuff: Added [Ender Gateway] structure. Added [Phasic Block] and [Boundary Block]\nSome buildings can now be generated in mod-created dimensions.",
@@ -146,5 +148,8 @@
     "1.6.5.9": "Fixed infinite blueprints, fixed water in nether, fixed swift blades, updated textures, added campsite starter house",
     "1.6.5.10": "Updated compressed chest texture, added beds to villager houses, added modern tree house, add custom creative tab",
     "1.6.5.11": "Agriculture update: Added tiered farms, many new and interesting types of farms. Consolidated items. See changelog on CurseForge for more details"
+  },
+  "1.17.1": {
+    "1.7.1.0": "Initial release for 1.17.1 containing the latest updates from 1.6.5.11"
   }
 }
