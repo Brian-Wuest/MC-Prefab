@@ -5,7 +5,7 @@
             "recipeKey": "Bunch of Carrots"
         }
     ],
-    "type": "minecraft:crafting_shaped",
+    "type": "minecraft:crafting_shapeless",
     "group": "Bunch of Carrots",
     "ingredients": [
         {

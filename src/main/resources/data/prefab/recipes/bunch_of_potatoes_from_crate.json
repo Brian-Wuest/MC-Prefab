@@ -5,7 +5,7 @@
             "recipeKey": "Bunch of Potatoes"
         }
     ],
-    "type": "minecraft:crafting_shaped",
+    "type": "minecraft:crafting_shapeless",
     "group": "Bunch of Potatoes",
     "ingredients": [
         {
