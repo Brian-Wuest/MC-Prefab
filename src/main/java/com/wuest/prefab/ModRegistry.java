@@ -82,8 +82,8 @@ public class ModRegistry {
     public static final RegistryObject<BlockPhasing> BlockPhasing = BLOCKS.register("block_phasing", com.wuest.prefab.blocks.BlockPhasing::new);
     public static final RegistryObject<BlockItem> BlockPhasingItem = ITEMS.register("block_phasing", () -> new BlockItem(BlockPhasing.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
     public static final RegistryObject<BlockBoundary> BlockBoundary = BLOCKS.register("block_boundary", com.wuest.prefab.blocks.BlockBoundary::new);
-
-     public static RegistryObject<BlockStructureScanner> StructureScanner = null;
+    public static RegistryObject<BlockStructureScanner> StructureScanner = null;
+    
     /* *********************************** Item Blocks *********************************** */
     public static final RegistryObject<BlockItem> BlockBoundaryItem = ITEMS.register("block_boundary", () -> new BlockItem(BlockBoundary.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
     public static final RegistryObject<BlockPaperLantern> PaperLantern = BLOCKS.register("block_paper_lantern", BlockPaperLantern::new);
@@ -104,7 +104,6 @@ public class ModRegistry {
     public static final RegistryObject<BlockItem> DirtStairsItem = ITEMS.register("block_dirt_stairs", () -> new BlockItem(DirtStairs.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
     public static final RegistryObject<BlockGrassStairs> GrassStairs = BLOCKS.register("block_grass_stairs", com.wuest.prefab.blocks.BlockGrassStairs::new);
     public static final RegistryObject<BlockItem> GrassStairsItem = ITEMS.register("block_grass_stairs", () -> new BlockItem(GrassStairs.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
-
     public static RegistryObject<BlockItem> StructureScannerItem = null;
 
     /* *********************************** Tile Entities *********************************** */
