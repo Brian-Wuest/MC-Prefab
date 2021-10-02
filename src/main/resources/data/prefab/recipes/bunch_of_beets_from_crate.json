@@ -5,7 +5,7 @@
       "recipeKey": "Bunch of Beets"
     }
   ],
-  "type": "minecraft:crafting_shaped",
+  "type": "minecraft:crafting_shapeless",
   "group": "Bunch of Beets",
   "ingredients": [
     {
