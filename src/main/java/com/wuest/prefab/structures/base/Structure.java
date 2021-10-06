@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Triple;
+import com.wuest.prefab.Tuple;
 import com.wuest.prefab.ZipUtil;
 import com.wuest.prefab.blocks.FullDyeColor;
 import com.wuest.prefab.gui.GuiLangKeys;
@@ -365,8 +366,9 @@ public class Structure {
      */
     public boolean BuildStructure(StructureConfiguration configuration, ServerWorld world, BlockPos originalPos, Direction assumedNorth, PlayerEntity player) {
         BlockPos startBlockPos = this.clearSpace.getStartingPosition().getRelativePosition(originalPos, this.clearSpace.getShape().getDirection(), configuration.houseFacing);
-        BlockPos endBlockPos = startBlockPos.relative(configuration.houseFacing.getCounterClockWise(), this.clearSpace.getShape().getWidth() - 1)
-                .relative(configuration.houseFacing.getOpposite(), this.clearSpace.getShape().getWidth() - 1)
+        BlockPos endBlockPos = startBlockPos
+                .relative(configuration.houseFacing.getCounterClockWise(), this.clearSpace.getShape().getWidth() - 1)
+                .relative(configuration.houseFacing.getOpposite(), this.clearSpace.getShape().getLength() - 1)
                 .relative(Direction.UP, this.clearSpace.getShape().getHeight());
 
         // Make sure this structure can be placed here.
@@ -389,7 +391,7 @@ public class Structure {
 
         if (!this.BeforeBuilding(configuration, world, originalPos, assumedNorth, player)) {
             // First, clear the area where the structure will be built.
-            this.ClearSpace(configuration, world, originalPos, assumedNorth);
+            this.ClearSpace(configuration, world, startBlockPos, endBlockPos);
 
             boolean blockPlacedWithCobbleStoneInstead = false;
 
@@ -413,8 +415,17 @@ public class Structure {
                             subBlock = BuildBlock.SetBlockState(configuration, world, originalPos, assumedNorth, block.getSubBlock(), foundBlock, blockState, this);
                         }
 
+                        BlockPos setBlockPos = block.getStartingPosition().getRelativePosition(originalPos,
+                                this.getClearSpace().getShape().getDirection(), configuration.houseFacing);
+
+                        world.setBlock(setBlockPos, block.getBlockState(), 2);
+
                         if (subBlock != null) {
-                            block.setSubBlock(subBlock);
+                            //block.setSubBlock(subBlock);
+                            BlockPos subBlockPos = subBlock.getStartingPosition().getRelativePosition(originalPos,
+                                    this.getClearSpace().getShape().getDirection(), configuration.houseFacing);
+
+                            world.setBlock(subBlockPos, subBlock.getBlockState(), 2);
                         }
 
                         boolean priorityTwoBlock = foundBlock instanceof HopperBlock || foundBlock instanceof LeverBlock;
@@ -494,12 +505,17 @@ public class Structure {
             this.assumedNorth = assumedNorth;
             this.originalPos = originalPos;
 
+            for (BlockPos pos : BlockPos.betweenClosed(startBlockPos, endBlockPos)) {
+                Block block = world.getBlockState(pos).getBlock();
+                world.blockUpdated(pos, block);
+            }
+
             if (StructureEventHandler.structuresToBuild.containsKey(player)) {
-                StructureEventHandler.structuresToBuild.get(player).add(this);
+               // StructureEventHandler.structuresToBuild.get(player).add(this);
             } else {
-                ArrayList<Structure> structures = new ArrayList<Structure>();
-                structures.add(this);
-                StructureEventHandler.structuresToBuild.put(player, structures);
+                //ArrayList<Structure> structures = new ArrayList<Structure>();
+                //structures.add(this);
+                //StructureEventHandler.structuresToBuild.put(player, structures);
             }
         }
 
@@ -656,22 +672,17 @@ public class Structure {
     public void AfterBuilding(StructureConfiguration configuration, ServerWorld world, BlockPos originalPos, Direction assumedNorth, PlayerEntity player) {
     }
 
-    protected void ClearSpace(StructureConfiguration configuration, World world, BlockPos originalPos, Direction assumedNorth) {
+    protected void ClearSpace(StructureConfiguration configuration, World world, BlockPos startBlockPos, BlockPos endBlockPos) {
         if (this.clearSpace.getShape().getWidth() > 0
                 && this.clearSpace.getShape().getLength() > 0) {
-            BlockPos startBlockPos = this.clearSpace.getStartingPosition().getRelativePosition(originalPos, this.clearSpace.getShape().getDirection(), configuration.houseFacing);
-
-            BlockPos endBlockPos = startBlockPos
-                    .relative(configuration.houseFacing.getOpposite().getClockWise(), this.clearSpace.getShape().getWidth() - 1)
-                    .relative(configuration.houseFacing.getOpposite(), this.clearSpace.getShape().getLength() - 1)
-                    .relative(Direction.UP, this.clearSpace.getShape().getHeight());
 
             this.clearedBlockPos = new ArrayList<>();
 
             for (BlockPos pos : BlockPos.betweenClosed(startBlockPos, endBlockPos)) {
                 if (this.BlockShouldBeClearedDuringConstruction(configuration, world, originalPos, assumedNorth, pos)) {
-                    this.clearedBlockPos.add(new BlockPos(pos));
-                    this.allBlockPositions.add(new BlockPos(pos));
+                    world.setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
+                    //this.clearedBlockPos.add(new BlockPos(pos));
+                    //this.allBlockPositions.add(new BlockPos(pos));
                 }
             }
         } else {
