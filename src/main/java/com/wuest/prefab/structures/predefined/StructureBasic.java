@@ -65,31 +65,6 @@ public class StructureBasic extends Structure {
             this.bedPositions.add(new Tuple<>(bedHeadPosition, bedFootPosition));
 
             return true;
-        } else if (foundBlock.getRegistryName().getNamespace().equals(Blocks.WHITE_STAINED_GLASS.getRegistryName().getNamespace())
-                && foundBlock.getRegistryName().getPath().endsWith("glass")
-                && config.chosenOption.getHasGlassColor()) {
-            blockState = this.getStainedGlassBlock(config.glassColor);
-            block.setBlockState(blockState);
-            this.priorityOneBlocks.add(block);
-
-            return true;
-        } else if (foundBlock.getRegistryName().getNamespace().equals(Blocks.WHITE_STAINED_GLASS_PANE.getRegistryName().getNamespace())
-                && foundBlock.getRegistryName().getPath().endsWith("glass_pane")
-                && config.chosenOption.getHasGlassColor()) {
-            blockState = this.getStainedGlassPaneBlock(config.glassColor);
-
-            BuildBlock.SetBlockState(
-                    configuration,
-                    world,
-                    originalPos,
-                    assumedNorth,
-                    block,
-                    foundBlock,
-                    blockState,
-                    this);
-
-            this.priorityOneBlocks.add(block);
-            return true;
         }
 
         return false;

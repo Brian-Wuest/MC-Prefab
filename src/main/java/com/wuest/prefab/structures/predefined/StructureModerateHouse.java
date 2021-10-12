@@ -30,30 +30,6 @@ public class StructureModerateHouse extends Structure {
     private BlockPos trapDoorPosition = null;
     private ArrayList<Tuple<BlockPos, BlockPos>> bedPositions = new ArrayList<>();
 
-    public static void ScanStructure(World world, BlockPos originalPos, Direction playerFacing, ModerateHouseConfiguration.HouseStyle houseStyle) {
-        BuildClear clearedSpace = new BuildClear();
-        clearedSpace.getShape().setDirection(playerFacing);
-        clearedSpace.getShape().setHeight(houseStyle.getHeight());
-        clearedSpace.getShape().setLength(houseStyle.getLength() + 1);
-        clearedSpace.getShape().setWidth(houseStyle.getWidth());
-        clearedSpace.getStartingPosition().setHorizontalOffset(playerFacing, 1);
-
-        // East is always to the "Left" of the player.
-        clearedSpace.getStartingPosition().setHorizontalOffset(playerFacing.getCounterClockWise(), houseStyle.getEastOffSet());
-        clearedSpace.getStartingPosition().setHeightOffset(houseStyle.getDownOffSet() * -1);
-
-        BlockPos cornerPos = originalPos.relative(playerFacing.getCounterClockWise(), houseStyle.getEastOffSet()).relative(playerFacing).below(houseStyle.getDownOffSet());
-
-        Structure.ScanStructure(
-                world,
-                originalPos,
-                cornerPos,
-                cornerPos.relative(playerFacing, houseStyle.getLength()).relative(playerFacing.getClockWise(), houseStyle.getWidth()).above(houseStyle.getHeight()),
-                "../src/main/resources/" + houseStyle.getStructureLocation(),
-                clearedSpace,
-                playerFacing, false, false);
-    }
-
     @Override
     protected Boolean CustomBlockProcessingHandled(StructureConfiguration configuration, BuildBlock block, World world, BlockPos originalPos,
                                                    Direction assumedNorth, Block foundBlock, BlockState blockState, PlayerEntity player) {

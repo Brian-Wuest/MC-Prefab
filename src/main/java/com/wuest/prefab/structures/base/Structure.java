@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Triple;
-import com.wuest.prefab.Tuple;
 import com.wuest.prefab.ZipUtil;
 import com.wuest.prefab.blocks.FullDyeColor;
 import com.wuest.prefab.gui.GuiLangKeys;
@@ -37,6 +36,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.io.StringWriter;
@@ -390,132 +390,110 @@ public class Structure {
         }
 
         if (!this.BeforeBuilding(configuration, world, originalPos, assumedNorth, player)) {
-            // First, clear the area where the structure will be built.
-            this.ClearSpace(configuration, world, startBlockPos, endBlockPos);
+            try {
+                // First, clear the area where the structure will be built.
+                this.ClearSpace(configuration, world, startBlockPos, endBlockPos);
 
-            boolean blockPlacedWithCobbleStoneInstead = false;
+                boolean blockPlacedWithCobbleStoneInstead = false;
 
-            // Now place all of the blocks.
-            for (BuildBlock block : this.getBlocks()) {
-                Block foundBlock = ForgeRegistries.BLOCKS.getValue(block.getResourceLocation());
+                // Now place all the blocks.
+                for (BuildBlock block : this.getBlocks()) {
+                    Block foundBlock = ForgeRegistries.BLOCKS.getValue(block.getResourceLocation());
 
-                if (foundBlock != null) {
-                    BlockState blockState = foundBlock.defaultBlockState();
-                    BuildBlock subBlock = null;
+                    if (foundBlock != null) {
+                        BlockState blockState = foundBlock.defaultBlockState();
+                        BuildBlock subBlock = null;
 
-                    // Check if water should be replaced with cobble.
-                    if (!this.WaterReplacedWithCobbleStone(configuration, block, world, originalPos, assumedNorth, foundBlock, blockState, player)
-                            && !this.CustomBlockProcessingHandled(configuration, block, world, originalPos, assumedNorth, foundBlock, blockState, player)) {
-                        block = BuildBlock.SetBlockState(configuration, world, originalPos, assumedNorth, block, foundBlock, blockState, this);
+                        // Check if water should be replaced with cobble.
+                        if (!this.WaterReplacedWithCobbleStone(configuration, block, world, originalPos, assumedNorth, foundBlock, blockState, player)
+                                && !this.CustomBlockProcessingHandled(configuration, block, world, originalPos, assumedNorth, foundBlock, blockState, player)) {
 
-                        if (block.getSubBlock() != null) {
-                            foundBlock = ForgeRegistries.BLOCKS.getValue(block.getSubBlock().getResourceLocation());
-                            blockState = foundBlock.defaultBlockState();
+                            // Set the glass color if this structure can have the glass configured.
+                            if (foundBlock.getRegistryName().getNamespace().equals(Blocks.WHITE_STAINED_GLASS.getRegistryName().getNamespace())
+                                    && foundBlock.getRegistryName().getPath().endsWith("stained_glass")) {
+                                blockState = this.getStainedGlassBlock(this.getGlassColor(configuration));
 
-                            subBlock = BuildBlock.SetBlockState(configuration, world, originalPos, assumedNorth, block.getSubBlock(), foundBlock, blockState, this);
+                                block.setBlockState(blockState);
+                            } else if (foundBlock.getRegistryName().getNamespace().equals(Blocks.WHITE_STAINED_GLASS_PANE.getRegistryName().getNamespace())
+                                    && foundBlock.getRegistryName().getPath().endsWith("stained_glass_pane")) {
+                                blockState = this.getStainedGlassPaneBlock(this.getGlassColor(configuration));
+
+                                block = BuildBlock.SetBlockState(
+                                        configuration,
+                                        world,
+                                        originalPos,
+                                        assumedNorth,
+                                        block,
+                                        foundBlock,
+                                        blockState,
+                                        this);
+                            } else {
+                                block = BuildBlock.SetBlockState(configuration, world, originalPos, assumedNorth, block, foundBlock, blockState, this);
+                            }
+
+                            if (block.getSubBlock() != null) {
+                                foundBlock = ForgeRegistries.BLOCKS.getValue(block.getSubBlock().getResourceLocation());
+                                blockState = foundBlock.defaultBlockState();
+
+                                subBlock = BuildBlock.SetBlockState(configuration, world, originalPos, assumedNorth, block.getSubBlock(), foundBlock, blockState, this);
+                            }
+
+                            BlockPos setBlockPos = block.getStartingPosition().getRelativePosition(originalPos,
+                                    this.getClearSpace().getShape().getDirection(), configuration.houseFacing);
+
+                            world.setBlock(setBlockPos, block.getBlockState(), Constants.BlockFlags.DEFAULT);
+
+
+                            if (subBlock != null) {
+                                BlockPos subBlockPos = subBlock.getStartingPosition().getRelativePosition(originalPos,
+                                        this.getClearSpace().getShape().getDirection(), configuration.houseFacing);
+
+                                world.setBlock(subBlockPos, subBlock.getBlockState(), Constants.BlockFlags.DEFAULT);
+                            }
                         }
+                    } else {
+                        // Cannot find this block in the registry. This can happen if a structure file has a mod block that
+                        // no longer exists.
+                        // In this case, print an informational message and replace it with cobblestone.
+                        String blockTypeNotFound = block.getResourceLocation().toString();
+                        block = BuildBlock.SetBlockState(configuration, world, originalPos, assumedNorth, block, Blocks.COBBLESTONE, Blocks.COBBLESTONE.defaultBlockState(), this);
 
                         BlockPos setBlockPos = block.getStartingPosition().getRelativePosition(originalPos,
                                 this.getClearSpace().getShape().getDirection(), configuration.houseFacing);
 
-                        world.setBlock(setBlockPos, block.getBlockState(), 2);
+                        world.setBlock(setBlockPos, block.getBlockState(), Constants.BlockFlags.DEFAULT);
 
-                        if (subBlock != null) {
-                            //block.setSubBlock(subBlock);
-                            BlockPos subBlockPos = subBlock.getStartingPosition().getRelativePosition(originalPos,
-                                    this.getClearSpace().getShape().getDirection(), configuration.houseFacing);
-
-                            world.setBlock(subBlockPos, subBlock.getBlockState(), 2);
+                        if (!blockPlacedWithCobbleStoneInstead) {
+                            blockPlacedWithCobbleStoneInstead = true;
+                            Prefab.LOGGER
+                                    .warn("A Block was in the structure, but it is not registered. This block was replaced with vanilla cobblestone instead. Block type not found: ["
+                                            + blockTypeNotFound + "]");
                         }
-
-                        boolean priorityTwoBlock = foundBlock instanceof HopperBlock || foundBlock instanceof LeverBlock;
-
-                        boolean priorityThreeBlock = foundBlock instanceof TorchBlock
-                                || foundBlock instanceof AbstractSignBlock
-                                || foundBlock instanceof AbstractButtonBlock
-                                || foundBlock instanceof BedBlock
-                                || foundBlock instanceof CarpetBlock
-                                || foundBlock instanceof FlowerPotBlock
-                                || foundBlock instanceof SugarCaneBlock
-                                || foundBlock instanceof AbstractPressurePlateBlock
-                                || foundBlock instanceof DoorBlock
-                                || foundBlock instanceof LadderBlock
-                                || foundBlock instanceof VineBlock
-                                || foundBlock instanceof RedstoneWireBlock
-                                || foundBlock instanceof RedstoneDiodeBlock
-                                || foundBlock instanceof AbstractBannerBlock
-                                || foundBlock instanceof LanternBlock
-                                || foundBlock instanceof MushroomBlock
-                                || foundBlock instanceof AbstractRailBlock;
-
-                        boolean priorityFourBlock = foundBlock instanceof SandBlock;
-
-                        boolean priorityFiveBlock = foundBlock instanceof SugarCaneBlock ||
-                                foundBlock instanceof CactusBlock
-                                || foundBlock instanceof DeadBushBlock
-                                || foundBlock instanceof CoralBlock
-                                || foundBlock instanceof RedstoneTorchBlock;
-
-                        if (!block.getHasFacing()) {
-                            if (subBlock != null) {
-                                block.setSubBlock(subBlock);
-                            }
-
-                            if (priorityFiveBlock) {
-                                this.priorityFiveBlocks.add(block);
-                            } else if (priorityFourBlock) {
-                                this.priorityFourBlocks.add(block);
-                            } else if (priorityThreeBlock) {
-                                this.priorityThreeBlocks.add(block);
-                            } else if (foundBlock instanceof AirBlock) {
-                                this.airBlocks.add(block);
-                            } else if (foundBlock instanceof ITileEntityProvider || priorityTwoBlock) {
-                                this.priorityTwoBlocks.add(block);
-                            } else {
-                                this.priorityOneBlocks.add(block);
-                            }
-                        } else {
-                            // These blocks may be attached to other facing blocks and must be done later.
-                            if (priorityThreeBlock) {
-                                this.priorityThreeBlocks.add(block);
-                            } else {
-                                this.priorityTwoBlocks.add(block);
-                            }
-                        }
-                    }
-                } else {
-                    // Cannot find this block in the registry. This can happen if a structure file has a mod block that
-                    // no longer exists.
-                    // In this case, print an informational message and replace it with cobblestone.
-                    String blockTypeNotFound = block.getResourceLocation().toString();
-                    block = BuildBlock.SetBlockState(configuration, world, originalPos, assumedNorth, block, Blocks.COBBLESTONE, Blocks.COBBLESTONE.defaultBlockState(), this);
-                    this.priorityOneBlocks.add(block);
-
-                    if (!blockPlacedWithCobbleStoneInstead) {
-                        blockPlacedWithCobbleStoneInstead = true;
-                        Prefab.LOGGER
-                                .warn("A Block was in the structure, but it is not registered. This block was replaced with vanilla cobblestone instead. Block type not found: ["
-                                        + blockTypeNotFound + "]");
                     }
                 }
-            }
 
-            this.configuration = configuration;
-            this.world = world;
-            this.assumedNorth = assumedNorth;
-            this.originalPos = originalPos;
+                this.configuration = configuration;
+                this.world = world;
+                this.assumedNorth = assumedNorth;
+                this.originalPos = originalPos;
+
+                this.AfterBuilding(this.configuration, this.world, this.originalPos, this.assumedNorth, player);
+            } catch (Exception ex) {
+                Prefab.LOGGER.error(ex);
+            }
 
             for (BlockPos pos : BlockPos.betweenClosed(startBlockPos, endBlockPos)) {
                 Block block = world.getBlockState(pos).getBlock();
+
                 world.blockUpdated(pos, block);
             }
 
             if (StructureEventHandler.structuresToBuild.containsKey(player)) {
-               // StructureEventHandler.structuresToBuild.get(player).add(this);
+                StructureEventHandler.structuresToBuild.get(player).add(this);
             } else {
-                //ArrayList<Structure> structures = new ArrayList<Structure>();
-                //structures.add(this);
-                //StructureEventHandler.structuresToBuild.put(player, structures);
+                ArrayList<Structure> structures = new ArrayList<>();
+                structures.add(this);
+                StructureEventHandler.structuresToBuild.put(player, structures);
             }
         }
 
@@ -748,5 +726,9 @@ public class Structure {
         }
 
         return false;
+    }
+
+    protected FullDyeColor getGlassColor(StructureConfiguration configuration) {
+        return FullDyeColor.CLEAR;
     }
 }

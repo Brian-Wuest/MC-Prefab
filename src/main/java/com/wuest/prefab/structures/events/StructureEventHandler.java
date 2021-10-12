@@ -418,7 +418,7 @@ public final class StructureEventHandler {
                         entity = StructureEventHandler.setItemFrameFacingAndRotation((ItemFrameEntity) entity, buildEntity, entityPos, structure);
                     } else if (entity instanceof PaintingEntity) {
                         entity = StructureEventHandler.setPaintingFacingAndRotation((PaintingEntity) entity, buildEntity, entityPos, structure);
-                    }  else if (entity instanceof AbstractMinecartEntity) {
+                    } else if (entity instanceof AbstractMinecartEntity) {
                         // Minecarts need to be slightly higher to account for the rails; otherwise they will fall through the rail and the block below the rail.
                         buildEntity.entityYAxisOffset = buildEntity.entityYAxisOffset + .2;
                         entity = StructureEventHandler.setEntityFacingAndRotation(entity, buildEntity, entityPos, structure);
@@ -523,15 +523,15 @@ public final class StructureEventHandler {
             } else if (structure.configuration.houseFacing == structure.assumedNorth.getClockWise()) {
                 if (structure.getClearSpace().getShape().getDirection() == Direction.NORTH) {
                     rotation = Rotation.CLOCKWISE_90;
-                    facing = facing.getCounterClockWise() ;
+                    facing = facing.getCounterClockWise();
                 } else if (structure.getClearSpace().getShape().getDirection() == Direction.SOUTH) {
-                    facing = facing.getClockWise() ;
+                    facing = facing.getClockWise();
                     rotation = Rotation.COUNTERCLOCKWISE_90;
                 }
             } else if (structure.configuration.houseFacing == structure.assumedNorth.getCounterClockWise()) {
                 if (structure.getClearSpace().getShape().getDirection() == Direction.NORTH) {
                     rotation = Rotation.COUNTERCLOCKWISE_90;
-                    facing = facing.getClockWise() ;
+                    facing = facing.getClockWise();
                 } else if (structure.getClearSpace().getShape().getDirection() == Direction.SOUTH) {
                     facing = facing.getCounterClockWise();
                     rotation = Rotation.CLOCKWISE_90;

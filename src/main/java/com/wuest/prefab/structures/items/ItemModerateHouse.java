@@ -30,10 +30,5 @@ public class ItemModerateHouse extends StructureItem {
 
     @Override
     public void scanningMode(ItemUseContext context) {
-        StructureModerateHouse.ScanStructure(
-                context.getLevel(),
-                context.getClickedPos(),
-                context.getPlayer().getDirection(),
-                ModerateHouseConfiguration.HouseStyle.ACACIA_HOME2);
     }
 }

@@ -11,6 +11,7 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.properties.BedPart;
 import net.minecraft.tileentity.ChestTileEntity;
 import net.minecraft.tileentity.FurnaceTileEntity;
@@ -22,6 +23,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.BlockSnapshot;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.BlockEvent.EntityPlaceEvent;
 
@@ -193,6 +195,16 @@ public class BuildingMethods {
     public static void ReplaceBlock(World world, BlockPos pos, BlockState replacementBlockState, int flags) {
         world.removeBlock(pos, false);
         world.setBlock(pos, replacementBlockState, flags);
+
+        TileEntity tileEntity = world.getBlockEntity(pos);
+
+        if (tileEntity != null) {
+            CompoundNBT compoundnbt = tileEntity.serializeNBT();
+            compoundnbt.putInt("x", pos.getX());
+            compoundnbt.putInt("y", pos.getY());
+            compoundnbt.putInt("z", pos.getZ());
+            tileEntity.load(replacementBlockState, compoundnbt);
+        }
     }
 
     /**
@@ -266,6 +278,13 @@ public class BuildingMethods {
      * @param bedColor   The color of the bed to place.
      */
     public static void PlaceColoredBed(World world, BlockPos bedHeadPos, BlockPos bedFootPos, DyeColor bedColor) {
+
+        Tuple<BlockState, BlockState> bedStates = BuildingMethods.getBedState(bedColor, bedHeadPos, bedFootPos);
+        BuildingMethods.ReplaceBlock(world, bedHeadPos, bedStates.getFirst(), 2);
+        BuildingMethods.ReplaceBlock(world, bedFootPos, bedStates.getSecond(), 2);
+    }
+
+    public static Tuple<BlockState, BlockState> getBedState(DyeColor bedColor, BlockPos bedHeadPos, BlockPos bedFootPos) {
         BlockState bedHead = null;
         BlockState bedFoot = null;
 
@@ -377,8 +396,7 @@ public class BuildingMethods {
         bedHead = bedHead.setValue(BedBlock.FACING, direction.getOpposite());
         bedFoot = bedFoot.setValue(BedBlock.FACING, direction.getOpposite());
 
-        BuildingMethods.ReplaceBlock(world, bedHeadPos, bedHead);
-        BuildingMethods.ReplaceBlock(world, bedFootPos, bedFoot);
+        return new Tuple<>(bedHead, bedFoot);
     }
 
     /**
@@ -502,7 +520,6 @@ public class BuildingMethods {
         // Keep track of all of the items to add to the chest at the end of the
         // shaft.
         ArrayList<ItemStack> stacks = new ArrayList<ItemStack>();
-
         ArrayList<Item> blocksToNotAdd = new ArrayList<Item>();
 
         if (onlyGatherOres) {
@@ -520,7 +537,15 @@ public class BuildingMethods {
             blocksToNotAdd.add(Item.byBlock(Blocks.MOSSY_STONE_BRICKS));
         }
 
-        Tuple<ArrayList<ItemStack>, ArrayList<BlockPos>> ladderShaftResults = BuildingMethods.CreateLadderShaft(world, pos, stacks, facing, blocksToNotAdd);
+        Triple<ArrayList<ItemStack>, ArrayList<BlockPos>, ArrayList<BlockPos>> ladderShaftResults = BuildingMethods.CreateLadderShaft(
+                world,
+                pos,
+                stacks,
+                facing,
+                blocksToNotAdd);
+
+        ArrayList<BlockPos> blockPositions = new ArrayList<>(ladderShaftResults.getThird());
+
         stacks = ladderShaftResults.getFirst();
         ArrayList<BlockPos> torchPositions = ladderShaftResults.getSecond();
 
@@ -535,7 +560,8 @@ public class BuildingMethods {
                 facing.getOpposite(), blocksToNotAdd);
 
         // After setting the floor, make sure to replace the ladder.
-        BuildingMethods.ReplaceBlock(world, ceilingLevel, Blocks.LADDER.defaultBlockState().setValue(LadderBlock.FACING, facing));
+        BuildingMethods.ReplaceBlock(world, ceilingLevel, Blocks.LADDER.defaultBlockState().setValue(LadderBlock.FACING, facing), 2);
+        blockPositions.add(ceilingLevel);
 
         BlockState torchState = Blocks.TORCH.defaultBlockState();
 
@@ -544,7 +570,8 @@ public class BuildingMethods {
             BlockState surroundingState = world.getBlockState(torchPos);
             Block surroundingBlock = surroundingState.getBlock();
             tempStacks = BuildingMethods.ConsolidateDrops(world, torchPos, surroundingState, tempStacks, blocksToNotAdd);
-            BuildingMethods.ReplaceBlock(world, torchPos, torchState);
+            BuildingMethods.ReplaceBlock(world, torchPos, torchState, 2);
+            blockPositions.add(torchPos);
         }
 
         // The entire ladder has been created. Create a platform at this level
@@ -616,11 +643,13 @@ public class BuildingMethods {
         if (CommonProxy.proxyConfiguration.serverConfiguration.includeMineshaftChest) {
             // Place a chest to the right of the ladder.
             BlockState chestState = Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, facing);
-            BuildingMethods.ReplaceBlock(world, pos.relative(facing.getClockWise()), chestState);
+            BuildingMethods.ReplaceBlock(world, pos.relative(facing.getClockWise()), chestState, 2);
+            blockPositions.add(pos.relative(facing.getClockWise()));
 
             if (stacks.size() > 27) {
                 // Add another chest to south of the existing chest.
-                BuildingMethods.ReplaceBlock(world, pos.relative(facing.getClockWise()).relative(facing.getOpposite()), chestState);
+                BuildingMethods.ReplaceBlock(world, pos.relative(facing.getClockWise()).relative(facing.getOpposite()), chestState, 2);
+                blockPositions.add(pos.relative(facing.getClockWise()).relative(facing.getOpposite()));
             }
 
             TileEntity tileEntity = world.getBlockEntity(pos.relative(facing.getClockWise()));
@@ -633,7 +662,7 @@ public class BuildingMethods {
                 int i = 0;
                 boolean fillSecond = false;
 
-                // All of the stacks should be consolidated at this point.
+                // All the stacks should be consolidated at this point.
                 for (ItemStack stack : stacks) {
                     if (i == 27 && !fillSecond) {
                         // Start filling the second chest.
@@ -653,10 +682,15 @@ public class BuildingMethods {
                 }
             }
         }
+
+        for (BlockPos currentPos : blockPositions) {
+            Block block = world.getBlockState(pos).getBlock();
+            world.blockUpdated(pos, block);
+        }
     }
 
-    private static Tuple<ArrayList<ItemStack>, ArrayList<BlockPos>> CreateLadderShaft(ServerWorld world, BlockPos pos, ArrayList<ItemStack> originalStacks, Direction houseFacing,
-                                                                                      ArrayList<Item> blocksToNotAdd) {
+    private static Triple<ArrayList<ItemStack>, ArrayList<BlockPos>, ArrayList<BlockPos>> CreateLadderShaft(ServerWorld world, BlockPos pos, ArrayList<ItemStack> originalStacks, Direction houseFacing,
+                                                                                                            ArrayList<Item> blocksToNotAdd) {
         int torchCounter = 0;
 
         // Keep the "west" facing.
@@ -668,6 +702,7 @@ public class BuildingMethods {
         // Replace the main floor block with air since we don't want it placed in the chest at the end.
         BuildingMethods.ReplaceBlock(world, pos, Blocks.AIR);
         ArrayList<BlockPos> torchPositions = new ArrayList<>();
+        ArrayList<BlockPos> allBlockPositions = new ArrayList<>();
 
         while (pos.getY() > 8) {
             BlockState state = world.getBlockState(pos);
@@ -726,7 +761,8 @@ public class BuildingMethods {
                             // This is not a stone block. Get the drops then replace it with stone.
                             originalStacks = BuildingMethods.ConsolidateDrops(world, tempPos, surroundingState, originalStacks, blocksToNotAdd);
 
-                            BuildingMethods.ReplaceBlock(world, tempPos, Blocks.STONE);
+                            BuildingMethods.ReplaceBlock(world, tempPos, Blocks.STONE.defaultBlockState(), 2);
+                            allBlockPositions.add(tempPos);
                         }
                     }
 
@@ -743,7 +779,8 @@ public class BuildingMethods {
                         // it with stone.
                         originalStacks = BuildingMethods.ConsolidateDrops(world, tempPos, surroundingState, originalStacks, blocksToNotAdd);
 
-                        BuildingMethods.ReplaceBlock(world, tempPos, Blocks.STONE);
+                        BuildingMethods.ReplaceBlock(world, tempPos, Blocks.STONE.defaultBlockState(), 2);
+                        allBlockPositions.add(tempPos);
                     }
                 }
             }
@@ -753,12 +790,13 @@ public class BuildingMethods {
 
             // Don't place a ladder at this location since it will be destroyed.
             if (pos.getY() >= 10) {
-                BuildingMethods.ReplaceBlock(world, pos, ladderState);
+                BuildingMethods.ReplaceBlock(world, pos, ladderState, 2);
+                allBlockPositions.add(pos);
             }
 
             pos = pos.below();
         }
 
-        return new Tuple<>(originalStacks, torchPositions);
+        return new Triple<>(originalStacks, torchPositions, allBlockPositions);
     }
 }

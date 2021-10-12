@@ -3,6 +3,7 @@ package com.wuest.prefab.structures.predefined;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Tuple;
 import com.wuest.prefab.Utils;
+import com.wuest.prefab.blocks.FullDyeColor;
 import com.wuest.prefab.config.EntityPlayerConfiguration;
 import com.wuest.prefab.proxy.messages.PlayerEntityTagMessage;
 import com.wuest.prefab.structures.base.*;
@@ -29,133 +30,7 @@ public class StructureAlternateStart extends Structure {
     private BlockPos chestPosition = null;
     private BlockPos furnacePosition = null;
     private BlockPos trapDoorPosition = null;
-    private BlockPos signPosition = null;
     private ArrayList<Tuple<BlockPos, BlockPos>> bedPositions = new ArrayList<>();
-
-    public static void ScanBasicHouseStructure(World world, BlockPos originalPos, Direction playerFacing) {
-        BuildClear clearedSpace = new BuildClear();
-        clearedSpace.getShape().setDirection(Direction.SOUTH);
-        clearedSpace.getShape().setHeight(10);
-        clearedSpace.getShape().setLength(12);
-        clearedSpace.getShape().setWidth(13);
-        clearedSpace.getStartingPosition().setSouthOffset(1);
-        clearedSpace.getStartingPosition().setEastOffset(5);
-        clearedSpace.getStartingPosition().setHeightOffset(-1);
-
-        BlockPos corner = originalPos.east(5).south().below();
-        BlockPos corner2 = originalPos.west(8).south(13).above(10);
-
-        Structure.ScanStructure(world, originalPos, corner, corner2,
-                "..\\src\\main\\resources\\assets\\prefab\\structures\\basic_house.zip", clearedSpace,
-                playerFacing, false, false);
-    }
-
-    public static void ScanRanchStructure(World world, BlockPos originalPos, Direction playerFacing) {
-        BuildClear clearedSpace = new BuildClear();
-        clearedSpace.getShape().setDirection(Direction.SOUTH);
-        clearedSpace.getShape().setHeight(7);
-        clearedSpace.getShape().setLength(21);
-        clearedSpace.getShape().setWidth(11);
-        clearedSpace.getStartingPosition().setSouthOffset(1);
-        clearedSpace.getStartingPosition().setEastOffset(8);
-        clearedSpace.getStartingPosition().setHeightOffset(-1);
-
-        Structure.ScanStructure(world, originalPos, originalPos.east(8).south().below(), originalPos.south(22).west(3).above(8),
-                "..\\src\\main\\resources\\assets\\prefab\\structures\\ranch_house.zip", clearedSpace,
-                playerFacing, false, false);
-    }
-
-    public static void ScanLoftStructure(World world, BlockPos originalPos, Direction playerFacing) {
-        BuildClear clearedSpace = new BuildClear();
-        clearedSpace.getShape().setDirection(Direction.SOUTH);
-        clearedSpace.getShape().setHeight(9);
-        clearedSpace.getShape().setLength(13);
-        clearedSpace.getShape().setWidth(16);
-        clearedSpace.getStartingPosition().setSouthOffset(1);
-        clearedSpace.getStartingPosition().setEastOffset(7);
-
-        Structure.ScanStructure(world, originalPos, originalPos.east(7).south(), originalPos.south(14).west(8).above(9),
-                "..\\src\\main\\resources\\assets\\prefab\\structures\\loft_house.zip", clearedSpace, playerFacing, false, false);
-    }
-
-    public static void ScanHobbitStructure(World world, BlockPos originalPos, Direction playerFacing) {
-        BuildClear clearedSpace = new BuildClear();
-        clearedSpace.getShape().setDirection(Direction.SOUTH);
-        clearedSpace.getShape().setHeight(12);
-        clearedSpace.getShape().setLength(16);
-        clearedSpace.getShape().setWidth(16);
-        clearedSpace.getStartingPosition().setSouthOffset(1);
-        clearedSpace.getStartingPosition().setEastOffset(8);
-        clearedSpace.getStartingPosition().setHeightOffset(-3);
-
-        Structure.ScanStructure(world, originalPos, originalPos.east(8).south().below(3), originalPos.south(16).west(8).above(12),
-                "..\\src\\main\\resources\\assets\\prefab\\structures\\hobbit_house.zip", clearedSpace,
-                playerFacing, false, false);
-    }
-
-    public static void ScanDesert2Structure(World world, BlockPos originalPos, Direction playerFacing) {
-        BuildClear clearedSpace = new BuildClear();
-        clearedSpace.getShape().setDirection(Direction.SOUTH);
-        clearedSpace.getShape().setHeight(10);
-        clearedSpace.getShape().setLength(14);
-        clearedSpace.getShape().setWidth(11);
-        clearedSpace.getStartingPosition().setSouthOffset(1);
-        clearedSpace.getStartingPosition().setEastOffset(8);
-        clearedSpace.getStartingPosition().setHeightOffset(-1);
-
-        BlockPos corner = originalPos.east(8).south().below();
-        BlockPos corner2 = originalPos.west(6).south(16).above(10);
-
-        Structure.ScanStructure(world, originalPos, corner, corner2,
-                "..\\src\\main\\resources\\assets\\prefab\\structures\\desert_house2.zip", clearedSpace,
-                playerFacing, false, false);
-    }
-
-    public static void ScanSubAquaticStructure(World world, BlockPos originalPos, Direction playerFacing) {
-        BuildClear clearedSpace = new BuildClear();
-        clearedSpace.getShape().setDirection(Direction.SOUTH);
-        clearedSpace.getShape().setHeight(13);
-        clearedSpace.getShape().setLength(9);
-        clearedSpace.getShape().setWidth(12);
-        clearedSpace.getStartingPosition().setSouthOffset(1);
-        clearedSpace.getStartingPosition().setEastOffset(8);
-        clearedSpace.getStartingPosition().setHeightOffset(-1);
-
-        BlockPos corner = originalPos.east(8).south().below();
-        BlockPos corner2 = originalPos.west(4).south(10).above(12);
-
-        Structure.ScanStructure(world, originalPos, corner, corner2,
-                "..\\src\\main\\resources\\assets\\prefab\\structures\\subaquatic_house.zip", clearedSpace,
-                playerFacing, true, true);
-    }
-
-    public static void ScanStructure(World world, BlockPos originalPos, Direction playerFacing, String structureFileName, boolean includeAir, boolean excludeWater) {
-        BuildClear clearedSpace = new BuildClear();
-        clearedSpace.getShape().setDirection(Direction.SOUTH);
-        clearedSpace.getShape().setHeight(8);
-        clearedSpace.getShape().setLength(16);
-        clearedSpace.getShape().setWidth(16);
-        clearedSpace.getStartingPosition().setSouthOffset(1);
-        clearedSpace.getStartingPosition().setEastOffset(8);
-        clearedSpace.getStartingPosition().setHeightOffset(-1);
-
-        BuildShape buildShape = clearedSpace.getShape();
-        PositionOffset offset = clearedSpace.getStartingPosition();
-
-        int downOffset = offset.getHeightOffset() < 0 ? Math.abs(offset.getHeightOffset()) : 0;
-        BlockPos cornerPos = originalPos.east(offset.getEastOffset()).south(offset.getSouthOffset()).below(downOffset);
-
-        Structure.ScanStructure(
-                world,
-                originalPos,
-                cornerPos,
-                cornerPos.south(buildShape.getLength()).west(buildShape.getWidth()).above(buildShape.getHeight()),
-                "..\\src\\main\\resources\\assets\\prefab\\structures\\" + structureFileName + ".zip",
-                clearedSpace,
-                playerFacing,
-                includeAir,
-                excludeWater);
-    }
 
     @Override
     protected Boolean CustomBlockProcessingHandled(StructureConfiguration configuration, BuildBlock block, World world, BlockPos originalPos,
@@ -192,11 +67,6 @@ public class StructureAlternateStart extends Structure {
                     originalPos,
                     this.getClearSpace().getShape().getDirection(),
                     configuration.houseFacing);
-        } else if (foundBlock instanceof StandingSignBlock) {
-            this.signPosition = block.getStartingPosition().getRelativePosition(
-                    originalPos,
-                    this.getClearSpace().getShape().getDirection(),
-                    configuration.houseFacing);
         } else if (foundBlock == Blocks.SPONGE && houseConfig.addMineShaft) {
             // Sponges are sometimes used in-place of trapdoors when trapdoors are used for decoration.
             this.trapDoorPosition = block.getStartingPosition().getRelativePosition(
@@ -213,32 +83,6 @@ public class StructureAlternateStart extends Structure {
             this.bedPositions.add(new Tuple<>(bedHeadPosition, bedFootPosition));
 
             // Return true so the bed is not placed.
-            return true;
-        }
-
-        if (foundBlock.getRegistryName().getNamespace().equals(Blocks.WHITE_STAINED_GLASS.getRegistryName().getNamespace())
-                && foundBlock.getRegistryName().getPath().endsWith("stained_glass")) {
-            blockState = this.getStainedGlassBlock(houseConfig.glassColor);
-
-            block.setBlockState(blockState);
-            this.priorityOneBlocks.add(block);
-
-            return true;
-        } else if (foundBlock.getRegistryName().getNamespace().equals(Blocks.WHITE_STAINED_GLASS_PANE.getRegistryName().getNamespace())
-                && foundBlock.getRegistryName().getPath().endsWith("stained_glass_pane")) {
-            blockState = this.getStainedGlassPaneBlock(houseConfig.glassColor);
-
-            BuildBlock.SetBlockState(
-                    configuration,
-                    world,
-                    originalPos,
-                    assumedNorth,
-                    block,
-                    foundBlock,
-                    blockState,
-                    this);
-
-            this.priorityOneBlocks.add(block);
             return true;
         }
 
@@ -277,23 +121,6 @@ public class StructureAlternateStart extends Structure {
             BuildingMethods.PlaceMineShaft(world, this.trapDoorPosition.below(), houseConfig.houseFacing, false);
         }
 
-        if (this.signPosition != null) {
-            TileEntity tileEntity = world.getBlockEntity(this.signPosition);
-
-            if (tileEntity instanceof SignTileEntity) {
-                SignTileEntity signTile = (SignTileEntity) tileEntity;
-                signTile.setMessage(0, Utils.createTextComponent("This is"));
-
-                if (player.getDisplayName().getString().length() >= 15) {
-                    signTile.setMessage(1, Utils.createTextComponent(player.getDisplayName().getString()));
-                } else {
-                    signTile.setMessage(1, Utils.createTextComponent(player.getDisplayName().getString() + "'s"));
-                }
-
-                signTile.setMessage(2, Utils.createTextComponent("house!"));
-            }
-        }
-
         if (this.bedPositions.size() > 0 && houseConfig.addBed) {
             for (Tuple<BlockPos, BlockPos> bedPosition : this.bedPositions) {
                 BuildingMethods.PlaceColoredBed(world, bedPosition.getFirst(), bedPosition.getSecond(), houseConfig.bedColor);
@@ -308,5 +135,11 @@ public class StructureAlternateStart extends Structure {
         // information.
         Prefab.network.sendTo(new PlayerEntityTagMessage(playerConfig.getModIsPlayerNewTag(player)), ((ServerPlayerEntity) player).connection.connection,
                 NetworkDirection.PLAY_TO_CLIENT);
+    }
+
+    @Override
+    protected FullDyeColor getGlassColor(StructureConfiguration configuration) {
+        HouseConfiguration houseConfig = (HouseConfiguration) configuration;
+        return houseConfig.glassColor;
     }
 }
