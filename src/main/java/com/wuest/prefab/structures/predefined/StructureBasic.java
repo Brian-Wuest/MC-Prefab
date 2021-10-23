@@ -1,7 +1,9 @@
 package com.wuest.prefab.structures.predefined;
 
 import com.wuest.prefab.Tuple;
-import com.wuest.prefab.structures.base.*;
+import com.wuest.prefab.structures.base.BuildBlock;
+import com.wuest.prefab.structures.base.BuildingMethods;
+import com.wuest.prefab.structures.base.Structure;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration.EnumBasicStructureName;
 import com.wuest.prefab.structures.config.StructureConfiguration;
@@ -17,8 +19,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-import java.util.ArrayList;
-
 /**
  * This is the basic structure to be used for structures which don't need a lot of configuration or a custom player
  * created structures.
@@ -27,7 +27,6 @@ import java.util.ArrayList;
  */
 public class StructureBasic extends Structure {
     private BlockPos customBlockPos = null;
-    private ArrayList<Tuple<BlockPos, BlockPos>> bedPositions = new ArrayList<>();
 
     @Override
     protected Boolean CustomBlockProcessingHandled(StructureConfiguration configuration, BuildBlock block, World world, BlockPos originalPos,
@@ -62,8 +61,11 @@ public class StructureBasic extends Structure {
                     this.getClearSpace().getShape().getDirection(),
                     configuration.houseFacing);
 
-            this.bedPositions.add(new Tuple<>(bedHeadPosition, bedFootPosition));
+            Tuple<BlockState, BlockState> blockStateTuple = BuildingMethods.getBedState(bedHeadPosition, bedFootPosition, config.bedColor);
+            block.setBlockState(blockStateTuple.getFirst());
+            block.getSubBlock().setBlockState(blockStateTuple.getSecond());
 
+            this.priorityOneBlocks.add(block);
             return true;
         }
 
@@ -114,12 +116,6 @@ public class StructureBasic extends Structure {
             }
 
             this.customBlockPos = null;
-        }
-
-        if (this.bedPositions.size() > 0) {
-            for (Tuple<BlockPos, BlockPos> bedPosition : this.bedPositions) {
-                BuildingMethods.PlaceColoredBed(world, bedPosition.getFirst(), bedPosition.getSecond(), config.bedColor);
-            }
         }
 
         if (structureName.equals(EnumBasicStructureName.AquaBase.getName())

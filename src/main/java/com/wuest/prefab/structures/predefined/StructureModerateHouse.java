@@ -5,7 +5,6 @@ import com.wuest.prefab.Tuple;
 import com.wuest.prefab.config.EntityPlayerConfiguration;
 import com.wuest.prefab.proxy.messages.PlayerEntityTagMessage;
 import com.wuest.prefab.structures.base.BuildBlock;
-import com.wuest.prefab.structures.base.BuildClear;
 import com.wuest.prefab.structures.base.BuildingMethods;
 import com.wuest.prefab.structures.base.Structure;
 import com.wuest.prefab.structures.config.ModerateHouseConfiguration;
@@ -28,7 +27,6 @@ public class StructureModerateHouse extends Structure {
     private BlockPos chestPosition = null;
     private ArrayList<BlockPos> furnacePosition = null;
     private BlockPos trapDoorPosition = null;
-    private ArrayList<Tuple<BlockPos, BlockPos>> bedPositions = new ArrayList<>();
 
     @Override
     protected Boolean CustomBlockProcessingHandled(StructureConfiguration configuration, BuildBlock block, World world, BlockPos originalPos,
@@ -72,7 +70,11 @@ public class StructureModerateHouse extends Structure {
                     this.getClearSpace().getShape().getDirection(),
                     configuration.houseFacing);
 
-            this.bedPositions.add(new Tuple<>(bedHeadPosition, bedFootPosition));
+            Tuple<BlockState, BlockState> blockStateTuple = BuildingMethods.getBedState(bedHeadPosition, bedFootPosition, houseConfiguration.bedColor);
+            block.setBlockState(blockStateTuple.getFirst());
+            block.getSubBlock().setBlockState(blockStateTuple.getSecond());
+
+            this.priorityOneBlocks.add(block);
 
             return true;
         }
@@ -104,12 +106,6 @@ public class StructureModerateHouse extends Structure {
         if (this.trapDoorPosition != null && this.trapDoorPosition.getY() > 15 && houseConfig.addMineshaft) {
             // Build the mineshaft.
             BuildingMethods.PlaceMineShaft(world, this.trapDoorPosition.below(), houseConfig.houseFacing, false);
-        }
-
-        if (this.bedPositions.size() > 0) {
-            for (Tuple<BlockPos, BlockPos> bedPosition : this.bedPositions) {
-                BuildingMethods.PlaceColoredBed(world, bedPosition.getFirst(), bedPosition.getSecond(), houseConfig.bedColor);
-            }
         }
 
         // Make sure to set this value so the player cannot fill the chest a second time.

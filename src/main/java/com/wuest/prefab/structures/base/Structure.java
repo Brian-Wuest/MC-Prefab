@@ -441,8 +441,13 @@ public class Structure {
                             BlockPos setBlockPos = block.getStartingPosition().getRelativePosition(originalPos,
                                     this.getClearSpace().getShape().getDirection(), configuration.houseFacing);
 
-                            world.setBlock(setBlockPos, block.getBlockState(), Constants.BlockFlags.DEFAULT);
+                            if (block.getBlockState().hasTileEntity()) {
+                                // Don't place tile entity blocks right now as they would cause errors. Place during server tick.
+                                this.priorityOneBlocks.add(block);
+                                continue;
+                            }
 
+                            world.setBlock(setBlockPos, block.getBlockState(), Constants.BlockFlags.DEFAULT);
 
                             if (subBlock != null) {
                                 BlockPos subBlockPos = subBlock.getStartingPosition().getRelativePosition(originalPos,

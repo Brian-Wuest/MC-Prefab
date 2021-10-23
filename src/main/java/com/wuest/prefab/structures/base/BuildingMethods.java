@@ -7,11 +7,13 @@ import com.wuest.prefab.config.ModConfiguration;
 import com.wuest.prefab.proxy.CommonProxy;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.state.properties.BedPart;
 import net.minecraft.tileentity.ChestTileEntity;
 import net.minecraft.tileentity.FurnaceTileEntity;
@@ -23,7 +25,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.BlockSnapshot;
-import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.BlockEvent.EntityPlaceEvent;
 
@@ -195,16 +196,6 @@ public class BuildingMethods {
     public static void ReplaceBlock(World world, BlockPos pos, BlockState replacementBlockState, int flags) {
         world.removeBlock(pos, false);
         world.setBlock(pos, replacementBlockState, flags);
-
-        TileEntity tileEntity = world.getBlockEntity(pos);
-
-        if (tileEntity != null) {
-            CompoundNBT compoundnbt = tileEntity.serializeNBT();
-            compoundnbt.putInt("x", pos.getX());
-            compoundnbt.putInt("y", pos.getY());
-            compoundnbt.putInt("z", pos.getZ());
-            tileEntity.load(replacementBlockState, compoundnbt);
-        }
     }
 
     /**
@@ -279,12 +270,12 @@ public class BuildingMethods {
      */
     public static void PlaceColoredBed(World world, BlockPos bedHeadPos, BlockPos bedFootPos, DyeColor bedColor) {
 
-        Tuple<BlockState, BlockState> bedStates = BuildingMethods.getBedState(bedColor, bedHeadPos, bedFootPos);
-        BuildingMethods.ReplaceBlock(world, bedHeadPos, bedStates.getFirst(), 2);
-        BuildingMethods.ReplaceBlock(world, bedFootPos, bedStates.getSecond(), 2);
+        Tuple<BlockState, BlockState> bedStates = BuildingMethods.getBedState(bedHeadPos, bedFootPos, bedColor);
+        BuildingMethods.ReplaceBlock(world, bedHeadPos, bedStates.getFirst());
+        BuildingMethods.ReplaceBlock(world, bedFootPos, bedStates.getSecond());
     }
 
-    public static Tuple<BlockState, BlockState> getBedState(DyeColor bedColor, BlockPos bedHeadPos, BlockPos bedFootPos) {
+    public static Tuple<BlockState, BlockState> getBedState(BlockPos bedHeadPos, BlockPos bedFootPos, DyeColor bedColor) {
         BlockState bedHead = null;
         BlockState bedFoot = null;
 
