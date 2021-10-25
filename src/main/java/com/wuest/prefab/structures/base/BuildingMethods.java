@@ -3,17 +3,15 @@ package com.wuest.prefab.structures.base;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Triple;
 import com.wuest.prefab.Tuple;
+import com.wuest.prefab.blocks.FullDyeColor;
 import com.wuest.prefab.config.ModConfiguration;
 import com.wuest.prefab.proxy.CommonProxy;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.state.properties.BedPart;
 import net.minecraft.tileentity.ChestTileEntity;
 import net.minecraft.tileentity.FurnaceTileEntity;
@@ -90,13 +88,13 @@ public class BuildingMethods {
      * @param startingPosition Where the wall should start.
      * @param replacementBlock The block to create the wall out of.
      * @param itemsToNotAdd    When consolidating drops, the items to not include in the returned list.
-     * @return An Arraylist of Itemstacks which contains the drops from any destroyed blocks.
+     * @return An Arraylist of ItemStacks which contains the drops from any destroyed blocks.
      */
     public static ArrayList<ItemStack> CreateWall(ServerWorld world, int height, int length, Direction direction, BlockPos startingPosition, Block replacementBlock,
                                                   ArrayList<Item> itemsToNotAdd) {
         ArrayList<ItemStack> itemsDropped = new ArrayList<>();
 
-        BlockPos wallPos = null;
+        BlockPos wallPos;
 
         // i height, j is the actual wall counter.
         for (int i = 0; i < height; i++) {
@@ -474,7 +472,7 @@ public class BuildingMethods {
 
             if (CommonProxy.proxyConfiguration.serverConfiguration.addTorches) {
                 // Add a set of 20 torches.
-                chestTile.setItem(itemSlot++, new ItemStack(Item.byBlock(Blocks.TORCH), 20));
+                chestTile.setItem(itemSlot, new ItemStack(Item.byBlock(Blocks.TORCH), 20));
             }
         }
     }
@@ -508,10 +506,10 @@ public class BuildingMethods {
      * @param onlyGatherOres - Determines if vanilla non-ore blocks will be gathered.
      */
     public static void PlaceMineShaft(ServerWorld world, BlockPos pos, Direction facing, boolean onlyGatherOres) {
-        // Keep track of all of the items to add to the chest at the end of the
+        // Keep track of all the items to add to the chest at the end of the
         // shaft.
-        ArrayList<ItemStack> stacks = new ArrayList<ItemStack>();
-        ArrayList<Item> blocksToNotAdd = new ArrayList<Item>();
+        ArrayList<ItemStack> stacks = new ArrayList<>();
+        ArrayList<Item> blocksToNotAdd = new ArrayList<>();
 
         if (onlyGatherOres) {
             blocksToNotAdd.add(Item.byBlock(Blocks.SAND));
@@ -543,11 +541,11 @@ public class BuildingMethods {
         // Get to Y11;
         pos = pos.below(pos.getY() - 10);
 
-        ArrayList<ItemStack> tempStacks = new ArrayList<ItemStack>();
+        ArrayList<ItemStack> tempStacks = new ArrayList<>();
 
         BlockPos ceilingLevel = pos.above(4);
 
-        tempStacks = BuildingMethods.SetFloor(world, ceilingLevel.relative(facing, 2).relative(facing.getClockWise(), 2).relative(facing.getOpposite()), Blocks.STONE, 4, 4, tempStacks,
+        BuildingMethods.SetFloor(world, ceilingLevel.relative(facing, 2).relative(facing.getClockWise(), 2).relative(facing.getOpposite()), Blocks.STONE, 4, 4, tempStacks,
                 facing.getOpposite(), blocksToNotAdd);
 
         // After setting the floor, make sure to replace the ladder.
@@ -560,7 +558,7 @@ public class BuildingMethods {
         for (BlockPos torchPos : torchPositions) {
             BlockState surroundingState = world.getBlockState(torchPos);
             Block surroundingBlock = surroundingState.getBlock();
-            tempStacks = BuildingMethods.ConsolidateDrops(world, torchPos, surroundingState, tempStacks, blocksToNotAdd);
+            BuildingMethods.ConsolidateDrops(world, torchPos, surroundingState, tempStacks, blocksToNotAdd);
             BuildingMethods.ReplaceBlock(world, torchPos, torchState, 2);
             blockPositions.add(torchPos);
         }
@@ -703,7 +701,7 @@ public class BuildingMethods {
             // Make sure all blocks around this one are solid, if they are not
             // replace them with stone.
             for (int i = 0; i < 4; i++) {
-                Direction facing = houseFacing;
+                Direction facing;
 
                 switch (i) {
                     case 1: {
@@ -729,9 +727,9 @@ public class BuildingMethods {
                 if (facing == westWall && torchCounter == 6 && pos.getY() > 14) {
                     // First make sure the blocks around this block are stone, then place the torch.
                     for (int j = 0; j <= 2; j++) {
-                        BlockPos tempPos = null;
-                        BlockState surroundingState = null;
-                        Block surroundingBlock = null;
+                        BlockPos tempPos;
+                        BlockState surroundingState;
+                        Block surroundingBlock;
 
                         if (j == 0) {
                             tempPos = pos.relative(facing, 2);
@@ -789,5 +787,117 @@ public class BuildingMethods {
         }
 
         return new Triple<>(originalStacks, torchPositions, allBlockPositions);
+    }
+
+    public static BlockState getStainedGlassBlock(FullDyeColor color) {
+        switch (color) {
+            case BLACK: {
+                return Blocks.BLACK_STAINED_GLASS.defaultBlockState();
+            }
+            case BLUE: {
+                return Blocks.BLUE_STAINED_GLASS.defaultBlockState();
+            }
+            case BROWN: {
+                return Blocks.BROWN_STAINED_GLASS.defaultBlockState();
+            }
+            case GRAY: {
+                return Blocks.GRAY_STAINED_GLASS.defaultBlockState();
+            }
+            case GREEN: {
+                return Blocks.GREEN_STAINED_GLASS.defaultBlockState();
+            }
+            case LIGHT_BLUE: {
+                return Blocks.LIGHT_BLUE_STAINED_GLASS.defaultBlockState();
+            }
+            case LIGHT_GRAY: {
+                return Blocks.LIGHT_GRAY_STAINED_GLASS.defaultBlockState();
+            }
+            case LIME: {
+                return Blocks.LIME_STAINED_GLASS.defaultBlockState();
+            }
+            case MAGENTA: {
+                return Blocks.MAGENTA_STAINED_GLASS.defaultBlockState();
+            }
+            case ORANGE: {
+                return Blocks.ORANGE_STAINED_GLASS.defaultBlockState();
+            }
+            case PINK: {
+                return Blocks.PINK_STAINED_GLASS.defaultBlockState();
+            }
+            case PURPLE: {
+                return Blocks.PURPLE_STAINED_GLASS.defaultBlockState();
+            }
+            case RED: {
+                return Blocks.RED_STAINED_GLASS.defaultBlockState();
+            }
+            case WHITE: {
+                return Blocks.WHITE_STAINED_GLASS.defaultBlockState();
+            }
+            case YELLOW: {
+                return Blocks.YELLOW_STAINED_GLASS.defaultBlockState();
+            }
+            case CLEAR: {
+                return Blocks.GLASS.defaultBlockState();
+            }
+            default: {
+                return Blocks.CYAN_STAINED_GLASS.defaultBlockState();
+            }
+        }
+    }
+
+    public static BlockState getStainedGlassPaneBlock(FullDyeColor color) {
+        switch (color) {
+            case BLACK: {
+                return Blocks.BLACK_STAINED_GLASS_PANE.defaultBlockState();
+            }
+            case BLUE: {
+                return Blocks.BLUE_STAINED_GLASS_PANE.defaultBlockState();
+            }
+            case BROWN: {
+                return Blocks.BROWN_STAINED_GLASS_PANE.defaultBlockState();
+            }
+            case GRAY: {
+                return Blocks.GRAY_STAINED_GLASS_PANE.defaultBlockState();
+            }
+            case GREEN: {
+                return Blocks.GREEN_STAINED_GLASS_PANE.defaultBlockState();
+            }
+            case LIGHT_BLUE: {
+                return Blocks.LIGHT_BLUE_STAINED_GLASS_PANE.defaultBlockState();
+            }
+            case LIGHT_GRAY: {
+                return Blocks.LIGHT_GRAY_STAINED_GLASS_PANE.defaultBlockState();
+            }
+            case LIME: {
+                return Blocks.LIME_STAINED_GLASS_PANE.defaultBlockState();
+            }
+            case MAGENTA: {
+                return Blocks.MAGENTA_STAINED_GLASS_PANE.defaultBlockState();
+            }
+            case ORANGE: {
+                return Blocks.ORANGE_STAINED_GLASS_PANE.defaultBlockState();
+            }
+            case PINK: {
+                return Blocks.PINK_STAINED_GLASS_PANE.defaultBlockState();
+            }
+            case PURPLE: {
+                return Blocks.PURPLE_STAINED_GLASS_PANE.defaultBlockState();
+            }
+            case RED: {
+                return Blocks.RED_STAINED_GLASS_PANE.defaultBlockState();
+            }
+            case WHITE: {
+                return Blocks.WHITE_STAINED_GLASS_PANE.defaultBlockState();
+            }
+            case YELLOW: {
+                return Blocks.YELLOW_STAINED_GLASS_PANE.defaultBlockState();
+            }
+            case CLEAR: {
+                return Blocks.GLASS_PANE.defaultBlockState();
+            }
+            default: {
+                return Blocks.CYAN_STAINED_GLASS_PANE.defaultBlockState();
+            }
+        }
     }
 }

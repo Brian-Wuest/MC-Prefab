@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Triple;
+import com.wuest.prefab.Tuple;
 import com.wuest.prefab.ZipUtil;
 import com.wuest.prefab.blocks.FullDyeColor;
 import com.wuest.prefab.gui.GuiLangKeys;
@@ -51,12 +52,8 @@ import java.util.Collection;
 @SuppressWarnings({"unchecked", "WeakerAccess", "ConstantConditions"})
 public class Structure {
     public ArrayList<BlockPos> allBlockPositions = new ArrayList<>();
-    public ArrayList<BlockPos> clearedBlockPos = new ArrayList<BlockPos>();
-    public ArrayList<BuildBlock> priorityOneBlocks = new ArrayList<BuildBlock>();
-    public ArrayList<BuildBlock> priorityTwoBlocks = new ArrayList<>();
-    public ArrayList<BuildBlock> priorityThreeBlocks = new ArrayList<>();
-    public ArrayList<BuildBlock> priorityFourBlocks = new ArrayList<>();
-    public ArrayList<BuildBlock> priorityFiveBlocks = new ArrayList<>();
+    public ArrayList<BlockPos> clearedBlockPos = new ArrayList<>();
+    public ArrayList<BuildBlock> priorityOneBlocks = new ArrayList<>();
     public ArrayList<BuildBlock> airBlocks = new ArrayList<>();
     public StructureConfiguration configuration;
     public ServerWorld world;
@@ -66,9 +63,9 @@ public class Structure {
     public boolean entitiesRemoved = false;
 
     @Expose
-    public ArrayList<BuildTileEntity> tileEntities = new ArrayList<BuildTileEntity>();
+    public ArrayList<BuildTileEntity> tileEntities = new ArrayList<>();
     @Expose
-    public ArrayList<BuildEntity> entities = new ArrayList<BuildEntity>();
+    public ArrayList<BuildEntity> entities = new ArrayList<>();
     @Expose
     private String name;
     @Expose
@@ -89,7 +86,7 @@ public class Structure {
      * @return Null if the resource wasn't found or the JSON could not be parsed, otherwise the de-serialized object.
      */
     public static <T extends Structure> T CreateInstance(String resourceLocation, Class<? extends Structure> child) {
-        T structure = null;
+        T structure;
 
         Gson file = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         structure = (T) file.fromJson(ZipUtil.decompressResource(resourceLocation), child);
@@ -395,6 +392,7 @@ public class Structure {
                 this.ClearSpace(configuration, world, startBlockPos, endBlockPos);
 
                 boolean blockPlacedWithCobbleStoneInstead = false;
+                ArrayList<Tuple<BlockState, BlockPos>> laterBlocks = new ArrayList<>();
 
                 // Now place all the blocks.
                 for (BuildBlock block : this.getBlocks()) {
@@ -411,12 +409,12 @@ public class Structure {
                             // Set the glass color if this structure can have the glass configured.
                             if (foundBlock.getRegistryName().getNamespace().equals(Blocks.WHITE_STAINED_GLASS.getRegistryName().getNamespace())
                                     && foundBlock.getRegistryName().getPath().endsWith("stained_glass")) {
-                                blockState = this.getStainedGlassBlock(this.getGlassColor(configuration));
+                                blockState = BuildingMethods.getStainedGlassBlock(this.getGlassColor(configuration));
 
                                 block.setBlockState(blockState);
                             } else if (foundBlock.getRegistryName().getNamespace().equals(Blocks.WHITE_STAINED_GLASS_PANE.getRegistryName().getNamespace())
                                     && foundBlock.getRegistryName().getPath().endsWith("stained_glass_pane")) {
-                                blockState = this.getStainedGlassPaneBlock(this.getGlassColor(configuration));
+                                blockState = BuildingMethods.getStainedGlassPaneBlock(this.getGlassColor(configuration));
 
                                 block = BuildBlock.SetBlockState(
                                         configuration,
@@ -447,7 +445,12 @@ public class Structure {
                                 continue;
                             }
 
-                            world.setBlock(setBlockPos, block.getBlockState(), Constants.BlockFlags.DEFAULT);
+                            if (block.getBlockState().getBlock() instanceof VineBlock
+                                || block.getBlockState().getBlock() instanceof LadderBlock) {
+                                laterBlocks.add(new Tuple<>(block.getBlockState(), setBlockPos));
+                            } else {
+                                world.setBlock(setBlockPos, block.getBlockState(), Constants.BlockFlags.DEFAULT);
+                            }
 
                             if (subBlock != null) {
                                 BlockPos subBlockPos = subBlock.getStartingPosition().getRelativePosition(originalPos,
@@ -475,6 +478,10 @@ public class Structure {
                                             + blockTypeNotFound + "]");
                         }
                     }
+                }
+
+                for (Tuple<BlockState, BlockPos> block : laterBlocks) {
+                    world.setBlock(block.getSecond(), block.getFirst(), Constants.BlockFlags.DEFAULT);
                 }
 
                 this.configuration = configuration;
@@ -516,118 +523,6 @@ public class Structure {
     public void BeforeHangingEntityRemoved(HangingEntity hangingEntity) {
     }
 
-    public BlockState getStainedGlassBlock(FullDyeColor color) {
-        switch (color) {
-            case BLACK: {
-                return Blocks.BLACK_STAINED_GLASS.defaultBlockState();
-            }
-            case BLUE: {
-                return Blocks.BLUE_STAINED_GLASS.defaultBlockState();
-            }
-            case BROWN: {
-                return Blocks.BROWN_STAINED_GLASS.defaultBlockState();
-            }
-            case GRAY: {
-                return Blocks.GRAY_STAINED_GLASS.defaultBlockState();
-            }
-            case GREEN: {
-                return Blocks.GREEN_STAINED_GLASS.defaultBlockState();
-            }
-            case LIGHT_BLUE: {
-                return Blocks.LIGHT_BLUE_STAINED_GLASS.defaultBlockState();
-            }
-            case LIGHT_GRAY: {
-                return Blocks.LIGHT_GRAY_STAINED_GLASS.defaultBlockState();
-            }
-            case LIME: {
-                return Blocks.LIME_STAINED_GLASS.defaultBlockState();
-            }
-            case MAGENTA: {
-                return Blocks.MAGENTA_STAINED_GLASS.defaultBlockState();
-            }
-            case ORANGE: {
-                return Blocks.ORANGE_STAINED_GLASS.defaultBlockState();
-            }
-            case PINK: {
-                return Blocks.PINK_STAINED_GLASS.defaultBlockState();
-            }
-            case PURPLE: {
-                return Blocks.PURPLE_STAINED_GLASS.defaultBlockState();
-            }
-            case RED: {
-                return Blocks.RED_STAINED_GLASS.defaultBlockState();
-            }
-            case WHITE: {
-                return Blocks.WHITE_STAINED_GLASS.defaultBlockState();
-            }
-            case YELLOW: {
-                return Blocks.YELLOW_STAINED_GLASS.defaultBlockState();
-            }
-            case CLEAR: {
-                return Blocks.GLASS.defaultBlockState();
-            }
-            default: {
-                return Blocks.CYAN_STAINED_GLASS.defaultBlockState();
-            }
-        }
-    }
-
-    public BlockState getStainedGlassPaneBlock(FullDyeColor color) {
-        switch (color) {
-            case BLACK: {
-                return Blocks.BLACK_STAINED_GLASS_PANE.defaultBlockState();
-            }
-            case BLUE: {
-                return Blocks.BLUE_STAINED_GLASS_PANE.defaultBlockState();
-            }
-            case BROWN: {
-                return Blocks.BROWN_STAINED_GLASS_PANE.defaultBlockState();
-            }
-            case GRAY: {
-                return Blocks.GRAY_STAINED_GLASS_PANE.defaultBlockState();
-            }
-            case GREEN: {
-                return Blocks.GREEN_STAINED_GLASS_PANE.defaultBlockState();
-            }
-            case LIGHT_BLUE: {
-                return Blocks.LIGHT_BLUE_STAINED_GLASS_PANE.defaultBlockState();
-            }
-            case LIGHT_GRAY: {
-                return Blocks.LIGHT_GRAY_STAINED_GLASS_PANE.defaultBlockState();
-            }
-            case LIME: {
-                return Blocks.LIME_STAINED_GLASS_PANE.defaultBlockState();
-            }
-            case MAGENTA: {
-                return Blocks.MAGENTA_STAINED_GLASS_PANE.defaultBlockState();
-            }
-            case ORANGE: {
-                return Blocks.ORANGE_STAINED_GLASS_PANE.defaultBlockState();
-            }
-            case PINK: {
-                return Blocks.PINK_STAINED_GLASS_PANE.defaultBlockState();
-            }
-            case PURPLE: {
-                return Blocks.PURPLE_STAINED_GLASS_PANE.defaultBlockState();
-            }
-            case RED: {
-                return Blocks.RED_STAINED_GLASS_PANE.defaultBlockState();
-            }
-            case WHITE: {
-                return Blocks.WHITE_STAINED_GLASS_PANE.defaultBlockState();
-            }
-            case YELLOW: {
-                return Blocks.YELLOW_STAINED_GLASS_PANE.defaultBlockState();
-            }
-            case CLEAR: {
-                return Blocks.GLASS_PANE.defaultBlockState();
-            }
-            default: {
-                return Blocks.CYAN_STAINED_GLASS_PANE.defaultBlockState();
-            }
-        }
-    }
-
     /**
      * This method is used before any building occurs to check for things or possibly pre-build locations. Note: This is
      * even done before blocks are cleared.
@@ -664,8 +559,6 @@ public class Structure {
             for (BlockPos pos : BlockPos.betweenClosed(startBlockPos, endBlockPos)) {
                 if (this.BlockShouldBeClearedDuringConstruction(configuration, world, originalPos, assumedNorth, pos)) {
                     world.setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
-                    //this.clearedBlockPos.add(new BlockPos(pos));
-                    //this.allBlockPositions.add(new BlockPos(pos));
                 }
             }
         } else {
@@ -699,11 +592,11 @@ public class Structure {
     protected Boolean WaterReplacedWithCobbleStone(StructureConfiguration configuration, BuildBlock block, World world, BlockPos originalPos,
                                                    Direction assumedNorth, Block foundBlock, BlockState blockState, PlayerEntity player) {
         // Replace water blocks and waterlogged blocks with cobblestone when this is not an ultra warm world type.
-        // Also check a configuration value to determine if water blocks are allowed in non-overworld dimensions.
-        boolean isOverworld = World.OVERWORLD.compareTo(world.dimension()) == 0;
+        // Also check a configuration value to determine if water blocks are allowed in non-over-world dimensions.
+        boolean isOverWorld = World.OVERWORLD.compareTo(world.dimension()) == 0;
 
         if (world.dimensionType().ultraWarm()
-                || (!isOverworld && Prefab.proxy.getServerConfiguration().allowWaterInNonOverworldDimensions)) {
+                || (!isOverWorld && Prefab.proxy.getServerConfiguration().allowWaterInNonOverworldDimensions)) {
             boolean foundWaterLikeBlock = (foundBlock instanceof FlowingFluidBlock && blockState.getMaterial() == Material.WATER)
                     || foundBlock instanceof SeaGrassBlock;
 
@@ -724,8 +617,11 @@ public class Structure {
                 block.setBlockName(cobbleIdentifier.getPath());
                 block.setBlockState(Blocks.COBBLESTONE.defaultBlockState());
 
-                // Add this as a priority 3 block since it should be done at the end.
-                this.priorityThreeBlocks.add(block);
+                BlockPos setBlockPos = block.getStartingPosition().getRelativePosition(originalPos,
+                        this.getClearSpace().getShape().getDirection(), configuration.houseFacing);
+
+                world.setBlock(setBlockPos, block.getBlockState(), Constants.BlockFlags.DEFAULT);
+
                 return true;
             }
         }
