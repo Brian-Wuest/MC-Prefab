@@ -407,25 +407,7 @@ public class Structure {
                                 && !this.CustomBlockProcessingHandled(configuration, block, world, originalPos, assumedNorth, foundBlock, blockState, player)) {
 
                             // Set the glass color if this structure can have the glass configured.
-                            if (foundBlock.getRegistryName().getNamespace().equals(Blocks.WHITE_STAINED_GLASS.getRegistryName().getNamespace())
-                                    && foundBlock.getRegistryName().getPath().endsWith("stained_glass")) {
-                                blockState = BuildingMethods.getStainedGlassBlock(this.getGlassColor(configuration));
-
-                                block.setBlockState(blockState);
-                            } else if (foundBlock.getRegistryName().getNamespace().equals(Blocks.WHITE_STAINED_GLASS_PANE.getRegistryName().getNamespace())
-                                    && foundBlock.getRegistryName().getPath().endsWith("stained_glass_pane")) {
-                                blockState = BuildingMethods.getStainedGlassPaneBlock(this.getGlassColor(configuration));
-
-                                block = BuildBlock.SetBlockState(
-                                        configuration,
-                                        world,
-                                        originalPos,
-                                        assumedNorth,
-                                        block,
-                                        foundBlock,
-                                        blockState,
-                                        this);
-                            } else {
+                            if (!this.processedGlassBlock(configuration, block, world, originalPos, foundBlock)) {
                                 block = BuildBlock.SetBlockState(configuration, world, originalPos, assumedNorth, block, foundBlock, blockState, this);
                             }
 
@@ -439,14 +421,11 @@ public class Structure {
                             BlockPos setBlockPos = block.getStartingPosition().getRelativePosition(originalPos,
                                     this.getClearSpace().getShape().getDirection(), configuration.houseFacing);
 
-                            if (block.getBlockState().hasTileEntity()) {
-                                // Don't place tile entity blocks right now as they would cause errors. Place during server tick.
-                                this.priorityOneBlocks.add(block);
-                                continue;
-                            }
+                            Block blockToPlace = block.getBlockState().getBlock();
 
-                            if (block.getBlockState().getBlock() instanceof VineBlock
-                                || block.getBlockState().getBlock() instanceof LadderBlock) {
+                            // Some blocks need to happen later because they attach to solid blocks and have no collision logic.
+                            // Fluid blocks may not have collision but they should always be placed.
+                            if (!blockToPlace.hasCollision && !(blockToPlace instanceof FlowingFluidBlock)) {
                                 laterBlocks.add(new Tuple<>(block.getBlockState(), setBlockPos));
                             } else {
                                 world.setBlock(setBlockPos, block.getBlockState(), Constants.BlockFlags.DEFAULT);
@@ -626,6 +605,42 @@ public class Structure {
             }
         }
 
+        return false;
+    }
+
+    protected boolean processedGlassBlock(StructureConfiguration configuration, BuildBlock block, World world, BlockPos originalPos, Block foundBlock) {
+        if (!this.hasGlassColor(configuration)) {
+            return false;
+        }
+
+        if (foundBlock.getRegistryName().getNamespace().equals(Blocks.WHITE_STAINED_GLASS.getRegistryName().getNamespace())
+                && foundBlock.getRegistryName().getPath().endsWith("stained_glass")) {
+            BlockState blockState = BuildingMethods.getStainedGlassBlock(this.getGlassColor(configuration));
+
+            block.setBlockState(blockState);
+
+            return true;
+        } else if (foundBlock.getRegistryName().getNamespace().equals(Blocks.WHITE_STAINED_GLASS_PANE.getRegistryName().getNamespace())
+                && foundBlock.getRegistryName().getPath().endsWith("stained_glass_pane")) {
+            BlockState blockState = BuildingMethods.getStainedGlassPaneBlock(this.getGlassColor(configuration));
+
+            BuildBlock.SetBlockState(
+                    configuration,
+                    world,
+                    originalPos,
+                    assumedNorth,
+                    block,
+                    foundBlock,
+                    blockState,
+                    this);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    protected boolean hasGlassColor(StructureConfiguration configuration) {
         return false;
     }
 

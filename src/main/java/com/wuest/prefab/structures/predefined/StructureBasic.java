@@ -1,11 +1,13 @@
 package com.wuest.prefab.structures.predefined;
 
 import com.wuest.prefab.Tuple;
+import com.wuest.prefab.blocks.FullDyeColor;
 import com.wuest.prefab.structures.base.BuildBlock;
 import com.wuest.prefab.structures.base.BuildingMethods;
 import com.wuest.prefab.structures.base.Structure;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration.EnumBasicStructureName;
+import com.wuest.prefab.structures.config.HouseConfiguration;
 import com.wuest.prefab.structures.config.StructureConfiguration;
 import com.wuest.prefab.structures.config.enums.BaseOption;
 import com.wuest.prefab.structures.config.enums.ModerateFarmOptions;
@@ -157,5 +159,18 @@ public class StructureBasic extends Structure {
             airPos = airPos.above();
             world.removeBlock(airPos, false);
         }
+    }
+
+    @Override
+    protected boolean hasGlassColor(StructureConfiguration configuration) {
+        BasicStructureConfiguration config = (BasicStructureConfiguration) configuration;
+        BaseOption chosenOption = config.chosenOption;
+        return chosenOption.getHasGlassColor();
+    }
+
+    @Override
+    protected FullDyeColor getGlassColor(StructureConfiguration configuration) {
+        BasicStructureConfiguration config = (BasicStructureConfiguration) configuration;
+        return config.glassColor;
     }
 }

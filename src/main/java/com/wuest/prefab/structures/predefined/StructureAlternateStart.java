@@ -134,6 +134,11 @@ public class StructureAlternateStart extends Structure {
     }
 
     @Override
+    protected boolean hasGlassColor(StructureConfiguration configuration) {
+        return true;
+    }
+
+    @Override
     protected FullDyeColor getGlassColor(StructureConfiguration configuration) {
         HouseConfiguration houseConfig = (HouseConfiguration) configuration;
         return houseConfig.glassColor;
