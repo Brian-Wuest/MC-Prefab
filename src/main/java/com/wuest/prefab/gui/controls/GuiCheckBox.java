@@ -19,6 +19,7 @@ public class GuiCheckBox extends AbstractButton {
     private static final ResourceLocation buttonTexture = new ResourceLocation("prefab", "textures/gui/prefab_checkbox.png");
     private static final ResourceLocation buttonTexturePressed = new ResourceLocation("prefab", "textures/gui/prefab_checkbox_selected.png");
     private static final ResourceLocation buttonTextureHover = new ResourceLocation("prefab", "textures/gui/prefab_checkbox_hover.png");
+    private static final ResourceLocation buttonTextureHoverSelected = new ResourceLocation("prefab", "textures/gui/prefab_checkbox_hover_selected.png");
 
     protected int boxWidth;
     protected int boxHeight;
@@ -33,7 +34,9 @@ public class GuiCheckBox extends AbstractButton {
     public GuiCheckBox(int xPos, int yPos, String displayString, boolean isChecked, IPressable handler) {
         super(xPos, yPos, 11, 12, Utils.createTextComponent(displayString));
 
-        this.boxWidth = 11;
+        this.width = 16;
+        this.boxHeight = 11;
+        this.boxWidth = 16;
         this.mineCraft = Minecraft.getInstance();
         this.displayString = displayString;
         this.stringColor = Color.DARK_GRAY.getRGB();
@@ -117,12 +120,16 @@ public class GuiCheckBox extends AbstractButton {
 
             if (this.isChecked()) {
                 resourceLocation = GuiCheckBox.buttonTexturePressed;
+
+                if (this.isHovered) {
+                    resourceLocation = GuiCheckBox.buttonTextureHoverSelected;
+                }
             } else if (this.isHovered) {
                 resourceLocation = GuiCheckBox.buttonTextureHover;
             }
 
             com.wuest.prefab.gui.GuiUtils.bindTexture(resourceLocation);
-            com.wuest.prefab.gui.GuiUtils.drawTexture(matrixStack, this.x, this.y, 1, 11, 11, 11, 11);
+            com.wuest.prefab.gui.GuiUtils.drawTexture(matrixStack, this.x, this.y, 1, this.boxWidth, this.boxHeight, this.boxWidth, this.boxHeight);
 
             int color = this.stringColor;
 

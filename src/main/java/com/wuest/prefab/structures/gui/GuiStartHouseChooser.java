@@ -43,7 +43,7 @@ public class GuiStartHouseChooser extends GuiStructure {
 
     @Override
     protected void Initialize() {
-        this.modifiedInitialXAxis = 212;
+        this.modifiedInitialXAxis = 215;
         this.modifiedInitialYAxis = 117;
         this.shownImageHeight = 150;
         this.shownImageWidth = 268;
@@ -62,28 +62,28 @@ public class GuiStartHouseChooser extends GuiStructure {
         int grayBoxY = adjustedXYValue.getSecond();
 
         // Create the buttons.
-        this.btnHouseStyle = this.createAndAddButton(grayBoxX + 15, grayBoxY + 30, 90, 20, this.configuration.houseStyle.getDisplayName(), false);
-        this.btnBedColor = this.createAndAddDyeButton(grayBoxX + 15, grayBoxY + 65, 90, 20, this.configuration.bedColor);
-        this.btnGlassColor = this.createAndAddFullDyeButton(grayBoxX + 15, grayBoxY + 100, 90, 20, this.configuration.glassColor);
-        this.btnAddChest = this.createAndAddCheckBox(grayBoxX + 15, grayBoxY + 125, GuiLangKeys.STARTER_HOUSE_ADD_CHEST, this.configuration.addChest, null);
-        this.btnAddMineShaft = this.createAndAddCheckBox(grayBoxX + 15, grayBoxY + 140, GuiLangKeys.STARTER_HOUSE_BUILD_MINESHAFT, this.configuration.addChestContents, null);
-        this.btnAddChestContents = this.createAndAddCheckBox(grayBoxX + 15, grayBoxY + 155, GuiLangKeys.STARTER_HOUSE_ADD_CHEST_CONTENTS, this.configuration.addMineShaft, null);
+        this.btnHouseStyle = this.createAndAddButton(grayBoxX + 8, grayBoxY + 30, 90, 20, this.configuration.houseStyle.getDisplayName(), false);
+        this.btnBedColor = this.createAndAddDyeButton(grayBoxX + 8, grayBoxY + 65, 90, 20, this.configuration.bedColor);
+        this.btnGlassColor = this.createAndAddFullDyeButton(grayBoxX + 8, grayBoxY + 100, 90, 20, this.configuration.glassColor);
+        this.btnAddChest = this.createAndAddCheckBox(grayBoxX + 8, grayBoxY + 125, GuiLangKeys.STARTER_HOUSE_ADD_CHEST, this.configuration.addChest, this::buttonClicked);
+        this.btnAddMineShaft = this.createAndAddCheckBox(grayBoxX + 8, grayBoxY + 140, GuiLangKeys.STARTER_HOUSE_BUILD_MINESHAFT, this.configuration.addMineShaft, this::buttonClicked);
+        this.btnAddChestContents = this.createAndAddCheckBox(grayBoxX + 8, grayBoxY + 155, GuiLangKeys.STARTER_HOUSE_ADD_CHEST_CONTENTS, this.configuration.addChestContents, this::buttonClicked);
 
         // Create the standard buttons.
-        this.btnVisualize = this.createAndAddCustomButton(grayBoxX + 25, grayBoxY + 175, 90, 20, GuiLangKeys.GUI_BUTTON_PREVIEW);
-        this.btnBuild = this.createAndAddCustomButton(grayBoxX + 310, grayBoxY + 175, 90, 20, GuiLangKeys.GUI_BUTTON_BUILD);
-        this.btnCancel = this.createAndAddButton(grayBoxX + 150, grayBoxY + 175, 90, 20, GuiLangKeys.GUI_BUTTON_CANCEL);
+        this.btnVisualize = this.createAndAddCustomButton(grayBoxX + 26, grayBoxY + 175, 90, 20, GuiLangKeys.GUI_BUTTON_PREVIEW);
+        this.btnBuild = this.createAndAddCustomButton(grayBoxX + 313, grayBoxY + 175, 90, 20, GuiLangKeys.GUI_BUTTON_BUILD);
+        this.btnCancel = this.createAndAddButton(grayBoxX + 165, grayBoxY + 175, 90, 20, GuiLangKeys.GUI_BUTTON_CANCEL);
     }
 
     @Override
     protected void preButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
-        int imagePanelUpperLeft = x + 132;
+        int imagePanelUpperLeft = x + 142;
         int imagePanelWidth = 285;
         int imagePanelMiddle = imagePanelWidth / 2;
 
         this.renderBackground(matrixStack);
 
-        this.drawControlLeftPanel(matrixStack, x + 10, y + 10, 125, 190);
+        this.drawControlLeftPanel(matrixStack, x + 2, y + 10, 141, 190);
         this.drawControlRightPanel(matrixStack, imagePanelUpperLeft, y + 10, imagePanelWidth, 190);
 
         int middleOfImage = this.shownImageWidth / 2;
@@ -109,11 +109,11 @@ public class GuiStartHouseChooser extends GuiStructure {
     @Override
     protected void postButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
         // Draw the text here.
-        this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), x + 15, y + 20, this.textColor);
+        this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), x + 8, y + 20, this.textColor);
 
-        this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), x + 15, y + 55, this.textColor);
+        this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), x + 8, y + 55, this.textColor);
 
-        this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS), x + 15, y + 90, this.textColor);
+        this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS), x + 8, y + 90, this.textColor);
     }
 
     /**
