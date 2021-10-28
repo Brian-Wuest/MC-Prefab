@@ -34,9 +34,10 @@ public class GuiCheckBox extends AbstractButton {
     public GuiCheckBox(int xPos, int yPos, String displayString, boolean isChecked, IPressable handler) {
         super(xPos, yPos, 11, 12, Utils.createTextComponent(displayString));
 
-        this.width = 16;
-        this.boxHeight = 11;
-        this.boxWidth = 16;
+        this.width = 22;
+        this.height = 14;
+        this.boxHeight = 14;
+        this.boxWidth = 22;
         this.mineCraft = Minecraft.getInstance();
         this.displayString = displayString;
         this.stringColor = Color.DARK_GRAY.getRGB();
@@ -134,9 +135,9 @@ public class GuiCheckBox extends AbstractButton {
             int color = this.stringColor;
 
             if (this.withShadow) {
-                this.drawString(matrixStack, this.mineCraft.font, displayString, x + this.boxWidth + 2, y + 2, color);
+                this.drawString(matrixStack, this.mineCraft.font, displayString, x + this.boxWidth + 2, y + 3, color);
             } else {
-                this.mineCraft.font.drawWordWrap(Utils.createTextComponent(displayString), x + this.boxWidth + 2, y + 2, this.labelWidth, color);
+                this.mineCraft.font.drawWordWrap(Utils.createTextComponent(displayString), x + this.boxWidth + 2, y + 3, this.labelWidth, color);
             }
         }
     }

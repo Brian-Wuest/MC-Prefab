@@ -58,9 +58,9 @@ public abstract class GuiStructure extends GuiBase {
         int grayBoxY = adjustedXYValue.getSecond();
 
         // Create the buttons.
-        this.btnVisualize = this.createAndAddCustomButton(grayBoxX + 113, grayBoxY + 165, 90, 20, GuiLangKeys.GUI_BUTTON_PREVIEW);
-        this.btnBuild = this.createAndAddCustomButton(grayBoxX + 215, grayBoxY + 165, 90, 20, GuiLangKeys.GUI_BUTTON_BUILD);
-        this.btnCancel = this.createAndAddButton(grayBoxX + 10, grayBoxY + 165, 90, 20, GuiLangKeys.GUI_BUTTON_CANCEL);
+        this.btnVisualize = this.createAndAddCustomButton(grayBoxX + 113, grayBoxY + 167, 90, 20, GuiLangKeys.GUI_BUTTON_PREVIEW);
+        this.btnBuild = this.createAndAddCustomButton(grayBoxX + 215, grayBoxY + 167, 90, 20, GuiLangKeys.GUI_BUTTON_BUILD);
+        this.btnCancel = this.createAndAddButton(grayBoxX + 10, grayBoxY + 167, 90, 20, GuiLangKeys.GUI_BUTTON_CANCEL);
     }
 
     public void checkVisualizationSetting() {

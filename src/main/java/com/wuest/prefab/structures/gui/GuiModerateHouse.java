@@ -56,16 +56,16 @@ public class GuiModerateHouse extends GuiStructure {
         int grayBoxY = adjustedXYValue.getSecond();
 
         // Create the buttons.
-        this.btnHouseStyle = this.createAndAddButton(grayBoxX + 8, grayBoxY + 45, 90, 20, this.configuration.houseStyle.getDisplayName(), false);
-        this.btnBedColor = this.createAndAddDyeButton(grayBoxX + 8, grayBoxY + 90, 90, 20, this.configuration.bedColor);
-        this.btnAddChest = this.createAndAddCheckBox(grayBoxX + 8, grayBoxY + 125, GuiLangKeys.STARTER_HOUSE_ADD_CHEST, this.configuration.addChests, this::buttonClicked);
-        this.btnAddChestContents = this.createAndAddCheckBox(grayBoxX + 8, grayBoxY + 155, GuiLangKeys.STARTER_HOUSE_ADD_CHEST_CONTENTS, this.configuration.addChestContents, this::buttonClicked);
-        this.btnAddMineShaft = this.createAndAddCheckBox(grayBoxX + 8, grayBoxY + 140, GuiLangKeys.STARTER_HOUSE_BUILD_MINESHAFT, this.configuration.addMineshaft, this::buttonClicked);
+        this.btnHouseStyle = this.createAndAddButton(grayBoxX + 8, grayBoxY + 25, 90, 20, this.configuration.houseStyle.getDisplayName(), false);
+        this.btnBedColor = this.createAndAddDyeButton(grayBoxX + 8, grayBoxY + 60, 90, 20, this.configuration.bedColor);
+        this.btnAddChest = this.createAndAddCheckBox(grayBoxX + 8, grayBoxY + 120, GuiLangKeys.STARTER_HOUSE_ADD_CHEST, this.configuration.addChests, this::buttonClicked);
+        this.btnAddMineShaft = this.createAndAddCheckBox(grayBoxX + 8, grayBoxY + 137, GuiLangKeys.STARTER_HOUSE_BUILD_MINESHAFT, this.configuration.addMineshaft, this::buttonClicked);
+        this.btnAddChestContents = this.createAndAddCheckBox(grayBoxX + 8, grayBoxY + 154, GuiLangKeys.STARTER_HOUSE_ADD_CHEST_CONTENTS, this.configuration.addChestContents, this::buttonClicked);
 
         // Create the standard buttons.
-        this.btnVisualize = this.createAndAddCustomButton(grayBoxX + 24, grayBoxY + 175, 90, 20, GuiLangKeys.GUI_BUTTON_PREVIEW);
-        this.btnBuild = this.createAndAddCustomButton(grayBoxX + 310, grayBoxY + 175, 90, 20, GuiLangKeys.GUI_BUTTON_BUILD);
-        this.btnCancel = this.createAndAddButton(grayBoxX + 154, grayBoxY + 175, 90, 20, GuiLangKeys.GUI_BUTTON_CANCEL);
+        this.btnVisualize = this.createAndAddCustomButton(grayBoxX + 24, grayBoxY + 177, 90, 20, GuiLangKeys.GUI_BUTTON_PREVIEW);
+        this.btnBuild = this.createAndAddCustomButton(grayBoxX + 310, grayBoxY + 177, 90, 20, GuiLangKeys.GUI_BUTTON_BUILD);
+        this.btnCancel = this.createAndAddButton(grayBoxX + 154, grayBoxY + 177, 90, 20, GuiLangKeys.GUI_BUTTON_CANCEL);
     }
 
     @Override
@@ -102,11 +102,9 @@ public class GuiModerateHouse extends GuiStructure {
     @Override
     protected void postButtonRender(MatrixStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
         // Draw the text here.
-        this.drawString(matrixStack, GuiLangKeys.translateString("item.prefab.item_moderate_house"), x + 8, y + 17, this.textColor);
+        this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), x + 8, y + 15, this.textColor);
 
-        this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), x + 8, y + 35, this.textColor);
-
-        this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), x + 8, y + 80, this.textColor);
+        this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), x + 8, y + 50, this.textColor);
     }
 
     /**
