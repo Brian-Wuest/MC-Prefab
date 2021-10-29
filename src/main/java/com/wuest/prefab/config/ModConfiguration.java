@@ -23,7 +23,7 @@ public class ModConfiguration {
     private static final String ChestContentOptions = "general.chest contents.";
     private static final String RecipeOptions = "general.recipes.";
     private static final String starterHouseOptions = "general.starter house.";
-    private static final ArrayList<String> validStartingItems = new ArrayList(Arrays.asList("Starting House", "Moderate House", "Structure Part", "Nothing"));
+    private static final ArrayList<String> validStartingItems = new ArrayList(Arrays.asList("Starting House", "Moderate House", "Nothing"));
     // Recipe Options
     private static final String compressedStoneKey = "Compressed Stone";
     private static final String compressedGlowStoneKey = "Compressed Glowstone";
@@ -164,7 +164,7 @@ public class ModConfiguration {
         builder.comment("General");
 
         Prefab.proxy.proxyConfiguration.startingItem = builder
-                .comment("Determines which starting item a player gets on first world join. Valid values for this option are: \"Starting House\", \"Moderate House\", \"Structure Part\", \"Nothing\". Server configuration overrides client.")
+                .comment("Determines which starting item a player gets on first world join. Valid values for this option are: \"Starting House\", \"Moderate House\", \"Nothing\". Server configuration overrides client.")
                 .defineInList(OPTIONS + ModConfiguration.startingItemName, "Starting House", validStartingItems);
 
         config.configOptions.add(new ConfigOption<String>()
@@ -173,7 +173,7 @@ public class ModConfiguration {
                 .setCategory(ConfigCategory.General)
                 .setConfigType("String")
                 .setDefaultValue("Starting House")
-                .setHoverText("Determines which starting item a player gets on first world join. Valid values for this option are: \"Starting House\", \"Moderate House\", \"Structure Part\", \"Nothing\". Server configuration overrides client.")
+                .setHoverText("Determines which starting item a player gets on first world join. Valid values for this option are: \"Starting House\", \"Moderate House\", \"Nothing\". Server configuration overrides client.")
                 .setValidValues(validStartingItems));
 
         Prefab.proxy.proxyConfiguration.enableLoftHouse = builder
