@@ -105,6 +105,7 @@
 
     "prefab.gui.producefarm.structure.size": "Bu yapıt 32x32 blok boyutunda.",
 
+    "prefab.gui.building_blueprint": "üreten yapı",
     "prefab.gui.starter.tab.general": "Genel",
     "prefab.gui.starter.tab.config": "Seçenekler",
     "prefab.gui.starter.tab.block": "Bloklar/Boyut",

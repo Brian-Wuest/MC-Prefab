@@ -104,6 +104,7 @@
 
     "prefab.gui.producefarm.structure.size": "この構造は、サイズが32x32ブロックです。",
 
+    "prefab.gui.building_blueprint": "生成構造",
     "prefab.gui.starter.tab.general": "全般",
     "prefab.gui.starter.tab.config": "コンフィグ",
     "prefab.gui.starter.tab.block": "ブロック/サイズ",

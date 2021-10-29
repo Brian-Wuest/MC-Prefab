@@ -104,6 +104,7 @@
 
     "prefab.gui.producefarm.structure.size": "Эта структура размером 32x32 блока.",
 
+    "prefab.gui.building_blueprint": "Генерация Структуры",
     "prefab.gui.starter.tab.general": "Общее",
     "prefab.gui.starter.tab.config": "Настройки",
     "prefab.gui.starter.tab.block": "Блоки/Размер",

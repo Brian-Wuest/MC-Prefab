@@ -104,6 +104,7 @@
 
     "prefab.gui.producefarm.structure.size": "這個建築尺寸為 32x32。",
 
+    "prefab.gui.building_blueprint": "生成結構",
     "prefab.gui.starter.tab.general": "一般",
     "prefab.gui.starter.tab.config": "組態",
     "prefab.gui.starter.tab.block": "方塊（尺寸）",

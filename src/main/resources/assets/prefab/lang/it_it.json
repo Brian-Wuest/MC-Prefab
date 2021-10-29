@@ -104,6 +104,7 @@
 
     "prefab.gui.producefarm.structure.size": "Questa struttura misura 32x32 blocchi.",
 
+    "prefab.gui.building_blueprint": "struttura generatrice",
     "prefab.gui.starter.tab.general": "Generale",
     "prefab.gui.starter.tab.config": "Configurazione",
     "prefab.gui.starter.tab.block": "Blocco/Dimensione",
