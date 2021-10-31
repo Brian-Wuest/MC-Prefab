@@ -3,10 +3,7 @@ package com.wuest.prefab.structures.base;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
-import com.wuest.prefab.Prefab;
-import com.wuest.prefab.Triple;
-import com.wuest.prefab.Tuple;
-import com.wuest.prefab.ZipUtil;
+import com.wuest.prefab.*;
 import com.wuest.prefab.blocks.FullDyeColor;
 import com.wuest.prefab.gui.GuiLangKeys;
 import com.wuest.prefab.structures.config.StructureConfiguration;
@@ -29,6 +26,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
@@ -385,6 +383,9 @@ public class Structure {
             player.sendMessage(message, player.getUUID());
             return false;
         }
+
+        // Play the building sound.
+        world.playSound(null, originalPos, ModRegistry.BuildingBlueprint.get(), SoundCategory.NEUTRAL, 0.8f, 0.8f);
 
         if (!this.BeforeBuilding(configuration, world, originalPos, assumedNorth, player)) {
             try {
