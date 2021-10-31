@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "prefab:block/item_pallet_of_bricks"
+    }
+  }
+}

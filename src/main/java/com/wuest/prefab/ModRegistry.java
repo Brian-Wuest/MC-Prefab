@@ -91,7 +91,11 @@ public class ModRegistry {
     public static final RegistryObject<BlockPaperLantern> PaperLantern = BLOCKS.register("block_paper_lantern", BlockPaperLantern::new);
     public static final RegistryObject<BlockGlassStairs> GlassStairs = BLOCKS.register("block_glass_stairs", () -> new BlockGlassStairs(Blocks.GLASS.defaultBlockState(), Block.Properties.copy(Blocks.GLASS)));
     public static final RegistryObject<BlockGlassSlab> GlassSlab = BLOCKS.register("block_glass_slab", () -> new BlockGlassSlab(Block.Properties.copy(Blocks.GLASS)));
-    public static final RegistryObject<Block> PileOfBricks = BLOCKS.register("item_pile_of_bricks", () -> new BlockPileOfBricks(AbstractBlock.Properties.of(Material.CLAY, MaterialColor.COLOR_RED).noOcclusion().isViewBlocking(ModRegistry::never)));
+    public static final RegistryObject<BlockShaped> PileOfBricks = BLOCKS.register("item_pile_of_bricks", () -> new BlockShaped(BlockShaped.BlockShape.PileOfBricks, AbstractBlock.Properties.of(Material.CLAY, MaterialColor.COLOR_RED).noOcclusion().isViewBlocking(ModRegistry::never)));
+    public static final RegistryObject<BlockShaped> PalletOfBricks = BLOCKS.register("item_pallet_of_bricks", () -> new BlockShaped(BlockShaped.BlockShape.PalletOfBricks, AbstractBlock.Properties.of(Material.CLAY, MaterialColor.COLOR_RED).noOcclusion().isViewBlocking(ModRegistry::never)));
+    public static final RegistryObject<BlockShaped> BundleOfTimber = BLOCKS.register("item_bundle_of_timber", () -> new BlockShaped(BlockShaped.BlockShape.BundleOfTimber, AbstractBlock.Properties.of(Material.WOOD, MaterialColor.COLOR_BROWN).noOcclusion().isViewBlocking(ModRegistry::never)));
+    public static final RegistryObject<BlockShaped> HeapOfTimber = BLOCKS.register("item_heap_of_timber", () -> new BlockShaped(BlockShaped.BlockShape.HeapOfTimber, AbstractBlock.Properties.of(Material.WOOD, MaterialColor.COLOR_BROWN).noOcclusion().isViewBlocking(ModRegistry::never)));
+    public static final RegistryObject<BlockShaped> TonOfTimber = BLOCKS.register("item_ton_of_timber", () -> new BlockShaped(BlockShaped.BlockShape.TonOfTimber, AbstractBlock.Properties.of(Material.WOOD, MaterialColor.COLOR_BROWN).noOcclusion().isViewBlocking(ModRegistry::never)));
     public static final RegistryObject<BlockCustomWall> DirtWall = BLOCKS.register("block_dirt_wall", () -> new BlockCustomWall(Blocks.DIRT, BlockCustomWall.EnumType.DIRT));
     public static final RegistryObject<BlockCustomWall> GrassWall = BLOCKS.register("block_grass_wall", () -> new BlockCustomWall(Blocks.GRASS_BLOCK, BlockCustomWall.EnumType.GRASS));
     public static final RegistryObject<BlockDirtSlab> DirtSlab = BLOCKS.register("block_dirt_slab", com.wuest.prefab.blocks.BlockDirtSlab::new);
@@ -133,9 +137,9 @@ public class ModRegistry {
     
     public static final RegistryObject<ItemPileOfBricks> ItemPileOfBricks = ITEMS.register("item_pile_of_bricks", com.wuest.prefab.items.ItemPileOfBricks::new);
     public static final RegistryObject<ItemPalletOfBricks> ItemPalletOfBricks = ITEMS.register("item_pallet_of_bricks", com.wuest.prefab.items.ItemPalletOfBricks::new);
-    public static final RegistryObject<ItemBundleOfTimber> ItemBundleOfTimber = ITEMS.register("item_bundle_of_timber", com.wuest.prefab.items.ItemBundleOfTimber::new);
-    public static final RegistryObject<ItemBundleOfTimber> ItemHeapOfTimber = ITEMS.register("item_heap_of_timber", com.wuest.prefab.items.ItemBundleOfTimber::new);
-    public static final RegistryObject<ItemBundleOfTimber> ItemTonOfTimber = ITEMS.register("item_ton_of_timber", com.wuest.prefab.items.ItemBundleOfTimber::new);
+    public static final RegistryObject<ItemBundleOfTimber> ItemBundleOfTimber = ITEMS.register("item_bundle_of_timber", () -> new ItemBundleOfTimber(ModRegistry.BundleOfTimber.get()));
+    public static final RegistryObject<ItemBundleOfTimber> ItemHeapOfTimber = ITEMS.register("item_heap_of_timber", () -> new ItemBundleOfTimber(ModRegistry.HeapOfTimber.get()));
+    public static final RegistryObject<ItemBundleOfTimber> ItemTonOfTimber = ITEMS.register("item_ton_of_timber", () -> new ItemBundleOfTimber(ModRegistry.TonOfTimber.get()));
     public static final RegistryObject<ItemCompressedChest> ItemCompressedChest = ITEMS.register("item_compressed_chest", com.wuest.prefab.items.ItemCompressedChest::new);
     public static final RegistryObject<ItemStringOfLanterns> ItemStringOfLanterns = ITEMS.register("item_string_of_lanterns", com.wuest.prefab.items.ItemStringOfLanterns::new);
     public static final RegistryObject<ItemCoilOfLanterns> ItemCoilOfLanterns = ITEMS.register("item_coil_of_lanterns", com.wuest.prefab.items.ItemCoilOfLanterns::new);
