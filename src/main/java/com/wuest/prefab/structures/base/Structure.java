@@ -500,6 +500,10 @@ public class Structure {
     public void BeforeClearSpaceBlockReplaced(BlockPos pos) {
     }
 
+    /**
+     * Processes before the hanging entity is removed.
+     * @param hangingEntity The entity to process.
+     */
     public void BeforeHangingEntityRemoved(HangingEntity hangingEntity) {
     }
 
