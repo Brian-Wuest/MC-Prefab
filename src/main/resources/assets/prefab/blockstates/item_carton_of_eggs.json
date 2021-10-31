@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "prefab:block/item_carton_of_eggs"
+    }
+  }
+}

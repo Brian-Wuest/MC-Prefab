@@ -96,6 +96,12 @@ public class ModRegistry {
     public static final RegistryObject<BlockShaped> BundleOfTimber = BLOCKS.register("item_bundle_of_timber", () -> new BlockShaped(BlockShaped.BlockShape.BundleOfTimber, AbstractBlock.Properties.of(Material.WOOD, MaterialColor.COLOR_BROWN).noOcclusion().isViewBlocking(ModRegistry::never)));
     public static final RegistryObject<BlockShaped> HeapOfTimber = BLOCKS.register("item_heap_of_timber", () -> new BlockShaped(BlockShaped.BlockShape.HeapOfTimber, AbstractBlock.Properties.of(Material.WOOD, MaterialColor.COLOR_BROWN).noOcclusion().isViewBlocking(ModRegistry::never)));
     public static final RegistryObject<BlockShaped> TonOfTimber = BLOCKS.register("item_ton_of_timber", () -> new BlockShaped(BlockShaped.BlockShape.TonOfTimber, AbstractBlock.Properties.of(Material.WOOD, MaterialColor.COLOR_BROWN).noOcclusion().isViewBlocking(ModRegistry::never)));
+    public static final RegistryObject<Block> EmptyCrate = BLOCKS.register("item_wooden_crate", () -> new Block(AbstractBlock.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> CartonOfEggs = BLOCKS.register("item_carton_of_eggs", () -> new Block(AbstractBlock.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> CrateOfPotatoes = BLOCKS.register("item_crate_of_potatoes", () -> new Block(AbstractBlock.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> CrateOfCarrots = BLOCKS.register("item_crate_of_carrots", () -> new Block(AbstractBlock.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> CrateOfBeets = BLOCKS.register("item_crate_of_beets", () -> new Block(AbstractBlock.Properties.of(Material.WOOD)));
+
     public static final RegistryObject<BlockCustomWall> DirtWall = BLOCKS.register("block_dirt_wall", () -> new BlockCustomWall(Blocks.DIRT, BlockCustomWall.EnumType.DIRT));
     public static final RegistryObject<BlockCustomWall> GrassWall = BLOCKS.register("block_grass_wall", () -> new BlockCustomWall(Blocks.GRASS_BLOCK, BlockCustomWall.EnumType.GRASS));
     public static final RegistryObject<BlockDirtSlab> DirtSlab = BLOCKS.register("block_dirt_slab", com.wuest.prefab.blocks.BlockDirtSlab::new);
@@ -163,15 +169,15 @@ public class ModRegistry {
     public static final RegistryObject<ItemSickle> SickleDiamond = ITEMS.register("item_sickle_diamond", () -> new ItemSickle(ItemTier.DIAMOND));
     public static final RegistryObject<ItemSickle> SickleNetherite = ITEMS.register("item_sickle_netherite", () -> new ItemSickle(ItemTier.NETHERITE));
 
-    public static final RegistryObject<ItemWoodenCrate> EmptyCrate = ITEMS.register("item_wooden_crate", () -> new ItemWoodenCrate(ItemWoodenCrate.CrateType.Empty));
+    public static final RegistryObject<ItemBlockWoodenCrate> ItemEmptyCrate = ITEMS.register("item_wooden_crate", () -> new ItemBlockWoodenCrate(ModRegistry.EmptyCrate.get(), ItemWoodenCrate.CrateType.Empty));
     public static final RegistryObject<ItemWoodenCrate> ClutchOfEggs = ITEMS.register("item_clutch_of_eggs", () -> new ItemWoodenCrate(ItemWoodenCrate.CrateType.Empty));
-    public static final RegistryObject<ItemWoodenCrate> CartonOfEggs = ITEMS.register("item_carton_of_eggs", () -> new ItemWoodenCrate(ItemWoodenCrate.CrateType.Empty));
+    public static final RegistryObject<ItemBlockWoodenCrate> ItemCartonOfEggs = ITEMS.register("item_carton_of_eggs", () -> new ItemBlockWoodenCrate(ModRegistry.CartonOfEggs.get(), ItemWoodenCrate.CrateType.Empty));
     public static final RegistryObject<ItemWoodenCrate> BunchOfPotatoes = ITEMS.register("item_bunch_of_potatoes", () -> new ItemWoodenCrate(ItemWoodenCrate.CrateType.Empty));
-    public static final RegistryObject<ItemWoodenCrate> CrateOfPotatoes = ITEMS.register("item_crate_of_potatoes", () -> new ItemWoodenCrate(ItemWoodenCrate.CrateType.Empty));
+    public static final RegistryObject<ItemBlockWoodenCrate> ItemCrateOfPotatoes = ITEMS.register("item_crate_of_potatoes", () -> new ItemBlockWoodenCrate(ModRegistry.CrateOfPotatoes.get(), ItemWoodenCrate.CrateType.Empty));
     public static final RegistryObject<ItemWoodenCrate> BunchOfCarrots = ITEMS.register("item_bunch_of_carrots", () -> new ItemWoodenCrate(ItemWoodenCrate.CrateType.Empty));
-    public static final RegistryObject<ItemWoodenCrate> CrateOfCarrots = ITEMS.register("item_crate_of_carrots", () -> new ItemWoodenCrate(ItemWoodenCrate.CrateType.Empty));
+    public static final RegistryObject<ItemBlockWoodenCrate> ItemCrateOfCarrots = ITEMS.register("item_crate_of_carrots", () -> new ItemBlockWoodenCrate(ModRegistry.CrateOfCarrots.get(), ItemWoodenCrate.CrateType.Empty));
     public static final RegistryObject<ItemWoodenCrate> BunchOfBeets = ITEMS.register("item_bunch_of_beets", () -> new ItemWoodenCrate(ItemWoodenCrate.CrateType.Empty));
-    public static final RegistryObject<ItemWoodenCrate> CrateOfBeets = ITEMS.register("item_crate_of_beets", () -> new ItemWoodenCrate(ItemWoodenCrate.CrateType.Empty));
+    public static final RegistryObject<ItemBlockWoodenCrate> ItemCrateOfBeets = ITEMS.register("item_crate_of_beets", () -> new ItemBlockWoodenCrate(ModRegistry.CrateOfBeets.get(), ItemWoodenCrate.CrateType.Empty));
 
     /* *********************************** Blueprint Items *********************************** */
 

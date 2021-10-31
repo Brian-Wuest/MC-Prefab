@@ -66,15 +66,15 @@
     "item.prefab.item_sickle_netherite": "Hollandalı Orak",
 
 
-    "item.prefab.item_wooden_crate": "ahşap sandık",
+    "block.prefab.item_wooden_crate": "ahşap sandık",
     "item.prefab.item_clutch_of_eggs": "bir avuç yumurta",
-    "item.prefab.item_carton_of_eggs": "Yumurta Karton",
+    "block.prefab.item_carton_of_eggs": "Yumurta Karton",
     "item.prefab.item_bunch_of_potatoes": "bir demet patates",
-    "item.prefab.item_crate_of_potatoes": "Patates Sandığı",
+    "block.prefab.item_crate_of_potatoes": "Patates Sandığı",
     "item.prefab.item_bunch_of_carrots": "bir demet havuç",
-    "item.prefab.item_crate_of_carrots": "Havuç Sandığı",
+    "block.prefab.item_crate_of_carrots": "Havuç Sandığı",
     "item.prefab.item_bunch_of_beets": "pancar demeti",
-    "item.prefab.item_crate_of_beets": "Pancar Sandığı",
+    "block.prefab.item_crate_of_beets": "Pancar Sandığı",
 
     "block.prefab.block_compressed_stone": "Sıkıştırılmış Taş",
     "block.prefab.block_double_compressed_stone": "Çifte Sıkıştırılmış Taş",

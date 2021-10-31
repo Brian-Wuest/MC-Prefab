@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "prefab:block/item_crate_of_carrots"
+    }
+  }
+}
