@@ -619,14 +619,14 @@ public class Structure {
         }
 
         if (foundBlock.getRegistryName().getNamespace().equals(Blocks.WHITE_STAINED_GLASS.getRegistryName().getNamespace())
-                && foundBlock.getRegistryName().getPath().endsWith("stained_glass")) {
+                && foundBlock.getRegistryName().getPath().endsWith("glass")) {
             BlockState blockState = BuildingMethods.getStainedGlassBlock(this.getGlassColor(configuration));
 
             block.setBlockState(blockState);
 
             return true;
         } else if (foundBlock.getRegistryName().getNamespace().equals(Blocks.WHITE_STAINED_GLASS_PANE.getRegistryName().getNamespace())
-                && foundBlock.getRegistryName().getPath().endsWith("stained_glass_pane")) {
+                && foundBlock.getRegistryName().getPath().endsWith("glass_pane")) {
             BlockState blockState = BuildingMethods.getStainedGlassPaneBlock(this.getGlassColor(configuration));
 
             BuildBlock.SetBlockState(

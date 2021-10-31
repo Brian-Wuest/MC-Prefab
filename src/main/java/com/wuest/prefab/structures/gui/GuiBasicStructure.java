@@ -72,7 +72,8 @@ public class GuiBasicStructure extends GuiStructure {
                 || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.ModerateFarm
                 || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.AdvancedFarm
                 || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.Warehouse
-                || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WorkShop) {
+                || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WorkShop
+                || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.MachineryTower) {
             this.showConfigurationOptions = true;
         }
 
