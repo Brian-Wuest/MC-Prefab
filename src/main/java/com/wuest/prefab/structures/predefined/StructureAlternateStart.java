@@ -27,7 +27,7 @@ import java.util.ArrayList;
 @SuppressWarnings({"unused", "ConstantConditions", "UnusedAssignment"})
 public class StructureAlternateStart extends Structure {
     private BlockPos chestPosition = null;
-    private BlockPos furnacePosition = null;
+    private ArrayList<BlockPos> furnacePositions = new ArrayList<>();
     private BlockPos trapDoorPosition = null;
 
     @Override
@@ -48,10 +48,10 @@ public class StructureAlternateStart extends Structure {
         }
 
         if (foundBlock instanceof FurnaceBlock) {
-            this.furnacePosition = block.getStartingPosition().getRelativePosition(
+            this.furnacePositions.add(block.getStartingPosition().getRelativePosition(
                     originalPos,
                     this.getClearSpace().getShape().getDirection(),
-                    configuration.houseFacing);
+                    configuration.houseFacing));
         } else if (foundBlock instanceof TrapDoorBlock && houseConfig.addMineShaft && this.trapDoorPosition == null) {
             // The trap door will still be added, but the mine shaft may not be
             // built.
@@ -105,13 +105,7 @@ public class StructureAlternateStart extends Structure {
         HouseConfiguration houseConfig = (HouseConfiguration) configuration;
         EntityPlayerConfiguration playerConfig = EntityPlayerConfiguration.loadFromEntityData(player);
 
-        ArrayList<BlockPos> furnacePositions = new ArrayList<>();
-
-        if (this.furnacePosition != null) {
-            furnacePositions.add(this.furnacePosition);
-        }
-
-        BuildingMethods.FillFurnaces(world, furnacePositions);
+        BuildingMethods.FillFurnaces(world, this.furnacePositions);
 
         if (this.chestPosition != null && houseConfig.addChestContents) {
             // Fill the chest.
