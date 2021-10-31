@@ -50,6 +50,8 @@ public class GuiStartHouseChooser extends GuiStructure {
 
         if (!Minecraft.getInstance().player.isCreative()) {
             this.allowItemsInChestAndFurnace = !ClientEventHandler.playerConfig.builtStarterHouse;
+        } else {
+            this.allowItemsInChestAndFurnace = true;
         }
 
         this.serverConfiguration = Prefab.proxy.getServerConfiguration();
