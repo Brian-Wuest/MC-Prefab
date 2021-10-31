@@ -4,7 +4,7 @@
     "item.prefab.item_start_house": "Casa Di Partenza",
     "item.prefab.item_warehouse": "Magazzino",
     "item.prefab.item_compressed_chest": "Cassa Compressa",
-    "item.prefab.item_pile_of_bricks": "Mucchio di Mattoni",
+    "block.prefab.item_pile_of_bricks": "Mucchio di Mattoni",
     "item.prefab.item_pallet_of_bricks": "Pallet di Mattoni",
     "item.prefab.item_advanced_warehouse": "Magazzino Avanzato",
     "item.prefab.item_warehouse_upgrade": "Miglioramento del Magazzino",

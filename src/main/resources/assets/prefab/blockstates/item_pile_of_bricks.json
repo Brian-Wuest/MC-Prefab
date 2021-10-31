@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "prefab:block/item_pile_of_bricks"
+    }
+  }
+}

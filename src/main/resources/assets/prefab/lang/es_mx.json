@@ -4,7 +4,7 @@
   "item.prefab.item_start_house": "Casa de inicio",
   "item.prefab.item_warehouse": "Almacén",
   "item.prefab.item_compressed_chest": "Cofre comprimido",
-  "item.prefab.item_pile_of_bricks": "Montón de ladrillos",
+  "block.prefab.item_pile_of_bricks": "Montón de ladrillos",
   "item.prefab.item_pallet_of_bricks": "Paleta de ladrillos",
   "item.prefab.item_advanced_warehouse": "Almacén avanzado",
   "item.prefab.item_warehouse_upgrade": "Actualización de Almacén",

@@ -4,7 +4,7 @@
   "item.prefab.item_start_house": "Maison de départ",
   "item.prefab.item_warehouse": "avancé",
   "item.prefab.item_compressed_chest": "Coffre comprimé",
-  "item.prefab.item_pile_of_bricks": "Pile de briques",
+  "block.prefab.item_pile_of_bricks": "Pile de briques",
   "item.prefab.item_pallet_of_bricks": "Palette de briques",
   "item.prefab.item_advanced_warehouse": "Entrepôt avancé",
   "item.prefab.item_warehouse_upgrade": "Mise à niveau de l'entrepôt",

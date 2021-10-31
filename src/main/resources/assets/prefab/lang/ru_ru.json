@@ -4,7 +4,7 @@
     "item.prefab.item_start_house": "Стартовый Дом",
     "item.prefab.item_warehouse": "Склад",
     "item.prefab.item_compressed_chest": "Сжатый Сундук",
-    "item.prefab.item_pile_of_bricks": "Груда Кирпичей",
+    "block.prefab.item_pile_of_bricks": "Груда Кирпичей",
     "item.prefab.item_pallet_of_bricks": "Поддон Кирпичей",
     "item.prefab.item_advanced_warehouse": "Продвинутый Склад",
     "item.prefab.item_warehouse_upgrade": "Улучшение Склада",

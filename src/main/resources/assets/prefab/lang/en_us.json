@@ -4,7 +4,7 @@
     "item.prefab.item_start_house": "Starting House",
     "item.prefab.item_warehouse": "Warehouse",
     "item.prefab.item_compressed_chest": "Compressed Chest",
-    "item.prefab.item_pile_of_bricks": "Pile of Bricks",
+    "block.prefab.item_pile_of_bricks": "Pile of Bricks",
     "item.prefab.item_pallet_of_bricks": "Pallet of Bricks",
     "item.prefab.item_advanced_warehouse": "Advanced Warehouse",
     "item.prefab.item_warehouse_upgrade": "Warehouse Upgrade",

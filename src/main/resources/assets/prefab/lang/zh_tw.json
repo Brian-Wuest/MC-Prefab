@@ -4,7 +4,7 @@
     "item.prefab.item_start_house": "起始小屋",
     "item.prefab.item_warehouse": "倉庫",
     "item.prefab.item_compressed_chest": "壓縮箱子",
-    "item.prefab.item_pile_of_bricks": "一堆磚",
+    "block.prefab.item_pile_of_bricks": "一堆磚",
     "item.prefab.item_pallet_of_bricks": "磚平台",
     "item.prefab.item_advanced_warehouse": "進階倉庫",
     "item.prefab.item_warehouse_upgrade": "倉庫升級",
