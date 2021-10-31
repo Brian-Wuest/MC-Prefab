@@ -6,7 +6,10 @@ import com.wuest.prefab.Tuple;
 import com.wuest.prefab.config.EntityPlayerConfiguration;
 import com.wuest.prefab.proxy.CommonProxy;
 import com.wuest.prefab.proxy.messages.PlayerEntityTagMessage;
-import com.wuest.prefab.structures.base.*;
+import com.wuest.prefab.structures.base.BuildBlock;
+import com.wuest.prefab.structures.base.BuildEntity;
+import com.wuest.prefab.structures.base.BuildingMethods;
+import com.wuest.prefab.structures.base.Structure;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -22,10 +25,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.DoubleNBT;
 import net.minecraft.nbt.ListNBT;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.properties.DoubleBlockHalf;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -329,28 +330,6 @@ public final class StructureEventHandler {
 
     private static void removeStructuresFromList(ArrayList<Structure> structuresToRemove, Entry<PlayerEntity, ArrayList<Structure>> entry) {
         for (Structure structure : structuresToRemove) {
-            for (BuildTileEntity buildTileEntity : structure.tileEntities) {
-                BlockPos tileEntityPos = buildTileEntity.getStartingPosition().getRelativePosition(structure.originalPos,
-                        structure.getClearSpace().getShape().getDirection(), structure.configuration.houseFacing);
-                TileEntity tileEntity = structure.world.getBlockEntity(tileEntityPos);
-                BlockState tileBlock = structure.world.getBlockState(tileEntityPos);
-
-                if (tileEntity == null) {
-                    TileEntity.loadStatic(tileBlock, buildTileEntity.getEntityDataTag());
-                } else {
-                    structure.world.removeBlockEntity(tileEntityPos);
-                    tileEntity = TileEntity.loadStatic(tileBlock, buildTileEntity.getEntityDataTag());
-                    structure.world.setBlockEntity(tileEntityPos, tileEntity);
-                    structure.world.getChunkAt(tileEntityPos).markUnsaved();
-                    tileEntity.setChanged();
-                    SUpdateTileEntityPacket packet = tileEntity.getUpdatePacket();
-
-                    if (packet != null) {
-                        structure.world.getServer().getPlayerList().broadcastAll(packet);
-                    }
-                }
-            }
-
             StructureEventHandler.removeWaterLogging(structure);
 
             for (BuildEntity buildEntity : structure.entities) {

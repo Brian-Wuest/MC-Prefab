@@ -7,11 +7,14 @@ import com.wuest.prefab.blocks.FullDyeColor;
 import com.wuest.prefab.config.ModConfiguration;
 import com.wuest.prefab.proxy.CommonProxy;
 import net.minecraft.block.*;
+import net.minecraft.client.gui.screen.inventory.ChestScreen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.state.properties.BedPart;
 import net.minecraft.tileentity.ChestTileEntity;
 import net.minecraft.tileentity.FurnaceTileEntity;
@@ -26,6 +29,7 @@ import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.BlockEvent.EntityPlaceEvent;
 
+import javax.naming.CompoundName;
 import java.util.ArrayList;
 
 /**
@@ -473,6 +477,13 @@ public class BuildingMethods {
             if (CommonProxy.proxyConfiguration.serverConfiguration.addTorches) {
                 // Add a set of 20 torches.
                 chestTile.setItem(itemSlot, new ItemStack(Item.byBlock(Blocks.TORCH), 20));
+            }
+
+            chestTile.setChanged();
+            SUpdateTileEntityPacket packet = chestTile.getUpdatePacket();
+
+            if (packet != null) {
+                world.getServer().getPlayerList().broadcastAll(packet);
             }
         }
     }
