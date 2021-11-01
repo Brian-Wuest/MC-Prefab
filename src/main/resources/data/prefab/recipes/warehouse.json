@@ -20,7 +20,7 @@
       "item": "prefab:item_compressed_chest"
     },
     "c": {
-      "tag": "forge:storage_blocks/double_compressed_glow_stone"
+      "tag": "forge:storage_blocks/double_compressed_lights"
     },
     "d": {
       "tag": "forge:storage_blocks/triple_compressed_stone"

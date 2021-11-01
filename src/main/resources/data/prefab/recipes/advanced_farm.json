@@ -17,7 +17,7 @@
       "item": "prefab:item_ton_of_timber"
     },
     "b": {
-      "tag": "forge:storage_blocks/compressed_glow_stone"
+      "tag": "forge:storage_blocks/compressed_lights"
     },
     "c": {
       "item": "prefab:item_pallet_of_bricks"
