@@ -15,8 +15,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.potion.PotionUtils;
-import net.minecraft.potion.Potions;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.LazyValue;
@@ -88,16 +86,17 @@ public class ModRegistry {
     public static final RegistryObject<BlockPaperLantern> PaperLantern = BLOCKS.register("block_paper_lantern", BlockPaperLantern::new);
     public static final RegistryObject<BlockGlassStairs> GlassStairs = BLOCKS.register("block_glass_stairs", () -> new BlockGlassStairs(Blocks.GLASS.defaultBlockState(), Block.Properties.copy(Blocks.GLASS)));
     public static final RegistryObject<BlockGlassSlab> GlassSlab = BLOCKS.register("block_glass_slab", () -> new BlockGlassSlab(Block.Properties.copy(Blocks.GLASS)));
-    public static final RegistryObject<BlockShaped> PileOfBricks = BLOCKS.register("item_pile_of_bricks", () -> new BlockShaped(BlockShaped.BlockShape.PileOfBricks, AbstractBlock.Properties.of(Material.CLAY, MaterialColor.COLOR_RED).noOcclusion().isViewBlocking(ModRegistry::never)));
-    public static final RegistryObject<BlockShaped> PalletOfBricks = BLOCKS.register("item_pallet_of_bricks", () -> new BlockShaped(BlockShaped.BlockShape.PalletOfBricks, AbstractBlock.Properties.of(Material.CLAY, MaterialColor.COLOR_RED).noOcclusion().isViewBlocking(ModRegistry::never)));
-    public static final RegistryObject<BlockShaped> BundleOfTimber = BLOCKS.register("item_bundle_of_timber", () -> new BlockShaped(BlockShaped.BlockShape.BundleOfTimber, AbstractBlock.Properties.of(Material.WOOD, MaterialColor.COLOR_BROWN).sound(SoundType.WOOD).noOcclusion().isViewBlocking(ModRegistry::never)));
-    public static final RegistryObject<BlockShaped> HeapOfTimber = BLOCKS.register("item_heap_of_timber", () -> new BlockShaped(BlockShaped.BlockShape.HeapOfTimber, AbstractBlock.Properties.of(Material.WOOD, MaterialColor.COLOR_BROWN).sound(SoundType.WOOD).noOcclusion().isViewBlocking(ModRegistry::never)));
-    public static final RegistryObject<BlockShaped> TonOfTimber = BLOCKS.register("item_ton_of_timber", () -> new BlockShaped(BlockShaped.BlockShape.TonOfTimber, AbstractBlock.Properties.of(Material.WOOD, MaterialColor.COLOR_BROWN).sound(SoundType.WOOD).noOcclusion().isViewBlocking(ModRegistry::never)));
-    public static final RegistryObject<Block> EmptyCrate = BLOCKS.register("item_wooden_crate", () -> new Block(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD)));
-    public static final RegistryObject<Block> CartonOfEggs = BLOCKS.register("item_carton_of_eggs", () -> new Block(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD)));
-    public static final RegistryObject<Block> CrateOfPotatoes = BLOCKS.register("item_crate_of_potatoes", () -> new Block(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD)));
-    public static final RegistryObject<Block> CrateOfCarrots = BLOCKS.register("item_crate_of_carrots", () -> new Block(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD)));
-    public static final RegistryObject<Block> CrateOfBeets = BLOCKS.register("item_crate_of_beets", () -> new Block(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD)));
+
+    public static final RegistryObject<BlockRotatableHorizontalShaped> PileOfBricks = BLOCKS.register("item_pile_of_bricks", () -> new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.PileOfBricks, AbstractBlock.Properties.of(Material.CLAY, MaterialColor.COLOR_RED).noOcclusion().isViewBlocking(ModRegistry::never)));
+    public static final RegistryObject<BlockRotatableHorizontalShaped> PalletOfBricks = BLOCKS.register("item_pallet_of_bricks", () -> new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.PalletOfBricks, AbstractBlock.Properties.of(Material.CLAY, MaterialColor.COLOR_RED).noOcclusion().isViewBlocking(ModRegistry::never)));
+    public static final RegistryObject<BlockRotatableHorizontalShaped> BundleOfTimber = BLOCKS.register("item_bundle_of_timber", () -> new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.BundleOfTimber, AbstractBlock.Properties.of(Material.WOOD, MaterialColor.COLOR_BROWN).sound(SoundType.WOOD).noOcclusion().isViewBlocking(ModRegistry::never)));
+    public static final RegistryObject<BlockRotatableHorizontalShaped> HeapOfTimber = BLOCKS.register("item_heap_of_timber", () -> new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.HeapOfTimber, AbstractBlock.Properties.of(Material.WOOD, MaterialColor.COLOR_BROWN).sound(SoundType.WOOD).noOcclusion().isViewBlocking(ModRegistry::never)));
+    public static final RegistryObject<BlockRotatableHorizontalShaped> TonOfTimber = BLOCKS.register("item_ton_of_timber", () -> new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.TonOfTimber, AbstractBlock.Properties.of(Material.WOOD, MaterialColor.COLOR_BROWN).sound(SoundType.WOOD).noOcclusion().isViewBlocking(ModRegistry::never)));
+    public static final RegistryObject<BlockRotatable> EmptyCrate = BLOCKS.register("item_wooden_crate", () -> new BlockRotatable(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD)));
+    public static final RegistryObject<BlockRotatable> CartonOfEggs = BLOCKS.register("item_carton_of_eggs", () -> new BlockRotatable(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD)));
+    public static final RegistryObject<BlockRotatable> CrateOfPotatoes = BLOCKS.register("item_crate_of_potatoes", () -> new BlockRotatable(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD)));
+    public static final RegistryObject<BlockRotatable> CrateOfCarrots = BLOCKS.register("item_crate_of_carrots", () -> new BlockRotatable(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD)));
+    public static final RegistryObject<BlockRotatable> CrateOfBeets = BLOCKS.register("item_crate_of_beets", () -> new BlockRotatable(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD)));
 
     public static final RegistryObject<BlockCustomWall> DirtWall = BLOCKS.register("block_dirt_wall", () -> new BlockCustomWall(Blocks.DIRT, BlockCustomWall.EnumType.DIRT));
     public static final RegistryObject<BlockCustomWall> GrassWall = BLOCKS.register("block_grass_wall", () -> new BlockCustomWall(Blocks.GRASS_BLOCK, BlockCustomWall.EnumType.GRASS));
