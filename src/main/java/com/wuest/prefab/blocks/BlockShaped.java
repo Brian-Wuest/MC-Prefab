@@ -25,13 +25,13 @@ public class BlockShaped extends Block {
 
         PileOfBricks(Block.box(3.0D, 0.0D, 3.0D, 13.0D, 5.0D, 12.0D)),
         PalletOfBricks(Block.box(1.0D, 0.0D, 0.0D, 15.0D, 15.0D, 16.0D)),
-        BundleOfTimber(Block.box(5.0D, 0.0D, 2.0D, 12.0D, 4.0D, 14.0D)),
+        BundleOfTimber(Block.box(0.0D, 0.0D, 0.0D, 15.0D, 4.0D, 15.0D)),
         HeapOfTimber(Block.box(3.0D, 0.0D, 2.0D, 13.0D, 6.0D, 14.0D)),
         TonOfTimber(Block.box(1.0D, 0.0D, 2.0D, 14.0D, 9.0D, 14.0D));
 
         private final VoxelShape shape;
 
-        private BlockShape(VoxelShape shape) {
+        BlockShape(VoxelShape shape) {
             this.shape = shape;
         }
 
