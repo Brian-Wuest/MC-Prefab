@@ -12,6 +12,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.decoration.HangingEntity;
 import net.minecraft.world.entity.decoration.ItemFrame;
@@ -35,6 +36,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.phys.AABB;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.io.StringWriter;
@@ -384,7 +386,7 @@ public class Structure {
         }
 
         // Play the building sound.
-        world.playSound(null, originalPos, ModRegistry.BuildingBlueprint.get(), SoundCategory.NEUTRAL, 0.8f, 0.8f);
+        world.playSound(null, originalPos, ModRegistry.BuildingBlueprint.get(), SoundSource.NEUTRAL, 0.8f, 0.8f);
 
         if (!this.BeforeBuilding(configuration, world, originalPos, assumedNorth, player)) {
             try {
@@ -425,7 +427,7 @@ public class Structure {
 
                             // Some blocks need to happen later because they attach to solid blocks and have no collision logic.
                             // Fluid blocks may not have collision but they should always be placed.
-                            if (!blockToPlace.hasCollision && !(blockToPlace instanceof FlowingFluidBlock)) {
+                            if (!blockToPlace.hasCollision && !(blockToPlace instanceof LiquidBlock)) {
                                 laterBlocks.add(new Tuple<>(block.getBlockState(), setBlockPos));
                             } else {
                                 world.setBlock(setBlockPos, block.getBlockState(), Constants.BlockFlags.DEFAULT);
@@ -580,8 +582,8 @@ public class Structure {
 
         if (world.dimensionType().ultraWarm()
                 || (!isOverWorld && Prefab.proxy.getServerConfiguration().allowWaterInNonOverworldDimensions)) {
-            boolean foundWaterLikeBlock = (foundBlock instanceof FlowingFluidBlock && blockState.getMaterial() == Material.WATER)
-                    || foundBlock instanceof SeaGrassBlock;
+            boolean foundWaterLikeBlock = (foundBlock instanceof LiquidBlock && blockState.getMaterial() == Material.WATER)
+                    || foundBlock instanceof SeagrassBlock;
 
             if (!foundWaterLikeBlock) {
                 for (BuildProperty property : block.getProperties()) {
@@ -612,7 +614,7 @@ public class Structure {
         return false;
     }
 
-    protected boolean processedGlassBlock(StructureConfiguration configuration, BuildBlock block, World world, BlockPos originalPos, Block foundBlock) {
+    protected boolean processedGlassBlock(StructureConfiguration configuration, BuildBlock block, Level world, BlockPos originalPos, Block foundBlock) {
         if (!this.hasGlassColor(configuration)) {
             return false;
         }

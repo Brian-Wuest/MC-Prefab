@@ -10,14 +10,22 @@ import com.wuest.prefab.proxy.messages.handlers.PlayerEntityHandler;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration.EnumBasicStructureName;
 import com.wuest.prefab.structures.items.*;
 import com.wuest.prefab.structures.messages.*;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fmllegacy.RegistryObject;
@@ -91,16 +99,16 @@ public class ModRegistry {
     public static final RegistryObject<BlockGlassStairs> GlassStairs = BLOCKS.register("block_glass_stairs", () -> new BlockGlassStairs(Blocks.GLASS.defaultBlockState(), Block.Properties.copy(Blocks.GLASS)));
     public static final RegistryObject<BlockGlassSlab> GlassSlab = BLOCKS.register("block_glass_slab", () -> new BlockGlassSlab(Block.Properties.copy(Blocks.GLASS)));
 
-    public static final RegistryObject<BlockRotatableHorizontalShaped> PileOfBricks = BLOCKS.register("item_pile_of_bricks", () -> new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.PileOfBricks, AbstractBlock.Properties.of(Material.CLAY, MaterialColor.COLOR_RED).noOcclusion().isViewBlocking(ModRegistry::never)));
-    public static final RegistryObject<BlockRotatableHorizontalShaped> PalletOfBricks = BLOCKS.register("item_pallet_of_bricks", () -> new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.PalletOfBricks, AbstractBlock.Properties.of(Material.CLAY, MaterialColor.COLOR_RED).noOcclusion().isViewBlocking(ModRegistry::never)));
-    public static final RegistryObject<BlockRotatableHorizontalShaped> BundleOfTimber = BLOCKS.register("item_bundle_of_timber", () -> new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.BundleOfTimber, AbstractBlock.Properties.of(Material.WOOD, MaterialColor.COLOR_BROWN).sound(SoundType.WOOD).noOcclusion().isViewBlocking(ModRegistry::never)));
-    public static final RegistryObject<BlockRotatableHorizontalShaped> HeapOfTimber = BLOCKS.register("item_heap_of_timber", () -> new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.HeapOfTimber, AbstractBlock.Properties.of(Material.WOOD, MaterialColor.COLOR_BROWN).sound(SoundType.WOOD).noOcclusion().isViewBlocking(ModRegistry::never)));
-    public static final RegistryObject<BlockRotatableHorizontalShaped> TonOfTimber = BLOCKS.register("item_ton_of_timber", () -> new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.TonOfTimber, AbstractBlock.Properties.of(Material.WOOD, MaterialColor.COLOR_BROWN).sound(SoundType.WOOD).noOcclusion().isViewBlocking(ModRegistry::never)));
-    public static final RegistryObject<BlockRotatable> EmptyCrate = BLOCKS.register("item_wooden_crate", () -> new BlockRotatable(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD)));
-    public static final RegistryObject<BlockRotatable> CartonOfEggs = BLOCKS.register("item_carton_of_eggs", () -> new BlockRotatable(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD)));
-    public static final RegistryObject<BlockRotatable> CrateOfPotatoes = BLOCKS.register("item_crate_of_potatoes", () -> new BlockRotatable(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD)));
-    public static final RegistryObject<BlockRotatable> CrateOfCarrots = BLOCKS.register("item_crate_of_carrots", () -> new BlockRotatable(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD)));
-    public static final RegistryObject<BlockRotatable> CrateOfBeets = BLOCKS.register("item_crate_of_beets", () -> new BlockRotatable(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD)));
+    public static final RegistryObject<BlockRotatableHorizontalShaped> PileOfBricks = BLOCKS.register("item_pile_of_bricks", () -> new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.PileOfBricks, BlockBehaviour.Properties.of(Material.CLAY, MaterialColor.COLOR_RED).noOcclusion().isViewBlocking(ModRegistry::never)));
+    public static final RegistryObject<BlockRotatableHorizontalShaped> PalletOfBricks = BLOCKS.register("item_pallet_of_bricks", () -> new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.PalletOfBricks, BlockBehaviour.Properties.of(Material.CLAY, MaterialColor.COLOR_RED).noOcclusion().isViewBlocking(ModRegistry::never)));
+    public static final RegistryObject<BlockRotatableHorizontalShaped> BundleOfTimber = BLOCKS.register("item_bundle_of_timber", () -> new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.BundleOfTimber, BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.COLOR_BROWN).sound(SoundType.WOOD).noOcclusion().isViewBlocking(ModRegistry::never)));
+    public static final RegistryObject<BlockRotatableHorizontalShaped> HeapOfTimber = BLOCKS.register("item_heap_of_timber", () -> new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.HeapOfTimber, BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.COLOR_BROWN).sound(SoundType.WOOD).noOcclusion().isViewBlocking(ModRegistry::never)));
+    public static final RegistryObject<BlockRotatableHorizontalShaped> TonOfTimber = BLOCKS.register("item_ton_of_timber", () -> new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.TonOfTimber, BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.COLOR_BROWN).sound(SoundType.WOOD).noOcclusion().isViewBlocking(ModRegistry::never)));
+    public static final RegistryObject<BlockRotatable> EmptyCrate = BLOCKS.register("item_wooden_crate", () -> new BlockRotatable(BlockBehaviour.Properties.of(Material.WOOD).sound(SoundType.WOOD)));
+    public static final RegistryObject<BlockRotatable> CartonOfEggs = BLOCKS.register("item_carton_of_eggs", () -> new BlockRotatable(BlockBehaviour.Properties.of(Material.WOOD).sound(SoundType.WOOD)));
+    public static final RegistryObject<BlockRotatable> CrateOfPotatoes = BLOCKS.register("item_crate_of_potatoes", () -> new BlockRotatable(BlockBehaviour.Properties.of(Material.WOOD).sound(SoundType.WOOD)));
+    public static final RegistryObject<BlockRotatable> CrateOfCarrots = BLOCKS.register("item_crate_of_carrots", () -> new BlockRotatable(BlockBehaviour.Properties.of(Material.WOOD).sound(SoundType.WOOD)));
+    public static final RegistryObject<BlockRotatable> CrateOfBeets = BLOCKS.register("item_crate_of_beets", () -> new BlockRotatable(BlockBehaviour.Properties.of(Material.WOOD).sound(SoundType.WOOD)));
 
     public static final RegistryObject<BlockCustomWall> DirtWall = BLOCKS.register("block_dirt_wall", () -> new BlockCustomWall(Blocks.DIRT, BlockCustomWall.EnumType.DIRT));
     public static final RegistryObject<BlockCustomWall> GrassWall = BLOCKS.register("block_grass_wall", () -> new BlockCustomWall(Blocks.GRASS_BLOCK, BlockCustomWall.EnumType.GRASS));
@@ -261,11 +269,11 @@ public class ModRegistry {
     public static void RegisterCapabilities() {
     }
 
-    public static boolean always(BlockState state, IBlockReader world, BlockPos pos) {
+    public static boolean always(BlockState state, BlockGetter world, BlockPos pos) {
         return true;
     }
 
-    public static boolean never(BlockState state, IBlockReader world, BlockPos pos) {
+    public static boolean never(BlockState state, BlockGetter world, BlockPos pos) {
         return false;
     }
 

@@ -33,6 +33,7 @@ import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.TickEvent.ServerTickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -140,7 +141,7 @@ public final class StructureEventHandler {
                             // Go through each block and find any entities there. If there are any; kill them if they aren't players.
                             // If there is a player there...they will probably die anyways.....
                             for (BlockPos clearedPos : structure.clearedBlockPos) {
-                                AxisAlignedBB axisPos = VoxelShapes.block().bounds().move(clearedPos);
+                                AABB axisPos = Shapes.block().bounds().move(clearedPos);
 
                                 List<Entity> list = structure.world.getEntities(null, axisPos);
 

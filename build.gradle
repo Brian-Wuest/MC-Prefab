@@ -40,6 +40,8 @@ println("${projectDir}")
 minecraft {
     mappings channel: 'official', version: '1.17.1'
 
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+
     // Default run configurations.
     // These can be tweaked, removed, or duplicated as needed.
     runs {

@@ -1,6 +1,7 @@
 package com.wuest.prefab.items;
 
 import com.wuest.prefab.ModRegistry;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 
 /**

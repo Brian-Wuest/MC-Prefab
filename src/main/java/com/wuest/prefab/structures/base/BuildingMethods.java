@@ -6,6 +6,7 @@ import com.wuest.prefab.Tuple;
 import com.wuest.prefab.blocks.FullDyeColor;
 import com.wuest.prefab.config.ModConfiguration;
 import com.wuest.prefab.proxy.CommonProxy;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
@@ -478,7 +479,7 @@ public class BuildingMethods {
             }
 
             chestTile.setChanged();
-            SUpdateTileEntityPacket packet = chestTile.getUpdatePacket();
+            ClientboundBlockEntityDataPacket packet = chestTile.getUpdatePacket();
 
             if (packet != null) {
                 world.getServer().getPlayerList().broadcastAll(packet);

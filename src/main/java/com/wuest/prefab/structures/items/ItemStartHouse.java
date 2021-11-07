@@ -46,6 +46,6 @@ public class ItemStartHouse extends StructureItem {
     }
 
     @Override
-    public void scanningMode(ItemUseContext context) {
+    public void scanningMode(UseOnContext context) {
     }
 }

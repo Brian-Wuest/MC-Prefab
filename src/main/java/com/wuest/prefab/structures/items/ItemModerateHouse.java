@@ -27,6 +27,6 @@ public class ItemModerateHouse extends StructureItem {
     }
 
     @Override
-    public void scanningMode(ItemUseContext context) {
+    public void scanningMode(UseOnContext context) {
     }
 }
