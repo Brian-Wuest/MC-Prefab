@@ -1,0 +1,7 @@
+{
+	"replace": false,
+	"values": [
+		"prefab:block_double_compressed_glowstone",
+		"prefab:item_coil_of_lanterns"
+	]
+}

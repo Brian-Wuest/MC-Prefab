@@ -2,12 +2,13 @@ package com.wuest.prefab.structures.predefined;
 
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Tuple;
+import com.wuest.prefab.blocks.FullDyeColor;
 import com.wuest.prefab.config.EntityPlayerConfiguration;
 import com.wuest.prefab.proxy.messages.PlayerEntityTagMessage;
 import com.wuest.prefab.structures.base.BuildBlock;
-import com.wuest.prefab.structures.base.BuildClear;
 import com.wuest.prefab.structures.base.BuildingMethods;
 import com.wuest.prefab.structures.base.Structure;
+import com.wuest.prefab.structures.config.HouseConfiguration;
 import com.wuest.prefab.structures.config.ModerateHouseConfiguration;
 import com.wuest.prefab.structures.config.StructureConfiguration;
 import net.minecraft.core.Direction;
@@ -29,31 +30,6 @@ public class StructureModerateHouse extends Structure {
     private BlockPos chestPosition = null;
     private ArrayList<BlockPos> furnacePosition = null;
     private BlockPos trapDoorPosition = null;
-    private ArrayList<Tuple<BlockPos, BlockPos>> bedPositions = new ArrayList<>();
-
-    public static void ScanStructure(Level world, BlockPos originalPos, Direction playerFacing, ModerateHouseConfiguration.HouseStyle houseStyle) {
-        BuildClear clearedSpace = new BuildClear();
-        clearedSpace.getShape().setDirection(playerFacing);
-        clearedSpace.getShape().setHeight(houseStyle.getHeight());
-        clearedSpace.getShape().setLength(houseStyle.getLength() + 1);
-        clearedSpace.getShape().setWidth(houseStyle.getWidth());
-        clearedSpace.getStartingPosition().setHorizontalOffset(playerFacing, 1);
-
-        // East is always to the "Left" of the player.
-        clearedSpace.getStartingPosition().setHorizontalOffset(playerFacing.getCounterClockWise(), houseStyle.getEastOffSet());
-        clearedSpace.getStartingPosition().setHeightOffset(houseStyle.getDownOffSet() * -1);
-
-        BlockPos cornerPos = originalPos.relative(playerFacing.getCounterClockWise(), houseStyle.getEastOffSet()).relative(playerFacing).below(houseStyle.getDownOffSet());
-
-        Structure.ScanStructure(
-                world,
-                originalPos,
-                cornerPos,
-                cornerPos.relative(playerFacing, houseStyle.getLength()).relative(playerFacing.getClockWise(), houseStyle.getWidth()).above(houseStyle.getHeight()),
-                "../src/main/resources/" + houseStyle.getStructureLocation(),
-                clearedSpace,
-                playerFacing, false, false);
-    }
 
     @Override
     protected Boolean CustomBlockProcessingHandled(StructureConfiguration configuration, BuildBlock block, Level world, BlockPos originalPos,
@@ -97,7 +73,11 @@ public class StructureModerateHouse extends Structure {
                     this.getClearSpace().getShape().getDirection(),
                     configuration.houseFacing);
 
-            this.bedPositions.add(new Tuple<>(bedHeadPosition, bedFootPosition));
+            Tuple<BlockState, BlockState> blockStateTuple = BuildingMethods.getBedState(bedHeadPosition, bedFootPosition, houseConfiguration.bedColor);
+            block.setBlockState(blockStateTuple.getFirst());
+            block.getSubBlock().setBlockState(blockStateTuple.getSecond());
+
+            this.priorityOneBlocks.add(block);
 
             return true;
         }
@@ -131,12 +111,6 @@ public class StructureModerateHouse extends Structure {
             BuildingMethods.PlaceMineShaft(world, this.trapDoorPosition.below(), houseConfig.houseFacing, false);
         }
 
-        if (this.bedPositions.size() > 0) {
-            for (Tuple<BlockPos, BlockPos> bedPosition : this.bedPositions) {
-                BuildingMethods.PlaceColoredBed(world, bedPosition.getFirst(), bedPosition.getSecond(), houseConfig.bedColor);
-            }
-        }
-
         // Make sure to set this value so the player cannot fill the chest a second time.
         playerConfig.builtStarterHouse = true;
         playerConfig.saveToPlayer(player);
@@ -147,4 +121,8 @@ public class StructureModerateHouse extends Structure {
                 NetworkDirection.PLAY_TO_CLIENT);
     }
 
+    @Override
+    protected boolean hasGlassColor(StructureConfiguration configuration) {
+        return false;
+    }
 }

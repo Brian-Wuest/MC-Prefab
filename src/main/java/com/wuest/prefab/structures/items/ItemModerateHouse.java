@@ -1,4 +1,4 @@
-package com.wuest.prefab.structures.items;
+    package com.wuest.prefab.structures.items;
 
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.structures.config.ModerateHouseConfiguration;
@@ -27,11 +27,6 @@ public class ItemModerateHouse extends StructureItem {
     }
 
     @Override
-    public void scanningMode(UseOnContext context) {
-        StructureModerateHouse.ScanStructure(
-                context.getLevel(),
-                context.getClickedPos(),
-                context.getPlayer().getDirection(),
-                ModerateHouseConfiguration.HouseStyle.ACACIA_HOME2);
+    public void scanningMode(ItemUseContext context) {
     }
 }

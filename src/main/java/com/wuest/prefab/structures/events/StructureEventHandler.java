@@ -45,7 +45,7 @@ import java.util.*;
 import java.util.Map.Entry;
 
 /**
- * This is the structure event hander.
+ * This is the structure event handler.
  *
  * @author WuestMan
  */
@@ -55,7 +55,7 @@ public final class StructureEventHandler {
     /**
      * Contains a hashmap for the structures to build and for whom.
      */
-    public static HashMap<Player, ArrayList<Structure>> structuresToBuild = new HashMap<Player, ArrayList<Structure>>();
+    public static HashMap<Player, ArrayList<Structure>> structuresToBuild = new HashMap<>();
 
     public static ArrayList<Tuple<Structure, BuildEntity>> entitiesToGenerate = new ArrayList<>();
 
@@ -101,7 +101,7 @@ public final class StructureEventHandler {
                 }
             }
 
-            // Send the persist tag to the client.
+            // Send the tag to the client.
             Prefab.network.sendTo(
                     new PlayerEntityTagMessage(playerConfig.getModIsPlayerNewTag(player)),
                     ((ServerPlayer) event.getPlayer()).connection.connection,
@@ -117,64 +117,68 @@ public final class StructureEventHandler {
     @SubscribeEvent
     public static void onServerTick(ServerTickEvent event) {
         if (event.phase == TickEvent.Phase.START) {
-            ArrayList<Player> playersToRemove = new ArrayList<Player>();
+            ArrayList<Player> playersToRemove = new ArrayList<>();
 
-            StructureEventHandler.ticksSinceLastEntitiesGenerated++;
+            if (StructureEventHandler.entitiesToGenerate.size() > 0) {
+                StructureEventHandler.ticksSinceLastEntitiesGenerated++;
 
-            if (StructureEventHandler.ticksSinceLastEntitiesGenerated > 40) {
-                // Process any entities; this is done about every 2 seconds.
-                StructureEventHandler.processStructureEntities();
+                if (StructureEventHandler.ticksSinceLastEntitiesGenerated > 40) {
+                    // Process any entities.
+                    StructureEventHandler.processStructureEntities();
 
-                StructureEventHandler.ticksSinceLastEntitiesGenerated = 0;
+                    StructureEventHandler.ticksSinceLastEntitiesGenerated = 0;
+                }
             }
 
-            for (Entry<Player, ArrayList<Structure>> entry : StructureEventHandler.structuresToBuild.entrySet()) {
-                ArrayList<Structure> structuresToRemove = new ArrayList<Structure>();
+            if (StructureEventHandler.structuresToBuild.size() > 0) {
+                for (Entry<Player, ArrayList<Structure>> entry : StructureEventHandler.structuresToBuild.entrySet()) {
+                    ArrayList<Structure> structuresToRemove = new ArrayList<>();
 
-                // Build the first 100 blocks of each structure for this player.
-                for (Structure structure : entry.getValue()) {
-                    if (!structure.entitiesRemoved) {
-                        // Go through each block and find any entities there. If there are any; kill them if they aren't players.
-                        // If there is a player there...they will probably die anyways.....
-                        for (BlockPos clearedPos : structure.clearedBlockPos) {
-                            AABB axisPos = Shapes.block().bounds().move(clearedPos);
+                    // Build the first 100 blocks of each structure for this player.
+                    for (Structure structure : entry.getValue()) {
+                        if (!structure.entitiesRemoved) {
+                            // Go through each block and find any entities there. If there are any; kill them if they aren't players.
+                            // If there is a player there...they will probably die anyways.....
+                            for (BlockPos clearedPos : structure.clearedBlockPos) {
+                                AxisAlignedBB axisPos = VoxelShapes.block().bounds().move(clearedPos);
 
-                            List<Entity> list = structure.world.getEntities((Entity) null, axisPos);
+                                List<Entity> list = structure.world.getEntities(null, axisPos);
 
-                            if (!list.isEmpty()) {
-                                for (Entity entity : list) {
-                                    // Don't kill living entities.
-                                    if (!(entity instanceof LivingEntity)) {
-                                        if (entity instanceof HangingEntity) {
-                                            structure.BeforeHangingEntityRemoved((HangingEntity) entity);
+                                if (!list.isEmpty()) {
+                                    for (Entity entity : list) {
+                                        // Don't kill living entities.
+                                        if (!(entity instanceof LivingEntity)) {
+                                            if (entity instanceof HangingEntity) {
+                                                structure.BeforeHangingEntityRemoved((HangingEntity) entity);
+                                            }
+
+                                            structure.world.removeEntity(entity, false);
                                         }
-
-                                        structure.world.removeEntity(entity, false);
                                     }
                                 }
                             }
+
+                            structure.entitiesRemoved = true;
                         }
 
-                        structure.entitiesRemoved = true;
+                        if (structure.airBlocks.size() > 0) {
+                            structure.hasAirBlocks = true;
+                        }
+
+                        for (int i = 0; i < 10; i++) {
+                            i = StructureEventHandler.setBlock(i, structure, structuresToRemove);
+                        }
+
+                        // After building the blocks for this tick, find waterlogged blocks and remove them.
+                        StructureEventHandler.removeWaterLogging(structure);
                     }
 
-                    if (structure.airBlocks.size() > 0) {
-                        structure.hasAirBlocks = true;
+                    // Update the list of structures to remove this structure since it's done building.
+                    StructureEventHandler.removeStructuresFromList(structuresToRemove, entry);
+
+                    if (entry.getValue().size() == 0) {
+                        playersToRemove.add(entry.getKey());
                     }
-
-                    for (int i = 0; i < 100; i++) {
-                        i = StructureEventHandler.setBlock(i, structure, structuresToRemove);
-                    }
-
-                    // After building the blocks for this tick, find waterlogged blocks and remove them.
-                    StructureEventHandler.removeWaterLogging(structure);
-                }
-
-                // Update the list of structures to remove this structure since it's done building.
-                StructureEventHandler.removeStructuresFromList(structuresToRemove, entry);
-
-                if (entry.getValue().size() == 0) {
-                    playersToRemove.add(entry.getKey());
                 }
             }
 
@@ -299,21 +303,6 @@ public final class StructureEventHandler {
         if (structure.priorityOneBlocks.size() > 0) {
             currentBlock = structure.priorityOneBlocks.get(0);
             structure.priorityOneBlocks.remove(0);
-        } else if (structure.priorityTwoBlocks.size() > 0) {
-            currentBlock = structure.priorityTwoBlocks.get(0);
-            structure.priorityTwoBlocks.remove(0);
-        } else if (structure.airBlocks.size() > 0) {
-            currentBlock = structure.airBlocks.get(0);
-            structure.airBlocks.remove(0);
-        } else if (structure.priorityThreeBlocks.size() > 0) {
-            currentBlock = structure.priorityThreeBlocks.get(0);
-            structure.priorityThreeBlocks.remove(0);
-        } else if (structure.priorityFourBlocks.size() > 0) {
-            currentBlock = structure.priorityFourBlocks.get(0);
-            structure.priorityFourBlocks.remove(0);
-        } else if (structure.priorityFiveBlocks.size() > 0) {
-            currentBlock = structure.priorityFiveBlocks.get(0);
-            structure.priorityFiveBlocks.remove(0);
         } else {
             // There are no more blocks to set.
             structuresToRemove.add(structure);
@@ -324,7 +313,7 @@ public final class StructureEventHandler {
         BlockPos setBlockPos = currentBlock.getStartingPosition().getRelativePosition(structure.originalPos,
                 structure.getClearSpace().getShape().getDirection(), structure.configuration.houseFacing);
 
-        BuildingMethods.ReplaceBlock(structure.world, setBlockPos, state);
+        BuildingMethods.ReplaceBlock(structure.world, setBlockPos, state, 2);
 
         // After placing the initial block, set the sub-block. This needs to happen as the list isn't always in the
         // correct order.
@@ -332,7 +321,7 @@ public final class StructureEventHandler {
             BuildBlock subBlock = currentBlock.getSubBlock();
 
             BuildingMethods.ReplaceBlock(structure.world, subBlock.getStartingPosition().getRelativePosition(structure.originalPos,
-                    structure.getClearSpace().getShape().getDirection(), structure.configuration.houseFacing), subBlock.getBlockState());
+                    structure.getClearSpace().getShape().getDirection(), structure.configuration.houseFacing), subBlock.getBlockState(), Constants.BlockFlags.DEFAULT_AND_RERENDER);
         }
 
         return i;
@@ -340,26 +329,6 @@ public final class StructureEventHandler {
 
     private static void removeStructuresFromList(ArrayList<Structure> structuresToRemove, Entry<Player, ArrayList<Structure>> entry) {
         for (Structure structure : structuresToRemove) {
-            for (BuildTileEntity buildTileEntity : structure.tileEntities) {
-                BlockPos tileEntityPos = buildTileEntity.getStartingPosition().getRelativePosition(structure.originalPos,
-                        structure.getClearSpace().getShape().getDirection(), structure.configuration.houseFacing);
-                BlockEntity tileEntity = structure.world.getBlockEntity(tileEntityPos);
-                BlockState tileBlock = structure.world.getBlockState(tileEntityPos);
-
-                if (tileEntity != null) {
-                    structure.world.removeBlockEntity(tileEntityPos);
-                    tileEntity = BlockEntity.loadStatic(tileEntityPos, tileBlock, buildTileEntity.getEntityDataTag());
-                    structure.world.setBlockEntity(tileEntity);
-                    structure.world.getChunkAt(tileEntityPos).markUnsaved();
-                    tileEntity.setChanged();
-                    ClientboundBlockEntityDataPacket packet = tileEntity.getUpdatePacket();
-
-                    if (packet != null) {
-                        structure.world.getServer().getPlayerList().broadcastAll(packet);
-                    }
-                }
-            }
-
             StructureEventHandler.removeWaterLogging(structure);
 
             for (BuildEntity buildEntity : structure.entities) {
@@ -370,8 +339,7 @@ public final class StructureEventHandler {
                 }
             }
 
-            // This structure is done building. Do any post-building operations.
-            structure.AfterBuilding(structure.configuration, structure.world, structure.originalPos, structure.assumedNorth, entry.getKey());
+            // This structure is done building.
             entry.getValue().remove(structure);
         }
     }
@@ -410,12 +378,12 @@ public final class StructureEventHandler {
                         entity = StructureEventHandler.setItemFrameFacingAndRotation((ItemFrame) entity, buildEntity, entityPos, structure);
                     } else if (entity instanceof Painting) {
                         entity = StructureEventHandler.setPaintingFacingAndRotation((Painting) entity, buildEntity, entityPos, structure);
-                    }  else if (entity instanceof AbstractMinecart) {
+                    } else if (entity instanceof AbstractMinecart) {
                         // Minecarts need to be slightly higher to account for the rails; otherwise they will fall through the rail and the block below the rail.
                         buildEntity.entityYAxisOffset = buildEntity.entityYAxisOffset + .2;
                         entity = StructureEventHandler.setEntityFacingAndRotation(entity, buildEntity, entityPos, structure);
                     } else {
-                        // All other entities
+                        // Other entities
                         entity = StructureEventHandler.setEntityFacingAndRotation(entity, buildEntity, entityPos, structure);
                     }
 
@@ -480,12 +448,11 @@ public final class StructureEventHandler {
 
         yaw = entity.rotate(rotation);
 
-        HangingEntity hangingEntity = entity;
         CompoundTag compound = new CompoundTag();
-        hangingEntity.addAdditionalSaveData(compound);
+        ((HangingEntity) entity).addAdditionalSaveData(compound);
         compound.putByte("Facing", (byte) facing.get2DDataValue());
-        hangingEntity.readAdditionalSaveData(compound);
-        StructureEventHandler.updateEntityHangingBoundingBox(hangingEntity);
+        ((HangingEntity) entity).readAdditionalSaveData(compound);
+        StructureEventHandler.updateEntityHangingBoundingBox(entity);
 
         entity.moveTo(entityPos.getX() + x_axis_offset, entityPos.getY() + y_axis_offset, entityPos.getZ() + z_axis_offset, yaw,
                 entity.getXRot());
@@ -536,12 +503,11 @@ public final class StructureEventHandler {
 
         yaw = frame.rotate(rotation);
 
-        HangingEntity hangingEntity = frame;
         CompoundTag compound = new CompoundTag();
-        hangingEntity.addAdditionalSaveData(compound);
+        ((HangingEntity) frame).addAdditionalSaveData(compound);
         compound.putByte("Facing", (byte) facing.get3DDataValue());
-        hangingEntity.readAdditionalSaveData(compound);
-        StructureEventHandler.updateEntityHangingBoundingBox(hangingEntity);
+        ((HangingEntity) frame).readAdditionalSaveData(compound);
+        StructureEventHandler.updateEntityHangingBoundingBox(frame);
 
         frame.moveTo(entityPos.getX() + x_axis_offset, entityPos.getY() + y_axis_offset, entityPos.getZ() + z_axis_offset, yaw,
                 frame.getXRot());

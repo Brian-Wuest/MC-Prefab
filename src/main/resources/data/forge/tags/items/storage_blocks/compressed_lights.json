@@ -1,0 +1,7 @@
+{
+	"replace": false,
+	"values": [
+		"prefab:block_compressed_glowstone",
+		"prefab:item_string_of_lanterns"
+	]
+}

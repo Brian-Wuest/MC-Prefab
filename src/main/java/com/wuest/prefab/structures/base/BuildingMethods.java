@@ -3,6 +3,7 @@ package com.wuest.prefab.structures.base;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Triple;
 import com.wuest.prefab.Tuple;
+import com.wuest.prefab.blocks.FullDyeColor;
 import com.wuest.prefab.config.ModConfiguration;
 import com.wuest.prefab.proxy.CommonProxy;
 import net.minecraft.world.entity.player.Player;
@@ -26,6 +27,7 @@ import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.BlockEvent.EntityPlaceEvent;
 
+import javax.naming.CompoundName;
 import java.util.ArrayList;
 
 /**
@@ -88,13 +90,13 @@ public class BuildingMethods {
      * @param startingPosition Where the wall should start.
      * @param replacementBlock The block to create the wall out of.
      * @param itemsToNotAdd    When consolidating drops, the items to not include in the returned list.
-     * @return An Arraylist of Itemstacks which contains the drops from any destroyed blocks.
+     * @return An Arraylist of ItemStacks which contains the drops from any destroyed blocks.
      */
     public static ArrayList<ItemStack> CreateWall(ServerLevel world, int height, int length, Direction direction, BlockPos startingPosition, Block replacementBlock,
                                                   ArrayList<Item> itemsToNotAdd) {
         ArrayList<ItemStack> itemsDropped = new ArrayList<>();
 
-        BlockPos wallPos = null;
+        BlockPos wallPos;
 
         // i height, j is the actual wall counter.
         for (int i = 0; i < height; i++) {
@@ -267,6 +269,13 @@ public class BuildingMethods {
      * @param bedColor   The color of the bed to place.
      */
     public static void PlaceColoredBed(Level world, BlockPos bedHeadPos, BlockPos bedFootPos, DyeColor bedColor) {
+
+        Tuple<BlockState, BlockState> bedStates = BuildingMethods.getBedState(bedHeadPos, bedFootPos, bedColor);
+        BuildingMethods.ReplaceBlock(world, bedHeadPos, bedStates.getFirst());
+        BuildingMethods.ReplaceBlock(world, bedFootPos, bedStates.getSecond());
+    }
+
+    public static Tuple<BlockState, BlockState> getBedState(BlockPos bedHeadPos, BlockPos bedFootPos, DyeColor bedColor) {
         BlockState bedHead = null;
         BlockState bedFoot = null;
 
@@ -378,8 +387,7 @@ public class BuildingMethods {
         bedHead = bedHead.setValue(BedBlock.FACING, direction.getOpposite());
         bedFoot = bedFoot.setValue(BedBlock.FACING, direction.getOpposite());
 
-        BuildingMethods.ReplaceBlock(world, bedHeadPos, bedHead);
-        BuildingMethods.ReplaceBlock(world, bedFootPos, bedFoot);
+        return new Tuple<>(bedHead, bedFoot);
     }
 
     /**
@@ -466,7 +474,14 @@ public class BuildingMethods {
 
             if (CommonProxy.proxyConfiguration.serverConfiguration.addTorches) {
                 // Add a set of 20 torches.
-                chestTile.setItem(itemSlot++, new ItemStack(Item.byBlock(Blocks.TORCH), 20));
+                chestTile.setItem(itemSlot, new ItemStack(Item.byBlock(Blocks.TORCH), 20));
+            }
+
+            chestTile.setChanged();
+            SUpdateTileEntityPacket packet = chestTile.getUpdatePacket();
+
+            if (packet != null) {
+                world.getServer().getPlayerList().broadcastAll(packet);
             }
         }
     }
@@ -500,11 +515,10 @@ public class BuildingMethods {
      * @param onlyGatherOres - Determines if vanilla non-ore blocks will be gathered.
      */
     public static void PlaceMineShaft(ServerLevel world, BlockPos pos, Direction facing, boolean onlyGatherOres) {
-        // Keep track of all of the items to add to the chest at the end of the
+        // Keep track of all the items to add to the chest at the end of the
         // shaft.
-        ArrayList<ItemStack> stacks = new ArrayList<ItemStack>();
-
-        ArrayList<Item> blocksToNotAdd = new ArrayList<Item>();
+        ArrayList<ItemStack> stacks = new ArrayList<>();
+        ArrayList<Item> blocksToNotAdd = new ArrayList<>();
 
         if (onlyGatherOres) {
             blocksToNotAdd.add(Item.byBlock(Blocks.SAND));
@@ -521,22 +535,31 @@ public class BuildingMethods {
             blocksToNotAdd.add(Item.byBlock(Blocks.MOSSY_STONE_BRICKS));
         }
 
-        Tuple<ArrayList<ItemStack>, ArrayList<BlockPos>> ladderShaftResults = BuildingMethods.CreateLadderShaft(world, pos, stacks, facing, blocksToNotAdd);
+        Triple<ArrayList<ItemStack>, ArrayList<BlockPos>, ArrayList<BlockPos>> ladderShaftResults = BuildingMethods.CreateLadderShaft(
+                world,
+                pos,
+                stacks,
+                facing,
+                blocksToNotAdd);
+
+        ArrayList<BlockPos> blockPositions = new ArrayList<>(ladderShaftResults.getThird());
+
         stacks = ladderShaftResults.getFirst();
         ArrayList<BlockPos> torchPositions = ladderShaftResults.getSecond();
 
         // Get to Y11;
         pos = pos.below(pos.getY() - 10);
 
-        ArrayList<ItemStack> tempStacks = new ArrayList<ItemStack>();
+        ArrayList<ItemStack> tempStacks = new ArrayList<>();
 
         BlockPos ceilingLevel = pos.above(4);
 
-        tempStacks = BuildingMethods.SetFloor(world, ceilingLevel.relative(facing, 2).relative(facing.getClockWise(), 2).relative(facing.getOpposite()), Blocks.STONE, 4, 4, tempStacks,
+        BuildingMethods.SetFloor(world, ceilingLevel.relative(facing, 2).relative(facing.getClockWise(), 2).relative(facing.getOpposite()), Blocks.STONE, 4, 4, tempStacks,
                 facing.getOpposite(), blocksToNotAdd);
 
         // After setting the floor, make sure to replace the ladder.
-        BuildingMethods.ReplaceBlock(world, ceilingLevel, Blocks.LADDER.defaultBlockState().setValue(LadderBlock.FACING, facing));
+        BuildingMethods.ReplaceBlock(world, ceilingLevel, Blocks.LADDER.defaultBlockState().setValue(LadderBlock.FACING, facing), 2);
+        blockPositions.add(ceilingLevel);
 
         BlockState torchState = Blocks.TORCH.defaultBlockState();
 
@@ -544,8 +567,9 @@ public class BuildingMethods {
         for (BlockPos torchPos : torchPositions) {
             BlockState surroundingState = world.getBlockState(torchPos);
             Block surroundingBlock = surroundingState.getBlock();
-            tempStacks = BuildingMethods.ConsolidateDrops(world, torchPos, surroundingState, tempStacks, blocksToNotAdd);
-            BuildingMethods.ReplaceBlock(world, torchPos, torchState);
+            BuildingMethods.ConsolidateDrops(world, torchPos, surroundingState, tempStacks, blocksToNotAdd);
+            BuildingMethods.ReplaceBlock(world, torchPos, torchState, 2);
+            blockPositions.add(torchPos);
         }
 
         // The entire ladder has been created. Create a platform at this level
@@ -617,11 +641,13 @@ public class BuildingMethods {
         if (CommonProxy.proxyConfiguration.serverConfiguration.includeMineshaftChest) {
             // Place a chest to the right of the ladder.
             BlockState chestState = Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, facing);
-            BuildingMethods.ReplaceBlock(world, pos.relative(facing.getClockWise()), chestState);
+            BuildingMethods.ReplaceBlock(world, pos.relative(facing.getClockWise()), chestState, 2);
+            blockPositions.add(pos.relative(facing.getClockWise()));
 
             if (stacks.size() > 27) {
                 // Add another chest to south of the existing chest.
-                BuildingMethods.ReplaceBlock(world, pos.relative(facing.getClockWise()).relative(facing.getOpposite()), chestState);
+                BuildingMethods.ReplaceBlock(world, pos.relative(facing.getClockWise()).relative(facing.getOpposite()), chestState, 2);
+                blockPositions.add(pos.relative(facing.getClockWise()).relative(facing.getOpposite()));
             }
 
             BlockEntity tileEntity = world.getBlockEntity(pos.relative(facing.getClockWise()));
@@ -634,7 +660,7 @@ public class BuildingMethods {
                 int i = 0;
                 boolean fillSecond = false;
 
-                // All of the stacks should be consolidated at this point.
+                // All the stacks should be consolidated at this point.
                 for (ItemStack stack : stacks) {
                     if (i == 27 && !fillSecond) {
                         // Start filling the second chest.
@@ -654,10 +680,15 @@ public class BuildingMethods {
                 }
             }
         }
+
+        for (BlockPos currentPos : blockPositions) {
+            Block block = world.getBlockState(pos).getBlock();
+            world.blockUpdated(pos, block);
+        }
     }
 
-    private static Tuple<ArrayList<ItemStack>, ArrayList<BlockPos>> CreateLadderShaft(ServerLevel world, BlockPos pos, ArrayList<ItemStack> originalStacks, Direction houseFacing,
-                                                                                      ArrayList<Item> blocksToNotAdd) {
+    private static Triple<ArrayList<ItemStack>, ArrayList<BlockPos>, ArrayList<BlockPos>> CreateLadderShaft(ServerLevel world, BlockPos pos, ArrayList<ItemStack> originalStacks, Direction houseFacing,
+                                                                                                            ArrayList<Item> blocksToNotAdd) {
         int torchCounter = 0;
 
         // Keep the "west" facing.
@@ -669,6 +700,7 @@ public class BuildingMethods {
         // Replace the main floor block with air since we don't want it placed in the chest at the end.
         BuildingMethods.ReplaceBlock(world, pos, Blocks.AIR);
         ArrayList<BlockPos> torchPositions = new ArrayList<>();
+        ArrayList<BlockPos> allBlockPositions = new ArrayList<>();
 
         while (pos.getY() > 8) {
             BlockState state = world.getBlockState(pos);
@@ -678,7 +710,7 @@ public class BuildingMethods {
             // Make sure all blocks around this one are solid, if they are not
             // replace them with stone.
             for (int i = 0; i < 4; i++) {
-                Direction facing = houseFacing;
+                Direction facing;
 
                 switch (i) {
                     case 1: {
@@ -704,9 +736,9 @@ public class BuildingMethods {
                 if (facing == westWall && torchCounter == 6 && pos.getY() > 14) {
                     // First make sure the blocks around this block are stone, then place the torch.
                     for (int j = 0; j <= 2; j++) {
-                        BlockPos tempPos = null;
-                        BlockState surroundingState = null;
-                        Block surroundingBlock = null;
+                        BlockPos tempPos;
+                        BlockState surroundingState;
+                        Block surroundingBlock;
 
                         if (j == 0) {
                             tempPos = pos.relative(facing, 2);
@@ -727,7 +759,8 @@ public class BuildingMethods {
                             // This is not a stone block. Get the drops then replace it with stone.
                             originalStacks = BuildingMethods.ConsolidateDrops(world, tempPos, surroundingState, originalStacks, blocksToNotAdd);
 
-                            BuildingMethods.ReplaceBlock(world, tempPos, Blocks.STONE);
+                            BuildingMethods.ReplaceBlock(world, tempPos, Blocks.STONE.defaultBlockState(), 2);
+                            allBlockPositions.add(tempPos);
                         }
                     }
 
@@ -744,7 +777,8 @@ public class BuildingMethods {
                         // it with stone.
                         originalStacks = BuildingMethods.ConsolidateDrops(world, tempPos, surroundingState, originalStacks, blocksToNotAdd);
 
-                        BuildingMethods.ReplaceBlock(world, tempPos, Blocks.STONE);
+                        BuildingMethods.ReplaceBlock(world, tempPos, Blocks.STONE.defaultBlockState(), 2);
+                        allBlockPositions.add(tempPos);
                     }
                 }
             }
@@ -754,12 +788,125 @@ public class BuildingMethods {
 
             // Don't place a ladder at this location since it will be destroyed.
             if (pos.getY() >= 10) {
-                BuildingMethods.ReplaceBlock(world, pos, ladderState);
+                BuildingMethods.ReplaceBlock(world, pos, ladderState, 2);
+                allBlockPositions.add(pos);
             }
 
             pos = pos.below();
         }
 
-        return new Tuple<>(originalStacks, torchPositions);
+        return new Triple<>(originalStacks, torchPositions, allBlockPositions);
+    }
+
+    public static BlockState getStainedGlassBlock(FullDyeColor color) {
+        switch (color) {
+            case BLACK: {
+                return Blocks.BLACK_STAINED_GLASS.defaultBlockState();
+            }
+            case BLUE: {
+                return Blocks.BLUE_STAINED_GLASS.defaultBlockState();
+            }
+            case BROWN: {
+                return Blocks.BROWN_STAINED_GLASS.defaultBlockState();
+            }
+            case GRAY: {
+                return Blocks.GRAY_STAINED_GLASS.defaultBlockState();
+            }
+            case GREEN: {
+                return Blocks.GREEN_STAINED_GLASS.defaultBlockState();
+            }
+            case LIGHT_BLUE: {
+                return Blocks.LIGHT_BLUE_STAINED_GLASS.defaultBlockState();
+            }
+            case LIGHT_GRAY: {
+                return Blocks.LIGHT_GRAY_STAINED_GLASS.defaultBlockState();
+            }
+            case LIME: {
+                return Blocks.LIME_STAINED_GLASS.defaultBlockState();
+            }
+            case MAGENTA: {
+                return Blocks.MAGENTA_STAINED_GLASS.defaultBlockState();
+            }
+            case ORANGE: {
+                return Blocks.ORANGE_STAINED_GLASS.defaultBlockState();
+            }
+            case PINK: {
+                return Blocks.PINK_STAINED_GLASS.defaultBlockState();
+            }
+            case PURPLE: {
+                return Blocks.PURPLE_STAINED_GLASS.defaultBlockState();
+            }
+            case RED: {
+                return Blocks.RED_STAINED_GLASS.defaultBlockState();
+            }
+            case WHITE: {
+                return Blocks.WHITE_STAINED_GLASS.defaultBlockState();
+            }
+            case YELLOW: {
+                return Blocks.YELLOW_STAINED_GLASS.defaultBlockState();
+            }
+            case CLEAR: {
+                return Blocks.GLASS.defaultBlockState();
+            }
+            default: {
+                return Blocks.CYAN_STAINED_GLASS.defaultBlockState();
+            }
+        }
+    }
+
+    public static BlockState getStainedGlassPaneBlock(FullDyeColor color) {
+        switch (color) {
+            case BLACK: {
+                return Blocks.BLACK_STAINED_GLASS_PANE.defaultBlockState();
+            }
+            case BLUE: {
+                return Blocks.BLUE_STAINED_GLASS_PANE.defaultBlockState();
+            }
+            case BROWN: {
+                return Blocks.BROWN_STAINED_GLASS_PANE.defaultBlockState();
+            }
+            case GRAY: {
+                return Blocks.GRAY_STAINED_GLASS_PANE.defaultBlockState();
+            }
+            case GREEN: {
+                return Blocks.GREEN_STAINED_GLASS_PANE.defaultBlockState();
+            }
+            case LIGHT_BLUE: {
+                return Blocks.LIGHT_BLUE_STAINED_GLASS_PANE.defaultBlockState();
+            }
+            case LIGHT_GRAY: {
+                return Blocks.LIGHT_GRAY_STAINED_GLASS_PANE.defaultBlockState();
+            }
+            case LIME: {
+                return Blocks.LIME_STAINED_GLASS_PANE.defaultBlockState();
+            }
+            case MAGENTA: {
+                return Blocks.MAGENTA_STAINED_GLASS_PANE.defaultBlockState();
+            }
+            case ORANGE: {
+                return Blocks.ORANGE_STAINED_GLASS_PANE.defaultBlockState();
+            }
+            case PINK: {
+                return Blocks.PINK_STAINED_GLASS_PANE.defaultBlockState();
+            }
+            case PURPLE: {
+                return Blocks.PURPLE_STAINED_GLASS_PANE.defaultBlockState();
+            }
+            case RED: {
+                return Blocks.RED_STAINED_GLASS_PANE.defaultBlockState();
+            }
+            case WHITE: {
+                return Blocks.WHITE_STAINED_GLASS_PANE.defaultBlockState();
+            }
+            case YELLOW: {
+                return Blocks.YELLOW_STAINED_GLASS_PANE.defaultBlockState();
+            }
+            case CLEAR: {
+                return Blocks.GLASS_PANE.defaultBlockState();
+            }
+            default: {
+                return Blocks.CYAN_STAINED_GLASS_PANE.defaultBlockState();
+            }
+        }
     }
 }

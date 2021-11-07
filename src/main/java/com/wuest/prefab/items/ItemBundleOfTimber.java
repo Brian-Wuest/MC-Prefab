@@ -6,9 +6,9 @@ import net.minecraft.world.item.Item;
 /**
  * @author WuestMan
  */
-public class ItemBundleOfTimber extends Item {
-    public ItemBundleOfTimber() {
-        super(new Item.Properties().tab(ModRegistry.PREFAB_GROUP));
+public class ItemBundleOfTimber extends BlockItem {
+    public ItemBundleOfTimber(Block linkedBlock) {
+        super(linkedBlock, new Item.Properties().tab(ModRegistry.PREFAB_GROUP));
 
     }
 }

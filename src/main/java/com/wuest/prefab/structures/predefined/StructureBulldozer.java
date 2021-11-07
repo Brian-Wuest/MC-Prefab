@@ -64,7 +64,7 @@ public class StructureBulldozer extends Structure {
     @Override
     public void BeforeHangingEntityRemoved(HangingEntity hangingEntity) {
         // Only generate drops for this hanging entity if the bulldozer allows it.
-        // By default the base class doesn't allow hanging entities to generate drops.
+        // By default, the base class doesn't allow hanging entities to generate drops.
         if (Prefab.proxy.getServerConfiguration().allowBulldozerToCreateDrops) {
             hangingEntity.dropItem(null);
         }

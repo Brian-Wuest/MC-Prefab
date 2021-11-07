@@ -1,0 +1,5 @@
+# Don't track gradle.properties. This file in it's current state is used by the build system.
+git update-index --skip-worktree gradle.properties
+
+# Use this to re-track gradle.properties if there are changes necessary.
+git update-index --no-skip-worktree gradle.properties

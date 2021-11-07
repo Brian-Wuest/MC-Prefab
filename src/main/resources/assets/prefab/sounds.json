@@ -1,0 +1,8 @@
+{
+  "building_blueprint": {
+    "subtitle": "prefab.gui.building_blueprint",
+    "sounds": [
+      "prefab:building_blueprint"
+    ]
+  }
+}

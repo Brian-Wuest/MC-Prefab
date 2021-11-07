@@ -1,9 +1,13 @@
 package com.wuest.prefab.structures.predefined;
 
 import com.wuest.prefab.Tuple;
-import com.wuest.prefab.structures.base.*;
+import com.wuest.prefab.blocks.FullDyeColor;
+import com.wuest.prefab.structures.base.BuildBlock;
+import com.wuest.prefab.structures.base.BuildingMethods;
+import com.wuest.prefab.structures.base.Structure;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration.EnumBasicStructureName;
+import com.wuest.prefab.structures.config.HouseConfiguration;
 import com.wuest.prefab.structures.config.StructureConfiguration;
 import com.wuest.prefab.structures.config.enums.BaseOption;
 import com.wuest.prefab.structures.config.enums.ModerateFarmOptions;
@@ -18,8 +22,6 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 
-import java.util.ArrayList;
-
 /**
  * This is the basic structure to be used for structures which don't need a lot of configuration or a custom player
  * created structures.
@@ -28,7 +30,6 @@ import java.util.ArrayList;
  */
 public class StructureBasic extends Structure {
     private BlockPos customBlockPos = null;
-    private ArrayList<Tuple<BlockPos, BlockPos>> bedPositions = new ArrayList<>();
 
     @Override
     protected Boolean CustomBlockProcessingHandled(StructureConfiguration configuration, BuildBlock block, Level world, BlockPos originalPos,
@@ -63,31 +64,9 @@ public class StructureBasic extends Structure {
                     this.getClearSpace().getShape().getDirection(),
                     configuration.houseFacing);
 
-            this.bedPositions.add(new Tuple<>(bedHeadPosition, bedFootPosition));
-
-            return true;
-        } else if (foundBlock.getRegistryName().getNamespace().equals(Blocks.WHITE_STAINED_GLASS.getRegistryName().getNamespace())
-                && foundBlock.getRegistryName().getPath().endsWith("glass")
-                && config.chosenOption.getHasGlassColor()) {
-            blockState = this.getStainedGlassBlock(config.glassColor);
-            block.setBlockState(blockState);
-            this.priorityOneBlocks.add(block);
-
-            return true;
-        } else if (foundBlock.getRegistryName().getNamespace().equals(Blocks.WHITE_STAINED_GLASS_PANE.getRegistryName().getNamespace())
-                && foundBlock.getRegistryName().getPath().endsWith("glass_pane")
-                && config.chosenOption.getHasGlassColor()) {
-            blockState = this.getStainedGlassPaneBlock(config.glassColor);
-
-            BuildBlock.SetBlockState(
-                    configuration,
-                    world,
-                    originalPos,
-                    assumedNorth,
-                    block,
-                    foundBlock,
-                    blockState,
-                    this);
+            Tuple<BlockState, BlockState> blockStateTuple = BuildingMethods.getBedState(bedHeadPosition, bedFootPosition, config.bedColor);
+            block.setBlockState(blockStateTuple.getFirst());
+            block.getSubBlock().setBlockState(blockStateTuple.getSecond());
 
             this.priorityOneBlocks.add(block);
             return true;
@@ -142,12 +121,6 @@ public class StructureBasic extends Structure {
             this.customBlockPos = null;
         }
 
-        if (this.bedPositions.size() > 0) {
-            for (Tuple<BlockPos, BlockPos> bedPosition : this.bedPositions) {
-                BuildingMethods.PlaceColoredBed(world, bedPosition.getFirst(), bedPosition.getSecond(), config.bedColor);
-            }
-        }
-
         if (structureName.equals(EnumBasicStructureName.AquaBase.getName())
                 || structureName.equals(EnumBasicStructureName.AdvancedAquaBase.getName())) {
             // Replace the entrance area with air blocks.
@@ -187,5 +160,18 @@ public class StructureBasic extends Structure {
             airPos = airPos.above();
             world.removeBlock(airPos, false);
         }
+    }
+
+    @Override
+    protected boolean hasGlassColor(StructureConfiguration configuration) {
+        BasicStructureConfiguration config = (BasicStructureConfiguration) configuration;
+        BaseOption chosenOption = config.chosenOption;
+        return chosenOption.getHasGlassColor();
+    }
+
+    @Override
+    protected FullDyeColor getGlassColor(StructureConfiguration configuration) {
+        BasicStructureConfiguration config = (BasicStructureConfiguration) configuration;
+        return config.glassColor;
     }
 }

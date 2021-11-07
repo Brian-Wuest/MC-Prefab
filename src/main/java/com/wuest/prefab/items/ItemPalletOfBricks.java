@@ -6,9 +6,9 @@ import net.minecraft.world.item.Item;
 /**
  * @author WuestMan
  */
-public class ItemPalletOfBricks extends Item {
+public class ItemPalletOfBricks extends BlockItem {
     public ItemPalletOfBricks() {
-        super(new Item.Properties().tab(ModRegistry.PREFAB_GROUP));
+        super(ModRegistry.PalletOfBricks.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP));
 
     }
 }

@@ -46,50 +46,6 @@ public class ItemStartHouse extends StructureItem {
     }
 
     @Override
-    public void scanningMode(UseOnContext context) {
-        /*StructureAlternateStart.ScanBasicHouseStructure(
-                context.getLevel(),
-                context.getClickedPos(),
-                context.getPlayer().getDirection());*/
-
-        /*StructureAlternateStart.ScanRanchStructure(
-                context.getWorld(),
-                context.getPos(),
-                context.getPlayer().getHorizontalFacing());*/
-
-		/*StructureAlternateStart.ScanLoftStructure(
-				context.getWorld(),
-				context.getPos(),
-				context.getPlayer().getHorizontalFacing());*/
-
-        /*StructureAlternateStart.ScanHobbitStructure(
-                context.getWorld(),
-                context.getPos(),
-                context.getPlayer().getHorizontalFacing());*/
-
-        /*StructureAlternateStart.ScanStructure(
-                context.getWorld(),
-                context.getPos(),
-                context.getPlayer().getHorizontalFacing(), "desert_house", false, false);*/
-
-		/*StructureAlternateStart.ScanDesert2Structure(
-				context.getWorld(),
-				context.getPos(),
-				context.getPlayer().getHorizontalFacing());*/
-
-		/*StructureAlternateStart.ScanSubAquaticStructure(
-				context.getWorld(),
-				context.getPos(),
-				context.getPlayer().getHorizontalFacing());*/
-
-		/*StructureAlternateStart.ScanStructure(
-				context.getWorld(),
-				context.getPos(),
-				context.getPlayer().getHorizontalFacing(), "snowy_house", false, false);*/
-
-        StructureAlternateStart.ScanModernHouseStructure(
-                context.getLevel(),
-                context.getClickedPos(),
-                context.getPlayer().getDirection());
+    public void scanningMode(ItemUseContext context) {
     }
 }

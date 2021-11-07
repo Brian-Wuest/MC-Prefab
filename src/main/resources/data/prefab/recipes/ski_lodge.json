@@ -17,7 +17,7 @@
       "item": "minecraft:snow_block"
     },
     "b": {
-      "tag": "forge:storage_blocks/double_compressed_glow_stone"
+      "tag": "forge:storage_blocks/double_compressed_lights"
     },
     "c": {
       "item": "prefab:item_bundle_of_timber"
