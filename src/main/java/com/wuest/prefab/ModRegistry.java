@@ -210,7 +210,7 @@ public class ModRegistry {
     public static final RegistryObject<ItemBasicStructure> AdvancedFarm = ITEMS.register(EnumBasicStructureName.AdvancedFarm.getItemTextureLocation().getPath(), () -> new ItemBasicStructure(EnumBasicStructureName.AdvancedFarm));
 
     /* *********************************** Sounds *********************************** */
-    public static final RegistryObject<SoundEvent> BuildingBlueprint = SOUNDS.register("building_blueprint", () -> new SoundEvent(new ResourceLocation("prefab", "building_blueprint")));
+    public static final RegistryObject<SoundEvent> BuildingBlueprint = SOUNDS.register("building_blueprint", () -> new SoundEvent(new ResourceLocation(Prefab.MODID, "building_blueprint")));
 
     static {
         if (Prefab.isDebug) {
