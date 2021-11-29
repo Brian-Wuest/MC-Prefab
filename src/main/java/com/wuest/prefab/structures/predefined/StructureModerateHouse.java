@@ -120,9 +120,4 @@ public class StructureModerateHouse extends Structure {
         Prefab.network.sendTo(new PlayerEntityTagMessage(playerConfig.getModIsPlayerNewTag(player)), ((ServerPlayer) player).connection.connection,
                 NetworkDirection.PLAY_TO_CLIENT);
     }
-
-    @Override
-    protected boolean hasGlassColor(StructureConfiguration configuration) {
-        return false;
-    }
 }
