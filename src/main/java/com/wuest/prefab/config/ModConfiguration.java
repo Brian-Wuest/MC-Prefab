@@ -84,6 +84,7 @@ public class ModConfiguration {
     static String includeMineshaftChestName = "Include Mineshaft Chest";
     static String allowWaterInNonOverworldDimensionsName = "Include Water In Non-Overworld Dimesions";
     static String enableAutomationOptionsFromModerateFarmName = "Enable Automation Options For Moderate Farm";
+    static String playBuildingSoundName = "Play Building Sound";
 
     // Chest content option names.
     static String addSwordName = "Add Sword";
@@ -127,6 +128,7 @@ public class ModConfiguration {
     private BooleanValue allowBulldozerToCreateDrops;
     private BooleanValue allowWaterInNonOverworldDimensions;
     private BooleanValue enableAutomationOptionsFromModerateFarm;
+    private BooleanValue playBuildingSound;
 
     // Chest content options.
     private BooleanValue includeMineshaftChest;
@@ -258,6 +260,18 @@ public class ModConfiguration {
                 .setConfigType("Boolean")
                 .setCategory(ConfigCategory.General)
                 .setHoverText("Enable Automation Options For Moderate Farm")
+                .setDefaultValue(true));
+
+        Prefab.proxy.proxyConfiguration.playBuildingSound = builder
+                .comment("Play Sound When Generating Blueprint")
+                .define(OPTIONS + ModConfiguration.playBuildingSoundName, true);
+
+        config.configOptions.add(new ConfigOption<Boolean>()
+                .setConfigValue(Prefab.proxy.proxyConfiguration.playBuildingSound)
+                .setName(ModConfiguration.playBuildingSoundName)
+                .setConfigType("Boolean")
+                .setCategory(ConfigCategory.General)
+                .setHoverText("Play Sound When Generating Blueprint")
                 .setDefaultValue(true));
 
         builder.comment("Chest Options");
@@ -532,6 +546,7 @@ public class ModConfiguration {
         Prefab.proxy.proxyConfiguration.serverConfiguration.allowBulldozerToCreateDrops = Prefab.proxy.proxyConfiguration.allowBulldozerToCreateDrops.get();
         Prefab.proxy.proxyConfiguration.serverConfiguration.allowWaterInNonOverworldDimensions = Prefab.proxy.proxyConfiguration.allowWaterInNonOverworldDimensions.get();
         Prefab.proxy.proxyConfiguration.serverConfiguration.enableAutomationOptionsFromModerateFarm = Prefab.proxy.proxyConfiguration.enableAutomationOptionsFromModerateFarm.get();
+        Prefab.proxy.proxyConfiguration.serverConfiguration.playBuildingSound = Prefab.proxy.proxyConfiguration.playBuildingSound.get();
 
         // Recipe configuration.
         for (String key : ModConfiguration.recipeKeys) {

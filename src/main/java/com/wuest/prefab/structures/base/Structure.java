@@ -6,6 +6,7 @@ import com.google.gson.annotations.Expose;
 import com.wuest.prefab.*;
 import com.wuest.prefab.blocks.FullDyeColor;
 import com.wuest.prefab.gui.GuiLangKeys;
+import com.wuest.prefab.proxy.CommonProxy;
 import com.wuest.prefab.structures.config.StructureConfiguration;
 import com.wuest.prefab.structures.events.StructureEventHandler;
 import net.minecraft.block.*;
@@ -384,9 +385,11 @@ public class Structure {
             return false;
         }
 
-        // Play the building sound.
-        world.playSound(null, originalPos, ModRegistry.BuildingBlueprint.get(), SoundCategory.NEUTRAL, 0.8f, 0.8f);
-
+        if (CommonProxy.proxyConfiguration.serverConfiguration.playBuildingSound) {
+            // Play the building sound.
+            world.playSound(null, originalPos, ModRegistry.BuildingBlueprint.get(), SoundCategory.NEUTRAL, 0.8f, 0.8f);
+        }
+        
         if (!this.BeforeBuilding(configuration, world, originalPos, assumedNorth, player)) {
             try {
                 // First, clear the area where the structure will be built.

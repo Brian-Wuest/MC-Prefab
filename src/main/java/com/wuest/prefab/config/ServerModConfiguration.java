@@ -21,6 +21,7 @@ public class ServerModConfiguration {
     public boolean allowBulldozerToCreateDrops;
     public boolean allowWaterInNonOverworldDimensions;
     public boolean enableAutomationOptionsFromModerateFarm;
+    public boolean playBuildingSound;
 
     // Chest content options.
     public boolean addSword;
@@ -64,6 +65,7 @@ public class ServerModConfiguration {
         configuration.allowBulldozerToCreateDrops = tag.getBoolean(ModConfiguration.allowBulldozerToCreateDropsName);
         configuration.allowWaterInNonOverworldDimensions = tag.getBoolean(ModConfiguration.allowWaterInNonOverworldDimensionsName);
         configuration.enableAutomationOptionsFromModerateFarm = tag.getBoolean(ModConfiguration.enableAutomationOptionsFromModerateFarmName);
+        configuration.playBuildingSound = tag.getBoolean(ModConfiguration.playBuildingSoundName);
 
         configuration.addSword = tag.getBoolean(ModConfiguration.addSwordName);
         configuration.addAxe = tag.getBoolean(ModConfiguration.addAxeName);
@@ -104,6 +106,7 @@ public class ServerModConfiguration {
         tag.putBoolean(ModConfiguration.allowBulldozerToCreateDropsName, this.allowBulldozerToCreateDrops);
         tag.putBoolean(ModConfiguration.allowWaterInNonOverworldDimensionsName, this.allowWaterInNonOverworldDimensions);
         tag.putBoolean(ModConfiguration.enableAutomationOptionsFromModerateFarmName, this.enableAutomationOptionsFromModerateFarm);
+        tag.putBoolean(ModConfiguration.playBuildingSoundName, this.playBuildingSound);
 
         tag.putBoolean(ModConfiguration.addSwordName, this.addSword);
         tag.putBoolean(ModConfiguration.addAxeName, this.addAxe);
