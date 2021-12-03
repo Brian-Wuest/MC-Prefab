@@ -389,7 +389,7 @@ public class Structure {
             // Play the building sound.
             world.playSound(null, originalPos, ModRegistry.BuildingBlueprint.get(), SoundCategory.NEUTRAL, 0.8f, 0.8f);
         }
-        
+
         if (!this.BeforeBuilding(configuration, world, originalPos, assumedNorth, player)) {
             try {
                 // First, clear the area where the structure will be built.
@@ -505,6 +505,7 @@ public class Structure {
 
     /**
      * Processes before the hanging entity is removed.
+     *
      * @param hangingEntity The entity to process.
      */
     public void BeforeHangingEntityRemoved(HangingEntity hangingEntity) {
