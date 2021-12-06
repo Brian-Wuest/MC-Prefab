@@ -1,5 +1,6 @@
 package com.wuest.prefab.structures.base;
 
+import com.wuest.prefab.Triple;
 import com.wuest.prefab.structures.config.StructureConfiguration;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBed;
@@ -333,34 +334,40 @@ public class BuildingMethods {
      * @return True if all blocks can be replaced. Otherwise false and send a
      * message to the player.
      */
-    public static boolean CheckBuildSpaceForAllowedBlockReplacement(StructureConfiguration configuration, World world, BlockPos startBlockPos, BlockPos endBlockPos, EntityPlayer player) {
+    public static Triple<Boolean, IBlockState, BlockPos> CheckBuildSpaceForAllowedBlockReplacement(World world, BlockPos startBlockPos, BlockPos endBlockPos, EntityPlayer player) {
         // Check each block in the space to be cleared if it's protected from
         // breaking or placing, if it is return false.
         for (BlockPos currentPos : BlockPos.getAllInBox(startBlockPos, endBlockPos)) {
             IBlockState blockState = world.getBlockState(currentPos);
 
+            // First check to see if this is a spawn protected block.
+            if (world.getMinecraftServer().isBlockProtected(world, currentPos, player)) {
+                // This block is protected by vanilla spawn protection. Don't allow building here.
+                return new Triple<>(false, blockState, currentPos);
+            }
+
             if (!blockState.getBlock().isAir(blockState, world, currentPos)) {
                 BlockEvent.BreakEvent breakEvent = new BlockEvent.BreakEvent(world, currentPos, world.getBlockState(currentPos), player);
 
                 if (MinecraftForge.EVENT_BUS.post(breakEvent)) {
-                    return false;
+                    return new Triple<>(false, blockState, currentPos);
                 }
             }
 
             BlockEvent.PlaceEvent placeEvent = new BlockEvent.PlaceEvent(new BlockSnapshot(world, currentPos, blockState), Blocks.AIR.getDefaultState(), player, EnumHand.MAIN_HAND);
 
             if (MinecraftForge.EVENT_BUS.post(placeEvent)) {
-                return false;
+                return new Triple<>(false, blockState, currentPos);
             }
 
             // A hardness of less than 0 is unbreakable.
             if (blockState.getBlockHardness(world, currentPos) < 0.0f) {
                 // This is bedrock or some other type of unbreakable block. Don't allow this block to be broken by a structure.
-                return false;
+                return new Triple<>(false, blockState, currentPos);
             }
         }
 
-        return true;
+        return new Triple<>(true, null, null);
     }
 
     /**

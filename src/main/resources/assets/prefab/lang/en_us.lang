@@ -148,7 +148,7 @@ prefab.gui.structure.bed_color=Bed Color
 prefab.gui.structure.facing.player=Note: If you're facing north, choose south so the structure is facing you.
 prefab.gui.structure.block.clicked=The yellow outline is the block you clicked on.
 prefab.gui.structure.door.facing=Note: If you're facing north, choose south so the doors are facing you.
-prefab.gui.structure.nobuild=Cannot build structure due to protected blocks/area or unbreakable blocks are in the area.
+prefab.gui.structure.nobuild=Cannot build structure due to protected blocks/area or unbreakable blocks are in the area. Block Name: %1$s Block Position: x=%2$s, y=%3$s, z=%4$s
 
 prefab.gui.button.build=Build!
 prefab.gui.button.cancel=Cancel

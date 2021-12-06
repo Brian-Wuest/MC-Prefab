@@ -148,7 +148,7 @@ prefab.gui.structure.bed_color=Цвет Кровати
 prefab.gui.structure.facing.player=Примечание: Если вы смотрите на север, выберите юг, чтобы структура была обращена к вам.
 prefab.gui.structure.block.clicked=Желтый контур - это блок, на котором вы щелкнули.
 prefab.gui.structure.door.facing=Примечание: Если вы смотрите на север, выберите юг, чтобы двери были обращены к вам.
-prefab.gui.structure.nobuild=Не удается построить структуру из-за защищенных блоков/местности или неразрушаемых блоков в области. Блок: %1$s Координаты: x
+prefab.gui.structure.nobuild=Не удается построить структуру из-за защищенных блоков/местности или неразрушаемых блоков в области. Блок: %1$s Координаты: x=%2$s, y=%3$s, z=%4$s
 
 prefab.gui.button.build=Построить!
 prefab.gui.button.cancel=Отмена

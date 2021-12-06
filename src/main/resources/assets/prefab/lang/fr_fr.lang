@@ -148,7 +148,7 @@ prefab.gui.structure.bed_color=Couleur du lit
 prefab.gui.structure.facing.player=Remarque: Si vous faites face au nord, choisissez le sud pour que la structure soit face à vous.
 prefab.gui.structure.block.clicked=Le contour jaune est le bloc sur lequel vous avez cliqué.
 prefab.gui.structure.door.facing=Remarque: Si vous faites face au nord, choisissez le sud pour que les portes soient face à vous.
-prefab.gui.structure.nobuild=Impossible de construire une structure en raison de blocs protégés / zone ou blocs incassables dans la zone.
+prefab.gui.structure.nobuild=Impossible de construire une structure en raison de blocs protégés / zone ou blocs incassables dans la zone. Nom du bloc: %1$s Position du bloc: x=%2$s, y=%3$s, z=%4$s.
 
 prefab.gui.button.build=Construire!
 prefab.gui.button.cancel=Annuler
