@@ -44,7 +44,7 @@ public class GuiModerateHouse extends GuiStructure {
 
     @Override
     protected void Initialize() {
-        this.modifiedInitialXAxis = 212;
+        this.modifiedInitialXAxis = 215;
         this.modifiedInitialYAxis = 117;
         this.shownImageHeight = 150;
         this.shownImageWidth = 268;
@@ -63,27 +63,27 @@ public class GuiModerateHouse extends GuiStructure {
         int grayBoxY = adjustedXYValue.getSecond();
 
         // Create the buttons.
-        this.btnHouseStyle = this.createAndAddButton(4, grayBoxX + 15, grayBoxY + 45, 90, 20, this.configuration.houseStyle.getDisplayName(), false);
-        this.btnBedColor = this.createAndAddDyeButton(5, grayBoxX + 15, grayBoxY + 90, 90, 20, this.configuration.bedColor);
-        this.btnAddChest = this.createAndAddCheckBox(6, grayBoxX + 15, grayBoxY + 125, GuiLangKeys.STARTER_HOUSE_ADD_CHEST, this.configuration.addChests);
-        this.btnAddChestContents = this.createAndAddCheckBox(7, grayBoxX + 15, grayBoxY + 155, GuiLangKeys.STARTER_HOUSE_ADD_CHEST_CONTENTS, this.configuration.addMineshaft);
-        this.btnAddMineShaft = this.createAndAddCheckBox(8, grayBoxX + 15, grayBoxY + 140, GuiLangKeys.STARTER_HOUSE_BUILD_MINESHAFT, this.configuration.addChestContents);
+        this.btnHouseStyle = this.createAndAddButton(4, grayBoxX + 8, grayBoxY + 25, 90, 20, this.configuration.houseStyle.getDisplayName(), false);
+        this.btnBedColor = this.createAndAddDyeButton(5, grayBoxX + 8, grayBoxY + 60, 90, 20, this.configuration.bedColor);
+        this.btnAddChest = this.createAndAddCheckBox(6, grayBoxX + 8, grayBoxY + 120, GuiLangKeys.STARTER_HOUSE_ADD_CHEST, this.configuration.addChests);
+        this.btnAddMineShaft = this.createAndAddCheckBox(8, grayBoxX + 8, grayBoxY + 137, GuiLangKeys.STARTER_HOUSE_BUILD_MINESHAFT, this.configuration.addChestContents);
+        this.btnAddChestContents = this.createAndAddCheckBox(7, grayBoxX + 8, grayBoxY + 154, GuiLangKeys.STARTER_HOUSE_ADD_CHEST_CONTENTS, this.configuration.addMineshaft);
 
         // Create the standard buttons.
-        this.btnVisualize = this.createAndAddCustomButton(3, grayBoxX + 25, grayBoxY + 175, 90, 20, GuiLangKeys.GUI_BUTTON_PREVIEW);
-        this.btnBuild = this.createAndAddCustomButton(1, grayBoxX + 310, grayBoxY + 175, 90, 20, GuiLangKeys.GUI_BUTTON_BUILD);
-        this.btnCancel = this.createAndAddButton(2, grayBoxX + 150, grayBoxY + 175, 90, 20, GuiLangKeys.GUI_BUTTON_CANCEL);
+        this.btnVisualize = this.createAndAddCustomButton(3, grayBoxX + 24, grayBoxY + 177, 90, 20, GuiLangKeys.GUI_BUTTON_PREVIEW);
+        this.btnBuild = this.createAndAddCustomButton(1, grayBoxX + 310, grayBoxY + 177, 90, 20, GuiLangKeys.GUI_BUTTON_BUILD);
+        this.btnCancel = this.createAndAddButton(2, grayBoxX + 154, grayBoxY + 177, 90, 20, GuiLangKeys.GUI_BUTTON_CANCEL);
     }
 
     @Override
     protected void preButtonRender(int x, int y, int mouseX, int mouseY, float partialTicks) {
-        int imagePanelUpperLeft = x + 132;
+        int imagePanelUpperLeft = x + 136;
         int imagePanelWidth = 285;
         int imagePanelMiddle = imagePanelWidth / 2;
 
         this.drawDefaultBackground();
 
-        this.drawControlLeftPanel(x + 10, y + 10, 125, 190);
+        this.drawControlLeftPanel(x + 2, y + 10, 135, 190);
         this.drawControlRightPanel(imagePanelUpperLeft, y + 10, imagePanelWidth, 190);
 
         int middleOfImage = this.shownImageWidth / 2;
@@ -100,11 +100,9 @@ public class GuiModerateHouse extends GuiStructure {
     @Override
     protected void postButtonRender(int x, int y, int mouseX, int mouseY, float partialTicks) {
         // Draw the text here.
-        this.drawString(GuiLangKeys.translateString("item.prefab:item_moderate_house.name"), x + 15, y + 17, this.textColor);
+        this.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), x + 8, y + 15, this.textColor);
 
-        this.drawString(GuiLangKeys.translateString(GuiLangKeys.STARTER_HOUSE_STYLE), x + 15, y + 35, this.textColor);
-
-        this.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), x + 15, y + 80, this.textColor);
+        this.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), x + 8, y + 50, this.textColor);
     }
 
     /**

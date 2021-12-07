@@ -79,7 +79,7 @@ public class GuiBasicStructure extends GuiStructure {
         if (!this.showConfigurationOptions) {
             this.InitializeStandardButtons();
         } else {
-            this.modifiedInitialXAxis = 212;
+            this.modifiedInitialXAxis = 215;
             this.modifiedInitialYAxis = 117;
             this.imagePanelWidth = 285;
 
@@ -89,7 +89,7 @@ public class GuiBasicStructure extends GuiStructure {
             int grayBoxY = adjustedXYValue.getSecond();
 
             // Create the buttons.
-            int x = grayBoxX + 15;
+            int x = grayBoxX + 8;
             int y = grayBoxY + 45;
 
             if (this.availableOptions.size() > 1) {
@@ -107,9 +107,9 @@ public class GuiBasicStructure extends GuiStructure {
             this.btnGlassColor.visible = false;
 
             // Create the standard buttons.
-            this.btnVisualize = this.createAndAddCustomButton(3, grayBoxX + 25, grayBoxY + 175, 90, 20, GuiLangKeys.GUI_BUTTON_PREVIEW);
-            this.btnBuild = this.createAndAddCustomButton(1, grayBoxX + 310, grayBoxY + 175, 90, 20, GuiLangKeys.GUI_BUTTON_BUILD);
-            this.btnCancel = this.createAndAddButton(2, grayBoxX + 150, grayBoxY + 175, 90, 20, GuiLangKeys.GUI_BUTTON_CANCEL);
+            this.btnVisualize = this.createAndAddCustomButton(3, grayBoxX + 24, grayBoxY + 177, 90, 20, GuiLangKeys.GUI_BUTTON_PREVIEW);
+            this.btnBuild = this.createAndAddCustomButton(1, grayBoxX + 310, grayBoxY + 177, 90, 20, GuiLangKeys.GUI_BUTTON_BUILD);
+            this.btnCancel = this.createAndAddButton(2, grayBoxX + 154, grayBoxY + 177, 90, 20, GuiLangKeys.GUI_BUTTON_CANCEL);
         }
     }
 
@@ -119,12 +119,12 @@ public class GuiBasicStructure extends GuiStructure {
             super.preButtonRender(x, y, mouseX, mouseY, partialTicks);
         } else {
             // Draw the control background.
-            int imagePanelUpperLeft = x + 132;
+            int imagePanelUpperLeft = x + 136;
             int imagePanelMiddle = this.imagePanelWidth / 2;
 
             this.drawDefaultBackground();
 
-            this.drawControlLeftPanel(x + 10, y + 10, 125, 190);
+            this.drawControlLeftPanel(x + 2, y + 10, 185, 190);
             this.drawControlRightPanel(imagePanelUpperLeft, y + 10, this.imagePanelWidth, 190);
 
             int middleOfImage = this.shownImageWidth / 2;
@@ -175,23 +175,23 @@ public class GuiBasicStructure extends GuiStructure {
     @Override
     protected void postButtonRender(int x, int y, int mouseX, int mouseY, float partialTicks) {
         if (this.showConfigurationOptions) {
-            this.drawString(GuiLangKeys.translateString(this.configuration.basicStructureName.getItemTranslationString()), x + 15, y + 17, this.textColor);
+            this.drawSplitString(GuiLangKeys.translateString(this.configuration.basicStructureName.getItemTranslationString()), x + 8, y + 17, 128, this.textColor);
 
             int yValue = y + 35;
 
             if (this.availableOptions.size() > 1) {
-                this.drawString(GuiLangKeys.translateString(GuiLangKeys.BUILDING_OPTIONS), x + 15, yValue, this.textColor);
+                this.drawString(GuiLangKeys.translateString(GuiLangKeys.BUILDING_OPTIONS), x + 8, yValue, this.textColor);
                 yValue += 45;
             }
 
             // Draw the text here.
             if (this.configuration.chosenOption.getHasBedColor()) {
-                this.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), x + 15, yValue, this.textColor);
+                this.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), x + 8, yValue, this.textColor);
                 yValue += 45;
             }
 
             if (this.configuration.chosenOption.getHasGlassColor()) {
-                this.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS), x + 15, yValue, this.textColor);
+                this.drawString(GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS), x + 8, yValue, this.textColor);
                 yValue += 45;
             }
         }

@@ -86,7 +86,7 @@ public class GuiInstantBridge extends GuiStructure {
 
         this.drawString(GuiLangKeys.translateString(GuiLangKeys.BRIDGE_LENGTH), x + 15, y + 75, this.textColor);
 
-        if (this.chckIncludeRoof.enabled) {
+        if (this.chckIncludeRoof.isChecked()) {
             this.drawString(GuiLangKeys.translateString(GuiLangKeys.INTERIOR_HEIGHT), x + 15, y + 130, this.textColor);
         }
     }

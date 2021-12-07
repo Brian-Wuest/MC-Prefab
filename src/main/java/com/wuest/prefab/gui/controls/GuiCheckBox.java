@@ -7,6 +7,8 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 
+import java.awt.*;
+
 /**
  * @author WuestMan
  */
@@ -14,21 +16,29 @@ public class GuiCheckBox extends GuiButton {
     private static final ResourceLocation buttonTexture = new ResourceLocation("prefab", "textures/gui/prefab_checkbox.png");
     private static final ResourceLocation buttonTexturePressed = new ResourceLocation("prefab", "textures/gui/prefab_checkbox_selected.png");
     private static final ResourceLocation buttonTextureHover = new ResourceLocation("prefab", "textures/gui/prefab_checkbox_hover.png");
+    private static final ResourceLocation buttonTextureHoverSelected = new ResourceLocation("prefab", "textures/gui/prefab_checkbox_hover_selected.png");
 
     protected int boxWidth;
     protected int boxHeight;
     protected int stringColor;
     protected boolean withShadow;
+    protected Minecraft mineCraft;
+    protected String displayString;
     protected int labelWidth;
     protected boolean isChecked;
 
     public GuiCheckBox(int id, int xPos, int yPos, String displayString, boolean isChecked) {
         super(id, xPos, yPos, displayString);
 
-        this.boxWidth = 11;
+        this.width = 15;
+        this.height = 15;
+        this.boxHeight = 15;
+        this.boxWidth = 15;
+        this.mineCraft = Minecraft.getMinecraft();
+        this.displayString = displayString;
+        this.stringColor = Color.DARK_GRAY.getRGB();
         this.labelWidth = 98;
         this.isChecked = isChecked;
-        this.width = this.boxWidth + 2 + Minecraft.getMinecraft().fontRenderer.getStringWidth(displayString);
         this.height = 11;
         this.boxHeight = 11;
     }
@@ -100,6 +110,10 @@ public class GuiCheckBox extends GuiButton {
 
             if (this.isChecked()) {
                 resourceLocation = GuiCheckBox.buttonTexturePressed;
+
+                if (this.hovered) {
+                    resourceLocation = GuiCheckBox.buttonTextureHoverSelected;
+                }
             } else if (this.hovered) {
                 resourceLocation = GuiCheckBox.buttonTextureHover;
             }
