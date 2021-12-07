@@ -22,7 +22,7 @@
         },
         {
             "type": "forge:ore_dict",
-            "ore": "compressedGlowstone2"
+            "ore": "double_compressed_lights"
         }
     ],
     "result": {

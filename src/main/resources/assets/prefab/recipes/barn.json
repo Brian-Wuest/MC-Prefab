@@ -18,7 +18,7 @@
         },
         "b": {
                 "type": "forge:ore_dict",
-                "ore": "compressedGlowstone1"
+                "ore": "compressed_lights"
         },
         "c": {
             "item": "prefab:item_bundle_of_timber"

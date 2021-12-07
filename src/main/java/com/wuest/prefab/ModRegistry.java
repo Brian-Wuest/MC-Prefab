@@ -290,6 +290,12 @@ public class ModRegistry {
         OreDictionary.registerOre("compressedGlowstone2", ModRegistry.DoubleCompressedGlowstoneBlock);
         OreDictionary.registerOre("compressedObsidian1", ModRegistry.CompressedObsidianBlock);
         OreDictionary.registerOre("compressedObsidian2", ModRegistry.DoubleCompressedObsidianBlock);
+
+        OreDictionary.registerOre("compressed_lights", ModRegistry.CompressedGlowstoneItem);
+        OreDictionary.registerOre("compressed_lights", ModRegistry.StringOfLanterns);
+
+        OreDictionary.registerOre("double_compressed_lights", ModRegistry.DoubleCompressedGlowstoneItem);
+        OreDictionary.registerOre("double_compressed_lights", ModRegistry.CoilOfLanterns);
     }
 
     /**
