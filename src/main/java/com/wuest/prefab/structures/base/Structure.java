@@ -17,6 +17,7 @@ import net.minecraft.entity.item.ItemFrameEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.state.Property;
 import net.minecraft.state.properties.BedPart;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -472,6 +473,9 @@ public class Structure {
                 this.assumedNorth = assumedNorth;
                 this.originalPos = originalPos;
 
+                // Set all the tile entities here.
+                this.setBlockEntities();
+
                 this.AfterBuilding(this.configuration, this.world, this.originalPos, this.assumedNorth, player);
             } catch (Exception ex) {
                 Prefab.LOGGER.error(ex);
@@ -655,5 +659,34 @@ public class Structure {
 
     protected FullDyeColor getGlassColor(StructureConfiguration configuration) {
         return FullDyeColor.CLEAR;
+    }
+
+    protected void setBlockEntities() {
+        try {
+            for (BuildTileEntity buildTileEntity : this.tileEntities) {
+                BlockPos tileEntityPos = buildTileEntity.getStartingPosition().getRelativePosition(this.originalPos,
+                        this.getClearSpace().getShape().getDirection(), this.configuration.houseFacing);
+                TileEntity tileEntity = this.world.getBlockEntity(tileEntityPos);
+                BlockState tileBlock = this.world.getBlockState(tileEntityPos);
+
+                if (tileEntity == null) {
+                    TileEntity.loadStatic(tileBlock, buildTileEntity.getEntityDataTag());
+                } else {
+                    this.world.removeBlockEntity(tileEntityPos);
+                    tileEntity = TileEntity.loadStatic(tileBlock, buildTileEntity.getEntityDataTag());
+                    this.world.setBlockEntity(tileEntityPos, tileEntity);
+                    this.world.getChunkAt(tileEntityPos).markUnsaved();
+                    tileEntity.setChanged();
+                    SUpdateTileEntityPacket packet = tileEntity.getUpdatePacket();
+
+                    if (packet != null) {
+                        this.world.getServer().getPlayerList().broadcastAll(packet);
+                    }
+                }
+            }
+        }
+        catch (Exception ex) {
+            Prefab.LOGGER.error(ex);
+        }
     }
 }
