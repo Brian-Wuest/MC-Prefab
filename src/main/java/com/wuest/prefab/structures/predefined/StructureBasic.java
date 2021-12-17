@@ -2,13 +2,14 @@ package com.wuest.prefab.structures.predefined;
 
 import com.wuest.prefab.Tuple;
 import com.wuest.prefab.blocks.FullDyeColor;
+import com.wuest.prefab.proxy.CommonProxy;
 import com.wuest.prefab.structures.base.BuildBlock;
 import com.wuest.prefab.structures.base.BuildingMethods;
 import com.wuest.prefab.structures.base.Structure;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration.EnumBasicStructureName;
-import com.wuest.prefab.structures.config.HouseConfiguration;
 import com.wuest.prefab.structures.config.StructureConfiguration;
+import com.wuest.prefab.structures.config.enums.AdvancedFarmOptions;
 import com.wuest.prefab.structures.config.enums.BaseOption;
 import com.wuest.prefab.structures.config.enums.ModerateFarmOptions;
 import net.minecraft.core.BlockPos;
@@ -22,6 +23,8 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 
+import java.util.ArrayList;
+
 /**
  * This is the basic structure to be used for structures which don't need a lot of configuration or a custom player
  * created structures.
@@ -30,6 +33,8 @@ import net.minecraft.world.level.material.Material;
  */
 public class StructureBasic extends Structure {
     private BlockPos customBlockPos = null;
+    private ArrayList<BlockPos> mobSpawnerPos = new ArrayList<>();
+    private BlockPos signPosition = null;
 
     @Override
     protected Boolean CustomBlockProcessingHandled(StructureConfiguration configuration, BuildBlock block, Level world, BlockPos originalPos,
@@ -70,6 +75,17 @@ public class StructureBasic extends Structure {
 
             this.priorityOneBlocks.add(block);
             return true;
+        } else if (foundBlock instanceof SpawnerBlock && structureName.equals(EnumBasicStructureName.AdvancedFarm.getName()) && chosenOption == AdvancedFarmOptions.MonsterMasher
+                && CommonProxy.proxyConfiguration.serverConfiguration.includeSpawnersInMasher) {
+            this.mobSpawnerPos.add(block.getStartingPosition().getRelativePosition(
+                    originalPos,
+                    this.getClearSpace().getShape().getDirection(),
+                    configuration.houseFacing));
+        } else if (foundBlock instanceof AbstractSignBlock && structureName.equals(EnumBasicStructureName.AdvancedFarm.getName()) && chosenOption == AdvancedFarmOptions.MonsterMasher) {
+            this.signPosition = block.getStartingPosition().getRelativePosition(
+                    originalPos,
+                    this.getClearSpace().getShape().getDirection(),
+                    configuration.houseFacing);
         }
 
         return false;
@@ -159,6 +175,58 @@ public class StructureBasic extends Structure {
 
             airPos = airPos.above();
             world.removeBlock(airPos, false);
+        }
+
+        if (structureName.equals(EnumBasicStructureName.AdvancedFarm.getName()) && chosenOption == AdvancedFarmOptions.MonsterMasher) {
+            int monstersPlaced = 0;
+
+            // Set the spawner.
+            for (BlockPos pos : this.mobSpawnerPos) {
+                TileEntity tileEntity = world.getBlockEntity(pos);
+
+                if (tileEntity instanceof MobSpawnerTileEntity) {
+                    MobSpawnerTileEntity spawner = (MobSpawnerTileEntity) tileEntity;
+
+                    switch (monstersPlaced) {
+                        case 0: {
+                            // Zombie.
+                            spawner.getSpawner().setEntityId(EntityType.ZOMBIE);
+                            break;
+                        }
+
+                        case 1: {
+                            // Skeleton.
+                            spawner.getSpawner().setEntityId(EntityType.SKELETON);
+                            break;
+                        }
+
+                        case 2: {
+                            // Spider.
+                            spawner.getSpawner().setEntityId(EntityType.SPIDER);
+                            break;
+                        }
+
+                        default: {
+                            // Creeper.
+                            spawner.getSpawner().setEntityId(EntityType.CREEPER);
+                            break;
+                        }
+                    }
+
+                    monstersPlaced++;
+                }
+            }
+
+            if (this.signPosition != null) {
+                TileEntity tileEntity = world.getBlockEntity(this.signPosition);
+
+                if (tileEntity instanceof SignTileEntity) {
+                    SignTileEntity signTile = (SignTileEntity) tileEntity;
+                    signTile.setMessage(0, new StringTextComponent("Lamp On=Mobs"));
+
+                    signTile.setMessage(2, new StringTextComponent("Lamp Off=No Mobs"));
+                }
+            }
         }
     }
 

@@ -6,6 +6,7 @@ import com.google.gson.annotations.Expose;
 import com.wuest.prefab.*;
 import com.wuest.prefab.blocks.FullDyeColor;
 import com.wuest.prefab.gui.GuiLangKeys;
+import com.wuest.prefab.proxy.CommonProxy;
 import com.wuest.prefab.structures.config.StructureConfiguration;
 import com.wuest.prefab.structures.events.StructureEventHandler;
 import net.minecraft.ChatFormatting;
@@ -385,8 +386,10 @@ public class Structure {
             return false;
         }
 
-        // Play the building sound.
-        world.playSound(null, originalPos, ModRegistry.BuildingBlueprint.get(), SoundSource.NEUTRAL, 0.8f, 0.8f);
+        if (CommonProxy.proxyConfiguration.serverConfiguration.playBuildingSound) {
+            // Play the building sound.
+            world.playSound(null, originalPos, ModRegistry.BuildingBlueprint.get(), SoundCategory.NEUTRAL, 0.8f, 0.8f);
+        }
 
         if (!this.BeforeBuilding(configuration, world, originalPos, assumedNorth, player)) {
             try {
@@ -470,6 +473,9 @@ public class Structure {
                 this.assumedNorth = assumedNorth;
                 this.originalPos = originalPos;
 
+                // Set all the tile entities here.
+                this.setBlockEntities();
+
                 this.AfterBuilding(this.configuration, this.world, this.originalPos, this.assumedNorth, player);
             } catch (Exception ex) {
                 Prefab.LOGGER.error(ex);
@@ -503,6 +509,7 @@ public class Structure {
 
     /**
      * Processes before the hanging entity is removed.
+     *
      * @param hangingEntity The entity to process.
      */
     public void BeforeHangingEntityRemoved(HangingEntity hangingEntity) {
@@ -652,5 +659,34 @@ public class Structure {
 
     protected FullDyeColor getGlassColor(StructureConfiguration configuration) {
         return FullDyeColor.CLEAR;
+    }
+
+    protected void setBlockEntities() {
+        try {
+            for (BuildTileEntity buildTileEntity : this.tileEntities) {
+                BlockPos tileEntityPos = buildTileEntity.getStartingPosition().getRelativePosition(this.originalPos,
+                        this.getClearSpace().getShape().getDirection(), this.configuration.houseFacing);
+                TileEntity tileEntity = this.world.getBlockEntity(tileEntityPos);
+                BlockState tileBlock = this.world.getBlockState(tileEntityPos);
+
+                if (tileEntity == null) {
+                    TileEntity.loadStatic(tileBlock, buildTileEntity.getEntityDataTag());
+                } else {
+                    this.world.removeBlockEntity(tileEntityPos);
+                    tileEntity = TileEntity.loadStatic(tileBlock, buildTileEntity.getEntityDataTag());
+                    this.world.setBlockEntity(tileEntityPos, tileEntity);
+                    this.world.getChunkAt(tileEntityPos).markUnsaved();
+                    tileEntity.setChanged();
+                    SUpdateTileEntityPacket packet = tileEntity.getUpdatePacket();
+
+                    if (packet != null) {
+                        this.world.getServer().getPlayerList().broadcastAll(packet);
+                    }
+                }
+            }
+        }
+        catch (Exception ex) {
+            Prefab.LOGGER.error(ex);
+        }
     }
 }
