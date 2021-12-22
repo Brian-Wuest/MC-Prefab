@@ -51,12 +51,12 @@ public class StructureBulldozer extends Structure {
         // Only harvest up to diamond level and non-indestructible blocks.
         if (!specificConfiguration.creativeMode && Prefab.proxy.getServerConfiguration().allowBulldozerToCreateDrops
                 && correctHarvestLevel && destroySpeed >= 0.0f) {
-            Block.dropResources(state, this.world, blockPos);
+            Block.dropResources(state, world, blockPos);
         }
 
         if (specificConfiguration.creativeMode && state.getBlock() instanceof LiquidBlock) {
             // This is a fluid block, replace it with stone; so it can be cleared.
-            BuildingMethods.ReplaceBlock(this.world, blockPos, Blocks.STONE);
+            BuildingMethods.ReplaceBlock(world, blockPos, Blocks.STONE);
         }
 
         return true;
