@@ -5,8 +5,8 @@
     "1.10.2-recommended": "1.1.1.16",
     "1.11.2-latest": "1.2.0.19",
     "1.11.2-recommended": "1.2.0.19",
-    "1.12-latest": "1.3.1.2",
-    "1.12-recommended": "1.3.1.2",
+    "1.12-latest": "1.3.1.5",
+    "1.12-recommended": "1.3.1.5",
     "1.14-latest": "1.4.0.18",
     "1.14-recommended": "1.4.0.18",
     "1.15-latest": "1.5.0.10",
@@ -19,8 +19,8 @@
     "1.16.3-recommended": "1.6.2.1",
     "1.16.4-latest": "1.6.4.3",
     "1.16.4-recommended": "1.6.4.3",
-    "1.16.5-latest": "1.6.5.8",
-    "1.16.5-recommended": "1.6.5.8"
+    "1.16.5-latest": "1.6.5.15",
+    "1.16.5-recommended": "1.6.5.15"
   },
   "1.10.2": {
     "1.1.1.10": "New Stuff: Added [Ender Gateway] structure. Added [Phasic Block] and [Boundary Block]\nSome buildings can now be generated in mod-created dimensions.",
@@ -78,7 +78,10 @@
     "1.3.0.26": "Adds saloon structure and fixes some other structure generation issues",
     "1.3.1.0": "Added a LOT of new functionality. Checkout the CurseForge release page for more information! Warning: Breaking changes ahead!",
     "1.3.1.1": "Fixed a big issue where the mod simply would not load",
-    "1.3.1.2": "Fixed issues with starting houses not generating. Fixed version number in mod info. Re-vamped all blueprint screens"
+    "1.3.1.2": "Fixed issues with starting houses not generating. Fixed version number in mod info. Re-vamped all blueprint screens",
+    "1.3.1.3": "Added creative tab for prefab. Textures updated for some storage blocks"
+    "1.3.1.4": "Fixed issue with bulldozer not being able to be enchanted",
+    "1.3.1.5": "Fixed monster masher spawns and sign. Updated checkbox texture. Added more info to unbreakable block detection. Removed excessive recipes"
   },
   "1.14": {
     "1.4.0.0": "Initial release containing latest updates from 1.3.0.26. Added Japanese translation file. Basic starting house was updated from procedurally generated building to a static building.",
@@ -141,6 +144,13 @@
     "1.6.5.5": "Fixed issue with the workshop where it would not generate the mineshaft. Added Ukrainian language file",
     "1.6.5.6": "Added Clear glass options to some blueprints, added Sandstone and Red Sandstone to Structure Part and Instant Bridge. Fixed more Internationalization issues",
     "1.6.5.7": "Re-vamped all blueprint screens, fixed some translations, added second Acacia style house to Moderate House item, added modern buildings",
-    "1.6.5.8": "Added many new items and blocks such as Swift Blades and Dirt Walls. Also added more buildings for the Modern Buildings item"
+    "1.6.5.8": "Added many new items and blocks such as Swift Blades and Dirt Walls. Also added more buildings for the Modern Buildings item",
+    "1.6.5.9": "Fixed issue where infinite blueprints could be obtained. Fixed issue with water in the nether. Swift Blade updates. Many texture updates. Campsite starter house",
+    "1.6.5.10": "Added beds to villager houses. Added custom creative tab for the mod. Compressed Chest texture has been updated. Added Modern Tree House",
+    "1.6.5.11": "The GREATE CONSOLIDATION! Please see full release notes on CurseForge",
+    "1.6.5.12": "Fixed campsite starter house so it generates again. Added light to Modern Tree House. Fixed some recipes"
+    "1.6.5.13": "Instant Building! Updated checkbox textures. Lots of other updates. Please see full release ntoes on CurseForge",
+    "1.6.5.14": "Fixed spawners and the sign on the monster masher",
+    "1.6.5.15": "Added configuration option for the building sound. Fixed lecterns for the town hall. Fixed various entity generation. Fixed the bulldozer for survival mode"
   }
 }
