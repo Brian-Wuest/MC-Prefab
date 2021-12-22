@@ -14,12 +14,16 @@ import com.wuest.prefab.structures.config.enums.BaseOption;
 import com.wuest.prefab.structures.config.enums.ModerateFarmOptions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.SignBlockEntity;
+import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 
@@ -81,11 +85,63 @@ public class StructureBasic extends Structure {
                     originalPos,
                     this.getClearSpace().getShape().getDirection(),
                     configuration.houseFacing));
-        } else if (foundBlock instanceof AbstractSignBlock && structureName.equals(EnumBasicStructureName.AdvancedFarm.getName()) && chosenOption == AdvancedFarmOptions.MonsterMasher) {
+        } else if (foundBlock instanceof SignBlock && structureName.equals(EnumBasicStructureName.AdvancedFarm.getName()) && chosenOption == AdvancedFarmOptions.MonsterMasher) {
             this.signPosition = block.getStartingPosition().getRelativePosition(
                     originalPos,
                     this.getClearSpace().getShape().getDirection(),
                     configuration.houseFacing);
+        }
+
+        if (structureName.equals(EnumBasicStructureName.AdvancedFarm.getName()) && chosenOption == AdvancedFarmOptions.MonsterMasher) {
+            int monstersPlaced = 0;
+
+            // Set the spawner.
+            for (BlockPos pos : this.mobSpawnerPos) {
+                BlockEntity tileEntity = world.getBlockEntity(pos);
+
+                if (tileEntity instanceof SpawnerBlockEntity) {
+                    SpawnerBlockEntity spawner = (SpawnerBlockEntity) tileEntity;
+
+                    switch (monstersPlaced) {
+                        case 0: {
+                            // Zombie.
+                            spawner.getSpawner().setEntityId(EntityType.ZOMBIE);
+                            break;
+                        }
+
+                        case 1: {
+                            // Skeleton.
+                            spawner.getSpawner().setEntityId(EntityType.SKELETON);
+                            break;
+                        }
+
+                        case 2: {
+                            // Spider.
+                            spawner.getSpawner().setEntityId(EntityType.SPIDER);
+                            break;
+                        }
+
+                        default: {
+                            // Creeper.
+                            spawner.getSpawner().setEntityId(EntityType.CREEPER);
+                            break;
+                        }
+                    }
+
+                    monstersPlaced++;
+                }
+            }
+
+            if (this.signPosition != null) {
+                BlockEntity tileEntity = world.getBlockEntity(this.signPosition);
+
+                if (tileEntity instanceof SignBlockEntity) {
+                    SignBlockEntity signTile = (SignBlockEntity) tileEntity;
+                    signTile.setMessage(0, new TextComponent("Lamp On=Mobs"));
+
+                    signTile.setMessage(2, new TextComponent("Lamp Off=No Mobs"));
+                }
+            }
         }
 
         return false;
@@ -175,58 +231,6 @@ public class StructureBasic extends Structure {
 
             airPos = airPos.above();
             world.removeBlock(airPos, false);
-        }
-
-        if (structureName.equals(EnumBasicStructureName.AdvancedFarm.getName()) && chosenOption == AdvancedFarmOptions.MonsterMasher) {
-            int monstersPlaced = 0;
-
-            // Set the spawner.
-            for (BlockPos pos : this.mobSpawnerPos) {
-                TileEntity tileEntity = world.getBlockEntity(pos);
-
-                if (tileEntity instanceof MobSpawnerTileEntity) {
-                    MobSpawnerTileEntity spawner = (MobSpawnerTileEntity) tileEntity;
-
-                    switch (monstersPlaced) {
-                        case 0: {
-                            // Zombie.
-                            spawner.getSpawner().setEntityId(EntityType.ZOMBIE);
-                            break;
-                        }
-
-                        case 1: {
-                            // Skeleton.
-                            spawner.getSpawner().setEntityId(EntityType.SKELETON);
-                            break;
-                        }
-
-                        case 2: {
-                            // Spider.
-                            spawner.getSpawner().setEntityId(EntityType.SPIDER);
-                            break;
-                        }
-
-                        default: {
-                            // Creeper.
-                            spawner.getSpawner().setEntityId(EntityType.CREEPER);
-                            break;
-                        }
-                    }
-
-                    monstersPlaced++;
-                }
-            }
-
-            if (this.signPosition != null) {
-                TileEntity tileEntity = world.getBlockEntity(this.signPosition);
-
-                if (tileEntity instanceof SignTileEntity) {
-                    SignTileEntity signTile = (SignTileEntity) tileEntity;
-                    signTile.setMessage(0, new StringTextComponent("Lamp On=Mobs"));
-
-                    signTile.setMessage(2, new StringTextComponent("Lamp Off=No Mobs"));
-                }
-            }
         }
     }
 

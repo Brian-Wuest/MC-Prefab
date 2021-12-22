@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 import com.wuest.prefab.*;
+import com.wuest.prefab.blocks.BlockFlags;
 import com.wuest.prefab.blocks.FullDyeColor;
 import com.wuest.prefab.gui.GuiLangKeys;
 import com.wuest.prefab.proxy.CommonProxy;
@@ -13,6 +14,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.decoration.HangingEntity;
@@ -37,7 +39,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.io.StringWriter;
@@ -388,7 +389,7 @@ public class Structure {
 
         if (CommonProxy.proxyConfiguration.serverConfiguration.playBuildingSound) {
             // Play the building sound.
-            world.playSound(null, originalPos, ModRegistry.BuildingBlueprint.get(), SoundCategory.NEUTRAL, 0.8f, 0.8f);
+            world.playSound(null, originalPos, ModRegistry.BuildingBlueprint.get(), SoundSource.NEUTRAL, 0.8f, 0.8f);
         }
 
         if (!this.BeforeBuilding(configuration, world, originalPos, assumedNorth, player)) {
@@ -429,18 +430,18 @@ public class Structure {
                             Block blockToPlace = block.getBlockState().getBlock();
 
                             // Some blocks need to happen later because they attach to solid blocks and have no collision logic.
-                            // Fluid blocks may not have collision but they should always be placed.
+                            // Fluid blocks may not have collision; but they should always be placed.
                             if (!blockToPlace.hasCollision && !(blockToPlace instanceof LiquidBlock)) {
                                 laterBlocks.add(new Tuple<>(block.getBlockState(), setBlockPos));
                             } else {
-                                world.setBlock(setBlockPos, block.getBlockState(), Constants.BlockFlags.DEFAULT);
+                                world.setBlock(setBlockPos, block.getBlockState(), BlockFlags.DEFAULT);
                             }
 
                             if (subBlock != null) {
                                 BlockPos subBlockPos = subBlock.getStartingPosition().getRelativePosition(originalPos,
                                         this.getClearSpace().getShape().getDirection(), configuration.houseFacing);
 
-                                world.setBlock(subBlockPos, subBlock.getBlockState(), Constants.BlockFlags.DEFAULT);
+                                world.setBlock(subBlockPos, subBlock.getBlockState(), BlockFlags.DEFAULT);
                             }
                         }
                     } else {
@@ -453,7 +454,7 @@ public class Structure {
                         BlockPos setBlockPos = block.getStartingPosition().getRelativePosition(originalPos,
                                 this.getClearSpace().getShape().getDirection(), configuration.houseFacing);
 
-                        world.setBlock(setBlockPos, block.getBlockState(), Constants.BlockFlags.DEFAULT);
+                        world.setBlock(setBlockPos, block.getBlockState(), BlockFlags.DEFAULT);
 
                         if (!blockPlacedWithCobbleStoneInstead) {
                             blockPlacedWithCobbleStoneInstead = true;
@@ -465,7 +466,7 @@ public class Structure {
                 }
 
                 for (Tuple<BlockState, BlockPos> block : laterBlocks) {
-                    world.setBlock(block.getSecond(), block.getFirst(), Constants.BlockFlags.DEFAULT);
+                    world.setBlock(block.getSecond(), block.getFirst(), BlockFlags.DEFAULT);
                 }
 
                 this.configuration = configuration;
@@ -612,7 +613,7 @@ public class Structure {
                 BlockPos setBlockPos = block.getStartingPosition().getRelativePosition(originalPos,
                         this.getClearSpace().getShape().getDirection(), configuration.houseFacing);
 
-                world.setBlock(setBlockPos, block.getBlockState(), Constants.BlockFlags.DEFAULT);
+                world.setBlock(setBlockPos, block.getBlockState(), BlockFlags.DEFAULT);
 
                 return true;
             }
@@ -666,18 +667,18 @@ public class Structure {
             for (BuildTileEntity buildTileEntity : this.tileEntities) {
                 BlockPos tileEntityPos = buildTileEntity.getStartingPosition().getRelativePosition(this.originalPos,
                         this.getClearSpace().getShape().getDirection(), this.configuration.houseFacing);
-                TileEntity tileEntity = this.world.getBlockEntity(tileEntityPos);
+                BlockEntity tileEntity = this.world.getBlockEntity(tileEntityPos);
                 BlockState tileBlock = this.world.getBlockState(tileEntityPos);
 
                 if (tileEntity == null) {
-                    TileEntity.loadStatic(tileBlock, buildTileEntity.getEntityDataTag());
+                    BlockEntity.loadStatic(tileEntityPos, tileBlock, buildTileEntity.getEntityDataTag());
                 } else {
                     this.world.removeBlockEntity(tileEntityPos);
-                    tileEntity = TileEntity.loadStatic(tileBlock, buildTileEntity.getEntityDataTag());
-                    this.world.setBlockEntity(tileEntityPos, tileEntity);
+                    tileEntity = BlockEntity.loadStatic(tileEntityPos, tileBlock, buildTileEntity.getEntityDataTag());
+                    this.world.setBlockEntity(tileEntity);
                     this.world.getChunkAt(tileEntityPos).markUnsaved();
                     tileEntity.setChanged();
-                    SUpdateTileEntityPacket packet = tileEntity.getUpdatePacket();
+                    ClientboundBlockEntityDataPacket packet = tileEntity.getUpdatePacket();
 
                     if (packet != null) {
                         this.world.getServer().getPlayerList().broadcastAll(packet);
