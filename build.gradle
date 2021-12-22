@@ -36,6 +36,8 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(16)
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 println("${projectDir}")
+println("Mod Version: ${config.mod_version}")
+println("Forge Version: ${config.forge_version}")
 
 minecraft {
     mappings channel: 'official', version: '1.17.1'

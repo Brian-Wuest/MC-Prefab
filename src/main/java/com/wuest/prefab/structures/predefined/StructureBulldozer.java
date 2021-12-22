@@ -39,19 +39,16 @@ public class StructureBulldozer extends Structure {
         this.setBlocks(new ArrayList<>());
     }
 
-    /**
-     * This method is to process before a clear space block is set to air.
-     *
-     * @param pos The block position being processed.
-     */
     @Override
-    public void BeforeClearSpaceBlockReplaced(BlockPos pos) {
-        BlockState state = this.world.getBlockState(pos);
-        BulldozerConfiguration configuration = (BulldozerConfiguration) this.configuration;
+    protected Boolean BlockShouldBeClearedDuringConstruction(StructureConfiguration configuration, World world, BlockPos originalPos, Direction assumedNorth, BlockPos blockPos) {
+        BlockState state = world.getBlockState(blockPos);
+        BulldozerConfiguration specificConfiguration = (BulldozerConfiguration) configuration;
+        boolean correctHarvestLevel = TierSortingRegistry.isCorrectTierForDrops(Tiers.DIAMOND, state);
+        float destroySpeed = state.getDestroySpeed(world, blockPos);
 
         // Only harvest up to diamond level and non-indestructible blocks.
         if (!configuration.creativeMode && Prefab.proxy.getServerConfiguration().allowBulldozerToCreateDrops
-                && TierSortingRegistry.isCorrectTierForDrops(Tiers.DIAMOND, state) && state.getDestroySpeed(world, pos) >= 0.0f) {
+                && correctHarvestLevel && destroySpeed >= 0.0f) {
             Block.dropResources(state, this.world, pos);
         }
 
@@ -59,6 +56,8 @@ public class StructureBulldozer extends Structure {
             // This is a fluid block, replace it with stone so it can be cleared.
             BuildingMethods.ReplaceBlock(this.world, pos, Blocks.STONE);
         }
+
+        return true;
     }
 
     @Override
