@@ -54,7 +54,7 @@ minecraft {
             property 'forge.logging.markers', 'REGISTRIES'
 
             // Recommended logging level for the console
-            property 'forge.logging.console.level', 'debug'
+            property 'forge.logging.console.level', 'info'
 
             // Set mixin stuff
             property 'mixin.env.remapRefMap', 'true'
@@ -74,7 +74,7 @@ minecraft {
             property 'forge.logging.markers', 'REGISTRIES'
 
             // Recommended logging level for the console
-            property 'forge.logging.console.level', 'debug'
+            property 'forge.logging.console.level', 'info'
 
             // Set mixin stuff
             property 'mixin.env.remapRefMap', 'true'
@@ -93,7 +93,7 @@ minecraft {
             property 'forge.logging.markers', 'REGISTRIES'
 
             // Recommended logging level for the console
-            property 'forge.logging.console.level', 'debug'
+            property 'forge.logging.console.level', 'info'
 
             // Set mixin stuff
             property 'mixin.env.remapRefMap', 'true'
