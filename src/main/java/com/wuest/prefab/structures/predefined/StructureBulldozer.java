@@ -5,6 +5,7 @@ import com.wuest.prefab.structures.base.BuildClear;
 import com.wuest.prefab.structures.base.BuildingMethods;
 import com.wuest.prefab.structures.base.Structure;
 import com.wuest.prefab.structures.config.BulldozerConfiguration;
+import com.wuest.prefab.structures.config.StructureConfiguration;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -12,6 +13,7 @@ import net.minecraft.block.FlowingFluidBlock;
 import net.minecraft.entity.item.HangingEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 import java.util.ArrayList;
 
@@ -37,25 +39,24 @@ public class StructureBulldozer extends Structure {
         this.setBlocks(new ArrayList<>());
     }
 
-    /**
-     * This method is to process before a clear space block is set to air.
-     *
-     * @param pos The block position being processed.
-     */
     @Override
-    public void BeforeClearSpaceBlockReplaced(BlockPos pos) {
-        BlockState state = this.world.getBlockState(pos);
-        BulldozerConfiguration configuration = (BulldozerConfiguration) this.configuration;
+    protected Boolean BlockShouldBeClearedDuringConstruction(StructureConfiguration configuration, World world, BlockPos originalPos, Direction assumedNorth, BlockPos blockPos) {
+        BlockState state = world.getBlockState(blockPos);
+        BulldozerConfiguration specificConfiguration = (BulldozerConfiguration) configuration;
+        int harvestLevel = state.getHarvestLevel();
+        float destroySpeed = state.getDestroySpeed(world, blockPos);
 
         // Only harvest up to diamond level and non-indestructible blocks.
-        if (!configuration.creativeMode && Prefab.proxy.getServerConfiguration().allowBulldozerToCreateDrops && state.getBlock().getHarvestLevel(state) < 4 && state.getDestroySpeed(world, pos) >= 0.0f) {
-            Block.dropResources(state, this.world, pos);
+        if (!specificConfiguration.creativeMode && Prefab.proxy.getServerConfiguration().allowBulldozerToCreateDrops && harvestLevel < 4 && destroySpeed >= 0.0f) {
+            Block.dropResources(state, world, blockPos);
         }
 
-        if (configuration.creativeMode && state.getBlock() instanceof FlowingFluidBlock) {
+        if (specificConfiguration.creativeMode && state.getBlock() instanceof FlowingFluidBlock) {
             // This is a fluid block. Replace it with stone, so it can be cleared.
-            BuildingMethods.ReplaceBlock(this.world, pos, Blocks.STONE.defaultBlockState(), 2);
+            BuildingMethods.ReplaceBlock(world, blockPos, Blocks.STONE.defaultBlockState(), 2);
         }
+
+        return true;
     }
 
     @Override
