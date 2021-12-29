@@ -102,14 +102,10 @@ public class BlockBoundary extends Block {
      * @param world       The current world
      * @param player      The player damaging the block, may be null
      * @param pos         Block position in world
-     * @param willHarvest True if Block.harvestBlock will be called after this, if the return in true. Can be useful to
-     *                    delay the destruction of tile entities till after harvestBlock
-     * @param fluid       The current fluid state at current position
-     * @return True if the block is actually destroyed.
      */
     @Override
-    public boolean removedByPlayer(BlockState state, Level world, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
-        boolean returnValue = super.removedByPlayer(state, world, pos, player, willHarvest, fluid);
+    public void playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
+        super.playerWillDestroy(world, pos, state, player);
 
         ModEventHandler.RedstoneAffectedBlockPositions.remove(pos);
 
@@ -118,8 +114,6 @@ public class BlockBoundary extends Block {
         if (poweredSide) {
             this.setNeighborGlassBlocksPoweredStatus(world, pos, false, 0, new ArrayList<>(), false);
         }
-
-        return returnValue;
     }
 
     /**

@@ -57,13 +57,10 @@ public abstract class TileEntityBase<T extends BaseConfig> extends BlockEntity {
 	public ClientboundBlockEntityDataPacket getUpdatePacket() {
 		// Don't send the packet until the position has been set.
 		if (this.worldPosition.getX() == 0 && this.worldPosition.getY() == 0 && this.worldPosition.getZ() == 0) {
-			return super.getUpdatePacket();
+			return null;
 		}
 
-		CompoundTag tag = new CompoundTag();
-		this.save(tag);
-
-		return new ClientboundBlockEntityDataPacket(this.getBlockPos(), 1, tag);
+		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
 	@Override

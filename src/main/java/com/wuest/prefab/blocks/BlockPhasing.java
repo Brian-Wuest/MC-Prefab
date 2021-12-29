@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -77,7 +78,7 @@ public class BlockPhasing extends Block {
 
             if (progress == EnumPhasingProgress.base) {
                 // Only trigger the phasing when this block is not currently phasing.
-                world.getBlockTicks().scheduleTick(pos, this, this.tickRate);
+                world.scheduleTick(pos, this, this.tickRate);
             }
         }
 
@@ -109,10 +110,10 @@ public class BlockPhasing extends Block {
      * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
      */
     @Override
-    public boolean removedByPlayer(BlockState state, Level world, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
+    public void playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
         EnumPhasingProgress currentState = state.getValue(Phasing_Progress);
 
-        boolean returnValue = super.removedByPlayer(state, world, pos, player, willHarvest, fluid);
+        super.playerWillDestroy(world, pos, state, player);
 
         ModEventHandler.RedstoneAffectedBlockPositions.remove(pos);
 
@@ -122,8 +123,6 @@ public class BlockPhasing extends Block {
             // Set this block and all neighbor Phasic Blocks to base. This will cascade to tall touching Phasic blocks.
             this.updateNeighborPhasicBlocks(false, world, pos, state, false, false);
         }
-
-        return returnValue;
     }
 
     /**
@@ -168,7 +167,7 @@ public class BlockPhasing extends Block {
                 Block currentBlock = worldIn.getBlockState(pos.relative(facing)).getBlock();
 
                 if (currentBlock instanceof BlockPhasing && !ModEventHandler.RedstoneAffectedBlockPositions.contains(pos.relative(facing))) {
-                    worldIn.getBlockTicks().scheduleTick(pos.relative(facing), currentBlock, tickDelay);
+                    worldIn.scheduleTick(pos.relative(facing), currentBlock, tickDelay);
                 }
             }
 
@@ -208,7 +207,7 @@ public class BlockPhasing extends Block {
         }*/
 
         if (tickDelay > 0) {
-            worldIn.getBlockTicks().scheduleTick(pos, this, tickDelay);
+            worldIn.scheduleTick(pos, this, tickDelay);
         }
     }
 

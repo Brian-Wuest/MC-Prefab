@@ -15,7 +15,6 @@ import com.wuest.prefab.structures.predefined.StructureInstantBridge;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.fmlclient.gui.widget.Slider;
 
 @SuppressWarnings("SpellCheckingInspection")
 public class GuiInstantBridge extends GuiStructure {

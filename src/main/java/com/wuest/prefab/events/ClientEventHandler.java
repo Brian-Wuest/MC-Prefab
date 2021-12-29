@@ -1,7 +1,5 @@
 package com.wuest.prefab.events;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.config.EntityPlayerConfiguration;
 import com.wuest.prefab.proxy.ClientProxy;
@@ -19,7 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.client.event.RenderLevelLastEvent;
 import net.minecraftforge.event.TickEvent.ClientTickEvent;
 import net.minecraftforge.event.TickEvent.Phase;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -58,11 +56,11 @@ public final class ClientEventHandler {
      * @param event The event object.
      */
     @SubscribeEvent
-    public static void onWorldRenderLast(RenderWorldLastEvent event) {
+    public static void onWorldRenderLast(RenderLevelLastEvent event) {
         Minecraft mc = Minecraft.getInstance();
 
         if (mc.player != null && (!mc.player.isCrouching())) {
-            StructureRenderHandler.renderPlayerLook(mc.player, mc.hitResult, event.getMatrixStack());
+            StructureRenderHandler.renderPlayerLook(mc.player, mc.hitResult, event.getPoseStack());
         }
     }
 

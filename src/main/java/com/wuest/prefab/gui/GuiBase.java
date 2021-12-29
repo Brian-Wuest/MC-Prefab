@@ -19,7 +19,6 @@ import net.minecraft.network.chat.FormattedText;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.item.DyeColor;
-import net.minecraftforge.fmlclient.gui.widget.Slider;
 import java.awt.Color;
 import java.util.List;
 

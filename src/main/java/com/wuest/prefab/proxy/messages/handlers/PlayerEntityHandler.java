@@ -5,7 +5,7 @@ import com.wuest.prefab.events.ClientEventHandler;
 import com.wuest.prefab.proxy.messages.PlayerEntityTagMessage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraftforge.fmllegacy.network.NetworkEvent;
+import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
