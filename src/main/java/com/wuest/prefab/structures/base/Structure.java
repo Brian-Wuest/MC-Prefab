@@ -666,6 +666,11 @@ public class Structure {
     protected void setBlockEntities() {
         try {
             for (BuildTileEntity buildTileEntity : this.tileEntities) {
+                // Beds are processed separately.
+                if (buildTileEntity.getEntityName().equals("bed")) {
+                    continue;
+                }
+                
                 BlockPos tileEntityPos = buildTileEntity.getStartingPosition().getRelativePosition(this.originalPos,
                         this.getClearSpace().getShape().getDirection(), this.configuration.houseFacing);
                 BlockEntity tileEntity = this.world.getBlockEntity(tileEntityPos);
