@@ -40,6 +40,12 @@ public abstract class TileEntityBase<T extends BaseConfig> extends BlockEntity {
 	public void setConfig(T value) {
 		this.config = value;
 		this.setChanged();
+
+		CompoundTag tileData = this.getTileData();
+
+		if (this.config != null) {
+			this.config.WriteToNBTCompound(tileData);
+		}
 	}
 
 	public Class<T> getTypeParameterClass() {
@@ -76,11 +82,13 @@ public abstract class TileEntityBase<T extends BaseConfig> extends BlockEntity {
 
 	@Override
 	public CompoundTag save(CompoundTag compound) {
-		compound = super.save(compound);
+		CompoundTag tileData = this.getTileData();
 
 		if (this.config != null) {
-			this.config.WriteToNBTCompound(compound);
+			this.config.WriteToNBTCompound(tileData);
 		}
+
+		compound = super.save(compound);
 
 		return compound;
 	}
@@ -89,7 +97,7 @@ public abstract class TileEntityBase<T extends BaseConfig> extends BlockEntity {
 	public void load(CompoundTag compound) {
 		super.load(compound);
 
-		this.config = this.createConfigInstance().ReadFromCompoundTag(compound);
+		this.config = this.createConfigInstance().ReadFromCompoundTag(this.getTileData());
 	}
 
 	public T createConfigInstance() {

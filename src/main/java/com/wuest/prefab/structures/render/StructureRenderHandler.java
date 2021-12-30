@@ -332,6 +332,10 @@ public class StructureRenderHandler {
                                            double cameraX,
                                            double cameraY,
                                            double cameraZ) {
+        if (Prefab.proxy.structureScanners.size() == 0) {
+            return;
+        }
+
         for (int i = 0; i < Prefab.proxy.structureScanners.size(); i++) {
             StructureScannerConfig config = Prefab.proxy.structureScanners.get(i);
 

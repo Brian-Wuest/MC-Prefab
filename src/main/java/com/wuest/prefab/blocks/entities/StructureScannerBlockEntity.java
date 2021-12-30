@@ -20,6 +20,16 @@ public class StructureScannerBlockEntity extends TileEntityBase<StructureScanner
     }
 
     public static void ScanShape(StructureScannerConfig config, ServerPlayer playerEntity, ServerLevel serverWorld) {
+        // Make sure to update the tile entity data.
+        StructureScannerBlockEntity entity = (StructureScannerBlockEntity) serverWorld.getBlockEntity(config.blockPos);
+
+        if (entity == null) {
+            return;
+        }
+
+        entity.config = config;
+        entity.setChanged();
+
         BuildClear clearedSpace = new BuildClear();
         clearedSpace.getShape().setDirection(config.direction);
         clearedSpace.getShape().setHeight(config.blocksTall);

@@ -43,8 +43,8 @@ public class GuiStructureScanner extends GuiBase {
 
         this.blockPos = blockPos;
         this.world = world;
-        this.config = config;
-        this.config.blockPos = this.blockPos;
+        config.blockPos = blockPos;
+        this.config = this.findExistingConfig(config);
     }
 
     @Override
@@ -132,23 +132,6 @@ public class GuiStructureScanner extends GuiBase {
             this.sendScanPacket();
             this.closeScreen();
         } else if (button == this.btnSet) {
-            // Look through the list of scanners to see if it's already there, if so don't do anything.
-            // Otherwise add it to the list of scanners.
-            boolean foundExistingConfig = false;
-
-            for (StructureScannerConfig config : Prefab.proxy.structureScanners) {
-                if (config.blockPos.getX() == this.config.blockPos.getX()
-                        && config.blockPos.getZ() == this.config.blockPos.getZ()
-                        && config.blockPos.getY() == this.config.blockPos.getY()) {
-                    foundExistingConfig = true;
-                    break;
-                }
-            }
-
-            if (!foundExistingConfig) {
-                Prefab.proxy.structureScanners.add(this.config);
-            }
-
             this.closeScreen();
         } else {
             if (button == this.btnStartingPositionMoveLeft) {
@@ -203,5 +186,27 @@ public class GuiStructureScanner extends GuiBase {
     private void sendScanPacket() {
         StructureScannerActionMessage messagePacket = Utils.createGenericMessage(this.config.GetCompoundTag(), StructureScannerActionMessage.class);
        Prefab.network.sendToServer(messagePacket);
+    }
+
+    private StructureScannerConfig findExistingConfig(StructureScannerConfig config) {
+        boolean foundExistingConfig = false;
+
+        // Look through the list of scanners to see if it's already there, if so don't do anything.
+        // Otherwise; add it to the list of scanners.
+        for (StructureScannerConfig globalConfig : Prefab.proxy.structureScanners) {
+            if (globalConfig.blockPos.getX() == config.blockPos.getX()
+                    && globalConfig.blockPos.getZ() == config.blockPos.getZ()
+                    && globalConfig.blockPos.getY() == config.blockPos.getY()) {
+                foundExistingConfig = true;
+                config = globalConfig;
+                break;
+            }
+        }
+
+        if (!foundExistingConfig) {
+            Prefab.proxy.structureScanners.add(config);
+        }
+
+        return config;
     }
 }
