@@ -536,20 +536,23 @@ public class BuildingMethods {
             blocksToNotAdd.add(Item.byBlock(Blocks.MOSSY_STONE_BRICKS));
         }
 
+        int minimumHeightForMineshaft = world.getMinBuildHeight() + 21;
+
         Triple<ArrayList<ItemStack>, ArrayList<BlockPos>, ArrayList<BlockPos>> ladderShaftResults = BuildingMethods.CreateLadderShaft(
                 world,
                 pos,
                 stacks,
                 facing,
-                blocksToNotAdd);
+                blocksToNotAdd,
+                minimumHeightForMineshaft);
 
         ArrayList<BlockPos> blockPositions = new ArrayList<>(ladderShaftResults.getThird());
 
         stacks = ladderShaftResults.getFirst();
         ArrayList<BlockPos> torchPositions = ladderShaftResults.getSecond();
 
-        // Get to Y11;
-        pos = pos.below(pos.getY() - 10);
+        // Get 20 blocks above the void.
+        pos = pos.below(pos.getY() - minimumHeightForMineshaft);
 
         ArrayList<ItemStack> tempStacks = new ArrayList<>();
 
@@ -688,8 +691,13 @@ public class BuildingMethods {
         }
     }
 
-    private static Triple<ArrayList<ItemStack>, ArrayList<BlockPos>, ArrayList<BlockPos>> CreateLadderShaft(ServerLevel world, BlockPos pos, ArrayList<ItemStack> originalStacks, Direction houseFacing,
-                                                                                                            ArrayList<Item> blocksToNotAdd) {
+    private static Triple<ArrayList<ItemStack>, ArrayList<BlockPos>, ArrayList<BlockPos>> CreateLadderShaft(
+            ServerLevel world,
+            BlockPos pos,
+            ArrayList<ItemStack> originalStacks,
+            Direction houseFacing,
+            ArrayList<Item> blocksToNotAdd,
+            int minimumHeightForMineshaft) {
         int torchCounter = 0;
 
         // Keep the "west" facing.
@@ -703,7 +711,9 @@ public class BuildingMethods {
         ArrayList<BlockPos> torchPositions = new ArrayList<>();
         ArrayList<BlockPos> allBlockPositions = new ArrayList<>();
 
-        while (pos.getY() > 8) {
+        int lastHeightForTorch = minimumHeightForMineshaft + 6;
+
+        while (pos.getY() > minimumHeightForMineshaft) {
             BlockState state = world.getBlockState(pos);
             Block block = state.getBlock();
             torchCounter++;
@@ -734,7 +744,7 @@ public class BuildingMethods {
                 // Every 6 blocks, place a torch on the west wall.
                 // If we are close to the bottom, don't place a torch. Do the
                 // normal processing.
-                if (facing == westWall && torchCounter == 6 && pos.getY() > 14) {
+                if (facing == westWall && torchCounter == 6 && pos.getY() > lastHeightForTorch) {
                     // First make sure the blocks around this block are stone, then place the torch.
                     for (int j = 0; j <= 2; j++) {
                         BlockPos tempPos;
@@ -788,7 +798,7 @@ public class BuildingMethods {
             originalStacks = BuildingMethods.ConsolidateDrops(world, pos, state, originalStacks, blocksToNotAdd);
 
             // Don't place a ladder at this location since it will be destroyed.
-            if (pos.getY() >= 10) {
+            if (pos.getY() >= minimumHeightForMineshaft) {
                 BuildingMethods.ReplaceBlock(world, pos, ladderState, 2);
                 allBlockPositions.add(pos);
             }

@@ -39,7 +39,7 @@ public class StructureModerateHouse extends Structure {
 
         if (foundBlock instanceof FurnaceBlock) {
             if (this.furnacePosition == null) {
-                this.furnacePosition = new ArrayList<BlockPos>();
+                this.furnacePosition = new ArrayList<>();
             }
 
             this.furnacePosition.add(block.getStartingPosition().getRelativePosition(
@@ -106,7 +106,9 @@ public class StructureModerateHouse extends Structure {
             BuildingMethods.FillChest(world, this.chestPosition);
         }
 
-        if (this.trapDoorPosition != null && this.trapDoorPosition.getY() > 15 && houseConfig.addMineshaft) {
+        int minimumHeightForMineshaft = world.getMinBuildHeight() + 21;
+
+        if (this.trapDoorPosition != null && this.trapDoorPosition.getY() > minimumHeightForMineshaft && houseConfig.addMineshaft) {
             // Build the mineshaft.
             BuildingMethods.PlaceMineShaft(world, this.trapDoorPosition.below(), houseConfig.houseFacing, false);
         }

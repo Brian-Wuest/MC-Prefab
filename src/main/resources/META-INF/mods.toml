@@ -1,9 +1,9 @@
 modLoader="javafml" #mandatory
-loaderVersion="[37,)" #mandatory
+loaderVersion="[39,)" #mandatory
 # The license for you mod. This is mandatory metadata and allows for easier comprehension of your redistributive properties.
 # Review your options at https://choosealicense.com/. All rights reserved is the default copyright stance, and is thus the default here.
 license='''
-Copyright (c) 2020 Prefab
+Copyright (c) 2021 Prefab
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -32,7 +32,7 @@ issueTrackerURL="https://github.com/Brian-Wuest/MC-Prefab/issues" #optional
     #logoFile="" #optional
     updateJSONURL="https://raw.githubusercontent.com/Brian-Wuest/MC-Prefab/Main/changeLog.json" #optional
     displayURL="https://www.curseforge.com/minecraft/mc-mods/prefab" #optional
-    credits="Kaojinn, NerdySpider" #optional
+    credits="Kaojinn, NerdySpider, Dqu1J" #optional
     authors="WuestMan" #optional
     description='''
 Provides ways of making pre-fabricated houses and other structures.
@@ -42,13 +42,13 @@ Structure Preview functionality adapted from Botania by Vazkii http://botaniamod
 [[dependencies.prefab]]
     modId="forge" #mandatory
     mandatory=false #mandatory
-    versionRange="[37,)" #mandatory
+    versionRange="[39,)" #mandatory
     ordering="NONE"
     side="BOTH"
 [[dependencies.prefab]]
     modId="minecraft"
     mandatory=true
 # This version range declares a minimum of the current minecraft version up to but not including the next major version
-    versionRange="[1.17.1,1.18)"
+    versionRange="[1.18.1,1.19)"
     ordering="NONE"
     side="BOTH"

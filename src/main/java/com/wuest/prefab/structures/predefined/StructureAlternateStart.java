@@ -132,7 +132,9 @@ public class StructureAlternateStart extends Structure {
             BuildingMethods.FillChest(world, this.chestPosition);
         }
 
-        if (this.trapDoorPosition != null && this.trapDoorPosition.getY() > 15 && houseConfig.addMineShaft) {
+        int minimumHeightForMineshaft = world.getMinBuildHeight() + 21;
+
+        if (this.trapDoorPosition != null && this.trapDoorPosition.getY() > minimumHeightForMineshaft && houseConfig.addMineShaft) {
             // Build the mineshaft.
             BuildingMethods.PlaceMineShaft(world, this.trapDoorPosition.below(), houseConfig.houseFacing, false);
         }

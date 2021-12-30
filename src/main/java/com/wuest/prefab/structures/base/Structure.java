@@ -670,7 +670,7 @@ public class Structure {
                 if (buildTileEntity.getEntityName().equals("bed")) {
                     continue;
                 }
-                
+
                 BlockPos tileEntityPos = buildTileEntity.getStartingPosition().getRelativePosition(this.originalPos,
                         this.getClearSpace().getShape().getDirection(), this.configuration.houseFacing);
                 BlockEntity tileEntity = this.world.getBlockEntity(tileEntityPos);

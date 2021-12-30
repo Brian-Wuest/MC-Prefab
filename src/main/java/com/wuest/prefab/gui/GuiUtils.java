@@ -34,7 +34,7 @@ public class GuiUtils {
      * @param textureHeight The height of the texture.
      */
     public static void drawTexture(PoseStack matrixStack, int x, int y, int z, int width, int height, int textureWidth, int textureHeight) {
-        GuiComponent.blit(matrixStack, x, y, z, 0, 0, width, height, textureHeight, textureWidth);
+        GuiComponent.blit(matrixStack, x, y, z, 0, 0, width, height, textureWidth, textureHeight);
     }
 
     public static void drawContinuousTexturedBox(ResourceLocation res, int x, int y, int u, int v, int width, int height, int textureWidth, int textureHeight,
