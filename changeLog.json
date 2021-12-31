@@ -22,7 +22,9 @@
     "1.16.5-latest": "1.6.5.15",
     "1.16.5-recommended": "1.6.5.15",
     "1.17.1-latest": "1.7.1.2",
-    "1.17.1-recommended": "1.7.1.2"
+    "1.17.1-recommended": "1.7.1.2",
+    "1.18.1-latest": "1.8.1.0",
+    "1.18.1-recommended": "1.8.1.0"
   },
   "1.10.2": {
     "1.1.1.10": "New Stuff: Added [Ender Gateway] structure. Added [Phasic Block] and [Boundary Block]\nSome buildings can now be generated in mod-created dimensions.",
@@ -159,5 +161,8 @@
     "1.7.1.0": "Initial release for 1.17.1 containing the latest updates from 1.6.5.11",
     "1.7.1.1": "Fixing campsite house error, adding lights to modern tree house, fixing some reversal recipes",
     "1.7.1.2": "Added configuration to determine if the building sound would play. Fixed lecturns for the town hall. Fixed various entity generation issues. Fixed the bulldozer for survival mode"
+  },
+  "1.18.1": {
+    "1.8.1.0": "Initial release for 1.18.1 containing the latest updates from 1.7.1.2"
   }
 }
