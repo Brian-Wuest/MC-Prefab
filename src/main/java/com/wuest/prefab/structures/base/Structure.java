@@ -190,8 +190,7 @@ public class Structure {
                 }
 
                 ResourceLocation resourceLocation = ForgeRegistries.BLOCK_ENTITIES.getKey(tileEntity.getType());
-                CompoundTag tagCompound = new CompoundTag();
-                tileEntity.save(tagCompound);
+                CompoundTag tagCompound = tileEntity.saveWithFullMetadata();
 
                 BuildTileEntity buildTileEntity = new BuildTileEntity();
                 assert resourceLocation != null;
@@ -664,8 +663,8 @@ public class Structure {
     }
 
     protected void setBlockEntities() {
-        try {
-            for (BuildTileEntity buildTileEntity : this.tileEntities) {
+        for (BuildTileEntity buildTileEntity : this.tileEntities) {
+            try {
                 // Beds are processed separately.
                 if (buildTileEntity.getEntityName().equals("bed")) {
                     continue;
@@ -676,24 +675,29 @@ public class Structure {
                 BlockEntity tileEntity = this.world.getBlockEntity(tileEntityPos);
                 BlockState tileBlock = this.world.getBlockState(tileEntityPos);
 
-                if (tileEntity == null) {
-                    BlockEntity.loadStatic(tileEntityPos, tileBlock, buildTileEntity.getEntityDataTag());
-                } else {
+                if (tileEntity != null) {
                     this.world.removeBlockEntity(tileEntityPos);
-                    tileEntity = BlockEntity.loadStatic(tileEntityPos, tileBlock, buildTileEntity.getEntityDataTag());
-                    this.world.setBlockEntity(tileEntity);
-                    this.world.getChunkAt(tileEntityPos).setUnsaved(true);
-                    tileEntity.setChanged();
-                    Packet<ClientGamePacketListener> packet = tileEntity.getUpdatePacket();
-
-                    if (packet != null) {
-                        this.world.getServer().getPlayerList().broadcastAll(packet);
-                    }
                 }
+
+                tileEntity = BlockEntity.loadStatic(tileEntityPos, tileBlock, buildTileEntity.getEntityDataTag());
+
+                if (tileEntity == null) {
+                    continue;
+                }
+
+                this.world.removeBlockEntity(tileEntityPos);
+                tileEntity = BlockEntity.loadStatic(tileEntityPos, tileBlock, buildTileEntity.getEntityDataTag());
+                this.world.setBlockEntity(tileEntity);
+                this.world.getChunkAt(tileEntityPos).setUnsaved(true);
+                tileEntity.setChanged();
+                Packet<ClientGamePacketListener> packet = tileEntity.getUpdatePacket();
+
+                if (packet != null) {
+                    this.world.getServer().getPlayerList().broadcastAll(packet);
+                }
+            } catch (Exception ex) {
+                Prefab.LOGGER.error(ex);
             }
-        }
-        catch (Exception ex) {
-            Prefab.LOGGER.error(ex);
         }
     }
 }
