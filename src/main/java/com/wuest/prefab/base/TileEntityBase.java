@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.apache.logging.log4j.Level;
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -75,29 +76,27 @@ public abstract class TileEntityBase<T extends BaseConfig> extends BlockEntity {
 	}
 
 	@Override
-	public CompoundTag getUpdateTag() {
+	public @NotNull CompoundTag getUpdateTag() {
 		// This is overwritten so our custom save event is done.
-		return this.save(new CompoundTag());
+		CompoundTag updateTag = new CompoundTag();
+		this.saveAdditional(updateTag);
+		return updateTag;
 	}
 
 	@Override
-	public CompoundTag save(CompoundTag compound) {
+	public void load(@NotNull CompoundTag compound) {
+		super.load(compound);
+
+		this.config = this.createConfigInstance().ReadFromCompoundTag(this.getTileData());
+	}
+
+	@Override
+	public void saveAdditional(@NotNull CompoundTag compound) {
 		CompoundTag tileData = this.getTileData();
 
 		if (this.config != null) {
 			this.config.WriteToNBTCompound(tileData);
 		}
-
-		compound = super.save(compound);
-
-		return compound;
-	}
-
-	@Override
-	public void load(CompoundTag compound) {
-		super.load(compound);
-
-		this.config = this.createConfigInstance().ReadFromCompoundTag(this.getTileData());
 	}
 
 	public T createConfigInstance() {
