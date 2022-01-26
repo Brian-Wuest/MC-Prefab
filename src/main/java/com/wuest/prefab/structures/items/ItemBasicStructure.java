@@ -1,14 +1,9 @@
 package com.wuest.prefab.structures.items;
 
 import com.wuest.prefab.ModRegistry;
-import com.wuest.prefab.Prefab;
-import com.wuest.prefab.structures.config.BasicStructureConfiguration;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration.EnumBasicStructureName;
-import com.wuest.prefab.structures.config.enums.*;
 import com.wuest.prefab.structures.gui.GuiBasicStructure;
-import com.wuest.prefab.structures.predefined.StructureBasic;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;

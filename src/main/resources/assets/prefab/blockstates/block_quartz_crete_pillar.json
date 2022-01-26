@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "prefab:block/block_quartz_crete_pillar_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "prefab:block/block_quartz_crete_pillar"
+    },
+    "axis=z": {
+      "model": "prefab:block/block_quartz_crete_pillar_horizontal",
+      "x": 90
+    }
+  }
+}

@@ -16,7 +16,7 @@ public class BlockCustomWall extends WallBlock implements IGrassSpreadable {
     public EnumType BlockVariant;
 
     public BlockCustomWall(Block modelBlock, EnumType variant) {
-        super(Properties.of(Material.DIRT)
+        super(Properties.of(variant.getMaterial())
                 .strength(modelBlock.defaultBlockState().getDestroySpeed(null, null),
                         modelBlock.getExplosionResistance() * 5.0F / 3.0F)
                 .sound(modelBlock.getSoundType(null)));

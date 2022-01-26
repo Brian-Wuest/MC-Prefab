@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "prefab:block/block_quartz_crete_smooth_slab"
+    },
+    "type=double": {
+      "model": "prefab:block/block_quartz_crete_smooth"
+    },
+    "type=top": {
+      "model": "prefab:block/block_quartz_crete_smooth_slab_top"
+    }
+  }
+}

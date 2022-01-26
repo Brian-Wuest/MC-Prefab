@@ -1,0 +1,26 @@
+{
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Quartz-Crete"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Quartz-Crete",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": [
+      {
+        "item": "prefab:block_quartz_crete"
+      }
+    ]
+  },
+  "result": {
+    "item": "prefab:block_compressed_quartz_crete",
+    "count": 1
+  }
+}

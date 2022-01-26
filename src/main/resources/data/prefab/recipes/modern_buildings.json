@@ -10,20 +10,23 @@
   "pattern": [
     "a a",
     "bcb",
-    "d d"
+    "ded"
   ],
   "key": {
     "a": {
-      "item": "prefab:item_coil_of_lanterns"
+      "tag": "forge:storage_blocks/compressed_lights"
     },
     "b": {
-      "tag": "forge:storage_blocks/double_compressed_stone"
+      "tag": "forge:storage_blocks/compressed_stone"
     },
     "c": {
-      "tag": "forge:storage_blocks/triple_compressed_stone"
+      "tag": "forge:storage_blocks/double_compressed_stone"
     },
     "d": {
-      "item": "minecraft:iron_block"
+      "tag": "forge:storage_blocks/iron"
+    },
+    "e": {
+      "tag": "forge:storage_blocks/compressed_quartz_crete"
     }
   },
   "result": {

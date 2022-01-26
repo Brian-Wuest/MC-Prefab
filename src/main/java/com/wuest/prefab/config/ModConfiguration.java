@@ -75,11 +75,11 @@ public class ModConfiguration {
     public static String starterFarmKey = "Starter Farm";
     public static String moderateFarmKey = "Moderate Farm";
     public static String advancedFarmKey = "Advanced Farm";
+    public static String quartzCreteKey = "Quartz-Crete";
 
     public static String tagKey = "PrefabConfig";
     // Config file option names.
     static String enableVersionCheckMessageName = "Enable Version Checking";
-    static String enableLoftHouseName = "Enable Loft House";
     static String includeSpawnersInMasherName = "Include Spawners in Monster Masher";
     static String enableStructurePreviewName = "Include Structure Previews";
     static String includeMineshaftChestName = "Include Mineshaft Chest";
@@ -116,14 +116,13 @@ public class ModConfiguration {
                     phasicBlockKey, smartGlassKey, greenHouseKey, startingHouseKey, glassStairsKey, glassSlabsKey,
                      moderateHouseKey, grassyPlainsKey, aquaBaseKey, watchTowerKey, bulldozerKey, jailKey, saloonKey, skiLodgeKey,
                     windMillKey, townHallKey, heapOfTimberKey, tonOfTimberKey, workshopKey, modernBuildingsKey, SwiftBladeKey, SickleKey, DirtRecipesKey, BunchOfBeetsKey,
-                    BunchOfCarrotsKey, BunchOfPotatoesKey, BunchOfEggsKey, WoodenCrateKey, starterFarmKey, moderateFarmKey, advancedFarmKey};
+                    BunchOfCarrotsKey, BunchOfPotatoesKey, BunchOfEggsKey, WoodenCrateKey, starterFarmKey, moderateFarmKey, advancedFarmKey, quartzCreteKey};
 
     private static ForgeConfigSpec SPEC;
     private final HashMap<String, BooleanValue> recipeConfiguration;
     public ServerModConfiguration serverConfiguration;
     public ArrayList<ConfigOption<?>> configOptions;
     // Configuration Options.
-    private BooleanValue enableLoftHouse;
     private BooleanValue includeSpawnersInMasher;
     private BooleanValue enableStructurePreview;
     private BooleanValue allowBulldozerToCreateDrops;
@@ -178,18 +177,6 @@ public class ModConfiguration {
                 .setDefaultValue("Starting House")
                 .setHoverText("Determines which starting item a player gets on first world join. Valid values for this option are: \"Starting House\", \"Moderate House\", \"Nothing\". Server configuration overrides client.")
                 .setValidValues(validStartingItems));
-
-        Prefab.proxy.proxyConfiguration.enableLoftHouse = builder
-                .comment("Determines if the loft starter house is enabled. This house contains Nether materials in it's construction. Server configuration overrides client.")
-                .define(OPTIONS + ModConfiguration.enableLoftHouseName, false);
-
-        config.configOptions.add(new ConfigOption<Boolean>()
-                .setConfigValue(Prefab.proxy.proxyConfiguration.enableLoftHouse)
-                .setName(ModConfiguration.enableLoftHouseName)
-                .setConfigType("Boolean")
-                .setCategory(ConfigCategory.General)
-                .setHoverText("Determines if the loft starter house is enabled. This house contains Nether materials in it's construction. Server configuration overrides client.")
-                .setDefaultValue(false));
 
         Prefab.proxy.proxyConfiguration.includeSpawnersInMasher = builder
                 .comment("Determines if the spawners for the Monster Masher building are included. Server configuration overrides client.")
@@ -522,7 +509,6 @@ public class ModConfiguration {
 
     public static void UpdateServerConfig() {
         Prefab.proxy.proxyConfiguration.serverConfiguration.startingItem = Prefab.proxy.proxyConfiguration.startingItem.get();
-        Prefab.proxy.proxyConfiguration.serverConfiguration.enableLoftHouse = Prefab.proxy.proxyConfiguration.enableLoftHouse.get();
         Prefab.proxy.proxyConfiguration.serverConfiguration.includeSpawnersInMasher = Prefab.proxy.proxyConfiguration.includeSpawnersInMasher.get();
         Prefab.proxy.proxyConfiguration.serverConfiguration.enableStructurePreview = Prefab.proxy.proxyConfiguration.enableStructurePreview.get();
         Prefab.proxy.proxyConfiguration.serverConfiguration.includeMineshaftChest = Prefab.proxy.proxyConfiguration.includeMineshaftChest.get();

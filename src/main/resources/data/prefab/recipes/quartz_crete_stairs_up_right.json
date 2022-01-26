@@ -1,0 +1,24 @@
+{
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Quartz-Crete"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Quartz-Crete",
+  "pattern": [
+    "  a",
+    " aa",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "tag": "forge:storage_blocks/quartz_crete_blocks"
+    }
+  },
+  "result": {
+    "item": "prefab:block_quartz_crete_stairs",
+    "count": 4
+  }
+}

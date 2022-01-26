@@ -9,8 +9,8 @@
   "group": "Watch Tower",
   "pattern": [
     "bbb",
-    " b ",
-    " a "
+    "cbd",
+    "cad"
   ],
   "key": {
     "a": {
@@ -18,6 +18,12 @@
     },
     "b": {
       "tag": "forge:storage_blocks/double_compressed_stone"
+    },
+    "c": {
+      "tag": "forge:storage_blocks/iron"
+    },
+    "d": {
+      "tag": "forge:storage_blocks/copper"
     }
   },
   "result": {

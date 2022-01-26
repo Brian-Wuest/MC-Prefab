@@ -1,0 +1,19 @@
+{
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Quartz-Crete"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "group": "Quartz-Crete",
+  "ingredients": [
+    {
+      "tag": "forge:storage_blocks/double_compressed_quartz_crete"
+    }
+  ],
+  "result": {
+    "item": "prefab:block_compressed_quartz_crete",
+    "count": 9
+  }
+}

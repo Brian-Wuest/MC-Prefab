@@ -7,6 +7,7 @@ import com.wuest.prefab.config.ModConfiguration;
 import com.wuest.prefab.config.ServerModConfiguration;
 import com.wuest.prefab.config.StructureScannerConfig;
 import com.wuest.prefab.crafting.RecipeCondition;
+import com.wuest.prefab.crafting.SmeltingCondition;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.context.UseOnContext;
@@ -61,6 +62,7 @@ public class CommonProxy {
 
     public void preInit(ParallelDispatchEvent event) {
         CraftingHelper.register(new RecipeCondition.Serializer());
+        CraftingHelper.register(new SmeltingCondition.Serializer());
 
         this.createNetworkInstance();
 

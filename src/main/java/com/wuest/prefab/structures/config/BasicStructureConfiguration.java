@@ -197,10 +197,12 @@ public class BasicStructureConfiguration extends StructureConfiguration {
         VillagerHouses("villager_houses", "item.prefab.item_villager_houses", "item_villager_houses", VillagerHouseOptions.FLAT_ROOF),
         AdvancedWarehouse("advanced_warehouse", "item.prefab.item_advanced_warehouse", "item_advanced_warehouse", AdvancedWarehouseOptions.Default),
         Warehouse("warehouse", "item.prefab.item_warehouse", "item_warehouse", WarehouseOptions.Default),
-        ModernBuildings("modern_buildings", "item.prefab.item_modern_buildings", "item_modern_buildings", ModernBuildingsOptions.Mall),
+        ModernBuildings("modern_buildings", "item.prefab.item_modern_buildings", "item_modern_buildings", BasicModernBuildingsOptions.HipsterFruitStand),
         StarterFarm("starter_farm", "item.prefab.item_starter_farm", "item_starter_farm", StarterFarmOptions.ElevatedFarm),
         ModerateFarm("moderate_farm", "item.prefab.item_moderate_farm", "item_moderate_farm", ModerateFarmOptions.AutomatedFarm),
-        AdvancedFarm("advanced_farm", "item.prefab.item_advanced_farm", "item_advanced_farm", AdvancedFarmOptions.AutomatedBeeFarm);
+        AdvancedFarm("advanced_farm", "item.prefab.item_advanced_farm", "item_advanced_farm", AdvancedFarmOptions.AutomatedBeeFarm),
+        ModerateModernBuildings("moderate_modern_buildings", "item.prefab.item_moderate_modern_buildings", "item_moderate_modern_buildings", ModerateModernBuildingsOptions.ConstructionSite),
+        AdvancedModernBuildings("advanced_modern_buildings", "item.prefab.item_advanced_modern_buildings", "item_advanced_modern_buildings", AdvancedModernBuildingsOptions.TreeHouse);
 
         private final String name;
         private final String itemTranslationString;

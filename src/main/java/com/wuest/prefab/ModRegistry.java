@@ -18,9 +18,7 @@ import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -38,6 +36,8 @@ import java.util.HashSet;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+
+import static net.minecraft.world.level.block.Blocks.*;
 
 /**
  * This is the mod registry so there is a way to get to all instances of the blocks/items created by this mod.
@@ -75,23 +75,17 @@ public class ModRegistry {
     };
 
     /* *********************************** Blocks *********************************** */
-    public static final RegistryObject<BlockItem> CompressedStoneItem = ITEMS.register(BlockCompressedStone.EnumType.COMPRESSED_STONE.getUnlocalizedName(), () -> new BlockItem(CompressedStone.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
     public static final RegistryObject<BlockCompressedStone> DoubleCompressedStone = BLOCKS.register(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE.getUnlocalizedName(), () -> new BlockCompressedStone(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE));
-    public static final RegistryObject<BlockItem> DoubleCompressedStoneItem = ITEMS.register(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE.getUnlocalizedName(), () -> new BlockItem(DoubleCompressedStone.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
     public static final RegistryObject<BlockCompressedStone> TripleCompressedStone = BLOCKS.register(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE.getUnlocalizedName(), () -> new BlockCompressedStone(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE));
-    public static final RegistryObject<BlockItem> TripleCompressedStoneItem = ITEMS.register(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE.getUnlocalizedName(), () -> new BlockItem(TripleCompressedStone.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
     public static final RegistryObject<BlockCompressedStone> CompressedGlowStone = BLOCKS.register(BlockCompressedStone.EnumType.COMPRESSED_GLOWSTONE.getUnlocalizedName(), () -> new BlockCompressedStone(BlockCompressedStone.EnumType.COMPRESSED_GLOWSTONE));
-    public static final RegistryObject<BlockItem> CompressedGlowStoneItem = ITEMS.register(BlockCompressedStone.EnumType.COMPRESSED_GLOWSTONE.getUnlocalizedName(), () -> new BlockItem(CompressedGlowStone.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
     public static final RegistryObject<BlockCompressedStone> DoubleCompressedGlowStone = BLOCKS.register(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE.getUnlocalizedName(), () -> new BlockCompressedStone(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE));
-    public static final RegistryObject<BlockItem> DoubleCompressedGlowStoneItem = ITEMS.register(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE.getUnlocalizedName(), () -> new BlockItem(DoubleCompressedGlowStone.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
     public static final RegistryObject<BlockCompressedStone> CompressedDirt = BLOCKS.register(BlockCompressedStone.EnumType.COMPRESSED_DIRT.getUnlocalizedName(), () -> new BlockCompressedStone(BlockCompressedStone.EnumType.COMPRESSED_DIRT));
-    public static final RegistryObject<BlockItem> CompressedDirtItem = ITEMS.register(BlockCompressedStone.EnumType.COMPRESSED_DIRT.getUnlocalizedName(), () -> new BlockItem(CompressedDirt.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
     public static final RegistryObject<BlockCompressedStone> DoubleCompressedDirt = BLOCKS.register(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_DIRT.getUnlocalizedName(), () -> new BlockCompressedStone(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_DIRT));
-    public static final RegistryObject<BlockItem> DoubleCompressedDirtItem = ITEMS.register(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_DIRT.getUnlocalizedName(), () -> new BlockItem(DoubleCompressedDirt.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
     public static final RegistryObject<BlockCompressedObsidian> CompressedObsidian = BLOCKS.register(BlockCompressedObsidian.EnumType.COMPRESSED_OBSIDIAN.getSerializedName(), () -> new BlockCompressedObsidian(BlockCompressedObsidian.EnumType.COMPRESSED_OBSIDIAN));
-    public static final RegistryObject<BlockItem> CompressedObsidianItem = ITEMS.register(BlockCompressedObsidian.EnumType.COMPRESSED_OBSIDIAN.getSerializedName(), () -> new BlockItem(CompressedObsidian.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
     public static final RegistryObject<BlockCompressedObsidian> DoubleCompressedObsidian = BLOCKS.register(BlockCompressedObsidian.EnumType.DOUBLE_COMPRESSED_OBSIDIAN.getSerializedName(), () -> new BlockCompressedObsidian(BlockCompressedObsidian.EnumType.DOUBLE_COMPRESSED_OBSIDIAN));
-    public static final RegistryObject<BlockItem> DoubleCompressedObsidianItem = ITEMS.register(BlockCompressedObsidian.EnumType.DOUBLE_COMPRESSED_OBSIDIAN.getSerializedName(), () -> new BlockItem(DoubleCompressedObsidian.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
+    public static final RegistryObject<BlockCompressedStone> CompressedQuartzCrete = BLOCKS.register(BlockCompressedStone.EnumType.COMPRESSED_QUARTZCRETE.getUnlocalizedName(), () -> new BlockCompressedStone(BlockCompressedStone.EnumType.COMPRESSED_QUARTZCRETE));
+    public static final RegistryObject<BlockCompressedStone> DoubleCompressedQuartzCrete = BLOCKS.register(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_QUARTZCRETE.getUnlocalizedName(), () -> new BlockCompressedStone(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_QUARTZCRETE));
+
     public static final RegistryObject<BlockPhasing> BlockPhasing = BLOCKS.register("block_phasing", com.wuest.prefab.blocks.BlockPhasing::new);
     public static final RegistryObject<BlockItem> BlockPhasingItem = ITEMS.register("block_phasing", () -> new BlockItem(BlockPhasing.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
     public static final RegistryObject<BlockBoundary> BlockBoundary = BLOCKS.register("block_boundary", com.wuest.prefab.blocks.BlockBoundary::new);
@@ -117,8 +111,32 @@ public class ModRegistry {
     public static final RegistryObject<BlockDirtStairs> DirtStairs = BLOCKS.register("block_dirt_stairs", com.wuest.prefab.blocks.BlockDirtStairs::new);
     public static final RegistryObject<BlockGrassStairs> GrassStairs = BLOCKS.register("block_grass_stairs", com.wuest.prefab.blocks.BlockGrassStairs::new);
     public static RegistryObject<BlockStructureScanner> StructureScanner = null;
+
+    public static final RegistryObject<Block> QuartzCrete =  BLOCKS.register("block_quartz_crete", () -> new Block(BlockBehaviour.Properties.copy(QUARTZ_BLOCK)));
+    public static final RegistryObject<WallBlock> QuartzCreteWall =  BLOCKS.register("block_quartz_crete_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(ModRegistry.QuartzCrete.get())));
+    public static final RegistryObject<Block> QuartzCreteBricks =  BLOCKS.register("block_quartz_crete_bricks", () -> new Block(BlockBehaviour.Properties.copy(ModRegistry.QuartzCrete.get())));
+    public static final RegistryObject<Block> ChiseledQuartzCrete =  BLOCKS.register("block_quartz_crete_chiseled", () -> new Block(BlockBehaviour.Properties.copy(CHISELED_QUARTZ_BLOCK)));
+    public static final RegistryObject<RotatedPillarBlock> QuartzCretePillar =  BLOCKS.register("block_quartz_crete_pillar", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(QUARTZ_PILLAR)));
+    public static final RegistryObject<BlockCustomStairs> QuartzCreteStairs =  BLOCKS.register("block_quartz_crete_stairs", () -> new BlockCustomStairs(ModRegistry.QuartzCrete.get().defaultBlockState(), BlockBehaviour.Properties.copy(ModRegistry.QuartzCrete.get())));
+    public static final RegistryObject<SlabBlock> QuartzCreteSlab =  BLOCKS.register("block_quartz_crete_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(ModRegistry.QuartzCrete.get())));
+    public static final RegistryObject<Block> SmoothQuartzCrete =  BLOCKS.register("block_quartz_crete_smooth", () -> new Block(BlockBehaviour.Properties.copy(ModRegistry.QuartzCrete.get())));
+    public static final RegistryObject<WallBlock> SmoothQuartzCreteWall =  BLOCKS.register("block_quartz_crete_smooth_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(ModRegistry.SmoothQuartzCrete.get())));
+    public static final RegistryObject<BlockCustomStairs> SmoothQuartzCreteStairs =  BLOCKS.register("block_quartz_crete_smooth_stairs", () -> new BlockCustomStairs(ModRegistry.SmoothQuartzCrete.get().defaultBlockState(), BlockBehaviour.Properties.copy(ModRegistry.SmoothQuartzCrete.get())));
+    public static final RegistryObject<SlabBlock> SmoothQuartzCreteSlab =  BLOCKS.register("block_quartz_crete_smooth_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(ModRegistry.SmoothQuartzCrete.get())));
     
     /* *********************************** Item Blocks *********************************** */
+    public static final RegistryObject<BlockItem> CompressedStoneItem = ITEMS.register(BlockCompressedStone.EnumType.COMPRESSED_STONE.getUnlocalizedName(), () -> new BlockItem(CompressedStone.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
+    public static final RegistryObject<BlockItem> DoubleCompressedStoneItem = ITEMS.register(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE.getUnlocalizedName(), () -> new BlockItem(DoubleCompressedStone.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
+    public static final RegistryObject<BlockItem> TripleCompressedStoneItem = ITEMS.register(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE.getUnlocalizedName(), () -> new BlockItem(TripleCompressedStone.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
+    public static final RegistryObject<BlockItem> CompressedGlowStoneItem = ITEMS.register(BlockCompressedStone.EnumType.COMPRESSED_GLOWSTONE.getUnlocalizedName(), () -> new BlockItem(CompressedGlowStone.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
+    public static final RegistryObject<BlockItem> DoubleCompressedGlowStoneItem = ITEMS.register(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE.getUnlocalizedName(), () -> new BlockItem(DoubleCompressedGlowStone.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
+    public static final RegistryObject<BlockItem> CompressedDirtItem = ITEMS.register(BlockCompressedStone.EnumType.COMPRESSED_DIRT.getUnlocalizedName(), () -> new BlockItem(CompressedDirt.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
+    public static final RegistryObject<BlockItem> DoubleCompressedDirtItem = ITEMS.register(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_DIRT.getUnlocalizedName(), () -> new BlockItem(DoubleCompressedDirt.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
+    public static final RegistryObject<BlockItem> CompressedObsidianItem = ITEMS.register(BlockCompressedObsidian.EnumType.COMPRESSED_OBSIDIAN.getSerializedName(), () -> new BlockItem(CompressedObsidian.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
+    public static final RegistryObject<BlockItem> DoubleCompressedObsidianItem = ITEMS.register(BlockCompressedObsidian.EnumType.DOUBLE_COMPRESSED_OBSIDIAN.getSerializedName(), () -> new BlockItem(DoubleCompressedObsidian.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
+    public static final RegistryObject<BlockItem> CompressedQuartzCreteItem = ITEMS.register(BlockCompressedStone.EnumType.COMPRESSED_QUARTZCRETE.getUnlocalizedName(), () -> new BlockItem(ModRegistry.CompressedQuartzCrete.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
+    public static final RegistryObject<BlockItem> DoubleCompressedQuartzCreteItem = ITEMS.register(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_QUARTZCRETE.getUnlocalizedName(), () -> new BlockItem(ModRegistry.DoubleCompressedQuartzCrete.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
+
     public static final RegistryObject<BlockItem> BlockBoundaryItem = ITEMS.register("block_boundary", () -> new BlockItem(BlockBoundary.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
     public static final RegistryObject<BlockItem> PaperLanternItem = ITEMS.register("block_paper_lantern", () -> new BlockItem(PaperLantern.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
     public static final RegistryObject<BlockItem> GlassStairsItem = ITEMS.register("block_glass_stairs", () -> new BlockItem(GlassStairs.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
@@ -130,6 +148,18 @@ public class ModRegistry {
     public static final RegistryObject<BlockItem> DirtStairsItem = ITEMS.register("block_dirt_stairs", () -> new BlockItem(DirtStairs.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
     public static final RegistryObject<BlockItem> GrassStairsItem = ITEMS.register("block_grass_stairs", () -> new BlockItem(GrassStairs.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
     public static RegistryObject<BlockItem> StructureScannerItem = null;
+
+    public static final RegistryObject<BlockItem> QuartzCreteItem = ITEMS.register("block_quartz_crete", () -> new BlockItem(ModRegistry.QuartzCrete.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
+    public static final RegistryObject<BlockItem> QuartzCreteWallItem = ITEMS.register("block_quartz_crete_wall", () -> new BlockItem(ModRegistry.QuartzCreteWall.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
+    public static final RegistryObject<BlockItem> QuartzCreteBricksItem = ITEMS.register("block_quartz_crete_bricks", () -> new BlockItem(ModRegistry.QuartzCreteBricks.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
+    public static final RegistryObject<BlockItem> ChiseledQuartzCreteItem = ITEMS.register("block_quartz_crete_chiseled", () -> new BlockItem(ModRegistry.ChiseledQuartzCrete.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
+    public static final RegistryObject<BlockItem> QuartzCretePillarItem = ITEMS.register("block_quartz_crete_pillar", () -> new BlockItem(ModRegistry.QuartzCretePillar.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
+    public static final RegistryObject<BlockItem> QuartzCreteStairsItem = ITEMS.register("block_quartz_crete_stairs", () -> new BlockItem(ModRegistry.QuartzCreteStairs.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
+    public static final RegistryObject<BlockItem> QuartzCreteSlabItem = ITEMS.register("block_quartz_crete_slab", () -> new BlockItem(ModRegistry.QuartzCreteSlab.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
+    public static final RegistryObject<BlockItem> SmoothQuartzCreteItem = ITEMS.register("block_quartz_crete_smooth", () -> new BlockItem(ModRegistry.SmoothQuartzCrete.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
+    public static final RegistryObject<BlockItem> SmoothQuartzCreteWallItem = ITEMS.register("block_quartz_crete_smooth_wall", () -> new BlockItem(ModRegistry.SmoothQuartzCreteWall.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
+    public static final RegistryObject<BlockItem> SmoothQuartzCreteStairsItem = ITEMS.register("block_quartz_crete_smooth_stairs", () -> new BlockItem(ModRegistry.SmoothQuartzCreteStairs.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
+    public static final RegistryObject<BlockItem> SmoothQuartzCreteSlabItem = ITEMS.register("block_quartz_crete_smooth_slab", () -> new BlockItem(ModRegistry.SmoothQuartzCreteSlab.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
 
     /* *********************************** Tile Entities *********************************** */
     public static RegistryObject<BlockEntityType<StructureScannerBlockEntity>> StructureScannerTileEntity = null;
@@ -203,7 +233,10 @@ public class ModRegistry {
     public static final RegistryObject<ItemBasicStructure> VillagerHouses = ITEMS.register(EnumBasicStructureName.VillagerHouses.getItemTextureLocation().getPath(), () -> new ItemBasicStructure(EnumBasicStructureName.VillagerHouses, 10));
     public static final RegistryObject<ItemBasicStructure> AdvancedWareHouse = ITEMS.register(EnumBasicStructureName.AdvancedWarehouse.getItemTextureLocation().getPath(), () -> new ItemBasicStructure(EnumBasicStructureName.AdvancedWarehouse));
     public static final RegistryObject<ItemBasicStructure> WareHouse = ITEMS.register(EnumBasicStructureName.Warehouse.getItemTextureLocation().getPath(), () -> new ItemBasicStructure(EnumBasicStructureName.Warehouse));
-    public static final RegistryObject<ItemBasicStructure> ModernBuilding = ITEMS.register(EnumBasicStructureName.ModernBuildings.getItemTextureLocation().getPath(), () -> new ItemBasicStructure(EnumBasicStructureName.ModernBuildings, 5));
+    public static final RegistryObject<ItemBasicStructure> ModernBuilding = ITEMS.register(EnumBasicStructureName.ModernBuildings.getItemTextureLocation().getPath(), () -> new ItemBasicStructure(EnumBasicStructureName.ModernBuildings));
+    public static final RegistryObject<ItemBasicStructure> ModerateModernBuildings = ITEMS.register(EnumBasicStructureName.ModerateModernBuildings.getItemTextureLocation().getPath(), () -> new ItemBasicStructure(EnumBasicStructureName.ModerateModernBuildings));
+    public static final RegistryObject<ItemBasicStructure> AdvancedModernBuildings = ITEMS.register(EnumBasicStructureName.AdvancedModernBuildings.getItemTextureLocation().getPath(), () -> new ItemBasicStructure(EnumBasicStructureName.AdvancedModernBuildings));
+
     public static BlockEntityType<StructureScannerBlockEntity> StructureScannerEntityType = null;
     public static final RegistryObject<ItemBasicStructure> StarterFarm = ITEMS.register(EnumBasicStructureName.StarterFarm.getItemTextureLocation().getPath(), () -> new ItemBasicStructure(EnumBasicStructureName.StarterFarm));
     public static final RegistryObject<ItemBasicStructure> ModerateFarm = ITEMS.register(EnumBasicStructureName.ModerateFarm.getItemTextureLocation().getPath(), () -> new ItemBasicStructure(EnumBasicStructureName.ModerateFarm));

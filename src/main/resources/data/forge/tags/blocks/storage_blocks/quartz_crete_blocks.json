@@ -1,0 +1,9 @@
+{
+	"replace": false,
+	"values": [
+		"prefab:block_quartz_crete",
+		"prefab:block_quartz_crete_chiseled",
+		"prefab:block_quartz_crete_pillar",
+		"prefab:block_quartz_crete_bricks"
+	]
+}

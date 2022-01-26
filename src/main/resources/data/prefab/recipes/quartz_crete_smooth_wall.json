@@ -1,0 +1,23 @@
+{
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Quartz-Crete"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Quartz-Crete",
+  "pattern": [
+    "aaa",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "prefab:block_quartz_crete_smooth"
+    }
+  },
+  "result": {
+    "item": "prefab:block_quartz_crete_smooth_wall",
+    "count": 6
+  }
+}

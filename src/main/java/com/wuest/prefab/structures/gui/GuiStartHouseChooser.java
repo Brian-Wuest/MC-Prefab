@@ -137,14 +137,6 @@ public class GuiStartHouseChooser extends GuiStructure {
         if (button == this.btnHouseStyle) {
             int id = this.configuration.houseStyle.getValue() + 1;
             this.configuration.houseStyle = HouseConfiguration.HouseStyle.ValueOf(id);
-
-            // Skip the loft if it's not enabled.
-            if (this.configuration.houseStyle == HouseConfiguration.HouseStyle.LOFT
-                    && !this.serverConfiguration.enableLoftHouse) {
-                id = this.configuration.houseStyle.getValue() + 1;
-                this.configuration.houseStyle = HouseConfiguration.HouseStyle.ValueOf(id);
-            }
-
             GuiUtils.setButtonText(btnHouseStyle, this.configuration.houseStyle.getDisplayName());
         } else if (button == this.btnGlassColor) {
             this.configuration.glassColor = FullDyeColor.ById(this.configuration.glassColor.getId() + 1);

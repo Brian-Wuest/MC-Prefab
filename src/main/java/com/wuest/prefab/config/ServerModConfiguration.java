@@ -13,7 +13,6 @@ import java.util.Map.Entry;
 public class ServerModConfiguration {
     // Configuration Options.
     public boolean enableVersionCheckMessage;
-    public boolean enableLoftHouse;
     public boolean includeSpawnersInMasher;
     public boolean enableStructurePreview;
     public boolean includeMineshaftChest;
@@ -57,7 +56,6 @@ public class ServerModConfiguration {
 
         configuration.startingItem = tag.getString(ModConfiguration.startingItemName);
         configuration.enableVersionCheckMessage = tag.getBoolean(ModConfiguration.enableVersionCheckMessageName);
-        configuration.enableLoftHouse = tag.getBoolean(ModConfiguration.enableLoftHouseName);
         configuration.includeSpawnersInMasher = tag.getBoolean(ModConfiguration.includeSpawnersInMasherName);
         configuration.enableStructurePreview = tag.getBoolean(ModConfiguration.enableStructurePreviewName);
         configuration.includeMineshaftChest = tag.getBoolean(ModConfiguration.includeMineshaftChestName);
@@ -98,7 +96,6 @@ public class ServerModConfiguration {
 
         tag.putString(ModConfiguration.startingItemName, this.startingItem);
         tag.putBoolean(ModConfiguration.enableVersionCheckMessageName, this.enableVersionCheckMessage);
-        tag.putBoolean(ModConfiguration.enableLoftHouseName, this.enableLoftHouse);
         tag.putBoolean(ModConfiguration.includeSpawnersInMasherName, this.includeSpawnersInMasher);
         tag.putBoolean(ModConfiguration.enableStructurePreviewName, this.enableStructurePreview);
         tag.putBoolean(ModConfiguration.includeMineshaftChestName, this.includeMineshaftChest);

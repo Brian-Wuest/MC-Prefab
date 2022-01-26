@@ -137,46 +137,33 @@ public class ModerateHouseConfiguration extends StructureConfiguration {
      * @author WuestMan
      */
     public enum HouseStyle {
-        SPRUCE_HOME(0, GuiLangKeys.MODERATE_HOUSE_SPRUCE, new ResourceLocation("prefab", "textures/gui/moderate_house_spruce_topdown.png"), 176, 154,
-                "assets/prefab/structures/moderate_house_spruce.zip", 31, 31, 23, 8, 1),
-        ACACIA_HOME(1, GuiLangKeys.MODERATE_HOUSE_ACACIA, new ResourceLocation("prefab", "textures/gui/moderate_house_acacia_topdown.png"), 176, 154,
-                "assets/prefab/structures/moderate_house_acacia.zip", 31, 31, 21, 12, 6),
-        EARTHEN_HOME(2, GuiLangKeys.MODERATE_EARTHEN_HOME, new ResourceLocation("prefab", "textures/gui/moderate_house_earthen_topdown.png"), 174, 146,
-                "assets/prefab/structures/moderate_house_earthen.zip", 16, 16, 16, 8, 6),
-        JUNGLE_TREE_HOME(3, GuiLangKeys.MODERATE_JUNGLE_HOME, new ResourceLocation("prefab", "textures/gui/moderate_house_jungle_topdown.png"), 88, 164,
-                "assets/prefab/structures/moderate_house_jungle.zip", 16, 16, 41, 8, 1),
-        NETHER_HOME(4, GuiLangKeys.MODERATE_NETHER_HOME, new ResourceLocation("prefab", "textures/gui/moderate_house_nether_topdown.png"), 141, 165,
-                "assets/prefab/structures/moderate_house_nether.zip", 16, 15, 22, 0, 0),
-        MOUNTAIN_HOME(5, GuiLangKeys.MODERATE_MOUNTAIN_HOME, new ResourceLocation("prefab", "textures/gui/moderate_house_mountain_topdown.png"), 174, 99,
-                "assets/prefab/structures/moderate_house_mountain.zip", 20, 21, 12, 10, 0),
-        ACACIA_HOME2(6, GuiLangKeys.MODERATE_HOUSE_ACACIA_2, new ResourceLocation("prefab", "textures/gui/moderate_house_acacia_2_topdown.png"), 174, 99,
-                "assets/prefab/structures/moderate_house_acacia_2.zip", 31, 31, 21, 12, 6);
+        SPRUCE_HOME(0, GuiLangKeys.MODERATE_HOUSE_SPRUCE, new ResourceLocation("prefab", "textures/gui/moderate_house_spruce_topdown.png"),
+                "assets/prefab/structures/moderate_house_spruce.zip"),
+        ACACIA_HOME(1, GuiLangKeys.MODERATE_HOUSE_ACACIA, new ResourceLocation("prefab", "textures/gui/moderate_house_acacia_topdown.png"),
+                "assets/prefab/structures/moderate_house_acacia.zip"),
+        EARTHEN_HOME(2, GuiLangKeys.MODERATE_EARTHEN_HOME, new ResourceLocation("prefab", "textures/gui/moderate_house_earthen_topdown.png"),
+                "assets/prefab/structures/moderate_house_earthen.zip"),
+        JUNGLE_TREE_HOME(3, GuiLangKeys.MODERATE_JUNGLE_HOME, new ResourceLocation("prefab", "textures/gui/moderate_house_jungle_topdown.png"),
+                "assets/prefab/structures/moderate_house_jungle.zip"),
+        NETHER_HOME(4, GuiLangKeys.MODERATE_NETHER_HOME, new ResourceLocation("prefab", "textures/gui/moderate_house_nether_topdown.png"),
+                "assets/prefab/structures/moderate_house_nether.zip"),
+        MOUNTAIN_HOME(5, GuiLangKeys.MODERATE_MOUNTAIN_HOME, new ResourceLocation("prefab", "textures/gui/moderate_house_mountain_topdown.png"),
+                "assets/prefab/structures/moderate_house_mountain.zip"),
+        ACACIA_HOME2(6, GuiLangKeys.MODERATE_HOUSE_ACACIA_2, new ResourceLocation("prefab", "textures/gui/moderate_house_acacia_2_topdown.png"),
+                "assets/prefab/structures/moderate_house_acacia_2.zip"),
+        MODERN_HOME(7, GuiLangKeys.MODERATE_HOUSE_MODERN, new ResourceLocation("prefab", "textures/gui/moderate_house_modern_topdown.png"),
+                "assets/prefab/structures/moderate_house_modern.zip");
 
         private final int value;
         private final String displayName;
         private final ResourceLocation housePicture;
-        private final int imageWidth;
-        private final int imageHeight;
         private final String structureLocation;
-        private final int width;
-        private final int length;
-        private final int height;
-        private final int eastOffSet;
-        private final int downOffSet;
 
-        HouseStyle(int newValue, String displayName, ResourceLocation housePicture, int imageWidth, int imageHeight, String structureLocation, int width, int length, int height,
-                   int eastOffSet, int downOffSet) {
+        HouseStyle(int newValue, String displayName, ResourceLocation housePicture, String structureLocation) {
             this.value = newValue;
             this.displayName = displayName;
             this.housePicture = housePicture;
-            this.imageWidth = imageWidth;
-            this.imageHeight = imageHeight;
             this.structureLocation = structureLocation;
-            this.width = width;
-            this.length = length;
-            this.height = height;
-            this.eastOffSet = eastOffSet;
-            this.downOffSet = downOffSet;
         }
 
         public static HouseStyle ValueOf(int value) {
@@ -199,34 +186,6 @@ public class ModerateHouseConfiguration extends StructureConfiguration {
 
         public ResourceLocation getHousePicture() {
             return this.housePicture;
-        }
-
-        public int getImageWidth() {
-            return this.imageWidth;
-        }
-
-        public int getImageHeight() {
-            return this.imageHeight;
-        }
-
-        public int getWidth() {
-            return this.width;
-        }
-
-        public int getLength() {
-            return this.length;
-        }
-
-        public int getHeight() {
-            return this.height;
-        }
-
-        public int getEastOffSet() {
-            return this.eastOffSet;
-        }
-
-        public int getDownOffSet() {
-            return this.downOffSet;
         }
 
         public String getStructureLocation() {
