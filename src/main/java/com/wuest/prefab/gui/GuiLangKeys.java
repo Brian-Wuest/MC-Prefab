@@ -376,6 +376,15 @@ public class GuiLangKeys {
     @Unlocalized(name = "Cut grass, flowers, and leaves with ease!")
     public static final String SICKLE_DESC = "prefab.gui.sickle_desc";
 
+    @Unlocalized(name = "Starter House")
+    public static final String TITLE_STARTER_HOUSE = "item.prefab.item_start_house";
+    @Unlocalized(name = "Moderate House")
+    public static final String TITLE_MODERATE_HOUSE = "item.prefab.item_moderate_house";
+    @Unlocalized(name = "Bulldozer")
+    public static final String TITLE_BULLDOZER = "item.prefab.item_bulldozer";
+    @Unlocalized(name = "Instant Bridge")
+    public static final String TITLE_INSTANT_BRIDGE = "item.prefab.item_instant_bridge";
+
     /**
      * Translates the specified language key for the current language.
      *

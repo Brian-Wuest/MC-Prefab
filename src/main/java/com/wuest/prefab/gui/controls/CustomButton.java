@@ -18,11 +18,11 @@ public class CustomButton extends ExtendedButton {
     private final ResourceLocation buttonTextureHover = new ResourceLocation("prefab", "textures/gui/prefab_button_highlight.png");
 
     public CustomButton(int xPos, int yPos, TextComponent displayString, Button.OnPress handler) {
-        super(xPos, yPos, 200, 90, displayString, handler);
+        super(xPos, yPos, 200, 90, displayString, handler, null);
     }
 
     public CustomButton(int xPos, int yPos, int width, int height, TextComponent displayString, Button.OnPress handler) {
-        super(xPos, yPos, width, height, displayString, handler);
+        super(xPos, yPos, width, height, displayString, handler, null);
     }
 
     /**

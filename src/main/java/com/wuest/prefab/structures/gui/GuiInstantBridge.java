@@ -14,6 +14,8 @@ import com.wuest.prefab.structures.messages.StructureTagMessage.EnumStructureCon
 import com.wuest.prefab.structures.predefined.StructureInstantBridge;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 
 @SuppressWarnings("SpellCheckingInspection")
@@ -28,6 +30,11 @@ public class GuiInstantBridge extends GuiStructure {
     public GuiInstantBridge() {
         super("Instant Bridge");
         this.structureConfiguration = EnumStructureConfiguration.InstantBridge;
+    }
+
+    @Override
+    public Component getNarrationMessage() {
+        return new TranslatableComponent(GuiLangKeys.translateString(GuiLangKeys.TITLE_INSTANT_BRIDGE));
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.wuest.prefab.structures.render;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
+import com.mojang.text2speech.Narrator;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.blocks.BlockStructureScanner;
 import com.wuest.prefab.config.StructureScannerConfig;
@@ -22,6 +23,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
+import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.player.Player;
@@ -126,13 +128,18 @@ public class StructureRenderHandler {
             entityVertexConsumer.endBatch(Sheets.translucentItemSheet());
 
             if (!StructureRenderHandler.showedMessage) {
+                Minecraft mc = Minecraft.getInstance();
+
+                // Stop narrator from continuing narrating what was in the structure GUI
+                Narrator.getNarrator().clear();
+
                 TranslatableComponent message = new TranslatableComponent(GuiLangKeys.GUI_PREVIEW_NOTICE);
                 message.setStyle(Style.EMPTY.withColor(ChatFormatting.GREEN));
-                player.sendMessage(message, player.getUUID());
+                mc.gui.handleChat(ChatType.CHAT, message, null);
 
                 message = new TranslatableComponent(GuiLangKeys.GUI_BLOCK_CLICKED);
                 message.setStyle(Style.EMPTY.withColor(ChatFormatting.YELLOW));
-                player.sendMessage(message, player.getUUID());
+                mc.gui.handleChat(ChatType.CHAT, message, null);
 
                 StructureRenderHandler.showedMessage = true;
             }

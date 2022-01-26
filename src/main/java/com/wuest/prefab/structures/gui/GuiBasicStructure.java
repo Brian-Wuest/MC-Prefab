@@ -13,6 +13,9 @@ import com.wuest.prefab.structures.items.ItemBasicStructure;
 import com.wuest.prefab.structures.messages.StructureTagMessage.EnumStructureConfiguration;
 import com.wuest.prefab.structures.predefined.StructureBasic;
 import net.minecraft.client.gui.components.AbstractButton;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 
@@ -39,6 +42,11 @@ public class GuiBasicStructure extends GuiStructure {
     }
 
     @Override
+    public Component getNarrationMessage() {
+        return new TranslatableComponent(this.configuration.getDisplayName());
+    }
+
+    @Override
     protected void Initialize() {
         super.Initialize();
 
@@ -62,19 +70,7 @@ public class GuiBasicStructure extends GuiStructure {
 
         this.configuration.pos = this.pos;
 
-        if (this.availableOptions.size() > 1
-                || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.MineshaftEntrance
-                || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WatchTower
-                || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WelcomeCenter
-                || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.VillagerHouses
-                || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.StarterFarm
-                || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.AdvancedWarehouse
-                || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.ModerateFarm
-                || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.AdvancedFarm
-                || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.Warehouse
-                || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.WorkShop
-                || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.MachineryTower
-                || this.configuration.basicStructureName == BasicStructureConfiguration.EnumBasicStructureName.AdvancedModernBuildings) {
+        if (this.availableOptions.size() > 1 || this.configuration.basicStructureName.shouldShowConfigurationOptions()) {
             this.showConfigurationOptions = true;
         }
 
@@ -95,17 +91,17 @@ public class GuiBasicStructure extends GuiStructure {
             int y = grayBoxY + 45;
 
             if (this.availableOptions.size() > 1) {
-                this.btnStructureOptions = this.createAndAddButton(x, y, 100, 20, this.configuration.chosenOption.getTranslationString());
+                this.btnStructureOptions = this.createAndAddButton(x, y, 100, 20, this.configuration.chosenOption.getTranslationString(), GuiLangKeys.translateString(GuiLangKeys.BUILDING_OPTIONS));
                 this.btnStructureOptions.visible = true;
                 y += 45;
             } else if (this.btnStructureOptions != null) {
                 this.btnStructureOptions.visible = false;
             }
 
-            this.btnBedColor = this.createAndAddDyeButton(x, y, 90, 20, this.configuration.bedColor);
+            this.btnBedColor = this.createAndAddDyeButton(x, y, 90, 20, this.configuration.bedColor, GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR));
             this.btnBedColor.visible = false;
 
-            this.btnGlassColor = this.createAndAddFullDyeButton(x, y, 90, 20, this.configuration.glassColor);
+            this.btnGlassColor = this.createAndAddFullDyeButton(x, y, 90, 20, this.configuration.glassColor, GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS));
             this.btnGlassColor.visible = false;
 
             // Create the standard buttons.

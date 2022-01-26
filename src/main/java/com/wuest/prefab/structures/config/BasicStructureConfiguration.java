@@ -176,38 +176,39 @@ public class BasicStructureConfiguration extends StructureConfiguration {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public enum EnumBasicStructureName {
-        Custom("custom", null, null, null),
-        MachineryTower("machinery_tower", "item.prefab.item_machinery_tower", "item_machinery_tower", MachineryTowerOptions.Default),
-        DefenseBunker("defense_bunker", "item.prefab.item_defense_bunker", "item_defense_bunker", DefenseBunkerOptions.Default),
-        MineshaftEntrance("mineshaft_entrance", "item.prefab.item_mineshaft_entrance", "item_mineshaft_entrance", MineshaftEntranceOptions.Default),
-        EnderGateway("ender_gateway", "item.prefab.item_ender_gateway", "item_ender_gateway", EnderGatewayOptions.Default),
-        AquaBase("aqua_base", "item.prefab.item_aqua_base", "item_aqua_base", AquaBaseOptions.Default),
-        GrassyPlain("grassy_plain", "item.prefab.item_grassy_plain", "item_grassy_plain", GrassyPlainOptions.Default),
-        MagicTemple("magic_temple", "item.prefab.item_magic_temple", "item_magic_temple", MagicTempleOptions.Default),
-        WatchTower("watch_tower", "item.prefab.item_watch_tower", "item_watch_tower", WatchTowerOptions.Default),
-        WelcomeCenter("welcome_center", "item.prefab.item_welcome_center", "item_welcome_center", WelcomeCenterOptions.Default),
-        Jail("jail", "item.prefab.item_jail", "item_jail", JailOptions.Default),
-        Saloon("saloon", "item.prefab.item_saloon", "item_saloon", SaloonOptions.Default),
-        SkiLodge("ski_lodge", "item.prefab.item_ski_lodge", "item_ski_lodge", SkiLodgeOptions.Default),
-        WindMill("wind_mill", "item.prefab.item_wind_mill", "item_wind_mill", WindMillOptions.Default),
-        TownHall("town_hall", "item.prefab.item_town_hall", "item_town_hall", TownHallOptions.Default),
-        NetherGate("nether_gate", "item.prefab.item_nether_gate", "item_nether_gate", NetherGateOptions.AncientSkull),
-        AdvancedAquaBase("advanced_aqua_base", "item.prefab.item_advanced_aqua_base", "item_advanced_aqua_base", AdvancedAquaBaseOptions.Default),
-        WorkShop("workshop", "item.prefab.item_workshop", "item_workshop", WorkshopOptions.Default),
-        VillagerHouses("villager_houses", "item.prefab.item_villager_houses", "item_villager_houses", VillagerHouseOptions.FLAT_ROOF),
-        AdvancedWarehouse("advanced_warehouse", "item.prefab.item_advanced_warehouse", "item_advanced_warehouse", AdvancedWarehouseOptions.Default),
-        Warehouse("warehouse", "item.prefab.item_warehouse", "item_warehouse", WarehouseOptions.Default),
-        ModernBuildings("modern_buildings", "item.prefab.item_modern_buildings", "item_modern_buildings", BasicModernBuildingsOptions.HipsterFruitStand),
-        StarterFarm("starter_farm", "item.prefab.item_starter_farm", "item_starter_farm", StarterFarmOptions.ElevatedFarm),
-        ModerateFarm("moderate_farm", "item.prefab.item_moderate_farm", "item_moderate_farm", ModerateFarmOptions.AutomatedFarm),
-        AdvancedFarm("advanced_farm", "item.prefab.item_advanced_farm", "item_advanced_farm", AdvancedFarmOptions.AutomatedBeeFarm),
-        ModerateModernBuildings("moderate_modern_buildings", "item.prefab.item_moderate_modern_buildings", "item_moderate_modern_buildings", ModerateModernBuildingsOptions.ConstructionSite),
-        AdvancedModernBuildings("advanced_modern_buildings", "item.prefab.item_advanced_modern_buildings", "item_advanced_modern_buildings", AdvancedModernBuildingsOptions.TreeHouse);
+        Custom("custom", null, null, null, false),
+        MachineryTower("machinery_tower", "item.prefab.item_machinery_tower", "item_machinery_tower", MachineryTowerOptions.Default, true),
+        DefenseBunker("defense_bunker", "item.prefab.item_defense_bunker", "item_defense_bunker", DefenseBunkerOptions.Default, false),
+        MineshaftEntrance("mineshaft_entrance", "item.prefab.item_mineshaft_entrance", "item_mineshaft_entrance", MineshaftEntranceOptions.Default, true),
+        EnderGateway("ender_gateway", "item.prefab.item_ender_gateway", "item_ender_gateway", EnderGatewayOptions.Default, false),
+        AquaBase("aqua_base", "item.prefab.item_aqua_base", "item_aqua_base", AquaBaseOptions.Default, false),
+        GrassyPlain("grassy_plain", "item.prefab.item_grassy_plain", "item_grassy_plain", GrassyPlainOptions.Default, false),
+        MagicTemple("magic_temple", "item.prefab.item_magic_temple", "item_magic_temple", MagicTempleOptions.Default, false),
+        WatchTower("watch_tower", "item.prefab.item_watch_tower", "item_watch_tower", WatchTowerOptions.Default, true),
+        WelcomeCenter("welcome_center", "item.prefab.item_welcome_center", "item_welcome_center", WelcomeCenterOptions.Default, true),
+        Jail("jail", "item.prefab.item_jail", "item_jail", JailOptions.Default, false),
+        Saloon("saloon", "item.prefab.item_saloon", "item_saloon", SaloonOptions.Default, false),
+        SkiLodge("ski_lodge", "item.prefab.item_ski_lodge", "item_ski_lodge", SkiLodgeOptions.Default, false),
+        WindMill("wind_mill", "item.prefab.item_wind_mill", "item_wind_mill", WindMillOptions.Default, false),
+        TownHall("town_hall", "item.prefab.item_town_hall", "item_town_hall", TownHallOptions.Default, false),
+        NetherGate("nether_gate", "item.prefab.item_nether_gate", "item_nether_gate", NetherGateOptions.AncientSkull, true),
+        AdvancedAquaBase("advanced_aqua_base", "item.prefab.item_advanced_aqua_base", "item_advanced_aqua_base", AdvancedAquaBaseOptions.Default, false),
+        WorkShop("workshop", "item.prefab.item_workshop", "item_workshop", WorkshopOptions.Default, true),
+        VillagerHouses("villager_houses", "item.prefab.item_villager_houses", "item_villager_houses", VillagerHouseOptions.FLAT_ROOF, true),
+        AdvancedWarehouse("advanced_warehouse", "item.prefab.item_advanced_warehouse", "item_advanced_warehouse", AdvancedWarehouseOptions.Default, true),
+        Warehouse("warehouse", "item.prefab.item_warehouse", "item_warehouse", WarehouseOptions.Default, true),
+        ModernBuildings("modern_buildings", "item.prefab.item_modern_buildings", "item_modern_buildings", BasicModernBuildingsOptions.HipsterFruitStand, true),
+        StarterFarm("starter_farm", "item.prefab.item_starter_farm", "item_starter_farm", StarterFarmOptions.ElevatedFarm, true),
+        ModerateFarm("moderate_farm", "item.prefab.item_moderate_farm", "item_moderate_farm", ModerateFarmOptions.AutomatedFarm, true),
+        AdvancedFarm("advanced_farm", "item.prefab.item_advanced_farm", "item_advanced_farm", AdvancedFarmOptions.AutomatedBeeFarm, true),
+        ModerateModernBuildings("moderate_modern_buildings", "item.prefab.item_moderate_modern_buildings", "item_moderate_modern_buildings", ModerateModernBuildingsOptions.ConstructionSite, true),
+        AdvancedModernBuildings("advanced_modern_buildings", "item.prefab.item_advanced_modern_buildings", "item_advanced_modern_buildings", AdvancedModernBuildingsOptions.TreeHouse, true);
 
         private final String name;
         private final String itemTranslationString;
         private final BaseOption baseOption;
         private ResourceLocation itemTextureLocation;
+        private final boolean guiShowConfigurationOptions;
 
         /**
          * This is a basic structure which doesn't have any (or limited) custom processing.
@@ -222,7 +223,8 @@ public class BasicStructureConfiguration extends StructureConfiguration {
                 String name,
                 String itemTranslationString,
                 String itemTextureLocation,
-                BaseOption baseOption) {
+                BaseOption baseOption,
+                boolean guiShowConfigurationOptions) {
             this.name = name;
             this.itemTranslationString = itemTranslationString;
 
@@ -231,6 +233,7 @@ public class BasicStructureConfiguration extends StructureConfiguration {
             }
 
             this.baseOption = baseOption;
+            this.guiShowConfigurationOptions = guiShowConfigurationOptions;
         }
 
         /**
@@ -240,6 +243,15 @@ public class BasicStructureConfiguration extends StructureConfiguration {
          */
         public String getName() {
             return this.name;
+        }
+
+        /**
+         * Should show configuration options in the GUI.
+         *
+         * @return Should show configuration options in the GUI.
+         * */
+        public boolean shouldShowConfigurationOptions() {
+            return this.guiShowConfigurationOptions;
         }
 
         /**

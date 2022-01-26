@@ -19,7 +19,8 @@ import net.minecraft.network.chat.FormattedText;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.item.DyeColor;
-import java.awt.Color;
+
+import java.awt.*;
 import java.util.List;
 
 
@@ -36,12 +37,10 @@ public abstract class GuiBase extends Screen {
     protected int imagePanelHeight = 0;
     protected int shownImageHeight = 0;
     protected int shownImageWidth = 0;
-    private boolean pauseGame;
     protected int textColor = Color.DARK_GRAY.getRGB();
 
     public GuiBase(String title) {
         super(Utils.createTextComponent(title));
-        this.pauseGame = true;
     }
 
     @Override
@@ -79,14 +78,6 @@ public abstract class GuiBase extends Screen {
         return this.height / 2;
     }
 
-    /**
-     * Returns true if this GUI should pause the game when it is displayed in single-player
-     */
-    @Override
-    public boolean isPauseScreen() {
-        return this.pauseGame;
-    }
-
     @Override
     public void render(PoseStack matrixStack, int x, int y, float f) {
         Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
@@ -99,7 +90,22 @@ public abstract class GuiBase extends Screen {
     }
 
     /**
-     * Creates an ExtendedButton using the button clicked event as the handler. Then adds it to the buttons list and returns the created object.
+     * Creates a button using the button clicked event as the handler. Then adds it to the buttons list and returns the created object.
+     *
+     * @param x      The x-axis position.
+     * @param y      The y-axis position.
+     * @param width  The width of the button.
+     * @param height The height of the button.
+     * @param text   The text of the button.
+     * @param label  The label of the button.
+     * @return A new button.
+     */
+    public ExtendedButton createAndAddButton(int x, int y, int width, int height, String text, String label) {
+        return this.createAndAddButton(x, y, width, height, text, true, label);
+    }
+
+    /**
+     * Creates a button using the button clicked event as the handler. Then adds it to the buttons list and returns the created object.
      *
      * @param x      The x-axis position.
      * @param y      The y-axis position.
@@ -113,7 +119,24 @@ public abstract class GuiBase extends Screen {
     }
 
     /**
-     * Creates an ExtendedButton using the button clicked event as the handler. Then adds it to the buttons list and returns the created object.
+     * Creates a button using the button clicked event as the handler. Then adds it to the buttons list and returns the created object.
+     *
+     * @param x      The x-axis position.
+     * @param y      The y-axis position.
+     * @param width  The width of the button.
+     * @param height The height of the button.
+     * @param text   The text of the button.
+     * @param label  The label of the button.
+     * @return A new button.
+     */
+    public ExtendedButton createAndAddButton(int x, int y, int width, int height, String text, boolean translate, String label) {
+        ExtendedButton returnValue = new ExtendedButton(x, y, width, height, translate ? GuiLangKeys.translateToComponent(text) : Utils.createTextComponent(text), this::buttonClicked, label);
+
+        return this.addRenderableWidget(returnValue);
+    }
+
+    /**
+     * Creates a button using the button clicked event as the handler. Then adds it to the buttons list and returns the created object.
      *
      * @param x      The x-axis position.
      * @param y      The y-axis position.
@@ -123,11 +146,9 @@ public abstract class GuiBase extends Screen {
      * @return A new button.
      */
     public ExtendedButton createAndAddButton(int x, int y, int width, int height, String text, boolean translate) {
-        ExtendedButton returnValue = new ExtendedButton(x, y, width, height, translate ? GuiLangKeys.translateToComponent(text) : Utils.createTextComponent(text), this::buttonClicked);
+        ExtendedButton returnValue = new ExtendedButton(x, y, width, height, translate ? GuiLangKeys.translateToComponent(text) : Utils.createTextComponent(text), this::buttonClicked, null);
 
-        this.addRenderableWidget(returnValue);
-
-        return returnValue;
+        return this.addRenderableWidget(returnValue);
     }
 
     public CustomButton createAndAddCustomButton(int x, int y, int width, int height, String text) {
@@ -150,8 +171,8 @@ public abstract class GuiBase extends Screen {
      * @param color  The color to describe on the button.
      * @return A new button.
      */
-    public ExtendedButton createAndAddDyeButton(int x, int y, int width, int height, DyeColor color) {
-        ExtendedButton returnValue = new ExtendedButton(x, y, width, height, Utils.createTextComponent(GuiLangKeys.translateDye(color)), this::buttonClicked);
+    public ExtendedButton createAndAddDyeButton(int x, int y, int width, int height, DyeColor color, String label) {
+        ExtendedButton returnValue = new ExtendedButton(x, y, width, height, Utils.createTextComponent(GuiLangKeys.translateDye(color)), this::buttonClicked, label);
 
         this.addRenderableWidget(returnValue);
 
@@ -168,8 +189,8 @@ public abstract class GuiBase extends Screen {
      * @param color  The color to describe on the button.
      * @return A new button.
      */
-    public ExtendedButton createAndAddFullDyeButton(int x, int y, int width, int height, FullDyeColor color) {
-        ExtendedButton returnValue = new ExtendedButton(x, y, width, height, Utils.createTextComponent(GuiLangKeys.translateFullDye(color)), this::buttonClicked);
+    public ExtendedButton createAndAddFullDyeButton(int x, int y, int width, int height, FullDyeColor color, String label) {
+        ExtendedButton returnValue = new ExtendedButton(x, y, width, height, Utils.createTextComponent(GuiLangKeys.translateFullDye(color)), this::buttonClicked, label);
 
         this.addRenderableWidget(returnValue);
 
@@ -194,7 +215,7 @@ public abstract class GuiBase extends Screen {
         return slider;
     }
 
-    protected void drawControlBackground(PoseStack matrixStack,int grayBoxX, int grayBoxY, int width, int height) {
+    protected void drawControlBackground(PoseStack matrixStack, int grayBoxX, int grayBoxY, int width, int height) {
         GuiUtils.bindAndDrawScaledTexture(
                 this.backgroundTextures,
                 matrixStack,
