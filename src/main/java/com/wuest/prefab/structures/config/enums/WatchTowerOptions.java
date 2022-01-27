@@ -11,7 +11,7 @@ public class WatchTowerOptions extends BaseOption {
     public static WatchTowerOptions Variant1 = new WatchTowerOptions(
             "item.prefab.item_watch_tower_2",
             "assets/prefab/structures/watch_tower_2.zip",
-            "textures/gui/watch_tower_topdown.png",
+            "textures/gui/watch_tower_2.png",
             true,
             false);
 
