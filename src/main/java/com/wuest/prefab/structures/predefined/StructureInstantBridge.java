@@ -45,13 +45,13 @@ public class StructureInstantBridge extends Structure {
      * @return True if the build can occur, otherwise false.
      */
     @Override
-    public boolean BuildStructure(StructureConfiguration configuration, ServerLevel world, BlockPos originalPos, Direction assumedNorth, Player player) {
+    public boolean BuildStructure(StructureConfiguration configuration, ServerLevel world, BlockPos originalPos, Player player) {
         InstantBridgeConfiguration specificConfig = (InstantBridgeConfiguration) configuration;
         this.setupClearSpace(specificConfig);
 
         this.setupStructure(specificConfig, originalPos);
 
-        return super.BuildStructure(specificConfig, world, originalPos, assumedNorth, player);
+        return super.BuildStructure(specificConfig, world, originalPos, player);
     }
 
     public void setupStructure(InstantBridgeConfiguration configuration, BlockPos originalPos) {

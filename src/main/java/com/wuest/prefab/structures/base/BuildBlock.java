@@ -50,11 +50,11 @@ public class BuildBlock {
         this.Initialize();
     }
 
-    public static BuildBlock SetBlockState(StructureConfiguration configuration, Level world, BlockPos originalPos, Direction assumedNorth, BuildBlock block, Block foundBlock,
+    public static BuildBlock SetBlockState(StructureConfiguration configuration, Level world, BlockPos originalPos, BuildBlock block, Block foundBlock,
                                            BlockState blockState, Structure structure) {
         try {
             if (!block.blockStateData.equals("")) {
-                return BuildBlock.SetBlockStateFromTagData(configuration, world, originalPos, assumedNorth, block, foundBlock, blockState, structure);
+                return BuildBlock.SetBlockStateFromTagData(configuration, world, originalPos, block, foundBlock, blockState, structure);
             }
 
             Direction vineFacing = BuildBlock.getVineFacing(configuration, foundBlock, block, structure.getClearSpace().getShape().getDirection());
@@ -415,7 +415,7 @@ public class BuildBlock {
         return state.setValue(property, comparable);
     }
 
-    private static BuildBlock SetBlockStateFromTagData(StructureConfiguration configuration, Level world, BlockPos originalPos, Direction assumedNorth, BuildBlock block,
+    private static BuildBlock SetBlockStateFromTagData(StructureConfiguration configuration, Level world, BlockPos originalPos, BuildBlock block,
                                                        Block foundBlock, BlockState blockState, Structure structure) {
         BlockState tagState = block.getBlockStateFromDataTag();
 
@@ -423,7 +423,7 @@ public class BuildBlock {
             block.setBlockState(block.getBlockStateFromDataTag());
         } else {
             block.setBlockStateData("");
-            return BuildBlock.SetBlockState(configuration, world, originalPos, assumedNorth, block, foundBlock, blockState, structure);
+            return BuildBlock.SetBlockState(configuration, world, originalPos, block, foundBlock, blockState, structure);
         }
 
         return block;

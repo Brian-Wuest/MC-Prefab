@@ -108,7 +108,7 @@ public abstract class GuiStructure extends GuiBase {
     }
 
     protected void performPreview(Structure structure, StructureConfiguration structureConfiguration) {
-        StructureRenderHandler.setStructure(structure, Direction.NORTH, structureConfiguration);
+        StructureRenderHandler.setStructure(structure, structureConfiguration);
         this.closeScreen();
     }
 }

@@ -42,7 +42,7 @@ public class StructureBasic extends Structure {
 
     @Override
     protected Boolean CustomBlockProcessingHandled(StructureConfiguration configuration, BuildBlock block, Level world, BlockPos originalPos,
-                                                   Direction assumedNorth, Block foundBlock, BlockState blockState, Player player) {
+                                                   Block foundBlock, BlockState blockState, Player player) {
         BasicStructureConfiguration config = (BasicStructureConfiguration) configuration;
 
         String structureName = config.basicStructureName.getName();
@@ -96,7 +96,7 @@ public class StructureBasic extends Structure {
     }
 
     @Override
-    protected Boolean BlockShouldBeClearedDuringConstruction(StructureConfiguration configuration, Level world, BlockPos originalPos, Direction assumedNorth, BlockPos blockPos) {
+    protected Boolean BlockShouldBeClearedDuringConstruction(StructureConfiguration configuration, Level world, BlockPos originalPos, BlockPos blockPos) {
         BasicStructureConfiguration config = (BasicStructureConfiguration) configuration;
 
         if (config.basicStructureName.getName().equals(EnumBasicStructureName.AquaBase.getName())
@@ -115,11 +115,10 @@ public class StructureBasic extends Structure {
      * @param configuration The structure configuration.
      * @param world         The current world.
      * @param originalPos   The original position clicked on.
-     * @param assumedNorth  The assumed northern direction.
      * @param player        The player which initiated the construction.
      */
     @Override
-    public void AfterBuilding(StructureConfiguration configuration, ServerLevel world, BlockPos originalPos, Direction assumedNorth, Player player) {
+    public void AfterBuilding(StructureConfiguration configuration, ServerLevel world, BlockPos originalPos, Player player) {
         BasicStructureConfiguration config = (BasicStructureConfiguration) configuration;
         String structureName = config.basicStructureName.getName();
         BaseOption chosenOption = config.chosenOption;

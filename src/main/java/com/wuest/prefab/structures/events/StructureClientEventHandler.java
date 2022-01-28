@@ -23,7 +23,7 @@ public final class StructureClientEventHandler {
     @SubscribeEvent
     public static void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
         if (StructureRenderHandler.currentStructure != null && event.getPlayer() == Minecraft.getInstance().player) {
-            StructureRenderHandler.setStructure(null, Direction.NORTH, null);
+            StructureRenderHandler.setStructure(null, null);
             event.setCanceled(true);
         }
     }

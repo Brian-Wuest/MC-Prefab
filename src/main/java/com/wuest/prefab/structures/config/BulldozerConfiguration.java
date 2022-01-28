@@ -51,7 +51,7 @@ public class BulldozerConfiguration extends StructureConfiguration {
             this.creativeMode = true;
         }
 
-        if (structure.BuildStructure(this, world, hitBlockPos, Direction.NORTH, player)) {
+        if (structure.BuildStructure(this, world, hitBlockPos, player)) {
             ItemStack stack = player.getItemInHand(InteractionHand.OFF_HAND);
             InteractionHand hand = InteractionHand.OFF_HAND;
 

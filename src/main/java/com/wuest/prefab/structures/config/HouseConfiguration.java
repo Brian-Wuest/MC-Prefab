@@ -174,7 +174,7 @@ public class HouseConfiguration extends StructureConfiguration {
 
         // Build the alternate starter house instead.
         StructureAlternateStart structure = StructureAlternateStart.CreateInstance(this.houseStyle.getStructureLocation(), StructureAlternateStart.class);
-        houseBuilt = structure.BuildStructure(this, world, hitBlockPos, Direction.NORTH, player);
+        houseBuilt = structure.BuildStructure(this, world, hitBlockPos, player);
 
         // The house was successfully built, remove the item from the inventory.
         if (houseBuilt) {

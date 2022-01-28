@@ -42,7 +42,7 @@ public class StructureBulldozer extends Structure {
     }
 
     @Override
-    protected Boolean BlockShouldBeClearedDuringConstruction(StructureConfiguration configuration, Level world, BlockPos originalPos, Direction assumedNorth, BlockPos blockPos) {
+    protected Boolean BlockShouldBeClearedDuringConstruction(StructureConfiguration configuration, Level world, BlockPos originalPos, BlockPos blockPos) {
         BlockState state = world.getBlockState(blockPos);
         BulldozerConfiguration specificConfiguration = (BulldozerConfiguration) configuration;
         boolean correctHarvestLevel = TierSortingRegistry.isCorrectTierForDrops(Tiers.DIAMOND, state);

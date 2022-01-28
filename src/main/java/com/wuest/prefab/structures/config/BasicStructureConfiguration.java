@@ -151,7 +151,7 @@ public class BasicStructureConfiguration extends StructureConfiguration {
 
         StructureBasic structure = StructureBasic.CreateInstance(assetLocation, StructureBasic.class);
 
-        if (structure.BuildStructure(this, world, hitBlockPos, Direction.NORTH, player)) {
+        if (structure.BuildStructure(this, world, hitBlockPos, player)) {
             ItemStack stack = ItemBasicStructure.getBasicStructureItemInHand(player);
 
             if (!stack.isDamageableItem()) {
