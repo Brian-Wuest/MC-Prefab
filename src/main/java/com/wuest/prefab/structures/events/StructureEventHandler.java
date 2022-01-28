@@ -424,10 +424,10 @@ public final class StructureEventHandler {
         Direction structureDirection = structure.getClearSpace().getShape().getDirection();
         Direction configurationDirection = structure.configuration.houseFacing.getOpposite();
 
-        if (configurationDirection== structureDirection.getOpposite()) {
+        if (configurationDirection == structureDirection.getOpposite()) {
             rotation = Rotation.CLOCKWISE_180;
             facing = facing.getOpposite();
-        } else if (configurationDirection== structureDirection.getClockWise()) {
+        } else if (configurationDirection == structureDirection.getClockWise()) {
             rotation = Rotation.CLOCKWISE_90;
             facing = facing.getClockWise();
         } else if (configurationDirection == structureDirection.getCounterClockWise()) {
@@ -438,8 +438,8 @@ public final class StructureEventHandler {
         int paintingBlockWidth = entity.motive.getWidth() / 16;
         int paintingBlockHeight = entity.motive.getHeight() / 16;
 
-        if ((paintingBlockHeight > paintingBlockWidth
-                || paintingBlockHeight > 1) && !(paintingBlockWidth == 4 && paintingBlockHeight == 3)) {
+        if ((paintingBlockHeight > paintingBlockWidth || paintingBlockHeight > 1)
+                && !(paintingBlockWidth == 4 && paintingBlockHeight == 3)) {
             y_axis_offset--;
         }
 
@@ -523,17 +523,14 @@ public final class StructureEventHandler {
             rotation = Rotation.CLOCKWISE_180;
             x_axis_offset = x_axis_offset * -1;
             z_axis_offset = z_axis_offset * -1;
-            facing = facing.getOpposite();
         } else if (configurationDirection == facing.getClockWise()) {
             rotation = Rotation.CLOCKWISE_90;
             x_axis_offset = x_axis_offset * -1;
             z_axis_offset = z_axis_offset * -1;
-            facing = facing.getClockWise();
         } else if (configurationDirection == facing.getCounterClockWise()) {
             rotation = Rotation.COUNTERCLOCKWISE_90;
             x_axis_offset = x_axis_offset * -1;
             z_axis_offset = z_axis_offset * -1;
-            facing = facing.getCounterClockWise();
         } else {
             x_axis_offset = 0;
             z_axis_offset = 0;
