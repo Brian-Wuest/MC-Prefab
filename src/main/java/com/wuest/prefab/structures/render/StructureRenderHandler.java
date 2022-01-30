@@ -12,6 +12,7 @@ import com.wuest.prefab.structures.base.BuildBlock;
 import com.wuest.prefab.structures.base.Structure;
 import com.wuest.prefab.structures.config.StructureConfiguration;
 import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
@@ -131,11 +132,11 @@ public class StructureRenderHandler {
 
                 TranslatableComponent message = new TranslatableComponent(GuiLangKeys.GUI_PREVIEW_NOTICE);
                 message.setStyle(Style.EMPTY.withColor(ChatFormatting.GREEN));
-                mc.gui.handleChat(ChatType.CHAT, message, null);
+                mc.gui.handleChat(ChatType.CHAT, message, Util.NIL_UUID);
 
                 message = new TranslatableComponent(GuiLangKeys.GUI_BLOCK_CLICKED);
                 message.setStyle(Style.EMPTY.withColor(ChatFormatting.YELLOW));
-                mc.gui.handleChat(ChatType.CHAT, message, null);
+                mc.gui.handleChat(ChatType.CHAT, message, Util.NIL_UUID);
 
                 StructureRenderHandler.showedMessage = true;
             }
