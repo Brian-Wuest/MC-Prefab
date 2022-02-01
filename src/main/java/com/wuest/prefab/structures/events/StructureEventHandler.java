@@ -418,7 +418,7 @@ public final class StructureEventHandler {
         Rotation rotation = Rotation.NONE;
         double x_axis_offset = 0;
         double z_axis_offset = 0;
-        Direction facing = buildEntity.entityFacing;
+        Direction facing = entity.getDirection();
         double y_axis_offset = buildEntity.entityYAxisOffset * -1;
 
         Direction structureDirection = structure.getClearSpace().getShape().getDirection();
