@@ -40,7 +40,7 @@ public class GuiStartHouseChooser extends GuiStructure {
 
     public GuiStartHouseChooser() {
         super("Starter House");
-        this.structureConfiguration = StructureTagMessage.EnumStructureConfiguration.StartHouse;
+        this.configurationEnum = StructureTagMessage.EnumStructureConfiguration.StartHouse;
     }
 
     @Override
@@ -64,6 +64,8 @@ public class GuiStartHouseChooser extends GuiStructure {
         this.serverConfiguration = Prefab.proxy.getServerConfiguration();
         this.configuration = ClientEventHandler.playerConfig.getClientConfig("Starter House", HouseConfiguration.class);
         this.configuration.pos = this.pos;
+
+        this.selectedStructure = StructureAlternateStart.CreateInstance(this.configuration.houseStyle.getStructureLocation(), StructureAlternateStart.class);
 
         // Get the upper left hand corner of the GUI box.
         Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
@@ -144,6 +146,7 @@ public class GuiStartHouseChooser extends GuiStructure {
         if (button == this.btnHouseStyle) {
             int id = this.configuration.houseStyle.getValue() + 1;
             this.configuration.houseStyle = HouseConfiguration.HouseStyle.ValueOf(id);
+            this.selectedStructure = StructureAlternateStart.CreateInstance(this.configuration.houseStyle.getStructureLocation(), StructureAlternateStart.class);
             GuiUtils.setButtonText(btnHouseStyle, this.configuration.houseStyle.getDisplayName());
         } else if (button == this.btnGlassColor) {
             this.configuration.glassColor = FullDyeColor.ById(this.configuration.glassColor.getId() + 1);
@@ -152,8 +155,7 @@ public class GuiStartHouseChooser extends GuiStructure {
             this.configuration.bedColor = DyeColor.byId(this.configuration.bedColor.getId() + 1);
             GuiUtils.setButtonText(btnBedColor, GuiLangKeys.translateDye(this.configuration.bedColor));
         } else if (button == this.btnVisualize) {
-            StructureAlternateStart structure = StructureAlternateStart.CreateInstance(this.configuration.houseStyle.getStructureLocation(), StructureAlternateStart.class);
-            this.performPreview(structure, this.configuration);
+            this.performPreview();
         }
     }
 }

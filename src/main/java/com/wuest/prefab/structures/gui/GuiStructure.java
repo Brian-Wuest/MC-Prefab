@@ -29,9 +29,11 @@ public abstract class GuiStructure extends GuiBase {
     protected Button btnCancel;
     protected Button btnBuild;
     protected Button btnVisualize;
-    public StructureTagMessage.EnumStructureConfiguration structureConfiguration;
+    public StructureTagMessage.EnumStructureConfiguration configurationEnum;
     protected ResourceLocation structureImageLocation;
     private Direction structureFacing;
+    protected StructureConfiguration configuration;
+    protected Structure selectedStructure;
 
     public GuiStructure(String title) {
         super(title);
@@ -102,13 +104,17 @@ public abstract class GuiStructure extends GuiBase {
         if (button == this.btnCancel) {
             this.closeScreen();
         } else if (button == this.btnBuild) {
-            Prefab.network.sendToServer(Utils.createStructureMessage(configuration.WriteToCompoundTag(), this.structureConfiguration));
+            Prefab.network.sendToServer(Utils.createStructureMessage(configuration.WriteToCompoundTag(), this.configurationEnum));
             this.closeScreen();
         }
     }
 
-    protected void performPreview(Structure structure, StructureConfiguration structureConfiguration) {
-        StructureRenderHandler.setStructure(structure, structureConfiguration);
+    protected void performPreview() {
+        StructureRenderHandler.setStructure(this.selectedStructure, this.configuration);
         this.closeScreen();
+    }
+
+    protected void renderStructureInScreen(PoseStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
+
     }
 }

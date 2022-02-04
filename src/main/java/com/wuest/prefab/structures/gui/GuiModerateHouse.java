@@ -34,7 +34,7 @@ public class GuiModerateHouse extends GuiStructure {
     public GuiModerateHouse() {
         super("Moderate House");
 
-        this.structureConfiguration = EnumStructureConfiguration.ModerateHouse;
+        this.configurationEnum = EnumStructureConfiguration.ModerateHouse;
     }
 
     @Override
@@ -56,6 +56,8 @@ public class GuiModerateHouse extends GuiStructure {
         this.serverConfiguration = Prefab.proxy.getServerConfiguration();
         this.configuration = ClientEventHandler.playerConfig.getClientConfig("Moderate Houses", ModerateHouseConfiguration.class);
         this.configuration.pos = this.pos;
+
+        this.selectedStructure = StructureModerateHouse.CreateInstance(this.configuration.houseStyle.getStructureLocation(), StructureModerateHouse.class);
 
         // Get the upper left hand corner of the GUI box.
         Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
@@ -128,11 +130,10 @@ public class GuiModerateHouse extends GuiStructure {
         if (button == this.btnHouseStyle) {
             int id = this.configuration.houseStyle.getValue() + 1;
             this.configuration.houseStyle = ModerateHouseConfiguration.HouseStyle.ValueOf(id);
-
+            this.selectedStructure = StructureModerateHouse.CreateInstance(this.configuration.houseStyle.getStructureLocation(), StructureModerateHouse.class);
             GuiUtils.setButtonText(btnHouseStyle, this.configuration.houseStyle.getDisplayName());
         } else if (button == this.btnVisualize) {
-            StructureModerateHouse structure = StructureModerateHouse.CreateInstance(this.configuration.houseStyle.getStructureLocation(), StructureModerateHouse.class);
-            this.performPreview(structure, this.configuration);
+            this.performPreview();
         } else if (button == this.btnBedColor) {
             this.configuration.bedColor = DyeColor.byId(this.configuration.bedColor.getId() + 1);
             GuiUtils.setButtonText(btnBedColor, GuiLangKeys.translateDye(this.configuration.bedColor));

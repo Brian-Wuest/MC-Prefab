@@ -37,7 +37,7 @@ public class GuiBasicStructure extends GuiStructure {
 
     public GuiBasicStructure() {
         super("Basic Structure");
-        this.structureConfiguration = EnumStructureConfiguration.Basic;
+        this.configurationEnum = EnumStructureConfiguration.Basic;
         this.showConfigurationOptions = false;
     }
 
@@ -69,6 +69,8 @@ public class GuiBasicStructure extends GuiStructure {
         }
 
         this.configuration.pos = this.pos;
+
+        this.selectedStructure = StructureBasic.CreateInstance(this.configuration.chosenOption.getAssetLocation(), StructureBasic.class);
 
         if (this.availableOptions.size() > 1 || this.configuration.basicStructureName.shouldShowConfigurationOptions()) {
             this.showConfigurationOptions = true;
@@ -199,8 +201,7 @@ public class GuiBasicStructure extends GuiStructure {
         this.performCancelOrBuildOrHouseFacing(this.configuration, button);
 
         if (button == this.btnVisualize) {
-            StructureBasic structure = StructureBasic.CreateInstance(this.configuration.chosenOption.getAssetLocation(), StructureBasic.class);
-            this.performPreview(structure, this.configuration);
+            this.performPreview();
         } else if (button == this.btnBedColor) {
             this.configuration.bedColor = DyeColor.byId(this.configuration.bedColor.getId() + 1);
             GuiUtils.setButtonText(this.btnBedColor, GuiLangKeys.translateDye(this.configuration.bedColor));
@@ -222,6 +223,7 @@ public class GuiBasicStructure extends GuiStructure {
                 }
 
                 if (chosenOption != null) {
+                    this.selectedStructure = StructureBasic.CreateInstance(chosenOption.getAssetLocation(), StructureBasic.class);
                     this.configuration.chosenOption = chosenOption;
                     this.structureImageLocation = this.configuration.chosenOption.getPictureLocation();
                     GuiUtils.setButtonText(btnStructureOptions, GuiLangKeys.translateString(chosenOption.getTranslationString()));

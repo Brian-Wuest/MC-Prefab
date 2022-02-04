@@ -143,7 +143,7 @@ public final class ClientEventHandler {
         GuiStructure mainHandGui = ClientProxy.ModGuis.get(stack.getItem());
         mainHandGui.init();
 
-        if (currentConfiguration == mainHandGui.structureConfiguration) {
+        if (currentConfiguration == mainHandGui.configurationEnum) {
             if (currentConfiguration == StructureTagMessage.EnumStructureConfiguration.Basic) {
                 ItemBasicStructure item = (ItemBasicStructure) stack.getItem();
                 BasicStructureConfiguration.EnumBasicStructureName basicStructureName = ((BasicStructureConfiguration) StructureRenderHandler.currentConfiguration).basicStructureName;

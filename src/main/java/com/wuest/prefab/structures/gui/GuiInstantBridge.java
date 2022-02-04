@@ -29,7 +29,7 @@ public class GuiInstantBridge extends GuiStructure {
 
     public GuiInstantBridge() {
         super("Instant Bridge");
-        this.structureConfiguration = EnumStructureConfiguration.InstantBridge;
+        this.configurationEnum = EnumStructureConfiguration.InstantBridge;
     }
 
     @Override
@@ -46,6 +46,11 @@ public class GuiInstantBridge extends GuiStructure {
         this.configuration = ClientEventHandler.playerConfig.getClientConfig("InstantBridge", InstantBridgeConfiguration.class);
         this.configuration.pos = this.pos;
         this.structureImageLocation = structureTopDown;
+
+        StructureInstantBridge structure = new StructureInstantBridge();
+        structure.getClearSpace().getShape().setDirection(Direction.SOUTH);
+        structure.setupStructure(this.configuration, this.pos);
+        this.selectedStructure = structure;
 
         // Get the upper left hand corner of the GUI box.
         Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
@@ -144,11 +149,7 @@ public class GuiInstantBridge extends GuiStructure {
             this.configuration.bridgeMaterial = EnumStructureMaterial.getMaterialByNumber(this.configuration.bridgeMaterial.getNumber() + 1);
             GuiUtils.setButtonText(btnMaterialType, this.configuration.bridgeMaterial.getTranslatedName());
         } else if (button == this.btnVisualize) {
-            StructureInstantBridge structure = new StructureInstantBridge();
-            structure.getClearSpace().getShape().setDirection(Direction.SOUTH);
-            structure.setupStructure(this.configuration, this.pos);
-
-            this.performPreview(structure, this.configuration);
+            this.performPreview();
         }
     }
 }

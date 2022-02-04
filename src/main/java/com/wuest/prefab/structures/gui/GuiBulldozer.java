@@ -23,7 +23,7 @@ public class GuiBulldozer extends GuiStructure {
     public GuiBulldozer() {
         super("Bulldozer");
 
-        this.structureConfiguration = EnumStructureConfiguration.Bulldozer;
+        this.configurationEnum = EnumStructureConfiguration.Bulldozer;
     }
 
     @Override

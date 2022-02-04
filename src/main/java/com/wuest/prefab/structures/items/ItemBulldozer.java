@@ -168,6 +168,6 @@ public class ItemBulldozer extends StructureItem {
 
         CompoundTag prefabTag = new CompoundTag();
         prefabTag.putBoolean("powered", value);
-        stack.getTag().put("prefab", prefabTag);
+        stack.getTag().put(Prefab.MODID, prefabTag);
     }
 }
