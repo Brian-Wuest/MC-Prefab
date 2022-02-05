@@ -412,14 +412,14 @@ public class Structure {
 
                             // Set the glass color if this structure can have the glass configured.
                             if (!this.processedGlassBlock(configuration, block, world, originalPos, foundBlock)) {
-                                block = BuildBlock.SetBlockState(configuration, world, originalPos, block, foundBlock, blockState, this);
+                                block = BuildBlock.SetBlockState(configuration, originalPos, block, foundBlock, blockState, this.getClearSpace().getShape().getDirection());
                             }
 
                             if (block.getSubBlock() != null) {
                                 foundBlock = ForgeRegistries.BLOCKS.getValue(block.getSubBlock().getResourceLocation());
                                 blockState = foundBlock.defaultBlockState();
 
-                                subBlock = BuildBlock.SetBlockState(configuration, world, originalPos, block.getSubBlock(), foundBlock, blockState, this);
+                                subBlock = BuildBlock.SetBlockState(configuration, originalPos, block.getSubBlock(), foundBlock, blockState, this.getClearSpace().getShape().getDirection());
                             }
 
                             BlockPos setBlockPos = block.getStartingPosition().getRelativePosition(originalPos,
@@ -448,7 +448,7 @@ public class Structure {
                         // no longer exists.
                         // In this case, print an informational message and replace it with cobblestone.
                         String blockTypeNotFound = block.getResourceLocation().toString();
-                        block = BuildBlock.SetBlockState(configuration, world, originalPos, block, Blocks.COBBLESTONE, Blocks.COBBLESTONE.defaultBlockState(), this);
+                        block = BuildBlock.SetBlockState(configuration, originalPos, block, Blocks.COBBLESTONE, Blocks.COBBLESTONE.defaultBlockState(), this.getClearSpace().getShape().getDirection());
 
                         BlockPos setBlockPos = block.getStartingPosition().getRelativePosition(originalPos,
                                 this.getClearSpace().getShape().getDirection(), configuration.houseFacing);
@@ -633,12 +633,11 @@ public class Structure {
 
             BuildBlock.SetBlockState(
                     configuration,
-                    world,
                     originalPos,
                     block,
                     foundBlock,
                     blockState,
-                    this);
+                    this.getClearSpace().getShape().getDirection());
 
             return true;
         }

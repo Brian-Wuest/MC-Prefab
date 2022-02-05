@@ -110,12 +110,11 @@ public class StructureRenderHandler {
                     BlockState blockState = foundBlock.defaultBlockState();
                     buildBlock = BuildBlock.SetBlockState(
                             StructureRenderHandler.currentConfiguration,
-                            player.level,
                             StructureRenderHandler.currentConfiguration.pos,
                             buildBlock,
                             foundBlock,
                             blockState,
-                            StructureRenderHandler.currentStructure);
+                            StructureRenderHandler.currentStructure.getClearSpace().getShape().getDirection());
 
                     StructureRenderHandler.renderComponentInWorld(player.level, buildBlock, entityVertexConsumer, matrixStack, pos);
                 }
@@ -158,11 +157,11 @@ public class StructureRenderHandler {
 
             BuildBlock subBlock = BuildBlock.SetBlockState(
                     StructureRenderHandler.currentConfiguration,
-                    world, StructureRenderHandler.currentConfiguration.pos,
+                    StructureRenderHandler.currentConfiguration.pos,
                     buildBlock.getSubBlock(),
                     foundBlock,
                     blockState,
-                    StructureRenderHandler.currentStructure);
+                    StructureRenderHandler.currentStructure.getClearSpace().getShape().getDirection());
 
             BlockPos subBlockPos = subBlock.getStartingPosition().getRelativePosition(
                     StructureRenderHandler.currentConfiguration.pos,
