@@ -15,20 +15,6 @@ public class WatchTowerOptions extends BaseOption {
             true,
             false);
 
-    public static WatchTowerOptions Variant2 = new WatchTowerOptions(
-            "item.prefab.item_bundle_of_timber",
-            "assets/prefab/structures/painting_test.zip",
-            "textures/gui/modern_apartment_topdown.png",
-            true,
-            false);
-
-    public static WatchTowerOptions Variant3 = new WatchTowerOptions(
-            "item.prefab.item_warehouse_upgrade",
-            "assets/prefab/structures/item_frame_test.zip",
-            "textures/gui/modern_apartment_topdown.png",
-            true,
-            false);
-
     protected WatchTowerOptions(String translationString,
                                 String assetLocation,
                                 String pictureLocation,
