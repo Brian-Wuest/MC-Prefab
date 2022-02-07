@@ -210,6 +210,8 @@ public class GuiBasicStructure extends GuiStructure {
         } else if (button == this.btnGlassColor) {
             this.specificConfiguration.glassColor = FullDyeColor.ById(this.specificConfiguration.glassColor.getId() + 1);
             GuiUtils.setButtonText(this.btnGlassColor, GuiLangKeys.translateFullDye(this.specificConfiguration.glassColor));
+
+            this.updatedRenderedStructure();
         } else if (button == this.btnStructureOptions) {
             for (int i = 0; i < this.availableOptions.size(); i++) {
                 BaseOption option = this.availableOptions.get(i);

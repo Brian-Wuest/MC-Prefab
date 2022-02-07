@@ -1,8 +1,7 @@
 package com.wuest.prefab.structures.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
 import com.mojang.math.Vector4f;
@@ -20,8 +19,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -36,6 +37,7 @@ import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
@@ -59,6 +61,9 @@ public abstract class GuiStructure extends GuiBase {
     protected StructureGuiWorld structureRenderer;
     protected int ticksWithScreenOpen;
     protected Direction houseFacing;
+
+    private boolean isRendererSetup = false;
+    private VertexBuffer buffer = new VertexBuffer();
 
     public GuiStructure(String title) {
         super(title);
@@ -122,8 +127,11 @@ public abstract class GuiStructure extends GuiBase {
 
         this.postButtonRender(matrixStack, adjustedXYValue.getFirst(), adjustedXYValue.getSecond(), x, y, f);
 
-        if (this.structureRenderer.hasBlocksToRender()) {
+        if (this.isRendererSetup) {
             this.renderStructureInScreen(matrixStack, adjustedXYValue.getFirst(), adjustedXYValue.getSecond(), x, y, f);
+        } else {
+            this.rebuild();
+            this.isRendererSetup = true;
         }
 
         if (this.btnVisualize != null) {
@@ -169,7 +177,26 @@ public abstract class GuiStructure extends GuiBase {
                     .setStructureConfiguration(this.configuration)
                     .setBlocks(this.selectedStructure.getBlocks())
                     .setupBlocks();
+
+            this.scheduleRebuild();
         }
+    }
+
+    private void rebuild() {
+        PoseStack matrixStack = new PoseStack();
+
+        this.buffer = new VertexBuffer();
+        BufferBuilder bufferBuilder = Tesselator.getInstance().getBuilder();
+        bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.BLOCK);
+
+        this.doWorldRenderPass(matrixStack, bufferBuilder);
+
+        bufferBuilder.end();
+        this.buffer.upload(bufferBuilder);
+    }
+
+    public void scheduleRebuild() {
+        this.isRendererSetup = false;
     }
 
     /**
@@ -223,54 +250,52 @@ public abstract class GuiStructure extends GuiBase {
 
         // Apply the rotations
         eye.transform(rotMat);
-       // eye.perspectiveDivide();
+        eye.perspectiveDivide();
 
-        this.renderElements(matrixStack, eye);
+        // Original Botania style rendering
+        //this.renderElements(matrixStack, eye);
+
+        // New type of rendering.
+        this.render(matrixStack);
 
         matrixStack.popPose();
     }
 
+    private void render(PoseStack matrixStack) {
+        matrixStack.pushPose();
+        RenderSystem.setShaderColor(1, 1, 1, 1);
+        this.buffer.bind();
+        this.buffer.drawWithShader(matrixStack.last().pose(), RenderSystem.getProjectionMatrix(), GameRenderer.getBlockShader());
+        VertexBuffer.unbind();
+        matrixStack.popPose();
+    }
+
+    //************************* Original BOTANIA rendering
     private void renderElements(PoseStack matrixStack, Vector4f eye) {
         matrixStack.pushPose();
         RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
         matrixStack.translate(0, 0, -1);
 
         MultiBufferSource.BufferSource buffers = Minecraft.getInstance().renderBuffers().bufferSource();
-        doWorldRenderPass(matrixStack, buffers, eye);
-        //doTileEntityRenderPass(ms, mb, blocks, buffers, eye);
+        //this.doWorldRenderPass(matrixStack, buffers);
 
         buffers.endBatch();
         matrixStack.popPose();
     }
 
-    private void doWorldRenderPass(PoseStack matrixStack, final @Nonnull MultiBufferSource.BufferSource buffers, Vector4f eye) {
-        BlockPos eyePosition = new BlockPos(eye.x(), eye.y(), eye.z());
-
-        Frustum frustum = new Frustum(matrixStack.last().pose(), RenderSystem.getProjectionMatrix());
-        frustum.prepare(eyePosition.getX(), eyePosition.getY(), eyePosition.getZ());
-
+    //private void doWorldRenderPass(PoseStack matrixStack, final @Nonnull MultiBufferSource.BufferSource buffers)
+    private void doWorldRenderPass(PoseStack matrixStack, VertexConsumer vertexConsumer) {
         for (Map.Entry<Long, BlockState> entry : this.structureRenderer.getBlocksByPosition().entrySet()) {
             BlockPos position = BlockPos.of(entry.getKey());
             BlockState blockState = entry.getValue();
 
-            // Don't render the block if it isn't visible (cull)
-            AABB box = new AABB(
-                    position.getX() - 0.5,
-                    position.getY() - 0.5,
-                    position.getZ() - 0.5,
-                    position.getX() + 1.5,
-                    position.getY() + 1.5,
-                    position.getZ() + 1.5);
-
-            if (!frustum.isVisible(box)) {
-                //continue;
-            }
-
-            VertexConsumer buffer = buffers.getBuffer(ItemBlockRenderTypes.getChunkRenderType(blockState));
+            //VertexConsumer vertexConsumer = buffers.getBuffer(ItemBlockRenderTypes.getChunkRenderType(blockState));
 
             matrixStack.pushPose();
             matrixStack.translate(position.getX(), position.getY(), position.getZ());
-            Minecraft.getInstance().getBlockRenderer().renderBatched(blockState, position, this.structureRenderer, matrixStack, buffer, false, GuiStructure.RAND);
+
+
+            Minecraft.getInstance().getBlockRenderer().renderBatched(blockState, position, this.structureRenderer, matrixStack, vertexConsumer, false, GuiStructure.RAND);
             matrixStack.popPose();
         }
     }
