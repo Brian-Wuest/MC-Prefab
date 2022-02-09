@@ -129,11 +129,12 @@ public class GuiBasicStructure extends GuiStructure {
             this.drawControlLeftPanel(matrixStack, x + 2, y + 10, 185, 190);
             this.drawControlRightPanel(matrixStack, imagePanelUpperLeft, y + 10, this.imagePanelWidth, 190);
 
+            // TODO: Remove this when structure is generated in GUI instead of showing a picture.
             int middleOfImage = this.shownImageWidth / 2;
             int imageLocation = imagePanelUpperLeft + (imagePanelMiddle - middleOfImage);
 
             // Draw the picture.
-            /*GuiUtils.bindAndDrawScaledTexture(
+            GuiUtils.bindAndDrawScaledTexture(
                     this.structureImageLocation,
                     matrixStack,
                     imageLocation,
@@ -143,7 +144,7 @@ public class GuiBasicStructure extends GuiStructure {
                     this.shownImageWidth,
                     this.shownImageHeight,
                     this.shownImageWidth,
-                    this.shownImageHeight);*/
+                    this.shownImageHeight);
         }
 
         if (this.btnBedColor != null) {

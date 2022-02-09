@@ -83,7 +83,9 @@ public abstract class GuiStructure extends GuiBase {
     public void init() {
         this.player = this.getMinecraft().player;
         this.houseFacing = this.player.getDirection().getOpposite();
-        this.structureRenderer = new StructureGuiWorld();
+
+        // TODO: Put this back when structure rendering works.
+        // this.structureRenderer = new StructureGuiWorld();
         this.Initialize();
     }
 
@@ -127,11 +129,13 @@ public abstract class GuiStructure extends GuiBase {
 
         this.postButtonRender(matrixStack, adjustedXYValue.getFirst(), adjustedXYValue.getSecond(), x, y, f);
 
-        if (this.isRendererSetup) {
-            this.renderStructureInScreen(matrixStack, adjustedXYValue.getFirst(), adjustedXYValue.getSecond(), x, y, f);
-        } else {
-            this.rebuild();
-            this.isRendererSetup = true;
+        if (this.structureRenderer != null) {
+            if (this.isRendererSetup) {
+                this.renderStructureInScreen(matrixStack, adjustedXYValue.getFirst(), adjustedXYValue.getSecond(), x, y, f);
+            } else {
+                this.rebuild();
+                this.isRendererSetup = true;
+            }
         }
 
         if (this.btnVisualize != null) {
