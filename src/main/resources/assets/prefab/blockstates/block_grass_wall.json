@@ -1,31 +1,131 @@
 {
-    "multipart": [
-        {   "when": { "up": "true" },
-            "apply": { "model": "prefab:block/block_grass_wall_post" }
-        },
-        {   "when": { "north": "low" },
-            "apply": { "model": "prefab:block/block_grass_wall_side", "uvlock": true }
-        },
-        {   "when": { "east": "low" },
-            "apply": { "model": "prefab:block/block_grass_wall_side", "y": 90, "uvlock": true }
-        },
-        {   "when": { "south": "low" },
-            "apply": { "model": "prefab:block/block_grass_wall_side", "y": 180, "uvlock": true }
-        },
-        {   "when": { "west": "low" },
-            "apply": { "model": "prefab:block/block_grass_wall_side", "y": 270, "uvlock": true }
-        },
-        {   "when": { "north": "tall" },
-            "apply": { "model": "prefab:block/block_grass_wall_side", "uvlock": true }
-        },
-        {   "when": { "east": "tall" },
-            "apply": { "model": "prefab:block/block_grass_wall_side", "y": 90, "uvlock": true }
-        },
-        {   "when": { "south": "tall" },
-            "apply": { "model": "prefab:block/block_grass_wall_side", "y": 180, "uvlock": true }
-        },
-        {   "when": { "west": "tall" },
-            "apply": { "model": "prefab:block/block_grass_wall_side", "y": 270, "uvlock": true }
-        }
-    ]
+  "multipart": [
+    {
+      "when": {
+        "OR": [
+          {
+            "up": "true",
+            "north": "tall",
+            "east": "tall|low|none",
+            "south": "tall|low|none",
+            "west": "tall|low|none"
+          },
+          {
+            "up": "true",
+            "north": "tall|low|none",
+            "east": "tall",
+            "south": "tall|low|none",
+            "west": "tall|low|none"
+          },
+          {
+            "up": "true",
+            "north": "tall|low|none",
+            "east": "tall|low|none",
+            "south": "tall",
+            "west": "tall|low|none"
+          },
+          {
+            "up": "true",
+            "north": "tall|low|none",
+            "east": "tall|low|none",
+            "south": "tall|low|none",
+            "west": "tall"
+          }
+        ]
+      },
+      "apply": {
+        "model": "prefab:block/block_dirt_wall_post"
+      }
+    },
+    {
+      "when": {
+        "up": "true",
+        "north": "low|none",
+        "east": "low|none",
+        "south": "low|none",
+        "west": "low|none"
+      },
+      "apply": {
+        "model": "prefab:block/block_grass_wall_post"
+      }
+    },
+    {
+      "when": {
+        "north": "low"
+      },
+      "apply": {
+        "model": "prefab:block/block_grass_wall_side",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "east": "low"
+      },
+      "apply": {
+        "model": "prefab:block/block_grass_wall_side",
+        "y": 90,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "south": "low"
+      },
+      "apply": {
+        "model": "prefab:block/block_grass_wall_side",
+        "y": 180,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "west": "low"
+      },
+      "apply": {
+        "model": "prefab:block/block_grass_wall_side",
+        "y": 270,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "north": "tall"
+      },
+      "apply": {
+        "model": "prefab:block/block_grass_wall_side_tall",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "east": "tall"
+      },
+      "apply": {
+        "model": "prefab:block/block_grass_wall_side_tall",
+        "y": 90,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "south": "tall"
+      },
+      "apply": {
+        "model": "prefab:block/block_grass_wall_side_tall",
+        "y": 180,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "west": "tall"
+      },
+      "apply": {
+        "model": "prefab:block/block_grass_wall_side_tall",
+        "y": 270,
+        "uvlock": true
+      }
+    }
+  ]
 }
