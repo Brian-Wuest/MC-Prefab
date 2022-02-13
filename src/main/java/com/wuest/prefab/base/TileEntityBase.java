@@ -87,16 +87,16 @@ public abstract class TileEntityBase<T extends BaseConfig> extends BlockEntity {
 	public void load(@NotNull CompoundTag compound) {
 		super.load(compound);
 
-		this.config = this.createConfigInstance().ReadFromCompoundTag(this.getTileData());
+		if (this.config != null) {
+			this.config.WriteToNBTCompound(compound);
+		}
 	}
 
 	@Override
 	public void saveAdditional(@NotNull CompoundTag compound) {
-		CompoundTag tileData = this.getTileData();
+		super.saveAdditional(compound);
 
-		if (this.config != null) {
-			this.config.WriteToNBTCompound(tileData);
-		}
+		this.config = this.createConfigInstance().ReadFromCompoundTag(compound);
 	}
 
 	public T createConfigInstance() {
