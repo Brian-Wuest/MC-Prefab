@@ -227,7 +227,11 @@ public class HouseConfiguration extends StructureConfiguration {
         CAMPSITE(9,
                 GuiLangKeys.STARTER_HOUSE_CAMPING_DISPLAY,
                 new ResourceLocation("prefab", "textures/gui/campsite_house.png"),
-                "assets/prefab/structures/starter_house_campsite.zip");
+                "assets/prefab/structures/starter_house_campsite.zip"),
+        IZBA(10,
+                GuiLangKeys.STARTER_HOUSE_IZBA_DISPLAY,
+                new ResourceLocation("prefab", "textures/gui/izba_house.png"),
+                "assets/prefab/structures/starter_house_izba.zip");
 
         private final int value;
         private final String displayName;

@@ -21,7 +21,7 @@ import net.minecraft.resources.ResourceLocation;
 @SuppressWarnings("SpellCheckingInspection")
 public class GuiInstantBridge extends GuiStructure {
     private static final ResourceLocation structureTopDown = new ResourceLocation("prefab", "textures/gui/instant_bridge_top_down.png");
-    protected InstantBridgeConfiguration configuration;
+    protected InstantBridgeConfiguration specificConfiguration;
     private ExtendedButton btnMaterialType;
     private GuiSlider sldrBridgeLength;
     private GuiCheckBox chckIncludeRoof;
@@ -43,13 +43,13 @@ public class GuiInstantBridge extends GuiStructure {
         this.modifiedInitialYAxis = 117;
         this.shownImageHeight = 150;
         this.shownImageWidth = 268;
-        this.configuration = ClientEventHandler.playerConfig.getClientConfig("InstantBridge", InstantBridgeConfiguration.class);
+        this.configuration = this.specificConfiguration = ClientEventHandler.playerConfig.getClientConfig("InstantBridge", InstantBridgeConfiguration.class);
         this.configuration.pos = this.pos;
         this.structureImageLocation = structureTopDown;
 
         StructureInstantBridge structure = new StructureInstantBridge();
         structure.getClearSpace().getShape().setDirection(Direction.SOUTH);
-        structure.setupStructure(this.configuration, this.pos);
+        structure.setupStructure(this.specificConfiguration, this.pos);
         this.selectedStructure = structure;
 
         // Get the upper left hand corner of the GUI box.
@@ -58,10 +58,10 @@ public class GuiInstantBridge extends GuiStructure {
         int grayBoxY = adjustedXYValue.getSecond();
 
         // Create the buttons.
-        this.btnMaterialType = this.createAndAddButton(grayBoxX + 15, grayBoxY + 45, 90, 20, this.configuration.bridgeMaterial.getName());
-        this.sldrBridgeLength = this.createAndAddSlider(grayBoxX + 15, grayBoxY + 85, 90, 20, "", "", 25, 75, this.configuration.bridgeLength, false, true, this::buttonClicked);
-        this.chckIncludeRoof = this.createAndAddCheckBox(grayBoxX + 15, grayBoxY + 112, GuiLangKeys.INCLUDE_ROOF, this.configuration.includeRoof, this::buttonClicked);
-        this.sldrInteriorHeight = this.createAndAddSlider(grayBoxX + 15, grayBoxY + 140, 90, 20, "", "", 3, 8, this.configuration.interiorHeight, false, true, this::buttonClicked);
+        this.btnMaterialType = this.createAndAddButton(grayBoxX + 15, grayBoxY + 45, 90, 20, this.specificConfiguration.bridgeMaterial.getName());
+        this.sldrBridgeLength = this.createAndAddSlider(grayBoxX + 15, grayBoxY + 85, 90, 20, "", "", 25, 75, this.specificConfiguration.bridgeLength, false, true, this::buttonClicked);
+        this.chckIncludeRoof = this.createAndAddCheckBox(grayBoxX + 15, grayBoxY + 112, GuiLangKeys.INCLUDE_ROOF, this.specificConfiguration.includeRoof, this::buttonClicked);
+        this.sldrInteriorHeight = this.createAndAddSlider(grayBoxX + 15, grayBoxY + 140, 90, 20, "", "", 3, 8, this.specificConfiguration.interiorHeight, false, true, this::buttonClicked);
         this.sldrInteriorHeight.visible = this.chckIncludeRoof.isChecked();
 
         // Create the standard buttons.
@@ -123,7 +123,7 @@ public class GuiInstantBridge extends GuiStructure {
             sliderValue = 25;
         }
 
-        this.configuration.bridgeLength = sliderValue;
+        this.specificConfiguration.bridgeLength = sliderValue;
 
         sliderValue = this.sldrInteriorHeight.getValueInt();
 
@@ -133,22 +133,23 @@ public class GuiInstantBridge extends GuiStructure {
             sliderValue = 3;
         }
 
-        this.configuration.interiorHeight = sliderValue;
-        this.configuration.includeRoof = this.chckIncludeRoof.isChecked();
+        this.specificConfiguration.interiorHeight = sliderValue;
+        this.specificConfiguration.includeRoof = this.chckIncludeRoof.isChecked();
         this.configuration.houseFacing = player.getDirection().getOpposite();
         this.configuration.pos = this.pos;
 
-        this.performCancelOrBuildOrHouseFacing(this.configuration, button);
+        this.performCancelOrBuildOrHouseFacing(button);
 
         if (button == this.chckIncludeRoof) {
-            this.configuration.includeRoof = this.chckIncludeRoof.isChecked();
+            this.specificConfiguration.includeRoof = this.chckIncludeRoof.isChecked();
 
-            this.sldrInteriorHeight.visible = this.configuration.includeRoof;
+            this.sldrInteriorHeight.visible = this.specificConfiguration.includeRoof;
         }
         if (button == this.btnMaterialType) {
-            this.configuration.bridgeMaterial = EnumStructureMaterial.getMaterialByNumber(this.configuration.bridgeMaterial.getNumber() + 1);
-            GuiUtils.setButtonText(btnMaterialType, this.configuration.bridgeMaterial.getTranslatedName());
+            this.specificConfiguration.bridgeMaterial = EnumStructureMaterial.getMaterialByNumber(this.specificConfiguration.bridgeMaterial.getNumber() + 1);
+            GuiUtils.setButtonText(btnMaterialType, this.specificConfiguration.bridgeMaterial.getTranslatedName());
         } else if (button == this.btnVisualize) {
+            ((StructureInstantBridge)this.selectedStructure).setupStructure(this.specificConfiguration, this.pos);
             this.performPreview();
         }
     }

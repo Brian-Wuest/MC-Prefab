@@ -85,6 +85,9 @@ public class GuiLangKeys {
     @Unlocalized(name = "Camping Style")
     public static final String STARTER_HOUSE_CAMPING_DISPLAY = "prefab.gui.starter.camping.display";
 
+    @Unlocalized(name = "Izba Style")
+    public static final String STARTER_HOUSE_IZBA_DISPLAY = "prefab.gui.starter.izba.display";
+
     @Unlocalized(name = "Add Torches")
     public static final String STARTER_HOUSE_ADD_TORCHES = "prefab.gui.starter.addtorches";
 

@@ -15,7 +15,7 @@ import net.minecraft.network.chat.TranslatableComponent;
  */
 public class GuiBulldozer extends GuiStructure {
 
-    protected BulldozerConfiguration configuration;
+    protected BulldozerConfiguration specificConfiguration;
 
     /**
      * Initializes a new instance of the {@link GuiBulldozer} class.
@@ -38,7 +38,7 @@ public class GuiBulldozer extends GuiStructure {
         this.imagePanelWidth = 256;
         this.imagePanelHeight = 256;
 
-        this.configuration = ClientEventHandler.playerConfig.getClientConfig("Bulldozer", BulldozerConfiguration.class);
+        this.configuration = this.specificConfiguration = ClientEventHandler.playerConfig.getClientConfig("Bulldozer", BulldozerConfiguration.class);
         this.configuration.pos = this.pos;
 
         // Get the upper left hand corner of the GUI box.
@@ -64,6 +64,6 @@ public class GuiBulldozer extends GuiStructure {
     public void buttonClicked(AbstractButton button) {
         assert this.minecraft != null;
         this.configuration.houseFacing = this.minecraft.player.getDirection().getOpposite();
-        this.performCancelOrBuildOrHouseFacing(this.configuration, button);
+        this.performCancelOrBuildOrHouseFacing(button);
     }
 }
