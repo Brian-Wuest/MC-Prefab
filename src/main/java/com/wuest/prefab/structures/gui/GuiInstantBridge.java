@@ -138,7 +138,7 @@ public class GuiInstantBridge extends GuiStructure {
         this.configuration.houseFacing = player.getDirection().getOpposite();
         this.configuration.pos = this.pos;
 
-        this.performCancelOrBuildOrHouseFacing(this.configuration, button);
+        this.performCancelOrBuildOrHouseFacing(button);
 
         if (button == this.chckIncludeRoof) {
             this.specificConfiguration.includeRoof = this.chckIncludeRoof.isChecked();

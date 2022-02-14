@@ -155,11 +155,11 @@ public abstract class GuiStructure extends GuiBase {
     /**
      * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
      */
-    protected void performCancelOrBuildOrHouseFacing(StructureConfiguration configuration, AbstractButton button) {
+    protected void performCancelOrBuildOrHouseFacing(AbstractButton button) {
         if (button == this.btnCancel) {
             this.closeScreen();
         } else if (button == this.btnBuild) {
-            Prefab.network.sendToServer(Utils.createStructureMessage(configuration.WriteToCompoundTag(), this.configurationEnum));
+            Prefab.network.sendToServer(Utils.createStructureMessage(this.configuration.WriteToCompoundTag(), this.configurationEnum));
             this.closeScreen();
         }
     }

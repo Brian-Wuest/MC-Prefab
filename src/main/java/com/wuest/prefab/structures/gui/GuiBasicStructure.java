@@ -201,7 +201,7 @@ public class GuiBasicStructure extends GuiStructure {
 
     @Override
     public void buttonClicked(AbstractButton button) {
-        this.performCancelOrBuildOrHouseFacing(this.configuration, button);
+        this.performCancelOrBuildOrHouseFacing(button);
 
         if (button == this.btnVisualize) {
             this.performPreview();

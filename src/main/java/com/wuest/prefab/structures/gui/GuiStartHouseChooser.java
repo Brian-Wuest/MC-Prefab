@@ -141,7 +141,7 @@ public class GuiStartHouseChooser extends GuiStructure {
         this.specificConfiguration.addTorches = this.serverConfiguration.addTorches;
         this.configuration.houseFacing = this.getMinecraft().player.getDirection().getOpposite();
 
-        this.performCancelOrBuildOrHouseFacing(this.configuration, button);
+        this.performCancelOrBuildOrHouseFacing(button);
 
         if (button == this.btnHouseStyle) {
             int id = this.specificConfiguration.houseStyle.getValue() + 1;

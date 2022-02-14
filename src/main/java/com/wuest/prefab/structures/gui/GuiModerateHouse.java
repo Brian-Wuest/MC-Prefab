@@ -125,7 +125,7 @@ public class GuiModerateHouse extends GuiStructure {
         this.specificConfiguration.addChestContents = this.allowItemsInChestAndFurnace && (this.btnAddChestContents.visible && this.btnAddChestContents.isChecked());
         this.specificConfiguration.addMineshaft = this.btnAddMineShaft.visible && this.btnAddMineShaft.isChecked();
 
-        this.performCancelOrBuildOrHouseFacing(this.configuration, button);
+        this.performCancelOrBuildOrHouseFacing(button);
 
         if (button == this.btnHouseStyle) {
             int id = this.specificConfiguration.houseStyle.getValue() + 1;

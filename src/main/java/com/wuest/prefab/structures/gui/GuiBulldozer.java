@@ -64,6 +64,6 @@ public class GuiBulldozer extends GuiStructure {
     public void buttonClicked(AbstractButton button) {
         assert this.minecraft != null;
         this.configuration.houseFacing = this.minecraft.player.getDirection().getOpposite();
-        this.performCancelOrBuildOrHouseFacing(this.configuration, button);
+        this.performCancelOrBuildOrHouseFacing(button);
     }
 }
