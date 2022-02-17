@@ -57,6 +57,14 @@ public class DrafterTileEntityConfig extends BaseConfig {
                 .add(new RoomMaterial(ModRegistry.CompressedDirtBlock.getRegistryName(), -1, 4));
         AvailableRoomType.TreeFarm.getRoomMaterials().add(new RoomMaterial(Items.WATER_BUCKET.getRegistryName(), -1, 3));
         AvailableRoomType.TreeFarm.getRoomMaterials().add(new RoomMaterial(ModRegistry.BundleOfTimber.getRegistryName(), -1, 2));
+
+        // Set the materials for the warehouse.
+        AvailableRoomType.WareHouse.getRoomMaterials()
+                .add(new RoomMaterial(ModRegistry.DoubleCompressedDirtBlock.getRegistryName(), -1, 4));
+        AvailableRoomType.WareHouse.getRoomMaterials().add(new RoomMaterial(ModRegistry.DoubleCompressedStoneBlock.getRegistryName(), -1, 3));
+        AvailableRoomType.WareHouse.getRoomMaterials().add(new RoomMaterial(ModRegistry.TripleCompressedStoneBlock.getRegistryName(), -1, 1));
+        AvailableRoomType.WareHouse.getRoomMaterials().add(new RoomMaterial(ModRegistry.DoubleCompressedGlowstoneBlock.getRegistryName(), -1, 1));
+        AvailableRoomType.WareHouse.getRoomMaterials().add(new RoomMaterial(ModRegistry.BundleOfTimber.getRegistryName(), -1, 2));
     }
 
     @Override
@@ -294,7 +302,9 @@ public class DrafterTileEntityConfig extends BaseConfig {
 
         PlainStoneRoom(2, "Plain Stone Room"),
 
-        TreeFarm(3, "Tree Farm");
+        TreeFarm(3, "Tree Farm"),
+
+        WareHouse(4, "Warehouse");
 
         private final int key;
         private final String name;
