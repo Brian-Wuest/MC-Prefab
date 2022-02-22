@@ -14,6 +14,7 @@ import com.wuest.prefab.events.ClientEventHandler;
 import com.wuest.prefab.gui.GuiBase;
 import com.wuest.prefab.gui.GuiPrefab;
 import com.wuest.prefab.gui.screens.GuiStructureScanner;
+import com.wuest.prefab.structures.custom.base.CustomStructureInfo;
 import com.wuest.prefab.structures.gui.GuiStructure;
 import com.wuest.prefab.structures.items.StructureItem;
 import net.minecraft.client.KeyMapping;
@@ -39,6 +40,8 @@ import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.ParallelDispatchEvent;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -55,6 +58,8 @@ public class ClientProxy extends CommonProxy {
      * The hashmap of mod guis.
      */
     public static HashMap<StructureItem, GuiStructure> ModGuis = new HashMap<>();
+
+    public static ArrayList<CustomStructureInfo> ServerRegisteredStructures = new ArrayList<>();
 
     public ServerModConfiguration serverConfiguration = null;
 

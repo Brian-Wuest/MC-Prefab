@@ -2,9 +2,11 @@ package com.wuest.prefab;
 
 import com.wuest.prefab.proxy.messages.TagMessage;
 import com.wuest.prefab.structures.messages.StructureTagMessage;
+import io.netty.buffer.Unpooled;
 import io.netty.util.internal.StringUtil;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.TextComponent;
 import org.apache.commons.lang3.text.WordUtils;
 
@@ -54,8 +56,17 @@ public class Utils {
         return returnValue;
     }
 
-    public static TagMessage createMessage(CompoundTag tag) {
-        return new TagMessage(tag);
+    public static FriendlyByteBuf createMessageBuffer(CompoundTag tag) {
+        TagMessage message = new TagMessage(tag);
+
+        return Utils.createMessageBuffer(message);
+    }
+
+    public static FriendlyByteBuf createMessageBuffer(TagMessage tagMessage) {
+        FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
+        TagMessage.encode(tagMessage, byteBuf);
+
+        return byteBuf;
     }
 
     public static <T extends TagMessage> T createGenericMessage(CompoundTag tag, Class<T> tClass) {

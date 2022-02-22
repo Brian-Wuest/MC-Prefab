@@ -78,6 +78,9 @@
     "item.prefab.item_bunch_of_beets": "Bunch of Beets",
     "block.prefab.item_crate_of_beets": "Crate of Beets",
 
+    "item.prefab.item_pencil": "Pencil",
+    "item.prefab.item_blank_blueprint": "Blank Blueprint",
+
     "block.prefab.block_compressed_stone": "Compressed Stone",
     "block.prefab.block_double_compressed_stone": "Double Compressed Stone",
     "block.prefab.block_triple_compressed_stone": "Triple Compressed Stone",
@@ -91,7 +94,7 @@
     "block.prefab.block_paper_lantern": "Paper Lantern",
     "block.prefab.block_compressed_obsidian": "Compressed Obsidian",
     "block.prefab.block_double_compressed_obsidian": "Double Compressed Obsidian",
-    "block.prefab.block_phasic": "Phasic Block",
+    "block.prefab.block_phasing": "Phasic Block",
     "block.prefab.block_boundary": "Boundary Block",
     "block.prefab.block_glass_stairs": "Glass Stairs",
     "block.prefab.block_glass_slab": "Glass Slab",
@@ -116,6 +119,7 @@
     "block.prefab.block_quartz_crete_smooth_slab": "Smooth Quartz-Crete Slab",
 
     "block.prefab.block_structure_scanner": "Structure Scanner",
+    "block.prefab.block_drafting_table": "Drafting Table",
 
     "prefab.gui.cleared_area": "The area cleared will be in the direction you are facing.",
 

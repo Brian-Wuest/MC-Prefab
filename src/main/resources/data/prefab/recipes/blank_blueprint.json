@@ -1,0 +1,24 @@
+{
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Drafting Table"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "group": "Drafting Table",
+  "ingredients": [
+    {
+      "item": "minecraft:paper",
+      "count": 1
+    },
+    {
+      "item": "minecraft:blue_dye",
+      "count": 1
+    }
+  ],
+  "result": {
+    "item": "prefab:item_blank_blueprint",
+    "count": 1
+  }
+}

@@ -2,11 +2,14 @@ package com.wuest.prefab.events;
 
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
+import com.wuest.prefab.Utils;
 import com.wuest.prefab.proxy.CommonProxy;
 import com.wuest.prefab.proxy.messages.ConfigSyncMessage;
+import com.wuest.prefab.proxy.messages.CustomStructureSyncMessage;
 import com.wuest.prefab.structures.items.ItemBulldozer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -45,8 +48,12 @@ public final class ModEventHandler {
         if (!event.getPlayer().level.isClientSide) {
             CompoundTag tag = CommonProxy.proxyConfiguration.serverConfiguration.ToNBTTagCompound();
             Prefab.network.sendTo(new ConfigSyncMessage(tag), ((ServerPlayer) event.getPlayer()).connection.connection, NetworkDirection.PLAY_TO_CLIENT);
+            Prefab.LOGGER.info("Sent config to player:'" + event.getPlayer().getDisplayName().getString() + "'.");
 
-            Prefab.LOGGER.info("Sent config to '" + event.getPlayer().getDisplayName().getString() + "'.");
+            CustomStructureSyncMessage customStructureSyncMessage = new CustomStructureSyncMessage();
+            customStructureSyncMessage.encodeStructures(CommonProxy.CustomStructures);
+            Prefab.network.sendTo(customStructureSyncMessage, ((ServerPlayer) event.getPlayer()).connection.connection, NetworkDirection.PLAY_TO_CLIENT);
+            Prefab.LOGGER.info("Sent custom structure data to player: '" + event.getPlayer().getDisplayName().getString() + "'.");
         }
     }
 

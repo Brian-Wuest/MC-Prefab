@@ -78,6 +78,9 @@
     "item.prefab.item_bunch_of_beets": "ビートの束",
     "block.prefab.item_crate_of_beets": "ビートの箱",
 
+    "item.prefab.item_pencil": "鉛筆",
+    "item.prefab.item_blank_blueprint": "空白の青写真",
+
     "block.prefab.block_compressed_stone": "圧縮石",
     "block.prefab.block_double_compressed_stone": "二重圧縮石",
     "block.prefab.block_triple_compressed_stone": "三重圧縮ストーン",
@@ -91,7 +94,7 @@
     "block.prefab.block_paper_lantern": "提灯",
     "block.prefab.block_compressed_obsidian": "圧縮黒曜石",
     "block.prefab.block_double_compressed_obsidian": "二重圧縮黒曜石",
-    "block.prefab.block_phasic": "フェーズブロック",
+    "block.prefab.block_phasing": "フェーズブロック",
     "block.prefab.block_boundary": "境界ブロック",
     "block.prefab.block_glass_stairs": "ガラス階段",
     "block.prefab.block_glass_slab": "ガラスのハーフブロック",
@@ -115,7 +118,8 @@
     "block.prefab.block_quartz_crete_smooth_stairs": "滑らかなコンクリートクォーツ階段",
     "block.prefab.block_quartz_crete_smooth_slab": "滑らかなコンクリートクォーツスラブ",
 
-    "block.prefab.block_structure_scanner": "Structure Scanner",
+    "block.prefab.block_structure_scanner": "建物のスキャナー",
+    "block.prefab.block_drafting_table": "製図台",
 
     "prefab.gui.cleared_area": "クリアされたエリアは、あなたが向いている方向になります。",
 

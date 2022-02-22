@@ -78,6 +78,9 @@
     "item.prefab.item_bunch_of_beets": "Жменя Буряків",
     "block.prefab.item_crate_of_beets": "Ящик Буряків",
 
+    "item.prefab.item_pencil": "олівець",
+    "item.prefab.item_blank_blueprint": "Пустий план",
+
     "block.prefab.block_compressed_stone": "Стиснений Камінь",
     "block.prefab.block_double_compressed_stone": "Подвійно Стиснений Камінь",
     "block.prefab.block_triple_compressed_stone": "Потрійно Стиснений Камінь",
@@ -91,7 +94,7 @@
     "block.prefab.block_paper_lantern": "Паперовий Ліхтар",
     "block.prefab.block_compressed_obsidian": "Стиснений Обсидіан",
     "block.prefab.block_double_compressed_obsidian": "Подвійно Стиснений Обсидіан",
-    "block.prefab.block_phasic": "Фазовий Блок",
+    "block.prefab.block_phasing": "Фазовий Блок",
     "block.prefab.block_boundary": "Бар'єрний Блок",
     "block.prefab.block_glass_stairs": "Скляні Сходи",
     "block.prefab.block_glass_slab": "Скляна Плита",
@@ -115,7 +118,8 @@
     "block.prefab.block_quartz_crete_smooth_stairs": "Гладкі Кварцово-Бетонні Сходи",
     "block.prefab.block_quartz_crete_smooth_slab": "Гладка Кварцово-Бетонна Плита",
 
-    "block.prefab.block_structure_scanner": "Сканер Структур",
+    "block.prefab.block_structure_scanner": "Будівельний сканер",
+    "block.prefab.block_drafting_table": "Чертежна таблиця",
 
     "prefab.gui.cleared_area": "Очищена зона буде в тому напрямку, в який ви спрямовані.",
 

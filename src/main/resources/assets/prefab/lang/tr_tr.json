@@ -79,6 +79,9 @@
     "item.prefab.item_bunch_of_beets": "Bir Sürü Pancar",
     "block.prefab.item_crate_of_beets": "Pancar Kutusu",
 
+    "item.prefab.item_pencil": "Kalem",
+    "item.prefab.item_blank_blueprint": "boş plan",
+
     "block.prefab.block_compressed_stone": "Sıkıştırılmış Taş",
     "block.prefab.block_double_compressed_stone": "Çifte Sıkıştırılmış Taş",
     "block.prefab.block_triple_compressed_stone": "Üçlü Sıkıştırılmış Taş",
@@ -92,7 +95,7 @@
     "block.prefab.block_paper_lantern": "Kağıt Fener",
     "block.prefab.block_compressed_obsidian": "Sıkıştırılmış Obsidyen",
     "block.prefab.block_double_compressed_obsidian": "Çifte Sıkıştırılmış Obsidyen",
-    "block.prefab.block_phasic": "Fazik Blok",
+    "block.prefab.block_phasing": "Fazik Blok",
     "block.prefab.block_boundary": "Sınır Bloğu",
     "block.prefab.block_glass_stairs": "Cam Merdiven",
     "block.prefab.block_glass_slab": "Cam Basamak",
@@ -117,6 +120,7 @@
     "block.prefab.block_quartz_crete_smooth_slab": "Pürüzsüz Beton Kuvars Döşeme",
 
     "block.prefab.block_structure_scanner": "Yapı Tarayıcısı",
+    "block.prefab.block_drafting_table": "Çizim masası",
 
     "prefab.gui.cleared_area": "Temizlenecek alan baktığın yönde olacaktır.",
 

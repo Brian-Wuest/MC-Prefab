@@ -78,6 +78,9 @@
   "item.prefab.item_bunch_of_beets": "Manojo de remolachas",
   "block.prefab.item_crate_of_beets": "Caja de remolachas",
 
+  "item.prefab.item_pencil": "Lápiz",
+  "item.prefab.item_blank_blueprint": "plano en blanco",
+
   "block.prefab.block_compressed_stone": "Piedra comprimida",
   "block.prefab.block_double_compressed_stone": "Doble piedra comprimida",
   "block.prefab.block_triple_compressed_stone": "Triple piedra comprimida",
@@ -91,7 +94,7 @@
   "block.prefab.block_paper_lantern": "Linterna de papel",
   "block.prefab.block_compressed_obsidian": "Obsidiana comprimida",
   "block.prefab.block_double_compressed_obsidian": "Doble obsidiana comprimida",
-  "block.prefab.block_phasic": "Bloque fásico",
+  "block.prefab.block_phasing": "Bloque fásico",
   "block.prefab.block_boundary": "Bloque de límites",
   "block.prefab.block_glass_stairs": "Escaleras de vidrio",
   "block.prefab.block_glass_slab": "Losa de vidrio",
@@ -115,7 +118,8 @@
   "block.prefab.block_quartz_crete_smooth_stairs": "Escaleras de Cuarzo de Concreto Liso",
   "block.prefab.block_quartz_crete_smooth_slab": "Losa de cuarzo de hormigón liso",
 
-  "block.prefab.block_structure_scanner": "Structure Scanner",
+  "block.prefab.block_structure_scanner": "Escáner de construcción",
+  "block.prefab.block_drafting_table": "Mesa de dibujo",
 
   "prefab.gui.producefarm.structure.size": "Esta estructura es 32x32 bloques de tamaño.",
 

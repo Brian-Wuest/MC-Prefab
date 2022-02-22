@@ -8,6 +8,7 @@ import com.wuest.prefab.config.ServerModConfiguration;
 import com.wuest.prefab.config.StructureScannerConfig;
 import com.wuest.prefab.crafting.RecipeCondition;
 import com.wuest.prefab.crafting.SmeltingCondition;
+import com.wuest.prefab.structures.custom.base.CustomStructureInfo;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.context.UseOnContext;
@@ -33,6 +34,7 @@ public class CommonProxy {
     public static ModConfiguration proxyConfiguration;
     public static ForgeConfigSpec COMMON_SPEC;
     public static Path Config_File_Path;
+    public static ArrayList<CustomStructureInfo> CustomStructures;
 
     public boolean isClient;
     public ArrayList<StructureScannerConfig> structureScanners;
@@ -82,6 +84,7 @@ public class CommonProxy {
     }
 
     public void init(ParallelDispatchEvent event) {
+        ModRegistry.registerCustomStructures();
     }
 
     public void postinit(ParallelDispatchEvent event) {

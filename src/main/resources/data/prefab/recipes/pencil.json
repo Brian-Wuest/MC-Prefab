@@ -1,0 +1,28 @@
+{
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Drafting Table"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "group": "Drafting Table",
+  "ingredients": [
+    {
+      "item": "minecraft:stick",
+      "count": 1
+    },
+    {
+      "item": "minecraft:charcoal",
+      "count": 1
+    },
+    {
+      "item": "minecraft:yellow_dye",
+      "count": 1
+    }
+  ],
+  "result": {
+    "item": "prefab:item_pencil",
+    "count": 1
+  }
+}

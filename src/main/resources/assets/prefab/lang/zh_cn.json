@@ -78,6 +78,9 @@
   "item.prefab.item_bunch_of_beets": "一串甜菜",
   "block.prefab.item_crate_of_beets": "一箱甜菜",
 
+  "item.prefab.item_pencil": "铅笔",
+  "item.prefab.item_blank_blueprint": "空白蓝图",
+
   "block.prefab.block_compressed_stone": "压缩石头",
   "block.prefab.block_double_compressed_stone": "双倍压缩石头",
   "block.prefab.block_triple_compressed_stone": "三倍压缩石头",
@@ -91,7 +94,7 @@
   "block.prefab.block_paper_lantern": "纸灯笼",
   "block.prefab.block_compressed_obsidian": "压缩黑曜石",
   "block.prefab.block_double_compressed_obsidian": "双倍压缩黑曜石",
-  "block.prefab.block_phasic": "相位方块",
+  "block.prefab.block_phasing": "相位方块",
   "block.prefab.block_boundary": "壁障方块",
   "block.prefab.block_glass_stairs": "玻璃楼梯",
   "block.prefab.block_glass_slab": "玻璃台阶",
@@ -115,7 +118,8 @@
   "block.prefab.block_quartz_crete_smooth_stairs": "光滑的混凝土石英楼梯",
   "block.prefab.block_quartz_crete_smooth_slab": "光滑混凝土石英板",
 
-  "block.prefab.block_structure_scanner": "Structure Scanner",
+  "block.prefab.block_structure_scanner": "建筑扫描仪",
+  "block.prefab.block_drafting_table": "绘图表",
 
   "prefab.gui.cleared_area": "你面朝方向的一片区域将被清除。",
 

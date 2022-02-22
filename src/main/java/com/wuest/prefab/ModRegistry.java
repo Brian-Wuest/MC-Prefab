@@ -1,13 +1,21 @@
 package com.wuest.prefab;
 
+import com.google.common.base.Strings;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 import com.wuest.prefab.blocks.*;
 import com.wuest.prefab.blocks.entities.StructureScannerBlockEntity;
 import com.wuest.prefab.items.*;
+import com.wuest.prefab.proxy.CommonProxy;
 import com.wuest.prefab.proxy.messages.ConfigSyncMessage;
+import com.wuest.prefab.proxy.messages.CustomStructureSyncMessage;
 import com.wuest.prefab.proxy.messages.PlayerEntityTagMessage;
 import com.wuest.prefab.proxy.messages.handlers.ConfigSyncHandler;
+import com.wuest.prefab.proxy.messages.handlers.CustomStructureSyncHandler;
 import com.wuest.prefab.proxy.messages.handlers.PlayerEntityHandler;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration.EnumBasicStructureName;
+import com.wuest.prefab.structures.custom.base.CustomStructureInfo;
 import com.wuest.prefab.structures.items.*;
 import com.wuest.prefab.structures.messages.*;
 import net.minecraft.core.BlockPos;
@@ -26,10 +34,15 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -123,7 +136,9 @@ public class ModRegistry {
     public static final RegistryObject<WallBlock> SmoothQuartzCreteWall =  BLOCKS.register("block_quartz_crete_smooth_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(ModRegistry.SmoothQuartzCrete.get())));
     public static final RegistryObject<BlockCustomStairs> SmoothQuartzCreteStairs =  BLOCKS.register("block_quartz_crete_smooth_stairs", () -> new BlockCustomStairs(ModRegistry.SmoothQuartzCrete.get().defaultBlockState(), BlockBehaviour.Properties.copy(ModRegistry.SmoothQuartzCrete.get())));
     public static final RegistryObject<SlabBlock> SmoothQuartzCreteSlab =  BLOCKS.register("block_quartz_crete_smooth_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(ModRegistry.SmoothQuartzCrete.get())));
-    
+
+    public static final RegistryObject<BlockDraftingTable> DraftingTable = BLOCKS.register("block_drafting_table", BlockDraftingTable::new);
+
     /* *********************************** Item Blocks *********************************** */
     public static final RegistryObject<BlockItem> CompressedStoneItem = ITEMS.register(BlockCompressedStone.EnumType.COMPRESSED_STONE.getUnlocalizedName(), () -> new BlockItem(CompressedStone.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
     public static final RegistryObject<BlockItem> DoubleCompressedStoneItem = ITEMS.register(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE.getUnlocalizedName(), () -> new BlockItem(DoubleCompressedStone.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
@@ -160,6 +175,7 @@ public class ModRegistry {
     public static final RegistryObject<BlockItem> SmoothQuartzCreteWallItem = ITEMS.register("block_quartz_crete_smooth_wall", () -> new BlockItem(ModRegistry.SmoothQuartzCreteWall.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
     public static final RegistryObject<BlockItem> SmoothQuartzCreteStairsItem = ITEMS.register("block_quartz_crete_smooth_stairs", () -> new BlockItem(ModRegistry.SmoothQuartzCreteStairs.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
     public static final RegistryObject<BlockItem> SmoothQuartzCreteSlabItem = ITEMS.register("block_quartz_crete_smooth_slab", () -> new BlockItem(ModRegistry.SmoothQuartzCreteSlab.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
+    public static final RegistryObject<BlockItem> DraftingTableItem = ITEMS.register("block_drafting_table", () -> new BlockItem(ModRegistry.DraftingTable.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
 
     /* *********************************** Tile Entities *********************************** */
     public static RegistryObject<BlockEntityType<StructureScannerBlockEntity>> StructureScannerTileEntity = null;
@@ -203,7 +219,9 @@ public class ModRegistry {
     public static final RegistryObject<ItemWoodenCrate> BunchOfCarrots = ITEMS.register("item_bunch_of_carrots", () -> new ItemWoodenCrate(ItemWoodenCrate.CrateType.Empty));
     public static final RegistryObject<ItemBlockWoodenCrate> ItemCrateOfCarrots = ITEMS.register("item_crate_of_carrots", () -> new ItemBlockWoodenCrate(ModRegistry.CrateOfCarrots.get(), ItemWoodenCrate.CrateType.Empty));
     public static final RegistryObject<ItemWoodenCrate> BunchOfBeets = ITEMS.register("item_bunch_of_beets", () -> new ItemWoodenCrate(ItemWoodenCrate.CrateType.Empty));
-    public static final RegistryObject<ItemWoodenCrate> ItemCrateOfBeets = ITEMS.register("item_crate_of_beets", () -> new ItemWoodenCrate(ItemWoodenCrate.CrateType.Empty));
+    public static final RegistryObject<ItemBlockWoodenCrate> ItemCrateOfBeets = ITEMS.register("item_crate_of_beets", () -> new ItemBlockWoodenCrate(ModRegistry.CrateOfBeets.get(), ItemWoodenCrate.CrateType.Empty));
+    public static final RegistryObject<Item> Pencil = ITEMS.register("item_pencil", () -> new Item(new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
+    public static final RegistryObject<Item> BlankBlueprint = ITEMS.register("item_blank_blueprint", () -> new Item(new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
 
     /* *********************************** Blueprint Items *********************************** */
     public static final RegistryObject<ItemStartHouse> StartHouse = ITEMS.register("item_start_house", ItemStartHouse::new);
@@ -294,6 +312,75 @@ public class ModRegistry {
                 .decoder(StructureScannerSyncMessage::decode)
                 .consumer(StructureScannerSyncHandler::handle)
                 .add();
+
+        Prefab.network.messageBuilder(CustomStructureSyncMessage.class, index.getAndIncrement())
+                .encoder(CustomStructureSyncMessage::encode)
+                .decoder(CustomStructureSyncMessage::decode)
+                .consumer(CustomStructureSyncHandler::handle)
+                .add();
+    }
+
+    public static void registerCustomStructures() {
+        Prefab.configFolder = FMLPaths.CONFIGDIR.get().resolve(Prefab.MODID);
+        CommonProxy.CustomStructures = new ArrayList<>();
+
+        // Make sure the main folder exists, if not; try to create it.
+        if (!Files.exists(Prefab.configFolder)) {
+            try {
+                Files.createDirectory(Prefab.configFolder);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return;
+            }
+        }
+
+        Prefab.customStructuresFolder = Prefab.configFolder.resolve("structure_files");
+
+        // Make sure the main folder exists, if not; try to create it.
+        if (!Files.exists(Prefab.customStructuresFolder)) {
+            try {
+                Files.createDirectory(Prefab.customStructuresFolder);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return;
+            }
+        }
+
+        // Find every json file in the config directory
+        try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(Prefab.configFolder, "*.json")) {
+            Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+
+            directoryStream.forEach(path -> {
+                try {
+                    String fileContents = Files.readString(path);
+                    CustomStructureInfo contents = gson.fromJson(fileContents, CustomStructureInfo.class);
+
+                    if (!Strings.isNullOrEmpty(contents.structureFileName)
+                            && !Strings.isNullOrEmpty(contents.displayName)
+                            && contents.requiredItems != null
+                            && contents.requiredItems.size() > 0) {
+                        contents.infoFileName = path.toFile().getName();
+
+                        Path structureFilePath = Prefab.customStructuresFolder.resolve(contents.structureFileName);
+
+                        // This has to be a zip file.
+                        // Don't register this custom structure unless it has a corresponding structure file.
+                        if (Files.exists(structureFilePath) && structureFilePath.endsWith(".zip")) {
+                            contents.structureFilePath = structureFilePath;
+
+                            CommonProxy.CustomStructures.add(contents);
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JsonSyntaxException js) {
+                    Prefab.LOGGER.error("There was a problem loading a custom structure on path {}.\r\nThe error is: {}", path.toString(), js.getLocalizedMessage());
+                    js.printStackTrace();
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

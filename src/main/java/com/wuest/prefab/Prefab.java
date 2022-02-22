@@ -3,8 +3,12 @@ package com.wuest.prefab;
 import com.wuest.prefab.items.ItemSickle;
 import com.wuest.prefab.proxy.ClientProxy;
 import com.wuest.prefab.proxy.CommonProxy;
+import com.wuest.prefab.structures.custom.base.CustomStructureInfo;
+import com.wuest.prefab.structures.custom.base.ItemInfo;
 import net.minecraft.commands.Commands;
+import net.minecraft.core.Registry;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.level.material.PushReaction;
@@ -17,6 +21,10 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.network.simple.SimpleChannel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Optional;
 
 /**
  * The starting point to load all of the blocks, items and other objects associated with this mod.
@@ -69,6 +77,9 @@ public class Prefab {
      */
     public static SimpleChannel network;
 
+    public static Path configFolder;
+    public static Path customStructuresFolder;
+
     static {
         Prefab.isDebug = java.lang.management.ManagementFactory.getRuntimeMXBean().getInputArguments().toString().contains("-agentlib:jdwp");
     }
@@ -108,13 +119,39 @@ public class Prefab {
 
     // The method that gets called when a server starts up(Singleplayer and multiplayer are both affected)
     public void serverStart(ServerStartingEvent event) {
-        // Get's the current server instance.
+        // Gets the current server instance.
         MinecraftServer server = event.getServer();
 
-        // Get's the Command manager for the server.
+        // Gets the Command manager for the server.
         // This is used to register available commands for the server.
         Commands command = server.getCommands();
 
         ItemSickle.setEffectiveBlocks();
+
+        // Go through all custom structures to ensure that all items actually exist with the current mods.
+        // Print warning messages about invalid custom structures and remove them from the list.
+        ArrayList<CustomStructureInfo> structuresToRemove = new ArrayList<>();
+
+        for (CustomStructureInfo info : CommonProxy.CustomStructures) {
+            for (ItemInfo itemInfo : info.requiredItems) {
+                Optional<Item> registeredItem = Registry.ITEM.getOptional(itemInfo.item);
+
+                if (registeredItem.isPresent()) {
+                    itemInfo.registeredItem = registeredItem.get();
+                }
+                else {
+                    Prefab.LOGGER.warn("Unknown item registration: [{}] for file name [{}]", itemInfo.item.toString(), info.infoFileName);
+                    structuresToRemove.add(info);
+                }
+            }
+        }
+
+        // Remove any invalid structures.
+        for (CustomStructureInfo info : structuresToRemove) {
+            Prefab.LOGGER.warn(
+                    "Removing invalid structure with file name: {}. This structure is invalid due to unknown items in the required items collection",
+                    info.infoFileName);
+            CommonProxy.CustomStructures.remove(info);
+        }
     }
 }

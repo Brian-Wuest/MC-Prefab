@@ -78,6 +78,9 @@
     "item.prefab.item_bunch_of_beets": "mazzo di barbabietole",
     "block.prefab.item_crate_of_beets": "Cassa di barbabietole",
 
+    "item.prefab.item_pencil": "Matita",
+    "item.prefab.item_blank_blueprint": "Progetto vuoto",
+
     "block.prefab.block_compressed_stone": "Pietra Compressa",
     "block.prefab.block_double_compressed_stone": "Pietra Doppiamente Compressa",
     "block.prefab.block_triple_compressed_stone": "Pietra Triplamente Compressa",
@@ -91,7 +94,7 @@
     "block.prefab.block_paper_lantern": "Lanterna di Carta",
     "block.prefab.block_compressed_obsidian": "Ossidiana Compressa",
     "block.prefab.block_double_compressed_obsidian": "Ossidiana Doppiamente Compressa",
-    "block.prefab.block_phasic": "Blocco di Fase",
+    "block.prefab.block_phasing": "Blocco di Fase",
     "block.prefab.block_boundary": "Blocco di Confine",
     "block.prefab.block_glass_stairs": "Scala di Vetro",
     "block.prefab.block_glass_slab": "Lastra di Vetro",
@@ -115,7 +118,8 @@
     "block.prefab.block_quartz_crete_smooth_stairs": "Scale di quarzo in cemento liscio",
     "block.prefab.block_quartz_crete_smooth_slab": "Lastra di quarzo in cemento liscio",
 
-    "block.prefab.block_structure_scanner": "Structure Scanner",
+    "block.prefab.block_structure_scanner": "Scanner per edifici",
+    "block.prefab.block_drafting_table": "Tavolo da disegno",
 
     "prefab.gui.cleared_area": "L'area verrà sgombrata nella direzione che stai guardando.",
 

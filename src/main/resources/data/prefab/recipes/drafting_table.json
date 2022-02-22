@@ -1,0 +1,36 @@
+{
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Drafting Table"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "Drafting Table",
+  "pattern": [
+    "ab ",
+    "cdc",
+    "e e"
+  ],
+  "key": {
+    "a": {
+      "item": "prefab:item_pencil"
+    },
+    "b": {
+      "item": "prefab:item_blank_blueprint"
+    },
+    "c": {
+      "item": "minecraft:stick"
+    },
+    "d": {
+      "item": "minecraft:diorite"
+    },
+    "e": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "result": {
+    "item": "prefab:block_drafting_table",
+    "count": 1
+  }
+}

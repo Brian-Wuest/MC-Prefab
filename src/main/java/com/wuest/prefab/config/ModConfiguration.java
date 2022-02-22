@@ -76,6 +76,7 @@ public class ModConfiguration {
     public static String moderateFarmKey = "Moderate Farm";
     public static String advancedFarmKey = "Advanced Farm";
     public static String quartzCreteKey = "Quartz-Crete";
+    public static String draftingTableKey = "Drafting Table";
 
     public static String tagKey = "PrefabConfig";
     // Config file option names.
@@ -116,7 +117,7 @@ public class ModConfiguration {
                     phasicBlockKey, smartGlassKey, greenHouseKey, startingHouseKey, glassStairsKey, glassSlabsKey,
                      moderateHouseKey, grassyPlainsKey, aquaBaseKey, watchTowerKey, bulldozerKey, jailKey, saloonKey, skiLodgeKey,
                     windMillKey, townHallKey, heapOfTimberKey, tonOfTimberKey, workshopKey, modernBuildingsKey, SwiftBladeKey, SickleKey, DirtRecipesKey, BunchOfBeetsKey,
-                    BunchOfCarrotsKey, BunchOfPotatoesKey, BunchOfEggsKey, WoodenCrateKey, starterFarmKey, moderateFarmKey, advancedFarmKey, quartzCreteKey};
+                    BunchOfCarrotsKey, BunchOfPotatoesKey, BunchOfEggsKey, WoodenCrateKey, starterFarmKey, moderateFarmKey, advancedFarmKey, quartzCreteKey, draftingTableKey};
 
     private static ForgeConfigSpec SPEC;
     private final HashMap<String, BooleanValue> recipeConfiguration;

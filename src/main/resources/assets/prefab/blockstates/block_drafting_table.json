@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "prefab:block/block_drafting_table",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "prefab:block/block_drafting_table",
+      "y": 270
+    },
+    "facing=south": {
+      "model": "prefab:block/block_drafting_table"
+    },
+    "facing=west": {
+      "model": "prefab:block/block_drafting_table",
+      "y": 90
+    }
+  }
+}

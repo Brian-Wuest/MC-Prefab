@@ -78,6 +78,9 @@
     "item.prefab.item_bunch_of_beets": "Горсть Свёклы",
     "block.prefab.item_crate_of_beets": "Ящик Свёклы",
 
+    "item.prefab.item_pencil": "Карандаш",
+    "item.prefab.item_blank_blueprint": "Пустой план",
+
     "block.prefab.block_compressed_stone": "Сжатый Камень",
     "block.prefab.block_double_compressed_stone": "Двойной Сжатый Камень",
     "block.prefab.block_triple_compressed_stone": "Тройной Сжатый Камень",
@@ -91,7 +94,7 @@
     "block.prefab.block_paper_lantern": "Бумажный Фонарь",
     "block.prefab.block_compressed_obsidian": "Сжатый Обсидиан",
     "block.prefab.block_double_compressed_obsidian": "Двойной Сжатый Обсидиан",
-    "block.prefab.block_phasic": "Фазовый Блок",
+    "block.prefab.block_phasing": "Фазовый Блок",
     "block.prefab.block_boundary": "Барьерный Блок",
     "block.prefab.block_glass_stairs": "Стеклянные Ступеньки",
     "block.prefab.block_glass_slab": "Стеклянная Плита",
@@ -115,7 +118,8 @@
     "block.prefab.block_quartz_crete_smooth_stairs": "Гладкие Бетонно-Кварцевые Ступеньки",
     "block.prefab.block_quartz_crete_smooth_slab": "Гладкая Бетонно-Кварцевая Плита",
 
-    "block.prefab.block_structure_scanner": "Сканер Структур",
+    "block.prefab.block_structure_scanner": "Строительный сканер",
+    "block.prefab.block_drafting_table": "Чертежный стол",
 
     "prefab.gui.cleared_area": "Очищенная область будет находиться в направлении, куда вы смотрите",
 

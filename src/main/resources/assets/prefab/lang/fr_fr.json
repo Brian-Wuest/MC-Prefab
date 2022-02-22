@@ -78,6 +78,9 @@
   "item.prefab.item_bunch_of_beets": "Bouquet de betteraves",
   "block.prefab.item_crate_of_beets": "Caisse de betteraves",
 
+  "item.prefab.item_pencil": "Crayon",
+  "item.prefab.item_blank_blueprint": "Plan vierge",
+
   "block.prefab.block_compressed_stone": "Pierre compressée",
   "block.prefab.block_double_compressed_stone": "Double Pierre compressée",
   "block.prefab.block_triple_compressed_stone": "Triple Pierre compressée",
@@ -91,7 +94,7 @@
   "block.prefab.block_paper_lantern": "Lanterne en papier",
   "block.prefab.block_compressed_obsidian": "Obsidienne compressée",
   "block.prefab.block_double_compressed_obsidian": "Double obsidienne compressée",
-  "block.prefab.block_phasic": "Bloc transitoire",
+  "block.prefab.block_phasing": "Bloc transitoire",
   "block.prefab.block_boundary": "Bloc de limite",
   "block.prefab.block_glass_stairs": "Escalier en verre",
   "block.prefab.block_glass_slab": "Dalle de verre",
@@ -115,7 +118,8 @@
   "block.prefab.block_quartz_crete_smooth_stairs": "Escalier de quartz en béton lisse",
   "block.prefab.block_quartz_crete_smooth_slab": "Dalle de quartz en béton lisse",
 
-  "block.prefab.block_structure_scanner": "Structure Scanner",
+  "block.prefab.block_structure_scanner": "Scanner de bâtiment",
+  "block.prefab.block_drafting_table": "Table à dessin",
 
   "prefab.gui.producefarm.structure.size": "Cette structure est 32x32 blocs de taille.",
 
