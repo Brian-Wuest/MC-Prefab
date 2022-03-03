@@ -124,6 +124,7 @@ public class GuiModerateHouse extends GuiStructure {
         this.specificConfiguration.addChests = this.btnAddChest.visible && this.btnAddChest.isChecked();
         this.specificConfiguration.addChestContents = this.allowItemsInChestAndFurnace && (this.btnAddChestContents.visible && this.btnAddChestContents.isChecked());
         this.specificConfiguration.addMineshaft = this.btnAddMineShaft.visible && this.btnAddMineShaft.isChecked();
+        this.configuration.houseFacing = this.getMinecraft().player.getDirection().getOpposite();
 
         this.performCancelOrBuildOrHouseFacing(button);
 

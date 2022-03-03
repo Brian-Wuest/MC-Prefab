@@ -314,23 +314,23 @@ public class ModRegistry {
         COPPER("Copper", Tiers.STONE.getLevel(), Tiers.STONE.getUses(), Tiers.STONE.getSpeed(),
                 Tiers.STONE.getAttackDamageBonus(), Tiers.STONE.getEnchantmentValue(), () -> {
             return Ingredient
-                    .of(ItemTags.getAllTags().getTag(new ResourceLocation("c", "copper_ingots")));
+                    .of(Utils.getItemStacksWithTag(new ResourceLocation("forge", "ingots/copper")).stream());
         }),
         OSMIUM("Osmium", Tiers.IRON.getLevel(), 500, Tiers.IRON.getSpeed(),
                 Tiers.IRON.getAttackDamageBonus() + .5f, Tiers.IRON.getEnchantmentValue(), () -> {
             return Ingredient
-                    .of(ItemTags.getAllTags().getTag(new ResourceLocation("c", "osmium_ingots")));
+                    .of(Utils.getItemStacksWithTag(new ResourceLocation("forge", "ingots/osmium")).stream());
         }),
         BRONZE("Bronze", Tiers.IRON.getLevel(), Tiers.IRON.getUses(), Tiers.IRON.getSpeed(),
                 Tiers.IRON.getAttackDamageBonus(), Tiers.IRON.getEnchantmentValue(), () -> {
             return Ingredient
-                    .of(ItemTags.getAllTags().getTag(new ResourceLocation("c", "bronze_ingots")));
+                    .of(Utils.getItemStacksWithTag(new ResourceLocation("forge", "ingots/bronze")).stream());
         }),
         STEEL("Steel", Tiers.DIAMOND.getLevel(), (int) (Tiers.IRON.getUses() * 1.5),
                 Tiers.DIAMOND.getSpeed(), Tiers.DIAMOND.getAttackDamageBonus(),
                 Tiers.DIAMOND.getEnchantmentValue(), () -> {
             return Ingredient
-                    .of(ItemTags.getAllTags().getTag(new ResourceLocation("c", "steel_ingots")));
+                    .of(Utils.getItemStacksWithTag(new ResourceLocation("forge", "ingots/steel")).stream());
         }),
         OBSIDIAN("Obsidian", Tiers.DIAMOND.getLevel(), (int) (Tiers.DIAMOND.getUses() * 1.5),
                 Tiers.DIAMOND.getSpeed(), Tiers.DIAMOND.getAttackDamageBonus(),

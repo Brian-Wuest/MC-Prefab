@@ -1,5 +1,6 @@
 package com.wuest.prefab.blocks;
 
+import com.wuest.prefab.Utils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
@@ -58,8 +59,8 @@ public class BlockGlassSlab extends GlassBlock implements SimpleWaterloggedBlock
     @Override
     @OnlyIn(Dist.CLIENT)
     public boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction side) {
-        Tag<Block> tags = BlockTags.getAllTags().getTag(new ResourceLocation("forge", "glass"));
         Block adjacentBlock = adjacentBlockState.getBlock();
+        boolean foundBlock = Utils.doesBlockStateHaveTag(adjacentBlockState, new ResourceLocation("forge", "glass"));
 
 		/*
 			Hide this side under the following conditions
@@ -67,7 +68,7 @@ public class BlockGlassSlab extends GlassBlock implements SimpleWaterloggedBlock
 			2. This block and the other block has a matching type.
 			3. The other block is a double slab and this is a single slab.
 		*/
-        return tags.contains(adjacentBlock) || (adjacentBlock == this
+        return foundBlock || (adjacentBlock == this
                 && (adjacentBlockState.getValue(SlabBlock.TYPE) == state.getValue(SlabBlock.TYPE)
                 || (adjacentBlockState.getValue(SlabBlock.TYPE) == SlabType.DOUBLE
                 && state.getValue(SlabBlock.TYPE) != SlabType.DOUBLE)));
