@@ -1,6 +1,7 @@
 package com.wuest.prefab.items;
 
 import com.wuest.prefab.ModRegistry;
+import com.wuest.prefab.Utils;
 import com.wuest.prefab.gui.GuiLangKeys;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
@@ -38,8 +39,8 @@ public class ItemSickle extends TieredItem {
     public static void setEffectiveBlocks() {
         effectiveBlocks.clear();
 
-        effectiveBlocks.addAll(BlockTags.LEAVES.getValues());
-        effectiveBlocks.addAll(BlockTags.SMALL_FLOWERS.getValues());
+        effectiveBlocks.addAll(Utils.getBlocksWithTagKey(BlockTags.LEAVES));
+        effectiveBlocks.addAll(Utils.getBlocksWithTagKey(BlockTags.SMALL_FLOWERS));
         effectiveBlocks.add(Blocks.TALL_GRASS);
         effectiveBlocks.add(Blocks.DEAD_BUSH);
         effectiveBlocks.add(Blocks.ROSE_BUSH);

@@ -153,7 +153,7 @@ public final class StructureEventHandler {
                                                 structure.BeforeHangingEntityRemoved((HangingEntity) entity);
                                             }
 
-                                            structure.world.removeEntity(entity, false);
+                                            entity.setRemoved(Entity.RemovalReason.DISCARDED);
                                         }
                                     }
                                 }

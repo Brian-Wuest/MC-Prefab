@@ -1,6 +1,7 @@
 package com.wuest.prefab.blocks;
 
 import com.wuest.prefab.ModRegistry;
+import com.wuest.prefab.Utils;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
@@ -26,10 +27,10 @@ public class BlockGlassStairs extends StairBlock {
     @Override
     @OnlyIn(Dist.CLIENT)
     public boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction side) {
-        Tag<Block> tags = BlockTags.getAllTags().getTag(new ResourceLocation("forge", "glass"));
+        boolean foundBlock = Utils.doesBlockStateHaveTag(adjacentBlockState, new ResourceLocation("forge", "glass"));
         Block adjacentBlock = adjacentBlockState.getBlock();
 
-        return tags.contains(adjacentBlock) || adjacentBlock == this
+        return foundBlock || adjacentBlock == this
                 || (adjacentBlock == ModRegistry.GlassSlab.get()
                 && adjacentBlockState.getValue(SlabBlock.TYPE) == SlabType.DOUBLE);
     }

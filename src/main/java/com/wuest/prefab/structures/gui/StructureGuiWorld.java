@@ -7,7 +7,7 @@ import com.wuest.prefab.structures.config.StructureConfiguration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
-import net.minecraft.data.worldgen.biome.Biomes;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.ColorResolver;
 import net.minecraft.world.level.LightLayer;
@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.lighting.LevelLightEngine;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -194,7 +195,7 @@ public class StructureGuiWorld implements BlockAndTintGetter {
 
     @Override
     public int getBlockTint(BlockPos pos, ColorResolver color) {
-        return color.getColor(Biomes.PLAINS, pos.getX(), pos.getZ());
+        return color.getColor(ForgeRegistries.BIOMES.getValue(Biomes.PLAINS.getRegistryName()), pos.getX(), pos.getZ());
     }
 
     @Override
