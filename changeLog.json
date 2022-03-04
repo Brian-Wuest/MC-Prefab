@@ -24,7 +24,9 @@
     "1.17.1-latest": "1.7.1.2",
     "1.17.1-recommended": "1.7.1.2",
     "1.18.1-latest": "1.8.1.4",
-    "1.18.1-recommended": "1.8.1.4"
+    "1.18.1-recommended": "1.8.1.4",
+    "1.18.2-latest": "1.8.2.0",
+    "1.18.2-recommended": "1.8.2.0"
   },
   "1.10.2": {
     "1.1.1.10": "New Stuff: Added [Ender Gateway] structure. Added [Phasic Block] and [Boundary Block]\nSome buildings can now be generated in mod-created dimensions.",
@@ -168,5 +170,8 @@
     "1.8.1.2": "Fixing item frame and painting placement. Fixing crash on dedicated server when previewing structures",
     "1.8.1.3": "Fixed issue with certain buildings generating with paintings",
     "1.8.1.4": "Added Izba starting house. Fixed Grass Wall Block connections"
+  },
+  "1.18.2": {
+    "1.8.2.0": "Initial release for 1.18.2 containing the latest updates from 1.8.1.4"
   }
 }
