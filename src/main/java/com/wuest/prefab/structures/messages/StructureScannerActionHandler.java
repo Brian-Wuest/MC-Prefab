@@ -1,7 +1,7 @@
 package com.wuest.prefab.structures.messages;
 
 import com.wuest.prefab.blocks.entities.StructureScannerBlockEntity;
-import com.wuest.prefab.config.StructureScannerConfig;
+import com.wuest.prefab.config.block_entities.StructureScannerConfig;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;

@@ -5,7 +5,7 @@ import com.wuest.prefab.Prefab;
 import com.wuest.prefab.base.BaseConfig;
 import com.wuest.prefab.config.ModConfiguration;
 import com.wuest.prefab.config.ServerModConfiguration;
-import com.wuest.prefab.config.StructureScannerConfig;
+import com.wuest.prefab.config.block_entities.StructureScannerConfig;
 import com.wuest.prefab.crafting.RecipeCondition;
 import com.wuest.prefab.crafting.SmeltingCondition;
 import com.wuest.prefab.structures.custom.base.CustomStructureInfo;

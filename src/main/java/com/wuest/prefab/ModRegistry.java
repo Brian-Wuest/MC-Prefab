@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.wuest.prefab.blocks.*;
+import com.wuest.prefab.blocks.entities.DraftingTableBlockEntity;
 import com.wuest.prefab.blocks.entities.StructureScannerBlockEntity;
 import com.wuest.prefab.items.*;
 import com.wuest.prefab.proxy.CommonProxy;
@@ -179,6 +180,7 @@ public class ModRegistry {
 
     /* *********************************** Tile Entities *********************************** */
     public static RegistryObject<BlockEntityType<StructureScannerBlockEntity>> StructureScannerTileEntity = null;
+    public static RegistryObject<BlockEntityType<DraftingTableBlockEntity>> DraftingTableTileEntity = null;
 
     /* *********************************** Items *********************************** */
     public static final RegistryObject<Item> ItemLogo = ITEMS.register("item_logo", () -> new Item(new Item.Properties()));
@@ -256,6 +258,7 @@ public class ModRegistry {
     public static final RegistryObject<ItemBasicStructure> AdvancedModernBuildings = ITEMS.register(EnumBasicStructureName.AdvancedModernBuildings.getItemTextureLocation().getPath(), () -> new ItemBasicStructure(EnumBasicStructureName.AdvancedModernBuildings));
 
     public static BlockEntityType<StructureScannerBlockEntity> StructureScannerEntityType = null;
+    public static BlockEntityType<DraftingTableBlockEntity> DraftingTableEntityType = null;
     public static final RegistryObject<ItemBasicStructure> StarterFarm = ITEMS.register(EnumBasicStructureName.StarterFarm.getItemTextureLocation().getPath(), () -> new ItemBasicStructure(EnumBasicStructureName.StarterFarm));
     public static final RegistryObject<ItemBasicStructure> ModerateFarm = ITEMS.register(EnumBasicStructureName.ModerateFarm.getItemTextureLocation().getPath(), () -> new ItemBasicStructure(EnumBasicStructureName.ModerateFarm));
     public static final RegistryObject<ItemBasicStructure> AdvancedFarm = ITEMS.register(EnumBasicStructureName.AdvancedFarm.getItemTextureLocation().getPath(), () -> new ItemBasicStructure(EnumBasicStructureName.AdvancedFarm));
@@ -276,6 +279,13 @@ public class ModRegistry {
                 return ModRegistry.StructureScannerEntityType;
             });
         }
+
+        ModRegistry.DraftingTableTileEntity = TILE_ENTITIES.register("drafting_table_entity", () -> {
+            ModRegistry.DraftingTableEntityType = new BlockEntityType<>(
+                    DraftingTableBlockEntity::new, new HashSet<>(Arrays.asList(ModRegistry.DraftingTable.get())), null);
+
+            return ModRegistry.DraftingTableEntityType;
+        });
     }
 
     /**
@@ -355,7 +365,7 @@ public class ModRegistry {
                     String fileContents = Files.readString(path);
                     CustomStructureInfo contents = gson.fromJson(fileContents, CustomStructureInfo.class);
 
-                    if (!Strings.isNullOrEmpty(contents.structureFileName)
+                    if (contents != null && !Strings.isNullOrEmpty(contents.structureFileName)
                             && !Strings.isNullOrEmpty(contents.displayName)
                             && contents.requiredItems != null
                             && contents.requiredItems.size() > 0) {

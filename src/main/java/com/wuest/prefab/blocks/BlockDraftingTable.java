@@ -1,21 +1,27 @@
 package com.wuest.prefab.blocks;
 
 import com.wuest.prefab.Prefab;
+import com.wuest.prefab.base.TileBlockBase;
+import com.wuest.prefab.blocks.entities.DraftingTableBlockEntity;
+import com.wuest.prefab.config.block_entities.DraftingTableConfiguration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class BlockDraftingTable extends HorizontalDirectionalBlock {
+public class BlockDraftingTable extends TileBlockBase<DraftingTableBlockEntity> {
     public static VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 15.0D, 16.0D);
     public static VoxelShape SHAPE_NORTH = Block.box(1.0D, 0.0D, 2.0D, 15.0D, 13.0D, 15.0D);
     public static VoxelShape SHAPE_SOUTH = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 13.0D, 14.0D);
@@ -32,6 +38,15 @@ public class BlockDraftingTable extends HorizontalDirectionalBlock {
                 .noOcclusion());
 
         this.registerDefaultState(this.stateDefinition.any().setValue(HorizontalDirectionalBlock.FACING, Direction.NORTH));
+    }
+
+    @Override
+    public BlockState rotate(BlockState blockState, Rotation rotation) {
+        return blockState.setValue(HorizontalDirectionalBlock.FACING, rotation.rotate(blockState.getValue(HorizontalDirectionalBlock.FACING)));
+    }
+    @Override
+    public BlockState mirror(BlockState blockState, Mirror mirror) {
+        return blockState.rotate(mirror.getRotation(blockState.getValue(HorizontalDirectionalBlock.FACING)));
     }
 
     @Override
@@ -62,7 +77,7 @@ public class BlockDraftingTable extends HorizontalDirectionalBlock {
 
     @Override
     public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
-        switch (blockState.getValue(FACING)) {
+        switch (blockState.getValue(HorizontalDirectionalBlock.FACING)) {
             case NORTH: {
                 return BlockDraftingTable.SHAPE_NORTH;
             }
@@ -79,5 +94,24 @@ public class BlockDraftingTable extends HorizontalDirectionalBlock {
                 return BlockDraftingTable.SHAPE;
             }
         }
+    }
+
+    @Override
+    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (world.isClientSide) {
+            BlockEntity blockEntity = world.getBlockEntity(pos);
+            if (blockEntity instanceof DraftingTableBlockEntity) {
+                DraftingTableConfiguration config = ((DraftingTableBlockEntity) blockEntity).getConfig();
+                Prefab.proxy.openGuiForBlock(pos, world, config);
+            }
+            return InteractionResult.SUCCESS;
+        } else {
+            return InteractionResult.CONSUME;
+        }
+    }
+
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new DraftingTableBlockEntity(pos, state);
     }
 }

@@ -1,4 +1,4 @@
-package com.wuest.prefab.config;
+package com.wuest.prefab.config.block_entities;
 
 import com.wuest.prefab.base.BaseConfig;
 import net.minecraft.nbt.CompoundTag;

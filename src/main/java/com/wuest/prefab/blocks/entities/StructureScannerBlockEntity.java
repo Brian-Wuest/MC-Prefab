@@ -2,7 +2,7 @@ package com.wuest.prefab.blocks.entities;
 
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.base.TileEntityBase;
-import com.wuest.prefab.config.StructureScannerConfig;
+import com.wuest.prefab.config.block_entities.StructureScannerConfig;
 import com.wuest.prefab.structures.base.BuildClear;
 import com.wuest.prefab.structures.base.BuildShape;
 import com.wuest.prefab.structures.base.Structure;

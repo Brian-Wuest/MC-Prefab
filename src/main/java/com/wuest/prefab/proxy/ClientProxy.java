@@ -9,10 +9,12 @@ import com.wuest.prefab.blocks.BlockCustomWall;
 import com.wuest.prefab.blocks.BlockGrassSlab;
 import com.wuest.prefab.blocks.BlockGrassStairs;
 import com.wuest.prefab.config.ServerModConfiguration;
-import com.wuest.prefab.config.StructureScannerConfig;
+import com.wuest.prefab.config.block_entities.DraftingTableConfiguration;
+import com.wuest.prefab.config.block_entities.StructureScannerConfig;
 import com.wuest.prefab.events.ClientEventHandler;
 import com.wuest.prefab.gui.GuiBase;
 import com.wuest.prefab.gui.GuiPrefab;
+import com.wuest.prefab.gui.screens.GuiDraftingTable;
 import com.wuest.prefab.gui.screens.GuiStructureScanner;
 import com.wuest.prefab.structures.custom.base.CustomStructureInfo;
 import com.wuest.prefab.structures.gui.GuiStructure;
@@ -184,6 +186,10 @@ public class ClientProxy extends CommonProxy {
 
         if (config instanceof StructureScannerConfig) {
             screen = new GuiStructureScanner(blockPos, world, (StructureScannerConfig) config);
+        }
+
+        if (config instanceof DraftingTableConfiguration) {
+            screen = new GuiDraftingTable(blockPos, world, (DraftingTableConfiguration) config);
         }
 
         if (screen != null) {

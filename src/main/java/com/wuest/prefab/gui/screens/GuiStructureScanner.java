@@ -5,7 +5,7 @@ import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Tuple;
 import com.wuest.prefab.Utils;
 import com.wuest.prefab.blocks.BlockStructureScanner;
-import com.wuest.prefab.config.StructureScannerConfig;
+import com.wuest.prefab.config.block_entities.StructureScannerConfig;
 import com.wuest.prefab.gui.GuiBase;
 import com.wuest.prefab.gui.controls.CustomButton;
 import com.wuest.prefab.gui.controls.ExtendedButton;
