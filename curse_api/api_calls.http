@@ -1,0 +1,43 @@
+@api_path = https://api.curseforge.com 
+@api_key = SOME_KEY
+
+@minecraft_game_id = 432
+@prefab_fabric_id = 438696
+@prefab_forge_id = 246550
+
+###
+// Search all games
+GET {{api_path}}/v1/games
+content-type: application/json
+Accept: application/json
+x-api-key: {{api_key}}
+
+###
+// Search for mod
+GET {{api_path}}/v1/mods/search?gameId={{minecraft_game_id}}&searchFilter=prefab
+content-type: application/json
+Accept: application/json
+x-api-key: {{api_key}}
+
+
+###
+// Get Prefab Fabric Files
+GET {{api_path}}/v1/mods/{{prefab_fabric_id}}/files
+content-type: application/json
+Accept: application/json
+x-api-key: {{api_key}}
+
+###
+// Get Prefab Fabric File for download count
+GET {{api_path}}/v1/mods/{{prefab_fabric_id}}/files/3669427
+content-type: application/json
+Accept: application/json
+x-api-key: {{api_key}}
+
+
+###
+// Get Prefab Forge Files
+GET {{api_path}}/v1/mods/{{prefab_forge_id}}/files
+content-type: application/json
+Accept: application/json
+x-api-key: {{api_key}}
