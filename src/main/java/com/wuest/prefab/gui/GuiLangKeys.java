@@ -88,6 +88,15 @@ public class GuiLangKeys {
     @Unlocalized(name = "Izba Style")
     public static final String STARTER_HOUSE_IZBA_DISPLAY = "prefab.gui.starter.izba.display";
 
+    @Unlocalized(name = "Tower Style")
+    public static final String STARTER_HOUSE_TOWER_DISPLAY = "prefab.gui.starter.tower.display";
+
+    @Unlocalized(name = "Cabin Style")
+    public static final String STARTER_HOUSE_CABIN_DISPLAY = "prefab.gui.starter.cabin.display";
+
+    @Unlocalized(name = "Treehouse Style")
+    public static final String STARTER_HOUSE_TREE_HOUSE_DISPLAY = "prefab.gui.starter.tree.display";
+
     @Unlocalized(name = "Add Torches")
     public static final String STARTER_HOUSE_ADD_TORCHES = "prefab.gui.starter.addtorches";
 
@@ -279,6 +288,18 @@ public class GuiLangKeys {
 
     @Unlocalized(name = "Modern House")
     public static final String MODERATE_HOUSE_MODERN = "prefab.gui.item_modern_house";
+
+    @Unlocalized(name = "Crimson House")
+    public static final String MODERATE_HOUSE_CRIMSON = "prefab.gui.moderate_house.crimson_house";
+
+    @Unlocalized(name = "Tower House")
+    public static final String MODERATE_HOUSE_TOWER = "prefab.gui.moderate_house.tower_house";
+
+    @Unlocalized(name = "Hobbit House")
+    public static final String MODERATE_HOUSE_HOBBIT = "prefab.gui.moderate_house.hobbit_house";
+
+    @Unlocalized(name = "Cottage House")
+    public static final String MODERATE_HOUSE_COTTAGE = "prefab.gui.moderate_house.cottage_house";
 
     @Unlocalized(name = "Earthen Home")
     public static final String MODERATE_EARTHEN_HOME = "prefab.gui.moderate_house.earthen";
