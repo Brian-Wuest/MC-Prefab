@@ -146,6 +146,9 @@
     "prefab.gui.starter.modern.display": "Stile moderno",
     "prefab.gui.starter.camping.display": "Stile del campo",
     "prefab.gui.starter.izba.display": "Stile Izba",
+    "prefab.gui.starter.cabin.display": "Stile cabina",
+    "prefab.gui.starter.tower.display": "Stile Torre",
+    "prefab.gui.starter.tree.display": "Casa sull'albero",
 
     "prefab.gui.starter.addtorches": "Aggiungi Torce",
     "prefab.gui.starter.addbed": "Aggiungi Letto",
@@ -174,6 +177,10 @@
     "prefab.gui.moderate_house.nether": "Casa Nether",
     "prefab.gui.moderate_house.mountain": "Casa nella Montagna",
     "prefab.gui.moderate_house.acacia_2": "Casa Acacia 2",
+    "prefab.gui.moderate_house.crimson_house": "Casa Cremisi",
+    "prefab.gui.moderate_house.tower_house": "Torre",
+    "prefab.gui.moderate_house.hobbit_house": "Casa degli Hobbit",
+    "prefab.gui.moderate_house.cottage_house": "Villetta",
 
     "prefab.gui.item_modern_mall_store": "Centro commerciale",
     "prefab.gui.item_modern_hipster_fruit_stand": "Fruttivendolo",

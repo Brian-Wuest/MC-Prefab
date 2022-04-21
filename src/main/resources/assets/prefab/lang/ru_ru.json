@@ -146,6 +146,9 @@
     "prefab.gui.starter.modern.display": "Современный",
     "prefab.gui.starter.camping.display": "Лагерь",
     "prefab.gui.starter.izba.display": "Изба",
+    "prefab.gui.starter.cabin.display": "Бревенчатый домик",
+    "prefab.gui.starter.tower.display": "Башенный стиль",
+    "prefab.gui.starter.tree.display": "Дом на дереве",
 
     "prefab.gui.starter.addtorches": "Добавить Факела",
     "prefab.gui.starter.addbed": "Добавить Кровать",
@@ -174,6 +177,10 @@
     "prefab.gui.moderate_house.nether": "Адский Дом",
     "prefab.gui.moderate_house.mountain": "Горный Дом",
     "prefab.gui.moderate_house.acacia_2": "Акациевый Дом 2",
+    "prefab.gui.moderate_house.crimson_house": "Багровый дом",
+    "prefab.gui.moderate_house.tower_house": "Башня",
+    "prefab.gui.moderate_house.hobbit_house": "Дом хоббита",
+    "prefab.gui.moderate_house.cottage_house": "Коттедж",
 
     "prefab.gui.item_modern_mall_store": "Торговый Центр",
     "prefab.gui.item_modern_hipster_fruit_stand": "Магазин Яблок",

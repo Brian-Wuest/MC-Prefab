@@ -147,6 +147,9 @@
     "prefab.gui.starter.modern.display": "Modern Stili",
     "prefab.gui.starter.camping.display": "Kamp Stili",
     "prefab.gui.starter.izba.display": "Izba Stili",
+    "prefab.gui.starter.cabin.display": "Kütüklerden yapılmış kulübe",
+    "prefab.gui.starter.tower.display": "Kule Tarzı",
+    "prefab.gui.starter.tree.display": "Ağaç ev",
 
     "prefab.gui.starter.addtorches": "Meşale Ekle",
     "prefab.gui.starter.addbed": "Yatak Ekle",
@@ -175,6 +178,10 @@
     "prefab.gui.moderate_house.nether": "Nether Evi",
     "prefab.gui.moderate_house.mountain": "Dağ Evi",
     "prefab.gui.moderate_house.acacia_2": "Akasya Evi 2",
+    "prefab.gui.moderate_house.crimson_house": "Kızıl Ev",
+    "prefab.gui.moderate_house.tower_house": "Kule",
+    "prefab.gui.moderate_house.hobbit_house": "Hobbit Evi",
+    "prefab.gui.moderate_house.cottage_house": "Kulübe",
 
     "prefab.gui.item_modern_mall_store": "Alışveriş Merkezi",
     "prefab.gui.item_modern_hipster_fruit_stand": "Manav",

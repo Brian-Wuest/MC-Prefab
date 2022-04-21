@@ -90,8 +90,8 @@ public class HouseConfiguration extends StructureConfiguration {
         tag.putInt(HouseConfiguration.hitZTag, this.pos.getZ());
         tag.putString(HouseConfiguration.houseFacingTag, this.houseFacing.getSerializedName());
         tag.putInt(HouseConfiguration.houseStyleTag, this.houseStyle.value);
-        tag.putString(HouseConfiguration.glassColorTag, this.glassColor.getSerializedName().toUpperCase());
-        tag.putString(HouseConfiguration.bedColorTag, this.bedColor.getSerializedName().toUpperCase());
+        tag.putInt(HouseConfiguration.glassColorTag, this.glassColor.getId());
+        tag.putInt(HouseConfiguration.bedColorTag, this.bedColor.getId());
 
         return tag;
     }
@@ -150,11 +150,11 @@ public class HouseConfiguration extends StructureConfiguration {
             }
 
             if (tag.contains(HouseConfiguration.glassColorTag)) {
-                config.glassColor = FullDyeColor.valueOf(tag.getString(HouseConfiguration.glassColorTag));
+                config.glassColor = FullDyeColor.ById(tag.getInt(HouseConfiguration.glassColorTag));
             }
 
             if (tag.contains(HouseConfiguration.bedColorTag)) {
-                config.bedColor = DyeColor.valueOf(tag.getString(HouseConfiguration.bedColorTag));
+                config.bedColor = DyeColor.byId(tag.getInt(HouseConfiguration.bedColorTag));
             }
         }
 
@@ -231,7 +231,19 @@ public class HouseConfiguration extends StructureConfiguration {
         IZBA(10,
                 GuiLangKeys.STARTER_HOUSE_IZBA_DISPLAY,
                 new ResourceLocation("prefab", "textures/gui/izba_house.png"),
-                "assets/prefab/structures/starter_house_izba.zip");
+                "assets/prefab/structures/starter_house_izba.zip"),
+        TOWER(11,
+                GuiLangKeys.STARTER_HOUSE_TOWER_DISPLAY,
+                new ResourceLocation("prefab", "textures/gui/starter_house_tower.png"),
+                "assets/prefab/structures/starter_house_tower.zip"),
+        CABIN(12,
+                GuiLangKeys.STARTER_HOUSE_CABIN_DISPLAY,
+                new ResourceLocation("prefab", "textures/gui/starter_house_cabin.png"),
+                "assets/prefab/structures/starter_house_cabin.zip"),
+        TREE(13,
+                GuiLangKeys.STARTER_HOUSE_TREE_HOUSE_DISPLAY,
+                new ResourceLocation("prefab", "textures/gui/starter_house_tree.png"),
+                "assets/prefab/structures/starter_house_tree.zip");
 
         private final int value;
         private final String displayName;

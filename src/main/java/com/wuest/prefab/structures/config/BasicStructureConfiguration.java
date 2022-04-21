@@ -94,11 +94,11 @@ public class BasicStructureConfiguration extends StructureConfiguration {
         }
 
         if (messageTag.contains(BasicStructureConfiguration.bedColorTag)) {
-            basicConfig.bedColor = DyeColor.valueOf(messageTag.getString(BasicStructureConfiguration.bedColorTag));
+            basicConfig.bedColor = DyeColor.byId(messageTag.getInt(BasicStructureConfiguration.bedColorTag));
         }
 
         if (messageTag.contains(BasicStructureConfiguration.glassColorTag)) {
-            basicConfig.glassColor = FullDyeColor.valueOf(messageTag.getString(BasicStructureConfiguration.glassColorTag));
+            basicConfig.glassColor = FullDyeColor.ById(messageTag.getInt(BasicStructureConfiguration.glassColorTag));
         }
 
         if (messageTag.contains(BasicStructureConfiguration.chosenOptionTag)) {
@@ -114,8 +114,8 @@ public class BasicStructureConfiguration extends StructureConfiguration {
             tag.putString(BasicStructureConfiguration.structureDisplayNameTag, this.structureDisplayName);
         }
 
-        tag.putString(BasicStructureConfiguration.bedColorTag, this.bedColor.getSerializedName().toUpperCase());
-        tag.putString(BasicStructureConfiguration.glassColorTag, this.glassColor.getSerializedName().toUpperCase());
+        tag.putInt(BasicStructureConfiguration.bedColorTag, this.bedColor.getId());
+        tag.putInt(BasicStructureConfiguration.glassColorTag, this.glassColor.getId());
         tag.putString(BasicStructureConfiguration.chosenOptionTag, this.chosenOption.getTranslationString());
 
         return tag;

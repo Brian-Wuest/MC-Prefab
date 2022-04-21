@@ -146,6 +146,9 @@
     "prefab.gui.starter.modern.display": "モダンスタイル",
     "prefab.gui.starter.camping.display": "キャンプスタイル",
     "prefab.gui.starter.izba.display": "木造の民家",
+    "prefab.gui.starter.cabin.display": "ログキャビン",
+    "prefab.gui.starter.tower.display": "タワー型",
+    "prefab.gui.starter.tree.display": "樹上の家",
 
     "prefab.gui.starter.addtorches": "トーチを追加",
     "prefab.gui.starter.addbed": "ベッドを追加",
@@ -174,6 +177,10 @@
     "prefab.gui.moderate_house.nether": "ネザーハウス",
     "prefab.gui.moderate_house.mountain": "マウンテンハウス",
     "prefab.gui.moderate_house.acacia_2": "アカシアハウス2",
+    "prefab.gui.moderate_house.crimson_house": "深紅の家",
+    "prefab.gui.moderate_house.tower_house": "タワー",
+    "prefab.gui.moderate_house.hobbit_house": "ホビットハウス",
+    "prefab.gui.moderate_house.cottage_house": "コテージ",
 
     "prefab.gui.item_modern_mall_store": "ショッピングセンター",
     "prefab.gui.item_modern_hipster_fruit_stand": "果物店",

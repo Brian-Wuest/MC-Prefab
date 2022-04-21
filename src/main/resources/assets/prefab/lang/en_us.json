@@ -146,6 +146,9 @@
     "prefab.gui.starter.modern.display": "Modern Style",
     "prefab.gui.starter.camping.display": "Camping Style",
     "prefab.gui.starter.izba.display": "Izba Style",
+    "prefab.gui.starter.cabin.display": "Cabin Style",
+    "prefab.gui.starter.tower.display": "Tower Style",
+    "prefab.gui.starter.tree.display": "Treehouse Style",
 
     "prefab.gui.starter.addtorches": "Add Torches",
     "prefab.gui.starter.addbed": "Add Bed",
@@ -174,6 +177,10 @@
     "prefab.gui.moderate_house.nether": "Nether House",
     "prefab.gui.moderate_house.mountain": "Mountain House",
     "prefab.gui.moderate_house.acacia_2": "Acacia House 2",
+    "prefab.gui.moderate_house.crimson_house": "Crimson House",
+    "prefab.gui.moderate_house.tower_house": "Tower",
+    "prefab.gui.moderate_house.hobbit_house": "Hobbit House",
+    "prefab.gui.moderate_house.cottage_house": "Cottage",
 
     "prefab.gui.item_modern_mall_store": "Shopping Centre",
     "prefab.gui.item_modern_hipster_fruit_stand": "Fruit Shop",

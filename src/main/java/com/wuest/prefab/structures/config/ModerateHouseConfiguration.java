@@ -72,7 +72,7 @@ public class ModerateHouseConfiguration extends StructureConfiguration {
         tag.putBoolean(ModerateHouseConfiguration.addChestTag, this.addChests);
         tag.putBoolean(ModerateHouseConfiguration.addChestContentsTag, this.addChestContents);
         tag.putBoolean(ModerateHouseConfiguration.addMineshaftTag, this.addMineshaft);
-        tag.putString(ModerateHouseConfiguration.bedColorTag, this.bedColor.getSerializedName().toUpperCase());
+        tag.putInt(ModerateHouseConfiguration.bedColorTag, this.bedColor.getId());
 
         return tag;
     }
@@ -98,7 +98,7 @@ public class ModerateHouseConfiguration extends StructureConfiguration {
         }
 
         if (messageTag.contains(ModerateHouseConfiguration.bedColorTag)) {
-            houseConfiguration.bedColor = DyeColor.valueOf(messageTag.getString(ModerateHouseConfiguration.bedColorTag));
+            houseConfiguration.bedColor = DyeColor.byId(messageTag.getInt(ModerateHouseConfiguration.bedColorTag));
         }
     }
 
@@ -152,7 +152,15 @@ public class ModerateHouseConfiguration extends StructureConfiguration {
         ACACIA_HOME2(6, GuiLangKeys.MODERATE_HOUSE_ACACIA_2, new ResourceLocation("prefab", "textures/gui/moderate_house_acacia_2_topdown.png"),
                 "assets/prefab/structures/moderate_house_acacia_2.zip"),
         MODERN_HOME(7, GuiLangKeys.MODERATE_HOUSE_MODERN, new ResourceLocation("prefab", "textures/gui/moderate_house_modern_topdown.png"),
-                "assets/prefab/structures/moderate_house_modern.zip");
+                "assets/prefab/structures/moderate_house_modern.zip"),
+        CRIMSON_HOME(8, GuiLangKeys.MODERATE_HOUSE_CRIMSON, new ResourceLocation("prefab", "textures/gui/moderate_house_crimson.png"),
+                "assets/prefab/structures/moderate_house_crimson.zip"),
+        TOWER_HOME(9, GuiLangKeys.MODERATE_HOUSE_TOWER, new ResourceLocation("prefab", "textures/gui/moderate_house_tower.png"),
+                "assets/prefab/structures/moderate_house_tower.zip"),
+        HOBBIT_HOME(10, GuiLangKeys.MODERATE_HOUSE_HOBBIT, new ResourceLocation("prefab", "textures/gui/moderate_house_hobbit.png"),
+                "assets/prefab/structures/moderate_house_hobbit.zip"),
+        COTTAGE_HOME(11, GuiLangKeys.MODERATE_HOUSE_COTTAGE, new ResourceLocation("prefab", "textures/gui/moderate_house_cottage.png"),
+                "assets/prefab/structures/moderate_house_cottage.zip");
 
         private final int value;
         private final String displayName;

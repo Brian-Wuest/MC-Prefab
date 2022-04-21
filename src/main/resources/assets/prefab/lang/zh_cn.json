@@ -146,6 +146,9 @@
   "prefab.gui.starter.modern.display": "现代风格",
   "prefab.gui.starter.camping.display": "营地风格",
   "prefab.gui.starter.izba.display": "伊兹巴风格",
+  "prefab.gui.starter.cabin.display": "木屋",
+  "prefab.gui.starter.tower.display": "塔式",
+  "prefab.gui.starter.tree.display": "树屋",
 
   "prefab.gui.starter.addtorches": "添加火炬",
   "prefab.gui.starter.addbed": "添加床",
@@ -174,6 +177,10 @@
   "prefab.gui.moderate_house.nether": "虚空之屋",
   "prefab.gui.moderate_house.mountain": "山房",
   "prefab.gui.moderate_house.acacia_2": "相思之家2",
+  "prefab.gui.moderate_house.crimson_house": "深红之家",
+  "prefab.gui.moderate_house.tower_house": "塔",
+  "prefab.gui.moderate_house.hobbit_house": "霍比特人之家",
+  "prefab.gui.moderate_house.cottage_house": "小屋",
 
   "prefab.gui.item_modern_mall_store": "购物中心",
   "prefab.gui.item_modern_hipster_fruit_stand": "水果店",
