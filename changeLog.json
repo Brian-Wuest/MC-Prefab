@@ -25,8 +25,8 @@
     "1.17.1-recommended": "1.7.1.2",
     "1.18.1-latest": "1.8.1.4",
     "1.18.1-recommended": "1.8.1.4",
-    "1.18.2-latest": "1.8.2.1",
-    "1.18.2-recommended": "1.8.2.1"
+    "1.18.2-latest": "1.8.2.2",
+    "1.18.2-recommended": "1.8.2.2"
   },
   "1.10.2": {
     "1.1.1.10": "New Stuff: Added [Ender Gateway] structure. Added [Phasic Block] and [Boundary Block]\nSome buildings can now be generated in mod-created dimensions.",
@@ -173,6 +173,7 @@
   },
   "1.18.2": {
     "1.8.2.0": "Initial release for 1.18.2 containing the latest updates from 1.8.1.4",
-    "1.8.2.1": "Added new starter house options, added new moderate house options, added moderate barn option, fixed bug causing players to lose structure items"
+    "1.8.2.1": "Added new starter house options, added new moderate house options, added moderate barn option, fixed bug causing players to lose structure items",
+    "1.8.2.2": "Fixed issue where the moderate barn was made instead of the advanced barn"
   }
 }
