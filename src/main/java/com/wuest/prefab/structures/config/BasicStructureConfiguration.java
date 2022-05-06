@@ -102,7 +102,7 @@ public class BasicStructureConfiguration extends StructureConfiguration {
         }
 
         if (messageTag.contains(BasicStructureConfiguration.chosenOptionTag)) {
-            basicConfig.chosenOption = BaseOption.getOptionByTranslationString(messageTag.getString(BasicStructureConfiguration.chosenOptionTag));
+            basicConfig.chosenOption = BaseOption.getOptionByHash(messageTag.getInt(BasicStructureConfiguration.chosenOptionTag));
         }
     }
 
@@ -116,7 +116,7 @@ public class BasicStructureConfiguration extends StructureConfiguration {
 
         tag.putInt(BasicStructureConfiguration.bedColorTag, this.bedColor.getId());
         tag.putInt(BasicStructureConfiguration.glassColorTag, this.glassColor.getId());
-        tag.putString(BasicStructureConfiguration.chosenOptionTag, this.chosenOption.getTranslationString());
+        tag.putInt(BasicStructureConfiguration.chosenOptionTag, this.chosenOption.hashCode());
 
         return tag;
     }

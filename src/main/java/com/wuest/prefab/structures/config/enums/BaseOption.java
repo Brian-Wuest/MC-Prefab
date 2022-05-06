@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class BaseOption {
 
@@ -33,13 +34,13 @@ public class BaseOption {
     }
 
     /**
-     * @param translationString The translation string to use to find the option.
+     * @param hashCode The hashcode to use to find the option.
      * @return The option found.
      */
-    public static BaseOption getOptionByTranslationString(String translationString) {
+    public static BaseOption getOptionByHash(int hashCode) {
         for (Map.Entry<String, ArrayList<BaseOption>> mapping : BaseOption.classOptions.entrySet()) {
             for (BaseOption storedOption : mapping.getValue()) {
-                if (storedOption.getTranslationString().equals(translationString)) {
+                if (storedOption.hashCode() == hashCode) {
                     return storedOption;
                 }
             }
@@ -122,5 +123,10 @@ public class BaseOption {
      */
     public ArrayList<BaseOption> filterOptions(ArrayList<BaseOption> originalOptions) {
         return originalOptions;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.translationString, this.assetLocation);
     }
 }
