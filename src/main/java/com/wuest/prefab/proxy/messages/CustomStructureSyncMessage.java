@@ -42,7 +42,7 @@ public class CustomStructureSyncMessage extends TagMessage {
     public ArrayList<CustomStructureInfo> getDecodedStructures() {
         ArrayList<CustomStructureInfo> returnedStructures = new ArrayList<>();
 
-        ListTag listTag = this.tagMessage.getList("structures", 0);
+        ListTag listTag = this.tagMessage.getList("structures", 10);
 
         if (listTag != null) {
             for (Tag tag : listTag) {

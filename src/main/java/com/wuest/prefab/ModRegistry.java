@@ -7,23 +7,27 @@ import com.google.gson.JsonSyntaxException;
 import com.wuest.prefab.blocks.*;
 import com.wuest.prefab.blocks.entities.DraftingTableBlockEntity;
 import com.wuest.prefab.blocks.entities.StructureScannerBlockEntity;
+import com.wuest.prefab.gui.screens.menus.DraftingTableMenu;
 import com.wuest.prefab.items.*;
 import com.wuest.prefab.proxy.CommonProxy;
 import com.wuest.prefab.proxy.messages.ConfigSyncMessage;
 import com.wuest.prefab.proxy.messages.CustomStructureSyncMessage;
+import com.wuest.prefab.proxy.messages.DraftingTableSyncMessage;
 import com.wuest.prefab.proxy.messages.PlayerEntityTagMessage;
 import com.wuest.prefab.proxy.messages.handlers.ConfigSyncHandler;
 import com.wuest.prefab.proxy.messages.handlers.CustomStructureSyncHandler;
+import com.wuest.prefab.proxy.messages.handlers.DraftingTableSyncHandler;
 import com.wuest.prefab.proxy.messages.handlers.PlayerEntityHandler;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration.EnumBasicStructureName;
 import com.wuest.prefab.structures.custom.base.CustomStructureInfo;
 import com.wuest.prefab.structures.items.*;
 import com.wuest.prefab.structures.messages.*;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.util.LazyLoadedValue;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.BlockGetter;
@@ -74,12 +78,16 @@ public class ModRegistry {
      * Deferred registry for tile entities.
      */
     public static final DeferredRegister<BlockEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, Prefab.MODID);
-    public static final RegistryObject<BlockCompressedStone> CompressedStone = BLOCKS.register(BlockCompressedStone.EnumType.COMPRESSED_STONE.getUnlocalizedName(), () -> new BlockCompressedStone(BlockCompressedStone.EnumType.COMPRESSED_STONE));
 
     /**
      * Deferred registry for sounds.
      */
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Prefab.MODID);
+
+    /**
+     * Deferred registry for menu types.
+     */
+    public static final DeferredRegister<MenuType<?>> MENU_TYPES = DeferredRegister.create(ForgeRegistries.CONTAINERS, Prefab.MODID);
 
     public static final CreativeModeTab PREFAB_GROUP = new CreativeModeTab("prefab.logo") {
         @OnlyIn(Dist.CLIENT)
@@ -89,6 +97,7 @@ public class ModRegistry {
     };
 
     /* *********************************** Blocks *********************************** */
+    public static final RegistryObject<BlockCompressedStone> CompressedStone = BLOCKS.register(BlockCompressedStone.EnumType.COMPRESSED_STONE.getUnlocalizedName(), () -> new BlockCompressedStone(BlockCompressedStone.EnumType.COMPRESSED_STONE));
     public static final RegistryObject<BlockCompressedStone> DoubleCompressedStone = BLOCKS.register(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE.getUnlocalizedName(), () -> new BlockCompressedStone(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE));
     public static final RegistryObject<BlockCompressedStone> TripleCompressedStone = BLOCKS.register(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE.getUnlocalizedName(), () -> new BlockCompressedStone(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE));
     public static final RegistryObject<BlockCompressedStone> CompressedGlowStone = BLOCKS.register(BlockCompressedStone.EnumType.COMPRESSED_GLOWSTONE.getUnlocalizedName(), () -> new BlockCompressedStone(BlockCompressedStone.EnumType.COMPRESSED_GLOWSTONE));
@@ -223,7 +232,7 @@ public class ModRegistry {
     public static final RegistryObject<ItemWoodenCrate> BunchOfBeets = ITEMS.register("item_bunch_of_beets", () -> new ItemWoodenCrate(ItemWoodenCrate.CrateType.Empty));
     public static final RegistryObject<ItemBlockWoodenCrate> ItemCrateOfBeets = ITEMS.register("item_crate_of_beets", () -> new ItemBlockWoodenCrate(ModRegistry.CrateOfBeets.get(), ItemWoodenCrate.CrateType.Empty));
     public static final RegistryObject<Item> Pencil = ITEMS.register("item_pencil", () -> new Item(new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
-    public static final RegistryObject<Item> BlankBlueprint = ITEMS.register("item_blank_blueprint", () -> new Item(new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
+    public static final RegistryObject<ItemBlueprint> BlankBlueprint = ITEMS.register("item_blank_blueprint", () -> new ItemBlueprint(new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
 
     /* *********************************** Blueprint Items *********************************** */
     public static final RegistryObject<ItemStartHouse> StartHouse = ITEMS.register("item_start_house", ItemStartHouse::new);
@@ -265,6 +274,9 @@ public class ModRegistry {
 
     /* *********************************** Sounds *********************************** */
     public static final RegistryObject<SoundEvent> BuildingBlueprint = SOUNDS.register("building_blueprint", () -> new SoundEvent(new ResourceLocation(Prefab.MODID, "building_blueprint")));
+
+    /* *********************************** Menu Types *********************************** */
+    public static final RegistryObject<MenuType<DraftingTableMenu>> DraftingTableMenuType = MENU_TYPES.register("drafting_table", () -> new MenuType<>(DraftingTableMenu::RegisteredMenuType));
 
     static {
         if (Prefab.isDebug) {
@@ -328,6 +340,12 @@ public class ModRegistry {
                 .decoder(CustomStructureSyncMessage::decode)
                 .consumer(CustomStructureSyncHandler::handle)
                 .add();
+
+        Prefab.network.messageBuilder(DraftingTableSyncMessage.class, index.getAndIncrement())
+                .encoder(DraftingTableSyncMessage::encode)
+                .decoder(DraftingTableSyncMessage::decode)
+                .consumer(DraftingTableSyncHandler::handle)
+                .add();
     }
 
     public static void registerCustomStructures() {
@@ -375,7 +393,7 @@ public class ModRegistry {
 
                         // This has to be a zip file.
                         // Don't register this custom structure unless it has a corresponding structure file.
-                        if (Files.exists(structureFilePath) && structureFilePath.endsWith(".zip")) {
+                        if (Files.exists(structureFilePath) && structureFilePath.toString().endsWith(".zip")) {
                             contents.structureFilePath = structureFilePath;
 
                             CommonProxy.CustomStructures.add(contents);

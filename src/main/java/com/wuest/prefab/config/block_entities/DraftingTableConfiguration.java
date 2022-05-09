@@ -1,4 +1,5 @@
 package com.wuest.prefab.config.block_entities;
+
 import com.wuest.prefab.base.BaseConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -23,6 +24,7 @@ public class DraftingTableConfiguration extends BaseConfig {
         if (compound.contains("pos")) {
             this.blockPos = NbtUtils.readBlockPos(compound.getCompound("pos"));
         }
+
         return this;
     }
 }

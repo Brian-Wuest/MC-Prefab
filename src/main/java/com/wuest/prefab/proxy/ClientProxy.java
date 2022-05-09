@@ -188,10 +188,6 @@ public class ClientProxy extends CommonProxy {
             screen = new GuiStructureScanner(blockPos, world, (StructureScannerConfig) config);
         }
 
-        if (config instanceof DraftingTableConfiguration) {
-            screen = new GuiDraftingTable(blockPos, world, (DraftingTableConfiguration) config);
-        }
-
         if (screen != null) {
             Minecraft.getInstance().setScreen(screen);
         }
