@@ -65,7 +65,7 @@ public class CustomStructureInfo {
         this.infoFileName = tag.getString("infoFileName");
 
         this.requiredItems = new ArrayList<>();
-        ListTag listTag = tag.getList("requiredItems", 0);
+        ListTag listTag = tag.getList("requiredItems", 10);
 
         if (listTag != null) {
             for (Tag itemTag : listTag) {
