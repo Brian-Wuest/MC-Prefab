@@ -13,12 +13,14 @@ import com.wuest.prefab.config.block_entities.StructureScannerConfig;
 import com.wuest.prefab.events.ClientEventHandler;
 import com.wuest.prefab.gui.GuiBase;
 import com.wuest.prefab.gui.GuiPrefab;
+import com.wuest.prefab.gui.screens.GuiDraftingTable;
 import com.wuest.prefab.gui.screens.GuiStructureScanner;
 import com.wuest.prefab.structures.custom.base.CustomStructureInfo;
 import com.wuest.prefab.structures.gui.GuiStructure;
 import com.wuest.prefab.structures.items.StructureItem;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -76,6 +78,9 @@ public class ClientProxy extends CommonProxy {
         for (Consumer<Object> consumer : ModRegistry.guiRegistrations) {
             consumer.accept(null);
         }
+
+        // Register the drafting table menu.
+        MenuScreens.register(ModRegistry.DraftingTableMenuType.get(), GuiDraftingTable::new);
     }
 
     @OnlyIn(Dist.CLIENT)
