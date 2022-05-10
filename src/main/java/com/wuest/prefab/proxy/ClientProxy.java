@@ -9,12 +9,10 @@ import com.wuest.prefab.blocks.BlockCustomWall;
 import com.wuest.prefab.blocks.BlockGrassSlab;
 import com.wuest.prefab.blocks.BlockGrassStairs;
 import com.wuest.prefab.config.ServerModConfiguration;
-import com.wuest.prefab.config.block_entities.DraftingTableConfiguration;
 import com.wuest.prefab.config.block_entities.StructureScannerConfig;
 import com.wuest.prefab.events.ClientEventHandler;
 import com.wuest.prefab.gui.GuiBase;
 import com.wuest.prefab.gui.GuiPrefab;
-import com.wuest.prefab.gui.screens.GuiDraftingTable;
 import com.wuest.prefab.gui.screens.GuiStructureScanner;
 import com.wuest.prefab.structures.custom.base.CustomStructureInfo;
 import com.wuest.prefab.structures.gui.GuiStructure;
@@ -54,7 +52,7 @@ import static org.lwjgl.glfw.GLFW.GLFW_KEY_B;
 /**
  * @author WuestMan
  */
-@SuppressWarnings({"WeakerAccess", "SpellCheckingInspection"})
+@SuppressWarnings({"WeakerAccess"})
 public class ClientProxy extends CommonProxy {
     /**
      * The hashmap of mod guis.
@@ -92,14 +90,11 @@ public class ClientProxy extends CommonProxy {
             // Get the item for this stack.
             Item item = stack.getItem();
 
-            if (item instanceof BlockItem) {
+            if (item instanceof BlockItem itemBlock) {
                 // Get the block for this item and determine if it's a grass stairs.
-                BlockItem itemBlock = (BlockItem) item;
                 boolean paintBlock = false;
 
-                if (itemBlock.getBlock() instanceof BlockCustomWall) {
-                    BlockCustomWall customWall = (BlockCustomWall) itemBlock.getBlock();
-
+                if (itemBlock.getBlock() instanceof BlockCustomWall customWall) {
                     if (customWall.BlockVariant == BlockCustomWall.EnumType.GRASS) {
                         paintBlock = true;
                     }
@@ -148,9 +143,7 @@ public class ClientProxy extends CommonProxy {
         Optional<? extends ModContainer> modContainer = ModList.get().getModContainerById(Prefab.MODID);
 
         if (modContainer != null && modContainer.isPresent()) {
-            modContainer.get().registerExtensionPoint(ConfigGuiHandler.ConfigGuiFactory.class, () -> {
-                return new ConfigGuiHandler.ConfigGuiFactory((minecraft, screen) -> new GuiPrefab(minecraft, screen));
-            });
+            modContainer.get().registerExtensionPoint(ConfigGuiHandler.ConfigGuiFactory.class, () -> new ConfigGuiHandler.ConfigGuiFactory(GuiPrefab::new));
         }
     }
 
