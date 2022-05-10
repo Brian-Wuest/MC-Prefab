@@ -26,22 +26,15 @@ public class CustomStructureSyncHandler {
             // Nested loop for server and client custom structures to ensure that everything is in-sync.
             if (tempServerRegisteredStructures != null && CommonProxy.CustomStructures != null) {
                 for (CustomStructureInfo serverStructure : tempServerRegisteredStructures) {
-                    boolean foundClientStructure = false;
-
                     for (CustomStructureInfo clientStructure : CommonProxy.CustomStructures) {
                         if (serverStructure.infoFileName.equalsIgnoreCase(clientStructure.infoFileName)) {
                             // Update the server structure to use the client structure file path.
                             // This is for the preview function.
                             // Since this path is important for the client is the only piece of information which should come solely from the client.
                             serverStructure.structureFilePath = clientStructure.structureFilePath;
-                            foundClientStructure = true;
                             ClientProxy.ServerRegisteredStructures.add(serverStructure);
                             break;
                         }
-                    }
-
-                    if(foundClientStructure) {
-                        break;
                     }
                 }
             }
