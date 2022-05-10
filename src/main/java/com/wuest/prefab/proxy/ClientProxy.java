@@ -123,7 +123,6 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void preInit(ParallelDispatchEvent event) {
-        ClientProxy.AddGuis();
     }
 
     @Override
