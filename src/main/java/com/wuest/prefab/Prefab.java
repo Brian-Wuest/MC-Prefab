@@ -90,6 +90,7 @@ public class Prefab {
         ModRegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
         ModRegistry.TILE_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
         ModRegistry.SOUNDS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        ModRegistry.MENU_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());
 
         // Register the setup method for mod-loading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
