@@ -1,4 +1,4 @@
-package com.wuest.prefab.items;
+package com.wuest.prefab.structures.items;
 
 import com.google.common.base.Strings;
 import com.wuest.prefab.proxy.ClientProxy;
