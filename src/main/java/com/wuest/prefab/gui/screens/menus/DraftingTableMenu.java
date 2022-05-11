@@ -176,6 +176,8 @@ public class DraftingTableMenu extends AbstractContainerMenu {
             }
         }
 
+        this.triggerSlotChanged();
+
         return ItemStack.EMPTY;
     }
 
@@ -193,6 +195,8 @@ public class DraftingTableMenu extends AbstractContainerMenu {
         this.removeRequiredItemsFromPlayerInventory(player);
 
         this.isTakingStructure = false;
+
+        this.triggerSlotChanged();
 
         // Make sure to re-trigger slot changed to update the GUI.
         // This may also allow the player to take another item from the slot.
