@@ -31,6 +31,12 @@ public class CustomStructureInfo {
     @Expose
     public ArrayList<ItemInfo> requiredItems;
 
+    @Expose
+    public boolean hasGlassColorOptions;
+
+    @Expose
+    public boolean hasBedColorOptions;
+
     /**
      * Contains the structure file path determined during registration.
      */
@@ -45,6 +51,8 @@ public class CustomStructureInfo {
         tag.putString("displayName", this.displayName);
         tag.putString("structureFileName", this.structureFileName);
         tag.putString("infoFileName", this.infoFileName);
+        tag.putBoolean("hasGlassColorOptions", this.hasGlassColorOptions);
+        tag.putBoolean("hasBedColorOptions", this.hasBedColorOptions);
 
         if (this.requiredItems != null) {
             ListTag listTag = new ListTag();
@@ -63,6 +71,8 @@ public class CustomStructureInfo {
         this.displayName = tag.getString("displayName");
         this.structureFileName = tag.getString("structureFileName");
         this.infoFileName = tag.getString("infoFileName");
+        this.hasGlassColorOptions = tag.getBoolean("hasGlassColorOptions");
+        this.hasBedColorOptions = tag.getBoolean("hasBedColorOptions");
 
         this.requiredItems = new ArrayList<>();
         ListTag listTag = tag.getList("requiredItems", 10);

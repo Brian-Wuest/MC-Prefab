@@ -62,7 +62,8 @@ public class StructureTagMessage extends TagMessage {
         StartHouse(1, new HouseConfiguration()),
         ModerateHouse(2, new ModerateHouseConfiguration()),
         Bulldozer(3, new BulldozerConfiguration()),
-        InstantBridge(4, new InstantBridgeConfiguration());
+        InstantBridge(4, new InstantBridgeConfiguration()),
+        Custom(5, new CustomStructureConfiguration());
 
         public int identifier;
         public StructureConfiguration structureConfig;

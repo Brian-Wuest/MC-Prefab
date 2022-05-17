@@ -43,6 +43,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.io.StringWriter;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -92,6 +93,21 @@ public class Structure {
         Gson file = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         structure = (T) file.fromJson(ZipUtil.decompressResource(resourceLocation), child);
 
+        return structure;
+    }
+
+    /**
+     * Creates an instance of the structure after reading from a resource location and converting it from JSON.
+     *
+     * @param <T>      The type which extends Structure.
+     * @param filePath The location of the JSON file to load. Example: "assets/prefab/structures/warehouse.json"
+     * @param child    The child class which extends Structure.
+     * @return Null if the resource wasn't found or the JSON could not be parsed, otherwise the de-serialized object.
+     */
+    public static <T extends Structure> T CreateInstanceFromFile(Path filePath, Class<? extends Structure> child) {
+        T structure;
+        Gson file = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        structure = (T) file.fromJson(ZipUtil.decompressFile(filePath), child);
         return structure;
     }
 

@@ -32,7 +32,7 @@ public class ItemBasicStructure extends StructureItem {
     public static ItemStack getBasicStructureItemInHand(Player player) {
         ItemStack stack = player.getOffhandItem();
 
-        // Get off hand first since that is the right-click hand if there is
+        // Get off-hand first since that is the right-click hand if there is
         // something in there.
         if (!(stack.getItem() instanceof ItemBasicStructure)) {
             if (player.getMainHandItem().getItem() instanceof ItemBasicStructure) {
@@ -51,12 +51,5 @@ public class ItemBasicStructure extends StructureItem {
     @Override
     protected void Initialize() {
         ModRegistry.guiRegistrations.add(x -> this.RegisterGui(GuiBasicStructure.class));
-    }
-
-    /**
-     * Does something when the item is right-clicked.
-     */
-    @Override
-    public void scanningMode(UseOnContext context) {
     }
 }
