@@ -15,8 +15,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.resources.ResourceLocation;
@@ -260,8 +261,9 @@ public class Structure {
      */
     public static BuildBlock createBuildBlockFromBlockState(BlockState currentState, Block currentBlock, BlockPos currentPos, BlockPos originalPos) {
         BuildBlock buildBlock = new BuildBlock();
-        buildBlock.setBlockDomain(currentBlock.getRegistryName().getNamespace());
-        buildBlock.setBlockName(currentBlock.getRegistryName().getPath());
+        ResourceLocation blockIdentifier = Registry.BLOCK.getKey(currentBlock);
+        buildBlock.setBlockDomain(blockIdentifier.getNamespace());
+        buildBlock.setBlockName(blockIdentifier.getPath());
         buildBlock.setStartingPosition(Structure.getStartingPositionFromOriginalAndCurrentPosition(currentPos, originalPos));
         buildBlock.blockPos = currentPos;
 
@@ -373,15 +375,15 @@ public class Structure {
         if (!checkResult.getFirst()) {
             // Send a message to the player saying that the structure could not
             // be built.
-            TranslatableComponent message = new TranslatableComponent(
+            MutableComponent message = Component.translatable(
                     GuiLangKeys.GUI_STRUCTURE_NOBUILD,
-                    checkResult.getSecond().getBlock().getRegistryName().toString(),
+                    Registry.BLOCK.getKey(checkResult.getSecond().getBlock()).toString(),
                     checkResult.getThird().getX(),
                     checkResult.getThird().getY(),
                     checkResult.getThird().getZ());
 
             message.setStyle(Style.EMPTY.withColor(ChatFormatting.GREEN));
-            player.sendMessage(message, player.getUUID());
+            player.sendSystemMessage(message);
             return false;
         }
 
@@ -620,15 +622,19 @@ public class Structure {
             return false;
         }
 
-        if (foundBlock.getRegistryName().getNamespace().equals(Blocks.WHITE_STAINED_GLASS.getRegistryName().getNamespace())
-                && foundBlock.getRegistryName().getPath().endsWith("glass")) {
+        ResourceLocation blockIdentifier = Registry.BLOCK.getKey(foundBlock);
+        ResourceLocation glassIdentifier = Registry.BLOCK.getKey(Blocks.WHITE_STAINED_GLASS);
+        ResourceLocation glassPaneIdentifier = Registry.BLOCK.getKey(Blocks.WHITE_STAINED_GLASS_PANE);
+
+        if (blockIdentifier.getNamespace().equals(glassIdentifier.getNamespace())
+                && blockIdentifier.getPath().endsWith("glass")) {
             BlockState blockState = BuildingMethods.getStainedGlassBlock(this.getGlassColor(configuration));
 
             block.setBlockState(blockState);
 
             return true;
-        } else if (foundBlock.getRegistryName().getNamespace().equals(Blocks.WHITE_STAINED_GLASS_PANE.getRegistryName().getNamespace())
-                && foundBlock.getRegistryName().getPath().endsWith("glass_pane")) {
+        } else if (blockIdentifier.getNamespace().equals(glassPaneIdentifier.getNamespace())
+                && blockIdentifier.getPath().endsWith("glass_pane")) {
             BlockState blockState = BuildingMethods.getStainedGlassPaneBlock(this.getGlassColor(configuration));
 
             BuildBlock.SetBlockState(

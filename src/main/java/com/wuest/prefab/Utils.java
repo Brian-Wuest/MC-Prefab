@@ -7,7 +7,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -37,7 +38,7 @@ public class Utils {
         return returnValue;
     }
 
-    public static ArrayList<TextComponent> WrapStringToLiterals(String value) {
+    public static ArrayList<MutableComponent> WrapStringToLiterals(String value) {
         return Utils.WrapStringToLiterals(value, 50);
     }
 
@@ -47,13 +48,13 @@ public class Utils {
      * @param value The text to create the object from.
      * @return A StringTextComponent object.
      */
-    public static TextComponent createTextComponent(String value) {
-        return new TextComponent(value);
+    public static MutableComponent createTextComponent(String value) {
+        return Component.literal(value);
     }
 
-    public static ArrayList<TextComponent> WrapStringToLiterals(String value, int width) {
+    public static ArrayList<MutableComponent> WrapStringToLiterals(String value, int width) {
         String[] values = Utils.WrapString(value, width);
-        ArrayList<TextComponent> returnValue = new ArrayList<>();
+        ArrayList<MutableComponent> returnValue = new ArrayList<>();
 
         for (String stringValue : values) {
             returnValue.add(Utils.createTextComponent(stringValue));

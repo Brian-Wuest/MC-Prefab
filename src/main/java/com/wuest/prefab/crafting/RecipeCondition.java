@@ -27,7 +27,7 @@ public class RecipeCondition implements ICondition {
     }
 
     @Override
-    public boolean test() {
+    public boolean test(IContext context) {
         return this.determineActiveRecipe();
     }
 

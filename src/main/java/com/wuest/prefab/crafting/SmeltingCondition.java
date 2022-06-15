@@ -26,7 +26,7 @@ public class SmeltingCondition implements ICondition {
     }
 
     @Override
-    public boolean test() {
+    public boolean test(IContext context) {
         return this.determineActiveRecipe();
     }
 

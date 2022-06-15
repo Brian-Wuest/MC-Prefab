@@ -4,6 +4,7 @@ package com.wuest.prefab.blocks;
 import com.wuest.prefab.ModRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.WallBlock;
@@ -35,7 +36,7 @@ public class BlockCustomWall extends WallBlock implements IGrassSpreadable {
     }
 
     @Override
-    public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, Random random) {
+    public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, RandomSource random) {
         this.DetermineGrassSpread(state, worldIn, pos, random);
     }
 

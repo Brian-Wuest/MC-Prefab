@@ -3,6 +3,7 @@ package com.wuest.prefab.blocks;
 import com.wuest.prefab.ModRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -34,7 +35,7 @@ public class BlockDirtStairs extends StairBlock implements IGrassSpreadable {
     }
 
     @Override
-    public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, Random random) {
+    public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, RandomSource random) {
         this.DetermineGrassSpread(state, worldIn, pos, random);
     }
 

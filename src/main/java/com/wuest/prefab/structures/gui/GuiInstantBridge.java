@@ -15,7 +15,6 @@ import com.wuest.prefab.structures.predefined.StructureInstantBridge;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 
 @SuppressWarnings("SpellCheckingInspection")
@@ -34,7 +33,7 @@ public class GuiInstantBridge extends GuiStructure {
 
     @Override
     public Component getNarrationMessage() {
-        return new TranslatableComponent(GuiLangKeys.translateString(GuiLangKeys.TITLE_INSTANT_BRIDGE));
+        return Component.translatable(GuiLangKeys.translateString(GuiLangKeys.TITLE_INSTANT_BRIDGE));
     }
 
     @Override

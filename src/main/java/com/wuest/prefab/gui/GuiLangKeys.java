@@ -4,7 +4,7 @@ import com.wuest.prefab.Utils;
 import com.wuest.prefab.blocks.FullDyeColor;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.DyeColor;
 
 import java.lang.annotation.Annotation;
@@ -429,7 +429,7 @@ public class GuiLangKeys {
      * @param translateKey The key to translate.
      * @return A StringTextComponent representing the translated text.
      */
-    public static TextComponent translateToComponent(String translateKey) {
+    public static MutableComponent translateToComponent(String translateKey) {
         return Utils.createTextComponent(GuiLangKeys.translateString(translateKey));
     }
 

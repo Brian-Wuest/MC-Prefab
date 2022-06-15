@@ -13,8 +13,7 @@ import com.wuest.prefab.structures.config.enums.AdvancedFarmOptions;
 import com.wuest.prefab.structures.config.enums.BaseOption;
 import com.wuest.prefab.structures.config.enums.ModerateFarmOptions;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Chicken;
@@ -185,9 +184,9 @@ public class StructureBasic extends Structure {
 
                 if (tileEntity instanceof SignBlockEntity) {
                     SignBlockEntity signTile = (SignBlockEntity) tileEntity;
-                    signTile.setMessage(0, new TextComponent("Lamp On=Mobs"));
+                    signTile.setMessage(0, Component.literal("Lamp On=Mobs"));
 
-                    signTile.setMessage(2, new TextComponent("Lamp Off=No Mobs"));
+                    signTile.setMessage(2, Component.literal("Lamp Off=No Mobs"));
                 }
             }
         }

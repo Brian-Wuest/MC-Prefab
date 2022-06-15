@@ -2,6 +2,7 @@ package com.wuest.prefab.blocks;
 
 import com.wuest.prefab.ModRegistry;
 
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -31,7 +32,7 @@ public class BlockDirtSlab extends SlabBlock implements IGrassSpreadable {
     }
 
     @Override
-    public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, Random random) {
+    public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, RandomSource random) {
         this.DetermineGrassSpread(state, worldIn, pos, random);
     }
 

@@ -1,6 +1,8 @@
 package com.wuest.prefab.gui;
 
+import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.serialization.Codec;
 import com.wuest.prefab.Quadruple;
 import com.wuest.prefab.Tuple;
 import com.wuest.prefab.Utils;
@@ -9,10 +11,9 @@ import com.wuest.prefab.config.ConfigOption;
 import com.wuest.prefab.config.ModConfiguration;
 import com.wuest.prefab.gui.controls.ExtendedButton;
 import com.wuest.prefab.proxy.CommonProxy;
-import net.minecraft.client.CycleOption;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.Option;
-import net.minecraft.client.ProgressOption;
+import net.minecraft.client.OptionInstance;
+import net.minecraft.client.PrioritizeChunkUpdates;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -23,6 +24,7 @@ import net.minecraft.util.FormattedCharSequence;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -235,63 +237,76 @@ public class GuiPrefab extends GuiBase {
     }
 
     private void addBooleanOption(OptionsList rowList, ConfigOption<?> configOption) {
-        CycleOption<Boolean> abstractOption = CycleOption.createOnOff(
+        OptionInstance<Boolean> abstractOption = OptionInstance.createBoolean(
                 configOption.getName(),
-                unused -> configOption.getConfigValueAsBoolean().get(),
-                (unused, originalOption, newValue) -> configOption.getConfigValueAsBoolean().set(newValue)
+                !configOption.getHoverText().isEmpty()
+                        ? (minecraft) -> (supplierValue) -> this.getSplitString(configOption.getHoverTextComponent(), 250)
+                        : OptionInstance.noTooltip(),
+                false,
+                (newValue) -> configOption.getConfigValueAsBoolean().set(newValue)
         );
-
-        if (!configOption.getHoverText().isEmpty()) {
-            abstractOption.setTooltip((minecraft) -> (supplierValue) -> this.getSplitString(configOption.getHoverTextComponent(), 250));
-        }
 
         rowList.addBig(abstractOption);
     }
 
     private void addIntegerOption(OptionsList rowList, ConfigOption<?> configOption) {
-        Option abstractOption = new ProgressOption(
-                configOption.getName(),
-                // Range
-                configOption.getMinRange(),
-                configOption.getMaxRange(),
-                // This is an integer option, so allow whole steps only
-                1.0F,
-                // Getter and setter are similar to those in BooleanOption
-                unused -> (double) configOption.getConfigValueAsInt().get(),
-                (unused, newValue) -> configOption.getConfigValueAsInt().set(newValue.intValue()),
-                // BiFunction that returns a string text component
-                // in format "<name>: <value>"
-                (gs, option) -> Utils.createTextComponent(
-                        // Use I18n.get(String) to get a translation key's value
-                        configOption.getName()
-                                + ": "
-                                + (int) option.get(gs)
-                ),
-                minecraft1 -> {
-                    if (configOption.getHoverText().isEmpty()) {
-                        return null;
-                    }
+        OptionInstance<Integer> abstractOption = new OptionInstance<>(
+            configOption.getName(),
+            OptionInstance.noTooltip(),
+            (component, value) -> Utils.createTextComponent(
+                // Use I18n.get(String) to get a translation key's value
+                configOption.getName()
+                        + ": "
+                        + value
+            ),
+            (new OptionInstance.IntRange(configOption.getMinRange(), configOption.getMaxRange())).xmap(
+                (toSliderValue) ->
+                {
+                    return toSliderValue;
+                },
+                (fromSliderValue) -> {
+                    return fromSliderValue;
+                }),
+            // CODEC
+            Codec.intRange(configOption.getMinRange(), configOption.getMaxRange()),
 
-                    return this.getSplitString(configOption.getHoverTextComponent(), 250);
-                }
-        );
+            // INITIAL VALUE
+            configOption.getConfigValueAsInt().get(),
+
+            // ON VALUE UPDATE
+            (newValue) ->
+            {
+                configOption.getConfigValueAsInt().set(newValue);
+            });
 
         rowList.addBig(abstractOption);
     }
 
     private void addStringOption(OptionsList rowList, ConfigOption<?> configOption) {
-        CycleOption<?> abstractOption = CycleOption.create(
+        OptionInstance<String> abstractOption = new OptionInstance<>(
                 configOption.getName(),
-                configOption.getValidValues().toArray(),
-                (selectedOption) -> Utils.createTextComponent(
+                // Tooltip Supplier
+                !configOption.getHoverText().isEmpty()
+                        ? (minecraft) -> (supplierValue) -> this.getSplitString(configOption.getHoverTextComponent(), 250)
+                        : (minecraft) -> (supplierValue) -> ImmutableList.of(),
+                // Caption Based To String
+                (component, value) -> Utils.createTextComponent(
                         configOption.getName()
                                 + ": "
                                 + configOption.getConfigValueAsString().get()),
-                (gameOption) -> Utils.createTextComponent(
-                        configOption.getName()
-                                + ": "
-                                + configOption.getConfigValueAsString().get()),
-                (unused, otherUnused, newValue) -> {
+
+                // Value Set Function
+                new OptionInstance.Enum<>(
+                        configOption.getValidValues(),
+                        Codec.STRING.xmap(
+                                value2 -> String.valueOf(configOption.getValidValues().size()),
+                                value1 -> String.valueOf(0))),
+
+                // Initial Value
+                configOption.getConfigValueAsString().get(),
+
+                // On Value Update
+                (newValue) -> {
                     // 'newValue' is always 1.
                     int nextIndex = configOption.getValidValues().indexOf(configOption.getConfigValueAsString().get()) + 1;
 
@@ -302,10 +317,6 @@ public class GuiPrefab extends GuiBase {
                     configOption.getConfigValueAsString().set(configOption.getValidValues().get(nextIndex));
                 }
         );
-
-        if (!configOption.getHoverText().isEmpty()) {
-            abstractOption.setTooltip((minecraft) -> (supplierValue) -> this.getSplitString(configOption.getHoverTextComponent(), 250));
-        }
 
         rowList.addBig(abstractOption);
     }

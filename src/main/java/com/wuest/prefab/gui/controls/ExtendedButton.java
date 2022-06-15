@@ -9,14 +9,13 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
 
 public class ExtendedButton extends Button
 {
     public float fontScale = 1;
     private final String label;
 
-    public ExtendedButton(int xPos, int yPos, int width, int height, TextComponent displayString, OnPress handler, String label)
+    public ExtendedButton(int xPos, int yPos, int width, int height, Component displayString, OnPress handler, String label)
     {
         super(xPos, yPos, width, height, displayString, handler);
         this.label = label;
@@ -27,7 +26,7 @@ public class ExtendedButton extends Button
         if (label == null) {
             return super.createNarrationMessage();
         } else {
-            return new TextComponent(label + ": ").append(super.createNarrationMessage());
+            return Component.literal(label + ": ").append(super.createNarrationMessage());
         }
     }
 

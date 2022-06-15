@@ -8,9 +8,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarratedElementType;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -150,9 +149,9 @@ public class GuiCheckBox extends AbstractButton {
 
     @Override
     public MutableComponent createNarrationMessage() {
-        TranslatableComponent state = isChecked ? new TranslatableComponent("options.on") : new TranslatableComponent("options.off");
+        Component state = isChecked ? Component.translatable("options.on") : Component.translatable("options.off");
         String msg = displayString + ": ";
-        return new TranslatableComponent("narration.checkbox", new TextComponent(msg).append(state));
+        return Component.translatable("narration.checkbox", Component.literal(msg).append(state));
     }
 
 
@@ -161,9 +160,9 @@ public class GuiCheckBox extends AbstractButton {
         builder.add(NarratedElementType.TITLE, this.createNarrationMessage());
         if (this.active) {
             if (this.isFocused()) {
-                builder.add(NarratedElementType.USAGE, new TranslatableComponent("narration.checkbox.usage.focused"));
+                builder.add(NarratedElementType.USAGE, Component.translatable("narration.checkbox.usage.focused"));
             } else {
-                builder.add(NarratedElementType.USAGE, new TranslatableComponent("narration.checkbox.usage.hovered"));
+                builder.add(NarratedElementType.USAGE, Component.translatable("narration.checkbox.usage.hovered"));
             }
         }
     }

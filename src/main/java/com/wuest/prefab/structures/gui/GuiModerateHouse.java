@@ -15,7 +15,6 @@ import com.wuest.prefab.structures.predefined.StructureModerateHouse;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.DyeColor;
 
 /**
@@ -39,7 +38,7 @@ public class GuiModerateHouse extends GuiStructure {
 
     @Override
     public Component getNarrationMessage() {
-        return new TranslatableComponent(GuiLangKeys.translateString(GuiLangKeys.TITLE_MODERATE_HOUSE));
+        return Component.translatable(GuiLangKeys.translateString(GuiLangKeys.TITLE_MODERATE_HOUSE));
     }
 
     @Override

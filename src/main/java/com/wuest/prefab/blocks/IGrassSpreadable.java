@@ -1,6 +1,8 @@
 package com.wuest.prefab.blocks;
 
 import com.wuest.prefab.ModRegistry;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.core.BlockPos;
@@ -18,10 +20,10 @@ public interface IGrassSpreadable {
      * @param pos     The position of the block.
      * @param random  The random value used for checking.
      */
-    default void DetermineGrassSpread(BlockState state, ServerLevel worldIn, BlockPos pos, Random random) {
+    default void DetermineGrassSpread(BlockState state, ServerLevel worldIn, BlockPos pos, RandomSource random) {
         if (!worldIn.isClientSide) {
             // This is equivalent to light level 9.
-            if (worldIn.getBrightness(pos.above()) >= 0.2727273) {
+            if (worldIn.getBrightness(LightLayer.SKY, pos.above()) >= 0.2727273) {
                 for (int i = 0; i < 4; ++i) {
                     BlockPos blockpos = pos.offset(random.nextInt(3) - 1, random.nextInt(5) - 3, random.nextInt(3) - 1);
 
@@ -36,7 +38,7 @@ public interface IGrassSpreadable {
                             || iblockstate1.getBlock() == ModRegistry.GrassWall.get()
                             || iblockstate1.getBlock() == ModRegistry.GrassSlab.get())
                             // This equivalent to light level 4.
-                            && worldIn.getBrightness(blockpos.above()) >= 0.08333334) {
+                            && worldIn.getBrightness(LightLayer.SKY, blockpos.above()) >= 0.08333334) {
 
                         BlockState grassState = this.getGrassBlockState(state);
 

@@ -7,6 +7,7 @@ import com.wuest.prefab.structures.config.StructureConfiguration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.ColorResolver;
@@ -195,7 +196,7 @@ public class StructureGuiWorld implements BlockAndTintGetter {
 
     @Override
     public int getBlockTint(BlockPos pos, ColorResolver color) {
-        return color.getColor(ForgeRegistries.BIOMES.getValue(Biomes.PLAINS.getRegistryName()), pos.getX(), pos.getZ());
+        return color.getColor(ForgeRegistries.BIOMES.getValue(Biomes.PLAINS.registry()), pos.getX(), pos.getZ());
     }
 
     @Override

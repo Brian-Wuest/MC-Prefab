@@ -5,7 +5,7 @@ import com.wuest.prefab.Utils;
 import com.wuest.prefab.gui.GuiUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
 
 import javax.annotation.Nullable;
 
@@ -15,7 +15,7 @@ public class GuiSlider extends Button {
      */
     public double sliderValue = 1.0F;
 
-    public TextComponent dispString;
+    public Component dispString;
 
     /**
      * Is this slider control being dragged.
@@ -30,15 +30,15 @@ public class GuiSlider extends Button {
     @Nullable
     public ISlider parent = null;
 
-    public TextComponent suffix;
+    public Component suffix;
 
     public boolean drawString = true;
 
-    public GuiSlider(int xPos, int yPos, int width, int height, TextComponent prefix, TextComponent suf, double minVal, double maxVal, double currentVal, boolean showDec, boolean drawStr, OnPress handler) {
+    public GuiSlider(int xPos, int yPos, int width, int height, Component prefix, Component suf, double minVal, double maxVal, double currentVal, boolean showDec, boolean drawStr, OnPress handler) {
         this(xPos, yPos, width, height, prefix, suf, minVal, maxVal, currentVal, showDec, drawStr, handler, null);
     }
 
-    public GuiSlider(int xPos, int yPos, int width, int height, TextComponent prefix, TextComponent suf, double minVal, double maxVal, double currentVal, boolean showDec, boolean drawStr, OnPress handler, @Nullable ISlider par) {
+    public GuiSlider(int xPos, int yPos, int width, int height, Component prefix, Component suf, double minVal, double maxVal, double currentVal, boolean showDec, boolean drawStr, OnPress handler, @Nullable ISlider par) {
         super(xPos, yPos, width, height, prefix, handler);
         minValue = minVal;
         maxValue = maxVal;
@@ -64,7 +64,7 @@ public class GuiSlider extends Button {
             setMessage(Utils.createTextComponent(""));
     }
 
-    public GuiSlider(int xPos, int yPos, TextComponent displayStr, double minVal, double maxVal, double currentVal, OnPress handler, ISlider par) {
+    public GuiSlider(int xPos, int yPos, Component displayStr, double minVal, double maxVal, double currentVal, OnPress handler, ISlider par) {
         this(xPos, yPos, 150, 20, displayStr, Utils.createTextComponent(""), minVal, maxVal, currentVal, true, true, handler, par);
     }
 

@@ -435,8 +435,8 @@ public final class StructureEventHandler {
             facing = facing.getCounterClockWise();
         }
 
-        int paintingBlockWidth = entity.motive.getWidth() / 16;
-        int paintingBlockHeight = entity.motive.getHeight() / 16;
+        int paintingBlockWidth = entity.getWidth() / 16;
+        int paintingBlockHeight = entity.getHeight() / 16;
 
         if ((paintingBlockHeight > paintingBlockWidth || paintingBlockHeight > 1)
                 && !(paintingBlockWidth == 4 && paintingBlockHeight == 3)) {

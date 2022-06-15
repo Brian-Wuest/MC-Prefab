@@ -27,6 +27,7 @@ import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ClipContext;
@@ -47,7 +48,7 @@ import java.util.Random;
  * @author WuestMan
  */
 public abstract class GuiStructure extends GuiBase {
-    private static final Random RAND = new Random();
+    private static final RandomSource RAND = RandomSource.create();
 
     public BlockPos pos;
     public StructureTagMessage.EnumStructureConfiguration configurationEnum;
@@ -195,8 +196,8 @@ public abstract class GuiStructure extends GuiBase {
 
         this.doWorldRenderPass(matrixStack, bufferBuilder);
 
-        bufferBuilder.end();
-        this.buffer.upload(bufferBuilder);
+        BufferBuilder.RenderedBuffer renderedBuffer = bufferBuilder.end();
+        this.buffer.upload(renderedBuffer);
     }
 
     public void scheduleRebuild() {

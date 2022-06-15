@@ -2,6 +2,7 @@ package com.wuest.prefab.blocks;
 
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.events.ModEventHandler;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -151,7 +152,7 @@ public class BlockPhasing extends Block {
     }
 
     @Override
-    public void tick(BlockState state, ServerLevel worldIn, BlockPos pos, Random random) {
+    public void tick(BlockState state, ServerLevel worldIn, BlockPos pos, RandomSource random) {
         int tickDelay = this.tickRate;
 
         if (ModEventHandler.RedstoneAffectedBlockPositions.contains(pos)) {

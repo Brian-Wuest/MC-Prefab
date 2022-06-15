@@ -8,7 +8,6 @@ import com.wuest.prefab.structures.config.BulldozerConfiguration;
 import com.wuest.prefab.structures.messages.StructureTagMessage.EnumStructureConfiguration;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 
 /**
  * @author WuestMan
@@ -28,7 +27,7 @@ public class GuiBulldozer extends GuiStructure {
 
     @Override
     public Component getNarrationMessage() {
-        return new TranslatableComponent(GuiLangKeys.translateString(GuiLangKeys.TITLE_BULLDOZER));
+        return Component.translatable(GuiLangKeys.translateString(GuiLangKeys.TITLE_BULLDOZER));
     }
 
     @Override
