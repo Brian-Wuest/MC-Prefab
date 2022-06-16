@@ -40,6 +40,10 @@ public class BlockDirtStairs extends StairBlock implements IGrassSpreadable {
     }
 
     @Override
+    public void tick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource) {
+    }
+
+    @Override
     public BlockState getGrassBlockState(BlockState originalState) {
         return ModRegistry.GrassStairs.get().defaultBlockState()
                 .setValue(StairBlock.FACING, originalState.getValue(StairBlock.FACING))
