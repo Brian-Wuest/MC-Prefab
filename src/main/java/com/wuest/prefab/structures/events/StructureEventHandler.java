@@ -365,6 +365,8 @@ public final class StructureEventHandler {
                             tagCompound.putUUID("UUID", UUID.randomUUID());
                         }
 
+                        tagCompound = StructureEventHandler.updateTagDueToVersionUpdate(entity, tagCompound);
+
                         ListTag nbttaglist = new ListTag();
                         nbttaglist.add(DoubleTag.valueOf(entityPos.getX()));
                         nbttaglist.add(DoubleTag.valueOf(entityPos.getY()));
@@ -447,7 +449,7 @@ public final class StructureEventHandler {
 
         CompoundTag compound = new CompoundTag();
         ((HangingEntity) entity).addAdditionalSaveData(compound);
-        compound.putByte("Facing", (byte) facing.get2DDataValue());
+        compound.putByte("facing", (byte) facing.get2DDataValue());
         ((HangingEntity) entity).readAdditionalSaveData(compound);
         StructureEventHandler.updateEntityHangingBoundingBox(entity);
 
@@ -576,5 +578,20 @@ public final class StructureEventHandler {
         d7 = d7 / 32.0D;
         d8 = d8 / 32.0D;
         entity.setBoundingBox(new AABB(d0 - d6, d1 - d7, d2 - d8, d0 + d6, d1 + d7, d2 + d8));
+    }
+
+    private static CompoundTag updateTagDueToVersionUpdate(Entity entity, CompoundTag compoundTag) {
+        if (entity instanceof Painting) {
+            // In MC 1.19 some tags changed so convert them now.
+            if (compoundTag.contains("Facing")) {
+                byte facingByte = compoundTag.getByte("Facing");
+                compoundTag.putByte("facing", facingByte);
+            }
+            if (compoundTag.contains("Motive")) {
+                String motiveData = compoundTag.getString("Motive");
+                compoundTag.putString("variant", motiveData);
+            }
+        }
+        return compoundTag;
     }
 }
