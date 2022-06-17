@@ -10,6 +10,7 @@ import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerStartingEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -83,7 +84,6 @@ public class Prefab {
         // Register the setup method for mod-loading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
 
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
         MinecraftForge.EVENT_BUS.addListener(this::serverStart);
 
         Prefab.proxy = new CommonProxy();
@@ -93,17 +93,6 @@ public class Prefab {
         Prefab.proxy.preInit(event);
         Prefab.proxy.init(event);
         Prefab.proxy.postinit(event);
-    }
-
-    private void doClientStuff(final FMLClientSetupEvent event) {
-        Prefab.proxy = new ClientProxy();
-        Prefab.proxy.preInit(event);
-        Prefab.proxy.init(event);
-        Prefab.proxy.postinit(event);
-
-        Prefab.proxy.RegisterEventHandler();
-
-        Prefab.proxy.clientSetup(event);
     }
 
     // The method that gets called when a server starts up(Singleplayer and multiplayer are both affected)
@@ -116,5 +105,22 @@ public class Prefab {
         Commands command = server.getCommands();
 
         ItemSickle.setEffectiveBlocks();
+    }
+
+    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+    public static class ClientModEvents
+    {
+        @SubscribeEvent
+        public static void onClientSetup(FMLClientSetupEvent event)
+        {
+            Prefab.proxy = new ClientProxy();
+            Prefab.proxy.preInit(event);
+            Prefab.proxy.init(event);
+            Prefab.proxy.postinit(event);
+
+            Prefab.proxy.RegisterEventHandler();
+
+            Prefab.proxy.clientSetup(event);
+        }
     }
 }
