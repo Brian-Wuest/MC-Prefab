@@ -242,7 +242,7 @@ public class GuiPrefab extends GuiBase {
                 !configOption.getHoverText().isEmpty()
                         ? (minecraft) -> (supplierValue) -> this.getSplitString(configOption.getHoverTextComponent(), 250)
                         : OptionInstance.noTooltip(),
-                false,
+                configOption.getConfigValueAsBoolean().get(),
                 (newValue) -> configOption.getConfigValueAsBoolean().set(newValue)
         );
 
@@ -251,33 +251,33 @@ public class GuiPrefab extends GuiBase {
 
     private void addIntegerOption(OptionsList rowList, ConfigOption<?> configOption) {
         OptionInstance<Integer> abstractOption = new OptionInstance<>(
-            configOption.getName(),
-            OptionInstance.noTooltip(),
-            (component, value) -> Utils.createTextComponent(
-                // Use I18n.get(String) to get a translation key's value
-                configOption.getName()
-                        + ": "
-                        + value
-            ),
-            (new OptionInstance.IntRange(configOption.getMinRange(), configOption.getMaxRange())).xmap(
-                (toSliderValue) ->
+                configOption.getName(),
+                OptionInstance.noTooltip(),
+                (component, value) -> Utils.createTextComponent(
+                        // Use I18n.get(String) to get a translation key's value
+                        configOption.getName()
+                                + ": "
+                                + value
+                ),
+                (new OptionInstance.IntRange(configOption.getMinRange(), configOption.getMaxRange())).xmap(
+                        (toSliderValue) ->
+                        {
+                            return toSliderValue;
+                        },
+                        (fromSliderValue) -> {
+                            return fromSliderValue;
+                        }),
+                // CODEC
+                Codec.intRange(configOption.getMinRange(), configOption.getMaxRange()),
+
+                // INITIAL VALUE
+                configOption.getConfigValueAsInt().get(),
+
+                // ON VALUE UPDATE
+                (newValue) ->
                 {
-                    return toSliderValue;
-                },
-                (fromSliderValue) -> {
-                    return fromSliderValue;
-                }),
-            // CODEC
-            Codec.intRange(configOption.getMinRange(), configOption.getMaxRange()),
-
-            // INITIAL VALUE
-            configOption.getConfigValueAsInt().get(),
-
-            // ON VALUE UPDATE
-            (newValue) ->
-            {
-                configOption.getConfigValueAsInt().set(newValue);
-            });
+                    configOption.getConfigValueAsInt().set(newValue);
+                });
 
         rowList.addBig(abstractOption);
     }
@@ -290,10 +290,11 @@ public class GuiPrefab extends GuiBase {
                         ? (minecraft) -> (supplierValue) -> this.getSplitString(configOption.getHoverTextComponent(), 250)
                         : (minecraft) -> (supplierValue) -> ImmutableList.of(),
                 // Caption Based To String
-                (component, value) -> Utils.createTextComponent(
-                        configOption.getName()
-                                + ": "
-                                + configOption.getConfigValueAsString().get()),
+                (component, value) ->
+                        Utils.createTextComponent(
+                                configOption.getName()
+                                        + ": "
+                                        + value),
 
                 // Value Set Function
                 new OptionInstance.Enum<>(
@@ -308,9 +309,9 @@ public class GuiPrefab extends GuiBase {
                 // On Value Update
                 (newValue) -> {
                     // 'newValue' is always 1.
-                    int nextIndex = configOption.getValidValues().indexOf(configOption.getConfigValueAsString().get()) + 1;
+                    int nextIndex = configOption.getValidValues().indexOf(newValue);
 
-                    if (nextIndex >= configOption.getValidValues().size()) {
+                    if (nextIndex == -1) {
                         nextIndex = 0;
                     }
 
