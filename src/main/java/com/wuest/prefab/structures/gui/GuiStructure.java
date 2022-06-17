@@ -64,7 +64,7 @@ public abstract class GuiStructure extends GuiBase {
     protected Direction houseFacing;
 
     private boolean isRendererSetup = false;
-    private VertexBuffer buffer = new VertexBuffer();
+    private VertexBuffer buffer;
 
     public GuiStructure(String title) {
         super(title);
@@ -82,6 +82,7 @@ public abstract class GuiStructure extends GuiBase {
 
     @Override
     public void init() {
+        this.buffer = new VertexBuffer();
         this.player = this.getMinecraft().player;
         this.houseFacing = this.player.getDirection().getOpposite();
 
