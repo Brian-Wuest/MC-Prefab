@@ -11,8 +11,6 @@ import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 
-import java.util.Random;
-
 public class BlockCustomWall extends WallBlock implements IGrassSpreadable {
     public EnumType BlockVariant;
 

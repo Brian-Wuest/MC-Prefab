@@ -31,7 +31,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.ClientRegistry;
 import net.minecraftforge.client.ConfigGuiHandler;
 import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.client.settings.KeyModifier;
@@ -39,6 +38,7 @@ import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.ParallelDispatchEvent;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -188,8 +188,6 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void clientSetup(FMLClientSetupEvent clientSetupEvent) {
-        this.registerKeyBindings(clientSetupEvent);
-
         ItemBlockRenderTypes.setRenderLayer(ModRegistry.BlockBoundary.get(), BlockBoundary::canRenderInLayer);
 
         // This render type (func_228643_e_) is the "cutout" render type.
@@ -213,16 +211,5 @@ public class ClientProxy extends CommonProxy {
         ItemBlockRenderTypes.setRenderLayer(ModRegistry.DirtSlab.get(), RenderType.cutoutMipped());
 
         ItemBlockRenderTypes.setRenderLayer(ModRegistry.GrassSlab.get(), RenderType.cutoutMipped());
-    }
-
-    private void registerKeyBindings(FMLClientSetupEvent clientSetupEvent) {
-        clientSetupEvent.enqueueWork(() -> {
-            KeyMapping binding = new KeyMapping("Build Current Structure",
-                    KeyConflictContext.IN_GAME, KeyModifier.ALT,
-                    InputConstants.Type.KEYSYM, GLFW_KEY_B, "Prefab - Structure Preview");
-
-            ClientEventHandler.keyBindings.add(binding);
-            ClientRegistry.registerKeyBinding(binding);
-        });
     }
 }

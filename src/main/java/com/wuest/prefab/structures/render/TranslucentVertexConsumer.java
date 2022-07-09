@@ -1,7 +1,6 @@
 package com.wuest.prefab.structures.render;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.util.Mth;
 
 public class TranslucentVertexConsumer implements VertexConsumer {
@@ -12,11 +11,8 @@ public class TranslucentVertexConsumer implements VertexConsumer {
         this.inner = inner;
 
         // Alpha value should be between 0 and 255
-        this.tintAlpha = Mth.clamp(alpha, 0, 0xFF);;
+        this.tintAlpha = Mth.clamp(alpha, 0, 0xFF);
     }
-
-    @Override
-    public VertexFormat getVertexFormat() { return this.inner.getVertexFormat(); }
 
     @Override
     public VertexConsumer vertex(double x, double y, double z) {

@@ -1,13 +1,19 @@
 package com.wuest.prefab;
 
+import com.mojang.blaze3d.platform.InputConstants;
+import com.wuest.prefab.events.ClientEventHandler;
 import com.wuest.prefab.items.ItemSickle;
 import com.wuest.prefab.proxy.ClientProxy;
 import com.wuest.prefab.proxy.CommonProxy;
+import net.minecraft.client.KeyMapping;
 import net.minecraft.commands.Commands;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
+import net.minecraftforge.client.settings.KeyConflictContext;
+import net.minecraftforge.client.settings.KeyModifier;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -18,6 +24,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.network.simple.SimpleChannel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_B;
 
 /**
  * The starting point to load all of the blocks, items and other objects associated with this mod.
@@ -108,11 +116,9 @@ public class Prefab {
     }
 
     @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class ClientModEvents
-    {
+    public static class ClientModEvents {
         @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event)
-        {
+        public static void onClientSetup(FMLClientSetupEvent event) {
             Prefab.proxy = new ClientProxy();
             Prefab.proxy.preInit(event);
             Prefab.proxy.init(event);
@@ -121,6 +127,17 @@ public class Prefab {
             Prefab.proxy.RegisterEventHandler();
 
             Prefab.proxy.clientSetup(event);
+        }
+
+        @SubscribeEvent
+        public static void KeyBindRegistrationEvent(RegisterKeyMappingsEvent event) {
+            KeyMapping binding = new KeyMapping("Build Current Structure",
+                    KeyConflictContext.IN_GAME, KeyModifier.ALT,
+                    InputConstants.Type.KEYSYM, GLFW_KEY_B, "Prefab - Structure Preview");
+
+            event.register(binding);
+
+            ClientEventHandler.keyBindings.add(binding);
         }
     }
 }

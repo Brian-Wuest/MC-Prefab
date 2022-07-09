@@ -1,5 +1,6 @@
 package com.wuest.prefab.events;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.config.EntityPlayerConfiguration;
 import com.wuest.prefab.proxy.ClientProxy;
@@ -17,7 +18,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.InputEvent;
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.client.event.RenderLevelLastEvent;
+import net.minecraftforge.client.settings.KeyConflictContext;
+import net.minecraftforge.client.settings.KeyModifier;
 import net.minecraftforge.event.TickEvent.ClientTickEvent;
 import net.minecraftforge.event.TickEvent.Phase;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -26,6 +30,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.ArrayList;
+
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_B;
 
 /**
  * @author WuestMan
@@ -103,7 +109,7 @@ public final class ClientEventHandler {
 
     @SubscribeEvent(priority = EventPriority.NORMAL)
     @OnlyIn(Dist.CLIENT)
-    public static void KeyInput(InputEvent.KeyInputEvent event) {
+    public static void KeyInput(InputEvent.Key event) {
         for (KeyMapping binding : ClientEventHandler.keyBindings) {
             if (binding.isDown()) {
                 if (StructureRenderHandler.currentStructure != null) {

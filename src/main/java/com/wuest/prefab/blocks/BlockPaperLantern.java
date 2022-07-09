@@ -11,8 +11,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import java.util.Random;
-
 /**
  * This block is used as an alternate light source to be used in the structures created in this mod.
  *
