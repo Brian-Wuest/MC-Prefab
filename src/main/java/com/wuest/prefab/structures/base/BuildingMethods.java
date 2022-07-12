@@ -26,8 +26,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.BlockSnapshot;
-import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.event.world.BlockEvent.EntityPlaceEvent;
+import net.minecraftforge.event.level.BlockEvent;
 
 import java.util.ArrayList;
 
@@ -243,7 +242,7 @@ public class BuildingMethods {
                     }
                 }
 
-                EntityPlaceEvent placeEvent = new EntityPlaceEvent(BlockSnapshot.create(world.dimension(), world, currentPos), Blocks.AIR.defaultBlockState(), player);
+                BlockEvent.EntityPlaceEvent placeEvent = new BlockEvent.EntityPlaceEvent(BlockSnapshot.create(world.dimension(), world, currentPos), Blocks.AIR.defaultBlockState(), player);
 
                 if (MinecraftForge.EVENT_BUS.post(placeEvent)) {
                     return new Triple<>(false, blockState, currentPos);

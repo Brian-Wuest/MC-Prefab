@@ -42,11 +42,11 @@ public final class ModEventHandler {
      */
     @SubscribeEvent
     public static void onPlayerLoginEvent(PlayerLoggedInEvent event) {
-        if (!event.getPlayer().level.isClientSide) {
+        if (!event.getEntity().level.isClientSide) {
             CompoundTag tag = CommonProxy.proxyConfiguration.serverConfiguration.ToNBTTagCompound();
-            Prefab.network.sendTo(new ConfigSyncMessage(tag), ((ServerPlayer) event.getPlayer()).connection.connection, NetworkDirection.PLAY_TO_CLIENT);
+            Prefab.network.sendTo(new ConfigSyncMessage(tag), ((ServerPlayer) event.getEntity()).connection.connection, NetworkDirection.PLAY_TO_CLIENT);
 
-            Prefab.LOGGER.info("Sent config to '" + event.getPlayer().getDisplayName().getString() + "'.");
+            Prefab.LOGGER.info("Sent config to '" + event.getEntity().getDisplayName().getString() + "'.");
         }
     }
 

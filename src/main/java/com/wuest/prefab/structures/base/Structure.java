@@ -189,7 +189,7 @@ public class Structure {
                     continue;
                 }
 
-                ResourceLocation resourceLocation = ForgeRegistries.BLOCK_ENTITIES.getKey(tileEntity.getType());
+                ResourceLocation resourceLocation = ForgeRegistries.BLOCK_ENTITY_TYPES.getKey(tileEntity.getType());
                 CompoundTag tagCompound = tileEntity.saveWithFullMetadata();
 
                 BuildTileEntity buildTileEntity = new BuildTileEntity();
@@ -224,7 +224,7 @@ public class Structure {
                     && entityPos.getZ() >= z_radiusRangeBegin && entityPos.getZ() <= z_radiusRangeEnd
                     && entityPos.getY() >= y_radiusRangeBegin && entityPos.getY() <= y_radiusRangeEnd) {
                 BuildEntity buildEntity = new BuildEntity();
-                buildEntity.setEntityResourceString(ForgeRegistries.ENTITIES.getKey(entity.getType()));
+                buildEntity.setEntityResourceString(ForgeRegistries.ENTITY_TYPES.getKey(entity.getType()));
                 buildEntity.setStartingPosition(Structure.getStartingPositionFromOriginalAndCurrentPosition(entityPos, originalPos));
 
                 // The function calls below get the following fields from the "entity" class. posX, posY, posZ.

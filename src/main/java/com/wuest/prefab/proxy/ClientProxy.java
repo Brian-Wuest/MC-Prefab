@@ -1,6 +1,5 @@
 package com.wuest.prefab.proxy;
 
-import com.mojang.blaze3d.platform.InputConstants;
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.base.BaseConfig;
@@ -10,13 +9,11 @@ import com.wuest.prefab.blocks.BlockGrassSlab;
 import com.wuest.prefab.blocks.BlockGrassStairs;
 import com.wuest.prefab.config.ServerModConfiguration;
 import com.wuest.prefab.config.StructureScannerConfig;
-import com.wuest.prefab.events.ClientEventHandler;
 import com.wuest.prefab.gui.GuiBase;
 import com.wuest.prefab.gui.GuiPrefab;
 import com.wuest.prefab.gui.screens.GuiStructureScanner;
 import com.wuest.prefab.structures.gui.GuiStructure;
 import com.wuest.prefab.structures.items.StructureItem;
-import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.BiomeColors;
@@ -31,9 +28,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.ConfigGuiHandler;
-import net.minecraftforge.client.settings.KeyConflictContext;
-import net.minecraftforge.client.settings.KeyModifier;
+import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -43,8 +38,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
-
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_B;
 
 /**
  * @author WuestMan
@@ -141,8 +134,8 @@ public class ClientProxy extends CommonProxy {
         Optional<? extends ModContainer> modContainer = ModList.get().getModContainerById(Prefab.MODID);
 
         if (modContainer != null && modContainer.isPresent()) {
-            modContainer.get().registerExtensionPoint(ConfigGuiHandler.ConfigGuiFactory.class, () -> {
-                return new ConfigGuiHandler.ConfigGuiFactory((minecraft, screen) -> new GuiPrefab(minecraft, screen));
+            modContainer.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () -> {
+                return new ConfigScreenHandler.ConfigScreenFactory((minecraft, screen) -> new GuiPrefab(minecraft, screen));
             });
         }
     }

@@ -69,8 +69,8 @@ public final class StructureEventHandler {
      */
     @SubscribeEvent
     public static void PlayerLoggedIn(PlayerLoggedInEvent event) {
-        if (!event.getPlayer().level.isClientSide() && event.getPlayer() instanceof ServerPlayer) {
-            ServerPlayer player = (ServerPlayer) event.getPlayer();
+        if (!event.getEntity().level.isClientSide() && event.getEntity() instanceof ServerPlayer) {
+            ServerPlayer player = (ServerPlayer) event.getEntity();
             EntityPlayerConfiguration playerConfig = EntityPlayerConfiguration.loadFromEntityData(player);
 
             String startingItem = CommonProxy.proxyConfiguration.serverConfiguration.startingItem;
@@ -105,7 +105,7 @@ public final class StructureEventHandler {
             // Send the tag to the client.
             Prefab.network.sendTo(
                     new PlayerEntityTagMessage(playerConfig.getModIsPlayerNewTag(player)),
-                    ((ServerPlayer) event.getPlayer()).connection.connection,
+                    ((ServerPlayer) event.getEntity()).connection.connection,
                     NetworkDirection.PLAY_TO_CLIENT);
         }
     }
@@ -197,7 +197,7 @@ public final class StructureEventHandler {
      */
     @SubscribeEvent
     public static void onClone(PlayerEvent.Clone event) {
-        if (event.getPlayer() instanceof ServerPlayer) {
+        if (event.getEntity() instanceof ServerPlayer) {
             // Don't add the tag unless the house item was added. This way it can be added if the feature is turned on.
             // When the player is cloned, make sure to copy the tag. If this is not done the item can be given to the
             // player again if they die before the log out and log back in.
@@ -207,13 +207,13 @@ public final class StructureEventHandler {
             String startingItem = CommonProxy.proxyConfiguration.serverConfiguration.startingItem;
             if (startingItem != null && !startingItem.equalsIgnoreCase("Nothing")) {
                 if (originalTag.contains(EntityPlayerConfiguration.PLAYER_ENTITY_TAG)) {
-                    CompoundTag newPlayerTag = event.getPlayer().getPersistentData();
+                    CompoundTag newPlayerTag = event.getEntity().getPersistentData();
                     newPlayerTag.put(EntityPlayerConfiguration.PLAYER_ENTITY_TAG, originalTag.get(EntityPlayerConfiguration.PLAYER_ENTITY_TAG));
 
                     // Send the persist tag to the client.
                     Prefab.network.sendTo(
                             new PlayerEntityTagMessage(originalTag.getCompound(EntityPlayerConfiguration.PLAYER_ENTITY_TAG)),
-                            ((ServerPlayer) event.getPlayer()).connection.connection,
+                            ((ServerPlayer) event.getEntity()).connection.connection,
                             NetworkDirection.PLAY_TO_CLIENT);
                 }
             }

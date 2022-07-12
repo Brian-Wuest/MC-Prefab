@@ -41,12 +41,6 @@ public abstract class TileEntityBase<T extends BaseConfig> extends BlockEntity {
 	public void setConfig(T value) {
 		this.config = value;
 		this.setChanged();
-
-		CompoundTag tileData = this.getTileData();
-
-		if (this.config != null) {
-			this.config.WriteToNBTCompound(tileData);
-		}
 	}
 
 	public Class<T> getTypeParameterClass() {

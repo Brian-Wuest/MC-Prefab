@@ -18,13 +18,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.client.event.RenderLevelLastEvent;
-import net.minecraftforge.client.settings.KeyConflictContext;
-import net.minecraftforge.client.settings.KeyModifier;
 import net.minecraftforge.event.TickEvent.ClientTickEvent;
 import net.minecraftforge.event.TickEvent.Phase;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -63,6 +60,7 @@ public final class ClientEventHandler {
      */
     @SubscribeEvent
     public static void onWorldRenderLast(RenderLevelLastEvent event) {
+        // TODO: Replace this with the mixin from Fabric since forge keeps on changing shit they shouldn't be.
         Minecraft mc = Minecraft.getInstance();
 
         if (mc.player != null && (!mc.player.isCrouching())) {
@@ -76,8 +74,8 @@ public final class ClientEventHandler {
      * @param event The event object.
      */
     @SubscribeEvent
-    public static void EntityJoinWorldEvent(EntityJoinWorldEvent event) {
-        if (event.getWorld().isClientSide && event.getEntity() instanceof Player) {
+    public static void EntityJoinWorldEvent(EntityJoinLevelEvent event) {
+        if (event.getLevel().isClientSide && event.getEntity() instanceof Player) {
             // When the player logs out, make sure to re-set the server configuration.
             // This is so a new configuration can be successfully loaded when they switch servers or worlds (on single
             // player.
