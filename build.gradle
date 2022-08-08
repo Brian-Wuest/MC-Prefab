@@ -41,7 +41,7 @@ println("Mod Version: ${config.mod_version}")
 println("Forge Version: ${config.forge_version}")
 
 minecraft {
-    mappings channel: 'official', version: '1.19.1'
+    mappings channel: 'official', version: '1.19.2'
 
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
