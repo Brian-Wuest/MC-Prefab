@@ -1,40 +1,40 @@
 {
   "variants": {
     "phasing_out=false,phasing_progress=base": {
-      "model": "prefab:block/block_phasing_base"
+      "model": "prefab:block/block_phasic_base"
     },
     "phasing_out=false,phasing_progress=twenty_percent": {
-      "model": "prefab:block/block_phasing_twenty_percent"
+      "model": "prefab:block/block_phasic_twenty_percent"
     },
     "phasing_out=false,phasing_progress=forty_percent": {
-      "model": "prefab:block/block_phasing_forty_percent"
+      "model": "prefab:block/block_phasic_forty_percent"
     },
     "phasing_out=false,phasing_progress=sixty_percent": {
-      "model": "prefab:block/block_phasing_sixty_percent"
+      "model": "prefab:block/block_phasic_sixty_percent"
     },
     "phasing_out=false,phasing_progress=eighty_percent": {
-      "model": "prefab:block/block_phasing_eighty_percent"
+      "model": "prefab:block/block_phasic_eighty_percent"
     },
     "phasing_out=false,phasing_progress=transparent": {
-      "model": "prefab:block/block_phasing_transparent"
+      "model": "prefab:block/block_phasic_transparent"
     },
     "phasing_out=true,phasing_progress=base": {
-      "model": "prefab:block/block_phasing_base"
+      "model": "prefab:block/block_phasic_base"
     },
     "phasing_out=true,phasing_progress=twenty_percent": {
-      "model": "prefab:block/block_phasing_twenty_percent"
+      "model": "prefab:block/block_phasic_twenty_percent"
     },
     "phasing_out=true,phasing_progress=forty_percent": {
-      "model": "prefab:block/block_phasing_forty_percent"
+      "model": "prefab:block/block_phasic_forty_percent"
     },
     "phasing_out=true,phasing_progress=sixty_percent": {
-      "model": "prefab:block/block_phasing_sixty_percent"
+      "model": "prefab:block/block_phasic_sixty_percent"
     },
     "phasing_out=true,phasing_progress=eighty_percent": {
-      "model": "prefab:block/block_phasing_eighty_percent"
+      "model": "prefab:block/block_phasic_eighty_percent"
     },
     "phasing_out=true,phasing_progress=transparent": {
-      "model": "prefab:block/block_phasing_transparent"
+      "model": "prefab:block/block_phasic_transparent"
     }
   }
 }

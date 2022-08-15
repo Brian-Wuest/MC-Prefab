@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "prefab:blocks/block_phasing_eighty_percent"
+    "all": "prefab:blocks/block_phasic_forty_percent"
   }
 }
