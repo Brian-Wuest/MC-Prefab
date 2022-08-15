@@ -316,6 +316,9 @@ public class GuiLangKeys {
     @Unlocalized(name = "Mountain House")
     public static final String MODERATE_MOUNTAIN_HOME = "prefab.gui.moderate_house.mountain";
 
+    @Unlocalized(name = "Cabin House")
+    public static final String ADVANCED_HOUSE_CABIN = "prefab.gui.advanced_house.cabin";
+
     @Unlocalized(name = "Press§9 Shift §7for more information.")
     public static final String SHIFT_TOOLTIP = "prefab.gui.tooltip.shift";
 
@@ -404,6 +407,10 @@ public class GuiLangKeys {
     public static final String TITLE_STARTER_HOUSE = "item.prefab.item_start_house";
     @Unlocalized(name = "Moderate House")
     public static final String TITLE_MODERATE_HOUSE = "item.prefab.item_moderate_house";
+
+    @Unlocalized(name = "Advanced House")
+    public static final String TITLE_ADVANCED_HOUSE = "item.prefab.item_advanced_house";
+
     @Unlocalized(name = "Bulldozer")
     public static final String TITLE_BULLDOZER = "item.prefab.item_bulldozer";
     @Unlocalized(name = "Instant Bridge")

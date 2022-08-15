@@ -14,6 +14,7 @@
     "item.prefab.item_basic_structure": "Базова Структура",
     "item.prefab.item_instant_bridge": "Швидкий Міст",
     "item.prefab.item_moderate_house": "Невеличкий Будинок",
+    "item.prefab.item_advanced_house": "Просунутий будинок",
     "item.prefab.item_bulldozer": "Бульдозер",
     "item.prefab.item_creative_bulldozer": "Творчий Бульдозер",
     "block.prefab.item_heap_of_timber": "Купа Деревини",
@@ -91,7 +92,7 @@
     "block.prefab.block_paper_lantern": "Паперовий Ліхтар",
     "block.prefab.block_compressed_obsidian": "Стиснений Обсидіан",
     "block.prefab.block_double_compressed_obsidian": "Подвійно Стиснений Обсидіан",
-    "block.prefab.block_phasing": "Фазовий Блок",
+    "block.prefab.block_phasic": "Фазовий Блок",
     "block.prefab.block_boundary": "Бар'єрний Блок",
     "block.prefab.block_glass_stairs": "Скляні Сходи",
     "block.prefab.block_glass_slab": "Скляна Плита",
@@ -145,6 +146,7 @@
     "prefab.gui.starter.cabin.display": "Зруб",
     "prefab.gui.starter.tower.display": "Стиль вежі",
     "prefab.gui.starter.tree.display": "Будинок на дереві",
+    "prefab.gui.starter.mushroom.display": "Грибна хата",
 
     "prefab.gui.starter.addtorches": "Додати Смолоскипи",
     "prefab.gui.starter.addbed": "Додати Ліжко",
@@ -177,6 +179,8 @@
     "prefab.gui.moderate_house.tower_house": "Вежа",
     "prefab.gui.moderate_house.hobbit_house": "Будинок Хоббітів",
     "prefab.gui.moderate_house.cottage_house": "Котедж",
+
+    "prefab.gui.advanced_house.Cabin": "Кабіна",
 
     "prefab.gui.item_modern_mall_store": "Торговий Центр",
     "prefab.gui.item_modern_hipster_fruit_stand": "Магазин Яблук",

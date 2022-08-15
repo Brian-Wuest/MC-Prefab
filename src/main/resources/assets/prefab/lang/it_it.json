@@ -14,6 +14,7 @@
     "item.prefab.item_basic_structure": "Struttura Base",
     "item.prefab.item_instant_bridge": "Ponte Istantaneo",
     "item.prefab.item_moderate_house": "Casa Moderata",
+    "item.prefab.item_advanced_house": "Casa avanzata",
     "item.prefab.item_bulldozer": "Escavatore",
     "item.prefab.item_creative_bulldozer": "Escavatore creativo",
     "block.prefab.item_heap_of_timber": "Cumulo di Legname",
@@ -91,7 +92,7 @@
     "block.prefab.block_paper_lantern": "Lanterna di Carta",
     "block.prefab.block_compressed_obsidian": "Ossidiana Compressa",
     "block.prefab.block_double_compressed_obsidian": "Ossidiana Doppiamente Compressa",
-    "block.prefab.block_phasing": "Blocco di Fase",
+    "block.prefab.block_phasic": "Blocco di Fase",
     "block.prefab.block_boundary": "Blocco di Confine",
     "block.prefab.block_glass_stairs": "Scala di Vetro",
     "block.prefab.block_glass_slab": "Lastra di Vetro",
@@ -145,6 +146,7 @@
     "prefab.gui.starter.cabin.display": "Stile cabina",
     "prefab.gui.starter.tower.display": "Stile Torre",
     "prefab.gui.starter.tree.display": "Casa sull'albero",
+    "prefab.gui.starter.mushroom.display": "Casa dei funghi",
 
     "prefab.gui.starter.addtorches": "Aggiungi Torce",
     "prefab.gui.starter.addbed": "Aggiungi Letto",
@@ -177,6 +179,8 @@
     "prefab.gui.moderate_house.tower_house": "Torre",
     "prefab.gui.moderate_house.hobbit_house": "Casa degli Hobbit",
     "prefab.gui.moderate_house.cottage_house": "Villetta",
+
+    "prefab.gui.advanced_house.Cabin": "Cabina",
 
     "prefab.gui.item_modern_mall_store": "Centro commerciale",
     "prefab.gui.item_modern_hipster_fruit_stand": "Fruttivendolo",
