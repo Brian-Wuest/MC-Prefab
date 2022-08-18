@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "prefab:block_phasing"
+          "name": "prefab:block_phasic"
         }
       ],
       "conditions": [

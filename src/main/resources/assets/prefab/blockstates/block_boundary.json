@@ -1,7 +1,7 @@
 {
   "variants": {
     "powered=false": {
-      "model": "prefab:block/block_phasing_transparent"
+      "model": "prefab:block/block_phasic_transparent"
     },
     "powered=true": {
       "model": "prefab:block/block_boundary"
