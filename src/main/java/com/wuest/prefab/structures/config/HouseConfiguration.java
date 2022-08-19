@@ -243,7 +243,11 @@ public class HouseConfiguration extends StructureConfiguration {
         TREE(13,
                 GuiLangKeys.STARTER_HOUSE_TREE_HOUSE_DISPLAY,
                 new ResourceLocation("prefab", "textures/gui/starter_house_tree.png"),
-                "assets/prefab/structures/starter_house_tree.zip");
+                "assets/prefab/structures/starter_house_tree.zip"),
+        MUSHROOM(14,
+                GuiLangKeys.STARTER_HOUSE_MUSHROOM_HOUSE_DISPLAY,
+                new ResourceLocation("prefab", "textures/gui/starter_house_mushroom.png"),
+                "assets/prefab/structures/starter_house_mushroom.zip");
 
         private final int value;
         private final String displayName;

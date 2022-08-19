@@ -97,6 +97,9 @@ public class GuiLangKeys {
     @Unlocalized(name = "Treehouse Style")
     public static final String STARTER_HOUSE_TREE_HOUSE_DISPLAY = "prefab.gui.starter.tree.display";
 
+    @Unlocalized(name = "Mushroom Style")
+    public static final String STARTER_HOUSE_MUSHROOM_HOUSE_DISPLAY = "prefab.gui.starter.mushroom.display";
+
     @Unlocalized(name = "Add Torches")
     public static final String STARTER_HOUSE_ADD_TORCHES = "prefab.gui.starter.addtorches";
 
