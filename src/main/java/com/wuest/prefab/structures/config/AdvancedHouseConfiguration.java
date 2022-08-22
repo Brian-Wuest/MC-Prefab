@@ -111,8 +111,8 @@ public class AdvancedHouseConfiguration extends StructureConfiguration {
      * @author WuestMan
      */
     public enum HouseStyle {
-        SPRUCE_HOME(0, GuiLangKeys.ADVANCED_HOUSE_CABIN, new ResourceLocation("prefab", "textures/gui/advanced_house_cabin_topdown.png"),
-                "assets/prefab/structures/advanced_house_cabin.zip");
+        SPRUCE_HOME(0, GuiLangKeys.ADVANCED_HOUSE_CABIN, new ResourceLocation("prefab", "textures/gui/advanced_house_manor.png"),
+                "assets/prefab/structures/advanced_house_manor.zip");
 
         private final int value;
         private final String displayName;
