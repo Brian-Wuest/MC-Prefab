@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "prefab:items/item_starter_farm"
+    "layer0": "prefab:items/item_sugar_cane_farm"
   }
 }
