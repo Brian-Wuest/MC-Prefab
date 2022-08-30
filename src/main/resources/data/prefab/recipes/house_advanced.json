@@ -1,0 +1,26 @@
+{
+  "type": "prefab:condition_crafting_shapeless",
+  "config": "Advanced House",
+  "group": "Advanced House",
+  "ingredients": [
+    {
+      "item": "prefab:item_house_improved"
+    },
+    {
+      "item": "prefab:item_house_improved"
+    },
+    {
+      "item": "prefab:item_house_improved"
+    },
+    {
+      "item": "prefab:item_upgrade"
+    },
+    {
+      "tag": "c:triple_compressed_stone"
+    }
+  ],
+  "result": {
+    "item": "prefab:item_house_improved",
+    "count": 1
+  }
+}

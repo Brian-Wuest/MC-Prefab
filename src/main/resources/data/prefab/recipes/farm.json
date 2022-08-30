@@ -2,11 +2,11 @@
   "conditions": [
     {
       "type": "prefab:config_recipe",
-      "recipeKey": "Starter Farm"
+      "recipeKey": "Farm"
     }
   ],
   "type": "minecraft:crafting_shaped",
-  "group": "Starter Farm",
+  "group": "Farm",
   "pattern": [
     "aaa",
     "bcb",
@@ -30,7 +30,7 @@
     }
   },
   "result": {
-    "item": "prefab:item_starter_farm",
+    "item": "prefab:item_farm",
     "count": 1
   }
 }

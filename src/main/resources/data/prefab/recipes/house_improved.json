@@ -2,11 +2,11 @@
   "conditions": [
     {
       "type": "prefab:config_recipe",
-      "recipeKey": "Moderate House"
+      "recipeKey": "Improved House"
     }
   ],
   "type": "minecraft:crafting_shapeless",
-  "group": "Moderate House",
+  "group": "Improved House",
   "ingredients": [
     {
       "item": "prefab:item_start_house"
@@ -19,7 +19,7 @@
     }
   ],
   "result": {
-    "item": "prefab:item_moderate_house",
+    "item": "prefab:item_house_improved",
     "count": 1
   }
 }

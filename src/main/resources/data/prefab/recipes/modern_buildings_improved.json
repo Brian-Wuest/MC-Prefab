@@ -8,8 +8,8 @@
   "type": "minecraft:crafting_shaped",
   "group": "Modern Buildings",
   "pattern": [
-    "ada",
-    "beb",
+    "a a",
+    "bbb",
     "cdc"
   ],
   "key": {
@@ -24,13 +24,10 @@
     },
     "d": {
       "tag": "forge:storage_blocks/double_compressed_quartz_crete"
-    },
-    "e": {
-      "tag": "forge:storage_blocks/triple_compressed_stone"
     }
   },
   "result": {
-    "item": "prefab:item_advanced_modern_buildings",
+    "item": "prefab:item_modern_buildings_improved",
     "count": 1
   }
 }

@@ -2,11 +2,11 @@
   "conditions": [
     {
       "type": "prefab:config_recipe",
-      "recipeKey": "Moderate Farm"
+      "recipeKey": "Improved Farm"
     }
   ],
   "type": "minecraft:crafting_shaped",
-  "group": "Moderate Farm",
+  "group": "Improved Farm",
   "pattern": [
     "aba",
     "cdc",
@@ -30,7 +30,7 @@
     }
   },
   "result": {
-    "item": "prefab:item_moderate_farm",
+    "item": "prefab:item_farm_improved",
     "count": 1
   }
 }

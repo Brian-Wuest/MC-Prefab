@@ -2,11 +2,11 @@
   "conditions": [
     {
       "type": "prefab:config_recipe",
-      "recipeKey": "Smart Glass"
+      "recipeKey": "Boundary Block"
     }
   ],
   "type": "minecraft:crafting_shaped",
-  "group": "Smart Glass",
+  "group": "Boundary Block",
   "pattern": [
     "aaa",
     "aba",

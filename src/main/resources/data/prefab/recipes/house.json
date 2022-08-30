@@ -2,11 +2,11 @@
   "conditions": [
     {
       "type": "prefab:config_recipe",
-      "recipeKey": "Starting House"
+      "recipeKey": "House"
     }
   ],
   "type": "minecraft:crafting_shaped",
-  "group": "Starting House",
+  "group": "House",
   "pattern": [
     "abc",
     "ded",
@@ -33,7 +33,7 @@
     }
   },
   "result": {
-    "item": "prefab:item_start_house",
+    "item": "prefab:item_house",
     "count": 1
   }
 }
