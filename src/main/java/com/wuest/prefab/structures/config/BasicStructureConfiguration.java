@@ -192,17 +192,16 @@ public class BasicStructureConfiguration extends StructureConfiguration {
         WindMill("wind_mill", "item.prefab.item_wind_mill", "item_wind_mill", WindMillOptions.Default, false),
         TownHall("town_hall", "item.prefab.item_town_hall", "item_town_hall", TownHallOptions.Default, false),
         NetherGate("nether_gate", "item.prefab.item_nether_gate", "item_nether_gate", NetherGateOptions.AncientSkull, true),
-        AdvancedAquaBase("advanced_aqua_base", "item.prefab.item_advanced_aqua_base", "item_advanced_aqua_base", AquaBaseImprovedOptions.Default, false),
-        WorkShop("workshop", "item.prefab.item_workshop", "item_workshop", WorkshopOptions.Default, true),
+        AquaBaseImproved("aqua_base_improved", "item.prefab.item_aqua_base_improved", "item_aqua_base_improved", AquaBaseImprovedOptions.Default, false),
         VillagerHouses("villager_houses", "item.prefab.item_villager_houses", "item_villager_houses", VillagerHouseOptions.FLAT_ROOF, true),
-        AdvancedWarehouse("advanced_warehouse", "item.prefab.item_advanced_warehouse", "item_advanced_warehouse", WarehouseImprovedOptions.Default, true),
+        WarehouseImproved("warehouse_improved", "item.prefab.item_warehouse_improved", "item_warehouse_improved", WarehouseImprovedOptions.Default, true),
         Warehouse("warehouse", "item.prefab.item_warehouse", "item_warehouse", WarehouseOptions.Default, true),
-        ModernBuildings("modern_buildings", "item.prefab.item_modern_buildings", "item_modern_buildings", BasicModernBuildingsOptions.HipsterFruitStand, true),
-        StarterFarm("starter_farm", "item.prefab.item_starter_farm", "item_starter_farm", FarmOptions.ElevatedFarm, true),
-        ModerateFarm("moderate_farm", "item.prefab.item_moderate_farm", "item_moderate_farm", FarmImprovedOptions.AutomatedFarm, true),
-        AdvancedFarm("advanced_farm", "item.prefab.item_advanced_farm", "item_advanced_farm", FarmAdvancedOptions.AutomatedBeeFarm, true),
-        ModerateModernBuildings("moderate_modern_buildings", "item.prefab.item_moderate_modern_buildings", "item_moderate_modern_buildings", ModernBuildingsImprovedOptions.ConstructionSite, true),
-        AdvancedModernBuildings("advanced_modern_buildings", "item.prefab.item_advanced_modern_buildings", "item_advanced_modern_buildings", ModernBuildingsAdvancedOptions.TreeHouse, true);
+        ModernBuildings("modern_buildings", "item.prefab.item_modern_buildings", "item_modern_buildings", ModernBuildingsOptions.HipsterFruitStand, true),
+        Farm("farm", "item.prefab.item_farm", "item_farm", FarmOptions.ElevatedFarm, true),
+        FarmImproved("farm_improved", "item.prefab.item_farm_improved", "item_farm_improved", FarmImprovedOptions.AutomatedFarm, true),
+        FarmAdvanced("farm_advanced", "item.prefab.item_farm_advanced", "item_farm_advanced", FarmAdvancedOptions.AutomatedBeeFarm, true),
+        ModernBuildingsImproved("modern_buildings_improved", "item.prefab.item_modern_buildings_improved", "item_modern_buildings_improved", ModernBuildingsImprovedOptions.ConstructionSite, true),
+        ModernBuildingsAdvanced("modern_buildings_advanced", "item.prefab.item_modern_buildings_advanced", "item_modern_buildings_advanced", ModernBuildingsAdvancedOptions.TreeHouse, true);
 
         private final String name;
         private final String itemTranslationString;

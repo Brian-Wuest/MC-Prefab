@@ -47,7 +47,7 @@ public class StructureBasic extends Structure {
         String structureName = config.basicStructureName.getName();
         BaseOption chosenOption = config.chosenOption;
 
-        if (foundBlock instanceof HopperBlock && structureName.equals(EnumBasicStructureName.ModerateFarm.getName()) && chosenOption == FarmImprovedOptions.AutomatedChickenCoop) {
+        if (foundBlock instanceof HopperBlock && structureName.equals(EnumBasicStructureName.FarmImproved.getName()) && chosenOption == FarmImprovedOptions.AutomatedChickenCoop) {
             this.customBlockPos = block.getStartingPosition().getRelativePosition(
                     originalPos,
                     this.getClearSpace().getShape().getDirection(),
@@ -57,13 +57,6 @@ public class StructureBasic extends Structure {
                     originalPos,
                     this.getClearSpace().getShape().getDirection(),
                     configuration.houseFacing);
-        } else if (foundBlock == Blocks.SPONGE
-                && structureName.equals(BasicStructureConfiguration.EnumBasicStructureName.WorkShop.getName())) {
-            // Sponges are sometimes used in-place of trapdoors when trapdoors are used for decoration.
-            this.customBlockPos = block.getStartingPosition().getRelativePosition(
-                    originalPos,
-                    this.getClearSpace().getShape().getDirection(),
-                    configuration.houseFacing).above();
         } else if (foundBlock instanceof BedBlock && chosenOption.getHasBedColor()) {
             // Even if a structure has a bed; we may want to keep a specific color to match what the design of the structure is.
             BlockPos bedHeadPosition = block.getStartingPosition().getRelativePosition(originalPos, this.getClearSpace().getShape().getDirection(), configuration.houseFacing);
@@ -78,13 +71,13 @@ public class StructureBasic extends Structure {
 
             this.priorityOneBlocks.add(block);
             return true;
-        } else if (foundBlock instanceof SpawnerBlock && structureName.equals(EnumBasicStructureName.AdvancedFarm.getName()) && chosenOption == FarmAdvancedOptions.MonsterMasher
+        } else if (foundBlock instanceof SpawnerBlock && structureName.equals(EnumBasicStructureName.FarmAdvanced.getName()) && chosenOption == FarmAdvancedOptions.MonsterMasher
                 && CommonProxy.proxyConfiguration.serverConfiguration.includeSpawnersInMasher) {
             this.mobSpawnerPos.add(block.getStartingPosition().getRelativePosition(
                     originalPos,
                     this.getClearSpace().getShape().getDirection(),
                     configuration.houseFacing));
-        } else if (foundBlock instanceof SignBlock && structureName.equals(EnumBasicStructureName.AdvancedFarm.getName()) && chosenOption == FarmAdvancedOptions.MonsterMasher) {
+        } else if (foundBlock instanceof SignBlock && structureName.equals(EnumBasicStructureName.FarmAdvanced.getName()) && chosenOption == FarmAdvancedOptions.MonsterMasher) {
             this.signPosition = block.getStartingPosition().getRelativePosition(
                     originalPos,
                     this.getClearSpace().getShape().getDirection(),
@@ -99,7 +92,7 @@ public class StructureBasic extends Structure {
         BasicStructureConfiguration config = (BasicStructureConfiguration) configuration;
 
         if (config.basicStructureName.getName().equals(EnumBasicStructureName.AquaBase.getName())
-                || config.basicStructureName.getName().equals(EnumBasicStructureName.AdvancedAquaBase.getName())) {
+                || config.basicStructureName.getName().equals(EnumBasicStructureName.AquaBaseImproved.getName())) {
             BlockState blockState = world.getBlockState(blockPos);
             // Don't clear water blocks for this building.
             return blockState.getMaterial() != Material.WATER;
@@ -123,23 +116,19 @@ public class StructureBasic extends Structure {
         BaseOption chosenOption = config.chosenOption;
 
         if (this.customBlockPos != null) {
-            if (structureName.equals(EnumBasicStructureName.ModerateFarm.getName()) && chosenOption == FarmImprovedOptions.AutomatedChickenCoop) {
+            if (structureName.equals(EnumBasicStructureName.FarmImproved.getName()) && chosenOption == FarmImprovedOptions.AutomatedChickenCoop) {
                 // For the advanced chicken coop, spawn 4 chickens above the hopper.
                 for (int i = 0; i < 4; i++) {
                     Chicken entity = new Chicken(EntityType.CHICKEN, world);
                     entity.setPos(this.customBlockPos.getX(), this.customBlockPos.above().getY(), this.customBlockPos.getZ());
                     world.addFreshEntity(entity);
                 }
-            } else if (structureName.equals(EnumBasicStructureName.MineshaftEntrance.getName())
-                    || structureName.equals(BasicStructureConfiguration.EnumBasicStructureName.WorkShop.getName())) {
-                // Build the mineshaft where the trap door exists.
-                BuildingMethods.PlaceMineShaft(world, this.customBlockPos.below(), configuration.houseFacing, true);
             }
 
             this.customBlockPos = null;
         }
 
-        if (structureName.equals(EnumBasicStructureName.AdvancedFarm.getName()) && chosenOption == FarmAdvancedOptions.MonsterMasher) {
+        if (structureName.equals(EnumBasicStructureName.FarmAdvanced.getName()) && chosenOption == FarmAdvancedOptions.MonsterMasher) {
             int monstersPlaced = 0;
 
             // Set the spawner.
@@ -192,7 +181,7 @@ public class StructureBasic extends Structure {
         }
 
         if (structureName.equals(EnumBasicStructureName.AquaBase.getName())
-                || structureName.equals(EnumBasicStructureName.AdvancedAquaBase.getName())) {
+                || structureName.equals(EnumBasicStructureName.AquaBaseImproved.getName())) {
             // Replace the entrance area with air blocks.
             BlockPos airPos = originalPos.above(4).relative(configuration.houseFacing.getOpposite(), 1);
 
