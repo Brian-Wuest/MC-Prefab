@@ -3,7 +3,21 @@
   "values": [
     "prefab:block_compressed_obsidian",
     "prefab:block_double_compressed_obsidian",
+    "prefab:block_compressed_stone",
+    "prefab:block_double_compressed_stone",
+    "prefab:block_triple_compressed_stone",
     "prefab:block_glass_slab",
-    "prefab:block_glass_stairs"
+    "prefab:block_glass_stairs",
+    "prefab:block_quartz_crete",
+    "prefab:block_quartz_crete_wall",
+    "prefab:block_quartz_crete_bricks",
+    "prefab:block_quartz_crete_chiseled",
+    "prefab:block_quartz_crete_pillar",
+    "prefab:block_quartz_crete_stairs",
+    "prefab:block_quartz_crete_slab",
+    "prefab:block_quartz_crete_smooth",
+    "prefab:block_quartz_crete_smooth_wall",
+    "prefab:block_quartz_crete_smooth_stairs",
+    "prefab:block_quartz_crete_smooth_slab"
   ]
 }
