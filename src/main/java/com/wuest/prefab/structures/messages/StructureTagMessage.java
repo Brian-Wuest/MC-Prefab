@@ -60,10 +60,10 @@ public class StructureTagMessage extends TagMessage {
     public enum EnumStructureConfiguration {
         Basic(0, new BasicStructureConfiguration()),
         StartHouse(1, new HouseConfiguration()),
-        ModerateHouse(2, new ModerateHouseConfiguration()),
+        ModerateHouse(2, new HouseImprovedConfiguration()),
         Bulldozer(3, new BulldozerConfiguration()),
         InstantBridge(4, new InstantBridgeConfiguration()),
-        AdvancedHouse(5, new AdvancedHouseConfiguration());
+        AdvancedHouse(5, new HouseAdvancedConfiguration());
 
         public int identifier;
         public StructureConfiguration structureConfig;

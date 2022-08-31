@@ -19,6 +19,7 @@ import net.minecraft.network.chat.FormattedText;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.item.DyeColor;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.util.List;
@@ -367,7 +368,8 @@ public abstract class GuiBase extends Screen {
         this.getMinecraft().setScreen(null);
     }
 
-    public Minecraft getMinecraft() {
+    public @NotNull Minecraft getMinecraft() {
+        assert this.minecraft != null;
         return this.minecraft;
     }
 

@@ -15,7 +15,7 @@ import net.minecraft.world.item.DyeColor;
  *
  * @author WuestMan
  */
-public class AdvancedHouseConfiguration extends StructureConfiguration {
+public class HouseAdvancedConfiguration extends StructureConfiguration {
     private static final String houseStyleTag = "houseStyle";
     private static final String addMineshaftTag = "addMineshaft";
     private static final String bedColorTag = "bedColor";
@@ -33,46 +33,46 @@ public class AdvancedHouseConfiguration extends StructureConfiguration {
     public DyeColor bedColor;
 
     /**
-     * Initializes a new instance of the {@link AdvancedHouseConfiguration} class.
+     * Initializes a new instance of the {@link HouseAdvancedConfiguration} class.
      */
-    public AdvancedHouseConfiguration() {
+    public HouseAdvancedConfiguration() {
         super();
 
         this.addMineshaft = true;
-        this.houseStyle = HouseStyle.SPRUCE_HOME;
+        this.houseStyle = HouseStyle.MANOR;
         this.bedColor = DyeColor.RED;
     }
 
     @Override
     public void Initialize() {
         super.Initialize();
-        this.houseStyle = HouseStyle.SPRUCE_HOME;
+        this.houseStyle = HouseStyle.MANOR;
         this.bedColor = DyeColor.RED;
     }
 
     @Override
     protected CompoundTag CustomWriteToCompoundTag(CompoundTag tag) {
-        tag.putInt(AdvancedHouseConfiguration.houseStyleTag, this.houseStyle.value);
-        tag.putBoolean(AdvancedHouseConfiguration.addMineshaftTag, this.addMineshaft);
-        tag.putInt(AdvancedHouseConfiguration.bedColorTag, this.bedColor.getId());
+        tag.putInt(HouseAdvancedConfiguration.houseStyleTag, this.houseStyle.value);
+        tag.putBoolean(HouseAdvancedConfiguration.addMineshaftTag, this.addMineshaft);
+        tag.putInt(HouseAdvancedConfiguration.bedColorTag, this.bedColor.getId());
 
         return tag;
     }
 
     @Override
     protected void CustomReadFromNBTTag(CompoundTag messageTag, StructureConfiguration config) {
-        AdvancedHouseConfiguration houseConfiguration = ((AdvancedHouseConfiguration) config);
+        HouseAdvancedConfiguration houseConfiguration = ((HouseAdvancedConfiguration) config);
 
-        if (messageTag.contains(AdvancedHouseConfiguration.houseStyleTag)) {
-            houseConfiguration.houseStyle = HouseStyle.ValueOf(messageTag.getInt(AdvancedHouseConfiguration.houseStyleTag));
+        if (messageTag.contains(HouseAdvancedConfiguration.houseStyleTag)) {
+            houseConfiguration.houseStyle = HouseStyle.ValueOf(messageTag.getInt(HouseAdvancedConfiguration.houseStyleTag));
         }
 
-        if (messageTag.contains(AdvancedHouseConfiguration.addMineshaftTag)) {
-            houseConfiguration.addMineshaft = messageTag.getBoolean(AdvancedHouseConfiguration.addMineshaftTag);
+        if (messageTag.contains(HouseAdvancedConfiguration.addMineshaftTag)) {
+            houseConfiguration.addMineshaft = messageTag.getBoolean(HouseAdvancedConfiguration.addMineshaftTag);
         }
 
-        if (messageTag.contains(AdvancedHouseConfiguration.bedColorTag)) {
-            houseConfiguration.bedColor = DyeColor.byId(messageTag.getInt(AdvancedHouseConfiguration.bedColorTag));
+        if (messageTag.contains(HouseAdvancedConfiguration.bedColorTag)) {
+            houseConfiguration.bedColor = DyeColor.byId(messageTag.getInt(HouseAdvancedConfiguration.bedColorTag));
         }
     }
 
@@ -83,10 +83,10 @@ public class AdvancedHouseConfiguration extends StructureConfiguration {
      * @return A new configuration object with the values derived from the CompoundNBT.
      */
     @Override
-    public AdvancedHouseConfiguration ReadFromCompoundTag(CompoundTag messageTag) {
-        AdvancedHouseConfiguration config = new AdvancedHouseConfiguration();
+    public HouseAdvancedConfiguration ReadFromCompoundTag(CompoundTag messageTag) {
+        HouseAdvancedConfiguration config = new HouseAdvancedConfiguration();
 
-        return (AdvancedHouseConfiguration) super.ReadFromCompoundTag(messageTag, config);
+        return (HouseAdvancedConfiguration) super.ReadFromCompoundTag(messageTag, config);
     }
 
     /**
@@ -111,8 +111,10 @@ public class AdvancedHouseConfiguration extends StructureConfiguration {
      * @author WuestMan
      */
     public enum HouseStyle {
-        SPRUCE_HOME(0, GuiLangKeys.ADVANCED_HOUSE_CABIN, new ResourceLocation("prefab", "textures/gui/advanced_house_manor.png"),
-                "assets/prefab/structures/advanced_house_manor.zip");
+        MANOR(0, GuiLangKeys.ADVANCED_HOUSE_MANOR, new ResourceLocation("prefab", "textures/gui/house_advanced_manor.png"),
+                "assets/prefab/structures/house_advanced_manor.zip"),
+        WORKSHOP(1, GuiLangKeys.ADVANCED_HOUSE_WORKSHOP, new ResourceLocation("prefab", "textures/gui/house_advanced_workshop.png"),
+                "assets/prefab/structures/house_advanced_workshop.zip");
 
         private final int value;
         private final String displayName;
@@ -133,7 +135,7 @@ public class AdvancedHouseConfiguration extends StructureConfiguration {
                 }
             }
 
-            return HouseStyle.SPRUCE_HOME;
+            return HouseStyle.MANOR;
         }
 
         public int getValue() {

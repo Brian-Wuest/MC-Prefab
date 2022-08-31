@@ -9,9 +9,9 @@ import com.wuest.prefab.structures.base.Structure;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration.EnumBasicStructureName;
 import com.wuest.prefab.structures.config.StructureConfiguration;
-import com.wuest.prefab.structures.config.enums.AdvancedFarmOptions;
+import com.wuest.prefab.structures.config.enums.FarmAdvancedOptions;
 import com.wuest.prefab.structures.config.enums.BaseOption;
-import com.wuest.prefab.structures.config.enums.ModerateFarmOptions;
+import com.wuest.prefab.structures.config.enums.FarmImprovedOptions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -47,7 +47,7 @@ public class StructureBasic extends Structure {
         String structureName = config.basicStructureName.getName();
         BaseOption chosenOption = config.chosenOption;
 
-        if (foundBlock instanceof HopperBlock && structureName.equals(EnumBasicStructureName.ModerateFarm.getName()) && chosenOption == ModerateFarmOptions.AutomatedChickenCoop) {
+        if (foundBlock instanceof HopperBlock && structureName.equals(EnumBasicStructureName.ModerateFarm.getName()) && chosenOption == FarmImprovedOptions.AutomatedChickenCoop) {
             this.customBlockPos = block.getStartingPosition().getRelativePosition(
                     originalPos,
                     this.getClearSpace().getShape().getDirection(),
@@ -78,13 +78,13 @@ public class StructureBasic extends Structure {
 
             this.priorityOneBlocks.add(block);
             return true;
-        } else if (foundBlock instanceof SpawnerBlock && structureName.equals(EnumBasicStructureName.AdvancedFarm.getName()) && chosenOption == AdvancedFarmOptions.MonsterMasher
+        } else if (foundBlock instanceof SpawnerBlock && structureName.equals(EnumBasicStructureName.AdvancedFarm.getName()) && chosenOption == FarmAdvancedOptions.MonsterMasher
                 && CommonProxy.proxyConfiguration.serverConfiguration.includeSpawnersInMasher) {
             this.mobSpawnerPos.add(block.getStartingPosition().getRelativePosition(
                     originalPos,
                     this.getClearSpace().getShape().getDirection(),
                     configuration.houseFacing));
-        } else if (foundBlock instanceof SignBlock && structureName.equals(EnumBasicStructureName.AdvancedFarm.getName()) && chosenOption == AdvancedFarmOptions.MonsterMasher) {
+        } else if (foundBlock instanceof SignBlock && structureName.equals(EnumBasicStructureName.AdvancedFarm.getName()) && chosenOption == FarmAdvancedOptions.MonsterMasher) {
             this.signPosition = block.getStartingPosition().getRelativePosition(
                     originalPos,
                     this.getClearSpace().getShape().getDirection(),
@@ -123,7 +123,7 @@ public class StructureBasic extends Structure {
         BaseOption chosenOption = config.chosenOption;
 
         if (this.customBlockPos != null) {
-            if (structureName.equals(EnumBasicStructureName.ModerateFarm.getName()) && chosenOption == ModerateFarmOptions.AutomatedChickenCoop) {
+            if (structureName.equals(EnumBasicStructureName.ModerateFarm.getName()) && chosenOption == FarmImprovedOptions.AutomatedChickenCoop) {
                 // For the advanced chicken coop, spawn 4 chickens above the hopper.
                 for (int i = 0; i < 4; i++) {
                     Chicken entity = new Chicken(EntityType.CHICKEN, world);
@@ -139,7 +139,7 @@ public class StructureBasic extends Structure {
             this.customBlockPos = null;
         }
 
-        if (structureName.equals(EnumBasicStructureName.AdvancedFarm.getName()) && chosenOption == AdvancedFarmOptions.MonsterMasher) {
+        if (structureName.equals(EnumBasicStructureName.AdvancedFarm.getName()) && chosenOption == FarmAdvancedOptions.MonsterMasher) {
             int monstersPlaced = 0;
 
             // Set the spawner.

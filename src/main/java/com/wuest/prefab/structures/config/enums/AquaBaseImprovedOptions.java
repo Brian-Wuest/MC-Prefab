@@ -1,16 +1,14 @@
 package com.wuest.prefab.structures.config.enums;
 
-import net.minecraft.core.Direction;
-
-public class AdvancedAquaBaseOptions extends BaseOption {
-    public static AdvancedAquaBaseOptions Default = new AdvancedAquaBaseOptions(
-            "item.prefab.advanced_aqua_base",
-            "assets/prefab/structures/advanced_aqua_base.zip",
-            "textures/gui/advanced_aqua_base_topdown.png",
+public class AquaBaseImprovedOptions extends BaseOption {
+    public static AquaBaseImprovedOptions Default = new AquaBaseImprovedOptions(
+            "item.prefab.aqua_base_improved",
+            "assets/prefab/structures/aqua_base_improved.zip",
+            "textures/gui/aqua_base_improved.png",
             false,
             false);
 
-    protected AdvancedAquaBaseOptions(String translationString,
+    protected AquaBaseImprovedOptions(String translationString,
                                       String assetLocation,
                                       String pictureLocation,
                                       boolean hasBedColor,

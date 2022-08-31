@@ -7,7 +7,7 @@ import com.wuest.prefab.proxy.messages.PlayerEntityTagMessage;
 import com.wuest.prefab.structures.base.BuildBlock;
 import com.wuest.prefab.structures.base.BuildingMethods;
 import com.wuest.prefab.structures.base.Structure;
-import com.wuest.prefab.structures.config.AdvancedHouseConfiguration;
+import com.wuest.prefab.structures.config.HouseAdvancedConfiguration;
 import com.wuest.prefab.structures.config.StructureConfiguration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -32,7 +32,7 @@ public class StructureAdvancedHouse extends Structure {
     protected Boolean CustomBlockProcessingHandled(StructureConfiguration configuration, BuildBlock block, Level world, BlockPos originalPos,
                                                    Block foundBlock, BlockState blockState, Player player) {
 
-        AdvancedHouseConfiguration houseConfiguration = (AdvancedHouseConfiguration) configuration;
+        HouseAdvancedConfiguration houseConfiguration = (HouseAdvancedConfiguration) configuration;
 
         if (foundBlock instanceof FurnaceBlock) {
             if (this.furnacePosition == null) {
@@ -89,7 +89,7 @@ public class StructureAdvancedHouse extends Structure {
      */
     @Override
     public void AfterBuilding(StructureConfiguration configuration, ServerLevel world, BlockPos originalPos, Player player) {
-        AdvancedHouseConfiguration houseConfig = (AdvancedHouseConfiguration) configuration;
+        HouseAdvancedConfiguration houseConfig = (HouseAdvancedConfiguration) configuration;
         EntityPlayerConfiguration playerConfig = EntityPlayerConfiguration.loadFromEntityData(player);
 
         BuildingMethods.FillFurnaces(world, this.furnacePosition);

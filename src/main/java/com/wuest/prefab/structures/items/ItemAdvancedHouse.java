@@ -1,7 +1,7 @@
 package com.wuest.prefab.structures.items;
 
 import com.wuest.prefab.ModRegistry;
-import com.wuest.prefab.structures.gui.GuiAdvancedHouse;
+import com.wuest.prefab.structures.gui.GuiHouseAdvanced;
 import net.minecraft.world.item.context.UseOnContext;
 
 /**
@@ -24,6 +24,6 @@ public class ItemAdvancedHouse extends StructureItem {
      */
     @Override
     protected void Initialize() {
-        ModRegistry.guiRegistrations.add(x -> this.RegisterGui(GuiAdvancedHouse.class));
+        ModRegistry.guiRegistrations.add(x -> this.RegisterGui(GuiHouseAdvanced.class));
     }
 }

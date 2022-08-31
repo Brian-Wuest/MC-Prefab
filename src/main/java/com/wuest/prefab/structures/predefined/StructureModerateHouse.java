@@ -2,16 +2,13 @@ package com.wuest.prefab.structures.predefined;
 
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Tuple;
-import com.wuest.prefab.blocks.FullDyeColor;
 import com.wuest.prefab.config.EntityPlayerConfiguration;
 import com.wuest.prefab.proxy.messages.PlayerEntityTagMessage;
 import com.wuest.prefab.structures.base.BuildBlock;
 import com.wuest.prefab.structures.base.BuildingMethods;
 import com.wuest.prefab.structures.base.Structure;
-import com.wuest.prefab.structures.config.HouseConfiguration;
-import com.wuest.prefab.structures.config.ModerateHouseConfiguration;
+import com.wuest.prefab.structures.config.HouseImprovedConfiguration;
 import com.wuest.prefab.structures.config.StructureConfiguration;
-import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -35,7 +32,7 @@ public class StructureModerateHouse extends Structure {
     protected Boolean CustomBlockProcessingHandled(StructureConfiguration configuration, BuildBlock block, Level world, BlockPos originalPos,
                                                    Block foundBlock, BlockState blockState, Player player) {
 
-        ModerateHouseConfiguration houseConfiguration = (ModerateHouseConfiguration) configuration;
+        HouseImprovedConfiguration houseConfiguration = (HouseImprovedConfiguration) configuration;
 
         if (foundBlock instanceof FurnaceBlock) {
             if (this.furnacePosition == null) {
@@ -95,7 +92,7 @@ public class StructureModerateHouse extends Structure {
      */
     @Override
     public void AfterBuilding(StructureConfiguration configuration, ServerLevel world, BlockPos originalPos, Player player) {
-        ModerateHouseConfiguration houseConfig = (ModerateHouseConfiguration) configuration;
+        HouseImprovedConfiguration houseConfig = (HouseImprovedConfiguration) configuration;
         EntityPlayerConfiguration playerConfig = EntityPlayerConfiguration.loadFromEntityData(player);
 
         BuildingMethods.FillFurnaces(world, this.furnacePosition);

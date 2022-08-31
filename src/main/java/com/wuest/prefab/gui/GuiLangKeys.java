@@ -19,122 +19,77 @@ import java.lang.reflect.Field;
  * @author WuestMan
  */
 public class GuiLangKeys {
-    @Unlocalized(name = "Note: If you're facing north, choose south so the pier is going away from you. The white border is just to show the size.")
-    public static final String FISH_POND_STRUCTURE_FACING = "prefab.gui.fishpond.structure.facing";
-
-    @Unlocalized(name = "This structure is 32x32 blocks in size.")
-    public static final String PRODUCE_FARM_SIZE = "prefab.gui.producefarm.structure.size";
-
-    @Unlocalized(name = "This structure is 38x38 blocks in size.")
-    public static final String TREE_FARM_SIZE = "prefab.gui.treefarm.structure.size";
-
-    @Unlocalized(name = "General")
-    public static final String STARTER_TAB_GENERAL = "prefab.gui.starter.tab.general";
-
-    @Unlocalized(name = "Config")
-    public static final String STARTER_TAB_CONFIG = "prefab.gui.starter.tab.config";
-
-    @Unlocalized(name = "Blocks/Size")
-    public static final String STARTER_TAB_BLOCK = "prefab.gui.starter.tab.block";
-
     @Unlocalized(name = "House Style")
-    public static final String STARTER_HOUSE_STYLE = "prefab.gui.starter.style.label";
-
-    @Unlocalized(name = "Floor Block Type")
-    public static final String STARTER_HOUSE_FLOOR_LABEL = "prefab.gui.starter.floortype.label";
-
-    @Unlocalized(name = "Ceiling Block Type")
-    public static final String STARTER_HOUSE_CEILING_LABEL = "prefab.gui.starter.ceilingtype.label";
-
-    @Unlocalized(name = "Wall Wood Type")
-    public static final String STARTER_HOUSE_WALL_LABEL = "prefab.gui.starter.walltype.label";
-
-    @Unlocalized(name = "Interior Depth")
-    public static final String STARTER_HOUSE_DEPTH_LABEL = "prefab.gui.starter.depth.label";
-
-    @Unlocalized(name = "Interior Width")
-    public static final String STARTER_HOUSE_WIDTH_LABEL = "prefab.gui.starter.width.label";
+    public static final String HOUSE_STYLE = "prefab.gui.starter.style.label";
 
     @Unlocalized(name = "Basic House")
-    public static final String STARTER_HOUSE_BASIC_DISPLAY = "prefab.gui.starter.basic.display";
+    public static final String HOUSE_BASIC_DISPLAY = "prefab.gui.starter.basic.display";
 
     @Unlocalized(name = "Ranch Style")
-    public static final String STARTER_HOUSE_RANCH_DISPLAY = "prefab.gui.starter.ranch.display";
+    public static final String HOUSE_RANCH_DISPLAY = "prefab.gui.house.ranch.display";
 
     @Unlocalized(name = "Loft Style")
-    public static final String STARTER_HOUSE_LOFT_DISPLAY = "prefab.gui.starter.loft.display";
+    public static final String HOUSE_LOFT_DISPLAY = "prefab.gui.house.loft.display";
 
     @Unlocalized(name = "Hobbit Style")
-    public static final String STARTER_HOUSE_HOBBIT_DISPLAY = "prefab.gui.starter.hobbit.display";
+    public static final String HOUSE_HOBBIT_DISPLAY = "prefab.gui.house.hobbit.display";
 
     @Unlocalized(name = "Desert Style")
-    public static final String STARTER_HOUSE_DESERT_DISPLAY = "prefab.gui.starter.desert.display";
+    public static final String HOUSE_DESERT_DISPLAY = "prefab.gui.house.desert.display";
 
     @Unlocalized(name = "Desert Style 2")
-    public static final String STARTER_HOUSE_DESERT_DISPLAY2 = "prefab.gui.starter.desert.display2";
+    public static final String HOUSE_DESERT_DISPLAY2 = "prefab.gui.house.desert.display2";
 
     @Unlocalized(name = "Snowy Style")
-    public static final String STARTER_HOUSE_SNOWY_DISPLAY = "prefab.gui.starter.snowy.display";
+    public static final String HOUSE_SNOWY_DISPLAY = "prefab.gui.house.snowy.display";
 
     @Unlocalized(name = "Subaquatic Style")
-    public static final String STARTER_HOUSE_SUBAQUATIC_DISPLAY = "prefab.gui.starter.subaquatic.display";
-
-    @Unlocalized(name = "Modern Style")
-    public static final String STARTER_HOUSE_MODERN_DISPLAY = "prefab.gui.starter.modern.display";
+    public static final String HOUSE_SUBAQUATIC_DISPLAY = "prefab.gui.house.subaquatic.display";
 
     @Unlocalized(name = "Camping Style")
-    public static final String STARTER_HOUSE_CAMPING_DISPLAY = "prefab.gui.starter.camping.display";
+    public static final String HOUSE_CAMPING_DISPLAY = "prefab.gui.house.camping.display";
 
     @Unlocalized(name = "Izba Style")
-    public static final String STARTER_HOUSE_IZBA_DISPLAY = "prefab.gui.starter.izba.display";
+    public static final String HOUSE_IZBA_DISPLAY = "prefab.gui.house.izba.display";
 
     @Unlocalized(name = "Tower Style")
-    public static final String STARTER_HOUSE_TOWER_DISPLAY = "prefab.gui.starter.tower.display";
+    public static final String HOUSE_TOWER_DISPLAY = "prefab.gui.house.tower.display";
 
     @Unlocalized(name = "Cabin Style")
-    public static final String STARTER_HOUSE_CABIN_DISPLAY = "prefab.gui.starter.cabin.display";
+    public static final String HOUSE_CABIN_DISPLAY = "prefab.gui.house.cabin.display";
 
     @Unlocalized(name = "Treehouse Style")
-    public static final String STARTER_HOUSE_TREE_HOUSE_DISPLAY = "prefab.gui.starter.tree.display";
+    public static final String HOUSE_TREE_HOUSE_DISPLAY = "prefab.gui.house.tree.display";
 
     @Unlocalized(name = "Mushroom Style")
-    public static final String STARTER_HOUSE_MUSHROOM_HOUSE_DISPLAY = "prefab.gui.starter.mushroom.display";
+    public static final String HOUSE_MUSHROOM_HOUSE_DISPLAY = "prefab.gui.house.mushroom.display";
+
+    @Unlocalized(name = "Modern Style")
+    public static final String HOUSE_MODERN_DISPLAY = "prefab.gui.house.modern.display";
+
+    @Unlocalized(name = "A house designed for modern life.")
+    public static final String HOUSE_MODERN_NOTES = "prefab.gui.house.modern.notes";
 
     @Unlocalized(name = "Add Torches")
-    public static final String STARTER_HOUSE_ADD_TORCHES = "prefab.gui.starter.addtorches";
+    public static final String HOUSE_ADD_TORCHES = "prefab.gui.house.addtorches";
 
     @Unlocalized(name = "Add Bed")
-    public static final String STARTER_HOUSE_ADD_BED = "prefab.gui.starter.addbed";
+    public static final String HOUSE_ADD_BED = "prefab.gui.house.addbed";
 
     @Unlocalized(name = "Add Crafting Table")
-    public static final String STARTER_HOUSE_ADD_CRAFTING_TABLE = "prefab.gui.starter.addcraftingtable";
+    public static final String HOUSE_ADD_CRAFTING_TABLE = "prefab.gui.house.addcraftingtable";
 
     @Unlocalized(name = "Add Furnace")
-    public static final String STARTER_HOUSE_ADD_FURNACE = "prefab.gui.starter.addfurnace";
+    public static final String HOUSE_ADD_FURNACE = "prefab.gui.house.addfurnace";
 
     @Unlocalized(name = "Add Chest")
-    public static final String STARTER_HOUSE_ADD_CHEST = "prefab.gui.starter.addchest";
+    public static final String HOUSE_ADD_CHEST = "prefab.gui.house.addchest";
 
     @Unlocalized(name = "Add Chest Contents")
-    public static final String STARTER_HOUSE_ADD_CHEST_CONTENTS = "prefab.gui.starter.addchestcontents";
-
-    @Unlocalized(name = "Add Farm")
-    public static final String STARTER_HOUSE_ADD_FARM = "prefab.gui.starter.addfarm";
-
-    @Unlocalized(name = "Floor Stone Type")
-    public static final String STARTER_HOUSE_FLOOR_STONE = "prefab.gui.starter.floorstone";
-
-    @Unlocalized(name = "Ceiling Stone Type")
-    public static final String STARTER_HOUSE_CEILING_TYPE = "prefab.gui.starter.ceilingtype";
-
-    @Unlocalized(name = "Wall Wood Type")
-    public static final String STARTER_HOUSE_WALL_TYPE = "prefab.gui.starter.walltype";
-
-    @Unlocalized(name = "Is Ceiling Flat")
-    public static final String STARTER_HOUSE_CEILING_FLAT = "prefab.gui.starter.ceilingflat";
+    public static final String HOUSE_ADD_CHEST_CONTENTS = "prefab.gui.house.addchestcontents";
 
     @Unlocalized(name = "Build Mineshaft")
-    public static final String STARTER_HOUSE_BUILD_MINESHAFT = "prefab.gui.starter.buildmineshaft";
+    public static final String HOUSE_BUILD_MINESHAFT = "prefab.gui.house.buildmineshaft";
 
     @Unlocalized(name = "Stonebrick")
     public static final String CEILING_BLOCK_TYPE_STONE = "prefab.ceiling.block.type.stone";
@@ -174,12 +129,6 @@ public class GuiLangKeys {
 
     @Unlocalized(name = "The red box in the image on the right shows the block you clicked on.")
     public static final String GUI_BLOCK_CLICKED = "prefab.gui.structure.block.clicked";
-
-    @Unlocalized(name = "Note: If you're facing north, choose south so the doors are facing you.")
-    public static final String GUI_DOOR_FACING = "prefab.gui.structure.door.facing";
-
-    @Unlocalized(name = "Note: If you're facing north, choose south so the structure is facing you.")
-    public static final String GUI_STRUCTURE_FACING_PLAYER = "prefab.gui.structure.facing.player";
 
     @Unlocalized(name = "Cannot build structure due to protected blocks/area or unbreakable blocks are in the area. Block Name: %1$s Block Position: x=%2$s, y=%3$s, z=%4$s")
     public static final String GUI_STRUCTURE_NOBUILD = "prefab.gui.structure.nobuild";
@@ -281,46 +230,46 @@ public class GuiLangKeys {
     public static final String VILLAGER_HOUSE_LONGHOUSE = "prefab.gui.villager.long_house";
 
     @Unlocalized(name = "Spruce House")
-    public static final String MODERATE_HOUSE_SPRUCE = "prefab.gui.moderate_house.spruce";
+    public static final String IMPROVED_HOUSE_SPRUCE = "prefab.gui.house.improved.spruce";
 
     @Unlocalized(name = "Acacia House")
-    public static final String MODERATE_HOUSE_ACACIA = "prefab.gui.moderate_house.acacia";
+    public static final String IMPROVED_HOUSE_ACACIA = "prefab.gui.house.improved.acacia";
 
     @Unlocalized(name = "Acacia House 2")
-    public static final String MODERATE_HOUSE_ACACIA_2 = "prefab.gui.moderate_house.acacia_2";
+    public static final String IMPROVED_HOUSE_ACACIA_2 = "prefab.gui.house.improved.acacia_2";
 
     @Unlocalized(name = "Modern House")
-    public static final String MODERATE_HOUSE_MODERN = "prefab.gui.item_modern_house";
+    public static final String IMPROVED_HOUSE_MODERN = "prefab.gui.item_modern_house";
 
     @Unlocalized(name = "Crimson House")
-    public static final String MODERATE_HOUSE_CRIMSON = "prefab.gui.moderate_house.crimson_house";
+    public static final String IMPROVED_HOUSE_CRIMSON = "prefab.gui.house.improved.crimson_house";
 
     @Unlocalized(name = "Tower House")
-    public static final String MODERATE_HOUSE_TOWER = "prefab.gui.moderate_house.tower_house";
+    public static final String IMPROVED_HOUSE_TOWER = "prefab.gui.house.improved.tower_house";
 
     @Unlocalized(name = "Hobbit House")
-    public static final String MODERATE_HOUSE_HOBBIT = "prefab.gui.moderate_house.hobbit_house";
+    public static final String IMPROVED_HOUSE_HOBBIT = "prefab.gui.house.improved.hobbit_house";
 
     @Unlocalized(name = "Cottage House")
-    public static final String MODERATE_HOUSE_COTTAGE = "prefab.gui.moderate_house.cottage_house";
+    public static final String IMPROVED_HOUSE_COTTAGE = "prefab.gui.house.improved.cottage_house";
 
     @Unlocalized(name = "Earthen Home")
-    public static final String MODERATE_EARTHEN_HOME = "prefab.gui.moderate_house.earthen";
+    public static final String IMPROVED_EARTHEN_HOME = "prefab.gui.house.improved.earthen";
 
     @Unlocalized(name = "Jungle Home")
-    public static final String MODERATE_JUNGLE_HOME = "prefab.gui.moderate_house.jungle";
-
-    @Unlocalized(name = "Workshop")
-    public static final String MODERATE_WORKSHOP_HOME = "prefab.gui.moderate_house.workshop";
+    public static final String IMPROVED_JUNGLE_HOME = "prefab.gui.house.improved.jungle";
 
     @Unlocalized(name = "Nether House")
-    public static final String MODERATE_NETHER_HOME = "prefab.gui.moderate_house.nether";
+    public static final String IMPROVED_NETHER_HOME = "prefab.gui.house.improved.nether";
 
     @Unlocalized(name = "Mountain House")
-    public static final String MODERATE_MOUNTAIN_HOME = "prefab.gui.moderate_house.mountain";
+    public static final String IMPROVED_MOUNTAIN_HOME = "prefab.gui.house.improved.mountain";
 
     @Unlocalized(name = "Cabin House")
-    public static final String ADVANCED_HOUSE_CABIN = "prefab.gui.advanced_house.cabin";
+    public static final String ADVANCED_HOUSE_MANOR= "prefab.gui.house.advanced.manor";
+
+    @Unlocalized(name = "Workshop")
+    public static final String ADVANCED_HOUSE_WORKSHOP = "prefab.gui.house.advanced.workshop";
 
     @Unlocalized(name = "Press§9 Shift §7for more information.")
     public static final String SHIFT_TOOLTIP = "prefab.gui.tooltip.shift";
@@ -408,6 +357,7 @@ public class GuiLangKeys {
 
     @Unlocalized(name = "Starter House")
     public static final String TITLE_STARTER_HOUSE = "item.prefab.item_start_house";
+
     @Unlocalized(name = "Moderate House")
     public static final String TITLE_MODERATE_HOUSE = "item.prefab.item_moderate_house";
 
@@ -416,6 +366,7 @@ public class GuiLangKeys {
 
     @Unlocalized(name = "Bulldozer")
     public static final String TITLE_BULLDOZER = "item.prefab.item_bulldozer";
+
     @Unlocalized(name = "Instant Bridge")
     public static final String TITLE_INSTANT_BRIDGE = "item.prefab.item_instant_bridge";
 

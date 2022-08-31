@@ -1,9 +1,7 @@
     package com.wuest.prefab.structures.items;
 
 import com.wuest.prefab.ModRegistry;
-import com.wuest.prefab.structures.config.ModerateHouseConfiguration;
-import com.wuest.prefab.structures.gui.GuiModerateHouse;
-import com.wuest.prefab.structures.predefined.StructureModerateHouse;
+import com.wuest.prefab.structures.gui.GuiHouseImproved;
 import net.minecraft.world.item.context.UseOnContext;
 
 /**
@@ -23,7 +21,7 @@ public class ItemModerateHouse extends StructureItem {
      */
     @Override
     protected void Initialize() {
-        ModRegistry.guiRegistrations.add(x -> this.RegisterGui(GuiModerateHouse.class));
+        ModRegistry.guiRegistrations.add(x -> this.RegisterGui(GuiHouseImproved.class));
     }
 
     @Override

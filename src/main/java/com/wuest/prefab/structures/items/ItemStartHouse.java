@@ -2,8 +2,7 @@ package com.wuest.prefab.structures.items;
 
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
-import com.wuest.prefab.structures.gui.GuiStartHouseChooser;
-import com.wuest.prefab.structures.predefined.StructureAlternateStart;
+import com.wuest.prefab.structures.gui.GuiHouse;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.context.UseOnContext;
@@ -22,7 +21,7 @@ public class ItemStartHouse extends StructureItem {
      */
     @Override
     protected void Initialize() {
-        ModRegistry.guiRegistrations.add(x -> this.RegisterGui(GuiStartHouseChooser.class));
+        ModRegistry.guiRegistrations.add(x -> this.RegisterGui(GuiHouse.class));
     }
 
     /**

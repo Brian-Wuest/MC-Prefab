@@ -23,20 +23,20 @@ import net.minecraftforge.network.NetworkDirection;
  * @author WuestMan
  */
 public class HouseConfiguration extends StructureConfiguration {
-    private static String addTorchesTag = "addTorches";
-    private static String addBedTag = "addBed";
-    private static String addCraftingTableTag = "addCraftingTable";
-    private static String addFurnaceTag = "addFurnace";
-    private static String addChestTag = "addChest";
-    private static String addChestContentsTag = "addChestContents";
-    private static String addMineShaftTag = "addMineShaft";
-    private static String hitXTag = "hitX";
-    private static String hitYTag = "hitY";
-    private static String hitZTag = "hitZ";
-    private static String houseFacingTag = "houseFacing";
-    private static String houseStyleTag = "houseStyle";
-    private static String glassColorTag = "glassColor";
-    private static String bedColorTag = "bedColor";
+    private static final String addTorchesTag = "addTorches";
+    private static final String addBedTag = "addBed";
+    private static final String addCraftingTableTag = "addCraftingTable";
+    private static final String addFurnaceTag = "addFurnace";
+    private static final String addChestTag = "addChest";
+    private static final String addChestContentsTag = "addChestContents";
+    private static final String addMineShaftTag = "addMineShaft";
+    private static final String hitXTag = "hitX";
+    private static final String hitYTag = "hitY";
+    private static final String hitZTag = "hitZ";
+    private static final String houseFacingTag = "houseFacing";
+    private static final String houseStyleTag = "houseStyle";
+    private static final String glassColorTag = "glassColor";
+    private static final String bedColorTag = "bedColor";
 
     public boolean addTorches;
     public boolean addBed;
@@ -100,7 +100,7 @@ public class HouseConfiguration extends StructureConfiguration {
      * Custom method to read the CompoundTag message.
      *
      * @param tag The message to create the configuration from.
-     * @return An new configuration object with the values derived from the CompoundTag.
+     * @return A new configuration object with the values derived from the CompoundTag.
      */
     @Override
     public HouseConfiguration ReadFromCompoundTag(CompoundTag tag) {
@@ -170,11 +170,9 @@ public class HouseConfiguration extends StructureConfiguration {
      */
     @Override
     protected void ConfigurationSpecificBuildStructure(Player player, ServerLevel world, BlockPos hitBlockPos) {
-        boolean houseBuilt = true;
-
         // Build the alternate starter house instead.
         StructureAlternateStart structure = StructureAlternateStart.CreateInstance(this.houseStyle.getStructureLocation(), StructureAlternateStart.class);
-        houseBuilt = structure.BuildStructure(this, world, hitBlockPos, player);
+        boolean houseBuilt = structure.BuildStructure(this, world, hitBlockPos, player);
 
         // The house was successfully built, remove the item from the inventory.
         if (houseBuilt) {
@@ -199,55 +197,56 @@ public class HouseConfiguration extends StructureConfiguration {
     public enum HouseStyle {
         BASIC(
                 0,
-                GuiLangKeys.STARTER_HOUSE_BASIC_DISPLAY,
-                new ResourceLocation("prefab", "textures/gui/basic_house.png"),
-                "assets/prefab/structures/starter_house_basic.zip"),
-        RANCH(1, GuiLangKeys.STARTER_HOUSE_RANCH_DISPLAY, new ResourceLocation("prefab", "textures/gui/ranch_house.png"),
-                "assets/prefab/structures/starter_house_ranch.zip"),
-        LOFT(2, GuiLangKeys.STARTER_HOUSE_LOFT_DISPLAY, new ResourceLocation("prefab", "textures/gui/loft_house.png"),
-                "assets/prefab/structures/starter_house_loft.zip"),
-        HOBBIT(3, GuiLangKeys.STARTER_HOUSE_HOBBIT_DISPLAY, new ResourceLocation("prefab", "textures/gui/hobbit_house.png"),
-                "assets/prefab/structures/starter_house_hobbit.zip"),
-        DESERT(4, GuiLangKeys.STARTER_HOUSE_DESERT_DISPLAY, new ResourceLocation("prefab", "textures/gui/desert_house.png"),
-                "assets/prefab/structures/starter_house_desert.zip"),
-        SNOWY(5, GuiLangKeys.STARTER_HOUSE_SNOWY_DISPLAY, new ResourceLocation("prefab", "textures/gui/snowy_house.png"),
-                "assets/prefab/structures/starter_house_snow.zip"),
+                GuiLangKeys.HOUSE_BASIC_DISPLAY,
+                new ResourceLocation("prefab", "textures/gui/house_basic.png"),
+                "assets/prefab/structures/house_basic.zip"),
+        RANCH(1, GuiLangKeys.HOUSE_RANCH_DISPLAY, new ResourceLocation("prefab", "textures/gui/house_ranch.png"),
+                "assets/prefab/structures/house_ranch.zip"),
+        LOFT(2, GuiLangKeys.HOUSE_LOFT_DISPLAY, new ResourceLocation("prefab", "textures/gui/house_loft.png"),
+                "assets/prefab/structures/house_loft.zip"),
+        HOBBIT(3, GuiLangKeys.HOUSE_HOBBIT_DISPLAY, new ResourceLocation("prefab", "textures/gui/house_hobbit.png"),
+                "assets/prefab/structures/house_hobbit.zip"),
+        DESERT(4, GuiLangKeys.HOUSE_DESERT_DISPLAY, new ResourceLocation("prefab", "textures/gui/house_desert.png"),
+                "assets/prefab/structures/house_desert.zip"),
+        SNOWY(5, GuiLangKeys.HOUSE_SNOWY_DISPLAY, new ResourceLocation("prefab", "textures/gui/house_snowy.png"),
+                "assets/prefab/structures/house_snow.zip"),
         DESERT2(6,
-                GuiLangKeys.STARTER_HOUSE_DESERT_DISPLAY2,
-                new ResourceLocation("prefab", "textures/gui/desert_house2.png"),
-                "assets/prefab/structures/starter_house_desert_2.zip"),
+                GuiLangKeys.HOUSE_DESERT_DISPLAY2,
+                new ResourceLocation("prefab", "textures/gui/house_desert_2.png"),
+                "assets/prefab/structures/house_desert_2.zip"),
         SUBAQUATIC(7,
-                GuiLangKeys.STARTER_HOUSE_SUBAQUATIC_DISPLAY,
-                new ResourceLocation("prefab", "textures/gui/subaqua_house.png"),
-                "assets/prefab/structures/starter_house_sub_aqua.zip"),
+                GuiLangKeys.HOUSE_SUBAQUATIC_DISPLAY,
+                new ResourceLocation("prefab", "textures/gui/house_subaquatic.png"),
+                "assets/prefab/structures/house_sub_aqua.zip"),
         MODERN(8,
-                GuiLangKeys.STARTER_HOUSE_MODERN_DISPLAY,
-                new ResourceLocation("prefab", "textures/gui/modern_starting_house.png"),
-                "assets/prefab/structures/starter_house_modern.zip"),
+                GuiLangKeys.HOUSE_MODERN_DISPLAY,
+                new ResourceLocation("prefab", "textures/gui/house_modern.png"),
+                "assets/prefab/structures/house_modern.zip"),
         CAMPSITE(9,
-                GuiLangKeys.STARTER_HOUSE_CAMPING_DISPLAY,
-                new ResourceLocation("prefab", "textures/gui/campsite_house.png"),
-                "assets/prefab/structures/starter_house_campsite.zip"),
+                GuiLangKeys.HOUSE_CAMPING_DISPLAY,
+                new ResourceLocation("prefab", "textures/gui/house_campsite.png"),
+                "assets/prefab/structures/house_campsite.zip"),
         IZBA(10,
-                GuiLangKeys.STARTER_HOUSE_IZBA_DISPLAY,
-                new ResourceLocation("prefab", "textures/gui/izba_house.png"),
-                "assets/prefab/structures/starter_house_izba.zip"),
+                GuiLangKeys.HOUSE_IZBA_DISPLAY,
+                new ResourceLocation("prefab", "textures/gui/house_izba.png"),
+                "assets/prefab/structures/house_izba.zip"),
         TOWER(11,
-                GuiLangKeys.STARTER_HOUSE_TOWER_DISPLAY,
-                new ResourceLocation("prefab", "textures/gui/starter_house_tower.png"),
-                "assets/prefab/structures/starter_house_tower.zip"),
+                GuiLangKeys.HOUSE_TOWER_DISPLAY,
+                new ResourceLocation("prefab", "textures/gui/house_tower.png"),
+                "assets/prefab/structures/house_tower.zip"),
         CABIN(12,
-                GuiLangKeys.STARTER_HOUSE_CABIN_DISPLAY,
-                new ResourceLocation("prefab", "textures/gui/starter_house_cabin.png"),
-                "assets/prefab/structures/starter_house_cabin.zip"),
+                GuiLangKeys.HOUSE_CABIN_DISPLAY,
+                new ResourceLocation("prefab", "textures/gui/house_cabin.png"),
+                "assets/prefab/structures/house_cabin.zip"),
         TREE(13,
-                GuiLangKeys.STARTER_HOUSE_TREE_HOUSE_DISPLAY,
-                new ResourceLocation("prefab", "textures/gui/starter_house_tree.png"),
-                "assets/prefab/structures/starter_house_tree.zip"),
+                GuiLangKeys.HOUSE_TREE_HOUSE_DISPLAY,
+                new ResourceLocation("prefab", "textures/gui/house_tree.png"),
+                "assets/prefab/structures/house_tree.zip"),
         MUSHROOM(14,
-                GuiLangKeys.STARTER_HOUSE_MUSHROOM_HOUSE_DISPLAY,
-                new ResourceLocation("prefab", "textures/gui/starter_house_mushroom.png"),
-                "assets/prefab/structures/starter_house_mushroom.zip");
+                GuiLangKeys.HOUSE_MUSHROOM_HOUSE_DISPLAY,
+                new ResourceLocation("prefab", "textures/gui/house_mushroom.png"),
+                "assets/prefab/structures/house_mushroom.zip");
+
 
         private final int value;
         private final String displayName;

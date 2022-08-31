@@ -1,15 +1,15 @@
 package com.wuest.prefab.structures.config.enums;
 
-public class AdvancedModernBuildingsOptions extends BaseOption {
+public class ModernBuildingsAdvancedOptions extends BaseOption{
 
-    public static AdvancedModernBuildingsOptions TreeHouse = new AdvancedModernBuildingsOptions(
-            "prefab.gui.item_modern_tree_house",
+    public static ModernBuildingsAdvancedOptions TreeHouse = new ModernBuildingsAdvancedOptions(
+            "prefab.gui.modern.tree_house",
             "assets/prefab/structures/modern_tree_house.zip",
-            "textures/gui/modern_tree_house_topdown.png",
+            "textures/gui/modern_tree_house.png",
             true,
             true);
 
-    protected AdvancedModernBuildingsOptions(String translationString,
+    protected ModernBuildingsAdvancedOptions(String translationString,
                                              String assetLocation,
                                              String pictureLocation,
                                              boolean hasBedColor,
