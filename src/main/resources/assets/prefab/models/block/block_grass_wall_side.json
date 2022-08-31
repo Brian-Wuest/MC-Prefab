@@ -27,5 +27,6 @@
             },
             "__comment": "wall overlay"
         }
-    ]
+    ],
+    "render_type": "cutout"
 }

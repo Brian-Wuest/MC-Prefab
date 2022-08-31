@@ -4,5 +4,6 @@
     "bottom": "block/glass",
     "top": "block/glass",
     "side": "block/glass"
-  }
+  },
+  "render_type": "cutout"
 }

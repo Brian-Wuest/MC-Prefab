@@ -898,5 +898,6 @@
         }
       }
     }
-  ]
+  ],
+  "render_type": "cutout"
 }

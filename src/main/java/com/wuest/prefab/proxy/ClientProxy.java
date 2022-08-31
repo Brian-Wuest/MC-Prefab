@@ -181,28 +181,5 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void clientSetup(FMLClientSetupEvent clientSetupEvent) {
-        ItemBlockRenderTypes.setRenderLayer(ModRegistry.BlockBoundary.get(), BlockBoundary::canRenderInLayer);
-
-        // This render type (func_228643_e_) is the "cutout" render type.
-        ItemBlockRenderTypes.setRenderLayer(ModRegistry.GlassSlab.get(), RenderType.cutout());
-
-        ItemBlockRenderTypes.setRenderLayer(ModRegistry.GlassStairs.get(), RenderType.cutout());
-
-        ItemBlockRenderTypes.setRenderLayer(ModRegistry.PaperLantern.get(), RenderType.cutout());
-
-        // This is the "translucent" type.
-        ItemBlockRenderTypes.setRenderLayer(ModRegistry.BlockPhasing.get(), RenderType.translucent());
-
-        ItemBlockRenderTypes.setRenderLayer(ModRegistry.DirtWall.get(), RenderType.cutoutMipped());
-
-        ItemBlockRenderTypes.setRenderLayer(ModRegistry.GrassWall.get(), RenderType.cutoutMipped());
-
-        ItemBlockRenderTypes.setRenderLayer(ModRegistry.GrassStairs.get(), RenderType.cutoutMipped());
-
-        ItemBlockRenderTypes.setRenderLayer(ModRegistry.DirtStairs.get(), RenderType.cutoutMipped());
-
-        ItemBlockRenderTypes.setRenderLayer(ModRegistry.DirtSlab.get(), RenderType.cutoutMipped());
-
-        ItemBlockRenderTypes.setRenderLayer(ModRegistry.GrassSlab.get(), RenderType.cutoutMipped());
     }
 }

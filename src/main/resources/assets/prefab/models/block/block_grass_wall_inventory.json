@@ -65,5 +65,6 @@
             },
             "__comment": "Full wall Grass Side Overlay"
         }
-    ]
+    ],
+    "render_type": "cutout"
 }

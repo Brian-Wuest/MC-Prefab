@@ -2,5 +2,6 @@
   "parent": "minecraft:block/cube_all",
   "textures": {
     "all": "prefab:blocks/block_phasic_sixty_percent"
-  }
+  },
+  "render_type": "translucent"
 }

@@ -29,5 +29,6 @@
             },
             "__comment": "Center post Grass Overlay"
         }
-    ]
+    ],
+    "render_type": "cutout"
 }
