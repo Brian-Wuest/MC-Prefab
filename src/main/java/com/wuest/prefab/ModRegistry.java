@@ -269,31 +269,31 @@ public class ModRegistry {
         Prefab.network.messageBuilder(ConfigSyncMessage.class, index.getAndIncrement())
                 .encoder(ConfigSyncMessage::encode)
                 .decoder(ConfigSyncMessage::decode)
-                .consumer(ConfigSyncHandler::handle)
+                .consumerNetworkThread(ConfigSyncHandler::handle)
                 .add();
 
         Prefab.network.messageBuilder(PlayerEntityTagMessage.class, index.getAndIncrement())
                 .encoder(PlayerEntityTagMessage::encode)
                 .decoder(PlayerEntityTagMessage::decode)
-                .consumer(PlayerEntityHandler::handle)
+                .consumerNetworkThread(PlayerEntityHandler::handle)
                 .add();
 
         Prefab.network.messageBuilder(StructureTagMessage.class, index.getAndIncrement())
                 .encoder(StructureTagMessage::encode)
                 .decoder(StructureTagMessage::decode)
-                .consumer(StructureHandler::handle)
+                .consumerNetworkThread(StructureHandler::handle)
                 .add();
 
         Prefab.network.messageBuilder(StructureScannerActionMessage.class, index.getAndIncrement())
                 .encoder(StructureScannerActionMessage::encode)
                 .decoder(StructureScannerActionMessage::decode)
-                .consumer(StructureScannerActionHandler::handle)
+                .consumerNetworkThread(StructureScannerActionHandler::handle)
                 .add();
 
         Prefab.network.messageBuilder(StructureScannerSyncMessage.class, index.getAndIncrement())
                 .encoder(StructureScannerSyncMessage::encode)
                 .decoder(StructureScannerSyncMessage::decode)
-                .consumer(StructureScannerSyncHandler::handle)
+                .consumerNetworkThread(StructureScannerSyncHandler::handle)
                 .add();
     }
 
