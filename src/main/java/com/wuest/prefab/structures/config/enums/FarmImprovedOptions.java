@@ -42,7 +42,7 @@ public class FarmImprovedOptions extends BaseOption{
             true);
 
     public static FarmImprovedOptions MushroomFarm = new FarmImprovedOptions(
-            "prefab.gui.farm.improved.mushroom",
+            "prefab.gui.farm.mushroom",
             "assets/prefab/structures/mushroom_farm.zip",
             "textures/gui/mushroom_farm.png",
             false,

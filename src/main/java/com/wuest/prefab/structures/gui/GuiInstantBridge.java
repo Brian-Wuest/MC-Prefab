@@ -19,7 +19,7 @@ import net.minecraft.resources.ResourceLocation;
 
 @SuppressWarnings("SpellCheckingInspection")
 public class GuiInstantBridge extends GuiStructure {
-    private static final ResourceLocation structureTopDown = new ResourceLocation("prefab", "textures/gui/instant_bridge_top_down.png");
+    private static final ResourceLocation structureTopDown = new ResourceLocation("prefab", "textures/gui/instant_bridge.png");
     protected InstantBridgeConfiguration specificConfiguration;
     private ExtendedButton btnMaterialType;
     private GuiSlider sldrBridgeLength;
