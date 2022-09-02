@@ -199,7 +199,7 @@ public class BasicStructureConfiguration extends StructureConfiguration {
         ModernBuildings("modern_buildings", "item.prefab.item_modern_buildings", "item_modern_buildings", ModernBuildingsOptions.HipsterFruitStand, true),
         Farm("farm", "item.prefab.item_farm", "item_farm", FarmOptions.ElevatedFarm, true),
         FarmImproved("farm_improved", "item.prefab.item_farm_improved", "item_farm_improved", FarmImprovedOptions.AutomatedFarm, true),
-        FarmAdvanced("farm_advanced", "item.prefab.item_farm_advanced", "item_farm_advanced", FarmAdvancedOptions.AutomatedBeeFarm, true),
+        FarmAdvanced("farm_advanced", "item.prefab.item_farm_advanced", "item_farm_advanced", FarmAdvancedOptions.AutomatedBambooFarm, true),
         ModernBuildingsImproved("modern_buildings_improved", "item.prefab.item_modern_buildings_improved", "item_modern_buildings_improved", ModernBuildingsImprovedOptions.ConstructionSite, true),
         ModernBuildingsAdvanced("modern_buildings_advanced", "item.prefab.item_modern_buildings_advanced", "item_modern_buildings_advanced", ModernBuildingsAdvancedOptions.TreeHouse, true);
 

@@ -9,13 +9,6 @@ public class FarmAdvancedOptions extends BaseOption {
             false,
             true);
 
-    public static FarmAdvancedOptions AutomatedBeeFarm = new FarmAdvancedOptions(
-            "prefab.gui.farm.advanced.bee",
-            "assets/prefab/structures/automated_bee_farm.zip",
-            "textures/gui/automated_bee_farm.png",
-            false,
-            true);
-
     public static FarmAdvancedOptions AutomatedMelonFarm = new FarmAdvancedOptions(
             "prefab.gui.farm.advanced.melon",
             "assets/prefab/structures/automated_melon_farm.zip",
