@@ -40,7 +40,6 @@ public class StructureInstantBridge extends Structure {
      * @param configuration The configuration the user updated.
      * @param world         The current world.
      * @param originalPos   The block the user clicked on.
-     * @param assumedNorth  This should always be "NORTH" when the file is based on a scan.
      * @param player        The player requesting the structure.
      * @return True if the build can occur, otherwise false.
      */
@@ -57,6 +56,7 @@ public class StructureInstantBridge extends Structure {
     public void setupStructure(InstantBridgeConfiguration configuration, BlockPos originalPos) {
         ArrayList<BuildBlock> buildingBlocks = new ArrayList<BuildBlock>();
         BlockState materialState = configuration.bridgeMaterial.getBlockType();
+        BlockState wallBlockState = configuration.bridgeMaterial.getWallBlock();
         Direction facing = Direction.SOUTH;
 
         BlockState torchState = Blocks.TORCH.defaultBlockState();
@@ -75,8 +75,8 @@ public class StructureInstantBridge extends Structure {
             buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), currentPos.relative(facing.getClockWise(), 2), originalPos));
 
             // Build the walls.
-            buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), currentPos.relative(facing.getCounterClockWise(), 2).above(), originalPos));
-            buildingBlocks.add(Structure.createBuildBlockFromBlockState(materialState, materialState.getBlock(), currentPos.relative(facing.getClockWise(), 2).above(), originalPos));
+            buildingBlocks.add(Structure.createBuildBlockFromBlockState(wallBlockState, wallBlockState.getBlock(), currentPos.relative(facing.getCounterClockWise(), 2).above(), originalPos));
+            buildingBlocks.add(Structure.createBuildBlockFromBlockState(wallBlockState, wallBlockState.getBlock(), currentPos.relative(facing.getClockWise(), 2).above(), originalPos));
 
             if (configuration.includeRoof) {
                 // Build the roof.
