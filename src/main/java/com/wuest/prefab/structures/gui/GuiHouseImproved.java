@@ -11,7 +11,7 @@ import com.wuest.prefab.gui.controls.ExtendedButton;
 import com.wuest.prefab.gui.controls.GuiCheckBox;
 import com.wuest.prefab.structures.config.HouseImprovedConfiguration;
 import com.wuest.prefab.structures.messages.StructureTagMessage.EnumStructureConfiguration;
-import com.wuest.prefab.structures.predefined.StructureModerateHouse;
+import com.wuest.prefab.structures.predefined.StructureHouseImproved;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.network.chat.Component;
@@ -66,7 +66,7 @@ public class GuiHouseImproved extends GuiStructure {
         boolean selectedStyleInListOfAvailable = false;
 
         for (HouseImprovedConfiguration.HouseStyle style : HouseImprovedConfiguration.HouseStyle.values()) {
-            if (houseConfigurationSettings.get(style.getDisplayName())) {
+            if (houseConfigurationSettings.get(style.getTranslationKey())) {
                 this.availableHouseStyles.add(style);
 
                 if (this.specificConfiguration.houseStyle.getDisplayName().equals(style.getDisplayName())) {
@@ -85,7 +85,7 @@ public class GuiHouseImproved extends GuiStructure {
             this.specificConfiguration.houseStyle = this.availableHouseStyles.get(0);
         }
 
-        this.selectedStructure = StructureModerateHouse.CreateInstance(this.specificConfiguration.houseStyle.getStructureLocation(), StructureModerateHouse.class);
+        this.selectedStructure = StructureHouseImproved.CreateInstance(this.specificConfiguration.houseStyle.getStructureLocation(), StructureHouseImproved.class);
 
         // Get the upper left hand corner of the GUI box.
         Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
@@ -189,7 +189,7 @@ public class GuiHouseImproved extends GuiStructure {
 
                 if (chosenOption != null) {
                     this.specificConfiguration.houseStyle = chosenOption;
-                    this.selectedStructure = StructureModerateHouse.CreateInstance(this.specificConfiguration.houseStyle.getStructureLocation(), StructureModerateHouse.class);
+                    this.selectedStructure = StructureHouseImproved.CreateInstance(this.specificConfiguration.houseStyle.getStructureLocation(), StructureHouseImproved.class);
                     GuiUtils.setButtonText(btnHouseStyle, this.specificConfiguration.houseStyle.getDisplayName());
                     break;
                 }

@@ -11,7 +11,7 @@ import com.wuest.prefab.gui.controls.ExtendedButton;
 import com.wuest.prefab.gui.controls.GuiCheckBox;
 import com.wuest.prefab.structures.config.HouseAdvancedConfiguration;
 import com.wuest.prefab.structures.messages.StructureTagMessage;
-import com.wuest.prefab.structures.predefined.StructureAdvancedHouse;
+import com.wuest.prefab.structures.predefined.StructureHouseAdvanced;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.DyeColor;
@@ -77,7 +77,7 @@ public class GuiHouseAdvanced extends GuiStructure {
             this.specificConfiguration.houseStyle = this.availableHouseStyles.get(0);
         }
 
-        this.selectedStructure = StructureAdvancedHouse.CreateInstance(this.specificConfiguration.houseStyle.getStructureLocation(), StructureAdvancedHouse.class);
+        this.selectedStructure = StructureHouseAdvanced.CreateInstance(this.specificConfiguration.houseStyle.getStructureLocation(), StructureHouseAdvanced.class);
 
         // Get the upper left hand corner of the GUI box.
         Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
@@ -171,7 +171,7 @@ public class GuiHouseAdvanced extends GuiStructure {
 
                 if (chosenOption != null) {
                     this.specificConfiguration.houseStyle = chosenOption;
-                    this.selectedStructure = StructureAdvancedHouse.CreateInstance(this.specificConfiguration.houseStyle.getStructureLocation(), StructureAdvancedHouse.class);
+                    this.selectedStructure = StructureHouseAdvanced.CreateInstance(this.specificConfiguration.houseStyle.getStructureLocation(), StructureHouseAdvanced.class);
                     GuiUtils.setButtonText(btnHouseStyle, this.specificConfiguration.houseStyle.getDisplayName());
                     break;
                 }

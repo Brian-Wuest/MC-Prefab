@@ -6,7 +6,7 @@ import com.wuest.prefab.blocks.FullDyeColor;
 import com.wuest.prefab.config.EntityPlayerConfiguration;
 import com.wuest.prefab.gui.GuiLangKeys;
 import com.wuest.prefab.proxy.messages.PlayerEntityTagMessage;
-import com.wuest.prefab.structures.predefined.StructureAlternateStart;
+import com.wuest.prefab.structures.predefined.StructureHouse;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -171,7 +171,7 @@ public class HouseConfiguration extends StructureConfiguration {
     @Override
     protected void ConfigurationSpecificBuildStructure(Player player, ServerLevel world, BlockPos hitBlockPos) {
         // Build the alternate starter house instead.
-        StructureAlternateStart structure = StructureAlternateStart.CreateInstance(this.houseStyle.getStructureLocation(), StructureAlternateStart.class);
+        StructureHouse structure = StructureHouse.CreateInstance(this.houseStyle.getStructureLocation(), StructureHouse.class);
         boolean houseBuilt = structure.BuildStructure(this, world, hitBlockPos, player);
 
         // The house was successfully built, remove the item from the inventory.

@@ -580,7 +580,7 @@ public class ModConfiguration {
                 .sorted(Comparator.comparing(HouseImprovedConfiguration.HouseStyle::getDisplayName)).toList();
         mainKey = "item.prefab.item_house_improved";
         mainPath = ModConfiguration.StructureOptions + mainKey.replace('.', '_');
-        structureOptions.clear();
+        structureOptions = new HashMap<>();
 
         for (HouseImprovedConfiguration.HouseStyle houseStyle : houseImprovedStyles) {
             BooleanValue booleanValue = builder
@@ -609,7 +609,7 @@ public class ModConfiguration {
                 .sorted(Comparator.comparing(HouseAdvancedConfiguration.HouseStyle::getDisplayName)).toList();
         mainKey = "item.prefab.item_house_advanced";
         mainPath = ModConfiguration.StructureOptions + mainKey.replace('.', '_');
-        structureOptions.clear();
+        structureOptions = new HashMap<>();
 
         for (HouseAdvancedConfiguration.HouseStyle houseStyle : houseAdvancedStyles) {
             BooleanValue booleanValue = builder

@@ -2,7 +2,7 @@ package com.wuest.prefab.structures.config;
 
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.gui.GuiLangKeys;
-import com.wuest.prefab.structures.predefined.StructureAdvancedHouse;
+import com.wuest.prefab.structures.predefined.StructureHouseAdvanced;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -98,7 +98,7 @@ public class HouseAdvancedConfiguration extends StructureConfiguration {
      */
     @Override
     protected void ConfigurationSpecificBuildStructure(Player player, ServerLevel world, BlockPos hitBlockPos) {
-        StructureAdvancedHouse structure = StructureAdvancedHouse.CreateInstance(this.houseStyle.getStructureLocation(), StructureAdvancedHouse.class);
+        StructureHouseAdvanced structure = StructureHouseAdvanced.CreateInstance(this.houseStyle.getStructureLocation(), StructureHouseAdvanced.class);
 
         if (structure.BuildStructure(this, world, hitBlockPos, player)) {
             this.RemoveStructureItemFromPlayer(player, ModRegistry.AdvancedHouse.get());

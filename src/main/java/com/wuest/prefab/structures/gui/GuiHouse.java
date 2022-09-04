@@ -12,7 +12,7 @@ import com.wuest.prefab.gui.controls.ExtendedButton;
 import com.wuest.prefab.gui.controls.GuiCheckBox;
 import com.wuest.prefab.structures.config.HouseConfiguration;
 import com.wuest.prefab.structures.messages.StructureTagMessage;
-import com.wuest.prefab.structures.predefined.StructureAlternateStart;
+import com.wuest.prefab.structures.predefined.StructureHouse;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.network.chat.Component;
@@ -74,7 +74,7 @@ public class GuiHouse extends GuiStructure {
         boolean selectedStyleInListOfAvailable = false;
 
         for (HouseConfiguration.HouseStyle style : HouseConfiguration.HouseStyle.values()) {
-            if (houseConfigurationSettings.get(style.getDisplayName())) {
+            if (houseConfigurationSettings.get(style.getTranslationKey())) {
                 this.availableHouseStyles.add(style);
 
                 if (this.specificConfiguration.houseStyle.getDisplayName().equals(style.getDisplayName())) {
@@ -98,7 +98,7 @@ public class GuiHouse extends GuiStructure {
             this.specificConfiguration.houseStyle = this.availableHouseStyles.get(0);
         }
 
-        this.selectedStructure = StructureAlternateStart.CreateInstance(this.specificConfiguration.houseStyle.getStructureLocation(), StructureAlternateStart.class);
+        this.selectedStructure = StructureHouse.CreateInstance(this.specificConfiguration.houseStyle.getStructureLocation(), StructureHouse.class);
 
         // Create the buttons.
         int yOffset = 25;
@@ -207,7 +207,7 @@ public class GuiHouse extends GuiStructure {
 
                 if (chosenOption != null) {
                     this.specificConfiguration.houseStyle = chosenOption;
-                    this.selectedStructure = StructureAlternateStart.CreateInstance(this.specificConfiguration.houseStyle.getStructureLocation(), StructureAlternateStart.class);
+                    this.selectedStructure = StructureHouse.CreateInstance(this.specificConfiguration.houseStyle.getStructureLocation(), StructureHouse.class);
                     GuiUtils.setButtonText(btnHouseStyle, this.specificConfiguration.houseStyle.getDisplayName());
                     break;
                 }
