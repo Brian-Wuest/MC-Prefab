@@ -370,6 +370,12 @@ public class GuiLangKeys {
     @Unlocalized(name = "Instant Bridge")
     public static final String TITLE_INSTANT_BRIDGE = "item.prefab.item_instant_bridge";
 
+    @Unlocalized(name = "All options have been disabled for this structure")
+    public static final String NO_OPTIONS_PART_1 = "gui.prefab.no_options_1";
+
+    @Unlocalized(name = "Please update your configuration or contact your server administrator")
+    public static final String NO_OPTIONS_PART_2 = "gui.prefab.no_options_2";
+
     /**
      * Translates the specified language key for the current language.
      *

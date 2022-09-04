@@ -514,7 +514,7 @@ public class ModConfiguration {
             }
 
             // Sort the options for this structure.
-            List<BaseOption> options = value.getBaseOption().getSpecificOptions(false).stream().sorted(Comparator.comparing(BaseOption::getTranslationString)).toList();
+            List<BaseOption> options = value.getBaseOption().getSpecificOptions().stream().sorted(Comparator.comparing(BaseOption::getTranslationString)).toList();
 
             if (options.size() > 1) {
                 String key = value.getItemTranslationString();

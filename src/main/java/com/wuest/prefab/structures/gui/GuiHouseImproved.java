@@ -17,6 +17,9 @@ import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.DyeColor;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * @author WuestMan
  */
@@ -29,6 +32,8 @@ public class GuiHouseImproved extends GuiStructure {
     private GuiCheckBox btnAddMineShaft;
     private ExtendedButton btnBedColor;
     private boolean allowItemsInChestAndFurnace = true;
+
+    private ArrayList<HouseImprovedConfiguration.HouseStyle> availableHouseStyles;
 
     public GuiHouseImproved() {
         super("Moderate House");
@@ -56,6 +61,30 @@ public class GuiHouseImproved extends GuiStructure {
         this.configuration = this.specificConfiguration = ClientEventHandler.playerConfig.getClientConfig("Moderate Houses", HouseImprovedConfiguration.class);
         this.configuration.pos = this.pos;
 
+        this.availableHouseStyles = new ArrayList<>();
+        HashMap<String, Boolean> houseConfigurationSettings = this.serverConfiguration.structureOptions.get("item.prefab.item_house_improved");
+        boolean selectedStyleInListOfAvailable = false;
+
+        for (HouseImprovedConfiguration.HouseStyle style : HouseImprovedConfiguration.HouseStyle.values()) {
+            if (houseConfigurationSettings.get(style.getDisplayName())) {
+                this.availableHouseStyles.add(style);
+
+                if (this.specificConfiguration.houseStyle.getDisplayName().equals(style.getDisplayName())) {
+                    selectedStyleInListOfAvailable = true;
+                }
+            }
+        }
+
+        if (this.availableHouseStyles.size() == 0) {
+            // There are no options. Show the no options screen.
+            this.showNoOptionsScreen();
+            return;
+        }
+
+        if (!selectedStyleInListOfAvailable) {
+            this.specificConfiguration.houseStyle = this.availableHouseStyles.get(0);
+        }
+
         this.selectedStructure = StructureModerateHouse.CreateInstance(this.specificConfiguration.houseStyle.getStructureLocation(), StructureModerateHouse.class);
 
         // Get the upper left hand corner of the GUI box.
@@ -64,11 +93,23 @@ public class GuiHouseImproved extends GuiStructure {
         int grayBoxY = adjustedXYValue.getSecond();
 
         // Create the buttons.
-        this.btnHouseStyle = this.createAndAddButton(grayBoxX + 8, grayBoxY + 25, 90, 20, this.specificConfiguration.houseStyle.getDisplayName(), false, GuiLangKeys.translateString(GuiLangKeys.HOUSE_STYLE));
-        this.btnBedColor = this.createAndAddDyeButton(grayBoxX + 8, grayBoxY + 60, 90, 20, this.specificConfiguration.bedColor, GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR));
-        this.btnAddChest = this.createAndAddCheckBox(grayBoxX + 8, grayBoxY + 120, GuiLangKeys.HOUSE_ADD_CHEST, this.specificConfiguration.addChests, this::buttonClicked);
-        this.btnAddMineShaft = this.createAndAddCheckBox(grayBoxX + 8, grayBoxY + 137, GuiLangKeys.HOUSE_BUILD_MINESHAFT, this.specificConfiguration.addMineshaft, this::buttonClicked);
-        this.btnAddChestContents = this.createAndAddCheckBox(grayBoxX + 8, grayBoxY + 154, GuiLangKeys.HOUSE_ADD_CHEST_CONTENTS, this.specificConfiguration.addChestContents, this::buttonClicked);
+        int yOffset = 25;
+
+        if (this.availableHouseStyles.size() > 1) {
+            this.btnHouseStyle = this.createAndAddButton(grayBoxX + 8, grayBoxY + yOffset, 90, 20, this.specificConfiguration.houseStyle.getDisplayName(), false, GuiLangKeys.translateString(GuiLangKeys.HOUSE_STYLE));
+            yOffset = yOffset + 35;
+        }
+
+        this.btnBedColor = this.createAndAddDyeButton(grayBoxX + 8, grayBoxY + yOffset, 90, 20, this.specificConfiguration.bedColor, GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR));
+        yOffset = yOffset + 60;
+
+        this.btnAddChest = this.createAndAddCheckBox(grayBoxX + 8, grayBoxY + yOffset, GuiLangKeys.HOUSE_ADD_CHEST, this.specificConfiguration.addChests, this::buttonClicked);
+        yOffset = yOffset + 17;
+
+        this.btnAddMineShaft = this.createAndAddCheckBox(grayBoxX + 8, grayBoxY + yOffset, GuiLangKeys.HOUSE_BUILD_MINESHAFT, this.specificConfiguration.addMineshaft, this::buttonClicked);
+        yOffset = yOffset + 17;
+
+        this.btnAddChestContents = this.createAndAddCheckBox(grayBoxX + 8, grayBoxY + yOffset, GuiLangKeys.HOUSE_ADD_CHEST_CONTENTS, this.specificConfiguration.addChestContents, this::buttonClicked);
 
         // Create the standard buttons.
         this.btnVisualize = this.createAndAddCustomButton(grayBoxX + 24, grayBoxY + 177, 90, 20, GuiLangKeys.GUI_BUTTON_PREVIEW);
@@ -110,9 +151,14 @@ public class GuiHouseImproved extends GuiStructure {
     @Override
     protected void postButtonRender(PoseStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
         // Draw the text here.
-        this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.HOUSE_STYLE), x + 8, y + 15, this.textColor);
+        int yOffSet = 15;
 
-        this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), x + 8, y + 50, this.textColor);
+        if (this.availableHouseStyles.size() > 1) {
+            this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.HOUSE_STYLE), x + 8, y + yOffSet, this.textColor);
+            yOffSet = yOffSet + 35;
+        }
+
+        this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), x + 8, y + yOffSet, this.textColor);
     }
 
     /**
@@ -128,10 +174,26 @@ public class GuiHouseImproved extends GuiStructure {
         this.performCancelOrBuildOrHouseFacing(button);
 
         if (button == this.btnHouseStyle) {
-            int id = this.specificConfiguration.houseStyle.getValue() + 1;
-            this.specificConfiguration.houseStyle = HouseImprovedConfiguration.HouseStyle.ValueOf(id);
-            this.selectedStructure = StructureModerateHouse.CreateInstance(this.specificConfiguration.houseStyle.getStructureLocation(), StructureModerateHouse.class);
-            GuiUtils.setButtonText(btnHouseStyle, this.specificConfiguration.houseStyle.getDisplayName());
+            for (int i = 0; i < this.availableHouseStyles.size(); i++) {
+                HouseImprovedConfiguration.HouseStyle option = this.availableHouseStyles.get(i);
+                HouseImprovedConfiguration.HouseStyle chosenOption = null;
+
+                if (this.specificConfiguration.houseStyle.getDisplayName().equals(option.getDisplayName())) {
+                    if (i == this.availableHouseStyles.size() - 1) {
+                        // This is the last option, set the text to the first option.
+                        chosenOption = this.availableHouseStyles.get(0);
+                    } else {
+                        chosenOption = this.availableHouseStyles.get(i + 1);
+                    }
+                }
+
+                if (chosenOption != null) {
+                    this.specificConfiguration.houseStyle = chosenOption;
+                    this.selectedStructure = StructureModerateHouse.CreateInstance(this.specificConfiguration.houseStyle.getStructureLocation(), StructureModerateHouse.class);
+                    GuiUtils.setButtonText(btnHouseStyle, this.specificConfiguration.houseStyle.getDisplayName());
+                    break;
+                }
+            }
         } else if (button == this.btnVisualize) {
             this.performPreview();
         } else if (button == this.btnBedColor) {

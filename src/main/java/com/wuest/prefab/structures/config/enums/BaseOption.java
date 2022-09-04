@@ -99,16 +99,12 @@ public class BaseOption {
         return this.hasGlassColor;
     }
 
-    public ArrayList<BaseOption> getSpecificOptions(boolean filterOptions) {
+    public ArrayList<BaseOption> getSpecificOptions() {
         String className = this.getClass().getName();
 
         for (Map.Entry<String, ArrayList<BaseOption>> mapping : BaseOption.classOptions.entrySet()) {
             if (mapping.getKey().equals(className)) {
-                if (filterOptions) {
-                    return this.filterOptions(mapping.getValue());
-                } else {
-                    return mapping.getValue();
-                }
+                return mapping.getValue();
             }
         }
 
