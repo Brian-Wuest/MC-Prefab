@@ -3,6 +3,7 @@ package com.wuest.prefab.config;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.ForgeConfigSpec;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 
 /**
@@ -47,8 +48,11 @@ public class ServerModConfiguration {
 
     public HashMap<String, Boolean> recipeConfiguration;
 
+    public HashMap<String, HashMap<String, Boolean>> structureOptions;
+
     public ServerModConfiguration() {
         this.recipeConfiguration = new HashMap<>();
+        this.structureOptions = new HashMap<>();
     }
 
     public static ServerModConfiguration getFromNBTTagCompound(CompoundTag tag) {
@@ -86,6 +90,23 @@ public class ServerModConfiguration {
 
         for (String key : ModConfiguration.recipeKeys) {
             configuration.recipeConfiguration.put(key, tag.getBoolean(key));
+        }
+
+        CompoundTag structureOptionsTag = tag.getCompound(ModConfiguration.structureOptionsName);
+
+        if (structureOptionsTag != null) {
+            for (String key : structureOptionsTag.getAllKeys()) {
+                CompoundTag mainItem = structureOptionsTag.getCompound(key);
+                HashMap<String, Boolean> structureOptions = new HashMap<>();
+
+                for (String subKey : mainItem.getAllKeys()) {
+                    boolean value = mainItem.getBoolean(subKey);
+
+                    structureOptions.put(subKey, value);
+                }
+
+                configuration.structureOptions.put(key, structureOptions);
+            }
         }
 
         return configuration;
@@ -127,6 +148,21 @@ public class ServerModConfiguration {
         for (Entry<String, Boolean> entry : this.recipeConfiguration.entrySet()) {
             tag.putBoolean(entry.getKey(), entry.getValue());
         }
+
+        CompoundTag structureOptionTag = new CompoundTag();
+
+        for (Map.Entry<String, HashMap<String, Boolean>> entry : this.structureOptions.entrySet()) {
+            // Create compound tag for this item.
+            CompoundTag mainItem = new CompoundTag();
+
+            for (Map.Entry<String, Boolean> subEntry : entry.getValue().entrySet()) {
+                mainItem.putBoolean(subEntry.getKey(), subEntry.getValue());
+            }
+
+            structureOptionTag.put(entry.getKey(), mainItem);
+        }
+
+        tag.put(ModConfiguration.structureOptionsName, structureOptionTag);
 
         return tag;
     }

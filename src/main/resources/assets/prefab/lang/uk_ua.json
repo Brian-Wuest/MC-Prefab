@@ -1,38 +1,4 @@
 {
-    "text.autoconfig.Prefab.title": "Конфігурація Prefab",
-    "text.autoconfig.Prefab.option.includeSpawnersInMasher": "Додати спавнера у ферму монстрів",
-    "text.autoconfig.Prefab.option.enableStructurePreview": "Увімкнути перегляд структур",
-    "text.autoconfig.Prefab.option.allowBulldozerToCreateDrops": "Випадання блоків у бульдозері",
-    "text.autoconfig.Prefab.option.allowWaterInNonOverworldDimensions": "Дозволяти воду в вимірах крім верхнього світу",
-    "text.autoconfig.Prefab.option.enableAutomationOptionsFromModerateFarm": "Увімкнути автоматичні ферми в Середніх Фермах",
-    "text.autoconfig.Prefab.option.includeMineshaftChest": "Додати скриню у шахти",
-    "text.autoconfig.Prefab.option.startingItem": "Початковий предмет",
-    "text.autoconfig.Prefab.option.playBuildingSound": "відтворювати звук під час створення плану",
-    "text.autoconfig.Prefab.option.chestOptions.addSword": "Додати меч",
-    "text.autoconfig.Prefab.option.chestOptions.addAxe": "Додати сокиру",
-    "text.autoconfig.Prefab.option.chestOptions.addShovel": "Додати лопату",
-    "text.autoconfig.Prefab.option.chestOptions.addHoe": "Додати мотику",
-    "text.autoconfig.Prefab.option.chestOptions.addPickAxe": "Додати кайло",
-    "text.autoconfig.Prefab.option.chestOptions.addArmor": "Додати броню",
-    "text.autoconfig.Prefab.option.chestOptions.addFood": "Додати їжу",
-    "text.autoconfig.Prefab.option.chestOptions.addCrops": "Додати обрізки",
-    "text.autoconfig.Prefab.option.chestOptions.addDirt": "Додати ґрунт",
-    "text.autoconfig.Prefab.option.chestOptions.addCobble": "Додати кругляк",
-    "text.autoconfig.Prefab.option.chestOptions.addSaplings": "Додати саджанці",
-    "text.autoconfig.Prefab.option.chestOptions.addTorches": "Додати факели",
-
-    "text.autoconfig.Prefab.option.starterHouseOptions.addBed": "Додати ліжко",
-    "text.autoconfig.Prefab.option.starterHouseOptions.addCraftingTable": "Додати верстак",
-    "text.autoconfig.Prefab.option.starterHouseOptions.addFurnace": "Додати печ",
-    "text.autoconfig.Prefab.option.starterHouseOptions.addChests": "Додати скрині",
-    "text.autoconfig.Prefab.option.starterHouseOptions.addChestContents": "Додати вміст скрині",
-    "text.autoconfig.Prefab.option.starterHouseOptions.addMineshaft": "Додати шахту",
-
-    "text.autoconfig.Prefab.category.default": "Загальне",
-    "text.autoconfig.Prefab.category.recipes": "Рецепти",
-    "text.autoconfig.Prefab.category.chest_options": "Параметри скрині",
-    "text.autoconfig.Prefab.category.starter_options": "Параметри стартового будинку",
-
     "itemGroup.prefab.logo": "Prefab",
 
     "item.prefab.item_house": "Будинок",
@@ -73,7 +39,6 @@
     "item.prefab.item_ski_lodge": "Лижна База",
     "item.prefab.item_wind_mill": "Вітряк",
     "item.prefab.item_town_hall": "Ратуша",
-    "item.prefab.item_workshop": "Майстерня",
     "item.prefab.item_modern_buildings": "Сучасна будівля",
     "item.prefab.item_modern_buildings_improved": "Покращена сучасна будівля",
     "item.prefab.item_modern_buildings_advanced": "Просунута сучасна будівля",
@@ -190,7 +155,6 @@
     "prefab.gui.house.improved.acacia": "Акацієвий Будинок",
     "prefab.gui.house.improved.earthen": "Земляний Будинок",
     "prefab.gui.house.improved.jungle": "Джунглієвий Будинок",
-    "prefab.gui.house.improved.workshop": "Майстерня",
     "prefab.gui.house.improved.nether": "Адський Будинок",
     "prefab.gui.house.improved.mountain": "Гірський Будинок",
     "prefab.gui.house.improved.acacia_2": "Акацієвий Будинок 2",
@@ -200,6 +164,7 @@
     "prefab.gui.house.improved.cottage_house": "Котедж",
 
     "prefab.gui.house.advanced.manor": "Садиба",
+    "prefab.gui.house.advanced.workshop": "Майстерня",
 
     "prefab.gui.modern.mall_store": "Торговий Центр",
     "prefab.gui.modern.hipster_fruit_stand": "Магазин Яблук",
@@ -334,5 +299,8 @@
     "prefab.gui.length": "Довжина",
     "prefab.gui.stairs_height": "Висота Сход",
     "prefab.gui.stairs_width": "Ширина Сход",
-    "prefab.gui.building_options": "Параметри Будівництва"
+    "prefab.gui.building_options": "Параметри Будівництва",
+
+    "gui.prefab.no_options_1": "Усі варіанти були вимкнені для цієї структури",
+    "gui.prefab.no_options_2": "Будь ласка, оновіть конфіг або звʼяжіться з адміністрацією сервера"
 }

@@ -4,7 +4,9 @@ public enum ConfigCategory {
     General("General"),
     ChestOptions("Chest Options"),
     RecipeOptions("Recipe Options"),
-    HouseOptions("House Options");
+    HouseOptions("House Options"),
+
+    StructureOptions("Structure Options");
 
     private String name;
 

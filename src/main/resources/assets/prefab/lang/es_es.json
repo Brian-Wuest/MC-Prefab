@@ -39,7 +39,6 @@
     "item.prefab.item_ski_lodge": "Albergue de esquí",
     "item.prefab.item_wind_mill": "Molino",
     "item.prefab.item_town_hall": "Ayuntamiento",
-    "item.prefab.item_workshop": "Taller",
     "item.prefab.item_modern_buildings": "Básica moderno",
     "item.prefab.item_modern_buildings_improved": "Moderno mejorado",
     "item.prefab.item_modern_buildings_advanced": "Avanzado moderno",
@@ -156,7 +155,6 @@
     "prefab.gui.house.improved.acacia": "Casa de acacia",
     "prefab.gui.house.improved.earthen": "Tierra en casa",
     "prefab.gui.house.improved.jungle": "Casa en la selva",
-    "prefab.gui.house.improved.workshop": "Taller",
     "prefab.gui.house.improved.nether": "Casa abisal",
     "prefab.gui.house.improved.mountain": "Casa de la montaña",
     "prefab.gui.house.improved.acacia_2": "Casa Acacia 2",
@@ -166,6 +164,7 @@
     "prefab.gui.house.improved.cottage_house": "Cabaña",
 
     "prefab.gui.house.advanced.manor": "Señorío",
+    "prefab.gui.house.advanced.workshop": "Taller",
 
     "prefab.gui.modern.mall_store": "Centro comercial",
     "prefab.gui.modern.hipster_fruit_stand": "Frutería",
@@ -300,5 +299,8 @@
     "prefab.gui.length": "Longitud",
     "prefab.gui.stairs_height": "Altura de las escaleras",
     "prefab.gui.stairs_width": "Ancho de la escalera",
-    "prefab.gui.building_options": "Opciones de construcción"
+    "prefab.gui.building_options": "Opciones de construcción",
+
+    "gui.prefab.no_options_1": "Todas las opciones han sido deshabilitadas para esta estructura",
+    "gui.prefab.no_options_2": "Please update your configuration or contact your server administrator"
 }

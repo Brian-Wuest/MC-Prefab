@@ -120,6 +120,11 @@ public class ConfigOption<T> {
         return this.hoverTextComponent;
     }
 
+    public ConfigOption<T> setHoverTextComponent(Component component) {
+        this.hoverTextComponent = component;
+        return this;
+    }
+
     public void resetToDefault() {
         switch (this.getConfigType()) {
             case "Boolean": {

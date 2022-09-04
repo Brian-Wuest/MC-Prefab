@@ -191,6 +191,10 @@ public class HouseImprovedConfiguration extends StructureConfiguration {
             return GuiLangKeys.translateString(this.displayName);
         }
 
+        public String getTranslationKey() {
+            return this.displayName;
+        }
+
         public ResourceLocation getHousePicture() {
             return this.housePicture;
         }

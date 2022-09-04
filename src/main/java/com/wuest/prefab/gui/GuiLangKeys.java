@@ -20,10 +20,10 @@ import java.lang.reflect.Field;
  */
 public class GuiLangKeys {
     @Unlocalized(name = "House Style")
-    public static final String HOUSE_STYLE = "prefab.gui.starter.style.label";
+    public static final String HOUSE_STYLE = "prefab.gui.house.style.label";
 
     @Unlocalized(name = "Basic House")
-    public static final String HOUSE_BASIC_DISPLAY = "prefab.gui.starter.basic.display";
+    public static final String HOUSE_BASIC_DISPLAY = "prefab.gui.house.basic.display";
 
     @Unlocalized(name = "Ranch Style")
     public static final String HOUSE_RANCH_DISPLAY = "prefab.gui.house.ranch.display";
@@ -239,7 +239,7 @@ public class GuiLangKeys {
     public static final String IMPROVED_HOUSE_ACACIA_2 = "prefab.gui.house.improved.acacia_2";
 
     @Unlocalized(name = "Modern House")
-    public static final String IMPROVED_HOUSE_MODERN = "prefab.gui.item_modern_house";
+    public static final String IMPROVED_HOUSE_MODERN = "prefab.gui.modern.house";
 
     @Unlocalized(name = "Crimson House")
     public static final String IMPROVED_HOUSE_CRIMSON = "prefab.gui.house.improved.crimson_house";
@@ -265,7 +265,7 @@ public class GuiLangKeys {
     @Unlocalized(name = "Mountain House")
     public static final String IMPROVED_MOUNTAIN_HOME = "prefab.gui.house.improved.mountain";
 
-    @Unlocalized(name = "Cabin House")
+    @Unlocalized(name = "Manor")
     public static final String ADVANCED_HOUSE_MANOR= "prefab.gui.house.advanced.manor";
 
     @Unlocalized(name = "Workshop")

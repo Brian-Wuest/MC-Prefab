@@ -39,7 +39,6 @@
     "item.prefab.item_ski_lodge": "滑雪小屋",
     "item.prefab.item_wind_mill": "風車",
     "item.prefab.item_town_hall": "市政廳",
-    "item.prefab.item_workshop": "作坊",
     "item.prefab.item_modern_buildings": "基本現代",
     "item.prefab.item_modern_buildings_improved": "改進的現代",
     "item.prefab.item_modern_buildings_advanced": "先進的現代",
@@ -156,7 +155,6 @@
     "prefab.gui.house.improved.acacia": "相思木小屋",
     "prefab.gui.house.improved.earthen": "泥土小屋",
     "prefab.gui.house.improved.jungle": "叢林木小屋",
-    "prefab.gui.house.improved.workshop": "工坊小屋",
     "prefab.gui.house.improved.nether": "虛空之屋",
     "prefab.gui.house.improved.mountain": "山房",
     "prefab.gui.house.improved.acacia_2": "相思之家2",
@@ -166,6 +164,7 @@
     "prefab.gui.house.improved.cottage_house": "小屋",
 
     "prefab.gui.house.advanced.manor": "莊園",
+    "prefab.gui.house.advanced.workshop": "工坊小屋",
 
     "prefab.gui.modern.mall_store": "購物中心",
     "prefab.gui.modern.hipster_fruit_stand": "水果店",
@@ -300,5 +299,8 @@
     "prefab.gui.length": "長度",
     "prefab.gui.stairs_height": "階梯高度",
     "prefab.gui.stairs_width": "階梯寬度",
-    "prefab.gui.building_options": "建築選擇"
+    "prefab.gui.building_options": "建築選擇",
+
+    "gui.prefab.no_options_1": "此結構的所有選項都已禁用",
+    "gui.prefab.no_options_2": "Please update your configuration or contact your server administrator"
 }

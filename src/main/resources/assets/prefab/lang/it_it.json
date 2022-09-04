@@ -39,7 +39,6 @@
     "item.prefab.item_ski_lodge": "Baita",
     "item.prefab.item_wind_mill": "Mulino a Vento",
     "item.prefab.item_town_hall": "Municipio",
-    "item.prefab.item_workshop": "Officina",
     "item.prefab.item_modern_buildings": "moderno di base",
     "item.prefab.item_modern_buildings_improved": "Moderno migliorato",
     "item.prefab.item_modern_buildings_advanced": "moderno avanzato",
@@ -156,7 +155,6 @@
     "prefab.gui.house.improved.acacia": "Casa di Acacia",
     "prefab.gui.house.improved.earthen": "Casa di Terra e pietra",
     "prefab.gui.house.improved.jungle": "Casa nella Giungla",
-    "prefab.gui.house.improved.workshop": "Casa Laboratorio",
     "prefab.gui.house.improved.nether": "Casa Nether",
     "prefab.gui.house.improved.mountain": "Casa nella Montagna",
     "prefab.gui.house.improved.acacia_2": "Casa Acacia 2",
@@ -166,6 +164,7 @@
     "prefab.gui.house.improved.cottage_house": "Villetta",
 
     "prefab.gui.house.advanced.manor": "Maniero",
+    "prefab.gui.house.advanced.workshop": "Casa Laboratorio",
 
     "prefab.gui.modern.mall_store": "Centro commerciale",
     "prefab.gui.modern.hipster_fruit_stand": "Fruttivendolo",
@@ -300,5 +299,8 @@
     "prefab.gui.length": "Lunghezza",
     "prefab.gui.stairs_height": "Altezza Scale",
     "prefab.gui.stairs_width": "Larghezza Scale",
-    "prefab.gui.building_options": "Opzioni di Costruzione"
+    "prefab.gui.building_options": "Opzioni di Costruzione",
+
+    "gui.prefab.no_options_1": "Tutte le opzioni sono state disabilitate per questa struttura",
+    "gui.prefab.no_options_2": "Please update your configuration or contact your server administrator"
 }

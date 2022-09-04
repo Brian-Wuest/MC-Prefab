@@ -3,14 +3,20 @@ package com.wuest.prefab.config;
 import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
 import com.wuest.prefab.Prefab;
+import com.wuest.prefab.gui.GuiLangKeys;
+import com.wuest.prefab.structures.config.BasicStructureConfiguration;
+import com.wuest.prefab.structures.config.HouseAdvancedConfiguration;
+import com.wuest.prefab.structures.config.HouseConfiguration;
+import com.wuest.prefab.structures.config.HouseImprovedConfiguration;
+import com.wuest.prefab.structures.config.enums.BaseOption;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * This class is used to hold the mod configuration.
@@ -22,6 +28,7 @@ public class ModConfiguration {
     private static final String OPTIONS = "general.";
     private static final String ChestContentOptions = "general.chest contents.";
     private static final String RecipeOptions = "general.recipes.";
+    private static final String StructureOptions = "general.structure options.";
     private static final String starterHouseOptions = "general.starter house.";
     private static final ArrayList<String> validStartingItems = new ArrayList(Arrays.asList("Starting House", "Moderate House", "Nothing"));
     // Recipe Options
@@ -78,6 +85,7 @@ public class ModConfiguration {
     public static String quartzCreteKey = "Quartz-Crete";
 
     public static String tagKey = "PrefabConfig";
+
     // Config file option names.
     static String enableVersionCheckMessageName = "Enable Version Checking";
     static String includeSpawnersInMasherName = "Include Spawners in Monster Masher";
@@ -101,6 +109,7 @@ public class ModConfiguration {
     static String addSaplingsName = "Add Saplings";
     static String addTorchesName = "Add Torches";
     static String startingItemName = "Starting Item";
+
     // Starter House option names.
     static String addBedName = "Add Bed";
     static String addCraftingTableName = "Add Crafting Table";
@@ -109,6 +118,9 @@ public class ModConfiguration {
     static String addChestContentsName = "Add Chest Contents";
     static String addMineshaftName = "Add Mineshaft";
     static String allowBulldozerToCreateDropsName = "Bulldozer Creates Drops";
+
+    static String structureOptionsName = "Structure Options";
+
     static String[] recipeKeys = new String[]
             {compressedStoneKey, compressedGlowStoneKey, compressedDirteKey, compressedChestKey, pileOfBricksKey, warehouseKey,
                     warehouseUpgradeKey, advancedWarehouseKey, bundleofTimberKey, netherGateKey,
@@ -120,6 +132,7 @@ public class ModConfiguration {
 
     private static ForgeConfigSpec SPEC;
     private final HashMap<String, BooleanValue> recipeConfiguration;
+    public HashMap<String, HashMap<String, BooleanValue>> structureOptions = new HashMap<>();
     public ServerModConfiguration serverConfiguration;
     public ArrayList<ConfigOption<?>> configOptions;
     // Configuration Options.
@@ -486,6 +499,139 @@ public class ModConfiguration {
 
             Prefab.proxy.proxyConfiguration.recipeConfiguration.put(key, value);
         }
+
+        ModConfiguration.loadStructureOptionConfiguration(config, builder);
+    }
+
+    private static void loadStructureOptionConfiguration(ModConfiguration config, ForgeConfigSpec.Builder builder) {
+        // Sort the structure names by their name, so they show up well on the configuration screen.
+        List<BasicStructureConfiguration.EnumBasicStructureName> values = Arrays.stream(BasicStructureConfiguration.EnumBasicStructureName.values())
+                .sorted(Comparator.comparing(BasicStructureConfiguration.EnumBasicStructureName::getName)).toList();
+
+        for (BasicStructureConfiguration.EnumBasicStructureName value : values) {
+            if (value.getName().equals("custom")) {
+                continue;
+            }
+
+            // Sort the options for this structure.
+            List<BaseOption> options = value.getBaseOption().getSpecificOptions(false).stream().sorted(Comparator.comparing(BaseOption::getTranslationString)).toList();
+
+            if (options.size() > 1) {
+                String key = value.getItemTranslationString();
+                String path = ModConfiguration.StructureOptions + key.replace('.', '_');
+
+                HashMap<String, BooleanValue> structureOptions = new HashMap<>();
+
+                for (BaseOption option : options) {
+                    BooleanValue booleanValue = builder
+                            .define(path + '_' + option.getTranslationString().replace('.', '_'), true);
+
+                    // Translations are not available at the time this is built, create a separate tranlsatable key for now so it can be tranlsated later.
+                    MutableComponent component = Component.literal("Enables or disables the option for ");
+                    component.append(Component.translatable(key));
+
+                    config.configOptions.add(new ConfigOption<Boolean>()
+                            .setConfigValue(booleanValue)
+                            .setName(option.getTranslationString())
+                            .setCategory(ConfigCategory.StructureOptions)
+                            .setConfigType("Boolean")
+                            .setHoverText("Placeholder")
+                            .setHoverTextComponent(component)
+                            .setDefaultValue(true));
+
+                    structureOptions.put(option.getTranslationString(), booleanValue);
+                }
+
+                Prefab.proxy.proxyConfiguration.structureOptions.put(key, structureOptions);
+            }
+        }
+
+        // Add the basic house settings.
+        List<HouseConfiguration.HouseStyle> houseStyles = Arrays.stream(HouseConfiguration.HouseStyle.values())
+                .sorted(Comparator.comparing(HouseConfiguration.HouseStyle::getDisplayName)).toList();
+        String mainKey = "item.prefab.item_house";
+        String mainPath = ModConfiguration.StructureOptions + mainKey.replace('.', '_');
+        HashMap<String, BooleanValue> structureOptions = new HashMap<>();
+
+        for (HouseConfiguration.HouseStyle houseStyle : houseStyles) {
+            BooleanValue booleanValue = builder
+                    .define(mainPath + '_' + houseStyle.getTranslationKey().replace('.', '_'), true);
+
+            // Translations are not available at the time this is built, create a separate tranlsatable key for now so it can be tranlsated later.
+            MutableComponent component = Component.literal("Enables or disables the option for ");
+            component.append(Component.translatable(mainKey));
+
+            config.configOptions.add(new ConfigOption<Boolean>()
+                    .setConfigValue(booleanValue)
+                    .setName(houseStyle.getTranslationKey())
+                    .setCategory(ConfigCategory.StructureOptions)
+                    .setConfigType("Boolean")
+                    .setHoverText("Placeholder")
+                    .setHoverTextComponent(component)
+                    .setDefaultValue(true));
+
+            structureOptions.put(houseStyle.getTranslationKey(), booleanValue);
+        }
+
+        Prefab.proxy.proxyConfiguration.structureOptions.put(mainKey, structureOptions);
+
+        // Improved House options
+        List<HouseImprovedConfiguration.HouseStyle> houseImprovedStyles = Arrays.stream(HouseImprovedConfiguration.HouseStyle.values())
+                .sorted(Comparator.comparing(HouseImprovedConfiguration.HouseStyle::getDisplayName)).toList();
+        mainKey = "item.prefab.item_house_improved";
+        mainPath = ModConfiguration.StructureOptions + mainKey.replace('.', '_');
+        structureOptions.clear();
+
+        for (HouseImprovedConfiguration.HouseStyle houseStyle : houseImprovedStyles) {
+            BooleanValue booleanValue = builder
+                    .define(mainPath + '_' + houseStyle.getTranslationKey().replace('.', '_'), true);
+
+            // Translations are not available at the time this is built, create a separate tranlsatable key for now so it can be tranlsated later.
+            MutableComponent component = Component.literal("Enables or disables the option for ");
+            component.append(Component.translatable(mainKey));
+
+            config.configOptions.add(new ConfigOption<Boolean>()
+                    .setConfigValue(booleanValue)
+                    .setName(houseStyle.getTranslationKey())
+                    .setCategory(ConfigCategory.StructureOptions)
+                    .setConfigType("Boolean")
+                    .setHoverText("Placeholder")
+                    .setHoverTextComponent(component)
+                    .setDefaultValue(true));
+
+            structureOptions.put(houseStyle.getTranslationKey(), booleanValue);
+        }
+
+        Prefab.proxy.proxyConfiguration.structureOptions.put(mainKey, structureOptions);
+
+        // Advanced House options
+        List<HouseAdvancedConfiguration.HouseStyle> houseAdvancedStyles = Arrays.stream(HouseAdvancedConfiguration.HouseStyle.values())
+                .sorted(Comparator.comparing(HouseAdvancedConfiguration.HouseStyle::getDisplayName)).toList();
+        mainKey = "item.prefab.item_house_advanced";
+        mainPath = ModConfiguration.StructureOptions + mainKey.replace('.', '_');
+        structureOptions.clear();
+
+        for (HouseAdvancedConfiguration.HouseStyle houseStyle : houseAdvancedStyles) {
+            BooleanValue booleanValue = builder
+                    .define(mainPath + '_' + houseStyle.getTranslationKey().replace('.', '_'), true);
+
+            // Translations are not available at the time this is built, create a separate tranlsatable key for now so it can be tranlsated later.
+            MutableComponent component = Component.literal("Enables or disables the option for ");
+            component.append(Component.translatable(mainKey));
+
+            config.configOptions.add(new ConfigOption<Boolean>()
+                    .setConfigValue(booleanValue)
+                    .setName(houseStyle.getTranslationKey())
+                    .setCategory(ConfigCategory.StructureOptions)
+                    .setConfigType("Boolean")
+                    .setHoverText("Placeholder")
+                    .setHoverTextComponent(component)
+                    .setDefaultValue(true));
+
+            structureOptions.put(houseStyle.getTranslationKey(), booleanValue);
+        }
+
+        Prefab.proxy.proxyConfiguration.structureOptions.put(mainKey, structureOptions);
     }
 
     public static void loadConfig(ForgeConfigSpec spec, Path path) {
@@ -539,6 +685,20 @@ public class ModConfiguration {
         for (String key : ModConfiguration.recipeKeys) {
             Prefab.LOGGER.debug("Setting recipe configuration for key: " + key);
             Prefab.proxy.proxyConfiguration.serverConfiguration.recipeConfiguration.put(key, Prefab.proxy.proxyConfiguration.recipeConfiguration.get(key).get());
+        }
+
+        // Structure options.
+        Prefab.proxy.proxyConfiguration.serverConfiguration.structureOptions.clear();
+
+        for (Map.Entry<String, HashMap<String, BooleanValue>> entry : Prefab.proxy.proxyConfiguration.structureOptions.entrySet()) {
+            String key = entry.getKey();
+            HashMap<String, Boolean> optionValues = new HashMap<>();
+
+            for (Map.Entry<String, BooleanValue> subEntry: entry.getValue().entrySet()) {
+                optionValues.put(subEntry.getKey(), subEntry.getValue().get());
+            }
+
+            Prefab.proxy.proxyConfiguration.serverConfiguration.structureOptions.put(key, optionValues);
         }
     }
 }

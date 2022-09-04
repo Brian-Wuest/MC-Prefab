@@ -39,7 +39,6 @@
     "item.prefab.item_ski_lodge": "Ski Lodge",
     "item.prefab.item_wind_mill": "Windmill",
     "item.prefab.item_town_hall": "Town Hall",
-    "item.prefab.item_workshop": "Workshop",
     "item.prefab.item_modern_buildings": "Modern",
     "item.prefab.item_modern_buildings_improved": "Improved Modern",
     "item.prefab.item_modern_buildings_advanced": "Advanced Modern",
@@ -156,7 +155,6 @@
     "prefab.gui.house.improved.acacia": "Acacia House",
     "prefab.gui.house.improved.earthen": "Earthen Home",
     "prefab.gui.house.improved.jungle": "Jungle House",
-    "prefab.gui.house.improved.workshop": "Workshop House",
     "prefab.gui.house.improved.nether": "Nether House",
     "prefab.gui.house.improved.mountain": "Mountain House",
     "prefab.gui.house.improved.acacia_2": "Acacia House 2",
@@ -166,6 +164,7 @@
     "prefab.gui.house.improved.cottage_house": "Cottage",
 
     "prefab.gui.house.advanced.manor": "Manor",
+    "prefab.gui.house.advanced.workshop": "Workshop",
 
     "prefab.gui.modern.mall_store": "Shopping Centre",
     "prefab.gui.modern.hipster_fruit_stand": "Fruit Shop",
@@ -300,5 +299,8 @@
     "prefab.gui.length": "Length",
     "prefab.gui.stairs_height": "Stairs Height",
     "prefab.gui.stairs_width": "Stairs Width",
-    "prefab.gui.building_options": "Building Options"
+    "prefab.gui.building_options": "Building Options",
+
+    "gui.prefab.no_options_1": "All options have been disabled for this structure",
+    "gui.prefab.no_options_2": "Please update your configuration or contact your server administrator"
 }

@@ -297,6 +297,10 @@ public class HouseConfiguration extends StructureConfiguration {
             return GuiLangKeys.translateString(this.displayName);
         }
 
+        public String getTranslationKey() {
+            return this.displayName;
+        }
+
         /**
          * Gets the picture used in the GUI for this style.
          *

@@ -39,7 +39,6 @@
     "item.prefab.item_ski_lodge": "Лыжная база",
     "item.prefab.item_wind_mill": "Ветряная мельница",
     "item.prefab.item_town_hall": "Ратуша",
-    "item.prefab.item_workshop": "Мастерская",
     "item.prefab.item_modern_buildings": "Современное здание",
     "item.prefab.item_modern_buildings_improved": "Улучшенное современное здание",
     "item.prefab.item_modern_buildings_advanced": "Продвинутое современное здание",
@@ -156,7 +155,6 @@
     "prefab.gui.house.improved.acacia": "Акациевый Дом",
     "prefab.gui.house.improved.earthen": "Земляной Дом",
     "prefab.gui.house.improved.jungle": "Джунглиевый Дом",
-    "prefab.gui.house.improved.workshop": "Мастерская",
     "prefab.gui.house.improved.nether": "Адский Дом",
     "prefab.gui.house.improved.mountain": "Горный Дом",
     "prefab.gui.house.improved.acacia_2": "Акациевый Дом 2",
@@ -166,6 +164,7 @@
     "prefab.gui.house.improved.cottage_house": "Коттедж",
 
     "prefab.gui.house.advanced.manor": "Усадьба",
+    "prefab.gui.house.advanced.workshop": "Мастерская",
 
     "prefab.gui.modern.mall_store": "Торговый Центр",
     "prefab.gui.modern.hipster_fruit_stand": "Магазин Яблок",
@@ -300,5 +299,8 @@
     "prefab.gui.length": "Длина",
     "prefab.gui.stairs_height": "Высота Ступенек",
     "prefab.gui.stairs_width": "Ширина Ступенек",
-    "prefab.gui.building_options": "Вариант Постройки"
+    "prefab.gui.building_options": "Вариант Постройки",
+
+    "gui.prefab.no_options_1": "Все варианты были выключены для этой структуры",
+    "gui.prefab.no_options_2": "Пожалуйста, обновите конфиг или свяжитесь с администрацией сервера"
 }
