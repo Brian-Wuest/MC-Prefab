@@ -6,7 +6,7 @@ public class MachineryTowerOptions extends BaseOption {
     public static MachineryTowerOptions Default = new MachineryTowerOptions(
             "item.prefab.machinery.tower",
             "assets/prefab/structures/machinery_tower.zip",
-            "textures/gui/machinery_tower_topdown.png",
+            "textures/gui/machinery_tower.png",
             false,
             true);
 

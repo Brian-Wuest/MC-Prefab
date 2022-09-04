@@ -6,7 +6,7 @@ public class JailOptions extends BaseOption {
     public static JailOptions Default = new JailOptions(
             "item.prefab.jail",
             "assets/prefab/structures/jail.zip",
-            "textures/gui/jail_topdown.png",
+            "textures/gui/jail.png",
             false,
             false);
 

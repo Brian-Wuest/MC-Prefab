@@ -6,7 +6,7 @@ public class WarehouseOptions extends BaseOption {
     public static WarehouseOptions Default = new WarehouseOptions(
             "item.prefab.item_warehouse",
             "assets/prefab/structures/warehouse.zip",
-            "textures/gui/warehouse_top_down.png",
+            "textures/gui/warehouse.png",
             false,
             true);
 

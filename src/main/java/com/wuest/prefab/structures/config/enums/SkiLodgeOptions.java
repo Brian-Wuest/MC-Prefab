@@ -6,7 +6,7 @@ public class SkiLodgeOptions extends BaseOption {
     public static SkiLodgeOptions Default = new SkiLodgeOptions(
             "item.prefab.ski_lodge",
             "assets/prefab/structures/ski_lodge.zip",
-            "textures/gui/ski_lodge_topdown.png",
+            "textures/gui/ski_lodge.png",
             false,
             false);
 

@@ -4,7 +4,7 @@ public class WatchTowerOptions extends BaseOption {
     public static WatchTowerOptions Default = new WatchTowerOptions(
             "item.prefab.item_watch_tower",
             "assets/prefab/structures/watch_tower.zip",
-            "textures/gui/watch_tower_topdown.png",
+            "textures/gui/watch_tower.png",
             true,
             false);
 

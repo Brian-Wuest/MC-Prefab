@@ -6,7 +6,7 @@ public class WelcomeCenterOptions extends BaseOption {
 	public static WelcomeCenterOptions Default = new WelcomeCenterOptions(
 			"item.prefab.welcome_center",
 			"assets/prefab/structures/welcome_center.zip",
-			"textures/gui/welcome_center_topdown.png",
+			"textures/gui/welcome_center.png",
 			true,
 			false);
 

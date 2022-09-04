@@ -4,35 +4,35 @@ public class ModernBuildingsOptions extends BaseOption {
     public static ModernBuildingsOptions HipsterFruitStand = new ModernBuildingsOptions(
             "prefab.gui.modern.hipster_fruit_stand",
             "assets/prefab/structures/modern_hipster_fruit_stand.zip",
-            "textures/gui/modern_hipster_fruit_stand_topdown.png",
+            "textures/gui/modern_hipster_fruit_stand.png",
             false,
             true);
 
     public static ModernBuildingsOptions Cinema = new ModernBuildingsOptions(
             "prefab.gui.modern.cinema",
             "assets/prefab/structures/modern_cinema.zip",
-            "textures/gui/modern_cinema_topdown.png",
+            "textures/gui/modern_cinema.png",
             false,
             false);
 
     public static ModernBuildingsOptions ApartmentBuilding = new ModernBuildingsOptions(
             "prefab.gui.modern.apartment",
             "assets/prefab/structures/modern_apartment.zip",
-            "textures/gui/modern_apartment_topdown.png",
+            "textures/gui/modern_apartment.png",
             false,
             true);
 
     public static ModernBuildingsOptions MiniHotel = new ModernBuildingsOptions(
             "prefab.gui.modern.mini_hotel",
             "assets/prefab/structures/modern_mini_hotel.zip",
-            "textures/gui/modern_mini_hotel_topdown.png",
+            "textures/gui/modern_mini_hotel.png",
             false,
             true);
 
     public static ModernBuildingsOptions Cottage = new ModernBuildingsOptions(
             "prefab.gui.modern.cottage",
             "assets/prefab/structures/modern_cottage.zip",
-            "textures/gui/modern_cottage_topdown.png",
+            "textures/gui/modern_cottage.png",
             false,
             true);
 

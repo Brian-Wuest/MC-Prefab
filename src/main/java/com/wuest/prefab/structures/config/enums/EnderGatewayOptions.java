@@ -6,7 +6,7 @@ public class EnderGatewayOptions extends BaseOption {
     public static EnderGatewayOptions Default = new EnderGatewayOptions(
             "item.prefab.ender_gateway",
             "assets/prefab/structures/ender_gateway.zip",
-            "textures/gui/ender_gateway_topdown.png",
+            "textures/gui/ender_gateway.png",
             false,
             false);
 

@@ -6,7 +6,7 @@ public class SaloonOptions extends BaseOption {
     public static SaloonOptions Default = new SaloonOptions(
             "item.prefab.saloon",
             "assets/prefab/structures/saloon.zip",
-            "textures/gui/saloon_topdown.png",
+            "textures/gui/saloon.png",
             false,
             false);
 

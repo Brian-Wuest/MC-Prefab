@@ -6,7 +6,7 @@ public class MineshaftEntranceOptions extends BaseOption {
     public static MineshaftEntranceOptions Default = new MineshaftEntranceOptions(
             "item.prefab.mineshaft.entrance",
             "assets/prefab/structures/mineshaft_entrance.zip",
-            "textures/gui/mineshaft_entrance_topdown.png",
+            "textures/gui/mineshaft_entrance.png",
             true,
             false);
 
