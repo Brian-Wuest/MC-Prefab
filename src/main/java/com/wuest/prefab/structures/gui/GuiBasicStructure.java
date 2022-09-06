@@ -77,7 +77,21 @@ public class GuiBasicStructure extends GuiStructure {
             return;
         }
 
-        this.specificConfiguration.chosenOption = this.availableOptions.get(0);
+        boolean foundPreviouslySelectedOption = false;
+
+        if (this.specificConfiguration.chosenOption != null) {
+            for (BaseOption option : this.availableOptions) {
+                if (option.getTranslationString().equals(this.specificConfiguration.chosenOption.getTranslationString())) {
+                    foundPreviouslySelectedOption = true;
+                    break;
+                }
+            }
+        }
+
+        if (!foundPreviouslySelectedOption) {
+            this.specificConfiguration.chosenOption = this.availableOptions.get(0);
+        }
+
         this.structureImageLocation = this.specificConfiguration.chosenOption.getPictureLocation();
 
         this.configuration.pos = this.pos;
