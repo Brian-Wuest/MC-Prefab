@@ -301,5 +301,5 @@
   "prefab.gui.building_options": "Options de construction",
 
   "gui.prefab.no_options_1": "Toutes les options ont été désactivées pour cette structure",
-  "gui.prefab.no_options_2": "Please update your configuration or contact your server administrator"
+  "gui.prefab.no_options_2": "Veuillez mettre à jour votre configuration ou contacter votre administrateur de serveur"
 }

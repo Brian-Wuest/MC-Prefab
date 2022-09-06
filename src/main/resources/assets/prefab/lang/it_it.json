@@ -302,5 +302,5 @@
     "prefab.gui.building_options": "Opzioni di Costruzione",
 
     "gui.prefab.no_options_1": "Tutte le opzioni sono state disabilitate per questa struttura",
-    "gui.prefab.no_options_2": "Please update your configuration or contact your server administrator"
+    "gui.prefab.no_options_2": "Aggiorna la configurazione o contatta l'amministratore del server"
 }

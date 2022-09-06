@@ -302,5 +302,5 @@
     "prefab.gui.building_options": "構築オプション",
 
     "gui.prefab.no_options_1": "この構造のすべてのオプションが無効になっています",
-    "gui.prefab.no_options_2": "Please update your configuration or contact your server administrator"
+    "gui.prefab.no_options_2": "構成を更新するか、サーバー管理者に連絡してください"
 }

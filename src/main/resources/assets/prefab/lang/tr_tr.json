@@ -302,5 +302,5 @@
     "prefab.gui.building_options": "Bina Seçenekleri",
 
     "gui.prefab.no_options_1": "Bu yapı için tüm seçenekler devre dışı bırakıldı",
-    "gui.prefab.no_options_2": "Please update your configuration or contact your server administrator"
+    "gui.prefab.no_options_2": "Lütfen yapılandırmanızı güncelleyin veya sunucu yöneticinize başvurun"
 }

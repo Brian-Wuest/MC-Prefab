@@ -302,5 +302,5 @@
     "prefab.gui.building_options": "建築選擇",
 
     "gui.prefab.no_options_1": "此結構的所有選項都已禁用",
-    "gui.prefab.no_options_2": "Please update your configuration or contact your server administrator"
+    "gui.prefab.no_options_2": "請更新您的配置或聯繫您的服務器管理員"
 }
