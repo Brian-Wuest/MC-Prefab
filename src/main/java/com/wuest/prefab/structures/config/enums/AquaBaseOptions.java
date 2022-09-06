@@ -6,7 +6,7 @@ public class AquaBaseOptions extends BaseOption {
     public static AquaBaseOptions Default = new AquaBaseOptions(
             "item.prefab.aqua_base",
             "assets/prefab/structures/aqua_base.zip",
-            "textures/gui/aqua_base_topdown.png",
+            "textures/gui/aqua_base.png",
             false,
             false);
 
