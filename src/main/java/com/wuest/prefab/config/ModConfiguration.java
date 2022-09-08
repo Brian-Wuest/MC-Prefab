@@ -38,8 +38,8 @@ public class ModConfiguration {
     private static final String compressedChestKey = "Compressed Chest";
     private static final String pileOfBricksKey = "Pile of Bricks";
     private static final String warehouseKey = "Warehouse";
-    private static final String warehouseUpgradeKey = "Warehouse Upgrade";
-    private static final String advancedWarehouseKey = "Advanced Warehouse";
+    private static final String warehouseUpgradeKey = "Upgrade";
+    private static final String advancedWarehouseKey = "Improved Warehouse";
     private static final String bundleofTimberKey = "Bundle of Timber";
     private static final String netherGateKey = "Nether Gate";
     private static final String machineryTowerKey = "Machinery Tower";
@@ -56,10 +56,10 @@ public class ModConfiguration {
     private static final String phasicBlockKey = "Phasic Block";
     private static final String smartGlassKey = "Smart Glass";
     private static final String greenHouseKey = "Green House";
-    private static final String startingHouseKey = "Starting House";
+    private static final String startingHouseKey = "House";
     private static final String glassStairsKey = "Glass Stairs";
     private static final String glassSlabsKey = "Glass Slabs";
-    private static final String moderateHouseKey = "Moderate House";
+    private static final String moderateHouseKey = "Improved House";
     private static final String watchTowerKey = "Watch Tower";
     private static final String bulldozerKey = "Bulldozer";
     private static final String jailKey = "Jail";
@@ -79,10 +79,11 @@ public class ModConfiguration {
     public static String BunchOfPotatoesKey = "Bunch of Potatoes";
     public static String BunchOfEggsKey = "Bunch of Eggs";
     public static String WoodenCrateKey = "Wooden Crate";
-    public static String starterFarmKey = "Starter Farm";
-    public static String moderateFarmKey = "Moderate Farm";
+    public static String starterFarmKey = "Farm";
+    public static String moderateFarmKey = "Improved Farm";
     public static String advancedFarmKey = "Advanced Farm";
     public static String quartzCreteKey = "Quartz-Crete";
+    public static String houseAdvancedKey = "Advanced House";
 
     public static String tagKey = "PrefabConfig";
 
@@ -127,7 +128,7 @@ public class ModConfiguration {
                     phasicBlockKey, smartGlassKey, greenHouseKey, startingHouseKey, glassStairsKey, glassSlabsKey,
                      moderateHouseKey, grassyPlainsKey, aquaBaseKey, watchTowerKey, bulldozerKey, jailKey, saloonKey, skiLodgeKey,
                     windMillKey, townHallKey, heapOfTimberKey, tonOfTimberKey, workshopKey, modernBuildingsKey, SwiftBladeKey, SickleKey, DirtRecipesKey, BunchOfBeetsKey,
-                    BunchOfCarrotsKey, BunchOfPotatoesKey, BunchOfEggsKey, WoodenCrateKey, starterFarmKey, moderateFarmKey, advancedFarmKey, quartzCreteKey};
+                    BunchOfCarrotsKey, BunchOfPotatoesKey, BunchOfEggsKey, WoodenCrateKey, starterFarmKey, moderateFarmKey, advancedFarmKey, quartzCreteKey, houseAdvancedKey};
 
     private static ForgeConfigSpec SPEC;
     private final HashMap<String, BooleanValue> recipeConfiguration;
