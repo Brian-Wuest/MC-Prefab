@@ -21,7 +21,7 @@
       "item": "prefab:item_upgrade"
     },
     {
-      "tag": "c:triple_compressed_stone"
+      "tag": "forge:storage_blocks/triple_compressed_stone"
     }
   ],
   "result": {

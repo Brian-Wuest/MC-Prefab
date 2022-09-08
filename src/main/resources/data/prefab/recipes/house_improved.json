@@ -9,13 +9,13 @@
   "group": "Improved House",
   "ingredients": [
     {
-      "item": "prefab:item_start_house"
+      "item": "prefab:item_house"
     },
     {
-      "item": "prefab:item_start_house"
+      "item": "prefab:item_house"
     },
     {
-      "item": "prefab:item_start_house"
+      "item": "prefab:item_house"
     }
   ],
   "result": {
