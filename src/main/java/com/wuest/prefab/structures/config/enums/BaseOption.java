@@ -111,16 +111,6 @@ public class BaseOption {
         return null;
     }
 
-    /**
-     * Filters the supplied options to remove any options not available based on configuration.
-     *
-     * @param originalOptions The original options to filter.
-     * @return A modified array list which potentially has some items removed.
-     */
-    public ArrayList<BaseOption> filterOptions(ArrayList<BaseOption> originalOptions) {
-        return originalOptions;
-    }
-
     @Override
     public int hashCode() {
         return Objects.hash(this.translationString, this.assetLocation);

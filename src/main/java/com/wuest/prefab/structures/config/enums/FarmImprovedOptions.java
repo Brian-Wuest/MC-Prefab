@@ -74,24 +74,4 @@ public class FarmImprovedOptions extends BaseOption{
                 hasBedColor,
                 hasGlassColor);
     }
-
-    /**
-     * Filters the supplied options to remove any options not available based on configuration.
-     *
-     * @param originalOptions The original options to filter.
-     * @return A modified array list which potentially has some items removed.
-     */
-    @Override
-    public ArrayList<BaseOption> filterOptions(ArrayList<BaseOption> originalOptions) {
-        if (!Prefab.proxy.getServerConfiguration().enableAutomationOptionsFromModerateFarm) {
-            ArrayList<BaseOption> modifiedList = (ArrayList<BaseOption>)originalOptions.clone();
-            modifiedList.remove(FarmImprovedOptions.SugarCaneFarm);
-            modifiedList.remove(FarmImprovedOptions.AutomatedFarm);
-            modifiedList.remove(FarmImprovedOptions.AutomatedChickenCoop);
-
-            return modifiedList;
-        }
-
-        return originalOptions;
-    }
 }
