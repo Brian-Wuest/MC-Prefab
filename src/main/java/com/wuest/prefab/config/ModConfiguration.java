@@ -92,7 +92,6 @@ public class ModConfiguration {
     static String enableStructurePreviewName = "Include Structure Previews";
     static String includeMineshaftChestName = "Include Mineshaft Chest";
     static String allowWaterInNonOverworldDimensionsName = "Include Water In Non-Overworld Dimesions";
-    static String enableAutomationOptionsFromModerateFarmName = "Enable Automation Options For Moderate Farm";
     static String playBuildingSoundName = "Play Building Sound";
 
     // Chest content option names.
@@ -140,7 +139,6 @@ public class ModConfiguration {
     private BooleanValue enableStructurePreview;
     private BooleanValue allowBulldozerToCreateDrops;
     private BooleanValue allowWaterInNonOverworldDimensions;
-    private BooleanValue enableAutomationOptionsFromModerateFarm;
     private BooleanValue playBuildingSound;
 
     // Chest content options.
@@ -249,18 +247,6 @@ public class ModConfiguration {
                 .setConfigType("Boolean")
                 .setCategory(ConfigCategory.General)
                 .setHoverText("Determines if water can be generated in structures when the current dimension is not the oveworld. Does not affect Nether")
-                .setDefaultValue(true));
-
-        Prefab.proxy.proxyConfiguration.enableAutomationOptionsFromModerateFarm = builder
-                .comment("Enable Automation Options For Moderate Farm")
-                .define(OPTIONS + ModConfiguration.enableAutomationOptionsFromModerateFarmName, true);
-
-        config.configOptions.add(new ConfigOption<Boolean>()
-                .setConfigValue(Prefab.proxy.proxyConfiguration.enableAutomationOptionsFromModerateFarm)
-                .setName(ModConfiguration.enableAutomationOptionsFromModerateFarmName)
-                .setConfigType("Boolean")
-                .setCategory(ConfigCategory.General)
-                .setHoverText("Enable Automation Options For Moderate Farm")
                 .setDefaultValue(true));
 
         Prefab.proxy.proxyConfiguration.playBuildingSound = builder
@@ -678,7 +664,6 @@ public class ModConfiguration {
         Prefab.proxy.proxyConfiguration.serverConfiguration.addMineshaft = Prefab.proxy.proxyConfiguration.addMineshaft.get();
         Prefab.proxy.proxyConfiguration.serverConfiguration.allowBulldozerToCreateDrops = Prefab.proxy.proxyConfiguration.allowBulldozerToCreateDrops.get();
         Prefab.proxy.proxyConfiguration.serverConfiguration.allowWaterInNonOverworldDimensions = Prefab.proxy.proxyConfiguration.allowWaterInNonOverworldDimensions.get();
-        Prefab.proxy.proxyConfiguration.serverConfiguration.enableAutomationOptionsFromModerateFarm = Prefab.proxy.proxyConfiguration.enableAutomationOptionsFromModerateFarm.get();
         Prefab.proxy.proxyConfiguration.serverConfiguration.playBuildingSound = Prefab.proxy.proxyConfiguration.playBuildingSound.get();
 
         // Recipe configuration.
