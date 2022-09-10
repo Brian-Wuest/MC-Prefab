@@ -535,7 +535,7 @@ public class ModConfiguration {
 
         // Add the basic house settings.
         List<HouseConfiguration.HouseStyle> houseStyles = Arrays.stream(HouseConfiguration.HouseStyle.values())
-                .sorted(Comparator.comparing(HouseConfiguration.HouseStyle::getDisplayName)).toList();
+                .sorted(Comparator.comparing(HouseConfiguration.HouseStyle::getTranslationKey)).toList();
         String mainKey = "item.prefab.item_house";
         String mainPath = ModConfiguration.StructureOptions + mainKey.replace('.', '_');
         HashMap<String, BooleanValue> structureOptions = new HashMap<>();
@@ -564,7 +564,7 @@ public class ModConfiguration {
 
         // Improved House options
         List<HouseImprovedConfiguration.HouseStyle> houseImprovedStyles = Arrays.stream(HouseImprovedConfiguration.HouseStyle.values())
-                .sorted(Comparator.comparing(HouseImprovedConfiguration.HouseStyle::getDisplayName)).toList();
+                .sorted(Comparator.comparing(HouseImprovedConfiguration.HouseStyle::getTranslationKey)).toList();
         mainKey = "item.prefab.item_house_improved";
         mainPath = ModConfiguration.StructureOptions + mainKey.replace('.', '_');
         structureOptions = new HashMap<>();
@@ -593,7 +593,7 @@ public class ModConfiguration {
 
         // Advanced House options
         List<HouseAdvancedConfiguration.HouseStyle> houseAdvancedStyles = Arrays.stream(HouseAdvancedConfiguration.HouseStyle.values())
-                .sorted(Comparator.comparing(HouseAdvancedConfiguration.HouseStyle::getDisplayName)).toList();
+                .sorted(Comparator.comparing(HouseAdvancedConfiguration.HouseStyle::getTranslationKey)).toList();
         mainKey = "item.prefab.item_house_advanced";
         mainPath = ModConfiguration.StructureOptions + mainKey.replace('.', '_');
         structureOptions = new HashMap<>();
