@@ -289,7 +289,7 @@ public abstract class GuiBase extends Screen {
         this.drawControlBackground(matrixStack, x, y, this.imagePanelWidth, this.imagePanelHeight);
 
         // TODO: Remove this when structure is generated in GUI instead of showing a picture.
-        if (imageLocation != null) {
+        /*if (imageLocation != null) {
             int imagePanelMiddle = this.imagePanelWidth / 2;
 
             int middleOfImage = this.shownImageWidth / 2;
@@ -305,7 +305,7 @@ public abstract class GuiBase extends Screen {
                     this.shownImageHeight,
                     this.shownImageWidth,
                     this.shownImageHeight);
-        }
+        }*/
     }
 
     protected void renderButtons(PoseStack matrixStack, int mouseX, int mouseY) {

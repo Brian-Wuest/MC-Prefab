@@ -196,7 +196,7 @@ public class StructureGuiWorld implements BlockAndTintGetter {
 
     @Override
     public int getBlockTint(BlockPos pos, ColorResolver color) {
-        return color.getColor(ForgeRegistries.BIOMES.getValue(Biomes.PLAINS.registry()), pos.getX(), pos.getZ());
+        return color.getColor(ForgeRegistries.BIOMES.getValue(Biomes.PLAINS.location()), pos.getX(), pos.getZ());
     }
 
     @Override
@@ -221,11 +221,12 @@ public class StructureGuiWorld implements BlockAndTintGetter {
         int y = pos.getY();
         int z = pos.getZ();
 
-        if (x < 0 || y < 0 || z < 0 || x >= this.buildShape.getWidth() || y >= this.buildShape.getHeight() || z >= this.buildShape.getLength()) {
-            return Blocks.AIR.defaultBlockState();
+        if (this.blocksByPosition.containsKey(pos.asLong()))
+        {
+            return this.blocksByPosition.get(pos.asLong());
         }
 
-        return this.blocksByPosition.getOrDefault(pos.asLong(), Blocks.AIR.defaultBlockState());
+        return Blocks.AIR.defaultBlockState();
     }
 
     @Override

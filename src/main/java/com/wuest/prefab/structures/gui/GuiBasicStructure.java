@@ -169,7 +169,7 @@ public class GuiBasicStructure extends GuiStructure {
             int imageLocation = imagePanelUpperLeft + (imagePanelMiddle - middleOfImage);
 
             // Draw the picture.
-            GuiUtils.bindAndDrawScaledTexture(
+            /*GuiUtils.bindAndDrawScaledTexture(
                     this.structureImageLocation,
                     matrixStack,
                     imageLocation,
@@ -179,7 +179,7 @@ public class GuiBasicStructure extends GuiStructure {
                     this.shownImageWidth,
                     this.shownImageHeight,
                     this.shownImageWidth,
-                    this.shownImageHeight);
+                    this.shownImageHeight);*/
         }
 
         if (this.btnBedColor != null) {
