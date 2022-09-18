@@ -5,6 +5,7 @@ import com.wuest.prefab.events.ClientEventHandler;
 import com.wuest.prefab.items.ItemSickle;
 import com.wuest.prefab.proxy.ClientProxy;
 import com.wuest.prefab.proxy.CommonProxy;
+import com.wuest.prefab.registries.ModRegistries;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.commands.Commands;
 import net.minecraft.server.MinecraftServer;
@@ -114,6 +115,8 @@ public class Prefab {
         Commands command = server.getCommands();
 
         ItemSickle.setEffectiveBlocks();
+
+        ModRegistry.serverModRegistries = new ModRegistries();
     }
 
     @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)

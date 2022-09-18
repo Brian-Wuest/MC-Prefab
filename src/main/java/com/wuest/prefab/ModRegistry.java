@@ -1,12 +1,14 @@
 package com.wuest.prefab;
 
 import com.wuest.prefab.blocks.*;
+import com.wuest.prefab.blocks.entities.LightSwitchBlockEntity;
 import com.wuest.prefab.blocks.entities.StructureScannerBlockEntity;
 import com.wuest.prefab.items.*;
 import com.wuest.prefab.proxy.messages.ConfigSyncMessage;
 import com.wuest.prefab.proxy.messages.PlayerEntityTagMessage;
 import com.wuest.prefab.proxy.messages.handlers.ConfigSyncHandler;
 import com.wuest.prefab.proxy.messages.handlers.PlayerEntityHandler;
+import com.wuest.prefab.registries.ModRegistries;
 import com.wuest.prefab.structures.config.BasicStructureConfiguration.EnumBasicStructureName;
 import com.wuest.prefab.structures.items.*;
 import com.wuest.prefab.structures.messages.*;
@@ -47,6 +49,8 @@ import static net.minecraft.world.level.block.Blocks.*;
 @SuppressWarnings({"unused", "ConstantConditions"})
 public class ModRegistry {
     public static final ArrayList<Consumer<Object>> guiRegistrations = new ArrayList<>();
+
+    public static ModRegistries serverModRegistries;
 
     /**
      * Deferred registry for items.
@@ -112,6 +116,9 @@ public class ModRegistry {
     public static final RegistryObject<BlockGrassStairs> GrassStairs = BLOCKS.register("block_grass_stairs", com.wuest.prefab.blocks.BlockGrassStairs::new);
     public static RegistryObject<BlockStructureScanner> StructureScanner = null;
 
+    public static RegistryObject<BlockLightSwitch> LightSwitch = BLOCKS.register("block_light_switch", BlockLightSwitch::new);
+    public static RegistryObject<BlockDarkLamp> DarkLamp = BLOCKS.register("block_dark_lamp", BlockDarkLamp::new);
+
     public static final RegistryObject<Block> QuartzCrete =  BLOCKS.register("block_quartz_crete", () -> new Block(BlockBehaviour.Properties.copy(QUARTZ_BLOCK)));
     public static final RegistryObject<WallBlock> QuartzCreteWall =  BLOCKS.register("block_quartz_crete_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(ModRegistry.QuartzCrete.get())));
     public static final RegistryObject<Block> QuartzCreteBricks =  BLOCKS.register("block_quartz_crete_bricks", () -> new Block(BlockBehaviour.Properties.copy(ModRegistry.QuartzCrete.get())));
@@ -161,8 +168,12 @@ public class ModRegistry {
     public static final RegistryObject<BlockItem> SmoothQuartzCreteStairsItem = ITEMS.register("block_quartz_crete_smooth_stairs", () -> new BlockItem(ModRegistry.SmoothQuartzCreteStairs.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
     public static final RegistryObject<BlockItem> SmoothQuartzCreteSlabItem = ITEMS.register("block_quartz_crete_smooth_slab", () -> new BlockItem(ModRegistry.SmoothQuartzCreteSlab.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
 
+    public static RegistryObject<BlockItem> LightSwitchItem = ITEMS.register("block_light_switch", () -> new BlockItem(ModRegistry.LightSwitch.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
+    public static RegistryObject<BlockItem> DarkLampItem = ITEMS.register("block_dark_lamp", () -> new BlockItem(ModRegistry.DarkLamp.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
+
     /* *********************************** Tile Entities *********************************** */
     public static RegistryObject<BlockEntityType<StructureScannerBlockEntity>> StructureScannerTileEntity = null;
+    public static RegistryObject<BlockEntityType<LightSwitchBlockEntity>> LightSwitchEntity = null;
 
     /* *********************************** Items *********************************** */
     public static final RegistryObject<Item> ItemLogo = ITEMS.register("item_logo", () -> new Item(new Item.Properties()));
@@ -238,6 +249,7 @@ public class ModRegistry {
     public static final RegistryObject<ItemBasicStructure> AdvancedModernBuildings = ITEMS.register(EnumBasicStructureName.ModernBuildingsAdvanced.getItemTextureLocation().getPath(), () -> new ItemBasicStructure(EnumBasicStructureName.ModernBuildingsAdvanced));
 
     public static BlockEntityType<StructureScannerBlockEntity> StructureScannerEntityType = null;
+    public static BlockEntityType<LightSwitchBlockEntity> LightSwitchEntityType = null;
     public static final RegistryObject<ItemBasicStructure> StarterFarm = ITEMS.register(EnumBasicStructureName.Farm.getItemTextureLocation().getPath(), () -> new ItemBasicStructure(EnumBasicStructureName.Farm));
     public static final RegistryObject<ItemBasicStructure> ModerateFarm = ITEMS.register(EnumBasicStructureName.FarmImproved.getItemTextureLocation().getPath(), () -> new ItemBasicStructure(EnumBasicStructureName.FarmImproved));
     public static final RegistryObject<ItemBasicStructure> AdvancedFarm = ITEMS.register(EnumBasicStructureName.FarmAdvanced.getItemTextureLocation().getPath(), () -> new ItemBasicStructure(EnumBasicStructureName.FarmAdvanced));
@@ -258,6 +270,13 @@ public class ModRegistry {
                 return ModRegistry.StructureScannerEntityType;
             });
         }
+
+        ModRegistry.LightSwitchEntity = TILE_ENTITIES.register("light_switch_entity", () -> {
+            ModRegistry.LightSwitchEntityType = new BlockEntityType<>(
+                    LightSwitchBlockEntity::new, new HashSet<>(Arrays.asList(ModRegistry.LightSwitch.get())), null);
+
+            return ModRegistry.LightSwitchEntityType;
+        });
     }
 
     /**

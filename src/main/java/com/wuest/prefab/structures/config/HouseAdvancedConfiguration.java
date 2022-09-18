@@ -114,7 +114,9 @@ public class HouseAdvancedConfiguration extends StructureConfiguration {
         MANOR(0, GuiLangKeys.ADVANCED_HOUSE_MANOR, new ResourceLocation("prefab", "textures/gui/house_advanced_manor.png"),
                 "assets/prefab/structures/house_advanced_manor.zip"),
         WORKSHOP(1, GuiLangKeys.ADVANCED_HOUSE_WORKSHOP, new ResourceLocation("prefab", "textures/gui/house_advanced_workshop.png"),
-                "assets/prefab/structures/house_advanced_workshop.zip");
+                "assets/prefab/structures/house_advanced_workshop.zip"),
+        ESTATE(2, GuiLangKeys.ADVANCED_HOUSE_ESTATE, new ResourceLocation("prefab", "textures/gui/house_advanced_estate.png"),
+                "assets/prefab/structures/house_advanced_estate.zip");
 
         private final int value;
         private final String displayName;

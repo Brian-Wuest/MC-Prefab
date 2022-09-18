@@ -90,7 +90,10 @@ public class Structure {
     public static <T extends Structure> T CreateInstance(String resourceLocation, Class<? extends Structure> child) {
         T structure;
 
-        Gson file = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        GsonBuilder builder = new GsonBuilder().excludeFieldsWithoutExposeAnnotation();
+        builder.registerTypeAdapter(Direction.class, new UppercaseEnumAdapter());
+
+        Gson file = builder.create();
         structure = (T) file.fromJson(ZipUtil.decompressResource(resourceLocation), child);
 
         return structure;
@@ -98,7 +101,10 @@ public class Structure {
 
     public static void CreateStructureFile(Structure structure, String fileLocation) {
         try {
-            Gson converter = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+            GsonBuilder builder = new GsonBuilder().excludeFieldsWithoutExposeAnnotation();
+            builder.registerTypeAdapter(Direction.class, new UppercaseEnumAdapter());
+
+            Gson converter = builder.create();
             StringWriter stringWriter = new StringWriter();
             converter.toJson(structure, stringWriter);
 
@@ -278,7 +284,9 @@ public class Structure {
 
             try {
                 if (currentBlock instanceof RotatedPillarBlock && property.getName().equals("axis")) {
-                    property.setValue(((Direction.Axis) value).getSerializedName());
+                    Direction.Axis axis = (Direction.Axis)value;
+
+                    property.setValue((axis).getSerializedName());
                 } else if (currentBlock instanceof CarpetBlock && property.getName().equals("color")) {
                     DyeColor dyeColor = (DyeColor) value;
                     property.setValue(dyeColor.getSerializedName());

@@ -33,6 +33,7 @@
     "item.prefab.item_magic_temple": "マジックテンプル",
     "item.prefab.item_watch_tower": "望楼",
     "item.prefab.item_watch_tower_2": "望楼 2",
+    "item.prefab.item_watch_tower_dark": "闇の監視塔",
     "item.prefab.item_welcome_center": "ウェルカムセンター",
     "item.prefab.item_jail": "刑務所",
     "item.prefab.item_saloon": "サルーン",
@@ -115,6 +116,9 @@
     "block.prefab.block_quartz_crete_smooth_stairs": "滑らかなコンクリートクォーツ階段",
     "block.prefab.block_quartz_crete_smooth_slab": "滑らかなコンクリートクォーツスラブ",
 
+    "block.prefab.block_light_switch": "照明スイッチ",
+    "block.prefab.block_dark_lamp": "暗いランプ",
+
     "block.prefab.block_structure_scanner": "Structure Scanner",
 
     "prefab.gui.cleared_area": "クリアされたエリアは、あなたが向いている方向になります。",
@@ -165,6 +169,7 @@
 
     "prefab.gui.house.advanced.manor": "荘園",
     "prefab.gui.house.advanced.workshop": "ワークショップ",
+    "prefab.gui.house.advanced.estate": "エステート",
 
     "prefab.gui.modern.mall_store": "ショッピングセンター",
     "prefab.gui.modern.hipster_fruit_stand": "果物店",

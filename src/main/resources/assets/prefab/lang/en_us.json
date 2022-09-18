@@ -33,6 +33,7 @@
     "item.prefab.item_magic_temple": "Magic Temple",
     "item.prefab.item_watch_tower": "Watch Tower",
     "item.prefab.item_watch_tower_2": "Watch Tower 2",
+    "item.prefab.item_watch_tower_dark": "Dark Watch Tower",
     "item.prefab.item_welcome_center": "Welcome Center",
     "item.prefab.item_jail": "Jail",
     "item.prefab.item_saloon": "Saloon",
@@ -115,6 +116,9 @@
     "block.prefab.block_quartz_crete_smooth_stairs": "Smooth Quartz-Crete Stairs",
     "block.prefab.block_quartz_crete_smooth_slab": "Smooth Quartz-Crete Slab",
 
+    "block.prefab.block_light_switch": "Light Switch",
+    "block.prefab.block_dark_lamp": "Dark Lamp",
+
     "block.prefab.block_structure_scanner": "Structure Scanner",
 
     "prefab.gui.cleared_area": "The area cleared will be in the direction you are facing.",
@@ -165,6 +169,7 @@
 
     "prefab.gui.house.advanced.manor": "Manor",
     "prefab.gui.house.advanced.workshop": "Workshop",
+    "prefab.gui.house.advanced.estate": "Estate",
 
     "prefab.gui.modern.mall_store": "Shopping Centre",
     "prefab.gui.modern.hipster_fruit_stand": "Fruit Shop",

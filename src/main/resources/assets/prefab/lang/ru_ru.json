@@ -33,6 +33,7 @@
     "item.prefab.item_magic_temple": "Волшебный храм",
     "item.prefab.item_watch_tower": "Сторожевая башня",
     "item.prefab.item_watch_tower_2": "Сторожевая башня 2",
+    "item.prefab.item_watch_tower_dark": "Темная сторожевая башня",
     "item.prefab.item_welcome_center": "Центр для посетителей",
     "item.prefab.item_jail": "Тюрьма",
     "item.prefab.item_saloon": "Салун",
@@ -115,6 +116,9 @@
     "block.prefab.block_quartz_crete_smooth_stairs": "Гладкие Бетонно-Кварцевые Ступеньки",
     "block.prefab.block_quartz_crete_smooth_slab": "Гладкая Бетонно-Кварцевая Плита",
 
+    "block.prefab.block_light_switch": "Выключатель света",
+    "block.prefab.block_dark_lamp": "Темная Лампа",
+
     "block.prefab.block_structure_scanner": "Сканер Структур",
 
     "prefab.gui.cleared_area": "Очищенная область будет находиться в направлении, куда вы смотрите",
@@ -165,6 +169,7 @@
 
     "prefab.gui.house.advanced.manor": "Усадьба",
     "prefab.gui.house.advanced.workshop": "Мастерская",
+    "prefab.gui.house.advanced.estate": "поместье",
 
     "prefab.gui.modern.mall_store": "Торговый Центр",
     "prefab.gui.modern.hipster_fruit_stand": "Магазин Яблок",

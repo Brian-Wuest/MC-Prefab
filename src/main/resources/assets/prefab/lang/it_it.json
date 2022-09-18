@@ -33,6 +33,7 @@
     "item.prefab.item_magic_temple": "Tempio Magico",
     "item.prefab.item_watch_tower": "Torre di Guardia",
     "item.prefab.item_watch_tower_2": "Torre di Guardia 2",
+    "item.prefab.item_watch_tower_dark": "Oscura Torre di Guardia",
     "item.prefab.item_welcome_center": "Centro di Benvenuto",
     "item.prefab.item_jail": "Prigione",
     "item.prefab.item_saloon": "Saloon",
@@ -115,6 +116,9 @@
     "block.prefab.block_quartz_crete_smooth_stairs": "Scale di quarzo in cemento liscio",
     "block.prefab.block_quartz_crete_smooth_slab": "Lastra di quarzo in cemento liscio",
 
+    "block.prefab.block_light_switch": "Interruttore luci",
+    "block.prefab.block_dark_lamp": "Lampada scura",
+
     "block.prefab.block_structure_scanner": "Structure Scanner",
 
     "prefab.gui.cleared_area": "L'area verrà sgombrata nella direzione che stai guardando.",
@@ -165,6 +169,7 @@
 
     "prefab.gui.house.advanced.manor": "Maniero",
     "prefab.gui.house.advanced.workshop": "Casa Laboratorio",
+    "prefab.gui.house.advanced.estate": "Tenuta",
 
     "prefab.gui.modern.mall_store": "Centro commerciale",
     "prefab.gui.modern.hipster_fruit_stand": "Fruttivendolo",

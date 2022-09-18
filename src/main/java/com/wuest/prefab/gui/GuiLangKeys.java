@@ -271,6 +271,9 @@ public class GuiLangKeys {
     @Unlocalized(name = "Workshop")
     public static final String ADVANCED_HOUSE_WORKSHOP = "prefab.gui.house.advanced.workshop";
 
+    @Unlocalized(name = "Estate")
+    public static final String ADVANCED_HOUSE_ESTATE = "prefab.gui.house.advanced.estate";
+
     @Unlocalized(name = "Press§9 Shift §7for more information.")
     public static final String SHIFT_TOOLTIP = "prefab.gui.tooltip.shift";
 

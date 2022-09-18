@@ -33,6 +33,7 @@
     "item.prefab.item_magic_temple": "Чарівний Храм",
     "item.prefab.item_watch_tower": "Вартова Вежа",
     "item.prefab.item_watch_tower_2": "Вартова Вежа 2",
+    "item.prefab.item_watch_tower_dark": "Темна сторожова вежа",
     "item.prefab.item_welcome_center": "Центр для Відвідувачів",
     "item.prefab.item_jail": "В'язниця",
     "item.prefab.item_saloon": "Салун",
@@ -115,6 +116,9 @@
     "block.prefab.block_quartz_crete_smooth_stairs": "Гладкі Кварцово-Бетонні Сходи",
     "block.prefab.block_quartz_crete_smooth_slab": "Гладка Кварцово-Бетонна Плита",
 
+    "block.prefab.block_light_switch": "Вимикач світла",
+    "block.prefab.block_dark_lamp": "Темна лампа",
+
     "block.prefab.block_structure_scanner": "Сканер Структур",
 
     "prefab.gui.cleared_area": "Очищена зона буде в тому напрямку, в який ви спрямовані.",
@@ -165,6 +169,7 @@
 
     "prefab.gui.house.advanced.manor": "Садиба",
     "prefab.gui.house.advanced.workshop": "Майстерня",
+    "prefab.gui.house.advanced.estate": "Маєток",
 
     "prefab.gui.modern.mall_store": "Торговий Центр",
     "prefab.gui.modern.hipster_fruit_stand": "Магазин Яблук",

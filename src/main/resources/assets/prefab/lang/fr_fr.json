@@ -33,6 +33,7 @@
   "item.prefab.item_magic_temple": "temple magique",
   "item.prefab.item_watch_tower": "Tour de guet",
   "item.prefab.item_watch_tower_2": "Tour de guet 2",
+  "item.prefab.item_watch_tower_dark": "Tour de guet sombre",
   "item.prefab.item_welcome_center": "Centre d'accueil",
   "item.prefab.item_jail": "Prison",
   "item.prefab.item_saloon": "Salon",
@@ -115,6 +116,9 @@
   "block.prefab.block_quartz_crete_smooth_stairs": "Escalier de quartz en béton lisse",
   "block.prefab.block_quartz_crete_smooth_slab": "Dalle de quartz en béton lisse",
 
+  "block.prefab.block_light_switch": "Interrupteur d'éclairage",
+  "block.prefab.block_dark_lamp": "Lampe sombre",
+
   "block.prefab.block_structure_scanner": "Structure Scanner",
 
   "prefab.gui.building_blueprint": "structure génératrice",
@@ -163,6 +167,7 @@
 
   "prefab.gui.house.advanced.manor": "Manoir",
   "prefab.gui.house.advanced.workshop": "atelier",
+  "prefab.gui.house.advanced.estate": "Domaine",
 
   "prefab.gui.modern.mall_store": "Centre commercial",
   "prefab.gui.modern.hipster_fruit_stand": "Magasin de fruits",

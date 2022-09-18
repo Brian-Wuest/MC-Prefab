@@ -33,6 +33,7 @@
   "item.prefab.item_magic_temple": "魔法寺庙",
   "item.prefab.item_watch_tower": "瞭望塔",
   "item.prefab.item_watch_tower_2": "瞭望塔 2",
+  "item.prefab.item_watch_tower_dark": "黑暗瞭望塔",
   "item.prefab.item_welcome_center": "迎宾中心",
   "item.prefab.item_jail": "监狱",
   "item.prefab.item_saloon": "酒吧",
@@ -115,6 +116,9 @@
   "block.prefab.block_quartz_crete_smooth_stairs": "光滑的混凝土石英楼梯",
   "block.prefab.block_quartz_crete_smooth_slab": "光滑混凝土石英板",
 
+  "block.prefab.block_light_switch": "电灯开关",
+  "block.prefab.block_dark_lamp": "暗灯",
+
   "block.prefab.block_structure_scanner": "Structure Scanner",
 
   "prefab.gui.cleared_area": "你面朝方向的一片区域将被清除。",
@@ -165,6 +169,7 @@
 
   "prefab.gui.house.advanced.manor": "庄园",
   "prefab.gui.house.advanced.workshop": "作坊",
+  "prefab.gui.house.advanced.estate": "财产",
 
   "prefab.gui.modern.mall_store": "购物中心",
   "prefab.gui.modern.hipster_fruit_stand": "水果店",

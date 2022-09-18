@@ -8,12 +8,19 @@ public class WatchTowerOptions extends BaseOption {
             true,
             false);
 
-    public static WatchTowerOptions Variant1 = new WatchTowerOptions(
+    public static WatchTowerOptions Copper = new WatchTowerOptions(
             "item.prefab.item_watch_tower_2",
             "assets/prefab/structures/watch_tower_2.zip",
             "textures/gui/watch_tower_2.png",
             true,
             false);
+
+    public static WatchTowerOptions Dark = new WatchTowerOptions(
+            "item.prefab.item_watch_tower_dark",
+            "assets/prefab/structures/watch_tower_dark.zip",
+            "textures/gui/watch_tower_dark.png",
+            true,
+            true);
 
     protected WatchTowerOptions(String translationString,
                                 String assetLocation,
