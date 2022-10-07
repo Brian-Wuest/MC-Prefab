@@ -38,10 +38,8 @@ public class BlockLightSwitch extends TileBlockBase<LightSwitchBlockEntity> {
     protected static final VoxelShape SOUTH_AABB;
     protected static final VoxelShape WEST_AABB;
     protected static final VoxelShape EAST_AABB;
-    protected static final VoxelShape UP_AABB_Z;
-    protected static final VoxelShape UP_AABB_X;
-    protected static final VoxelShape DOWN_AABB_Z;
-    protected static final VoxelShape DOWN_AABB_X;
+    protected static final VoxelShape UP_AABB;
+    protected static final VoxelShape DOWN_AABB;
 
     public static final DirectionProperty FACING;
 
@@ -53,14 +51,18 @@ public class BlockLightSwitch extends TileBlockBase<LightSwitchBlockEntity> {
         FACING = HorizontalDirectionalBlock.FACING;
         FACE = EnumProperty.create("face", AttachFace.class);
         POWERED = BooleanProperty.create("powered");
-        NORTH_AABB = Block.box(5.0, 4.0, 10.0, 11.0, 12.0, 16.0);
-        SOUTH_AABB = Block.box(5.0, 4.0, 0.0, 11.0, 12.0, 6.0);
-        WEST_AABB = Block.box(10.0, 4.0, 5.0, 16.0, 12.0, 11.0);
-        EAST_AABB = Block.box(0.0, 4.0, 5.0, 6.0, 12.0, 11.0);
-        UP_AABB_Z = Block.box(5.0, 0.0, 4.0, 11.0, 6.0, 12.0);
-        UP_AABB_X = Block.box(4.0, 0.0, 5.0, 12.0, 6.0, 11.0);
-        DOWN_AABB_Z = Block.box(5.0, 10.0, 4.0, 11.0, 16.0, 12.0);
-        DOWN_AABB_X = Block.box(4.0, 10.0, 5.0, 12.0, 16.0, 11.0);
+
+        /*
+            d<g
+            e<h
+            f<i
+         */
+        NORTH_AABB = Block.box(0.0, 0.0, 12.0, 16.0, 16.0, 16.0);
+        SOUTH_AABB = Block.box(0.0, 0.0, 0.0, 16.0, 16.0, 4.0);
+        WEST_AABB = Block.box(12.0, 0.0, 0.0, 16.0, 16.0, 16.0);
+        EAST_AABB = Block.box(0.0, 0.0, 0.0, 4.0, 16.0, 16.0);
+        UP_AABB = Block.box(0.0, 0.0, 0.0, 16.0, 4.0, 16.0);
+        DOWN_AABB = Block.box(0.0, 12.0, 0.0, 16.0, 16.0, 16.0);
     }
 
     public static boolean canAttach(LevelReader levelReader, BlockPos blockPos, Direction direction) {
@@ -131,13 +133,7 @@ public class BlockLightSwitch extends TileBlockBase<LightSwitchBlockEntity> {
     public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
         switch (blockState.getValue(FACE)) {
             case FLOOR:
-                switch ((blockState.getValue(FACING)).getAxis()) {
-                    case X:
-                        return UP_AABB_X;
-                    case Z:
-                    default:
-                        return UP_AABB_Z;
-                }
+                return UP_AABB;
             case WALL:
                 switch (blockState.getValue(FACING)) {
                     case EAST:
@@ -152,13 +148,7 @@ public class BlockLightSwitch extends TileBlockBase<LightSwitchBlockEntity> {
                 }
             case CEILING:
             default:
-                switch ((blockState.getValue(FACING)).getAxis()) {
-                    case X:
-                        return DOWN_AABB_X;
-                    case Z:
-                    default:
-                        return DOWN_AABB_Z;
-                }
+                return DOWN_AABB;
         }
     }
 

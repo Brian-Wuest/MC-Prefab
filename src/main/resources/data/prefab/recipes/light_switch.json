@@ -1,0 +1,28 @@
+{
+  "conditions": [
+    {
+      "type": "prefab:config_recipe",
+      "recipeKey": "Light Switch"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "group": "Light Switch",
+  "ingredients": [
+    {
+      "item": "minecraft:ink_sac",
+      "count": 1
+    },
+    {
+      "item": "minecraft:stone_button",
+      "count": 1
+    },
+    {
+      "item": "minecraft:cobblestone",
+      "count": 1
+    }
+  ],
+  "result": {
+    "item": "prefab:block_light_switch",
+    "count": 1
+  }
+}

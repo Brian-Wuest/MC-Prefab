@@ -1,6 +1,7 @@
 package com.wuest.prefab.blocks;
 
 import com.wuest.prefab.ModRegistry;
+import com.wuest.prefab.Prefab;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -32,10 +33,11 @@ public class BlockDarkLamp extends Block {
     }
 
     public BlockDarkLamp() {
-        super(Properties.of(Material.BUILDABLE_GLASS)
+        super(Properties.of(Prefab.SeeThroughImmovable)
                 .lightLevel(BlockDarkLamp.litBlockEmission(8))
                 .strength(0.3F)
                 .sound(SoundType.GLASS)
+                .noOcclusion()
                 .isValidSpawn(BlockDarkLamp::always));
 
         this.registerDefaultState(this.defaultBlockState().setValue(BlockDarkLamp.LIT, false));

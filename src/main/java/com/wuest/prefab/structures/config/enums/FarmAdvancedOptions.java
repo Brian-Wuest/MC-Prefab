@@ -42,7 +42,7 @@ public class FarmAdvancedOptions extends BaseOption {
             "assets/prefab/structures/monster_masher.zip",
             "textures/gui/monster_masher.png",
             false,
-            true);
+            false);
 
     public static FarmAdvancedOptions ProduceFarm = new FarmAdvancedOptions(
             "prefab.gui.farm.advanced.produce",

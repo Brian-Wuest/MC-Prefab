@@ -84,6 +84,8 @@ public class ModConfiguration {
     public static String advancedFarmKey = "Advanced Farm";
     public static String quartzCreteKey = "Quartz-Crete";
     public static String houseAdvancedKey = "Advanced House";
+    public static String darkLightLampKey = "Dark Light Lamp";
+    public static String lightSwitchKey = "Light Switch";
 
     public static String tagKey = "PrefabConfig";
 
@@ -128,7 +130,8 @@ public class ModConfiguration {
                     phasicBlockKey, smartGlassKey, greenHouseKey, startingHouseKey, glassStairsKey, glassSlabsKey,
                      moderateHouseKey, grassyPlainsKey, aquaBaseKey, watchTowerKey, bulldozerKey, jailKey, saloonKey, skiLodgeKey,
                     windMillKey, townHallKey, heapOfTimberKey, tonOfTimberKey, workshopKey, modernBuildingsKey, SwiftBladeKey, SickleKey, DirtRecipesKey, BunchOfBeetsKey,
-                    BunchOfCarrotsKey, BunchOfPotatoesKey, BunchOfEggsKey, WoodenCrateKey, starterFarmKey, moderateFarmKey, advancedFarmKey, quartzCreteKey, houseAdvancedKey};
+                    BunchOfCarrotsKey, BunchOfPotatoesKey, BunchOfEggsKey, WoodenCrateKey, starterFarmKey, moderateFarmKey, advancedFarmKey, quartzCreteKey, houseAdvancedKey,
+                    darkLightLampKey, lightSwitchKey};
 
     private static ForgeConfigSpec SPEC;
     private final HashMap<String, BooleanValue> recipeConfiguration;
