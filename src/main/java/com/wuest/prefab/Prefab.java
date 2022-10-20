@@ -17,6 +17,7 @@ import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.client.settings.KeyModifier;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.server.ServerAboutToStartEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -106,7 +107,7 @@ public class Prefab {
     }
 
     // The method that gets called when a server starts up(Singleplayer and multiplayer are both affected)
-    public void serverStart(ServerStartingEvent event) {
+    public void serverStart(ServerAboutToStartEvent event) {
         // Get's the current server instance.
         MinecraftServer server = event.getServer();
 
