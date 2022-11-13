@@ -1,5 +1,6 @@
 package com.wuest.prefab.structures.base;
 
+import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.gui.GuiLangKeys;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;
@@ -29,7 +30,8 @@ public enum EnumStructureMaterial {
     Acacia("prefab.wall.block.type.acacia", Blocks.ACACIA_PLANKS.defaultBlockState(), Blocks.ACACIA_STAIRS.defaultBlockState(), Blocks.ACACIA_FENCE.defaultBlockState(), 15),
     DarkOak("prefab.wall.block.type.darkoak", Blocks.DARK_OAK_PLANKS.defaultBlockState(), Blocks.DARK_OAK_STAIRS.defaultBlockState(), Blocks.DARK_OAK_FENCE.defaultBlockState(), 16),
     SandStone("prefab.ceiling.block.type.sand", Blocks.SANDSTONE.defaultBlockState(), Blocks.SANDSTONE_STAIRS.defaultBlockState(), Blocks.SANDSTONE_WALL.defaultBlockState(), 17),
-    RedSandStone("prefab.gui.material.red_sandstone", Blocks.RED_SANDSTONE.defaultBlockState(), Blocks.RED_SANDSTONE_STAIRS.defaultBlockState(), Blocks.RED_SANDSTONE_WALL.defaultBlockState(), 18);
+    RedSandStone("prefab.gui.material.red_sandstone", Blocks.RED_SANDSTONE.defaultBlockState(), Blocks.RED_SANDSTONE_STAIRS.defaultBlockState(), Blocks.RED_SANDSTONE_WALL.defaultBlockState(), 18),
+    Glass("block.minecraft.glass", Blocks.GLASS.defaultBlockState(), ModRegistry.GlassStairs.get().defaultBlockState(), Blocks.GLASS_PANE.defaultBlockState(), 19);
 
     private final String name;
     private final BlockState blockType;
