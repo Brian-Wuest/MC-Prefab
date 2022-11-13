@@ -75,7 +75,8 @@ public final class StructureEventHandler {
 
             String startingItem = CommonProxy.proxyConfiguration.serverConfiguration.startingItem;
 
-            if (!playerConfig.givenHouseBuilder && startingItem != null) {
+            if (!playerConfig.givenHouseBuilder && startingItem != null
+                && CommonProxy.proxyConfiguration.serverConfiguration.newPlayersGetStartingItem) {
                 ItemStack stack = ItemStack.EMPTY;
 
                 switch (startingItem.toLowerCase()) {
@@ -200,12 +201,13 @@ public final class StructureEventHandler {
         if (event.getEntity() instanceof ServerPlayer) {
             // Don't add the tag unless the house item was added. This way it can be added if the feature is turned on.
             // When the player is cloned, make sure to copy the tag. If this is not done the item can be given to the
-            // player again if they die before the log out and log back in.
+            // player again if they die before they log out and log back in.
             CompoundTag originalTag = event.getOriginal().getPersistentData();
 
             // Use the server configuration to determine if the house should be added for this player.
             String startingItem = CommonProxy.proxyConfiguration.serverConfiguration.startingItem;
-            if (startingItem != null && !startingItem.equalsIgnoreCase("Nothing")) {
+            if (startingItem != null && !startingItem.equalsIgnoreCase("Nothing")
+                && CommonProxy.proxyConfiguration.serverConfiguration.newPlayersGetStartingItem) {
                 if (originalTag.contains(EntityPlayerConfiguration.PLAYER_ENTITY_TAG)) {
                     CompoundTag newPlayerTag = event.getEntity().getPersistentData();
                     newPlayerTag.put(EntityPlayerConfiguration.PLAYER_ENTITY_TAG, originalTag.get(EntityPlayerConfiguration.PLAYER_ENTITY_TAG));
