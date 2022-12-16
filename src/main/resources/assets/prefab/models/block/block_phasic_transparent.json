@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "prefab:blocks/block_phasic_transparent"
+    "all": "prefab:block/block_phasic_transparent"
   },
   "render_type": "translucent"
 }

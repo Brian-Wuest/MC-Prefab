@@ -5,9 +5,9 @@
   "textures": {
     "particle": "block/torch",
     "0": "block/torch",
-    "1": "prefab:blocks/stick",
-    "2": "prefab:blocks/stick_side",
-    "3": "prefab:blocks/paper_lantern_side"
+    "1": "prefab:block/stick",
+    "2": "prefab:block/stick_side",
+    "3": "prefab:block/paper_lantern_side"
   },
   "elements": [
     {

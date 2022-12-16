@@ -1,7 +1,7 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "prefab:items/item_bunch_of_potatoes"
+        "layer0": "prefab:item/item_bunch_of_potatoes"
     },
 	"display": {
 		"thirdperson": {

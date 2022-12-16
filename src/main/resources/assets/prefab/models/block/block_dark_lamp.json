@@ -3,9 +3,9 @@
   "parent": "block/block",
   "ambientocclusion": false,
   "textures": {
-    "dll2off": "prefab:blocks/dll2off",
-    "dll1off": "prefab:blocks/dll1off",
-    "particle": "prefab:blocks/dll1off"
+    "dll2off": "prefab:block/dll2off",
+    "dll1off": "prefab:block/dll1off",
+    "particle": "prefab:block/dll1off"
   },
   "render_type": "cutout",
   "display": {

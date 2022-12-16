@@ -1,9 +1,9 @@
 {
     "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
     "textures": {
-        "ds_off": "prefab:blocks/block_light_switch_off",
-        "mcstone": "prefab:blocks/block_light_switch_base",
-        "particle": "prefab:blocks/block_light_switch_off"
+        "ds_off": "prefab:block/block_light_switch_off",
+        "mcstone": "prefab:block/block_light_switch_base",
+        "particle": "prefab:block/block_light_switch_off"
     },
     "render_type": "cutout",
     "display": {

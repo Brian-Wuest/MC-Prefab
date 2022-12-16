@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "prefab:items/item_aqua_base_improved"
+    "layer0": "prefab:item/item_aqua_base_improved"
   }
 }

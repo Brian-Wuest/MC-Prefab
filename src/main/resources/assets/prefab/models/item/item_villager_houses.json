@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "prefab:items/item_villager_houses"
+    "layer0": "prefab:item/item_villager_houses"
   }
 }

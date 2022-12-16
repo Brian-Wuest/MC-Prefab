@@ -1,6 +1,6 @@
 {
 	"parent": "item/handheld",
 	"textures": {
-		"layer0": "prefab:items/item_sickle_gold"
+		"layer0": "prefab:item/item_sickle_gold"
 	}
 }

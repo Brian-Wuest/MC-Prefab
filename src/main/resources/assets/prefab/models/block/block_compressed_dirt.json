@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "prefab:blocks/block_compressed_dirt"
+    "all": "prefab:block/block_compressed_dirt"
   }
 }

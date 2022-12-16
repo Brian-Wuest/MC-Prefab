@@ -1,7 +1,7 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "prefab:items/item_clutch_of_eggs"
+        "layer0": "prefab:item/item_clutch_of_eggs"
     },
 	"display": {
 		"thirdperson": {

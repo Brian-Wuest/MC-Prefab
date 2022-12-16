@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "prefab:items/item_grassy_plain"
+    "layer0": "prefab:item/item_grassy_plain"
   }
 }

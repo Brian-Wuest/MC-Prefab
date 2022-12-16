@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench by Dqu1J",
 	"texture_size": [64, 64],
 	"textures": {
-		"0": "prefab:items/item_compressed_chest",
-		"particle": "prefab:items/item_compressed_chest"
+		"0": "prefab:item/item_compressed_chest",
+		"particle": "prefab:item/item_compressed_chest"
 	},
 	"elements": [
 		{

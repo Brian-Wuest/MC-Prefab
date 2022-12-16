@@ -1,9 +1,9 @@
 {
 	"parent": "block/cube_bottom_top",
    "textures": {
-        "side": "prefab:items/item_crate_side",
-        "bottom": "prefab:items/item_crate_potato",
-        "top": "prefab:items/item_crate_potato"
+        "side": "prefab:item/item_crate_side",
+        "bottom": "prefab:item/item_crate_potato",
+        "top": "prefab:item/item_crate_potato"
     },
 	"display": {
 		"thirdperson": {

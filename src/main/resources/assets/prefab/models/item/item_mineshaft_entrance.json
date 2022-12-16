@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "prefab:items/item_mineshaft_entrance"
+    "layer0": "prefab:item/item_mineshaft_entrance"
   }
 }

@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "prefab:items/item_welcome_center"
+    "layer0": "prefab:item/item_welcome_center"
   }
 }

@@ -1,6 +1,6 @@
 {
     "parent": "item/handheld",
     "textures": {
-        "layer0": "prefab:items/item_swift_blade_diamond"
+        "layer0": "prefab:item/item_swift_blade_diamond"
     }
 }

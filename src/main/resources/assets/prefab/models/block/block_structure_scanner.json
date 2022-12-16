@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:block/cube",
   "textures": {
-    "particle": "prefab:blocks/block_structure_scanner",
-    "up": "prefab:blocks/block_structure_scanner",
-    "down": "prefab:blocks/block_structure_scanner",
-    "north": "prefab:blocks/block_structure_scanner_blank",
-    "south": "prefab:blocks/block_structure_scanner_blank",
-    "east": "prefab:blocks/block_structure_scanner_side_east",
-    "west": "prefab:blocks/block_structure_scanner_side"
+    "particle": "prefab:block/block_structure_scanner",
+    "up": "prefab:block/block_structure_scanner",
+    "down": "prefab:block/block_structure_scanner",
+    "north": "prefab:block/block_structure_scanner_blank",
+    "south": "prefab:block/block_structure_scanner_blank",
+    "east": "prefab:block/block_structure_scanner_side_east",
+    "west": "prefab:block/block_structure_scanner_side"
   }
 }
