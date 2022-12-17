@@ -2,9 +2,6 @@ package com.wuest.prefab.structures.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
-import com.mojang.math.Vector4f;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.Tuple;
 import com.wuest.prefab.Utils;
@@ -18,12 +15,8 @@ import com.wuest.prefab.structures.render.StructureRenderHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
@@ -131,14 +124,14 @@ public abstract class GuiStructure extends GuiBase {
 
         this.postButtonRender(matrixStack, adjustedXYValue.getFirst(), adjustedXYValue.getSecond(), x, y, f);
 
-        if (this.structureRenderer != null) {
+        /*if (this.structureRenderer != null) {
             if (this.isRendererSetup) {
                 this.renderStructureInScreen(matrixStack, adjustedXYValue.getFirst(), adjustedXYValue.getSecond(), x, y, f);
             } else {
                 this.rebuild();
                 this.isRendererSetup = true;
             }
-        }
+        }*/
 
         if (this.btnVisualize != null) {
             this.checkVisualizationSetting();
@@ -192,7 +185,7 @@ public abstract class GuiStructure extends GuiBase {
         }
     }
 
-    private void rebuild() {
+/*    private void rebuild() {
         PoseStack matrixStack = new PoseStack();
 
         this.buffer = new VertexBuffer();
@@ -203,7 +196,7 @@ public abstract class GuiStructure extends GuiBase {
 
         BufferBuilder.RenderedBuffer renderedBuffer = bufferBuilder.end();
         this.buffer.upload(renderedBuffer);
-    }
+    }*/
 
     public void scheduleRebuild() {
         this.isRendererSetup = false;
@@ -212,7 +205,7 @@ public abstract class GuiStructure extends GuiBase {
     /**
      * Renders the current structure on the GUI.
      */
-    protected void renderStructureInScreen(PoseStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
+/*    protected void renderStructureInScreen(PoseStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
         int sizeX = this.structureRenderer.getClearShape().getShape().getWidth();
         int sizeY = this.structureRenderer.getClearShape().getShape().getHeight();
         int sizeZ = this.structureRenderer.getClearShape().getShape().getLength();
@@ -227,10 +220,10 @@ public abstract class GuiStructure extends GuiBase {
         int xPos = x + 186;
         int yPos = 40;
 
-        /*
+        *//*
             TODO: Something in this positioning is causing the structure to float left and right
             Note: It can be here or where the time is calculated to get the current time rotation.
-         */
+         *//*
         matrixStack.pushPose();
         matrixStack.translate(xPos, yPos, 100);
         matrixStack.scale(scale, scale, scale);
@@ -278,10 +271,10 @@ public abstract class GuiStructure extends GuiBase {
         this.buffer.drawWithShader(matrixStack.last().pose(), RenderSystem.getProjectionMatrix(), GameRenderer.getBlockShader());
         VertexBuffer.unbind();
         matrixStack.popPose();
-    }
+    }*/
 
     //************************* Original BOTANIA rendering
-    private void renderElements(PoseStack matrixStack, Vector4f eye) {
+/*    private void renderElements(PoseStack matrixStack, Vector4f eye) {
         matrixStack.pushPose();
         RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
         matrixStack.translate(0, 0, -1);
@@ -291,10 +284,10 @@ public abstract class GuiStructure extends GuiBase {
 
         buffers.endBatch();
         matrixStack.popPose();
-    }
+    }*/
 
     //private void doWorldRenderPass(PoseStack matrixStack, final @Nonnull MultiBufferSource.BufferSource buffers)
-    private void doWorldRenderPass(PoseStack matrixStack, VertexConsumer vertexConsumer) {
+/*    private void doWorldRenderPass(PoseStack matrixStack, VertexConsumer vertexConsumer) {
         for (Map.Entry<Long, BlockState> entry : this.structureRenderer.getBlocksByPosition().entrySet()) {
             BlockPos position = BlockPos.of(entry.getKey());
             BlockState blockState = entry.getValue();
@@ -308,5 +301,5 @@ public abstract class GuiStructure extends GuiBase {
             Minecraft.getInstance().getBlockRenderer().renderBatched(blockState, position, this.structureRenderer, matrixStack, vertexConsumer, false, GuiStructure.RAND);
             matrixStack.popPose();
         }
-    }
+    }*/
 }

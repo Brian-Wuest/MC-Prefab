@@ -10,7 +10,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.EditBox;
-import net.minecraft.client.gui.components.Widget;
+import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratedElementType;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
@@ -29,7 +29,7 @@ import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-public class GuiTextBox extends AbstractWidget implements Widget, GuiEventListener {
+public class GuiTextBox extends AbstractWidget implements Renderable, GuiEventListener {
     private final net.minecraft.client.gui.Font font;
     public int backgroundColor;
     public boolean drawsTextShadow;
@@ -352,13 +352,13 @@ public class GuiTextBox extends AbstractWidget implements Widget, GuiEventListen
         if (!this.isVisible()) {
             return false;
         } else {
-            boolean bl = mouseX >= (double) this.x && mouseX < (double) (this.x + this.width) && mouseY >= (double) this.y && mouseY < (double) (this.y + this.height);
+            boolean bl = mouseX >= (double) this.getX() && mouseX < (double) (this.getX() + this.width) && mouseY >= (double) this.getY() && mouseY < (double) (this.getY() + this.height);
             if (this.canLoseFocus) {
                 this.setFocus(bl);
             }
 
             if (this.isFocused() && bl && button == 0) {
-                int i = Mth.floor(mouseX) - this.x;
+                int i = Mth.floor(mouseX) - this.getX();
                 if (this.bordered) {
                     i -= 4;
                 }
@@ -381,8 +381,8 @@ public class GuiTextBox extends AbstractWidget implements Widget, GuiEventListen
             int j;
             if (this.isBordered()) {
                 j = this.isFocused() ? -1 : -6250336;
-                fill(poseStack, this.x - 1, this.y - 1, this.x + this.width + 1, this.y + this.height + 1, j);
-                fill(poseStack, this.x, this.y, this.x + this.width, this.y + this.height, this.backgroundColor);
+                fill(poseStack, this.getX() - 1, this.getY() - 1, this.getX() + this.width + 1, this.getY() + this.height + 1, j);
+                fill(poseStack, this.getX(), this.getY(), this.getX() + this.width, this.getY() + this.height, this.backgroundColor);
             }
 
             j = this.isEditable ? this.textColor : this.textColorUneditable;
@@ -391,8 +391,8 @@ public class GuiTextBox extends AbstractWidget implements Widget, GuiEventListen
             String string = this.font.plainSubstrByWidth(this.value.substring(this.displayPos), this.getInnerWidth());
             boolean bl = k >= 0 && k <= string.length();
             boolean bl2 = this.isFocused() && this.frame / 6 % 2 == 0 && bl;
-            int m = this.bordered ? this.x + 4 : this.x;
-            int n = this.bordered ? this.y + (this.height - 8) / 2 : this.y;
+            int m = this.bordered ? this.getX() + 4 : this.getX();
+            int n = this.bordered ? this.getY() + (this.height - 8) / 2 : this.getY();
             int o = m;
             if (l > string.length()) {
                 l = string.length();
@@ -478,12 +478,12 @@ public class GuiTextBox extends AbstractWidget implements Widget, GuiEventListen
             endY = j;
         }
 
-        if (endX > this.x + this.width) {
-            endX = this.x + this.width;
+        if (endX > this.getX() + this.width) {
+            endX = this.getX() + this.width;
         }
 
-        if (startX > this.x + this.width) {
-            startX = this.x + this.width;
+        if (startX > this.getX() + this.width) {
+            startX = this.getX() + this.width;
         }
 
         Tesselator tesselator = Tesselator.getInstance();
@@ -546,7 +546,7 @@ public class GuiTextBox extends AbstractWidget implements Widget, GuiEventListen
     }
 
     public boolean isMouseOver(double mouseX, double mouseY) {
-        return this.visible && mouseX >= (double) this.x && mouseX < (double) (this.x + this.width) && mouseY >= (double) this.y && mouseY < (double) (this.y + this.height);
+        return this.visible && mouseX >= (double) this.getX() && mouseX < (double) (this.getX() + this.width) && mouseY >= (double) this.getY() && mouseY < (double) (this.getY() + this.height);
     }
 
     protected void onFocusedChanged(boolean focused) {
@@ -611,14 +611,10 @@ public class GuiTextBox extends AbstractWidget implements Widget, GuiEventListen
     }
 
     public int getScreenX(int i) {
-        return i > this.value.length() ? this.x : this.x + this.font.width(this.value.substring(0, i));
+        return i > this.value.length() ? this.getX() : this.getX() + this.font.width(this.value.substring(0, i));
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void updateNarration(NarrationElementOutput narrationElementOutput) {
+    public void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {
         narrationElementOutput.add(NarratedElementType.TITLE, Component.translatable("narration.edit_box", new Object[]{this.getValue()}));
     }
 }

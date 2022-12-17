@@ -13,13 +13,13 @@ import com.wuest.prefab.gui.controls.ExtendedButton;
 import com.wuest.prefab.proxy.CommonProxy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.OptionInstance;
-import net.minecraft.client.PrioritizeChunkUpdates;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.OptionsList;
-import net.minecraft.client.gui.components.TooltipAccessor;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
 
 import javax.annotation.Nullable;
@@ -79,8 +79,10 @@ public class GuiPrefab extends GuiBase {
         if (optionsRowList.isMouseOver(mouseX, mouseY)) {
             Optional<AbstractWidget> optional = optionsRowList.getMouseOver(mouseX, mouseY);
 
-            if (optional.isPresent() && optional.get() instanceof TooltipAccessor) {
-                return ((TooltipAccessor) optional.get()).getTooltip();
+            if (optional.isPresent()) {
+                // TODO: Make tooltip accessible as it is not.
+                //optional.get().too
+                //return ((TooltipAccessor) optional.get()).getTooltip();
             }
         }
 
@@ -240,7 +242,7 @@ public class GuiPrefab extends GuiBase {
         OptionInstance<Boolean> abstractOption = OptionInstance.createBoolean(
                 configOption.getName(),
                 !configOption.getHoverText().isEmpty()
-                        ? (minecraft) -> (supplierValue) -> this.getSplitString(configOption.getHoverTextComponent(), 250)
+                        ? (supplierValue) -> Tooltip.create(configOption.getHoverTextComponent())
                         : OptionInstance.noTooltip(),
                 configOption.getConfigValueAsBoolean().get(),
                 (newValue) -> configOption.getConfigValueAsBoolean().set(newValue)
@@ -287,8 +289,8 @@ public class GuiPrefab extends GuiBase {
                 configOption.getName(),
                 // Tooltip Supplier
                 !configOption.getHoverText().isEmpty()
-                        ? (minecraft) -> (supplierValue) -> this.getSplitString(configOption.getHoverTextComponent(), 250)
-                        : (minecraft) -> (supplierValue) -> ImmutableList.of(),
+                        ? (supplierValue) -> Tooltip.create(configOption.getHoverTextComponent())
+                        : OptionInstance.noTooltip(),
                 // Caption Based To String
                 (component, value) ->
                         Utils.createTextComponent(
