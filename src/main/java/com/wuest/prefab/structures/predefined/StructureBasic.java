@@ -117,6 +117,9 @@ public class StructureBasic extends Structure {
                     entity.setPos(this.customBlockPos.getX(), this.customBlockPos.above().getY(), this.customBlockPos.getZ());
                     world.addFreshEntity(entity);
                 }
+            } else if (structureName.equals(EnumBasicStructureName.MineshaftEntrance.getName())) {
+                // Build the mineshaft where the trap door exists.
+                BuildingMethods.PlaceMineShaft(world, this.customBlockPos.below(), configuration.houseFacing, true);
             }
 
             this.customBlockPos = null;
