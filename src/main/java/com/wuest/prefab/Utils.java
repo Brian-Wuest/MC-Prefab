@@ -6,6 +6,8 @@ import io.netty.util.internal.StringUtil;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -14,11 +16,16 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.StateHolder;
+import net.minecraft.world.level.block.state.properties.Property;
 import org.apache.commons.lang3.text.WordUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class Utils {
     public static String[] WrapString(String value) {
@@ -99,10 +106,10 @@ public class Utils {
      * @return A collection of found blocks.
      */
     public static ArrayList<Block> getBlocksWithTagLocation(ResourceLocation resourceLocation) {
-        TagKey<Block> tags = TagKey.create(Registry.BLOCK_REGISTRY, resourceLocation);
+        TagKey<Block> tags = TagKey.create(Registries.BLOCK, resourceLocation);
         ArrayList<Block> blocks = new ArrayList<>();
 
-        for (Holder<Block> blockHolder : Registry.BLOCK.getTagOrEmpty(tags)) {
+        for (Holder<Block> blockHolder : BuiltInRegistries.BLOCK.getTagOrEmpty(tags)) {
             blocks.add(blockHolder.value());
         }
 
@@ -117,7 +124,7 @@ public class Utils {
     public static ArrayList<Block> getBlocksWithTagKey(TagKey<Block> tagKey) {
         ArrayList<Block> blocks = new ArrayList<>();
 
-        for (Holder<Block> blockHolder : Registry.BLOCK.getTagOrEmpty(tagKey)) {
+        for (Holder<Block> blockHolder : BuiltInRegistries.BLOCK.getTagOrEmpty(tagKey)) {
             blocks.add(blockHolder.value());
         }
 
@@ -131,10 +138,10 @@ public class Utils {
      * @return True if the tag was found; otherwise false.
      */
     public static boolean doesBlockHaveTag(Block block, ResourceLocation location) {
-        ResourceLocation blockKey = Registry.BLOCK.getKey(block);
-        TagKey<Block> tags = TagKey.create(Registry.BLOCK_REGISTRY, location);
+        ResourceLocation blockKey = BuiltInRegistries.BLOCK.getKey(block);
+        TagKey<Block> tags = TagKey.create(Registries.BLOCK, location);
 
-        for (Holder<Block> blockHolder : Registry.BLOCK.getTagOrEmpty(tags)) {
+        for (Holder<Block> blockHolder : BuiltInRegistries.BLOCK.getTagOrEmpty(tags)) {
             if (blockHolder.is(blockKey)) {
                 return true;
             }
@@ -165,10 +172,10 @@ public class Utils {
      * @return A collection of found blocks.
      */
     public static ArrayList<ItemStack> getItemStacksWithTag(ResourceLocation resourceLocation) {
-        TagKey<Item> tags = TagKey.create(Registry.ITEM_REGISTRY, resourceLocation);
+        TagKey<Item> tags = TagKey.create(Registries.ITEM, resourceLocation);
         ArrayList<ItemStack> itemStacks = new ArrayList<>();
 
-        for (Holder<Item> holder : Registry.ITEM.getTagOrEmpty(tags)) {
+        for (Holder<Item> holder : BuiltInRegistries.ITEM.getTagOrEmpty(tags)) {
             itemStacks.add(new ItemStack(holder.value()));
         }
 
@@ -182,10 +189,10 @@ public class Utils {
      * @return True if the tag exists on the item; otherwise false.
      */
     public static boolean doesItemHaveTag(Item item, ResourceLocation location) {
-        ResourceLocation blockKey = Registry.ITEM.getKey(item);
-        TagKey<Item> tags = TagKey.create(Registry.ITEM_REGISTRY, location);
+        ResourceLocation blockKey = BuiltInRegistries.ITEM.getKey(item);
+        TagKey<Item> tags = TagKey.create(Registries.ITEM, location);
 
-        for (Holder<Item> blockHolder : Registry.ITEM.getTagOrEmpty(tags)) {
+        for (Holder<Item> blockHolder : BuiltInRegistries.ITEM.getTagOrEmpty(tags)) {
             if (blockHolder.is(blockKey)) {
                 return true;
             }
@@ -208,5 +215,38 @@ public class Utils {
         }
 
         return false;
+    }
+
+    public static BlockState readBlockState(CompoundTag tag) {
+        if (!tag.contains("Name", 8)) {
+            return Blocks.AIR.defaultBlockState();
+        } else {
+            Block block = BuiltInRegistries.BLOCK.get(new ResourceLocation(tag.getString("Name")));
+            BlockState blockState = block.defaultBlockState();
+
+            if (tag.contains("Properties", 10)) {
+                CompoundTag compoundTag = tag.getCompound("Properties");
+                StateDefinition<Block, BlockState> stateDefinition = block.getStateDefinition();
+
+                for(String s : compoundTag.getAllKeys()) {
+                    Property<?> property = stateDefinition.getProperty(s);
+                    if (property != null) {
+                        blockState = setValueHelper(blockState, property, s, compoundTag, tag);
+                    }
+                }
+            }
+
+            return blockState;
+        }
+    }
+
+    private static <S extends StateHolder<?, S>, T extends Comparable<T>> S setValueHelper(S blockState, Property<T> property, String tagKey, CompoundTag compoundTag, CompoundTag originalTag) {
+        Optional<T> optional = property.getValue(compoundTag.getString(tagKey));
+        if (optional.isPresent()) {
+            return blockState.setValue(property, optional.get());
+        } else {
+            Prefab.LOGGER.warn("Unable to read property: {} with value: {} for blockstate: {}", tagKey, compoundTag.getString(tagKey), originalTag.toString());
+            return blockState;
+        }
     }
 }

@@ -17,7 +17,7 @@ public class ExtendedButton extends Button
 
     public ExtendedButton(int xPos, int yPos, int width, int height, Component displayString, OnPress handler, String label)
     {
-        super(xPos, yPos, width, height, displayString, handler);
+        super(xPos, yPos, width, height, displayString, handler, Button.DEFAULT_NARRATION);
         this.label = label;
     }
 
@@ -38,7 +38,7 @@ public class ExtendedButton extends Button
     {
         if (this.visible) {
             Minecraft mc = Minecraft.getInstance();
-            this.isHovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
+            this.isHovered = mouseX >= this.getX() && mouseY >= this.getY() && mouseX < this.getX() + this.width && mouseY < this.getY() + this.height;
 
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderTexture(0, WIDGETS_LOCATION);
@@ -49,8 +49,8 @@ public class ExtendedButton extends Button
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();
             RenderSystem.enableDepthTest();
-            this.blit(mStack, this.x, this.y, 0, 46 + i * 20, this.width / 2, this.height);
-            this.blit(mStack, this.x + this.width / 2, this.y, 200 - this.width / 2, 46 + i * 20, this.width / 2, this.height);
+            this.blit(mStack, this.getX(), this.getY(), 0, 46 + i * 20, this.width / 2, this.height);
+            this.blit(mStack, this.getX() + this.width / 2, this.getY(), 200 - this.width / 2, 46 + i * 20, this.width / 2, this.height);
 
             this.renderBg(mStack, mc, mouseX, mouseY);
 
@@ -67,8 +67,8 @@ public class ExtendedButton extends Button
             originalStack.pushPose();
             originalStack.scale(this.fontScale, this.fontScale, this.fontScale);
 
-            int xPosition = (int) ((this.x + this.width / 2) / this.fontScale);
-            int yPosition = (int) ((this.y + (this.height - (8 * this.fontScale)) / 2) / this.fontScale);
+            int xPosition = (int) ((this.getX() + this.width / 2) / this.fontScale);
+            int yPosition = (int) ((this.getY() + (this.height - (8 * this.fontScale)) / 2) / this.fontScale);
 
             GuiComponent.drawCenteredString(originalStack, mc.font, buttonText, xPosition, yPosition, this.getFGColor());
             originalStack.popPose();

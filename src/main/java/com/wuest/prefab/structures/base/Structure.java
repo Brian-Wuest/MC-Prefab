@@ -14,6 +14,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -267,7 +268,7 @@ public class Structure {
      */
     public static BuildBlock createBuildBlockFromBlockState(BlockState currentState, Block currentBlock, BlockPos currentPos, BlockPos originalPos) {
         BuildBlock buildBlock = new BuildBlock();
-        ResourceLocation blockIdentifier = Registry.BLOCK.getKey(currentBlock);
+        ResourceLocation blockIdentifier = BuiltInRegistries.BLOCK.getKey(currentBlock);
         buildBlock.setBlockDomain(blockIdentifier.getNamespace());
         buildBlock.setBlockName(blockIdentifier.getPath());
         buildBlock.setStartingPosition(Structure.getStartingPositionFromOriginalAndCurrentPosition(currentPos, originalPos));
@@ -385,7 +386,7 @@ public class Structure {
             // be built.
             MutableComponent message = Component.translatable(
                     GuiLangKeys.GUI_STRUCTURE_NOBUILD,
-                    Registry.BLOCK.getKey(checkResult.getSecond().getBlock()).toString(),
+                    BuiltInRegistries.BLOCK.getKey(checkResult.getSecond().getBlock()).toString(),
                     checkResult.getThird().getX(),
                     checkResult.getThird().getY(),
                     checkResult.getThird().getZ());
@@ -608,7 +609,7 @@ public class Structure {
             }
 
             if (foundWaterLikeBlock) {
-                ResourceLocation cobbleIdentifier = Registry.BLOCK.getKey(Blocks.COBBLESTONE);
+                ResourceLocation cobbleIdentifier = BuiltInRegistries.BLOCK.getKey(Blocks.COBBLESTONE);
                 block.setBlockDomain(cobbleIdentifier.getNamespace());
                 block.setBlockName(cobbleIdentifier.getPath());
                 block.setBlockState(Blocks.COBBLESTONE.defaultBlockState());
@@ -630,9 +631,9 @@ public class Structure {
             return false;
         }
 
-        ResourceLocation blockIdentifier = Registry.BLOCK.getKey(foundBlock);
-        ResourceLocation glassIdentifier = Registry.BLOCK.getKey(Blocks.WHITE_STAINED_GLASS);
-        ResourceLocation glassPaneIdentifier = Registry.BLOCK.getKey(Blocks.WHITE_STAINED_GLASS_PANE);
+        ResourceLocation blockIdentifier = BuiltInRegistries.BLOCK.getKey(foundBlock);
+        ResourceLocation glassIdentifier = BuiltInRegistries.BLOCK.getKey(Blocks.WHITE_STAINED_GLASS);
+        ResourceLocation glassPaneIdentifier = BuiltInRegistries.BLOCK.getKey(Blocks.WHITE_STAINED_GLASS_PANE);
 
         if (blockIdentifier.getNamespace().equals(glassIdentifier.getNamespace())
                 && blockIdentifier.getPath().endsWith("glass")) {

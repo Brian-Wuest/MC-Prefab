@@ -7,6 +7,7 @@ import com.wuest.prefab.structures.config.StructureConfiguration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.BlockAndTintGetter;
@@ -133,7 +134,7 @@ public class StructureGuiWorld implements BlockAndTintGetter {
             HashMap<Long, BlockState> blocksByPosition = new HashMap<>();
 
             for (BuildBlock buildBlock : this.blocks) {
-                Block foundBlock = Registry.BLOCK.get(buildBlock.getResourceLocation());
+                Block foundBlock = BuiltInRegistries.BLOCK.get(buildBlock.getResourceLocation());
 
                 if (foundBlock != null) {
                     // In order to get the proper relative position I also need the structure's original facing.

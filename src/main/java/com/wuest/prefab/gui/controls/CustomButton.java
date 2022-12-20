@@ -31,13 +31,13 @@ public class CustomButton extends ExtendedButton {
     public void renderButton(PoseStack mStack, int mouseX, int mouseY, float partial) {
         if (this.visible) {
             Minecraft mc = Minecraft.getInstance();
-            this.isHovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
+            this.isHovered = mouseX >= this.getX() && mouseY >= this.getY() && mouseX < this.getX() + this.width && mouseY < this.getY() + this.height;
             ResourceLocation buttonTexture = this.isHovered ? this.buttonTextureHover : this.buttonTexture;
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderTexture(0, buttonTexture);
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, this.alpha);
 
-            GuiUtils.bindAndDrawScaledTexture(mStack, this.x, this.y, this.width, this.height, 90, 20, 90, 20);
+            GuiUtils.bindAndDrawScaledTexture(mStack, this.getX(), this.getY(), this.width, this.height, 90, 20, 90, 20);
             int color = 14737632;
 
             Component buttonText = this.getMessage();
@@ -47,7 +47,7 @@ public class CustomButton extends ExtendedButton {
             if (strWidth > width - 6 && strWidth > ellipsisWidth)
                 buttonText = Utils.createTextComponent(mc.font.substrByWidth(buttonText, width - 6 - ellipsisWidth).getString() + "...");
 
-            GuiComponent.drawCenteredString(mStack, mc.font, buttonText, this.x + this.width / 2, this.y + (this.height - 8) / 2, color);
+            GuiComponent.drawCenteredString(mStack, mc.font, buttonText, this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, color);
         }
     }
 }

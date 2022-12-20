@@ -3,6 +3,7 @@ package com.wuest.prefab.structures.base;
 import com.google.gson.annotations.Expose;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.wuest.prefab.Prefab;
+import com.wuest.prefab.Utils;
 import com.wuest.prefab.structures.config.StructureConfiguration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -552,7 +553,7 @@ public class BuildBlock {
             CompoundTag tag = this.getBlockStateDataTag();
 
             if (tag != null) {
-                state = NbtUtils.readBlockState(tag.getCompound("tag"));
+                state = Utils.readBlockState(tag.getCompound("tag"));
             }
         }
 

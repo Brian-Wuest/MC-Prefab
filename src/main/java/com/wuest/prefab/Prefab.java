@@ -8,7 +8,11 @@ import com.wuest.prefab.proxy.CommonProxy;
 import com.wuest.prefab.registries.ModRegistries;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.commands.Commands;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.level.material.PushReaction;
@@ -17,6 +21,7 @@ import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.client.settings.KeyModifier;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.event.server.ServerAboutToStartEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -143,6 +148,123 @@ public class Prefab {
             event.register(binding);
 
             ClientEventHandler.keyBindings.add(binding);
+        }
+
+        @SubscribeEvent
+        public static void onCreativeModeTabRegister(CreativeModeTabEvent.Register event) {
+            ModRegistry.PREFAB_GROUP = event.registerCreativeModeTab(new ResourceLocation(Prefab.MODID, "logo"),
+                    builder -> builder.icon(() -> new ItemStack(ModRegistry.ItemLogo.get()))
+                    .title(Component.translatable("itemGroup.prefab.logo"))
+                    .withLabelColor(0x00FF00)
+                    .displayItems((features, entries, hasPermissions) -> {
+                        entries.accept(ModRegistry.CompressedStoneItem.get());
+                        entries.accept(ModRegistry.DoubleCompressedStoneItem.get());
+                        entries.accept(ModRegistry.TripleCompressedStoneItem.get());
+                        entries.accept(ModRegistry.CompressedDirtItem.get());
+                        entries.accept(ModRegistry.DoubleCompressedDirtItem.get());
+                        entries.accept(ModRegistry.CompressedGlowstoneItem);
+                        entries.accept(ModRegistry.DoubleCompressedGlowstoneItem);
+                        entries.accept(ModRegistry.CompressedQuartzCreteItem.get());
+                        entries.accept(ModRegistry.DoubleCompressedQuartzCreteItem.get());
+                        entries.accept(ModRegistry.CompressedObsidianItem.get());
+                        entries.accept(ModRegistry.DoubleCompressedObsidianItem.get());
+                        entries.accept(ModRegistry.GlassSlabItem.get());
+                        entries.accept(ModRegistry.GlassStairsItem.get());
+                        entries.accept(ModRegistry.PaperLanternItem.get());
+                        entries.accept(ModRegistry.PhasicItem);
+                        entries.accept(ModRegistry.BoundaryItem);
+                        entries.accept(ModRegistry.GrassSlabItem.get());
+                        entries.accept(ModRegistry.GrassStairsItem.get());
+                        entries.accept(ModRegistry.GrassWallItem.get());
+                        entries.accept(ModRegistry.DirtWallItem.get());
+                        entries.accept(ModRegistry.DirtStairsItem.get());
+                        entries.accept(ModRegistry.DirtSlabItem.get());
+                        entries.accept(ModRegistry.LightSwitchItem.get());
+                        entries.accept(ModRegistry.DarkLampItem.get());
+                        entries.accept(ModRegistry.QuartzCreteItem.get());
+                        entries.accept(ModRegistry.QuartzCreteWallItem.get());
+                        entries.accept(ModRegistry.QuartzCreteBricksItem.get());
+                        entries.accept(ModRegistry.ChiseledQuartzCreteItem.get());
+                        entries.accept(ModRegistry.QuartzCretePillarItem.get());
+                        entries.accept(ModRegistry.QuartzCreteStairsItem.get());
+                        entries.accept(ModRegistry.QuartzCreteSlabItem.get());
+                        entries.accept(ModRegistry.SmoothQuartzCreteItem.get());
+                        entries.accept(ModRegistry.SmoothQuartzCreteWallItem.get());
+                        entries.accept(ModRegistry.SmoothQuartzCreteStairsItem.get());
+                        entries.accept(ModRegistry.SmoothQuartzCreteSlabItem.get());
+
+                        entries.accept(ModRegistry.CompressedChest);
+                        entries.accept(ModRegistry.ItemPileOfBricks.get());
+                        entries.accept(ModRegistry.ItemPalletOfBricks.get());
+                        entries.accept(ModRegistry.ItemBundleOfTimber.get());
+                        entries.accept(ModRegistry.ItemHeapOfTimber.get());
+                        entries.accept(ModRegistry.ItemTonOfTimber.get());
+                        entries.accept(ModRegistry.StringOfLanterns);
+                        entries.accept(ModRegistry.CoilOfLanterns);
+                        entries.accept(ModRegistry.Upgrade);
+                        entries.accept(ModRegistry.SwiftBladeWood.get());
+                        entries.accept(ModRegistry.SwiftBladeStone.get());
+                        entries.accept(ModRegistry.SwiftBladeIron.get());
+                        entries.accept(ModRegistry.SwiftBladeDiamond.get());
+                        entries.accept(ModRegistry.SwiftBladeGold.get());
+                        entries.accept(ModRegistry.SwiftBladeCopper.get());
+                        entries.accept(ModRegistry.SwiftBladeOsmium.get());
+                        entries.accept(ModRegistry.SwiftBladeBronze.get());
+                        entries.accept(ModRegistry.SwiftBladeSteel.get());
+                        entries.accept(ModRegistry.SwiftBladeObsidian.get());
+                        entries.accept(ModRegistry.SwiftBladeNetherite.get());
+                        entries.accept(ModRegistry.SickleWood.get());
+                        entries.accept(ModRegistry.SickleStone.get());
+                        entries.accept(ModRegistry.SickleGold.get());
+                        entries.accept(ModRegistry.SickleIron.get());
+                        entries.accept(ModRegistry.SickleDiamond.get());
+                        entries.accept(ModRegistry.SickleNetherite.get());
+                        entries.accept(ModRegistry.ItemEmptyCrate.get());
+                        entries.accept(ModRegistry.ClutchOfEggs.get());
+                        entries.accept(ModRegistry.ItemCartonOfEggs.get());
+                        entries.accept(ModRegistry.BunchOfPotatoes.get());
+                        entries.accept(ModRegistry.ItemCrateOfPotatoes.get());
+                        entries.accept(ModRegistry.BunchOfCarrots.get());
+                        entries.accept(ModRegistry.ItemCrateOfCarrots.get());
+                        entries.accept(ModRegistry.BunchOfBeets.get());
+                        entries.accept(ModRegistry.ItemCrateOfBeets.get());
+
+                        entries.accept(ModRegistry.InstantBridge.get());
+                        entries.accept(ModRegistry.House);
+                        entries.accept(ModRegistry.HouseImproved);
+                        entries.accept(ModRegistry.HouseAdvanced);
+                        entries.accept(ModRegistry.Bulldozer.get());
+                        entries.accept(ModRegistry.CreativeBulldozer);
+                        entries.accept(ModRegistry.MachineryTower.get());
+                        entries.accept(ModRegistry.DefenseBunker.get());
+                        entries.accept(ModRegistry.MineshaftEntrance.get());
+                        entries.accept(ModRegistry.EnderGateway.get());
+                        entries.accept(ModRegistry.GrassyPlain.get());
+                        entries.accept(ModRegistry.MagicTemple.get());
+                        entries.accept(ModRegistry.WatchTower.get());
+                        entries.accept(ModRegistry.WelcomeCenter.get());
+                        entries.accept(ModRegistry.Jail.get());
+                        entries.accept(ModRegistry.Saloon.get());
+                        entries.accept(ModRegistry.SkiLodge.get());
+                        entries.accept(ModRegistry.WindMill.get());
+                        entries.accept(ModRegistry.TownHall.get());
+                        entries.accept(ModRegistry.NetherGate.get());
+                        entries.accept(ModRegistry.AquaBase.get());
+                        entries.accept(ModRegistry.AquaBaseImproved);
+                        entries.accept(ModRegistry.Warehouse);
+                        entries.accept(ModRegistry.WareHouseImproved);
+                        entries.accept(ModRegistry.VillagerHouses.get());
+                        entries.accept(ModRegistry.ModernBuildings);
+                        entries.accept(ModRegistry.ModernBuildingsImproved);
+                        entries.accept(ModRegistry.ModernBuildingsAdvanced);
+                        entries.accept(ModRegistry.Farm);
+                        entries.accept(ModRegistry.FarmImproved);
+                        entries.accept(ModRegistry.FarmAdvanced);
+
+                        if (Prefab.isDebug) {
+                            entries.accept(ModRegistry.StructureScannerItem.get());
+                        }
+                    }));
         }
     }
 }

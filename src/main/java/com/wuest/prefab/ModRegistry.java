@@ -71,12 +71,7 @@ public class ModRegistry {
      */
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Prefab.MODID);
 
-    public static final CreativeModeTab PREFAB_GROUP = new CreativeModeTab("prefab.logo") {
-        @OnlyIn(Dist.CLIENT)
-        public ItemStack makeIcon() {
-            return new ItemStack(ModRegistry.ItemLogo.get());
-        }
-    };
+    public static CreativeModeTab PREFAB_GROUP;
 
     /* *********************************** Blocks *********************************** */
     public static final RegistryObject<BlockCompressedStone> DoubleCompressedStone = BLOCKS.register(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE.getUnlocalizedName(), () -> new BlockCompressedStone(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE));

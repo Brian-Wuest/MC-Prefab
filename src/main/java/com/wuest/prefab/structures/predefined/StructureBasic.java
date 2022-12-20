@@ -129,8 +129,8 @@ public class StructureBasic extends Structure {
             int monstersPlaced = 0;
 
             // Set the spawner.
-            for (BlockPos pos : this.mobSpawnerPos) {
-                BlockEntity tileEntity = world.getBlockEntity(pos);
+            for (BlockPos spawnerPos : this.mobSpawnerPos) {
+                BlockEntity tileEntity = world.getBlockEntity(spawnerPos);
 
                 if (tileEntity instanceof SpawnerBlockEntity) {
                     SpawnerBlockEntity spawner = (SpawnerBlockEntity) tileEntity;
@@ -138,25 +138,25 @@ public class StructureBasic extends Structure {
                     switch (monstersPlaced) {
                         case 0: {
                             // Zombie.
-                            spawner.getSpawner().setEntityId(EntityType.ZOMBIE);
+                            spawner.getSpawner().setEntityId(EntityType.ZOMBIE, world, world.random, spawnerPos);
                             break;
                         }
 
                         case 1: {
                             // Skeleton.
-                            spawner.getSpawner().setEntityId(EntityType.SKELETON);
+                            spawner.getSpawner().setEntityId(EntityType.SKELETON, world, world.random, spawnerPos);
                             break;
                         }
 
                         case 2: {
                             // Witch.
-                            spawner.getSpawner().setEntityId(EntityType.WITCH);
+                            spawner.getSpawner().setEntityId(EntityType.WITCH, world, world.random, spawnerPos);
                             break;
                         }
 
                         default: {
                             // Creeper.
-                            spawner.getSpawner().setEntityId(EntityType.CREEPER);
+                            spawner.getSpawner().setEntityId(EntityType.CREEPER, world, world.random, spawnerPos);
                             break;
                         }
                     }
