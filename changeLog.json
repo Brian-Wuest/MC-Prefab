@@ -27,8 +27,8 @@
     "1.18.1-recommended": "1.8.1.4",
     "1.18.2-latest": "1.8.2.2",
     "1.18.2-recommended": "1.8.2.2",
-    "1.19.2-latest": "1.9.2.4",
-    "1.19.2-recommended": "1.9.2.4"
+    "1.19.2-latest": "1.9.2.5",
+    "1.19.2-recommended": "1.9.2.5"
   },
   "1.10.2": {
     "1.1.1.10": "New Stuff: Added [Ender Gateway] structure. Added [Phasic Block] and [Boundary Block]\nSome buildings can now be generated in mod-created dimensions.",
@@ -183,6 +183,7 @@
     "1.9.2.1": "Fixed some issues with dedicated servers",
     "1.9.2.2": "Fixed more issues with dedicated servers, sorry about these!!!!",
     "1.9.2.3": "Added Estate, Dark WatchTower, New Monster Masher, New Dark-Light Block and Light Switch",
-    "1.9.2.4": "Glass option for instant bridge, clearer starting item config option, German translations!"
+    "1.9.2.4": "Glass option for instant bridge, clearer starting item config option, German translations!",
+    "1.9.2.5": "Fixed issue with the mineshaft entrance not generating the mineshaft"
   }
 }
