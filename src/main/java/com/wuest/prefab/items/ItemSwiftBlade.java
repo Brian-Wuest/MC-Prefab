@@ -17,7 +17,7 @@ public class ItemSwiftBlade extends SwordItem {
      */
     public ItemSwiftBlade(Tier tier, int attackDamageIn, float attackSpeedIn) {
         super(tier, attackDamageIn, attackSpeedIn,
-                new Item.Properties().stacksTo(1).defaultDurability(tier.getUses()).tab(ModRegistry.PREFAB_GROUP));
+                new Item.Properties().stacksTo(1).defaultDurability(tier.getUses()));
     }
 
     /**

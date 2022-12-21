@@ -8,6 +8,6 @@ import net.minecraft.world.item.Item;
  */
 public class ItemWarehouseUpgrade extends Item {
     public ItemWarehouseUpgrade() {
-        super(new Item.Properties().tab(ModRegistry.PREFAB_GROUP));
+        super(new Item.Properties());
     }
 }

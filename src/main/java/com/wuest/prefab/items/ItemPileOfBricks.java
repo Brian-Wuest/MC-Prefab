@@ -9,7 +9,7 @@ import net.minecraft.world.item.Item;
  */
 public class ItemPileOfBricks extends BlockItem {
     public ItemPileOfBricks() {
-        super(ModRegistry.PileOfBricks.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP));
+        super(ModRegistry.PileOfBricks.get(), new Item.Properties());
 
     }
 }

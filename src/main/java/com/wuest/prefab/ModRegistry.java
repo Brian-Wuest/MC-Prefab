@@ -86,7 +86,7 @@ public class ModRegistry {
     public static final RegistryObject<BlockCompressedStone> DoubleCompressedQuartzCrete = BLOCKS.register(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_QUARTZCRETE.getUnlocalizedName(), () -> new BlockCompressedStone(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_QUARTZCRETE));
 
     public static final RegistryObject<BlockPhasing> BlockPhasing = BLOCKS.register("block_phasic", com.wuest.prefab.blocks.BlockPhasing::new);
-    public static final RegistryObject<BlockItem> BlockPhasingItem = ITEMS.register("block_phasic", () -> new BlockItem(BlockPhasing.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
+    public static final RegistryObject<BlockItem> BlockPhasingItem = ITEMS.register("block_phasic", () -> new BlockItem(BlockPhasing.get(), new Item.Properties()));
     public static final RegistryObject<BlockBoundary> BlockBoundary = BLOCKS.register("block_boundary", com.wuest.prefab.blocks.BlockBoundary::new);
     public static final RegistryObject<BlockPaperLantern> PaperLantern = BLOCKS.register("block_paper_lantern", BlockPaperLantern::new);
     public static final RegistryObject<BlockGlassStairs> GlassStairs = BLOCKS.register("block_glass_stairs", () -> new BlockGlassStairs(Blocks.GLASS.defaultBlockState(), Block.Properties.copy(Blocks.GLASS)));
@@ -127,44 +127,44 @@ public class ModRegistry {
     public static final RegistryObject<SlabBlock> SmoothQuartzCreteSlab =  BLOCKS.register("block_quartz_crete_smooth_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(ModRegistry.SmoothQuartzCrete.get())));
     
     /* *********************************** Item Blocks *********************************** */
-    public static final RegistryObject<BlockItem> CompressedStoneItem = ITEMS.register(BlockCompressedStone.EnumType.COMPRESSED_STONE.getUnlocalizedName(), () -> new BlockItem(CompressedStone.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
-    public static final RegistryObject<BlockItem> DoubleCompressedStoneItem = ITEMS.register(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE.getUnlocalizedName(), () -> new BlockItem(DoubleCompressedStone.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
-    public static final RegistryObject<BlockItem> TripleCompressedStoneItem = ITEMS.register(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE.getUnlocalizedName(), () -> new BlockItem(TripleCompressedStone.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
-    public static final RegistryObject<BlockItem> CompressedGlowStoneItem = ITEMS.register(BlockCompressedStone.EnumType.COMPRESSED_GLOWSTONE.getUnlocalizedName(), () -> new BlockItem(CompressedGlowStone.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
-    public static final RegistryObject<BlockItem> DoubleCompressedGlowStoneItem = ITEMS.register(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE.getUnlocalizedName(), () -> new BlockItem(DoubleCompressedGlowStone.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
-    public static final RegistryObject<BlockItem> CompressedDirtItem = ITEMS.register(BlockCompressedStone.EnumType.COMPRESSED_DIRT.getUnlocalizedName(), () -> new BlockItem(CompressedDirt.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
-    public static final RegistryObject<BlockItem> DoubleCompressedDirtItem = ITEMS.register(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_DIRT.getUnlocalizedName(), () -> new BlockItem(DoubleCompressedDirt.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
-    public static final RegistryObject<BlockItem> CompressedObsidianItem = ITEMS.register(BlockCompressedObsidian.EnumType.COMPRESSED_OBSIDIAN.getSerializedName(), () -> new BlockItem(CompressedObsidian.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
-    public static final RegistryObject<BlockItem> DoubleCompressedObsidianItem = ITEMS.register(BlockCompressedObsidian.EnumType.DOUBLE_COMPRESSED_OBSIDIAN.getSerializedName(), () -> new BlockItem(DoubleCompressedObsidian.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
-    public static final RegistryObject<BlockItem> CompressedQuartzCreteItem = ITEMS.register(BlockCompressedStone.EnumType.COMPRESSED_QUARTZCRETE.getUnlocalizedName(), () -> new BlockItem(ModRegistry.CompressedQuartzCrete.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
-    public static final RegistryObject<BlockItem> DoubleCompressedQuartzCreteItem = ITEMS.register(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_QUARTZCRETE.getUnlocalizedName(), () -> new BlockItem(ModRegistry.DoubleCompressedQuartzCrete.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
+    public static final RegistryObject<BlockItem> CompressedStoneItem = ITEMS.register(BlockCompressedStone.EnumType.COMPRESSED_STONE.getUnlocalizedName(), () -> new BlockItem(CompressedStone.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> DoubleCompressedStoneItem = ITEMS.register(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE.getUnlocalizedName(), () -> new BlockItem(DoubleCompressedStone.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> TripleCompressedStoneItem = ITEMS.register(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE.getUnlocalizedName(), () -> new BlockItem(TripleCompressedStone.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> CompressedGlowStoneItem = ITEMS.register(BlockCompressedStone.EnumType.COMPRESSED_GLOWSTONE.getUnlocalizedName(), () -> new BlockItem(CompressedGlowStone.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> DoubleCompressedGlowStoneItem = ITEMS.register(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE.getUnlocalizedName(), () -> new BlockItem(DoubleCompressedGlowStone.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> CompressedDirtItem = ITEMS.register(BlockCompressedStone.EnumType.COMPRESSED_DIRT.getUnlocalizedName(), () -> new BlockItem(CompressedDirt.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> DoubleCompressedDirtItem = ITEMS.register(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_DIRT.getUnlocalizedName(), () -> new BlockItem(DoubleCompressedDirt.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> CompressedObsidianItem = ITEMS.register(BlockCompressedObsidian.EnumType.COMPRESSED_OBSIDIAN.getSerializedName(), () -> new BlockItem(CompressedObsidian.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> DoubleCompressedObsidianItem = ITEMS.register(BlockCompressedObsidian.EnumType.DOUBLE_COMPRESSED_OBSIDIAN.getSerializedName(), () -> new BlockItem(DoubleCompressedObsidian.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> CompressedQuartzCreteItem = ITEMS.register(BlockCompressedStone.EnumType.COMPRESSED_QUARTZCRETE.getUnlocalizedName(), () -> new BlockItem(ModRegistry.CompressedQuartzCrete.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> DoubleCompressedQuartzCreteItem = ITEMS.register(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_QUARTZCRETE.getUnlocalizedName(), () -> new BlockItem(ModRegistry.DoubleCompressedQuartzCrete.get(), new Item.Properties()));
 
-    public static final RegistryObject<BlockItem> BlockBoundaryItem = ITEMS.register("block_boundary", () -> new BlockItem(BlockBoundary.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
-    public static final RegistryObject<BlockItem> PaperLanternItem = ITEMS.register("block_paper_lantern", () -> new BlockItem(PaperLantern.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
-    public static final RegistryObject<BlockItem> GlassStairsItem = ITEMS.register("block_glass_stairs", () -> new BlockItem(GlassStairs.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
-    public static final RegistryObject<BlockItem> GlassSlabItem = ITEMS.register("block_glass_slab", () -> new BlockItem(GlassSlab.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
-    public static final RegistryObject<BlockItem> DirtWallItem = ITEMS.register("block_dirt_wall", () -> new BlockItem(DirtWall.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
-    public static final RegistryObject<BlockItem> GrassWallItem = ITEMS.register("block_grass_wall", () -> new BlockItem(GrassWall.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
-    public static final RegistryObject<BlockItem> DirtSlabItem = ITEMS.register("block_dirt_slab", () -> new BlockItem(DirtSlab.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
-    public static final RegistryObject<BlockItem> GrassSlabItem = ITEMS.register("block_grass_slab", () -> new BlockItem(GrassSlab.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
-    public static final RegistryObject<BlockItem> DirtStairsItem = ITEMS.register("block_dirt_stairs", () -> new BlockItem(DirtStairs.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
-    public static final RegistryObject<BlockItem> GrassStairsItem = ITEMS.register("block_grass_stairs", () -> new BlockItem(GrassStairs.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
+    public static final RegistryObject<BlockItem> BlockBoundaryItem = ITEMS.register("block_boundary", () -> new BlockItem(BlockBoundary.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> PaperLanternItem = ITEMS.register("block_paper_lantern", () -> new BlockItem(PaperLantern.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> GlassStairsItem = ITEMS.register("block_glass_stairs", () -> new BlockItem(GlassStairs.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> GlassSlabItem = ITEMS.register("block_glass_slab", () -> new BlockItem(GlassSlab.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> DirtWallItem = ITEMS.register("block_dirt_wall", () -> new BlockItem(DirtWall.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> GrassWallItem = ITEMS.register("block_grass_wall", () -> new BlockItem(GrassWall.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> DirtSlabItem = ITEMS.register("block_dirt_slab", () -> new BlockItem(DirtSlab.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> GrassSlabItem = ITEMS.register("block_grass_slab", () -> new BlockItem(GrassSlab.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> DirtStairsItem = ITEMS.register("block_dirt_stairs", () -> new BlockItem(DirtStairs.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> GrassStairsItem = ITEMS.register("block_grass_stairs", () -> new BlockItem(GrassStairs.get(), new Item.Properties()));
     public static RegistryObject<BlockItem> StructureScannerItem = null;
 
-    public static final RegistryObject<BlockItem> QuartzCreteItem = ITEMS.register("block_quartz_crete", () -> new BlockItem(ModRegistry.QuartzCrete.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
-    public static final RegistryObject<BlockItem> QuartzCreteWallItem = ITEMS.register("block_quartz_crete_wall", () -> new BlockItem(ModRegistry.QuartzCreteWall.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
-    public static final RegistryObject<BlockItem> QuartzCreteBricksItem = ITEMS.register("block_quartz_crete_bricks", () -> new BlockItem(ModRegistry.QuartzCreteBricks.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
-    public static final RegistryObject<BlockItem> ChiseledQuartzCreteItem = ITEMS.register("block_quartz_crete_chiseled", () -> new BlockItem(ModRegistry.ChiseledQuartzCrete.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
-    public static final RegistryObject<BlockItem> QuartzCretePillarItem = ITEMS.register("block_quartz_crete_pillar", () -> new BlockItem(ModRegistry.QuartzCretePillar.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
-    public static final RegistryObject<BlockItem> QuartzCreteStairsItem = ITEMS.register("block_quartz_crete_stairs", () -> new BlockItem(ModRegistry.QuartzCreteStairs.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
-    public static final RegistryObject<BlockItem> QuartzCreteSlabItem = ITEMS.register("block_quartz_crete_slab", () -> new BlockItem(ModRegistry.QuartzCreteSlab.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
-    public static final RegistryObject<BlockItem> SmoothQuartzCreteItem = ITEMS.register("block_quartz_crete_smooth", () -> new BlockItem(ModRegistry.SmoothQuartzCrete.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
-    public static final RegistryObject<BlockItem> SmoothQuartzCreteWallItem = ITEMS.register("block_quartz_crete_smooth_wall", () -> new BlockItem(ModRegistry.SmoothQuartzCreteWall.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
-    public static final RegistryObject<BlockItem> SmoothQuartzCreteStairsItem = ITEMS.register("block_quartz_crete_smooth_stairs", () -> new BlockItem(ModRegistry.SmoothQuartzCreteStairs.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
-    public static final RegistryObject<BlockItem> SmoothQuartzCreteSlabItem = ITEMS.register("block_quartz_crete_smooth_slab", () -> new BlockItem(ModRegistry.SmoothQuartzCreteSlab.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
+    public static final RegistryObject<BlockItem> QuartzCreteItem = ITEMS.register("block_quartz_crete", () -> new BlockItem(ModRegistry.QuartzCrete.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> QuartzCreteWallItem = ITEMS.register("block_quartz_crete_wall", () -> new BlockItem(ModRegistry.QuartzCreteWall.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> QuartzCreteBricksItem = ITEMS.register("block_quartz_crete_bricks", () -> new BlockItem(ModRegistry.QuartzCreteBricks.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> ChiseledQuartzCreteItem = ITEMS.register("block_quartz_crete_chiseled", () -> new BlockItem(ModRegistry.ChiseledQuartzCrete.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> QuartzCretePillarItem = ITEMS.register("block_quartz_crete_pillar", () -> new BlockItem(ModRegistry.QuartzCretePillar.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> QuartzCreteStairsItem = ITEMS.register("block_quartz_crete_stairs", () -> new BlockItem(ModRegistry.QuartzCreteStairs.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> QuartzCreteSlabItem = ITEMS.register("block_quartz_crete_slab", () -> new BlockItem(ModRegistry.QuartzCreteSlab.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> SmoothQuartzCreteItem = ITEMS.register("block_quartz_crete_smooth", () -> new BlockItem(ModRegistry.SmoothQuartzCrete.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> SmoothQuartzCreteWallItem = ITEMS.register("block_quartz_crete_smooth_wall", () -> new BlockItem(ModRegistry.SmoothQuartzCreteWall.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> SmoothQuartzCreteStairsItem = ITEMS.register("block_quartz_crete_smooth_stairs", () -> new BlockItem(ModRegistry.SmoothQuartzCreteStairs.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> SmoothQuartzCreteSlabItem = ITEMS.register("block_quartz_crete_smooth_slab", () -> new BlockItem(ModRegistry.SmoothQuartzCreteSlab.get(), new Item.Properties()));
 
-    public static RegistryObject<BlockItem> LightSwitchItem = ITEMS.register("block_light_switch", () -> new BlockItem(ModRegistry.LightSwitch.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
-    public static RegistryObject<BlockItem> DarkLampItem = ITEMS.register("block_dark_lamp", () -> new BlockItem(ModRegistry.DarkLamp.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
+    public static RegistryObject<BlockItem> LightSwitchItem = ITEMS.register("block_light_switch", () -> new BlockItem(ModRegistry.LightSwitch.get(), new Item.Properties()));
+    public static RegistryObject<BlockItem> DarkLampItem = ITEMS.register("block_dark_lamp", () -> new BlockItem(ModRegistry.DarkLamp.get(), new Item.Properties()));
 
     /* *********************************** Tile Entities *********************************** */
     public static RegistryObject<BlockEntityType<StructureScannerBlockEntity>> StructureScannerTileEntity = null;
@@ -250,13 +250,13 @@ public class ModRegistry {
     public static final RegistryObject<ItemBasicStructure> AdvancedFarm = ITEMS.register(EnumBasicStructureName.FarmAdvanced.getItemTextureLocation().getPath(), () -> new ItemBasicStructure(EnumBasicStructureName.FarmAdvanced));
 
     /* *********************************** Sounds *********************************** */
-    public static final RegistryObject<SoundEvent> BuildingBlueprint = SOUNDS.register("building_blueprint", () -> new SoundEvent(new ResourceLocation(Prefab.MODID, "building_blueprint")));
+    public static final RegistryObject<SoundEvent> BuildingBlueprint = SOUNDS.register("building_blueprint", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Prefab.MODID, "building_blueprint")));
 
     static {
         if (Prefab.isDebug) {
             ModRegistry.StructureScanner = BLOCKS.register("block_structure_scanner", com.wuest.prefab.blocks.BlockStructureScanner::new);
 
-            ModRegistry.StructureScannerItem = ITEMS.register("block_structure_scanner", () -> new BlockItem(StructureScanner.get(), new Item.Properties().tab(ModRegistry.PREFAB_GROUP)));
+            ModRegistry.StructureScannerItem = ITEMS.register("block_structure_scanner", () -> new BlockItem(StructureScanner.get(), new Item.Properties()));
 
             ModRegistry.StructureScannerTileEntity = TILE_ENTITIES.register("structure_scanner_entity", () -> {
                 ModRegistry.StructureScannerEntityType = new BlockEntityType<>(

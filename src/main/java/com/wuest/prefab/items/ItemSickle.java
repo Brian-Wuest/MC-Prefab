@@ -31,7 +31,7 @@ public class ItemSickle extends TieredItem {
     protected Tier toolMaterial;
 
     public ItemSickle(Tier toolMaterial) {
-        super(toolMaterial, new Item.Properties().tab(ModRegistry.PREFAB_GROUP));
+        super(toolMaterial, new Item.Properties());
         this.breakRadius = 1 + toolMaterial.getLevel();
         this.toolMaterial = toolMaterial;
     }

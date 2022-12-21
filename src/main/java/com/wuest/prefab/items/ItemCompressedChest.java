@@ -23,7 +23,7 @@ public class ItemCompressedChest extends Item {
      * Initializes a new instance of the ItemCondensedChest class.
      */
     public ItemCompressedChest() {
-        super(new Item.Properties().tab(ModRegistry.PREFAB_GROUP));
+        super(new Item.Properties());
 
     }
 

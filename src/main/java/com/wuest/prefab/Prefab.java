@@ -162,8 +162,8 @@ public class Prefab {
                         entries.accept(ModRegistry.TripleCompressedStoneItem.get());
                         entries.accept(ModRegistry.CompressedDirtItem.get());
                         entries.accept(ModRegistry.DoubleCompressedDirtItem.get());
-                        entries.accept(ModRegistry.CompressedGlowstoneItem);
-                        entries.accept(ModRegistry.DoubleCompressedGlowstoneItem);
+                        entries.accept(ModRegistry.CompressedGlowStoneItem.get());
+                        entries.accept(ModRegistry.DoubleCompressedGlowStoneItem.get());
                         entries.accept(ModRegistry.CompressedQuartzCreteItem.get());
                         entries.accept(ModRegistry.DoubleCompressedQuartzCreteItem.get());
                         entries.accept(ModRegistry.CompressedObsidianItem.get());
@@ -171,8 +171,8 @@ public class Prefab {
                         entries.accept(ModRegistry.GlassSlabItem.get());
                         entries.accept(ModRegistry.GlassStairsItem.get());
                         entries.accept(ModRegistry.PaperLanternItem.get());
-                        entries.accept(ModRegistry.PhasicItem);
-                        entries.accept(ModRegistry.BoundaryItem);
+                        entries.accept(ModRegistry.BlockPhasingItem.get());
+                        entries.accept(ModRegistry.BlockBoundaryItem.get());
                         entries.accept(ModRegistry.GrassSlabItem.get());
                         entries.accept(ModRegistry.GrassStairsItem.get());
                         entries.accept(ModRegistry.GrassWallItem.get());
@@ -193,15 +193,15 @@ public class Prefab {
                         entries.accept(ModRegistry.SmoothQuartzCreteStairsItem.get());
                         entries.accept(ModRegistry.SmoothQuartzCreteSlabItem.get());
 
-                        entries.accept(ModRegistry.CompressedChest);
+                        entries.accept(ModRegistry.ItemCompressedChest.get());
                         entries.accept(ModRegistry.ItemPileOfBricks.get());
                         entries.accept(ModRegistry.ItemPalletOfBricks.get());
                         entries.accept(ModRegistry.ItemBundleOfTimber.get());
                         entries.accept(ModRegistry.ItemHeapOfTimber.get());
                         entries.accept(ModRegistry.ItemTonOfTimber.get());
-                        entries.accept(ModRegistry.StringOfLanterns);
-                        entries.accept(ModRegistry.CoilOfLanterns);
-                        entries.accept(ModRegistry.Upgrade);
+                        entries.accept(ModRegistry.ItemStringOfLanterns.get());
+                        entries.accept(ModRegistry.ItemCoilOfLanterns.get());
+                        entries.accept(ModRegistry.WarehouseUpgrade.get());
                         entries.accept(ModRegistry.SwiftBladeWood.get());
                         entries.accept(ModRegistry.SwiftBladeStone.get());
                         entries.accept(ModRegistry.SwiftBladeIron.get());
@@ -230,11 +230,11 @@ public class Prefab {
                         entries.accept(ModRegistry.ItemCrateOfBeets.get());
 
                         entries.accept(ModRegistry.InstantBridge.get());
-                        entries.accept(ModRegistry.House);
-                        entries.accept(ModRegistry.HouseImproved);
-                        entries.accept(ModRegistry.HouseAdvanced);
+                        entries.accept(ModRegistry.StartHouse.get());
+                        entries.accept(ModRegistry.ModerateHouse.get());
+                        entries.accept(ModRegistry.AdvancedHouse.get());
                         entries.accept(ModRegistry.Bulldozer.get());
-                        entries.accept(ModRegistry.CreativeBulldozer);
+                        entries.accept(ModRegistry.Creative_Bulldozer.get());
                         entries.accept(ModRegistry.MachineryTower.get());
                         entries.accept(ModRegistry.DefenseBunker.get());
                         entries.accept(ModRegistry.MineshaftEntrance.get());
@@ -250,16 +250,16 @@ public class Prefab {
                         entries.accept(ModRegistry.TownHall.get());
                         entries.accept(ModRegistry.NetherGate.get());
                         entries.accept(ModRegistry.AquaBase.get());
-                        entries.accept(ModRegistry.AquaBaseImproved);
-                        entries.accept(ModRegistry.Warehouse);
-                        entries.accept(ModRegistry.WareHouseImproved);
+                        entries.accept(ModRegistry.AdvancedAquaBase.get());
+                        entries.accept(ModRegistry.WareHouse.get());
+                        entries.accept(ModRegistry.AdvancedWareHouse.get());
                         entries.accept(ModRegistry.VillagerHouses.get());
-                        entries.accept(ModRegistry.ModernBuildings);
-                        entries.accept(ModRegistry.ModernBuildingsImproved);
-                        entries.accept(ModRegistry.ModernBuildingsAdvanced);
-                        entries.accept(ModRegistry.Farm);
-                        entries.accept(ModRegistry.FarmImproved);
-                        entries.accept(ModRegistry.FarmAdvanced);
+                        entries.accept(ModRegistry.ModernBuilding.get());
+                        entries.accept(ModRegistry.ModerateModernBuildings.get());
+                        entries.accept(ModRegistry.AdvancedModernBuildings.get());
+                        entries.accept(ModRegistry.StarterFarm.get());
+                        entries.accept(ModRegistry.ModerateFarm.get());
+                        entries.accept(ModRegistry.AdvancedFarm.get());
 
                         if (Prefab.isDebug) {
                             entries.accept(ModRegistry.StructureScannerItem.get());

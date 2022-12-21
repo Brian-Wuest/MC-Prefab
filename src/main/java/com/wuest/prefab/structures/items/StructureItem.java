@@ -20,7 +20,7 @@ public class StructureItem extends Item {
      * Initializes a new instance of the StructureItem class.
      */
     public StructureItem() {
-        super(new Item.Properties().tab(ModRegistry.PREFAB_GROUP));
+        super(new Item.Properties());
         this.Initialize();
     }
 

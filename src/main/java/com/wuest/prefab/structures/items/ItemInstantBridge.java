@@ -14,7 +14,6 @@ import net.minecraft.world.item.Item;
 public class ItemInstantBridge extends StructureItem {
     public ItemInstantBridge() {
         super(new Item.Properties()
-                .tab(ModRegistry.PREFAB_GROUP)
                 .durability(10));
     }
 

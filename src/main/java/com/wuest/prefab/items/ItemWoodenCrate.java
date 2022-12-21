@@ -15,7 +15,6 @@ public class ItemWoodenCrate extends Item {
      */
     public ItemWoodenCrate(CrateType crateType) {
         super(new Item.Properties()
-                .tab(ModRegistry.PREFAB_GROUP)
                 .craftRemainder(ItemWoodenCrate.getRecipeRemainderForCrateType(crateType)));
 
         this.crateType = crateType;

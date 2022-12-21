@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.Block;
  */
 public class ItemBundleOfTimber extends BlockItem {
     public ItemBundleOfTimber(Block linkedBlock) {
-        super(linkedBlock, new Item.Properties().tab(ModRegistry.PREFAB_GROUP));
+        super(linkedBlock, new Item.Properties());
 
     }
 }

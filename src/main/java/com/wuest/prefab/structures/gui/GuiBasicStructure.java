@@ -199,14 +199,14 @@ public class GuiBasicStructure extends GuiStructure {
 
         if (this.specificConfiguration.chosenOption.getHasBedColor()) {
             this.btnBedColor.visible = true;
-            this.btnBedColor.y = yValue;
+            this.btnBedColor.setY(yValue);
 
             yValue = yValue + 45;
         }
 
         if (this.specificConfiguration.chosenOption.getHasGlassColor()) {
             this.btnGlassColor.visible = true;
-            this.btnGlassColor.y = yValue;
+            this.btnGlassColor.setY(yValue);
         }
     }
 

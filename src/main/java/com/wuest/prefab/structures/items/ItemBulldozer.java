@@ -36,7 +36,6 @@ public class ItemBulldozer extends StructureItem {
      */
     public ItemBulldozer() {
         super(new Item.Properties()
-                .tab(ModRegistry.PREFAB_GROUP)
                 .durability(4));
     }
 
@@ -46,8 +45,7 @@ public class ItemBulldozer extends StructureItem {
      * @param creativePowered - Set this to true to create an always powered bulldozer.
      */
     public ItemBulldozer(boolean creativePowered) {
-        super(new Item.Properties()
-                .tab(ModRegistry.PREFAB_GROUP));
+        super(new Item.Properties());
 
         this.creativePowered = creativePowered;
     }

@@ -42,8 +42,6 @@ public class BlockBoundary extends Block {
      */
     public static final BooleanProperty Powered = BooleanProperty.create("powered");
 
-    public final CreativeModeTab itemGroup;
-
     /**
      * Initializes a new instance of the BlockBoundary class.
      */
@@ -53,7 +51,6 @@ public class BlockBoundary extends Block {
                 .strength(0.6F)
                 .noOcclusion());
 
-        this.itemGroup = CreativeModeTab.TAB_BUILDING_BLOCKS;
         this.registerDefaultState(this.getStateDefinition().any().setValue(Powered, false));
     }
 
