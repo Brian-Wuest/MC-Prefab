@@ -1,6 +1,5 @@
 package com.wuest.prefab.events;
 
-import com.mojang.blaze3d.platform.InputConstants;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.config.EntityPlayerConfiguration;
 import com.wuest.prefab.proxy.ClientProxy;
@@ -27,8 +26,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.ArrayList;
-
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_B;
 
 /**
  * @author WuestMan
@@ -145,7 +142,6 @@ public final class ClientEventHandler {
 
     public static boolean checkIfStackIsCorrectGui(StructureTagMessage.EnumStructureConfiguration currentConfiguration, ItemStack stack) {
         GuiStructure mainHandGui = ClientProxy.ModGuis.get(stack.getItem());
-        mainHandGui.init();
 
         if (currentConfiguration == mainHandGui.configurationEnum) {
             if (currentConfiguration == StructureTagMessage.EnumStructureConfiguration.Basic) {
