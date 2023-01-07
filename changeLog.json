@@ -28,7 +28,9 @@
     "1.18.2-latest": "1.8.2.2",
     "1.18.2-recommended": "1.8.2.2",
     "1.19.2-latest": "1.9.2.5",
-    "1.19.2-recommended": "1.9.2.5"
+    "1.19.2-recommended": "1.9.2.5",
+    "1.19.3-latest": "1.9.3.0",
+    "1.19.3-recommended": "1.9.3.0"
   },
   "1.10.2": {
     "1.1.1.10": "New Stuff: Added [Ender Gateway] structure. Added [Phasic Block] and [Boundary Block]\nSome buildings can now be generated in mod-created dimensions.",
@@ -185,5 +187,8 @@
     "1.9.2.3": "Added Estate, Dark WatchTower, New Monster Masher, New Dark-Light Block and Light Switch",
     "1.9.2.4": "Glass option for instant bridge, clearer starting item config option, German translations!",
     "1.9.2.5": "Fixed issue with the mineshaft entrance not generating the mineshaft"
+  },
+  "1.19.3": {
+    "1.9.3.0": "Initial release for 1.19.3. Added Finnish language"
   }
 }
