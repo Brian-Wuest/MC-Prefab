@@ -209,7 +209,7 @@ public class ModRegistry {
     public static final RegistryObject<ItemWoodenCrate> BunchOfCarrots = ITEMS.register("item_bunch_of_carrots", () -> new ItemWoodenCrate(ItemWoodenCrate.CrateType.Empty));
     public static final RegistryObject<ItemBlockWoodenCrate> ItemCrateOfCarrots = ITEMS.register("item_crate_of_carrots", () -> new ItemBlockWoodenCrate(ModRegistry.CrateOfCarrots.get(), ItemWoodenCrate.CrateType.Empty));
     public static final RegistryObject<ItemWoodenCrate> BunchOfBeets = ITEMS.register("item_bunch_of_beets", () -> new ItemWoodenCrate(ItemWoodenCrate.CrateType.Empty));
-    public static final RegistryObject<ItemWoodenCrate> ItemCrateOfBeets = ITEMS.register("item_crate_of_beets", () -> new ItemWoodenCrate(ItemWoodenCrate.CrateType.Empty));
+    public static final RegistryObject<ItemBlockWoodenCrate> ItemCrateOfBeets = ITEMS.register("item_crate_of_beets", () -> new ItemBlockWoodenCrate(ModRegistry.CrateOfBeets.get(), ItemWoodenCrate.CrateType.Empty));
 
     /* *********************************** Blueprint Items *********************************** */
     public static final RegistryObject<ItemStartHouse> StartHouse = ITEMS.register("item_house", ItemStartHouse::new);
