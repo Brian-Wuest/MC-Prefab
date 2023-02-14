@@ -43,9 +43,6 @@ item.prefab:item_watch_tower.name=Saat Kulesi
 item.prefab:item_welcome_center.name=Karşılama Merkezi
 item.prefab:item_jail.name=Hapishane
 item.prefab:item_saloon.name=Salon
-item.prefab:item_ski_lodge.name=Kayak emniyeti
-item.prefab:item_wind_mill.name=fırıldak
-item.prefab:item_town_hall.name=Belediye binası
 item.prefab:item_workshop.name=atölye
 
 item.prefab:item_nether_gate_tree.name=Bozuk ağaç
@@ -73,32 +70,14 @@ tile.prefab:block_half_andesite_slab.name=andezit levha
 tile.prefab:block_half_diorite_slab.name=diyorit levha
 tile.prefab:block_half_granite_slab.name=Granit Döşeme
 
-prefab.gui.fishpond.structure.facing=Not: Eğer kuzeye bakıyorsan, güneyi seç ki iskele senden uzakta olsun. Beyaz kenarlıklar boyutu göstermek içindir.
 prefab.gui.cleared_area=Temizlenecek alan baktığın yönde olacaktır.
 
-prefab.gui.producefarm.structure.size=Bu yapıt 32x32 blok boyutunda.
-
-prefab.gui.starter.tab.general=Genel
-prefab.gui.starter.tab.config=Seçenekler
-prefab.gui.starter.tab.block=Bloklar/Boyut
-prefab.gui.starter.style.label=Ev Boyutu
-prefab.gui.starter.floortype.label=Zemin Blok Tipi
-prefab.gui.starter.ceilingtype.label=Tavan Blok Tipi
-prefab.gui.starter.walltype.label=Duvar Odun Tipi
-prefab.gui.starter.depth.label=İç Derinlik
-prefab.gui.starter.width.label=İç Genişlik
 prefab.gui.starter.basic.display=Basit Ev
-prefab.gui.starter.basic.notes=Taş ve tuğladan yapılmış basit bir ev.
 prefab.gui.starter.ranch.display=Çiftlik Stili
-prefab.gui.starter.ranch.notes=Çiftlik stiliyle dizayn edilmiş bir ev.
 prefab.gui.starter.loft.display=Çatı Katlı Stil
-prefab.gui.starter.loft.notes=Sandıklar için çatı katına sahip olan bir ev stili.
 prefab.gui.starter.hobbit.display=Hobbit Tipi
-prefab.gui.starter.hobbit.notes=Yer altında Hobbit tarzında inşa edilmiş bir ev.
 prefab.gui.starter.desert.display=Çöl Stili
-prefab.gui.starter.desert.notes=Piramitlere benzeyen bir ev.
 prefab.gui.starter.snowy.display=Kar Stili
-prefab.gui.starter.snowy.notes=İglolara benzeyen bir ev.
 
 prefab.gui.starter.addtorches=Meşale Ekle
 prefab.gui.starter.addbed=Yatak Ekle
@@ -106,11 +85,6 @@ prefab.gui.starter.addcraftingtable=Çalışma Masası Ekle
 prefab.gui.starter.addfurnace=Fırın Ekle
 prefab.gui.starter.addchest=Sandık Ekle
 prefab.gui.starter.addchestcontents=Sandıkların İçini Ekle
-prefab.gui.starter.addfarm=Çiftlik Ekle
-prefab.gui.starter.floorstone=Zemini Taştan
-prefab.gui.starter.ceilingtype=Tavanı Taştan
-prefab.gui.starter.walltype=Duvarı Tahtadan
-prefab.gui.starter.ceilingflat=Tavanı Düz Mü
 prefab.gui.starter.buildmineshaft=Maden Kuyusu İnşa Et
 
 prefab.gui.villager.house.flat=Düz Çatı
@@ -138,16 +112,10 @@ prefab.wall.block.type.jungle=Orman
 prefab.wall.block.type.acacia=Akasya
 prefab.wall.block.type.darkoak=Koyu Meşe
 
-prefab.gui.treefarm.facing=Ağaç Çiftliği Yönü
-prefab.gui.treefarm.structure.size=Bu yapı 38x38 blok boyutunda.
-
-prefab.gui.structure.facing=Yapının Baktığı Yön
 prefab.gui.structure.glass=Cam Rengi
 prefab.gui.structure.bed_color=Yatak Rengi
 
-prefab.gui.structure.facing.player=Not: Eğer kuzeye bakıyorsan, güneyi seç ki yapı sana baksın.
 prefab.gui.structure.block.clicked=Sarı anahat, tıkladığınız bloktur.
-prefab.gui.structure.door.facing=Not: Eğer kuzeye bakıyorsan, güneyi seç ki kapılar sana baksın.
 prefab.gui.structure.nobuild=Etrafta koruma bulunan bloklar veya kırılamayan bloklar olduğu için yapı inşa edilemiyor. Blok Adı: %1$s Blok Konumu: x=%2$s, y=%3$s, z=%4$s.
 
 prefab.gui.button.build=İnşa Et!

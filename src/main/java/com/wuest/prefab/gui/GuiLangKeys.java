@@ -17,14 +17,6 @@ import java.lang.reflect.Field;
  * @author WuestMan
  */
 public class GuiLangKeys {
-    @Unlocalized(name = "Note: If you're facing north, choose south so the pier is going away from you. The white border is just to show the size.")
-    public static final String FISH_POND_STRUCTURE_FACING = "prefab.gui.fishpond.structure.facing";
-
-    @Unlocalized(name = "This structure is 32x32 blocks in size.")
-    public static final String PRODUCE_FARM_SIZE = "prefab.gui.producefarm.structure.size";
-
-    @Unlocalized(name = "This structure is 38x38 blocks in size.")
-    public static final String TREE_FARM_SIZE = "prefab.gui.treefarm.structure.size";
 
     @Unlocalized(name = "General")
     public static final String STARTER_TAB_GENERAL = "prefab.gui.starter.tab.general";
@@ -152,9 +144,6 @@ public class GuiLangKeys {
     @Unlocalized(name = "Dark Oak")
     public static final String WALL_BLOCK_TYPE_DARK_OAK = "prefab.wall.block.type.darkoak";
 
-    @Unlocalized(name = "Facing")
-    public static final String GUI_STRUCTURE_FACING = "prefab.gui.structure.facing";
-
     @Unlocalized(name = "Glass Color")
     public static final String GUI_STRUCTURE_GLASS = "prefab.gui.structure.glass";
 
@@ -166,9 +155,6 @@ public class GuiLangKeys {
 
     @Unlocalized(name = "Note: If you're facing north, choose south so the doors are facing you.")
     public static final String GUI_DOOR_FACING = "prefab.gui.structure.door.facing";
-
-    @Unlocalized(name = "Note: If you're facing north, choose south so the structure is facing you.")
-    public static final String GUI_STRUCTURE_FACING_PLAYER = "prefab.gui.structure.facing.player";
 
     @Unlocalized(name = "Cannot build structure due to protected blocks/area or unbreakable blocks are in the area.")
     public static final String GUI_STRUCTURE_NOBUILD = "prefab.gui.structure.nobuild";

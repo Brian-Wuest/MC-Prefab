@@ -43,9 +43,6 @@ item.prefab:item_watch_tower.name=瞭望塔
 item.prefab:item_welcome_center.name=迎宾中心
 item.prefab:item_jail.name=监狱
 item.prefab:item_saloon.name=酒吧
-item.prefab:item_ski_lodge.name=滑雪屋
-item.prefab:item_wind_mill.name=风车
-item.prefab:item_town_hall.name=市政厅
 item.prefab:item_workshop.name=作坊
 
 item.prefab:item_nether_gate_tree.name=腐败的树
@@ -73,32 +70,14 @@ tile.prefab:block_half_andesite_slab.name=安山岩台阶
 tile.prefab:block_half_diorite_slab.name=闪长岩台阶
 tile.prefab:block_half_granite_slab.name=花岗岩台阶
 
-prefab.gui.fishpond.structure.facing=注意：如果你面朝北方，此时选择南方结构会远离你。白色边框展示了其尺寸。
 prefab.gui.cleared_area=你面朝方向的一片区域将被清除。
 
-prefab.gui.producefarm.structure.size=此结构的尺寸为 32x32。
-
-prefab.gui.starter.tab.general=常规
-prefab.gui.starter.tab.config=配置
-prefab.gui.starter.tab.block=方块/尺寸
-prefab.gui.starter.style.label=房屋风格
-prefab.gui.starter.floortype.label=地板方块类型
-prefab.gui.starter.ceilingtype.label=天花板方块类型
-prefab.gui.starter.walltype.label=墙面木材类型
-prefab.gui.starter.depth.label=内部深度
-prefab.gui.starter.width.label=内部宽度
 prefab.gui.starter.basic.display=基础小屋
-prefab.gui.starter.basic.notes=基本的石头和砖房。
 prefab.gui.starter.ranch.display=牧场风格
-prefab.gui.starter.ranch.notes=牧场风格的小屋。
-prefab.gui.starter.loft.display=
-prefab.gui.starter.loft.notes=
+prefab.gui.starter.loft.display=阁楼风格
 prefab.gui.starter.hobbit.display=霍比特风格
-prefab.gui.starter.hobbit.notes=主体位于地面以下的霍比特小屋。
 prefab.gui.starter.desert.display=沙漠风格
-prefab.gui.starter.desert.notes=像金字塔一样的小屋。
 prefab.gui.starter.snowy.display=雪地风格
-prefab.gui.starter.snowy.notes=像雪屋一样的小屋。
 
 prefab.gui.starter.addtorches=添加火炬
 prefab.gui.starter.addbed=添加床
@@ -106,11 +85,6 @@ prefab.gui.starter.addcraftingtable=添加合成台
 prefab.gui.starter.addfurnace=添加熔炉
 prefab.gui.starter.addchest=添加箱子
 prefab.gui.starter.addchestcontents=向箱子中添加物品
-prefab.gui.starter.addfarm=添加农场
-prefab.gui.starter.floorstone=地板石材类型
-prefab.gui.starter.ceilingtype=天花板石材类型
-prefab.gui.starter.walltype=墙面木材类型
-prefab.gui.starter.ceilingflat=天花板是否为平面
 prefab.gui.starter.buildmineshaft=添加矿坑
 
 prefab.gui.villager.house.flat=平顶
@@ -138,16 +112,10 @@ prefab.wall.block.type.jungle=丛林木
 prefab.wall.block.type.acacia=金合欢木
 prefab.wall.block.type.darkoak=深色橡木
 
-prefab.gui.treefarm.facing=林场朝向
-prefab.gui.treefarm.structure.size=此结构的尺寸为 38x38。
-
-prefab.gui.structure.facing=结构朝向
 prefab.gui.structure.glass=玻璃颜色
 prefab.gui.structure.bed_color=床的顏色
 
-prefab.gui.structure.facing.player=注意：如果你面朝北方，此时选择南方结构会面朝你。
 prefab.gui.structure.block.clicked=黄色轮廓是您单击的块。
-prefab.gui.structure.door.facing=注意：如果你面朝北方，此时选择南方大门会面朝你。
 prefab.gui.structure.nobuild=区域内有被保护的或无法破坏的方块，无法建造结构。方块名：%1$s 方块位置：x=%2$s, y=%3$s, z=%4$s。
 
 prefab.gui.button.build=建造！

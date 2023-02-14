@@ -43,9 +43,6 @@ item.prefab:item_watch_tower.name=Сторожевая Башня
 item.prefab:item_welcome_center.name=Центр для Посетителей
 item.prefab:item_jail.name=Тюрьма
 item.prefab:item_saloon.name=Салун
-item.prefab:item_ski_lodge.name=Лыжная База
-item.prefab:item_wind_mill.name=Ветряная Мельница
-item.prefab:item_town_hall.name=Ратуша
 item.prefab:item_workshop.name=Мастерская
 
 item.prefab:item_nether_gate_tree.name=Искажённое Дерево
@@ -73,32 +70,14 @@ tile.prefab:block_half_andesite_slab.name=Андезитовая плита
 tile.prefab:block_half_diorite_slab.name=Диоритовая плита
 tile.prefab:block_half_granite_slab.name=Гранитная плита
 
-prefab.gui.fishpond.structure.facing=Примечание: Если вы смотрите на север, выберите юг чтобы причал шел от вас. Белая окантовка просто отображает размер.
 prefab.gui.cleared_area=Очищенная область будет находиться в направлении, куда вы смотрите
 
-prefab.gui.producefarm.structure.size=Эта структура размером 32x32 блока.
-
-prefab.gui.starter.tab.general=Общее
-prefab.gui.starter.tab.config=Настройки
-prefab.gui.starter.tab.block=Блоки/Размер
-prefab.gui.starter.style.label=Стиль Дома
-prefab.gui.starter.floortype.label=Тип Пола
-prefab.gui.starter.ceilingtype.label=Тип Потолка
-prefab.gui.starter.walltype.label=Тип Стен
-prefab.gui.starter.depth.label=Внутренняя Глубина
-prefab.gui.starter.width.label=Внутренняя Ширина
 prefab.gui.starter.basic.display=Обычный Дом
-prefab.gui.starter.basic.notes=Обычный камень и кирпичный дом.
 prefab.gui.starter.ranch.display=Ранчо
-prefab.gui.starter.ranch.notes=Дом спроектированный в стиле ранчо.
 prefab.gui.starter.loft.display=Лофт
-prefab.gui.starter.loft.notes=Дом, спроектированный с чердаком для сундуков.
 prefab.gui.starter.hobbit.display=Хоббит
-prefab.gui.starter.hobbit.notes=Дом, спроектированный под землей, как у хоббитов.
 prefab.gui.starter.desert.display=Пустынный
-prefab.gui.starter.desert.notes=Дом, спроектированный как пирамида.
 prefab.gui.starter.snowy.display=Снежный
-prefab.gui.starter.snowy.notes=Дом, спроектированный как иглу.
 
 prefab.gui.starter.addtorches=Добавить Факела
 prefab.gui.starter.addbed=Добавить Кровать
@@ -106,11 +85,6 @@ prefab.gui.starter.addcraftingtable=Добавить Верстак
 prefab.gui.starter.addfurnace=Добавить Печь
 prefab.gui.starter.addchest=Добавить Сундук
 prefab.gui.starter.addchestcontents=Добавить Содержимое Сундука
-prefab.gui.starter.addfarm=Добавить Ферму
-prefab.gui.starter.floorstone=Тип Напольного Камня
-prefab.gui.starter.ceilingtype=Тип Потолочного Камня
-prefab.gui.starter.walltype=Тип Дерева Стены
-prefab.gui.starter.ceilingflat=Плоский Потолок
 prefab.gui.starter.buildmineshaft=Вырыть Шахту
 
 prefab.gui.villager.house.flat=Плоская Крыша
@@ -138,16 +112,10 @@ prefab.wall.block.type.jungle=Тропический
 prefab.wall.block.type.acacia=Акация
 prefab.wall.block.type.darkoak=Тёмный Дуб
 
-prefab.gui.treefarm.facing=Поворот Фермы Дерева
-prefab.gui.treefarm.structure.size=Эта структура размером в 38x38 блоков.
-
-prefab.gui.structure.facing=Поворот Структуры
 prefab.gui.structure.glass=Цвет Стекла
 prefab.gui.structure.bed_color=Цвет Кровати
 
-prefab.gui.structure.facing.player=Примечание: Если вы смотрите на север, выберите юг, чтобы структура была обращена к вам.
 prefab.gui.structure.block.clicked=Желтый контур - это блок, на котором вы щелкнули.
-prefab.gui.structure.door.facing=Примечание: Если вы смотрите на север, выберите юг, чтобы двери были обращены к вам.
 prefab.gui.structure.nobuild=Не удается построить структуру из-за защищенных блоков/местности или неразрушаемых блоков в области. Блок: %1$s Координаты: x=%2$s, y=%3$s, z=%4$s
 
 prefab.gui.button.build=Построить!

@@ -43,9 +43,6 @@ item.prefab:item_watch_tower.name=Torre di Guardia
 item.prefab:item_welcome_center.name=Centro di Benvenuto
 item.prefab:item_jail.name=Prigione
 item.prefab:item_saloon.name=Saloon
-item.prefab:item_ski_lodge.name=Baita
-item.prefab:item_wind_mill.name=Mulino a Vento
-item.prefab:item_town_hall.name=Municipio
 item.prefab:item_workshop.name=Officina
 
 item.prefab:item_nether_gate_tree.name=Albero Corrotto
@@ -73,32 +70,14 @@ tile.prefab:block_half_andesite_slab.name=Lastra di andesite
 tile.prefab:block_half_diorite_slab.name=Lastra di diorite
 tile.prefab:block_half_granite_slab.name=Lastra di granito
 
-prefab.gui.fishpond.structure.facing=Nota: Se sei rivolto a nord, scegli il sud così il molo si allontanerà da te. Il bordo bianco è solo per mostrare la dimensione.
 prefab.gui.cleared_area=L'area verrà sgombrata nella direzione che stai guardando.
 
-prefab.gui.producefarm.structure.size=Questa struttura misura 32x32 blocchi.
-
-prefab.gui.starter.tab.general=Generale
-prefab.gui.starter.tab.config=Configurazione
-prefab.gui.starter.tab.block=Blocco/Dimensione
-prefab.gui.starter.style.label=Stile Casa
-prefab.gui.starter.floortype.label=Stile Blocco Pavimento
-prefab.gui.starter.ceilingtype.label=Stile Blocco Soffitto
-prefab.gui.starter.walltype.label=Stile Legno Muro
-prefab.gui.starter.depth.label=Profondità Interna
-prefab.gui.starter.width.label=Larghezza Interna
 prefab.gui.starter.basic.display=Casa Base
-prefab.gui.starter.basic.notes=Una casa base di pietra e mattoni.
 prefab.gui.starter.ranch.display=Stile Ranch
-prefab.gui.starter.ranch.notes=Una casa in Stile Ranch.
 prefab.gui.starter.loft.display=Stile Loft
-prefab.gui.starter.loft.notes=Una casa con un soppalco per le casse.
 prefab.gui.starter.hobbit.display=Stile Hobbit
-prefab.gui.starter.hobbit.notes=Una casa nel terreno come nello Hobbit.
 prefab.gui.starter.desert.display=Stile Deserto
-prefab.gui.starter.desert.notes=Una casa simile a una piramide.
 prefab.gui.starter.snowy.display=Stile Neve
-prefab.gui.starter.snowy.notes=Una casa simile ad un igloo.
 
 prefab.gui.starter.addtorches=Aggiungi Torce
 prefab.gui.starter.addbed=Aggiungi Letto
@@ -106,11 +85,6 @@ prefab.gui.starter.addcraftingtable=Aggiungi Banco da Lavoro
 prefab.gui.starter.addfurnace=Aggiungi Fornace
 prefab.gui.starter.addchest=Aggiungi Cassa
 prefab.gui.starter.addchestcontents=Aggiungi Cassa Bonus
-prefab.gui.starter.addfarm=Aggiungi Blocchi Arati
-prefab.gui.starter.floorstone=Stile Pietra Pavimento
-prefab.gui.starter.ceilingtype=Stile Pietra Soffitto
-prefab.gui.starter.walltype=Stile Legno Muro
-prefab.gui.starter.ceilingflat=Soffitto Piatto
 prefab.gui.starter.buildmineshaft=Costruisci Miniera
 
 prefab.gui.villager.house.flat=Tetto Piatto
@@ -138,16 +112,10 @@ prefab.wall.block.type.jungle=Giungla
 prefab.wall.block.type.acacia=Acacia
 prefab.wall.block.type.darkoak=Quercia Scura
 
-prefab.gui.treefarm.facing=Direzione Piantagione Di Alberi
-prefab.gui.treefarm.structure.size=Questa struttura misura 38x38 blocchi.
-
-prefab.gui.structure.facing=Direzione Struttura
 prefab.gui.structure.glass=Colore Vetro
 prefab.gui.structure.bed_color=Colore Letto
 
-prefab.gui.structure.facing.player=Nota: Se sei rivolto a nord, scegli il sud così la struttura è rivolta verso di te.
 prefab.gui.structure.block.clicked=Il contorno giallo è il blocco su cui hai fatto clic.
-prefab.gui.structure.door.facing=Nota: Se sei rivolto a nord, scegli il sud così la porta è rivolta verso di te.
 prefab.gui.structure.nobuild=Impossibile costruire la struttura a causa di blocchi/area protetti o ci sono blocchi indistruttibili nell'area. Nome Blocco: %1$s Posizione Blocco: x=%2$s, y=%3$s, z=%4$s
 
 prefab.gui.button.build=Costruisci!

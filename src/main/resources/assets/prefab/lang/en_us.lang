@@ -43,9 +43,6 @@ item.prefab:item_watch_tower.name=Watch Tower
 item.prefab:item_welcome_center.name=Welcome Center
 item.prefab:item_jail.name=Jail
 item.prefab:item_saloon.name=Saloon
-item.prefab:item_ski_lodge.name=Ski Lodge
-item.prefab:item_wind_mill.name=Windmill
-item.prefab:item_town_hall.name=Town Hall
 item.prefab:item_workshop.name=Workshop
 
 item.prefab:item_nether_gate_tree.name=Corrupted Tree
@@ -73,32 +70,14 @@ tile.prefab:block_half_andesite_slab.name=Andesite Slab
 tile.prefab:block_half_diorite_slab.name=Diorite Slab
 tile.prefab:block_half_granite_slab.name=Granite Slab
 
-prefab.gui.fishpond.structure.facing=Note: If you're facing north, choose south so the pier is going away from you. The white border is just to show the size.
 prefab.gui.cleared_area=The area cleared will be in the direction you are facing.
 
-prefab.gui.producefarm.structure.size=This structure is 32x32 blocks in size.
-
-prefab.gui.starter.tab.general=General
-prefab.gui.starter.tab.config=Config
-prefab.gui.starter.tab.block=Blocks/Size
-prefab.gui.starter.style.label=House Style
-prefab.gui.starter.floortype.label=Floor Block Type
-prefab.gui.starter.ceilingtype.label=Ceiling Block Type
-prefab.gui.starter.walltype.label=Wall Wood Type
-prefab.gui.starter.depth.label=Interior Depth
-prefab.gui.starter.width.label=Interior Width
 prefab.gui.starter.basic.display=Basic House
-prefab.gui.starter.basic.notes=A basic stone and brick house.
 prefab.gui.starter.ranch.display=Ranch Style
-prefab.gui.starter.ranch.notes=A house designed in a ranch style.
 prefab.gui.starter.loft.display=Loft Style
-prefab.gui.starter.loft.notes=A house designed with a lofted area for the chests.
 prefab.gui.starter.hobbit.display=Hobbit Style
-prefab.gui.starter.hobbit.notes=A house designed into the ground like a hobbit.
 prefab.gui.starter.desert.display=Desert Style
-prefab.gui.starter.desert.notes=A house designed like a pyramid.
 prefab.gui.starter.snowy.display=Snowy Style
-prefab.gui.starter.snowy.notes=A house designed like an igloo.
 
 prefab.gui.starter.addtorches=Add Torches
 prefab.gui.starter.addbed=Add Bed
@@ -106,11 +85,6 @@ prefab.gui.starter.addcraftingtable=Add Crafting Table
 prefab.gui.starter.addfurnace=Add Furnace
 prefab.gui.starter.addchest=Add Chest
 prefab.gui.starter.addchestcontents=Add Chest Contents
-prefab.gui.starter.addfarm=Add Farm
-prefab.gui.starter.floorstone=Floor Stone Type
-prefab.gui.starter.ceilingtype=Ceiling Stone Type
-prefab.gui.starter.walltype=Wall Wood Type
-prefab.gui.starter.ceilingflat=Is Ceiling Flat
 prefab.gui.starter.buildmineshaft=Build Mineshaft
 
 prefab.gui.villager.house.flat=Flat Roof
@@ -138,16 +112,10 @@ prefab.wall.block.type.jungle=Jungle
 prefab.wall.block.type.acacia=Acacia
 prefab.wall.block.type.darkoak=Dark Oak
 
-prefab.gui.treefarm.facing=Tree Farm Facing
-prefab.gui.treefarm.structure.size=This structure is 38x38 blocks in size.
-
-prefab.gui.structure.facing=Structure Facing
 prefab.gui.structure.glass=Glass Color
 prefab.gui.structure.bed_color=Bed Color
 
-prefab.gui.structure.facing.player=Note: If you're facing north, choose south so the structure is facing you.
 prefab.gui.structure.block.clicked=The yellow outline is the block you clicked on.
-prefab.gui.structure.door.facing=Note: If you're facing north, choose south so the doors are facing you.
 prefab.gui.structure.nobuild=Cannot build structure due to protected blocks/area or unbreakable blocks are in the area. Block Name: %1$s Block Position: x=%2$s, y=%3$s, z=%4$s
 
 prefab.gui.button.build=Build!

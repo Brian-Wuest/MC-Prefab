@@ -43,9 +43,6 @@ item.prefab:item_watch_tower.name=望楼
 item.prefab:item_welcome_center.name=ウェルカムセンター
 item.prefab:item_jail.name=刑務所
 item.prefab:item_saloon.name=サルーン
-item.prefab:item_ski_lodge.name=スキーロッジ
-item.prefab:item_wind_mill.name=風車
-item.prefab:item_town_hall.name=町役場
 item.prefab:item_workshop.name=ワークショップ
 
 item.prefab:item_nether_gate_tree.name=壊れた木
@@ -73,32 +70,14 @@ tile.prefab:block_half_andesite_slab.name=安山岩スラブ
 tile.prefab:block_half_diorite_slab.name=閃緑岩スラブ
 tile.prefab:block_half_granite_slab.name=花崗岩スラブ
 
-prefab.gui.fishpond.structure.facing=注:北を向いている場合は、桟橋があなたから遠ざかるように南を選択します。 白い境界線は、単にサイズを示すためのものです。
 prefab.gui.cleared_area=クリアされたエリアは、あなたが向いている方向になります。
 
-prefab.gui.producefarm.structure.size=この構造は、サイズが32x32ブロックです。
-
-prefab.gui.starter.tab.general=全般
-prefab.gui.starter.tab.config=コンフィグ
-prefab.gui.starter.tab.block=ブロック/サイズ
-prefab.gui.starter.style.label=ハウススタイル
-prefab.gui.starter.floortype.label=床ブロックタイプ
-prefab.gui.starter.ceilingtype.label=天井ブロックタイプ
-prefab.gui.starter.walltype.label=壁ブロックタイプ
-prefab.gui.starter.depth.label=奥行
-prefab.gui.starter.width.label=内幅
 prefab.gui.starter.basic.display=ベーシックハウス
-prefab.gui.starter.basic.notes=基本的な石とレンガの家。
 prefab.gui.starter.ranch.display=牧場スタイル
-prefab.gui.starter.ranch.notes=牧場スタイルで設計された家。
 prefab.gui.starter.loft.display=ロフトスタイル
-prefab.gui.starter.loft.notes=ロフトスタイルで設計された家。
 prefab.gui.starter.hobbit.display=ホビットスタイル
-prefab.gui.starter.hobbit.notes=ホビットのように地面に設計された家。
 prefab.gui.starter.desert.display=デザートスタイル
-prefab.gui.starter.desert.notes=ピラミッドのように設計された家。
 prefab.gui.starter.snowy.display=イグルースタイル
-prefab.gui.starter.snowy.notes=イグルーのように設計された家。
 
 prefab.gui.starter.addtorches=トーチを追加
 prefab.gui.starter.addbed=ベッドを追加
@@ -106,11 +85,6 @@ prefab.gui.starter.addcraftingtable=作業台を追加
 prefab.gui.starter.addfurnace=かまどを追加
 prefab.gui.starter.addchest=チェストを追加
 prefab.gui.starter.addchestcontents=チェストの中身を追加
-prefab.gui.starter.addfarm=小さな農場を追加
-prefab.gui.starter.floorstone=床ブロックタイプ
-prefab.gui.starter.ceilingtype=屋根ブロックタイプ
-prefab.gui.starter.walltype=壁ブロックタイプ
-prefab.gui.starter.ceilingflat=平らな屋根
 prefab.gui.starter.buildmineshaft=マインシャフトの構築
 
 prefab.gui.villager.house.flat=平屋根
@@ -138,16 +112,10 @@ prefab.wall.block.type.jungle=ジャングル
 prefab.wall.block.type.acacia=アカシア
 prefab.wall.block.type.darkoak=ダークオーク
 
-prefab.gui.treefarm.facing=ツリーファームに面した
-prefab.gui.treefarm.structure.size=この構造のサイズは38x38ブロックです。
-
-prefab.gui.structure.facing=構造面
 prefab.gui.structure.glass=ガラス色
 prefab.gui.structure.bed_color=ベッド色
 
-prefab.gui.structure.facing.player=注：北を向いている場合は、南を選択して、構造物があなたに向くようにします。
 prefab.gui.structure.block.clicked=黄色のアウトラインは、クリックしたブロックです。
-prefab.gui.structure.door.facing=注：北を向いている場合は、ドアがあなたに向いているように南を選択します。
 prefab.gui.structure.nobuild=保護されたブロック/エリアのために構造を構築できないか、そのエリアに破損しないブロックがあります。 ブロック名：%1$s ブロック位置：x=%2$s, y=%3$s, z=%4$s。
 
 prefab.gui.button.build=建築
