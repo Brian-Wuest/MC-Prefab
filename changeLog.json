@@ -5,8 +5,8 @@
     "1.10.2-recommended": "1.1.1.16",
     "1.11.2-latest": "1.2.0.19",
     "1.11.2-recommended": "1.2.0.19",
-    "1.12-latest": "1.3.1.5",
-    "1.12-recommended": "1.3.1.5",
+    "1.12-latest": "1.3.1.6",
+    "1.12-recommended": "1.3.1.6",
     "1.14-latest": "1.4.0.18",
     "1.14-recommended": "1.4.0.18",
     "1.15-latest": "1.5.0.10",
@@ -91,7 +91,8 @@
     "1.3.1.2": "Fixed issues with starting houses not generating. Fixed version number in mod info. Re-vamped all blueprint screens",
     "1.3.1.3": "Item Textures have been updated. Added configuration option for water in non-overworld dimensions. Added mod specific creative tab",
     "1.3.1.4": "Fixed an issue where the bulldozer could not be enchanted in the anvil",
-    "1.3.1.5": "Fixed monster masher spawns and sign. Updated checkbox texture. Added more info to unbreakable block detection. Removed excessive recipes"
+    "1.3.1.5": "Fixed monster masher spawns and sign. Updated checkbox texture. Added more info to unbreakable block detection. Removed excessive recipes",
+    "1.3.1.6": "Added Finnish and German language support. Updated structure item icons"
   },
   "1.14": {
     "1.4.0.0": "Initial release containing latest updates from 1.3.0.26. Added Japanese translation file. Basic starting house was updated from procedurally generated building to a static building.",
