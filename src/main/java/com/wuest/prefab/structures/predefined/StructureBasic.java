@@ -22,6 +22,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
@@ -79,16 +80,20 @@ public class StructureBasic extends Structure {
                     configuration.houseFacing);
         }
 
-        if (foundBlock.getRegistryName().getNamespace().equals(Blocks.STAINED_GLASS.getRegistryName().getNamespace())
-                && foundBlock.getRegistryName().getPath().equals(Blocks.STAINED_GLASS.getRegistryName().getPath())
+        ResourceLocation blockIdentifier = foundBlock.getRegistryName();
+        ResourceLocation glassIdentifier = Blocks.STAINED_GLASS.getRegistryName();
+        ResourceLocation glassPaneIdentifier = Blocks.STAINED_GLASS_PANE.getRegistryName();
+
+        if (blockIdentifier.getNamespace().equals(glassIdentifier.getNamespace())
+                && blockIdentifier.getPath().endsWith("glass")
                 && config.chosenOption.getHasGlassColor()) {
             blockState = this.getStainedGlassBlock(config.glassColor);
             block.setBlockState(blockState);
             this.priorityOneBlocks.add(block);
 
             return true;
-        } else if (foundBlock.getRegistryName().getNamespace().equals(Blocks.STAINED_GLASS_PANE.getRegistryName().getNamespace())
-                && foundBlock.getRegistryName().getPath().equals(Blocks.STAINED_GLASS_PANE.getRegistryName().getPath())
+        } else if (blockIdentifier.getNamespace().equals(glassPaneIdentifier.getNamespace())
+                && blockIdentifier.getPath().endsWith("glass_pane")
                 && config.chosenOption.getHasGlassColor()) {
             blockState = this.getStainedGlassPaneBlock(config.glassColor);
 

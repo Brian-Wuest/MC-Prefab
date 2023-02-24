@@ -2,10 +2,7 @@ package com.wuest.prefab.structures.base;
 
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.gui.GuiLangKeys;
-import net.minecraft.block.BlockPlanks;
-import net.minecraft.block.BlockSlab;
-import net.minecraft.block.BlockStoneSlab;
-import net.minecraft.block.BlockWoodSlab;
+import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 
@@ -26,7 +23,10 @@ public enum EnumStairsMaterial {
     Birch("prefab.wall.block.type.birch", Blocks.BIRCH_STAIRS.getDefaultState()),
     Jungle("prefab.wall.block.type.jungle", Blocks.JUNGLE_STAIRS.getDefaultState()),
     Acacia("prefab.wall.block.type.acacia", Blocks.ACACIA_STAIRS.getDefaultState()),
-    DarkOak("prefab.wall.block.type.darkoak", Blocks.DARK_OAK_STAIRS.getDefaultState());
+    DarkOak("prefab.wall.block.type.darkoak", Blocks.DARK_OAK_STAIRS.getDefaultState()),
+    Sandstone("prefab.ceiling.block.type.sand", Blocks.SANDSTONE_STAIRS.getDefaultState()),
+    RedSandStone("prefab.gui.material.red_sandstone", Blocks.RED_SANDSTONE_STAIRS.getDefaultState()),
+    Glass("block.minecraft.glass", ModRegistry.GlassStairs.getDefaultState());
 
     public final IBlockState stairsState;
     private String name;
@@ -93,11 +93,23 @@ public enum EnumStairsMaterial {
             }
 
             case StoneBrick: {
-                return Blocks.STONE_SLAB.getDefaultState().withProperty(BlockStoneSlab.VARIANT, BlockStoneSlab.EnumType.SMOOTHBRICK).withProperty(BlockWoodSlab.HALF, BlockSlab.EnumBlockHalf.BOTTOM);
+                return Blocks.STONE_SLAB.getDefaultState().withProperty(BlockStoneSlab.VARIANT, BlockStoneSlab.EnumType.SMOOTHBRICK).withProperty(BlockSlab.HALF, BlockSlab.EnumBlockHalf.BOTTOM);
             }
 
             case Brick: {
-                return Blocks.STONE_SLAB.getDefaultState().withProperty(BlockStoneSlab.VARIANT, BlockStoneSlab.EnumType.BRICK).withProperty(BlockWoodSlab.HALF, BlockSlab.EnumBlockHalf.BOTTOM);
+                return Blocks.STONE_SLAB.getDefaultState().withProperty(BlockStoneSlab.VARIANT, BlockStoneSlab.EnumType.BRICK).withProperty(BlockSlab.HALF, BlockSlab.EnumBlockHalf.BOTTOM);
+            }
+
+            case Sandstone: {
+                return Blocks.STONE_SLAB.getDefaultState().withProperty(BlockStoneSlab.VARIANT, BlockStoneSlab.EnumType.SAND).withProperty(BlockSlab.HALF, BlockSlab.EnumBlockHalf.BOTTOM);
+            }
+
+            case RedSandStone: {
+                return Blocks.STONE_SLAB2.getDefaultState().withProperty(BlockStoneSlabNew.VARIANT, BlockStoneSlabNew.EnumType.RED_SANDSTONE).withProperty(BlockSlab.HALF, BlockSlab.EnumBlockHalf.BOTTOM);
+            }
+
+            case Glass: {
+                return ModRegistry.GlassSlab.getDefaultState().withProperty(BlockSlab.HALF, BlockSlab.EnumBlockHalf.BOTTOM);
             }
 
             default: {

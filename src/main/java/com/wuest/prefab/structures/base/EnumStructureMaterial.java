@@ -2,9 +2,7 @@ package com.wuest.prefab.structures.base;
 
 import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.gui.GuiLangKeys;
-import net.minecraft.block.BlockPlanks;
-import net.minecraft.block.BlockStone;
-import net.minecraft.block.BlockStoneBrick;
+import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 
@@ -30,7 +28,10 @@ public enum EnumStructureMaterial {
     Birch("prefab.wall.block.type.birch", Blocks.PLANKS.getStateFromMeta(BlockPlanks.EnumType.BIRCH.getMetadata()), Blocks.BIRCH_STAIRS.getDefaultState(), 13),
     Jungle("prefab.wall.block.type.jungle", Blocks.PLANKS.getStateFromMeta(BlockPlanks.EnumType.JUNGLE.getMetadata()), Blocks.JUNGLE_STAIRS.getDefaultState(), 14),
     Acacia("prefab.wall.block.type.acacia", Blocks.PLANKS.getStateFromMeta(BlockPlanks.EnumType.ACACIA.getMetadata()), Blocks.ACACIA_STAIRS.getDefaultState(), 15),
-    DarkOak("prefab.wall.block.type.darkoak", Blocks.PLANKS.getStateFromMeta(BlockPlanks.EnumType.DARK_OAK.getMetadata()), Blocks.DARK_OAK_STAIRS.getDefaultState(), 16);
+    DarkOak("prefab.wall.block.type.darkoak", Blocks.PLANKS.getStateFromMeta(BlockPlanks.EnumType.DARK_OAK.getMetadata()), Blocks.DARK_OAK_STAIRS.getDefaultState(), 16),
+    SandStone("prefab.ceiling.block.type.sand", Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.DEFAULT.getMetadata()), Blocks.SANDSTONE_STAIRS.getDefaultState(), 17),
+    RedSandStone("prefab.gui.material.red_sandstone", Blocks.RED_SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.DEFAULT.getMetadata()), Blocks.RED_SANDSTONE_STAIRS.getDefaultState(), 18),
+    Glass("block.minecraft.glass", Blocks.GLASS.getDefaultState(), ModRegistry.GlassStairs.getDefaultState(), 19);
 
     private String name;
     private IBlockState blockType;
