@@ -88,6 +88,8 @@ public class ModConfiguration {
     private static String includeMineshaftChestName = "Include Mineshaft Chest";
     private static String allowWaterInNonOverworldDimensionsName = "Include Water In Overworld Dimension Only";
 
+    private static String newPlayersGetStartingItemName = "New Players Get Starting Item";
+
     // Chest content option names.
     private static String addSwordName = "Add Sword";
     private static String addAxeName = "Add Axe";
@@ -123,6 +125,8 @@ public class ModConfiguration {
     public boolean includeMineshaftChest;
     public boolean allowWaterInNonOverworldDimensions;
     public boolean allowBulldozerToCreateDrops;
+
+    public boolean newPlayersGetStartingItem;
 
     // Chest content options.
     public boolean addSword;
@@ -170,6 +174,9 @@ public class ModConfiguration {
         ConfigCategory mainCategory = config.getCategory(ModConfiguration.OPTIONS);
 
         // General settings.
+        Prefab.proxy.proxyConfiguration.newPlayersGetStartingItem = config.getBoolean(ModConfiguration.newPlayersGetStartingItemName, ModConfiguration.OPTIONS, true,
+                "Can new players for a world receive a starting item?. Server configuration overrides client.");
+
         Prefab.proxy.proxyConfiguration.startingItem = config.getString(ModConfiguration.startingItemName, ModConfiguration.OPTIONS, "Starting House",
                 "Determines which starting item a player gets on first world join. Server configuration overrides client.", validStartingItems);
         Property startingItemProperty = mainCategory.get(ModConfiguration.startingItemName);
@@ -283,6 +290,7 @@ public class ModConfiguration {
     public static ModConfiguration getFromNBTTagCompound(NBTTagCompound tag) {
         ModConfiguration config = new ModConfiguration();
 
+        config.newPlayersGetStartingItem = tag.getBoolean(ModConfiguration.newPlayersGetStartingItemName);
         config.startingItem = tag.getString(ModConfiguration.startingItemName);
         config.enableVersionCheckMessage = tag.getBoolean(ModConfiguration.enableVersionCheckMessageName);
         config.enableLoftHouse = tag.getBoolean(ModConfiguration.enableLoftHouseName);
@@ -326,6 +334,7 @@ public class ModConfiguration {
     public NBTTagCompound ToNBTTagCompound() {
         NBTTagCompound tag = new NBTTagCompound();
 
+        tag.setBoolean(ModConfiguration.newPlayersGetStartingItemName, this.newPlayersGetStartingItem);
         tag.setString(ModConfiguration.startingItemName, this.startingItem);
         tag.setBoolean(ModConfiguration.enableVersionCheckMessageName, this.enableVersionCheckMessage);
         tag.setBoolean(ModConfiguration.enableLoftHouseName, this.enableLoftHouse);

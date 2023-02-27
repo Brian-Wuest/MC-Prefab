@@ -63,7 +63,8 @@ public class StructureEventHandler {
 
             String startingItem = Prefab.proxy.proxyConfiguration.startingItem;
 
-            if (!playerConfig.givenHouseBuilder && startingItem != null) {
+            if (!playerConfig.givenHouseBuilder && startingItem != null
+                    && Prefab.proxy.proxyConfiguration.newPlayersGetStartingItem) {
                 ItemStack stack = ItemStack.EMPTY;
 
                 switch (startingItem.toLowerCase()) {
