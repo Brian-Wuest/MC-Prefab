@@ -100,6 +100,9 @@ public class ModConfiguration {
     static String addSaplingsName = "Add Saplings";
     static String addTorchesName = "Add Torches";
     static String startingItemName = "Starting Item";
+
+    static String newPlayersGetStartingItemName = "New Players Get Starting Item";
+
     // Starter House option names.
     static String addBedName = "Add Bed";
     static String addCraftingTableName = "Add Crafting Table";
@@ -153,6 +156,8 @@ public class ModConfiguration {
     private BooleanValue addMineshaft;
     private ConfigValue<String> startingItem;
 
+    private BooleanValue newPlayersGetStartingItem;
+
     public ModConfiguration(ForgeConfigSpec.Builder builder) {
         this.recipeConfiguration = new HashMap<>();
         this.serverConfiguration = new ServerModConfiguration();
@@ -177,6 +182,18 @@ public class ModConfiguration {
                 .setDefaultValue("Starting House")
                 .setHoverText("Determines which starting item a player gets on first world join. Valid values for this option are: \"Starting House\", \"Moderate House\", \"Nothing\". Server configuration overrides client.")
                 .setValidValues(validStartingItems));
+
+        Prefab.proxy.proxyConfiguration.newPlayersGetStartingItem = builder
+                .comment("Can new players for a world receive a starting item?. Server configuration overrides client.")
+                .define(OPTIONS + ModConfiguration.newPlayersGetStartingItemName, true);
+
+        config.configOptions.add(new ConfigOption<Boolean>()
+                .setConfigValue(Prefab.proxy.proxyConfiguration.newPlayersGetStartingItem)
+                .setName(ModConfiguration.newPlayersGetStartingItemName)
+                .setConfigType("Boolean")
+                .setCategory(ConfigCategory.General)
+                .setHoverText("Can new players for a world receive a starting item?. Server configuration overrides client.")
+                .setDefaultValue(true));
 
         Prefab.proxy.proxyConfiguration.enableLoftHouse = builder
                 .comment("Determines if the loft starter house is enabled. This house contains Nether materials in it's construction. Server configuration overrides client.")
@@ -521,6 +538,7 @@ public class ModConfiguration {
 
     public static void UpdateServerConfig() {
         Prefab.proxy.proxyConfiguration.serverConfiguration.startingItem = Prefab.proxy.proxyConfiguration.startingItem.get();
+        Prefab.proxy.proxyConfiguration.serverConfiguration.newPlayersGetStartingItem = Prefab.proxy.proxyConfiguration.newPlayersGetStartingItem.get();
         Prefab.proxy.proxyConfiguration.serverConfiguration.enableLoftHouse = Prefab.proxy.proxyConfiguration.enableLoftHouse.get();
         Prefab.proxy.proxyConfiguration.serverConfiguration.includeSpawnersInMasher = Prefab.proxy.proxyConfiguration.includeSpawnersInMasher.get();
         Prefab.proxy.proxyConfiguration.serverConfiguration.enableStructurePreview = Prefab.proxy.proxyConfiguration.enableStructurePreview.get();

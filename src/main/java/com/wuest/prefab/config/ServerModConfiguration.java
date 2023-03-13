@@ -47,6 +47,8 @@ public class ServerModConfiguration {
 
     public String startingItem;
 
+    public boolean newPlayersGetStartingItem;
+
     public HashMap<String, Boolean> recipeConfiguration;
 
     public ServerModConfiguration() {
@@ -57,6 +59,7 @@ public class ServerModConfiguration {
         ServerModConfiguration configuration = new ServerModConfiguration();
 
         configuration.startingItem = tag.getString(ModConfiguration.startingItemName);
+        configuration.newPlayersGetStartingItem = tag.getBoolean(ModConfiguration.newPlayersGetStartingItemName);
         configuration.enableVersionCheckMessage = tag.getBoolean(ModConfiguration.enableVersionCheckMessageName);
         configuration.enableLoftHouse = tag.getBoolean(ModConfiguration.enableLoftHouseName);
         configuration.includeSpawnersInMasher = tag.getBoolean(ModConfiguration.includeSpawnersInMasherName);
@@ -98,6 +101,7 @@ public class ServerModConfiguration {
         CompoundNBT tag = new CompoundNBT();
 
         tag.putString(ModConfiguration.startingItemName, this.startingItem);
+        tag.putBoolean(ModConfiguration.newPlayersGetStartingItemName, this.newPlayersGetStartingItem);
         tag.putBoolean(ModConfiguration.enableVersionCheckMessageName, this.enableVersionCheckMessage);
         tag.putBoolean(ModConfiguration.enableLoftHouseName, this.enableLoftHouse);
         tag.putBoolean(ModConfiguration.includeSpawnersInMasherName, this.includeSpawnersInMasher);
