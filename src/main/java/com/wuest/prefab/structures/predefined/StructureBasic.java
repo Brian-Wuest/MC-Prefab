@@ -36,7 +36,7 @@ import java.util.ArrayList;
  */
 public class StructureBasic extends Structure {
     private BlockPos customBlockPos = null;
-    private ArrayList<BlockPos> mobSpawnerPos = new ArrayList<>();
+    private final ArrayList<BlockPos> mobSpawnerPos = new ArrayList<>();
     private BlockPos signPosition = null;
 
     @Override
@@ -78,8 +78,7 @@ public class StructureBasic extends Structure {
 
             this.priorityOneBlocks.add(block);
             return true;
-        } else if (foundBlock instanceof SpawnerBlock && structureName.equals(EnumBasicStructureName.AdvancedFarm.getName()) && chosenOption == AdvancedFarmOptions.MonsterMasher
-                && CommonProxy.proxyConfiguration.serverConfiguration.includeSpawnersInMasher) {
+        } else if (foundBlock instanceof SpawnerBlock && structureName.equals(EnumBasicStructureName.AdvancedFarm.getName()) && chosenOption == AdvancedFarmOptions.MonsterMasher) {
             this.mobSpawnerPos.add(block.getStartingPosition().getRelativePosition(
                     originalPos,
                     this.getClearSpace().getShape().getDirection(),
@@ -185,38 +184,44 @@ public class StructureBasic extends Structure {
 
             // Set the spawner.
             for (BlockPos pos : this.mobSpawnerPos) {
-                TileEntity tileEntity = world.getBlockEntity(pos);
+                if (CommonProxy.proxyConfiguration.serverConfiguration.includeSpawnersInMasher) {
+                    TileEntity tileEntity = world.getBlockEntity(pos);
 
-                if (tileEntity instanceof MobSpawnerTileEntity) {
-                    MobSpawnerTileEntity spawner = (MobSpawnerTileEntity) tileEntity;
+                    if (tileEntity instanceof MobSpawnerTileEntity) {
+                        MobSpawnerTileEntity spawner = (MobSpawnerTileEntity) tileEntity;
 
-                    switch (monstersPlaced) {
-                        case 0: {
-                            // Zombie.
-                            spawner.getSpawner().setEntityId(EntityType.ZOMBIE);
-                            break;
+                        switch (monstersPlaced) {
+                            case 0: {
+                                // Zombie.
+                                spawner.getSpawner().setEntityId(EntityType.ZOMBIE);
+                                break;
+                            }
+
+                            case 1: {
+                                // Skeleton.
+                                spawner.getSpawner().setEntityId(EntityType.SKELETON);
+                                break;
+                            }
+
+                            case 2: {
+                                // Spider.
+                                spawner.getSpawner().setEntityId(EntityType.SPIDER);
+                                break;
+                            }
+
+                            default: {
+                                // Creeper.
+                                spawner.getSpawner().setEntityId(EntityType.CREEPER);
+                                break;
+                            }
                         }
 
-                        case 1: {
-                            // Skeleton.
-                            spawner.getSpawner().setEntityId(EntityType.SKELETON);
-                            break;
-                        }
-
-                        case 2: {
-                            // Spider.
-                            spawner.getSpawner().setEntityId(EntityType.SPIDER);
-                            break;
-                        }
-
-                        default: {
-                            // Creeper.
-                            spawner.getSpawner().setEntityId(EntityType.CREEPER);
-                            break;
-                        }
+                        monstersPlaced++;
                     }
-
-                    monstersPlaced++;
+                }
+                else {
+                    // Set the block to air to actually remove the spawner.
+                    world.removeBlock(pos, false);
                 }
             }
 
