@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "prefab:block_compressed_obsidian",
+    "prefab:block_double_compressed_obsidian",
+    "prefab:block_compressed_stone",
+    "prefab:block_double_compressed_stone",
+    "prefab:block_triple_compressed_stone",
+    "prefab:block_glass_slab",
+    "prefab:block_glass_stairs"
+  ]
+}
