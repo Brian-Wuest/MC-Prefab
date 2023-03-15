@@ -19,8 +19,8 @@
     "1.16.3-recommended": "1.6.2.1",
     "1.16.4-latest": "1.6.4.3",
     "1.16.4-recommended": "1.6.4.3",
-    "1.16.5-latest": "1.6.5.15",
-    "1.16.5-recommended": "1.6.5.15",
+    "1.16.5-latest": "1.6.5.16",
+    "1.16.5-recommended": "1.6.5.16",
     "1.17.1-latest": "1.7.1.2",
     "1.17.1-recommended": "1.7.1.2",
     "1.18.1-latest": "1.8.1.4",
@@ -163,7 +163,8 @@
     "1.6.5.12": "Fixing campsite house error, adding lights to modern tree house, fixing some reversal recipes",
     "1.6.5.13": "Instant build, build generation soud, updated checkboxes, machinery tower glass color and more! See Curseforge for full changelog",
     "1.6.5.14": "Fixed spawners and the sign on the monster masher",
-    "1.6.5.15": "Added configuration option for the building sound. Fixed lecterns for the town hall. Fixed various entity generation. Fixed the bulldozer for survival mode"
+    "1.6.5.15": "Added configuration option for the building sound. Fixed lecterns for the town hall. Fixed various entity generation. Fixed the bulldozer for survival mode",
+    "1.6.5.16": "Added Finnish and German translations. Updated structure item textures to be up to modern styling. A number of other fixes and enhancements."
   },
   "1.17.1": {
     "1.7.1.0": "Initial release for 1.17.1 containing the latest updates from 1.6.5.11",
