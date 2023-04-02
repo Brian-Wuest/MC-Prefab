@@ -200,7 +200,7 @@ public class GuiPrefab extends GuiBase {
 
     @Override
     protected void preButtonRender(PoseStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
-        this.renderDirtBackground(0);
+        this.renderBackground(matrixStack);
 
         // Only render the appropriate options row list based on the currently selected option.
         Quadruple<ConfigCategory, OptionsList, OptionsList, ConfigCategory> rowList = this.getOptionsRowList(this.currentOption);

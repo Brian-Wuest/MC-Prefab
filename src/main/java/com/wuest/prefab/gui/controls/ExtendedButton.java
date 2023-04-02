@@ -34,7 +34,7 @@ public class ExtendedButton extends Button
      * Draws this button to the screen.
      */
     @Override
-    public void renderButton(PoseStack mStack, int mouseX, int mouseY, float partial)
+    public void render(PoseStack mStack, int mouseX, int mouseY, float partial)
     {
         if (this.visible) {
             Minecraft mc = Minecraft.getInstance();
@@ -44,15 +44,13 @@ public class ExtendedButton extends Button
             RenderSystem.setShaderTexture(0, WIDGETS_LOCATION);
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, this.alpha);
 
-            int i = this.getYImage(this.isHoveredOrFocused());
+            int i = !this.active ? 0 : (this.isHoveredOrFocused() ? 2 : 1);
 
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();
             RenderSystem.enableDepthTest();
             this.blit(mStack, this.getX(), this.getY(), 0, 46 + i * 20, this.width / 2, this.height);
             this.blit(mStack, this.getX() + this.width / 2, this.getY(), 200 - this.width / 2, 46 + i * 20, this.width / 2, this.height);
-
-            this.renderBg(mStack, mc, mouseX, mouseY);
 
             Component buttonText = this.getMessage();
             int strWidth = mc.font.width(buttonText);

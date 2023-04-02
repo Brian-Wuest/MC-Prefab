@@ -17,7 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.client.event.RenderLevelLastEvent;
+import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.event.TickEvent.ClientTickEvent;
 import net.minecraftforge.event.TickEvent.Phase;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
@@ -56,7 +56,7 @@ public final class ClientEventHandler {
      * @param event The event object.
      */
     @SubscribeEvent
-    public static void onWorldRenderLast(RenderLevelLastEvent event) {
+    public static void onWorldRenderLast(RenderLevelStageEvent event) {
         // TODO: Replace this with the mixin from Fabric since forge keeps on changing shit they shouldn't be.
         Minecraft mc = Minecraft.getInstance();
 

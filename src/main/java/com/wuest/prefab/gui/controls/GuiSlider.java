@@ -69,30 +69,6 @@ public class GuiSlider extends Button {
     }
 
     /**
-     * Returns 0 if the button is disabled, 1 if the mouse is NOT hovering over this button and 2 if it IS hovering over
-     * this button.
-     */
-    @Override
-    public int getYImage(boolean par1) {
-        return 0;
-    }
-
-    /**
-     * Fired when the mouse button is dragged. Equivalent of MouseListener.mouseDragged(MouseEvent e).
-     */
-    @Override
-    protected void renderBg(PoseStack mStack, Minecraft par1Minecraft, int par2, int par3) {
-        if (this.visible) {
-            if (this.dragging) {
-                this.sliderValue = (par2 - (this.getX() + 4)) / (float) (this.width - 8);
-                updateSlider();
-            }
-
-            GuiUtils.drawContinuousTexturedBox(WIDGETS_LOCATION, this.getX() + (int) (this.sliderValue * (float) (this.width - 8)), this.getY(), 0, 66, 8, this.height, 200, 20, 2, 3, 2, 2, 0);
-        }
-    }
-
-    /**
      * Returns true if the mouse has been pressed on this control. Equivalent of MouseListener.mousePressed(MouseEvent
      * e).
      */

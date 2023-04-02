@@ -98,7 +98,7 @@ public class GuiInstantBridge extends GuiStructure {
 
     @Override
     protected void postButtonRender(PoseStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
-        this.drawSplitString(GuiLangKeys.translateString("item.prefab.item_instant_bridge"), x + 15, y + 17, 100, this.textColor);
+        this.drawSplitString(matrixStack, GuiLangKeys.translateString("item.prefab.item_instant_bridge"), x + 15, y + 17, 100);
 
         this.drawString(matrixStack, GuiLangKeys.translateString(GuiLangKeys.BRIDGE_MATERIAL), x + 15, y + 35, this.textColor);
 

@@ -24,6 +24,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
+import net.minecraft.core.Vec3i;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.*;
@@ -87,7 +88,8 @@ public class StructureRenderHandler {
             MultiBufferSource.BufferSource entityVertexConsumer = Minecraft.getInstance().renderBuffers().bufferSource();
 
             Frustum frustum = new Frustum(matrixStack.last().pose(), RenderSystem.getProjectionMatrix());
-            BlockPos cameraPos = new BlockPos(player.getEyePosition(1.0F));
+            Vec3i vec = new Vec3i((int) player.getEyePosition(1.0F).x, (int) player.getEyePosition(1.0F).y, (int) player.getEyePosition(1.0F).z);
+            BlockPos cameraPos = new BlockPos(vec);
             frustum.prepare(cameraPos.getX(), cameraPos.getY(), cameraPos.getZ());
 
             for (BuildBlock buildBlock : StructureRenderHandler.currentStructure.getBlocks()) {
@@ -143,7 +145,7 @@ public class StructureRenderHandler {
     }
 
     private static ChatType getMessageType() {
-        Registry<ChatType> registry = Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.CHAT_TYPE);
+        Registry<ChatType> registry = Minecraft.getInstance().level.m_9598_().registryOrThrow(Registries.CHAT_TYPE);
         return registry.get(ChatType.CHAT);
     }
 
@@ -267,7 +269,6 @@ public class StructureRenderHandler {
         Tesselator tessellator = Tesselator.getInstance();
         BufferBuilder bufferBuilder = tessellator.getBuilder();
 
-        RenderSystem.disableTexture();
         RenderSystem.disableBlend();
 
         double translatedX = blockXOffset - cameraX;
@@ -332,7 +333,6 @@ public class StructureRenderHandler {
 
         RenderSystem.lineWidth(1.0F);
         RenderSystem.enableBlend();
-        RenderSystem.enableTexture();
     }
 
     public static void renderScanningBoxes(PoseStack matrixStack,
