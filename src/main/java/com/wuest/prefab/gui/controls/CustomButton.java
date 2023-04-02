@@ -28,7 +28,7 @@ public class CustomButton extends ExtendedButton {
      * Draws this button to the screen.
      */
     @Override
-    public void renderButton(PoseStack mStack, int mouseX, int mouseY, float partial) {
+    public void render(PoseStack mStack, int mouseX, int mouseY, float partial) {
         if (this.visible) {
             Minecraft mc = Minecraft.getInstance();
             this.isHovered = mouseX >= this.getX() && mouseY >= this.getY() && mouseX < this.getX() + this.width && mouseY < this.getY() + this.height;

@@ -199,21 +199,21 @@ public class GuiBasicStructure extends GuiStructure {
 
         if (this.specificConfiguration.chosenOption.getHasBedColor()) {
             this.btnBedColor.visible = true;
-            this.btnBedColor.setY(yValue);
+            this.btnBedColor.m_253211_(yValue);
 
             yValue = yValue + 45;
         }
 
         if (this.specificConfiguration.chosenOption.getHasGlassColor()) {
             this.btnGlassColor.visible = true;
-            this.btnGlassColor.setY(yValue);
+            this.btnGlassColor.m_253211_(yValue);
         }
     }
 
     @Override
     protected void postButtonRender(PoseStack matrixStack, int x, int y, int mouseX, int mouseY, float partialTicks) {
         if (this.showConfigurationOptions) {
-            this.drawSplitString(GuiLangKeys.translateString(this.specificConfiguration.basicStructureName.getItemTranslationString()), x + 8, y + 17, 128, this.textColor);
+            this.drawSplitString(matrixStack, GuiLangKeys.translateString(this.specificConfiguration.basicStructureName.getItemTranslationString()), x + 8, y + 17, 128);
 
             int yValue = y + 35;
 

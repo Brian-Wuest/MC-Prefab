@@ -118,7 +118,7 @@ public class GuiCheckBox extends AbstractButton {
      * Draws this button to the screen.
      */
     @Override
-    public void renderButton(PoseStack matrixStack, int mouseX, int mouseY, float partial) {
+    public void render(PoseStack matrixStack, int mouseX, int mouseY, float partial) {
         if (this.visible) {
             ResourceLocation resourceLocation = GuiCheckBox.buttonTexture;
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
@@ -142,7 +142,7 @@ public class GuiCheckBox extends AbstractButton {
             if (this.withShadow) {
                 this.drawString(matrixStack, this.mineCraft.font, displayString, this.getX() + this.boxWidth + 2, this.getY() + 4, color);
             } else {
-                this.mineCraft.font.drawWordWrap(Utils.createTextComponent(displayString), this.getX() + this.boxWidth + 2, this.getY() + 4, this.labelWidth, color);
+                this.mineCraft.font.draw(matrixStack, Utils.createTextComponent(displayString), this.getX() + this.boxWidth + 2, this.getY() + 4, this.labelWidth);
             }
         }
     }

@@ -156,7 +156,7 @@ public class Prefab {
                     builder -> builder.icon(() -> new ItemStack(ModRegistry.ItemLogo.get()))
                     .title(Component.translatable("itemGroup.prefab.logo"))
                     .withLabelColor(0x00FF00)
-                    .displayItems((features, entries, hasPermissions) -> {
+                    .displayItems((context, entries) -> {
                         entries.accept(ModRegistry.CompressedStoneItem.get());
                         entries.accept(ModRegistry.DoubleCompressedStoneItem.get());
                         entries.accept(ModRegistry.TripleCompressedStoneItem.get());
