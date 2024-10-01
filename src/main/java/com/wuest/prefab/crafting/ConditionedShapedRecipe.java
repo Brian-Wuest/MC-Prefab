@@ -117,7 +117,8 @@ public class ConditionedShapedRecipe extends ShapedRecipe {
 
     @Override
     public ItemStack assemble(CraftingContainer craftingContainer, HolderLookup.Provider registryAccess) {
-        return this.getResultItem(registryAccess).copy();
+        ItemStack actualOutput = Serializer.validateRecipeOutput(this.output, this.configName);
+        return actualOutput.copy();
     }
 
     @Override
@@ -178,8 +179,6 @@ public class ConditionedShapedRecipe extends ShapedRecipe {
 
         if (invalidRecipe) {
             this.output = ItemStack.EMPTY;
-        } else {
-            this.output = Serializer.validateRecipeOutput(this.output, this.configName);
         }
     }
 
@@ -238,12 +237,10 @@ public class ConditionedShapedRecipe extends ShapedRecipe {
             String configName = friendlyByteBuf.readUtf();
             CraftingBookCategory craftingBookCategory = friendlyByteBuf.readEnum(CraftingBookCategory.class);
             ShapedRecipePattern shapedRecipePattern = ShapedRecipePattern.STREAM_CODEC.decode(friendlyByteBuf);
-
-            // Custom bit which validates the recipe output, if the validation fails then an empty itemstack is returned.
-            ItemStack itemStack = Serializer.validateRecipeOutput(ItemStack.STREAM_CODEC.decode(friendlyByteBuf), configName);
-
+            ItemStack itemStack = ItemStack.STREAM_CODEC.decode(friendlyByteBuf);
             boolean recipeHasTags = friendlyByteBuf.readBoolean();
             boolean showNotification = friendlyByteBuf.readBoolean();
+
             return new ConditionedShapedRecipe(groupName, craftingBookCategory, shapedRecipePattern, itemStack, configName, recipeHasTags, showNotification);
         }
 
