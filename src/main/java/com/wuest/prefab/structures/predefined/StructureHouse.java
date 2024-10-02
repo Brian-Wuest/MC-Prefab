@@ -48,7 +48,7 @@ public class StructureHouse extends Structure {
         BlockPos corner2 = originalPos.west(9).south(19).above(11);
 
         Structure.ScanStructure(world, originalPos, corner, corner2,
-                "..\\src\\main\\resources\\assets\\prefab\\structures\\modern_starting_house.zip", clearedSpace,
+                "..\\src\\main\\resources\\assets\\prefab\\structures\\modern_starting_house.gz", clearedSpace,
                 playerFacing, false, false);
     }
 

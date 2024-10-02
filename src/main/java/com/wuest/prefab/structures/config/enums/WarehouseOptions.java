@@ -3,7 +3,7 @@ package com.wuest.prefab.structures.config.enums;
 public class WarehouseOptions extends BaseOption {
     public static WarehouseOptions Default = new WarehouseOptions(
             "item.prefab.item_warehouse",
-            "assets/prefab/structures/warehouse.zip",
+            "assets/prefab/structures/warehouse.gz",
             "textures/gui/warehouse.png",
             false,
             true);
