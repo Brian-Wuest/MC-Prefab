@@ -199,6 +199,6 @@
   "1.20.6": {
     "2.0.0.0": "Initial release for 1.20.6.",
     "2.0.0.1": "Fixing shaped recipes, they just didn't work, don't ask how we didn't see that",
-    "2.0.0.2": "Fixing issue with connecting to servers with disabled recipes",
+    "2.0.0.2": "Fixing issue with connecting to servers with disabled recipes"
   }
 }
