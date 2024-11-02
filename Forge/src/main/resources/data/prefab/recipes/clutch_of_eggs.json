@@ -13,7 +13,7 @@
     }
   },
   "result": {
-    "id": "prefab:item_clutch_of_eggs",
+    "item": "prefab:item_clutch_of_eggs",
     "count": 1
   }
 }

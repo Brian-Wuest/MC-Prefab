@@ -9,7 +9,7 @@
   ],
   "key": {
     "a": {
-      "item": "minecraft:short_grass",
+      "item": "minecraft:grass",
       "data": 1
     },
     "b": {
@@ -20,7 +20,7 @@
     }
   },
   "result": {
-    "id": "prefab:item_grassy_plain",
+    "item": "prefab:item_grassy_plain",
     "count": 1
   }
 }

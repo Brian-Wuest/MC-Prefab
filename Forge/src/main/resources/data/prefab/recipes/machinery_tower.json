@@ -19,7 +19,7 @@
     }
   },
   "result": {
-    "id": "prefab:item_machinery_tower",
+    "item": "prefab:item_machinery_tower",
     "count": 1
   }
 }

@@ -18,7 +18,7 @@ public class BlockCompressedObsidian extends Block {
      * Initializes a new instance of the BlockCompressedObsidian class.
      */
     public BlockCompressedObsidian(EnumType stoneType) {
-        super(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)
+        super(BlockBehaviour.Properties.copy(Blocks.STONE)
                 .strength(50.0f, 2000.0f)
                 .sound(SoundType.STONE)
                 .requiresCorrectToolForDrops());

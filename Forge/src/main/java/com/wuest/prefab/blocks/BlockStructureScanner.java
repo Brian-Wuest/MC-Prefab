@@ -7,7 +7,7 @@ import com.wuest.prefab.blocks.entities.StructureScannerBlockEntity;
 import com.wuest.prefab.config.StructureScannerConfig;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -22,7 +22,6 @@ import net.minecraft.world.phys.BlockHitResult;
 
 public class BlockStructureScanner extends TileBlockBase<StructureScannerBlockEntity> {
     public static final DirectionProperty FACING;
-    public static final MapCodec<BlockStructureScanner> CODEC = simpleCodec(BlockStructureScanner::new);
 
     static {
         FACING = HorizontalDirectionalBlock.FACING;
@@ -32,7 +31,7 @@ public class BlockStructureScanner extends TileBlockBase<StructureScannerBlockEn
      * Initializes a new instance of the BlockStructureScanner class.
      */
     public BlockStructureScanner() {
-        super(Block.Properties.ofFullCopy(Blocks.STONE));
+        super(Block.Properties.copy(Blocks.STONE));
 
         this.registerDefaultState(this.defaultBlockState()
                 .setValue(FACING, Direction.NORTH));
@@ -66,7 +65,7 @@ public class BlockStructureScanner extends TileBlockBase<StructureScannerBlockEn
     }
 
     @Override
-    public ItemInteractionResult useItemOn(ItemStack itemStack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (world.isClientSide) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
 
@@ -76,19 +75,14 @@ public class BlockStructureScanner extends TileBlockBase<StructureScannerBlockEn
                 Prefab.proxy.openGuiForBlock(pos, world, config);
             }
 
-            return ItemInteractionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
         } else {
-            return ItemInteractionResult.CONSUME;
+            return InteractionResult.CONSUME;
         }
     }
 
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new StructureScannerBlockEntity(pos, state);
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
     }
 }

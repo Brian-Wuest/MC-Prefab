@@ -13,7 +13,7 @@
     }
   },
   "result": {
-    "id": "prefab:item_pallet_of_bricks",
+    "item": "prefab:item_pallet_of_bricks",
     "count": 1
   }
 }

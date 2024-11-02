@@ -14,7 +14,7 @@
     }
   ],
   "result": {
-    "id": "prefab:block_paper_lantern",
+    "item": "prefab:block_paper_lantern",
     "count": 1
   }
 }

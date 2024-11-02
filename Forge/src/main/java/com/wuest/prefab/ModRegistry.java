@@ -38,6 +38,7 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -94,14 +95,14 @@ public class ModRegistry {
     public static final RegistryObject<BlockItem> BlockPhasingItem = ITEMS.register("block_phasic", () -> new BlockItem(BlockPhasing.get(), new Item.Properties()));
     public static final RegistryObject<BlockBoundary> BlockBoundary = BLOCKS.register("block_boundary", com.wuest.prefab.blocks.BlockBoundary::new);
     public static final RegistryObject<BlockPaperLantern> PaperLantern = BLOCKS.register("block_paper_lantern", BlockPaperLantern::new);
-    public static final RegistryObject<BlockGlassStairs> GlassStairs = BLOCKS.register("block_glass_stairs", () -> new BlockGlassStairs(Blocks.GLASS.defaultBlockState(), Block.Properties.ofFullCopy(Blocks.GLASS)));
-    public static final RegistryObject<BlockGlassSlab> GlassSlab = BLOCKS.register("block_glass_slab", () -> new BlockGlassSlab(Block.Properties.ofFullCopy(Blocks.GLASS)));
+    public static final RegistryObject<BlockGlassStairs> GlassStairs = BLOCKS.register("block_glass_stairs", () -> new BlockGlassStairs(Blocks.GLASS.defaultBlockState(), Block.Properties.copy(Blocks.GLASS)));
+    public static final RegistryObject<BlockGlassSlab> GlassSlab = BLOCKS.register("block_glass_slab", () -> new BlockGlassSlab(Block.Properties.copy(Blocks.GLASS)));
 
-    public static final RegistryObject<BlockRotatableHorizontalShaped> PileOfBricks = BLOCKS.register("item_pile_of_bricks", () -> new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.PileOfBricks, BlockBehaviour.Properties.ofFullCopy(BRICKS).mapColor(MapColor.COLOR_RED).noOcclusion().isViewBlocking(ModRegistry::never)));
-    public static final RegistryObject<BlockRotatableHorizontalShaped> PalletOfBricks = BLOCKS.register("item_pallet_of_bricks", () -> new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.PalletOfBricks, BlockBehaviour.Properties.ofFullCopy(BRICKS).mapColor(MapColor.COLOR_RED).noOcclusion().isViewBlocking(ModRegistry::never)));
-    public static final RegistryObject<BlockRotatableHorizontalShaped> BundleOfTimber = BLOCKS.register("item_bundle_of_timber", () -> new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.BundleOfTimber, BlockBehaviour.Properties.ofFullCopy(OAK_WOOD).sound(SoundType.WOOD).noOcclusion().isViewBlocking(ModRegistry::never)));
-    public static final RegistryObject<BlockRotatableHorizontalShaped> HeapOfTimber = BLOCKS.register("item_heap_of_timber", () -> new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.HeapOfTimber, BlockBehaviour.Properties.ofFullCopy(OAK_WOOD).mapColor(MapColor.COLOR_BROWN).sound(SoundType.WOOD).noOcclusion().isViewBlocking(ModRegistry::never)));
-    public static final RegistryObject<BlockRotatableHorizontalShaped> TonOfTimber = BLOCKS.register("item_ton_of_timber", () -> new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.TonOfTimber, BlockBehaviour.Properties.ofFullCopy(OAK_WOOD).mapColor(MapColor.COLOR_BROWN).sound(SoundType.WOOD).noOcclusion().isViewBlocking(ModRegistry::never)));
+    public static final RegistryObject<BlockRotatableHorizontalShaped> PileOfBricks = BLOCKS.register("item_pile_of_bricks", () -> new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.PileOfBricks, BlockBehaviour.Properties.copy(BRICKS).mapColor(MapColor.COLOR_RED).noOcclusion().isViewBlocking(ModRegistry::never)));
+    public static final RegistryObject<BlockRotatableHorizontalShaped> PalletOfBricks = BLOCKS.register("item_pallet_of_bricks", () -> new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.PalletOfBricks, BlockBehaviour.Properties.copy(BRICKS).mapColor(MapColor.COLOR_RED).noOcclusion().isViewBlocking(ModRegistry::never)));
+    public static final RegistryObject<BlockRotatableHorizontalShaped> BundleOfTimber = BLOCKS.register("item_bundle_of_timber", () -> new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.BundleOfTimber, BlockBehaviour.Properties.copy(OAK_WOOD).sound(SoundType.WOOD).noOcclusion().isViewBlocking(ModRegistry::never)));
+    public static final RegistryObject<BlockRotatableHorizontalShaped> HeapOfTimber = BLOCKS.register("item_heap_of_timber", () -> new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.HeapOfTimber, BlockBehaviour.Properties.copy(OAK_WOOD).mapColor(MapColor.COLOR_BROWN).sound(SoundType.WOOD).noOcclusion().isViewBlocking(ModRegistry::never)));
+    public static final RegistryObject<BlockRotatableHorizontalShaped> TonOfTimber = BLOCKS.register("item_ton_of_timber", () -> new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.TonOfTimber, BlockBehaviour.Properties.copy(OAK_WOOD).mapColor(MapColor.COLOR_BROWN).sound(SoundType.WOOD).noOcclusion().isViewBlocking(ModRegistry::never)));
     public static final RegistryObject<BlockRotatable> EmptyCrate = BLOCKS.register("item_wooden_crate", () -> new BlockRotatable(BlockBehaviour.Properties.of()
             .mapColor(MapColor.WOOD)
             .instrument(NoteBlockInstrument.BASS)
@@ -144,17 +145,17 @@ public class ModRegistry {
     public static RegistryObject<BlockLightSwitch> LightSwitch = BLOCKS.register("block_light_switch", BlockLightSwitch::new);
     public static RegistryObject<BlockDarkLamp> DarkLamp = BLOCKS.register("block_dark_lamp", BlockDarkLamp::new);
 
-    public static final RegistryObject<Block> QuartzCrete =  BLOCKS.register("block_quartz_crete", () -> new Block(BlockBehaviour.Properties.ofFullCopy(QUARTZ_BLOCK)));
-    public static final RegistryObject<WallBlock> QuartzCreteWall =  BLOCKS.register("block_quartz_crete_wall", () -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(ModRegistry.QuartzCrete.get())));
-    public static final RegistryObject<Block> QuartzCreteBricks =  BLOCKS.register("block_quartz_crete_bricks", () -> new Block(BlockBehaviour.Properties.ofFullCopy(ModRegistry.QuartzCrete.get())));
-    public static final RegistryObject<Block> ChiseledQuartzCrete =  BLOCKS.register("block_quartz_crete_chiseled", () -> new Block(BlockBehaviour.Properties.ofFullCopy(CHISELED_QUARTZ_BLOCK)));
-    public static final RegistryObject<RotatedPillarBlock> QuartzCretePillar =  BLOCKS.register("block_quartz_crete_pillar", () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(QUARTZ_PILLAR)));
-    public static final RegistryObject<BlockCustomStairs> QuartzCreteStairs =  BLOCKS.register("block_quartz_crete_stairs", () -> new BlockCustomStairs(ModRegistry.QuartzCrete.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(ModRegistry.QuartzCrete.get())));
-    public static final RegistryObject<SlabBlock> QuartzCreteSlab =  BLOCKS.register("block_quartz_crete_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(ModRegistry.QuartzCrete.get())));
-    public static final RegistryObject<Block> SmoothQuartzCrete =  BLOCKS.register("block_quartz_crete_smooth", () -> new Block(BlockBehaviour.Properties.ofFullCopy(ModRegistry.QuartzCrete.get())));
-    public static final RegistryObject<WallBlock> SmoothQuartzCreteWall =  BLOCKS.register("block_quartz_crete_smooth_wall", () -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(ModRegistry.SmoothQuartzCrete.get())));
-    public static final RegistryObject<BlockCustomStairs> SmoothQuartzCreteStairs =  BLOCKS.register("block_quartz_crete_smooth_stairs", () -> new BlockCustomStairs(ModRegistry.SmoothQuartzCrete.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(ModRegistry.SmoothQuartzCrete.get())));
-    public static final RegistryObject<SlabBlock> SmoothQuartzCreteSlab =  BLOCKS.register("block_quartz_crete_smooth_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(ModRegistry.SmoothQuartzCrete.get())));
+    public static final RegistryObject<Block> QuartzCrete =  BLOCKS.register("block_quartz_crete", () -> new Block(BlockBehaviour.Properties.copy(QUARTZ_BLOCK)));
+    public static final RegistryObject<WallBlock> QuartzCreteWall =  BLOCKS.register("block_quartz_crete_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(ModRegistry.QuartzCrete.get())));
+    public static final RegistryObject<Block> QuartzCreteBricks =  BLOCKS.register("block_quartz_crete_bricks", () -> new Block(BlockBehaviour.Properties.copy(ModRegistry.QuartzCrete.get())));
+    public static final RegistryObject<Block> ChiseledQuartzCrete =  BLOCKS.register("block_quartz_crete_chiseled", () -> new Block(BlockBehaviour.Properties.copy(CHISELED_QUARTZ_BLOCK)));
+    public static final RegistryObject<RotatedPillarBlock> QuartzCretePillar =  BLOCKS.register("block_quartz_crete_pillar", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(QUARTZ_PILLAR)));
+    public static final RegistryObject<BlockCustomStairs> QuartzCreteStairs =  BLOCKS.register("block_quartz_crete_stairs", () -> new BlockCustomStairs(ModRegistry.QuartzCrete.get().defaultBlockState(), BlockBehaviour.Properties.copy(ModRegistry.QuartzCrete.get())));
+    public static final RegistryObject<SlabBlock> QuartzCreteSlab =  BLOCKS.register("block_quartz_crete_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(ModRegistry.QuartzCrete.get())));
+    public static final RegistryObject<Block> SmoothQuartzCrete =  BLOCKS.register("block_quartz_crete_smooth", () -> new Block(BlockBehaviour.Properties.copy(ModRegistry.QuartzCrete.get())));
+    public static final RegistryObject<WallBlock> SmoothQuartzCreteWall =  BLOCKS.register("block_quartz_crete_smooth_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(ModRegistry.SmoothQuartzCrete.get())));
+    public static final RegistryObject<BlockCustomStairs> SmoothQuartzCreteStairs =  BLOCKS.register("block_quartz_crete_smooth_stairs", () -> new BlockCustomStairs(ModRegistry.SmoothQuartzCrete.get().defaultBlockState(), BlockBehaviour.Properties.copy(ModRegistry.SmoothQuartzCrete.get())));
+    public static final RegistryObject<SlabBlock> SmoothQuartzCreteSlab =  BLOCKS.register("block_quartz_crete_smooth_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(ModRegistry.SmoothQuartzCrete.get())));
     
     /* *********************************** Item Blocks *********************************** */
     public static final RegistryObject<BlockItem> CompressedStoneItem = ITEMS.register(BlockCompressedStone.EnumType.COMPRESSED_STONE.getUnlocalizedName(), () -> new BlockItem(CompressedStone.get(), new Item.Properties()));
@@ -294,7 +295,7 @@ public class ModRegistry {
 
             ModRegistry.StructureScannerTileEntity = TILE_ENTITIES.register("structure_scanner_entity", () -> {
                 ModRegistry.StructureScannerEntityType = new BlockEntityType<>(
-                        StructureScannerBlockEntity::new, new HashSet<>(Arrays.asList(ModRegistry.StructureScanner.get())), null);
+                        StructureScannerBlockEntity::new, new HashSet<>(List.of(ModRegistry.StructureScanner.get())), null);
 
                 return ModRegistry.StructureScannerEntityType;
             });
@@ -302,7 +303,7 @@ public class ModRegistry {
 
         ModRegistry.LightSwitchEntity = TILE_ENTITIES.register("light_switch_entity", () -> {
             ModRegistry.LightSwitchEntityType = new BlockEntityType<>(
-                    LightSwitchBlockEntity::new, new HashSet<>(Arrays.asList(ModRegistry.LightSwitch.get())), null);
+                    LightSwitchBlockEntity::new, new HashSet<>(List.of(ModRegistry.LightSwitch.get())), null);
 
             return ModRegistry.LightSwitchEntityType;
         });
@@ -363,28 +364,28 @@ public class ModRegistry {
                 Tiers.STONE.getAttackDamageBonus(), Tiers.STONE.getEnchantmentValue(), () -> {
             return Ingredient
                     .of(Utils.getItemStacksWithTag(new ResourceLocation("forge", "ingots/copper")).stream());
-        }, BlockTags.INCORRECT_FOR_STONE_TOOL),
+        }),
         OSMIUM("Osmium", (int)Tiers.IRON.getAttackDamageBonus(), 500, Tiers.IRON.getSpeed(),
                 Tiers.IRON.getAttackDamageBonus() + .5f, Tiers.IRON.getEnchantmentValue(), () -> {
             return Ingredient
                     .of(Utils.getItemStacksWithTag(new ResourceLocation("forge", "ingots/osmium")).stream());
-        }, BlockTags.INCORRECT_FOR_IRON_TOOL),
+        }),
         BRONZE("Bronze", (int)Tiers.IRON.getAttackDamageBonus(), Tiers.IRON.getUses(), Tiers.IRON.getSpeed(),
                 Tiers.IRON.getAttackDamageBonus(), Tiers.IRON.getEnchantmentValue(), () -> {
             return Ingredient
                     .of(Utils.getItemStacksWithTag(new ResourceLocation("forge", "ingots/bronze")).stream());
-        }, BlockTags.INCORRECT_FOR_IRON_TOOL),
+        }),
         STEEL("Steel", (int)Tiers.DIAMOND.getAttackDamageBonus(), (int) (Tiers.IRON.getUses() * 1.5),
                 Tiers.DIAMOND.getSpeed(), Tiers.DIAMOND.getAttackDamageBonus(),
                 Tiers.DIAMOND.getEnchantmentValue(), () -> {
             return Ingredient
                     .of(Utils.getItemStacksWithTag(new ResourceLocation("forge", "ingots/steel")).stream());
-        }, BlockTags.INCORRECT_FOR_DIAMOND_TOOL),
+        }),
         OBSIDIAN("Obsidian", (int)Tiers.DIAMOND.getAttackDamageBonus(), (int) (Tiers.DIAMOND.getUses() * 1.5),
                 Tiers.DIAMOND.getSpeed(), Tiers.DIAMOND.getAttackDamageBonus(),
                 Tiers.DIAMOND.getEnchantmentValue(), () -> {
             return Ingredient.of(Item.byBlock(Blocks.OBSIDIAN));
-        }, BlockTags.INCORRECT_FOR_DIAMOND_TOOL);
+        });
 
         private final String name;
         private final int harvestLevel;
@@ -393,10 +394,9 @@ public class ModRegistry {
         private final float attackDamage;
         private final int enchantability;
         private final LazyLoadedValue<Ingredient> repairMaterial;
-        private final TagKey<Block> incorrectBlocksForDrops;
 
         CustomItemTier(String name, int harvestLevelIn, int maxUsesIn, float efficiencyIn, float attackDamageIn,
-                       int enchantability, Supplier<Ingredient> repairMaterialIn, TagKey<Block> incorrectBlocksForDrops) {
+                       int enchantability, Supplier<Ingredient> repairMaterialIn) {
             this.name = name;
             this.harvestLevel = harvestLevelIn;
             this.maxUses = maxUsesIn;
@@ -404,7 +404,6 @@ public class ModRegistry {
             this.attackDamage = attackDamageIn;
             this.enchantability = enchantability;
             this.repairMaterial = new LazyLoadedValue<>(repairMaterialIn);
-            this.incorrectBlocksForDrops = incorrectBlocksForDrops;
         }
 
         public static CustomItemTier getByName(String name) {
@@ -431,11 +430,6 @@ public class ModRegistry {
 
         public float getAttackDamageBonus() {
             return this.attackDamage;
-        }
-
-        @Override
-        public TagKey<Block> getIncorrectBlocksForDrops() {
-            return this.incorrectBlocksForDrops;
         }
 
         public int getLevel() {

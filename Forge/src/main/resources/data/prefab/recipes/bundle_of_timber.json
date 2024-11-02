@@ -13,7 +13,7 @@
     }
   },
   "result": {
-    "id": "prefab:item_bundle_of_timber",
+    "item": "prefab:item_bundle_of_timber",
     "count": 1
   }
 }

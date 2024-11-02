@@ -11,7 +11,7 @@
     }
   ],
   "result": {
-    "id": "prefab:block_compressed_glowstone",
+    "item": "prefab:block_compressed_glowstone",
     "count": 9
   }
 }

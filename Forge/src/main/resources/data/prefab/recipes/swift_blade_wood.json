@@ -16,7 +16,7 @@
     }
   },
   "result": {
-    "id": "prefab:item_swift_blade_wood",
+    "item": "prefab:item_swift_blade_wood",
     "count": 1
   }
 }

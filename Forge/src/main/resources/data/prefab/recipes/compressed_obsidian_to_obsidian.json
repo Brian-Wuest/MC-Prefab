@@ -8,7 +8,7 @@
     }
   ],
   "result": {
-    "id": "minecraft:obsidian",
+    "item": "minecraft:obsidian",
     "count": 9
   }
 }

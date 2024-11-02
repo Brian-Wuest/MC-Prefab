@@ -205,12 +205,12 @@ public class GuiStructureScanner extends GuiBase {
     private void sendUpdatePacket() {
         StructureScannerSyncMessage messagePacket = Utils.createGenericMessage(this.config.GetCompoundTag(), StructureScannerSyncMessage.class);
 
-        Prefab.network.send(messagePacket, PacketDistributor.SERVER.noArg());
+        Prefab.network.sendToServer(messagePacket);
     }
 
     private void sendScanPacket() {
         StructureScannerActionMessage messagePacket = Utils.createGenericMessage(this.config.GetCompoundTag(), StructureScannerActionMessage.class);
-        Prefab.network.send(messagePacket, PacketDistributor.SERVER.noArg());
+        Prefab.network.sendToServer(messagePacket);
     }
 
     private StructureScannerConfig findExistingConfig(StructureScannerConfig config) {

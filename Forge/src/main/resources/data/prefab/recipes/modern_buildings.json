@@ -25,7 +25,7 @@
     }
   },
   "result": {
-    "id": "prefab:item_modern_buildings",
+    "item": "prefab:item_modern_buildings",
     "count": 1
   }
 }

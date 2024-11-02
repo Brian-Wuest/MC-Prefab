@@ -18,11 +18,8 @@ public class ItemSwiftBlade extends SwordItem {
      * Initializes a new instance of the ItemSwiftBlade class.
      */
     public ItemSwiftBlade(Tier tier, int attackDamageIn, float attackSpeedIn) {
-        super(tier,
-                new Item.Properties()
-                        .attributes(SwordItem.createAttributes(tier, attackDamageIn, attackSpeedIn))
-                        .stacksTo(1)
-                        .durability(tier.getUses()));
+        super(tier, attackDamageIn, attackSpeedIn,
+                new Item.Properties().stacksTo(1).defaultDurability(tier.getUses()));
     }
 
     /**
@@ -30,7 +27,7 @@ public class ItemSwiftBlade extends SwordItem {
      * equal to 2 damage points.
      */
     @Override
-    public float getAttackDamageBonus(Player p_330411_, float p_327880_) {
+    public float getDamage() {
         return this.getTier().getAttackDamageBonus();
     }
 

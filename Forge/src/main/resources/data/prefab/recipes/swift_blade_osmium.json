@@ -16,7 +16,7 @@
     }
   },
   "result": {
-    "id": "prefab:item_swift_blade_osmium",
+    "item": "prefab:item_swift_blade_osmium",
     "count": 1
   }
 }

@@ -9,7 +9,7 @@
     }
   ],
   "result": {
-    "id": "minecraft:potato",
+    "item": "minecraft:potato",
     "count": 8
   }
 }

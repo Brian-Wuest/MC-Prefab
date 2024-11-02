@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class BlockGrassStairs extends StairBlock {
     public BlockGrassStairs() {
         super(Blocks.GRASS_BLOCK.defaultBlockState(),
-                BlockBehaviour.Properties.ofFullCopy(Blocks.GRASS_BLOCK));
+                BlockBehaviour.Properties.copy(Blocks.GRASS_BLOCK));
     }
 
     @Override

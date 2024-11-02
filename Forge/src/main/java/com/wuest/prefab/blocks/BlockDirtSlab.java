@@ -15,7 +15,7 @@ import net.minecraft.server.level.ServerLevel;
 
 public class BlockDirtSlab extends SlabBlock implements IGrassSpreadable {
     public BlockDirtSlab() {
-        super(BlockBehaviour.Properties.ofFullCopy(Blocks.DIRT)
+        super(BlockBehaviour.Properties.copy(Blocks.DIRT)
                 .mapColor(MapColor.DIRT)
                 .sound(SoundType.GRAVEL)
                 .strength(0.5f, 0.5f));

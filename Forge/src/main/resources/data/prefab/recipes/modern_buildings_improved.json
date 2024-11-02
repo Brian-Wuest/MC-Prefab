@@ -22,7 +22,7 @@
     }
   },
   "result": {
-    "id": "prefab:item_modern_buildings_improved",
+    "item": "prefab:item_modern_buildings_improved",
     "count": 1
   }
 }

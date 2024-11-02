@@ -16,6 +16,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.TickEvent.ClientTickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -85,16 +86,18 @@ public final class ClientEventHandler {
      * @param event The event object.
      */
     @SubscribeEvent
-    public static void ClientTickEnd(ClientTickEvent.Post event) {
-        Screen gui = Minecraft.getInstance().screen;
+    public static void ClientTickEnd(ClientTickEvent event) {
+        if (event.phase == TickEvent.Phase.END) {
+            Screen gui = Minecraft.getInstance().screen;
 
-        if (gui == null || !gui.isPauseScreen()) {
-            // Reset the ticks in game if we are getting close to the maximum value of an integer.
-            if (Integer.MAX_VALUE - 100 == ClientEventHandler.ticksInGame) {
-                ClientEventHandler.ticksInGame = 1;
+            if (gui == null || !gui.isPauseScreen()) {
+                // Reset the ticks in game if we are getting close to the maximum value of an integer.
+                if (Integer.MAX_VALUE - 100 == ClientEventHandler.ticksInGame) {
+                    ClientEventHandler.ticksInGame = 1;
+                }
+
+                ClientEventHandler.ticksInGame++;
             }
-
-            ClientEventHandler.ticksInGame++;
         }
     }
 
@@ -125,11 +128,9 @@ public final class ClientEventHandler {
                     if (foundCorrectStructureItem) {
                         // Send the configuration of the previewed structure from the client (player) to the server for building.
                         // It doesn't have to be sent to a particular player, the server just needs to handle the process.
-                        Prefab.network.send(new StructureTagMessage(
+                        Prefab.network.sendToServer(new StructureTagMessage(
                                 StructureRenderHandler.currentConfiguration.WriteToCompoundTag(),
-                                StructureTagMessage.EnumStructureConfiguration.getByConfigurationInstance(StructureRenderHandler.currentConfiguration)),
-                                PacketDistributor.SERVER.noArg()
-                        );
+                                StructureTagMessage.EnumStructureConfiguration.getByConfigurationInstance(StructureRenderHandler.currentConfiguration)));
                     }
 
                     StructureRenderHandler.currentStructure = null;

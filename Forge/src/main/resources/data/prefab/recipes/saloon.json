@@ -22,7 +22,7 @@
     }
   },
   "result": {
-    "id": "prefab:item_saloon",
+    "item": "prefab:item_saloon",
     "count": 1
   }
 }

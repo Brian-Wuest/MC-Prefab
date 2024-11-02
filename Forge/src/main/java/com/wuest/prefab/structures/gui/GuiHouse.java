@@ -96,7 +96,7 @@ public class GuiHouse extends GuiStructure {
         int grayBoxY = adjustedXYValue.getSecond();
 
         if (!selectedStyleInListOfAvailable) {
-            this.specificConfiguration.houseStyle = this.availableHouseStyles.getFirst();
+            this.specificConfiguration.houseStyle = this.availableHouseStyles.get(0);
         }
 
         this.selectedStructure = StructureHouse.CreateInstance(this.specificConfiguration.houseStyle.getStructureLocation(), StructureHouse.class);
@@ -135,7 +135,7 @@ public class GuiHouse extends GuiStructure {
         int imagePanelWidth = 285;
         int imagePanelMiddle = imagePanelWidth / 2;
 
-        this.renderBackground(guiGraphics, 0, 0, 0);
+        this.renderBackground(guiGraphics);
 
         this.drawControlLeftPanel(guiGraphics, x + 2, y + 10, 141, 190);
         this.drawControlRightPanel(guiGraphics, imagePanelUpperLeft, y + 10, imagePanelWidth, 190);
@@ -200,7 +200,7 @@ public class GuiHouse extends GuiStructure {
                 if (this.specificConfiguration.houseStyle.getDisplayName().equals(option.getDisplayName())) {
                     if (i == this.availableHouseStyles.size() - 1) {
                         // This is the last option, set the text to the first option.
-                        chosenOption = this.availableHouseStyles.getFirst();
+                        chosenOption = this.availableHouseStyles.get(0);
                     } else {
                         chosenOption = this.availableHouseStyles.get(i + 1);
                     }

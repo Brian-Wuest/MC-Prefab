@@ -25,7 +25,7 @@
     }
   },
   "result": {
-    "id": "prefab:item_farm_improved",
+    "item": "prefab:item_farm_improved",
     "count": 1
   }
 }

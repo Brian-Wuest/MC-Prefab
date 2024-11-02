@@ -22,7 +22,7 @@
     }
   },
   "result": {
-    "id": "prefab:item_wind_mill",
+    "item": "prefab:item_wind_mill",
     "count": 1
   }
 }

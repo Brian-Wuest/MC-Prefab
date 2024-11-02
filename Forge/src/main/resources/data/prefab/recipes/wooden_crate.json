@@ -17,7 +17,7 @@
     }
   },
   "result": {
-    "id": "prefab:item_wooden_crate",
+    "item": "prefab:item_wooden_crate",
     "count": 1
   }
 }

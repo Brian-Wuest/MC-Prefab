@@ -13,7 +13,7 @@
     }
   },
   "result": {
-    "id": "prefab:item_coil_of_lanterns",
+    "item": "prefab:item_coil_of_lanterns",
     "count": 1
   }
 }

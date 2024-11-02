@@ -16,7 +16,7 @@
     }
   },
   "result": {
-    "id": "prefab:block_quartz_crete",
+    "item": "prefab:block_quartz_crete",
     "count": 8
   }
 }

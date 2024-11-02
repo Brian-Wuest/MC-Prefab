@@ -16,7 +16,7 @@
     }
   },
   "result": {
-    "id": "prefab:item_villager_houses",
+    "item": "prefab:item_villager_houses",
     "count": 1
   }
 }

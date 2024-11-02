@@ -16,7 +16,7 @@
     }
   },
   "result": {
-    "id": "prefab:item_sickle_iron",
+    "item": "prefab:item_sickle_iron",
     "count": 1
   }
 }

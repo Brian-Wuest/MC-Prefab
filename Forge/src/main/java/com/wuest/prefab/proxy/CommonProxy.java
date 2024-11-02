@@ -19,8 +19,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.ParallelDispatchEvent;
 import net.minecraftforge.fml.loading.FMLPaths;
-import net.minecraftforge.network.Channel;
-import net.minecraftforge.network.ChannelBuilder;
+import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.registries.RegisterEvent;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -99,10 +98,10 @@ public class CommonProxy {
     }
 
     public void createNetworkInstance() {
-        Prefab.network = ChannelBuilder.named(new ResourceLocation(Prefab.MODID, "main_channel"))
-                .clientAcceptedVersions(Channel.VersionTest.exact(Prefab.PROTOCOL_VERSION))
-                .serverAcceptedVersions(Channel.VersionTest.exact(Prefab.PROTOCOL_VERSION))
-                .networkProtocolVersion(Prefab.PROTOCOL_VERSION)
+        Prefab.network = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(Prefab.MODID, "main_channel"))
+                .clientAcceptedVersions(Prefab.PROTOCOL_VERSION::equals)
+                .serverAcceptedVersions(Prefab.PROTOCOL_VERSION::equals)
+                .networkProtocolVersion(() -> Prefab.PROTOCOL_VERSION)
                 .simpleChannel();
     }
 

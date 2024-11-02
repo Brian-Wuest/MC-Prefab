@@ -11,7 +11,7 @@
     }
   },
   "result": {
-    "id": "minecraft:grass_block",
+    "item": "minecraft:grass_block",
     "count": 1
   }
 }

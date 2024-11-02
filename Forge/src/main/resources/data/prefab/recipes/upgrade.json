@@ -22,7 +22,7 @@
     }
   },
   "result": {
-    "id": "prefab:item_upgrade",
+    "item": "prefab:item_upgrade",
     "count": 1
   }
 }

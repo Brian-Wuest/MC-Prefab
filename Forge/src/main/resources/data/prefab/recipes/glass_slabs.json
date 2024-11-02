@@ -12,7 +12,7 @@
     }
   },
   "result": {
-    "id": "prefab:block_glass_slab",
+    "item": "prefab:block_glass_slab",
     "count": 2
   }
 }

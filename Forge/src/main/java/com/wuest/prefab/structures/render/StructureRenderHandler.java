@@ -263,7 +263,7 @@ public class StructureRenderHandler {
             Level world = player.level();
 
             Vec3 cameraPosition = new Vec3(cameraX, cameraY, cameraZ);
-            Direction playerViewDirection = player.getNearestViewDirection();
+            Direction playerViewDirection = player.getDirection();
             Vec3 playerViewVector = player.getViewVector(1.0F);
             HashMap<Integer, BakedModel> modelMap = new HashMap<>();
             HashMap<Integer, Integer> stateColor = new HashMap<>();

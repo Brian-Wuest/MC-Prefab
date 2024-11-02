@@ -8,7 +8,7 @@
     }
   ],
   "result": {
-    "id": "prefab:item_pile_of_bricks",
+    "item": "prefab:item_pile_of_bricks",
     "count": 9
   }
 }

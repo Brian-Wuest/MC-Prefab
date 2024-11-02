@@ -16,7 +16,7 @@
     }
   },
   "result": {
-    "id": "prefab:item_sickle_stone",
+    "item": "prefab:item_sickle_stone",
     "count": 1
   }
 }

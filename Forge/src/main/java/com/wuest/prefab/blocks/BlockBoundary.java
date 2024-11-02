@@ -26,6 +26,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,7 +87,7 @@ public class BlockBoundary extends Block {
      * @param pos         Block position in world
      */
     @Override
-    public BlockState playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
+    public void playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
         super.playerWillDestroy(world, pos, state, player);
 
         ModEventHandler.RedstoneAffectedBlockPositions.remove(pos);
@@ -96,8 +97,6 @@ public class BlockBoundary extends Block {
         if (poweredSide) {
             this.setNeighborGlassBlocksPoweredStatus(world, pos, false, 0, new ArrayList<>(), false);
         }
-
-        return state;
     }
 
     /**
@@ -143,8 +142,8 @@ public class BlockBoundary extends Block {
      */
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag advanced) {
-        super.appendHoverText(stack, tooltipContext, tooltip, advanced);
+    public void appendHoverText(ItemStack stack, @Nullable BlockGetter worldIn, List<Component> tooltip, TooltipFlag advanced) {
+        super.appendHoverText(stack, worldIn, tooltip, advanced);
 
         boolean advancedKeyDown = Screen.hasShiftDown();
 

@@ -13,7 +13,7 @@
     }
   },
   "result": {
-    "id": "prefab:block_grass_stairs",
+    "item": "prefab:block_grass_stairs",
     "count": 4
   }
 }

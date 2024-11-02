@@ -133,9 +133,7 @@ public abstract class GuiStructure extends GuiBase {
         if (button == this.btnCancel) {
             this.closeScreen();
         } else if (button == this.btnBuild) {
-            Prefab.network.send(Utils.createStructureMessage(this.configuration.WriteToCompoundTag(), this.configurationEnum),
-                    PacketDistributor.SERVER.noArg()
-            );
+            Prefab.network.sendToServer(Utils.createStructureMessage(this.configuration.WriteToCompoundTag(), this.configurationEnum));
 
             this.closeScreen();
         }

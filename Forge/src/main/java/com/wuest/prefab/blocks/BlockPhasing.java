@@ -4,9 +4,8 @@ import com.wuest.prefab.Prefab;
 import com.wuest.prefab.events.ModEventHandler;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -71,7 +70,7 @@ public class BlockPhasing extends Block {
     }
 
     @Override
-    public ItemInteractionResult useItemOn(ItemStack itemStack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult rayTrace) {
+    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult rayTrace) {
         if (!world.isClientSide()) {
             EnumPhasingProgress progress = state.getValue(Phasing_Progress);
 
@@ -81,7 +80,7 @@ public class BlockPhasing extends Block {
             }
         }
 
-        return ItemInteractionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     /**
@@ -109,7 +108,7 @@ public class BlockPhasing extends Block {
      * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
      */
     @Override
-    public BlockState playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
+    public void playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
         EnumPhasingProgress currentState = state.getValue(Phasing_Progress);
 
         super.playerWillDestroy(world, pos, state, player);
@@ -122,8 +121,6 @@ public class BlockPhasing extends Block {
             // Set this block and all neighbor Phasic Blocks to base. This will cascade to tall touching Phasic blocks.
             this.updateNeighborPhasicBlocks(false, world, pos, state, false, false);
         }
-
-        return state;
     }
 
     /**

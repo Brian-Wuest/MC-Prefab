@@ -11,7 +11,7 @@
     }
   },
   "result": {
-    "id": "prefab:block_grass_slab",
+    "item": "prefab:block_grass_slab",
     "count": 6
   }
 }

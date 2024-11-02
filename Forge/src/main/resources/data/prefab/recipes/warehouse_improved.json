@@ -25,7 +25,7 @@
     }
   },
   "result": {
-    "id": "prefab:item_warehouse_improved",
+    "item": "prefab:item_warehouse_improved",
     "count": 1
   }
 }

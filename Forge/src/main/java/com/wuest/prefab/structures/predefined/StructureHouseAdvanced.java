@@ -16,6 +16,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.PacketDistributor;
 
 import java.util.ArrayList;
@@ -112,8 +113,8 @@ public class StructureHouseAdvanced extends Structure {
 
         // Make sure to send a message to the client to sync up the server player information and the client player
         // information.
-        Prefab.network.send(new PlayerEntityTagMessage(playerConfig.getModIsPlayerNewTag(player)),
-                PacketDistributor.PLAYER.with((ServerPlayer)player));
+        Prefab.network.sendTo(new PlayerEntityTagMessage(playerConfig.getModIsPlayerNewTag(player)), ((ServerPlayer) player).connection.connection,
+                NetworkDirection.PLAY_TO_CLIENT);
     }
 
 }

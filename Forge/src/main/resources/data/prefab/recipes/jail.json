@@ -22,7 +22,7 @@
     }
   },
   "result": {
-    "id": "prefab:item_jail",
+    "item": "prefab:item_jail",
     "count": 1
   }
 }

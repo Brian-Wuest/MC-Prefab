@@ -13,7 +13,7 @@
     }
   },
   "result": {
-    "id": "prefab:block_glass_stairs",
+    "item": "prefab:block_glass_stairs",
     "count": 4
   }
 }

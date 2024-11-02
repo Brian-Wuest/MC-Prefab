@@ -25,7 +25,7 @@
     }
   },
   "result": {
-    "id": "prefab:item_aqua_base",
+    "item": "prefab:item_aqua_base",
     "count": 1
   }
 }

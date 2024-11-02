@@ -28,7 +28,7 @@
     }
   },
   "result": {
-    "id": "prefab:item_house",
+    "item": "prefab:item_house",
     "count": 1
   }
 }

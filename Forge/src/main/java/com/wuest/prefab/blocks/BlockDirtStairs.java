@@ -20,7 +20,7 @@ public class BlockDirtStairs extends StairBlock implements IGrassSpreadable {
      */
     public BlockDirtStairs() {
         super(Blocks.DIRT.defaultBlockState(),
-                BlockBehaviour.Properties.ofFullCopy(Blocks.DIRT));
+                BlockBehaviour.Properties.copy(Blocks.DIRT));
     }
 
     /**

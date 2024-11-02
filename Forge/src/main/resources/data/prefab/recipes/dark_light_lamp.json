@@ -13,7 +13,7 @@
     }
   ],
   "result": {
-    "id": "prefab:block_dark_lamp",
+    "item": "prefab:block_dark_lamp",
     "count": 1
   }
 }

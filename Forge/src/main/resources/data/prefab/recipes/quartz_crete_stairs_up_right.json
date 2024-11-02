@@ -13,7 +13,7 @@
     }
   },
   "result": {
-    "id": "prefab:block_quartz_crete_stairs",
+    "item": "prefab:block_quartz_crete_stairs",
     "count": 4
   }
 }

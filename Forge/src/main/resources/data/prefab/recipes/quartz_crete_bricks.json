@@ -12,7 +12,7 @@
     }
   },
   "result": {
-    "id": "prefab:block_quartz_crete_bricks",
+    "item": "prefab:block_quartz_crete_bricks",
     "count": 4
   }
 }

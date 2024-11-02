@@ -51,7 +51,7 @@ public class StructureScannerConfig extends BaseConfig {
         this.blocksParallel = compound.getInt("blocksParallel");
 
         if (compound.contains("pos")) {
-            this.blockPos = NbtUtils.readBlockPos(compound, "pos").orElse(new BlockPos(0, 0, 0));
+            this.blockPos = NbtUtils.readBlockPos(compound.getCompound("pos"));
         }
 
         return this;

@@ -5,7 +5,9 @@ import com.wuest.prefab.events.ClientEventHandler;
 import com.wuest.prefab.proxy.messages.PlayerEntityTagMessage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraftforge.event.network.CustomPayloadEvent;
+import net.minecraftforge.network.NetworkEvent;
+
+import java.util.function.Supplier;
 
 /**
  * @author WuestMan
@@ -17,7 +19,9 @@ public class PlayerEntityHandler {
     public PlayerEntityHandler() {
     }
 
-    public static void handle(final PlayerEntityTagMessage message, CustomPayloadEvent.Context context) {
+    public static void handle(final PlayerEntityTagMessage message, Supplier<NetworkEvent.Context> ctx) {
+        NetworkEvent.Context context = ctx.get();
+
         context.enqueueWork(() -> {
             // This is client side.
             CompoundTag newPlayerTag = Minecraft.getInstance().player.getPersistentData();

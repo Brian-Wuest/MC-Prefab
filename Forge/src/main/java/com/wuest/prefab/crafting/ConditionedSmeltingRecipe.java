@@ -1,12 +1,13 @@
 package com.wuest.prefab.crafting;
 
 import com.google.common.base.Strings;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.wuest.prefab.Prefab;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -14,9 +15,12 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SmeltingRecipe;
 
 public class ConditionedSmeltingRecipe extends SmeltingRecipe {
+    private  final ResourceLocation resourceLocation;
+
     private final String configName;
 
     public ConditionedSmeltingRecipe(
+            ResourceLocation resourceLocation,
             String group,
             CookingBookCategory cookingBookCategory,
             Ingredient input,
@@ -25,58 +29,48 @@ public class ConditionedSmeltingRecipe extends SmeltingRecipe {
             int cookTime,
             String configName
     ) {
-        super(group, cookingBookCategory, input, output, experience, cookTime);
+        super(resourceLocation, group, cookingBookCategory, input, output, experience, cookTime);
 
+        this.resourceLocation = resourceLocation;
         this.configName = configName;
     }
 
     public static class Serializer implements RecipeSerializer<ConditionedSmeltingRecipe> {
-        public static final MapCodec<ConditionedSmeltingRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) ->
-                instance.group(
-                        Codec.STRING.optionalFieldOf("group", "").forGetter((o) -> o.group),
-                        CookingBookCategory.CODEC.fieldOf("category").orElse(CookingBookCategory.MISC).forGetter((o) -> o.category),
-                        Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter((o) -> o.ingredient),
-                        ItemStack.CODEC.fieldOf("result").forGetter((o) -> o.result),
-                        Codec.FLOAT.optionalFieldOf("experience", 0.1f).forGetter((o) -> o.experience),
-                        Codec.INT.optionalFieldOf("cookingtime", 200).forGetter((o) -> o.cookingTime),
-                        Codec.STRING.optionalFieldOf("configName", "").forGetter((o) -> o.configName)
+        public ConditionedSmeltingRecipe fromJson(ResourceLocation identifier, JsonObject jsonObject) {
+            String string = GsonHelper.getAsString(jsonObject, "group", "");
+            String configName = GsonHelper.getAsString(jsonObject, "configName", "");
+            JsonElement jsonElement = GsonHelper.isArrayNode(jsonObject, "ingredient") ?  GsonHelper.getAsJsonArray(jsonObject, "ingredient") : GsonHelper.getAsJsonObject(jsonObject, "ingredient");
+            Ingredient ingredient = Ingredient.fromJson((JsonElement)jsonElement);
+            String string2 = GsonHelper.getAsString(jsonObject, "result");
+            ResourceLocation identifier2 = new ResourceLocation(string2);
+            ItemStack itemStack = new ItemStack(BuiltInRegistries.ITEM.getOptional(identifier2).orElseThrow(() -> {
+                return new IllegalStateException("Item: " + string2 + " does not exist");
+            }));
 
-                ).apply(instance, ConditionedSmeltingRecipe::new)
-        );
+            itemStack = validateRecipeOutput(itemStack, configName);
 
-        public static final StreamCodec<RegistryFriendlyByteBuf, ConditionedSmeltingRecipe> STREAM_CODEC = StreamCodec.of(
-                ConditionedSmeltingRecipe.Serializer::toNetwork, ConditionedSmeltingRecipe.Serializer::fromNetwork
-        );
-
-        @Override
-        public MapCodec<ConditionedSmeltingRecipe> codec() {
-            return CODEC;
+            float experience = GsonHelper.getAsFloat(jsonObject, "experience", 0.0F);
+            int cookingtime = GsonHelper.getAsInt(jsonObject, "cookingtime", 200);
+            return new ConditionedSmeltingRecipe(identifier, string, CookingBookCategory.MISC, ingredient, itemStack, experience, cookingtime, configName);
         }
 
-        @Override
-        public StreamCodec<RegistryFriendlyByteBuf, ConditionedSmeltingRecipe> streamCodec() {
-            return STREAM_CODEC;
+        public ConditionedSmeltingRecipe fromNetwork(ResourceLocation identifier, FriendlyByteBuf packetByteBuf) {
+            String group = packetByteBuf.readUtf();
+            String configName = packetByteBuf.readUtf() ;
+            Ingredient ingredient = Ingredient.fromNetwork(packetByteBuf);
+            ItemStack itemStack = validateRecipeOutput(packetByteBuf.readItem(), configName);
+            float experience = packetByteBuf.readFloat();
+            int cookTime = packetByteBuf.readVarInt();
+            return new ConditionedSmeltingRecipe(identifier, group, CookingBookCategory.MISC, ingredient, itemStack, experience, cookTime, configName);
         }
 
-        public static ConditionedSmeltingRecipe fromNetwork(RegistryFriendlyByteBuf friendlyByteBuf) {
-            String group = friendlyByteBuf.readUtf();
-            String configName = friendlyByteBuf.readUtf();
-            CookingBookCategory cookingBookCategory = friendlyByteBuf.readEnum(CookingBookCategory.class);
-            Ingredient ingredient = Ingredient.CONTENTS_STREAM_CODEC.decode(friendlyByteBuf);
-            ItemStack itemStack = validateRecipeOutput(ItemStack.STREAM_CODEC.decode(friendlyByteBuf), configName);
-            float experience = friendlyByteBuf.readFloat();
-            int cookTime = friendlyByteBuf.readVarInt();
-            return new ConditionedSmeltingRecipe(group, cookingBookCategory, ingredient, itemStack, experience, cookTime, configName);
-        }
-
-        public static void toNetwork(RegistryFriendlyByteBuf friendlyByteBuf, ConditionedSmeltingRecipe abstractCookingRecipe) {
-            friendlyByteBuf.writeUtf(abstractCookingRecipe.group);
-            friendlyByteBuf.writeUtf(abstractCookingRecipe.configName);
-            friendlyByteBuf.writeEnum(abstractCookingRecipe.category());
-            Ingredient.CONTENTS_STREAM_CODEC.encode(friendlyByteBuf, abstractCookingRecipe.ingredient);
-            ItemStack.STREAM_CODEC.encode(friendlyByteBuf, abstractCookingRecipe.result);
-            friendlyByteBuf.writeFloat(abstractCookingRecipe.experience);
-            friendlyByteBuf.writeVarInt(abstractCookingRecipe.cookingTime);
+        public void toNetwork(FriendlyByteBuf packetByteBuf, ConditionedSmeltingRecipe abstractCookingRecipe) {
+            packetByteBuf.writeUtf(abstractCookingRecipe.group);
+            packetByteBuf.writeUtf(abstractCookingRecipe.configName);
+            abstractCookingRecipe.ingredient.toNetwork(packetByteBuf);
+            packetByteBuf.writeItem(abstractCookingRecipe.result);
+            packetByteBuf.writeFloat(abstractCookingRecipe.experience);
+            packetByteBuf.writeVarInt(abstractCookingRecipe.cookingTime);
         }
 
         public static ItemStack validateRecipeOutput(ItemStack originalOutput, String configName) {

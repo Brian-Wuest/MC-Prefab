@@ -10,7 +10,7 @@
     }
   ],
   "result": {
-    "id": "prefab:item_bunch_of_carrots",
+    "item": "prefab:item_bunch_of_carrots",
     "count": 8
   }
 }

@@ -90,7 +90,7 @@ public class GuiBasicStructure extends GuiStructure {
         }
 
         if (!foundPreviouslySelectedOption) {
-            this.specificConfiguration.chosenOption = this.availableOptions.getFirst();
+            this.specificConfiguration.chosenOption = this.availableOptions.get(0);
         }
 
         this.structureImageLocation = this.specificConfiguration.chosenOption.getPictureLocation();
@@ -105,7 +105,7 @@ public class GuiBasicStructure extends GuiStructure {
 
         if (this.availableOptions.size() == 1 && this.showConfigurationOptions) {
             // Make sure that the only available option still needs settings to show.
-            BaseOption option = this.availableOptions.getFirst();
+            BaseOption option = this.availableOptions.get(0);
 
             if (!option.getHasBedColor() && !option.getHasGlassColor()) {
                 this.showConfigurationOptions = false;
@@ -158,7 +158,7 @@ public class GuiBasicStructure extends GuiStructure {
             int imagePanelUpperLeft = x + 136;
             int imagePanelMiddle = this.imagePanelWidth / 2;
 
-            this.renderBackground(guiGraphics, 0, 0, 0);
+            this.renderBackground(guiGraphics);
 
             this.drawControlLeftPanel(guiGraphics, x + 2, y + 10, 185, 190);
             this.drawControlRightPanel(guiGraphics, imagePanelUpperLeft, y + 10, this.imagePanelWidth, 190);
@@ -253,7 +253,7 @@ public class GuiBasicStructure extends GuiStructure {
                 if (this.specificConfiguration.chosenOption.getTranslationString().equals(option.getTranslationString())) {
                     if (i == this.availableOptions.size() - 1) {
                         // This is the last option, set the text to the first option.
-                        chosenOption = this.availableOptions.getFirst();
+                        chosenOption = this.availableOptions.get(0);
                     } else {
                         chosenOption = this.availableOptions.get(i + 1);
                     }

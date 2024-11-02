@@ -11,7 +11,7 @@
     }
   ],
   "result": {
-    "id": "prefab:block_double_compressed_stone",
+    "item": "prefab:block_double_compressed_stone",
     "count": 9
   }
 }

@@ -19,7 +19,7 @@
     }
   },
   "result": {
-    "id": "prefab:item_nether_gate",
+    "item": "prefab:item_nether_gate",
     "count": 1
   }
 }

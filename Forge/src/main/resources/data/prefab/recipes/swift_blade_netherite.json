@@ -16,7 +16,7 @@
     }
   },
   "result": {
-    "id": "prefab:item_swift_blade_netherite",
+    "item": "prefab:item_swift_blade_netherite",
     "count": 1
   }
 }

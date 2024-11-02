@@ -22,7 +22,7 @@
     }
   },
   "result": {
-    "id": "prefab:item_magic_temple",
+    "item": "prefab:item_magic_temple",
     "count": 1
   }
 }

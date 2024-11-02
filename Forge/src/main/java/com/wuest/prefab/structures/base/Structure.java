@@ -198,7 +198,7 @@ public class Structure {
                 }
 
                 ResourceLocation resourceLocation = ForgeRegistries.BLOCK_ENTITY_TYPES.getKey(tileEntity.getType());
-                CompoundTag tagCompound = tileEntity.saveWithFullMetadata(world.registryAccess());
+                CompoundTag tagCompound = tileEntity.saveWithFullMetadata();
 
                 BuildTileEntity buildTileEntity = new BuildTileEntity();
                 assert resourceLocation != null;
@@ -689,14 +689,14 @@ public class Structure {
                     this.world.removeBlockEntity(tileEntityPos);
                 }
 
-                tileEntity = BlockEntity.loadStatic(tileEntityPos, tileBlock, buildTileEntity.getEntityDataTag(), this.world.registryAccess());
+                tileEntity = BlockEntity.loadStatic(tileEntityPos, tileBlock, buildTileEntity.getEntityDataTag());
 
                 if (tileEntity == null) {
                     continue;
                 }
 
                 this.world.removeBlockEntity(tileEntityPos);
-                tileEntity = BlockEntity.loadStatic(tileEntityPos, tileBlock, buildTileEntity.getEntityDataTag(), this.world.registryAccess());
+                tileEntity = BlockEntity.loadStatic(tileEntityPos, tileBlock, buildTileEntity.getEntityDataTag());
                 this.world.setBlockEntity(tileEntity);
                 this.world.getChunkAt(tileEntityPos).setUnsaved(true);
                 tileEntity.setChanged();

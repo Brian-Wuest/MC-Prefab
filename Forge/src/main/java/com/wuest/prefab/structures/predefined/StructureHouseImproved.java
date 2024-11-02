@@ -116,7 +116,7 @@ public class StructureHouseImproved extends Structure {
 
         // Make sure to send a message to the client to sync up the server player information and the client player
         // information.
-        Prefab.network.send(new PlayerEntityTagMessage(playerConfig.getModIsPlayerNewTag(player)),
-                PacketDistributor.PLAYER.with((ServerPlayer)player));
+        Prefab.network.sendTo(new PlayerEntityTagMessage(playerConfig.getModIsPlayerNewTag(player)), ((ServerPlayer) player).connection.connection,
+                NetworkDirection.PLAY_TO_CLIENT);
     }
 }

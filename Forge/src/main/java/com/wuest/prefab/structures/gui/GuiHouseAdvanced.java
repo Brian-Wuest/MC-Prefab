@@ -110,7 +110,7 @@ public class GuiHouseAdvanced extends GuiStructure {
         int imagePanelWidth = 285;
         int imagePanelMiddle = imagePanelWidth / 2;
 
-        this.renderBackground(guiGraphics, 0, 0, 0);
+        this.renderBackground(guiGraphics);
 
         this.drawControlLeftPanel(guiGraphics, x + 2, y + 10, 135, 190);
         this.drawControlRightPanel(guiGraphics, imagePanelUpperLeft, y + 10, imagePanelWidth, 190);

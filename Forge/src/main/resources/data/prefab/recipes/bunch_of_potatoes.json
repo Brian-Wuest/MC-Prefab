@@ -13,7 +13,7 @@
     }
   },
   "result": {
-    "id": "prefab:item_bunch_of_potatoes",
+    "item": "prefab:item_bunch_of_potatoes",
     "count": 1
   }
 }

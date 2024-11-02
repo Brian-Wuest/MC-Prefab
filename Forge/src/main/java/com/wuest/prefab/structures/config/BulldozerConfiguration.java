@@ -70,11 +70,12 @@ public class BulldozerConfiguration extends StructureConfiguration {
 
             // Only damage the item if this is the regular bulldozer.
             if (stack.getItem() == ModRegistry.Bulldozer.get()) {
-                stack.hurtAndBreak(
-                        1,
-                        player,
-                        hand == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND
-                                : EquipmentSlot.OFFHAND);
+                InteractionHand hand1 = hand;
+
+                stack.hurtAndBreak(1, player, (player1) ->
+                {
+                    player1.broadcastBreakEvent(hand1);
+                });
 
                 player.containerMenu.broadcastChanges();
             }

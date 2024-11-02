@@ -6,8 +6,6 @@ import com.wuest.prefab.gui.GuiLangKeys;
 import com.wuest.prefab.structures.gui.GuiBulldozer;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.Direction;
-import net.minecraft.core.component.DataComponentType;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -16,7 +14,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
@@ -81,8 +78,8 @@ public class ItemBulldozer extends StructureItem {
      */
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag flagIn) {
-        super.appendHoverText(stack, tooltipContext, tooltip, flagIn);
+    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
 
         boolean advancedKeyDown = Screen.hasShiftDown();
 
@@ -122,20 +119,19 @@ public class ItemBulldozer extends StructureItem {
         }
 
         if (stack.getItem() == ModRegistry.Bulldozer.get()) {
-            if (stack.getComponents() == null
-                    || stack.getComponents().isEmpty()) {
+            if (stack.getTag() == null
+                    || stack.getTag().isEmpty()) {
                 CompoundTag baseTag = new CompoundTag();
                 CompoundTag prefabTag = new CompoundTag();
                 baseTag.put("prefab", prefabTag);
                 prefabTag.putBoolean("powered", false);
 
-                CustomData customData = CustomData.of(baseTag);
-                stack.set(DataComponents.CUSTOM_DATA, customData);
+                stack.setTag(baseTag);
             } else {
-                CustomData customData = stack.getComponents().get(DataComponents.CUSTOM_DATA);
+                CompoundTag customData = stack.getTag();
 
                 if (customData != null) {
-                    CompoundTag tag = customData.copyTag();
+                    CompoundTag tag = customData.copy();
 
                     if (tag.contains("prefab")) {
                         CompoundTag prefabTag = tag.getCompound("prefab");
@@ -143,6 +139,13 @@ public class ItemBulldozer extends StructureItem {
                         if (prefabTag.contains("powered")) {
                             return prefabTag.getBoolean("powered");
                         }
+                    }
+                    else {
+                        // There is no prefab tag yet on this stack (for some reason), so let's add it now.
+                        CompoundTag prefabTag = new CompoundTag();
+                        tag.put("prefab", prefabTag);
+                        prefabTag.putBoolean("powered", false);
+                        stack.setTag(tag);
                     }
                 }
             }
@@ -158,7 +161,6 @@ public class ItemBulldozer extends StructureItem {
         prefabTag.putBoolean("powered", value);
         baseTag.put("prefab", prefabTag);
 
-        CustomData customData = CustomData.of(baseTag);
-        stack.set(DataComponents.CUSTOM_DATA, customData);
+        stack.setTag(baseTag);
     }
 }

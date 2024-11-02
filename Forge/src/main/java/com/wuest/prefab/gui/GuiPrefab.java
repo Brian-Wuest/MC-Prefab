@@ -7,13 +7,14 @@ import com.wuest.prefab.Utils;
 import com.wuest.prefab.config.ConfigCategory;
 import com.wuest.prefab.config.ConfigOption;
 import com.wuest.prefab.config.ModConfiguration;
-import com.wuest.prefab.gui.controls.CustomOptionsList;
 import com.wuest.prefab.gui.controls.ExtendedButton;
 import com.wuest.prefab.proxy.CommonProxy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractButton;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.OptionsList;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.Screen;
@@ -36,6 +37,11 @@ public class GuiPrefab extends GuiBase {
     private static final int OPTIONS_LIST_TOP_HEIGHT = 55;
 
     /**
+     * Distance from bottom of the screen to the options row list's bottom
+     */
+    private static final int OPTIONS_LIST_BOTTOM_OFFSET = 32;
+
+    /**
      * Height of each item in the options row list
      */
     private static final int OPTIONS_LIST_ITEM_HEIGHT = 25;
@@ -54,12 +60,12 @@ public class GuiPrefab extends GuiBase {
 
     private ConfigCategory currentOption = ConfigCategory.General;
 
-    private CustomOptionsList currentRowList;
-    private ArrayList<Quadruple<ConfigCategory, CustomOptionsList, CustomOptionsList, ConfigCategory>> optionCollection;
-    private CustomOptionsList optionsRowList;
-    private CustomOptionsList chestOptionsRowList;
-    private CustomOptionsList recipeOptionsRowList;
-    private CustomOptionsList starterHouseOptionsRowList;
+    private OptionsList currentRowList;
+    private ArrayList<Quadruple<ConfigCategory, OptionsList, OptionsList, ConfigCategory>> optionCollection;
+    private OptionsList optionsRowList;
+    private OptionsList chestOptionsRowList;
+    private OptionsList recipeOptionsRowList;
+    private OptionsList starterHouseOptionsRowList;
 
     public GuiPrefab(Minecraft minecraft, Screen parent) {
         super("Prefab Configuration");
@@ -68,9 +74,9 @@ public class GuiPrefab extends GuiBase {
     }
 
     @Nullable
-    public static List<FormattedCharSequence> tooltipAt(CustomOptionsList optionsRowList, int mouseX, int mouseY) {
+    public static List<FormattedCharSequence> tooltipAt(OptionsList optionsRowList, int mouseX, int mouseY) {
         if (optionsRowList.isMouseOver(mouseX, mouseY)) {
-            Optional<GuiEventListener> optional = optionsRowList.getMouseOver(mouseX, mouseY);
+            Optional<AbstractWidget> optional = optionsRowList.getMouseOver(mouseX, mouseY);
 
             if (optional.isPresent()) {
                 // TODO: Make tooltip accessible as it is not.
@@ -98,26 +104,26 @@ public class GuiPrefab extends GuiBase {
         int calculatedListHeight = this.height - OPTIONS_LIST_TOP_HEIGHT - BOTTOM_SECTION_HEIGHT;
 
         for (ConfigCategory category : ConfigCategory.values()) {
-            CustomOptionsList nextOptions = new CustomOptionsList(
+            OptionsList nextOptions = new OptionsList(
                     this.getMinecraft(),
                     this.width,
-                    calculatedListHeight,
+                    this.height,
                     OPTIONS_LIST_TOP_HEIGHT,
-                    OPTIONS_LIST_ITEM_HEIGHT,
-                    this
+                    this.height - OPTIONS_LIST_BOTTOM_OFFSET,
+                    OPTIONS_LIST_ITEM_HEIGHT
             );
 
-            CustomOptionsList currentOptions = null;
+            OptionsList currentOptions = null;
             int currentLocation = category.ordinal();
 
             if (currentLocation == 0) {
-                currentOptions = new CustomOptionsList(
+                currentOptions = new OptionsList(
                         this.getMinecraft(),
                         this.width,
-                        calculatedListHeight,
+                        this.height,
                         OPTIONS_LIST_TOP_HEIGHT,
-                        OPTIONS_LIST_ITEM_HEIGHT,
-                        this
+                        this.height - OPTIONS_LIST_BOTTOM_OFFSET,
+                        OPTIONS_LIST_ITEM_HEIGHT
                 );
             } else {
                 int currentOptionsIndex = currentLocation - 1;
@@ -136,7 +142,7 @@ public class GuiPrefab extends GuiBase {
         }
 
         for (ConfigOption<?> configOption : CommonProxy.proxyConfiguration.configOptions) {
-            Quadruple<ConfigCategory, CustomOptionsList, CustomOptionsList, ConfigCategory> rowList = this.getOptionsRowList(configOption.getCategory());
+            Quadruple<ConfigCategory, OptionsList, OptionsList, ConfigCategory> rowList = this.getOptionsRowList(configOption.getCategory());
 
             if (rowList != null) {
                 switch (configOption.getConfigType()) {
@@ -169,7 +175,7 @@ public class GuiPrefab extends GuiBase {
             ModConfiguration.UpdateServerConfig();
             this.getMinecraft().setScreen(this.parentScreen);
         } else if (button == this.generalGroupButton) {
-            Quadruple<ConfigCategory, CustomOptionsList, CustomOptionsList, ConfigCategory> option = this.getOptionsRowList(this.currentOption);
+            Quadruple<ConfigCategory, OptionsList, OptionsList, ConfigCategory> option = this.getOptionsRowList(this.currentOption);
 
             if (option != null) {
                 this.removeWidget(option.getSecond());
@@ -195,10 +201,10 @@ public class GuiPrefab extends GuiBase {
 
     @Override
     protected void preButtonRender(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground(guiGraphics, x, y, 0);
+        this.renderBackground(guiGraphics);
 
         // Only render the appropriate options row list based on the currently selected option.
-        Quadruple<ConfigCategory, CustomOptionsList, CustomOptionsList, ConfigCategory> rowList = this.getOptionsRowList(this.currentOption);
+        Quadruple<ConfigCategory, OptionsList, OptionsList, ConfigCategory> rowList = this.getOptionsRowList(this.currentOption);
 
         if (rowList != null) {
             rowList.getSecond().render(guiGraphics, x, y, partialTicks);
@@ -230,7 +236,7 @@ public class GuiPrefab extends GuiBase {
     protected void postButtonRender(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks) {
     }
 
-    private void addBooleanOption(CustomOptionsList rowList, ConfigOption<?> configOption) {
+    private void addBooleanOption(OptionsList rowList, ConfigOption<?> configOption) {
         OptionInstance<Boolean> abstractOption = OptionInstance.createBoolean(
                 configOption.getName(),
                 !configOption.getHoverText().isEmpty()
@@ -243,7 +249,7 @@ public class GuiPrefab extends GuiBase {
         rowList.addBig(abstractOption);
     }
 
-    private void addIntegerOption(CustomOptionsList rowList, ConfigOption<?> configOption) {
+    private void addIntegerOption(OptionsList rowList, ConfigOption<?> configOption) {
         OptionInstance<Integer> abstractOption = new OptionInstance<>(
                 configOption.getName(),
                 OptionInstance.noTooltip(),
@@ -276,7 +282,7 @@ public class GuiPrefab extends GuiBase {
         rowList.addBig(abstractOption);
     }
 
-    private void addStringOption(CustomOptionsList rowList, ConfigOption<?> configOption) {
+    private void addStringOption(OptionsList rowList, ConfigOption<?> configOption) {
         OptionInstance<String> abstractOption = new OptionInstance<>(
                 configOption.getName(),
                 // Tooltip Supplier
@@ -316,8 +322,8 @@ public class GuiPrefab extends GuiBase {
         rowList.addBig(abstractOption);
     }
 
-    private Quadruple<ConfigCategory, CustomOptionsList, CustomOptionsList, ConfigCategory> getOptionsRowList(ConfigCategory listName) {
-        for (Quadruple<ConfigCategory, CustomOptionsList, CustomOptionsList, ConfigCategory> option : this.optionCollection) {
+    private Quadruple<ConfigCategory, OptionsList, OptionsList, ConfigCategory> getOptionsRowList(ConfigCategory listName) {
+        for (Quadruple<ConfigCategory, OptionsList, OptionsList, ConfigCategory> option : this.optionCollection) {
             if (option.getFirst() == listName) {
                 return option;
             }

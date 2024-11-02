@@ -10,7 +10,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -49,8 +49,6 @@ public class BlockLightSwitch extends TileBlockBase<LightSwitchBlockEntity> {
     public static final EnumProperty<AttachFace> FACE;
 
     public static final BooleanProperty POWERED;
-
-    public static final MapCodec<BlockLightSwitch> CODEC = simpleCodec(BlockLightSwitch::new);
 
     static {
         FACING = HorizontalDirectionalBlock.FACING;
@@ -127,7 +125,7 @@ public class BlockLightSwitch extends TileBlockBase<LightSwitchBlockEntity> {
     }
 
     @Override
-    public ItemInteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+    public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
         if (!level.isClientSide) {
             BlockState updatedBlockState = this.cycleSwitch(blockState, level, blockPos);
             float f = updatedBlockState.getValue(POWERED) ? 0.6F : 0.5F;
@@ -136,10 +134,10 @@ public class BlockLightSwitch extends TileBlockBase<LightSwitchBlockEntity> {
             level.gameEvent(player, updatedBlockState.getValue(POWERED) ? GameEvent.BLOCK_ACTIVATE : GameEvent.BLOCK_DEACTIVATE, blockPos);
 
             // Tell registered lights that this switch is on/off.
-            return ItemInteractionResult.CONSUME;
+            return InteractionResult.CONSUME;
         }
 
-        return ItemInteractionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     public BlockState cycleSwitch(BlockState blockState, Level level, BlockPos blockPos) {
@@ -236,10 +234,5 @@ public class BlockLightSwitch extends TileBlockBase<LightSwitchBlockEntity> {
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
         return new LightSwitchBlockEntity(blockPos, blockState);
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
     }
 }

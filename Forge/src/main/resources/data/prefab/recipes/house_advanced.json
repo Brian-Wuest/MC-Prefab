@@ -20,7 +20,7 @@
     }
   ],
   "result": {
-    "id": "prefab:item_house_advanced",
+    "item": "prefab:item_house_advanced",
     "count": 1
   }
 }

@@ -16,7 +16,7 @@
     }
   },
   "result": {
-    "id": "prefab:item_sickle_gold",
+    "item": "prefab:item_sickle_gold",
     "count": 1
   }
 }

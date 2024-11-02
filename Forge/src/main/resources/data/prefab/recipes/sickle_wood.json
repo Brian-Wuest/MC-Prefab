@@ -16,7 +16,7 @@
     }
   },
   "result": {
-    "id": "prefab:item_sickle_wood",
+    "item": "prefab:item_sickle_wood",
     "count": 1
   }
 }

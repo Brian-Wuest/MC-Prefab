@@ -10,7 +10,7 @@
     }
   ],
   "result": {
-    "id": "prefab:item_bunch_of_beets",
+    "item": "prefab:item_bunch_of_beets",
     "count": 8
   }
 }
