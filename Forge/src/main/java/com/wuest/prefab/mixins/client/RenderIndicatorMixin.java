@@ -1,4 +1,4 @@
-package com.wuest.prefab.mixins;
+package com.wuest.prefab.mixins.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

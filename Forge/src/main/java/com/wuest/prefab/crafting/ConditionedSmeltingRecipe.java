@@ -3,6 +3,7 @@ package com.wuest.prefab.crafting;
 import com.google.common.base.Strings;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.wuest.prefab.ModRegistry;
 import com.wuest.prefab.Prefab;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
@@ -33,6 +34,11 @@ public class ConditionedSmeltingRecipe extends SmeltingRecipe {
 
         this.resourceLocation = resourceLocation;
         this.configName = configName;
+    }
+
+    @Override
+    public RecipeSerializer<?> getSerializer() {
+        return ModRegistry.ConditionedSmeltingRecipeSeriaizer.get();
     }
 
     public static class Serializer implements RecipeSerializer<ConditionedSmeltingRecipe> {

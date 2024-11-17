@@ -95,8 +95,6 @@ public class Prefab {
      */
     public static SimpleChannel network;
 
-    public static final ResourceKey<CreativeModeTab> CREATIVE_TAB_KEY = ResourceKey.create(Registries.CREATIVE_MODE_TAB, new ResourceLocation(Prefab.MODID, "prefab"));
-
     static {
         Prefab.isDebug = java.lang.management.ManagementFactory.getRuntimeMXBean().getInputArguments().toString().contains("-agentlib:jdwp");
     }
@@ -113,7 +111,7 @@ public class Prefab {
         // Register the setup method for mod-loading
         bus.addListener(this::setup);
 
-        bus.addListener(CommonProxy::creativeModeTabRegister);
+        bus.addListener(ClientProxy::creativeModeTabRegister);
 
         MinecraftForge.EVENT_BUS.addListener(this::serverStart);
 

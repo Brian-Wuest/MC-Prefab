@@ -317,6 +317,7 @@ public class ConditionedShapedRecipe extends ShapedRecipe {
     public static class Serializer implements RecipeSerializer<ConditionedShapedRecipe> {
         private static final ResourceLocation NAME = new ResourceLocation(Prefab.MODID, "crafting_shaped");
 
+        @Override
         public ConditionedShapedRecipe fromJson(ResourceLocation resourceLocation, JsonObject jsonObject) {
             String s = GsonHelper.getAsString(jsonObject, "group", "");
             CraftingBookCategory craftingbookcategory = CraftingBookCategory.CODEC.byName(GsonHelper.getAsString(jsonObject, "category", (String)null), CraftingBookCategory.MISC);
@@ -327,6 +328,8 @@ public class ConditionedShapedRecipe extends ShapedRecipe {
             NonNullList<Ingredient> nonnulllist = ConditionedShapedRecipe.dissolvePattern(astring, map, i, j);
             ItemStack itemstack = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(jsonObject, "result"));
             String configName = GsonHelper.getAsString(jsonObject, "configName");
+
+            itemstack = Serializer.validateRecipeOutput(itemstack, configName);
             boolean recipeHasTags = GsonHelper.getAsBoolean(jsonObject, "recipe_has_tags", false);
             boolean flag = GsonHelper.getAsBoolean(jsonObject, "show_notification", true);
             return new ConditionedShapedRecipe(resourceLocation, s, craftingbookcategory, i, j, nonnulllist, itemstack, configName, recipeHasTags, flag);

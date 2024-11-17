@@ -54,30 +54,6 @@ public class CommonProxy {
         this.structureScanners = new ArrayList<>();
     }
 
-    public static void creativeModeTabRegister(RegisterEvent event) {
-        event.register(Registries.CREATIVE_MODE_TAB, helper -> {
-            helper.register(Prefab.CREATIVE_TAB_KEY, CreativeModeTab.builder().icon(() -> new ItemStack(ModRegistry.ItemLogo.get()))
-                    .title(Component.translatable("itemGroup.prefab.logo"))
-                    .withLabelColor(0x00FF00)
-                    .displayItems((params, output) -> {
-                        ModRegistry.ITEMS.getEntries().forEach((reg) ->
-                        {
-                            Item currentItem = reg.get();
-
-                            // Only accept the structure scanner in the creative menu when this is in debug mode.
-                            if (Prefab.isDebug && currentItem == ModRegistry.StructureScannerItem.get()) {
-                                output.accept(reg.get());
-                            } else if (currentItem == ModRegistry.ItemLogo.get()) {
-                                return;
-                            }
-
-                            output.accept(new ItemStack(reg.get()));
-                        });
-                    })
-                    .build());
-        });
-    }
-
     /*
      * Methods for ClientProxy to Override
      */
