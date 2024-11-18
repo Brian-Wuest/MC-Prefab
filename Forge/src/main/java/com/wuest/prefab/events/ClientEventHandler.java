@@ -1,5 +1,6 @@
 package com.wuest.prefab.events;
 
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.wuest.prefab.Prefab;
 import com.wuest.prefab.config.EntityPlayerConfiguration;
 import com.wuest.prefab.proxy.ClientProxy;
@@ -9,13 +10,17 @@ import com.wuest.prefab.structures.items.ItemBasicStructure;
 import com.wuest.prefab.structures.items.StructureItem;
 import com.wuest.prefab.structures.messages.StructureTagMessage;
 import com.wuest.prefab.structures.render.StructureRenderHandler;
+import net.minecraft.client.Camera;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
+import net.minecraftforge.client.event.RenderHandEvent;
+import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.TickEvent.ClientTickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
@@ -137,6 +142,35 @@ public final class ClientEventHandler {
                 }
 
                 break;
+            }
+        }
+    }
+
+    /**
+     * The world render last event. This is used for structure rendering.
+     *
+     * @param event The event object.
+     */
+    @SubscribeEvent
+    public static void onWorldRenderLast(RenderLevelStageEvent event) {
+        if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_BLOCK_ENTITIES) {
+            Minecraft mc = Minecraft.getInstance();
+            Camera camera = event.getCamera();
+            Vec3 vec3 = camera.getPosition();
+
+            if (mc.player != null && (!mc.player.isCrouching())) {
+                StructureRenderHandler.renderClickedBlock(event.getPoseStack(), mc.renderBuffers().bufferSource(), vec3.x, vec3.y, vec3.z);
+
+                VertexConsumer prefabBuffer = mc.renderBuffers().bufferSource().getBuffer(ClientProxy.PREVIEW_LAYER);
+
+                StructureRenderHandler.newRenderPlayerLook(mc.player, event.getPoseStack(), prefabBuffer, vec3.x, vec3.y, vec3.z);
+
+                prefabBuffer.endVertex();
+            }
+
+            // If there are structure scanners; run the rendering for them now.
+            if (Prefab.proxy.structureScanners != null && !Prefab.proxy.structureScanners.isEmpty()) {
+                StructureRenderHandler.renderScanningBoxes(event.getPoseStack(), mc.renderBuffers().bufferSource(),vec3.x, vec3.y, vec3.z);
             }
         }
     }

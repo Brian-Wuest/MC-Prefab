@@ -12,6 +12,7 @@ import com.wuest.prefab.structures.config.StructureConfiguration;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -29,6 +30,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraftforge.client.model.data.ModelData;
+import org.joml.Matrix4f;
 
 import java.util.HashMap;
 
@@ -64,7 +66,7 @@ public class StructureRenderHandler {
         }
     }
 
-    public static void renderClickedBlock(
+    public static void renderClickedBlock(PoseStack matrixStack, MultiBufferSource multiBufferSource,
             double cameraX,
             double cameraY,
             double cameraZ) {
@@ -74,17 +76,17 @@ public class StructureRenderHandler {
                 && CommonProxy.proxyConfiguration.serverConfiguration.enableStructurePreview) {
             BlockPos originalPos = StructureRenderHandler.currentConfiguration.pos.above();
             // This makes the block north and in-line with the player's line of sight.
-            double blockXOffset = originalPos.getX();
-            double blockZOffset = originalPos.getZ();
-            double blockStartYOffset = originalPos.getY();
+            float blockXOffset = originalPos.getX();
+            float blockZOffset = originalPos.getZ();
+            float blockStartYOffset = originalPos.getY();
 
-            StructureRenderHandler.drawBox(
+            StructureRenderHandler.drawBox(matrixStack, multiBufferSource,
                     blockXOffset,
                     blockZOffset,
                     blockStartYOffset,
-                    cameraX,
-                    cameraY,
-                    cameraZ,
+                    (float)cameraX,
+                    (float)cameraY,
+                    (float)cameraZ,
                     1,
                     1,
                     1);
@@ -92,88 +94,73 @@ public class StructureRenderHandler {
     }
 
     private static void drawBox(
-            double blockXOffset,
-            double blockZOffset,
-            double blockStartYOffset,
-            double cameraX,
-            double cameraY,
-            double cameraZ,
+            PoseStack matrixStack,
+            MultiBufferSource multiBufferSource,
+            float blockXOffset,
+            float blockZOffset,
+            float blockStartYOffset,
+            float cameraX,
+            float cameraY,
+            float cameraZ,
             int xLength,
             int zLength,
             int height) {
-        RenderSystem.enableDepthTest();
-        RenderSystem.setShader(GameRenderer::getPositionColorShader);
-
-        Tesselator tessellator = Tesselator.getInstance();
-        BufferBuilder bufferBuilder = tessellator.getBuilder();
-
-        RenderSystem.disableBlend();
-
-        double translatedX = blockXOffset - cameraX;
-        double translatedY = blockStartYOffset - cameraY + .02;
-        double translatedYEnd = translatedY + height - .02D;
-        double translatedZ = blockZOffset - cameraZ;
-
-        RenderSystem.lineWidth(2.0f);
+        Matrix4f matrix4f = matrixStack.last().pose();
+        float translatedX = blockXOffset - cameraX;
+        float translatedY = (float) (blockStartYOffset - cameraY + .02);
+        float translatedYEnd = (float) (translatedY + height - .02);
+        float translatedZ = blockZOffset - cameraZ;
 
         // Draw the verticals of the box.
-        bufferBuilder.begin(VertexFormat.Mode.DEBUG_LINE_STRIP, DefaultVertexFormat.POSITION_COLOR);
-        bufferBuilder.vertex(translatedX, translatedY, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-        bufferBuilder.vertex(translatedX, translatedYEnd, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-        tessellator.end();
+        VertexConsumer bufferBuilder = multiBufferSource.getBuffer(RenderType.debugLineStrip(2.0));
+        bufferBuilder.vertex(matrix4f, translatedX, translatedY, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+        bufferBuilder.vertex(matrix4f, translatedX, translatedYEnd, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
 
-        bufferBuilder.begin(VertexFormat.Mode.DEBUG_LINE_STRIP, DefaultVertexFormat.POSITION_COLOR);
-        bufferBuilder.vertex(translatedX + xLength, translatedY, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-        bufferBuilder.vertex(translatedX + xLength, translatedYEnd, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-        tessellator.end();
+        bufferBuilder = multiBufferSource.getBuffer(RenderType.debugLineStrip(2.0));
+        bufferBuilder.vertex(matrix4f, translatedX + xLength, translatedY, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+        bufferBuilder.vertex(matrix4f, translatedX + xLength, translatedYEnd, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
 
-        bufferBuilder.begin(VertexFormat.Mode.DEBUG_LINE_STRIP, DefaultVertexFormat.POSITION_COLOR);
-        bufferBuilder.vertex(translatedX, translatedY, translatedZ + zLength).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-        bufferBuilder.vertex(translatedX, translatedYEnd, translatedZ + zLength).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-        tessellator.end();
+        bufferBuilder = multiBufferSource.getBuffer(RenderType.debugLineStrip(2.0));
+        bufferBuilder.vertex(matrix4f, translatedX, translatedY, translatedZ + zLength).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+        bufferBuilder.vertex(matrix4f, translatedX, translatedYEnd, translatedZ + zLength).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
 
-        bufferBuilder.begin(VertexFormat.Mode.DEBUG_LINE_STRIP, DefaultVertexFormat.POSITION_COLOR);
-        bufferBuilder.vertex(translatedX + xLength, translatedY, translatedZ + zLength).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-        bufferBuilder.vertex(translatedX + xLength, translatedYEnd, translatedZ + zLength).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-        tessellator.end();
+        bufferBuilder = multiBufferSource.getBuffer(RenderType.debugLineStrip(2.0));
+        bufferBuilder.vertex(matrix4f, translatedX + xLength, translatedY, translatedZ + zLength).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+        bufferBuilder.vertex(matrix4f, translatedX + xLength, translatedYEnd, translatedZ + zLength).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
 
         // Draw bottom horizontals.
-        bufferBuilder.begin(VertexFormat.Mode.DEBUG_LINE_STRIP, DefaultVertexFormat.POSITION_COLOR);
+        bufferBuilder = multiBufferSource.getBuffer(RenderType.debugLineStrip(2.0));
 
-        bufferBuilder.vertex(translatedX, translatedY, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-        bufferBuilder.vertex(translatedX, translatedY, translatedZ + zLength).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+        bufferBuilder.vertex(matrix4f, translatedX, translatedY, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+        bufferBuilder.vertex(matrix4f, translatedX, translatedY, translatedZ + zLength).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
 
-        bufferBuilder.vertex(translatedX + xLength, translatedY, translatedZ + zLength).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-        bufferBuilder.vertex(translatedX + xLength, translatedY, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+        bufferBuilder.vertex(matrix4f, translatedX + xLength, translatedY, translatedZ + zLength).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+        bufferBuilder.vertex(matrix4f, translatedX + xLength, translatedY, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
 
-        bufferBuilder.vertex(translatedX, translatedY, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-        bufferBuilder.vertex(translatedX + xLength, translatedY, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+        bufferBuilder.vertex(matrix4f, translatedX, translatedY, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+        bufferBuilder.vertex(matrix4f, translatedX + xLength, translatedY, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
 
-        bufferBuilder.vertex(translatedX + xLength, translatedY, translatedZ + zLength).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-        bufferBuilder.vertex(translatedX, translatedY, translatedZ + zLength).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-        tessellator.end();
+        bufferBuilder.vertex(matrix4f, translatedX + xLength, translatedY, translatedZ + zLength).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+        bufferBuilder.vertex(matrix4f, translatedX, translatedY, translatedZ + zLength).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
 
         // Draw top horizontals
-        bufferBuilder.begin(VertexFormat.Mode.DEBUG_LINE_STRIP, DefaultVertexFormat.POSITION_COLOR);
+        bufferBuilder = multiBufferSource.getBuffer(RenderType.debugLineStrip(2.0));
 
-        bufferBuilder.vertex(translatedX, translatedYEnd, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-        bufferBuilder.vertex(translatedX, translatedYEnd, translatedZ + zLength).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+        bufferBuilder.vertex(matrix4f, translatedX, translatedYEnd, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+        bufferBuilder.vertex(matrix4f, translatedX, translatedYEnd, translatedZ + zLength).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
 
-        bufferBuilder.vertex(translatedX + xLength, translatedYEnd, translatedZ + zLength).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-        bufferBuilder.vertex(translatedX + xLength, translatedYEnd, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+        bufferBuilder.vertex(matrix4f, translatedX + xLength, translatedYEnd, translatedZ + zLength).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+        bufferBuilder.vertex(matrix4f, translatedX + xLength, translatedYEnd, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
 
-        bufferBuilder.vertex(translatedX, translatedYEnd, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-        bufferBuilder.vertex(translatedX + xLength, translatedYEnd, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+        bufferBuilder.vertex(matrix4f, translatedX, translatedYEnd, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+        bufferBuilder.vertex(matrix4f, translatedX + xLength, translatedYEnd, translatedZ).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
 
-        bufferBuilder.vertex(translatedX + xLength, translatedYEnd, translatedZ + zLength).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-        bufferBuilder.vertex(translatedX, translatedYEnd, translatedZ + zLength).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
-        tessellator.end();
-
-        RenderSystem.lineWidth(1.0F);
-        RenderSystem.enableBlend();
+        bufferBuilder.vertex(matrix4f, translatedX + xLength, translatedYEnd, translatedZ + zLength).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
+        bufferBuilder.vertex(matrix4f, translatedX, translatedYEnd, translatedZ + zLength).color(1.0F, 1.0F, 0.0F, 1.0F).endVertex();
     }
 
-    public static void renderScanningBoxes(double cameraX,
+    public static void renderScanningBoxes(PoseStack matrixStack, MultiBufferSource multiBufferSource,
+                                           double cameraX,
                                            double cameraY,
                                            double cameraZ) {
         if (Prefab.proxy.structureScanners.isEmpty()) {
@@ -242,12 +229,14 @@ public class StructureRenderHandler {
             }
 
             StructureRenderHandler.drawBox(
+                    matrixStack,
+                    multiBufferSource,
                     startingPosition.getX(),
                     startingPosition.getZ(),
                     startingPosition.getY(),
-                    cameraX,
-                    cameraY,
-                    cameraZ,
+                    (float)cameraX,
+                    (float)cameraY,
+                    (float)cameraZ,
                     xLength,
                     zLength,
                     config.blocksTall);
