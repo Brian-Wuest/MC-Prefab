@@ -19,33 +19,40 @@ public class SavePlayerDataMixin {
 
 	@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
 	private void writeCustomDataToTag(CompoundTag tag, CallbackInfo ci) {
-		UUID prefabPlayerTag = this.gameProfile.getId();
+		UUID prefabPlayerId = this.gameProfile.getId();
 		EntityPlayerConfiguration prefabConfiguration;
 
-		if (!EntityPlayerConfiguration.playerTagData.containsKey(prefabPlayerTag)) {
+		if (!EntityPlayerConfiguration.playerTagData.containsKey(prefabPlayerId)) {
 			prefabConfiguration = new EntityPlayerConfiguration();
 
 		} else {
-			prefabConfiguration = EntityPlayerConfiguration.playerTagData.get(prefabPlayerTag);
+			prefabConfiguration = EntityPlayerConfiguration.playerTagData.get(prefabPlayerId);
 		}
 
-		tag.put("PrefabTag", prefabConfiguration.createPlayerTag());
+		CompoundTag prefabTag = prefabConfiguration.createPlayerTag();
+		tag.put("PrefabTag", prefabTag);
+		//PrefabBase.logger.info("Saving prefab tag information to player data.", prefabTag);
 	}
 
 	@Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
 	private void readCustomDataFromTag(CompoundTag tag, CallbackInfo ci) {
-		UUID prefabPlayerTag = this.gameProfile.getId();
+		UUID prefabPlayerId = this.gameProfile.getId();
 
 		EntityPlayerConfiguration prefabConfiguration = new EntityPlayerConfiguration();
 
 		if (tag.contains("PrefabTag")) {
-			prefabConfiguration.loadFromNBTTagCompound(tag.getCompound("PrefabTag"));
+			CompoundTag prefabTag = tag.getCompound("PrefabTag");
+
+			//PrefabBase.logger.info("Loading prefab tag information from player data.", prefabTag);
+			prefabConfiguration.loadFromNBTTagCompound(prefabTag);
 		}
 
-		if (!EntityPlayerConfiguration.playerTagData.containsKey(prefabPlayerTag)) {
-			EntityPlayerConfiguration.playerTagData.put(prefabPlayerTag, prefabConfiguration);
+		//PrefabBase.logger.info("Placing prefab player config data into static dictionary for player id.");
+
+		if (!EntityPlayerConfiguration.playerTagData.containsKey(prefabPlayerId)) {
+			EntityPlayerConfiguration.playerTagData.put(prefabPlayerId, prefabConfiguration);
 		} else {
-			EntityPlayerConfiguration.playerTagData.replace(prefabPlayerTag, prefabConfiguration);
+			EntityPlayerConfiguration.playerTagData.replace(prefabPlayerId, prefabConfiguration);
 		}
 	}
 }
