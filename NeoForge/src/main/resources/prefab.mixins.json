@@ -5,11 +5,11 @@
   "package": "com.prefab.mixins",
   "refmap": "prefab.refmap.json",
   "mixins": [
-    "SavePlayerDataMixin"
+    "SavePlayerDataMixin",
+    "AnvilScreenHandlerMixin"
   ],
   "client": [
     "RenderIndicatorMixin",
-    "AnvilScreenHandlerMixin",
     "MinecraftClientInitMixin"
   ],
   "injectors": {
