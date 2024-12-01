@@ -163,7 +163,8 @@ public class ConditionedShapedRecipe extends ShapedRecipe {
                 // Found a tag ingredient, loop through the pattern to determine if any of the keys are missing ingredients.
                 if (this.pattern.data.isPresent()) {
                     for(Map.Entry<Character, Ingredient> keyMap : this.pattern.data.get().key().entrySet()) {
-                        if (keyMap.getValue().itemStacks.length == 0) {
+                        if (keyMap.getValue().itemStacks == null
+                                || keyMap.getValue().itemStacks.length == 0) {
                             invalidRecipe = true;
                             break;
                         }
@@ -209,6 +210,7 @@ public class ConditionedShapedRecipe extends ShapedRecipe {
                     && !PrefabBase.serverConfiguration.recipes.get(configName)) {
                 // The configuration option for this recipe was turned off.
                 // Specify that the recipe has no output which basically makes it disabled.
+                PrefabBase.logger.debug("{} recipe is disabled, the item result is still available, but players may be unable to craft the associated item(s)", configName);
                 return ItemStack.EMPTY;
             }
 

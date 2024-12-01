@@ -11,6 +11,7 @@ import com.prefab.registries.ModRegistries;
 import com.prefab.structures.base.StructureGenerator;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -40,16 +41,24 @@ public class GameServerEvents {
 
     @SubscribeEvent
     public void onServerStarted(ServerStartedEvent event) {
-        // Get the server configuration.
-        // This will be pushed to the player when they join the world.
-        PrefabBase.serverConfiguration = AutoConfig.getConfigHolder(ModConfiguration.class).getConfig();
+        ModConfiguration config = AutoConfig.getConfigHolder(ModConfiguration.class).getConfig();
+
+        // Make sure the static mod configuration object is separate from the object loaded from the file system.
+        // This way we don't have issues when players swap between servers and local worlds.
+        CompoundTag tag = config.writeCompoundTag();
+        PrefabBase.serverConfiguration = new ModConfiguration();
+        PrefabBase.serverConfiguration.readFromTag(tag);
     }
 
     @SubscribeEvent
     public void playerJoinedServer(PlayerEvent.PlayerLoggedInEvent event) {
         if (!event.getEntity().level().isClientSide() && event.getEntity() instanceof ServerPlayer player) {
+            PrefabBase.logger.info("{} logged into server, sending config to client", Objects.requireNonNull(player.getDisplayName()).getString());
+
+            // Send the server-side configuration
+            // This is NOT the "serverConfiguration" field as that can get overwritten when playing on client and then on server and then again on client.
             TagMessage message = new TagMessage(PrefabBase.serverConfiguration.writeCompoundTag());
-            PrefabBase.networkWrapper.sendToClient(ServerToClientTypes.MOD_CONFIG_SYNC, (ServerPlayer) event.getEntity(), message);
+            PrefabBase.networkWrapper.sendToClient(ServerToClientTypes.MOD_CONFIG_SYNC, player, message);
 
             EntityPlayerConfiguration playerConfig = EntityPlayerConfiguration.loadFromEntity(player);
 

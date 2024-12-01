@@ -6,6 +6,7 @@ import com.prefab.neoforge.events.GameServerEvents;
 import com.prefab.neoforge.network.NetworkWrapper;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
+import net.minecraft.nbt.CompoundTag;
 import net.neoforged.neoforge.registries.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.CreativeModeTab;
@@ -57,7 +58,13 @@ public class Prefab
         AutoConfig.register(ModConfiguration.class, GsonConfigSerializer::new);
 
         PrefabBase.serverConfiguration = new ModConfiguration();
-        PrefabBase.configuration = AutoConfig.getConfigHolder(ModConfiguration.class).getConfig();
+        ModConfiguration config = AutoConfig.getConfigHolder(ModConfiguration.class).getConfig();
+
+        // Make sure the static mod configuration object is separate from the object loaded from the file system.
+        // This way we don't have issues when players swap between servers and local worlds.
+        CompoundTag tag = config.writeCompoundTag();
+        PrefabBase.configuration = new ModConfiguration();
+        PrefabBase.configuration.readFromTag(tag);
     }
 
     // Add the example block item to the building blocks tab

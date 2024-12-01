@@ -11,6 +11,7 @@ import me.shedaniel.autoconfig.AutoConfig;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 
 import java.util.ArrayList;
@@ -46,7 +47,13 @@ public class ServerEvents {
         ServerLifecycleEvents.SERVER_STARTED.register((server) -> {
             // Get the server configuration.
             // This will be pushed to the player when they join the world.
-            PrefabBase.serverConfiguration = AutoConfig.getConfigHolder(ModConfiguration.class).getConfig();
+            ModConfiguration config = AutoConfig.getConfigHolder(ModConfiguration.class).getConfig();
+
+            // Make sure the static mod configuration object is separate from the object loaded from the file system.
+            // This way we don't have issues when players swap between servers and local worlds.
+            CompoundTag tag = config.writeCompoundTag();
+            PrefabBase.serverConfiguration = new ModConfiguration();
+            PrefabBase.serverConfiguration.readFromTag(tag);
 
             // Do this when the server starts so that all appropriate tags are used.
             ItemSickle.setEffectiveBlocks();

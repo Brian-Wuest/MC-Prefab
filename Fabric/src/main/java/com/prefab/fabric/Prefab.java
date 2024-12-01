@@ -7,6 +7,7 @@ import com.prefab.fabric.network.NetworkWrapper;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
+import net.minecraft.nbt.CompoundTag;
 
 public class Prefab implements ModInitializer {
     @Override
@@ -26,7 +27,13 @@ public class Prefab implements ModInitializer {
         AutoConfig.register(ModConfiguration.class, GsonConfigSerializer::new);
 
         PrefabBase.serverConfiguration = new ModConfiguration();
-        PrefabBase.configuration = AutoConfig.getConfigHolder(ModConfiguration.class).getConfig();
+        ModConfiguration config = AutoConfig.getConfigHolder(ModConfiguration.class).getConfig();
+
+        // Make sure the static mod configuration object is separate from the object loaded from the file system.
+        // This way we don't have issues when players swap between servers and local worlds.
+        CompoundTag tag = config.writeCompoundTag();
+        PrefabBase.configuration = new ModConfiguration();
+        PrefabBase.configuration.readFromTag(tag);
 
         ServerEvents.registerServerEvents();
     }
