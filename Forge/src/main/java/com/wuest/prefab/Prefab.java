@@ -9,11 +9,7 @@ import com.wuest.prefab.registries.ModRegistries;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -111,7 +107,7 @@ public class Prefab {
         // Register the setup method for mod-loading
         bus.addListener(this::setup);
 
-        bus.addListener(ClientProxy::creativeModeTabRegister);
+        bus.addListener(CommonProxy::creativeModeTabRegister);
 
         MinecraftForge.EVENT_BUS.addListener(this::serverStart);
 
