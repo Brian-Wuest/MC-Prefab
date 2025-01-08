@@ -3,7 +3,7 @@ package com.wuest.prefab.structures.config.enums;
 public class JailOptions extends BaseOption {
     public static JailOptions Default = new JailOptions(
             "item.prefab.jail",
-            "assets/prefab/structures/jail.zip",
+            "assets/prefab/structures/jail.gz",
             "textures/gui/jail.png",
             false,
             false);

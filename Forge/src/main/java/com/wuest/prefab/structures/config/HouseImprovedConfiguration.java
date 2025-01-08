@@ -137,29 +137,29 @@ public class HouseImprovedConfiguration extends StructureConfiguration {
      */
     public enum HouseStyle {
         SPRUCE_HOME(0, GuiLangKeys.IMPROVED_HOUSE_SPRUCE, new ResourceLocation("prefab", "textures/gui/house_improved_spruce.png"),
-                "assets/prefab/structures/house_improved_spruce.zip"),
+                "assets/prefab/structures/house_improved_spruce.gz"),
         ACACIA_HOME(1, GuiLangKeys.IMPROVED_HOUSE_ACACIA, new ResourceLocation("prefab", "textures/gui/house_improved_acacia.png"),
-                "assets/prefab/structures/house_improved_acacia.zip"),
+                "assets/prefab/structures/house_improved_acacia.gz"),
         EARTHEN_HOME(2, GuiLangKeys.IMPROVED_EARTHEN_HOME, new ResourceLocation("prefab", "textures/gui/house_improved_earthen.png"),
-                "assets/prefab/structures/house_improved_earthen.zip"),
+                "assets/prefab/structures/house_improved_earthen.gz"),
         JUNGLE_TREE_HOME(3, GuiLangKeys.IMPROVED_JUNGLE_HOME, new ResourceLocation("prefab", "textures/gui/house_improved_jungle.png"),
-                "assets/prefab/structures/house_improved_jungle.zip"),
+                "assets/prefab/structures/house_improved_jungle.gz"),
         NETHER_HOME(4, GuiLangKeys.IMPROVED_NETHER_HOME, new ResourceLocation("prefab", "textures/gui/house_improved_nether.png"),
-                "assets/prefab/structures/house_improved_nether.zip"),
+                "assets/prefab/structures/house_improved_nether.gz"),
         MOUNTAIN_HOME(5, GuiLangKeys.IMPROVED_MOUNTAIN_HOME, new ResourceLocation("prefab", "textures/gui/house_improved_mountain.png"),
-                "assets/prefab/structures/house_improved_mountain.zip"),
+                "assets/prefab/structures/house_improved_mountain.gz"),
         ACACIA_HOME2(6, GuiLangKeys.IMPROVED_HOUSE_ACACIA_2, new ResourceLocation("prefab", "textures/gui/house_improved_acacia_2.png"),
-                "assets/prefab/structures/house_improved_acacia_2.zip"),
+                "assets/prefab/structures/house_improved_acacia_2.gz"),
         MODERN_HOME(7, GuiLangKeys.IMPROVED_HOUSE_MODERN, new ResourceLocation("prefab", "textures/gui/house_improved_modern.png"),
-                "assets/prefab/structures/house_improved_modern.zip"),
+                "assets/prefab/structures/house_improved_modern.gz"),
         CRIMSON_HOME(8, GuiLangKeys.IMPROVED_HOUSE_CRIMSON, new ResourceLocation("prefab", "textures/gui/house_improved_crimson.png"),
-                "assets/prefab/structures/house_improved_crimson.zip"),
+                "assets/prefab/structures/house_improved_crimson.gz"),
         TOWER_HOME(9, GuiLangKeys.IMPROVED_HOUSE_TOWER, new ResourceLocation("prefab", "textures/gui/house_improved_tower.png"),
-                "assets/prefab/structures/house_improved_tower.zip"),
+                "assets/prefab/structures/house_improved_tower.gz"),
         HOBBIT_HOME(10, GuiLangKeys.IMPROVED_HOUSE_HOBBIT, new ResourceLocation("prefab", "textures/gui/house_improved_hobbit.png"),
-                "assets/prefab/structures/house_improved_hobbit.zip"),
+                "assets/prefab/structures/house_improved_hobbit.gz"),
         COTTAGE_HOME(11, GuiLangKeys.IMPROVED_HOUSE_COTTAGE, new ResourceLocation("prefab", "textures/gui/house_improved_cottage.png"),
-                "assets/prefab/structures/house_improved_cottage.zip");
+                "assets/prefab/structures/house_improved_cottage.gz");
 
         private final int value;
         private final String displayName;

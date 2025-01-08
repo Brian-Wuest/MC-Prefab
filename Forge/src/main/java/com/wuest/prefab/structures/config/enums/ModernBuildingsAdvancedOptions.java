@@ -4,7 +4,7 @@ public class ModernBuildingsAdvancedOptions extends BaseOption{
 
     public static ModernBuildingsAdvancedOptions TreeHouse = new ModernBuildingsAdvancedOptions(
             "prefab.gui.modern.tree_house",
-            "assets/prefab/structures/modern_tree_house.zip",
+            "assets/prefab/structures/modern_tree_house.gz",
             "textures/gui/modern_tree_house.png",
             true,
             true);
