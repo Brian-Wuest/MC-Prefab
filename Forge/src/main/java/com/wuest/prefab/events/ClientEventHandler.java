@@ -162,8 +162,6 @@ public final class ClientEventHandler {
                 VertexConsumer prefabBuffer = mc.renderBuffers().bufferSource().getBuffer(ClientProxy.PREVIEW_LAYER);
 
                 StructureRenderHandler.newRenderPlayerLook(mc.player, event.getPoseStack(), prefabBuffer, vec3.x, vec3.y, vec3.z);
-
-                prefabBuffer.endVertex();
             }
 
             // If there are structure scanners; run the rendering for them now.
