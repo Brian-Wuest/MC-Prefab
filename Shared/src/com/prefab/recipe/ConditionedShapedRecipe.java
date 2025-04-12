@@ -236,7 +236,14 @@ public class ConditionedShapedRecipe extends ShapedRecipe {
             String configName = friendlyByteBuf.readUtf();
             CraftingBookCategory craftingBookCategory = friendlyByteBuf.readEnum(CraftingBookCategory.class);
             ShapedRecipePattern shapedRecipePattern = ShapedRecipePattern.STREAM_CODEC.decode(friendlyByteBuf);
-            ItemStack itemStack = ItemStack.STREAM_CODEC.decode(friendlyByteBuf);
+            boolean isEmptyStack = friendlyByteBuf.readBoolean();
+            ItemStack itemStack = ItemStack.EMPTY;
+
+            if (!isEmptyStack) {
+                // This isn't an empty item stack, we are okay to read it from the stream.
+                itemStack = ItemStack.STREAM_CODEC.decode(friendlyByteBuf);
+            }
+
             boolean recipeHasTags = friendlyByteBuf.readBoolean();
             boolean showNotification = friendlyByteBuf.readBoolean();
 
@@ -248,7 +255,17 @@ public class ConditionedShapedRecipe extends ShapedRecipe {
             friendlyByteBuf.writeUtf(shapedRecipe.configName);
             friendlyByteBuf.writeEnum(shapedRecipe.craftingBookCategory);
             ShapedRecipePattern.STREAM_CODEC.encode(friendlyByteBuf, shapedRecipe.pattern);
-            ItemStack.STREAM_CODEC.encode(friendlyByteBuf, shapedRecipe.output);
+
+            // We cannot write empty item stacks to the stream (whether null or actually empty) so write
+            // a boolean for the other end to know that it's empty to place an empty result.
+            if (!shapedRecipe.output.isEmpty()) {
+                friendlyByteBuf.writeBoolean(false);
+                ItemStack.STREAM_CODEC.encode(friendlyByteBuf, shapedRecipe.output);
+            }
+            else {
+                friendlyByteBuf.writeBoolean(true);
+            }
+
             friendlyByteBuf.writeBoolean(shapedRecipe.recipeHasTags);
             friendlyByteBuf.writeBoolean(shapedRecipe.showNotification);
         }

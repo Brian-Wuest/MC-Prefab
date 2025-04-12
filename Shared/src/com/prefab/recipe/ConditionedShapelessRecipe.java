@@ -140,7 +140,13 @@ public class ConditionedShapelessRecipe extends ShapelessRecipe {
 
             nonNullList.replaceAll(ignored -> Ingredient.CONTENTS_STREAM_CODEC.decode(friendlyByteBuf));
 
-            ItemStack itemStack = validateRecipeOutput(ItemStack.STREAM_CODEC.decode(friendlyByteBuf), configName);
+            boolean isEmptyStack = friendlyByteBuf.readBoolean();
+            ItemStack itemStack = ItemStack.EMPTY;
+
+            if (!isEmptyStack) {
+                // This isn't an empty item stack, we are okay to read it from the stream.
+                itemStack = validateRecipeOutput(ItemStack.STREAM_CODEC.decode(friendlyByteBuf), configName);
+            }
 
             return new ConditionedShapelessRecipe(groupName, craftingBookCategory, itemStack, nonNullList, configName);
         }
@@ -155,7 +161,15 @@ public class ConditionedShapelessRecipe extends ShapelessRecipe {
                 Ingredient.CONTENTS_STREAM_CODEC.encode(friendlyByteBuf, ingredient);
             }
 
-            ItemStack.STREAM_CODEC.encode(friendlyByteBuf, shapelessRecipe.output);
+            // We cannot write empty item stacks to the stream (whether null or actually empty) so write
+            // a boolean for the other end to know that it's empty to place an empty result.
+            if (!shapelessRecipe.output.isEmpty()) {
+                friendlyByteBuf.writeBoolean(false);
+                ItemStack.STREAM_CODEC.encode(friendlyByteBuf, shapelessRecipe.output);
+            }
+            else {
+                friendlyByteBuf.writeBoolean(true);
+            }
         }
 
         public static ItemStack validateRecipeOutput(ItemStack originalOutput, String configName) {
