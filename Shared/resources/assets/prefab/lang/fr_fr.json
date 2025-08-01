@@ -299,6 +299,7 @@
   "text.autoconfig.Prefab.category.default": "Générique",
   "text.autoconfig.Prefab.category.recipes": "Recettes",
   "text.autoconfig.Prefab.category.starter_options": "Options de la maison de départ",
+  "text.autoconfig.Prefab.category.strict_mode_options": "Paramètres de construction restreints",
   "text.autoconfig.Prefab.category.structure_options": "Options de structure",
   "text.autoconfig.Prefab.option.allowBulldozerToCreateDrops": "L'excavatrice crée des gouttes",
   "text.autoconfig.Prefab.option.allowWaterInNonOverworldDimensions": "L'eau dans des dimensions hors du monde",
@@ -327,5 +328,8 @@
   "text.autoconfig.Prefab.option.starterHouseOptions.addFurnace": "Ajouter un four",
   "text.autoconfig.Prefab.option.starterHouseOptions.addMineshaft": "Ajouter un puits de mine",
   "text.autoconfig.Prefab.option.startingItem": "Élément de départ",
+  "text.autoconfig.Prefab.option.strictModeOptions.enabled": "Activé",
+  "text.autoconfig.Prefab.option.strictModeOptions.overwritableBlocks": "Blocs réinscriptibles",
+  "text.autoconfig.Prefab.option.strictModeOptions.overwritableTags": "Balises réinscriptibles",
   "text.autoconfig.Prefab.title": "Configuration préfabriquée"
 }

@@ -299,6 +299,7 @@
   "text.autoconfig.Prefab.category.default": "Общее",
   "text.autoconfig.Prefab.category.recipes": "Рецепты",
   "text.autoconfig.Prefab.category.starter_options": "Параметры стартового дома",
+  "text.autoconfig.Prefab.category.strict_mode_options": "Ограниченные настройки здания",
   "text.autoconfig.Prefab.category.structure_options": "Варианты структуры",
   "text.autoconfig.Prefab.option.allowBulldozerToCreateDrops": "Выпадение блоков в бульдозере",
   "text.autoconfig.Prefab.option.allowWaterInNonOverworldDimensions": "Разрешить воду в измерениях кроме верхнего мира",
@@ -327,5 +328,8 @@
   "text.autoconfig.Prefab.option.starterHouseOptions.addFurnace": "Добавить печь",
   "text.autoconfig.Prefab.option.starterHouseOptions.addMineshaft": "Добавить шахту",
   "text.autoconfig.Prefab.option.startingItem": "Начальный предмет",
+  "text.autoconfig.Prefab.option.strictModeOptions.enabled": "Включено",
+  "text.autoconfig.Prefab.option.strictModeOptions.overwritableBlocks": "Перезаписываемые блоки",
+  "text.autoconfig.Prefab.option.strictModeOptions.overwritableTags": "Перезаписываемые теги",
   "text.autoconfig.Prefab.title": "Конфигурация Prefab"
 }

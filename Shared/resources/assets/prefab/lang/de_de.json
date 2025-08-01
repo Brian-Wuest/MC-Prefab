@@ -299,6 +299,7 @@
   "text.autoconfig.Prefab.category.default": "Allgemein",
   "text.autoconfig.Prefab.category.recipes": "Rezepte",
   "text.autoconfig.Prefab.category.starter_options": "Starthäuser Optionen",
+  "text.autoconfig.Prefab.category.strict_mode_options": "Eingeschränkte Gebäudeeinstellungen",
   "text.autoconfig.Prefab.category.structure_options": "Struktur Optionen",
   "text.autoconfig.Prefab.option.allowBulldozerToCreateDrops": "Bulldozer kreiert Block Drops",
   "text.autoconfig.Prefab.option.allowWaterInNonOverworldDimensions": "Wasser in nicht-Oberwelt Dimensionen",
@@ -327,5 +328,8 @@
   "text.autoconfig.Prefab.option.starterHouseOptions.addFurnace": "Ofen hinzufügen",
   "text.autoconfig.Prefab.option.starterHouseOptions.addMineshaft": "Minenschacht hinzufügen",
   "text.autoconfig.Prefab.option.startingItem": "Startgegenstand",
+  "text.autoconfig.Prefab.option.strictModeOptions.enabled": "Ermöglicht",
+  "text.autoconfig.Prefab.option.strictModeOptions.overwritableBlocks": "Überschreibbare Blöcke",
+  "text.autoconfig.Prefab.option.strictModeOptions.overwritableTags": "Überschreibbare Tags",
   "text.autoconfig.Prefab.title": "Prefab Konfiguration"
 }

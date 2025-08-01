@@ -299,6 +299,7 @@
   "text.autoconfig.Prefab.category.default": "ジェネリック",
   "text.autoconfig.Prefab.category.recipes": "レシピ",
   "text.autoconfig.Prefab.category.starter_options": "スタートハウスオプション",
+  "text.autoconfig.Prefab.category.strict_mode_options": "制限された建物の設定",
   "text.autoconfig.Prefab.category.structure_options": "構造オプション",
   "text.autoconfig.Prefab.option.allowBulldozerToCreateDrops": "掘削機はドロップを作成します",
   "text.autoconfig.Prefab.option.allowWaterInNonOverworldDimensions": "非世界的な次元の水",
@@ -327,5 +328,8 @@
   "text.autoconfig.Prefab.option.starterHouseOptions.addFurnace": "炉を追加する",
   "text.autoconfig.Prefab.option.starterHouseOptions.addMineshaft": "マインシャフトを追加",
   "text.autoconfig.Prefab.option.startingItem": "開始アイテム",
+  "text.autoconfig.Prefab.option.strictModeOptions.enabled": "有効",
+  "text.autoconfig.Prefab.option.strictModeOptions.overwritableBlocks": "上書き可能なブロック",
+  "text.autoconfig.Prefab.option.strictModeOptions.overwritableTags": "上書き可能なタグ",
   "text.autoconfig.Prefab.title": "プレハブ構成"
 }

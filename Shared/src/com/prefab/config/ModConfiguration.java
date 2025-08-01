@@ -10,6 +10,8 @@ import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
 import net.minecraft.nbt.CompoundTag;
+import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,6 +58,10 @@ public class ModConfiguration implements ConfigData {
     @ConfigEntry.Category("structure_options")
     public HashMap<String, HashMap<String, Boolean>> structureOptions = new HashMap<>();
 
+    @ConfigEntry.Category("strict_mode_options")
+    @ConfigEntry.Gui.TransitiveObject()
+    public StrictModeOptions strictModeOptions = new StrictModeOptions();
+
     public ModConfiguration() {
         this.initialize();
     }
@@ -86,8 +92,7 @@ public class ModConfiguration implements ConfigData {
 
                 if (this.structureOptions.containsKey(key)) {
                     structureOptions = this.structureOptions.get(key);
-                }
-                else {
+                } else {
                     structureOptions = new HashMap<>();
                 }
 
@@ -109,8 +114,7 @@ public class ModConfiguration implements ConfigData {
 
         if (this.structureOptions.containsKey(structureOptionsKey)) {
             houseOptions = this.structureOptions.get(structureOptionsKey);
-        }
-        else {
+        } else {
             houseOptions = new HashMap<>();
             this.structureOptions.put(structureOptionsKey, houseOptions);
         }
@@ -127,8 +131,7 @@ public class ModConfiguration implements ConfigData {
 
         if (this.structureOptions.containsKey(structureOptionsKey)) {
             houseImprovedOptions = this.structureOptions.get(structureOptionsKey);
-        }
-        else {
+        } else {
             houseImprovedOptions = new HashMap<>();
             this.structureOptions.put(structureOptionsKey, houseImprovedOptions);
         }
@@ -145,8 +148,7 @@ public class ModConfiguration implements ConfigData {
 
         if (this.structureOptions.containsKey(structureOptionsKey)) {
             houseAdvancedOptions = this.structureOptions.get(structureOptionsKey);
-        }
-        else {
+        } else {
             houseAdvancedOptions = new HashMap<>();
             this.structureOptions.put(structureOptionsKey, houseAdvancedOptions);
         }
@@ -194,6 +196,20 @@ public class ModConfiguration implements ConfigData {
             tag.putBoolean(entry.getKey(), entry.getValue());
         }
 
+        CompoundTag structureOptionTag = getStructureOptionCompoundTag();
+
+        tag.put(ConfigKeyNames.structureOptionsName, structureOptionTag);
+
+        CompoundTag overwritableBlocksTag = getOverwritableBlocksTag();
+        tag.put(ConfigKeyNames.overwritableBlocksName, overwritableBlocksTag);
+
+        CompoundTag overwritableTagsTag = getOverwritableTagsTag();
+        tag.put(ConfigKeyNames.overwritableBlocksName, overwritableTagsTag);
+
+        return tag;
+    }
+
+    private @NotNull CompoundTag getStructureOptionCompoundTag() {
         CompoundTag structureOptionTag = new CompoundTag();
 
         for (Map.Entry<String, HashMap<String, Boolean>> entry : this.structureOptions.entrySet()) {
@@ -207,7 +223,28 @@ public class ModConfiguration implements ConfigData {
             structureOptionTag.put(entry.getKey(), mainItem);
         }
 
-        tag.put(ConfigKeyNames.structureOptionsName, structureOptionTag);
+        return structureOptionTag;
+    }
+
+    private @NotNull CompoundTag getOverwritableBlocksTag() {
+        return this.convertStringCollection(this.strictModeOptions.overwritableBlocks);
+    }
+
+    private @NotNull CompoundTag getOverwritableTagsTag() {
+        return this.convertStringCollection(this.strictModeOptions.overwritableTags);
+    }
+
+    private @NotNull CompoundTag convertStringCollection(ArrayList<String> collection) {
+        CompoundTag tag = new CompoundTag();
+
+        if (collection != null && !collection.isEmpty()) {
+            for (String value : collection) {
+                // The key of the tag will be the value, so we have to make sure we don't have any duplicates.
+                if (!StringUtils.isBlank(value) && !tag.contains(value)) {
+                    tag.putString(value, value);
+                }
+            }
+        }
 
         return tag;
     }
@@ -252,7 +289,7 @@ public class ModConfiguration implements ConfigData {
 
         CompoundTag structureOptionsTag = tag.getCompound(ConfigKeyNames.structureOptionsName);
 
-        if (structureOptionsTag != null) {
+        if (!structureOptionsTag.isEmpty()) {
             for (String key : structureOptionsTag.getAllKeys()) {
                 CompoundTag mainItem = structureOptionsTag.getCompound(key);
                 HashMap<String, Boolean> structureOptions = new HashMap<>();
@@ -407,5 +444,10 @@ public class ModConfiguration implements ConfigData {
 
         // Structure option names.
         static String structureOptionsName = "Structure Options";
+
+        // Strict Building Option Names
+        static String strictBuildingModeEnabledName = "Strict Building Mode Enabled";
+        static String overwritableBlocksName = "Overwritable Blocks";
+        static String overwritableTagsName = "Overwritable Tags";
     }
 }

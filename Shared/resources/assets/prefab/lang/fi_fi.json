@@ -299,6 +299,7 @@
   "text.autoconfig.Prefab.category.default": "Yleinen",
   "text.autoconfig.Prefab.category.recipes": "Reseptit",
   "text.autoconfig.Prefab.category.starter_options": "Aloitustalon Asetukset",
+  "text.autoconfig.Prefab.category.strict_mode_options": "Rajoitetut rakennusasetukset",
   "text.autoconfig.Prefab.category.structure_options": "Rakennuksen Asetukset",
   "text.autoconfig.Prefab.option.allowBulldozerToCreateDrops": "Raivaaja Pudottaa Kuutioita",
   "text.autoconfig.Prefab.option.allowWaterInNonOverworldDimensions": "Vettä Ei-Ylämaailma Ulottuvuuksissa",
@@ -327,5 +328,8 @@
   "text.autoconfig.Prefab.option.starterHouseOptions.addFurnace": "Lisää Uuni",
   "text.autoconfig.Prefab.option.starterHouseOptions.addMineshaft": "Lisää Kaivos",
   "text.autoconfig.Prefab.option.startingItem": "Aloitusesine",
+  "text.autoconfig.Prefab.option.strictModeOptions.enabled": "Käytössä",
+  "text.autoconfig.Prefab.option.strictModeOptions.overwritableBlocks": "Ylikirjoitettavat lohkot",
+  "text.autoconfig.Prefab.option.strictModeOptions.overwritableTags": "Ylikirjoitettavat tagit",
   "text.autoconfig.Prefab.title": "Prefab Kokoonpano"
 }

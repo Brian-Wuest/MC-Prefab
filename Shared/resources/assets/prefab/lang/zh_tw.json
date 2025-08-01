@@ -299,6 +299,7 @@
   "text.autoconfig.Prefab.category.default": "泛型",
   "text.autoconfig.Prefab.category.recipes": "菜譜",
   "text.autoconfig.Prefab.category.starter_options": "起始房屋選項",
+  "text.autoconfig.Prefab.category.strict_mode_options": "制限された建物設定",
   "text.autoconfig.Prefab.category.structure_options": "結構選項",
   "text.autoconfig.Prefab.option.allowBulldozerToCreateDrops": "挖掘機產生水滴",
   "text.autoconfig.Prefab.option.allowWaterInNonOverworldDimensions": "非主世界維度的水",
@@ -327,5 +328,8 @@
   "text.autoconfig.Prefab.option.starterHouseOptions.addFurnace": "添加熔爐",
   "text.autoconfig.Prefab.option.starterHouseOptions.addMineshaft": "添加礦井",
   "text.autoconfig.Prefab.option.startingItem": "起始項目",
+  "text.autoconfig.Prefab.option.strictModeOptions.enabled": "已啟用",
+  "text.autoconfig.Prefab.option.strictModeOptions.overwritableBlocks": "可覆蓋區塊",
+  "text.autoconfig.Prefab.option.strictModeOptions.overwritableTags": "可覆蓋標籤",
   "text.autoconfig.Prefab.title": "預製配置"
 }
