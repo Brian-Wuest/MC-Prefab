@@ -15,6 +15,7 @@ import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
+import org.apache.commons.lang3.StringUtils;
 
 public class ConditionedShapelessRecipe extends ShapelessRecipe {
     private final String group;
@@ -177,7 +178,7 @@ public class ConditionedShapelessRecipe extends ShapelessRecipe {
                 return ItemStack.EMPTY;
             }
 
-            if (!Strings.isNullOrEmpty(configName)
+            if (!StringUtils.isBlank(configName)
                     && PrefabBase.serverConfiguration.recipes.containsKey(configName)
                     && !PrefabBase.serverConfiguration.recipes.get(configName)) {
                 // The configuration option for this recipe was turned off.

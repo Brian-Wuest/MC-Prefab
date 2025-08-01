@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.StateHolder;
 import net.minecraft.world.level.block.state.properties.Property;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 
 import java.util.ArrayList;
@@ -67,7 +68,7 @@ public class Utils {
     }
 
     public static Direction getDirectionByName(String name) {
-        if (!StringUtil.isNullOrEmpty(name)) {
+        if (!StringUtils.isBlank(name)) {
             for (Direction direction : Direction.values()) {
                 if (direction.toString().equalsIgnoreCase(name)) {
                     return direction;

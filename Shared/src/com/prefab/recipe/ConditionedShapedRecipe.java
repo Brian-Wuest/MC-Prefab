@@ -13,6 +13,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
 
@@ -205,7 +206,7 @@ public class ConditionedShapedRecipe extends ShapedRecipe {
                 return ItemStack.EMPTY;
             }
 
-            if (!Strings.isNullOrEmpty(configName)
+            if (!StringUtils.isBlank(configName)
                     && PrefabBase.serverConfiguration.recipes.containsKey(configName)
                     && !PrefabBase.serverConfiguration.recipes.get(configName)) {
                 // The configuration option for this recipe was turned off.

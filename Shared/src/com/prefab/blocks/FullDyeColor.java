@@ -3,6 +3,7 @@ package com.prefab.blocks;
 import com.google.common.base.Strings;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.DyeColor;
+import org.apache.commons.lang3.StringUtils;
 
 public enum FullDyeColor implements StringRepresentable {
     WHITE(0, "white", DyeColor.WHITE),
@@ -69,7 +70,7 @@ public enum FullDyeColor implements StringRepresentable {
     public static FullDyeColor byName(String name) {
         FullDyeColor returnValue = FullDyeColor.CLEAR;
 
-        if (!Strings.isNullOrEmpty(name)) {
+        if (!StringUtils.isBlank(name)) {
             for (FullDyeColor value : FullDyeColor.values()) {
                 if (value.name.equalsIgnoreCase(name)) {
                     returnValue = value;
