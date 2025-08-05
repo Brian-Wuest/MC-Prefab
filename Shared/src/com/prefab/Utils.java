@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.state.StateHolder;
 import net.minecraft.world.level.block.state.properties.Property;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -85,7 +86,7 @@ public class Utils {
      * @param tagKey The tagkey to look for.
      * @return A collection containing the blocks.
      */
-    public static ArrayList<Block> getBlocksWithTagKey(TagKey<Block> tagKey) {
+    public static @NotNull ArrayList<Block> getBlocksWithTagKey(TagKey<Block> tagKey) {
         ArrayList<Block> blocks = new ArrayList<>();
 
         for (Holder<Block> blockHolder : BuiltInRegistries.BLOCK.getTagOrEmpty(tagKey)) {

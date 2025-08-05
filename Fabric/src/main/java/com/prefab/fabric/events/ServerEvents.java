@@ -57,6 +57,9 @@ public class ServerEvents {
 
             // Do this when the server starts so that all appropriate tags are used.
             ItemSickle.setEffectiveBlocks();
+
+            // Process strict building processing (if enabled) to register all the overwritable blocks.
+            ModRegistryBase.serverModRegistries.getStrictBuildingRegistry().processModConfiguration(config);
         });
     }
 
