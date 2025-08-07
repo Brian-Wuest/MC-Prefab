@@ -3,11 +3,8 @@ package com.prefab.registries;
 import com.prefab.PrefabBase;
 import com.prefab.Utils;
 import com.prefab.config.ModConfiguration;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.TagEntry;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import org.apache.commons.lang3.StringUtils;
@@ -15,77 +12,88 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.stream.Collector;
 
 public class StrictBuildingRegistry {
-    private final ArrayList<ResourceLocation> overwritableBlocks;
+    private final ArrayList<ResourceLocation> overwritableBlockResourceLocations;
+    private final ArrayList<Block> overwritableBlocks;
 
     public StrictBuildingRegistry() {
+        this.overwritableBlockResourceLocations = new ArrayList<>();
         this.overwritableBlocks = new ArrayList<>();
     }
 
-    public ArrayList<ResourceLocation> getOverwritableBlocks() {
-        return overwritableBlocks;
+    public ArrayList<ResourceLocation> getOverwritableBlockResourceLocations() {
+        return this.overwritableBlockResourceLocations;
+    }
+
+    public ArrayList<Block> getOverwritableBlocks() {
+        return this.overwritableBlocks;
     }
 
     // make method which takes configuration to build out the properties for overwritable blocks.
     public void processModConfiguration(ModConfiguration modConfiguration) {
         if(modConfiguration.strictModeOptions.enabled) {
-            this.processBlocks(null, modConfiguration);
+            this.processBlocks(modConfiguration);
 
             this.processTags(modConfiguration);
         }
     }
 
-    private void processBlocks(ArrayList<ResourceLocation> resourceLocations, ModConfiguration modConfiguration) {
-        // This method could be called from the tag method when it has the blocks to process, or when processing blocks
-        // stand alone.
-        if (resourceLocations == null) {
-            resourceLocations = processStringCollection(modConfiguration.strictModeOptions.overwritableBlocks);
-        }
+    private void processBlocks(ModConfiguration modConfiguration) {
+        ArrayList<ResourceLocation> resourceLocations = processStringCollection(modConfiguration.strictModeOptions.overwritableBlocks);
 
-        if (!resourceLocations.isEmpty()) {
-            // Go through each resource location and make sure it's a valid block.
-            HashMap<String, ResourceLocation> validBlockKeys = new HashMap<>();
+        // Go through each resource location and make sure it's a valid block.
+        HashMap<String, ResourceLocation> validBlockKeys = new HashMap<>();
+        HashMap<String, Block> validBlocks = new HashMap<>();
 
-            for (ResourceLocation resourceLocation : resourceLocations) {
-                // Don't put duplicate blocks in the hashmap
-                if (!validBlockKeys.containsKey(resourceLocation.getPath())) {
-                    Optional<Block> foundBlock = BuiltInRegistries.BLOCK.getOptional(resourceLocation);
+        for (ResourceLocation resourceLocation : resourceLocations) {
+            // Don't put duplicate blocks in the hashmap
+            if (!validBlockKeys.containsKey(resourceLocation.getPath())) {
+                Optional<Block> foundBlock = BuiltInRegistries.BLOCK.getOptional(resourceLocation);
 
-                    if (foundBlock.isPresent()) {
-                        validBlockKeys.put(resourceLocation.getPath(), resourceLocation);
-                    } else {
-                        PrefabBase.logger.warn("""
+                if (foundBlock.isPresent()) {
+                    validBlockKeys.put(resourceLocation.getPath(), resourceLocation);
+                    validBlocks.put(resourceLocation.getPath(), foundBlock.get());
+                } else {
+                    PrefabBase.logger.warn("""
                                     Strict Building Mode Processing: The resource location: "{}" is not a valid block.\r
                                     Please check your spelling or if you have a missing mod.\r
                                     Resource locations are case-insensitive.""",
-                                resourceLocation.getPath().toLowerCase());
-                    }
+                            resourceLocation.getPath().toLowerCase());
                 }
             }
-
-            // All the blocks in the validBlockKeys are okay to add to the main collection.
-            this.overwritableBlocks.addAll(validBlockKeys.values());
         }
+
+        // All the blocks in the validBlockKeys are okay to add to the main collection.
+        this.overwritableBlockResourceLocations.addAll(validBlockKeys.values());
+        this.overwritableBlocks.addAll(validBlocks.values());
     }
 
     private void processTags(ModConfiguration modConfiguration) {
         ArrayList<ResourceLocation> tags = this.processStringCollection(modConfiguration.strictModeOptions.overwritableTags);
 
         if (!tags.isEmpty()) {
-            Map<String, TagKey<Block>> registeredTags = BuiltInRegistries.BLOCK.getTagNames()
-                    .distinct()
-                    .collect(Collectors.toMap(
-                            x -> x.location().getPath().toLowerCase(),
-                            x -> x,
-                            // Don't merge the results as they aren't compatible in the case of collisions
-                            // Just take the original record.
-                            // The core minecraft code should have take care of this by not allowing duplicates
-                            // But a mod might have overridden that for something, but we cannot allow that.
-                            (s, a) -> s));
+            // Use a custom collector to pull all the tag names from the registry.
+            // We need to make sure that the registry path is unique and cannot guarantee that the minecraft code
+            // caught a duplicate registration.
+            HashMap<String, TagKey<Block>> registeredTags = BuiltInRegistries.BLOCK.getTagNames().collect(Collector.of(
+                    HashMap::new,
+                    (map, tag) -> {
+                        if (!map.containsKey(tag.location().getPath().toLowerCase())) {
+                            map.put(tag.location().getPath().toLowerCase(), tag);
+                        }
+                    },
+                    (map1, map2) -> {
+                        // Merge two maps together for parallel streams (if this ever comes up).
+                        map1.putAll(map2);
+                        return map1;
+                    },
+                    Collector.Characteristics.IDENTITY_FINISH
+            ));
+
+            ArrayList<Block> allValidTagBlocks = new ArrayList<>();
 
             // We have tags to process, go through each one and get the blocks from each.
             for (ResourceLocation tag : tags) {
@@ -115,14 +123,39 @@ public class StrictBuildingRegistry {
                     continue;
                 }
 
-                ArrayList<ResourceLocation> validBlocks = new ArrayList<>();
-
-                for (Block block : blocks) {
-                     validBlocks.add(BuiltInRegistries.BLOCK.getKey(block));
-                }
-
-                this.overwritableBlocks.addAll(validBlocks);
+                allValidTagBlocks.addAll(blocks);
             }
+
+            ArrayList<ResourceLocation> blockKeys = new ArrayList<>();
+
+            // Now that we have all the blocks, grab all the resource locations and make sure
+            // That we don't have duplicates from the main collection
+            for (int i = 0; i < allValidTagBlocks.size(); i++) {
+                Block block = allValidTagBlocks.get(i);
+                ResourceLocation blockKey = BuiltInRegistries.BLOCK.getKey(block);
+
+                Optional<ResourceLocation> matchingResourceLocations = this.getOverwritableBlockResourceLocations()
+                        .stream()
+                        .filter(x -> x.getPath().equalsIgnoreCase(blockKey.getPath()))
+                        .findFirst();
+
+                if (matchingResourceLocations.isEmpty()) {
+                    blockKeys.add(blockKey);
+                }
+                else {
+                    // This block is already in the list of overwritable blocks, no need to add it again.
+                    // This means it must also be removed from the current collection being looped on.
+                    // FYI - This just means that a previous tag registered this block already.
+                    // OR it was added as a part of the overwritable blocks array first!
+                    allValidTagBlocks.remove(i);
+
+                    // Decrement the current index so we don't skip over any items.
+                    i--;
+                }
+            }
+
+            this.overwritableBlockResourceLocations.addAll(blockKeys);
+            this.overwritableBlocks.addAll(allValidTagBlocks);
         }
     }
 
