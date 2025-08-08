@@ -224,23 +224,34 @@ public class BuildingMethods {
 				BlockState blockState = world.getBlockState(currentPos);
 
 				// First check to see if this is a spawn protected block.
+				// Note: We don't allow operators or creative players to mess with spawn protection.
+				// This is a conscious mod decision, spawn protection wins over everything else as it is configurable
+				// in the server properties.
+				// If a server operator needs to change this they can and restart the server.
 				if (world.getServer().isUnderSpawnProtection(world, currentPos, player)) {
 					// This block is protected by vanilla spawn protection. Don't allow building here.
 					return new Triple<>(false, blockState, currentPos);
 				}
 
-				if (!world.isEmptyBlock(currentPos)) {
-					if (!PrefabBase.eventCaller.canBreakBlock(world, player, world.getBlockState(currentPos), currentPos)) {
+				// If the player is in creative mode, don't bother checking if this block can be broken as
+				// a creative player can break all blocks.
+				if (!player.isCreative()) {
+					if (!world.isEmptyBlock(currentPos)) {
+						if (!PrefabBase.eventCaller.canBreakBlock(world, player, world.getBlockState(currentPos), currentPos)) {
+							return new Triple<>(false, blockState, currentPos);
+						}
+					}
+
+					// A hardness of less than 0 is unbreakable.
+					if (blockState.getDestroySpeed(world, currentPos) < 0.0f) {
+						// This is bedrock or some other type of unbreakable block. Don't allow this block to be broken by a
+						// structure.
 						return new Triple<>(false, blockState, currentPos);
 					}
 				}
 
-				// A hardness of less than 0 is unbreakable.
-				if (blockState.getDestroySpeed(world, currentPos) < 0.0f) {
-					// This is bedrock or some other type of unbreakable block. Don't allow this block to be broken by a
-					// structure.
-					return new Triple<>(false, blockState, currentPos);
-				}
+				// This is how we check to see if a player has "operator" permissions: player.hasPermissions(2)
+				// This should work in single player too, need to test it out.
 			}
 		}
 
