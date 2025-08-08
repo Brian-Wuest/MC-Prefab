@@ -7,6 +7,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -35,10 +36,24 @@ public class StrictBuildingRegistry {
     // make method which takes configuration to build out the properties for overwritable blocks.
     public void processModConfiguration(ModConfiguration modConfiguration) {
         if(modConfiguration.strictModeOptions.enabled) {
+            this.addStandardBlocks();
+
             this.processBlocks(modConfiguration);
 
             this.processTags(modConfiguration);
         }
+    }
+
+    /**
+     * Adds standard blocks to the collection of overwritable blocks
+     */
+    private void addStandardBlocks() {
+        this.overwritableBlocks.add(Blocks.AIR);
+        this.overwritableBlockResourceLocations.add(BuiltInRegistries.BLOCK.getKey(Blocks.AIR));
+        this.overwritableBlocks.add(Blocks.WATER);
+        this.overwritableBlockResourceLocations.add(BuiltInRegistries.BLOCK.getKey(Blocks.WATER));
+        this.overwritableBlocks.add(Blocks.LAVA);
+        this.overwritableBlockResourceLocations.add(BuiltInRegistries.BLOCK.getKey(Blocks.LAVA));
     }
 
     private void processBlocks(ModConfiguration modConfiguration) {
