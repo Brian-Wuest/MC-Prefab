@@ -329,6 +329,7 @@
   "text.autoconfig.Prefab.option.starterHouseOptions.addMineshaft": "Mineshaft ekle",
   "text.autoconfig.Prefab.option.startingItem": "Başlangıç Öğesi",
   "text.autoconfig.Prefab.option.strictModeOptions.enabled": "Etkinleştirilmiş",
+  "text.autoconfig.Prefab.option.strictModeOptions.operatorsBypassRestrictions": "Yöneticiler kısıtlamaları aşabilir",
   "text.autoconfig.Prefab.option.strictModeOptions.overwritableBlocks": "Üzerine Yazılabilir Bloklar",
   "text.autoconfig.Prefab.option.strictModeOptions.overwritableTags": "Üzerine Yazılabilir Etiketler",
   "text.autoconfig.Prefab.title": "Prefabrik Yapılandırma"

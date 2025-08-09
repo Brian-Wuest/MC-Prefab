@@ -1,13 +1,17 @@
 package com.prefab.structures.base;
 
+import com.google.common.collect.Lists;
 import com.prefab.ModRegistryBase;
 import com.prefab.PrefabBase;
 import com.prefab.Triple;
 import com.prefab.Tuple;
 import com.prefab.blocks.FullDyeColor;
 import com.prefab.config.ModConfiguration;
+import com.prefab.registries.StrictBuildingRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
@@ -24,6 +28,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BedPart;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This class is used to hold he generalized building methods used by the starting house.
@@ -215,13 +222,17 @@ public class BuildingMethods {
 	 * @param player        The player running this build request.
 	 * @return True if all blocks can be replaced. Otherwise false and send a message to the player.
 	 */
-	public static Triple<Boolean, BlockState, BlockPos> CheckBuildSpaceForAllowedBlockReplacement(ServerLevel world, BlockPos startBlockPos, BlockPos endBlockPos,
+	public static AllowedBlockReplacementResult CheckBuildSpaceForAllowedBlockReplacement(ServerLevel world, BlockPos startBlockPos, BlockPos endBlockPos,
 																								  Player player) {
 		if (!world.isClientSide) {
 			// Check each block in the space to be cleared if it's protected from
 			// breaking or placing, if it is return false.
+			StrictBuildingRegistry strictBuildingRegistry = ModRegistryBase.serverModRegistries.getStrictBuildingRegistry();
+
 			for (BlockPos currentPos : BlockPos.betweenClosed(startBlockPos, endBlockPos)) {
 				BlockState blockState = world.getBlockState(currentPos);
+				Block block = blockState.getBlock();
+				String resourceLocation = BuiltInRegistries.BLOCK.getKey(block).getPath().toLowerCase();
 
 				// First check to see if this is a spawn protected block.
 				// Note: We don't allow operators or creative players to mess with spawn protection.
@@ -230,7 +241,7 @@ public class BuildingMethods {
 				// If a server operator needs to change this they can and restart the server.
 				if (world.getServer().isUnderSpawnProtection(world, currentPos, player)) {
 					// This block is protected by vanilla spawn protection. Don't allow building here.
-					return new Triple<>(false, blockState, currentPos);
+					return new AllowedBlockReplacementResult(ReplacementResultType.NOT_ALLOWED_SPAWN_PROTECTION, blockState, currentPos);
 				}
 
 				// If the player is in creative mode, don't bother checking if this block can be broken as
@@ -238,7 +249,7 @@ public class BuildingMethods {
 				if (!player.isCreative()) {
 					if (!world.isEmptyBlock(currentPos)) {
 						if (!PrefabBase.eventCaller.canBreakBlock(world, player, world.getBlockState(currentPos), currentPos)) {
-							return new Triple<>(false, blockState, currentPos);
+							return new AllowedBlockReplacementResult(ReplacementResultType.NOT_ALLOWED_MOD_PROTECTED, blockState, currentPos);
 						}
 					}
 
@@ -246,16 +257,29 @@ public class BuildingMethods {
 					if (blockState.getDestroySpeed(world, currentPos) < 0.0f) {
 						// This is bedrock or some other type of unbreakable block. Don't allow this block to be broken by a
 						// structure.
-						return new Triple<>(false, blockState, currentPos);
+						return new AllowedBlockReplacementResult(ReplacementResultType.NOT_ALLOWED_UNBREAKABLE_BLOCK, blockState, currentPos);
 					}
 				}
 
-				// This is how we check to see if a player has "operator" permissions: player.hasPermissions(2)
-				// This should work in single player too, need to test it out.
+				// Check to see if Strict Building Mode is enabled.
+				// If it is, then see if the player is an operator (Cheats enabled) and that the operator bypass option
+				// is also not enabled.
+				if (PrefabBase.serverConfiguration.strictModeOptions.enabled
+					&& !(player.hasPermissions(2)
+						&& PrefabBase.serverConfiguration.strictModeOptions.operatorsBypassRestrictions)) {
+					// Check the overwritable block resource locations now.
+					// If none of them match the current block then return with a not-allowed status with this block
+					// state and the position.
+					if (strictBuildingRegistry.getOverwritableBlockResourceLocations()
+							.stream()
+							.noneMatch(x -> x.getPath().equalsIgnoreCase(resourceLocation))) {
+						return new AllowedBlockReplacementResult(ReplacementResultType.NOT_ALLOWED_UNBREAKABLE_BLOCK, blockState, currentPos);
+					}
+				}
 			}
 		}
 
-		return new Triple<>(true, null, null);
+		return new AllowedBlockReplacementResult(ReplacementResultType.ALLOWED, null, null);
 	}
 	/**
 	 * This method places a bed with the specified color and at the specified location.
@@ -767,6 +791,7 @@ public class BuildingMethods {
 
 		return new Tuple<>(originalStacks, torchPositions);
 	}
+
 	public static BlockState getStainedGlassBlock(FullDyeColor color) {
 		switch (color) {
 			case BLACK: {

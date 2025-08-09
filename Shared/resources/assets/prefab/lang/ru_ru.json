@@ -329,6 +329,7 @@
   "text.autoconfig.Prefab.option.starterHouseOptions.addMineshaft": "Добавить шахту",
   "text.autoconfig.Prefab.option.startingItem": "Начальный предмет",
   "text.autoconfig.Prefab.option.strictModeOptions.enabled": "Включено",
+  "text.autoconfig.Prefab.option.strictModeOptions.operatorsBypassRestrictions": "Администраторы могут обходить ограничения",
   "text.autoconfig.Prefab.option.strictModeOptions.overwritableBlocks": "Перезаписываемые блоки",
   "text.autoconfig.Prefab.option.strictModeOptions.overwritableTags": "Перезаписываемые теги",
   "text.autoconfig.Prefab.title": "Конфигурация Prefab"

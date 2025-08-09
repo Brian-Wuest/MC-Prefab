@@ -329,6 +329,7 @@
   "text.autoconfig.Prefab.option.starterHouseOptions.addMineshaft": "添加礦井",
   "text.autoconfig.Prefab.option.startingItem": "起始項目",
   "text.autoconfig.Prefab.option.strictModeOptions.enabled": "已啟用",
+  "text.autoconfig.Prefab.option.strictModeOptions.operatorsBypassRestrictions": "管理員可以繞過限制",
   "text.autoconfig.Prefab.option.strictModeOptions.overwritableBlocks": "可覆蓋區塊",
   "text.autoconfig.Prefab.option.strictModeOptions.overwritableTags": "可覆蓋標籤",
   "text.autoconfig.Prefab.title": "預製配置"

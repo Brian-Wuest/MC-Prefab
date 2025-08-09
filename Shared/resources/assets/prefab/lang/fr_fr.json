@@ -329,6 +329,7 @@
   "text.autoconfig.Prefab.option.starterHouseOptions.addMineshaft": "Ajouter un puits de mine",
   "text.autoconfig.Prefab.option.startingItem": "Élément de départ",
   "text.autoconfig.Prefab.option.strictModeOptions.enabled": "Activé",
+  "text.autoconfig.Prefab.option.strictModeOptions.operatorsBypassRestrictions": "Les administrateurs peuvent contourner les restrictions",
   "text.autoconfig.Prefab.option.strictModeOptions.overwritableBlocks": "Blocs réinscriptibles",
   "text.autoconfig.Prefab.option.strictModeOptions.overwritableTags": "Balises réinscriptibles",
   "text.autoconfig.Prefab.title": "Configuration préfabriquée"

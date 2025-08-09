@@ -329,6 +329,7 @@
   "text.autoconfig.Prefab.option.starterHouseOptions.addMineshaft": "Agregar eje de mina",
   "text.autoconfig.Prefab.option.startingItem": "Artículo inicial",
   "text.autoconfig.Prefab.option.strictModeOptions.enabled": "Activada",
+  "text.autoconfig.Prefab.option.strictModeOptions.operatorsBypassRestrictions": "Los administradores pueden eludir las restricciones",
   "text.autoconfig.Prefab.option.strictModeOptions.overwritableBlocks": "Bloques sobrescribibles",
   "text.autoconfig.Prefab.option.strictModeOptions.overwritableTags": "Etiquetas sobrescribibles",
   "text.autoconfig.Prefab.title": "Configuración prefabricada"

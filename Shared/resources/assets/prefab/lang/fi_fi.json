@@ -329,6 +329,7 @@
   "text.autoconfig.Prefab.option.starterHouseOptions.addMineshaft": "Lisää Kaivos",
   "text.autoconfig.Prefab.option.startingItem": "Aloitusesine",
   "text.autoconfig.Prefab.option.strictModeOptions.enabled": "Käytössä",
+  "text.autoconfig.Prefab.option.strictModeOptions.operatorsBypassRestrictions": "Ylläpitäjät voivat ohittaa rajoitukset",
   "text.autoconfig.Prefab.option.strictModeOptions.overwritableBlocks": "Ylikirjoitettavat lohkot",
   "text.autoconfig.Prefab.option.strictModeOptions.overwritableTags": "Ylikirjoitettavat tagit",
   "text.autoconfig.Prefab.title": "Prefab Kokoonpano"

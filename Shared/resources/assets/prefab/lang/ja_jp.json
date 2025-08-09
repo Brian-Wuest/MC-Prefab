@@ -329,6 +329,7 @@
   "text.autoconfig.Prefab.option.starterHouseOptions.addMineshaft": "マインシャフトを追加",
   "text.autoconfig.Prefab.option.startingItem": "開始アイテム",
   "text.autoconfig.Prefab.option.strictModeOptions.enabled": "有効",
+  "text.autoconfig.Prefab.option.strictModeOptions.operatorsBypassRestrictions": "管理者は制限を回避できる",
   "text.autoconfig.Prefab.option.strictModeOptions.overwritableBlocks": "上書き可能なブロック",
   "text.autoconfig.Prefab.option.strictModeOptions.overwritableTags": "上書き可能なタグ",
   "text.autoconfig.Prefab.title": "プレハブ構成"

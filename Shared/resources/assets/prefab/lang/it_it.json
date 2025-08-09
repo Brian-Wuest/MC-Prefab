@@ -329,6 +329,7 @@
   "text.autoconfig.Prefab.option.starterHouseOptions.addMineshaft": "Aggiungi Mineshaft",
   "text.autoconfig.Prefab.option.startingItem": "Oggetto iniziale",
   "text.autoconfig.Prefab.option.strictModeOptions.enabled": "Abilitata",
+  "text.autoconfig.Prefab.option.strictModeOptions.operatorsBypassRestrictions": "Gli amministratori possono aggirare le restrizioni",
   "text.autoconfig.Prefab.option.strictModeOptions.overwritableBlocks": "Blocchi sovrascrivibili",
   "text.autoconfig.Prefab.option.strictModeOptions.overwritableTags": "Tag sovrascrivibili",
   "text.autoconfig.Prefab.title": "Configurazione prefabbricata"

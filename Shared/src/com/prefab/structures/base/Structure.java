@@ -370,17 +370,17 @@ public class Structure {
                 .relative(Direction.UP, this.clearSpace.getShape().getHeight());
 
         // Make sure this structure can be placed here.
-        Triple<Boolean, BlockState, BlockPos> checkResult = BuildingMethods.CheckBuildSpaceForAllowedBlockReplacement(world, startBlockPos, endBlockPos, player);
+        AllowedBlockReplacementResult checkResult = BuildingMethods.CheckBuildSpaceForAllowedBlockReplacement(world, startBlockPos, endBlockPos, player);
 
-        if (!checkResult.getFirst()) {
+        if (checkResult.allowedToReplace == ReplacementResultType.ALLOWED) {
             // Send a message to the player saying that the structure could not
             // be built.
             Component message = Component.translatable(
                     GuiLangKeys.GUI_STRUCTURE_NOBUILD,
-                    BuiltInRegistries.BLOCK.getKey(checkResult.getSecond().getBlock()).toString(),
-                    checkResult.getThird().getX(),
-                    checkResult.getThird().getY(),
-                    checkResult.getThird().getZ());
+                    BuiltInRegistries.BLOCK.getKey(checkResult.protectedBlock.getBlock()).toString(),
+                    checkResult.protectedBlockPos.getX(),
+                    checkResult.protectedBlockPos.getY(),
+                    checkResult.protectedBlockPos.getZ());
 
             message.getStyle().withColor(ChatFormatting.GREEN);
             player.sendSystemMessage(message);
