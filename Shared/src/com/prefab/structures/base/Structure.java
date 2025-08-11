@@ -206,8 +206,8 @@ public class Structure {
         int z_radiusRangeBegin = Math.min(cornerPos1.getZ(), cornerPos2.getZ());
         int z_radiusRangeEnd = Math.max(cornerPos1.getZ(), cornerPos2.getZ());
 
-        var pos1 = new Vec3(cornerPos1.getX(),cornerPos1.getY(),cornerPos1.getZ());
-        var pos2 = new Vec3(cornerPos2.getX(),cornerPos2.getY(),cornerPos2.getZ());
+        var pos1 = new Vec3(cornerPos1.getX(), cornerPos1.getY(), cornerPos1.getZ());
+        var pos2 = new Vec3(cornerPos2.getX(), cornerPos2.getY(), cornerPos2.getZ());
 
         AABB axis = new AABB(pos1, pos2);
 
@@ -372,19 +372,34 @@ public class Structure {
         // Make sure this structure can be placed here.
         AllowedBlockReplacementResult checkResult = BuildingMethods.CheckBuildSpaceForAllowedBlockReplacement(world, startBlockPos, endBlockPos, player);
 
-        if (checkResult.allowedToReplace == ReplacementResultType.ALLOWED) {
+        if (checkResult.allowedToReplace != ReplacementResultType.ALLOWED) {
+            String langKey =
+                    switch (checkResult.allowedToReplace) {
+                        case ALLOWED -> null;
+                        case NOT_ALLOWED_SPAWN_PROTECTION ->
+                                GuiLangKeys.GUI_STRUCTURE_NOBUILD_SPAWN_PROTECTION;
+                        case NOT_ALLOWED_MOD_PROTECTED ->
+                                GuiLangKeys.GUI_STRUCTURE_NOBUILD_MOD_PROTECTION;
+                        case ReplacementResultType.NOT_ALLOWED_UNBREAKABLE_BLOCK ->
+                                GuiLangKeys.GUI_STRUCTURE_NOBUILD_UNBREAKABLE;
+                        case NOT_ALLOWED_STRICT_BUILDING_MODE ->
+                                GuiLangKeys.GUI_STRUCTURE_NOBUILD_STRICT_BUILDING_MODE;
+                    };
+
             // Send a message to the player saying that the structure could not
             // be built.
-            Component message = Component.translatable(
-                    GuiLangKeys.GUI_STRUCTURE_NOBUILD,
-                    BuiltInRegistries.BLOCK.getKey(checkResult.protectedBlock.getBlock()).toString(),
-                    checkResult.protectedBlockPos.getX(),
-                    checkResult.protectedBlockPos.getY(),
-                    checkResult.protectedBlockPos.getZ());
+            if (langKey != null) {
+                Component message = Component.translatable(
+                        langKey,
+                        BuiltInRegistries.BLOCK.getKey(checkResult.protectedBlock.getBlock()).toString(),
+                        checkResult.protectedBlockPos.getX(),
+                        checkResult.protectedBlockPos.getY(),
+                        checkResult.protectedBlockPos.getZ());
 
-            message.getStyle().withColor(ChatFormatting.GREEN);
-            player.sendSystemMessage(message);
-            return false;
+                message.getStyle().withColor(ChatFormatting.GREEN);
+                player.sendSystemMessage(message);
+                return false;
+            }
         }
 
         if (PrefabBase.serverConfiguration.playBuildingSound) {

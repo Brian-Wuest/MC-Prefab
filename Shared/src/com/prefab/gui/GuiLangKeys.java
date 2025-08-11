@@ -126,8 +126,17 @@ public class GuiLangKeys {
     @Unlocalized(name = "The red box in the image on the right shows the block you clicked on.")
     public static final String GUI_BLOCK_CLICKED = "prefab.gui.structure.block.clicked";
 
+    @Unlocalized(name = "Cannot build structure due to the area being under spawn protection. Block Name: %1$s Block Position: x=%2$s, y=%3$s, z=%4$s\",")
+    public static final String GUI_STRUCTURE_NOBUILD_SPAWN_PROTECTION = "prefab.gui.structure.nobuild_spawn_protection";
+
+    @Unlocalized(name = "Cannot build structure due to the area containing blocks protected by another mod. Block Name: %1$s Block Position: x=%2$s, y=%3$s, z=%4$s")
+    public static final String GUI_STRUCTURE_NOBUILD_MOD_PROTECTION = "prefab.gui.structure.nobuild_mod_protection";
+
     @Unlocalized(name = "Cannot build structure due to protected blocks/area or unbreakable blocks are in the area. Block Name: %1$s Block Position: x=%2$s, y=%3$s, z=%4$s")
-    public static final String GUI_STRUCTURE_NOBUILD = "prefab.gui.structure.nobuild";
+    public static final String GUI_STRUCTURE_NOBUILD_UNBREAKABLE = "prefab.gui.structure.nobuild_unbreakable";
+
+    @Unlocalized(name = "Cannot build structure due to strict building mode being enabled and non-overwritable blocks being in the area. Block Name: %1$s Block Position: x=%2$s, y=%3$s, z=%4$s")
+    public static final String GUI_STRUCTURE_NOBUILD_STRICT_BUILDING_MODE = "prefab.gui.structure.nobuild_strict_building_mode";
 
     @Unlocalized(name = "Build!")
     public static final String GUI_BUTTON_BUILD = "prefab.gui.button.build";
