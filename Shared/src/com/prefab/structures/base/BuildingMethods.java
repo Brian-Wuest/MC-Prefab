@@ -273,7 +273,7 @@ public class BuildingMethods {
 					if (strictBuildingRegistry.getOverwritableBlockResourceLocations()
 							.stream()
 							.noneMatch(x -> x.getPath().equalsIgnoreCase(resourceLocation))) {
-						return new AllowedBlockReplacementResult(ReplacementResultType.NOT_ALLOWED_UNBREAKABLE_BLOCK, blockState, currentPos);
+						return new AllowedBlockReplacementResult(ReplacementResultType.NOT_ALLOWED_STRICT_BUILDING_MODE, blockState, currentPos);
 					}
 				}
 			}
