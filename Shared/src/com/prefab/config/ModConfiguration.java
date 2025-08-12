@@ -200,11 +200,15 @@ public class ModConfiguration implements ConfigData {
 
         tag.put(ConfigKeyNames.structureOptionsName, structureOptionTag);
 
+        // Strict building mode options.
+        tag.putBoolean(ConfigKeyNames.strictBuildingModeEnabledName, this.strictModeOptions.enabled);
+        tag.putBoolean(ConfigKeyNames.strictBuildingOperatorsBypassRestrictions, this.strictModeOptions.operatorsBypassRestrictions);
+
         CompoundTag overwritableBlocksTag = getOverwritableBlocksTag();
         tag.put(ConfigKeyNames.overwritableBlocksName, overwritableBlocksTag);
 
         CompoundTag overwritableTagsTag = getOverwritableTagsTag();
-        tag.put(ConfigKeyNames.overwritableBlocksName, overwritableTagsTag);
+        tag.put(ConfigKeyNames.overwritableTagsName, overwritableTagsTag);
 
         return tag;
     }
@@ -301,6 +305,27 @@ public class ModConfiguration implements ConfigData {
                 }
 
                 this.structureOptions.put(key, structureOptions);
+            }
+        }
+
+        // Strict building mode options.
+        this.strictModeOptions.enabled = tag.getBoolean(ConfigKeyNames.strictBuildingModeEnabledName);
+        this.strictModeOptions.operatorsBypassRestrictions = tag.getBoolean(ConfigKeyNames.strictBuildingOperatorsBypassRestrictions);
+
+        CompoundTag overwritableBlocksTag = tag.getCompound(ConfigKeyNames.overwritableBlocksName);
+        this.processCompoundTagIntoStringArrayList(overwritableBlocksTag, this.strictModeOptions.overwritableBlocks);
+
+        CompoundTag overwritableBlocksTagsTag = tag.getCompound(ConfigKeyNames.overwritableTagsName);
+        this.processCompoundTagIntoStringArrayList(overwritableBlocksTagsTag, this.strictModeOptions.overwritableTags);
+    }
+
+    private void processCompoundTagIntoStringArrayList(CompoundTag tag, ArrayList<String> arrayList) {
+        for (String key : tag.getAllKeys()) {
+            String value = tag.getString(key);
+
+            // Check to see that this value isn't blank if it isn't, it is okay to add to the collection.
+            if (!StringUtils.isBlank(value)) {
+                arrayList.add(value);
             }
         }
     }
@@ -447,6 +472,7 @@ public class ModConfiguration implements ConfigData {
 
         // Strict Building Option Names
         static String strictBuildingModeEnabledName = "Strict Building Mode Enabled";
+        static String strictBuildingOperatorsBypassRestrictions = "Strict Building Operators Bypass Restrictions";
         static String overwritableBlocksName = "Overwritable Blocks";
         static String overwritableTagsName = "Overwritable Tags";
     }
