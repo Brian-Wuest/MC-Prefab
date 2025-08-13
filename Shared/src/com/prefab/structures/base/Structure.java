@@ -16,6 +16,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.resources.ResourceLocation;
@@ -39,6 +41,7 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -389,14 +392,9 @@ public class Structure {
             // Send a message to the player saying that the structure could not
             // be built.
             if (langKey != null) {
-                Component message = Component.translatable(
-                        langKey,
-                        BuiltInRegistries.BLOCK.getKey(checkResult.protectedBlock.getBlock()).toString(),
-                        checkResult.protectedBlockPos.getX(),
-                        checkResult.protectedBlockPos.getY(),
-                        checkResult.protectedBlockPos.getZ());
+                MutableComponent message = Structure.createCannotBuildMessage(checkResult, langKey);
 
-                message.getStyle().withColor(ChatFormatting.GREEN);
+                message.setStyle(Style.EMPTY.withColor(ChatFormatting.GREEN));
                 player.sendSystemMessage(message);
                 return false;
             }
@@ -508,6 +506,16 @@ public class Structure {
         }
 
         return true;
+    }
+
+    private static @NotNull MutableComponent createCannotBuildMessage(AllowedBlockReplacementResult checkResult, String langKey) {
+        MutableComponent blockName = Component.translatable(checkResult.protectedBlock.getBlock().getDescriptionId());
+        return Component.translatable(
+                langKey,
+                blockName,
+                checkResult.protectedBlockPos.getX(),
+                checkResult.protectedBlockPos.getY(),
+                checkResult.protectedBlockPos.getZ());
     }
 
     /**
