@@ -255,7 +255,7 @@
   "prefab.gui.structure.nobuild_spawn_protection": "Cannot create structure due character creation protection. Block: %1$s Position: x=%2$s, y=%3$s, z=%4$s",
   "prefab.gui.structure.nobuild_mod_protection": "Cannot create structure as the area contains blocks protected by another mod. Block: %1$s Position: x=%2$s, y=%3$s, z=%4$s",
   "prefab.gui.structure.nobuild_unbreakable": "Cannot create structure due to protected blocks/area or unbreakable blocks are in the area. Block: %1$s Position: x=%2$s, y=%3$s, z=%4$s",
-  "prefab.gui.structure.nobuild_strict_building_mode": "The structure cannot be created; strict build mode is enabled and there are non-overwritable blocks in the area. Block: %1$s. Position: x=%2$s, y=%3$s, z=%4$s",
+  "prefab.gui.structure.nobuild_strict_building_mode": "The structure cannot be created; strict build mode is enabled and there are non-overwritable blocks in the area. Block: %1$s Position: x=%2$s, y=%3$s, z=%4$s",
   "prefab.gui.style": "Style",
   "prefab.gui.tooltip.boundary_block": "Initially invisible, becomes visible when receiving a redstone signal.",
   "prefab.gui.tooltip.bulldozer_powered": "Powered with the strength of the earth and magic, you believe a large area can be cleared.",

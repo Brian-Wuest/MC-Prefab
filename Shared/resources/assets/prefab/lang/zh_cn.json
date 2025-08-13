@@ -255,7 +255,7 @@
   "prefab.gui.structure.nobuild_spawn_protection": "由于角色创建保护，无法构建结构。块：%1$s 位置：x=%2$s, y=%3$s, z=%4$s",
   "prefab.gui.structure.nobuild_mod_protection": "您无法在此区域建造，因为有一个方块受其他游戏修改器保护。方块：%1$s 位置：x=%2$s, y=%3$s, z=%4$s",
   "prefab.gui.structure.nobuild_unbreakable": "存在受保护或不可破坏的方块，无法建造。方块名称：%1$s 方块位置：x=%2$s, y=%3$s, z=%4$s。",
-  "prefab.gui.structure.nobuild_strict_building_mode": "无法创建结构。已启用严格构建模式，但区域中存在无法覆盖的块。块：%1$s。位置：x=%2$s，y=%3$s，z=%4$s",
+  "prefab.gui.structure.nobuild_strict_building_mode": "无法创建结构。已启用严格构建模式，但区域中存在无法覆盖的块。块：%1$s 位置：x=%2$s，y=%3$s，z=%4$s",
   "prefab.gui.style": "风格",
   "prefab.gui.tooltip.boundary_block": "仅当接受到红石信号时可见。",
   "prefab.gui.tooltip.bulldozer_powered": "灌注力量成功后，你可以清空一大片区域。",

@@ -255,7 +255,7 @@
   "prefab.gui.structure.nobuild_spawn_protection": "Rakennetta ei voida luoda hahmonluontisuojauksen vuoksi. Lohkon nimi: %1$s Lohkon sijainti: x=%2$s, y=%3$s, z=%4$s",
   "prefab.gui.structure.nobuild_mod_protection": "Rakennetta ei voida luoda, koska alueella on toisen modin suojaamia lohkoja. Lohko: %1$s Sijainti: x=%2$s, y=%3$s, z=%4$s",
   "prefab.gui.structure.nobuild_unbreakable": "Rakennusta ei voi rakentaa koska kuutio/alue on suojattu tai tai rikkoutumattomia palikoita on alueella. Kuution nimi: %1$s Kuution sijainti: x=%2$s, y=%3$s, z=%4$s",
-  "prefab.gui.structure.nobuild_strict_building_mode": "Rakennetta ei voida luoda; tiukka rakennustila on käytössä ja alueella on lohkoja, joita ei voi korvata. Lohko: %1$s. Sijainti: x=%2$s, y=%3$s, z=%4$s",
+  "prefab.gui.structure.nobuild_strict_building_mode": "Rakennetta ei voida luoda; tiukka rakennustila on käytössä ja alueella on lohkoja, joita ei voi korvata. Lohko: %1$s Sijainti: x=%2$s, y=%3$s, z=%4$s",
   "prefab.gui.style": "Tyyli",
   "prefab.gui.tooltip.boundary_block": "Alunperin näkymätön, tulee näkyviin saadessaan Redstone signaalin.",
   "prefab.gui.tooltip.bulldozer_powered": "Powered with the strength of the earth and magic, you believe a large area can be cleared.",

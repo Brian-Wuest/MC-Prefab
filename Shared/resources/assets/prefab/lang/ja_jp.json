@@ -255,7 +255,7 @@
   "prefab.gui.structure.nobuild_spawn_protection": "キャラクター作成保護のため構造物を構築できません。ブロック: %1$s 位置: x=%2$s y=%3$s z=%4$s",
   "prefab.gui.structure.nobuild_mod_protection": "別のゲームモディファイアによって保護されているブロックがあるため、このエリアに構造物を構築できません。ブロック: %1$s 場所: x=%2$s、y=%3$s、z=%4$s",
   "prefab.gui.structure.nobuild_unbreakable": "保護されたブロック/エリアのために構造を構築できないか、そのエリアに破損しないブロックがあります。 ブロック名：%1$s ブロック位置：x=%2$s, y=%3$s, z=%4$s。",
-  "prefab.gui.structure.nobuild_strict_building_mode": "構造物を作成できません。厳密なビルドモードが有効になっており、上書きできないブロックが領域内に存在します。ブロック: %1$s。位置: x=%2$s、y=%3$s、z=%4$s",
+  "prefab.gui.structure.nobuild_strict_building_mode": "構造物を作成できません。厳密なビルドモードが有効になっており、上書きできないブロックが領域内に存在します。ブロック: %1$s 位置: x=%2$s、y=%3$s、z=%4$s",
   "prefab.gui.style": "スタイル",
   "prefab.gui.tooltip.boundary_block": "最初は見えませんが、レッドストーン信号を受信すると表示されます。",
   "prefab.gui.tooltip.bulldozer_powered": "地球と魔法の強さを搭載したところ、大面積をクリアすることができると考えています。",

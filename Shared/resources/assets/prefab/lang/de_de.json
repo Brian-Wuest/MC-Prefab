@@ -255,7 +255,7 @@
   "prefab.gui.structure.nobuild_spawn_protection": "Struktur kann aufgrund des Schutzes bei der Charaktererstellung nicht erstellt werden. Blockname: %1$s Blockposition: x=%2$s, y=%3$s, z=%4$s",
   "prefab.gui.structure.nobuild_mod_protection": "Struktur kann nicht erstellt werden, da der Bereich Blöcke enthält, die durch einen anderen Mod geschützt sind. Block: %1$s Position: x=%2$s, y=%3$s, z=%4$s",
   "prefab.gui.structure.nobuild_unbreakable": "Stuktur kann nicht gebaut werden, da geschütze Blöcke/Bereiche oder unzerbrechliche Blöcke im Bereich sind. Blockname: %1$s Block Position: x=%2$s, y=%3$s, z=%4$s",
-  "prefab.gui.structure.nobuild_strict_building_mode": "Die Struktur kann nicht erstellt werden; der strikte Build-Modus ist aktiviert und es gibt nicht überschreibbare Blöcke im Bereich. Block: %1$s. Position: x=%2$s, y=%3$s, z=%4$s",
+  "prefab.gui.structure.nobuild_strict_building_mode": "Die Struktur kann nicht erstellt werden; der strikte Build-Modus ist aktiviert und es gibt nicht überschreibbare Blöcke im Bereich. Block: %1$s Position: x=%2$s, y=%3$s, z=%4$s",
   "prefab.gui.style": "Style",
   "prefab.gui.tooltip.boundary_block": "Anfangs unsichtbar, aber wird sichtber, wenn ein Redstone Signal empfangen wird.",
   "prefab.gui.tooltip.bulldozer_powered": "Angetrieben mit der Kraft von der Erde und Magie. Glauben Sie, dass eine große Fläche geräumt werden kann?",
