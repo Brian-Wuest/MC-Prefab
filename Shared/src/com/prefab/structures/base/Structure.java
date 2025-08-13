@@ -393,8 +393,6 @@ public class Structure {
             // be built.
             if (langKey != null) {
                 MutableComponent message = Structure.createCannotBuildMessage(checkResult, langKey);
-
-                message.setStyle(Style.EMPTY.withColor(ChatFormatting.GREEN));
                 player.sendSystemMessage(message);
                 return false;
             }
@@ -510,12 +508,16 @@ public class Structure {
 
     private static @NotNull MutableComponent createCannotBuildMessage(AllowedBlockReplacementResult checkResult, String langKey) {
         MutableComponent blockName = Component.translatable(checkResult.protectedBlock.getBlock().getDescriptionId());
-        return Component.translatable(
+        MutableComponent message = Component.translatable(
                 langKey,
                 blockName,
                 checkResult.protectedBlockPos.getX(),
                 checkResult.protectedBlockPos.getY(),
                 checkResult.protectedBlockPos.getZ());
+
+        message.setStyle(Style.EMPTY.withColor(ChatFormatting.YELLOW));
+
+        return message;
     }
 
     /**
