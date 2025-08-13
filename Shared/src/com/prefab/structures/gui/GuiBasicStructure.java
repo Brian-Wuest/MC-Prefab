@@ -19,6 +19,7 @@ import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -230,6 +231,10 @@ public class GuiBasicStructure extends GuiStructure {
                 this.drawString(guiGraphics, GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS), x + 8, yValue, this.textColor);
                 yValue += 45;
             }
+        }
+
+        if (this.serverConfiguration.strictModeOptions.enabled) {
+            this.drawString(guiGraphics, GuiLangKeys.STRICT_BUILDING_MODE_ENABLED, x + 200, y + 167, Color.RED.getRGB());
         }
     }
 

@@ -1,7 +1,9 @@
 package com.prefab.structures.gui;
 
 import com.prefab.ClientModRegistryBase;
+import com.prefab.PrefabBase;
 import com.prefab.Tuple;
+import com.prefab.config.ModConfiguration;
 import com.prefab.gui.GuiLangKeys;
 import com.prefab.structures.config.BulldozerConfiguration;
 import com.prefab.structures.messages.StructureTagMessage;
@@ -9,12 +11,15 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.network.chat.Component;
 
+import java.awt.*;
+
 /**
  * @author WuestMan
  */
 public class GuiBulldozer extends GuiStructure {
 
     protected BulldozerConfiguration specificConfiguration;
+    protected ModConfiguration serverConfiguration;
 
     /**
      * Initializes a new instance of the {@link GuiBulldozer} class.
@@ -36,7 +41,7 @@ public class GuiBulldozer extends GuiStructure {
         this.modifiedInitialYAxis = 83;
         this.imagePanelWidth = 256;
         this.imagePanelHeight = 256;
-
+        this.serverConfiguration = PrefabBase.serverConfiguration;
         this.configuration = this.specificConfiguration = ClientModRegistryBase.playerConfig.getClientConfig("Bulldozer", BulldozerConfiguration.class);
         this.specificConfiguration.pos = this.pos;
 
@@ -54,6 +59,10 @@ public class GuiBulldozer extends GuiStructure {
     protected void postButtonRender(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks) {
         String strToDraw = GuiLangKeys.translateString(GuiLangKeys.GUI_BULLDOZER_DESCRIPTION) + "\n \n" + GuiLangKeys.translateString(GuiLangKeys.GUI_CLEARED_AREA);
         this.drawSplitString(guiGraphics, strToDraw, x + 10, y + 10, 230, this.textColor);
+
+        if (this.serverConfiguration.strictModeOptions.enabled) {
+            this.drawString(guiGraphics, GuiLangKeys.STRICT_BUILDING_MODE_ENABLED, x + 65, y + 120, Color.RED.getRGB());
+        }
     }
 
     /**

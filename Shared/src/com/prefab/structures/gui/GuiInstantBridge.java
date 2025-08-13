@@ -3,6 +3,7 @@ package com.prefab.structures.gui;
 import com.prefab.ClientModRegistryBase;
 import com.prefab.PrefabBase;
 import com.prefab.Tuple;
+import com.prefab.config.ModConfiguration;
 import com.prefab.gui.GuiLangKeys;
 import com.prefab.gui.GuiUtils;
 import com.prefab.gui.controls.ExtendedButton;
@@ -18,10 +19,13 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
+import java.awt.*;
+
 @SuppressWarnings("SpellCheckingInspection")
 public class GuiInstantBridge extends GuiStructure {
     private static final ResourceLocation structureTopDown = ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/instant_bridge.png");
     protected InstantBridgeConfiguration specificConfiguration;
+    protected ModConfiguration serverConfiguration;
     private ExtendedButton btnMaterialType;
     private GuiSlider sldrBridgeLength;
     private GuiCheckBox chckIncludeRoof;
@@ -43,6 +47,7 @@ public class GuiInstantBridge extends GuiStructure {
         this.modifiedInitialYAxis = 117;
         this.shownImageHeight = 150;
         this.shownImageWidth = 268;
+        this.serverConfiguration = PrefabBase.serverConfiguration;
         this.configuration = this.specificConfiguration = ClientModRegistryBase.playerConfig.getClientConfig("InstantBridge", InstantBridgeConfiguration.class);
         this.configuration.pos = this.pos;
         this.structureImageLocation = structureTopDown;
@@ -107,6 +112,10 @@ public class GuiInstantBridge extends GuiStructure {
 
         if (this.chckIncludeRoof.isChecked()) {
             this.drawString(guiGraphics, GuiLangKeys.translateString(GuiLangKeys.INTERIOR_HEIGHT), x + 15, y + 130, this.textColor);
+        }
+
+        if (this.serverConfiguration.strictModeOptions.enabled) {
+            this.drawString(guiGraphics, GuiLangKeys.STRICT_BUILDING_MODE_ENABLED, x + 200, y + 167, Color.RED.getRGB());
         }
     }
 

@@ -248,6 +248,7 @@
   "prefab.gui.south": "Etelä",
   "prefab.gui.stairs_height": "Portaiden Korkeus",
   "prefab.gui.stairs_width": "Portaiden Leveys",
+  "gui.prefab.strict_building_mode_enabled": "Strict Building Mode Enabled",
   "prefab.gui.structure.bed_color": "Sängyn Väri",
   "prefab.gui.structure.block.clicked": "Keltainen ääriviiva on kuutio, jota napsautit.",
   "prefab.gui.structure.glass": "Lasin Väri",

@@ -248,6 +248,7 @@
   "prefab.gui.south": "南",
   "prefab.gui.stairs_height": "階段の高さ",
   "prefab.gui.stairs_width": "階段の幅",
+  "gui.prefab.strict_building_mode_enabled": "Strict Building Mode Enabled",
   "prefab.gui.structure.bed_color": "ベッド色",
   "prefab.gui.structure.block.clicked": "黄色のアウトラインは、クリックしたブロックです。",
   "prefab.gui.structure.glass": "ガラス色",

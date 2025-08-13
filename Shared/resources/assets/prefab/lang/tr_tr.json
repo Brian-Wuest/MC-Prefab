@@ -248,6 +248,7 @@
   "prefab.gui.south": "Güney",
   "prefab.gui.stairs_height": "Merdiven Yüksekliği",
   "prefab.gui.stairs_width": "Merdiven Uzunluğu",
+  "gui.prefab.strict_building_mode_enabled": "Strict Building Mode Enabled",
   "prefab.gui.structure.bed_color": "Yatak Rengi",
   "prefab.gui.structure.block.clicked": "Sarı anahat, tıkladığınız bloktur.",
   "prefab.gui.structure.glass": "Cam Rengi",

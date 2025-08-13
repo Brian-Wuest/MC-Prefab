@@ -384,6 +384,9 @@ public class GuiLangKeys {
     @Unlocalized(name = "Please update your configuration or contact your server administrator")
     public static final String NO_OPTIONS_PART_2 = "gui.prefab.no_options_2";
 
+    @Unlocalized(name = "Strict Building Mode Enabled")
+    public static final String STRICT_BUILDING_MODE_ENABLED = "gui.prefab.strict_building_mode_enabled";
+
     /**
      * Translates the specified language key for the current language.
      *

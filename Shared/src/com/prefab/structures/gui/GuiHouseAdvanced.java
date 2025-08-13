@@ -16,6 +16,7 @@ import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.DyeColor;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -144,6 +145,10 @@ public class GuiHouseAdvanced extends GuiStructure {
         }
 
         this.drawString(guiGraphics, GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_BED_COLOR), x + 8, y + yOffSet, this.textColor);
+
+        if (this.serverConfiguration.strictModeOptions.enabled) {
+            this.drawString(guiGraphics, GuiLangKeys.STRICT_BUILDING_MODE_ENABLED, x + 200, y + 167, Color.RED.getRGB());
+        }
     }
 
     /**
