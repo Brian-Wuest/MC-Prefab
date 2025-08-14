@@ -234,7 +234,7 @@ public class GuiBasicStructure extends GuiStructure {
         }
 
         if (this.serverConfiguration.strictModeOptions.enabled) {
-            this.drawString(guiGraphics, GuiLangKeys.STRICT_BUILDING_MODE_ENABLED, x + 200, y + 167, Color.RED.getRGB());
+            this.drawString(guiGraphics, GuiLangKeys.translateString(GuiLangKeys.STRICT_BUILDING_MODE_ENABLED), x + 145, y + 167, Color.RED.getRGB());
         }
     }
 

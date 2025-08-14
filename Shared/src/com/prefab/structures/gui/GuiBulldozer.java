@@ -61,7 +61,7 @@ public class GuiBulldozer extends GuiStructure {
         this.drawSplitString(guiGraphics, strToDraw, x + 10, y + 10, 230, this.textColor);
 
         if (this.serverConfiguration.strictModeOptions.enabled) {
-            this.drawString(guiGraphics, GuiLangKeys.STRICT_BUILDING_MODE_ENABLED, x + 65, y + 120, Color.RED.getRGB());
+            this.drawSplitString(guiGraphics, GuiLangKeys.translateString(GuiLangKeys.STRICT_BUILDING_MODE_ENABLED), x + 10, y + 110, 230, Color.RED.getRGB());
         }
     }
 
