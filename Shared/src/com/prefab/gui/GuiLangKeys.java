@@ -16,10 +16,10 @@ import java.lang.reflect.Field;
 @SuppressWarnings("unused")
 public class GuiLangKeys {
     @Unlocalized(name = "House Style")
-    public static final String HOUSE_STYLE = "prefab.gui.starter.style.label";
+    public static final String HOUSE_STYLE = "prefab.gui.house.style.label";
 
     @Unlocalized(name = "Basic House")
-    public static final String HOUSE_BASIC_DISPLAY = "prefab.gui.starter.basic.display";
+    public static final String HOUSE_BASIC_DISPLAY = "prefab.gui.house.basic.display";
 
     @Unlocalized(name = "Ranch Style")
     public static final String HOUSE_RANCH_DISPLAY = "prefab.gui.house.ranch.display";
