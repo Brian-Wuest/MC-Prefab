@@ -248,7 +248,7 @@
   "prefab.gui.south": "南",
   "prefab.gui.stairs_height": "階梯高度",
   "prefab.gui.stairs_width": "階梯寬度",
-  "gui.prefab.strict_building_mode_enabled": "Strict Building Mode Enabled",
+  "gui.prefab.strict_building_mode_enabled": "警告：嚴格建構模式處於活動狀態",
   "prefab.gui.structure.bed_color": "床顏色",
   "prefab.gui.structure.block.clicked": "黃色輪廓是您單擊的塊。",
   "prefab.gui.structure.glass": "玻璃顏色",

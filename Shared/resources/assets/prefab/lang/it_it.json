@@ -248,7 +248,7 @@
   "prefab.gui.south": "Sud",
   "prefab.gui.stairs_height": "Altezza Scale",
   "prefab.gui.stairs_width": "Larghezza Scale",
-  "gui.prefab.strict_building_mode_enabled": "Strict Building Mode Enabled",
+  "gui.prefab.strict_building_mode_enabled": "Attenzione: modalità di costruzione rigorosa abilitata",
   "prefab.gui.structure.bed_color": "Colore Letto",
   "prefab.gui.structure.block.clicked": "Il contorno giallo è il blocco su cui hai fatto clic.",
   "prefab.gui.structure.glass": "Colore Vetro",

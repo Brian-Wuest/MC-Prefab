@@ -248,7 +248,7 @@
   "prefab.gui.south": "South",
   "prefab.gui.stairs_height": "Stairs Height",
   "prefab.gui.stairs_width": "Stairs Width",
-  "gui.prefab.strict_building_mode_enabled": "Strict Building Mode Enabled",
+  "gui.prefab.strict_building_mode_enabled": "Warning: Strict Building Mode Enabled",
   "prefab.gui.structure.bed_color": "Bed Color",
   "prefab.gui.structure.block.clicked": "The yellow outline is the block you clicked on.",
   "prefab.gui.structure.glass": "Glass Color",

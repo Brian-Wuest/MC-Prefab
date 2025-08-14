@@ -248,7 +248,7 @@
   "prefab.gui.south": "Sur",
   "prefab.gui.stairs_height": "Altura de las escaleras",
   "prefab.gui.stairs_width": "Ancho de la escalera",
-  "gui.prefab.strict_building_mode_enabled": "Strict Building Mode Enabled",
+  "gui.prefab.strict_building_mode_enabled": "Advertencia: Modo de construcción estricto habilitado",
   "prefab.gui.structure.bed_color": "Color de la cama",
   "prefab.gui.structure.block.clicked": "El contorno amarillo es el bloque en el que hizo clic.",
   "prefab.gui.structure.glass": "Color de cristal",

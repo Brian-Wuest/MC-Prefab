@@ -248,7 +248,7 @@
   "prefab.gui.south": "Юг",
   "prefab.gui.stairs_height": "Высота Ступенек",
   "prefab.gui.stairs_width": "Ширина Ступенек",
-  "gui.prefab.strict_building_mode_enabled": "Strict Building Mode Enabled",
+  "gui.prefab.strict_building_mode_enabled": "Внимание: действует строгий режим строительства",
   "prefab.gui.structure.bed_color": "Цвет Кровати",
   "prefab.gui.structure.block.clicked": "Жёлтая оконтовка - это блок, на который вы нажали.",
   "prefab.gui.structure.glass": "Цвет Стекла",

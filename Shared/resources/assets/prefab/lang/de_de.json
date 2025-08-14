@@ -248,7 +248,7 @@
   "prefab.gui.south": "Süden",
   "prefab.gui.stairs_height": "Treppenhöhe",
   "prefab.gui.stairs_width": "Treppenbreite",
-  "gui.prefab.strict_building_mode_enabled": "Strict Building Mode Enabled",
+  "gui.prefab.strict_building_mode_enabled": "Warnung: Strikter Baumodus aktiviert",
   "prefab.gui.structure.bed_color": "Bettenfarbe",
   "prefab.gui.structure.block.clicked": "Die Gelbe Outline makiert, wo du den Block makiert hast.",
   "prefab.gui.structure.glass": "Glasfarbe",

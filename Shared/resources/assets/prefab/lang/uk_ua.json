@@ -248,7 +248,7 @@
   "prefab.gui.south": "Південь",
   "prefab.gui.stairs_height": "Висота Сход",
   "prefab.gui.stairs_width": "Ширина Сход",
-  "gui.prefab.strict_building_mode_enabled": "Strict Building Mode Enabled",
+  "gui.prefab.strict_building_mode_enabled": "Попередження: режим суворої конструкції активний",
   "prefab.gui.structure.bed_color": "Колір Ліжка",
   "prefab.gui.structure.block.clicked": "Жовтий контур - це блок, на який ви натиснули.",
   "prefab.gui.structure.glass": "Колір Скла",

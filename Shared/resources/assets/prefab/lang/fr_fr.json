@@ -248,7 +248,7 @@
   "prefab.gui.south": "Sud",
   "prefab.gui.stairs_height": "Escaliers Hauteur",
   "prefab.gui.stairs_width": "Escaliers Largeur",
-  "gui.prefab.strict_building_mode_enabled": "Strict Building Mode Enabled",
+  "gui.prefab.strict_building_mode_enabled": "Avertissement: mode de construction strict activé",
   "prefab.gui.structure.bed_color": "Couleur du lit",
   "prefab.gui.structure.block.clicked": "Le contour jaune est le bloc sur lequel vous avez cliqué.",
   "prefab.gui.structure.glass": "Couleur de verre",
