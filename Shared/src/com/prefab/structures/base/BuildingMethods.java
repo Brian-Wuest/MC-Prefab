@@ -246,6 +246,9 @@ public class BuildingMethods {
 
 				// If the player is in creative mode, don't bother checking if this block can be broken as
 				// a creative player can break all blocks.
+                // This is true even if Strict Building Mode is enabled.
+                // This is up to the Server Administrators to ensure that only trusted players have the correct permissions to
+                // not grief another player's builds.
 				if (!player.isCreative()) {
 					if (!world.isEmptyBlock(currentPos)) {
 						if (!PrefabBase.eventCaller.canBreakBlock(world, player, world.getBlockState(currentPos), currentPos)) {
@@ -259,22 +262,22 @@ public class BuildingMethods {
 						// structure.
 						return new AllowedBlockReplacementResult(ReplacementResultType.NOT_ALLOWED_UNBREAKABLE_BLOCK, blockState, currentPos);
 					}
-				}
 
-				// Check to see if Strict Building Mode is enabled.
-				// If it is, then see if the player is an operator (Cheats enabled) and that the operator bypass option
-				// is also not enabled.
-				if (PrefabBase.serverConfiguration.strictModeOptions.enabled
-					&& !(player.hasPermissions(2)
-						&& PrefabBase.serverConfiguration.strictModeOptions.operatorsBypassRestrictions)) {
-					// Check the overwritable block resource locations now.
-					// If none of them match the current block then return with a not-allowed status with this block
-					// state and the position.
-					if (strictBuildingRegistry.getOverwritableBlockResourceLocations()
-							.stream()
-							.noneMatch(x -> x.getPath().equalsIgnoreCase(resourceLocation))) {
-						return new AllowedBlockReplacementResult(ReplacementResultType.NOT_ALLOWED_STRICT_BUILDING_MODE, blockState, currentPos);
-					}
+                    // Check to see if Strict Building Mode is enabled.
+                    // If it is, then see if the player is an operator (Cheats enabled) and that the operator bypass option
+                    // is also not enabled.
+                    if (PrefabBase.serverConfiguration.strictModeOptions.enabled
+                            && !(player.hasPermissions(2)
+                            && PrefabBase.serverConfiguration.strictModeOptions.operatorsBypassRestrictions)) {
+                        // Check the overwritable block resource locations now.
+                        // If none of them match the current block then return with a not-allowed status with this block
+                        // state and the position.
+                        if (strictBuildingRegistry.getOverwritableBlockResourceLocations()
+                                .stream()
+                                .noneMatch(x -> x.getPath().equalsIgnoreCase(resourceLocation))) {
+                            return new AllowedBlockReplacementResult(ReplacementResultType.NOT_ALLOWED_STRICT_BUILDING_MODE, blockState, currentPos);
+                        }
+                    }
 				}
 			}
 		}
