@@ -177,7 +177,9 @@ public class GuiHouse extends GuiStructure {
 
         this.drawString(guiGraphics, GuiLangKeys.translateString(GuiLangKeys.GUI_STRUCTURE_GLASS), x + 8, y + yOffSet, this.textColor);
 
-        if (this.serverConfiguration.strictModeOptions.enabled) {
+        // Only draw the strict building mode text if the option is enabled and the player isn't in creative mode.
+        // Creative mode players can always build the blueprint.
+        if (this.serverConfiguration.strictModeOptions.enabled && !this.getMinecraft().player.isCreative()) {
             this.drawString(guiGraphics, GuiLangKeys.translateString(GuiLangKeys.STRICT_BUILDING_MODE_ENABLED), x + 145, y + 167, Color.RED.getRGB());
         }
     }

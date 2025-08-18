@@ -20,6 +20,7 @@ import net.minecraft.network.chat.FormattedText;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.item.DyeColor;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.awt.*;
@@ -39,11 +40,9 @@ public abstract class GuiBase extends Screen {
     protected int shownImageHeight = 0;
     protected int shownImageWidth = 0;
     protected int textColor = Color.DARK_GRAY.getRGB();
-    private boolean pauseGame;
 
     public GuiBase(String title) {
         super(Utils.createTextComponent(title));
-        this.pauseGame = true;
     }
 
     @Override
@@ -327,9 +326,7 @@ public abstract class GuiBase extends Screen {
         for (GuiEventListener button : this.children()) {
             if (button instanceof AbstractWidget currentButton) {
                 if (currentButton.visible) {
-                    if (this.getMinecraft() != null) {
-                        currentButton.render(guiGraphics, mouseX, mouseY, this.getMinecraft().getFrameTimeNs());
-                    }
+                    currentButton.render(guiGraphics, mouseX, mouseY, this.getMinecraft().getFrameTimeNs());
                 }
             }
         }
@@ -351,11 +348,9 @@ public abstract class GuiBase extends Screen {
      * @param x     The X-Coordinates of the string to start.
      * @param y     The Y-Coordinates of the string to start.
      * @param color The color of the text.
-     * @return Some integer value.
      */
-    public int drawString(GuiGraphics guiGraphics, String text, float x, float y, int color) {
+    public void drawString(GuiGraphics guiGraphics, String text, float x, float y, int color) {
         guiGraphics.drawWordWrap(font, Utils.createTextComponent(text), (int) x, (int) y, 9999, color);
-        return 0;
     }
 
     /**
@@ -386,7 +381,8 @@ public abstract class GuiBase extends Screen {
         this.getMinecraft().setScreen(null);
     }
 
-    public Minecraft getMinecraft() {
+    public @NotNull Minecraft getMinecraft() {
+        assert this.minecraft != null;
         return this.minecraft;
     }
 

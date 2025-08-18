@@ -60,7 +60,9 @@ public class GuiBulldozer extends GuiStructure {
         String strToDraw = GuiLangKeys.translateString(GuiLangKeys.GUI_BULLDOZER_DESCRIPTION) + "\n \n" + GuiLangKeys.translateString(GuiLangKeys.GUI_CLEARED_AREA);
         this.drawSplitString(guiGraphics, strToDraw, x + 10, y + 10, 230, this.textColor);
 
-        if (this.serverConfiguration.strictModeOptions.enabled) {
+        // Only draw the strict building mode text if the option is enabled and the player isn't in creative mode.
+        // Creative mode players can always build the blueprint.
+        if (this.serverConfiguration.strictModeOptions.enabled && !this.getMinecraft().player.isCreative()) {
             this.drawSplitString(guiGraphics, GuiLangKeys.translateString(GuiLangKeys.STRICT_BUILDING_MODE_ENABLED), x + 10, y + 110, 230, Color.RED.getRGB());
         }
     }
