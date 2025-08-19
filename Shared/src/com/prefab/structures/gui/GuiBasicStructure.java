@@ -236,7 +236,15 @@ public class GuiBasicStructure extends GuiStructure {
         // Only draw the strict building mode text if the option is enabled and the player isn't in creative mode.
         // Creative mode players can always build the blueprint.
         if (this.serverConfiguration.strictModeOptions.enabled && !this.getMinecraft().player.isCreative()) {
-            this.drawString(guiGraphics, GuiLangKeys.translateString(GuiLangKeys.STRICT_BUILDING_MODE_ENABLED), x + 145, y + 167, Color.RED.getRGB());
+            int xValue = x + 145;
+            int yValue = y + 167;
+
+            if (!showConfigurationOptions) {
+                xValue = x + 15;
+                yValue = y + 158;
+            }
+
+            this.drawString(guiGraphics, GuiLangKeys.translateString(GuiLangKeys.STRICT_BUILDING_MODE_ENABLED), xValue, yValue, Color.RED.getRGB());
         }
     }
 

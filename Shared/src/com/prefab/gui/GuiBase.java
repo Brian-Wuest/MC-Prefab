@@ -313,7 +313,7 @@ public abstract class GuiBase extends Screen {
                     imageLocation,
                     guiGraphics,
                     imagePos,
-                    y + 10,
+                    y + 5,
                     1,
                     this.shownImageWidth,
                     this.shownImageHeight,
