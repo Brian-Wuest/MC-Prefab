@@ -48,12 +48,15 @@ public class GameServerEvents {
         CompoundTag tag = config.writeCompoundTag();
         PrefabBase.serverConfiguration = new ModConfiguration();
         PrefabBase.serverConfiguration.readFromTag(tag);
+
+        // Process strict building processing (if enabled) to register all the overwritable blocks.
+        ModRegistryBase.serverModRegistries.getStrictBuildingRegistry().processModConfiguration(config);
     }
 
     @SubscribeEvent
     public void playerJoinedServer(PlayerEvent.PlayerLoggedInEvent event) {
         if (!event.getEntity().level().isClientSide() && event.getEntity() instanceof ServerPlayer player) {
-            PrefabBase.logger.info("{} logged into server, sending config to client", Objects.requireNonNull(player.getDisplayName()).getString());
+            PrefabBase.logger.info("{} logged into server, sending config to client", Objects.requireNonNull(player.getDisplayName()));
 
             // Send the server-side configuration
             // This is NOT the "serverConfiguration" field as that can get overwritten when playing on client and then on server and then again on client.
@@ -81,7 +84,7 @@ public class GameServerEvents {
                 }
 
                 if (!stack.isEmpty()) {
-                    PrefabBase.logger.info("{} joined the game for the first time. Giving them starting item.", Objects.requireNonNull(player.getDisplayName()).getString());
+                    PrefabBase.logger.info("{} joined the game for the first time. Giving them starting item.", Objects.requireNonNull(player.getDisplayName()));
 
                     player.getInventory().add(stack);
                     player.containerMenu.broadcastChanges();
