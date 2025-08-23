@@ -9,6 +9,13 @@ public class ModernBuildingsAdvancedOptions extends BaseOption{
             true,
             true);
 
+    public static ModernBuildingsAdvancedOptions SafeHouse = new ModernBuildingsAdvancedOptions(
+            "prefab.gui.modern.safe_house",
+            "assets/prefab/structures/modern_safe_house.gz",
+            "textures/gui/modern_tree_house.png",
+            true,
+            true);
+
     protected ModernBuildingsAdvancedOptions(String translationString,
                                              String assetLocation,
                                              String pictureLocation,
