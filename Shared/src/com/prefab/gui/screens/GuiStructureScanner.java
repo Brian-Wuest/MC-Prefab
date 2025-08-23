@@ -203,6 +203,6 @@ public class GuiStructureScanner extends GuiBase {
 
     private void sendScanPacket() {
         ScannerInfo message = new ScannerInfo(this.config);
-        PrefabBase.networkWrapper.sendToServer(ClientToServerTypes.SCANNER_CONFIG_UPDATE, message);
+        PrefabBase.networkWrapper.sendToServer(ClientToServerTypes.SCAN_SHAPE, message);
     }
 }
