@@ -53,7 +53,7 @@ public class ModernBuildingsImprovedOptions extends BaseOption{
     public static ModernBuildingsImprovedOptions RailwayStation = new ModernBuildingsImprovedOptions(
             "prefab.gui.modern.railway_station",
             "assets/prefab/structures/modern_railway_station.gz",
-            "textures/gui/modern_bank.png",
+            "textures/gui/modern_railway_station.png",
             false,
             false);
 

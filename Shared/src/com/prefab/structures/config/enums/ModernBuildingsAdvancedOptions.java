@@ -10,9 +10,9 @@ public class ModernBuildingsAdvancedOptions extends BaseOption{
             true);
 
     public static ModernBuildingsAdvancedOptions SafeHouse = new ModernBuildingsAdvancedOptions(
-            "prefab.gui.modern.safe_house",
-            "assets/prefab/structures/modern_safe_house.gz",
-            "textures/gui/modern_tree_house.png",
+            "prefab.gui.modern.walled_villa",
+            "assets/prefab/structures/modern_walled_villa.gz",
+            "textures/gui/modern_walled_villa.png",
             true,
             true);
 
