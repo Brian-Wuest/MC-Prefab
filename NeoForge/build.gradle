@@ -1,7 +1,9 @@
+// Note: We use the NeoForge "ModDevGradle" MDK template.
 plugins {
     id 'java-library'
     id 'maven-publish'
-    id 'net.neoforged.moddev' version '1.0.21'
+    id 'net.neoforged.moddev' version '2.0.107'
+    id 'idea'
 }
 
 tasks.named('wrapper', Wrapper).configure {
@@ -151,7 +153,6 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
             minecraft_version      : minecraft_version,
             minecraft_version_range: minecraft_version_range,
             neo_version            : neo_version,
-            neo_version_range      : neo_version_range,
             loader_version_range   : loader_version_range,
             mod_id                 : mod_id,
             mod_name               : mod_name,
@@ -172,6 +173,7 @@ sourceSets.main.resources.srcDir generateModMetadata
 // To avoid having to run "generateModMetadata" manually, make it run on every project reload
 neoForge.ideSyncTask generateModMetadata
 
+// These additional sourceSets are for the Shared code between Fabric and NeoForge.
 sourceSets {
     main {
         java {
@@ -195,12 +197,6 @@ publishing {
         maven {
             url "file://${project.projectDir}/repo"
         }
-    }
-}
-
-jar {
-    from("LICENSE") {
-        rename { "${it}_${project.base.archivesName.get()}"}
     }
 }
 

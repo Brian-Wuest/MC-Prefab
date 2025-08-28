@@ -18,7 +18,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
-@EventBusSubscriber(modid = PrefabBase.MODID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
+@EventBusSubscriber(modid = PrefabBase.MODID, value = Dist.CLIENT)
 public class GameClientEvents {
     @SubscribeEvent
     public static void KeyInput(InputEvent.Key event) {

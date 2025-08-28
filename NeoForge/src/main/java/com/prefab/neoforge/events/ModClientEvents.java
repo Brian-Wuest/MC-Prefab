@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_B;
 
 // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
-@EventBusSubscriber(modid = PrefabBase.MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid = PrefabBase.MODID, value = Dist.CLIENT)
 public class ModClientEvents {
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event)
