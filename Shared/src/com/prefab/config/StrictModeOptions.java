@@ -9,7 +9,7 @@ public class StrictModeOptions {
     @Comment("Determines whether or not Strict Building Mode is enabled.")
     public boolean enabled = false;
 
-    @Comment("Determines if server operators can bypass Strict Building Mode")
+    @Comment("Determines if server operators can bypass Strict Building Mode.")
     public boolean operatorsBypassRestrictions = false;
 
     @Comment("The list of blocks which can be overwritten during building even when Strict Building Mode is Enabled.")
