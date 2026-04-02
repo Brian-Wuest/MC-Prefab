@@ -15,7 +15,7 @@
       "tag": "c:double_compressed_stone"
     },
     "c": {
-      "item": "minecraft:iron_block"
+      "tag": "c:storage_blocks/iron"
     },
     "d": {
       "tag": "c:double_compressed_quartz_crete"

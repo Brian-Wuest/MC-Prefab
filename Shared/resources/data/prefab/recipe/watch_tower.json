@@ -15,10 +15,10 @@
       "tag": "c:double_compressed_stone"
     },
     "c": {
-      "tag": "c:iron_blocks"
+      "tag": "c:storage_blocks/iron"
     },
     "d": {
-      "tag": "c:copper_blocks"
+      "tag": "c:storage_blocks/copper"
     }
   },
   "result": {

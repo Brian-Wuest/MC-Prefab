@@ -459,23 +459,23 @@ public class ModRegistryBase {
         COPPER("Copper", (int)Tiers.STONE.getAttackDamageBonus(), Tiers.STONE.getUses(), Tiers.STONE.getSpeed(),
                 Tiers.STONE.getAttackDamageBonus(), Tiers.STONE.getEnchantmentValue(), () -> {
             return Ingredient
-                    .of(Utils.getItemStacksWithTag(ResourceLocation.tryBuild("c", "copper_ingots")).stream());
+                    .of(Utils.getItemStacksWithTag(ResourceLocation.tryBuild("c", "ingots/copper")).stream());
         }, BlockTags.INCORRECT_FOR_STONE_TOOL),
         OSMIUM("Osmium", (int)Tiers.IRON.getAttackDamageBonus(), 500, Tiers.IRON.getSpeed(),
                 Tiers.IRON.getAttackDamageBonus() + .5f, Tiers.IRON.getEnchantmentValue(), () -> {
             return Ingredient
-                    .of(Utils.getItemStacksWithTag(ResourceLocation.tryBuild("c", "osmium_ingots")).stream());
+                    .of(Utils.getItemStacksWithTag(ResourceLocation.tryBuild("c", "ingots/osmium")).stream());
         }, BlockTags.INCORRECT_FOR_IRON_TOOL),
         BRONZE("Bronze", (int)Tiers.IRON.getAttackDamageBonus(), Tiers.IRON.getUses(), Tiers.IRON.getSpeed(),
                 Tiers.IRON.getAttackDamageBonus(), Tiers.IRON.getEnchantmentValue(), () -> {
             return Ingredient
-                    .of(Utils.getItemStacksWithTag(ResourceLocation.tryBuild("c", "bronze_ingots")).stream());
+                    .of(Utils.getItemStacksWithTag(ResourceLocation.tryBuild("c", "ingots/bronze")).stream());
         }, BlockTags.INCORRECT_FOR_IRON_TOOL),
         STEEL("Steel", (int)Tiers.DIAMOND.getAttackDamageBonus(), (int) (Tiers.IRON.getUses() * 1.5),
                 Tiers.DIAMOND.getSpeed(), Tiers.DIAMOND.getAttackDamageBonus(),
                 Tiers.DIAMOND.getEnchantmentValue(), () -> {
             return Ingredient
-                    .of(Utils.getItemStacksWithTag(ResourceLocation.tryBuild("c", "steel_ingots")).stream());
+                    .of(Utils.getItemStacksWithTag(ResourceLocation.tryBuild("c", "ingots/steel")).stream());
         }, BlockTags.INCORRECT_FOR_DIAMOND_TOOL),
         OBSIDIAN("Obsidian", (int)Tiers.DIAMOND.getAttackDamageBonus(), (int) (Tiers.DIAMOND.getUses() * 1.5),
                 Tiers.DIAMOND.getSpeed(), Tiers.DIAMOND.getAttackDamageBonus(),

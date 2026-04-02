@@ -9,7 +9,7 @@
   ],
   "key": {
     "a": {
-      "tag": "c:osmium_ingots"
+      "tag": "c:ingots/osmium"
     },
     "b": {
       "item": "minecraft:stick"
