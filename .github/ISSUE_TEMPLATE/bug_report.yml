@@ -5,19 +5,23 @@ labels: [Bug]
 body:
 - type: markdown
   attributes:
-    value: "# What version of Minecraft, Forge and Mod are you running?"
+    value: "# What version of Minecraft, what Mod Loader are you using (Fabric, NeoForge), and what Prefab version are you running?"
 - type: input
   attributes:
     label: Minecraft Version
     placeholder: Minecraft Version
 - type: input
   attributes:
-    label: Forge Version
-    placeholder: Forge Version
+    label: Mod Loader Name (Fabric, NeoForge)
+    placeholder: REPLACE_ME
 - type: input
   attributes:
-    label: Mod Version
-    placeholder: Mod Version
+    label: Mod Loader Version
+    placeholder: REPLACE_ME Version
+- type: input
+  attributes:
+    label: Prefab Version
+    placeholder: Prefab Version
 - type: markdown
   attributes:
     value: "# Please, provide as much detail as possible for the issue that you are running into. If possible post a log file to PasteBin or another similar site."
