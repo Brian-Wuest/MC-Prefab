@@ -16,6 +16,11 @@ on:
       - '**.md'
       - '.gitignore'
       - 'LICENSE'
+  inputs:
+    reason:
+      description: 'Reason for manual run'
+      required: false
+      default: 'Manual update'
       
 jobs:
   build-combined:
