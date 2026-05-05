@@ -35,8 +35,8 @@ public class BlockBoundary extends Block {
     public BlockBoundary() {
         super(
                 PrefabBase.SeeThroughImmovable.get()
-                .sound(SoundType.STONE)
-                .strength(0.6F)
+                        .sound(SoundType.STONE)
+                        .strength(0.6F)
         );
 
         this.registerDefaultState(this.getStateDefinition().any().setValue(Powered, false));
