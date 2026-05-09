@@ -3,32 +3,31 @@ package com.prefab.fabric;
 import com.prefab.ModRegistryBase;
 import com.prefab.PrefabBase;
 import com.prefab.Utils;
-import com.prefab.blocks.*;
+import com.prefab.blocks.BlockCompressedObsidian;
+import com.prefab.blocks.BlockCompressedStone;
+import com.prefab.blocks.BlockCustomWall;
+import com.prefab.blocks.BlockStructureScanner;
 import com.prefab.blocks.entities.LightSwitchBlockEntity;
 import com.prefab.blocks.entities.StructureScannerBlockEntity;
-import com.prefab.fabric.blocks.BlockBoundary;
-import com.prefab.fabric.blocks.BlockGlassSlab;
-import com.prefab.fabric.blocks.BlockGlassStairs;
-import com.prefab.fabric.blocks.BlockPaperLantern;
-import com.prefab.fabric.blocks.BlockPhasic;
+import com.prefab.fabric.blocks.*;
 import com.prefab.fabric.items.ItemBulldozer;
 import com.prefab.fabric.items.ItemCompressedChest;
 import com.prefab.fabric.items.ItemSickle;
-import com.prefab.network.payloads.ConfigSyncPayload;
-import com.prefab.network.payloads.PlayerConfigPayload;
-import com.prefab.network.payloads.ScanShapePayload;
-import com.prefab.network.payloads.ScannerConfigPayload;
-import com.prefab.structures.config.BasicStructureConfiguration;
-import com.prefab.network.payloads.StructurePayload;
 import com.prefab.fabric.network.ServerPayloadHandler;
+import com.prefab.fabric.recipe.RecipeEnabledCondition;
+import com.prefab.network.payloads.*;
+import com.prefab.structures.config.BasicStructureConfiguration;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditionType;
+import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
 import java.util.ArrayList;
@@ -60,6 +59,9 @@ public class ModRegistry extends ModRegistryBase {
 
     // This variable may not be used, but the registration is still needed.
     public static final CreativeModeTab creativeModeTab = Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, ResourceLocation.tryBuild(PrefabBase.MODID, "logo"), ITEM_GROUP);
+
+    public static final ResourceConditionType<RecipeEnabledCondition> RECIPE_ENABLED =
+            ResourceConditionType.create(ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID, "recipe_enabled"), RecipeEnabledCondition.CODEC);
 
     @Override
     public void initializeModLoaderBlocks() {
@@ -117,6 +119,8 @@ public class ModRegistry extends ModRegistryBase {
         this.RegisterClientToServerMessageHandlers();
 
         this.RegisterRecipeSerializers();
+
+        this.registerResourceConditions();
     }
 
     private void registerSounds() {
@@ -350,5 +354,9 @@ public class ModRegistry extends ModRegistryBase {
         PayloadTypeRegistry.playC2S().register(ScanShapePayload.PACKET_TYPE, ScanShapePayload.STREAM_CODEC);
         PayloadTypeRegistry.playS2C().register(ConfigSyncPayload.PACKET_TYPE, ConfigSyncPayload.STREAM_CODEC);
         PayloadTypeRegistry.playS2C().register(PlayerConfigPayload.PACKET_TYPE, PlayerConfigPayload.STREAM_CODEC);
+    }
+
+    private void registerResourceConditions() {
+        ResourceConditions.register(RECIPE_ENABLED);
     }
 }

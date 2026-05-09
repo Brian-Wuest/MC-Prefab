@@ -6,9 +6,8 @@ import com.prefab.neoforge.events.GameServerEvents;
 import com.prefab.neoforge.network.NetworkWrapper;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
-import net.minecraft.nbt.CompoundTag;
-import net.neoforged.neoforge.registries.*;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.CreativeModeTab;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -16,6 +15,9 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
+import net.neoforged.neoforge.registries.DeferredRegister;
+
+import static com.prefab.neoforge.ModRegistry.CUSTOM_CONDITION_TYPES;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(PrefabBase.MODID)
@@ -35,7 +37,7 @@ public class Prefab
         PrefabBase.networkWrapper = new NetworkWrapper();
         this.serverEvents = new GameServerEvents();
 
-        // Register the commonSetup method for modloading
+        // Register the commonSetup method for mod-loading
         modEventBus.addListener(this::commonSetup);
 
         // Add listener for general registration event.
@@ -48,6 +50,8 @@ public class Prefab
 
         // Register the Deferred Register to the mod event bus so tabs get registered
         CREATIVE_MODE_TABS.register(modEventBus);
+
+        CUSTOM_CONDITION_TYPES.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
