@@ -1,6 +1,18 @@
 {
-  "type": "prefab:condition_crafting_shaped",
+  "type": "minecraft:crafting_shaped",
   "configName": "Watch Tower",
+  "fabric:load_conditions": [
+    {
+      "condition": "prefab:recipe_enabled",
+      "configName": "Watch Tower"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "prefab:recipe_enabled",
+      "value": "Swift Watch Tower"
+    }
+  ],
   "group": "Watch Tower",
   "pattern": [
     "bbb",

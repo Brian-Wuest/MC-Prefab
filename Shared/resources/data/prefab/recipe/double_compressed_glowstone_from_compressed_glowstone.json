@@ -1,9 +1,18 @@
 {
-  "_comment": [
-    "double compressed glowstone from compressed glowstone"
-  ],
-  "type": "prefab:condition_crafting_shaped",
+  "type": "minecraft:crafting_shaped",
   "configName": "Compressed Glowstone",
+  "fabric:load_conditions": [
+    {
+      "condition": "prefab:recipe_enabled",
+      "configName": "Compressed Glowstone"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "prefab:recipe_enabled",
+      "value": "Compressed Glowstone"
+    }
+  ],
   "group": "Compressed Glowstone",
   "pattern": [
     "###",

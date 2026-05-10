@@ -1,6 +1,18 @@
 {
-  "type": "prefab:condition_crafting_shaped",
+  "type": "minecraft:crafting_shaped",
   "configName": "Quartz-Crete",
+  "fabric:load_conditions": [
+    {
+      "condition": "prefab:recipe_enabled",
+      "configName": "Quartz-Crete"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "prefab:recipe_enabled",
+      "value": "Quartz-Crete"
+    }
+  ],
   "group": "Quartz-Crete",
   "pattern": [
     "aaa",

@@ -1,6 +1,18 @@
 {
-  "type": "prefab:condition_crafting_shaped",
+  "type": "minecraft:crafting_shaped",
   "configName": "Bunch of Potatoes",
+  "fabric:load_conditions": [
+    {
+      "condition": "prefab:recipe_enabled",
+      "configName": "Bunch of Potatoes"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "prefab:recipe_enabled",
+      "value": "Bunch of Potatoes"
+    }
+  ],
   "group": "Bunch of Potatoes",
   "pattern": [
     "AAA",

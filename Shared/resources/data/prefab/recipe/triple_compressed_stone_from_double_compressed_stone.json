@@ -1,9 +1,18 @@
 {
-  "_comment": [
-    "triple compressed stone from double compressed stone"
-  ],
-  "type": "prefab:condition_crafting_shaped",
+  "type": "minecraft:crafting_shaped",
   "configName": "Compressed Stone",
+  "fabric:load_conditions": [
+    {
+      "condition": "prefab:recipe_enabled",
+      "configName": "Compressed Stone"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "prefab:recipe_enabled",
+      "value": "Compressed Stone"
+    }
+  ],
   "group": "Compressed Stone",
   "pattern": [
     "###",

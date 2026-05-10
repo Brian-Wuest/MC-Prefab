@@ -2,8 +2,20 @@
   "_comment": [
     "Compressed Stone to normal stone"
   ],
-  "type": "prefab:condition_crafting_shapeless",
+  "type": "minecraft:crafting_shapeless",
   "configName": "Compressed Stone",
+  "fabric:load_conditions": [
+    {
+      "condition": "prefab:recipe_enabled",
+      "configName": "Compressed Stone"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "prefab:recipe_enabled",
+      "value": "Compressed Stone"
+    }
+  ],
   "group": "Compressed Stone",
   "ingredients": [
     {

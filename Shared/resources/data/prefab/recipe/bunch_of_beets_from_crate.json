@@ -1,6 +1,18 @@
 {
-  "type": "prefab:condition_crafting_shapeless",
+  "type": "minecraft:crafting_shapeless",
   "configName": "Bunch of Beets",
+  "fabric:load_conditions": [
+    {
+      "condition": "prefab:recipe_enabled",
+      "configName": "Bunch of Beets"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "prefab:recipe_enabled",
+      "value": "Bunch of Beets"
+    }
+  ],
   "group": "Bunch of Beets",
   "ingredients": [
     {

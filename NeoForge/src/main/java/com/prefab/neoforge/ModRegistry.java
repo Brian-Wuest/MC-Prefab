@@ -1,5 +1,6 @@
 package com.prefab.neoforge;
 
+import com.mojang.serialization.MapCodec;
 import com.prefab.ModRegistryBase;
 import com.prefab.PrefabBase;
 import com.prefab.blocks.BlockCompressedObsidian;
@@ -10,12 +11,13 @@ import com.prefab.blocks.entities.LightSwitchBlockEntity;
 import com.prefab.blocks.entities.StructureScannerBlockEntity;
 import com.prefab.neoforge.blocks.*;
 import com.prefab.neoforge.items.ItemBulldozer;
-import com.prefab.network.payloads.*;
-import com.prefab.structures.config.BasicStructureConfiguration;
 import com.prefab.neoforge.items.ItemCompressedChest;
 import com.prefab.neoforge.items.ItemSickle;
 import com.prefab.neoforge.network.ClientPayloadHandler;
 import com.prefab.neoforge.network.ServerPayloadHandler;
+import com.prefab.neoforge.recipe.RecipeEnabledCondition;
+import com.prefab.network.payloads.*;
+import com.prefab.structures.config.BasicStructureConfiguration;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -25,9 +27,12 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.neoforged.neoforge.registries.RegisterEvent;
 
 import java.util.ArrayList;
@@ -37,6 +42,12 @@ import static com.prefab.neoforge.Prefab.CREATIVE_MODE_TABS;
 
 public class ModRegistry extends ModRegistryBase {
     public PayloadRegistrar registrar;
+
+    public static final DeferredRegister<MapCodec<? extends ICondition>> CUSTOM_CONDITION_TYPES =
+            DeferredRegister.create(NeoForgeRegistries.Keys.CONDITION_CODECS, PrefabBase.MODID);
+
+    public static final DeferredHolder<MapCodec<? extends ICondition>, MapCodec<RecipeEnabledCondition>> RECIPE_ENABLED =
+            CUSTOM_CONDITION_TYPES.register("recipe_enabled", () -> RecipeEnabledCondition.CODEC);
 
     private static final ArrayList<Item> ModItems = new ArrayList<>();
 
@@ -360,8 +371,6 @@ public class ModRegistry extends ModRegistryBase {
     }
 
     private void RegisterRecipeSerializers() {
-        Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, Objects.requireNonNull(ResourceLocation.tryBuild(PrefabBase.MODID, "condition_crafting_shaped")), ModRegistryBase.ConditionedShapedRecipeSeriaizer);
-        Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, Objects.requireNonNull(ResourceLocation.tryBuild(PrefabBase.MODID, "condition_crafting_shapeless")), ModRegistryBase.ConditionedShapelessRecipeSeriaizer);
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, Objects.requireNonNull(ResourceLocation.tryBuild(PrefabBase.MODID, "condition_smelting")), ModRegistryBase.ConditionedSmeltingRecipeSeriaizer);
     }
 

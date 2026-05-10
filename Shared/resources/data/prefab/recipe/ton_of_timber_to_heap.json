@@ -1,9 +1,17 @@
-{
-  "_comment": [
-    "Ton of timber to heap of timber"
-  ],
-  "type": "prefab:condition_crafting_shapeless",
+{  "type": "minecraft:crafting_shapeless",
   "configName": "Ton of Timber",
+  "fabric:load_conditions": [
+    {
+      "condition": "prefab:recipe_enabled",
+      "configName": "Ton of Timber"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "prefab:recipe_enabled",
+      "value": "Ton of Timber"
+    }
+  ],
   "group": "Ton of Timber",
   "ingredients": [
     {

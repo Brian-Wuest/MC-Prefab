@@ -1,9 +1,18 @@
 {
-  "_comment": [
-    "Double compressed dirt to compressed dirt"
-  ],
-  "type": "prefab:condition_crafting_shapeless",
+  "type": "minecraft:crafting_shapeless",
   "configName": "Compressed Dirt",
+  "fabric:load_conditions": [
+    {
+      "condition": "prefab:recipe_enabled",
+      "configName": "Compressed Dirt"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "prefab:recipe_enabled",
+      "value": "Compressed Dirt"
+    }
+  ],
   "group": "Compressed Dirt",
   "ingredients": [
     {

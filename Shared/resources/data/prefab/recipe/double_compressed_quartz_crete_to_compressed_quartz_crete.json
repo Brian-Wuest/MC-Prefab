@@ -1,9 +1,18 @@
 {
-  "_comment": [
-    "Compressed dirt to normal dirt"
-  ],
-  "type": "prefab:condition_crafting_shapeless",
+  "type": "minecraft:crafting_shapeless",
   "configName": "Quartz-Crete",
+  "fabric:load_conditions": [
+    {
+      "condition": "prefab:recipe_enabled",
+      "configName": "Quartz-Crete"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "prefab:recipe_enabled",
+      "value": "Quartz-Crete"
+    }
+  ],
   "group": "Quartz-Crete",
   "ingredients": [
     {

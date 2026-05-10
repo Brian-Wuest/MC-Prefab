@@ -1,9 +1,17 @@
-{
-  "_comment": [
-    "Compressed Glowstone to glowstone"
-  ],
-  "type": "prefab:condition_crafting_shapeless",
+{  "type": "minecraft:crafting_shapeless",
   "configName": "Compressed Glowstone",
+  "fabric:load_conditions": [
+    {
+      "condition": "prefab:recipe_enabled",
+      "configName": "Compressed Glowstone"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "prefab:recipe_enabled",
+      "value": "Compressed Glowstone"
+    }
+  ],
   "group": "Compressed Glowstone",
   "ingredients": [
     {
