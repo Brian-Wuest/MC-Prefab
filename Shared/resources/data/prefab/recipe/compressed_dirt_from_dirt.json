@@ -1,8 +1,4 @@
-{
-  "_comment": [
-    "Compressed Dirt from dirt"
-  ],
-  "type": "minecraft:crafting_shaped",
+{  "type": "minecraft:crafting_shaped",
   "configName": "Compressed Dirt",
   "fabric:load_conditions": [
     {

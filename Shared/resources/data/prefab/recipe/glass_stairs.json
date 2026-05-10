@@ -1,5 +1,5 @@
 {
-  "type": "prefab:condition_crafting_shaped",
+  "type": "minecraft:crafting_shaped",
   "configName": "Glass Stairs",
   "fabric:load_conditions": [
     {

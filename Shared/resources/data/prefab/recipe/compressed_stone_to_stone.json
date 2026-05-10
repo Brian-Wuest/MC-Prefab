@@ -2,7 +2,7 @@
   "_comment": [
     "Compressed Stone to normal stone"
   ],
-  "type": "prefab:condition_crafting_shapeless",
+  "type": "minecraft:crafting_shapeless",
   "configName": "Compressed Stone",
   "fabric:load_conditions": [
     {

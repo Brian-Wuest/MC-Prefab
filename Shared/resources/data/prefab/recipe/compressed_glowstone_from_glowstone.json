@@ -1,8 +1,5 @@
 {
-  "_comment": [
-    "Glowstone to Compressed Glowstone"
-  ],
-  "type": "prefab:condition_crafting_shaped",
+  "type": "minecraft:crafting_shaped",
   "configName": "Compressed Glowstone",
   "fabric:load_conditions": [
     {

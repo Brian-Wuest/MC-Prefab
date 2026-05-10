@@ -1,5 +1,5 @@
 {
-  "type": "prefab:condition_crafting_shaped",
+  "type": "minecraft:crafting_shaped",
   "configName": "Saloon",
   "fabric:load_conditions": [
     {

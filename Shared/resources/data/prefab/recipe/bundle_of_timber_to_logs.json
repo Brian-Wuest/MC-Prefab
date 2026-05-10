@@ -1,5 +1,5 @@
 {
-  "type": "prefab:condition_crafting_shapeless",
+  "type": "minecraft:crafting_shapeless",
   "configName": "Bundle of Timber",
   "fabric:load_conditions": [
     {

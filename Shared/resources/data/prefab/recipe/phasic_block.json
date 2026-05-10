@@ -1,5 +1,5 @@
 {
-  "type": "prefab:condition_crafting_shaped",
+  "type": "minecraft:crafting_shaped",
   "configName": "Phasic Block",
   "fabric:load_conditions": [
     {

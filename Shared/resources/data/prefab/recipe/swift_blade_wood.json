@@ -1,5 +1,5 @@
 {
-  "type": "prefab:condition_crafting_shaped",
+  "type": "minecraft:crafting_shaped",
   "configName": "Swift Blade",
   "fabric:load_conditions": [
     {

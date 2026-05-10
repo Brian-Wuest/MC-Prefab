@@ -1,8 +1,5 @@
 {
-  "_comment": [
-    "Compressed dirt to normal dirt"
-  ],
-  "type": "prefab:condition_crafting_shapeless",
+  "type": "minecraft:crafting_shapeless",
   "configName": "Compressed Dirt",
   "fabric:load_conditions": [
     {

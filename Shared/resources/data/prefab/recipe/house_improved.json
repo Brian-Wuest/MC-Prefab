@@ -1,5 +1,5 @@
 {
-  "type": "prefab:condition_crafting_shapeless",
+  "type": "minecraft:crafting_shapeless",
   "configName": "Improved House",
   "fabric:load_conditions": [
     {
