@@ -1,6 +1,18 @@
 {
   "type": "prefab:condition_crafting_shaped",
   "configName": "Compressed Obsidian",
+  "fabric:load_conditions": [
+    {
+      "condition": "prefab:recipe_enabled",
+      "configName": "Swift Blade"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "prefab:recipe_enabled",
+      "value": "Swift Blade"
+    }
+  ],
   "group": "Compressed Obsidian",
   "pattern": [
     "aaa",

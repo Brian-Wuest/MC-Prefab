@@ -1,6 +1,18 @@
 {
   "type": "prefab:condition_crafting_shapeless",
   "configName": "Bundle of Timber",
+  "fabric:load_conditions": [
+    {
+      "condition": "prefab:recipe_enabled",
+      "configName": "Swift Blade"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "prefab:recipe_enabled",
+      "value": "Swift Blade"
+    }
+  ],
   "group": "Bundle of Timber",
   "ingredients": [
     {

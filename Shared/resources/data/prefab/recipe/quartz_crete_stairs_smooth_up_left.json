@@ -1,6 +1,18 @@
 {
   "type": "prefab:condition_crafting_shaped",
   "configName": "Quartz-Crete",
+  "fabric:load_conditions": [
+    {
+      "condition": "prefab:recipe_enabled",
+      "configName": "Swift Blade"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "prefab:recipe_enabled",
+      "value": "Swift Blade"
+    }
+  ],
   "group": "Quartz-Crete",
   "pattern": [
     "a  ",
