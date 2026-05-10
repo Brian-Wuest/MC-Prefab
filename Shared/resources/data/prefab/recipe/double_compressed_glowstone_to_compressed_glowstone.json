@@ -1,19 +1,16 @@
 {
-  "_comment": [
-    "Double compressed glowstone to compressed glowstone"
-  ],
   "type": "prefab:condition_crafting_shapeless",
   "configName": "Compressed Glowstone",
   "fabric:load_conditions": [
     {
       "condition": "prefab:recipe_enabled",
-      "configName": "Swift Blade"
+      "configName": "Compressed Glowstone"
     }
   ],
   "neoforge:conditions": [
     {
       "type": "prefab:recipe_enabled",
-      "value": "Swift Blade"
+      "value": "Compressed Glowstone"
     }
   ],
   "group": "Compressed Glowstone",

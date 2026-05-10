@@ -1,19 +1,16 @@
 {
-  "_comment": [
-    "Double Compressed Dirt from compressed dirt"
-  ],
   "type": "prefab:condition_crafting_shaped",
   "configName": "Compressed Dirt",
   "fabric:load_conditions": [
     {
       "condition": "prefab:recipe_enabled",
-      "configName": "Swift Blade"
+      "configName": "Compressed Dirt"
     }
   ],
   "neoforge:conditions": [
     {
       "type": "prefab:recipe_enabled",
-      "value": "Swift Blade"
+      "value": "Compressed Dirt"
     }
   ],
   "group": "Compressed Dirt",

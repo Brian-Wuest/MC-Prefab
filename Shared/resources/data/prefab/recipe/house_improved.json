@@ -4,13 +4,13 @@
   "fabric:load_conditions": [
     {
       "condition": "prefab:recipe_enabled",
-      "configName": "Swift Blade"
+      "configName": "Improved House"
     }
   ],
   "neoforge:conditions": [
     {
       "type": "prefab:recipe_enabled",
-      "value": "Swift Blade"
+      "value": "Improved House"
     }
   ],
   "group": "Improved House",

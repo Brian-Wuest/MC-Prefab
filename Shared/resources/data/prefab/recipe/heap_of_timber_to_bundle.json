@@ -1,19 +1,16 @@
 {
-  "_comment": [
-    "Heap of timber to bundle of timber"
-  ],
   "type": "prefab:condition_crafting_shapeless",
   "configName": "Heap of Timber",
   "fabric:load_conditions": [
     {
       "condition": "prefab:recipe_enabled",
-      "configName": "Swift Blade"
+      "configName": "Heap of Timber"
     }
   ],
   "neoforge:conditions": [
     {
       "type": "prefab:recipe_enabled",
-      "value": "Swift Blade"
+      "value": "Heap of Timber"
     }
   ],
   "group": "Heap of Timber",

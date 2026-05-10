@@ -4,13 +4,13 @@
   "fabric:load_conditions": [
     {
       "condition": "prefab:recipe_enabled",
-      "configName": "Swift Blade"
+      "configName": "Dark Light Lamp"
     }
   ],
   "neoforge:conditions": [
     {
       "type": "prefab:recipe_enabled",
-      "value": "Swift Blade"
+      "value": "Dark Light Lamp"
     }
   ],
   "group": "Dark Light Lamp",

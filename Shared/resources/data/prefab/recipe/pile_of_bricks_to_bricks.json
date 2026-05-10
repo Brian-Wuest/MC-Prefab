@@ -4,13 +4,13 @@
   "fabric:load_conditions": [
     {
       "condition": "prefab:recipe_enabled",
-      "configName": "Swift Blade"
+      "configName": "Pile of Bricks"
     }
   ],
   "neoforge:conditions": [
     {
       "type": "prefab:recipe_enabled",
-      "value": "Swift Blade"
+      "value": "Pile of Bricks"
     }
   ],
   "group": "Pile of Bricks",

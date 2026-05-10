@@ -1,19 +1,15 @@
-{
-  "_comment": [
-    "Ton of timber to heap of timber"
-  ],
-  "type": "prefab:condition_crafting_shapeless",
+{  "type": "prefab:condition_crafting_shapeless",
   "configName": "Ton of Timber",
   "fabric:load_conditions": [
     {
       "condition": "prefab:recipe_enabled",
-      "configName": "Swift Blade"
+      "configName": "Ton of Timber"
     }
   ],
   "neoforge:conditions": [
     {
       "type": "prefab:recipe_enabled",
-      "value": "Swift Blade"
+      "value": "Ton of Timber"
     }
   ],
   "group": "Ton of Timber",

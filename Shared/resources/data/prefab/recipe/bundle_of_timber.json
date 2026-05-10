@@ -4,13 +4,13 @@
   "fabric:load_conditions": [
     {
       "condition": "prefab:recipe_enabled",
-      "configName": "Swift Blade"
+      "configName": "Bundle of Timber"
     }
   ],
   "neoforge:conditions": [
     {
       "type": "prefab:recipe_enabled",
-      "value": "Swift Blade"
+      "value": "Bundle of Timber"
     }
   ],
   "group": "Bundle of Timber",
