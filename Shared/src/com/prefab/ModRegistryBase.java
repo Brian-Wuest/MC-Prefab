@@ -14,7 +14,6 @@ import com.prefab.blocks.entities.StructureScannerBlockEntity;
 import com.prefab.items.ItemBlockWoodenCrate;
 import com.prefab.items.ItemSickle;
 import com.prefab.items.ItemWoodenCrate;
-import com.prefab.recipe.ConditionedSmeltingRecipe;
 import com.prefab.structures.config.BasicStructureConfiguration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
@@ -27,7 +26,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -207,9 +205,6 @@ public class ModRegistryBase {
     public static ItemBasicStructure Farm;
     public static ItemBasicStructure FarmImproved;
     public static ItemBasicStructure FarmAdvanced;
-
-    /* *********************************** Recipe Serializers *********************************** */
-    public static RecipeSerializer<ConditionedSmeltingRecipe> ConditionedSmeltingRecipeSeriaizer;
 
     /* *********************************** Sounds *********************************** */
     public static SoundEvent BuildingBlueprint;
@@ -442,7 +437,6 @@ public class ModRegistryBase {
     }
 
     public void initializeRecipeSerializers() {
-        ModRegistryBase.ConditionedSmeltingRecipeSeriaizer = new ConditionedSmeltingRecipe.Serializer();
     }
 
     public void initializeSounds() {

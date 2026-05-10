@@ -1,7 +1,19 @@
 {
-  "type": "prefab:condition_smelting",
+  "type": "minecraft:smelting",
   "group": "Quartz-Crete",
   "configName": "Quartz-Crete",
+  "fabric:load_conditions": [
+    {
+      "condition": "prefab:recipe_enabled",
+      "configName": "Quartz-Crete"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "prefab:recipe_enabled",
+      "value": "Quartz-Crete"
+    }
+  ],
   "category": "blocks",
   "ingredient": {
     "item": "prefab:block_quartz_crete"
