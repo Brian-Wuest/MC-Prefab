@@ -334,7 +334,6 @@ public class ModRegistry extends ModRegistryBase {
     }
 
     private void RegisterRecipeSerializers() {
-        Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, ResourceLocation.tryBuild(PrefabBase.MODID, "condition_smelting"), ModRegistryBase.ConditionedSmeltingRecipeSeriaizer);
     }
 
     private void registerBlock(String registryName, Block block) {
