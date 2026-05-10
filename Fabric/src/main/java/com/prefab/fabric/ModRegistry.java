@@ -334,8 +334,6 @@ public class ModRegistry extends ModRegistryBase {
     }
 
     private void RegisterRecipeSerializers() {
-        Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, ResourceLocation.tryBuild(PrefabBase.MODID, "condition_crafting_shaped"), ModRegistryBase.ConditionedShapedRecipeSeriaizer);
-        Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, ResourceLocation.tryBuild(PrefabBase.MODID, "condition_crafting_shapeless"), ModRegistryBase.ConditionedShapelessRecipeSeriaizer);
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, ResourceLocation.tryBuild(PrefabBase.MODID, "condition_smelting"), ModRegistryBase.ConditionedSmeltingRecipeSeriaizer);
     }
 

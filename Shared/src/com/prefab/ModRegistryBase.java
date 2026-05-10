@@ -14,8 +14,6 @@ import com.prefab.blocks.entities.StructureScannerBlockEntity;
 import com.prefab.items.ItemBlockWoodenCrate;
 import com.prefab.items.ItemSickle;
 import com.prefab.items.ItemWoodenCrate;
-import com.prefab.recipe.ConditionedShapedRecipe;
-import com.prefab.recipe.ConditionedShapelessRecipe;
 import com.prefab.recipe.ConditionedSmeltingRecipe;
 import com.prefab.structures.config.BasicStructureConfiguration;
 import net.minecraft.core.BlockPos;
@@ -211,8 +209,6 @@ public class ModRegistryBase {
     public static ItemBasicStructure FarmAdvanced;
 
     /* *********************************** Recipe Serializers *********************************** */
-    public static RecipeSerializer<ConditionedShapedRecipe> ConditionedShapedRecipeSeriaizer;
-    public static RecipeSerializer<ConditionedShapelessRecipe> ConditionedShapelessRecipeSeriaizer;
     public static RecipeSerializer<ConditionedSmeltingRecipe> ConditionedSmeltingRecipeSeriaizer;
 
     /* *********************************** Sounds *********************************** */
@@ -446,8 +442,6 @@ public class ModRegistryBase {
     }
 
     public void initializeRecipeSerializers() {
-        ModRegistryBase.ConditionedShapedRecipeSeriaizer = new ConditionedShapedRecipe.Serializer();
-        ModRegistryBase.ConditionedShapelessRecipeSeriaizer = new ConditionedShapelessRecipe.Serializer();
         ModRegistryBase.ConditionedSmeltingRecipeSeriaizer = new ConditionedSmeltingRecipe.Serializer();
     }
 
