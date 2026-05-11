@@ -36,6 +36,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -476,6 +477,17 @@ public class StructureRenderHandler {
             BlockRenderDispatcher blockRenderer,
             int chunkOriginX, int chunkOriginY, int chunkOriginZ
     ) {
+        Player player = Minecraft.getInstance().player;
+        BlockPos pos = blockInfo.blockPos;
+
+        BlockState worldState = player.level().getBlockState(pos);
+        Block block = worldState.getBlock();
+
+        if (!worldState.isAir() && block != Blocks.WATER) {
+            // Skip rendering this preview block
+            return false;
+        }
+
         // --- MAIN BLOCK ---
         boolean hasGeometry = bakeOne(blockInfo.blockPos, blockInfo.getBlockState(),
                 poseStack, bufferBuilder, blockRenderer,
@@ -483,6 +495,16 @@ public class StructureRenderHandler {
 
         // --- SUB BLOCK (multi-block models) ---
         if (blockInfo.getSubBlock() != null && hasGeometry) {
+            BlockPos subBlockPos = blockInfo.getSubBlock().blockPos;
+
+            BlockState subBlockWorldState = player.level().getBlockState(subBlockPos);
+            Block blockSubBlock = subBlockWorldState.getBlock();
+
+            if (!subBlockWorldState.isAir() && blockSubBlock != Blocks.WATER) {
+                // Skip rendering this preview block
+                return false;
+            }
+
             boolean hasSubBlockGeometry = bakeOne(blockInfo.getSubBlock().blockPos,
                     blockInfo.getSubBlock().getBlockState(),
                     poseStack, bufferBuilder, blockRenderer,
