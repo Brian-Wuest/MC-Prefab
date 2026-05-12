@@ -7,7 +7,6 @@ import com.mojang.text2speech.Narrator;
 import com.prefab.ClientModRegistryBase;
 import com.prefab.PrefabBase;
 import com.prefab.PrefabClientBase;
-import com.prefab.Triple;
 import com.prefab.blocks.BlockStructureScanner;
 import com.prefab.config.StructureScannerConfig;
 import com.prefab.gui.GuiLangKeys;
@@ -17,7 +16,10 @@ import com.prefab.structures.config.StructureConfiguration;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.block.ModelBlockRenderer;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -44,7 +46,10 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author WuestMan
@@ -59,16 +64,12 @@ public class StructureRenderHandler {
     public static Structure currentStructure;
     public static boolean showedMessage = false;
     private static int dimension;
-    private static HashMap<Integer, Integer> stateColor;
-    private static HashMap<Integer, Triple<Float, Float, Float>> colorRGB;
     private static Minecraft mcInstance;
     private static HashMap<Integer, ArrayList<List<BakedQuad>>> blockModelQuads;
 
     // Cached meshes for the current preview structure/orientation
-    private static Map<PreviewChunkKey, PreviewChunkMesh> previewChunks = new HashMap<>();
+    private static final Map<PreviewChunkKey, PreviewChunkMesh> previewChunks = new HashMap<>();
 
-    // Metadata to know when cache is valid
-    private static BlockPos lastOrigin = null;
     private static boolean needsRebuild = true;
 
     /**
@@ -81,8 +82,6 @@ public class StructureRenderHandler {
         StructureRenderHandler.currentStructure = structure;
         StructureRenderHandler.currentConfiguration = configuration;
         StructureRenderHandler.showedMessage = false;
-        StructureRenderHandler.stateColor = new HashMap<>(40000, 1);
-        StructureRenderHandler.colorRGB = new HashMap<>(40000, 1);
         StructureRenderHandler.blockModelQuads = new HashMap<>(40000, 1);
         StructureRenderHandler.needsRebuild = true;
 
