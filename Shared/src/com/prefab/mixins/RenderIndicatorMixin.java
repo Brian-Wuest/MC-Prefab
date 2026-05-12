@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(DebugRenderer.class)
 public class RenderIndicatorMixin {
     @Unique
-    private MultiBufferSource.BufferSource previewBufferSource = MultiBufferSource.immediate(new ByteBufferBuilder(PrefabClientBase.PREVIEW_LAYER.bufferSize()));
+    private MultiBufferSource.BufferSource previewBufferSource = MultiBufferSource.immediate(new ByteBufferBuilder(PrefabClientBase.PREVIEW_LAYER_2.bufferSize()));
 
     @Inject(method = "render", at = @At(value = "TAIL"))
     public void renderWorldLast(PoseStack matrices,
@@ -38,7 +38,7 @@ public class RenderIndicatorMixin {
 
             StructureRenderHandler.newerRenderPlayerLook(prefabIndicatorMinecraft.player);
 
-            previewBufferSource.endBatch(PrefabClientBase.PREVIEW_LAYER);
+            previewBufferSource.endBatch(PrefabClientBase.PREVIEW_LAYER_2);
         }
 
         // If there are structure scanners; run the rendering for them now.

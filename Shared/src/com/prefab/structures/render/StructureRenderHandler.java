@@ -565,14 +565,18 @@ public class StructureRenderHandler {
         }
 
         // Set up shader
-        RenderType renderType = PrefabClientBase.PREVIEW_LAYER;
+        //RenderType renderType = PrefabClientBase.PREVIEW_LAYER;
+        RenderType renderType = PrefabClientBase.PREVIEW_LAYER_2;
         ShaderInstance shader = GameRenderer.getRendertypeEntityTranslucentShader();
+        //ShaderInstance shader = GhostShaders.GHOST_SHIMMER_SHADER;
+        //shader.safeGetUniform("u_Time").set((float)(System.currentTimeMillis() % 100000) / 1000f);
         RenderSystem.setShader(() -> shader);
-        RenderSystem.setShaderTexture(5, TextureAtlas.LOCATION_BLOCKS);
+        RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_BLOCKS);
 
         Matrix4f projMatrix = RenderSystem.getProjectionMatrix();
 
         for (PreviewChunkMesh mesh : previewChunks.values()) {
+            // Render actual block
             poseStack.pushPose();
 
             poseStack.translate(
@@ -581,7 +585,6 @@ public class StructureRenderHandler {
                     mesh.key.cz * 16
             );
 
-            // Comment begin for debug
             Matrix4f poseMatrix = poseStack.last().pose();
 
             mesh.vertexBuffer.bind();
@@ -589,7 +592,6 @@ public class StructureRenderHandler {
             mesh.vertexBuffer.drawWithShader(poseMatrix, projMatrix, shader);
             renderType.clearRenderState();
             VertexBuffer.unbind();
-            // comment end for debug
 
             poseStack.popPose();
         }
