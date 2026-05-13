@@ -41,7 +41,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
@@ -59,6 +58,10 @@ import java.util.Map;
 @SuppressWarnings({"WeakerAccess", "ConstantConditions"})
 public class StructureRenderHandler {
     private static final Direction[] DIRECTIONS = Direction.values();
+
+    // Cached meshes for the current preview structure/orientation
+    private static final Map<PreviewChunkKey, PreviewChunkMesh> previewChunks = new HashMap<>();
+
     // player's overlapping on structures and other things.
     public static StructureConfiguration currentConfiguration;
     public static Structure currentStructure;
@@ -66,10 +69,6 @@ public class StructureRenderHandler {
     private static int dimension;
     private static Minecraft mcInstance;
     private static HashMap<Integer, ArrayList<List<BakedQuad>>> blockModelQuads;
-
-    // Cached meshes for the current preview structure/orientation
-    private static final Map<PreviewChunkKey, PreviewChunkMesh> previewChunks = new HashMap<>();
-
     private static boolean needsRebuild = true;
 
     /**
@@ -92,7 +91,9 @@ public class StructureRenderHandler {
         }
     }
 
-    public static void RenderTest(Level worldIn, PoseStack matrixStack, MultiBufferSource multiBufferSource, float cameraX, float cameraY, float cameraZ) {
+    public static void renderStructureStartPositionBox(Level worldIn, PoseStack matrixStack,
+                                                       MultiBufferSource multiBufferSource,
+                                                       float cameraX, float cameraY, float cameraZ) {
         if (StructureRenderHandler.currentStructure != null
                 && StructureRenderHandler.dimension == Minecraft.getInstance().player.level().dimensionType().logicalHeight()
                 && StructureRenderHandler.currentConfiguration != null
@@ -300,7 +301,7 @@ public class StructureRenderHandler {
         }
     }
 
-    public static void newerRenderPlayerLook(Player player
+    public static void renderStructurePreview(Player player
     ) {
         if (StructureRenderHandler.currentStructure != null
                 && StructureRenderHandler.dimension == player.level().dimensionType().logicalHeight()
@@ -308,6 +309,13 @@ public class StructureRenderHandler {
                 && PrefabBase.serverConfiguration.enableStructurePreview) {
 
             try {
+                /*
+                    If we need to re-build the meshes, do so now
+                    This can happen if the player, cleared out a structure preview and wants to see a new one.
+                    We do this so we only have to do the heavy lifting (building the rendered meshes) once.
+                    And when it comes time to actually show them to the player based on current world location
+                    and camera rotation we can just put them in the relative space as they have already been rendered.
+                */
                 if (StructureRenderHandler.needsRebuild) {
                     rebuildPreviewMeshes(StructureRenderHandler.currentStructure, player);
                     StructureRenderHandler.needsRebuild = false;
@@ -315,29 +323,35 @@ public class StructureRenderHandler {
 
                 Camera camera = StructureRenderHandler.mcInstance.gameRenderer.getMainCamera();
 
+                /*
+                    Note: This is what makes the structure "stick" in the world as the player moves!
+                    This also means that when the player moves their mouse (camera) left and right, the structure
+                    doesn't rotate around them like they are the "center of gravity" for the structure.
+                    Again, the image sticks in place. Without this calculation everything is kind of
+                    distorted and disorientating.
+                */
                 PoseStack viewStack = new PoseStack();
                 viewStack.mulPose(Axis.XP.rotationDegrees(camera.getXRot()));
                 viewStack.mulPose(Axis.YP.rotationDegrees(camera.getYRot() + 180.0F));
-                viewStack.translate(-camera.getPosition().x,
+                viewStack.translate(
+                        -camera.getPosition().x,
                         -camera.getPosition().y,
                         -camera.getPosition().z);
 
                 renderPreviewChunks(viewStack);
 
                 if (!StructureRenderHandler.showedMessage) {
-                    Minecraft mc = Minecraft.getInstance();
-
                     // Stop narrator from continuing narrating what was in the structure GUI
                     Narrator.getNarrator().clear();
 
                     MutableComponent message = Component.translatable(GuiLangKeys.GUI_PREVIEW_NOTICE);
                     message.setStyle(Style.EMPTY.withColor(ChatFormatting.GREEN));
 
-                    mc.gui.getChat().addMessage(message);
+                    StructureRenderHandler.mcInstance.gui.getChat().addMessage(message);
 
                     message = Component.translatable(GuiLangKeys.GUI_BLOCK_CLICKED);
                     message.setStyle(Style.EMPTY.withColor(ChatFormatting.YELLOW));
-                    mc.gui.getChat().addMessage(message);
+                    StructureRenderHandler.mcInstance.gui.getChat().addMessage(message);
 
                     StructureRenderHandler.showedMessage = true;
                 }
@@ -352,6 +366,7 @@ public class StructureRenderHandler {
         for (PreviewChunkMesh mesh : previewChunks.values()) {
             mesh.close();
         }
+
         previewChunks.clear();
 
         if (structure == null || StructureRenderHandler.currentConfiguration == null) {
@@ -366,11 +381,11 @@ public class StructureRenderHandler {
                     StructureRenderHandler.currentStructure.getClearSpace().getShape().getDirection(),
                     StructureRenderHandler.currentConfiguration.houseFacing);
 
-            int cx = Math.floorDiv(rotatedPos.getX(), 16);
-            int cy = Math.floorDiv(rotatedPos.getY(), 16);
-            int cz = Math.floorDiv(rotatedPos.getZ(), 16);
+            int chunkX = Math.floorDiv(rotatedPos.getX(), 16);
+            int chunkY = Math.floorDiv(rotatedPos.getY(), 16);
+            int chunkZ = Math.floorDiv(rotatedPos.getZ(), 16);
 
-            PreviewChunkKey key = new PreviewChunkKey(cx, cy, cz);
+            PreviewChunkKey key = new PreviewChunkKey(chunkX, chunkY, chunkZ);
             List<BuildBlock> blocks = blocksByChunk.computeIfAbsent(key, k -> new ArrayList<>());
 
             BlockState state = blockInfo.getBlockState() != null
@@ -390,7 +405,8 @@ public class StructureRenderHandler {
 
             if (blockInfo.getSubBlock() != null) {
                 BlockState subBlockState = blockInfo.getSubBlock().getBlockState() != null
-                        ? blockInfo.getSubBlock().getBlockState() : BuiltInRegistries.BLOCK.get(blockInfo.getSubBlock().getResourceLocation()).defaultBlockState();
+                        ? blockInfo.getSubBlock().getBlockState()
+                        : BuiltInRegistries.BLOCK.get(blockInfo.getSubBlock().getResourceLocation()).defaultBlockState();
 
                 BuildBlock subBlock = BuildBlock.SetBlockState(
                         StructureRenderHandler.currentConfiguration,
@@ -412,22 +428,25 @@ public class StructureRenderHandler {
             blocks.add(block);
         }
 
-        Minecraft mc = Minecraft.getInstance();
-        BlockRenderDispatcher blockRenderer = mc.getBlockRenderer();
+        BlockRenderDispatcher blockRenderer = StructureRenderHandler.mcInstance.getBlockRenderer();
+        Tesselator tesselator = Tesselator.getInstance();
 
         for (Map.Entry<PreviewChunkKey, List<BuildBlock>> entry : blocksByChunk.entrySet()) {
             PreviewChunkKey key = entry.getKey();
             List<BuildBlock> blocks = entry.getValue();
-            if (blocks.isEmpty()) continue;
 
-            int chunkOriginX = key.cx * 16;
-            int chunkOriginY = key.cy * 16;
-            int chunkOriginZ = key.cz * 16;
+            if (blocks.isEmpty()) {
+                continue;
+            }
 
-            int minX = Integer.MAX_VALUE, minY = Integer.MAX_VALUE, minZ = Integer.MAX_VALUE;
-            int maxX = Integer.MIN_VALUE, maxY = Integer.MIN_VALUE, maxZ = Integer.MIN_VALUE;
+            int chunkOriginX = key.chunkX * 16;
+            int chunkOriginY = key.chunkY * 16;
+            int chunkOriginZ = key.chunkZ * 16;
 
-            Tesselator tesselator = Tesselator.getInstance();
+            // Note: Do something with this if I ever need to add frustrum.
+            /*int minX = Integer.MAX_VALUE, minY = Integer.MAX_VALUE, minZ = Integer.MAX_VALUE;
+            int maxX = Integer.MIN_VALUE, maxY = Integer.MIN_VALUE, maxZ = Integer.MIN_VALUE;*/
+
             BufferBuilder bufferBuilder = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.NEW_ENTITY);
 
             PoseStack poseStack = new PoseStack();
@@ -464,8 +483,8 @@ public class StructureRenderHandler {
             vertexBuffer.upload(meshData);
             VertexBuffer.unbind();
 
-            AABB bounds = new AABB(minX, minY, minZ, maxX, maxY, maxZ);
-            previewChunks.put(key, new PreviewChunkMesh(key, vertexBuffer, bounds));
+            /*AABB bounds = new AABB(minX, minY, minZ, maxX, maxY, maxZ);*/
+            previewChunks.put(key, new PreviewChunkMesh(key, vertexBuffer/*, bounds*/));
         }
     }
 
@@ -538,7 +557,8 @@ public class StructureRenderHandler {
 
         BakedModel model = blockRenderer.getBlockModel(state);
 
-        int color = StructureRenderHandler.mcInstance.getBlockColors().getColor(state, null, null, 0);
+        int color = StructureRenderHandler.mcInstance.getBlockColors()
+                .getColor(state, null, null, 0);
         float r = (float) (color >> 16 & 255) / 255.0F;
         float g = (float) (color >> 8 & 255) / 255.0F;
         float b = (float) (color & 255) / 255.0F;
@@ -578,10 +598,11 @@ public class StructureRenderHandler {
             // Render actual block
             poseStack.pushPose();
 
+            // Translate the mesh's chunk relative coordinates to actual world coordinates.
             poseStack.translate(
-                    mesh.key.cx * 16,
-                    mesh.key.cy * 16,
-                    mesh.key.cz * 16
+                    mesh.key.chunkX * 16,
+                    mesh.key.chunkY * 16,
+                    mesh.key.chunkZ * 16
             );
 
             Matrix4f poseMatrix = poseStack.last().pose();
@@ -634,7 +655,6 @@ public class StructureRenderHandler {
     }
 
     private static void renderQuadList(PoseStack.Pose pose, VertexConsumer vertexConsumer, float f, float g, float h, List<BakedQuad> list, int i, int j) {
-        BakedQuad bakedQuad;
         float k;
         float l;
         float m;
@@ -680,17 +700,13 @@ public class StructureRenderHandler {
         }
     }
 
-    public record PreviewChunkKey(int cx, int cy, int cz) {
+    public record PreviewChunkKey(int chunkX, int chunkY, int chunkZ) {
     }
 
-    /**
-     * @param bounds for frustum culling
-     */
-    public record PreviewChunkMesh(PreviewChunkKey key, VertexBuffer vertexBuffer, AABB bounds) {
-
+    public record PreviewChunkMesh(PreviewChunkKey key, VertexBuffer vertexBuffer/*, AABB bounds*/) {
         public void close() {
-                this.vertexBuffer.close();
-            }
+            this.vertexBuffer.close();
         }
+    }
 
 }
