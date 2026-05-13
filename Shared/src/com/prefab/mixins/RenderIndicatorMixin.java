@@ -31,12 +31,12 @@ public class RenderIndicatorMixin {
         PoseStack poseStack = new PoseStack();
 
         if (prefabIndicatorMinecraft.player != null && (!prefabIndicatorMinecraft.player.isCrouching())) {
-            StructureRenderHandler.RenderTest(prefabIndicatorMinecraft.level,
+            StructureRenderHandler.renderStructureStartPositionBox(prefabIndicatorMinecraft.level,
                     poseStack,
                     previewBufferSource,
                     (float)cameraX, (float)cameraY, (float)cameraZ);
 
-            StructureRenderHandler.newerRenderPlayerLook(prefabIndicatorMinecraft.player);
+            StructureRenderHandler.renderStructurePreview(prefabIndicatorMinecraft.player);
 
             previewBufferSource.endBatch(PrefabClientBase.PREVIEW_LAYER_2);
         }
