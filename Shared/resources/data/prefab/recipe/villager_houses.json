@@ -1,16 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
-  "configName": "Upgrade",
+  "configName": "Villager Houses",
   "fabric:load_conditions": [
     {
       "condition": "prefab:recipe_enabled",
-      "configName": "Upgrade"
+      "configName": "Villager Houses"
     }
   ],
   "neoforge:conditions": [
     {
       "type": "prefab:recipe_enabled",
-      "value": "Upgrade"
+      "value": "Villager Houses"
     }
   ],
   "group": "Villager Houses",
