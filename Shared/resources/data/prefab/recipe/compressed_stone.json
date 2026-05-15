@@ -1,7 +1,4 @@
 {
-  "_comment": [
-    "Any Stone to Compressed Stone"
-  ],
   "type": "minecraft:crafting_shaped",
   "configName": "Compressed Stone",
   "fabric:load_conditions": [

@@ -1,7 +1,4 @@
 {
-  "_comment": [
-    "Compressed dirt to normal dirt"
-  ],
   "type": "minecraft:crafting_shapeless",
   "configName": "Quartz-Crete",
   "fabric:load_conditions": [
