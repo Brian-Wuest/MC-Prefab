@@ -551,7 +551,7 @@ public class BuildingMethods {
             blocksToNotAdd.add(Item.byBlock(Blocks.MOSSY_STONE_BRICKS));
         }
 
-        int minimumHeightForMineshaft = world.getMinBuildHeight() + 21;
+        int minimumHeightForMineshaft = world.getMinY() + 21;
 
         Tuple<ArrayList<ItemStack>, ArrayList<BlockPos>> ladderShaftResults = BuildingMethods.CreateLadderShaft(world, pos, stacks, facing, blocksToNotAdd, minimumHeightForMineshaft);
         stacks = ladderShaftResults.getFirst();

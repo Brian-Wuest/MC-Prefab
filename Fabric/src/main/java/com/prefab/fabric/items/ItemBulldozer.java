@@ -17,12 +17,12 @@ import java.util.List;
  * Fabric specific override for client-side operations.
  */
 public class ItemBulldozer extends com.prefab.structures.items.ItemBulldozer {
-    public ItemBulldozer() {
-        super();
+    public ItemBulldozer(Item.Properties properties) {
+        super(properties);
     }
 
-    public ItemBulldozer(boolean powered) {
-        super(powered);
+    public ItemBulldozer(Item.Properties properties, boolean powered) {
+        super(properties, powered);
     }
 
     /**

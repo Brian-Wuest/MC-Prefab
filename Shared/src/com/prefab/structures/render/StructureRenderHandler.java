@@ -1,5 +1,6 @@
 package com.prefab.structures.render;
 
+import com.mojang.blaze3d.buffers.BufferUsage;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
@@ -16,10 +17,7 @@ import com.prefab.structures.config.StructureConfiguration;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.ShaderInstance;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.block.ModelBlockRenderer;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -33,7 +31,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
-import net.minecraft.util.FastColor;
+import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
@@ -294,7 +292,8 @@ public class StructureRenderHandler {
                 lastPose.pose().translate((float) -cameraX, (float) -cameraY, (float) -cameraZ);
                 lastPose.pose().translate(blockPos.getX(), blockPos.getY(), blockPos.getZ());
 
-                StructureRenderHandler.renderModel(lastPose, buffer, state, blockModel, r, g, b, 0xF000F0, OverlayTexture.NO_OVERLAY, state.hashCode());
+                StructureRenderHandler.renderModel(lastPose, buffer, state, blockModel, r, g, b,
+                        0xF000F0, OverlayTexture.NO_OVERLAY, state.hashCode());
             } catch (Exception ex) {
                 PrefabBase.logger.error(ex);
             }
@@ -390,7 +389,7 @@ public class StructureRenderHandler {
 
             BlockState state = blockInfo.getBlockState() != null
                     ? blockInfo.getBlockState()
-                    : BuiltInRegistries.BLOCK.get(blockInfo.getResourceLocation()).defaultBlockState();
+                    : BuiltInRegistries.BLOCK.getValue(blockInfo.getResourceLocation()).defaultBlockState();
 
             BuildBlock block = BuildBlock.SetBlockState(
                     StructureRenderHandler.currentConfiguration,
@@ -406,7 +405,8 @@ public class StructureRenderHandler {
             if (blockInfo.getSubBlock() != null) {
                 BlockState subBlockState = blockInfo.getSubBlock().getBlockState() != null
                         ? blockInfo.getSubBlock().getBlockState()
-                        : BuiltInRegistries.BLOCK.get(blockInfo.getSubBlock().getResourceLocation()).defaultBlockState();
+                        : BuiltInRegistries.BLOCK.getValue(
+                                blockInfo.getSubBlock().getResourceLocation()).defaultBlockState();
 
                 BuildBlock subBlock = BuildBlock.SetBlockState(
                         StructureRenderHandler.currentConfiguration,
@@ -478,7 +478,7 @@ public class StructureRenderHandler {
                 continue;
             }
 
-            VertexBuffer vertexBuffer = new VertexBuffer(VertexBuffer.Usage.STATIC);
+            VertexBuffer vertexBuffer = new VertexBuffer(BufferUsage.STATIC_WRITE);
             vertexBuffer.bind();
             vertexBuffer.upload(meshData);
             VertexBuffer.unbind();
@@ -586,10 +586,10 @@ public class StructureRenderHandler {
         // Set up shader
         //RenderType renderType = PrefabClientBase.PREVIEW_LAYER;
         RenderType renderType = PrefabClientBase.PREVIEW_LAYER_2;
-        ShaderInstance shader = GameRenderer.getRendertypeEntityTranslucentShader();
+        ShaderProgram shader = CoreShaders.RENDERTYPE_ENTITY_TRANSLUCENT;
         //ShaderInstance shader = GhostShaders.GHOST_SHIMMER_SHADER;
         //shader.safeGetUniform("u_Time").set((float)(System.currentTimeMillis() % 100000) / 1000f);
-        RenderSystem.setShader(() -> shader);
+        CompiledShaderProgram compiledShaderProgram = RenderSystem.setShader(shader);
         RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_BLOCKS);
 
         Matrix4f projMatrix = RenderSystem.getProjectionMatrix();
@@ -609,7 +609,7 @@ public class StructureRenderHandler {
 
             mesh.vertexBuffer.bind();
             renderType.setupRenderState();
-            mesh.vertexBuffer.drawWithShader(poseMatrix, projMatrix, shader);
+            mesh.vertexBuffer.drawWithShader(poseMatrix, projMatrix, compiledShaderProgram);
             renderType.clearRenderState();
             VertexBuffer.unbind();
 
@@ -676,7 +676,7 @@ public class StructureRenderHandler {
 
     private static void putBulkData(VertexConsumer vertexConsumer, PoseStack.Pose pose, BakedQuad bakedQuad, float k, float l, float m, int i, int j) {
         int[] js = bakedQuad.getVertices();
-        Vec3i vec3i = bakedQuad.getDirection().getNormal();
+        Vec3i vec3i = bakedQuad.getDirection().getUnitVec3i();
         Matrix4f matrix4f = pose.pose();
         Vector3f vector3f = pose.transformNormal((float) vec3i.getX(), (float) vec3i.getY(), (float) vec3i.getZ(), new Vector3f());
         int trimmedLength = js.length / 8;
@@ -693,7 +693,7 @@ public class StructureRenderHandler {
             float betterT = Float.intBitsToFloat(js[(counter * 8) + 4]);
             float betterZ = Float.intBitsToFloat(js[(counter * 8) + 5]);
 
-            int x = FastColor.ARGB32.color(baseColor, (int) u, (int) v, (int) w);
+            int x = ARGB.color(baseColor, (int) u, (int) v, (int) w);
 
             Vector3f vector3f2 = matrix4f.transformPosition(betterO, betterP, betterQ, new Vector3f());
             vertexConsumer.addVertex(vector3f2.x(), vector3f2.y(), vector3f2.z(), x, betterT, betterZ, j, i, vector3f.x(), vector3f.y(), vector3f.z());

@@ -170,7 +170,7 @@ public class HouseConfiguration extends StructureConfiguration {
      * @param hitBlockPos This hit block position.
      */
     @Override
-    protected void ConfigurationSpecificBuildStructure(Player player, ServerLevel world, BlockPos hitBlockPos) {
+    protected void ConfigurationSpecificBuildStructure(ServerPlayer player, ServerLevel world, BlockPos hitBlockPos) {
         // Build the alternate starter house instead.
         StructureHouse structure = StructureHouse.CreateInstance(this.houseStyle.getStructureLocation(), StructureHouse.class);
         boolean houseBuilt = structure.BuildStructure(this, world, hitBlockPos, player);

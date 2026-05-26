@@ -110,7 +110,7 @@ public class StructureHouse extends Structure {
             BuildingMethods.FillChest(world, this.chestPosition);
         }
 
-        int minimumHeightForMineshaft = world.getMinBuildHeight() + 21;
+        int minimumHeightForMineshaft = world.getMinY() + 21;
 
         if (this.trapDoorPosition != null && this.trapDoorPosition.getY() > minimumHeightForMineshaft && houseConfig.addMineShaft) {
             // Build the mineshaft.

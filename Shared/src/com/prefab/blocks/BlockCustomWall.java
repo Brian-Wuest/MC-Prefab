@@ -1,7 +1,11 @@
 package com.prefab.blocks;
 
 import com.prefab.ModRegistryBase;
+import com.prefab.PrefabBase;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
@@ -16,6 +20,7 @@ public class BlockCustomWall extends WallBlock implements IGrassSpreadable {
 
     public BlockCustomWall(Block modelBlock, EnumType variant) {
         super(BlockBehaviour.Properties.ofFullCopy(variant.getBlockBehaviour())
+                .setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID, variant.getUnlocalizedName())))
                 .strength(modelBlock.defaultDestroyTime(),
                         modelBlock.getExplosionResistance() * 5.0F / 3.0F)
                 .sound(modelBlock.defaultBlockState().getSoundType()));

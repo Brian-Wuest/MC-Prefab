@@ -1,5 +1,9 @@
 package com.prefab.blocks;
 
+import com.prefab.PrefabBase;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -20,6 +24,7 @@ public class BlockCompressedObsidian extends Block {
     public BlockCompressedObsidian(EnumType stoneType) {
         super(
                 BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)
+                        .setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID, stoneType.name)))
                         .strength(50.0f, 2000.0f)
                         .sound(SoundType.STONE)
                         .requiresCorrectToolForDrops()

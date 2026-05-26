@@ -1,0 +1,19 @@
+{
+    "model": {
+        "type": "minecraft:model",
+        "model": "prefab:block/block_compressed_glowstone"
+    }
+}
+{
+    "model": {
+        "type": "minecraft:model",
+        "model": "prefab:block/block_grass_slab_half",
+        "tints": [
+            {
+                "type": "minecraft:grass",
+                "downfall": 1.0,
+                "temperature": 0.5
+            }
+        ]
+    }
+}

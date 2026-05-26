@@ -14,14 +14,14 @@ import net.minecraft.world.item.context.UseOnContext;
 public class ItemBasicStructure extends StructureItem {
     public final BasicStructureConfiguration.EnumBasicStructureName structureType;
 
-    public ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName structureType) {
-        super();
+    public ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName structureType, Item.Properties properties) {
+        super(properties);
 
         this.structureType = structureType;
     }
 
-    public ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName structureType, int durability) {
-        super(new Item.Properties()
+    public ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName structureType, Item.Properties properties, int durability) {
+        super(properties
                 .durability(durability));
         this.structureType = structureType;
     }

@@ -5,14 +5,15 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.TooltipFlag;
 import java.util.List;
 
 public class ItemSickle extends com.prefab.items.ItemSickle {
-    public ItemSickle(Tier toolMaterial) {
-        super(toolMaterial);
+    public ItemSickle(ToolMaterial toolMaterial, Item.Properties properties) {
+        super(toolMaterial, properties);
     }
 
     /**

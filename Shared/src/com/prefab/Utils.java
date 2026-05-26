@@ -134,7 +134,7 @@ public class Utils {
         if (!tag.contains("Name", 8)) {
             return Blocks.AIR.defaultBlockState();
         } else {
-            Block block = BuiltInRegistries.BLOCK.get(ResourceLocation.parse(tag.getString("Name")));
+            Block block = BuiltInRegistries.BLOCK.getValue(ResourceLocation.parse(tag.getString("Name")));
             BlockState blockState = block.defaultBlockState();
 
             if (tag.contains("Properties", 10)) {

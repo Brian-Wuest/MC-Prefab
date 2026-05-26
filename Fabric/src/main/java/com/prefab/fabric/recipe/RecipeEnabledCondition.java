@@ -8,6 +8,7 @@ import com.prefab.fabric.ModRegistry;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditionType;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.resources.RegistryOps;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,7 +31,7 @@ public record RecipeEnabledCondition(String configName) implements ResourceCondi
     }
 
     @Override
-    public boolean test(HolderLookup.@Nullable Provider registryLookup) {
+    public boolean test(@Nullable RegistryOps.RegistryInfoLookup registryLookup) {
         return StringUtils.isBlank(configName)
                 || !PrefabBase.configuration.recipes.containsKey(configName)
                 || PrefabBase.configuration.recipes.get(configName);

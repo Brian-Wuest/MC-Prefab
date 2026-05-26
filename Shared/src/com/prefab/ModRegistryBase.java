@@ -1,48 +1,82 @@
 package com.prefab;
 
 import com.prefab.blocks.*;
-import com.prefab.blocks.BlockBoundary;
-import com.prefab.blocks.BlockGlassSlab;
-import com.prefab.blocks.BlockGlassStairs;
-import com.prefab.blocks.BlockPaperLantern;
-import com.prefab.items.ItemCompressedChest;
-import com.prefab.items.ItemSwiftBlade;
-import com.prefab.registries.ModRegistries;
-import com.prefab.structures.items.*;
 import com.prefab.blocks.entities.LightSwitchBlockEntity;
 import com.prefab.blocks.entities.StructureScannerBlockEntity;
-import com.prefab.items.ItemBlockWoodenCrate;
-import com.prefab.items.ItemSickle;
-import com.prefab.items.ItemWoodenCrate;
+import com.prefab.items.*;
+import com.prefab.registries.ModRegistries;
 import com.prefab.structures.config.BasicStructureConfiguration;
+import com.prefab.structures.items.*;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Tier;
-import net.minecraft.world.item.Tiers;
-import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MapColor;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
-
-import static net.minecraft.world.item.Tiers.WOOD;
 
 public class ModRegistryBase {
-    public static ModRegistries serverModRegistries;
     public static final ArrayList<Consumer<Object>> guiRegistrations = new ArrayList<>();
+    public static final TagKey<Item> COPPER_INGOTS = TagKey.create(Registries.ITEM, ResourceLocation.tryBuild("c", "ingots/copper"));
 
+    /* *********************************** TagKeys *********************************** */
+    public static final TagKey<Item> OSMIUM_INGOTS = TagKey.create(Registries.ITEM, ResourceLocation.tryBuild("c", "ingots/osmium"));
+    public static final TagKey<Item> BRONZE_INGOTS = TagKey.create(Registries.ITEM, ResourceLocation.tryBuild("c", "ingots/bronze"));
+    public static final TagKey<Item> STEEL_INGOTS = TagKey.create(Registries.ITEM, ResourceLocation.tryBuild("c", "ingots/steel"));
+    public static final TagKey<Item> OBSIDIAN_TAG = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "obsidians/normal"));
+    public static final ToolMaterial COPPER_MATERIAL = new ToolMaterial(
+            BlockTags.INCORRECT_FOR_STONE_TOOL,
+            ToolMaterial.STONE.durability(),
+            ToolMaterial.STONE.speed(),
+            ToolMaterial.STONE.attackDamageBonus(),
+            ToolMaterial.STONE.enchantmentValue(),
+            COPPER_INGOTS
+    );
+    public static final ToolMaterial OSMIUM_MATERIAL = new ToolMaterial(
+            BlockTags.INCORRECT_FOR_IRON_TOOL,
+            500,
+            ToolMaterial.IRON.speed(),
+            ToolMaterial.IRON.attackDamageBonus() + .5f,
+            ToolMaterial.IRON.enchantmentValue(),
+            OSMIUM_INGOTS
+    );
+    public static final ToolMaterial BRONZE_MATERIAL = new ToolMaterial(
+            BlockTags.INCORRECT_FOR_IRON_TOOL,
+            ToolMaterial.IRON.durability(),
+            ToolMaterial.IRON.speed(),
+            ToolMaterial.IRON.attackDamageBonus(),
+            ToolMaterial.IRON.enchantmentValue(),
+            BRONZE_INGOTS
+    );
+    public static final ToolMaterial STEEL_MATERIAL = new ToolMaterial(
+            BlockTags.INCORRECT_FOR_DIAMOND_TOOL,
+            (int) (ToolMaterial.IRON.durability() * 1.5),
+            ToolMaterial.DIAMOND.speed(),
+            ToolMaterial.DIAMOND.attackDamageBonus(),
+            ToolMaterial.DIAMOND.enchantmentValue(),
+            STEEL_INGOTS
+    );
+    public static final ToolMaterial OBSIDIAN_MATERIAL = new ToolMaterial(
+            BlockTags.INCORRECT_FOR_DIAMOND_TOOL,
+            (int) (ToolMaterial.DIAMOND.durability() * 1.5),
+            ToolMaterial.DIAMOND.speed(),
+            ToolMaterial.DIAMOND.attackDamageBonus(),
+            ToolMaterial.DIAMOND.enchantmentValue(),
+            OBSIDIAN_TAG
+    );
+    public static ModRegistries serverModRegistries;
     /* *********************************** Blocks *********************************** */
     public static BlockCompressedStone CompressedStone;
     public static BlockCompressedStone DoubleCompressedStone;
@@ -53,7 +87,6 @@ public class ModRegistryBase {
     public static BlockCompressedStone DoubleCompressedGlowstone;
     public static BlockCompressedStone CompressedQuartzCrete;
     public static BlockCompressedStone DoubleCompressedQuartzCrete;
-
     public static BlockCompressedObsidian CompressedObsidian;
     public static BlockCompressedObsidian DoubleCompressedObsidian;
     public static BlockGlassSlab GlassSlab;
@@ -91,7 +124,6 @@ public class ModRegistryBase {
     public static WallBlock SmoothQuartzCreteWall;
     public static BlockCustomStairs SmoothQuartzCreteStairs;
     public static SlabBlock SmoothQuartzCreteSlab;
-
     /* *********************************** Item Blocks *********************************** */
     public static BlockItem CompressedStoneItem;
     public static BlockItem DoubleCompressedStoneItem;
@@ -102,7 +134,6 @@ public class ModRegistryBase {
     public static BlockItem DoubleCompressedGlowstoneItem;
     public static BlockItem CompressedQuartzCreteItem;
     public static BlockItem DoubleCompressedQuartzCreteItem;
-
     public static BlockItem CompressedObsidianItem;
     public static BlockItem DoubleCompressedObsidianItem;
     public static BlockItem GlassSlabItem;
@@ -125,12 +156,13 @@ public class ModRegistryBase {
     public static BlockItem ChiseledQuartzCreteItem;
     public static BlockItem QuartzCretePillarItem;
     public static BlockItem QuartzCreteStairsItem;
+
+    /* *********************************** Tool Materials *********************************** */
     public static BlockItem QuartzCreteSlabItem;
     public static BlockItem SmoothQuartzCreteItem;
     public static BlockItem SmoothQuartzCreteWallItem;
     public static BlockItem SmoothQuartzCreteStairsItem;
     public static BlockItem SmoothQuartzCreteSlabItem;
-
     /* *********************************** Items *********************************** */
     public static Item LogoItem;
     public static ItemCompressedChest CompressedChest;
@@ -259,27 +291,72 @@ public class ModRegistryBase {
         ModRegistryBase.DirtSlab = new BlockDirtSlab();
         ModRegistryBase.LightSwitch = new BlockLightSwitch();
         ModRegistryBase.DarkLamp = new BlockDarkLamp();
-        ModRegistryBase.PileOfBricks = new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.PileOfBricks, Block.Properties.ofFullCopy(Blocks.BRICKS).mapColor(MapColor.COLOR_RED).noOcclusion().isViewBlocking(ModRegistryBase::never));
-        ModRegistryBase.PalletOfBricks = new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.PalletOfBricks, Block.Properties.ofFullCopy(Blocks.BRICKS).mapColor(MapColor.COLOR_RED).noOcclusion().isViewBlocking(ModRegistryBase::never));
-        ModRegistryBase.BundleOfTimber = new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.BundleOfTimber, Block.Properties.ofFullCopy(Blocks.OAK_WOOD).mapColor(MapColor.COLOR_BROWN).sound(SoundType.WOOD).noOcclusion().isViewBlocking(ModRegistryBase::never));
-        ModRegistryBase.HeapOfTimber = new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.HeapOfTimber, Block.Properties.ofFullCopy(Blocks.OAK_WOOD).mapColor(MapColor.COLOR_BROWN).sound(SoundType.WOOD).noOcclusion().isViewBlocking(ModRegistryBase::never));
-        ModRegistryBase.TonOfTimber = new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.TonOfTimber, Block.Properties.ofFullCopy(Blocks.OAK_WOOD).mapColor(MapColor.COLOR_BROWN).sound(SoundType.WOOD).noOcclusion().isViewBlocking(ModRegistryBase::never));
-        ModRegistryBase.EmptyCrate = new BlockRotatable(Block.Properties.ofFullCopy(Blocks.OAK_WOOD).sound(SoundType.WOOD));
-        ModRegistryBase.CartonOfEggs = new BlockRotatable(Block.Properties.ofFullCopy(Blocks.OAK_WOOD).sound(SoundType.WOOD));
-        ModRegistryBase.CrateOfPotatoes = new BlockRotatable(Block.Properties.ofFullCopy(Blocks.OAK_WOOD).sound(SoundType.WOOD));
-        ModRegistryBase.CrateOfCarrots = new BlockRotatable(Block.Properties.ofFullCopy(Blocks.OAK_WOOD).sound(SoundType.WOOD));
-        ModRegistryBase.CrateOfBeets = new BlockRotatable(Block.Properties.ofFullCopy(Blocks.OAK_WOOD).sound(SoundType.WOOD));
-        ModRegistryBase.QuartzCrete = new Block(Block.Properties.ofFullCopy(Blocks.QUARTZ_BLOCK));
-        ModRegistryBase.QuartzCreteWall = new WallBlock(Block.Properties.ofFullCopy(ModRegistryBase.QuartzCrete));
-        ModRegistryBase.QuartzCreteBricks = new Block(Block.Properties.ofFullCopy(ModRegistryBase.QuartzCrete));
-        ModRegistryBase.ChiseledQuartzCrete = new Block(Block.Properties.ofFullCopy(Blocks.CHISELED_QUARTZ_BLOCK));
-        ModRegistryBase.QuartzCretePillar = new RotatedPillarBlock(Block.Properties.ofFullCopy(Blocks.QUARTZ_PILLAR));
-        ModRegistryBase.QuartzCreteStairs = new BlockCustomStairs(ModRegistryBase.QuartzCrete.defaultBlockState(), Block.Properties.ofFullCopy(ModRegistryBase.QuartzCrete));
-        ModRegistryBase.QuartzCreteSlab = new SlabBlock(Block.Properties.ofFullCopy(ModRegistryBase.QuartzCrete));
-        ModRegistryBase.SmoothQuartzCrete = new Block(Block.Properties.ofFullCopy(ModRegistryBase.QuartzCrete));
-        ModRegistryBase.SmoothQuartzCreteWall = new WallBlock(Block.Properties.ofFullCopy(ModRegistryBase.SmoothQuartzCrete));
-        ModRegistryBase.SmoothQuartzCreteStairs = new BlockCustomStairs(ModRegistryBase.SmoothQuartzCrete.defaultBlockState(), Block.Properties.ofFullCopy(ModRegistryBase.SmoothQuartzCrete));
-        ModRegistryBase.SmoothQuartzCreteSlab = new SlabBlock(Block.Properties.ofFullCopy(SmoothQuartzCrete));
+
+        ModRegistryBase.PileOfBricks = new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.PileOfBricks,
+                this.setBlockId(Block.Properties.ofFullCopy(Blocks.BRICKS), "item_pile_of_bricks")
+                        .mapColor(MapColor.COLOR_RED).noOcclusion().isViewBlocking(ModRegistryBase::never));
+        ModRegistryBase.PalletOfBricks = new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.PalletOfBricks,
+                this.setBlockId(Block.Properties.ofFullCopy(Blocks.BRICKS), "item_pallet_of_bricks")
+                        .mapColor(MapColor.COLOR_RED).noOcclusion().isViewBlocking(ModRegistryBase::never));
+        ModRegistryBase.BundleOfTimber = new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.BundleOfTimber,
+                this.setBlockId(Block.Properties.ofFullCopy(Blocks.OAK_WOOD), "item_bundle_of_timber")
+                        .mapColor(MapColor.COLOR_BROWN).sound(SoundType.WOOD).noOcclusion().isViewBlocking(ModRegistryBase::never));
+        ModRegistryBase.HeapOfTimber = new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.HeapOfTimber,
+                this.setBlockId(Block.Properties.ofFullCopy(Blocks.OAK_WOOD), "item_heap_of_timber")
+                        .mapColor(MapColor.COLOR_BROWN).sound(SoundType.WOOD).noOcclusion().isViewBlocking(ModRegistryBase::never));
+        ModRegistryBase.TonOfTimber = new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.TonOfTimber,
+                this.setBlockId(Block.Properties.ofFullCopy(Blocks.OAK_WOOD), "item_ton_of_timber")
+                        .mapColor(MapColor.COLOR_BROWN).sound(SoundType.WOOD).noOcclusion().isViewBlocking(ModRegistryBase::never));
+
+        ModRegistryBase.EmptyCrate = new BlockRotatable(
+                this.setBlockId(Block.Properties.ofFullCopy(Blocks.OAK_WOOD), "item_wooden_crate")
+                        .sound(SoundType.WOOD));
+        ModRegistryBase.CartonOfEggs = new BlockRotatable(
+                this.setBlockId(Block.Properties.ofFullCopy(Blocks.OAK_WOOD), "item_carton_of_eggs")
+                        .sound(SoundType.WOOD));
+        ModRegistryBase.CrateOfPotatoes = new BlockRotatable(
+                this.setBlockId(Block.Properties.ofFullCopy(Blocks.OAK_WOOD), "item_crate_of_potatoes")
+                        .sound(SoundType.WOOD));
+        ModRegistryBase.CrateOfCarrots = new BlockRotatable(
+                this.setBlockId(Block.Properties.ofFullCopy(Blocks.OAK_WOOD), "item_crate_of_carrots")
+                        .sound(SoundType.WOOD));
+        ModRegistryBase.CrateOfBeets = new BlockRotatable(
+                this.setBlockId(Block.Properties.ofFullCopy(Blocks.OAK_WOOD), "item_crate_of_beets")
+                        .sound(SoundType.WOOD));
+
+        ModRegistryBase.QuartzCrete = new Block(
+                this.setBlockId(Block.Properties.ofFullCopy(Blocks.QUARTZ_BLOCK), "block_quartz_crete")
+        );
+        ModRegistryBase.QuartzCreteWall = new WallBlock(
+                this.setBlockId(Block.Properties.ofFullCopy(ModRegistryBase.QuartzCrete), "block_quartz_crete_wall")
+        );
+        ModRegistryBase.QuartzCreteBricks = new Block(
+                this.setBlockId(Block.Properties.ofFullCopy(ModRegistryBase.QuartzCrete), "block_quartz_crete_bricks")
+        );
+        ModRegistryBase.ChiseledQuartzCrete = new Block(
+                this.setBlockId(Block.Properties.ofFullCopy(Blocks.CHISELED_QUARTZ_BLOCK), "block_quartz_crete_chiseled")
+        );
+        ModRegistryBase.QuartzCretePillar = new RotatedPillarBlock(
+                this.setBlockId(Block.Properties.ofFullCopy(Blocks.QUARTZ_PILLAR), "block_quartz_crete_pillar")
+        );
+        ModRegistryBase.QuartzCreteStairs = new BlockCustomStairs(ModRegistryBase.QuartzCrete.defaultBlockState(),
+                this.setBlockId(Block.Properties.ofFullCopy(ModRegistryBase.QuartzCrete), "block_quartz_crete_stairs")
+        );
+        ModRegistryBase.QuartzCreteSlab = new SlabBlock(
+                this.setBlockId(Block.Properties.ofFullCopy(ModRegistryBase.QuartzCrete), "block_quartz_crete_slab")
+        );
+        ModRegistryBase.SmoothQuartzCrete = new Block(
+                this.setBlockId(Block.Properties.ofFullCopy(ModRegistryBase.QuartzCrete), "block_quartz_crete_smooth")
+        );
+        ModRegistryBase.SmoothQuartzCreteWall = new WallBlock(
+                this.setBlockId(Block.Properties.ofFullCopy(ModRegistryBase.SmoothQuartzCrete), "block_quartz_crete_smooth_wall")
+        );
+        ModRegistryBase.SmoothQuartzCreteStairs = new BlockCustomStairs(ModRegistryBase.SmoothQuartzCrete.defaultBlockState(),
+                this.setBlockId(Block.Properties.ofFullCopy(ModRegistryBase.SmoothQuartzCrete), "block_quartz_crete_smooth_stairs")
+        );
+        ModRegistryBase.SmoothQuartzCreteSlab = new SlabBlock(
+                this.setBlockId(Block.Properties.ofFullCopy(ModRegistryBase.SmoothQuartzCrete), "block_quartz_crete_smooth_slab")
+        );
 
         this.initializeModLoaderBlocks();
     }
@@ -297,43 +374,110 @@ public class ModRegistryBase {
     }
 
     public void initializeBlockItems() {
-        ModRegistryBase.CompressedStoneItem = new BlockItem(ModRegistryBase.CompressedStone, new Item.Properties());
-        ModRegistryBase.DoubleCompressedStoneItem = new BlockItem(ModRegistryBase.DoubleCompressedStone, new Item.Properties());
-        ModRegistryBase.TripleCompressedStoneItem = new BlockItem(ModRegistryBase.TripleCompressedStone, new Item.Properties());
-        ModRegistryBase.CompressedDirtItem = new BlockItem(ModRegistryBase.CompressedDirt, new Item.Properties());
-        ModRegistryBase.DoubleCompressedDirtItem = new BlockItem(ModRegistryBase.DoubleCompressedDirt, new Item.Properties());
-        ModRegistryBase.CompressedGlowstoneItem = new BlockItem(ModRegistryBase.CompressedGlowstone, new Item.Properties());
-        ModRegistryBase.DoubleCompressedGlowstoneItem = new BlockItem(ModRegistryBase.DoubleCompressedGlowstone, new Item.Properties());
-        ModRegistryBase.CompressedQuartzCreteItem = new BlockItem(ModRegistryBase.CompressedQuartzCrete, new Item.Properties());
-        ModRegistryBase.DoubleCompressedQuartzCreteItem = new BlockItem(ModRegistryBase.DoubleCompressedQuartzCrete, new Item.Properties());
+        ModRegistryBase.CompressedStoneItem = new BlockItem(ModRegistryBase.CompressedStone,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.CompressedDirt));
 
-        ModRegistryBase.CompressedObsidianItem = new BlockItem(ModRegistryBase.CompressedObsidian, new Item.Properties());
-        ModRegistryBase.DoubleCompressedObsidianItem = new BlockItem(ModRegistryBase.DoubleCompressedObsidian, new Item.Properties());
-        ModRegistryBase.GrassSlabItem = new BlockItem(ModRegistryBase.GrassSlab, new Item.Properties());
-        ModRegistryBase.GrassStairsItem = new BlockItem(ModRegistryBase.GrassStairs, new Item.Properties());
-        ModRegistryBase.GrassWallItem = new BlockItem(ModRegistryBase.GrassWall, new Item.Properties());
-        ModRegistryBase.DirtWallItem = new BlockItem(ModRegistryBase.DirtWall, new Item.Properties());
-        ModRegistryBase.DirtStairsItem = new BlockItem(ModRegistryBase.DirtStairs, new Item.Properties());
-        ModRegistryBase.DirtSlabItem = new BlockItem(ModRegistryBase.DirtSlab, new Item.Properties());
-        ModRegistryBase.LightSwitchItem = new BlockItem(ModRegistryBase.LightSwitch, new Item.Properties());
-        ModRegistryBase.DarkLampItem = new BlockItem(ModRegistryBase.DarkLamp, new Item.Properties());
-        ModRegistryBase.QuartzCreteItem = new BlockItem(ModRegistryBase.QuartzCrete, new Item.Properties());
-        ModRegistryBase.QuartzCreteWallItem = new BlockItem(ModRegistryBase.QuartzCreteWall, new Item.Properties());
-        ModRegistryBase.QuartzCreteBricksItem = new BlockItem(ModRegistryBase.QuartzCreteBricks, new Item.Properties());
-        ModRegistryBase.ChiseledQuartzCreteItem = new BlockItem(ModRegistryBase.ChiseledQuartzCrete, new Item.Properties());
-        ModRegistryBase.QuartzCretePillarItem = new BlockItem(ModRegistryBase.QuartzCretePillar, new Item.Properties());
-        ModRegistryBase.QuartzCreteStairsItem = new BlockItem(ModRegistryBase.QuartzCreteStairs, new Item.Properties());
-        ModRegistryBase.QuartzCreteSlabItem = new BlockItem(ModRegistryBase.QuartzCreteSlab, new Item.Properties());
-        ModRegistryBase.SmoothQuartzCreteItem = new BlockItem(ModRegistryBase.SmoothQuartzCrete, new Item.Properties());
-        ModRegistryBase.SmoothQuartzCreteWallItem = new BlockItem(ModRegistryBase.SmoothQuartzCreteWall, new Item.Properties());
-        ModRegistryBase.SmoothQuartzCreteStairsItem = new BlockItem(ModRegistryBase.SmoothQuartzCreteStairs, new Item.Properties());
-        ModRegistryBase.SmoothQuartzCreteSlabItem = new BlockItem(ModRegistryBase.SmoothQuartzCreteSlab, new Item.Properties());
+        ModRegistryBase.DoubleCompressedStoneItem = new BlockItem(ModRegistryBase.DoubleCompressedStone,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.DoubleCompressedStone));
 
-        ModRegistryBase.ItemEmptyCrate = new ItemBlockWoodenCrate(ModRegistryBase.EmptyCrate, ItemWoodenCrate.CrateType.Empty);
-        ModRegistryBase.ItemCartonOfEggs = new ItemBlockWoodenCrate(ModRegistryBase.CartonOfEggs, ItemWoodenCrate.CrateType.Carton_Of_Eggs);
-        ModRegistryBase.ItemCrateOfPotatoes = new ItemBlockWoodenCrate(ModRegistryBase.CrateOfPotatoes, ItemWoodenCrate.CrateType.Crate_Of_Potatoes);
-        ModRegistryBase.ItemCrateOfCarrots = new ItemBlockWoodenCrate(ModRegistryBase.CrateOfCarrots, ItemWoodenCrate.CrateType.Crate_Of_Carrots);
-        ModRegistryBase.ItemCrateOfBeets = new ItemBlockWoodenCrate(ModRegistryBase.CrateOfBeets, ItemWoodenCrate.CrateType.Crate_Of_Beets);
+        ModRegistryBase.TripleCompressedStoneItem = new BlockItem(ModRegistryBase.TripleCompressedStone,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.TripleCompressedStone));
+
+        ModRegistryBase.CompressedDirtItem = new BlockItem(ModRegistryBase.CompressedDirt,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.CompressedDirt));
+
+        ModRegistryBase.DoubleCompressedDirtItem = new BlockItem(ModRegistryBase.DoubleCompressedDirt,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.DoubleCompressedDirt));
+
+        ModRegistryBase.CompressedGlowstoneItem = new BlockItem(ModRegistryBase.CompressedGlowstone,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.CompressedGlowstone));
+
+        ModRegistryBase.DoubleCompressedGlowstoneItem = new BlockItem(ModRegistryBase.DoubleCompressedGlowstone,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.DoubleCompressedGlowstone));
+
+        ModRegistryBase.CompressedQuartzCreteItem = new BlockItem(ModRegistryBase.CompressedQuartzCrete,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.CompressedQuartzCrete));
+
+        ModRegistryBase.DoubleCompressedQuartzCreteItem = new BlockItem(ModRegistryBase.DoubleCompressedQuartzCrete,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.DoubleCompressedQuartzCrete));
+
+        ModRegistryBase.CompressedObsidianItem = new BlockItem(ModRegistryBase.CompressedObsidian,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.DoubleCompressedQuartzCrete));
+
+        ModRegistryBase.DoubleCompressedObsidianItem = new BlockItem(ModRegistryBase.DoubleCompressedObsidian,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.DoubleCompressedQuartzCrete));
+
+        ModRegistryBase.GrassSlabItem = new BlockItem(ModRegistryBase.GrassSlab,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.GrassSlab));
+
+        ModRegistryBase.GrassStairsItem = new BlockItem(ModRegistryBase.GrassStairs,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.GrassStairs));
+
+        ModRegistryBase.GrassWallItem = new BlockItem(ModRegistryBase.GrassWall,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.GrassWall));
+
+        ModRegistryBase.DirtWallItem = new BlockItem(ModRegistryBase.DirtWall,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.DirtWall));
+
+        ModRegistryBase.DirtStairsItem = new BlockItem(ModRegistryBase.DirtStairs,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.DirtStairs));
+
+        ModRegistryBase.DirtSlabItem = new BlockItem(ModRegistryBase.DirtSlab,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.DirtSlab));
+
+        ModRegistryBase.LightSwitchItem = new BlockItem(ModRegistryBase.LightSwitch,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.LightSwitch));
+
+        ModRegistryBase.DarkLampItem = new BlockItem(ModRegistryBase.DarkLamp,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.DarkLamp));
+
+        ModRegistryBase.QuartzCreteItem = new BlockItem(ModRegistryBase.QuartzCrete,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.QuartzCrete));
+
+        ModRegistryBase.QuartzCreteWallItem = new BlockItem(ModRegistryBase.QuartzCreteWall,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.QuartzCreteWall));
+
+        ModRegistryBase.QuartzCreteBricksItem = new BlockItem(ModRegistryBase.QuartzCreteBricks,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.QuartzCreteBricks));
+
+        ModRegistryBase.ChiseledQuartzCreteItem = new BlockItem(ModRegistryBase.ChiseledQuartzCrete,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.ChiseledQuartzCrete));
+
+        ModRegistryBase.QuartzCretePillarItem = new BlockItem(ModRegistryBase.QuartzCretePillar,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.QuartzCretePillar));
+
+        ModRegistryBase.QuartzCreteStairsItem = new BlockItem(ModRegistryBase.QuartzCreteStairs,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.QuartzCreteStairs));
+
+        ModRegistryBase.QuartzCreteSlabItem = new BlockItem(ModRegistryBase.QuartzCreteSlab,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.QuartzCreteSlab));
+
+        ModRegistryBase.SmoothQuartzCreteItem = new BlockItem(ModRegistryBase.SmoothQuartzCrete,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.SmoothQuartzCrete));
+
+        ModRegistryBase.SmoothQuartzCreteWallItem = new BlockItem(ModRegistryBase.SmoothQuartzCreteWall,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.SmoothQuartzCreteWall));
+
+        ModRegistryBase.SmoothQuartzCreteStairsItem = new BlockItem(ModRegistryBase.SmoothQuartzCreteStairs,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.SmoothQuartzCreteStairs));
+
+        ModRegistryBase.SmoothQuartzCreteSlabItem = new BlockItem(ModRegistryBase.SmoothQuartzCreteSlab,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.SmoothQuartzCreteSlab));
+
+        ModRegistryBase.ItemEmptyCrate = new ItemBlockWoodenCrate(ModRegistryBase.EmptyCrate, ItemWoodenCrate.CrateType.Empty,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.EmptyCrate));
+
+        ModRegistryBase.ItemCartonOfEggs = new ItemBlockWoodenCrate(ModRegistryBase.CartonOfEggs, ItemWoodenCrate.CrateType.Carton_Of_Eggs,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.CartonOfEggs));
+
+        ModRegistryBase.ItemCrateOfPotatoes = new ItemBlockWoodenCrate(ModRegistryBase.CrateOfPotatoes, ItemWoodenCrate.CrateType.Crate_Of_Potatoes,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.CrateOfPotatoes));
+
+        ModRegistryBase.ItemCrateOfCarrots = new ItemBlockWoodenCrate(ModRegistryBase.CrateOfCarrots, ItemWoodenCrate.CrateType.Crate_Of_Carrots,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.CrateOfCarrots));
+
+        ModRegistryBase.ItemCrateOfBeets = new ItemBlockWoodenCrate(ModRegistryBase.CrateOfBeets, ItemWoodenCrate.CrateType.Crate_Of_Beets,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.CrateOfBeets));
 
         this.initializeModLoaderBlockItems();
     }
@@ -343,38 +487,67 @@ public class ModRegistryBase {
      * This is called at the end of initializeBlockItems.
      */
     public void initializeModLoaderBlockItems() {
-        ModRegistryBase.BoundaryItem = new BlockItem(ModRegistryBase.Boundary, new Item.Properties());
-        ModRegistryBase.GlassSlabItem = new BlockItem(ModRegistryBase.GlassSlab, new Item.Properties());
-        ModRegistryBase.GlassStairsItem = new BlockItem(ModRegistryBase.GlassStairs, new Item.Properties());
-        ModRegistryBase.PaperLanternItem = new BlockItem(ModRegistryBase.PaperLantern, new Item.Properties());
-        ModRegistryBase.PhasicItem = new BlockItem(ModRegistryBase.Phasic, new Item.Properties());
+        ModRegistryBase.BoundaryItem = new BlockItem(ModRegistryBase.Boundary,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.Boundary));
+
+        ModRegistryBase.GlassSlabItem = new BlockItem(ModRegistryBase.GlassSlab,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.GlassSlab));
+
+        ModRegistryBase.GlassStairsItem = new BlockItem(ModRegistryBase.GlassStairs,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.GlassStairs));
+
+        ModRegistryBase.PaperLanternItem = new BlockItem(ModRegistryBase.PaperLantern,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.PaperLantern));
+
+        ModRegistryBase.PhasicItem = new BlockItem(ModRegistryBase.Phasic,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.Phasic));
     }
 
     public void initializeItems() {
-        ModRegistryBase.LogoItem = new Item(new Item.Properties());
-        ModRegistryBase.ItemPileOfBricks = new BlockItem(ModRegistryBase.PileOfBricks, new Item.Properties());
-        ModRegistryBase.ItemPalletOfBricks = new BlockItem(ModRegistryBase.PalletOfBricks, new Item.Properties());
-        ModRegistryBase.ItemBundleOfTimber = new BlockItem(ModRegistryBase.BundleOfTimber, new Item.Properties());
-        ModRegistryBase.ItemHeapOfTimber = new BlockItem(ModRegistryBase.HeapOfTimber, new Item.Properties());
-        ModRegistryBase.ItemTonOfTimber = new BlockItem(ModRegistryBase.TonOfTimber, new Item.Properties());
-        ModRegistryBase.StringOfLanterns = new Item(new Item.Properties());
-        ModRegistryBase.CoilOfLanterns = new Item(new Item.Properties());
-        ModRegistryBase.Upgrade = new Item(new Item.Properties());
-        ModRegistryBase.SwiftBladeWood = new ItemSwiftBlade(WOOD, 2, .5f);
-        ModRegistryBase.SwiftBladeStone = new ItemSwiftBlade(Tiers.STONE, 2, .5f);
-        ModRegistryBase.SwiftBladeIron = new ItemSwiftBlade(Tiers.IRON, 2, .5f);
-        ModRegistryBase.SwiftBladeDiamond = new ItemSwiftBlade(Tiers.DIAMOND, 2, .5f);
-        ModRegistryBase.SwiftBladeGold = new ItemSwiftBlade(Tiers.GOLD, 2, .5f);
-        ModRegistryBase.SwiftBladeCopper = new ItemSwiftBlade(ModRegistryBase.CustomItemTier.COPPER, 2, .5f);
-        ModRegistryBase.SwiftBladeOsmium = new ItemSwiftBlade(ModRegistryBase.CustomItemTier.OSMIUM, 2, .5f);
-        ModRegistryBase.SwiftBladeBronze = new ItemSwiftBlade(ModRegistryBase.CustomItemTier.BRONZE, 2, .5f);
-        ModRegistryBase.SwiftBladeSteel = new ItemSwiftBlade(ModRegistryBase.CustomItemTier.STEEL, 2, .5f);
-        ModRegistryBase.SwiftBladeObsidian = new ItemSwiftBlade(ModRegistryBase.CustomItemTier.OBSIDIAN, 2, .5f);
-        ModRegistryBase.SwiftBladeNetherite = new ItemSwiftBlade(Tiers.NETHERITE, 2, .5f);
-        ModRegistryBase.ClutchOfEggs = new ItemWoodenCrate(ItemWoodenCrate.CrateType.Clutch_Of_Eggs);
-        ModRegistryBase.BunchOfPotatoes = new ItemWoodenCrate(ItemWoodenCrate.CrateType.Bunch_Of_Potatoes);
-        ModRegistryBase.BunchOfCarrots = new ItemWoodenCrate(ItemWoodenCrate.CrateType.Bunch_Of_Carrots);
-        ModRegistryBase.BunchOfBeets = new ItemWoodenCrate(ItemWoodenCrate.CrateType.Bunch_Of_Beets);
+        ModRegistryBase.LogoItem = new Item(this.setItemId(new Item.Properties(), "item_logo"));
+
+        ModRegistryBase.ItemPileOfBricks = new BlockItem(ModRegistryBase.PileOfBricks,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.PileOfBricks));
+
+        ModRegistryBase.ItemPalletOfBricks = new BlockItem(ModRegistryBase.PalletOfBricks,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.PalletOfBricks));
+
+        ModRegistryBase.ItemBundleOfTimber = new BlockItem(ModRegistryBase.BundleOfTimber,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.BundleOfTimber));
+
+        ModRegistryBase.ItemHeapOfTimber = new BlockItem(ModRegistryBase.HeapOfTimber,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.HeapOfTimber));
+
+        ModRegistryBase.ItemTonOfTimber = new BlockItem(ModRegistryBase.TonOfTimber,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.TonOfTimber));
+
+        ModRegistryBase.StringOfLanterns = new Item(this.setItemId(new Item.Properties(), "item_string_of_lanterns"));
+        ModRegistryBase.CoilOfLanterns = new Item(this.setItemId(new Item.Properties(), "item_coil_of_lanterns"));
+        ModRegistryBase.Upgrade = new Item(this.setItemId(new Item.Properties(), "item_upgrade"));
+
+        ModRegistryBase.SwiftBladeWood = new ItemSwiftBlade(ToolMaterial.WOOD, 2, .5f, this.setItemId(new Item.Properties(), "item_swift_blade_wood"));
+        ModRegistryBase.SwiftBladeStone = new ItemSwiftBlade(ToolMaterial.STONE, 2, .5f, this.setItemId(new Item.Properties(), "item_swift_blade_stone"));
+        ModRegistryBase.SwiftBladeIron = new ItemSwiftBlade(ToolMaterial.IRON, 2, .5f, this.setItemId(new Item.Properties(), "item_swift_blade_iron"));
+        ModRegistryBase.SwiftBladeDiamond = new ItemSwiftBlade(ToolMaterial.DIAMOND, 2, .5f, this.setItemId(new Item.Properties(), "item_swift_blade_diamond"));
+        ModRegistryBase.SwiftBladeGold = new ItemSwiftBlade(ToolMaterial.GOLD, 2, .5f, this.setItemId(new Item.Properties(), "item_swift_blade_gold"));
+        ModRegistryBase.SwiftBladeCopper = new ItemSwiftBlade(COPPER_MATERIAL, 2, .5f, this.setItemId(new Item.Properties(), "item_swift_blade_copper"));
+        ModRegistryBase.SwiftBladeOsmium = new ItemSwiftBlade(OSMIUM_MATERIAL, 2, .5f, this.setItemId(new Item.Properties(), "item_swift_blade_osmium"));
+        ModRegistryBase.SwiftBladeBronze = new ItemSwiftBlade(BRONZE_MATERIAL, 2, .5f, this.setItemId(new Item.Properties(), "item_swift_blade_bronze"));
+        ModRegistryBase.SwiftBladeSteel = new ItemSwiftBlade(STEEL_MATERIAL, 2, .5f, this.setItemId(new Item.Properties(), "item_swift_blade_steel"));
+        ModRegistryBase.SwiftBladeObsidian = new ItemSwiftBlade(OBSIDIAN_MATERIAL, 2, .5f, this.setItemId(new Item.Properties(), "item_swift_blade_obsidian"));
+        ModRegistryBase.SwiftBladeNetherite = new ItemSwiftBlade(ToolMaterial.NETHERITE, 2, .5f, this.setItemId(new Item.Properties(), "item_swift_blade_netherite"));
+
+        ModRegistryBase.ClutchOfEggs = new ItemWoodenCrate(ItemWoodenCrate.CrateType.Clutch_Of_Eggs,
+                this.setItemId(new Item.Properties(), "item_clutch_of_eggs"));
+
+        ModRegistryBase.BunchOfPotatoes = new ItemWoodenCrate(ItemWoodenCrate.CrateType.Bunch_Of_Potatoes,
+                this.setItemId(new Item.Properties(), "item_bunch_of_potatoes"));
+
+        ModRegistryBase.BunchOfCarrots = new ItemWoodenCrate(ItemWoodenCrate.CrateType.Bunch_Of_Carrots,
+                this.setItemId(new Item.Properties(), "item_bunch_of_carrots"));
+
+        ModRegistryBase.BunchOfBeets = new ItemWoodenCrate(ItemWoodenCrate.CrateType.Bunch_Of_Beets,
+                this.setItemId(new Item.Properties(), "item_bunch_of_beets"));
 
         this.initializeModLoaderItems();
     }
@@ -385,44 +558,44 @@ public class ModRegistryBase {
      */
     public void initializeModLoaderItems() {
         ModRegistryBase.CompressedChest = new ItemCompressedChest();
-        ModRegistryBase.SickleDiamond = new ItemSickle(Tiers.DIAMOND);
-        ModRegistryBase.SickleGold = new ItemSickle(Tiers.GOLD);
-        ModRegistryBase.SickleNetherite = new ItemSickle(Tiers.NETHERITE);
-        ModRegistryBase.SickleIron = new ItemSickle(Tiers.IRON);
-        ModRegistryBase.SickleStone = new ItemSickle(Tiers.STONE);
-        ModRegistryBase.SickleWood = new ItemSickle(Tiers.WOOD);
+        ModRegistryBase.SickleDiamond = new ItemSickle(ToolMaterial.DIAMOND, this.setItemId(new Item.Properties(), "item_sickle_diamond"));
+        ModRegistryBase.SickleGold = new ItemSickle(ToolMaterial.GOLD, this.setItemId(new Item.Properties(), "item_sickle_gold"));
+        ModRegistryBase.SickleNetherite = new ItemSickle(ToolMaterial.NETHERITE, this.setItemId(new Item.Properties(), "item_sickle_netherite"));
+        ModRegistryBase.SickleIron = new ItemSickle(ToolMaterial.IRON, this.setItemId(new Item.Properties(), "item_sickle_iron"));
+        ModRegistryBase.SickleStone = new ItemSickle(ToolMaterial.STONE, this.setItemId(new Item.Properties(), "item_sickle_stone"));
+        ModRegistryBase.SickleWood = new ItemSickle(ToolMaterial.WOOD, this.setItemId(new Item.Properties(), "item_sickle_wood"));
     }
 
     public void initializeBluePrintItems() {
-        ModRegistryBase.House = new ItemHouse();
-        ModRegistryBase.HouseImproved = new ItemHouseImproved();
-        ModRegistryBase.HouseAdvanced = new ItemHouseAdvanced();
-        ModRegistryBase.InstantBridge = new ItemInstantBridge();
-        ModRegistryBase.MachineryTower = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.MachineryTower);
-        ModRegistryBase.DefenseBunker = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.DefenseBunker);
-        ModRegistryBase.MineshaftEntrance = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.MineshaftEntrance);
-        ModRegistryBase.EnderGateway = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.EnderGateway);
-        ModRegistryBase.AquaBase = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.AquaBase);
-        ModRegistryBase.GrassyPlain = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.GrassyPlain);
-        ModRegistryBase.MagicTemple = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.MagicTemple);
-        ModRegistryBase.WatchTower = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.WatchTower);
-        ModRegistryBase.WelcomeCenter = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.WelcomeCenter);
-        ModRegistryBase.Jail = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.Jail);
-        ModRegistryBase.Saloon = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.Saloon);
-        ModRegistryBase.SkiLodge = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.SkiLodge);
-        ModRegistryBase.WindMill = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.WindMill);
-        ModRegistryBase.TownHall = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.TownHall);
-        ModRegistryBase.NetherGate = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.NetherGate);
-        ModRegistryBase.AquaBaseImproved = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.AquaBaseImproved);
-        ModRegistryBase.Warehouse = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.Warehouse);
-        ModRegistryBase.WareHouseImproved = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.WarehouseImproved);
-        ModRegistryBase.VillagerHouses = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.VillagerHouses, 10);
-        ModRegistryBase.ModernBuildings = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.ModernBuildings);
-        ModRegistryBase.ModernBuildingsImproved = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.ModernBuildingsImproved);
-        ModRegistryBase.ModernBuildingsAdvanced = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.ModernBuildingsAdvanced);
-        ModRegistryBase.Farm = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.Farm);
-        ModRegistryBase.FarmImproved = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.FarmImproved);
-        ModRegistryBase.FarmAdvanced = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.FarmAdvanced);
+        ModRegistryBase.House = new ItemHouse(this.setItemId(new Item.Properties(), "item_house"));
+        ModRegistryBase.HouseImproved = new ItemHouseImproved(this.setItemId(new Item.Properties(), "item_house_improved"));
+        ModRegistryBase.HouseAdvanced = new ItemHouseAdvanced(this.setItemId(new Item.Properties(), "item_house_advanced"));
+        ModRegistryBase.InstantBridge = new ItemInstantBridge(this.setItemId(new Item.Properties(), "item_instant_bridge"));
+        ModRegistryBase.MachineryTower = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.MachineryTower, this.setItemId(new Item.Properties(), "item_machinery_tower"));
+        ModRegistryBase.DefenseBunker = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.DefenseBunker, this.setItemId(new Item.Properties(), "item_defense_bunker"));
+        ModRegistryBase.MineshaftEntrance = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.MineshaftEntrance, this.setItemId(new Item.Properties(), "item_mineshaft_entrance"));
+        ModRegistryBase.EnderGateway = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.EnderGateway, this.setItemId(new Item.Properties(), "item_ender_gateway"));
+        ModRegistryBase.AquaBase = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.AquaBase, this.setItemId(new Item.Properties(), "item_aqua_base"));
+        ModRegistryBase.GrassyPlain = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.GrassyPlain, this.setItemId(new Item.Properties(), "item_grassy_plain"));
+        ModRegistryBase.MagicTemple = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.MagicTemple, this.setItemId(new Item.Properties(), "item_magic_temple"));
+        ModRegistryBase.WatchTower = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.WatchTower, this.setItemId(new Item.Properties(), "item_watch_tower"));
+        ModRegistryBase.WelcomeCenter = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.WelcomeCenter, this.setItemId(new Item.Properties(), "item_welcome_center"));
+        ModRegistryBase.Jail = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.Jail, this.setItemId(new Item.Properties(), "item_jail"));
+        ModRegistryBase.Saloon = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.Saloon, this.setItemId(new Item.Properties(), "item_saloon"));
+        ModRegistryBase.SkiLodge = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.SkiLodge, this.setItemId(new Item.Properties(), "item_ski_lodge"));
+        ModRegistryBase.WindMill = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.WindMill, this.setItemId(new Item.Properties(), "item_wind_mill"));
+        ModRegistryBase.TownHall = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.TownHall, this.setItemId(new Item.Properties(), "item_town_hall"));
+        ModRegistryBase.NetherGate = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.NetherGate, this.setItemId(new Item.Properties(), "item_nether_gate"));
+        ModRegistryBase.AquaBaseImproved = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.AquaBaseImproved, this.setItemId(new Item.Properties(), "item_aqua_base_improved"));
+        ModRegistryBase.Warehouse = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.Warehouse, this.setItemId(new Item.Properties(), "item_warehouse"));
+        ModRegistryBase.WareHouseImproved = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.WarehouseImproved, this.setItemId(new Item.Properties(), "item_warehouse_improved"));
+        ModRegistryBase.VillagerHouses = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.VillagerHouses, this.setItemId(new Item.Properties(), "item_villager_houses"), 10);
+        ModRegistryBase.ModernBuildings = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.ModernBuildings, this.setItemId(new Item.Properties(), "item_modern_buildings"));
+        ModRegistryBase.ModernBuildingsImproved = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.ModernBuildingsImproved, this.setItemId(new Item.Properties(), "item_modern_buildings_improved"));
+        ModRegistryBase.ModernBuildingsAdvanced = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.ModernBuildingsAdvanced, this.setItemId(new Item.Properties(), "item_modern_buildings_advanced"));
+        ModRegistryBase.Farm = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.Farm, this.setItemId(new Item.Properties(), "item_farm"));
+        ModRegistryBase.FarmImproved = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.FarmImproved, this.setItemId(new Item.Properties(), "item_farm_improved"));
+        ModRegistryBase.FarmAdvanced = new ItemBasicStructure(BasicStructureConfiguration.EnumBasicStructureName.FarmAdvanced, this.setItemId(new Item.Properties(), "item_farm_advanced"));
 
         this.initializeModLoaderBluePrintItems();
     }
@@ -432,8 +605,8 @@ public class ModRegistryBase {
      * This is called at the end of initializeBluePrintItems.
      */
     public void initializeModLoaderBluePrintItems() {
-        ModRegistryBase.Bulldozer = new ItemBulldozer();
-        ModRegistryBase.CreativeBulldozer = new ItemBulldozer(true);
+        ModRegistryBase.Bulldozer = new ItemBulldozer(this.setItemId(new Item.Properties(), "item_bulldozer"));
+        ModRegistryBase.CreativeBulldozer = new ItemBulldozer(this.setItemId(new Item.Properties(), "item_creative_bulldozer"), true);
     }
 
     public void initializeRecipeSerializers() {
@@ -443,96 +616,15 @@ public class ModRegistryBase {
         ModRegistryBase.BuildingBlueprint = SoundEvent.createVariableRangeEvent(ResourceLocation.tryBuild(PrefabBase.MODID, "building_blueprint"));
     }
 
-    public enum CustomItemTier implements Tier {
-        COPPER("Copper", (int)Tiers.STONE.getAttackDamageBonus(), Tiers.STONE.getUses(), Tiers.STONE.getSpeed(),
-                Tiers.STONE.getAttackDamageBonus(), Tiers.STONE.getEnchantmentValue(), () -> {
-            return Ingredient
-                    .of(Utils.getItemStacksWithTag(ResourceLocation.tryBuild("c", "ingots/copper")).stream());
-        }, BlockTags.INCORRECT_FOR_STONE_TOOL),
-        OSMIUM("Osmium", (int)Tiers.IRON.getAttackDamageBonus(), 500, Tiers.IRON.getSpeed(),
-                Tiers.IRON.getAttackDamageBonus() + .5f, Tiers.IRON.getEnchantmentValue(), () -> {
-            return Ingredient
-                    .of(Utils.getItemStacksWithTag(ResourceLocation.tryBuild("c", "ingots/osmium")).stream());
-        }, BlockTags.INCORRECT_FOR_IRON_TOOL),
-        BRONZE("Bronze", (int)Tiers.IRON.getAttackDamageBonus(), Tiers.IRON.getUses(), Tiers.IRON.getSpeed(),
-                Tiers.IRON.getAttackDamageBonus(), Tiers.IRON.getEnchantmentValue(), () -> {
-            return Ingredient
-                    .of(Utils.getItemStacksWithTag(ResourceLocation.tryBuild("c", "ingots/bronze")).stream());
-        }, BlockTags.INCORRECT_FOR_IRON_TOOL),
-        STEEL("Steel", (int)Tiers.DIAMOND.getAttackDamageBonus(), (int) (Tiers.IRON.getUses() * 1.5),
-                Tiers.DIAMOND.getSpeed(), Tiers.DIAMOND.getAttackDamageBonus(),
-                Tiers.DIAMOND.getEnchantmentValue(), () -> {
-            return Ingredient
-                    .of(Utils.getItemStacksWithTag(ResourceLocation.tryBuild("c", "ingots/steel")).stream());
-        }, BlockTags.INCORRECT_FOR_DIAMOND_TOOL),
-        OBSIDIAN("Obsidian", (int)Tiers.DIAMOND.getAttackDamageBonus(), (int) (Tiers.DIAMOND.getUses() * 1.5),
-                Tiers.DIAMOND.getSpeed(), Tiers.DIAMOND.getAttackDamageBonus(),
-                Tiers.DIAMOND.getEnchantmentValue(), () -> {
-            return Ingredient.of(Item.byBlock(Blocks.OBSIDIAN));
-        }, BlockTags.INCORRECT_FOR_DIAMOND_TOOL);
+    public BlockBehaviour.Properties setBlockId(BlockBehaviour.Properties properties, String name) {
+        return properties.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID, name)));
+    }
 
-        private final String name;
-        private final int harvestLevel;
-        private final int maxUses;
-        private final float efficiency;
-        private final float attackDamage;
-        private final int enchantability;
-        private final LazyLoadedValue<Ingredient> repairMaterial;
-        private final TagKey<Block> incorrectBlocksForDrops;
+    public Item.Properties setItemId(Item.Properties properties, String name) {
+        return properties.setId(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID, name)));
+    }
 
-        CustomItemTier(String name, int harvestLevelIn, int maxUsesIn, float efficiencyIn, float attackDamageIn,
-                       int enchantability, Supplier<Ingredient> repairMaterialIn, TagKey<Block> incorrectBlocksForDrops) {
-            this.name = name;
-            this.harvestLevel = harvestLevelIn;
-            this.maxUses = maxUsesIn;
-            this.efficiency = efficiencyIn;
-            this.attackDamage = attackDamageIn;
-            this.enchantability = enchantability;
-            this.repairMaterial = new LazyLoadedValue<>(repairMaterialIn);
-            this.incorrectBlocksForDrops = incorrectBlocksForDrops;
-        }
-
-        public static CustomItemTier getByName(String name) {
-            for (CustomItemTier item : CustomItemTier.values()) {
-                if (item.getName().equals(name)) {
-                    return item;
-                }
-            }
-
-            return null;
-        }
-
-        public String getName() {
-            return this.name;
-        }
-
-        public int getUses() {
-            return this.maxUses;
-        }
-
-        public float getSpeed() {
-            return this.efficiency;
-        }
-
-        public float getAttackDamageBonus() {
-            return this.attackDamage;
-        }
-
-        @Override
-        public @NotNull TagKey<Block> getIncorrectBlocksForDrops() {
-            return this.incorrectBlocksForDrops;
-        }
-
-        public int getLevel() {
-            return this.harvestLevel;
-        }
-
-        public int getEnchantmentValue() {
-            return this.enchantability;
-        }
-
-        public @NotNull Ingredient getRepairIngredient() {
-            return this.repairMaterial.get();
-        }
+    public Item.Properties setItemBlockId(Item.Properties properties, BlockBehaviour block) {
+        return this.setItemId(properties, block.getDescriptionId().replace("block.prefab.", ""));
     }
 }

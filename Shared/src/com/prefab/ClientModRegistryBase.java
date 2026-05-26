@@ -77,7 +77,7 @@ public class ClientModRegistryBase {
                 : GrassColor.get(0.5D, 1.0D), ModRegistryBase.GrassWall, ModRegistryBase.GrassSlab, ModRegistryBase.GrassStairs);
 
         // Register the item renderer.
-        Minecraft.getInstance().itemColors.register((stack, tintIndex) -> {
+        /*Minecraft.getInstance().itemColors.register((stack, tintIndex) -> {
             // Get the item for this stack.
             Item item = stack.getItem();
 
@@ -106,7 +106,7 @@ public class ClientModRegistryBase {
             }
 
             return -1;
-        }, new Block[]{ModRegistryBase.GrassWall, ModRegistryBase.GrassSlab, ModRegistryBase.GrassStairs});
+        }, new Block[]{ModRegistryBase.GrassWall, ModRegistryBase.GrassSlab, ModRegistryBase.GrassStairs});*/
     }
 
     /**

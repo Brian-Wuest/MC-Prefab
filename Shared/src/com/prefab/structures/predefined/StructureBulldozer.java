@@ -92,7 +92,7 @@ public class StructureBulldozer extends Structure {
         // Only generate drops for this hanging entity if the bulldozer allows it.
         // By default the base class doesn't allow hanging entities to generate drops.
         if (PrefabBase.serverConfiguration.allowBulldozerToCreateDrops) {
-            hangingEntity.dropItem(null);
+            hangingEntity.dropItem(this.world, null);
         }
     }
 }

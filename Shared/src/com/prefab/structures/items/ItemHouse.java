@@ -2,6 +2,7 @@ package com.prefab.structures.items;
 
 import com.prefab.ModRegistryBase;
 import com.prefab.structures.gui.GuiHouse;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
 
 /**
@@ -9,8 +10,8 @@ import net.minecraft.world.item.context.UseOnContext;
  */
 @SuppressWarnings("ALL")
 public class ItemHouse extends StructureItem {
-    public ItemHouse() {
-        super();
+    public ItemHouse(Item.Properties properties) {
+        super(properties);
     }
 
     @Override

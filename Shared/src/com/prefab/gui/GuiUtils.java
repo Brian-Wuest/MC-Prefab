@@ -5,8 +5,10 @@ import com.mojang.blaze3d.vertex.*;
 import com.prefab.Utils;
 import com.prefab.gui.controls.ExtendedButton;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.CoreShaders;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.RenderBuffers;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
@@ -27,7 +29,7 @@ public class GuiUtils {
      * @param resourceLocation The resource location to bind.
      */
     public static void bindTexture(ResourceLocation resourceLocation) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShader(CoreShaders.POSITION_TEX);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, resourceLocation);
     }
@@ -45,7 +47,7 @@ public class GuiUtils {
      * @param textureHeight    The height of the texture.
      */
     public static void drawTexture(ResourceLocation resourceLocation, GuiGraphics guiGraphics, int x, int y, int z, int width, int height, int textureWidth, int textureHeight) {
-        guiGraphics.blit(resourceLocation,x,y,z,0,0,width,height,textureWidth,textureHeight);
+        guiGraphics.blit(RenderType::guiTextured, resourceLocation,x,y,z,0,0,width,height,textureWidth,textureHeight);
     }
 
     /**
@@ -163,7 +165,7 @@ public class GuiUtils {
 
     public static void bindAndDrawScaledTexture(ResourceLocation resourceLocation, GuiGraphics guiGraphics, int x, int y, int width, int height, int regionWidth, int regionHeight, int textureWidth, int textureHeight) {
         GuiUtils.bindTexture(resourceLocation);
-        guiGraphics.blit(resourceLocation,x,y,width,height,0,0,regionWidth,regionHeight,textureWidth,textureHeight);
+        guiGraphics.blit(RenderType::guiTextured, resourceLocation,x,y,width,height,0,0,regionWidth,regionHeight,textureWidth,textureHeight);
     }
 
     public static void setButtonText(ExtendedButton button, String message) {

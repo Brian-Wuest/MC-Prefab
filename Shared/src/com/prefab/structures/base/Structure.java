@@ -22,6 +22,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.Entity;
@@ -365,7 +366,7 @@ public class Structure {
      * @param player        The player requesting the structure.
      * @return True if the build can occur, otherwise false.
      */
-    public boolean BuildStructure(StructureConfiguration configuration, ServerLevel world, BlockPos originalPos, Player player) {
+    public boolean BuildStructure(StructureConfiguration configuration, ServerLevel world, BlockPos originalPos, ServerPlayer player) {
         BlockPos startBlockPos = this.clearSpace.getStartingPosition().getRelativePosition(originalPos, this.clearSpace.getShape().getDirection(), configuration.houseFacing);
         BlockPos endBlockPos = startBlockPos
                 .relative(configuration.houseFacing.getCounterClockWise(), this.clearSpace.getShape().getWidth() - 1)
@@ -413,7 +414,7 @@ public class Structure {
 
                 // Now place all of the blocks.
                 for (BuildBlock block : this.getBlocks()) {
-                    Block foundBlock = BuiltInRegistries.BLOCK.get(block.getResourceLocation());
+                    Block foundBlock = BuiltInRegistries.BLOCK.getValue(block.getResourceLocation());
 
                     if (foundBlock != null) {
                         BlockState blockState = foundBlock.defaultBlockState();
@@ -428,7 +429,7 @@ public class Structure {
                             }
 
                             if (block.getSubBlock() != null) {
-                                foundBlock = BuiltInRegistries.BLOCK.get(block.getSubBlock().getResourceLocation());
+                                foundBlock = BuiltInRegistries.BLOCK.getValue(block.getSubBlock().getResourceLocation());
                                 blockState = foundBlock.defaultBlockState();
 
                                 subBlock = BuildBlock.SetBlockState(configuration, world, originalPos, block.getSubBlock(), foundBlock, blockState, this);
@@ -701,7 +702,7 @@ public class Structure {
                 }
 
                 this.world.setBlockEntity(tileEntity);
-                this.world.getChunk(tileEntityPos).setUnsaved(true);
+                this.world.getChunk(tileEntityPos).markUnsaved();
                 tileEntity.setChanged();
                 Packet<ClientGamePacketListener> packet = tileEntity.getUpdatePacket();
 

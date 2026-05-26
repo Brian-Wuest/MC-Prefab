@@ -1,7 +1,11 @@
 package com.prefab.blocks;
 
 import com.prefab.ModRegistryBase;
+import com.prefab.PrefabBase;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Blocks;
@@ -20,7 +24,10 @@ public class BlockDirtStairs extends StairBlock implements IGrassSpreadable {
      */
     public BlockDirtStairs() {
         super(Blocks.DIRT.defaultBlockState(),
-                BlockBehaviour.Properties.ofFullCopy(Blocks.DIRT));
+                BlockBehaviour.Properties.ofFullCopy(Blocks.DIRT)
+                        .setId(ResourceKey.create(Registries.BLOCK,
+                                ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID,
+                                        "block_dirt_stairs"))));
     }
 
     /**

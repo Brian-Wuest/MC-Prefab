@@ -2,6 +2,7 @@ package com.prefab.structures.items;
 
 import com.prefab.ModRegistryBase;
 import com.prefab.structures.gui.GuiHouseAdvanced;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
 
 /**
@@ -11,8 +12,8 @@ public class ItemHouseAdvanced extends StructureItem {
     /**
      * Initializes a new instance of the {@link ItemHouseAdvanced} class.
      */
-    public ItemHouseAdvanced() {
-        super();
+    public ItemHouseAdvanced(Item.Properties properties) {
+        super(properties);
     }
 
     @Override

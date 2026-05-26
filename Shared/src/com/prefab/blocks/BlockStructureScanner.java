@@ -2,13 +2,17 @@ package com.prefab.blocks;
 
 import com.mojang.serialization.MapCodec;
 import com.prefab.ClientModRegistryBase;
+import com.prefab.PrefabBase;
 import com.prefab.base.TileBlockBase;
 import com.prefab.blocks.entities.StructureScannerBlockEntity;
 import com.prefab.config.StructureScannerConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -17,12 +21,12 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 
 public class BlockStructureScanner extends TileBlockBase<StructureScannerBlockEntity> {
-    public static final DirectionProperty FACING;
+    public static final EnumProperty<Direction> FACING;
     public static final MapCodec<BlockStructureScanner> CODEC = simpleCodec(BlockStructureScanner::new);
 
     static {
@@ -33,7 +37,10 @@ public class BlockStructureScanner extends TileBlockBase<StructureScannerBlockEn
      * Initializes a new instance of the BlockStructureScanner class.
      */
     public BlockStructureScanner() {
-        super(Block.Properties.ofFullCopy(Blocks.STONE));
+        super(Block.Properties.ofFullCopy(Blocks.STONE)
+                .setId(ResourceKey.create(Registries.BLOCK,
+                        ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID,
+                                "block_structure_scanner"))));
 
         this.registerDefaultState(this.defaultBlockState()
                 .setValue(FACING, Direction.NORTH));
@@ -67,7 +74,7 @@ public class BlockStructureScanner extends TileBlockBase<StructureScannerBlockEn
     }
 
     @Override
-    public @NotNull ItemInteractionResult useItemOn(ItemStack itemStack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    public @NotNull InteractionResult useItemOn(ItemStack itemStack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (world.isClientSide) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
 
@@ -76,9 +83,9 @@ public class BlockStructureScanner extends TileBlockBase<StructureScannerBlockEn
                 ClientModRegistryBase.openGuiForBlock(pos, world, config);
             }
 
-            return ItemInteractionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
         } else {
-            return ItemInteractionResult.CONSUME;
+            return InteractionResult.CONSUME;
         }
     }
 

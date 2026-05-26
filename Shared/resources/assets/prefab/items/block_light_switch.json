@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "prefab:block/block_light_switch"
+  }
+}

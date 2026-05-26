@@ -3,9 +3,12 @@ package com.prefab.blocks;
 import com.prefab.PrefabBase;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -53,6 +56,9 @@ public class BlockPhasic extends Block {
      */
     public BlockPhasic() {
         super(PrefabBase.SeeThroughImmovable.get()
+                .setId(ResourceKey.create(Registries.BLOCK,
+                        ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID,
+                                "block_phasic")))
                 .sound(SoundType.STONE)
                 .strength(0.6f));
 
@@ -65,7 +71,7 @@ public class BlockPhasic extends Block {
     }
 
     @Override
-    public @NotNull ItemInteractionResult useItemOn(ItemStack itemStack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult rayTrace) {
+    public @NotNull InteractionResult useItemOn(ItemStack itemStack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult rayTrace) {
         if (!world.isClientSide()) {
             EnumPhasingProgress progress = state.getValue(Phasing_Progress);
 
@@ -75,7 +81,7 @@ public class BlockPhasic extends Block {
             }
         }
 
-        return ItemInteractionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     /**

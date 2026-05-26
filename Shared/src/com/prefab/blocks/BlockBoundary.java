@@ -3,9 +3,13 @@ package com.prefab.blocks;
 import com.prefab.PrefabBase;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.EmptyBlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
@@ -13,9 +17,11 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 
@@ -35,6 +41,7 @@ public class BlockBoundary extends Block {
     public BlockBoundary() {
         super(
                 PrefabBase.SeeThroughImmovable.get()
+                        .setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID, "block_boundary")))
                         .sound(SoundType.STONE)
                         .strength(0.6F)
         );
@@ -117,33 +124,35 @@ public class BlockBoundary extends Block {
      * block, etc.
      */
     @Override
-    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos p_189540_5_, boolean p_220069_6_) {
-        if (!worldIn.isClientSide) {
+    public void neighborChanged(BlockState blockState, Level level, BlockPos blockPos, Block block,
+                                @Nullable Orientation orientation, boolean bl) {
+        if (!level.isClientSide) {
             // Only worry about powering blocks.
-            if (blockIn.defaultBlockState().isSignalSource()) {
-                boolean poweredSide = worldIn.hasNeighborSignal(pos);
+            if (block.defaultBlockState().isSignalSource()) {
+                boolean poweredSide = level.hasNeighborSignal(blockPos);
 
-                this.setNeighborGlassBlocksPoweredStatus(worldIn, pos, poweredSide, 0, new ArrayList<>(), true);
+                this.setNeighborGlassBlocksPoweredStatus(level, blockPos, poweredSide, 0, new ArrayList<>(), true);
             }
         }
     }
 
     @Override
-    public int getLightBlock(BlockState state, BlockGetter worldIn, BlockPos pos) {
-        boolean powered = state.getValue(Powered);
+    public int getLightBlock(BlockState blockState) {
+        boolean powered = blockState.getValue(Powered);
 
-        if (powered && state.isSolidRender(worldIn, pos)) {
-            return worldIn.getMaxLightLevel();
+        if (powered && blockState.isSolidRender()) {
+            return 15;
         } else {
-            return state.propagatesSkylightDown(worldIn, pos) ? 0 : 1;
+            return blockState.propagatesSkylightDown() ? 0 : 1;
         }
     }
 
     @Override
-    public boolean propagatesSkylightDown(BlockState state, BlockGetter reader, BlockPos pos) {
+    public boolean propagatesSkylightDown(BlockState state) {
         boolean powered = state.getValue(Powered);
 
-        return !powered || (!Block.isShapeFullBlock(state.getShape(reader, pos)) && state.getFluidState().isEmpty());
+        return !powered || (!Block.isShapeFullBlock(state.getShape(EmptyBlockGetter.INSTANCE, BlockPos.ZERO))
+                && state.getFluidState().isEmpty());
     }
 
     /**

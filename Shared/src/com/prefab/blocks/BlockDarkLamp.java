@@ -3,6 +3,9 @@ package com.prefab.blocks;
 import com.prefab.ModRegistryBase;
 import com.prefab.PrefabBase;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -33,6 +36,7 @@ public class BlockDarkLamp extends Block {
 
     public BlockDarkLamp() {
         super(PrefabBase.SeeThroughImmovable.get()
+                .setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID, "block_dark_lamp")))
                 .lightLevel(BlockDarkLamp.litBlockEmission(8))
                 .strength(0.3F)
                 .sound(SoundType.GLASS)

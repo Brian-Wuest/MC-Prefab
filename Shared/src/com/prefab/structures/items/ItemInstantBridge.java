@@ -10,8 +10,8 @@ import net.minecraft.world.item.Item;
  * @author WuestMan
  */
 public class ItemInstantBridge extends StructureItem {
-    public ItemInstantBridge() {
-        super(new Item.Properties()
+    public ItemInstantBridge(Item.Properties properties) {
+        super(properties
                 .durability(10));
     }
 

@@ -1,8 +1,12 @@
 package com.prefab.items;
 
+import com.prefab.PrefabBase;
 import com.prefab.Utils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -16,29 +20,26 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.HashSet;
 
-public class ItemSickle extends TieredItem {
+public class ItemSickle extends DiggerItem {
     public static HashSet<Block> effectiveBlocks = new HashSet<>();
+    public static TagKey<Block> MOWABLE = TagKey.create(
+            Registries.BLOCK,
+            ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID, "mowable"));
     protected int breakRadius = 0;
-    public Tier toolMaterial;
+    public ToolMaterial toolMaterial;
 
-    public ItemSickle(Tier toolMaterial) {
-        super(toolMaterial, new Item.Properties());
-        this.breakRadius = 1 + (int)toolMaterial.getAttackDamageBonus();
+    public ItemSickle(ToolMaterial toolMaterial, Item.Properties itemProperties) {
+        super(toolMaterial, MOWABLE,
+                0.0F, -3.0F,
+                itemProperties);
+        this.breakRadius = 1 + (int)toolMaterial.attackDamageBonus();
         this.toolMaterial = toolMaterial;
     }
 
     public static void setEffectiveBlocks() {
         effectiveBlocks.clear();
 
-        effectiveBlocks.addAll(Utils.getBlocksWithTagKey(BlockTags.LEAVES));
-        effectiveBlocks.addAll(Utils.getBlocksWithTagKey(BlockTags.SMALL_FLOWERS));
-        effectiveBlocks.addAll(Utils.getBlocksWithTagKey(BlockTags.TALL_FLOWERS));
-        effectiveBlocks.addAll(Utils.getBlocksWithTagKey(BlockTags.FLOWERS));
-        effectiveBlocks.add(Blocks.TALL_GRASS);
-        effectiveBlocks.add(Blocks.DEAD_BUSH);
-        effectiveBlocks.add(Blocks.SHORT_GRASS);
-        effectiveBlocks.add(Blocks.SEAGRASS);
-        effectiveBlocks.add(Blocks.TALL_SEAGRASS);
+        effectiveBlocks.addAll(Utils.getBlocksWithTagKey(MOWABLE));
     }
 
     @Override

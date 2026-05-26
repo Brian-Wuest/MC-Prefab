@@ -12,7 +12,9 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.redstone.Orientation;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 
@@ -129,12 +131,13 @@ public class BlockPhasic extends com.prefab.blocks.BlockPhasic {
      * block, etc.
      */
     @Override
-    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos p_189540_5_, boolean p_220069_6_) {
-        if (!worldIn.isClientSide()) {
+    public void neighborChanged(BlockState blockState, Level level, BlockPos blockPos,
+                                Block block, @Nullable Orientation orientation, boolean bl) {
+        if (!level.isClientSide()) {
             // Only worry about powering blocks.
-            if (blockIn.defaultBlockState().isSignalSource()) {
-                boolean poweredSide = worldIn.hasNeighborSignal(pos);
-                EnumPhasingProgress currentState = state.getValue(Phasing_Progress);
+            if (block.defaultBlockState().isSignalSource()) {
+                boolean poweredSide = level.hasNeighborSignal(blockPos);
+                EnumPhasingProgress currentState = blockState.getValue(Phasing_Progress);
                 boolean setToTransparent = false;
 
                 if (poweredSide && currentState == EnumPhasingProgress.base) {
@@ -142,7 +145,7 @@ public class BlockPhasic extends com.prefab.blocks.BlockPhasic {
                 }
 
                 if (currentState == EnumPhasingProgress.base || currentState == EnumPhasingProgress.transparent) {
-                    this.updateNeighborPhasicBlocks(setToTransparent, worldIn, pos, state, true, true);
+                    this.updateNeighborPhasicBlocks(setToTransparent, level, blockPos, blockState, true, true);
                 }
             }
         }

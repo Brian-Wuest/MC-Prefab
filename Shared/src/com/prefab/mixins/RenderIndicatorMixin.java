@@ -7,6 +7,7 @@ import com.prefab.PrefabClientBase;
 import com.prefab.structures.render.StructureRenderHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.debug.DebugRenderer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -21,6 +22,7 @@ public class RenderIndicatorMixin {
 
     @Inject(method = "render", at = @At(value = "TAIL"))
     public void renderWorldLast(PoseStack matrices,
+                                Frustum frustum,
                                 MultiBufferSource.BufferSource vertexConsumers,
                                 double cameraX,
                                 double cameraY,
@@ -34,7 +36,7 @@ public class RenderIndicatorMixin {
             StructureRenderHandler.renderStructureStartPositionBox(prefabIndicatorMinecraft.level,
                     poseStack,
                     previewBufferSource,
-                    (float)cameraX, (float)cameraY, (float)cameraZ);
+                    (float) cameraX, (float) cameraY, (float) cameraZ);
 
             StructureRenderHandler.renderStructurePreview(prefabIndicatorMinecraft.player);
 
@@ -44,9 +46,9 @@ public class RenderIndicatorMixin {
         // If there are structure scanners; run the rendering for them now.
         if (ClientModRegistryBase.structureScanners != null && !ClientModRegistryBase.structureScanners.isEmpty()) {
             StructureRenderHandler.renderScanningBoxes(poseStack, previewBufferSource,
-                    (float)cameraX,
-                    (float)cameraY,
-                    (float)cameraZ
+                    (float) cameraX,
+                    (float) cameraY,
+                    (float) cameraZ
             );
         }
     }

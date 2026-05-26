@@ -1,5 +1,9 @@
 package com.prefab.blocks;
 
+import com.prefab.PrefabBase;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
@@ -20,6 +24,7 @@ public class BlockCompressedStone extends Block {
      */
     public BlockCompressedStone(EnumType typeOfStone) {
         super(BlockBehaviour.Properties.of()
+                .setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID, typeOfStone.getUnlocalizedName())))
                 .mapColor(MapColor.TERRACOTTA_RED)
                 .pushReaction(PushReaction.DESTROY)
                 .noOcclusion()

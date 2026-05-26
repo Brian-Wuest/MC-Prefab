@@ -2,23 +2,25 @@ package com.prefab.blocks;
 
 import com.mojang.serialization.MapCodec;
 import com.prefab.ModRegistryBase;
+import com.prefab.PrefabBase;
 import com.prefab.base.TileBlockBase;
 import com.prefab.blocks.entities.LightSwitchBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -26,7 +28,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.MapColor;
@@ -45,7 +46,7 @@ public class BlockLightSwitch extends TileBlockBase<LightSwitchBlockEntity> {
     protected static final VoxelShape UP_AABB;
     protected static final VoxelShape DOWN_AABB;
 
-    public static final DirectionProperty FACING;
+    public static final EnumProperty<Direction> FACING;
 
     public static final EnumProperty<AttachFace> FACE;
 
@@ -92,6 +93,9 @@ public class BlockLightSwitch extends TileBlockBase<LightSwitchBlockEntity> {
      */
     public BlockLightSwitch() {
         super(BlockBehaviour.Properties.of()
+                .setId(ResourceKey.create(Registries.BLOCK,
+                        ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID,
+                                "block_light_switch")))
                 .mapColor(MapColor.TERRACOTTA_RED)
                 .pushReaction(PushReaction.DESTROY)
                 .noOcclusion()
@@ -130,7 +134,7 @@ public class BlockLightSwitch extends TileBlockBase<LightSwitchBlockEntity> {
     }
 
     @Override
-    public @NotNull ItemInteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+    public @NotNull InteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
         if (!level.isClientSide) {
             BlockState updatedBlockState = this.cycleSwitch(blockState, level, blockPos);
             float f = updatedBlockState.getValue(POWERED) ? 0.6F : 0.5F;
@@ -139,10 +143,10 @@ public class BlockLightSwitch extends TileBlockBase<LightSwitchBlockEntity> {
             level.gameEvent(player, updatedBlockState.getValue(POWERED) ? GameEvent.BLOCK_ACTIVATE : GameEvent.BLOCK_DEACTIVATE, blockPos);
 
             // Tell registered lights that this switch is on/off.
-            return ItemInteractionResult.CONSUME;
+            return InteractionResult.CONSUME;
         }
 
-        return ItemInteractionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     public BlockState cycleSwitch(BlockState blockState, Level level, BlockPos blockPos) {
@@ -212,10 +216,14 @@ public class BlockLightSwitch extends TileBlockBase<LightSwitchBlockEntity> {
     }
 
     @Override
-    public BlockState updateShape(BlockState blockState, Direction direction, BlockState blockState2, LevelAccessor levelAccessor, BlockPos blockPos, BlockPos blockPos2) {
-        return BlockLightSwitch.getConnectedDirection(blockState).getOpposite() == direction && !blockState.canSurvive(levelAccessor, blockPos)
+    public BlockState updateShape(BlockState blockState, LevelReader levelReader,
+                                  ScheduledTickAccess scheduledTickAccess, BlockPos blockPos, Direction direction,
+                                  BlockPos blockPos2, BlockState blockState2, RandomSource randomSource) {
+        return BlockLightSwitch.getConnectedDirection(blockState).getOpposite() == direction
+                && !blockState.canSurvive(levelReader, blockPos)
                 ? Blocks.AIR.defaultBlockState()
-                : super.updateShape(blockState, direction, blockState2, levelAccessor, blockPos, blockPos2);
+                : super.updateShape(blockState, levelReader, scheduledTickAccess, blockPos, direction, blockPos2,
+                blockState2, randomSource);
     }
 
     @Override

@@ -24,8 +24,8 @@ public class ItemBulldozer extends StructureItem {
     /**
      * Initializes a new instance of the {@link ItemBulldozer} class.
      */
-    public ItemBulldozer() {
-        super(new Item.Properties()
+    public ItemBulldozer(Item.Properties properties) {
+        super(properties
                 .durability(4));
     }
 
@@ -34,8 +34,8 @@ public class ItemBulldozer extends StructureItem {
      *
      * @param creativePowered - Set this to true to create an always powered bulldozer.
      */
-    public ItemBulldozer(boolean creativePowered) {
-        super(new Item.Properties());
+    public ItemBulldozer(Item.Properties properties, boolean creativePowered) {
+        super(properties);
 
         this.creativePowered = creativePowered;
     }

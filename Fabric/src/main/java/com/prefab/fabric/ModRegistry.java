@@ -20,6 +20,7 @@ import com.prefab.structures.config.BasicStructureConfiguration;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditionType;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions;
 import net.minecraft.core.Registry;
@@ -28,7 +29,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 
 import java.util.ArrayList;
 
@@ -38,8 +38,9 @@ import java.util.ArrayList;
  * @author WuestMan
  */
 public class ModRegistry extends ModRegistryBase {
+    public static final ResourceConditionType<RecipeEnabledCondition> RECIPE_ENABLED =
+            ResourceConditionType.create(ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID, "recipe_enabled"), RecipeEnabledCondition.CODEC);
     private static final ArrayList<Item> ModItems = new ArrayList<>();
-
     /* *********************************** Item Group *********************************** */
     private static final CreativeModeTab ITEM_GROUP = FabricItemGroup.builder()
             .icon(() -> new ItemStack(ModRegistryBase.LogoItem))
@@ -56,12 +57,8 @@ public class ModRegistry extends ModRegistryBase {
             })
             .title(Utils.createTextComponent("Prefab"))
             .build();
-
     // This variable may not be used, but the registration is still needed.
     public static final CreativeModeTab creativeModeTab = Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, ResourceLocation.tryBuild(PrefabBase.MODID, "logo"), ITEM_GROUP);
-
-    public static final ResourceConditionType<RecipeEnabledCondition> RECIPE_ENABLED =
-            ResourceConditionType.create(ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID, "recipe_enabled"), RecipeEnabledCondition.CODEC);
 
     @Override
     public void initializeModLoaderBlocks() {
@@ -76,29 +73,38 @@ public class ModRegistry extends ModRegistryBase {
     @Override
     public void initializeModLoaderBlockItems() {
         // Always make sure do re-do the block item when replacing a block.
-        ModRegistryBase.BoundaryItem = new BlockItem(ModRegistryBase.Boundary, new Item.Properties());
-        ModRegistryBase.GlassSlabItem = new BlockItem(ModRegistryBase.GlassSlab, new Item.Properties());
-        ModRegistryBase.GlassStairsItem = new BlockItem(ModRegistryBase.GlassStairs, new Item.Properties());
-        ModRegistryBase.PaperLanternItem = new BlockItem(ModRegistryBase.PaperLantern, new Item.Properties());
-        ModRegistryBase.PhasicItem = new BlockItem(ModRegistryBase.Phasic, new Item.Properties());
+        ModRegistryBase.BoundaryItem = new BlockItem(ModRegistryBase.Boundary,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.Boundary));
+
+        ModRegistryBase.GlassSlabItem = new BlockItem(ModRegistryBase.GlassSlab,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.GlassSlab));
+
+        ModRegistryBase.GlassStairsItem = new BlockItem(ModRegistryBase.GlassStairs,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.GlassStairs));
+
+        ModRegistryBase.PaperLanternItem = new BlockItem(ModRegistryBase.PaperLantern,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.PaperLantern));
+
+        ModRegistryBase.PhasicItem = new BlockItem(ModRegistryBase.Phasic,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.Phasic));
     }
 
     @Override
     public void initializeModLoaderItems() {
         ModRegistryBase.CompressedChest = new ItemCompressedChest();
-        ModRegistryBase.SickleDiamond = new ItemSickle(Tiers.DIAMOND);
-        ModRegistryBase.SickleGold = new ItemSickle(Tiers.GOLD);
-        ModRegistryBase.SickleNetherite = new ItemSickle(Tiers.NETHERITE);
-        ModRegistryBase.SickleIron = new ItemSickle(Tiers.IRON);
-        ModRegistryBase.SickleStone = new ItemSickle(Tiers.STONE);
-        ModRegistryBase.SickleWood = new ItemSickle(Tiers.WOOD);
+        ModRegistryBase.SickleDiamond = new ItemSickle(ToolMaterial.DIAMOND, this.setItemId(new Item.Properties(), "item_sickle_diamond"));
+        ModRegistryBase.SickleGold = new ItemSickle(ToolMaterial.GOLD, this.setItemId(new Item.Properties(), "item_sickle_gold"));
+        ModRegistryBase.SickleNetherite = new ItemSickle(ToolMaterial.NETHERITE, this.setItemId(new Item.Properties(), "item_sickle_netherite"));
+        ModRegistryBase.SickleIron = new ItemSickle(ToolMaterial.IRON, this.setItemId(new Item.Properties(), "item_sickle_iron"));
+        ModRegistryBase.SickleStone = new ItemSickle(ToolMaterial.STONE, this.setItemId(new Item.Properties(), "item_sickle_stone"));
+        ModRegistryBase.SickleWood = new ItemSickle(ToolMaterial.WOOD, this.setItemId(new Item.Properties(), "item_sickle_wood"));
     }
 
     @Override
     public void initializeModLoaderBluePrintItems() {
         // Always make sure to fully qualify WHICH item we are creating...
-        ModRegistryBase.Bulldozer = new ItemBulldozer();
-        ModRegistryBase.CreativeBulldozer = new ItemBulldozer(true);
+        ModRegistryBase.Bulldozer = new ItemBulldozer(this.setItemId(new Item.Properties(), "item_bulldozer"));
+        ModRegistryBase.CreativeBulldozer = new ItemBulldozer(this.setItemId(new Item.Properties(), "item_creative_bulldozer"), true);
     }
 
     public void registerModComponents() {
@@ -132,17 +138,16 @@ public class ModRegistry extends ModRegistryBase {
             ModRegistryBase.StructureScannerEntityType = Registry.register(
                     BuiltInRegistries.BLOCK_ENTITY_TYPE,
                     "prefab:structure_scanner_entity",
-                    BlockEntityType.Builder
-                            .of(StructureScannerBlockEntity::new, ModRegistryBase.StructureScanner)
-                            .build(null));
+                    FabricBlockEntityTypeBuilder.create
+                                    (StructureScannerBlockEntity::new, ModRegistryBase.StructureScanner)
+                            .build());
         }
 
         ModRegistryBase.LightSwitchEntityType = Registry.register(
                 BuiltInRegistries.BLOCK_ENTITY_TYPE,
                 "prefab:light_switch_entity",
-                BlockEntityType.Builder
-                        .of(LightSwitchBlockEntity::new, ModRegistryBase.LightSwitch)
-                        .build(null));
+                FabricBlockEntityTypeBuilder.create(LightSwitchBlockEntity::new, ModRegistryBase.LightSwitch)
+                        .build());
     }
 
     private void registerBlocks() {
@@ -304,7 +309,8 @@ public class ModRegistry extends ModRegistryBase {
         this.registerItem("block_dirt_slab", ModRegistryBase.DirtSlabItem);
 
         if (PrefabBase.isDebug) {
-            ModRegistryBase.StructureScannerItem = new BlockItem(ModRegistryBase.StructureScanner, new Item.Properties());
+            ModRegistryBase.StructureScannerItem = new BlockItem(ModRegistryBase.StructureScanner,
+                    this.setItemBlockId(new Item.Properties(), ModRegistryBase.StructureScanner));
             this.registerItem("block_structure_scanner", ModRegistryBase.StructureScannerItem);
         }
 

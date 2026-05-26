@@ -6,6 +6,7 @@ import com.prefab.structures.predefined.StructureInstantBridge;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
 /**
@@ -58,7 +59,7 @@ public class InstantBridgeConfiguration extends StructureConfiguration {
 	}
 
 	@Override
-	protected void ConfigurationSpecificBuildStructure(Player player, ServerLevel world, BlockPos hitBlockPos) {
+	protected void ConfigurationSpecificBuildStructure(ServerPlayer player, ServerLevel world, BlockPos hitBlockPos) {
 		StructureInstantBridge structure = StructureInstantBridge.CreateInstance();
 
 		if (structure.BuildStructure(this, world, hitBlockPos, player)) {

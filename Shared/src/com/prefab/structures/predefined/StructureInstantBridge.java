@@ -8,6 +8,7 @@ import com.prefab.structures.config.StructureConfiguration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -44,7 +45,7 @@ public class StructureInstantBridge extends Structure {
      * @return True if the build can occur, otherwise false.
      */
     @Override
-    public boolean BuildStructure(StructureConfiguration configuration, ServerLevel world, BlockPos originalPos, Player player) {
+    public boolean BuildStructure(StructureConfiguration configuration, ServerLevel world, BlockPos originalPos, ServerPlayer player) {
         InstantBridgeConfiguration specificConfig = (InstantBridgeConfiguration) configuration;
         this.setupClearSpace(specificConfig);
 

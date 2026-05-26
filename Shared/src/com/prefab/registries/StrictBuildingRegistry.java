@@ -3,6 +3,7 @@ package com.prefab.registries;
 import com.prefab.PrefabBase;
 import com.prefab.Utils;
 import com.prefab.config.ModConfiguration;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -93,8 +94,9 @@ public class StrictBuildingRegistry {
             // Use a custom collector to pull all the tag names from the registry.
             // We need to make sure that the registry path is unique and cannot guarantee that the minecraft code
             // caught a duplicate registration.
-            HashMap<String, TagKey<Block>> registeredTags = BuiltInRegistries.BLOCK.getTagNames().collect(Collector.of(
-                    HashMap::new,
+            HashMap<String, TagKey<Block>> registeredTags = BuiltInRegistries.BLOCK.getTags().map((HolderSet.Named::key))
+                    .collect(Collector.of(
+                    HashMap<String, TagKey<Block>>::new,
                     (map, tag) -> {
                         if (!map.containsKey(tag.location().getPath().toLowerCase())) {
                             map.put(tag.location().getPath().toLowerCase(), tag);

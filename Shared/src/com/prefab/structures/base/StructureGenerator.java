@@ -8,6 +8,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.DoubleTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.decoration.HangingEntity;
@@ -239,7 +240,7 @@ public class StructureGenerator {
             Optional<EntityType<?>> entityType = EntityType.byString(buildEntity.getEntityResourceString());
 
             if (entityType.isPresent()) {
-                Entity entity = entityType.get().create(structure.world);
+                Entity entity = entityType.get().create(structure.world, EntitySpawnReason.STRUCTURE);
 
                 if (entity != null) {
                     CompoundTag tagCompound = buildEntity.getEntityDataTag();
@@ -352,7 +353,7 @@ public class StructureGenerator {
         StructureGenerator.updateEntityHangingBoundingBox(entity);
         ChunkAccess chunk = structure.world.getChunkAt(entityPos);
 
-        chunk.setUnsaved(true);
+        chunk.markUnsaved();
 
         return entity;
     }
@@ -400,7 +401,7 @@ public class StructureGenerator {
         StructureGenerator.updateEntityHangingBoundingBox(frame);
         ChunkAccess chunk = structure.world.getChunkAt(entityPos);
 
-        chunk.setUnsaved(true);
+        chunk.markUnsaved();
 
         return frame;
     }
