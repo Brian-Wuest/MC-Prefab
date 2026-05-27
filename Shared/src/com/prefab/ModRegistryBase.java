@@ -3,6 +3,7 @@ package com.prefab;
 import com.prefab.blocks.*;
 import com.prefab.blocks.entities.LightSwitchBlockEntity;
 import com.prefab.blocks.entities.StructureScannerBlockEntity;
+import com.prefab.fabric.ModRegistry;
 import com.prefab.items.*;
 import com.prefab.registries.ModRegistries;
 import com.prefab.structures.config.BasicStructureConfiguration;
@@ -16,6 +17,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
@@ -616,15 +618,23 @@ public class ModRegistryBase {
         ModRegistryBase.BuildingBlueprint = SoundEvent.createVariableRangeEvent(ResourceLocation.tryBuild(PrefabBase.MODID, "building_blueprint"));
     }
 
+    public ResourceKey<Block> createBlockKey(String name) {
+        return ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID, name));
+    }
+
+    public ResourceKey<Item> createItemKey(String name) {
+        return ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID, name));
+    }
+
     public BlockBehaviour.Properties setBlockId(BlockBehaviour.Properties properties, String name) {
-        return properties.setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID, name)));
+        return properties.setId(createBlockKey(name));
     }
 
     public Item.Properties setItemId(Item.Properties properties, String name) {
-        return properties.setId(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID, name)));
+        return properties.setId(createItemKey(name));
     }
 
     public Item.Properties setItemBlockId(Item.Properties properties, BlockBehaviour block) {
-        return this.setItemId(properties, block.getDescriptionId().replace("block.prefab.", ""));
+        return this.setItemId(properties.useBlockDescriptionPrefix(),  block.getDescriptionId().replace("block.prefab.", ""));
     }
 }
