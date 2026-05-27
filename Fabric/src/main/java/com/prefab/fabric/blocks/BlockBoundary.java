@@ -9,14 +9,15 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.List;
 
 public class BlockBoundary extends com.prefab.blocks.BlockBoundary {
 
-    public BlockBoundary() {
-        super();
+    public BlockBoundary(BlockBehaviour.Properties properties) {
+        super(properties);
     }
 
     /**

@@ -16,6 +16,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -54,11 +55,8 @@ public class BlockPhasic extends Block {
     /**
      * Initializes a new instance of the BlockPhasing class.
      */
-    public BlockPhasic() {
-        super(PrefabBase.SeeThroughImmovable.get()
-                .setId(ResourceKey.create(Registries.BLOCK,
-                        ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID,
-                                "block_phasic")))
+    public BlockPhasic(BlockBehaviour.Properties properties) {
+        super(properties
                 .sound(SoundType.STONE)
                 .strength(0.6f));
 

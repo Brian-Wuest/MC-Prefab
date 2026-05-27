@@ -14,6 +14,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -38,13 +39,9 @@ public class BlockBoundary extends Block {
     /**
      * Initializes a new instance of the BlockBoundary class.
      */
-    public BlockBoundary() {
-        super(
-                PrefabBase.SeeThroughImmovable.get()
-                        .setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID, "block_boundary")))
-                        .sound(SoundType.STONE)
-                        .strength(0.6F)
-        );
+    public BlockBoundary(BlockBehaviour.Properties properties) {
+        super(properties.sound(SoundType.STONE)
+                        .strength(0.6F));
 
         this.registerDefaultState(this.getStateDefinition().any().setValue(Powered, false));
     }

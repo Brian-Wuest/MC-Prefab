@@ -1,0 +1,6 @@
+{
+	"model": {
+		"type": "minecraft:model",
+		"model": "prefab:block/item_crate_of_carrots"
+	}
+}

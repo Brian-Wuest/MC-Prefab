@@ -63,11 +63,13 @@ public class ModRegistry extends ModRegistryBase {
     @Override
     public void initializeModLoaderBlocks() {
         // Always make sure to fully qualify WHICH block we are creating...
-        ModRegistryBase.Boundary = new BlockBoundary();
+        ModRegistryBase.Boundary = new BlockBoundary(
+                this.setBlockId(PrefabBase.SeeThroughImmovable.get(), "block_boundary"));
         ModRegistryBase.GlassSlab = new BlockGlassSlab(Block.Properties.ofFullCopy(Blocks.GLASS));
         ModRegistryBase.GlassStairs = new BlockGlassStairs(Blocks.GLASS.defaultBlockState(), Block.Properties.ofFullCopy(Blocks.GLASS));
         ModRegistryBase.PaperLantern = new BlockPaperLantern();
-        ModRegistryBase.Phasic = new BlockPhasic();
+        ModRegistryBase.Phasic = new BlockPhasic(
+                this.setBlockId(PrefabBase.SeeThroughImmovable.get(), "block_phasic"));
     }
 
     @Override

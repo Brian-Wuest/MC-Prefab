@@ -1,0 +1,6 @@
+{
+	"model": {
+		"type": "minecraft:model",
+		"model": "prefab:block/item_carton_of_eggs"
+	}
+}

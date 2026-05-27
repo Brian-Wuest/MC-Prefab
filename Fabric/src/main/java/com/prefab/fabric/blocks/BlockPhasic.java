@@ -11,6 +11,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.redstone.Orientation;
 import org.jetbrains.annotations.NotNull;
@@ -20,8 +21,8 @@ import java.util.ArrayList;
 
 // TODO: Move this "ServerEvents" item to a base class in the shared section.
 public class BlockPhasic extends com.prefab.blocks.BlockPhasic {
-    public BlockPhasic() {
-        super();
+    public BlockPhasic(BlockBehaviour.Properties properties) {
+        super(properties);
     }
 
     /**

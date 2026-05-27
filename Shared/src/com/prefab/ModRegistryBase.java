@@ -273,15 +273,32 @@ public class ModRegistryBase {
     }
 
     public void initializeBlocks() {
-        ModRegistryBase.CompressedStone = new BlockCompressedStone(BlockCompressedStone.EnumType.COMPRESSED_STONE);
-        ModRegistryBase.DoubleCompressedStone = new BlockCompressedStone(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE);
-        ModRegistryBase.TripleCompressedStone = new BlockCompressedStone(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE);
-        ModRegistryBase.CompressedDirt = new BlockCompressedStone(BlockCompressedStone.EnumType.COMPRESSED_DIRT);
-        ModRegistryBase.DoubleCompressedDirt = new BlockCompressedStone(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_DIRT);
-        ModRegistryBase.CompressedGlowstone = new BlockCompressedStone(BlockCompressedStone.EnumType.COMPRESSED_GLOWSTONE);
-        ModRegistryBase.DoubleCompressedGlowstone = new BlockCompressedStone(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE);
-        ModRegistryBase.CompressedQuartzCrete = new BlockCompressedStone(BlockCompressedStone.EnumType.COMPRESSED_QUARTZCRETE);
-        ModRegistryBase.DoubleCompressedQuartzCrete = new BlockCompressedStone(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_QUARTZCRETE);
+        ModRegistryBase.CompressedStone = new BlockCompressedStone(BlockCompressedStone.EnumType.COMPRESSED_STONE,
+                this.setBlockId(BlockBehaviour.Properties.of(), BlockCompressedStone.EnumType.COMPRESSED_STONE.toString()));
+
+        ModRegistryBase.DoubleCompressedStone = new BlockCompressedStone(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE,
+                this.setBlockId(BlockBehaviour.Properties.of(), BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE.toString()));
+
+        ModRegistryBase.TripleCompressedStone = new BlockCompressedStone(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE,
+                this.setBlockId(BlockBehaviour.Properties.of(), BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE.toString()));
+
+        ModRegistryBase.CompressedDirt = new BlockCompressedStone(BlockCompressedStone.EnumType.COMPRESSED_DIRT,
+                this.setBlockId(BlockBehaviour.Properties.of(), BlockCompressedStone.EnumType.COMPRESSED_DIRT.toString()));
+
+        ModRegistryBase.DoubleCompressedDirt = new BlockCompressedStone(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_DIRT,
+                this.setBlockId(BlockBehaviour.Properties.of(), BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_DIRT.toString()));
+
+        ModRegistryBase.CompressedGlowstone = new BlockCompressedStone(BlockCompressedStone.EnumType.COMPRESSED_GLOWSTONE,
+            this.setBlockId(BlockBehaviour.Properties.of(), BlockCompressedStone.EnumType.COMPRESSED_GLOWSTONE.toString()));
+
+        ModRegistryBase.DoubleCompressedGlowstone = new BlockCompressedStone(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE,
+                this.setBlockId(BlockBehaviour.Properties.of(), BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_GLOWSTONE.toString()));
+
+        ModRegistryBase.CompressedQuartzCrete = new BlockCompressedStone(BlockCompressedStone.EnumType.COMPRESSED_QUARTZCRETE,
+                this.setBlockId(BlockBehaviour.Properties.of(), BlockCompressedStone.EnumType.COMPRESSED_QUARTZCRETE.toString()));
+
+        ModRegistryBase.DoubleCompressedQuartzCrete = new BlockCompressedStone(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_QUARTZCRETE,
+                this.setBlockId(BlockBehaviour.Properties.of(), BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_QUARTZCRETE.toString()));
 
         ModRegistryBase.CompressedObsidian = new BlockCompressedObsidian(BlockCompressedObsidian.EnumType.COMPRESSED_OBSIDIAN);
         ModRegistryBase.DoubleCompressedObsidian = new BlockCompressedObsidian(BlockCompressedObsidian.EnumType.DOUBLE_COMPRESSED_OBSIDIAN);
@@ -368,16 +385,19 @@ public class ModRegistryBase {
      * This is called at the end of initializeBlocks.
      */
     public void initializeModLoaderBlocks() {
-        ModRegistryBase.Boundary = new BlockBoundary();
+        ModRegistryBase.Boundary = new BlockBoundary(
+                this.setBlockId(PrefabBase.SeeThroughImmovable.get(), "block_boundary")
+        );
         ModRegistryBase.GlassSlab = new BlockGlassSlab(Block.Properties.ofFullCopy(Blocks.GLASS));
         ModRegistryBase.GlassStairs = new BlockGlassStairs(Blocks.GLASS.defaultBlockState(), Block.Properties.ofFullCopy(Blocks.GLASS));
         ModRegistryBase.PaperLantern = new BlockPaperLantern();
-        ModRegistryBase.Phasic = new BlockPhasic();
+        ModRegistryBase.Phasic = new BlockPhasic(
+                this.setBlockId(PrefabBase.SeeThroughImmovable.get(), "block_phasic"));
     }
 
     public void initializeBlockItems() {
         ModRegistryBase.CompressedStoneItem = new BlockItem(ModRegistryBase.CompressedStone,
-                this.setItemBlockId(new Item.Properties(), ModRegistryBase.CompressedDirt));
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.CompressedStone));
 
         ModRegistryBase.DoubleCompressedStoneItem = new BlockItem(ModRegistryBase.DoubleCompressedStone,
                 this.setItemBlockId(new Item.Properties(), ModRegistryBase.DoubleCompressedStone));
@@ -404,10 +424,10 @@ public class ModRegistryBase {
                 this.setItemBlockId(new Item.Properties(), ModRegistryBase.DoubleCompressedQuartzCrete));
 
         ModRegistryBase.CompressedObsidianItem = new BlockItem(ModRegistryBase.CompressedObsidian,
-                this.setItemBlockId(new Item.Properties(), ModRegistryBase.DoubleCompressedQuartzCrete));
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.CompressedObsidian));
 
         ModRegistryBase.DoubleCompressedObsidianItem = new BlockItem(ModRegistryBase.DoubleCompressedObsidian,
-                this.setItemBlockId(new Item.Properties(), ModRegistryBase.DoubleCompressedQuartzCrete));
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.DoubleCompressedObsidian));
 
         ModRegistryBase.GrassSlabItem = new BlockItem(ModRegistryBase.GrassSlab,
                 this.setItemBlockId(new Item.Properties(), ModRegistryBase.GrassSlab));

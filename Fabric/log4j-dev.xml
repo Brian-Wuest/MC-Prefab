@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Loggers>
+        <Logger name="Prefab" level="info" additivity="false">
+            <AppenderRef ref="SysOut"/>
+            <AppenderRef ref="ServerGuiConsole"/>
+        </Logger>
+
+        <Logger name="net.minecraft" level="info" additivity="false">
+            <AppenderRef ref="SysOut"/>
+            <AppenderRef ref="ServerGuiConsole"/>
+        </Logger>
+    </Loggers>
+</Configuration>

@@ -22,15 +22,15 @@ public class BlockCompressedStone extends Block {
     /**
      * Initializes a new instance of the CompressedStone class.
      */
-    public BlockCompressedStone(EnumType typeOfStone) {
-        super(BlockBehaviour.Properties.of()
-                .setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID, typeOfStone.getUnlocalizedName())))
+    public BlockCompressedStone(EnumType typeOfStone, BlockBehaviour.Properties properties) {
+        super(properties
                 .mapColor(MapColor.TERRACOTTA_RED)
                 .pushReaction(PushReaction.DESTROY)
                 .noOcclusion()
                 .strength(1.5F, 10.0F)
                 .sound(typeOfStone.getSoundType())
-                .lightLevel(value -> typeOfStone == EnumType.COMPRESSED_GLOWSTONE || typeOfStone == EnumType.DOUBLE_COMPRESSED_GLOWSTONE ? 15 : 0));
+                .lightLevel(value -> typeOfStone == EnumType.COMPRESSED_GLOWSTONE
+                        || typeOfStone == EnumType.DOUBLE_COMPRESSED_GLOWSTONE ? 15 : 0));
         this.typeofStone = typeOfStone;
     }
 
