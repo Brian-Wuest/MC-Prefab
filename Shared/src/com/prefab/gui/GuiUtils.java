@@ -6,7 +6,6 @@ import com.prefab.Utils;
 import com.prefab.gui.controls.ExtendedButton;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.CoreShaders;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.RenderBuffers;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
@@ -14,12 +13,14 @@ import org.lwjgl.opengl.GL11;
 
 public class GuiUtils {
     private static final RenderBuffers renderBuffers = initRenderBuffers();
+
     private static RenderBuffers initRenderBuffers() {
         int i = Runtime.getRuntime().availableProcessors();
         int j = Math.min(i, 4);
         return new RenderBuffers(j);
     }
-    public static RenderBuffers renderBuffers(){
+
+    public static RenderBuffers renderBuffers() {
         return renderBuffers;
     }
 
@@ -37,7 +38,7 @@ public class GuiUtils {
     /**
      * Draws a textured rectangle Args: x, y, z, width, height, textureWidth, textureHeight
      *
-     * @param resourceLocation
+     * @param resourceLocation The resource location of the texture to be rendered.
      * @param x                The X-Axis screen coordinate.
      * @param y                The Y-Axis screen coordinate.
      * @param z                The Z-Axis screen coordinate.
@@ -47,7 +48,7 @@ public class GuiUtils {
      * @param textureHeight    The height of the texture.
      */
     public static void drawTexture(ResourceLocation resourceLocation, GuiGraphics guiGraphics, int x, int y, int z, int width, int height, int textureWidth, int textureHeight) {
-        guiGraphics.blit(RenderType::guiTextured, resourceLocation,x,y,z,0,0,width,height,textureWidth,textureHeight);
+        guiGraphics.blit(RenderType::guiTextured, resourceLocation, x, y, 0, 0, width, height, textureWidth, textureHeight, textureWidth, textureHeight);
     }
 
     /**
@@ -160,12 +161,14 @@ public class GuiUtils {
 
     public static void bindAndDrawTexture(ResourceLocation resourceLocation, GuiGraphics guiGraphics, int x, int y, int z, int width, int height, int textureWidth, int textureHeight) {
         GuiUtils.bindTexture(resourceLocation);
-        GuiUtils.drawTexture(resourceLocation,guiGraphics, x, y, z, width, height, textureWidth, textureHeight);
+        GuiUtils.drawTexture(resourceLocation, guiGraphics, x, y, z, width, height, textureWidth, textureHeight);
     }
 
     public static void bindAndDrawScaledTexture(ResourceLocation resourceLocation, GuiGraphics guiGraphics, int x, int y, int width, int height, int regionWidth, int regionHeight, int textureWidth, int textureHeight) {
         GuiUtils.bindTexture(resourceLocation);
-        guiGraphics.blit(RenderType::guiTextured, resourceLocation,x,y,width,height,0,0,regionWidth,regionHeight,textureWidth,textureHeight);
+        guiGraphics.blit(RenderType::guiTextured, resourceLocation,
+                x, y, 0, 0, width, height, textureWidth, textureHeight,
+                regionWidth, regionHeight);
     }
 
     public static void setButtonText(ExtendedButton button, String message) {

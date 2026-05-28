@@ -350,7 +350,7 @@ public abstract class GuiBase extends Screen {
      * @param color The color of the text.
      */
     public void drawString(GuiGraphics guiGraphics, String text, float x, float y, int color) {
-        guiGraphics.drawWordWrap(font, Utils.createTextComponent(text), (int) x, (int) y, 9999, color);
+        guiGraphics.drawWordWrap(font, Utils.createTextComponent(text), (int) x, (int) y, 9999, color, false);
     }
 
     /**
@@ -363,7 +363,7 @@ public abstract class GuiBase extends Screen {
      * @param textColor The color of the text.
      */
     public void drawSplitString(GuiGraphics guiGraphics, String str, int x, int y, int wrapWidth, int textColor) {
-        guiGraphics.drawWordWrap(font,Utils.createTextComponent(str),x,y,wrapWidth,textColor);
+        guiGraphics.drawWordWrap(font, Utils.createTextComponent(str), x, y, wrapWidth, textColor, false);
     }
 
     public List<FormattedCharSequence> getSplitString(String str, int wrapWidth) {

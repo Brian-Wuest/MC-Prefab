@@ -128,16 +128,14 @@ public class GuiCheckBox extends AbstractButton {
                 resourceLocation = GuiCheckBox.buttonTextureHover;
             }
 
-            GuiUtils.bindTexture(resourceLocation);
-
-            GuiUtils.drawTexture(resourceLocation, guiGraphics, this.getX(), this.getY(), 1, 11, 11, 11, 11);
+            GuiUtils.bindAndDrawTexture(resourceLocation, guiGraphics, this.getX(), this.getY(), 1, 11, 11, 11, 11);
 
             int color = this.stringColor;
 
             if (this.withShadow) {
-                guiGraphics.drawString(this.mineCraft.font, displayString, this.getX() + this.boxWidth + 2, this.getY() + 4, color);
+                guiGraphics.drawString(this.mineCraft.font, displayString, this.getX() + this.boxWidth + 2, this.getY() + 4, color, true);
             } else {
-                guiGraphics.drawWordWrap(this.mineCraft.font, Utils.createTextComponent(displayString), this.getX() + this.boxWidth + 2, this.getY() + 2, this.labelWidth, color);
+                guiGraphics.drawWordWrap(this.mineCraft.font, Utils.createTextComponent(displayString), this.getX() + this.boxWidth + 2, this.getY() + 2, this.labelWidth, color, false);
             }
         }
     }
