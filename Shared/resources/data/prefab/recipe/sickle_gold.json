@@ -20,12 +20,8 @@
     "ba "
   ],
   "key": {
-    "a": {
-      "item": "minecraft:gold_ingot"
-    },
-    "b": {
-      "item": "minecraft:stick"
-    }
+    "a": "minecraft:gold_ingot",
+    "b": "minecraft:stick"
   },
   "result": {
     "id": "prefab:item_sickle_gold",

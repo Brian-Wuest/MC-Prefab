@@ -20,16 +20,9 @@
     "ccc"
   ],
   "key": {
-    "a": {
-      "item": "minecraft:short_grass",
-      "data": 1
-    },
-    "b": {
-      "tag": "c:compressed_dirt"
-    },
-    "c": {
-      "tag": "c:double_compressed_dirt"
-    }
+    "a": "minecraft:short_grass",
+    "b": "#c:compressed_dirt",
+    "c": "#c:double_compressed_dirt"
   },
   "result": {
     "id": "prefab:item_grassy_plain",

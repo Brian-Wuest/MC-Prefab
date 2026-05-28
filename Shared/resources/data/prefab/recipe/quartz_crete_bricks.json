@@ -19,9 +19,7 @@
     "aa"
   ],
   "key": {
-    "a": {
-      "item": "prefab:block_quartz_crete"
-    }
+    "a": "prefab:block_quartz_crete"
   },
   "result": {
     "id": "prefab:block_quartz_crete_bricks",

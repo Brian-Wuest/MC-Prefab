@@ -20,12 +20,8 @@
     "b  "
   ],
   "key": {
-    "a": {
-      "item": "minecraft:diamond"
-    },
-    "b": {
-      "item": "minecraft:stick"
-    }
+    "a": "minecraft:diamond",
+    "b": "minecraft:stick"
   },
   "result": {
     "id": "prefab:item_swift_blade_diamond",

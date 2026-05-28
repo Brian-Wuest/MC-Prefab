@@ -20,12 +20,8 @@
     " b "
   ],
   "key": {
-    "a": {
-      "item": "minecraft:diamond_pickaxe"
-    },
-    "b": {
-      "item": "minecraft:diamond_shovel"
-    }
+    "a": "minecraft:diamond_pickaxe",
+    "b": "minecraft:diamond_shovel"
   },
   "result": {
     "id": "prefab:item_bulldozer",

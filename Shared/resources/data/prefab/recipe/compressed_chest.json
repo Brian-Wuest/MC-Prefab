@@ -20,12 +20,8 @@
     "###"
   ],
   "key": {
-    "#": {
-      "item": "minecraft:chest"
-    },
-    "a": {
-      "item": "minecraft:ender_chest"
-    }
+    "#": "minecraft:chest",
+    "a": "minecraft:ender_chest"
   },
   "result": {
     "id": "prefab:item_compressed_chest",

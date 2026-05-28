@@ -20,12 +20,8 @@
     "b  "
   ],
   "key": {
-    "a": {
-      "item": "minecraft:iron_ingot"
-    },
-    "b": {
-      "item": "minecraft:stick"
-    }
+    "a": "minecraft:iron_ingot",
+    "b": "minecraft:stick"
   },
   "result": {
     "id": "prefab:item_swift_blade_iron",

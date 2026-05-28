@@ -20,18 +20,10 @@
     "ada"
   ],
   "key": {
-    "a": {
-      "item": "minecraft:prismarine"
-    },
-    "b": {
-      "item": "minecraft:quartz_block"
-    },
-    "c": {
-      "tag": "c:double_compressed_obsidian"
-    },
-    "d": {
-      "tag": "c:triple_compressed_stone"
-    }
+    "a": "minecraft:prismarine",
+    "b": "minecraft:quartz_block",
+    "c": "#c:double_compressed_obsidian",
+    "d": "#c:triple_compressed_stone"
   },
   "result": {
     "id": "prefab:item_ender_gateway",

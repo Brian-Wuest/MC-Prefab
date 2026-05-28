@@ -15,9 +15,7 @@
   ],
   "group": "Pile of Bricks",
   "ingredients": [
-    {
-      "tag": "c:pile_of_bricks"
-    }
+    "#c:pile_of_bricks"
   ],
   "result": {
     "id": "minecraft:brick",

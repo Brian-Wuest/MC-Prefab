@@ -19,9 +19,7 @@
     "#"
   ],
   "key": {
-    "#": {
-      "tag": "c:glass_blocks"
-    }
+    "#": "#c:glass_blocks"
   },
   "result": {
     "id": "prefab:block_glass_slab",

@@ -15,9 +15,7 @@
   ],
   "group": "Paper Lantern",
   "ingredients": [
-    {
-      "item": "prefab:item_string_of_lanterns"
-    }
+    "prefab:item_string_of_lanterns"
   ],
   "result": {
     "id": "prefab:block_paper_lantern",

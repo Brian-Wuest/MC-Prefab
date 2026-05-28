@@ -19,9 +19,7 @@
     "#"
   ],
   "key": {
-    "#": {
-      "item": "prefab:block_grass_slab"
-    }
+    "#": "prefab:block_grass_slab"
   },
   "result": {
     "id": "minecraft:grass_block",

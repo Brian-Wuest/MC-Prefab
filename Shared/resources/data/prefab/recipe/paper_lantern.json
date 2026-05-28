@@ -15,15 +15,9 @@
   ],
   "group": "Paper Lantern",
   "ingredients": [
-    {
-      "item": "minecraft:paper"
-    },
-    {
-      "item": "minecraft:stick"
-    },
-    {
-      "item": "minecraft:torch"
-    }
+    "minecraft:paper",
+    "minecraft:stick",
+    "minecraft:torch"
   ],
   "result": {
     "id": "prefab:block_paper_lantern",

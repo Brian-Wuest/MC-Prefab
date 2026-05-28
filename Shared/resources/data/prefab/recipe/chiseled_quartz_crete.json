@@ -19,9 +19,7 @@
     "a"
   ],
   "key": {
-    "a": {
-      "item": "prefab:block_quartz_crete_slab"
-    }
+    "a": "prefab:block_quartz_crete_slab"
   },
   "result": {
     "id": "prefab:block_quartz_crete_chiseled",

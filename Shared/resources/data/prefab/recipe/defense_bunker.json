@@ -20,18 +20,10 @@
     "aaa"
   ],
   "key": {
-    "a": {
-      "tag": "c:storage_blocks/iron"
-    },
-    "b": {
-      "tag": "c:double_compressed_lights"
-    },
-    "c": {
-      "tag": "c:triple_compressed_stone"
-    },
-    "d": {
-      "tag": "c:double_compressed_obsidian"
-    }
+    "a": "#c:storage_blocks/iron",
+    "b": "#c:double_compressed_lights",
+    "c": "#c:triple_compressed_stone",
+    "d": "#c:double_compressed_obsidian"
   },
   "result": {
     "id": "prefab:item_defense_bunker",

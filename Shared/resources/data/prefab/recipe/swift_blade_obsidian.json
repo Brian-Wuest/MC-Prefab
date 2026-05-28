@@ -20,12 +20,8 @@
     "a  "
   ],
   "key": {
-    "a": {
-      "item": "minecraft:stick"
-    },
-    "b": {
-      "item": "minecraft:obsidian"
-    }
+    "a": "minecraft:stick",
+    "b": "minecraft:obsidian"
   },
   "result": {
     "id": "prefab:item_swift_blade_obsidian",

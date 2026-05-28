@@ -15,21 +15,11 @@
   ],
   "group": "Advanced House",
   "ingredients": [
-    {
-      "item": "prefab:item_house_improved"
-    },
-    {
-      "item": "prefab:item_house_improved"
-    },
-    {
-      "item": "prefab:item_house_improved"
-    },
-    {
-      "item": "prefab:item_upgrade"
-    },
-    {
-      "tag": "c:triple_compressed_stone"
-    }
+    "prefab:item_house_improved",
+    "prefab:item_house_improved",
+    "prefab:item_house_improved",
+    "prefab:item_upgrade",
+    "#c:triple_compressed_stone"
   ],
   "result": {
     "id": "prefab:item_house_advanced",

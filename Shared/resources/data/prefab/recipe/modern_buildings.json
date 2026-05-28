@@ -20,21 +20,11 @@
     "ded"
   ],
   "key": {
-    "a": {
-      "tag": "c:compressed_lights"
-    },
-    "b": {
-      "tag": "c:compressed_stone"
-    },
-    "c": {
-      "tag": "c:double_compressed_stone"
-    },
-    "d": {
-      "tag": "c:storage_blocks/iron"
-    },
-    "e": {
-      "tag": "c:compressed_quartz_crete"
-    }
+    "a": "#c:compressed_lights",
+    "b": "#c:compressed_stone",
+    "c": "#c:double_compressed_stone",
+    "d": "#c:storage_blocks/iron",
+    "e": "#c:compressed_quartz_crete"
   },
   "result": {
     "id": "prefab:item_modern_buildings",

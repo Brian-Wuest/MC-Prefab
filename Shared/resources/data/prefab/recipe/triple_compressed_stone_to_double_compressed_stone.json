@@ -15,9 +15,7 @@
   ],
   "group": "Compressed Stone",
   "ingredients": [
-    {
-      "tag": "c:triple_compressed_stone"
-    }
+    "#c:triple_compressed_stone"
   ],
   "result": {
     "id": "prefab:block_double_compressed_stone",

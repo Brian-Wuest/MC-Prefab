@@ -20,9 +20,7 @@
     "###"
   ],
   "key": {
-    "#": {
-      "item": "minecraft:glowstone"
-    }
+    "#": "minecraft:glowstone"
   },
   "result": {
     "id": "prefab:block_compressed_glowstone",

@@ -15,9 +15,7 @@
   ],
   "group": "Compressed Obsidian",
   "ingredients": [
-    {
-      "tag": "c:compressed_obsidian"
-    }
+    "#c:compressed_obsidian"
   ],
   "result": {
     "id": "minecraft:obsidian",

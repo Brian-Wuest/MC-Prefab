@@ -20,18 +20,10 @@
     "bbb"
   ],
   "key": {
-    "a": {
-      "item": "minecraft:iron_pickaxe"
-    },
-    "b": {
-      "item": "prefab:item_bundle_of_timber"
-    },
-    "c": {
-      "tag": "c:compressed_stone"
-    },
-    "d": {
-      "tag": "minecraft:beds"
-    }
+    "a": "minecraft:iron_pickaxe",
+    "b": "prefab:item_bundle_of_timber",
+    "c": "#c:compressed_stone",
+    "d": "#minecraft:beds"
   },
   "result": {
     "id": "prefab:item_mineshaft_entrance",

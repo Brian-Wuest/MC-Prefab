@@ -20,9 +20,7 @@
     "aaa"
   ],
   "key": {
-    "a": {
-      "item": "minecraft:obsidian"
-    }
+    "a": "minecraft:obsidian"
   },
   "result": {
     "id": "prefab:block_compressed_obsidian",

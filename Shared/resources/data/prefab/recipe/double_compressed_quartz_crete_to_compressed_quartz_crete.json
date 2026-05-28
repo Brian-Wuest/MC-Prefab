@@ -15,9 +15,7 @@
   ],
   "group": "Quartz-Crete",
   "ingredients": [
-    {
-      "tag": "c:double_compressed_quartz_crete"
-    }
+    "#c:double_compressed_quartz_crete"
   ],
   "result": {
     "id": "prefab:block_compressed_quartz_crete",

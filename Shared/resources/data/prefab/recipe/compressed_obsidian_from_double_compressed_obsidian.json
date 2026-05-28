@@ -15,9 +15,7 @@
   ],
   "group": "Compressed Obsidian",
   "ingredients": [
-    {
-      "tag": "c:double_compressed_obsidian"
-    }
+    "#c:double_compressed_obsidian"
   ],
   "result": {
     "id": "prefab:block_compressed_obsidian",

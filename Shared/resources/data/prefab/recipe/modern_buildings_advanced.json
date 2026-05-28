@@ -20,21 +20,11 @@
     "cdc"
   ],
   "key": {
-    "a": {
-      "tag": "c:double_compressed_lights"
-    },
-    "b": {
-      "tag": "c:double_compressed_stone"
-    },
-    "c": {
-      "tag": "c:storage_blocks/iron"
-    },
-    "d": {
-      "tag": "c:double_compressed_quartz_crete"
-    },
-    "e": {
-      "tag": "c:triple_compressed_stone"
-    }
+    "a": "#c:double_compressed_lights",
+    "b": "#c:double_compressed_stone",
+    "c": "#c:storage_blocks/iron",
+    "d": "#c:double_compressed_quartz_crete",
+    "e": "#c:triple_compressed_stone"
   },
   "result": {
     "id": "prefab:item_modern_buildings_advanced",

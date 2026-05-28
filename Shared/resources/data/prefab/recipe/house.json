@@ -20,24 +20,12 @@
     "fff"
   ],
   "key": {
-    "a": {
-      "item": "minecraft:crafting_table"
-    },
-    "b": {
-      "item": "minecraft:clock"
-    },
-    "c": {
-      "item": "minecraft:furnace"
-    },
-    "d": {
-      "tag": "c:compressed_stone"
-    },
-    "e": {
-      "tag": "minecraft:beds"
-    },
-    "f": {
-      "item": "prefab:item_bundle_of_timber"
-    }
+    "a": "minecraft:crafting_table",
+    "b": "minecraft:clock",
+    "c": "minecraft:furnace",
+    "d": "#c:compressed_stone",
+    "e": "#minecraft:beds",
+    "f": "prefab:item_bundle_of_timber"
   },
   "result": {
     "id": "prefab:item_house",

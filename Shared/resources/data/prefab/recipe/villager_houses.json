@@ -20,12 +20,8 @@
     "bbb"
   ],
   "key": {
-    "a": {
-      "item": "prefab:item_bundle_of_timber"
-    },
-    "b": {
-      "tag": "c:compressed_stone"
-    }
+    "a": "prefab:item_bundle_of_timber",
+    "b": "#c:compressed_stone"
   },
   "result": {
     "id": "prefab:item_villager_houses",

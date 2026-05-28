@@ -20,12 +20,8 @@
     "AAA"
   ],
   "key": {
-    "A": {
-      "item": "prefab:item_bunch_of_potatoes"
-    },
-    "B": {
-      "item": "prefab:item_wooden_crate"
-    }
+    "A": "prefab:item_bunch_of_potatoes",
+    "B": "prefab:item_wooden_crate"
   },
   "result": {
     "id": "prefab:item_crate_of_potatoes",

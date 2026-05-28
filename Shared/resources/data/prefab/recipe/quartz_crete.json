@@ -20,12 +20,8 @@
     "aaa"
   ],
   "key": {
-    "a": {
-      "tag": "c:gems/quartz"
-    },
-    "b": {
-      "tag": "c:concrete"
-    }
+    "a": "#c:gems/quartz",
+    "b": "#c:concrete"
   },
   "result": {
     "id": "prefab:block_quartz_crete",

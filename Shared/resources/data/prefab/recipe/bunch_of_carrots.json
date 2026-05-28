@@ -20,9 +20,7 @@
     "AAA"
   ],
   "key": {
-    "A": {
-      "item": "minecraft:carrot"
-    }
+    "A": "minecraft:carrot"
   },
   "result": {
     "id": "prefab:item_bunch_of_carrots",

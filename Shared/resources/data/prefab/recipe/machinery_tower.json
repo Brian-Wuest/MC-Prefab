@@ -20,15 +20,9 @@
     " c "
   ],
   "key": {
-    "a": {
-      "item": "minecraft:powered_rail"
-    },
-    "b": {
-      "item": "prefab:item_string_of_lanterns"
-    },
-    "c": {
-      "tag": "c:triple_compressed_stone"
-    }
+    "a": "minecraft:powered_rail",
+    "b": "prefab:item_string_of_lanterns",
+    "c": "#c:triple_compressed_stone"
   },
   "result": {
     "id": "prefab:item_machinery_tower",

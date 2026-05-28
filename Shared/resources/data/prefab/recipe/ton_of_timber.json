@@ -20,9 +20,7 @@
     "###"
   ],
   "key": {
-    "#": {
-      "item": "prefab:item_heap_of_timber"
-    }
+    "#": "prefab:item_heap_of_timber"
   },
   "result": {
     "id": "prefab:item_ton_of_timber",

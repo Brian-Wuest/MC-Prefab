@@ -20,9 +20,7 @@
     "AAA"
   ],
   "key": {
-    "A": {
-      "item": "minecraft:beetroot"
-    }
+    "A": "minecraft:beetroot"
   },
   "result": {
     "id": "prefab:item_bunch_of_beets",

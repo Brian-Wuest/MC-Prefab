@@ -18,9 +18,7 @@
     "#"
   ],
   "key": {
-    "#": {
-      "item": "prefab:block_dirt_wall"
-    }
+    "#": "prefab:block_dirt_wall"
   },
   "result": {
     "id": "minecraft:dirt",

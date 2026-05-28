@@ -15,10 +15,7 @@
   ],
   "group": "Bunch of Eggs",
   "ingredients": [
-    {
-      "item": "prefab:item_carton_of_eggs",
-      "count": 1
-    }
+    "prefab:item_carton_of_eggs"
   ],
   "result": {
     "id": "prefab:item_clutch_of_eggs",

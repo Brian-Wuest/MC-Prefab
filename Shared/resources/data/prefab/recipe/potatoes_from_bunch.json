@@ -15,10 +15,7 @@
   ],
   "group": "Bunch of Potatoes",
   "ingredients": [
-    {
-      "item": "prefab:item_bunch_of_potatoes",
-      "count": 1
-    }
+    "prefab:item_bunch_of_potatoes"
   ],
   "result": {
     "id": "minecraft:potato",

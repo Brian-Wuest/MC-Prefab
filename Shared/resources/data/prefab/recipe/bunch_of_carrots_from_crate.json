@@ -15,11 +15,7 @@
   ],
   "group": "Bunch of Carrots",
   "ingredients": [
-    {
-      "item": "prefab:item_crate_of_carrots",
-      "count": 1,
-      "data": 6
-    }
+    "prefab:item_crate_of_carrots"
   ],
   "result": {
     "id": "prefab:item_bunch_of_carrots",

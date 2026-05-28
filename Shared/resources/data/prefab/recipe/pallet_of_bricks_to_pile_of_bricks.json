@@ -15,9 +15,7 @@
   ],
   "group": "Pile of Bricks",
   "ingredients": [
-    {
-      "tag": "c:pallet_of_bricks"
-    }
+    "#c:pallet_of_bricks"
   ],
   "result": {
     "id": "prefab:item_pile_of_bricks",

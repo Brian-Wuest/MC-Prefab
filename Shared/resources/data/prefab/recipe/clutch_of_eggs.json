@@ -20,9 +20,7 @@
     "AAA"
   ],
   "key": {
-    "A": {
-      "item": "minecraft:egg"
-    }
+    "A": "minecraft:egg"
   },
   "result": {
     "id": "prefab:item_clutch_of_eggs",

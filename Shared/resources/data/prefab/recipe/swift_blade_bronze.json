@@ -9,7 +9,9 @@
     {
       "condition": "fabric:tags_populated",
       "registry": "minecraft:item",
-      "values": ["c:ingots/bronze"]
+      "values": [
+        "c:ingots/bronze"
+      ]
     }
   ],
   "neoforge:conditions": [
@@ -32,12 +34,8 @@
     "b  "
   ],
   "key": {
-    "a": {
-      "tag": "c:ingots/bronze"
-    },
-    "b": {
-      "item": "minecraft:stick"
-    }
+    "a": "#c:ingots/bronze",
+    "b": "minecraft:stick"
   },
   "result": {
     "id": "prefab:item_swift_blade_bronze",

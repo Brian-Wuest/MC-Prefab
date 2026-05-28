@@ -20,13 +20,8 @@
     "AAA"
   ],
   "key": {
-    "A": {
-      "tag": "minecraft:planks"
-    },
-    "B": {
-      "item": "minecraft:stick",
-      "data": 0
-    }
+    "A": "#minecraft:planks",
+    "B": "minecraft:stick"
   },
   "result": {
     "id": "prefab:item_wooden_crate",

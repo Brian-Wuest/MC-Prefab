@@ -20,21 +20,11 @@
     "ebe"
   ],
   "key": {
-    "a": {
-      "item": "prefab:item_heap_of_timber"
-    },
-    "b": {
-      "tag": "c:compressed_stone"
-    },
-    "c": {
-      "tag": "c:double_compressed_dirt"
-    },
-    "d": {
-      "item": "minecraft:water_bucket"
-    },
-    "e": {
-      "item": "prefab:item_pile_of_bricks"
-    }
+    "a": "prefab:item_heap_of_timber",
+    "b": "#c:compressed_stone",
+    "c": "#c:double_compressed_dirt",
+    "d": "minecraft:water_bucket",
+    "e": "prefab:item_pile_of_bricks"
   },
   "result": {
     "id": "prefab:item_farm_improved",

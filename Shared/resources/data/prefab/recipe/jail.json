@@ -20,18 +20,10 @@
     "cdc"
   ],
   "key": {
-    "a": {
-      "item": "minecraft:iron_bars"
-    },
-    "b": {
-      "tag": "c:triple_compressed_stone"
-    },
-    "c": {
-      "tag": "c:double_compressed_dirt"
-    },
-    "d": {
-      "tag": "c:double_compressed_stone"
-    }
+    "a": "minecraft:iron_bars",
+    "b": "#c:triple_compressed_stone",
+    "c": "#c:double_compressed_dirt",
+    "d": "#c:double_compressed_stone"
   },
   "result": {
     "id": "prefab:item_jail",

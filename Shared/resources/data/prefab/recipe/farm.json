@@ -20,21 +20,11 @@
     "ded"
   ],
   "key": {
-    "a": {
-      "item": "minecraft:wheat_seeds"
-    },
-    "b": {
-      "item": "prefab:item_bundle_of_timber"
-    },
-    "c": {
-      "tag": "c:compressed_dirt"
-    },
-    "d": {
-      "tag": "minecraft:wool"
-    },
-    "e": {
-      "item": "minecraft:water_bucket"
-    }
+    "a": "minecraft:wheat_seeds",
+    "b": "prefab:item_bundle_of_timber",
+    "c": "#c:compressed_dirt",
+    "d": "#minecraft:wool",
+    "e": "minecraft:water_bucket"
   },
   "result": {
     "id": "prefab:item_farm",

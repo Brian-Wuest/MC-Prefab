@@ -9,7 +9,9 @@
     {
       "condition": "fabric:tags_populated",
       "registry": "minecraft:item",
-      "values": ["c:ingots/steel"]
+      "values": [
+        "c:ingots/steel"
+      ]
     }
   ],
   "neoforge:conditions": [
@@ -32,12 +34,8 @@
     "b  "
   ],
   "key": {
-    "a": {
-      "tag": "c:ingots/steel"
-    },
-    "b": {
-      "item": "minecraft:stick"
-    }
+    "a": "#c:ingots/steel",
+    "b": "minecraft:stick"
   },
   "result": {
     "id": "prefab:item_swift_blade_steel",

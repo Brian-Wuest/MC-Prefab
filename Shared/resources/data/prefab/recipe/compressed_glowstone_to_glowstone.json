@@ -1,4 +1,5 @@
-{  "type": "minecraft:crafting_shapeless",
+{
+  "type": "minecraft:crafting_shapeless",
   "configName": "Compressed Glowstone",
   "fabric:load_conditions": [
     {
@@ -14,9 +15,7 @@
   ],
   "group": "Compressed Glowstone",
   "ingredients": [
-    {
-      "tag": "c:compressed_glow_stone"
-    }
+    "#c:compressed_glow_stone"
   ],
   "result": {
     "id": "minecraft:glowstone",

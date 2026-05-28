@@ -20,21 +20,11 @@
     "c c"
   ],
   "key": {
-    "a": {
-      "item": "prefab:item_ton_of_timber"
-    },
-    "b": {
-      "tag": "c:double_compressed_stone"
-    },
-    "c": {
-      "tag": "c:double_compressed_dirt"
-    },
-    "d": {
-      "tag": "c:double_compressed_lights"
-    },
-    "e": {
-      "item": "prefab:item_heap_of_timber"
-    }
+    "a": "prefab:item_ton_of_timber",
+    "b": "#c:double_compressed_stone",
+    "c": "#c:double_compressed_dirt",
+    "d": "#c:double_compressed_lights",
+    "e": "prefab:item_heap_of_timber"
   },
   "result": {
     "id": "prefab:item_town_hall",

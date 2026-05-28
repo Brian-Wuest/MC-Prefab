@@ -20,9 +20,7 @@
     "###"
   ],
   "key": {
-    "#": {
-      "item": "minecraft:brick"
-    }
+    "#": "minecraft:brick"
   },
   "result": {
     "id": "prefab:item_pile_of_bricks",

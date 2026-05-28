@@ -15,9 +15,7 @@
     }
   ],
   "category": "blocks",
-  "ingredient": {
-    "item": "prefab:block_quartz_crete"
-  },
+  "ingredient": "prefab:block_quartz_crete",
   "result": {
     "id": "prefab:block_quartz_crete_smooth",
     "Count": 1

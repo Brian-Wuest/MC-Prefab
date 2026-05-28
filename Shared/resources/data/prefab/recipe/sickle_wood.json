@@ -20,12 +20,8 @@
     "ba "
   ],
   "key": {
-    "a": {
-      "tag": "minecraft:planks"
-    },
-    "b": {
-      "item": "minecraft:stick"
-    }
+    "a": "#minecraft:planks",
+    "b": "minecraft:stick"
   },
   "result": {
     "id": "prefab:item_sickle_wood",

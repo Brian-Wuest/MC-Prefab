@@ -20,18 +20,10 @@
     "aba"
   ],
   "key": {
-    "a": {
-      "item": "minecraft:bookshelf"
-    },
-    "b": {
-      "item": "minecraft:brewing_stand"
-    },
-    "c": {
-      "item": "minecraft:enchanting_table"
-    },
-    "d": {
-      "item": "minecraft:anvil"
-    }
+    "a": "minecraft:bookshelf",
+    "b": "minecraft:brewing_stand",
+    "c": "minecraft:enchanting_table",
+    "d": "minecraft:anvil"
   },
   "result": {
     "id": "prefab:item_upgrade",

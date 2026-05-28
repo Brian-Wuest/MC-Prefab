@@ -20,12 +20,8 @@
     "ba "
   ],
   "key": {
-    "a": {
-      "item": "minecraft:diamond"
-    },
-    "b": {
-      "item": "minecraft:stick"
-    }
+    "a": "minecraft:diamond",
+    "b": "minecraft:stick"
   },
   "result": {
     "id": "prefab:item_sickle_diamond",

@@ -20,12 +20,8 @@
     "ba "
   ],
   "key": {
-    "a": {
-      "item": "minecraft:netherite_ingot"
-    },
-    "b": {
-      "item": "minecraft:stick"
-    }
+    "a": "minecraft:netherite_ingot",
+    "b": "minecraft:stick"
   },
   "result": {
     "id": "prefab:item_sickle_netherite",

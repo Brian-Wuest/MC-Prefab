@@ -20,12 +20,8 @@
     "aaa"
   ],
   "key": {
-    "a": {
-      "tag": "c:glass_blocks"
-    },
-    "b": {
-      "item": "minecraft:ender_pearl"
-    }
+    "a": "#c:glass_blocks",
+    "b": "minecraft:ender_pearl"
   },
   "result": {
     "id": "prefab:block_boundary",

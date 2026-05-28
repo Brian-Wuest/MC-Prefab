@@ -20,9 +20,7 @@
     "aaa"
   ],
   "key": {
-    "a": {
-      "item": "prefab:block_quartz_crete_smooth"
-    }
+    "a": "prefab:block_quartz_crete_smooth"
   },
   "result": {
     "id": "prefab:block_quartz_crete_smooth_stairs",

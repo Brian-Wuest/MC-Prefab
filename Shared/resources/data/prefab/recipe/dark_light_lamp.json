@@ -15,14 +15,8 @@
   ],
   "group": "Dark Light Lamp",
   "ingredients": [
-    {
-      "item": "minecraft:ink_sac",
-      "count": 1
-    },
-    {
-      "item": "minecraft:redstone_lamp",
-      "count": 1
-    }
+    "minecraft:ink_sac",
+    "minecraft:redstone_lamp"
   ],
   "result": {
     "id": "prefab:block_dark_lamp",

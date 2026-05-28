@@ -20,24 +20,12 @@
     "efe"
   ],
   "key": {
-    "a": {
-      "item": "prefab:item_ton_of_timber"
-    },
-    "b": {
-      "tag": "c:compressed_lights"
-    },
-    "c": {
-      "item": "prefab:item_pallet_of_bricks"
-    },
-    "d": {
-      "tag": "c:double_compressed_dirt"
-    },
-    "e": {
-      "tag": "c:double_compressed_stone"
-    },
-    "f": {
-      "item": "prefab:item_compressed_chest"
-    }
+    "a": "prefab:item_ton_of_timber",
+    "b": "#c:compressed_lights",
+    "c": "prefab:item_pallet_of_bricks",
+    "d": "#c:double_compressed_dirt",
+    "e": "#c:double_compressed_stone",
+    "f": "prefab:item_compressed_chest"
   },
   "result": {
     "id": "prefab:item_farm_advanced",

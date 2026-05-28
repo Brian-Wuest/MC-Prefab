@@ -15,9 +15,7 @@
   ],
   "group": "Compressed Dirt",
   "ingredients": [
-    {
-      "tag": "c:double_compressed_dirt"
-    }
+    "#c:double_compressed_dirt"
   ],
   "result": {
     "id": "prefab:block_compressed_dirt",

@@ -20,15 +20,9 @@
     "CCC"
   ],
   "key": {
-    "A": {
-      "item": "prefab:item_clutch_of_eggs"
-    },
-    "B": {
-      "item": "prefab:item_wooden_crate"
-    },
-    "C": {
-      "item": "minecraft:paper"
-    }
+    "A": "prefab:item_clutch_of_eggs",
+    "B": "prefab:item_wooden_crate",
+    "C": "minecraft:paper"
   },
   "result": {
     "id": "prefab:item_carton_of_eggs",

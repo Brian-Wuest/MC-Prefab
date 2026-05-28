@@ -20,18 +20,10 @@
     "aaa"
   ],
   "key": {
-    "a": {
-      "item": "prefab:item_bundle_of_timber"
-    },
-    "b": {
-      "tag": "c:glass_blocks"
-    },
-    "c": {
-      "item": "minecraft:brewing_stand"
-    },
-    "d": {
-      "item": "minecraft:note_block"
-    }
+    "a": "prefab:item_bundle_of_timber",
+    "b": "#c:glass_blocks",
+    "c": "minecraft:brewing_stand",
+    "d": "minecraft:note_block"
   },
   "result": {
     "id": "prefab:item_saloon",

@@ -20,18 +20,10 @@
     "aaa"
   ],
   "key": {
-    "a": {
-      "item": "prefab:item_bundle_of_timber"
-    },
-    "b": {
-      "item": "minecraft:brewing_stand"
-    },
-    "c": {
-      "item": "minecraft:enchanting_table"
-    },
-    "d": {
-      "item": "minecraft:blaze_rod"
-    }
+    "a": "prefab:item_bundle_of_timber",
+    "b": "minecraft:brewing_stand",
+    "c": "minecraft:enchanting_table",
+    "d": "minecraft:blaze_rod"
   },
   "result": {
     "id": "prefab:item_magic_temple",

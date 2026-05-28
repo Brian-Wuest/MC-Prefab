@@ -20,18 +20,10 @@
     "cad"
   ],
   "key": {
-    "a": {
-      "tag": "c:compressed_stone"
-    },
-    "b": {
-      "tag": "c:double_compressed_stone"
-    },
-    "c": {
-      "tag": "c:storage_blocks/iron"
-    },
-    "d": {
-      "tag": "c:storage_blocks/copper"
-    }
+    "a": "#c:compressed_stone",
+    "b": "#c:double_compressed_stone",
+    "c": "#c:storage_blocks/iron",
+    "d": "#c:storage_blocks/copper"
   },
   "result": {
     "id": "prefab:item_watch_tower",

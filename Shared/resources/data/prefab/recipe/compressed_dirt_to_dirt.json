@@ -15,9 +15,7 @@
   ],
   "group": "Compressed Dirt",
   "ingredients": [
-    {
-      "tag": "c:compressed_dirt"
-    }
+    "#c:compressed_dirt"
   ],
   "result": {
     "id": "minecraft:dirt",

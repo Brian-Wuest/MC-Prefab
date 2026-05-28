@@ -15,18 +15,9 @@
   ],
   "group": "Light Switch",
   "ingredients": [
-    {
-      "item": "minecraft:ink_sac",
-      "count": 1
-    },
-    {
-      "item": "minecraft:stone_button",
-      "count": 1
-    },
-    {
-      "item": "minecraft:cobblestone",
-      "count": 1
-    }
+    "minecraft:ink_sac",
+    "minecraft:stone_button",
+    "minecraft:cobblestone"
   ],
   "result": {
     "id": "prefab:block_light_switch",

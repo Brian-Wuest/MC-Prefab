@@ -20,10 +20,7 @@
     "aaa"
   ],
   "key": {
-    "a": {
-      "item": "prefab:block_paper_lantern",
-      "data": 32767
-    }
+    "a": "prefab:block_paper_lantern"
   },
   "result": {
     "id": "prefab:item_string_of_lanterns",

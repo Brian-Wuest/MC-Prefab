@@ -20,9 +20,7 @@
     "aaa"
   ],
   "key": {
-    "a": {
-      "tag": "c:quartz_crete_blocks"
-    }
+    "a": "#c:quartz_crete_blocks"
   },
   "result": {
     "id": "prefab:block_quartz_crete_stairs",

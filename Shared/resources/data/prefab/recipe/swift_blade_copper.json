@@ -20,12 +20,8 @@
     "b  "
   ],
   "key": {
-    "a": {
-      "tag": "c:ingots/copper"
-    },
-    "b": {
-      "item": "minecraft:stick"
-    }
+    "a": "#c:ingots/copper",
+    "b": "minecraft:stick"
   },
   "result": {
     "id": "prefab:item_swift_blade_copper",

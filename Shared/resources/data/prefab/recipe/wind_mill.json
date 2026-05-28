@@ -20,18 +20,10 @@
     "cad"
   ],
   "key": {
-    "a": {
-      "item": "prefab:item_bundle_of_timber"
-    },
-    "b": {
-      "tag": "c:triple_compressed_stone"
-    },
-    "c": {
-      "tag": "c:double_compressed_dirt"
-    },
-    "d": {
-      "item": "minecraft:hay_block"
-    }
+    "a": "prefab:item_bundle_of_timber",
+    "b": "#c:triple_compressed_stone",
+    "c": "#c:double_compressed_dirt",
+    "d": "minecraft:hay_block"
   },
   "result": {
     "id": "prefab:item_wind_mill",

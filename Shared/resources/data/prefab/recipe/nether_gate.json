@@ -20,15 +20,9 @@
     "aba"
   ],
   "key": {
-    "a": {
-      "tag": "c:double_compressed_stone"
-    },
-    "b": {
-      "tag": "c:compressed_obsidian"
-    },
-    "c": {
-      "item": "minecraft:flint_and_steel"
-    }
+    "a": "#c:double_compressed_stone",
+    "b": "#c:compressed_obsidian",
+    "c": "minecraft:flint_and_steel"
   },
   "result": {
     "id": "prefab:item_nether_gate",

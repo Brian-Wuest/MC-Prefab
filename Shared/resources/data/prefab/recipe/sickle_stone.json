@@ -20,12 +20,8 @@
     "ba "
   ],
   "key": {
-    "a": {
-      "item": "minecraft:cobblestone"
-    },
-    "b": {
-      "item": "minecraft:stick"
-    }
+    "a": "minecraft:cobblestone",
+    "b": "minecraft:stick"
   },
   "result": {
     "id": "prefab:item_sickle_stone",

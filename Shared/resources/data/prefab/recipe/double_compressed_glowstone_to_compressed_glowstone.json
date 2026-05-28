@@ -15,9 +15,7 @@
   ],
   "group": "Compressed Glowstone",
   "ingredients": [
-    {
-      "tag": "c:double_compressed_glow_stone"
-    }
+    "#c:double_compressed_glow_stone"
   ],
   "result": {
     "id": "prefab:block_compressed_glowstone",

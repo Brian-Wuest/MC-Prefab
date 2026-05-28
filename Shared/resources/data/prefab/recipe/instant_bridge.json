@@ -20,12 +20,8 @@
     "aba"
   ],
   "key": {
-    "a": {
-      "item": "minecraft:torch"
-    },
-    "b": {
-      "tag": "c:double_compressed_stone"
-    }
+    "a": "minecraft:torch",
+    "b": "#c:double_compressed_stone"
   },
   "result": {
     "id": "prefab:item_instant_bridge",

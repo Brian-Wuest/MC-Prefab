@@ -20,24 +20,12 @@
     "bed"
   ],
   "key": {
-    "a": {
-      "item": "minecraft:snow_block"
-    },
-    "b": {
-      "tag": "c:double_compressed_lights"
-    },
-    "c": {
-      "item": "prefab:item_bundle_of_timber"
-    },
-    "d": {
-      "tag": "c:double_compressed_dirt"
-    },
-    "e": {
-      "tag": "c:triple_compressed_stone"
-    },
-    "f": {
-      "item": "minecraft:blue_ice"
-    }
+    "a": "minecraft:snow_block",
+    "b": "#c:double_compressed_lights",
+    "c": "prefab:item_bundle_of_timber",
+    "d": "#c:double_compressed_dirt",
+    "e": "#c:triple_compressed_stone",
+    "f": "minecraft:blue_ice"
   },
   "result": {
     "id": "prefab:item_ski_lodge",

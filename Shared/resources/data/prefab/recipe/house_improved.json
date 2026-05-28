@@ -15,15 +15,9 @@
   ],
   "group": "Improved House",
   "ingredients": [
-    {
-      "item": "prefab:item_house"
-    },
-    {
-      "item": "prefab:item_house"
-    },
-    {
-      "item": "prefab:item_house"
-    }
+    "prefab:item_house",
+    "prefab:item_house",
+    "prefab:item_house"
   ],
   "result": {
     "id": "prefab:item_house_improved",

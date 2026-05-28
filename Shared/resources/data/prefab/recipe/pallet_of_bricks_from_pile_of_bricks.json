@@ -20,9 +20,7 @@
     "###"
   ],
   "key": {
-    "#": {
-      "tag": "c:pile_of_bricks"
-    }
+    "#": "#c:pile_of_bricks"
   },
   "result": {
     "id": "prefab:item_pallet_of_bricks",

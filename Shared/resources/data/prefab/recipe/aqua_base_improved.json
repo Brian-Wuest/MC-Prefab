@@ -20,21 +20,11 @@
     "ede"
   ],
   "key": {
-    "a": {
-      "tag": "c:glass_blocks"
-    },
-    "b": {
-      "item": "minecraft:conduit"
-    },
-    "c": {
-      "item": "minecraft:sea_lantern"
-    },
-    "d": {
-      "tag": "c:double_compressed_lights"
-    },
-    "e": {
-      "tag": "c:triple_compressed_stone"
-    }
+    "a": "#c:glass_blocks",
+    "b": "minecraft:conduit",
+    "c": "minecraft:sea_lantern",
+    "d": "#c:double_compressed_lights",
+    "e": "#c:triple_compressed_stone"
   },
   "result": {
     "id": "prefab:item_aqua_base_improved",

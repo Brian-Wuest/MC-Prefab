@@ -20,9 +20,7 @@
     "aaa"
   ],
   "key": {
-    "a": {
-      "tag": "c:compressed_obsidian"
-    }
+    "a": "#c:compressed_obsidian"
   },
   "result": {
     "id": "prefab:block_double_compressed_obsidian",

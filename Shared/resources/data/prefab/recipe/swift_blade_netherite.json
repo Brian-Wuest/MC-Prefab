@@ -20,12 +20,8 @@
     "a  "
   ],
   "key": {
-    "a": {
-      "item": "minecraft:stick"
-    },
-    "b": {
-      "item": "minecraft:netherite_ingot"
-    }
+    "a": "minecraft:stick",
+    "b": "minecraft:netherite_ingot"
   },
   "result": {
     "id": "prefab:item_swift_blade_netherite",

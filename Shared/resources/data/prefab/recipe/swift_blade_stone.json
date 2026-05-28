@@ -20,12 +20,8 @@
     "b  "
   ],
   "key": {
-    "a": {
-      "item": "minecraft:cobblestone"
-    },
-    "b": {
-      "item": "minecraft:stick"
-    }
+    "a": "minecraft:cobblestone",
+    "b": "minecraft:stick"
   },
   "result": {
     "id": "prefab:item_swift_blade_stone",

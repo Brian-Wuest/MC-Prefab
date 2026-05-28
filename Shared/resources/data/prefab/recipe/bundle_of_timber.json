@@ -20,9 +20,7 @@
     "###"
   ],
   "key": {
-    "#": {
-      "tag": "minecraft:logs"
-    }
+    "#": "#minecraft:logs"
   },
   "result": {
     "id": "prefab:item_bundle_of_timber",
