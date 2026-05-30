@@ -27,6 +27,9 @@
     "client": [
       "com.prefab.fabric.PrefabClient"
     ],
+    "fabric-datagen": [
+      "com.prefab.fabric.PrefabDocsReferenceDataGenerator"
+    ],
     "modmenu": [
       "com.prefab.fabric.config.PrefabModMenuIntegration"
     ]
