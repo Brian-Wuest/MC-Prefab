@@ -10,7 +10,7 @@
       "condition": "fabric:tags_populated",
       "registry": "minecraft:item",
       "values": [
-        "c:ingots/bronze"
+        "#c:ingots/bronze"
       ]
     }
   ],
