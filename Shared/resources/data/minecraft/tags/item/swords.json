@@ -1,0 +1,16 @@
+﻿{
+  "replace": false,
+  "values": [
+    "prefab:item_swift_blade_bronze",
+    "prefab:item_swift_blade_copper",
+    "prefab:item_swift_blade_diamond",
+    "prefab:item_swift_blade_gold",
+    "prefab:item_swift_blade_iron",
+    "prefab:item_swift_blade_netherite",
+    "prefab:item_swift_blade_obsidian",
+    "prefab:item_swift_blade_osmium",
+    "prefab:item_swift_blade_steel",
+    "prefab:item_swift_blade_stone",
+    "prefab:item_swift_blade_wood"
+  ]
+}
