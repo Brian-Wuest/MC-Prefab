@@ -24,11 +24,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class GameServerEvents {
-    /**
-     * Determines the affected blocks by redstone power.
-     */
-    public static ArrayList<BlockPos> RedstoneAffectedBlockPositions = new ArrayList<>();
-
     // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
     public void onServerAboutToStart(ServerAboutToStartEvent event)

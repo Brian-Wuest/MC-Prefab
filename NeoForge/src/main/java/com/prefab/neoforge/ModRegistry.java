@@ -49,6 +49,9 @@ public class ModRegistry extends ModRegistryBase {
     public static final DeferredHolder<MapCodec<? extends ICondition>, MapCodec<RecipeEnabledCondition>> RECIPE_ENABLED =
             CUSTOM_CONDITION_TYPES.register("recipe_enabled", () -> RecipeEnabledCondition.CODEC);
 
+    public static final DeferredRegister<BlockEntityType<?>> MY_BLOCK_ENTITY_TYPES =
+            DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, PrefabBase.MODID);
+
     private static final ArrayList<Item> ModItems = new ArrayList<>();
 
     // Creates a creative tab with the id "examplemod:example_tab" for the example item, that is placed after the combat tab
@@ -71,11 +74,13 @@ public class ModRegistry extends ModRegistryBase {
     @Override
     public void initializeModLoaderBlocks() {
         // Always make sure to fully qualify WHICH block we are creating...
-        ModRegistryBase.Boundary = new BlockBoundary();
+        ModRegistryBase.Boundary = new BlockBoundary(
+                this.setBlockId(PrefabBase.SeeThroughImmovable.get(), "block_boundary"));
         ModRegistryBase.GlassSlab = new BlockGlassSlab(Block.Properties.ofFullCopy(Blocks.GLASS));
         ModRegistryBase.GlassStairs = new BlockGlassStairs(Blocks.GLASS.defaultBlockState(), Block.Properties.ofFullCopy(Blocks.GLASS));
         ModRegistryBase.PaperLantern = new BlockPaperLantern();
-        ModRegistryBase.Phasic = new BlockPhasic();
+        ModRegistryBase.Phasic = new BlockPhasic(
+                this.setBlockId(PrefabBase.SeeThroughImmovable.get(), "block_phasic"));
     }
 
     @Override
@@ -91,19 +96,19 @@ public class ModRegistry extends ModRegistryBase {
     @Override
     public void initializeModLoaderItems() {
         ModRegistryBase.CompressedChest = new ItemCompressedChest();
-        ModRegistryBase.SickleDiamond = new ItemSickle(Tiers.DIAMOND);
-        ModRegistryBase.SickleGold = new ItemSickle(Tiers.GOLD);
-        ModRegistryBase.SickleNetherite = new ItemSickle(Tiers.NETHERITE);
-        ModRegistryBase.SickleIron = new ItemSickle(Tiers.IRON);
-        ModRegistryBase.SickleStone = new ItemSickle(Tiers.STONE);
-        ModRegistryBase.SickleWood = new ItemSickle(Tiers.WOOD);
+        ModRegistryBase.SickleDiamond = new ItemSickle(ToolMaterial.DIAMOND, this.setItemId(new Item.Properties(), "item_sickle_diamond"));
+        ModRegistryBase.SickleGold = new ItemSickle(ToolMaterial.GOLD, this.setItemId(new Item.Properties(), "item_sickle_gold"));
+        ModRegistryBase.SickleNetherite = new ItemSickle(ToolMaterial.NETHERITE, this.setItemId(new Item.Properties(), "item_sickle_netherite"));
+        ModRegistryBase.SickleIron = new ItemSickle(ToolMaterial.IRON, this.setItemId(new Item.Properties(), "item_sickle_iron"));
+        ModRegistryBase.SickleStone = new ItemSickle(ToolMaterial.STONE, this.setItemId(new Item.Properties(), "item_sickle_stone"));
+        ModRegistryBase.SickleWood = new ItemSickle(ToolMaterial.WOOD, this.setItemId(new Item.Properties(), "item_sickle_wood"));
     }
 
     @Override
     public void initializeModLoaderBluePrintItems() {
         // Always make sure to fully qualify WHICH item we are creating...
-        ModRegistryBase.Bulldozer = new ItemBulldozer();
-        ModRegistryBase.CreativeBulldozer = new ItemBulldozer(true);
+        ModRegistryBase.Bulldozer = new ItemBulldozer(this.setItemId(new Item.Properties(), "item_bulldozer"));
+        ModRegistryBase.CreativeBulldozer = new ItemBulldozer(this.setItemId(new Item.Properties(), "item_creative_bulldozer"), true);
     }
 
     public void register(RegisterEvent event) {
@@ -175,20 +180,16 @@ public class ModRegistry extends ModRegistryBase {
 
     private void registerBlockEntities() {
         if (PrefabBase.isDebug) {
-            ModRegistryBase.StructureScannerEntityType = Registry.register(
-                    BuiltInRegistries.BLOCK_ENTITY_TYPE,
+            ModRegistryBase.StructureScannerEntityType = MY_BLOCK_ENTITY_TYPES.register(
                     "prefab:structure_scanner_entity",
-                    BlockEntityType.Builder
-                            .of(StructureScannerBlockEntity::new, ModRegistryBase.StructureScanner)
-                            .build(null));
+                            () -> new BlockEntityType<>(StructureScannerBlockEntity::new,
+                                    ModRegistryBase.StructureScanner)).get();
         }
 
-        ModRegistryBase.LightSwitchEntityType = Registry.register(
-                BuiltInRegistries.BLOCK_ENTITY_TYPE,
+        ModRegistryBase.LightSwitchEntityType = MY_BLOCK_ENTITY_TYPES.register(
                 "prefab:light_switch_entity",
-                BlockEntityType.Builder
-                        .of(LightSwitchBlockEntity::new, ModRegistryBase.LightSwitch)
-                        .build(null));
+                () -> new BlockEntityType<>(LightSwitchBlockEntity::new,
+                        ModRegistryBase.LightSwitch)).get();
     }
 
     private void registerBlocks() {

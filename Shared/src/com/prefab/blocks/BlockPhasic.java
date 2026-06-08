@@ -40,12 +40,12 @@ public class BlockPhasic extends Block {
     /**
      * The phasing progress property.
      */
-    protected static final EnumProperty<EnumPhasingProgress> Phasing_Progress = EnumProperty.create("phasic_progress", EnumPhasingProgress.class);
+    public static final EnumProperty<EnumPhasingProgress> Phasing_Progress = EnumProperty.create("phasic_progress", EnumPhasingProgress.class);
 
     /**
      * The phasing out block property.
      */
-    protected static final BooleanProperty Phasing_Out = BooleanProperty.create("phasing_out");
+    public static final BooleanProperty Phasing_Out = BooleanProperty.create("phasing_out");
 
     /**
      * The tick rage for this block.
@@ -133,55 +133,6 @@ public class BlockPhasic extends Block {
         } else {
             return 0.2F;
         }
-    }
-
-    /**
-     * Sets the powered status and updates the block's neighbor.
-     *
-     * @param worldIn           The world where the block resides.
-     * @param pos               The position of the block.
-     * @param desiredBlockState The current state of the block at the position.
-     * @param cascadeCount      The number of times it has cascaded.
-     * @param cascadedBlockPos  The list of cascaded block positions, this is used to determine if this block should
-     *                          be processed again.
-     * @param setCurrentBlock   Determines if the current block should be set.
-     */
-    protected int findNeighborPhasicBlocks(Level worldIn, BlockPos pos, BlockState desiredBlockState, int cascadeCount,
-                                           ArrayList<BlockPos> cascadedBlockPos, boolean setCurrentBlock) {
-        cascadeCount++;
-
-        if (cascadeCount > 100) {
-            return cascadeCount;
-        }
-
-        if (setCurrentBlock) {
-            cascadedBlockPos.add(pos);
-        }
-
-        for (Direction facing : Direction.values()) {
-            Block neighborBlock = worldIn.getBlockState(pos.relative(facing)).getBlock();
-
-            if (neighborBlock instanceof BlockPhasic) {
-                BlockState blockState = worldIn.getBlockState(pos.relative(facing));
-
-                // If the block is already in the correct state or was already checked, there is no need to cascade to
-                // it's neighbors.
-                EnumPhasingProgress progress = blockState.getValue(Phasing_Progress);
-
-                if (cascadedBlockPos.contains(pos.relative(facing)) || progress == desiredBlockState.getValue(Phasing_Progress)) {
-                    continue;
-                }
-
-                setCurrentBlock = true;
-                cascadeCount = this.findNeighborPhasicBlocks(worldIn, pos.relative(facing), desiredBlockState, cascadeCount, cascadedBlockPos, setCurrentBlock);
-
-                if (cascadeCount > 100) {
-                    break;
-                }
-            }
-        }
-
-        return cascadeCount;
     }
 
     /**

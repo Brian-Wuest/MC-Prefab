@@ -82,12 +82,23 @@ public abstract class ILevelBasedRegistry<T> {
                     }
                 }
 
-                if (elements.size() == 0) {
+                if (elements.isEmpty()) {
                     // No more elements, remove the level from the array.
                     this.internalRegistry.remove(level);
                 }
             }
         }
+    }
+
+    public boolean contains(Level level, T element) {
+        if (this.internalRegistry.containsKey(level)) {
+            Vector<T> elements = this.internalRegistry.get(level);
+            if (elements != null) {
+                return elements.contains(element);
+            }
+        }
+
+        return false;
     }
 
     /**

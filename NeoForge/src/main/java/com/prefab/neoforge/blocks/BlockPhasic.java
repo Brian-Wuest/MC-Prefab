@@ -1,5 +1,6 @@
 package com.prefab.neoforge.blocks;
 
+import com.prefab.ModRegistryBase;
 import com.prefab.neoforge.events.GameServerEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -9,16 +10,19 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.redstone.Orientation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 
 public class BlockPhasic extends com.prefab.blocks.BlockPhasic {
-    public BlockPhasic() {
-        super();
+    public BlockPhasic(BlockBehaviour.Properties properties) {
+        super(properties);
     }
 
     /**
@@ -26,18 +30,9 @@ public class BlockPhasic extends com.prefab.blocks.BlockPhasic {
      */
     @Override
     public @NotNull BlockState playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
-        com.prefab.blocks.BlockPhasic.EnumPhasingProgress currentState = state.getValue(Phasing_Progress);
+        ModRegistryBase.serverModRegistries.getPhasicBlockRegistry().remove(world, pos);
 
         super.playerWillDestroy(world, pos, state, player);
-
-        GameServerEvents.RedstoneAffectedBlockPositions.remove(pos);
-
-        boolean poweredSide = world.hasNeighborSignal(pos);
-
-        if (poweredSide && currentState == com.prefab.blocks.BlockPhasic.EnumPhasingProgress.transparent) {
-            // Set this block and all neighbor Phasic Blocks to base. This will cascade to tall touching Phasic blocks.
-            this.updateNeighborPhasicBlocks(false, world, pos, state, false, false);
-        }
 
         return state;
     }
@@ -46,7 +41,7 @@ public class BlockPhasic extends com.prefab.blocks.BlockPhasic {
     public void tick(BlockState state, ServerLevel worldIn, BlockPos pos, RandomSource random) {
         int tickDelay = this.tickRate;
 
-        if (GameServerEvents.RedstoneAffectedBlockPositions.contains(pos)) {
+        if (ModRegistryBase.serverModRegistries.getPhasicBlockRegistry().contains(worldIn, pos)) {
             return;
         }
 
@@ -58,7 +53,9 @@ public class BlockPhasic extends com.prefab.blocks.BlockPhasic {
             for (Direction facing : Direction.values()) {
                 Block currentBlock = worldIn.getBlockState(pos.relative(facing)).getBlock();
 
-                if (currentBlock instanceof com.prefab.blocks.BlockPhasic && !GameServerEvents.RedstoneAffectedBlockPositions.contains(pos.relative(facing))) {
+                if (currentBlock instanceof com.prefab.blocks.BlockPhasic
+                        && !ModRegistryBase.serverModRegistries.getPhasicBlockRegistry()
+                        .contains(worldIn, pos.relative(facing))) {
                     worldIn.scheduleTick(pos.relative(facing), currentBlock, tickDelay);
                 }
             }
@@ -98,50 +95,26 @@ public class BlockPhasic extends com.prefab.blocks.BlockPhasic {
         }
     }
 
-    protected void updateNeighborPhasicBlocks(boolean setToTransparent, Level worldIn, BlockPos pos, BlockState phasicBlockState, boolean setCurrentBlock,
-                                              boolean triggeredByRedstone) {
-        ArrayList<BlockPos> blocksToUpdate = new ArrayList<BlockPos>();
-        BlockState updatedBlockState = phasicBlockState
-                .setValue(Phasing_Out, setToTransparent)
-                .setValue(Phasing_Progress, setToTransparent ? com.prefab.blocks.BlockPhasic.EnumPhasingProgress.transparent : com.prefab.blocks.BlockPhasic.EnumPhasingProgress.base);
-
-        // Set this block and all neighbor Phasic Blocks to transparent. This will cascade to all touching Phasic
-        // blocks.
-        this.findNeighborPhasicBlocks(worldIn, pos, updatedBlockState, 0, blocksToUpdate, setCurrentBlock);
-
-        for (BlockPos positionToUpdate : blocksToUpdate) {
-            worldIn.setBlock(positionToUpdate, updatedBlockState, 3);
-
-            if (triggeredByRedstone) {
-                if (GameServerEvents.RedstoneAffectedBlockPositions.contains(positionToUpdate) && !setToTransparent) {
-                    GameServerEvents.RedstoneAffectedBlockPositions.remove(positionToUpdate);
-                } else if (!GameServerEvents.RedstoneAffectedBlockPositions.contains(positionToUpdate) && setToTransparent) {
-                    GameServerEvents.RedstoneAffectedBlockPositions.add(positionToUpdate);
-                }
-            }
-        }
-    }
-
     /**
      * Called when a neighboring block was changed and marks that this state should perform any checks during a neighbor
      * change. Cases may include when redstone power is updated, cactus blocks popping off due to a neighboring solid
      * block, etc.
      */
     @Override
-    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos p_189540_5_, boolean p_220069_6_) {
-        if (!worldIn.isClientSide()) {
+    public void neighborChanged(BlockState blockState, Level level, BlockPos blockPos,
+                                Block block, @Nullable Orientation orientation, boolean bl) {
+        if (!level.isClientSide()) {
             // Only worry about powering blocks.
-            if (blockIn.defaultBlockState().isSignalSource()) {
-                boolean poweredSide = worldIn.hasNeighborSignal(pos);
-                com.prefab.blocks.BlockPhasic.EnumPhasingProgress currentState = state.getValue(Phasing_Progress);
-                boolean setToTransparent = false;
+            if (block.defaultBlockState().isSignalSource()) {
+                boolean poweredSide = level.hasNeighborSignal(blockPos);
+                com.prefab.blocks.BlockPhasic.EnumPhasingProgress currentState = blockState.getValue(Phasing_Progress);
+                boolean setToTransparent = poweredSide && currentState == EnumPhasingProgress.base;
 
-                if (poweredSide && currentState == com.prefab.blocks.BlockPhasic.EnumPhasingProgress.base) {
-                    setToTransparent = true;
-                }
-
-                if (currentState == com.prefab.blocks.BlockPhasic.EnumPhasingProgress.base || currentState == com.prefab.blocks.BlockPhasic.EnumPhasingProgress.transparent) {
-                    this.updateNeighborPhasicBlocks(setToTransparent, worldIn, pos, state, true, true);
+                if (currentState == com.prefab.blocks.BlockPhasic.EnumPhasingProgress.base
+                        || currentState == com.prefab.blocks.BlockPhasic.EnumPhasingProgress.transparent) {
+                    ModRegistryBase.serverModRegistries.getPhasicBlockRegistry()
+                            .updateNeighborPhasicBlocks(setToTransparent, level, blockPos,
+                                    blockState, true, true);
                 }
             }
         }
@@ -162,7 +135,9 @@ public class BlockPhasic extends com.prefab.blocks.BlockPhasic {
         boolean poweredSide = context.getLevel().hasNeighborSignal(context.getClickedPos());
 
         if (poweredSide) {
-            this.updateNeighborPhasicBlocks(true, context.getLevel(), context.getClickedPos(), this.defaultBlockState(), false, false);
+            ModRegistryBase.serverModRegistries.getPhasicBlockRegistry().updateNeighborPhasicBlocks(
+                    true, context.getLevel(), context.getClickedPos(),
+                    this.defaultBlockState(), false, false);
         }
 
         return this.defaultBlockState().setValue(Phasing_Out, poweredSide).setValue(Phasing_Progress, com.prefab.blocks.BlockPhasic.EnumPhasingProgress.base);

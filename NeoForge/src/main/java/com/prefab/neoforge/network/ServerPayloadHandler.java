@@ -46,7 +46,7 @@ public class ServerPayloadHandler {
             StructureConfiguration configuration = structureConfig.structureConfig.ReadFromCompoundTag(payload.structureTagMessage().getMessageTag());
             ServerPlayer serverPlayer = (ServerPlayer) context.player();
 
-            configuration.BuildStructure(context.player(), serverPlayer.serverLevel());
+            configuration.BuildStructure(serverPlayer, serverPlayer.serverLevel());
         });
     }
 }
