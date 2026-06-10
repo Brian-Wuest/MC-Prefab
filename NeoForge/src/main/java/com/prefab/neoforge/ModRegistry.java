@@ -41,19 +41,12 @@ import java.util.Objects;
 import static com.prefab.neoforge.Prefab.CREATIVE_MODE_TABS;
 
 public class ModRegistry extends ModRegistryBase {
-    public PayloadRegistrar registrar;
-
     public static final DeferredRegister<MapCodec<? extends ICondition>> CUSTOM_CONDITION_TYPES =
             DeferredRegister.create(NeoForgeRegistries.Keys.CONDITION_CODECS, PrefabBase.MODID);
-
     public static final DeferredHolder<MapCodec<? extends ICondition>, MapCodec<RecipeEnabledCondition>> RECIPE_ENABLED =
             CUSTOM_CONDITION_TYPES.register("recipe_enabled", () -> RecipeEnabledCondition.CODEC);
 
-    public static final DeferredRegister<BlockEntityType<?>> MY_BLOCK_ENTITY_TYPES =
-            DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, PrefabBase.MODID);
-
     private static final ArrayList<Item> ModItems = new ArrayList<>();
-
     // Creates a creative tab with the id "examplemod:example_tab" for the example item, that is placed after the combat tab
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("example_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.prefab.logo")) //The language key for the title of your CreativeModeTab
@@ -70,6 +63,7 @@ public class ModRegistry extends ModRegistryBase {
                     output.accept(item);
                 }
             }).build());
+    public PayloadRegistrar registrar;
 
     @Override
     public void initializeModLoaderBlocks() {
@@ -86,11 +80,20 @@ public class ModRegistry extends ModRegistryBase {
     @Override
     public void initializeModLoaderBlockItems() {
         // Always make sure do re-do the block item when replacing a block.
-        ModRegistryBase.BoundaryItem = new BlockItem(ModRegistryBase.Boundary, new Item.Properties());
-        ModRegistryBase.GlassSlabItem = new BlockItem(ModRegistryBase.GlassSlab, new Item.Properties());
-        ModRegistryBase.GlassStairsItem = new BlockItem(ModRegistryBase.GlassStairs, new Item.Properties());
-        ModRegistryBase.PaperLanternItem = new BlockItem(ModRegistryBase.PaperLantern, new Item.Properties());
-        ModRegistryBase.PhasicItem = new BlockItem(ModRegistryBase.Phasic, new Item.Properties());
+        ModRegistryBase.BoundaryItem = new BlockItem(ModRegistryBase.Boundary,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.Boundary));
+
+        ModRegistryBase.GlassSlabItem = new BlockItem(ModRegistryBase.GlassSlab,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.GlassSlab));
+
+        ModRegistryBase.GlassStairsItem = new BlockItem(ModRegistryBase.GlassStairs,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.GlassStairs));
+
+        ModRegistryBase.PaperLanternItem = new BlockItem(ModRegistryBase.PaperLantern,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.PaperLantern));
+
+        ModRegistryBase.PhasicItem = new BlockItem(ModRegistryBase.Phasic,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.Phasic));
     }
 
     @Override
@@ -180,16 +183,17 @@ public class ModRegistry extends ModRegistryBase {
 
     private void registerBlockEntities() {
         if (PrefabBase.isDebug) {
-            ModRegistryBase.StructureScannerEntityType = MY_BLOCK_ENTITY_TYPES.register(
-                    "prefab:structure_scanner_entity",
-                            () -> new BlockEntityType<>(StructureScannerBlockEntity::new,
-                                    ModRegistryBase.StructureScanner)).get();
+            ModRegistryBase.StructureScannerEntityType = Registry.register(
+                    BuiltInRegistries.BLOCK_ENTITY_TYPE,
+                    ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID, "structure_scanner_entity"),
+                    new BlockEntityType<>(StructureScannerBlockEntity::new, ModRegistryBase.StructureScanner));
         }
 
-        ModRegistryBase.LightSwitchEntityType = MY_BLOCK_ENTITY_TYPES.register(
-                "prefab:light_switch_entity",
-                () -> new BlockEntityType<>(LightSwitchBlockEntity::new,
-                        ModRegistryBase.LightSwitch)).get();
+        ModRegistryBase.LightSwitchEntityType = Registry.register(
+                BuiltInRegistries.BLOCK_ENTITY_TYPE,
+                ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID, "light_switch_entity"),
+                new BlockEntityType<>(LightSwitchBlockEntity::new,
+                        ModRegistryBase.LightSwitch));
     }
 
     private void registerBlocks() {
@@ -351,7 +355,8 @@ public class ModRegistry extends ModRegistryBase {
         this.registerItem("block_dirt_slab", ModRegistryBase.DirtSlabItem);
 
         if (PrefabBase.isDebug) {
-            ModRegistryBase.StructureScannerItem = new BlockItem(ModRegistryBase.StructureScanner, new Item.Properties());
+            ModRegistryBase.StructureScannerItem = new BlockItem(ModRegistryBase.StructureScanner,
+                    this.setItemBlockId(new Item.Properties(), ModRegistryBase.StructureScanner));
             this.registerItem("block_structure_scanner", ModRegistryBase.StructureScannerItem);
         }
 
