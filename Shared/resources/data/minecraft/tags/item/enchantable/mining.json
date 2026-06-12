@@ -1,0 +1,11 @@
+﻿{
+  "replace": false,
+  "values": [
+    "prefab:item_sickle_gold",
+    "prefab:item_sickle_diamond",
+    "prefab:item_sickle_iron",
+    "prefab:item_sickle_netherite",
+    "prefab:item_sickle_stone",
+    "prefab:item_sickle_wood"
+  ]
+}
