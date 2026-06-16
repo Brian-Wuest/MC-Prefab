@@ -210,12 +210,12 @@ public class BlockBoundary extends Block {
             Block neighborBlock = world.getBlockState(pos.relative(facing)).getBlock();
 
             if (neighborBlock instanceof BlockBoundary) {
-                // If the block is already in the correct state, there is no need to cascade to it's neighbors.
+                // If the block is already in the correct state, there is no need to cascade to its neighbors.
                 if (cascadedBlockPos.contains(pos.relative(facing))) {
                     continue;
                 }
 
-                // running this method for the neighbor block will cascade out to it's other neighbors until there are
+                // running this method for the neighbor block will cascade out to its other neighbors until there are
                 // no more Phasic blocks around.
                 ((BlockBoundary) neighborBlock).setNeighborGlassBlocksPoweredStatus(world, pos.relative(facing), isPowered, cascadeCount, cascadedBlockPos, true);
             }

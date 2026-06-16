@@ -30,7 +30,9 @@ public class BlockPhasic extends com.prefab.blocks.BlockPhasic {
      */
     @Override
     public @NotNull BlockState playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
-        ModRegistryBase.serverModRegistries.getPhasicBlockRegistry().remove(world, pos);
+        if (!world.isClientSide()) {
+            ModRegistryBase.serverModRegistries.getPhasicBlockRegistry().remove(world, pos);
+        }
 
         super.playerWillDestroy(world, pos, state, player);
 
@@ -132,18 +134,20 @@ public class BlockPhasic extends com.prefab.blocks.BlockPhasic {
          * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
          * BlockState
          */
-        boolean poweredSide = context.getLevel().hasNeighborSignal(context.getClickedPos());
+        Level level = context.getLevel();
+        BlockPos blockPos = context.getClickedPos();
+        boolean poweredSide = level.hasNeighborSignal(blockPos);
 
-        if (poweredSide) {
+        if (!level.isClientSide && poweredSide) {
             ModRegistryBase.serverModRegistries.getPhasicBlockRegistry().updateNeighborPhasicBlocks(
-                    true, context.getLevel(), context.getClickedPos(),
+                    true, level, blockPos,
                     this.defaultBlockState(), false, false);
         }
 
-        return this.defaultBlockState().setValue(Phasing_Out, poweredSide).setValue(Phasing_Progress, com.prefab.blocks.BlockPhasic.EnumPhasingProgress.base);
+        return this.defaultBlockState().setValue(Phasing_Out, poweredSide)
+                .setValue(Phasing_Progress, com.prefab.blocks.BlockPhasic.EnumPhasingProgress.base);
     }
-
-
+    
     @OnlyIn(Dist.CLIENT)
     @Override
     public boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction side) {

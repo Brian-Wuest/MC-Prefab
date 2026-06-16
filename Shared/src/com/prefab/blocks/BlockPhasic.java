@@ -60,7 +60,8 @@ public class BlockPhasic extends Block {
                 .sound(SoundType.STONE)
                 .strength(0.6f));
 
-        this.registerDefaultState(this.getStateDefinition().any().setValue(Phasing_Out, false).setValue(Phasing_Progress, EnumPhasingProgress.base));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(Phasing_Out, false)
+                .setValue(Phasing_Progress, EnumPhasingProgress.base));
     }
 
     @Override
@@ -69,7 +70,8 @@ public class BlockPhasic extends Block {
     }
 
     @Override
-    public @NotNull InteractionResult useItemOn(ItemStack itemStack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult rayTrace) {
+    public @NotNull InteractionResult useItemOn(ItemStack itemStack, BlockState state, Level world, BlockPos pos,
+                                                Player player, InteractionHand hand, BlockHitResult rayTrace) {
         if (!world.isClientSide()) {
             EnumPhasingProgress progress = state.getValue(Phasing_Progress);
 
