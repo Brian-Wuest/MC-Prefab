@@ -46,7 +46,8 @@ public class BlockGlassSlab extends TransparentBlock implements SimpleWaterlogge
                 ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID,
                         "block_glass_slab")))
         );
-        this.registerDefaultState(this.getStateDefinition().any().setValue(SlabBlock.TYPE, SlabType.BOTTOM).setValue(WATERLOGGED, Boolean.FALSE));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(SlabBlock.TYPE, SlabType.BOTTOM)
+                .setValue(WATERLOGGED, Boolean.FALSE));
     }
 
     // This is basically the "isTransparent" function.

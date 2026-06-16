@@ -147,7 +147,7 @@ public class BlockPhasic extends com.prefab.blocks.BlockPhasic {
         return this.defaultBlockState().setValue(Phasing_Out, poweredSide)
                 .setValue(Phasing_Progress, com.prefab.blocks.BlockPhasic.EnumPhasingProgress.base);
     }
-    
+
     @OnlyIn(Dist.CLIENT)
     @Override
     public boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction side) {
