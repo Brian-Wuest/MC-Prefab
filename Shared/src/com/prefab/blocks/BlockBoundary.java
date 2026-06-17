@@ -32,6 +32,8 @@ public class BlockBoundary extends Block {
      */
     public static final BooleanProperty Powered = BooleanProperty.create("powered");
 
+    public static final String BlockName = "block_boundary";
+
     /**
      * Initializes a new instance of the BlockBoundary class.
      */

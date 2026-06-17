@@ -384,13 +384,15 @@ public class ModRegistryBase {
      */
     public void initializeModLoaderBlocks() {
         ModRegistryBase.Boundary = new BlockBoundary(
-                this.setBlockId(PrefabBase.SeeThroughImmovable.get(), "block_boundary")
-        );
-        ModRegistryBase.GlassSlab = new BlockGlassSlab(Block.Properties.ofFullCopy(Blocks.GLASS));
-        ModRegistryBase.GlassStairs = new BlockGlassStairs(Blocks.GLASS.defaultBlockState(), Block.Properties.ofFullCopy(Blocks.GLASS));
-        ModRegistryBase.PaperLantern = new BlockPaperLantern();
+                this.setBlockId(PrefabBase.SeeThroughImmovable.get(), BlockBoundary.BlockName));
+        ModRegistryBase.GlassSlab = new BlockGlassSlab(
+                this.setBlockId(Block.Properties.ofFullCopy(Blocks.GLASS), BlockGlassSlab.BlockName));
+        ModRegistryBase.GlassStairs = new BlockGlassStairs(Blocks.GLASS.defaultBlockState(),
+                this.setBlockId(Block.Properties.ofFullCopy(Blocks.GLASS), BlockGlassStairs.BlockName));
+        ModRegistryBase.PaperLantern = new BlockPaperLantern(
+                this.setBlockId(PrefabBase.SeeThroughImmovable.get(), BlockPaperLantern.BlockName));
         ModRegistryBase.Phasic = new BlockPhasic(
-                this.setBlockId(PrefabBase.SeeThroughImmovable.get(), "block_phasic"));
+                this.setBlockId(PrefabBase.SeeThroughImmovable.get(), BlockPhasic.BlockName));
     }
 
     public void initializeBlockItems() {

@@ -1,11 +1,6 @@
 package com.prefab.blocks;
 
-import com.prefab.PrefabBase;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -37,6 +32,9 @@ import java.util.ArrayList;
  */
 @SuppressWarnings({"SpellCheckingInspection", "NullableProblems"})
 public class BlockPhasic extends Block {
+
+    public static final String BlockName = "block_phasic";
+
     /**
      * The phasing progress property.
      */

@@ -1,10 +1,6 @@
 package com.prefab.blocks;
 
-import com.prefab.PrefabBase;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
@@ -17,10 +13,11 @@ import net.minecraft.world.level.block.state.BlockState;
  * @author Brian
  */
 public class BlockGlassStairs extends StairBlock {
+
+    public static final String BlockName = "block_glass_stairs";
+
     public BlockGlassStairs(BlockState state, Block.Properties properties) {
-        super(state, properties.setId(ResourceKey.create(Registries.BLOCK,
-                ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID,
-                        "block_glass_stairs"))));
+        super(state, properties);
     }
 
     @Override

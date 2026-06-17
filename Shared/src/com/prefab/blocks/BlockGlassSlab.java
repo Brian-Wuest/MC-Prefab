@@ -1,11 +1,7 @@
 package com.prefab.blocks;
 
-import com.prefab.PrefabBase;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
@@ -37,15 +33,15 @@ import org.jetbrains.annotations.Nullable;
 @SuppressWarnings("NullableProblems")
 public class BlockGlassSlab extends TransparentBlock implements SimpleWaterloggedBlock {
 
+    public static final String BlockName = "block_glass_slab";
+
     private static final VoxelShape BOTTOM_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D);
     private static final VoxelShape TOP_SHAPE = Block.box(0.0D, 8.0D, 0.0D, 16.0D, 16.0D, 16.0D);
     private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public BlockGlassSlab(Block.Properties properties) {
-        super(properties.setId(ResourceKey.create(Registries.BLOCK,
-                ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID,
-                        "block_glass_slab")))
-        );
+        super(properties);
+
         this.registerDefaultState(this.getStateDefinition().any().setValue(SlabBlock.TYPE, SlabType.BOTTOM)
                 .setValue(WATERLOGGED, Boolean.FALSE));
     }

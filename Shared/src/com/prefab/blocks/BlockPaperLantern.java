@@ -1,9 +1,5 @@
 package com.prefab.blocks;
 
-import com.prefab.PrefabBase;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -18,14 +14,13 @@ import net.minecraft.core.BlockPos;
 @SuppressWarnings("NullableProblems")
 public class BlockPaperLantern extends Block {
 
+	public static final String BlockName = "block_paper_lantern";
+
 	/**
 	 * Initializes a new instance of the BlockPaperLantern class.
 	 */
-	public BlockPaperLantern() {
-		super(PrefabBase.SeeThroughImmovable.get()
-				.setId(ResourceKey.create(Registries.BLOCK,
-						ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID,
-								"block_paper_lantern")))
+	public BlockPaperLantern(Block.Properties properties) {
+		super(properties
 				.sound(SoundType.SNOW)
 				.strength(0.6f)
 				.lightLevel(value -> 14)
