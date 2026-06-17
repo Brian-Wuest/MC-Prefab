@@ -29,7 +29,7 @@ jobs:
     permissions:
       contents: read
     if:
-      github.ref_name == 'main' || github.ref_name == '1.21.1'
+      github.ref_name == 'main' || github.ref_name == '1.21.1' || github.ref_name == '1.21.4'
     steps:
       - uses: actions/checkout@v6
 
