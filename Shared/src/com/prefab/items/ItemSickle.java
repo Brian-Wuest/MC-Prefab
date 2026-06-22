@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.HashSet;
 
-public class ItemSickle extends DiggerItem {
+public class ItemSickle extends Item {
     public static HashSet<Block> effectiveBlocks = new HashSet<>();
     public static TagKey<Block> MOWABLE = TagKey.create(
             Registries.BLOCK,
@@ -29,9 +29,7 @@ public class ItemSickle extends DiggerItem {
     public ToolMaterial toolMaterial;
 
     public ItemSickle(ToolMaterial toolMaterial, Item.Properties itemProperties) {
-        super(toolMaterial, MOWABLE,
-                0.0F, -3.0F,
-                itemProperties);
+        super(itemProperties.tool(toolMaterial, MOWABLE, 0.0F, -3.0F, 0.0F));
         this.breakRadius = 1 + (int)toolMaterial.attackDamageBonus();
         this.toolMaterial = toolMaterial;
     }

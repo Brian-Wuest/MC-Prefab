@@ -6,12 +6,14 @@ import com.prefab.ModRegistryBase;
 import com.prefab.network.payloads.PlayerConfigPayload;
 import com.prefab.network.payloads.ConfigSyncPayload;
 import com.prefab.fabric.network.ClientPayloadHandler;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+
 
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import org.lwjgl.glfw.GLFW;
 
 public class ClientModRegistry {
@@ -34,20 +36,20 @@ public class ClientModRegistry {
     }
 
     private static void registerBlockLayers() {
-        BlockRenderLayerMap.INSTANCE.putBlock(ModRegistryBase.GlassStairs, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModRegistryBase.GlassSlab, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModRegistryBase.PaperLantern, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModRegistryBase.Boundary, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModRegistryBase.Phasic, RenderType.cutout());
+        BlockRenderLayerMap.putBlock(ModRegistryBase.GlassStairs, ChunkSectionLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModRegistryBase.GlassSlab, ChunkSectionLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModRegistryBase.PaperLantern, ChunkSectionLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModRegistryBase.Boundary, ChunkSectionLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModRegistryBase.Phasic, ChunkSectionLayer.CUTOUT);
 
-        BlockRenderLayerMap.INSTANCE.putBlock(ModRegistryBase.GrassStairs, RenderType.cutoutMipped());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModRegistryBase.DirtStairs, RenderType.cutoutMipped());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModRegistryBase.GrassSlab, RenderType.cutoutMipped());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModRegistryBase.DirtSlab, RenderType.cutoutMipped());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModRegistryBase.GrassWall, RenderType.cutoutMipped());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModRegistryBase.DirtWall, RenderType.cutoutMipped());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModRegistryBase.LightSwitch, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModRegistryBase.DarkLamp, RenderType.cutoutMipped());
+        BlockRenderLayerMap.putBlock(ModRegistryBase.GrassStairs, ChunkSectionLayer.CUTOUT_MIPPED);
+        BlockRenderLayerMap.putBlock(ModRegistryBase.DirtStairs, ChunkSectionLayer.CUTOUT_MIPPED);
+        BlockRenderLayerMap.putBlock(ModRegistryBase.GrassSlab, ChunkSectionLayer.CUTOUT_MIPPED);
+        BlockRenderLayerMap.putBlock(ModRegistryBase.DirtSlab, ChunkSectionLayer.CUTOUT_MIPPED);
+        BlockRenderLayerMap.putBlock(ModRegistryBase.GrassWall, ChunkSectionLayer.CUTOUT_MIPPED);
+        BlockRenderLayerMap.putBlock(ModRegistryBase.DirtWall, ChunkSectionLayer.CUTOUT_MIPPED);
+        BlockRenderLayerMap.putBlock(ModRegistryBase.LightSwitch, ChunkSectionLayer.CUTOUT_MIPPED);
+        BlockRenderLayerMap.putBlock(ModRegistryBase.DarkLamp, ChunkSectionLayer.CUTOUT_MIPPED);
     }
 
     public static void registerKeyBindings() {

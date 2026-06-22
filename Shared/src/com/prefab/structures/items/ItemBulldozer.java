@@ -14,6 +14,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.UseOnContext;
 
+import java.util.Optional;
+
 /**
  * @author WuestMan
  */
@@ -91,10 +93,10 @@ public class ItemBulldozer extends StructureItem {
                     CompoundTag tag = customData.copyTag();
 
                     if (tag.contains("prefab")) {
-                        CompoundTag prefabTag = tag.getCompound("prefab");
+                        Optional<CompoundTag> prefabTag = tag.getCompound("prefab");
 
-                        if (prefabTag.contains("powered")) {
-                            return prefabTag.getBoolean("powered");
+                        if (prefabTag.isPresent() && prefabTag.get().contains("powered")) {
+                            return prefabTag.get().getBoolean("powered").orElse(false);
                         }
                     }
                 }

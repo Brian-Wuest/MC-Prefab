@@ -11,7 +11,6 @@ import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.component.Tool;
@@ -26,52 +25,16 @@ import java.util.List;
  *
  * @author WuestMan
  */
-public class ItemSwiftBlade extends SwordItem {
+public class ItemSwiftBlade extends Item {
     ToolMaterial toolMaterial;
 
     /*
      * Initializes a new instance of the ItemSwiftBlade class.
      */
     public ItemSwiftBlade(ToolMaterial tier, float attackDamageIn, float attackSpeedIn, Item.Properties properties) {
-        super(tier, attackDamageIn, attackSpeedIn, applySwordProperties(tier, properties, attackDamageIn, attackSpeedIn));
+        super(properties.sword(tier, attackDamageIn, attackSpeedIn));
+        //super(tier, attackDamageIn, attackSpeedIn, applySwordProperties(tier, properties, attackDamageIn, attackSpeedIn));
         toolMaterial = tier;
-    }
-
-    public static Item.Properties applySwordProperties(ToolMaterial toolMaterial, Item.Properties properties, float attackDamageIn, float attackSpeedIn) {
-        HolderGetter<Block> holderGetter = BuiltInRegistries.acquireBootstrapRegistrationLookup(BuiltInRegistries.BLOCK);
-        return applyCommonProperties(toolMaterial, properties)
-                .component(DataComponents.TOOL,
-                        new Tool(
-                                List.of(Tool.Rule.minesAndDrops(
-                                        HolderSet.direct(Blocks.COBWEB.builtInRegistryHolder()), 15.0F),
-                                        Tool.Rule.overrideSpeed(
-                                                holderGetter.getOrThrow(BlockTags.SWORD_EFFICIENT), 1.5F)),
-                                1.0F, 2))
-                .attributes(createSwordAttributes(toolMaterial, attackDamageIn, attackSpeedIn));
-    }
-
-    private static Item.Properties applyCommonProperties(ToolMaterial toolMaterial, Item.Properties properties) {
-        return properties
-                .durability(toolMaterial.durability())
-                .repairable(toolMaterial.repairItems())
-                .enchantable(toolMaterial.enchantmentValue())
-                .stacksTo(1);
-    }
-
-    private static ItemAttributeModifiers createSwordAttributes(ToolMaterial toolMaterial, float attackDamageIn, float attackSpeedIn) {
-        return ItemAttributeModifiers.builder().add(
-                Attributes.ATTACK_DAMAGE,
-                        new AttributeModifier(
-                                Item.BASE_ATTACK_DAMAGE_ID, attackDamageIn + toolMaterial.attackDamageBonus(),
-                AttributeModifier.Operation.ADD_VALUE),
-                        EquipmentSlotGroup.MAINHAND)
-                .add(Attributes.ATTACK_SPEED,
-                        new AttributeModifier(
-                                Item.BASE_ATTACK_SPEED_ID,
-                                attackSpeedIn,
-                                AttributeModifier.Operation.ADD_VALUE),
-                        EquipmentSlotGroup.MAINHAND)
-                .build();
     }
 
     /**
