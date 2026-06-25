@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -117,7 +118,7 @@ public class BlockGlassSlab extends TransparentBlock implements SimpleWaterlogge
     }
 
     @Override
-    public boolean canPlaceLiquid(@Nullable Player player, BlockGetter blockGetter, BlockPos blockPos, BlockState blockState, Fluid fluid) {
+    public boolean canPlaceLiquid(@Nullable LivingEntity player, BlockGetter blockGetter, BlockPos blockPos, BlockState blockState, Fluid fluid) {
         return blockState.getValue(SlabBlock.TYPE) != SlabType.DOUBLE && this.slabCanContainFluid(blockGetter, blockPos, blockState, fluid);
     }
 
@@ -139,7 +140,7 @@ public class BlockGlassSlab extends TransparentBlock implements SimpleWaterlogge
     }
 
     @Override
-    public ItemStack pickupBlock(@Nullable Player player, LevelAccessor worldIn, BlockPos pos, BlockState state) {
+    public ItemStack pickupBlock(@Nullable LivingEntity player, LevelAccessor worldIn, BlockPos pos, BlockState state) {
         if (state.getValue(BlockStateProperties.WATERLOGGED) && state.getValue(SlabBlock.TYPE) != SlabType.DOUBLE) {
             worldIn.setBlock(pos, state.setValue(BlockStateProperties.WATERLOGGED, Boolean.FALSE), 3);
             return new ItemStack(Items.WATER_BUCKET);

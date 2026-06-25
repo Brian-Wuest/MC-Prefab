@@ -9,7 +9,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 
 /**
@@ -19,11 +18,11 @@ import net.minecraft.world.item.DyeColor;
  */
 public class HouseImprovedConfiguration extends StructureConfiguration {
     public static String tagKey = "houseConfig";
-    private static String houseStyleTag = "houseStyle";
-    private static String addChestTag = "addChests";
-    private static String addChestContentsTag = "addChestContents";
-    private static String addMineshaftTag = "addMineshaft";
-    private static String bedColorTag = "bedColor";
+    private static final String houseStyleTag = "houseStyle";
+    private static final String addChestTag = "addChests";
+    private static final String addChestContentsTag = "addChestContents";
+    private static final String addMineshaftTag = "addMineshaft";
+    private static final String bedColorTag = "bedColor";
 
     /**
      * The house style.
@@ -83,23 +82,28 @@ public class HouseImprovedConfiguration extends StructureConfiguration {
         HouseImprovedConfiguration houseConfiguration = ((HouseImprovedConfiguration) config);
 
         if (messageTag.contains(HouseImprovedConfiguration.houseStyleTag)) {
-            houseConfiguration.houseStyle = HouseStyle.ValueOf(messageTag.getInt(HouseImprovedConfiguration.houseStyleTag));
+            houseConfiguration.houseStyle = HouseStyle.ValueOf(messageTag
+                    .getInt(HouseImprovedConfiguration.houseStyleTag).orElse(0));
         }
 
         if (messageTag.contains(HouseImprovedConfiguration.addChestTag)) {
-            houseConfiguration.addChests = messageTag.getBoolean(HouseImprovedConfiguration.addChestTag);
+            houseConfiguration.addChests = messageTag
+                    .getBoolean(HouseImprovedConfiguration.addChestTag).orElse(true);
         }
 
         if (messageTag.contains(HouseImprovedConfiguration.addChestContentsTag)) {
-            houseConfiguration.addChestContents = messageTag.getBoolean(HouseImprovedConfiguration.addChestContentsTag);
+            houseConfiguration.addChestContents = messageTag
+                    .getBoolean(HouseImprovedConfiguration.addChestContentsTag).orElse(true);
         }
 
         if (messageTag.contains(HouseImprovedConfiguration.addMineshaftTag)) {
-            houseConfiguration.addMineshaft = messageTag.getBoolean(HouseImprovedConfiguration.addMineshaftTag);
+            houseConfiguration.addMineshaft = messageTag
+                    .getBoolean(HouseImprovedConfiguration.addMineshaftTag).orElse(true);
         }
 
         if (messageTag.contains(HouseImprovedConfiguration.bedColorTag)) {
-            houseConfiguration.bedColor = DyeColor.byId(messageTag.getInt(HouseImprovedConfiguration.bedColorTag));
+            houseConfiguration.bedColor = DyeColor.byId(messageTag
+                    .getInt(HouseImprovedConfiguration.bedColorTag).orElse(0));
         }
     }
 

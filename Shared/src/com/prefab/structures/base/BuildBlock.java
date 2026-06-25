@@ -537,9 +537,9 @@ public class BuildBlock {
     public CompoundTag getBlockStateDataTag() {
         CompoundTag tag = null;
 
-        if (!this.blockStateData.equals("")) {
+        if (!this.blockStateData.isEmpty()) {
             try {
-                tag = TagParser.parseTag(this.blockStateData);
+                tag = TagParser.parseCompoundFully(this.blockStateData);
             } catch (CommandSyntaxException e) {
                 e.printStackTrace();
             }
@@ -551,11 +551,11 @@ public class BuildBlock {
     public BlockState getBlockStateFromDataTag() {
         BlockState state = null;
 
-        if (!this.blockStateData.equals("")) {
+        if (!this.blockStateData.isEmpty()) {
             CompoundTag tag = this.getBlockStateDataTag();
 
             if (tag != null) {
-                state = Utils.readBlockState(tag.getCompound("tag"));
+                state = Utils.readBlockState(tag.getCompound("tag").orElse(new CompoundTag()));
             }
         }
 

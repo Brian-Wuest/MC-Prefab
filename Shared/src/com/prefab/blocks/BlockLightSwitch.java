@@ -10,6 +10,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -110,7 +111,7 @@ public class BlockLightSwitch extends TileBlockBase<LightSwitchBlockEntity> {
                 .setValue(BlockLightSwitch.POWERED, false));
     }
 
-    public BlockLightSwitch(Properties properties){
+    public BlockLightSwitch(Properties properties) {
         super(properties);
 
         this.registerDefaultState(this.defaultBlockState()
@@ -120,16 +121,16 @@ public class BlockLightSwitch extends TileBlockBase<LightSwitchBlockEntity> {
     }
 
     @Override
-    public void onRemove(BlockState blockState, Level level, BlockPos blockPos, BlockState blockState2, boolean bl) {
-        super.onRemove(blockState, level, blockPos, blockState2, bl);
+    public void affectNeighborsAfterRemoval(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, boolean bl) {
+        super.affectNeighborsAfterRemoval(blockState, serverLevel, blockPos, bl);
 
-        if (!level.isClientSide) {
-            // Check to see if the state is just changing.
-            // if the state is just changing, don't remove it from the registry.
-            if (blockState.getBlock() != blockState2.getBlock()) {
-                // Remove this switch from the registry and turn off the registered blocks.
-                ModRegistryBase.serverModRegistries.getLightSwitchRegistry().remove(level, blockPos);
-            }
+        // Check to see if the state is just changing.
+        // if the state is just changing, don't remove it from the registry.
+        BlockState blockState2 = serverLevel.getBlockState(blockPos);
+
+        if (blockState.getBlock() != blockState2.getBlock()) {
+            // Remove this switch from the registry and turn off the registered blocks.
+            ModRegistryBase.serverModRegistries.getLightSwitchRegistry().remove(serverLevel, blockPos);
         }
     }
 

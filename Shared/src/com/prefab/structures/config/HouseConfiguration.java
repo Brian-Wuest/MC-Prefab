@@ -111,51 +111,65 @@ public class HouseConfiguration extends StructureConfiguration {
             config = new HouseConfiguration();
 
             if (tag.contains(HouseConfiguration.addTorchesTag)) {
-                config.addTorches = tag.getBoolean(HouseConfiguration.addTorchesTag);
+                config.addTorches = tag
+                        .getBoolean(HouseConfiguration.addTorchesTag).orElse(true);
             }
 
             if (tag.contains(HouseConfiguration.addBedTag)) {
-                config.addBed = tag.getBoolean(HouseConfiguration.addBedTag);
+                config.addBed = tag
+                        .getBoolean(HouseConfiguration.addBedTag).orElse(true);
             }
 
             if (tag.contains(HouseConfiguration.addCraftingTableTag)) {
-                config.addCraftingTable = tag.getBoolean(HouseConfiguration.addCraftingTableTag);
+                config.addCraftingTable = tag
+                        .getBoolean(HouseConfiguration.addCraftingTableTag).orElse(true);
             }
 
             if (tag.contains(HouseConfiguration.addFurnaceTag)) {
-                config.addFurnace = tag.getBoolean(HouseConfiguration.addFurnaceTag);
+                config.addFurnace = tag
+                        .getBoolean(HouseConfiguration.addFurnaceTag).orElse(true);
             }
 
             if (tag.contains(HouseConfiguration.addChestTag)) {
-                config.addChest = tag.getBoolean(HouseConfiguration.addChestTag);
+                config.addChest = tag
+                        .getBoolean(HouseConfiguration.addChestTag).orElse(true);
             }
 
             if (tag.contains(HouseConfiguration.addChestContentsTag)) {
-                config.addChestContents = tag.getBoolean(HouseConfiguration.addChestContentsTag);
+                config.addChestContents = tag
+                        .getBoolean(HouseConfiguration.addChestContentsTag).orElse(true);
             }
 
             if (tag.contains(HouseConfiguration.addMineShaftTag)) {
-                config.addMineShaft = tag.getBoolean(HouseConfiguration.addMineShaftTag);
+                config.addMineShaft = tag
+                        .getBoolean(HouseConfiguration.addMineShaftTag).orElse(true);
             }
 
             if (tag.contains(HouseConfiguration.hitXTag)) {
-                config.pos = new BlockPos(tag.getInt(HouseConfiguration.hitXTag), tag.getInt(HouseConfiguration.hitYTag), tag.getInt(HouseConfiguration.hitZTag));
+                config.pos = new BlockPos(
+                        tag.getInt(HouseConfiguration.hitXTag).orElse(0),
+                        tag.getInt(HouseConfiguration.hitYTag).orElse(0),
+                        tag.getInt(HouseConfiguration.hitZTag).orElse(0));
             }
 
             if (tag.contains(HouseConfiguration.houseFacingTag)) {
-                config.houseFacing = BuildBlock.getDirectionByName(tag.getString(HouseConfiguration.houseFacingTag));
+                config.houseFacing = BuildBlock.getDirectionByName(
+                        tag.getString(HouseConfiguration.houseFacingTag).orElse("south"));
             }
 
             if (tag.contains(HouseConfiguration.houseStyleTag)) {
-                config.houseStyle = HouseStyle.ValueOf(tag.getInt(HouseConfiguration.houseStyleTag));
+                config.houseStyle = HouseStyle.ValueOf(
+                        tag.getInt(HouseConfiguration.houseStyleTag).orElse(0));
             }
 
             if (tag.contains(HouseConfiguration.glassColorTag)) {
-                config.glassColor = FullDyeColor.byId(tag.getInt(HouseConfiguration.glassColorTag));
+                config.glassColor = FullDyeColor.byId(tag
+                        .getInt(HouseConfiguration.glassColorTag).orElse(0));
             }
 
             if (tag.contains(HouseConfiguration.bedColorTag)) {
-                config.bedColor = DyeColor.byId(tag.getInt(HouseConfiguration.bedColorTag));
+                config.bedColor = DyeColor.byId(tag
+                        .getInt(HouseConfiguration.bedColorTag).orElse(0));
             }
         }
 

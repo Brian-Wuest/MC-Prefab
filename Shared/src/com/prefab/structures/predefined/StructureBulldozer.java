@@ -9,7 +9,7 @@ import com.prefab.structures.config.StructureConfiguration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.decoration.HangingEntity;
-import net.minecraft.world.item.DiggerItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -25,17 +25,17 @@ import java.util.ArrayList;
  */
 public class StructureBulldozer extends Structure {
 
-    protected static DiggerItem diamondPickaxe;
-    protected static DiggerItem diamondShovel;
-    protected static DiggerItem diamondAxe;
+    protected static Item diamondPickaxe;
+    protected static Item diamondShovel;
+    protected static Item diamondAxe;
     protected static ItemStack diamondPickaxeStack;
     protected static ItemStack diamondShovelStack;
     protected static ItemStack diamondAxeStack;
 
     static {
-        StructureBulldozer.diamondAxe = (DiggerItem) Items.DIAMOND_AXE;
-        StructureBulldozer.diamondPickaxe = (DiggerItem) Items.DIAMOND_PICKAXE;
-        StructureBulldozer.diamondShovel = (DiggerItem) Items.DIAMOND_SHOVEL;
+        StructureBulldozer.diamondAxe = Items.DIAMOND_AXE;
+        StructureBulldozer.diamondPickaxe = Items.DIAMOND_PICKAXE;
+        StructureBulldozer.diamondShovel = Items.DIAMOND_SHOVEL;
         StructureBulldozer.diamondPickaxeStack = new ItemStack(Items.DIAMOND_PICKAXE);
         StructureBulldozer.diamondShovelStack = new ItemStack(Items.DIAMOND_SHOVEL);
         StructureBulldozer.diamondAxeStack = new ItemStack(Items.DIAMOND_AXE);

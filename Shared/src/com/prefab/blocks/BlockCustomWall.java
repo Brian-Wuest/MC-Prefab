@@ -46,10 +46,10 @@ public class BlockCustomWall extends WallBlock implements IGrassSpreadable {
     @Override
     public BlockState getGrassBlockState(BlockState originalState) {
         return ModRegistryBase.GrassWall.defaultBlockState()
-                .setValue(WallBlock.EAST_WALL, originalState.getValue(WallBlock.EAST_WALL))
-                .setValue(WallBlock.WEST_WALL, originalState.getValue(WallBlock.WEST_WALL))
-                .setValue(WallBlock.NORTH_WALL, originalState.getValue(WallBlock.NORTH_WALL))
-                .setValue(WallBlock.SOUTH_WALL, originalState.getValue(WallBlock.SOUTH_WALL))
+                .setValue(WallBlock.EAST, originalState.getValue(WallBlock.EAST))
+                .setValue(WallBlock.WEST, originalState.getValue(WallBlock.WEST))
+                .setValue(WallBlock.NORTH, originalState.getValue(WallBlock.NORTH))
+                .setValue(WallBlock.SOUTH, originalState.getValue(WallBlock.SOUTH))
                 .setValue(WallBlock.WATERLOGGED, originalState.getValue(WallBlock.WATERLOGGED))
                 .setValue(WallBlock.UP, originalState.getValue(WallBlock.UP));
     }

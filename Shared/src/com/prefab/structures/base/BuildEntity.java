@@ -99,9 +99,9 @@ public class BuildEntity {
 	public CompoundTag getEntityDataTag() {
 		CompoundTag tag = null;
 
-		if (!this.entityNBTData.equals("")) {
+		if (!this.entityNBTData.isEmpty()) {
 			try {
-				tag = TagParser.parseTag(this.entityNBTData);
+				tag = TagParser.parseCompoundFully(this.entityNBTData);
 			} catch (CommandSyntaxException e) {
 				e.printStackTrace();
 			}

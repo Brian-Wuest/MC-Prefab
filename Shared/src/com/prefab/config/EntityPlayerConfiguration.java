@@ -53,8 +53,8 @@ public class EntityPlayerConfiguration {
      * @param tag The tag to load the data from.
      */
     public void loadFromNBTTagCompound(CompoundTag tag) {
-        this.givenHouseBuilder = tag.getBoolean(EntityPlayerConfiguration.GIVEN_HOUSEBUILDER_TAG);
-        this.builtStarterHouse = tag.getBoolean(EntityPlayerConfiguration.Built_Starter_house_Tag);
+        this.givenHouseBuilder = tag.getBoolean(EntityPlayerConfiguration.GIVEN_HOUSEBUILDER_TAG).orElse(false);
+        this.builtStarterHouse = tag.getBoolean(EntityPlayerConfiguration.Built_Starter_house_Tag).orElse(false);
     }
 
     /**

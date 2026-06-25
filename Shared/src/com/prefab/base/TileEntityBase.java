@@ -3,16 +3,20 @@ package com.prefab.base;
 import com.prefab.PrefabBase;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.apache.logging.log4j.Level;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Optional;
 
 /**
  * This is the base tile entity used by the mod.
@@ -20,7 +24,7 @@ import java.lang.reflect.Type;
  * @param <T> The base configuration used by this tile entity.
  * @author WuestMan
  */
-public abstract class TileEntityBase<T extends BaseConfig> extends BlockEntity {
+public abstract class TileEntityBase<T extends BaseConfig<T>> extends BlockEntity {
     protected T config;
 
     protected TileEntityBase(BlockEntityType<?> tileEntityTypeIn, BlockPos pos, BlockState state) {
@@ -72,26 +76,25 @@ public abstract class TileEntityBase<T extends BaseConfig> extends BlockEntity {
 
     @Override
     public @NotNull CompoundTag getUpdateTag(HolderLookup.Provider provider) {
-        CompoundTag tag = super.getUpdateTag(provider);
-
-        // Save the configuration data to the new tag.
-        this.saveAdditional(tag, provider);
-        return tag;
+        return this.saveWithoutMetadata(provider);
     }
 
     @Override
-    public void loadAdditional(@NotNull CompoundTag compound, HolderLookup.Provider provider) {
-        super.loadAdditional(compound, provider);
+    public void loadAdditional(ValueInput valueInput) {
+        super.loadAdditional(valueInput);
 
-        this.config = this.createConfigInstance().ReadFromCompoundNBT(compound);
+        Optional<CompoundTag> components = valueInput.read("TileEntityData",  CompoundTag.CODEC);
+
+        components.ifPresent(compoundTag ->
+                this.config = this.createConfigInstance().ReadFromCompoundNBT(compoundTag));
     }
 
     @Override
-    public void saveAdditional(@NotNull CompoundTag compound, HolderLookup.Provider provider) {
-        super.saveAdditional(compound, provider);
+    public void saveAdditional(ValueOutput valueOutput) {
+        super.saveAdditional(valueOutput);
 
         if (this.config != null) {
-            this.config.WriteToNBTCompound(compound);
+            this.config.WriteToNBTCompound(valueOutput);
         }
     }
 

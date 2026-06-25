@@ -30,7 +30,7 @@ public class ServerPayloadHandler {
         context.player().getServer().execute(() -> {
             StructureScannerConfig config = payload.scannerInfo().ToConfig();
 
-            StructureScannerBlockEntity.ScanShape(config, context.player(), context.player().serverLevel());
+            StructureScannerBlockEntity.ScanShape(config, context.player(), context.player().level());
         });
     }
     public static void structureBuilderHandler(StructurePayload payload, ServerPlayNetworking. Context context) {
@@ -42,7 +42,7 @@ public class ServerPayloadHandler {
             // This is now on the "main" server thread and things can be done in the world!
             StructureConfiguration configuration = structureConfig.structureConfig.ReadFromCompoundTag(payload.structureTagMessage().getMessageTag());
 
-            configuration.BuildStructure(context.player(), context.player().serverLevel());
+            configuration.BuildStructure(context.player(), context.player().level());
         });
     }
 }

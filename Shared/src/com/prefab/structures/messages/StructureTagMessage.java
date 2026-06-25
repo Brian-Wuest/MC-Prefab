@@ -32,15 +32,20 @@ public class StructureTagMessage extends TagMessage {
         StructureTagMessage.decode(this, friendlyByteBuf);
     }
 
-    public static StructureTagMessage decode(StructureTagMessage messageToupdate, FriendlyByteBuf buf) {
+    public static StructureTagMessage decode(StructureTagMessage messageToUpdate, FriendlyByteBuf buf) {
         // This class is very useful in general for writing more complex objects.
         CompoundTag tag = buf.readNbt();
 
-        messageToupdate.structureConfig = EnumStructureConfiguration.getFromIdentifier(tag.getInt("config"));
+        if (tag == null) {
+            // Should never _really_ happen, but just in-case.
+            return new  StructureTagMessage(new CompoundTag(), EnumStructureConfiguration.Basic);
+        }
 
-        messageToupdate.tagMessage = tag.getCompound("dataTag");
+        messageToUpdate.structureConfig = EnumStructureConfiguration.getFromIdentifier(tag.getInt("config").orElse(0));
 
-        return messageToupdate;
+        messageToUpdate.tagMessage = tag.getCompound("dataTag").orElse(new CompoundTag());
+
+        return messageToUpdate;
     }
 
     public static void encode(StructureTagMessage message, FriendlyByteBuf buf) {

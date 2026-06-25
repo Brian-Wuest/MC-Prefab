@@ -254,52 +254,53 @@ public class ModConfiguration implements ConfigData {
     }
 
     public void readFromTag(CompoundTag tag) {
-        this.startingItem = StartingItemOptions.getByName(tag.getString(ConfigKeyNames.startingItemName));
+        this.startingItem = StartingItemOptions.getByName(tag.getString(ConfigKeyNames.startingItemName)
+                .orElse("Nothing"));
 
-        this.newPlayersGetStartingItem = tag.getBoolean(ConfigKeyNames.newPlayersGetStartingItemName);
-        this.includeSpawnersInMasher = tag.getBoolean(ConfigKeyNames.includeSpawnersInMasherName);
-        this.enableStructurePreview = tag.getBoolean(ConfigKeyNames.enableStructurePreviewName);
-        this.includeMineshaftChest = tag.getBoolean(ConfigKeyNames.includeMineshaftChestName);
-        this.allowBulldozerToCreateDrops = tag.getBoolean(ConfigKeyNames.allowBulldozerToCreateDropsName);
-        this.allowWaterInNonOverworldDimensions = tag.getBoolean(ConfigKeyNames.allowWaterInNonOverworldDimensionsName);
-        this.playBuildingSound = tag.getBoolean(ConfigKeyNames.playBuildingSoundName);
+        this.newPlayersGetStartingItem = tag.getBoolean(ConfigKeyNames.newPlayersGetStartingItemName).orElse(true);
+        this.includeSpawnersInMasher = tag.getBoolean(ConfigKeyNames.includeSpawnersInMasherName).orElse(true);
+        this.enableStructurePreview = tag.getBoolean(ConfigKeyNames.enableStructurePreviewName).orElse(true);
+        this.includeMineshaftChest = tag.getBoolean(ConfigKeyNames.includeMineshaftChestName).orElse(true);
+        this.allowBulldozerToCreateDrops = tag.getBoolean(ConfigKeyNames.allowBulldozerToCreateDropsName).orElse(true);
+        this.allowWaterInNonOverworldDimensions = tag.getBoolean(ConfigKeyNames.allowWaterInNonOverworldDimensionsName).orElse(true);
+        this.playBuildingSound = tag.getBoolean(ConfigKeyNames.playBuildingSoundName).orElse(true);
 
-        this.chestOptions.addSword = tag.getBoolean(ConfigKeyNames.addSwordName);
-        this.chestOptions.addAxe = tag.getBoolean(ConfigKeyNames.addAxeName);
-        this.chestOptions.addShovel = tag.getBoolean(ConfigKeyNames.addShovelName);
-        this.chestOptions.addHoe = tag.getBoolean(ConfigKeyNames.addHoeName);
-        this.chestOptions.addPickAxe = tag.getBoolean(ConfigKeyNames.addPickAxeName);
-        this.chestOptions.addArmor = tag.getBoolean(ConfigKeyNames.addArmorName);
-        this.chestOptions.addFood = tag.getBoolean(ConfigKeyNames.addFoodName);
-        this.chestOptions.addCrops = tag.getBoolean(ConfigKeyNames.addCropsName);
-        this.chestOptions.addDirt = tag.getBoolean(ConfigKeyNames.addDirtName);
-        this.chestOptions.addCobble = tag.getBoolean(ConfigKeyNames.addCobbleName);
-        this.chestOptions.addSaplings = tag.getBoolean(ConfigKeyNames.addSaplingsName);
-        this.chestOptions.addTorches = tag.getBoolean(ConfigKeyNames.addTorchesName);
+        this.chestOptions.addSword = tag.getBoolean(ConfigKeyNames.addSwordName).orElse(true);
+        this.chestOptions.addAxe = tag.getBoolean(ConfigKeyNames.addAxeName).orElse(true);
+        this.chestOptions.addShovel = tag.getBoolean(ConfigKeyNames.addShovelName).orElse(true);
+        this.chestOptions.addHoe = tag.getBoolean(ConfigKeyNames.addHoeName).orElse(true);
+        this.chestOptions.addPickAxe = tag.getBoolean(ConfigKeyNames.addPickAxeName).orElse(true);
+        this.chestOptions.addArmor = tag.getBoolean(ConfigKeyNames.addArmorName).orElse(true);
+        this.chestOptions.addFood = tag.getBoolean(ConfigKeyNames.addFoodName).orElse(true);
+        this.chestOptions.addCrops = tag.getBoolean(ConfigKeyNames.addCropsName).orElse(true);
+        this.chestOptions.addDirt = tag.getBoolean(ConfigKeyNames.addDirtName).orElse(true);
+        this.chestOptions.addCobble = tag.getBoolean(ConfigKeyNames.addCobbleName).orElse(true);
+        this.chestOptions.addSaplings = tag.getBoolean(ConfigKeyNames.addSaplingsName).orElse(true);
+        this.chestOptions.addTorches = tag.getBoolean(ConfigKeyNames.addTorchesName).orElse(true);
 
-        this.starterHouseOptions.addBed = tag.getBoolean(ConfigKeyNames.addBedName);
-        this.starterHouseOptions.addCraftingTable = tag.getBoolean(ConfigKeyNames.addCraftingTableName);
-        this.starterHouseOptions.addFurnace = tag.getBoolean(ConfigKeyNames.addFurnaceName);
-        this.starterHouseOptions.addChests = tag.getBoolean(ConfigKeyNames.addChestsName);
-        this.starterHouseOptions.addChestContents = tag.getBoolean(ConfigKeyNames.addChestContentsName);
-        this.starterHouseOptions.addMineshaft = tag.getBoolean(ConfigKeyNames.addMineshaftName);
+        this.starterHouseOptions.addBed = tag.getBoolean(ConfigKeyNames.addBedName).orElse(true);
+        this.starterHouseOptions.addCraftingTable = tag.getBoolean(ConfigKeyNames.addCraftingTableName).orElse(true);
+        this.starterHouseOptions.addFurnace = tag.getBoolean(ConfigKeyNames.addFurnaceName).orElse(true);
+        this.starterHouseOptions.addChests = tag.getBoolean(ConfigKeyNames.addChestsName).orElse(true);
+        this.starterHouseOptions.addChestContents = tag.getBoolean(ConfigKeyNames.addChestContentsName).orElse(true);
+        this.starterHouseOptions.addMineshaft = tag.getBoolean(ConfigKeyNames.addMineshaftName).orElse(true);
 
         this.recipes.clear();
         this.structureOptions.clear();
 
         for (String key : ConfigKeyNames.Keys) {
-            this.recipes.put(key, tag.getBoolean(key));
+            this.recipes.put(key, tag.getBoolean(key).orElse(true));
         }
 
-        CompoundTag structureOptionsTag = tag.getCompound(ConfigKeyNames.structureOptionsName);
+        CompoundTag structureOptionsTag = tag.getCompound(ConfigKeyNames.structureOptionsName).orElse(new CompoundTag());
 
         if (!structureOptionsTag.isEmpty()) {
-            for (String key : structureOptionsTag.getAllKeys()) {
-                CompoundTag mainItem = structureOptionsTag.getCompound(key);
+            for (String key : structureOptionsTag.keySet()) {
+                CompoundTag mainItem = structureOptionsTag.getCompound(key).orElse(new CompoundTag());
                 HashMap<String, Boolean> structureOptions = new HashMap<>();
 
-                for (String subKey : mainItem.getAllKeys()) {
-                    boolean value = mainItem.getBoolean(subKey);
+                for (String subKey : mainItem.keySet()) {
+                    boolean value = mainItem.getBoolean(subKey).orElse(true);
 
                     structureOptions.put(subKey, value);
                 }
@@ -309,19 +310,21 @@ public class ModConfiguration implements ConfigData {
         }
 
         // Strict building mode options.
-        this.strictModeOptions.enabled = tag.getBoolean(ConfigKeyNames.strictBuildingModeEnabledName);
-        this.strictModeOptions.operatorsBypassRestrictions = tag.getBoolean(ConfigKeyNames.strictBuildingOperatorsBypassRestrictions);
+        this.strictModeOptions.enabled = tag.getBoolean(ConfigKeyNames.strictBuildingModeEnabledName).orElse(true);
+        this.strictModeOptions.operatorsBypassRestrictions = tag
+                .getBoolean(ConfigKeyNames.strictBuildingOperatorsBypassRestrictions).orElse(true);
 
-        CompoundTag overwritableBlocksTag = tag.getCompound(ConfigKeyNames.overwritableBlocksName);
+        CompoundTag overwritableBlocksTag = tag.getCompound(ConfigKeyNames.overwritableBlocksName).orElse(new CompoundTag());
         this.processCompoundTagIntoStringArrayList(overwritableBlocksTag, this.strictModeOptions.overwritableBlocks);
 
-        CompoundTag overwritableBlocksTagsTag = tag.getCompound(ConfigKeyNames.overwritableTagsName);
+        CompoundTag overwritableBlocksTagsTag = tag.getCompound(ConfigKeyNames.overwritableTagsName)
+                .orElse(new CompoundTag());
         this.processCompoundTagIntoStringArrayList(overwritableBlocksTagsTag, this.strictModeOptions.overwritableTags);
     }
 
     private void processCompoundTagIntoStringArrayList(CompoundTag tag, ArrayList<String> arrayList) {
-        for (String key : tag.getAllKeys()) {
-            String value = tag.getString(key);
+        for (String key : tag.keySet()) {
+            String value = tag.getString(key).orElse("");
 
             // Check to see that this value isn't blank if it isn't, it is okay to add to the collection.
             if (!StringUtils.isBlank(value)) {

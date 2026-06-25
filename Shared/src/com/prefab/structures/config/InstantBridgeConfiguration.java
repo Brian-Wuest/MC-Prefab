@@ -7,7 +7,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
 
 /**
  * @author WuestMan
@@ -91,19 +90,24 @@ public class InstantBridgeConfiguration extends StructureConfiguration {
 	@Override
 	protected void CustomReadFromNBTTag(CompoundTag messageTag, StructureConfiguration config) {
 		if (messageTag.contains("bridgeLength")) {
-			((InstantBridgeConfiguration) config).bridgeLength = messageTag.getInt("bridgeLength");
+			((InstantBridgeConfiguration) config).bridgeLength = messageTag
+					.getInt("bridgeLength").orElse(25);
 		}
 
 		if (messageTag.contains("bridgeMaterial")) {
-			((InstantBridgeConfiguration) config).bridgeMaterial = EnumStructureMaterial.getMaterialByNumber(messageTag.getInt("bridgeMaterial"));
+			((InstantBridgeConfiguration) config).bridgeMaterial =
+					EnumStructureMaterial.getMaterialByNumber(
+							messageTag.getInt("bridgeMaterial").orElse(0));
 		}
 
 		if (messageTag.contains("includeRoof")) {
-			((InstantBridgeConfiguration) config).includeRoof = messageTag.getBoolean("includeRoof");
+			((InstantBridgeConfiguration) config).includeRoof = messageTag
+					.getBoolean("includeRoof").orElse(true);
 		}
 
 		if (messageTag.contains("interiorHeight")) {
-			((InstantBridgeConfiguration) config).interiorHeight = messageTag.getInt("interiorHeight");
+			((InstantBridgeConfiguration) config).interiorHeight = messageTag
+					.getInt("interiorHeight").orElse(3);
 		}
 	}
 }

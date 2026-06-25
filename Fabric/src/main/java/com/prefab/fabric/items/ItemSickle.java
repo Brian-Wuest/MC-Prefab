@@ -9,7 +9,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
+
 import java.util.List;
+import java.util.function.Consumer;
 
 public class ItemSickle extends com.prefab.items.ItemSickle {
     public ItemSickle(ToolMaterial toolMaterial, Item.Properties properties) {
@@ -21,16 +24,15 @@ public class ItemSickle extends com.prefab.items.ItemSickle {
      */
     @Environment(EnvType.CLIENT)
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext tooltipContext, List<Component> tooltip,
-                                TooltipFlag advanced) {
-        super.appendHoverText(stack, tooltipContext, tooltip, advanced);
+    public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, TooltipDisplay tooltipDisplay, Consumer<Component> consumer, TooltipFlag tooltipFlag) {
+        super.appendHoverText(itemStack, tooltipContext, tooltipDisplay, consumer, tooltipFlag);
 
         boolean advancedKeyDown = Screen.hasShiftDown();
 
         if (!advancedKeyDown) {
-            tooltip.add(GuiLangKeys.translateToComponent(GuiLangKeys.SHIFT_TOOLTIP));
+            consumer.accept(GuiLangKeys.translateToComponent(GuiLangKeys.SHIFT_TOOLTIP));
         } else {
-            tooltip.add(GuiLangKeys.translateToComponent(GuiLangKeys.SICKLE_DESC));
+            consumer.accept(GuiLangKeys.translateToComponent(GuiLangKeys.SICKLE_DESC));
         }
     }
 }

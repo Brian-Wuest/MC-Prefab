@@ -1,12 +1,13 @@
 package com.prefab.structures.base;
 
+import com.mojang.logging.LogUtils;
 import com.prefab.PrefabBase;
 import com.prefab.Tuple;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.DoubleTag;
-import net.minecraft.nbt.ListTag;
+import net.minecraft.core.UUIDUtil;
+import net.minecraft.nbt.*;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
@@ -22,6 +23,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.chunk.ChunkAccess;
+import net.minecraft.world.level.storage.TagValueInput;
+import net.minecraft.world.level.storage.TagValueOutput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.Shapes;
 
@@ -248,19 +252,23 @@ public class StructureGenerator {
                             structure.getClearSpace().getShape().getDirection(), structure.configuration.houseFacing);
 
                     if (tagCompound != null) {
-                        if (tagCompound.hasUUID("UUID")) {
-                            tagCompound.putUUID("UUID", UUID.randomUUID());
+                        if (tagCompound.contains("UUID")) {
+                            tagCompound.put("UUID", new IntArrayTag(UUIDUtil.uuidToIntArray(UUID.randomUUID())));
                         }
 
-                        tagCompound = StructureGenerator.updateTagDueToVersionUpdate(entity, tagCompound);
+                        try (ProblemReporter.ScopedCollector scopedCollector = new ProblemReporter.ScopedCollector(entity.problemPath(), LogUtils.getLogger())) {
+                            tagCompound = StructureGenerator.updateTagDueToVersionUpdate(entity, tagCompound);
 
-                        ListTag nbttaglist = new ListTag();
-                        nbttaglist.add(DoubleTag.valueOf(entityPos.getX()));
-                        nbttaglist.add(DoubleTag.valueOf(entityPos.getY()));
-                        nbttaglist.add(DoubleTag.valueOf(entityPos.getZ()));
-                        tagCompound.put("Pos", nbttaglist);
+                            ListTag nbttaglist = new ListTag();
+                            nbttaglist.add(DoubleTag.valueOf(entityPos.getX()));
+                            nbttaglist.add(DoubleTag.valueOf(entityPos.getY()));
+                            nbttaglist.add(DoubleTag.valueOf(entityPos.getZ()));
+                            tagCompound.put("Pos", nbttaglist);
 
-                        entity.load(tagCompound);
+                            TagValueInput tagValue = (TagValueInput) TagValueInput.create(scopedCollector, entity.registryAccess(), tagCompound);
+
+                            entity.load(tagValue);
+                        }
                     }
 
                     // Set item frame facing and rotation here.
@@ -341,16 +349,29 @@ public class StructureGenerator {
 
         yaw = entity.rotate(rotation);
 
-        CompoundTag compound = new CompoundTag();
-        ((HangingEntity) entity).addAdditionalSaveData(compound);
-        compound.putByte("facing", (byte) facing.get2DDataValue());
-        ((HangingEntity) entity).readAdditionalSaveData(compound);
-        StructureGenerator.updateEntityHangingBoundingBox(entity);
+        try (ProblemReporter.ScopedCollector scopedCollector = new ProblemReporter.ScopedCollector(entity.problemPath(), LogUtils.getLogger())) {
+            TagValueOutput valueOutput = TagValueOutput.createWithoutContext(scopedCollector);
 
-        entity.moveTo(entityPos.getX() + x_axis_offset, entityPos.getY() + y_axis_offset, entityPos.getZ() + z_axis_offset, yaw,
+            entity.saveWithoutId(valueOutput);
+
+            // Even though the entity saves the facing that it has, it's not going to be correct
+            // Update the facing using the value we have after doing our rotations.
+            valueOutput.putByte("facing", (byte) facing.get2DDataValue());
+
+            CompoundTag compoundTag = valueOutput.buildResult();
+
+            TagValueInput valueInput = (TagValueInput)TagValueInput.create(scopedCollector, entity.registryAccess(), compoundTag);
+
+            entity.load(valueInput);
+            StructureGenerator.updateEntityHangingBoundingBox(entity);
+        }
+
+        entity.snapTo(entityPos.getX() + x_axis_offset,
+                entityPos.getY() + y_axis_offset, entityPos.getZ() + z_axis_offset, yaw,
                 entity.getXRot());
 
         StructureGenerator.updateEntityHangingBoundingBox(entity);
+
         ChunkAccess chunk = structure.world.getChunkAt(entityPos);
 
         chunk.markUnsaved();
@@ -389,13 +410,29 @@ public class StructureGenerator {
 
         yaw = frame.rotate(rotation);
 
-        CompoundTag compound = new CompoundTag();
-        ((HangingEntity) frame).addAdditionalSaveData(compound);
-        compound.putByte("Facing", (byte) facing.get3DDataValue());
-        ((HangingEntity) frame).readAdditionalSaveData(compound);
+        try (ProblemReporter.ScopedCollector scopedCollector = new ProblemReporter.ScopedCollector(frame.problemPath(),
+                LogUtils.getLogger())) {
+            TagValueOutput valueOutput = TagValueOutput.createWithoutContext(scopedCollector);
+
+            frame.saveWithoutId(valueOutput);
+
+            // Even though the entity saves the facing that it has, it's not going to be correct
+            // Update the facing using the value we have after doing our rotations.
+            valueOutput.putByte("Facing", (byte) facing.get3DDataValue());
+
+            CompoundTag compoundTag = valueOutput.buildResult();
+
+            TagValueInput valueInput = (TagValueInput)TagValueInput.create(scopedCollector,
+                    frame.registryAccess(), compoundTag);
+
+            frame.load(valueInput);
+            StructureGenerator.updateEntityHangingBoundingBox(frame);
+        }
+
         StructureGenerator.updateEntityHangingBoundingBox(frame);
 
-        frame.moveTo(entityPos.getX() + x_axis_offset, entityPos.getY() + y_axis_offset, entityPos.getZ() + z_axis_offset, yaw,
+        frame.snapTo(entityPos.getX() + x_axis_offset, entityPos.getY() + y_axis_offset,
+                entityPos.getZ() + z_axis_offset, yaw,
                 frame.getXRot());
 
         StructureGenerator.updateEntityHangingBoundingBox(frame);
@@ -434,7 +471,8 @@ public class StructureGenerator {
 
         yaw = entity.rotate(rotation);
 
-        entity.moveTo(entityPos.getX() + x_axis_offset, entityPos.getY() + y_axis_offset, entityPos.getZ() + z_axis_offset, yaw,
+        entity.snapTo(entityPos.getX() + x_axis_offset, entityPos.getY() + y_axis_offset,
+                entityPos.getZ() + z_axis_offset, yaw,
                 entity.getXRot());
 
         return entity;
@@ -478,12 +516,12 @@ public class StructureGenerator {
         if (entity instanceof Painting) {
             // In MC 1.19 some tags changed so convert them now.
             if (compoundTag.contains("Facing")) {
-                byte facingByte = compoundTag.getByte("Facing");
+                byte facingByte = compoundTag.getByte("Facing").orElse((byte) 0);
                 compoundTag.putByte("facing", facingByte);
             }
 
             if (compoundTag.contains("Motive")) {
-                String motiveData = compoundTag.getString("Motive");
+                String motiveData = compoundTag.getString("Motive").orElse("");
                 compoundTag.putString("variant", motiveData);
             }
         }

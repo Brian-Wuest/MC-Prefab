@@ -3,6 +3,7 @@ package com.prefab.structures.base;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
+import com.mojang.logging.LogUtils;
 import com.prefab.*;
 import com.prefab.blocks.BlockFlags;
 import com.prefab.blocks.FullDyeColor;
@@ -24,6 +25,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.decoration.HangingEntity;
@@ -40,9 +42,11 @@ import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
 
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -245,10 +249,13 @@ public class Structure {
                     buildEntity.entityFacing = entity.getDirection();
                 }
 
-                CompoundTag entityTagCompound = new CompoundTag();
-                entity.saveAsPassenger(entityTagCompound);
-                buildEntity.setEntityNBTData(entityTagCompound);
-                scannedStructure.entities.add(buildEntity);
+                try (ProblemReporter.ScopedCollector scopedCollector = new ProblemReporter.ScopedCollector(entity.problemPath(), LogUtils.getLogger())) {
+                    TagValueOutput tagValueOutput = TagValueOutput.createWithContext(scopedCollector, entity.registryAccess());
+                    entity.saveAsPassenger(tagValueOutput);
+                    CompoundTag entityTagCompound = tagValueOutput.buildResult();
+                    buildEntity.setEntityNBTData(entityTagCompound);
+                    scannedStructure.entities.add(buildEntity);
+                }
             }
         }
 
@@ -491,7 +498,7 @@ public class Structure {
 
             for (BlockPos pos : BlockPos.betweenClosed(startBlockPos, endBlockPos)) {
                 Block block = world.getBlockState(pos).getBlock();
-                world.blockUpdated(pos, block);
+                world.updateNeighborsAt(pos, block);
             }
 
             if (PrefabBase.structuresToBuild.containsKey(player)) {

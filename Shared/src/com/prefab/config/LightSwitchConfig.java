@@ -2,15 +2,16 @@ package com.prefab.config;
 
 import com.prefab.base.BaseConfig;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.storage.ValueOutput;
 
-public class LightSwitchConfig extends BaseConfig {
+public class LightSwitchConfig extends BaseConfig<LightSwitchConfig> {
     @Override
-    public void WriteToNBTCompound(CompoundTag compound) {
+    public void WriteToNBTCompound(ValueOutput valueOutput) {
 
     }
 
     @Override
-    public <T extends BaseConfig> T ReadFromCompoundNBT(CompoundTag compound) {
-        return (T) this;
+    public LightSwitchConfig ReadFromCompoundNBT(CompoundTag compound) {
+        return this;
     }
 }

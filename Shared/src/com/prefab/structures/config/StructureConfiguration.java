@@ -3,6 +3,7 @@ package com.prefab.structures.config;
 import com.prefab.structures.items.StructureItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -93,13 +94,13 @@ public class StructureConfiguration {
         if (messageTag != null) {
             if (messageTag.contains(StructureConfiguration.hitXTag)) {
                 config.pos = new BlockPos(
-                        messageTag.getInt(StructureConfiguration.hitXTag),
-                        messageTag.getInt(StructureConfiguration.hitYTag),
-                        messageTag.getInt(StructureConfiguration.hitZTag));
+                        messageTag.getInt(StructureConfiguration.hitXTag).orElse(0),
+                        messageTag.getInt(StructureConfiguration.hitYTag).orElse(0),
+                        messageTag.getInt(StructureConfiguration.hitZTag).orElse(0));
             }
 
             if (messageTag.contains(StructureConfiguration.houseFacingTag)) {
-                config.houseFacing = Direction.byName(messageTag.getString(StructureConfiguration.houseFacingTag));
+                config.houseFacing = Direction.byName(messageTag.getString(StructureConfiguration.houseFacingTag).orElse("north"));
             }
 
             this.CustomReadFromNBTTag(messageTag, config);
@@ -201,16 +202,17 @@ public class StructureConfiguration {
     }
 
     /**
-     * Get's the first slot which contains the item in the supplied item stack in the player's main inventory.
-     * This method was copied directly from teh player inventory class since it was needed server side.
+     * Gets the first slot which contains the item in the supplied item stack in the player's main inventory.
+     * This method was copied directly from the player inventory class since it was needed server side.
      *
      * @param playerInventory The player's inventory to try and find a slot.
      * @param stack           The stack to find an associated slot.
      * @return The slot index or -1 if the item wasn't found.
      */
     public int getSlotFor(Inventory playerInventory, ItemStack stack) {
-        for (int i = 0; i < playerInventory.items.size(); ++i) {
-            if (!playerInventory.items.get(i).isEmpty() && this.stackEqualExact(stack, playerInventory.items.get(i))) {
+        NonNullList<ItemStack> items = playerInventory.getNonEquipmentItems();
+        for (int i = 0; i < items.size(); ++i) {
+            if (!items.get(i).isEmpty() && this.stackEqualExact(stack, items.get(i))) {
                 return i;
             }
         }

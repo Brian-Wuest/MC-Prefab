@@ -88,23 +88,23 @@ public class BasicStructureConfiguration extends StructureConfiguration {
         BasicStructureConfiguration basicConfig = (BasicStructureConfiguration) config;
 
         if (messageTag.contains(BasicStructureConfiguration.structureEnumNameTag)) {
-            basicConfig.basicStructureName = EnumBasicStructureName.valueOf(messageTag.getString(BasicStructureConfiguration.structureEnumNameTag));
+            basicConfig.basicStructureName = EnumBasicStructureName.valueOf(messageTag.getString(BasicStructureConfiguration.structureEnumNameTag).orElse(""));
         }
 
         if (messageTag.contains(BasicStructureConfiguration.structureDisplayNameTag)) {
-            basicConfig.structureDisplayName = messageTag.getString(BasicStructureConfiguration.structureDisplayNameTag);
+            basicConfig.structureDisplayName = messageTag.getString(BasicStructureConfiguration.structureDisplayNameTag).orElse("");
         }
 
         if (messageTag.contains(BasicStructureConfiguration.bedColorTag)) {
-            basicConfig.bedColor = DyeColor.byId(messageTag.getInt(BasicStructureConfiguration.bedColorTag));
+            basicConfig.bedColor = DyeColor.byId(messageTag.getInt(BasicStructureConfiguration.bedColorTag).orElse(0));
         }
 
         if (messageTag.contains(BasicStructureConfiguration.glassColorTag)) {
-            basicConfig.glassColor = FullDyeColor.byId(messageTag.getInt(BasicStructureConfiguration.glassColorTag));
+            basicConfig.glassColor = FullDyeColor.byId(messageTag.getInt(BasicStructureConfiguration.glassColorTag).orElse(0));
         }
 
         if (messageTag.contains(BasicStructureConfiguration.chosenOptionTag)) {
-            basicConfig.chosenOption = BaseOption.getOptionByHash(messageTag.getInt(BasicStructureConfiguration.chosenOptionTag));
+            basicConfig.chosenOption = BaseOption.getOptionByHash(messageTag.getInt(BasicStructureConfiguration.chosenOptionTag).orElse(0));
         }
     }
 

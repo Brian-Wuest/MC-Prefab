@@ -131,17 +131,17 @@ public class Utils {
     }
 
     public static BlockState readBlockState(CompoundTag tag) {
-        if (!tag.contains("Name", 8)) {
+        if (!tag.contains("Name")) {
             return Blocks.AIR.defaultBlockState();
         } else {
-            Block block = BuiltInRegistries.BLOCK.getValue(ResourceLocation.parse(tag.getString("Name")));
+            Block block = BuiltInRegistries.BLOCK.getValue(ResourceLocation.parse(tag.getString("Name").orElse("")));
             BlockState blockState = block.defaultBlockState();
 
-            if (tag.contains("Properties", 10)) {
-                CompoundTag compoundTag = tag.getCompound("Properties");
+            if (tag.contains("Properties")) {
+                CompoundTag compoundTag = tag.getCompound("Properties").orElse(new CompoundTag());
                 StateDefinition<Block, BlockState> stateDefinition = block.getStateDefinition();
 
-                for(String s : compoundTag.getAllKeys()) {
+                for(String s : compoundTag.keySet()) {
                     Property<?> property = stateDefinition.getProperty(s);
                     if (property != null) {
                         blockState = setValueHelper(blockState, property, s, compoundTag, tag);
@@ -154,11 +154,19 @@ public class Utils {
     }
 
     private static <S extends StateHolder<?, S>, T extends Comparable<T>> S setValueHelper(S blockState, Property<T> property, String tagKey, CompoundTag compoundTag, CompoundTag originalTag) {
-        Optional<T> optional = property.getValue(compoundTag.getString(tagKey));
+        String tagValue = compoundTag.getString(tagKey).orElse("");
+
+        if (tagValue.isEmpty()) {
+            PrefabBase.logger.warn("Unable to read property: {} with value: {} for blockState: {}", tagKey, compoundTag.getString(tagKey), originalTag.toString());
+            return blockState;
+        }
+
+        Optional<T> optional = property.getValue(tagValue);
+        
         if (optional.isPresent()) {
             return blockState.setValue(property, optional.get());
         } else {
-            PrefabBase.logger.warn("Unable to read property: {} with value: {} for blockstate: {}", tagKey, compoundTag.getString(tagKey), originalTag.toString());
+            PrefabBase.logger.warn("Unable to read property: {} with value: {} for blockState: {}", tagKey, compoundTag.getString(tagKey), originalTag.toString());
             return blockState;
         }
     }

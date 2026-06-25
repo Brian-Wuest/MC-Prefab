@@ -9,7 +9,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 
 /**
@@ -66,15 +65,18 @@ public class HouseAdvancedConfiguration extends StructureConfiguration {
         HouseAdvancedConfiguration houseConfiguration = ((HouseAdvancedConfiguration) config);
 
         if (messageTag.contains(HouseAdvancedConfiguration.houseStyleTag)) {
-            houseConfiguration.houseStyle = HouseStyle.ValueOf(messageTag.getInt(HouseAdvancedConfiguration.houseStyleTag));
+            houseConfiguration.houseStyle = HouseStyle.ValueOf(messageTag
+                    .getInt(HouseAdvancedConfiguration.houseStyleTag).orElse(0));
         }
 
         if (messageTag.contains(HouseAdvancedConfiguration.addMineshaftTag)) {
-            houseConfiguration.addMineshaft = messageTag.getBoolean(HouseAdvancedConfiguration.addMineshaftTag);
+            houseConfiguration.addMineshaft = messageTag
+                    .getBoolean(HouseAdvancedConfiguration.addMineshaftTag).orElse(false);
         }
 
         if (messageTag.contains(HouseAdvancedConfiguration.bedColorTag)) {
-            houseConfiguration.bedColor = DyeColor.byId(messageTag.getInt(HouseAdvancedConfiguration.bedColorTag));
+            houseConfiguration.bedColor = DyeColor.byId(messageTag
+                    .getInt(HouseAdvancedConfiguration.bedColorTag).orElse(0));
         }
     }
 
