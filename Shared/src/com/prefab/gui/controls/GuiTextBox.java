@@ -398,89 +398,52 @@ public class GuiTextBox extends AbstractWidget implements Renderable, GuiEventLi
             boolean bl2 = this.isFocused() && (Util.getMillis() - this.focusedTime) / 300L % 2L == 0L && bl;
             int m = this.bordered ? this.getX() + 4 : this.getX();
             int n = this.bordered ? this.getY() + (this.height - 8) / 2 : this.getY();
-            int o = m;
             int p = Mth.clamp(this.highlightPos - this.displayPos, 0, string.length());
 
             if (!string.isEmpty()) {
                 String string2 = bl ? string.substring(0, l) : string;
-
-                o = guiGraphics.drawString(this.font, this.formatter.apply(string2, this.displayPos), m, n, innerTextColor, this.drawsTextShadow);
+                FormattedCharSequence formattedCharSequence = (FormattedCharSequence)this.formatter.apply(string2, this.displayPos);
+                //o = guiGraphics.drawString(this.font, this.formatter.apply(string2, this.displayPos), m, n, innerTextColor, this.drawsTextShadow);
+                guiGraphics.drawString(this.font, formattedCharSequence, m, n, innerTextColor, this.drawsTextShadow);
+                m += this.font.width(formattedCharSequence) + 1;
             }
 
             boolean bl3 = this.cursorPos < this.value.length() || this.value.length() >= this.getMaxLength();
-            int q = o;
+            int o = m;
+
             if (!bl) {
-                q = l > 0 ? m + this.width : m;
+                o = l > 0 ? m + this.width : m;
             } else if (bl3) {
-                q = o - 1;
-                --o;
+                o = m - 1;
+                m--;
             }
 
             if (!string.isEmpty() && bl && l < string.length()) {
-                guiGraphics.drawString(this.font, this.formatter.apply(string.substring(l), this.cursorPos), o, n, innerTextColor, this.drawsTextShadow);
+                guiGraphics.drawString(this.font, this.formatter.apply(string.substring(l), this.cursorPos), m, n, innerTextColor, this.drawsTextShadow);
             }
 
             if (this.hint != null && string.isEmpty() && !this.isFocused()) {
-                guiGraphics.drawString(this.font, this.hint, o, n, innerTextColor, this.drawsTextShadow);
+                guiGraphics.drawString(this.font, this.hint, m, n, innerTextColor, this.drawsTextShadow);
             }
 
             if (!bl3 && this.suggestion != null) {
-                guiGraphics.drawString(this.font, this.suggestion, q - 1, n, -8355712, this.drawsTextShadow);
+                guiGraphics.drawString(this.font, this.suggestion, o - 1, n, -8355712, this.drawsTextShadow);
             }
 
-            int var10003;
-            int var10004;
-            int var10005;
+            if (n != l) {
+                int q = m + this.font.width(string.substring(0, n));
+                guiGraphics.textHighlight(Math.min(o, this.getX() + this.width), n - 1, Math.min(p - 1, this.getX() + this.width), n + 1 + 9);
+            }
 
             if (bl2) {
                 if (bl3) {
-                    RenderType var10001 = RenderType.guiOverlay();
-                    var10003 = n - 1;
-                    var10004 = q + 1;
-                    var10005 = n + 1;
-                    Objects.requireNonNull(this.font);
-                    guiGraphics.fill(var10001, q, var10003, var10004, var10005 + 9, -3092272);
+                    guiGraphics.fill(o, n - 1, o + 1, n + 1 + 9, -3092272);
                 } else {
-                    guiGraphics.drawString(this.font, "_", q, n, innerTextColor, this.drawsTextShadow);
+                    guiGraphics.drawString(this.font, "_", o, n, innerTextColor, this.drawsTextShadow);
                 }
             }
 
-            if (p != l) {
-                int r = m + this.font.width(string.substring(0, p));
-                var10003 = n - 1;
-                var10004 = r - 1;
-                var10005 = n + 1;
-                Objects.requireNonNull(this.font);
-                this.renderHighlight(guiGraphics, q, var10003, var10004, var10005 + 9);
-            }
-
         }
-    }
-
-
-    private void renderHighlight(GuiGraphics guiGraphics, int startX, int startY, int endX, int endY) {
-        int j;
-        if (startX < endX) {
-            j = startX;
-            startX = endX;
-            endX = j;
-        }
-
-        if (startY < endY) {
-            j = startY;
-            startY = endY;
-            endY = j;
-        }
-
-        if (endX > this.getX() + this.width) {
-            endX = this.getX() + this.width;
-        }
-
-        if (startX > this.getX() + this.width) {
-            startX = this.getX() + this.width;
-        }
-
-        guiGraphics.fill(RenderType.guiTextHighlight(), startX, startY, endX, endY, -16776961);
     }
 
     private int getMaxLength() {

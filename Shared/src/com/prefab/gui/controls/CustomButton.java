@@ -6,6 +6,8 @@ import com.prefab.Utils;
 import com.prefab.gui.GuiUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.texture.AbstractTexture;
+import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
@@ -32,9 +34,10 @@ public class CustomButton extends ExtendedButton {
             Minecraft mc = Minecraft.getInstance();
             this.isHovered = mouseX >= this.getX() && mouseY >= this.getY() && mouseX < this.getX() + this.width && mouseY < this.getY() + this.height;
             ResourceLocation buttonTexture = this.isHovered ? this.buttonTextureHover : this.buttonTexture;
-            RenderSystem.setShader(CoreShaders.POSITION_TEX);
-            RenderSystem.setShaderTexture(0, buttonTexture);
-            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, this.alpha);
+            TextureManager textureManager = Minecraft.getInstance().getTextureManager();
+            AbstractTexture abstractTexture = textureManager.getTexture(buttonTexture);
+            abstractTexture.setUseMipmaps(false);
+            RenderSystem.setShaderTexture(0, abstractTexture.getTextureView());
 
             GuiUtils.bindAndDrawScaledTexture(buttonTexture, guiGraphics, this.getX(), this.getY(), this.width, this.height, 90, 20, 90, 20);
             int color = 14737632;
@@ -47,7 +50,7 @@ public class CustomButton extends ExtendedButton {
                 buttonText = Utils.createTextComponent(mc.font.substrByWidth(buttonText, width - 6 - ellipsisWidth).getString() + "...");
 
             guiGraphics.drawCenteredString(mc.font, buttonText, this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, color);
-            guiGraphics.flush();
+
         }
     }
 }

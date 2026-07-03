@@ -115,7 +115,6 @@ public class GuiCheckBox extends AbstractButton {
     public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partial) {
         if (this.visible) {
             ResourceLocation resourceLocation = GuiCheckBox.buttonTexture;
-            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             this.isHovered = mouseX >= this.getX() && mouseY >= this.getY() && mouseX < this.getX() + this.boxWidth && mouseY < this.getY() + this.height;
 
             if (this.isChecked()) {

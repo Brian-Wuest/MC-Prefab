@@ -213,24 +213,6 @@ public abstract class GuiBase extends Screen {
         return this.addRenderableWidget(slider);
     }
 
-    protected void drawControlPanel(GuiGraphics guiGraphics, int grayBoxX, int grayBoxY, int width, int height) {
-        GuiUtils.drawContinuousTexturedBox(
-                this.narrowPanelTexture,
-                grayBoxX,
-                grayBoxY,
-                0,
-                0,
-                width,
-                height,
-                89,
-                233,
-                2,
-                2,
-                4,
-                4,
-                0);
-    }
-
     protected void drawControlBackground(GuiGraphics guiGraphics, int grayBoxX, int grayBoxY, int width, int height) {
         GuiUtils.bindAndDrawScaledTexture(
                 this.backgroundTextures,
@@ -248,6 +230,7 @@ public abstract class GuiBase extends Screen {
     protected void drawControlLeftPanel(GuiGraphics guiGraphics, int grayBoxX, int grayBoxY, int width, int height) {
         GuiUtils.drawContinuousTexturedBox(
                 this.leftPanelTexture,
+                guiGraphics,
                 grayBoxX,
                 grayBoxY,
                 0,
@@ -259,31 +242,13 @@ public abstract class GuiBase extends Screen {
                 2,
                 2,
                 4,
-                4,
-                0);
-    }
-
-    protected void drawControlMiddlePanel(GuiGraphics guiGraphics, int grayBoxX, int grayBoxY, int width, int height) {
-        GuiUtils.drawContinuousTexturedBox(
-                this.middlePanelTexture,
-                grayBoxX,
-                grayBoxY,
-                0,
-                0,
-                width,
-                height,
-                89,
-                233,
-                2,
-                2,
-                4,
-                4,
-                0);
+                4);
     }
 
     protected void drawControlRightPanel(GuiGraphics guiGraphics, int grayBoxX, int grayBoxY, int width, int height) {
         GuiUtils.drawContinuousTexturedBox(
                 this.rightPanelTexture,
+                guiGraphics,
                 grayBoxX,
                 grayBoxY,
                 0,
@@ -295,8 +260,7 @@ public abstract class GuiBase extends Screen {
                 2,
                 2,
                 4,
-                4,
-                0);
+                4);
     }
 
     protected void drawStandardControlBoxAndImage(GuiGraphics guiGraphics, ResourceLocation imageLocation, int x, int y, int mouseX, int mouseY, float partialTicks) {
