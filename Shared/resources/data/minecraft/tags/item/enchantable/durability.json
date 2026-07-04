@@ -11,6 +11,13 @@
     "prefab:item_swift_blade_osmium",
     "prefab:item_swift_blade_steel",
     "prefab:item_swift_blade_stone",
-    "prefab:item_swift_blade_wood"
+    "prefab:item_swift_blade_wood",
+    "prefab:item_swift_blade_wood",
+    "prefab:item_sickle_gold",
+    "prefab:item_sickle_diamond",
+    "prefab:item_sickle_iron",
+    "prefab:item_sickle_netherite",
+    "prefab:item_sickle_stone",
+    "prefab:item_sickle_wood"
   ]
 }
