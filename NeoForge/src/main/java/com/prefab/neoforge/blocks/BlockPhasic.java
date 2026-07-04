@@ -26,17 +26,19 @@ public class BlockPhasic extends com.prefab.blocks.BlockPhasic {
      */
     @Override
     public @NotNull BlockState playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
-        com.prefab.blocks.BlockPhasic.EnumPhasingProgress currentState = state.getValue(Phasing_Progress);
+        if (!world.isClientSide()) {
+            com.prefab.blocks.BlockPhasic.EnumPhasingProgress currentState = state.getValue(Phasing_Progress);
 
-        super.playerWillDestroy(world, pos, state, player);
+            super.playerWillDestroy(world, pos, state, player);
 
-        GameServerEvents.RedstoneAffectedBlockPositions.remove(pos);
+            GameServerEvents.RedstoneAffectedBlockPositions.remove(pos);
 
-        boolean poweredSide = world.hasNeighborSignal(pos);
+            boolean poweredSide = world.hasNeighborSignal(pos);
 
-        if (poweredSide && currentState == com.prefab.blocks.BlockPhasic.EnumPhasingProgress.transparent) {
-            // Set this block and all neighbor Phasic Blocks to base. This will cascade to tall touching Phasic blocks.
-            this.updateNeighborPhasicBlocks(false, world, pos, state, false, false);
+            if (poweredSide && currentState == com.prefab.blocks.BlockPhasic.EnumPhasingProgress.transparent) {
+                // Set this block and all neighbor Phasic Blocks to base. This will cascade to tall touching Phasic blocks.
+                this.updateNeighborPhasicBlocks(false, world, pos, state, false, false);
+            }
         }
 
         return state;
@@ -159,13 +161,17 @@ public class BlockPhasic extends com.prefab.blocks.BlockPhasic {
          * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
          * BlockState
          */
-        boolean poweredSide = context.getLevel().hasNeighborSignal(context.getClickedPos());
+        Level level = context.getLevel();
+        BlockPos blockPos = context.getClickedPos();
+        boolean poweredSide = level.hasNeighborSignal(blockPos);
 
-        if (poweredSide) {
-            this.updateNeighborPhasicBlocks(true, context.getLevel(), context.getClickedPos(), this.defaultBlockState(), false, false);
+        if (!level.isClientSide() && poweredSide) {
+            this.updateNeighborPhasicBlocks(true, level, blockPos,
+                    this.defaultBlockState(), false, false);
         }
 
-        return this.defaultBlockState().setValue(Phasing_Out, poweredSide).setValue(Phasing_Progress, com.prefab.blocks.BlockPhasic.EnumPhasingProgress.base);
+        return this.defaultBlockState().setValue(Phasing_Out, poweredSide).setValue(Phasing_Progress,
+                com.prefab.blocks.BlockPhasic.EnumPhasingProgress.base);
     }
 
 
