@@ -1,13 +1,16 @@
 package com.prefab.structures.render;
 
-import com.mojang.blaze3d.buffers.BufferUsage;
+import com.mojang.blaze3d.buffers.GpuBuffer;
+import com.mojang.blaze3d.opengl.GlProgram;
+import com.mojang.blaze3d.pipeline.RenderPipeline;
+import com.mojang.blaze3d.systems.CommandEncoder;
+import com.mojang.blaze3d.systems.RenderPass;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
 import com.mojang.text2speech.Narrator;
 import com.prefab.ClientModRegistryBase;
 import com.prefab.PrefabBase;
-import com.prefab.PrefabClientBase;
 import com.prefab.blocks.BlockStructureScanner;
 import com.prefab.config.StructureScannerConfig;
 import com.prefab.gui.GuiLangKeys;
@@ -17,36 +20,30 @@ import com.prefab.structures.config.StructureConfiguration;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.render.pip.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
-import net.minecraft.client.renderer.block.ModelBlockRenderer;
-import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.BlockStateModel;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Vec3i;
+
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
-import net.minecraft.util.ARGB;
-import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
+
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
-import org.joml.Vector3f;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import static com.prefab.PrefabClientBase.PREVIEW_LAYER_2;
 
 /**
  * @author WuestMan
@@ -55,7 +52,6 @@ import java.util.Map;
  */
 @SuppressWarnings({"WeakerAccess", "ConstantConditions"})
 public class StructureRenderHandler {
-    private static final Direction[] DIRECTIONS = Direction.values();
 
     // Cached meshes for the current preview structure/orientation
     private static final Map<PreviewChunkKey, PreviewChunkMesh> previewChunks = new HashMap<>();
@@ -66,7 +62,6 @@ public class StructureRenderHandler {
     public static boolean showedMessage = false;
     private static int dimension;
     private static Minecraft mcInstance;
-    private static HashMap<Integer, ArrayList<List<BakedQuad>>> blockModelQuads;
     private static boolean needsRebuild = true;
 
     /**
@@ -79,7 +74,6 @@ public class StructureRenderHandler {
         StructureRenderHandler.currentStructure = structure;
         StructureRenderHandler.currentConfiguration = configuration;
         StructureRenderHandler.showedMessage = false;
-        StructureRenderHandler.blockModelQuads = new HashMap<>(40000, 1);
         StructureRenderHandler.needsRebuild = true;
 
         StructureRenderHandler.mcInstance = Minecraft.getInstance();
@@ -90,7 +84,7 @@ public class StructureRenderHandler {
     }
 
     public static void renderStructureStartPositionBox(Level worldIn, PoseStack matrixStack,
-                                                       MultiBufferSource multiBufferSource,
+                                                       MultiBufferSource.BufferSource multiBufferSource,
                                                        float cameraX, float cameraY, float cameraZ) {
         if (StructureRenderHandler.currentStructure != null
                 && StructureRenderHandler.dimension == Minecraft.getInstance().player.level().dimensionType().logicalHeight()
@@ -262,41 +256,6 @@ public class StructureRenderHandler {
                     xLength,
                     zLength,
                     config.blocksTall);
-        }
-    }
-
-    public static void basicBlockRenderExample(Player player, PoseStack poseStack, BufferBuilder buffer, double cameraX, double cameraY, double cameraZ) {
-        if (StructureRenderHandler.currentStructure != null
-                && StructureRenderHandler.dimension == player.level().dimensionType().logicalHeight()
-                && StructureRenderHandler.currentConfiguration != null
-                && PrefabBase.serverConfiguration.enableStructurePreview) {
-
-            Level world = player.level();
-
-            try {
-                BlockState state = Blocks.REDSTONE_BLOCK.defaultBlockState();
-                BlockPos blockPos = StructureRenderHandler.currentConfiguration.pos.relative(Direction.SOUTH, 2).above(2);
-                BlockRenderDispatcher brd = StructureRenderHandler.mcInstance.getBlockRenderer();
-                BakedModel blockModel = brd.getBlockModel(state);
-                ModelBlockRenderer modelBlockRenderer = brd.getModelRenderer();
-                int color = StructureRenderHandler.mcInstance.getBlockColors().getColor(state, null, null, 0);
-                float r = (float) (color >> 16 & 255) / 255.0F;
-                float g = (float) (color >> 8 & 255) / 255.0F;
-                float b = (float) (color & 255) / 255.0F;
-
-                // Translate the pose properly...maybe
-                PoseStack.Pose originalPose = poseStack.poseStack.peekLast();
-                float scaleValue = blockPos.getY() + 1.3F;
-                PoseStack.Pose lastPose = new PoseStack.Pose(originalPose);
-
-                lastPose.pose().translate((float) -cameraX, (float) -cameraY, (float) -cameraZ);
-                lastPose.pose().translate(blockPos.getX(), blockPos.getY(), blockPos.getZ());
-
-                StructureRenderHandler.renderModel(lastPose, buffer, state, blockModel, r, g, b,
-                        0xF000F0, OverlayTexture.NO_OVERLAY, state.hashCode());
-            } catch (Exception ex) {
-                PrefabBase.logger.error(ex);
-            }
         }
     }
 
@@ -473,18 +432,14 @@ public class StructureRenderHandler {
                 continue;
             }
 
-            MeshData meshData = bufferBuilder.build();
-            if (meshData == null || meshData.drawState() == null || meshData.drawState().vertexCount() == 0) {
-                continue;
+            try (MeshData meshData = bufferBuilder.buildOrThrow()) {
+                if (meshData == null || meshData.drawState() == null || meshData.drawState().vertexCount() == 0) {
+                    continue;
+                }
+
+                GpuBuffer buffer = RenderSystem.getDevice().createBuffer(key::toString, 32, meshData.vertexBuffer());
+                previewChunks.put(key, new PreviewChunkMesh(key, buffer));
             }
-
-            VertexBuffer vertexBuffer = new VertexBuffer(BufferUsage.STATIC_WRITE);
-            vertexBuffer.bind();
-            vertexBuffer.upload(meshData);
-            VertexBuffer.unbind();
-
-            /*AABB bounds = new AABB(minX, minY, minZ, maxX, maxY, maxZ);*/
-            previewChunks.put(key, new PreviewChunkMesh(key, vertexBuffer/*, bounds*/));
         }
     }
 
@@ -508,7 +463,8 @@ public class StructureRenderHandler {
 
         // --- MAIN BLOCK ---
         boolean hasGeometry = bakeOne(blockInfo.blockPos, blockInfo.getBlockState(),
-                poseStack, bufferBuilder, blockRenderer,
+                poseStack, blockRenderer,
+                bufferBuilder,
                 chunkOriginX, chunkOriginY, chunkOriginZ);
 
         // --- SUB BLOCK (multi-block models) ---
@@ -525,7 +481,8 @@ public class StructureRenderHandler {
 
             boolean hasSubBlockGeometry = bakeOne(blockInfo.getSubBlock().blockPos,
                     blockInfo.getSubBlock().getBlockState(),
-                    poseStack, bufferBuilder, blockRenderer,
+                    poseStack, blockRenderer,
+                    bufferBuilder,
                     chunkOriginX, chunkOriginY, chunkOriginZ);
 
             if (!hasSubBlockGeometry) {
@@ -540,8 +497,8 @@ public class StructureRenderHandler {
             BlockPos pos,
             BlockState state,
             PoseStack poseStack,
-            BufferBuilder bufferBuilder,
             BlockRenderDispatcher blockRenderer,
+            BufferBuilder bufferBuilder,
             int chunkOriginX, int chunkOriginY, int chunkOriginZ
     ) {
         if (state == null || state.isAir()) {
@@ -555,7 +512,7 @@ public class StructureRenderHandler {
         poseStack.pushPose();
         poseStack.translate(lx, ly, lz);
 
-        BakedModel model = blockRenderer.getBlockModel(state);
+        BlockStateModel model = blockRenderer.getBlockModel(state);
 
         int color = StructureRenderHandler.mcInstance.getBlockColors()
                 .getColor(state, null, null, 0);
@@ -566,7 +523,6 @@ public class StructureRenderHandler {
         blockRenderer.getModelRenderer().renderModel(
                 poseStack.last(),
                 bufferBuilder,
-                state,
                 model,
                 r, g, b,
                 0xF000F0,
@@ -584,18 +540,34 @@ public class StructureRenderHandler {
         }
 
         // Set up shader
-        //RenderType renderType = PrefabClientBase.PREVIEW_LAYER;
-        RenderType renderType = PrefabClientBase.PREVIEW_LAYER_2;
-        ShaderProgram shader = CoreShaders.RENDERTYPE_ENTITY_TRANSLUCENT;
-        //ShaderInstance shader = GhostShaders.GHOST_SHIMMER_SHADER;
-        //shader.safeGetUniform("u_Time").set((float)(System.currentTimeMillis() % 100000) / 1000f);
-        CompiledShaderProgram compiledShaderProgram = RenderSystem.setShader(shader);
-        RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_BLOCKS);
+        RenderType renderType = PREVIEW_LAYER_2;
+        RenderPipeline shader = RenderPipelines.ENTITY_TRANSLUCENT;
 
-        Matrix4f projMatrix = RenderSystem.getProjectionMatrix();
+        RenderSystem.AutoStorageIndexBuffer indices = RenderSystem.getSequentialBuffer(VertexFormat.Mode.QUADS);
+
+        CommandEncoder commandEncoder = RenderSystem.getDevice().createCommandEncoder();
+
+        //GlProgram compiledShaderProgram = RenderSystem.setShader(shader);
+        //RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_BLOCKS);
+
+        //Matrix4f projMatrix = RenderSystem.getProjectionMatrix();
 
         for (PreviewChunkMesh mesh : previewChunks.values()) {
-            // Render actual block
+            
+            try (RenderPass pass = commandEncoder.createRenderPass(this.texture,
+                    OptionalInt.of(0xFFFFFFFF))) {
+
+                // Set pipeline information along with any samplers and uniforms
+                pass.setPipeline(shader);
+                pass.setVertexBuffer(0, mesh.vertexBuffer());
+                pass.bindSampler("Sampler0", RenderSystem.getShaderTexture(0));
+
+                // Then, draw everything to the screen
+                // In this example, the buffer just contains a single quad
+                // For those unaware, the vertex count is 6 as a quad is made up of 2 triangles, so 2 vertices overlap
+                pass.drawIndexed(0, 6, 0, 0);
+            }
+            /*// Render actual block
             poseStack.pushPose();
 
             // Translate the mesh's chunk relative coordinates to actual world coordinates.
@@ -607,103 +579,21 @@ public class StructureRenderHandler {
 
             Matrix4f poseMatrix = poseStack.last().pose();
 
-            mesh.vertexBuffer.bind();
             renderType.setupRenderState();
+
+
             mesh.vertexBuffer.drawWithShader(poseMatrix, projMatrix, compiledShaderProgram);
             renderType.clearRenderState();
-            VertexBuffer.unbind();
+            //VertexBuffer.unbind();
 
-            poseStack.popPose();
-        }
-    }
-
-    //------------------------------------------------------------------------------
-
-    public static void renderModel(PoseStack.Pose pose, VertexConsumer vertexConsumer, @Nullable BlockState blockState, BakedModel bakedModel, float f, float g, float h, int i, int j, int blockStateHash) {
-        RandomSource randomSource = RandomSource.create();
-        long l = 42L;
-
-        if (!StructureRenderHandler.blockModelQuads.containsKey(blockStateHash)) {
-            // Render the quads like normal then add them to the hash set for the next pass.
-            ArrayList<List<BakedQuad>> bakedQuads = new ArrayList<>();
-
-            for (Direction direction : DIRECTIONS) {
-                randomSource.setSeed(42L);
-
-                List<BakedQuad> quadList = bakedModel.getQuads(blockState, direction, randomSource);
-                StructureRenderHandler.renderQuadList(pose, vertexConsumer, f, g, h, quadList, i, j);
-                bakedQuads.add(quadList);
-            }
-
-            randomSource.setSeed(42L);
-
-            List<BakedQuad> quadList = bakedModel.getQuads(blockState, null, randomSource);
-            StructureRenderHandler.renderQuadList(pose, vertexConsumer, f, g, h, quadList, i, j);
-
-            bakedQuads.add(quadList);
-            StructureRenderHandler.blockModelQuads.put(blockStateHash, bakedQuads);
-
-            return;
-        }
-
-        // Render the cached baked quads.
-        ArrayList<List<BakedQuad>> bakedQuads = StructureRenderHandler.blockModelQuads.get(blockStateHash);
-
-        for (List<BakedQuad> quadList : bakedQuads) {
-            StructureRenderHandler.renderQuadList(pose, vertexConsumer, f, g, h, quadList, i, j);
-        }
-    }
-
-    private static void renderQuadList(PoseStack.Pose pose, VertexConsumer vertexConsumer, float f, float g, float h, List<BakedQuad> list, int i, int j) {
-        float k;
-        float l;
-        float m;
-
-        for (BakedQuad quad : list) {
-            if (quad.isTinted()) {
-                k = Mth.clamp(f, 0.0F, 1.0F);
-                l = Mth.clamp(g, 0.0F, 1.0F);
-                m = Mth.clamp(h, 0.0F, 1.0F);
-            } else {
-                k = 1.0F;
-                l = 1.0F;
-                m = 1.0F;
-            }
-
-            StructureRenderHandler.putBulkData(vertexConsumer, pose, quad, k, l, m, i, j);
-        }
-    }
-
-    private static void putBulkData(VertexConsumer vertexConsumer, PoseStack.Pose pose, BakedQuad bakedQuad, float k, float l, float m, int i, int j) {
-        int[] js = bakedQuad.getVertices();
-        Vec3i vec3i = bakedQuad.getDirection().getUnitVec3i();
-        Matrix4f matrix4f = pose.pose();
-        Vector3f vector3f = pose.transformNormal((float) vec3i.getX(), (float) vec3i.getY(), (float) vec3i.getZ(), new Vector3f());
-        int trimmedLength = js.length / 8;
-        int baseColor = (int) (255.0F);
-
-        for (int counter = 0; counter < trimmedLength; ++counter) {
-            float betterO = Float.intBitsToFloat(js[counter * 8]);
-            float betterP = Float.intBitsToFloat(js[(counter * 8) + 1]);
-            float betterQ = Float.intBitsToFloat(js[(counter * 8) + 2]);
-
-            float u = 1.0F * k * 255.0F;
-            float v = 1.0F * l * 255.0F;
-            float w = 1.0F * m * 255.0F;
-            float betterT = Float.intBitsToFloat(js[(counter * 8) + 4]);
-            float betterZ = Float.intBitsToFloat(js[(counter * 8) + 5]);
-
-            int x = ARGB.color(baseColor, (int) u, (int) v, (int) w);
-
-            Vector3f vector3f2 = matrix4f.transformPosition(betterO, betterP, betterQ, new Vector3f());
-            vertexConsumer.addVertex(vector3f2.x(), vector3f2.y(), vector3f2.z(), x, betterT, betterZ, j, i, vector3f.x(), vector3f.y(), vector3f.z());
+            poseStack.popPose();*/
         }
     }
 
     public record PreviewChunkKey(int chunkX, int chunkY, int chunkZ) {
     }
 
-    public record PreviewChunkMesh(PreviewChunkKey key, VertexBuffer vertexBuffer/*, AABB bounds*/) {
+    public record PreviewChunkMesh(PreviewChunkKey key, GpuBuffer vertexBuffer) {
         public void close() {
             this.vertexBuffer.close();
         }
