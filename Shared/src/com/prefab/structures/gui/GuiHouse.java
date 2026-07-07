@@ -137,7 +137,9 @@ public class GuiHouse extends GuiStructure {
         int imagePanelWidth = 285;
         int imagePanelMiddle = imagePanelWidth / 2;
 
+        guiGraphics.guiRenderState.reset();
         this.renderBackground(guiGraphics,0,0,0);
+        guiGraphics.nextStratum();
 
         this.drawControlLeftPanel(guiGraphics, x + 2, y + 10, 141, 190);
         this.drawControlRightPanel(guiGraphics, imagePanelUpperLeft, y + 10, imagePanelWidth, 190);

@@ -81,6 +81,7 @@ public class GuiInstantBridge extends GuiStructure {
         int imagePanelWidth = 285;
         int imagePanelMiddle = imagePanelWidth / 2;
 
+        guiGraphics.guiRenderState.reset();
         this.renderBackground(guiGraphics,0,0,0);
 
         this.drawControlLeftPanel(guiGraphics, x + 10, y + 10, 125, 190);

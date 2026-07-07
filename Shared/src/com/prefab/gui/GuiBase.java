@@ -264,6 +264,7 @@ public abstract class GuiBase extends Screen {
     }
 
     protected void drawStandardControlBoxAndImage(GuiGraphics guiGraphics, ResourceLocation imageLocation, int x, int y, int mouseX, int mouseY, float partialTicks) {
+        guiGraphics.guiRenderState.reset();
         this.renderBackground(guiGraphics, x, y, 0);
         this.drawControlBackground(guiGraphics, x, y, this.imagePanelWidth, this.imagePanelHeight);
 

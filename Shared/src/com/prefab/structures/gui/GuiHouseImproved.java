@@ -128,6 +128,7 @@ public class GuiHouseImproved extends GuiStructure {
         int imagePanelWidth = 285;
         int imagePanelMiddle = imagePanelWidth / 2;
 
+        guiGraphics.guiRenderState.reset();
         this.renderBackground(guiGraphics,0,0,0);
 
         this.drawControlLeftPanel(guiGraphics, x + 2, y + 10, 135, 190);
