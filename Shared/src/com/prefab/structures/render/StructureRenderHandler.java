@@ -1,16 +1,19 @@
 package com.prefab.structures.render;
 
 import com.mojang.blaze3d.buffers.GpuBuffer;
-import com.mojang.blaze3d.opengl.GlProgram;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import com.mojang.blaze3d.systems.CommandEncoder;
 import com.mojang.blaze3d.systems.RenderPass;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.textures.GpuTexture;
+import com.mojang.blaze3d.textures.GpuTextureView;
+import com.mojang.blaze3d.textures.TextureFormat;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
 import com.mojang.text2speech.Narrator;
 import com.prefab.ClientModRegistryBase;
 import com.prefab.PrefabBase;
+import com.prefab.PrefabClientBase;
 import com.prefab.blocks.BlockStructureScanner;
 import com.prefab.config.StructureScannerConfig;
 import com.prefab.gui.GuiLangKeys;
@@ -20,26 +23,25 @@ import com.prefab.structures.config.StructureConfiguration;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.render.pip.*;
-import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.block.model.BlockStateModel;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
-
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import org.joml.Matrix4f;
+import org.joml.Matrix4fStack;
 
 import java.util.*;
 
@@ -64,6 +66,9 @@ public class StructureRenderHandler {
     private static Minecraft mcInstance;
     private static boolean needsRebuild = true;
 
+    private static GpuTexture gpuTexture;
+    private static GpuTextureView gpuTextureView;
+
     /**
      * Resets the structure to show in the world.
      *
@@ -77,6 +82,9 @@ public class StructureRenderHandler {
         StructureRenderHandler.needsRebuild = true;
 
         StructureRenderHandler.mcInstance = Minecraft.getInstance();
+
+        StructureRenderHandler.gpuTexture = RenderSystem.getDevice().createTexture("Structure Preview", 12, TextureFormat.RGBA8, 16, 16, 1, 1);
+        StructureRenderHandler.gpuTextureView = RenderSystem.getDevice().createTextureView(StructureRenderHandler.gpuTexture);
 
         if (StructureRenderHandler.mcInstance.level != null) {
             StructureRenderHandler.dimension = StructureRenderHandler.mcInstance.level.dimensionType().logicalHeight();
@@ -365,7 +373,7 @@ public class StructureRenderHandler {
                 BlockState subBlockState = blockInfo.getSubBlock().getBlockState() != null
                         ? blockInfo.getSubBlock().getBlockState()
                         : BuiltInRegistries.BLOCK.getValue(
-                                blockInfo.getSubBlock().getResourceLocation()).defaultBlockState();
+                        blockInfo.getSubBlock().getResourceLocation()).defaultBlockState();
 
                 BuildBlock subBlock = BuildBlock.SetBlockState(
                         StructureRenderHandler.currentConfiguration,
@@ -438,7 +446,7 @@ public class StructureRenderHandler {
                 }
 
                 GpuBuffer buffer = RenderSystem.getDevice().createBuffer(key::toString, 32, meshData.vertexBuffer());
-                previewChunks.put(key, new PreviewChunkMesh(key, buffer));
+                previewChunks.put(key, new PreviewChunkMesh(key, buffer, meshData.drawState().indexCount()));
             }
         }
     }
@@ -541,7 +549,8 @@ public class StructureRenderHandler {
 
         // Set up shader
         RenderType renderType = PREVIEW_LAYER_2;
-        RenderPipeline shader = RenderPipelines.ENTITY_TRANSLUCENT;
+        //RenderPipeline shader = RenderPipelines.ENTITY_TRANSLUCENT;
+        RenderPipeline shader = PrefabClientBase.ENTITY_TRANSLUCENT_CULL_PIPELINE;
 
         RenderSystem.AutoStorageIndexBuffer indices = RenderSystem.getSequentialBuffer(VertexFormat.Mode.QUADS);
 
@@ -550,22 +559,35 @@ public class StructureRenderHandler {
         //GlProgram compiledShaderProgram = RenderSystem.setShader(shader);
         //RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_BLOCKS);
 
+        Matrix4fStack matrix4fStack = RenderSystem.getModelViewStack();
         //Matrix4f projMatrix = RenderSystem.getProjectionMatrix();
 
         for (PreviewChunkMesh mesh : previewChunks.values()) {
-            
-            try (RenderPass pass = commandEncoder.createRenderPass(this.texture,
+            GpuBuffer gpuBuffer = mesh.vertexBuffer();
+            /*matrix4fStack.pushMatrix();
+
+            poseStack.pushPose();
+
+            poseStack.translate(
+                    mesh.key.chunkX * 16,
+                    mesh.key.chunkY * 16,
+                    mesh.key.chunkZ * 16
+            );
+
+            Matrix4f poseMatrix = poseStack.last().pose();*/
+
+            try (RenderPass pass = commandEncoder.createRenderPass(() -> "Structure Preview",
+                    StructureRenderHandler.gpuTextureView,
                     OptionalInt.of(0xFFFFFFFF))) {
 
                 // Set pipeline information along with any samplers and uniforms
                 pass.setPipeline(shader);
                 pass.setVertexBuffer(0, mesh.vertexBuffer());
+                pass.setIndexBuffer(gpuBuffer, indices.type());
                 pass.bindSampler("Sampler0", RenderSystem.getShaderTexture(0));
 
                 // Then, draw everything to the screen
-                // In this example, the buffer just contains a single quad
-                // For those unaware, the vertex count is 6 as a quad is made up of 2 triangles, so 2 vertices overlap
-                pass.drawIndexed(0, 6, 0, 0);
+                pass.drawIndexed(0, 0, mesh.meshIndices(), 1);
             }
             /*// Render actual block
             poseStack.pushPose();
@@ -585,15 +607,16 @@ public class StructureRenderHandler {
             mesh.vertexBuffer.drawWithShader(poseMatrix, projMatrix, compiledShaderProgram);
             renderType.clearRenderState();
             //VertexBuffer.unbind();
-
-            poseStack.popPose();*/
+            */
+            /*poseStack.popPose();
+            matrix4fStack.popMatrix();*/
         }
     }
 
     public record PreviewChunkKey(int chunkX, int chunkY, int chunkZ) {
     }
 
-    public record PreviewChunkMesh(PreviewChunkKey key, GpuBuffer vertexBuffer) {
+    public record PreviewChunkMesh(PreviewChunkKey key, GpuBuffer vertexBuffer, int meshIndices) {
         public void close() {
             this.vertexBuffer.close();
         }
