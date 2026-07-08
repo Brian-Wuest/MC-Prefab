@@ -11,17 +11,34 @@ import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
+import java.awt.*;
+
+
 public class CustomButton extends ExtendedButton {
     private final ResourceLocation buttonTexture = ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/prefab_button.png");
     private final ResourceLocation buttonTexturePressed = ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/prefab_button_pressed.png");
     private final ResourceLocation buttonTextureHover = ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/prefab_button_highlight.png");
 
+    private int stringColor;
+
     public CustomButton(int xPos, int yPos, Component displayString, OnPress handler) {
         super(xPos, yPos, 200, 90, displayString, handler, null);
+
+        this.stringColor = Color.WHITE.getRGB();
     }
 
     public CustomButton(int xPos, int yPos, int width, int height, Component displayString, OnPress handler) {
         super(xPos, yPos, width, height, displayString, handler, null);
+
+        this.stringColor = Color.WHITE.getRGB();
+    }
+
+    public int getStringColor() {
+        return stringColor;
+    }
+
+    public void setStringColor(int stringColor) {
+        this.stringColor = stringColor;
     }
 
     /**
@@ -40,14 +57,15 @@ public class CustomButton extends ExtendedButton {
             RenderSystem.setShaderTexture(0, abstractTexture.getTextureView());
 
             GuiUtils.bindAndDrawScaledTexture(buttonTexture, guiGraphics, this.getX(), this.getY(), this.width, this.height, 90, 20, 90, 20);
-            int color = 14737632;
+            int color = this.stringColor;
 
             Component buttonText = this.getMessage();
             int strWidth = mc.font.width(buttonText);
             int ellipsisWidth = mc.font.width("...");
 
-            if (strWidth > width - 6 && strWidth > ellipsisWidth)
+            if (strWidth > width - 6 && strWidth > ellipsisWidth) {
                 buttonText = Utils.createTextComponent(mc.font.substrByWidth(buttonText, width - 6 - ellipsisWidth).getString() + "...");
+            }
 
             guiGraphics.drawCenteredString(mc.font, buttonText, this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, color);
 

@@ -8,11 +8,33 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.Nullable;
 
+import java.awt.*;
+
 public class ExtendedButton extends Button {
     public float fontScale = 1;
+    private int activeStringColor;
+    private int inactiveStringColor;
 
     public ExtendedButton(int xPos, int yPos, int width, int height, Component displayString, OnPress handler, @Nullable String label) {
         super(xPos, yPos, width, height, displayString, handler, Button.DEFAULT_NARRATION);
+
+        this.activeStringColor = Color.WHITE.getRGB();
+        this.inactiveStringColor = Color.LIGHT_GRAY.getRGB();
+    }
+
+    public int  getActiveStringColor() {
+        return activeStringColor;
+    }
+    public int getInactiveStringColor() {
+        return inactiveStringColor;
+    }
+
+    public void setInactiveStringColor(int inactiveStringColor) {
+        this.inactiveStringColor = inactiveStringColor;
+    }
+
+    public void setActiveStringColor(int activeStringColor) {
+        this.activeStringColor = activeStringColor;
     }
 
     @Override
@@ -37,8 +59,7 @@ public class ExtendedButton extends Button {
         originalStack.popPose();
     }
 
-
     public int getFGColor() {
-        return this.active ? 16777215 : 10526880; // White : Light Grey
+        return this.active ? this.activeStringColor : this.inactiveStringColor; // White : Light Grey
     }
 }
