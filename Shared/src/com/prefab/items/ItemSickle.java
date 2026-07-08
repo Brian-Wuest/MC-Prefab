@@ -61,23 +61,30 @@ public class ItemSickle extends Item {
         if (!worldIn.isClientSide) {
             stack.hurtAndBreak(1, entityLiving, EquipmentSlot.MAINHAND);
 
-            if ((double) state.getDestroySpeed(worldIn, pos) != 0.0D && !(state.getBlock() instanceof LeavesBlock)) {
-                stack.hurtAndBreak(1, entityLiving, EquipmentSlot.MAINHAND);
-            } else if ((state.getBlock() instanceof BushBlock || state.getBlock() instanceof LeavesBlock)
-                    && entityLiving instanceof Player) {
-                BlockPos corner1 = pos.north(this.breakRadius).east(this.breakRadius).above(this.breakRadius);
-                BlockPos corner2 = pos.south(this.breakRadius).west(this.breakRadius).below(this.breakRadius);
-
-                for (BlockPos currentPos : BlockPos.betweenClosed(corner1, corner2)) {
-                    BlockState currentState = worldIn.getBlockState(currentPos);
-
-                    if (currentState != null && ItemSickle.effectiveBlocks.contains(currentState.getBlock())) {
-                        worldIn.destroyBlock(currentPos, true);
-                    }
+            if (entityLiving instanceof Player) {
+                if (state.getTags().anyMatch(blockTagKey -> blockTagKey.equals(BlockTags.LEAVES) || blockTagKey.equals(MOWABLE))
+                    || state.getBlock() instanceof BushBlock) {
+                    this.reapArea(pos, worldIn);
+                } else {
+                    // Not the right kind of block, deal extra damage to the tool.
+                    stack.hurtAndBreak(1, entityLiving, EquipmentSlot.MAINHAND);
                 }
             }
         }
 
         return true;
+    }
+
+    private void reapArea(BlockPos pos, Level worldIn) {
+        BlockPos corner1 = pos.north(this.breakRadius).east(this.breakRadius).above(this.breakRadius);
+        BlockPos corner2 = pos.south(this.breakRadius).west(this.breakRadius).below(this.breakRadius);
+
+        for (BlockPos currentPos : BlockPos.betweenClosed(corner1, corner2)) {
+            BlockState currentState = worldIn.getBlockState(currentPos);
+
+            if (ItemSickle.effectiveBlocks.contains(currentState.getBlock())) {
+                worldIn.destroyBlock(currentPos, true);
+            }
+        }
     }
 }
