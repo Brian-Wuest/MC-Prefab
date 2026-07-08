@@ -10,7 +10,6 @@ import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratedElementType;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
@@ -27,10 +26,12 @@ import java.util.function.Predicate;
 
 /**
  * Note: This is a copy of the Minecraft:EditBox component.
- * Otherwise seen as the "widget/text_field"
- *
+ * Otherwise, seen as the "widget/text_field"
+ * <p>
  * The major difference between this class and the main EditBox is that this one allows for different text to be drawn.
  * I.E. Not Drawing the text shadow if we don't want too, or including it if we do!
+ * <p>
+ * Also, this shows a WHITE background instead of the standard black background.
  */
 public class GuiTextBox extends AbstractWidget implements Renderable, GuiEventListener {
     private final net.minecraft.client.gui.Font font;
@@ -41,6 +42,8 @@ public class GuiTextBox extends AbstractWidget implements Renderable, GuiEventLi
     private String value;
     private int maxLength;
     private int frame;
+    private int textX;
+    private int textY;
     private boolean bordered;
     private boolean canLoseFocus;
     private boolean isEditable;
@@ -83,6 +86,7 @@ public class GuiTextBox extends AbstractWidget implements Renderable, GuiEventLi
             this.setValue(copyFrom.getValue());
         }
 
+        this.updateTextPosition();
     }
 
     public void setResponder(Consumer<String> rssponder) {
@@ -120,7 +124,6 @@ public class GuiTextBox extends AbstractWidget implements Renderable, GuiEventLi
             this.onValueChange(text);
         }
     }
-
 
     public String getHighlighted() {
         int i = Math.min(this.cursorPos, this.highlightPos);
@@ -163,6 +166,7 @@ public class GuiTextBox extends AbstractWidget implements Renderable, GuiEventLi
             this.responder.accept(newText);
         }
 
+        this.updateTextPosition();
     }
 
     private void deleteText(int i) {
@@ -218,23 +222,23 @@ public class GuiTextBox extends AbstractWidget implements Renderable, GuiEventLi
         boolean bl2 = i < 0;
         int l = Math.abs(i);
 
-        for(int m = 0; m < l; ++m) {
+        for (int m = 0; m < l; ++m) {
             if (!bl2) {
                 int n = this.value.length();
                 k = this.value.indexOf(32, k);
                 if (k == -1) {
                     k = n;
                 } else {
-                    while(skipWs && k < n && this.value.charAt(k) == ' ') {
+                    while (skipWs && k < n && this.value.charAt(k) == ' ') {
                         ++k;
                     }
                 }
             } else {
-                while(skipWs && k > 0 && this.value.charAt(k - 1) == ' ') {
+                while (skipWs && k > 0 && this.value.charAt(k - 1) == ' ') {
                     --k;
                 }
 
-                while(k > 0 && this.value.charAt(k - 1) != ' ') {
+                while (k > 0 && this.value.charAt(k - 1) != ' ') {
                     --k;
                 }
             }
@@ -258,11 +262,6 @@ public class GuiTextBox extends AbstractWidget implements Renderable, GuiEventLi
         }
 
         this.onValueChange(this.value);
-    }
-
-    public void setCursorPosition(int i) {
-        this.cursorPos = Mth.clamp(i, 0, this.value.length());
-        this.scrollTo(this.cursorPos);
     }
 
     public void moveCursorToStart(boolean bl) {
@@ -381,68 +380,82 @@ public class GuiTextBox extends AbstractWidget implements Renderable, GuiEventLi
 
     public void renderTextBox(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialFrames) {
         if (this.isVisible()) {
-            int innerTextColor;
+            int k;
 
             if (this.isBordered()) {
-                innerTextColor = this.isFocused() ? -1 : -6250336;
-                guiGraphics.fill(this.getX() - 1, this.getY() - 1, this.getX() + this.width + 1, this.getY() + this.height + 1, innerTextColor);
+                k = this.isFocused() ? -1 : -6250336;
+                guiGraphics.fill(this.getX() - 1, this.getY() - 1, this.getX() + this.width + 1, this.getY() + this.height + 1, k);
                 guiGraphics.fill(this.getX(), this.getY(), this.getX() + this.width, this.getY() + this.height, this.backgroundColor);
             }
 
-            innerTextColor = this.isEditable ? this.textColor : this.textColorUneditable;
-
+            k = this.isEditable ? this.textColor : this.textColorUneditable;
             int l = this.cursorPos - this.displayPos;
-
             String string = this.font.plainSubstrByWidth(this.value.substring(this.displayPos), this.getInnerWidth());
             boolean bl = l >= 0 && l <= string.length();
             boolean bl2 = this.isFocused() && (Util.getMillis() - this.focusedTime) / 300L % 2L == 0L && bl;
-            int m = this.bordered ? this.getX() + 4 : this.getX();
-            int n = this.bordered ? this.getY() + (this.height - 8) / 2 : this.getY();
-            int p = Mth.clamp(this.highlightPos - this.displayPos, 0, string.length());
-
+            int m = this.textX;
+            int n = Mth.clamp(this.highlightPos - this.displayPos, 0, string.length());
             if (!string.isEmpty()) {
                 String string2 = bl ? string.substring(0, l) : string;
-                FormattedCharSequence formattedCharSequence = (FormattedCharSequence)this.formatter.apply(string2, this.displayPos);
-                //o = guiGraphics.drawString(this.font, this.formatter.apply(string2, this.displayPos), m, n, innerTextColor, this.drawsTextShadow);
-                guiGraphics.drawString(this.font, formattedCharSequence, m, n, innerTextColor, this.drawsTextShadow);
+                FormattedCharSequence formattedCharSequence = (FormattedCharSequence) this.formatter.apply(string2, this.displayPos);
+                guiGraphics.drawString(this.font, formattedCharSequence, m, this.textY, k, this.drawsTextShadow);
                 m += this.font.width(formattedCharSequence) + 1;
             }
 
             boolean bl3 = this.cursorPos < this.value.length() || this.value.length() >= this.getMaxLength();
             int o = m;
-
             if (!bl) {
-                o = l > 0 ? m + this.width : m;
+                o = l > 0 ? this.textX + this.width : this.textX;
             } else if (bl3) {
                 o = m - 1;
                 m--;
             }
 
             if (!string.isEmpty() && bl && l < string.length()) {
-                guiGraphics.drawString(this.font, this.formatter.apply(string.substring(l), this.cursorPos), m, n, innerTextColor, this.drawsTextShadow);
+                guiGraphics.drawString(this.font, this.formatter.apply(string.substring(l), this.cursorPos), m, this.textY, k, this.drawsTextShadow);
             }
 
             if (this.hint != null && string.isEmpty() && !this.isFocused()) {
-                guiGraphics.drawString(this.font, this.hint, m, n, innerTextColor, this.drawsTextShadow);
+                guiGraphics.drawString(this.font, this.hint, m, this.textY, k);
             }
 
             if (!bl3 && this.suggestion != null) {
-                guiGraphics.drawString(this.font, this.suggestion, o - 1, n, -8355712, this.drawsTextShadow);
+                guiGraphics.drawString(this.font, this.suggestion, o - 1, this.textY, -8355712, this.drawsTextShadow);
             }
 
             if (n != l) {
-                int q = m + this.font.width(string.substring(0, n));
-                guiGraphics.textHighlight(Math.min(o, this.getX() + this.width), n - 1, Math.min(p - 1, this.getX() + this.width), n + 1 + 9);
+                int p = this.textX + this.font.width(string.substring(0, n));
+                guiGraphics.textHighlight(Math.min(o, this.getX() + this.width), this.textY - 1, Math.min(p - 1, this.getX() + this.width), this.textY + 1 + 9);
             }
 
             if (bl2) {
                 if (bl3) {
-                    guiGraphics.fill(o, n - 1, o + 1, n + 1 + 9, -3092272);
+                    guiGraphics.fill(o, this.textY - 1, o + 1, this.textY + 1 + 9, -3092272);
                 } else {
-                    guiGraphics.drawString(this.font, "_", o, n, innerTextColor, this.drawsTextShadow);
+                    guiGraphics.drawString(this.font, "_", o, this.textY, k, this.drawsTextShadow);
                 }
             }
 
+        }
+    }
+
+    @Override
+    public void setX(int i) {
+        super.setX(i);
+        this.updateTextPosition();
+    }
+
+    @Override
+    public void setY(int i) {
+        super.setY(i);
+        this.updateTextPosition();
+    }
+
+    private void updateTextPosition() {
+        if (this.font != null) {
+            String string = this.font.plainSubstrByWidth(this.value.substring(this.displayPos), this.getInnerWidth());
+            this.textX = this.getX() + (this.bordered ? 4 : 0);
+            this.textY = this.bordered ? this.getY() + (this.height - 8) / 2 : this.getY();
         }
     }
 
@@ -462,12 +475,19 @@ public class GuiTextBox extends AbstractWidget implements Renderable, GuiEventLi
         return this.cursorPos;
     }
 
+    public void setCursorPosition(int i) {
+        this.cursorPos = Mth.clamp(i, 0, this.value.length());
+        this.scrollTo(this.cursorPos);
+    }
+
     private boolean isBordered() {
         return this.bordered;
     }
 
     public void setBordered(boolean enableBackgroundDrawing) {
         this.bordered = enableBackgroundDrawing;
+
+        this.updateTextPosition();
     }
 
     public void setTextColor(int color) {
