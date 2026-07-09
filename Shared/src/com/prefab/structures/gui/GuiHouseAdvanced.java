@@ -114,8 +114,7 @@ public class GuiHouseAdvanced extends GuiStructure {
         guiGraphics.guiRenderState.reset();
         this.renderBackground(guiGraphics,0,0,0);
 
-        this.drawControlLeftPanel(guiGraphics, x + 2, y + 10, 135, 190);
-        this.drawControlRightPanel(guiGraphics, imagePanelUpperLeft, y + 10, imagePanelWidth, 190);
+        this.drawComplexControlBox(guiGraphics, x + 2, y + 10, 440, 300);
 
         int middleOfImage = this.shownImageWidth / 2;
         int imageLocation = imagePanelUpperLeft + (imagePanelMiddle - middleOfImage);

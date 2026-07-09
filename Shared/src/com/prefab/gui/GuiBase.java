@@ -29,6 +29,7 @@ import java.util.List;
 public abstract class GuiBase extends Screen {
 
     private final ResourceLocation backgroundTextures = ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/default_background.png");
+    private final ResourceLocation complexStructureBackgroundTextures = ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/complex_structure_background.png");
     private final ResourceLocation narrowPanelTexture = ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/custom_background.png");
     private final ResourceLocation leftPanelTexture = ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/custom_left_panel.png");
     private final ResourceLocation middlePanelTexture = ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/custom_middle_panel.png");
@@ -227,40 +228,18 @@ public abstract class GuiBase extends Screen {
                 height);
     }
 
-    protected void drawControlLeftPanel(GuiGraphics guiGraphics, int grayBoxX, int grayBoxY, int width, int height) {
-        GuiUtils.drawContinuousTexturedBox(
-                this.leftPanelTexture,
+    protected void drawComplexStructureControlBackground(GuiGraphics guiGraphics, int grayBoxX, int grayBoxY, int width, int height) {
+        GuiUtils.bindAndDrawScaledTexture(
+                this.complexStructureBackgroundTextures,
                 guiGraphics,
                 grayBoxX,
                 grayBoxY,
-                0,
-                0,
                 width,
                 height,
-                89,
-                233,
-                2,
-                2,
-                4,
-                4);
-    }
-
-    protected void drawControlRightPanel(GuiGraphics guiGraphics, int grayBoxX, int grayBoxY, int width, int height) {
-        GuiUtils.drawContinuousTexturedBox(
-                this.rightPanelTexture,
-                guiGraphics,
-                grayBoxX,
-                grayBoxY,
-                0,
-                0,
                 width,
                 height,
-                89,
-                233,
-                2,
-                2,
-                4,
-                4);
+                width,
+                height);
     }
 
     protected void drawStandardControlBoxAndImage(GuiGraphics guiGraphics, ResourceLocation imageLocation, int x, int y, int mouseX, int mouseY, float partialTicks) {
@@ -285,6 +264,12 @@ public abstract class GuiBase extends Screen {
                     this.shownImageWidth,
                     this.shownImageHeight);
         }
+    }
+
+    protected void drawComplexControlBox(GuiGraphics guiGraphics, int x, int y, int width, int height) {
+        guiGraphics.guiRenderState.reset();
+        this.renderBackground(guiGraphics, 0, 0, 0);
+        this.drawComplexStructureControlBackground(guiGraphics, x, y, width, height);
     }
 
     protected void renderButtons(GuiGraphics guiGraphics, int mouseX, int mouseY) {
