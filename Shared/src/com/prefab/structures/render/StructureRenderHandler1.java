@@ -17,9 +17,6 @@ import com.prefab.PrefabClientBase;
 import com.prefab.blocks.BlockStructureScanner;
 import com.prefab.config.StructureScannerConfig;
 import com.prefab.gui.GuiLangKeys;
-import com.prefab.mesh.assembly.StructureMeshAssembler;
-import com.prefab.mesh.geometry.MeshGeometryCalculator;
-import com.prefab.mesh.geometry.PrefabMeshData;
 import com.prefab.structures.base.BuildBlock;
 import com.prefab.structures.base.Structure;
 import com.prefab.structures.config.StructureConfiguration;
@@ -27,9 +24,10 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+import net.minecraft.client.renderer.block.model.BlockStateModel;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -38,15 +36,23 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import org.joml.Matrix4f;
+import org.joml.Matrix4fStack;
 
 import java.util.*;
 
 import static com.prefab.PrefabClientBase.PREVIEW_LAYER_2;
 
+/**
+ * @author WuestMan
+ * This class was inspired from Botania's AstrolabePreviewHandler.
+ * <a href="http://botaniamod.net/license.php">...</a>
+ */
 @SuppressWarnings({"WeakerAccess", "ConstantConditions"})
-public class StructureRenderHandler {
+public class StructureRenderHandler1 {
 
     // Cached meshes for the current preview structure/orientation
     private static final Map<PreviewChunkKey, PreviewChunkMesh> previewChunks = new HashMap<>();
@@ -69,40 +75,35 @@ public class StructureRenderHandler {
      * @param configuration The configuration for this structure.
      */
     public static void setStructure(Structure structure, StructureConfiguration configuration) {
-        StructureRenderHandler.currentStructure = structure;
-        StructureRenderHandler.currentConfiguration = configuration;
-        StructureRenderHandler.showedMessage = false;
-        StructureRenderHandler.needsRebuild = true;
+        StructureRenderHandler1.currentStructure = structure;
+        StructureRenderHandler1.currentConfiguration = configuration;
+        StructureRenderHandler1.showedMessage = false;
+        StructureRenderHandler1.needsRebuild = true;
 
-        StructureRenderHandler.mcInstance = Minecraft.getInstance();
+        StructureRenderHandler1.mcInstance = Minecraft.getInstance();
 
-        // Re-initialize GPU resources on setStructure call to ensure clean state for the new structure.
-        if (gpuTexture != null) {
-            gpuTexture.close();
-            gpuTextureView.close();
-        }
-        StructureRenderHandler.gpuTexture = RenderSystem.getDevice().createTexture("Structure Preview", 12, TextureFormat.RGBA8, 16, 16, 1, 1);
-        StructureRenderHandler.gpuTextureView = RenderSystem.getDevice().createTextureView(StructureRenderHandler.gpuTexture);
+        StructureRenderHandler1.gpuTexture = RenderSystem.getDevice().createTexture("Structure Preview", 12, TextureFormat.RGBA8, 16, 16, 1, 1);
+        StructureRenderHandler1.gpuTextureView = RenderSystem.getDevice().createTextureView(StructureRenderHandler1.gpuTexture);
 
-        if (StructureRenderHandler.mcInstance.level != null) {
-            StructureRenderHandler.dimension = StructureRenderHandler.mcInstance.level.dimensionType().logicalHeight();
+        if (StructureRenderHandler1.mcInstance.level != null) {
+            StructureRenderHandler1.dimension = StructureRenderHandler1.mcInstance.level.dimensionType().logicalHeight();
         }
     }
 
     public static void renderStructureStartPositionBox(Level worldIn, PoseStack matrixStack,
                                                        MultiBufferSource.BufferSource multiBufferSource,
                                                        float cameraX, float cameraY, float cameraZ) {
-        if (StructureRenderHandler.currentStructure != null
-                && StructureRenderHandler.dimension == Minecraft.getInstance().player.level().dimensionType().logicalHeight()
-                && StructureRenderHandler.currentConfiguration != null
+        if (StructureRenderHandler1.currentStructure != null
+                && StructureRenderHandler1.dimension == Minecraft.getInstance().player.level().dimensionType().logicalHeight()
+                && StructureRenderHandler1.currentConfiguration != null
                 && PrefabBase.serverConfiguration.enableStructurePreview) {
-            BlockPos originalPos = StructureRenderHandler.currentConfiguration.pos.above();
+            BlockPos originalPos = StructureRenderHandler1.currentConfiguration.pos.above();
 
             float blockXOffset = originalPos.getX();
             float blockZOffset = originalPos.getZ();
             float blockStartYOffset = originalPos.getY();
 
-            StructureRenderHandler.drawBox(
+            StructureRenderHandler1.drawBox(
                     matrixStack,
                     multiBufferSource,
                     blockXOffset,
@@ -123,8 +124,12 @@ public class StructureRenderHandler {
             float blockXOffset,
             float blockZOffset,
             float blockStartYOffset,
-            float cameraX, float cameraY, float cameraZ,
-            int xLength, int zLength, int height) {
+            float cameraX,
+            float cameraY,
+            float cameraZ,
+            int xLength,
+            int zLength,
+            int height) {
 
         Matrix4f matrix4f = matrixStack.last().pose();
 
@@ -183,7 +188,9 @@ public class StructureRenderHandler {
 
     public static void renderScanningBoxes(PoseStack matrixStack,
                                            MultiBufferSource multiBufferSource,
-                                           float cameraX, float cameraY, float cameraZ) {
+                                           float cameraX,
+                                           float cameraY,
+                                           float cameraZ) {
         for (int i = 0; i < ClientModRegistryBase.structureScanners.size(); i++) {
             StructureScannerConfig config = ClientModRegistryBase.structureScanners.get(i);
 
@@ -210,6 +217,8 @@ public class StructureRenderHandler {
 
             int xLength = config.blocksWide;
             int zLength = config.blocksLong;
+
+            // Based on direction, width and length may be need to be modified;
 
             switch (config.direction) {
                 case NORTH: {
@@ -242,7 +251,7 @@ public class StructureRenderHandler {
                 }
             }
 
-            StructureRenderHandler.drawBox(
+            StructureRenderHandler1.drawBox(
                     matrixStack,
                     multiBufferSource,
                     startingPosition.getX(),
@@ -257,22 +266,35 @@ public class StructureRenderHandler {
         }
     }
 
-    public static void renderStructurePreview(Player player) {
-        if (StructureRenderHandler.currentStructure != null
-                && StructureRenderHandler.dimension == player.level().dimensionType().logicalHeight()
-                && StructureRenderHandler.currentConfiguration != null
+    public static void renderStructurePreview(Player player
+    ) {
+        if (StructureRenderHandler1.currentStructure != null
+                && StructureRenderHandler1.dimension == player.level().dimensionType().logicalHeight()
+                && StructureRenderHandler1.currentConfiguration != null
                 && PrefabBase.serverConfiguration.enableStructurePreview) {
 
             try {
-                // Phase 1: Rebuild Meshes if necessary (Calculation/Stubbing)
-                if (StructureRenderHandler.needsRebuild) {
-                    rebuildPreviewMeshes(StructureRenderHandler.currentStructure, player);
-                    StructureRenderHandler.needsRebuild = false;
+                /*
+                    If we need to re-build the meshes, do so now
+                    This can happen if the player, cleared out a structure preview and wants to see a new one.
+                    We do this so we only have to do the heavy lifting (building the rendered meshes) once.
+                    And when it comes time to actually show them to the player based on current world location
+                    and camera rotation we can just put them in the relative space as they have already been rendered.
+                */
+                if (StructureRenderHandler1.needsRebuild) {
+                    rebuildPreviewMeshes(StructureRenderHandler1.currentStructure, player);
+                    StructureRenderHandler1.needsRebuild = false;
                 }
 
-                Camera camera = StructureRenderHandler.mcInstance.gameRenderer.getMainCamera();
+                Camera camera = StructureRenderHandler1.mcInstance.gameRenderer.getMainCamera();
 
-                // Setup view stack for world-relative positioning (Sticking the image to the player)
+                /*
+                    Note: This is what makes the structure "stick" in the world as the player moves!
+                    This also means that when the player moves their mouse (camera) left and right, the structure
+                    doesn't rotate around them like they are the "center of gravity" for the structure.
+                    Again, the image sticks in place. Without this calculation everything is kind of
+                    distorted and disorientating.
+                */
                 PoseStack viewStack = new PoseStack();
                 viewStack.mulPose(Axis.XP.rotationDegrees(camera.getXRot()));
                 viewStack.mulPose(Axis.YP.rotationDegrees(camera.getYRot() + 180.0F));
@@ -281,94 +303,48 @@ public class StructureRenderHandler {
                         -camera.getPosition().y,
                         -camera.getPosition().z);
 
-                // Phase 3: Optimized Rendering Pass (Drawing)
-                renderPreviewChunks(viewStack);
+                //renderPreviewChunks(viewStack);
 
-                if (!StructureRenderHandler.showedMessage) {
+                if (!StructureRenderHandler1.showedMessage) {
+                    // Stop narrator from continuing narrating what was in the structure GUI
                     Narrator.getNarrator().clear();
 
                     MutableComponent message = Component.translatable(GuiLangKeys.GUI_PREVIEW_NOTICE);
                     message.setStyle(Style.EMPTY.withColor(ChatFormatting.GREEN));
 
-                    StructureRenderHandler.mcInstance.gui.getChat().addMessage(message);
+                    StructureRenderHandler1.mcInstance.gui.getChat().addMessage(message);
 
                     message = Component.translatable(GuiLangKeys.GUI_BLOCK_CLICKED);
                     message.setStyle(Style.EMPTY.withColor(ChatFormatting.YELLOW));
-                    StructureRenderHandler.mcInstance.gui.getChat().addMessage(message);
+                    StructureRenderHandler1.mcInstance.gui.getChat().addMessage(message);
 
-                    StructureRenderHandler.showedMessage = true;
+                    StructureRenderHandler1.showedMessage = true;
                 }
             } catch (Exception ex) {
-                PrefabBase.logger.error("Error during structure preview rendering.", ex);
+                PrefabBase.logger.error(ex);
             }
         }
     }
 
-    /**
-     * Renders all cached preview meshes using the modern RenderPass API.
-     */
-    static void renderPreviewChunks(PoseStack poseStack) {
-        if (previewChunks.isEmpty()) {
-            return;
-        }
-
-        // Set up shader
-        RenderPipeline shader = PrefabClientBase.ENTITY_TRANSLUCENT_CULL_PIPELINE;
-
-        RenderSystem.AutoStorageIndexBuffer indices = RenderSystem.getSequentialBuffer(VertexFormat.Mode.QUADS);
-
-        CommandEncoder commandEncoder =
-                RenderSystem.getDevice().createCommandEncoder();
-
-        for (PreviewChunkMesh mesh : previewChunks.values()) {
-            GpuBuffer vertexBuffer = mesh.vertexBuffer();
-            // Assuming the assembler correctly populates and stores an index buffer resource
-            // that can be bound to the render pass for indexed drawing.
-            // If this fails, we might need to fall back to non-indexed rendering (if possible).
-
-            try (RenderPass pass = commandEncoder.createRenderPass(() -> "Structure Preview",
-                    StructureRenderHandler.gpuTextureView, OptionalInt.empty())) {
-
-                // Set pipeline information along with any samplers and uniforms
-                //pass.setPipeline(shader);
-                pass.setPipeline(RenderPipelines.CLOUDS);
-                RenderSystem.bindDefaultUniforms(pass);
-                pass.bindSampler("Sampler0", RenderSystem.getShaderTexture(0));
-
-                pass.setVertexBuffer(0, vertexBuffer);
-
-                // *** CRITICAL FIX: Attempt to bind the index buffer explicitly ***
-                // We must assume that 'mesh' now provides a way to access its indices resource.
-                pass.setIndexBuffer(vertexBuffer, indices.type());
-
-                // Then, draw everything to the screen using indexed drawing (the standard way for complex meshes)
-                PrefabBase.logger.warn("Meshes Being Drawn: {}", mesh.meshIndices());
-                pass.drawIndexed(0, 0, mesh.meshIndices(), 1);
-            }
-        }
-    }
-
-
-    private static void rebuildPreviewMeshes(Structure structure, Player player) {
-        // Clear old meshes before rebuilding the cache for this frame/structure change.
+    private static void rebuildPreviewMeshes(Structure structure,
+                                             Player player) {
         for (PreviewChunkMesh mesh : previewChunks.values()) {
             mesh.close();
         }
 
         previewChunks.clear();
 
-        if (structure == null || StructureRenderHandler.currentConfiguration == null) {
+        if (structure == null || StructureRenderHandler1.currentConfiguration == null) {
             return;
         }
 
         Map<PreviewChunkKey, List<BuildBlock>> blocksByChunk = new HashMap<>();
 
         for (BuildBlock blockInfo : structure.getBlocks()) {
-            // Calculate the world-relative position for this specific instance of the block/subblock
             BlockPos rotatedPos = blockInfo.getStartingPosition().getRelativePosition(
-                    StructureRenderHandler.currentConfiguration.pos,
-                    StructureRenderHandler.currentStructure.getClearSpace().getShape().getDirection(),
-                    StructureRenderHandler.currentConfiguration.houseFacing);
+                    StructureRenderHandler1.currentConfiguration.pos,
+                    StructureRenderHandler1.currentStructure.getClearSpace().getShape().getDirection(),
+                    StructureRenderHandler1.currentConfiguration.houseFacing);
 
             int chunkX = Math.floorDiv(rotatedPos.getX(), 16);
             int chunkY = Math.floorDiv(rotatedPos.getY(), 16);
@@ -381,15 +357,14 @@ public class StructureRenderHandler {
                     ? blockInfo.getBlockState()
                     : BuiltInRegistries.BLOCK.getValue(blockInfo.getResourceLocation()).defaultBlockState();
 
-            // Re-create the block object with the correct world position for assembly context
             BuildBlock block = BuildBlock.SetBlockState(
-                    StructureRenderHandler.currentConfiguration,
+                    StructureRenderHandler1.currentConfiguration,
                     player.level(),
-                    StructureRenderHandler.currentConfiguration.pos,
+                    StructureRenderHandler1.currentConfiguration.pos,
                     blockInfo,
                     state.getBlock(),
                     state,
-                    StructureRenderHandler.currentStructure);
+                    StructureRenderHandler1.currentStructure);
 
             block.blockPos = rotatedPos;
 
@@ -399,20 +374,19 @@ public class StructureRenderHandler {
                         : BuiltInRegistries.BLOCK.getValue(
                         blockInfo.getSubBlock().getResourceLocation()).defaultBlockState();
 
-                // Re-create sub-block object with correct world position for assembly context
                 BuildBlock subBlock = BuildBlock.SetBlockState(
-                        StructureRenderHandler.currentConfiguration,
+                        StructureRenderHandler1.currentConfiguration,
                         player.level(),
-                        StructureRenderHandler.currentConfiguration.pos,
+                        StructureRenderHandler1.currentConfiguration.pos,
                         blockInfo.getSubBlock(),
                         subBlockState.getBlock(),
                         subBlockState,
-                        StructureRenderHandler.currentStructure);
+                        StructureRenderHandler1.currentStructure);
 
-                subBlock.blockPos = blockInfo.getSubBlock().getStartingPosition().getRelativePosition(
-                        StructureRenderHandler.currentConfiguration.pos,
-                        StructureRenderHandler.currentStructure.getClearSpace().getShape().getDirection(),
-                        StructureRenderHandler.currentConfiguration.houseFacing);
+                subBlock.blockPos = subBlock.getStartingPosition().getRelativePosition(
+                        StructureRenderHandler1.currentConfiguration.pos,
+                        StructureRenderHandler1.currentStructure.getClearSpace().getShape().getDirection(),
+                        StructureRenderHandler1.currentConfiguration.houseFacing);
 
                 block.setSubBlock(subBlock);
             }
@@ -420,8 +394,9 @@ public class StructureRenderHandler {
             blocks.add(block);
         }
 
-        // --- PHASE 2: Assemble Meshes ---
+        BlockRenderDispatcher blockRenderer = StructureRenderHandler1.mcInstance.getBlockRenderer();
         Tesselator tesselator = Tesselator.getInstance();
+
         for (Map.Entry<PreviewChunkKey, List<BuildBlock>> entry : blocksByChunk.entrySet()) {
             PreviewChunkKey key = entry.getKey();
             List<BuildBlock> blocks = entry.getValue();
@@ -434,68 +409,206 @@ public class StructureRenderHandler {
             int chunkOriginY = key.chunkY() * 16;
             int chunkOriginZ = key.chunkZ() * 16;
 
-            // 1. Collect raw meshes from all components in the chunk
-            List<PrefabMeshData> rawMeshes = new ArrayList<>();
+            // Note: Do something with this if I ever need to add frustrum.
+            /*int minX = Integer.MAX_VALUE, minY = Integer.MAX_VALUE, minZ = Integer.MAX_VALUE;
+            int maxX = Integer.MIN_VALUE, maxY = Integer.MIN_VALUE, maxZ = Integer.MIN_VALUE;*/
+
+            BufferBuilder bufferBuilder = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.NEW_ENTITY);
+
+            PoseStack poseStack = new PoseStack();
+            boolean hasGeometry = false;
 
             for (BuildBlock blockInfo : blocks) {
-                PoseStack poseStack = new PoseStack();
-                BufferBuilder bufferBuilder = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.NEW_ENTITY);
+                boolean modelHasGeometry = bakeBlockAndSubBlock(
+                        blockInfo,
+                        poseStack,
+                        bufferBuilder,
+                        blockRenderer,
+                        chunkOriginX,
+                        chunkOriginY,
+                        chunkOriginZ);
 
-                // Calculate and collect mesh data for the main block body
-                PrefabMeshData mainMesh = calculateMeshForBlock(blockInfo, poseStack, null, null,
-                        chunkOriginX, chunkOriginY, chunkOriginZ);
-                if (mainMesh != null) {
-                    rawMeshes.add(mainMesh);
+                if (!modelHasGeometry) {
+                    continue;
                 }
 
-                // Calculate and collect mesh data for the sub-block body
-                if (blockInfo.getSubBlock() != null) {
-                    PrefabMeshData subMesh = calculateMeshForBlock(blockInfo.getSubBlock(), poseStack, null,
-                            null, chunkOriginX, chunkOriginY, chunkOriginZ);
-
-                    if (subMesh != null) {
-                        rawMeshes.add(subMesh);
-                    }
-                }
+                hasGeometry = true;
             }
 
-            // 2. Assemble the final mesh from all raw components
-            PrefabMeshData finalMesh = StructureMeshAssembler.assemble(rawMeshes);
+            if (!hasGeometry) {
+                continue;
+            }
 
-            if (finalMesh != null && finalMesh.vertexCount() > 0) {
-                GpuBuffer buffer = RenderSystem.getDevice().createBuffer(key::toString, 32, finalMesh.vertexCount());
+            try (MeshData meshData = bufferBuilder.buildOrThrow()) {
+                if (meshData == null || meshData.drawState() == null || meshData.drawState().vertexCount() == 0) {
+                    continue;
+                }
 
-                // Store the single optimized mesh in our cache for Phase 3 rendering.
-                previewChunks.put(key, new PreviewChunkMesh(key, buffer, finalMesh.indexCount()));
+                GpuBuffer buffer = RenderSystem.getDevice().createBuffer(key::toString, 32, meshData.vertexBuffer());
+                previewChunks.put(key, new PreviewChunkMesh(key, buffer, meshData.drawState().indexCount()));
             }
         }
     }
 
-    private static PrefabMeshData calculateMeshForBlock(
+    private static boolean bakeBlockAndSubBlock(
             BuildBlock blockInfo,
             PoseStack poseStack,
             BufferBuilder bufferBuilder,
             BlockRenderDispatcher blockRenderer,
-            int chunkOriginX, int chunkOriginY, int chunkOriginZ) {
+            int chunkOriginX, int chunkOriginY, int chunkOriginZ
+    ) {
+        Player player = Minecraft.getInstance().player;
+        BlockPos pos = blockInfo.blockPos;
 
-        if (blockInfo.getBlockState() == null || blockInfo.getBlockState().isAir()) {
-            return null;
+        BlockState worldState = player.level().getBlockState(pos);
+        Block block = worldState.getBlock();
+
+        if (!worldState.isAir() && block != Blocks.WATER) {
+            // Skip rendering this preview block
+            return false;
         }
 
-        // --- PHASE 1: DECOUPLE MESH GENERATION START ---
-        PrefabMeshData meshData = MeshGeometryCalculator.calculateBlockMesh(
-                blockInfo.blockPos,
-                blockInfo.getBlockState());
+        // --- MAIN BLOCK ---
+        boolean hasGeometry = bakeOne(blockInfo.blockPos, blockInfo.getBlockState(),
+                poseStack, blockRenderer,
+                bufferBuilder,
+                chunkOriginX, chunkOriginY, chunkOriginZ);
 
-        if (meshData == null) {
-            return null;
+        // --- SUB BLOCK (multi-block models) ---
+        if (blockInfo.getSubBlock() != null && hasGeometry) {
+            BlockPos subBlockPos = blockInfo.getSubBlock().blockPos;
+
+            BlockState subBlockWorldState = player.level().getBlockState(subBlockPos);
+            Block blockSubBlock = subBlockWorldState.getBlock();
+
+            if (!subBlockWorldState.isAir() && blockSubBlock != Blocks.WATER) {
+                // Skip rendering this preview block
+                return false;
+            }
+
+            boolean hasSubBlockGeometry = bakeOne(blockInfo.getSubBlock().blockPos,
+                    blockInfo.getSubBlock().getBlockState(),
+                    poseStack, blockRenderer,
+                    bufferBuilder,
+                    chunkOriginX, chunkOriginY, chunkOriginZ);
+
+            if (!hasSubBlockGeometry) {
+                return false;
+            }
         }
 
-        // In a real implementation, we would now pass the raw data from meshData to
-        // populate the bufferBuilder for temporary visualization/debugging purposes during development.
-        // For this refactor step, simply confirming calculation is enough:
-        System.out.println("Successfully calculated and received MeshData for block at " + blockInfo.blockPos);
-
-        return meshData;
+        return hasGeometry;
     }
+
+    private static boolean bakeOne(
+            BlockPos pos,
+            BlockState state,
+            PoseStack poseStack,
+            BlockRenderDispatcher blockRenderer,
+            BufferBuilder bufferBuilder,
+            int chunkOriginX, int chunkOriginY, int chunkOriginZ
+    ) {
+        if (state == null || state.isAir()) {
+            return false;
+        }
+
+        double lx = pos.getX() - chunkOriginX;
+        double ly = pos.getY() - chunkOriginY;
+        double lz = pos.getZ() - chunkOriginZ;
+
+        poseStack.pushPose();
+        poseStack.translate(lx, ly, lz);
+
+        BlockStateModel model = blockRenderer.getBlockModel(state);
+
+        int color = StructureRenderHandler1.mcInstance.getBlockColors()
+                .getColor(state, null, null, 0);
+        float r = (float) (color >> 16 & 255) / 255.0F;
+        float g = (float) (color >> 8 & 255) / 255.0F;
+        float b = (float) (color & 255) / 255.0F;
+
+        blockRenderer.getModelRenderer().renderModel(
+                poseStack.last(),
+                bufferBuilder,
+                model,
+                r, g, b,
+                0xF000F0,
+                OverlayTexture.NO_OVERLAY
+        );
+
+        poseStack.popPose();
+
+        return true;
+    }
+
+    /*static void renderPreviewChunks(PoseStack poseStack) {
+        if (previewChunks.isEmpty()) {
+            return;
+        }
+
+        // Set up shader
+        RenderType renderType = PREVIEW_LAYER_2;
+        //RenderPipeline shader = RenderPipelines.ENTITY_TRANSLUCENT;
+        RenderPipeline shader = PrefabClientBase.ENTITY_TRANSLUCENT_CULL_PIPELINE;
+
+        RenderSystem.AutoStorageIndexBuffer indices = RenderSystem.getSequentialBuffer(VertexFormat.Mode.QUADS);
+
+        CommandEncoder commandEncoder = RenderSystem.getDevice().createCommandEncoder();
+
+        //GlProgram compiledShaderProgram = RenderSystem.setShader(shader);
+        //RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_BLOCKS);
+
+        Matrix4fStack matrix4fStack = RenderSystem.getModelViewStack();
+        //Matrix4f projMatrix = RenderSystem.getProjectionMatrix();
+
+        for (PreviewChunkMesh mesh : previewChunks.values()) {
+            GpuBuffer gpuBuffer = mesh.vertexBuffer();
+            matrix4fStack.pushMatrix();
+
+            poseStack.pushPose();
+
+            poseStack.translate(
+                    mesh.key.chunkX * 16,
+                    mesh.key.chunkY * 16,
+                    mesh.key.chunkZ * 16
+            );
+
+            Matrix4f poseMatrix = poseStack.last().pose();
+
+            try (RenderPass pass = commandEncoder.createRenderPass(() -> "Structure Preview",
+                    StructureRenderHandler1.gpuTextureView,
+                    OptionalInt.of(0xFFFFFFFF))) {
+
+                // Set pipeline information along with any samplers and uniforms
+                pass.setPipeline(shader);
+                pass.setVertexBuffer(0, mesh.vertexBuffer());
+                pass.setIndexBuffer(gpuBuffer, indices.type());
+                pass.bindSampler("Sampler0", RenderSystem.getShaderTexture(0));
+
+                // Then, draw everything to the screen
+                pass.drawIndexed(0, 0, mesh.meshIndices(), 1);
+            }
+            // Render actual block
+            poseStack.pushPose();
+
+            // Translate the mesh's chunk relative coordinates to actual world coordinates.
+            poseStack.translate(
+                    mesh.key.chunkX * 16,
+                    mesh.key.chunkY * 16,
+                    mesh.key.chunkZ * 16
+            );
+
+            Matrix4f poseMatrix = poseStack.last().pose();
+
+            renderType.setupRenderState();
+
+
+            mesh.vertexBuffer.drawWithShader(poseMatrix, projMatrix, compiledShaderProgram);
+            renderType.clearRenderState();
+            //VertexBuffer.unbind();
+            poseStack.popPose();
+            matrix4fStack.popMatrix();
+        }
+    }*/
+
 }
