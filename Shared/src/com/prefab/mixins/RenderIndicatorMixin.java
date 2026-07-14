@@ -4,9 +4,11 @@ import com.mojang.blaze3d.vertex.ByteBufferBuilder;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.prefab.ClientModRegistryBase;
 import com.prefab.PrefabClientBase;
+import com.prefab.structures.render.PreviewRenderer;
 import com.prefab.structures.render.StructureRenderHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.debug.DebugRenderer;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,7 +20,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(DebugRenderer.class)
 public class RenderIndicatorMixin {
     @Unique
-    private MultiBufferSource.BufferSource previewBufferSource = MultiBufferSource.immediate(new ByteBufferBuilder(PrefabClientBase.PREVIEW_LAYER_2.bufferSize()));
+    private final MultiBufferSource.BufferSource previewBufferSource = MultiBufferSource.immediate(
+            new ByteBufferBuilder(RenderType.BIG_BUFFER_SIZE));
 
     @Inject(method = "render", at = @At(value = "TAIL"))
     public void renderWorldLast(PoseStack matrices,
@@ -38,9 +41,12 @@ public class RenderIndicatorMixin {
                     previewBufferSource,
                     (float) cameraX, (float) cameraY, (float) cameraZ);
 
-            StructureRenderHandler.renderStructurePreview(prefabIndicatorMinecraft.player);
+            PreviewRenderer.renderPreview(prefabIndicatorMinecraft.player, previewBufferSource, poseStack,
+                    (float) cameraX, (float) cameraY, (float) cameraZ);
+            ////StructureRenderHandler.renderStructurePreview(prefabIndicatorMinecraft.player, previewBufferSource);
 
             previewBufferSource.endBatch(PrefabClientBase.PREVIEW_LAYER_2);
+            ////previewBufferSource.endBatch(RenderType.solid());
         }
 
         // If there are structure scanners; run the rendering for them now.

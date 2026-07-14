@@ -27,9 +27,10 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+import net.minecraft.client.renderer.block.model.BlockStateModel;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -42,8 +43,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.joml.Matrix4f;
 
 import java.util.*;
-
-import static com.prefab.PrefabClientBase.PREVIEW_LAYER_2;
 
 @SuppressWarnings({"WeakerAccess", "ConstantConditions"})
 public class StructureRenderHandler {
@@ -58,7 +57,6 @@ public class StructureRenderHandler {
     private static int dimension;
     private static Minecraft mcInstance;
     private static boolean needsRebuild = true;
-
     private static GpuTexture gpuTexture;
     private static GpuTextureView gpuTextureView;
 
@@ -257,7 +255,7 @@ public class StructureRenderHandler {
         }
     }
 
-    public static void renderStructurePreview(Player player) {
+    public static void renderStructurePreview(Player player, MultiBufferSource.BufferSource bufferSource) {
         if (StructureRenderHandler.currentStructure != null
                 && StructureRenderHandler.dimension == player.level().dimensionType().logicalHeight()
                 && StructureRenderHandler.currentConfiguration != null
@@ -266,7 +264,7 @@ public class StructureRenderHandler {
             try {
                 // Phase 1: Rebuild Meshes if necessary (Calculation/Stubbing)
                 if (StructureRenderHandler.needsRebuild) {
-                    rebuildPreviewMeshes(StructureRenderHandler.currentStructure, player);
+                    rebuildPreviewMeshes(StructureRenderHandler.currentStructure, player, bufferSource);
                     StructureRenderHandler.needsRebuild = false;
                 }
 
@@ -315,41 +313,31 @@ public class StructureRenderHandler {
         // Set up shader
         RenderPipeline shader = PrefabClientBase.ENTITY_TRANSLUCENT_CULL_PIPELINE;
 
-        RenderSystem.AutoStorageIndexBuffer indices = RenderSystem.getSequentialBuffer(VertexFormat.Mode.QUADS);
-
         CommandEncoder commandEncoder =
                 RenderSystem.getDevice().createCommandEncoder();
 
         for (PreviewChunkMesh mesh : previewChunks.values()) {
             GpuBuffer vertexBuffer = mesh.vertexBuffer();
-            // Assuming the assembler correctly populates and stores an index buffer resource
-            // that can be bound to the render pass for indexed drawing.
-            // If this fails, we might need to fall back to non-indexed rendering (if possible).
+            RenderSystem.AutoStorageIndexBuffer autoStorageIndexBuffer = RenderSystem.getSequentialBuffer(VertexFormat.Mode.QUADS);
+            GpuBuffer gpuBuffer = autoStorageIndexBuffer.getBuffer(6 * mesh.meshIndices());
 
             try (RenderPass pass = commandEncoder.createRenderPass(() -> "Structure Preview",
                     StructureRenderHandler.gpuTextureView, OptionalInt.empty())) {
 
-                // Set pipeline information along with any samplers and uniforms
-                //pass.setPipeline(shader);
-                pass.setPipeline(RenderPipelines.CLOUDS);
                 RenderSystem.bindDefaultUniforms(pass);
                 pass.bindSampler("Sampler0", RenderSystem.getShaderTexture(0));
-
+                pass.setIndexBuffer(gpuBuffer, autoStorageIndexBuffer.type());
                 pass.setVertexBuffer(0, vertexBuffer);
 
-                // *** CRITICAL FIX: Attempt to bind the index buffer explicitly ***
-                // We must assume that 'mesh' now provides a way to access its indices resource.
-                pass.setIndexBuffer(vertexBuffer, indices.type());
-
-                // Then, draw everything to the screen using indexed drawing (the standard way for complex meshes)
-                PrefabBase.logger.warn("Meshes Being Drawn: {}", mesh.meshIndices());
-                pass.drawIndexed(0, 0, mesh.meshIndices(), 1);
+                // Set pipeline information along with any samplers and uniforms
+                pass.setPipeline(shader);
+                //pass.setPipeline(RenderPipelines.CLOUDS);
+                pass.drawIndexed(0, 0, 6 * mesh.meshIndices(), 1);
             }
         }
     }
 
-
-    private static void rebuildPreviewMeshes(Structure structure, Player player) {
+    private static void rebuildPreviewMeshes(Structure structure, Player player, MultiBufferSource.BufferSource bufferSource) {
         // Clear old meshes before rebuilding the cache for this frame/structure change.
         for (PreviewChunkMesh mesh : previewChunks.values()) {
             mesh.close();
@@ -362,6 +350,7 @@ public class StructureRenderHandler {
         }
 
         Map<PreviewChunkKey, List<BuildBlock>> blocksByChunk = new HashMap<>();
+        BlockRenderDispatcher blockRenderer = StructureRenderHandler.mcInstance.getBlockRenderer();
 
         for (BuildBlock blockInfo : structure.getBlocks()) {
             // Calculate the world-relative position for this specific instance of the block/subblock
@@ -439,19 +428,22 @@ public class StructureRenderHandler {
 
             for (BuildBlock blockInfo : blocks) {
                 PoseStack poseStack = new PoseStack();
-                BufferBuilder bufferBuilder = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.NEW_ENTITY);
+
+                BufferBuilder bufferBuilder = (BufferBuilder) bufferSource.getBuffer(PrefabClientBase.PREVIEW_LAYER_2);
+                //tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.NEW_ENTITY);
 
                 // Calculate and collect mesh data for the main block body
-                PrefabMeshData mainMesh = calculateMeshForBlock(blockInfo, poseStack, null, null,
+                PrefabMeshData mainMesh = calculateMeshForBlock(blockInfo, poseStack, bufferBuilder, blockRenderer,
                         chunkOriginX, chunkOriginY, chunkOriginZ);
+
                 if (mainMesh != null) {
                     rawMeshes.add(mainMesh);
                 }
 
                 // Calculate and collect mesh data for the sub-block body
                 if (blockInfo.getSubBlock() != null) {
-                    PrefabMeshData subMesh = calculateMeshForBlock(blockInfo.getSubBlock(), poseStack, null,
-                            null, chunkOriginX, chunkOriginY, chunkOriginZ);
+                    PrefabMeshData subMesh = calculateMeshForBlock(blockInfo.getSubBlock(), poseStack, bufferBuilder,
+                            blockRenderer, chunkOriginX, chunkOriginY, chunkOriginZ);
 
                     if (subMesh != null) {
                         rawMeshes.add(subMesh);
@@ -491,10 +483,34 @@ public class StructureRenderHandler {
             return null;
         }
 
-        // In a real implementation, we would now pass the raw data from meshData to
-        // populate the bufferBuilder for temporary visualization/debugging purposes during development.
-        // For this refactor step, simply confirming calculation is enough:
-        System.out.println("Successfully calculated and received MeshData for block at " + blockInfo.blockPos);
+        BlockPos pos = blockInfo.blockPos;
+        BlockState blockState = blockInfo.getBlockState();
+
+        double lx = pos.getX() - chunkOriginX;
+        double ly = pos.getY() - chunkOriginY;
+        double lz = pos.getZ() - chunkOriginZ;
+
+        poseStack.pushPose();
+        poseStack.translate(lx, ly, lz);
+
+        BlockStateModel model = blockRenderer.getBlockModel(blockState);
+
+        int color = StructureRenderHandler.mcInstance.getBlockColors()
+                .getColor(blockState, null, null, 0);
+        float r = (float) (color >> 16 & 255) / 255.0F;
+        float g = (float) (color >> 8 & 255) / 255.0F;
+        float b = (float) (color & 255) / 255.0F;
+
+        blockRenderer.getModelRenderer().renderModel(
+                poseStack.last(),
+                bufferBuilder,
+                model,
+                r, g, b,
+                0xF000F0,
+                OverlayTexture.NO_OVERLAY
+        );
+
+        poseStack.popPose();
 
         return meshData;
     }

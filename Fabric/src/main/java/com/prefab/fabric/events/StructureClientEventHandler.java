@@ -1,5 +1,6 @@
 package com.prefab.fabric.events;
 
+import com.prefab.structures.render.PreviewRenderer;
 import com.prefab.structures.render.StructureRenderHandler;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.client.Minecraft;
@@ -26,6 +27,7 @@ public final class StructureClientEventHandler {
         UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
             if (StructureRenderHandler.currentStructure != null && player == Minecraft.getInstance().player) {
                 StructureRenderHandler.setStructure(null, null);
+                PreviewRenderer.setStructure(null, null);
 
                 return InteractionResult.FAIL;
             }
