@@ -17,16 +17,24 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+import net.minecraft.client.renderer.block.ModelBlockRenderer;
+import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.BlockModelPart;
 import net.minecraft.client.renderer.block.model.BlockStateModel;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+
+import java.util.List;
 
 public class PreviewRenderer {
     public static StructureConfiguration currentConfiguration;
@@ -68,29 +76,12 @@ public class PreviewRenderer {
                 && PrefabBase.serverConfiguration.enableStructurePreview) {
             try {
                 BlockPos originalPos = PreviewRenderer.currentConfiguration.pos;
-                BlockPos testBlockPos = originalPos.above().relative(player.getDirection());
+                BlockPos testBlockPos = originalPos.above().west();
                 BlockState blockState = Blocks.REDSTONE_BLOCK.defaultBlockState();
                 PoseStack poseStack = new PoseStack();
 
-                int chunkX = Math.floorDiv(testBlockPos.getX(), 16);
-                int chunkY = Math.floorDiv(testBlockPos.getY(), 16);
-                int chunkZ = Math.floorDiv(testBlockPos.getZ(), 16);
-
-                int chunkOriginX = chunkX * 16;
-                int chunkOriginY = chunkY * 16;
-                int chunkOriginZ = chunkZ * 16;
-
-                double lx = testBlockPos.getX() - chunkOriginX;
-                double ly = testBlockPos.getY() - chunkOriginY;
-                double lz = testBlockPos.getZ() - chunkOriginZ;
-
-                double someX = cameraX - testBlockPos.getX();
-                double someY = cameraY - testBlockPos.getY();
-                double someZ = cameraZ - testBlockPos.getZ();
-
                 BlockRenderDispatcher blockRenderer = PreviewRenderer.mcInstance.getBlockRenderer();
-                //VertexConsumer bufferBuilder = bufferSource.getBuffer(PrefabClientBase.PREVIEW_LAYER_2);
-                VertexConsumer bufferBuilder = bufferSource.getBuffer(RenderType.entitySolid(TextureAtlas.LOCATION_BLOCKS));
+                VertexConsumer bufferBuilder = bufferSource.getBuffer(RenderType.entityTranslucent(TextureAtlas.LOCATION_BLOCKS));
 
                 BlockStateModel model = blockRenderer.getBlockModel(blockState);
 
@@ -102,10 +93,9 @@ public class PreviewRenderer {
 
                 poseStack.pushPose();
                 poseStack.translate(-cameraX, -cameraY, -cameraZ);
-                //poseStack.translate(lx, ly, lz);
-                poseStack.translate(someX, someY, someZ);
+                poseStack.translate(testBlockPos.getX(), testBlockPos.getY(), testBlockPos.getZ());
 
-                blockRenderer.getModelRenderer().renderModel(
+                PreviewRenderer.renderModel(
                         poseStack.last(),
                         bufferBuilder,
                         model,
@@ -113,17 +103,38 @@ public class PreviewRenderer {
                         0xF000F0,
                         OverlayTexture.NO_OVERLAY);
 
-                /*blockRenderer.renderSingleBlock(blockState,
-                        matrixStack,
-                        bufferSource,
-                        0,
-                        OverlayTexture.NO_OVERLAY);*/
-
                 poseStack.popPose();
                 PreviewRenderer.showStructureMessage();
             } catch (Exception ex) {
                 PrefabBase.logger.error("Error during structure preview rendering.", ex);
             }
+        }
+    }
+
+    public static void renderModel(PoseStack.Pose pose, VertexConsumer vertexConsumer, BlockStateModel blockStateModel, float f, float g, float h, int i, int j) {
+        for (BlockModelPart blockModelPart : blockStateModel.collectParts(RandomSource.create(42L))) {
+            for (Direction direction : Direction.values()) {
+                PreviewRenderer.renderQuadList(pose, vertexConsumer, f, g, h, blockModelPart.getQuads(direction), i, j);
+            }
+            PreviewRenderer.renderQuadList(pose, vertexConsumer, f, g, h, blockModelPart.getQuads(null), i, j);
+        }
+    }
+
+    private static void renderQuadList(PoseStack.Pose pose, VertexConsumer vertexConsumer, float f, float g, float h, List<BakedQuad> list, int i, int j) {
+        for (BakedQuad bakedQuad : list) {
+            float m;
+            float l;
+            float k;
+            if (bakedQuad.isTinted()) {
+                k = Mth.clamp(f, 0.0f, 1.0f);
+                l = Mth.clamp(g, 0.0f, 1.0f);
+                m = Mth.clamp(h, 0.0f, 1.0f);
+            } else {
+                k = 1.0f;
+                l = 1.0f;
+                m = 1.0f;
+            }
+            vertexConsumer.putBulkData(pose, bakedQuad, k, l, m, 0.4f, i, j);
         }
     }
 

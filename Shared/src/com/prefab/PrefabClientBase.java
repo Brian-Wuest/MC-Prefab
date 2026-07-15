@@ -17,7 +17,9 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.MeshData;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.ResourceLocation;
 import org.joml.Vector4f;
 
@@ -38,7 +40,7 @@ public class PrefabClientBase {
 
     public static final RenderType PREVIEW_LAYER_2 = RenderType.create(
             // The name of the render type
-            "examplemod:example",
+            "prefab:entity_translucent_cull",
             // The size of the buffer
             // Or 4MB
             4194304,
@@ -49,7 +51,11 @@ public class PrefabClientBase {
             // The pipeline to use
             ENTITY_TRANSLUCENT_CULL_PIPELINE,
             // Any additional composite state settings to apply
-            RenderType.CompositeState.builder().createCompositeState(RenderType.OutlineProperty.NONE)
+            RenderType.CompositeState.builder()
+                    //.setTextureState(new RenderStateShard.TextureStateShard(TextureAtlas.LOCATION_BLOCKS, false))
+                    .setLightmapState(RenderType.LIGHTMAP)
+                    .setOverlayState(RenderType.NO_OVERLAY)
+                    .createCompositeState(RenderType.OutlineProperty.NONE)
     );
 
     /*public static class PreviewLayer1 extends RenderType {
