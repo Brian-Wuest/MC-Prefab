@@ -3,10 +3,7 @@ package com.prefab.mixins;
 import com.mojang.blaze3d.vertex.ByteBufferBuilder;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.prefab.ClientModRegistryBase;
-import com.prefab.PrefabClientBase;
-import com.prefab.structures.render.PreviewRenderer;
 import com.prefab.structures.render.StructureRenderHandler;
-import com.prefab.structures.render.UpdatedPreviewRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -44,19 +41,12 @@ public class RenderIndicatorMixin {
                     (float) cameraX, (float) cameraY, (float) cameraZ);
 
             poseStack.popPose();
-            previewBufferSource.endBatch(PrefabClientBase.PREVIEW_LAYER_2);
 
             poseStack = new PoseStack();
             poseStack.pushPose();
-            //PreviewRenderer.renderPreview(prefabIndicatorMinecraft.player, previewBufferSource, poseStack,
-            //       (float) cameraX, (float) cameraY, (float) cameraZ);
-            UpdatedPreviewRenderer.renderPreview(prefabIndicatorMinecraft.player, previewBufferSource, poseStack,
+            StructureRenderHandler.renderPreview(prefabIndicatorMinecraft.player, previewBufferSource, poseStack,
                     (float) cameraX, (float) cameraY, (float) cameraZ);
             poseStack.popPose();
-            //StructureRenderHandler.renderStructurePreview(prefabIndicatorMinecraft.player, previewBufferSource);
-
-            previewBufferSource.endBatch(PrefabClientBase.PREVIEW_LAYER_2);
-            ////previewBufferSource.endBatch(RenderType.solid());
         }
 
         // If there are structure scanners; run the rendering for them now.

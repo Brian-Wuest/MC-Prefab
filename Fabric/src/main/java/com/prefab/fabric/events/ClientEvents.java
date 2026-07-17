@@ -9,9 +9,7 @@ import com.prefab.structures.gui.GuiStructure;
 import com.prefab.structures.items.ItemBasicStructure;
 import com.prefab.structures.items.StructureItem;
 import com.prefab.structures.messages.StructureTagMessage;
-import com.prefab.structures.render.PreviewRenderer;
 import com.prefab.structures.render.StructureRenderHandler;
-import com.prefab.structures.render.UpdatedPreviewRenderer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.ItemStack;
@@ -58,9 +56,7 @@ public class ClientEvents {
                         PrefabBase.networkWrapper.sendToServer(ClientToServerTypes.STRUCTURE_BUILD, message);
                     }
 
-                    StructureRenderHandler.currentStructure = null;
-                    PreviewRenderer.currentStructure = null;
-                    UpdatedPreviewRenderer.setStructure(null, null);
+                    StructureRenderHandler.setStructure(null, null);
                 }
             }
         });
