@@ -77,40 +77,48 @@ public class PositionOffset {
 		return this.northOffset;
 	}
 
-	public void setNorthOffset(int value) {
+	public PositionOffset setNorthOffset(int value) {
 		this.northOffset = value;
+		return this;
 	}
 
 	public int getSouthOffset() {
 		return this.southOffset;
 	}
 
-	public void setSouthOffset(int value) {
+	public PositionOffset setSouthOffset(int value) {
 		this.southOffset = value;
+
+		return this;
 	}
 
 	public int getEastOffset() {
 		return this.eastOffset;
 	}
 
-	public void setEastOffset(int value) {
+	public PositionOffset setEastOffset(int value) {
 		this.eastOffset = value;
+		return this;
 	}
 
 	public int getWestOffset() {
 		return this.westOffset;
 	}
 
-	public void setWestOffset(int value) {
+	public PositionOffset setWestOffset(int value) {
 		this.westOffset = value;
+
+		return this;
 	}
 
 	public int getHeightOffset() {
 		return this.heightOffset;
 	}
 
-	public void setHeightOffset(int value) {
+	public PositionOffset setHeightOffset(int value) {
 		this.heightOffset = value;
+
+		return this;
 	}
 
 	protected void Initialize() {

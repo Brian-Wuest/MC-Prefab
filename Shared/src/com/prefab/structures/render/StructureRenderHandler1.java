@@ -445,7 +445,8 @@ public class StructureRenderHandler1 {
                 }
 
                 GpuBuffer buffer = RenderSystem.getDevice().createBuffer(key::toString, 32, meshData.vertexBuffer());
-                previewChunks.put(key, new PreviewChunkMesh(key, buffer, meshData.drawState().indexCount()));
+
+                previewChunks.put(key, new PreviewChunkMesh(key, buffer, meshData.drawState().vertexCount(), meshData.drawState().indexCount()));
             }
         }
     }

@@ -75,38 +75,6 @@ public class ClientModRegistryBase {
         Minecraft.getInstance().getBlockColors().register((state, worldIn, pos, tintIndex) -> worldIn != null && pos != null
                 ? BiomeColors.getAverageGrassColor(worldIn, pos)
                 : GrassColor.get(0.5D, 1.0D), ModRegistryBase.GrassWall, ModRegistryBase.GrassSlab, ModRegistryBase.GrassStairs);
-
-        // Register the item renderer.
-        /*Minecraft.getInstance().itemColors.register((stack, tintIndex) -> {
-            // Get the item for this stack.
-            Item item = stack.getItem();
-
-            if (item instanceof BlockItem) {
-                // Get the block for this item and determine if it's a grass stairs.
-                BlockItem itemBlock = (BlockItem) item;
-                boolean paintBlock = false;
-
-                if (itemBlock.getBlock() instanceof BlockCustomWall) {
-                    BlockCustomWall customWall = (BlockCustomWall) itemBlock.getBlock();
-
-                    if (customWall.BlockVariant == BlockCustomWall.EnumType.GRASS) {
-                        paintBlock = true;
-                    }
-                } else if (itemBlock.getBlock() instanceof BlockGrassSlab) {
-                    paintBlock = true;
-                } else if (itemBlock.getBlock() instanceof BlockGrassStairs) {
-                    paintBlock = true;
-                }
-
-                if (paintBlock) {
-                    BlockPos pos = Minecraft.getInstance().player.blockPosition();
-                    ClientLevel world = Minecraft.getInstance().level;
-                    return BiomeColors.getAverageGrassColor(world, pos);
-                }
-            }
-
-            return -1;
-        }, new Block[]{ModRegistryBase.GrassWall, ModRegistryBase.GrassSlab, ModRegistryBase.GrassStairs});*/
     }
 
     /**

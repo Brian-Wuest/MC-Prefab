@@ -10,6 +10,7 @@ import com.prefab.structures.config.StructureConfiguration;
 import com.prefab.structures.messages.StructureTagMessage;
 import com.prefab.structures.render.PreviewRenderer;
 import com.prefab.structures.render.StructureRenderHandler;
+import com.prefab.structures.render.UpdatedPreviewRenderer;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.components.Button;
@@ -111,6 +112,7 @@ public abstract class GuiStructure extends GuiBase {
     protected void performPreview() {
         StructureRenderHandler.setStructure(this.selectedStructure, this.configuration);
         PreviewRenderer.setStructure(this.selectedStructure, this.configuration);
+        UpdatedPreviewRenderer.setStructure(this.selectedStructure, this.configuration);
         this.closeScreen();
     }
 

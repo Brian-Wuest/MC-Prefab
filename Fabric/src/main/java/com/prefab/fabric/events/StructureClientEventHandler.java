@@ -2,6 +2,7 @@ package com.prefab.fabric.events;
 
 import com.prefab.structures.render.PreviewRenderer;
 import com.prefab.structures.render.StructureRenderHandler;
+import com.prefab.structures.render.UpdatedPreviewRenderer;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.InteractionResult;
@@ -28,6 +29,7 @@ public final class StructureClientEventHandler {
             if (StructureRenderHandler.currentStructure != null && player == Minecraft.getInstance().player) {
                 StructureRenderHandler.setStructure(null, null);
                 PreviewRenderer.setStructure(null, null);
+                UpdatedPreviewRenderer.setStructure(null, null);
 
                 return InteractionResult.FAIL;
             }

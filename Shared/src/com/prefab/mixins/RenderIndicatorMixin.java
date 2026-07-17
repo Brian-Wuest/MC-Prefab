@@ -6,6 +6,7 @@ import com.prefab.ClientModRegistryBase;
 import com.prefab.PrefabClientBase;
 import com.prefab.structures.render.PreviewRenderer;
 import com.prefab.structures.render.StructureRenderHandler;
+import com.prefab.structures.render.UpdatedPreviewRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -36,14 +37,23 @@ public class RenderIndicatorMixin {
         PoseStack poseStack = new PoseStack();
 
         if (prefabIndicatorMinecraft.player != null && (!prefabIndicatorMinecraft.player.isCrouching())) {
+            poseStack.pushPose();
             StructureRenderHandler.renderStructureStartPositionBox(prefabIndicatorMinecraft.level,
                     poseStack,
                     previewBufferSource,
                     (float) cameraX, (float) cameraY, (float) cameraZ);
 
-            PreviewRenderer.renderPreview(prefabIndicatorMinecraft.player, previewBufferSource, poseStack,
+            poseStack.popPose();
+            previewBufferSource.endBatch(PrefabClientBase.PREVIEW_LAYER_2);
+
+            poseStack = new PoseStack();
+            poseStack.pushPose();
+            //PreviewRenderer.renderPreview(prefabIndicatorMinecraft.player, previewBufferSource, poseStack,
+            //       (float) cameraX, (float) cameraY, (float) cameraZ);
+            UpdatedPreviewRenderer.renderPreview(prefabIndicatorMinecraft.player, previewBufferSource, poseStack,
                     (float) cameraX, (float) cameraY, (float) cameraZ);
-            ////StructureRenderHandler.renderStructurePreview(prefabIndicatorMinecraft.player, previewBufferSource);
+            poseStack.popPose();
+            //StructureRenderHandler.renderStructurePreview(prefabIndicatorMinecraft.player, previewBufferSource);
 
             previewBufferSource.endBatch(PrefabClientBase.PREVIEW_LAYER_2);
             ////previewBufferSource.endBatch(RenderType.solid());

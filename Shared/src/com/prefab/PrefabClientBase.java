@@ -16,6 +16,7 @@ import com.mojang.blaze3d.textures.GpuTextureView;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.MeshData;
 import com.mojang.blaze3d.vertex.VertexFormat;
+import net.minecraft.Util;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
@@ -25,6 +26,7 @@ import org.joml.Vector4f;
 
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
+import java.util.function.BiFunction;
 
 import static net.minecraft.client.renderer.RenderPipelines.ENTITY_SNIPPET;
 
@@ -32,11 +34,28 @@ public class PrefabClientBase {
     public static final RenderPipeline ENTITY_TRANSLUCENT_CULL_PIPELINE = RenderPipelines.register(
             RenderPipeline.builder(ENTITY_SNIPPET)
                     .withLocation("pipeline/entity_translucent")
-                    .withShaderDefine("ALPHA_CUTOUT", 0.1F)
+                    .withShaderDefine("ALPHA_CUTOUT", 0.1f)
                     .withSampler("Sampler1")
                     .withBlend(BlendFunction.TRANSLUCENT)
-                    .withCull(true)
+                    .withCull(true  )
                     .build());
+
+    private static final BiFunction<ResourceLocation, Boolean, RenderType> ENTITY_TRANSLUCENT_CULL_FUNCTION = Util.memoize((resourceLocation, boolean_) -> {
+        RenderType.CompositeState compositeState = RenderType.CompositeState.builder()
+                .setTextureState(new RenderStateShard.TextureStateShard(resourceLocation, false))
+                .setLightmapState(RenderStateShard.LIGHTMAP)
+                .setOverlayState(RenderStateShard.OVERLAY)
+                .createCompositeState(boolean_);
+        return RenderType.create("prefab_entity_translucent_ull", 1536, true, true, ENTITY_TRANSLUCENT_CULL_PIPELINE, compositeState);
+    });
+
+    public static RenderType entityTranslucentCullFunction(ResourceLocation resourceLocation, boolean bl) {
+        return ENTITY_TRANSLUCENT_CULL_FUNCTION.apply(resourceLocation, bl);
+    }
+
+    public static RenderType entityTranslucentCull(ResourceLocation resourceLocation) {
+        return entityTranslucentCullFunction(resourceLocation, true);
+    }
 
     public static final RenderType PREVIEW_LAYER_2 = RenderType.create(
             // The name of the render type

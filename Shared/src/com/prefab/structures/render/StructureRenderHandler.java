@@ -21,6 +21,7 @@ import com.prefab.mesh.assembly.StructureMeshAssembler;
 import com.prefab.mesh.geometry.MeshGeometryCalculator;
 import com.prefab.mesh.geometry.PrefabMeshData;
 import com.prefab.structures.base.BuildBlock;
+import com.prefab.structures.base.PositionOffset;
 import com.prefab.structures.base.Structure;
 import com.prefab.structures.config.StructureConfiguration;
 import net.minecraft.ChatFormatting;
@@ -29,8 +30,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
-import net.minecraft.client.renderer.block.model.BlockStateModel;
-import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -39,6 +39,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import org.joml.Matrix4f;
 
@@ -123,60 +124,91 @@ public class StructureRenderHandler {
             float blockStartYOffset,
             float cameraX, float cameraY, float cameraZ,
             int xLength, int zLength, int height) {
+        StructureRenderHandler.drawBox(matrixStack, multiBufferSource, blockXOffset, blockZOffset, blockStartYOffset,
+                cameraX, cameraY, cameraZ, xLength, zLength, height, 1.0F, 1.0F, 0.0F, 1.0F, 2.0);
+    }
+
+    public static void drawBox(
+            PoseStack matrixStack,
+            MultiBufferSource multiBufferSource,
+            float blockXOffset,
+            float blockZOffset,
+            float blockStartYOffset,
+            float cameraX, float cameraY, float cameraZ,
+            int xLength, int zLength, int height,
+            float r, float g, float b, float a,
+            double lineThickness) {
 
         Matrix4f matrix4f = matrixStack.last().pose();
+
+        if (r <= -1.0F || r > 1.0F) {
+            r = 1.0F;
+        }
+
+        if (g <= -1.0F || g > 1.0F) {
+            g = 1.0F;
+        }
+
+        if (b <= -1.0F || b > 1.0F) {
+            b = 0.0F;
+        }
+
+        if (a <= -1.0F || a > 1.0F) {
+            a = 1.0F;
+        }
 
         float translatedX = blockXOffset - cameraX;
         float translatedY = (float) (blockStartYOffset - cameraY + .02);
         float translatedYEnd = (float) (translatedY + height - .02);
         float translatedZ = blockZOffset - cameraZ;
+        RenderType renderType = RenderType.debugLineStrip(lineThickness);
 
         // Draw the verticals of the box.
-        VertexConsumer bufferBuilder = multiBufferSource.getBuffer(RenderType.debugLineStrip(2.0));
-        bufferBuilder.addVertex(matrix4f, translatedX, translatedY, translatedZ).setColor(1.0F, 1.0F, 0.0F, 1.0F);
-        bufferBuilder.addVertex(matrix4f, translatedX, translatedYEnd, translatedZ).setColor(1.0F, 1.0F, 0.0F, 1.0F);
+        VertexConsumer bufferBuilder = multiBufferSource.getBuffer(renderType);
+        bufferBuilder.addVertex(matrix4f, translatedX, translatedY, translatedZ).setColor(r, g, b, a);
+        bufferBuilder.addVertex(matrix4f, translatedX, translatedYEnd, translatedZ).setColor(r, g, b, a);
 
-        bufferBuilder = multiBufferSource.getBuffer(RenderType.debugLineStrip(2.0));
-        bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedY, translatedZ).setColor(1.0F, 1.0F, 0.0F, 1.0F);
-        bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedYEnd, translatedZ).setColor(1.0F, 1.0F, 0.0F, 1.0F);
+        bufferBuilder = multiBufferSource.getBuffer(renderType);
+        bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedY, translatedZ).setColor(r, g, b, a);
+        bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedYEnd, translatedZ).setColor(r, g, b, a);
 
-        bufferBuilder = multiBufferSource.getBuffer(RenderType.debugLineStrip(2.0));
-        bufferBuilder.addVertex(matrix4f, translatedX, translatedY, translatedZ + zLength).setColor(1.0F, 1.0F, 0.0F, 1.0F);
-        bufferBuilder.addVertex(matrix4f, translatedX, translatedYEnd, translatedZ + zLength).setColor(1.0F, 1.0F, 0.0F, 1.0F);
+        bufferBuilder = multiBufferSource.getBuffer(renderType);
+        bufferBuilder.addVertex(matrix4f, translatedX, translatedY, translatedZ + zLength).setColor(r, g, b, a);
+        bufferBuilder.addVertex(matrix4f, translatedX, translatedYEnd, translatedZ + zLength).setColor(r, g, b, a);
 
-        bufferBuilder = multiBufferSource.getBuffer(RenderType.debugLineStrip(2.0));
-        bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedY, translatedZ + zLength).setColor(1.0F, 1.0F, 0.0F, 1.0F);
-        bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedYEnd, translatedZ + zLength).setColor(1.0F, 1.0F, 0.0F, 1.0F);
+        bufferBuilder = multiBufferSource.getBuffer(renderType);
+        bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedY, translatedZ + zLength).setColor(r, g, b, a);
+        bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedYEnd, translatedZ + zLength).setColor(r, g, b, a);
 
         // Draw bottom horizontals.
-        bufferBuilder = multiBufferSource.getBuffer(RenderType.debugLineStrip(2.0));
+        bufferBuilder = multiBufferSource.getBuffer(renderType);
 
-        bufferBuilder.addVertex(matrix4f, translatedX, translatedY, translatedZ).setColor(1.0F, 1.0F, 0.0F, 1.0F);
-        bufferBuilder.addVertex(matrix4f, translatedX, translatedY, translatedZ + zLength).setColor(1.0F, 1.0F, 0.0F, 1.0F);
+        bufferBuilder.addVertex(matrix4f, translatedX, translatedY, translatedZ).setColor(r, g, b, a);
+        bufferBuilder.addVertex(matrix4f, translatedX, translatedY, translatedZ + zLength).setColor(r, g, b, a);
 
-        bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedY, translatedZ + zLength).setColor(1.0F, 1.0F, 0.0F, 1.0F);
-        bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedY, translatedZ).setColor(1.0F, 1.0F, 0.0F, 1.0F);
+        bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedY, translatedZ + zLength).setColor(r, g, b, a);
+        bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedY, translatedZ).setColor(r, g, b, a);
 
-        bufferBuilder.addVertex(matrix4f, translatedX, translatedY, translatedZ).setColor(1.0F, 1.0F, 0.0F, 1.0F);
-        bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedY, translatedZ).setColor(1.0F, 1.0F, 0.0F, 1.0F);
+        bufferBuilder.addVertex(matrix4f, translatedX, translatedY, translatedZ).setColor(r, g, b, a);
+        bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedY, translatedZ).setColor(r, g, b, a);
 
-        bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedY, translatedZ + zLength).setColor(1.0F, 1.0F, 0.0F, 1.0F);
-        bufferBuilder.addVertex(matrix4f, translatedX, translatedY, translatedZ + zLength).setColor(1.0F, 1.0F, 0.0F, 1.0F);
+        bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedY, translatedZ + zLength).setColor(r, g, b, a);
+        bufferBuilder.addVertex(matrix4f, translatedX, translatedY, translatedZ + zLength).setColor(r, g, b, a);
 
         // Draw top horizontals
-        bufferBuilder = multiBufferSource.getBuffer(RenderType.debugLineStrip(2.0));
+        bufferBuilder = multiBufferSource.getBuffer(renderType);
 
-        bufferBuilder.addVertex(matrix4f, translatedX, translatedYEnd, translatedZ).setColor(1.0F, 1.0F, 0.0F, 1.0F);
-        bufferBuilder.addVertex(matrix4f, translatedX, translatedYEnd, translatedZ + zLength).setColor(1.0F, 1.0F, 0.0F, 1.0F);
+        bufferBuilder.addVertex(matrix4f, translatedX, translatedYEnd, translatedZ).setColor(r, g, b, a);
+        bufferBuilder.addVertex(matrix4f, translatedX, translatedYEnd, translatedZ + zLength).setColor(r, g, b, a);
 
-        bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedYEnd, translatedZ + zLength).setColor(1.0F, 1.0F, 0.0F, 1.0F);
-        bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedYEnd, translatedZ).setColor(1.0F, 1.0F, 0.0F, 1.0F);
+        bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedYEnd, translatedZ + zLength).setColor(r, g, b, a);
+        bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedYEnd, translatedZ).setColor(r, g, b, a);
 
-        bufferBuilder.addVertex(matrix4f, translatedX, translatedYEnd, translatedZ).setColor(1.0F, 1.0F, 0.0F, 1.0F);
-        bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedYEnd, translatedZ).setColor(1.0F, 1.0F, 0.0F, 1.0F);
+        bufferBuilder.addVertex(matrix4f, translatedX, translatedYEnd, translatedZ).setColor(r, g, b, a);
+        bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedYEnd, translatedZ).setColor(r, g, b, a);
 
-        bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedYEnd, translatedZ + zLength).setColor(1.0F, 1.0F, 0.0F, 1.0F);
-        bufferBuilder.addVertex(matrix4f, translatedX, translatedYEnd, translatedZ + zLength).setColor(1.0F, 1.0F, 0.0F, 1.0F);
+        bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedYEnd, translatedZ + zLength).setColor(r, g, b, a);
+        bufferBuilder.addVertex(matrix4f, translatedX, translatedYEnd, translatedZ + zLength).setColor(r, g, b, a);
     }
 
     public static void renderScanningBoxes(PoseStack matrixStack,
@@ -210,26 +242,26 @@ public class StructureRenderHandler {
             int zLength = config.blocksLong;
 
             switch (config.direction) {
-                case NORTH: {
+                case Direction.NORTH: {
                     zLength = -zLength;
                     startingPosition = startingPosition.relative(config.direction.getOpposite());
                     break;
                 }
 
-                case EAST: {
+                case Direction.EAST: {
                     int tempWidth = xLength;
                     xLength = zLength;
                     zLength = tempWidth;
                     break;
                 }
 
-                case SOUTH: {
+                case Direction.SOUTH: {
                     xLength = -xLength;
                     startingPosition = startingPosition.relative(config.direction.getCounterClockWise());
                     break;
                 }
 
-                case WEST: {
+                case Direction.WEST: {
                     int tempLength = zLength;
                     zLength = -xLength;
                     xLength = -tempLength;
@@ -253,6 +285,73 @@ public class StructureRenderHandler {
                     zLength,
                     config.blocksTall);
         }
+    }
+
+    public static void renderDynamicallySizedOutlineBox(PoseStack matrixStack,
+                                                        MultiBufferSource.BufferSource bufferSource,
+                                                        float cameraX, float cameraY, float cameraZ,
+                                                        BlockPos startingPosition,
+                                                        int blocksWide,
+                                                        int blocksLong,
+                                                        int blocksHigh,
+                                                        Direction facing,
+                                                        float r,
+                                                        float g,
+                                                        float b,
+                                                        float a) {
+
+        int xLength = blocksWide;
+        int zLength = blocksLong;
+
+        switch (facing) {
+            case Direction.NORTH: {
+                zLength = -zLength;
+                startingPosition = startingPosition.relative(facing.getOpposite());
+                break;
+            }
+
+            case Direction.EAST: {
+                int tempWidth = xLength;
+                xLength = zLength;
+                zLength = tempWidth;
+                break;
+            }
+
+            case Direction.SOUTH: {
+                xLength = -xLength;
+                startingPosition = startingPosition.relative(facing.getCounterClockWise());
+                break;
+            }
+
+            case Direction.WEST: {
+                int tempLength = zLength;
+                zLength = -xLength;
+                xLength = -tempLength;
+
+                startingPosition = startingPosition.relative(facing.getOpposite());
+                startingPosition = startingPosition.relative(facing.getCounterClockWise());
+                break;
+            }
+        }
+
+        StructureRenderHandler.drawBox(
+                matrixStack,
+                bufferSource,
+                startingPosition.getX(),
+                startingPosition.getZ(),
+                startingPosition.getY(),
+                cameraX,
+                cameraY,
+                cameraZ,
+                xLength,
+                zLength,
+                blocksHigh,
+                r,
+                g,
+                b,
+                a,
+                2.5);
+
     }
 
     public static void renderStructurePreview(Player player, MultiBufferSource.BufferSource bufferSource) {
@@ -317,9 +416,11 @@ public class StructureRenderHandler {
                 RenderSystem.getDevice().createCommandEncoder();
 
         for (PreviewChunkMesh mesh : previewChunks.values()) {
+            poseStack.pushPose();
+            RenderSystem.getQuadVertexBuffer();
             GpuBuffer vertexBuffer = mesh.vertexBuffer();
             RenderSystem.AutoStorageIndexBuffer autoStorageIndexBuffer = RenderSystem.getSequentialBuffer(VertexFormat.Mode.QUADS);
-            GpuBuffer gpuBuffer = autoStorageIndexBuffer.getBuffer(6 * mesh.meshIndices());
+            GpuBuffer gpuBuffer = autoStorageIndexBuffer.getBuffer(6 * mesh.indexCount());
 
             try (RenderPass pass = commandEncoder.createRenderPass(() -> "Structure Preview",
                     StructureRenderHandler.gpuTextureView, OptionalInt.empty())) {
@@ -332,8 +433,9 @@ public class StructureRenderHandler {
                 // Set pipeline information along with any samplers and uniforms
                 pass.setPipeline(shader);
                 //pass.setPipeline(RenderPipelines.CLOUDS);
-                pass.drawIndexed(0, 0, 6 * mesh.meshIndices(), 1);
+                pass.drawIndexed(mesh.vertexCount(), 0, mesh.indexCount(), 1);
             }
+            poseStack.popPose();
         }
     }
 
@@ -352,7 +454,14 @@ public class StructureRenderHandler {
         Map<PreviewChunkKey, List<BuildBlock>> blocksByChunk = new HashMap<>();
         BlockRenderDispatcher blockRenderer = StructureRenderHandler.mcInstance.getBlockRenderer();
 
-        for (BuildBlock blockInfo : structure.getBlocks()) {
+        BuildBlock testBlock = new BuildBlock();
+        testBlock.setBlockState(Blocks.REDSTONE_BLOCK.defaultBlockState());
+        testBlock.setStartingPosition((new PositionOffset()).setSouthOffset(1));
+        ArrayList<BuildBlock> buildBlocks = new ArrayList<>();
+        buildBlocks.add(testBlock);
+
+        //for (BuildBlock blockInfo : structure.getBlocks()) {
+        for (BuildBlock blockInfo : buildBlocks) {
             // Calculate the world-relative position for this specific instance of the block/subblock
             BlockPos rotatedPos = blockInfo.getStartingPosition().getRelativePosition(
                     StructureRenderHandler.currentConfiguration.pos,
@@ -411,6 +520,8 @@ public class StructureRenderHandler {
 
         // --- PHASE 2: Assemble Meshes ---
         Tesselator tesselator = Tesselator.getInstance();
+        BufferBuilder bufferBuilder = (BufferBuilder) bufferSource
+                .getBuffer(PrefabClientBase.entityTranslucentCull(TextureAtlas.LOCATION_BLOCKS));
         for (Map.Entry<PreviewChunkKey, List<BuildBlock>> entry : blocksByChunk.entrySet()) {
             PreviewChunkKey key = entry.getKey();
             List<BuildBlock> blocks = entry.getValue();
@@ -426,10 +537,9 @@ public class StructureRenderHandler {
             // 1. Collect raw meshes from all components in the chunk
             List<PrefabMeshData> rawMeshes = new ArrayList<>();
 
+            PoseStack poseStack = new PoseStack();
             for (BuildBlock blockInfo : blocks) {
-                PoseStack poseStack = new PoseStack();
 
-                BufferBuilder bufferBuilder = (BufferBuilder) bufferSource.getBuffer(PrefabClientBase.PREVIEW_LAYER_2);
                 //tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.NEW_ENTITY);
 
                 // Calculate and collect mesh data for the main block body
@@ -458,7 +568,7 @@ public class StructureRenderHandler {
                 GpuBuffer buffer = RenderSystem.getDevice().createBuffer(key::toString, 32, finalMesh.vertexCount());
 
                 // Store the single optimized mesh in our cache for Phase 3 rendering.
-                previewChunks.put(key, new PreviewChunkMesh(key, buffer, finalMesh.indexCount()));
+                previewChunks.put(key, new PreviewChunkMesh(key, buffer, finalMesh.vertexCount(), finalMesh.indexCount()));
             }
         }
     }
@@ -483,7 +593,7 @@ public class StructureRenderHandler {
             return null;
         }
 
-        BlockPos pos = blockInfo.blockPos;
+        /*BlockPos pos = blockInfo.blockPos;
         BlockState blockState = blockInfo.getBlockState();
 
         double lx = pos.getX() - chunkOriginX;
@@ -510,7 +620,7 @@ public class StructureRenderHandler {
                 OverlayTexture.NO_OVERLAY
         );
 
-        poseStack.popPose();
+        poseStack.popPose();*/
 
         return meshData;
     }
