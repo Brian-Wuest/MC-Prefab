@@ -155,7 +155,9 @@ public class GuiInstantBridge extends GuiStructure {
             this.specificConfiguration.bridgeMaterial = EnumStructureMaterial.getMaterialByNumber(this.specificConfiguration.bridgeMaterial.getNumber() + 1);
             GuiUtils.setButtonText(btnMaterialType, this.specificConfiguration.bridgeMaterial.getTranslatedName());
         } else if (button == this.btnVisualize) {
+            ((StructureInstantBridge)this.selectedStructure).setupClearSpace(this.specificConfiguration);
             ((StructureInstantBridge)this.selectedStructure).setupStructure(this.specificConfiguration, this.pos);
+
             this.performPreview();
         }
     }

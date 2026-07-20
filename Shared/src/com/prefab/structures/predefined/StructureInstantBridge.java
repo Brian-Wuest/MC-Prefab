@@ -109,7 +109,7 @@ public class StructureInstantBridge extends Structure {
         this.setBlocks(buildingBlocks);
     }
 
-    private void setupClearSpace(InstantBridgeConfiguration configuration) {
+    public void setupClearSpace(InstantBridgeConfiguration configuration) {
         int clearHeight = 3;
 
         if (configuration.includeRoof) {
