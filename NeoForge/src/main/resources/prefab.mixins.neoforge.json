@@ -2,14 +2,10 @@
   "required": true,
   "minVersion": "0.8",
   "compatibilityLevel": "JAVA_21",
-  "package": "com.prefab.mixins",
+  "package": "com.prefab.neoforge.mixins",
   "refmap": "prefab.refmap.json",
   "mixins": [
-    "SavePlayerDataMixin"
-  ],
-  "client": [
-    "RenderIndicatorMixin",
-    "MinecraftClientInitMixin"
+    "AnvilScreenHandlerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -1,4 +1,4 @@
-package com.prefab.mixins;
+package com.prefab.fabric.mixins;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import com.prefab.ModRegistryBase;

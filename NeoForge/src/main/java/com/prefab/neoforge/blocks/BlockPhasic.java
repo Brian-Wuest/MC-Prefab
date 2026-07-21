@@ -1,7 +1,6 @@
 package com.prefab.neoforge.blocks;
 
 import com.prefab.ModRegistryBase;
-import com.prefab.neoforge.events.GameServerEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -13,12 +12,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.redstone.Orientation;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.fml.loading.FMLEnvironment;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.ArrayList;
 
 public class BlockPhasic extends com.prefab.blocks.BlockPhasic {
     public BlockPhasic(BlockBehaviour.Properties properties) {
@@ -148,9 +144,11 @@ public class BlockPhasic extends com.prefab.blocks.BlockPhasic {
                 .setValue(Phasing_Progress, com.prefab.blocks.BlockPhasic.EnumPhasingProgress.base);
     }
 
-    @OnlyIn(Dist.CLIENT)
     @Override
     public boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction side) {
+        if (!FMLEnvironment.dist.isClient()) {
+            super.skipRendering(state, adjacentBlockState, side);
+        }
         com.prefab.blocks.BlockPhasic.EnumPhasingProgress progress = state.getValue(Phasing_Progress);
 
         return progress == com.prefab.blocks.BlockPhasic.EnumPhasingProgress.transparent;

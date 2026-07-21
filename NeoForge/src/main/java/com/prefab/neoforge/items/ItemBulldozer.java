@@ -10,6 +10,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.fml.loading.FMLEnvironment;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -27,11 +28,13 @@ public class ItemBulldozer extends com.prefab.structures.items.ItemBulldozer {
     /**
      * allows items to add custom lines of information to the mouseover description
      */
-    @OnlyIn(Dist.CLIENT)
     @Override
     public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, TooltipDisplay tooltipDisplay,
                                 Consumer<Component> consumer, TooltipFlag tooltipFlag) {
-        super.appendHoverText(itemStack, tooltipContext, tooltipDisplay, consumer, tooltipFlag);
+        if (!FMLEnvironment.dist.isClient()) {
+            super.appendHoverText(itemStack, tooltipContext, tooltipDisplay, consumer, tooltipFlag);
+            return;
+        }
 
         boolean advancedKeyDown = Screen.hasShiftDown();
 
@@ -58,7 +61,6 @@ public class ItemBulldozer extends com.prefab.structures.items.ItemBulldozer {
      * Note that if you override this method, you generally want to also call the super version (on {@link Item}) to get
      * the glint for enchanted items. Of course, that is unnecessary if the overwritten version always returns true.
      */
-    @OnlyIn(Dist.CLIENT)
     @Override
     public boolean isFoil(@NotNull ItemStack stack) {
         return this.getPoweredValue(stack) || super.isFoil(stack);

@@ -36,7 +36,8 @@
   },
   "accessWidener": "prefab.accesswidener",
   "mixins": [
-    "prefab.mixins.json"
+    "prefab.mixins.json",
+    "prefab.mixins.fabric.json"
   ],
 
   "depends": {

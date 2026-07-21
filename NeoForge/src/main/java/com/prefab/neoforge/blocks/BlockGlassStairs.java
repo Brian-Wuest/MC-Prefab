@@ -8,8 +8,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.SlabType;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.fml.loading.FMLEnvironment;
 
 public class BlockGlassStairs extends com.prefab.blocks.BlockGlassStairs {
     public BlockGlassStairs(BlockState state, Block.Properties properties) {
@@ -17,8 +16,11 @@ public class BlockGlassStairs extends com.prefab.blocks.BlockGlassStairs {
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
     public boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction side) {
+        if (!FMLEnvironment.dist.isClient()) {
+            super.skipRendering(state, adjacentBlockState, side);
+        }
+
         boolean foundBlock = Utils.doesBlockStateHaveTag(adjacentBlockState,  ResourceLocation.parse("c:glass_blocks"));
         Block adjacentBlock = adjacentBlockState.getBlock();
 

@@ -10,6 +10,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.fml.loading.FMLEnvironment;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -22,10 +23,14 @@ public class ItemSickle extends com.prefab.items.ItemSickle {
     /**
      * allows items to add custom lines of information to the mouseover description
      */
-    @OnlyIn(Dist.CLIENT)
     @Override
     public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext,
                                 TooltipDisplay tooltipDisplay, Consumer<Component> consumer, TooltipFlag tooltipFlag) {
+        if (!FMLEnvironment.dist.isClient()) {
+            super.appendHoverText(itemStack, tooltipContext, tooltipDisplay, consumer, tooltipFlag);
+            return;
+        }
+
         super.appendHoverText(itemStack, tooltipContext, tooltipDisplay, consumer, tooltipFlag);
 
         boolean advancedKeyDown = Screen.hasShiftDown();

@@ -24,7 +24,6 @@ public class ItemCompressedChest extends com.prefab.items.ItemCompressedChest {
     /**
      * allows items to add custom lines of information to the mouse-over description
      */
-    @OnlyIn(Dist.CLIENT)
     @Override
     public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext,
                                 TooltipDisplay tooltipDisplay, Consumer<Component> consumer, TooltipFlag tooltipFlag) {
