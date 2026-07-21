@@ -3,6 +3,7 @@ package com.prefab.fabric;
 import com.prefab.ModRegistryBase;
 import com.prefab.PrefabBase;
 import com.prefab.Utils;
+import com.prefab.blockItems.ToolTipBlockItem;
 import com.prefab.blocks.BlockCompressedObsidian;
 import com.prefab.blocks.BlockCompressedStone;
 import com.prefab.blocks.BlockCustomWall;
@@ -78,8 +79,9 @@ public class ModRegistry extends ModRegistryBase {
     @Override
     public void initializeModLoaderBlockItems() {
         // Always make sure do re-do the block item when replacing a block.
-        ModRegistryBase.BoundaryItem = new BlockItem(ModRegistryBase.Boundary,
-                this.setItemBlockId(new Item.Properties(), ModRegistryBase.Boundary));
+        ModRegistryBase.BoundaryItem = new ToolTipBlockItem(ModRegistryBase.Boundary,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.Boundary),
+                ToolTipBlockItem.ToolTipInfo.BLOCK_BOUNDARY);
 
         ModRegistryBase.GlassSlabItem = new BlockItem(ModRegistryBase.GlassSlab,
                 this.setItemBlockId(new Item.Properties(), ModRegistryBase.GlassSlab));

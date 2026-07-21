@@ -7,11 +7,13 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class ItemBulldozer extends com.prefab.structures.items.ItemBulldozer {
     public ItemBulldozer(Item.Properties properties) {
@@ -27,18 +29,23 @@ public class ItemBulldozer extends com.prefab.structures.items.ItemBulldozer {
      */
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, Item.TooltipContext tooltipContext, @NotNull List<Component> tooltip, @NotNull TooltipFlag flagIn) {
-        super.appendHoverText(stack, tooltipContext, tooltip, flagIn);
+    public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, TooltipDisplay tooltipDisplay,
+                                Consumer<Component> consumer, TooltipFlag tooltipFlag) {
+        super.appendHoverText(itemStack, tooltipContext, tooltipDisplay, consumer, tooltipFlag);
 
         boolean advancedKeyDown = Screen.hasShiftDown();
 
         if (!advancedKeyDown) {
-            tooltip.add(GuiLangKeys.translateToComponent(GuiLangKeys.SHIFT_TOOLTIP));
+            consumer.accept(GuiLangKeys.translateToComponent(GuiLangKeys.SHIFT_TOOLTIP));
         } else {
-            if (this.getPoweredValue(stack)) {
-                tooltip.addAll(Utils.WrapStringToLiterals(GuiLangKeys.translateString(GuiLangKeys.BULLDOZER_POWERED_TOOLTIP)));
+            if (this.getPoweredValue(itemStack)) {
+                for (Component component : Utils.WrapStringToLiterals(GuiLangKeys.translateString(GuiLangKeys.BULLDOZER_POWERED_TOOLTIP))) {
+                    consumer.accept(component);
+                }
             } else {
-                tooltip.addAll(Utils.WrapStringToLiterals(GuiLangKeys.translateString(GuiLangKeys.BULLDOZER_UNPOWERED_TOOLTIP)));
+                for (Component component : Utils.WrapStringToLiterals(GuiLangKeys.translateString(GuiLangKeys.BULLDOZER_UNPOWERED_TOOLTIP))) {
+                    consumer.accept(component);
+                }
             }
         }
     }

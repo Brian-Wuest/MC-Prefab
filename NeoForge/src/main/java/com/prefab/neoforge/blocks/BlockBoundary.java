@@ -20,23 +20,6 @@ public class BlockBoundary extends com.prefab.blocks.BlockBoundary {
         super(properties);
     }
 
-    /**
-     * allows items to add custom lines of information to the mouseover description
-     */
-    @OnlyIn(Dist.CLIENT)
-    @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag advanced) {
-        super.appendHoverText(stack, tooltipContext, tooltip, advanced);
-
-        boolean advancedKeyDown = Screen.hasShiftDown();
-
-        if (!advancedKeyDown) {
-            tooltip.add(GuiLangKeys.translateToComponent(GuiLangKeys.SHIFT_TOOLTIP));
-        } else {
-            tooltip.add(GuiLangKeys.translateToComponent(GuiLangKeys.BOUNDARY_TOOLTIP));
-        }
-    }
-
     @OnlyIn(Dist.CLIENT)
     @Override
     public boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction side) {

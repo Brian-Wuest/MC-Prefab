@@ -1,5 +1,6 @@
 package com.prefab;
 
+import com.prefab.blockItems.ToolTipBlockItem;
 import com.prefab.blocks.*;
 import com.prefab.blocks.entities.LightSwitchBlockEntity;
 import com.prefab.blocks.entities.StructureScannerBlockEntity;
@@ -140,7 +141,7 @@ public class ModRegistryBase {
     public static BlockItem GlassStairsItem;
     public static BlockItem PaperLanternItem;
     public static BlockItem PhasicItem;
-    public static BlockItem BoundaryItem;
+    public static ToolTipBlockItem BoundaryItem;
     public static BlockItem GrassSlabItem;
     public static BlockItem GrassStairsItem;
     public static BlockItem GrassWallItem;
@@ -509,8 +510,9 @@ public class ModRegistryBase {
      * This is called at the end of initializeBlockItems.
      */
     public void initializeModLoaderBlockItems() {
-        ModRegistryBase.BoundaryItem = new BlockItem(ModRegistryBase.Boundary,
-                this.setItemBlockId(new Item.Properties(), ModRegistryBase.Boundary));
+        ModRegistryBase.BoundaryItem = new ToolTipBlockItem(ModRegistryBase.Boundary,
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.Boundary),
+                ToolTipBlockItem.ToolTipInfo.BLOCK_BOUNDARY);
 
         ModRegistryBase.GlassSlabItem = new BlockItem(ModRegistryBase.GlassSlab,
                 this.setItemBlockId(new Item.Properties(), ModRegistryBase.GlassSlab));

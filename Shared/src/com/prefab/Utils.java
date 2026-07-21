@@ -1,6 +1,6 @@
 package com.prefab;
 
-import io.netty.util.internal.StringUtil;
+import com.mojang.serialization.*;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -18,12 +18,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.StateHolder;
 import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.storage.ValueInput;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public class Utils {
     public static String[] WrapString(String value) {
@@ -153,6 +155,10 @@ public class Utils {
         }
     }
 
+    public static boolean valueInputContains(ValueInput valueInput, String key) {
+        return valueInput.read(valueInputContainsCodec(key)).orElseThrow();
+    }
+
     private static <S extends StateHolder<?, S>, T extends Comparable<T>> S setValueHelper(S blockState, Property<T> property, String tagKey, CompoundTag compoundTag, CompoundTag originalTag) {
         String tagValue = compoundTag.getString(tagKey).orElse("");
 
@@ -169,5 +175,24 @@ public class Utils {
             PrefabBase.logger.warn("Unable to read property: {} with value: {} for blockState: {}", tagKey, compoundTag.getString(tagKey), originalTag.toString());
             return blockState;
         }
+    }
+
+    static MapCodec<Boolean> valueInputContainsCodec(String key) {
+        return new MapCodec<>() {
+            @Override
+            public <T> DataResult<Boolean> decode(DynamicOps<T> ops, MapLike<T> input) {
+                return DataResult.success(input.get(key) != null);
+            }
+
+            @Override
+            public <T> RecordBuilder<T> encode(Boolean input, DynamicOps<T> ops, RecordBuilder<T> prefix) {
+                return prefix;
+            }
+
+            @Override
+            public <T> Stream<T> keys(DynamicOps<T> ops) {
+                return Stream.empty();
+            }
+        };
     }
 }

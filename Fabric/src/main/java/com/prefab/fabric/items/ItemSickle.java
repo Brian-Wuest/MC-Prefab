@@ -24,7 +24,8 @@ public class ItemSickle extends com.prefab.items.ItemSickle {
      */
     @Environment(EnvType.CLIENT)
     @Override
-    public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, TooltipDisplay tooltipDisplay, Consumer<Component> consumer, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext,
+                                TooltipDisplay tooltipDisplay, Consumer<Component> consumer, TooltipFlag tooltipFlag) {
         super.appendHoverText(itemStack, tooltipContext, tooltipDisplay, consumer, tooltipFlag);
 
         boolean advancedKeyDown = Screen.hasShiftDown();

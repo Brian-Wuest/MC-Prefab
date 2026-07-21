@@ -32,7 +32,7 @@ public class ServerPayloadHandler {
             StructureScannerConfig config = payload.scannerInfo().ToConfig();
             ServerPlayer serverPlayer = (ServerPlayer)context.player();
 
-            StructureScannerBlockEntity.ScanShape(config, serverPlayer, serverPlayer.serverLevel());
+            StructureScannerBlockEntity.ScanShape(config, serverPlayer, serverPlayer.level());
         });
     }
 
@@ -46,7 +46,7 @@ public class ServerPayloadHandler {
             StructureConfiguration configuration = structureConfig.structureConfig.ReadFromCompoundTag(payload.structureTagMessage().getMessageTag());
             ServerPlayer serverPlayer = (ServerPlayer) context.player();
 
-            configuration.BuildStructure(serverPlayer, serverPlayer.serverLevel());
+            configuration.BuildStructure(serverPlayer, serverPlayer.level());
         });
     }
 }

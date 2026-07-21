@@ -1,9 +1,7 @@
 package com.prefab.structures.base;
 
-import com.google.common.collect.Lists;
 import com.prefab.ModRegistryBase;
 import com.prefab.PrefabBase;
-import com.prefab.Triple;
 import com.prefab.Tuple;
 import com.prefab.blocks.FullDyeColor;
 import com.prefab.config.ModConfiguration;
@@ -11,7 +9,6 @@ import com.prefab.registries.StrictBuildingRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
@@ -28,9 +25,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BedPart;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * This class is used to hold he generalized building methods used by the starting house.

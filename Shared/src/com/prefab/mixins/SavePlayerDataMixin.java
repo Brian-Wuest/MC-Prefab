@@ -1,6 +1,7 @@
 package com.prefab.mixins;
 
 import com.mojang.authlib.GameProfile;
+import com.prefab.Utils;
 import com.prefab.config.EntityPlayerConfiguration;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
@@ -44,7 +45,7 @@ public class SavePlayerDataMixin {
 
         EntityPlayerConfiguration prefabConfiguration = new EntityPlayerConfiguration();
 
-        if (valueInput.contains("PrefabTag")) {
+        if (Utils.valueInputContains(valueInput,"PrefabTag")) {
             CompoundTag prefabTag = valueInput.read("PrefabTag", CompoundTag.CODEC).orElse(new CompoundTag());
 
             //PrefabBase.logger.info("Loading prefab tag information from player data.", prefabTag);
@@ -59,4 +60,5 @@ public class SavePlayerDataMixin {
             EntityPlayerConfiguration.playerTagData.replace(prefabPlayerId, prefabConfiguration);
         }
     }
+
 }

@@ -32,7 +32,8 @@ public class ItemBulldozer extends com.prefab.structures.items.ItemBulldozer {
      */
     @Environment(EnvType.CLIENT)
     @Override
-    public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, TooltipDisplay tooltipDisplay, Consumer<Component> consumer, TooltipFlag tooltipFlag){
+    public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, TooltipDisplay tooltipDisplay,
+                                Consumer<Component> consumer, TooltipFlag tooltipFlag){
         super.appendHoverText(itemStack, tooltipContext, tooltipDisplay, consumer, tooltipFlag);
 
         boolean advancedKeyDown = Screen.hasShiftDown();

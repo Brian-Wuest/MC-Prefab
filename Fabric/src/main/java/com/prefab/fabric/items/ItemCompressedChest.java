@@ -31,7 +31,8 @@ public class ItemCompressedChest extends com.prefab.items.ItemCompressedChest {
      */
     @Environment(EnvType.CLIENT)
     @Override
-    public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, TooltipDisplay tooltipDisplay, Consumer<Component> consumer, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext,
+                                TooltipDisplay tooltipDisplay, Consumer<Component> consumer, TooltipFlag tooltipFlag) {
         consumer.accept(GuiLangKeys.translateToComponent(GuiLangKeys.COMPRESSED_CHEST));
     }
 }

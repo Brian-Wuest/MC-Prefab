@@ -2,12 +2,15 @@ package com.prefab.neoforge.items;
 
 import com.prefab.gui.GuiLangKeys;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class ItemCompressedChest extends com.prefab.items.ItemCompressedChest {
     /**
@@ -23,7 +26,8 @@ public class ItemCompressedChest extends com.prefab.items.ItemCompressedChest {
      */
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag flagIn) {
-        tooltip.add(GuiLangKeys.translateToComponent(GuiLangKeys.COMPRESSED_CHEST));
+    public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext,
+                                TooltipDisplay tooltipDisplay, Consumer<Component> consumer, TooltipFlag tooltipFlag) {
+        consumer.accept(GuiLangKeys.translateToComponent(GuiLangKeys.COMPRESSED_CHEST));
     }
 }

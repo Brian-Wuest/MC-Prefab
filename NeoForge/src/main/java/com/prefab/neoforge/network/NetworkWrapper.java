@@ -8,6 +8,7 @@ import com.prefab.network.message.TagMessage;
 import com.prefab.network.payloads.*;
 import com.prefab.structures.messages.StructureTagMessage;
 import net.minecraft.server.level.ServerPlayer;
+import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 public class NetworkWrapper implements INetworkWrapper {
@@ -49,19 +50,19 @@ public class NetworkWrapper implements INetworkWrapper {
     private void sendStructureTagMessage(StructureTagMessage message) {
         StructurePayload payload = new StructurePayload(message);
 
-        PacketDistributor.sendToServer(payload);
+        ClientPacketDistributor.sendToServer(payload);
     }
 
     private void sendScannerConfigMessage(ScannerInfo message) {
         ScannerConfigPayload scannerConfigPayload = new ScannerConfigPayload(message);
 
-        PacketDistributor.sendToServer(scannerConfigPayload);
+        ClientPacketDistributor.sendToServer(scannerConfigPayload);
     }
 
     private void sendScannerScanMessage(ScannerInfo message) {
         ScanShapePayload scanShapePayload = new ScanShapePayload(message);
 
-        PacketDistributor.sendToServer(scanShapePayload);
+        ClientPacketDistributor.sendToServer(scanShapePayload);
     }
 
     private void sendModConfigSyncMessage(TagMessage message, ServerPlayer player) {
