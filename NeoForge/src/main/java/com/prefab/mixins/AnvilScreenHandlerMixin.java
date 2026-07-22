@@ -1,4 +1,4 @@
-package com.prefab.neoforge.mixins;
+package com.prefab.mixins;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import com.prefab.ModRegistryBase;

@@ -4,8 +4,7 @@
   "package": "com.prefab.mixins",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "SavePlayerDataMixin",
-    "AnvilScreenHandlerMixin"
+    "SavePlayerDataMixin"
   ],
   "client": [
     "RenderIndicatorMixin",
