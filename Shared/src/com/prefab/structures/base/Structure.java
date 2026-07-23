@@ -702,6 +702,11 @@ public class Structure {
                     this.world.removeBlockEntity(tileEntityPos);
                 }
 
+                if (tileBlock.isAir()) {
+                    // The original block was never set so we cannot place this tile entity.
+                    continue;
+                }
+
                 tileEntity = BlockEntity.loadStatic(tileEntityPos, tileBlock, buildTileEntity.getEntityDataTag(), this.world.registryAccess());
 
                 if (tileEntity == null) {
