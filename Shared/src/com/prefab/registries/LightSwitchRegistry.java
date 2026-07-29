@@ -29,7 +29,7 @@ public class LightSwitchRegistry extends ILevelBasedRegistry<BlockPos> {
 
     public void flipSwitch(Level level, BlockPos incomingBlockPos, boolean turnOn) {
         // Don't do anything client-side.
-        if (!level.isClientSide && this.internalRegistry.containsKey(level)) {
+        if (!level.isClientSide() && this.internalRegistry.containsKey(level)) {
             Vector<BlockPos> blockPositions = this.internalRegistry.get(level);
 
             // Make sure to check for null in-case the key was removed between the contains check and the get.

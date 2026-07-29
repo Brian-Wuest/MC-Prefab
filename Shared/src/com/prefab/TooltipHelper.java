@@ -1,5 +1,7 @@
 package com.prefab;
 
+import net.minecraft.client.Minecraft;
+
 public class TooltipHelper {
     private  static Boolean isClient = null;
 
@@ -29,7 +31,7 @@ public class TooltipHelper {
     private  static class ClientAccess {
         private static boolean checkShift() {
             // Note: fully qualify this to avoid top-level import/loading.
-            return net.minecraft.client.gui.screens.Screen.hasShiftDown();
+            return Minecraft.getInstance().hasShiftDown();
         }
     }
 }

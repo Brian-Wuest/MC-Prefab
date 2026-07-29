@@ -14,7 +14,7 @@ import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 
 /**
@@ -29,7 +29,7 @@ public abstract class GuiStructure extends GuiBase {
     protected Button btnCancel;
     protected Button btnBuild;
     protected Button btnVisualize;
-    protected ResourceLocation structureImageLocation;
+    protected Identifier structureImageLocation;
     protected StructureConfiguration configuration;
     protected Structure selectedStructure;
     protected Direction structureFacing;

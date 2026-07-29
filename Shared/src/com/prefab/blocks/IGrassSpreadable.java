@@ -19,7 +19,7 @@ public interface IGrassSpreadable {
      * @param random  The random value used for checking.
      */
     default void DetermineGrassSpread(BlockState state, ServerLevel worldIn, BlockPos pos, RandomSource random) {
-        if (!worldIn.isClientSide) {
+        if (!worldIn.isClientSide()) {
             // This is equivalent to light level 9.
             if (worldIn.getBrightness(LightLayer.SKY, pos.above()) >= 0.2727273) {
                 for (int i = 0; i < 4; ++i) {

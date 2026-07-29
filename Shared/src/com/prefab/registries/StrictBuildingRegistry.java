@@ -5,7 +5,7 @@ import com.prefab.Utils;
 import com.prefab.config.ModConfiguration;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -18,16 +18,16 @@ import java.util.Optional;
 import java.util.stream.Collector;
 
 public class StrictBuildingRegistry {
-    private final ArrayList<ResourceLocation> overwritableBlockResourceLocations;
+    private final ArrayList<Identifier> overwritableBlockIdentifiers;
     private final ArrayList<Block> overwritableBlocks;
 
     public StrictBuildingRegistry() {
-        this.overwritableBlockResourceLocations = new ArrayList<>();
+        this.overwritableBlockIdentifiers = new ArrayList<>();
         this.overwritableBlocks = new ArrayList<>();
     }
 
-    public ArrayList<ResourceLocation> getOverwritableBlockResourceLocations() {
-        return this.overwritableBlockResourceLocations;
+    public ArrayList<Identifier> getOverwritableBlockIdentifiers() {
+        return this.overwritableBlockIdentifiers;
     }
 
     public ArrayList<Block> getOverwritableBlocks() {
@@ -50,21 +50,21 @@ public class StrictBuildingRegistry {
      */
     private void addStandardBlocks() {
         this.overwritableBlocks.add(Blocks.AIR);
-        this.overwritableBlockResourceLocations.add(BuiltInRegistries.BLOCK.getKey(Blocks.AIR));
+        this.overwritableBlockIdentifiers.add(BuiltInRegistries.BLOCK.getKey(Blocks.AIR));
         this.overwritableBlocks.add(Blocks.WATER);
-        this.overwritableBlockResourceLocations.add(BuiltInRegistries.BLOCK.getKey(Blocks.WATER));
+        this.overwritableBlockIdentifiers.add(BuiltInRegistries.BLOCK.getKey(Blocks.WATER));
         this.overwritableBlocks.add(Blocks.LAVA);
-        this.overwritableBlockResourceLocations.add(BuiltInRegistries.BLOCK.getKey(Blocks.LAVA));
+        this.overwritableBlockIdentifiers.add(BuiltInRegistries.BLOCK.getKey(Blocks.LAVA));
     }
 
     private void processBlocks(ModConfiguration modConfiguration) {
-        ArrayList<ResourceLocation> resourceLocations = processStringCollection(modConfiguration.strictModeOptions.overwritableBlocks);
+        ArrayList<Identifier> resourceLocations = processStringCollection(modConfiguration.strictModeOptions.overwritableBlocks);
 
         // Go through each resource location and make sure it's a valid block.
-        HashMap<String, ResourceLocation> validBlockKeys = new HashMap<>();
+        HashMap<String, Identifier> validBlockKeys = new HashMap<>();
         HashMap<String, Block> validBlocks = new HashMap<>();
 
-        for (ResourceLocation resourceLocation : resourceLocations) {
+        for (Identifier resourceLocation : resourceLocations) {
             // Don't put duplicate blocks in the hashmap
             if (!validBlockKeys.containsKey(resourceLocation.getPath())) {
                 Optional<Block> foundBlock = BuiltInRegistries.BLOCK.getOptional(resourceLocation);
@@ -83,12 +83,12 @@ public class StrictBuildingRegistry {
         }
 
         // All the blocks in the validBlockKeys are okay to add to the main collection.
-        this.overwritableBlockResourceLocations.addAll(validBlockKeys.values());
+        this.overwritableBlockIdentifiers.addAll(validBlockKeys.values());
         this.overwritableBlocks.addAll(validBlocks.values());
     }
 
     private void processTags(ModConfiguration modConfiguration) {
-        ArrayList<ResourceLocation> tags = this.processStringCollection(modConfiguration.strictModeOptions.overwritableTags);
+        ArrayList<Identifier> tags = this.processStringCollection(modConfiguration.strictModeOptions.overwritableTags);
 
         if (!tags.isEmpty()) {
             // Use a custom collector to pull all the tag names from the registry.
@@ -113,7 +113,7 @@ public class StrictBuildingRegistry {
             ArrayList<Block> allValidTagBlocks = new ArrayList<>();
 
             // We have tags to process, go through each one and get the blocks from each.
-            for (ResourceLocation tag : tags) {
+            for (Identifier tag : tags) {
                 TagKey<Block> registeredTag = registeredTags.get(tag.getPath().toLowerCase());
 
                 // If the registeredTag is null then it's not in the game.
@@ -143,20 +143,20 @@ public class StrictBuildingRegistry {
                 allValidTagBlocks.addAll(blocks);
             }
 
-            ArrayList<ResourceLocation> blockKeys = new ArrayList<>();
+            ArrayList<Identifier> blockKeys = new ArrayList<>();
 
             // Now that we have all the blocks, grab all the resource locations and make sure
             // That we don't have duplicates from the main collection
             for (int i = 0; i < allValidTagBlocks.size(); i++) {
                 Block block = allValidTagBlocks.get(i);
-                ResourceLocation blockKey = BuiltInRegistries.BLOCK.getKey(block);
+                Identifier blockKey = BuiltInRegistries.BLOCK.getKey(block);
 
-                Optional<ResourceLocation> matchingResourceLocations = this.getOverwritableBlockResourceLocations()
+                Optional<Identifier> matchingIdentifiers = this.getOverwritableBlockIdentifiers()
                         .stream()
                         .filter(x -> x.getPath().equalsIgnoreCase(blockKey.getPath()))
                         .findFirst();
 
-                if (matchingResourceLocations.isEmpty()) {
+                if (matchingIdentifiers.isEmpty()) {
                     blockKeys.add(blockKey);
                 }
                 else {
@@ -171,17 +171,17 @@ public class StrictBuildingRegistry {
                 }
             }
 
-            this.overwritableBlockResourceLocations.addAll(blockKeys);
+            this.overwritableBlockIdentifiers.addAll(blockKeys);
             this.overwritableBlocks.addAll(allValidTagBlocks);
         }
     }
 
-    private ArrayList<ResourceLocation> processStringCollection(@NotNull ArrayList<String> collection) {
-        ArrayList<ResourceLocation> resourceLocations = new ArrayList<>();
+    private ArrayList<Identifier> processStringCollection(@NotNull ArrayList<String> collection) {
+        ArrayList<Identifier> resourceLocations = new ArrayList<>();
 
         for (String value : collection) {
             if (!StringUtils.isBlank(value)) {
-                ResourceLocation resourceLocation = ResourceLocation.tryParse(value);
+                Identifier resourceLocation = Identifier.tryParse(value);
 
                 if (resourceLocation != null) {
                     resourceLocations.add(resourceLocation);

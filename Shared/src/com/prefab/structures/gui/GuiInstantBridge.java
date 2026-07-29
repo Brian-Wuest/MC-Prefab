@@ -17,13 +17,13 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.awt.*;
 
 @SuppressWarnings("SpellCheckingInspection")
 public class GuiInstantBridge extends GuiStructure {
-    private static final ResourceLocation structureTopDown = ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/instant_bridge.png");
+    private static final Identifier structureTopDown = Identifier.tryBuild(PrefabBase.MODID, "textures/gui/instant_bridge.png");
     protected InstantBridgeConfiguration specificConfiguration;
     protected ModConfiguration serverConfiguration;
     private ExtendedButton btnMaterialType;

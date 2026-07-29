@@ -5,7 +5,7 @@ import com.prefab.PrefabBase;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Blocks;
@@ -19,7 +19,7 @@ public class BlockDirtSlab extends SlabBlock implements IGrassSpreadable {
     public BlockDirtSlab() {
         super(BlockBehaviour.Properties.ofFullCopy(Blocks.DIRT)
                 .setId(ResourceKey.create(Registries.BLOCK,
-                        ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID,
+                        Identifier.fromNamespaceAndPath(PrefabBase.MODID,
                         "block_dirt_slab")))
                 .mapColor(MapColor.DIRT)
                 .sound(SoundType.GRAVEL)

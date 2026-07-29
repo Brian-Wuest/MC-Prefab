@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.RenderBuffers;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class GuiUtils {
     private static final RenderBuffers renderBuffers = initRenderBuffers();
@@ -21,17 +21,17 @@ public class GuiUtils {
         return new RenderBuffers(j);
     }
 
-    public static void bindAndDrawTexture(ResourceLocation resourceLocation, GuiGraphics guiGraphics, int x, int y,
+    public static void bindAndDrawTexture(Identifier resourceLocation, GuiGraphics guiGraphics, int x, int y,
                                           int z, int width, int height, int textureWidth, int textureHeight) {
-        GuiUtils.bindTexture(resourceLocation);
+        //GuiUtils.bindTexture(resourceLocation);
         GuiUtils.drawTexture(resourceLocation, guiGraphics, x, y, z, width, height, textureWidth, textureHeight);
     }
 
 
-    public static void bindAndDrawScaledTexture(ResourceLocation resourceLocation, GuiGraphics guiGraphics, int x,
+    public static void bindAndDrawScaledTexture(Identifier resourceLocation, GuiGraphics guiGraphics, int x,
                                                 int y, int width, int height, int regionWidth, int regionHeight,
                                                 int textureWidth, int textureHeight) {
-        GuiUtils.bindTexture(resourceLocation);
+        //GuiUtils.bindTexture(resourceLocation);
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, resourceLocation,
                 x, y, 0, 0, width, height, textureWidth, textureHeight,
                 regionWidth, regionHeight);
@@ -42,11 +42,11 @@ public class GuiUtils {
      *
      * @param resourceLocation The resource location to bind.
      */
-    public static void bindTexture(ResourceLocation resourceLocation) {
+    public static void bindTexture(Identifier resourceLocation) {
         TextureManager textureManager = Minecraft.getInstance().getTextureManager();
         AbstractTexture abstractTexture = textureManager.getTexture(resourceLocation);
-        abstractTexture.setUseMipmaps(false);
-        RenderSystem.setShaderTexture(0, abstractTexture.getTextureView());
+        //abstractTexture.setUseMipmaps(false);
+        //RenderSystem.setShaderTexture(0, abstractTexture.getTextureView());
     }
 
     /**
@@ -61,7 +61,7 @@ public class GuiUtils {
      * @param textureWidth     The width of the texture.
      * @param textureHeight    The height of the texture.
      */
-    public static void drawTexture(ResourceLocation resourceLocation, GuiGraphics guiGraphics, int x, int y,
+    public static void drawTexture(Identifier resourceLocation, GuiGraphics guiGraphics, int x, int y,
                                    int z, int width, int height, int textureWidth, int textureHeight) {
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, resourceLocation,
                 x, y, 0, 0, width, height, textureWidth, textureHeight,

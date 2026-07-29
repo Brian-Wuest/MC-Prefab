@@ -9,7 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -95,13 +95,13 @@ public class BlockLightSwitch extends TileBlockBase<LightSwitchBlockEntity> {
     public BlockLightSwitch() {
         super(BlockBehaviour.Properties.of()
                 .setId(ResourceKey.create(Registries.BLOCK,
-                        ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID,
+                        Identifier.fromNamespaceAndPath(PrefabBase.MODID,
                                 "block_light_switch")))
                 .mapColor(MapColor.TERRACOTTA_RED)
                 .pushReaction(PushReaction.DESTROY)
                 .noOcclusion()
                 .strength(1.5F, 10.0F)
-                .noCollission()
+                .noCollision()
                 .strength(0.5F).
                 sound(SoundType.WOOD));
 
@@ -136,7 +136,7 @@ public class BlockLightSwitch extends TileBlockBase<LightSwitchBlockEntity> {
 
     @Override
     public @NotNull InteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             BlockState updatedBlockState = this.cycleSwitch(blockState, level, blockPos);
             float f = updatedBlockState.getValue(POWERED) ? 0.6F : 0.5F;
             SoundEvent soundEvent = updatedBlockState.getValue(POWERED) ? SoundEvents.STONE_BUTTON_CLICK_ON : SoundEvents.STONE_BUTTON_CLICK_OFF;
@@ -206,7 +206,7 @@ public class BlockLightSwitch extends TileBlockBase<LightSwitchBlockEntity> {
 
     @Override
     public void setPlacedBy(Level level, BlockPos blockPos, BlockState blockState, @Nullable LivingEntity livingEntity, ItemStack itemStack) {
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             ModRegistryBase.serverModRegistries.getLightSwitchRegistry().register(level, blockPos);
         }
     }

@@ -1,6 +1,5 @@
 package com.prefab.gui.controls;
 
-import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -9,13 +8,15 @@ import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratedElementType;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
 import net.minecraft.util.StringUtil;
+import net.minecraft.util.Util;
 import org.jetbrains.annotations.Nullable;
 
 import java.awt.*;
@@ -169,8 +170,8 @@ public class GuiTextBox extends AbstractWidget implements Renderable, GuiEventLi
         this.updateTextPosition();
     }
 
-    private void deleteText(int i) {
-        if (Screen.hasControlDown()) {
+    private void deleteText(int i, boolean bl) {
+        if (bl) {
             this.deleteWords(i);
         } else {
             this.deleteChars(i);
@@ -272,12 +273,12 @@ public class GuiTextBox extends AbstractWidget implements Renderable, GuiEventLi
         this.moveCursorTo(this.value.length(), bl);
     }
 
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+    public boolean keyPressed(KeyEvent keyEvent) {
         if (this.isActive() && this.isFocused()) {
-            switch (keyCode) {
+            switch (keyEvent.key()) {
                 case 259:
                     if (this.isEditable) {
-                        this.deleteText(-1);
+                        this.deleteText(-1, keyEvent.hasControlDownWithQuirk());
                     }
 
                     return true;
@@ -287,21 +288,21 @@ public class GuiTextBox extends AbstractWidget implements Renderable, GuiEventLi
                 case 266:
                 case 267:
                 default:
-                    if (Screen.isSelectAll(keyCode)) {
+                    if (keyEvent.isSelectAll()) {
                         this.moveCursorToEnd(false);
                         this.setHighlightPos(0);
                         return true;
-                    } else if (Screen.isCopy(keyCode)) {
+                    } else if (keyEvent.isCopy()) {
                         Minecraft.getInstance().keyboardHandler.setClipboard(this.getHighlighted());
                         return true;
-                    } else if (Screen.isPaste(keyCode)) {
+                    } else if (keyEvent.isPaste()) {
                         if (this.isEditable()) {
                             this.insertText(Minecraft.getInstance().keyboardHandler.getClipboard());
                         }
 
                         return true;
                     } else {
-                        if (Screen.isCut(keyCode)) {
+                        if (keyEvent.isCut()) {
                             Minecraft.getInstance().keyboardHandler.setClipboard(this.getHighlighted());
                             if (this.isEditable()) {
                                 this.insertText("");
@@ -314,31 +315,31 @@ public class GuiTextBox extends AbstractWidget implements Renderable, GuiEventLi
                     }
                 case 261:
                     if (this.isEditable) {
-                        this.deleteText(1);
+                        this.deleteText(1, keyEvent.hasControlDownWithQuirk());
                     }
 
                     return true;
                 case 262:
-                    if (Screen.hasControlDown()) {
-                        this.moveCursorTo(this.getWordPosition(1), Screen.hasShiftDown());
+                    if (keyEvent.hasControlDownWithQuirk()) {
+                        this.moveCursorTo(this.getWordPosition(1), keyEvent.hasShiftDown());
                     } else {
-                        this.moveCursor(1, Screen.hasShiftDown());
+                        this.moveCursor(1, keyEvent.hasShiftDown());
                     }
 
                     return true;
                 case 263:
-                    if (Screen.hasControlDown()) {
-                        this.moveCursorTo(this.getWordPosition(-1), Screen.hasShiftDown());
+                    if (keyEvent.hasControlDownWithQuirk()) {
+                        this.moveCursorTo(this.getWordPosition(-1), keyEvent.hasShiftDown());
                     } else {
-                        this.moveCursor(-1, Screen.hasShiftDown());
+                        this.moveCursor(-1, keyEvent.hasShiftDown());
                     }
 
                     return true;
                 case 268:
-                    this.moveCursorToStart(Screen.hasShiftDown());
+                    this.moveCursorToStart(keyEvent.hasShiftDown());
                     return true;
                 case 269:
-                    this.moveCursorToEnd(Screen.hasShiftDown());
+                    this.moveCursorToEnd(keyEvent.hasShiftDown());
                     return true;
             }
         } else {
@@ -364,14 +365,26 @@ public class GuiTextBox extends AbstractWidget implements Renderable, GuiEventLi
         }
     }
 
-    public void onClick(double d, double e) {
-        int i = Mth.floor(d) - this.getX();
-        if (this.bordered) {
-            i -= 4;
+    public void onClick(MouseButtonEvent mouseButtonEvent, boolean bl) {
+        if (bl) {
+            this.selectWord(mouseButtonEvent);
+        } else {
+            this.moveCursorTo(this.findClickedPositionInText(mouseButtonEvent), mouseButtonEvent.hasShiftDown());
         }
+    }
 
-        String string = this.font.plainSubstrByWidth(this.value.substring(this.displayPos), this.getInnerWidth());
-        this.moveCursorTo(this.font.plainSubstrByWidth(string, i).length() + this.displayPos, Screen.hasShiftDown());
+    private void selectWord(MouseButtonEvent mouseButtonEvent) {
+        int i = this.findClickedPositionInText(mouseButtonEvent);
+        int j = this.getWordPosition(-1, i);
+        int k = this.getWordPosition(1, i);
+        this.moveCursorTo(j, false);
+        this.moveCursorTo(k, true);
+    }
+
+    private int findClickedPositionInText(MouseButtonEvent mouseButtonEvent) {
+        int i = Math.min(Mth.floor(mouseButtonEvent.x()) - this.textX, this.getInnerWidth());
+        String string = this.value.substring(this.displayPos);
+        return this.displayPos + this.font.plainSubstrByWidth(string, i).length();
     }
 
     public void setFocus(boolean isFocused) {
@@ -425,7 +438,11 @@ public class GuiTextBox extends AbstractWidget implements Renderable, GuiEventLi
 
             if (n != l) {
                 int p = this.textX + this.font.width(string.substring(0, n));
-                guiGraphics.textHighlight(Math.min(o, this.getX() + this.width), this.textY - 1, Math.min(p - 1, this.getX() + this.width), this.textY + 1 + 9);
+                int var10001 = Math.min(o, this.getX() + this.width);
+                int var10002 = this.textY - 1;
+                int var10003 = Math.min(p - 1, this.getX() + this.width);
+                int var10004 = this.textY + 1;
+                guiGraphics.textHighlight(var10001, var10002, var10003, var10004 + 9, true);
             }
 
             if (bl2) {

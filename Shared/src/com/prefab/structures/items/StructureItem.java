@@ -28,7 +28,7 @@ public class StructureItem extends Item {
      */
     @Override
     public InteractionResult useOn(UseOnContext context) {
-        if (context.getLevel().isClientSide) {
+        if (context.getLevel().isClientSide()) {
             if (context.getClickedFace() == Direction.UP) {
                 if (PrefabBase.useScanningMode) {
                     this.scanningMode(context);

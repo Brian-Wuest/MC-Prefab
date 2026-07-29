@@ -10,7 +10,9 @@ import com.prefab.structures.items.ItemBasicStructure;
 import com.prefab.structures.items.StructureItem;
 import com.prefab.structures.messages.StructureTagMessage;
 import com.prefab.structures.render.StructureRenderHandler;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientWorldEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.ItemStack;
 
@@ -24,6 +26,8 @@ public class ClientEvents {
         StructureClientEventHandler.registerStructureClientSideEvents();
 
         ClientEvents.registerClientEndTick();
+
+        ClientEvents.registerClientStartedEvent();
     }
 
     public static void registerClientEndTick() {
@@ -60,6 +64,14 @@ public class ClientEvents {
                 }
             }
         });
+    }
+
+    public static void registerClientStartedEvent() {
+        ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
+            ClientModRegistryBase.RegisterGuis();
+        });
+
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {});
     }
 
     public static boolean checkIfStackIsCorrectGui(StructureTagMessage.EnumStructureConfiguration currentConfiguration, ItemStack stack) {

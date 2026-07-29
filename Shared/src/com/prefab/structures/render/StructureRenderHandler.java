@@ -15,14 +15,18 @@ import com.prefab.structures.config.StructureConfiguration;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.gizmos.GizmoStyle;
+import net.minecraft.gizmos.Gizmos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
+import net.minecraft.util.ARGB;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import org.joml.Matrix4f;
 
 @SuppressWarnings({"WeakerAccess", "ConstantConditions"})
@@ -33,6 +37,7 @@ public class StructureRenderHandler {
     public static boolean showedMessage = false;
     private static int dimension;
     private static Minecraft mcInstance;
+    private static final int YELLOW = ARGB.color(255, 255, 255, 0);
 
     /**
      * Resets the structure to show in the world.
@@ -102,7 +107,15 @@ public class StructureRenderHandler {
             float r, float g, float b, float a,
             double lineThickness) {
 
-        Matrix4f matrix4f = matrixStack.last().pose();
+        Gizmos.cuboid(
+                        new AABB(
+                                blockXOffset, blockStartYOffset, blockZOffset, xLength, height, zLength
+                        ),
+                        GizmoStyle.stroke(YELLOW, 1.0F)
+                )
+                .setAlwaysOnTop();
+
+        /*Matrix4f matrix4f = matrixStack.last().pose();
 
         if (r <= -1.0F || r > 1.0F) {
             r = 1.0F;
@@ -124,7 +137,7 @@ public class StructureRenderHandler {
         float translatedY = (float) (blockStartYOffset - cameraY + .02);
         float translatedYEnd = (float) (translatedY + height - .02);
         float translatedZ = blockZOffset - cameraZ;
-        RenderType renderType = RenderType.debugLineStrip(lineThickness);
+        RenderType renderType = Gizmos.line(lineThickness);
 
         // Draw the verticals of the box.
         VertexConsumer bufferBuilder = multiBufferSource.getBuffer(renderType);
@@ -171,7 +184,7 @@ public class StructureRenderHandler {
         bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedYEnd, translatedZ).setColor(r, g, b, a);
 
         bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedYEnd, translatedZ + zLength).setColor(r, g, b, a);
-        bufferBuilder.addVertex(matrix4f, translatedX, translatedYEnd, translatedZ + zLength).setColor(r, g, b, a);
+        bufferBuilder.addVertex(matrix4f, translatedX, translatedYEnd, translatedZ + zLength).setColor(r, g, b, a);*/
     }
 
     public static void renderScanningBoxes(PoseStack matrixStack,

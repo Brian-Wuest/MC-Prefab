@@ -11,7 +11,7 @@ import com.prefab.structures.items.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
@@ -30,13 +30,13 @@ import java.util.function.Consumer;
 
 public class ModRegistryBase {
     public static final ArrayList<Consumer<Object>> guiRegistrations = new ArrayList<>();
-    public static final TagKey<Item> COPPER_INGOTS = TagKey.create(Registries.ITEM, ResourceLocation.tryBuild("c", "ingots/copper"));
+    public static final TagKey<Item> COPPER_INGOTS = TagKey.create(Registries.ITEM, Identifier.tryBuild("c", "ingots/copper"));
 
     /* *********************************** TagKeys *********************************** */
-    public static final TagKey<Item> OSMIUM_INGOTS = TagKey.create(Registries.ITEM, ResourceLocation.tryBuild("c", "ingots/osmium"));
-    public static final TagKey<Item> BRONZE_INGOTS = TagKey.create(Registries.ITEM, ResourceLocation.tryBuild("c", "ingots/bronze"));
-    public static final TagKey<Item> STEEL_INGOTS = TagKey.create(Registries.ITEM, ResourceLocation.tryBuild("c", "ingots/steel"));
-    public static final TagKey<Item> OBSIDIAN_TAG = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "obsidians/normal"));
+    public static final TagKey<Item> OSMIUM_INGOTS = TagKey.create(Registries.ITEM, Identifier.tryBuild("c", "ingots/osmium"));
+    public static final TagKey<Item> BRONZE_INGOTS = TagKey.create(Registries.ITEM, Identifier.tryBuild("c", "ingots/bronze"));
+    public static final TagKey<Item> STEEL_INGOTS = TagKey.create(Registries.ITEM, Identifier.tryBuild("c", "ingots/steel"));
+    public static final TagKey<Item> OBSIDIAN_TAG = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "obsidians/normal"));
     public static final ToolMaterial COPPER_MATERIAL = new ToolMaterial(
             BlockTags.INCORRECT_FOR_STONE_TOOL,
             ToolMaterial.STONE.durability(),
@@ -637,15 +637,15 @@ public class ModRegistryBase {
     }
 
     public void initializeSounds() {
-        ModRegistryBase.BuildingBlueprint = SoundEvent.createVariableRangeEvent(ResourceLocation.tryBuild(PrefabBase.MODID, "building_blueprint"));
+        ModRegistryBase.BuildingBlueprint = SoundEvent.createVariableRangeEvent(Identifier.tryBuild(PrefabBase.MODID, "building_blueprint"));
     }
 
     public ResourceKey<Block> createBlockKey(String name) {
-        return ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID, name));
+        return ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(PrefabBase.MODID, name));
     }
 
     public ResourceKey<Item> createItemKey(String name) {
-        return ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID, name));
+        return ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(PrefabBase.MODID, name));
     }
 
     public BlockBehaviour.Properties setBlockId(BlockBehaviour.Properties properties, String name) {

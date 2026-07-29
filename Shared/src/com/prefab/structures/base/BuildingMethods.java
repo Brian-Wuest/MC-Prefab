@@ -10,6 +10,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.permissions.Permissions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
@@ -218,7 +219,7 @@ public class BuildingMethods {
      */
     public static AllowedBlockReplacementResult CheckBuildSpaceForAllowedBlockReplacement(ServerLevel world, BlockPos startBlockPos, BlockPos endBlockPos,
                                                                                           Player player) {
-        if (!world.isClientSide) {
+        if (!world.isClientSide()) {
             // Check each block in the space to be cleared if it's protected from
             // breaking or placing, if it is return false.
             StrictBuildingRegistry strictBuildingRegistry = ModRegistryBase.serverModRegistries.getStrictBuildingRegistry();
@@ -261,12 +262,12 @@ public class BuildingMethods {
                     // If it is, then see if the player is an operator (Cheats enabled) and that the operator bypass option
                     // is also not enabled.
                     if (PrefabBase.serverConfiguration.strictModeOptions.enabled
-                            && !(player.hasPermissions(2)
+                            && !(player.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER)
                             && PrefabBase.serverConfiguration.strictModeOptions.operatorsBypassRestrictions)) {
                         // Check the overwritable block resource locations now.
                         // If none of them match the current block then return with a not-allowed status with this block
                         // state and the position.
-                        if (strictBuildingRegistry.getOverwritableBlockResourceLocations()
+                        if (strictBuildingRegistry.getOverwritableBlockIdentifiers()
                                 .stream()
                                 .noneMatch(x -> x.getPath().equalsIgnoreCase(resourceLocation))) {
                             return new AllowedBlockReplacementResult(ReplacementResultType.NOT_ALLOWED_STRICT_BUILDING_MODE, blockState, currentPos);

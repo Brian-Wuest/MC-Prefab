@@ -17,7 +17,7 @@ import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.FormattedText;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.item.DyeColor;
 import org.jetbrains.annotations.NotNull;
@@ -28,12 +28,12 @@ import java.util.List;
 
 public abstract class GuiBase extends Screen {
 
-    private final ResourceLocation backgroundTextures = ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/default_background.png");
-    private final ResourceLocation complexStructureBackgroundTextures = ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/complex_structure_background.png");
-    private final ResourceLocation narrowPanelTexture = ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/custom_background.png");
-    private final ResourceLocation leftPanelTexture = ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/custom_left_panel.png");
-    private final ResourceLocation middlePanelTexture = ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/custom_middle_panel.png");
-    private final ResourceLocation rightPanelTexture = ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/custom_right_panel.png");
+    private final Identifier backgroundTextures = Identifier.tryBuild(PrefabBase.MODID, "textures/gui/default_background.png");
+    private final Identifier complexStructureBackgroundTextures = Identifier.tryBuild(PrefabBase.MODID, "textures/gui/complex_structure_background.png");
+    private final Identifier narrowPanelTexture = Identifier.tryBuild(PrefabBase.MODID, "textures/gui/custom_background.png");
+    private final Identifier leftPanelTexture = Identifier.tryBuild(PrefabBase.MODID, "textures/gui/custom_left_panel.png");
+    private final Identifier middlePanelTexture = Identifier.tryBuild(PrefabBase.MODID, "textures/gui/custom_middle_panel.png");
+    private final Identifier rightPanelTexture = Identifier.tryBuild(PrefabBase.MODID, "textures/gui/custom_right_panel.png");
     protected int modifiedInitialXAxis = 0;
     protected int modifiedInitialYAxis = 0;
     protected int imagePanelWidth = 0;
@@ -242,7 +242,7 @@ public abstract class GuiBase extends Screen {
                 height);
     }
 
-    protected void drawStandardControlBoxAndImage(GuiGraphics guiGraphics, ResourceLocation imageLocation, int x, int y, int mouseX, int mouseY, float partialTicks) {
+    protected void drawStandardControlBoxAndImage(GuiGraphics guiGraphics, Identifier imageLocation, int x, int y, int mouseX, int mouseY, float partialTicks) {
         guiGraphics.guiRenderState.reset();
         this.renderBackground(guiGraphics, x, y, 0);
         this.drawControlBackground(guiGraphics, x, y, this.imagePanelWidth, this.imagePanelHeight);

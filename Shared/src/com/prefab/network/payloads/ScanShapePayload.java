@@ -5,7 +5,7 @@ import com.prefab.network.message.ScannerInfo;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -14,7 +14,7 @@ public class ScanShapePayload implements CustomPacketPayload {
     private final ScannerInfo scannerInfo;
 
     public static final Type<ScanShapePayload> PACKET_TYPE = new Type<>(
-            Objects.requireNonNull(ResourceLocation.tryBuild(PrefabBase.MODID, "structure_scanner_action")));
+            Objects.requireNonNull(Identifier.tryBuild(PrefabBase.MODID, "structure_scanner_action")));
 
     public static final StreamCodec<FriendlyByteBuf, ScanShapePayload> STREAM_CODEC = CustomPacketPayload.codec(
             ScanShapePayload::write,

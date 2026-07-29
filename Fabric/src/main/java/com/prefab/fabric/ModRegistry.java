@@ -26,7 +26,7 @@ import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditionType;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -40,7 +40,7 @@ import java.util.ArrayList;
  */
 public class ModRegistry extends ModRegistryBase {
     public static final ResourceConditionType<RecipeEnabledCondition> RECIPE_ENABLED =
-            ResourceConditionType.create(ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID, "recipe_enabled"), RecipeEnabledCondition.CODEC);
+            ResourceConditionType.create(Identifier.fromNamespaceAndPath(PrefabBase.MODID, "recipe_enabled"), RecipeEnabledCondition.CODEC);
     private static final ArrayList<Item> ModItems = new ArrayList<>();
     /* *********************************** Item Group *********************************** */
     private static final CreativeModeTab ITEM_GROUP = FabricItemGroup.builder()
@@ -59,7 +59,7 @@ public class ModRegistry extends ModRegistryBase {
             .title(Utils.createTextComponent("Prefab"))
             .build();
     // This variable may not be used, but the registration is still needed.
-    public static final CreativeModeTab creativeModeTab = Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, ResourceLocation.tryBuild(PrefabBase.MODID, "logo"), ITEM_GROUP);
+    public static final CreativeModeTab creativeModeTab = Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, Identifier.tryBuild(PrefabBase.MODID, "logo"), ITEM_GROUP);
 
     @Override
     public void initializeModLoaderBlocks() {
@@ -137,7 +137,7 @@ public class ModRegistry extends ModRegistryBase {
     }
 
     private void registerSounds() {
-        Registry.register(BuiltInRegistries.SOUND_EVENT, ResourceLocation.tryBuild(PrefabBase.MODID, "building_blueprint"), ModRegistryBase.BuildingBlueprint);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, Identifier.tryBuild(PrefabBase.MODID, "building_blueprint"), ModRegistryBase.BuildingBlueprint);
     }
 
     private void registerBlockEntities() {
@@ -350,11 +350,11 @@ public class ModRegistry extends ModRegistryBase {
     }
 
     private void registerBlock(String registryName, Block block) {
-        Registry.register(BuiltInRegistries.BLOCK, ResourceLocation.tryBuild(PrefabBase.MODID, registryName), block);
+        Registry.register(BuiltInRegistries.BLOCK, Identifier.tryBuild(PrefabBase.MODID, registryName), block);
     }
 
     private void registerItem(String registryName, Item item) {
-        Registry.register(BuiltInRegistries.ITEM, ResourceLocation.tryBuild(PrefabBase.MODID, registryName), item);
+        Registry.register(BuiltInRegistries.ITEM, Identifier.tryBuild(PrefabBase.MODID, registryName), item);
         ModRegistry.ModItems.add(item);
     }
 

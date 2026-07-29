@@ -11,7 +11,7 @@ import com.prefab.structures.base.BuildBlock;
 import com.prefab.structures.predefined.StructureHouse;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -214,61 +214,61 @@ public class HouseConfiguration extends StructureConfiguration {
         BASIC(
                 0,
                 GuiLangKeys.HOUSE_BASIC_DISPLAY,
-                ResourceLocation.tryBuild("prefab", "textures/gui/house_basic.png"),
+                Identifier.tryBuild("prefab", "textures/gui/house_basic.png"),
                 "assets/prefab/structures/house_basic.gz"),
-        RANCH(1, GuiLangKeys.HOUSE_RANCH_DISPLAY, ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/house_ranch.png"),
+        RANCH(1, GuiLangKeys.HOUSE_RANCH_DISPLAY, Identifier.tryBuild(PrefabBase.MODID, "textures/gui/house_ranch.png"),
                 "assets/prefab/structures/house_ranch.gz"),
-        LOFT(2, GuiLangKeys.HOUSE_LOFT_DISPLAY, ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/house_loft.png"),
+        LOFT(2, GuiLangKeys.HOUSE_LOFT_DISPLAY, Identifier.tryBuild(PrefabBase.MODID, "textures/gui/house_loft.png"),
                 "assets/prefab/structures/house_loft.gz"),
-        HOBBIT(3, GuiLangKeys.HOUSE_HOBBIT_DISPLAY, ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/house_hobbit.png"),
+        HOBBIT(3, GuiLangKeys.HOUSE_HOBBIT_DISPLAY, Identifier.tryBuild(PrefabBase.MODID, "textures/gui/house_hobbit.png"),
                 "assets/prefab/structures/house_hobbit.gz"),
-        DESERT(4, GuiLangKeys.HOUSE_DESERT_DISPLAY, ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/house_desert.png"),
+        DESERT(4, GuiLangKeys.HOUSE_DESERT_DISPLAY, Identifier.tryBuild(PrefabBase.MODID, "textures/gui/house_desert.png"),
                 "assets/prefab/structures/house_desert.gz"),
-        SNOWY(5, GuiLangKeys.HOUSE_SNOWY_DISPLAY, ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/house_snowy.png"),
+        SNOWY(5, GuiLangKeys.HOUSE_SNOWY_DISPLAY, Identifier.tryBuild(PrefabBase.MODID, "textures/gui/house_snowy.png"),
                 "assets/prefab/structures/house_snow.gz"),
         DESERT2(6,
                 GuiLangKeys.HOUSE_DESERT_DISPLAY2,
-                ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/house_desert_2.png"),
+                Identifier.tryBuild(PrefabBase.MODID, "textures/gui/house_desert_2.png"),
                 "assets/prefab/structures/house_desert_2.gz"),
         SUBAQUATIC(7,
                 GuiLangKeys.HOUSE_SUBAQUATIC_DISPLAY,
-                ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/house_subaquatic.png"),
+                Identifier.tryBuild(PrefabBase.MODID, "textures/gui/house_subaquatic.png"),
                 "assets/prefab/structures/house_sub_aqua.gz"),
         MODERN(8,
                 GuiLangKeys.HOUSE_MODERN_DISPLAY,
-                ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/house_modern.png"),
+                Identifier.tryBuild(PrefabBase.MODID, "textures/gui/house_modern.png"),
                 "assets/prefab/structures/house_modern.gz"),
         CAMPSITE(9,
                 GuiLangKeys.HOUSE_CAMPING_DISPLAY,
-                ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/house_campsite.png"),
+                Identifier.tryBuild(PrefabBase.MODID, "textures/gui/house_campsite.png"),
                 "assets/prefab/structures/house_campsite.gz"),
         IZBA(10,
                 GuiLangKeys.HOUSE_IZBA_DISPLAY,
-                ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/house_izba.png"),
+                Identifier.tryBuild(PrefabBase.MODID, "textures/gui/house_izba.png"),
                 "assets/prefab/structures/house_izba.gz"),
         TOWER(11,
                 GuiLangKeys.HOUSE_TOWER_DISPLAY,
-                ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/house_tower.png"),
+                Identifier.tryBuild(PrefabBase.MODID, "textures/gui/house_tower.png"),
                 "assets/prefab/structures/house_tower.gz"),
         CABIN(12,
                 GuiLangKeys.HOUSE_CABIN_DISPLAY,
-                ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/house_cabin.png"),
+                Identifier.tryBuild(PrefabBase.MODID, "textures/gui/house_cabin.png"),
                 "assets/prefab/structures/house_cabin.gz"),
         TREE(13,
                 GuiLangKeys.HOUSE_TREE_HOUSE_DISPLAY,
-                ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/house_tree.png"),
+                Identifier.tryBuild(PrefabBase.MODID, "textures/gui/house_tree.png"),
                 "assets/prefab/structures/house_tree.gz"),
         MUSHROOM(14,
                 GuiLangKeys.HOUSE_MUSHROOM_HOUSE_DISPLAY,
-                ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/house_mushroom.png"),
+                Identifier.tryBuild(PrefabBase.MODID, "textures/gui/house_mushroom.png"),
                 "assets/prefab/structures/house_mushroom.gz");
 
         private final int value;
         private final String displayName;
-        private final ResourceLocation housePicture;
+        private final Identifier housePicture;
         private final String structureLocation;
 
-        HouseStyle(int newValue, String displayName, ResourceLocation housePicture, String structureLocation) {
+        HouseStyle(int newValue, String displayName, Identifier housePicture, String structureLocation) {
             this.value = newValue;
             this.displayName = displayName;
             this.housePicture = housePicture;
@@ -321,7 +321,7 @@ public class HouseConfiguration extends StructureConfiguration {
          *
          * @return A resource location representing the image to use for this style.
          */
-        public ResourceLocation getHousePicture() {
+        public Identifier getHousePicture() {
             return this.housePicture;
         }
 

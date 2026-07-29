@@ -4,7 +4,7 @@ import com.prefab.PrefabBase;
 import com.prefab.Utils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -24,7 +24,7 @@ public class ItemSickle extends Item {
     public static HashSet<Block> effectiveBlocks = new HashSet<>();
     public static TagKey<Block> MOWABLE = TagKey.create(
             Registries.BLOCK,
-            ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID, "mowable"));
+            Identifier.fromNamespaceAndPath(PrefabBase.MODID, "mowable"));
     protected int breakRadius = 0;
     public ToolMaterial toolMaterial;
 
@@ -58,7 +58,7 @@ public class ItemSickle extends Item {
     @Override
     public boolean mineBlock(ItemStack stack, Level worldIn, BlockState state, BlockPos pos,
                              LivingEntity entityLiving) {
-        if (!worldIn.isClientSide) {
+        if (!worldIn.isClientSide()) {
             stack.hurtAndBreak(1, entityLiving, EquipmentSlot.MAINHAND);
 
             if (entityLiving instanceof Player) {

@@ -5,7 +5,7 @@ import com.prefab.Utils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -19,7 +19,7 @@ public class BlockGlassStairs extends com.prefab.blocks.BlockGlassStairs {
     @Override
     @Environment(EnvType.CLIENT)
     public boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction side) {
-        boolean foundBlock = Utils.doesBlockStateHaveTag(adjacentBlockState,  ResourceLocation.parse("c:glass_blocks"));
+        boolean foundBlock = Utils.doesBlockStateHaveTag(adjacentBlockState,  Identifier.parse("c:glass_blocks"));
         Block adjacentBlock = adjacentBlockState.getBlock();
 
         return foundBlock || adjacentBlock == this

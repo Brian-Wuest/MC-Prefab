@@ -16,7 +16,7 @@ public class LightSwitchBlockEntity extends TileEntityBase<LightSwitchConfig> {
     public void setLevel(Level level) {
         super.setLevel(level);
 
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             ModRegistryBase.serverModRegistries.getLightSwitchRegistry().register(level, this.worldPosition);
         }
     }

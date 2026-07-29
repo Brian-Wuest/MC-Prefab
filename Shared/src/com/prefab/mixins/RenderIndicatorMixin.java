@@ -6,9 +6,9 @@ import com.prefab.ClientModRegistryBase;
 import com.prefab.structures.render.StructureRenderHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.debug.DebugRenderer;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -21,13 +21,12 @@ public class RenderIndicatorMixin {
     private final MultiBufferSource.BufferSource previewBufferSource = MultiBufferSource.immediate(
             new ByteBufferBuilder(RenderType.BIG_BUFFER_SIZE));
 
-    @Inject(method = "render", at = @At(value = "TAIL"))
-    public void renderWorldLast(PoseStack matrices,
-                                Frustum frustum,
-                                MultiBufferSource.BufferSource vertexConsumers,
+    @Inject(method = "emitGizmos", at = @At(value = "TAIL"))
+    public void renderWorldLast(Frustum frustum,
                                 double cameraX,
                                 double cameraY,
                                 double cameraZ,
+                                float partialTicks,
                                 CallbackInfo ci) {
         Minecraft prefabIndicatorMinecraft = Minecraft.getInstance();
 

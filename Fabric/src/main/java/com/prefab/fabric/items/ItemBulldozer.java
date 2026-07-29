@@ -1,11 +1,14 @@
 package com.prefab.fabric.items;
 
+import com.mojang.authlib.minecraft.client.MinecraftClient;
 import com.prefab.Utils;
 import com.prefab.gui.GuiLangKeys;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.vehicle.minecart.Minecart;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -36,7 +39,7 @@ public class ItemBulldozer extends com.prefab.structures.items.ItemBulldozer {
                                 Consumer<Component> consumer, TooltipFlag tooltipFlag){
         super.appendHoverText(itemStack, tooltipContext, tooltipDisplay, consumer, tooltipFlag);
 
-        boolean advancedKeyDown = Screen.hasShiftDown();
+        boolean advancedKeyDown = Minecraft.getInstance().hasShiftDown();
 
         if (!advancedKeyDown) {
             consumer.accept(GuiLangKeys.translateToComponent(GuiLangKeys.SHIFT_TOOLTIP));

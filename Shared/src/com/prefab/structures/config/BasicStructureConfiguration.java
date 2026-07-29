@@ -8,7 +8,7 @@ import com.prefab.structures.predefined.StructureBasic;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -224,7 +224,7 @@ public class BasicStructureConfiguration extends StructureConfiguration {
         private final String name;
         private final String itemTranslationString;
         private final BaseOption baseOption;
-        private ResourceLocation itemTextureLocation;
+        private Identifier itemTextureLocation;
         private final boolean guiShowConfigurationOptions;
 
         /**
@@ -246,7 +246,7 @@ public class BasicStructureConfiguration extends StructureConfiguration {
             this.itemTranslationString = itemTranslationString;
 
             if (itemTextureLocation != null) {
-                this.itemTextureLocation = ResourceLocation.tryBuild(PrefabBase.MODID, itemTextureLocation);
+                this.itemTextureLocation = Identifier.tryBuild(PrefabBase.MODID, itemTextureLocation);
             }
 
             this.baseOption = baseOption;
@@ -286,7 +286,7 @@ public class BasicStructureConfiguration extends StructureConfiguration {
          *
          * @return The resource location for the item texture.
          */
-        public ResourceLocation getItemTextureLocation() {
+        public Identifier getItemTextureLocation() {
             return this.itemTextureLocation;
         }
 

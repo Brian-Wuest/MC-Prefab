@@ -24,7 +24,7 @@ public class SavePlayerDataMixin {
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void writeCustomDataToTag(ValueOutput valueOutput, CallbackInfo ci) {
-        UUID prefabPlayerId = this.gameProfile.getId();
+        UUID prefabPlayerId = this.gameProfile.id();
         EntityPlayerConfiguration prefabConfiguration;
 
         if (!EntityPlayerConfiguration.playerTagData.containsKey(prefabPlayerId)) {
@@ -41,7 +41,7 @@ public class SavePlayerDataMixin {
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void readCustomDataFromTag(ValueInput valueInput, CallbackInfo ci) {
-        UUID prefabPlayerId = this.gameProfile.getId();
+        UUID prefabPlayerId = this.gameProfile.id();
 
         EntityPlayerConfiguration prefabConfiguration = new EntityPlayerConfiguration();
 

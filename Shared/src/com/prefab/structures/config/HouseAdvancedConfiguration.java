@@ -6,7 +6,7 @@ import com.prefab.gui.GuiLangKeys;
 import com.prefab.structures.predefined.StructureHouseAdvanced;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.DyeColor;
@@ -115,19 +115,19 @@ public class HouseAdvancedConfiguration extends StructureConfiguration {
      * @author WuestMan
      */
     public enum HouseStyle {
-        MANOR(0, GuiLangKeys.ADVANCED_HOUSE_MANOR, ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/house_advanced_manor.png"),
+        MANOR(0, GuiLangKeys.ADVANCED_HOUSE_MANOR, Identifier.tryBuild(PrefabBase.MODID, "textures/gui/house_advanced_manor.png"),
                 "assets/prefab/structures/house_advanced_manor.gz"),
-        WORKSHOP(1, GuiLangKeys.ADVANCED_HOUSE_WORKSHOP, ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/house_advanced_workshop.png"),
+        WORKSHOP(1, GuiLangKeys.ADVANCED_HOUSE_WORKSHOP, Identifier.tryBuild(PrefabBase.MODID, "textures/gui/house_advanced_workshop.png"),
                 "assets/prefab/structures/house_advanced_workshop.gz"),
-        ESTATE(2, GuiLangKeys.ADVANCED_HOUSE_ESTATE, ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/house_advanced_estate.png"),
+        ESTATE(2, GuiLangKeys.ADVANCED_HOUSE_ESTATE, Identifier.tryBuild(PrefabBase.MODID, "textures/gui/house_advanced_estate.png"),
                 "assets/prefab/structures/house_advanced_estate.gz");
 
         private final int value;
         private final String displayName;
-        private final ResourceLocation housePicture;
+        private final Identifier housePicture;
         private final String structureLocation;
 
-        HouseStyle(int newValue, String displayName, ResourceLocation housePicture, String structureLocation) {
+        HouseStyle(int newValue, String displayName, Identifier housePicture, String structureLocation) {
             this.value = newValue;
             this.displayName = displayName;
             this.housePicture = housePicture;
@@ -156,7 +156,7 @@ public class HouseAdvancedConfiguration extends StructureConfiguration {
             return this.displayName;
         }
 
-        public ResourceLocation getHousePicture() {
+        public Identifier getHousePicture() {
             return this.housePicture;
         }
 

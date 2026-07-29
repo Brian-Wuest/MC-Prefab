@@ -10,7 +10,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -39,7 +39,7 @@ public class BlockStructureScanner extends TileBlockBase<StructureScannerBlockEn
     public BlockStructureScanner() {
         super(Block.Properties.ofFullCopy(Blocks.STONE)
                 .setId(ResourceKey.create(Registries.BLOCK,
-                        ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID,
+                        Identifier.fromNamespaceAndPath(PrefabBase.MODID,
                                 "block_structure_scanner"))));
 
         this.registerDefaultState(this.defaultBlockState()
@@ -75,7 +75,7 @@ public class BlockStructureScanner extends TileBlockBase<StructureScannerBlockEn
 
     @Override
     public @NotNull InteractionResult useItemOn(ItemStack itemStack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if (world.isClientSide) {
+        if (world.isClientSide()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
 
             if (blockEntity instanceof StructureScannerBlockEntity) {

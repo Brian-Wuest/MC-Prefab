@@ -5,7 +5,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.TagParser;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 /**
  * This class is used to define the necessary properties to describe an entity to be generated when a structure is
@@ -26,7 +26,7 @@ public class BuildEntity {
 	@Expose
 	private int entityId;
 	@Expose
-	private String entityResourceLocation;
+	private String entityIdentifier;
 	@Expose
 	private PositionOffset startingPosition;
 	@Expose
@@ -48,19 +48,19 @@ public class BuildEntity {
 	}
 
 	public String getEntityResourceString() {
-		return this.entityResourceLocation;
+		return this.entityIdentifier;
 	}
 
 	public void setEntityResourceString(String value) {
-		this.entityResourceLocation = value;
+		this.entityIdentifier = value;
 	}
 
-	public void setEntityResourceString(ResourceLocation value) {
-		this.entityResourceLocation = value.toString();
+	public void setEntityResourceString(Identifier value) {
+		this.entityIdentifier = value.toString();
 	}
 
-	public ResourceLocation getEntityResource() {
-		return ResourceLocation.parse(this.entityResourceLocation);
+	public Identifier getEntityResource() {
+		return Identifier.parse(this.entityIdentifier);
 	}
 
 	public PositionOffset getStartingPosition() {

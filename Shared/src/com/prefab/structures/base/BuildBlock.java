@@ -9,7 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.TagParser;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
@@ -468,8 +468,8 @@ public class BuildBlock {
         this.blockName = value;
     }
 
-    public ResourceLocation getResourceLocation() {
-        return ResourceLocation.tryBuild(this.blockDomain, this.blockName);
+    public Identifier getIdentifier() {
+        return Identifier.tryBuild(this.blockDomain, this.blockName);
     }
 
     public PositionOffset getStartingPosition() {

@@ -5,14 +5,14 @@ import com.prefab.network.message.TagMessage;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 public class ConfigSyncPayload implements CustomPacketPayload {
     private final TagMessage tagMessage;
 
     public static final CustomPacketPayload.Type<ConfigSyncPayload> PACKET_TYPE = new CustomPacketPayload.Type<>(
-            ResourceLocation.tryBuild(PrefabBase.MODID, "config_sync"));
+            Identifier.tryBuild(PrefabBase.MODID, "config_sync"));
 
     public static final StreamCodec<FriendlyByteBuf, ConfigSyncPayload> STREAM_CODEC = CustomPacketPayload.codec(
             ConfigSyncPayload::write,

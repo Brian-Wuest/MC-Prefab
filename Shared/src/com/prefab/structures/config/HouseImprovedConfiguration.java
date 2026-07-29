@@ -6,7 +6,7 @@ import com.prefab.gui.GuiLangKeys;
 import com.prefab.structures.predefined.StructureHouseImproved;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.DyeColor;
@@ -142,37 +142,37 @@ public class HouseImprovedConfiguration extends StructureConfiguration {
      * @author WuestMan
      */
     public enum HouseStyle {
-        SPRUCE_HOME(0, GuiLangKeys.IMPROVED_HOUSE_SPRUCE, ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/house_improved_spruce.png"),
+        SPRUCE_HOME(0, GuiLangKeys.IMPROVED_HOUSE_SPRUCE, Identifier.tryBuild(PrefabBase.MODID, "textures/gui/house_improved_spruce.png"),
                 "assets/prefab/structures/house_improved_spruce.gz"),
-        ACACIA_HOME(1, GuiLangKeys.IMPROVED_HOUSE_ACACIA, ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/house_improved_acacia.png"),
+        ACACIA_HOME(1, GuiLangKeys.IMPROVED_HOUSE_ACACIA, Identifier.tryBuild(PrefabBase.MODID, "textures/gui/house_improved_acacia.png"),
                 "assets/prefab/structures/house_improved_acacia.gz"),
-        EARTHEN_HOME(2, GuiLangKeys.IMPROVED_EARTHEN_HOME, ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/house_improved_earthen.png"),
+        EARTHEN_HOME(2, GuiLangKeys.IMPROVED_EARTHEN_HOME, Identifier.tryBuild(PrefabBase.MODID, "textures/gui/house_improved_earthen.png"),
                 "assets/prefab/structures/house_improved_earthen.gz"),
-        JUNGLE_TREE_HOME(3, GuiLangKeys.IMPROVED_JUNGLE_HOME, ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/house_improved_jungle.png"),
+        JUNGLE_TREE_HOME(3, GuiLangKeys.IMPROVED_JUNGLE_HOME, Identifier.tryBuild(PrefabBase.MODID, "textures/gui/house_improved_jungle.png"),
                 "assets/prefab/structures/house_improved_jungle.gz"),
-        NETHER_HOME(4, GuiLangKeys.IMPROVED_NETHER_HOME, ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/house_improved_nether.png"),
+        NETHER_HOME(4, GuiLangKeys.IMPROVED_NETHER_HOME, Identifier.tryBuild(PrefabBase.MODID, "textures/gui/house_improved_nether.png"),
                 "assets/prefab/structures/house_improved_nether.gz"),
-        MOUNTAIN_HOME(5, GuiLangKeys.IMPROVED_MOUNTAIN_HOME, ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/house_improved_mountain.png"),
+        MOUNTAIN_HOME(5, GuiLangKeys.IMPROVED_MOUNTAIN_HOME, Identifier.tryBuild(PrefabBase.MODID, "textures/gui/house_improved_mountain.png"),
                 "assets/prefab/structures/house_improved_mountain.gz"),
-        ACACIA_HOME2(6, GuiLangKeys.IMPROVED_HOUSE_ACACIA_2, ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/house_improved_acacia_2.png"),
+        ACACIA_HOME2(6, GuiLangKeys.IMPROVED_HOUSE_ACACIA_2, Identifier.tryBuild(PrefabBase.MODID, "textures/gui/house_improved_acacia_2.png"),
                 "assets/prefab/structures/house_improved_acacia_2.gz"),
-        MODERN_HOME(7, GuiLangKeys.IMPROVED_HOUSE_MODERN, ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/house_improved_modern.png"),
+        MODERN_HOME(7, GuiLangKeys.IMPROVED_HOUSE_MODERN, Identifier.tryBuild(PrefabBase.MODID, "textures/gui/house_improved_modern.png"),
                 "assets/prefab/structures/house_improved_modern.gz"),
-        CRIMSON_HOME(8, GuiLangKeys.IMPROVED_HOUSE_CRIMSON, ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/house_improved_crimson.png"),
+        CRIMSON_HOME(8, GuiLangKeys.IMPROVED_HOUSE_CRIMSON, Identifier.tryBuild(PrefabBase.MODID, "textures/gui/house_improved_crimson.png"),
                 "assets/prefab/structures/house_improved_crimson.gz"),
-        TOWER_HOME(9, GuiLangKeys.IMPROVED_HOUSE_TOWER, ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/house_improved_tower.png"),
+        TOWER_HOME(9, GuiLangKeys.IMPROVED_HOUSE_TOWER, Identifier.tryBuild(PrefabBase.MODID, "textures/gui/house_improved_tower.png"),
                 "assets/prefab/structures/house_improved_tower.gz"),
-        HOBBIT_HOME(10, GuiLangKeys.IMPROVED_HOUSE_HOBBIT, ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/house_improved_hobbit.png"),
+        HOBBIT_HOME(10, GuiLangKeys.IMPROVED_HOUSE_HOBBIT, Identifier.tryBuild(PrefabBase.MODID, "textures/gui/house_improved_hobbit.png"),
                 "assets/prefab/structures/house_improved_hobbit.gz"),
-        COTTAGE_HOME(11, GuiLangKeys.IMPROVED_HOUSE_COTTAGE, ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/house_improved_cottage.png"),
+        COTTAGE_HOME(11, GuiLangKeys.IMPROVED_HOUSE_COTTAGE, Identifier.tryBuild(PrefabBase.MODID, "textures/gui/house_improved_cottage.png"),
                 "assets/prefab/structures/house_improved_cottage.gz");
 
         private final int value;
         private final String displayName;
-        private final ResourceLocation housePicture;
+        private final Identifier housePicture;
         private final String structureLocation;
 
-        HouseStyle(int newValue, String displayName, ResourceLocation housePicture, String structureLocation) {
+        HouseStyle(int newValue, String displayName, Identifier housePicture, String structureLocation) {
             this.value = newValue;
             this.displayName = displayName;
             this.housePicture = housePicture;
@@ -201,7 +201,7 @@ public class HouseImprovedConfiguration extends StructureConfiguration {
             return this.displayName;
         }
 
-        public ResourceLocation getHousePicture() {
+        public Identifier getHousePicture() {
             return this.housePicture;
         }
 

@@ -121,7 +121,7 @@ public class BlockBoundary extends Block {
     @Override
     public void neighborChanged(BlockState blockState, Level level, BlockPos blockPos, Block block,
                                 @Nullable Orientation orientation, boolean bl) {
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             // Only worry about powering blocks.
             if (block.defaultBlockState().isSignalSource()) {
                 boolean poweredSide = level.hasNeighborSignal(blockPos);

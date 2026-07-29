@@ -8,7 +8,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -105,7 +105,7 @@ public class Utils {
      * @param location   The resource location of the tag to check for.
      * @return True if the tag exists on the block state; otherwise false.
      */
-    public static boolean doesBlockStateHaveTag(BlockState blockState, ResourceLocation location) {
+    public static boolean doesBlockStateHaveTag(BlockState blockState, Identifier location) {
         for (TagKey<Block> tagKey : blockState.getTags().toList()) {
             if (tagKey.location().toString().equalsIgnoreCase(location.toString())) {
                 return true;
@@ -121,7 +121,7 @@ public class Utils {
      * @param resourceLocation The resource location to check.
      * @return A collection of found blocks.
      */
-    public static ArrayList<ItemStack> getItemStacksWithTag(ResourceLocation resourceLocation) {
+    public static ArrayList<ItemStack> getItemStacksWithTag(Identifier resourceLocation) {
         TagKey<Item> tags = TagKey.create(Registries.ITEM, resourceLocation);
         ArrayList<ItemStack> itemStacks = new ArrayList<>();
 
@@ -136,7 +136,7 @@ public class Utils {
         if (!tag.contains("Name")) {
             return Blocks.AIR.defaultBlockState();
         } else {
-            Block block = BuiltInRegistries.BLOCK.getValue(ResourceLocation.parse(tag.getString("Name").orElse("")));
+            Block block = BuiltInRegistries.BLOCK.getValue(Identifier.parse(tag.getString("Name").orElse("")));
             BlockState blockState = block.defaultBlockState();
 
             if (tag.contains("Properties")) {

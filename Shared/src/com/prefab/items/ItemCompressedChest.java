@@ -3,7 +3,7 @@ package com.prefab.items;
 import com.prefab.PrefabBase;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 
 /**
@@ -18,7 +18,7 @@ public class ItemCompressedChest extends Item {
     public ItemCompressedChest() {
         super(new Item.Properties().setId(
                 ResourceKey.create(Registries.ITEM,
-                        ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID, "item_compressed_chest"))));
+                        Identifier.fromNamespaceAndPath(PrefabBase.MODID, "item_compressed_chest"))));
 
     }
 }

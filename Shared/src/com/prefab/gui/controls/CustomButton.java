@@ -9,15 +9,15 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.awt.*;
 
 
 public class CustomButton extends ExtendedButton {
-    private final ResourceLocation buttonTexture = ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/prefab_button.png");
-    private final ResourceLocation buttonTexturePressed = ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/prefab_button_pressed.png");
-    private final ResourceLocation buttonTextureHover = ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/prefab_button_highlight.png");
+    private final Identifier buttonTexture = Identifier.tryBuild(PrefabBase.MODID, "textures/gui/prefab_button.png");
+    private final Identifier buttonTexturePressed = Identifier.tryBuild(PrefabBase.MODID, "textures/gui/prefab_button_pressed.png");
+    private final Identifier buttonTextureHover = Identifier.tryBuild(PrefabBase.MODID, "textures/gui/prefab_button_highlight.png");
 
     private int stringColor;
 
@@ -46,15 +46,11 @@ public class CustomButton extends ExtendedButton {
      */
     @Override
     //renderWidget(GuiGraphics guiGraphics, int i, int j, float f)
-    public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partial) {
+    public void renderContents(GuiGraphics guiGraphics, int mouseX, int mouseY, float partial) {
         if (this.visible) {
             Minecraft mc = Minecraft.getInstance();
             this.isHovered = mouseX >= this.getX() && mouseY >= this.getY() && mouseX < this.getX() + this.width && mouseY < this.getY() + this.height;
-            ResourceLocation buttonTexture = this.isHovered ? this.buttonTextureHover : this.buttonTexture;
-            TextureManager textureManager = Minecraft.getInstance().getTextureManager();
-            AbstractTexture abstractTexture = textureManager.getTexture(buttonTexture);
-            abstractTexture.setUseMipmaps(false);
-            RenderSystem.setShaderTexture(0, abstractTexture.getTextureView());
+            Identifier buttonTexture = this.isHovered ? this.buttonTextureHover : this.buttonTexture;
 
             GuiUtils.bindAndDrawScaledTexture(buttonTexture, guiGraphics, this.getX(), this.getY(), this.width, this.height, 90, 20, 90, 20);
             int color = this.stringColor;

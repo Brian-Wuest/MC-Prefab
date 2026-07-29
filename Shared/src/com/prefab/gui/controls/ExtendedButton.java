@@ -2,6 +2,7 @@ package com.prefab.gui.controls;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.prefab.Utils;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -22,9 +23,14 @@ public class ExtendedButton extends Button {
         this.inactiveStringColor = Color.LIGHT_GRAY.getRGB();
     }
 
-    public int  getActiveStringColor() {
+    public int getActiveStringColor() {
         return activeStringColor;
     }
+
+    public void setActiveStringColor(int activeStringColor) {
+        this.activeStringColor = activeStringColor;
+    }
+
     public int getInactiveStringColor() {
         return inactiveStringColor;
     }
@@ -33,13 +39,10 @@ public class ExtendedButton extends Button {
         this.inactiveStringColor = inactiveStringColor;
     }
 
-    public void setActiveStringColor(int activeStringColor) {
-        this.activeStringColor = activeStringColor;
-    }
-
     @Override
-    public void renderString(GuiGraphics guiGraphics, Font font, int i) {
+    public void renderContents(GuiGraphics guiGraphics, int i, int j, float f) {
         Component buttonText = this.getMessage();
+        Font font = Minecraft.getInstance().font;
         int strWidth = font.width(buttonText);
         int ellipsisWidth = font.width("...");
 
@@ -47,16 +50,10 @@ public class ExtendedButton extends Button {
             buttonText = Utils.createTextComponent(font.substrByWidth(buttonText, width - 6 - ellipsisWidth).getString() + "...");
         }
 
-        PoseStack originalStack = new PoseStack();
-
-        originalStack.pushPose();
-        originalStack.scale(this.fontScale, this.fontScale, this.fontScale);
-
-        int xPosition = (int) ((this.getX() + this.width / 2));
-        int yPosition = (int) ((this.getY() + (this.height - 8) / 2));
-
+        int xPosition = ((this.getX() + this.width / 2));
+        int yPosition = ((this.getY() + (this.height - 8) / 2));
+        this.renderDefaultSprite(guiGraphics);
         guiGraphics.drawCenteredString(font, buttonText, xPosition, yPosition, this.getFGColor());
-        originalStack.popPose();
     }
 
     public int getFGColor() {

@@ -21,12 +21,13 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.decoration.HangingEntity;
 import net.minecraft.world.entity.decoration.ItemFrame;
@@ -194,7 +195,7 @@ public class Structure {
                     continue;
                 }
 
-                ResourceLocation resourceLocation = BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(tileEntity.getType());
+                Identifier resourceLocation = BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(tileEntity.getType());
                 CompoundTag tagCompound = tileEntity.saveWithFullMetadata(world.registryAccess());
 
                 BuildTileEntity buildTileEntity = new BuildTileEntity();
@@ -272,7 +273,7 @@ public class Structure {
      */
     public static BuildBlock createBuildBlockFromBlockState(BlockState currentState, Block currentBlock, BlockPos currentPos, BlockPos originalPos) {
         BuildBlock buildBlock = new BuildBlock();
-        ResourceLocation blockIdentifier = BuiltInRegistries.BLOCK.getKey(currentBlock);
+        Identifier blockIdentifier = BuiltInRegistries.BLOCK.getKey(currentBlock);
         buildBlock.setBlockDomain(blockIdentifier.getNamespace());
         buildBlock.setBlockName(blockIdentifier.getPath());
         buildBlock.setStartingPosition(Structure.getStartingPositionFromOriginalAndCurrentPosition(currentPos, originalPos));
@@ -421,7 +422,7 @@ public class Structure {
 
                 // Now place all of the blocks.
                 for (BuildBlock block : this.getBlocks()) {
-                    Block foundBlock = BuiltInRegistries.BLOCK.getValue(block.getResourceLocation());
+                    Block foundBlock = BuiltInRegistries.BLOCK.getValue(block.getIdentifier());
 
                     if (foundBlock != null) {
                         BlockState blockState = foundBlock.defaultBlockState();
@@ -436,7 +437,7 @@ public class Structure {
                             }
 
                             if (block.getSubBlock() != null) {
-                                foundBlock = BuiltInRegistries.BLOCK.getValue(block.getSubBlock().getResourceLocation());
+                                foundBlock = BuiltInRegistries.BLOCK.getValue(block.getSubBlock().getIdentifier());
                                 blockState = foundBlock.defaultBlockState();
 
                                 subBlock = BuildBlock.SetBlockState(configuration, world, originalPos, block.getSubBlock(), foundBlock, blockState, this);
@@ -467,7 +468,7 @@ public class Structure {
                         // Cannot find this block in the registry. This can happen if a structure file has a mod block that
                         // no longer exists.
                         // In this case, print an informational message and replace it with cobblestone.
-                        String blockTypeNotFound = block.getResourceLocation().toString();
+                        String blockTypeNotFound = block.getIdentifier().toString();
                         block = BuildBlock.SetBlockState(configuration, world, originalPos, block, Blocks.COBBLESTONE, Blocks.COBBLESTONE.defaultBlockState(), this);
                         this.priorityOneBlocks.add(block);
 
@@ -606,9 +607,11 @@ public class Structure {
                                                    Block foundBlock, BlockState blockState, Player player) {
         // Replace water blocks and waterlogged blocks with cobblestone when this is not an ultra warm world type.
         // Also check a configuration value to determine if water blocks are allowed in other non-overworld dimensions such as The End.
-        boolean isOverworld = Level.OVERWORLD.location().toString().equals(world.dimension().location().toString());
+        boolean isOverworld = Level.OVERWORLD.identifier().toString().equals(world.dimension().identifier().toString());
+        BlockPos setBlockPos = block.getStartingPosition().getRelativePosition(originalPos,
+                this.getClearSpace().getShape().getDirection(), configuration.houseFacing);
 
-        if (world.dimensionType().ultraWarm()
+        if (world.environmentAttributes().getValue(EnvironmentAttributes.WATER_EVAPORATES, setBlockPos)
                 || (!isOverworld && PrefabBase.serverConfiguration.allowWaterInNonOverworldDimensions)) {
             boolean foundWaterLikeBlock = (foundBlock instanceof LiquidBlock && blockState.getBlock() == Blocks.WATER)
                     || foundBlock instanceof SeagrassBlock;
@@ -626,13 +629,10 @@ public class Structure {
             }
 
             if (foundWaterLikeBlock) {
-                ResourceLocation cobbleIdentifier = BuiltInRegistries.BLOCK.getKey(Blocks.COBBLESTONE);
+                Identifier cobbleIdentifier = BuiltInRegistries.BLOCK.getKey(Blocks.COBBLESTONE);
                 block.setBlockDomain(cobbleIdentifier.getNamespace());
                 block.setBlockName(cobbleIdentifier.getPath());
                 block.setBlockState(Blocks.COBBLESTONE.defaultBlockState());
-
-                BlockPos setBlockPos = block.getStartingPosition().getRelativePosition(originalPos,
-                        this.getClearSpace().getShape().getDirection(), configuration.houseFacing);
 
                 world.setBlock(setBlockPos, block.getBlockState(), BlockFlags.DEFAULT);
                 return true;
@@ -647,9 +647,9 @@ public class Structure {
             return false;
         }
 
-        ResourceLocation blockIdentifier = BuiltInRegistries.BLOCK.getKey(foundBlock);
-        ResourceLocation glassIdentifier = BuiltInRegistries.BLOCK.getKey(Blocks.WHITE_STAINED_GLASS);
-        ResourceLocation glassPaneIdentifier = BuiltInRegistries.BLOCK.getKey(Blocks.WHITE_STAINED_GLASS_PANE);
+        Identifier blockIdentifier = BuiltInRegistries.BLOCK.getKey(foundBlock);
+        Identifier glassIdentifier = BuiltInRegistries.BLOCK.getKey(Blocks.WHITE_STAINED_GLASS);
+        Identifier glassPaneIdentifier = BuiltInRegistries.BLOCK.getKey(Blocks.WHITE_STAINED_GLASS_PANE);
 
         if (blockIdentifier.getNamespace().equals(glassIdentifier.getNamespace())
                 && blockIdentifier.getPath().endsWith("glass")) {

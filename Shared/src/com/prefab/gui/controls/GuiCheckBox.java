@@ -10,9 +10,10 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarratedElementType;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.input.InputWithModifiers;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.awt.*;
 
@@ -21,10 +22,10 @@ import java.awt.*;
  */
 @SuppressWarnings({"UnusedReturnValue", "unused"})
 public class GuiCheckBox extends AbstractButton {
-    private static final ResourceLocation buttonTexture = ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/prefab_checkbox.png");
-    private static final ResourceLocation buttonTexturePressed = ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/prefab_checkbox_selected.png");
-    private static final ResourceLocation buttonTextureHover = ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/prefab_checkbox_hover.png");
-    private static final ResourceLocation buttonTextureHoverSelected = ResourceLocation.tryBuild(PrefabBase.MODID, "textures/gui/prefab_checkbox_hover_selected.png");
+    private static final Identifier buttonTexture = Identifier.tryBuild(PrefabBase.MODID, "textures/gui/prefab_checkbox.png");
+    private static final Identifier buttonTexturePressed = Identifier.tryBuild(PrefabBase.MODID, "textures/gui/prefab_checkbox_selected.png");
+    private static final Identifier buttonTextureHover = Identifier.tryBuild(PrefabBase.MODID, "textures/gui/prefab_checkbox_hover.png");
+    private static final Identifier buttonTextureHoverSelected = Identifier.tryBuild(PrefabBase.MODID, "textures/gui/prefab_checkbox_hover_selected.png");
 
     protected int boxWidth;
     protected int boxHeight;
@@ -70,7 +71,7 @@ public class GuiCheckBox extends AbstractButton {
     }
 
     @Override
-    public void onPress() {
+    public void onPress(InputWithModifiers inputWithModifiers) {
         this.isChecked = !this.isChecked;
 
         if (this.handler != null) {
@@ -112,9 +113,9 @@ public class GuiCheckBox extends AbstractButton {
     }
 
     @Override
-    public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partial) {
+    public void renderContents(GuiGraphics guiGraphics, int mouseX, int mouseY, float partial) {
         if (this.visible) {
-            ResourceLocation resourceLocation = GuiCheckBox.buttonTexture;
+            Identifier resourceLocation = GuiCheckBox.buttonTexture;
             this.isHovered = mouseX >= this.getX() && mouseY >= this.getY() && mouseX < this.getX() + this.boxWidth && mouseY < this.getY() + this.height;
 
             if (this.isChecked()) {
