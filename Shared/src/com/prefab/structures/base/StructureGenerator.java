@@ -6,7 +6,10 @@ import com.prefab.Tuple;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.UUIDUtil;
-import net.minecraft.nbt.*;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.DoubleTag;
+import net.minecraft.nbt.IntArrayTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
@@ -223,10 +226,15 @@ public class StructureGenerator {
             StructureGenerator.removeWaterLogging(structure);
 
             for (BuildEntity buildEntity : structure.entities) {
-                Optional<EntityType<?>> entityType = EntityType.byString(buildEntity.getEntityResourceString());
+                String entityResourceString = buildEntity.getEntityResourceString();
 
-                if (entityType.isPresent()) {
-                    StructureGenerator.entitiesToGenerate.add(new Tuple<>(structure, buildEntity));
+                if (entityResourceString != null
+                        && !entityResourceString.isBlank()) {
+                    Optional<EntityType<?>> entityType = EntityType.byString(entityResourceString);
+
+                    if (entityType.isPresent()) {
+                        StructureGenerator.entitiesToGenerate.add(new Tuple<>(structure, buildEntity));
+                    }
                 }
             }
 
@@ -359,7 +367,7 @@ public class StructureGenerator {
 
             CompoundTag compoundTag = valueOutput.buildResult();
 
-            TagValueInput valueInput = (TagValueInput)TagValueInput.create(scopedCollector, entity.registryAccess(), compoundTag);
+            TagValueInput valueInput = (TagValueInput) TagValueInput.create(scopedCollector, entity.registryAccess(), compoundTag);
 
             entity.load(valueInput);
             StructureGenerator.updateEntityHangingBoundingBox(entity);
@@ -421,7 +429,7 @@ public class StructureGenerator {
 
             CompoundTag compoundTag = valueOutput.buildResult();
 
-            TagValueInput valueInput = (TagValueInput)TagValueInput.create(scopedCollector,
+            TagValueInput valueInput = (TagValueInput) TagValueInput.create(scopedCollector,
                     frame.registryAccess(), compoundTag);
 
             frame.load(valueInput);
