@@ -1,7 +1,6 @@
 package com.prefab.structures.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.text2speech.Narrator;
 import com.prefab.ClientModRegistryBase;
 import com.prefab.PrefabBase;
@@ -15,10 +14,8 @@ import com.prefab.structures.config.StructureConfiguration;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.gizmos.GizmoStyle;
 import net.minecraft.gizmos.Gizmos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -26,7 +23,7 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.util.ARGB;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
 
 @SuppressWarnings({"WeakerAccess", "ConstantConditions"})
@@ -107,15 +104,7 @@ public class StructureRenderHandler {
             float r, float g, float b, float a,
             double lineThickness) {
 
-        Gizmos.cuboid(
-                        new AABB(
-                                blockXOffset, blockStartYOffset, blockZOffset, xLength, height, zLength
-                        ),
-                        GizmoStyle.stroke(YELLOW, 1.0F)
-                )
-                .setAlwaysOnTop();
-
-        /*Matrix4f matrix4f = matrixStack.last().pose();
+        Matrix4f matrix4f = matrixStack.last().pose();
 
         if (r <= -1.0F || r > 1.0F) {
             r = 1.0F;
@@ -133,58 +122,49 @@ public class StructureRenderHandler {
             a = 1.0F;
         }
 
-        float translatedX = blockXOffset - cameraX;
-        float translatedY = (float) (blockStartYOffset - cameraY + .02);
-        float translatedYEnd = (float) (translatedY + height - .02);
-        float translatedZ = blockZOffset - cameraZ;
-        RenderType renderType = Gizmos.line(lineThickness);
+        float translatedYEnd = (blockStartYOffset + height);
+        int color = YELLOW;
 
         // Draw the verticals of the box.
-        VertexConsumer bufferBuilder = multiBufferSource.getBuffer(renderType);
-        bufferBuilder.addVertex(matrix4f, translatedX, translatedY, translatedZ).setColor(r, g, b, a);
-        bufferBuilder.addVertex(matrix4f, translatedX, translatedYEnd, translatedZ).setColor(r, g, b, a);
+        Gizmos.line(new Vec3(blockXOffset, blockStartYOffset, blockZOffset),
+                new Vec3(blockXOffset, translatedYEnd, blockZOffset), color);
 
-        bufferBuilder = multiBufferSource.getBuffer(renderType);
-        bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedY, translatedZ).setColor(r, g, b, a);
-        bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedYEnd, translatedZ).setColor(r, g, b, a);
+        Gizmos.line(new Vec3(blockXOffset + xLength, blockStartYOffset, blockZOffset),
+                new Vec3(blockXOffset + xLength, translatedYEnd, blockZOffset), color);
 
-        bufferBuilder = multiBufferSource.getBuffer(renderType);
-        bufferBuilder.addVertex(matrix4f, translatedX, translatedY, translatedZ + zLength).setColor(r, g, b, a);
-        bufferBuilder.addVertex(matrix4f, translatedX, translatedYEnd, translatedZ + zLength).setColor(r, g, b, a);
+        Gizmos.line(new Vec3(blockXOffset, blockStartYOffset, blockZOffset + zLength),
+                new Vec3(blockXOffset, translatedYEnd, blockZOffset + zLength), color);
 
-        bufferBuilder = multiBufferSource.getBuffer(renderType);
-        bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedY, translatedZ + zLength).setColor(r, g, b, a);
-        bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedYEnd, translatedZ + zLength).setColor(r, g, b, a);
+        Gizmos.line(new Vec3(blockXOffset + xLength, blockStartYOffset, blockZOffset + zLength),
+                new Vec3(blockXOffset + xLength, translatedYEnd, blockZOffset + zLength), color);
 
         // Draw bottom horizontals.
-        bufferBuilder = multiBufferSource.getBuffer(renderType);
 
-        bufferBuilder.addVertex(matrix4f, translatedX, translatedY, translatedZ).setColor(r, g, b, a);
-        bufferBuilder.addVertex(matrix4f, translatedX, translatedY, translatedZ + zLength).setColor(r, g, b, a);
+        Gizmos.line(new Vec3(blockXOffset, blockStartYOffset, blockZOffset),
+                new Vec3(blockXOffset, blockStartYOffset, blockZOffset + zLength), color);
 
-        bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedY, translatedZ + zLength).setColor(r, g, b, a);
-        bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedY, translatedZ).setColor(r, g, b, a);
+        Gizmos.line(new Vec3(blockXOffset, blockStartYOffset, blockZOffset),
+                new Vec3(blockXOffset + xLength, blockStartYOffset, blockZOffset), color);
 
-        bufferBuilder.addVertex(matrix4f, translatedX, translatedY, translatedZ).setColor(r, g, b, a);
-        bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedY, translatedZ).setColor(r, g, b, a);
+        Gizmos.line(new Vec3(blockXOffset + xLength, blockStartYOffset, blockZOffset),
+                new Vec3(blockXOffset + xLength, blockStartYOffset, blockZOffset + zLength), color);
 
-        bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedY, translatedZ + zLength).setColor(r, g, b, a);
-        bufferBuilder.addVertex(matrix4f, translatedX, translatedY, translatedZ + zLength).setColor(r, g, b, a);
+        Gizmos.line(new Vec3(blockXOffset + xLength, blockStartYOffset, blockZOffset + zLength),
+                new Vec3(blockXOffset, blockStartYOffset, blockZOffset + zLength), color);
 
         // Draw top horizontals
-        bufferBuilder = multiBufferSource.getBuffer(renderType);
 
-        bufferBuilder.addVertex(matrix4f, translatedX, translatedYEnd, translatedZ).setColor(r, g, b, a);
-        bufferBuilder.addVertex(matrix4f, translatedX, translatedYEnd, translatedZ + zLength).setColor(r, g, b, a);
+        Gizmos.line(new Vec3(blockXOffset, translatedYEnd, blockZOffset),
+                new Vec3(blockXOffset, translatedYEnd, blockZOffset + zLength), color);
 
-        bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedYEnd, translatedZ + zLength).setColor(r, g, b, a);
-        bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedYEnd, translatedZ).setColor(r, g, b, a);
+        Gizmos.line(new Vec3(blockXOffset, translatedYEnd, blockZOffset),
+                new Vec3(blockXOffset + xLength, translatedYEnd, blockZOffset), color);
 
-        bufferBuilder.addVertex(matrix4f, translatedX, translatedYEnd, translatedZ).setColor(r, g, b, a);
-        bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedYEnd, translatedZ).setColor(r, g, b, a);
+        Gizmos.line(new Vec3(blockXOffset + xLength, translatedYEnd, blockZOffset),
+                new Vec3(blockXOffset + xLength, translatedYEnd, blockZOffset + zLength), color);
 
-        bufferBuilder.addVertex(matrix4f, translatedX + xLength, translatedYEnd, translatedZ + zLength).setColor(r, g, b, a);
-        bufferBuilder.addVertex(matrix4f, translatedX, translatedYEnd, translatedZ + zLength).setColor(r, g, b, a);*/
+        Gizmos.line(new Vec3(blockXOffset + xLength, translatedYEnd, blockZOffset + zLength),
+                new Vec3(blockXOffset, translatedYEnd, blockZOffset + zLength), color);
     }
 
     public static void renderScanningBoxes(PoseStack matrixStack,
