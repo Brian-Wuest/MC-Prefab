@@ -33,7 +33,7 @@ public class GuiSlider extends AbstractSliderButton {
 
     @Override
     protected void applyValue() {
-        this.sliderValue = Mth.floor(Mth.clampedLerp(this.minValue, this.maxValue, this.value));
+        this.sliderValue = Mth.floor(Mth.lerp(Mth.clamp(this.value, 0.0, 1.0), this.minValue, this.maxValue));
     }
 
 }
