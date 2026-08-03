@@ -26,7 +26,7 @@ public class BuildEntity {
 	@Expose
 	private int entityId;
 	@Expose
-	private String entityIdentifier;
+	private String entityResourceLocation;
 	@Expose
 	private PositionOffset startingPosition;
 	@Expose
@@ -48,19 +48,19 @@ public class BuildEntity {
 	}
 
 	public String getEntityResourceString() {
-		return this.entityIdentifier;
+		return this.entityResourceLocation;
 	}
 
 	public void setEntityResourceString(String value) {
-		this.entityIdentifier = value;
+		this.entityResourceLocation = value;
 	}
 
 	public void setEntityResourceString(Identifier value) {
-		this.entityIdentifier = value.toString();
+		this.entityResourceLocation = value.toString();
 	}
 
 	public Identifier getEntityResource() {
-		return Identifier.parse(this.entityIdentifier);
+		return Identifier.parse(this.entityResourceLocation);
 	}
 
 	public PositionOffset getStartingPosition() {
