@@ -2,7 +2,7 @@ package com.prefab.neoforge.blocks;
 
 import com.prefab.Utils;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -17,13 +17,13 @@ public class BlockGlassSlab extends com.prefab.blocks.BlockGlassSlab {
 
     @Override
     public boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction side) {
-        if (!FMLEnvironment.dist.isClient()) {
+        if (!FMLEnvironment.getDist().isClient()) {
             super.skipRendering(state, adjacentBlockState, side);
         }
 
         Block adjacentBlock = adjacentBlockState.getBlock();
         boolean foundBlock = Utils.doesBlockStateHaveTag(
-                adjacentBlockState, ResourceLocation.parse("c:glass_blocks"));
+                adjacentBlockState, Identifier.parse("c:glass_blocks"));
 
 		/*
 			Hide this side under the following conditions

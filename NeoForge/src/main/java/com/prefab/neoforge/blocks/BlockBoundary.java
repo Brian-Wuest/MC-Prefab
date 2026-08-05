@@ -14,7 +14,7 @@ public class BlockBoundary extends com.prefab.blocks.BlockBoundary {
 
     @Override
     public boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction side) {
-        if (FMLEnvironment.dist.isClient()) {
+        if (FMLEnvironment.getDist().isClient()) {
             return !state.getValue(Powered);
         }
 

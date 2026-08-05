@@ -2,7 +2,7 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
-    id 'net.neoforged.moddev' version '2.0.142'
+    id 'net.neoforged.moddev' version '2.0.143'
     id 'idea'
 }
 
@@ -20,6 +20,11 @@ group = mod_group_id
 
 repositories {
     mavenLocal()
+
+    maven {
+        name = "shedaniel"
+        url = 'https://maven.shedaniel.me'
+    }
 }
 
 base {
@@ -117,13 +122,6 @@ sourceSets.main.resources {
 // "optional", meaning it will not be pulled by dependents of this mod.
 configurations {
     runtimeClasspath.extendsFrom localRuntime
-}
-
-repositories {
-    maven {
-        name = "shedaniel"
-        url = 'https://maven.shedaniel.me'
-    }
 }
 
 dependencies {

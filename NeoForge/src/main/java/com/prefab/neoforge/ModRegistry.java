@@ -23,7 +23,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -183,20 +183,20 @@ public class ModRegistry extends ModRegistryBase {
     }
 
     private void registerSounds() {
-        Registry.register(BuiltInRegistries.SOUND_EVENT, Objects.requireNonNull(ResourceLocation.tryBuild(PrefabBase.MODID, "building_blueprint")), ModRegistryBase.BuildingBlueprint);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, Objects.requireNonNull(Identifier.tryBuild(PrefabBase.MODID, "building_blueprint")), ModRegistryBase.BuildingBlueprint);
     }
 
     private void registerBlockEntities() {
         if (PrefabBase.isDebug) {
             ModRegistryBase.StructureScannerEntityType = Registry.register(
                     BuiltInRegistries.BLOCK_ENTITY_TYPE,
-                    ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID, "structure_scanner_entity"),
+                    Identifier.fromNamespaceAndPath(PrefabBase.MODID, "structure_scanner_entity"),
                     new BlockEntityType<>(StructureScannerBlockEntity::new, ModRegistryBase.StructureScanner));
         }
 
         ModRegistryBase.LightSwitchEntityType = Registry.register(
                 BuiltInRegistries.BLOCK_ENTITY_TYPE,
-                ResourceLocation.fromNamespaceAndPath(PrefabBase.MODID, "light_switch_entity"),
+                Identifier.fromNamespaceAndPath(PrefabBase.MODID, "light_switch_entity"),
                 new BlockEntityType<>(LightSwitchBlockEntity::new,
                         ModRegistryBase.LightSwitch));
     }
@@ -385,11 +385,11 @@ public class ModRegistry extends ModRegistryBase {
     }
 
     private void registerBlock(String registryName, Block block) {
-        Registry.register(BuiltInRegistries.BLOCK, Objects.requireNonNull(ResourceLocation.tryBuild(PrefabBase.MODID, registryName)), block);
+        Registry.register(BuiltInRegistries.BLOCK, Objects.requireNonNull(Identifier.tryBuild(PrefabBase.MODID, registryName)), block);
     }
 
     private void registerItem(String registryName, Item item) {
-        Registry.register(BuiltInRegistries.ITEM, Objects.requireNonNull(ResourceLocation.tryBuild(PrefabBase.MODID, registryName)), item);
+        Registry.register(BuiltInRegistries.ITEM, Objects.requireNonNull(Identifier.tryBuild(PrefabBase.MODID, registryName)), item);
         ModRegistry.ModItems.add(item);
     }
 }

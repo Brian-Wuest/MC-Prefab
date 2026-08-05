@@ -1,6 +1,7 @@
 package com.prefab.neoforge.items;
 
 import com.prefab.gui.GuiLangKeys;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
@@ -26,14 +27,14 @@ public class ItemSickle extends com.prefab.items.ItemSickle {
     @Override
     public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext,
                                 TooltipDisplay tooltipDisplay, Consumer<Component> consumer, TooltipFlag tooltipFlag) {
-        if (!FMLEnvironment.dist.isClient()) {
+        if (!FMLEnvironment.getDist().isClient()) {
             super.appendHoverText(itemStack, tooltipContext, tooltipDisplay, consumer, tooltipFlag);
             return;
         }
 
         super.appendHoverText(itemStack, tooltipContext, tooltipDisplay, consumer, tooltipFlag);
 
-        boolean advancedKeyDown = Screen.hasShiftDown();
+        boolean advancedKeyDown = Minecraft.getInstance().hasShiftDown();
 
         if (!advancedKeyDown) {
             consumer.accept(GuiLangKeys.translateToComponent(GuiLangKeys.SHIFT_TOOLTIP));

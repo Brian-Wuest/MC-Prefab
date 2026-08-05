@@ -134,7 +134,7 @@ public class BlockPhasic extends com.prefab.blocks.BlockPhasic {
         BlockPos blockPos = context.getClickedPos();
         boolean poweredSide = level.hasNeighborSignal(blockPos);
 
-        if (!level.isClientSide && poweredSide) {
+        if (!level.isClientSide() && poweredSide) {
             ModRegistryBase.serverModRegistries.getPhasicBlockRegistry().updateNeighborPhasicBlocks(
                     true, level, blockPos,
                     this.defaultBlockState(), false, false);
@@ -146,7 +146,7 @@ public class BlockPhasic extends com.prefab.blocks.BlockPhasic {
 
     @Override
     public boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction side) {
-        if (!FMLEnvironment.dist.isClient()) {
+        if (!FMLEnvironment.getDist().isClient()) {
             super.skipRendering(state, adjacentBlockState, side);
         }
         com.prefab.blocks.BlockPhasic.EnumPhasingProgress progress = state.getValue(Phasing_Progress);

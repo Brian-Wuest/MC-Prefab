@@ -8,8 +8,10 @@ import com.prefab.config.ModConfiguration;
 import com.prefab.config.RecipeMapGuiProvider;
 import com.prefab.config.StructureOptionGuiProvider;
 import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.AutoConfigClient;
 import me.shedaniel.autoconfig.gui.registry.GuiRegistry;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.resources.Identifier;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModLoadingContext;
@@ -19,6 +21,7 @@ import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.client.settings.KeyConflictContext;
 import net.neoforged.neoforge.client.settings.KeyModifier;
+import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
 
@@ -31,28 +34,34 @@ public class ModClientEvents {
     public static void onClientSetup(FMLClientSetupEvent event) {
         ClientModRegistryBase.RegisterGuis();
 
-        GuiRegistry registry = AutoConfig.getGuiRegistry(ModConfiguration.class);
+        GuiRegistry registry = AutoConfigClient.getGuiRegistry(ModConfiguration.class);
         RecipeMapGuiProvider providerMap = new RecipeMapGuiProvider();
         StructureOptionGuiProvider structureOptionGuiProvider = new StructureOptionGuiProvider();
 
-        registry.registerPredicateProvider(providerMap, (field) -> field.getDeclaringClass() == ModConfiguration.class && field.getName().equals("recipes"));
-        registry.registerPredicateProvider(structureOptionGuiProvider, (field) -> field.getDeclaringClass() == ModConfiguration.class && field.getName().equals("structureOptions"));
+        registry.registerPredicateProvider(providerMap, (field) -> field.getDeclaringClass() == ModConfiguration.class
+                && field.getName().equals("recipes"));
+        registry.registerPredicateProvider(structureOptionGuiProvider, (field) -> field.getDeclaringClass()
+                == ModConfiguration.class && field.getName().equals("structureOptions"));
 
-        ModLoadingContext.get().registerExtensionPoint(IConfigScreenFactory.class, () -> (container, parent) -> {
-            return AutoConfig.getConfigScreen(ModConfiguration.class, parent).get();
-        });
+        ModLoadingContext.get().registerExtensionPoint(IConfigScreenFactory.class, () -> (container, parent)
+                -> AutoConfigClient.getConfigScreen(ModConfiguration.class, parent).get());
     }
 
     /**
      * Contains the keybindings registered.
      */
     public static ArrayList<KeyMapping> keyBindings = new ArrayList<KeyMapping>();
+    public static KeyMapping.Category category;
 
     @SubscribeEvent
     public static void KeyBindRegistrationEvent(RegisterKeyMappingsEvent event) {
-        KeyMapping binding = new KeyMapping("Build Current Structure",
-                KeyConflictContext.IN_GAME, KeyModifier.ALT,
-                InputConstants.Type.KEYSYM, GLFW_KEY_B, "Prefab - Structure Preview");
+        category = KeyMapping.Category.register(Identifier.fromNamespaceAndPath(PrefabBase.MODID, "structure_preview"));
+        KeyMapping binding = new KeyMapping(
+                "Build Current Structure", // The translation key of the keybinding's name
+                InputConstants.Type.KEYSYM,
+                GLFW.GLFW_KEY_B,
+                category // The translation key of the keybinding's category.
+        );
 
         event.register(binding);
 

@@ -19,7 +19,7 @@ public class BlockPaperLantern extends com.prefab.blocks.BlockPaperLantern {
      */
     @Override
     public void animateTick(BlockState stateIn, Level worldIn, BlockPos pos, RandomSource rand) {
-        if (!FMLEnvironment.dist.isClient()) {
+        if (!FMLEnvironment.getDist().isClient()) {
             return;
         }
 

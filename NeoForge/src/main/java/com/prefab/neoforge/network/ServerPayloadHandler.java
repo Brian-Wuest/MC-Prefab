@@ -14,7 +14,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 public class ServerPayloadHandler {
     public static void scannerConfigHandler(final ScannerConfigPayload payload, final IPayloadContext context) {
         // Do something with the data, on the main thread here if needed, otherwise execute it on the server.
-        context.player().getServer().execute(() -> {
+        context.enqueueWork(() -> {
             StructureScannerConfig config = payload.scannerInfo().ToConfig();
 
             // The GUI always goes down 1 block for it's processing, so we have to make sure we go UP a block.
@@ -28,7 +28,7 @@ public class ServerPayloadHandler {
 
     public static void scannerScanHandler(ScanShapePayload payload, IPayloadContext context) {
         // Packet processor, data will already have been de-serialized.
-        context.player().getServer().execute(() -> {
+        context.enqueueWork(() -> {
             StructureScannerConfig config = payload.scannerInfo().ToConfig();
             ServerPlayer serverPlayer = (ServerPlayer)context.player();
 
@@ -41,7 +41,7 @@ public class ServerPayloadHandler {
         // Can only access the "attachedData" on the "network thread" which is here.
         StructureTagMessage.EnumStructureConfiguration structureConfig = payload.structureTagMessage().getStructureConfig();
 
-        context.player().getServer().execute(() -> {
+        context.enqueueWork(() -> {
             // This is now on the "main" server thread and things can be done in the world!
             StructureConfiguration configuration = structureConfig.structureConfig.ReadFromCompoundTag(payload.structureTagMessage().getMessageTag());
             ServerPlayer serverPlayer = (ServerPlayer) context.player();
