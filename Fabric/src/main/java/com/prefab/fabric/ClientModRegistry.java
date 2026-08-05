@@ -54,7 +54,6 @@ public class ClientModRegistry {
 
     public static void registerKeyBindings() {
         category = KeyMapping.Category.register(Identifier.fromNamespaceAndPath(PrefabBase.MODID, "structure_preview"));
-        // TODO: Create translation keys.
         keyBinding = KeyBindingHelper.registerKeyBinding(new KeyMapping(
                 "Build Current Structure", // The translation key of the keybinding's name
                 InputConstants.Type.KEYSYM,

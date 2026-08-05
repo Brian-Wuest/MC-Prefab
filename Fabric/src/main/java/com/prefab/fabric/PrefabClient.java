@@ -5,7 +5,7 @@ import com.prefab.config.ModConfiguration;
 import com.prefab.config.RecipeMapGuiProvider;
 import com.prefab.config.StructureOptionGuiProvider;
 import com.prefab.fabric.events.ClientEvents;
-import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.AutoConfigClient;
 import me.shedaniel.autoconfig.gui.registry.GuiRegistry;
 import net.fabricmc.api.ClientModInitializer;
 
@@ -19,7 +19,7 @@ public class PrefabClient implements ClientModInitializer {
 		PrefabBase.logger.info("Registering client-side components");
 		ClientModRegistry.registerModComponents();
 
-		GuiRegistry registry = AutoConfig.getGuiRegistry(ModConfiguration.class);
+		GuiRegistry registry = AutoConfigClient.getGuiRegistry(ModConfiguration.class);
 		RecipeMapGuiProvider providerMap = new RecipeMapGuiProvider();
 		StructureOptionGuiProvider structureOptionGuiProvider = new StructureOptionGuiProvider();
 
