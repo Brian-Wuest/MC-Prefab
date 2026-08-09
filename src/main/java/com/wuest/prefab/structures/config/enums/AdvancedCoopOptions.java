@@ -3,7 +3,7 @@ package com.wuest.prefab.structures.config.enums;
 public class AdvancedCoopOptions extends BaseOption {
     public static AdvancedCoopOptions Default = new AdvancedCoopOptions(
             "item.prefab.advanced.chicken.coop",
-            "assets/prefab/structures/advancedcoop.zip",
+            "assets/prefab/structures/advancedcoop.gz",
             "textures/gui/advanced_chicken_coop_topdown.png",
             false,
             false);

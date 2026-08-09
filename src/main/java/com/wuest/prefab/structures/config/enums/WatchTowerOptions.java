@@ -5,7 +5,7 @@ import net.minecraft.util.EnumFacing;
 public class WatchTowerOptions extends BaseOption {
     public static WatchTowerOptions Default = new WatchTowerOptions(
             "item.prefab.watch_tower",
-            "assets/prefab/structures/watch_tower.zip",
+            "assets/prefab/structures/watch_tower.gz",
             "textures/gui/watch_tower_topdown.png",
             true,
             false);

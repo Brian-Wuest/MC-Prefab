@@ -82,7 +82,7 @@ public class ItemBasicStructure extends StructureItem {
                 hitBlockPos,
                 cornerPos,
                 cornerPos.south(6).west(8).up(7),
-                "../src/main/resources/assets/prefab/structures/villager_house_long.zip",
+                "../src/main/resources/assets/prefab/structures/villager_house_long.gz",
                 clearedSpace,
                 player.getHorizontalFacing(), false, false);
     }

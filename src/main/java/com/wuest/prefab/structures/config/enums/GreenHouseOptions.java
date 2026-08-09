@@ -5,7 +5,7 @@ import net.minecraft.util.EnumFacing;
 public class GreenHouseOptions extends BaseOption {
     public static GreenHouseOptions Default = new GreenHouseOptions(
             "item.prefab.green_house",
-            "assets/prefab/structures/green_house.zip",
+            "assets/prefab/structures/green_house.gz",
             "textures/gui/green_house_topdown.png",
             false,
             false);

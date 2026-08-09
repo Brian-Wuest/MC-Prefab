@@ -12,7 +12,7 @@ import net.minecraft.world.World;
  * @author WuestMan
  */
 public class StructureModularHouse extends Structure {
-    public static final String ASSETLOCATION = "assets/prefab/structures/modularHouse.zip";
+    public static final String ASSETLOCATION = "assets/prefab/structures/modularHouse.gz";
 
     public static void ScanStructure(World world, BlockPos originalPos, EnumFacing playerFacing) {
         BuildClear clearedSpace = new BuildClear();
@@ -28,7 +28,7 @@ public class StructureModularHouse extends Structure {
                 originalPos,
                 originalPos.east(10),
                 originalPos.south(6).west(3).up(7),
-                "..\\src\\main\\resources\\assets\\prefab\\structures\\modularHouse.zip",
+                "..\\src\\main\\resources\\assets\\prefab\\structures\\modularHouse.gz",
                 clearedSpace,
                 playerFacing, false, false);
     }

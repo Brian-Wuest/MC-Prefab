@@ -49,7 +49,7 @@ public class StructureAlternateStart extends Structure {
         BlockPos corner2 = originalPos.west(8).south(13).up(10);
 
         Structure.ScanStructure(world, originalPos, corner, corner2,
-                "..\\src\\main\\resources\\assets\\prefab\\structures\\basic_house.zip", clearedSpace,
+                "..\\src\\main\\resources\\assets\\prefab\\structures\\basic_house.gz", clearedSpace,
                 playerFacing, false, false);
     }
 
@@ -64,7 +64,7 @@ public class StructureAlternateStart extends Structure {
         clearedSpace.getStartingPosition().setHeightOffset(-1);
 
         Structure.ScanStructure(world, originalPos, originalPos.east(8).south().down(), originalPos.south(22).west(3).up(8),
-                "..\\src\\main\\resources\\assets\\prefab\\structures\\ranch_house.zip", clearedSpace,
+                "..\\src\\main\\resources\\assets\\prefab\\structures\\ranch_house.gz", clearedSpace,
                 playerFacing, false, false);
     }
 
@@ -78,7 +78,7 @@ public class StructureAlternateStart extends Structure {
         clearedSpace.getStartingPosition().setEastOffset(7);
 
         Structure.ScanStructure(world, originalPos, originalPos.east(7).south(), originalPos.south(14).west(8).up(9),
-                "..\\src\\main\\resources\\assets\\prefab\\structures\\loft_house.zip", clearedSpace, playerFacing, false, false);
+                "..\\src\\main\\resources\\assets\\prefab\\structures\\loft_house.gz", clearedSpace, playerFacing, false, false);
     }
 
     public static void ScanHobbitStructure(World world, BlockPos originalPos, EnumFacing playerFacing) {
@@ -92,7 +92,7 @@ public class StructureAlternateStart extends Structure {
         clearedSpace.getStartingPosition().setHeightOffset(-3);
 
         Structure.ScanStructure(world, originalPos, originalPos.east(8).south().down(3), originalPos.south(16).west(8).up(12),
-                "..\\src\\main\\resources\\assets\\prefab\\structures\\hobbit_house.zip", clearedSpace,
+                "..\\src\\main\\resources\\assets\\prefab\\structures\\hobbit_house.gz", clearedSpace,
                 playerFacing, false, false);
     }
 
@@ -117,7 +117,7 @@ public class StructureAlternateStart extends Structure {
                 originalPos,
                 cornerPos,
                 cornerPos.south(buildShape.getLength()).west(buildShape.getWidth()).up(buildShape.getHeight()),
-                "..\\src\\main\\resources\\assets\\prefab\\structures\\" + structureFileName + ".zip",
+                "..\\src\\main\\resources\\assets\\prefab\\structures\\" + structureFileName + ".gz",
                 clearedSpace,
                 playerFacing,
                 includeAir,

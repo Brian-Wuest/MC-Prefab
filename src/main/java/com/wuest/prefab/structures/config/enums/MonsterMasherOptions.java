@@ -3,7 +3,7 @@ package com.wuest.prefab.structures.config.enums;
 public class MonsterMasherOptions extends BaseOption{
     public static MonsterMasherOptions Default = new MonsterMasherOptions(
             "item.prefab.item_monster_masher",
-            "assets/prefab/structures/monster_masher.zip",
+            "assets/prefab/structures/monster_masher.gz",
             "textures/gui/monster_masher_top_down.png",
             false,
             true);

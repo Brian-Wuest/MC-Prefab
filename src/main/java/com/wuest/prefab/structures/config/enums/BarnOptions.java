@@ -5,7 +5,7 @@ import net.minecraft.util.EnumFacing;
 public class BarnOptions extends BaseOption {
     public static BarnOptions Default = new BarnOptions(
             "item.prefab.barn",
-            "assets/prefab/structures/barn.zip",
+            "assets/prefab/structures/barn.gz",
             "textures/gui/barn_topdown.png",
             false,
             false);

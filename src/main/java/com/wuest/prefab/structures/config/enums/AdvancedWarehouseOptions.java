@@ -3,7 +3,7 @@ package com.wuest.prefab.structures.config.enums;
 public class AdvancedWarehouseOptions extends BaseOption{
     public static AdvancedWarehouseOptions Default = new AdvancedWarehouseOptions(
             "item.prefab.item_advanced_warehouse",
-            "assets/prefab/structures/advanced_warehouse.zip",
+            "assets/prefab/structures/advanced_warehouse.gz",
             "textures/gui/advanced_warehouse_top_down.png",
             false,
             true);

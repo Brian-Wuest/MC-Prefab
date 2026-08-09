@@ -5,7 +5,7 @@ import net.minecraft.util.EnumFacing;
 public class AdvancedHorseStableOptions extends BaseOption {
     public static AdvancedHorseStableOptions Default = new AdvancedHorseStableOptions(
             "item.prefab.advanced.horse.stable",
-            "assets/prefab/structures/advanced_horse_stable.zip",
+            "assets/prefab/structures/advanced_horse_stable.gz",
             "textures/gui/advanced_horse_stable_topdown.png",
             false,
             false);

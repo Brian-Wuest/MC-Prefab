@@ -202,17 +202,17 @@ public class HouseConfiguration extends StructureConfiguration {
                 GuiLangKeys.STARTER_HOUSE_BASIC_NOTES,
                 163,
                 146,
-                "assets/prefab/structures/basic_house.zip"),
+                "assets/prefab/structures/basic_house.gz"),
         RANCH(1, GuiLangKeys.STARTER_HOUSE_RANCH_DISPLAY, new ResourceLocation("prefab", "textures/gui/ranch_house.png"), GuiLangKeys.STARTER_HOUSE_RANCH_NOTES, 152, 89,
-                "assets/prefab/structures/ranch_house.zip"),
+                "assets/prefab/structures/ranch_house.gz"),
         LOFT(2, GuiLangKeys.STARTER_HOUSE_LOFT_DISPLAY, new ResourceLocation("prefab", "textures/gui/loft_house.png"), GuiLangKeys.STARTER_HOUSE_LOFT_NOTES, 152, 87,
-                "assets/prefab/structures/loft_house.zip"),
+                "assets/prefab/structures/loft_house.gz"),
         HOBBIT(3, GuiLangKeys.STARTER_HOUSE_HOBBIT_DISPLAY, new ResourceLocation("prefab", "textures/gui/hobbit_house.png"), GuiLangKeys.STARTER_HOUSE_HOBBIT_NOTES, 151, 133,
-                "assets/prefab/structures/hobbit_house.zip"),
+                "assets/prefab/structures/hobbit_house.gz"),
         DESERT(4, GuiLangKeys.STARTER_HOUSE_DESERT_DISPLAY, new ResourceLocation("prefab", "textures/gui/desert_house.png"), GuiLangKeys.STARTER_HOUSE_DESERT_NOTES, 152, 131,
-                "assets/prefab/structures/desert_house.zip"),
+                "assets/prefab/structures/desert_house.gz"),
         SNOWY(5, GuiLangKeys.STARTER_HOUSE_SNOWY_DISPLAY, new ResourceLocation("prefab", "textures/gui/snowy_house.png"), GuiLangKeys.STARTER_HOUSE_SNOWY_NOTES, 150, 125,
-                "assets/prefab/structures/snowy_house.zip");
+                "assets/prefab/structures/snowy_house.gz");
 
         private final int value;
         private final String displayName;

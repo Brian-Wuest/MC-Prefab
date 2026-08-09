@@ -5,7 +5,7 @@ import net.minecraft.util.EnumFacing;
 public class NetherGateOptions extends BaseOption {
     public static NetherGateOptions AncientSkull = new NetherGateOptions(
             "item.prefab.item_nether_gate_skull",
-            "assets/prefab/structures/nethergate.zip",
+            "assets/prefab/structures/nethergate.gz",
             "textures/gui/nether_gate_top_down.png",
             false,
             false);

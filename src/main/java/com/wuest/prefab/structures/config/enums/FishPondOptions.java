@@ -4,7 +4,7 @@ public class FishPondOptions extends BaseOption{
 
     public static FishPondOptions Default = new FishPondOptions(
             "item.prefab.item_fish_pond",
-            "assets/prefab/structures/fishpond.zip",
+            "assets/prefab/structures/fishpond.gz",
             "textures/gui/fish_pond_top_down.png",
             false,
             false);

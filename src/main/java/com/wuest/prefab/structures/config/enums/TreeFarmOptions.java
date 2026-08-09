@@ -3,7 +3,7 @@ package com.wuest.prefab.structures.config.enums;
 public class TreeFarmOptions extends BaseOption {
     public static TreeFarmOptions Default = new TreeFarmOptions(
             "item.prefab.item_tree_farm",
-            "assets/prefab/structures/treefarm.zip",
+            "assets/prefab/structures/treefarm.gz",
             "textures/gui/tree_farm_top_down.png",
             false,
             false);
