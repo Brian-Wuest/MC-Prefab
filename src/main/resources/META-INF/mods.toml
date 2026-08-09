@@ -1,5 +1,5 @@
 modLoader="javafml" #mandatory
-loaderVersion="[36,)" #mandatory
+loaderVersion="${loader_version_range}" #mandatory
 # The license for you mod. This is mandatory metadata and allows for easier comprehension of your redistributive properties.
 # Review your options at https://choosealicense.com/. All rights reserved is the default copyright stance, and is thus the default here.
 license='''
@@ -26,8 +26,8 @@ SOFTWARE.
 issueTrackerURL="https://github.com/Brian-Wuest/MC-Prefab/issues" #optional
 
 [[mods]] #mandatory
-    modId="prefab" #mandatory
-    version="${file.jarVersion}" #mandatory
+    modId="${mod_id}" #mandatory
+    version="${mod_version}" #mandatory
     displayName="Prefab" #mandatory
     #logoFile="" #optional
     updateJSONURL="https://raw.githubusercontent.com/Brian-Wuest/MC-Prefab/Main/changeLog.json" #optional
@@ -39,16 +39,16 @@ Provides ways of making pre-fabricated houses and other structures.
 Thanks to Kaojinn for making the textures and the construction of the ideas.
 Structure Preview functionality adapted from Botania by Vazkii http://botaniamod.net/license.php.
 '''
-[[dependencies.prefab]]
+[[dependencies.${mod_id}]]
     modId="forge" #mandatory
-    mandatory=false #mandatory
-    versionRange="[36,)" #mandatory
+    mandatory=true #mandatory
+    versionRange="${forge_version_range}" #mandatory
     ordering="NONE"
     side="BOTH"
-[[dependencies.prefab]]
+[[dependencies.${mod_id}]]
     modId="minecraft"
     mandatory=true
 # This version range declares a minimum of the current minecraft version up to but not including the next major version
-    versionRange="[1.16.5,1.17)"
+    versionRange="${minecraft_version_range}"
     ordering="NONE"
     side="BOTH"
