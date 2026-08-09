@@ -5,7 +5,7 @@ import net.minecraft.util.Direction;
 public class MagicTempleOptions extends BaseOption {
     public static MagicTempleOptions Default = new MagicTempleOptions(
             "item.prefab.magic_temple",
-            "assets/prefab/structures/magic_temple.zip",
+            "assets/prefab/structures/magic_temple.gz",
             "textures/gui/magic_temple_topdown.png",
             false,
             false);

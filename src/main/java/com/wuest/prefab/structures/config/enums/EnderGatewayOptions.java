@@ -5,7 +5,7 @@ import net.minecraft.util.Direction;
 public class EnderGatewayOptions extends BaseOption {
     public static EnderGatewayOptions Default = new EnderGatewayOptions(
             "item.prefab.ender_gateway",
-            "assets/prefab/structures/ender_gateway.zip",
+            "assets/prefab/structures/ender_gateway.gz",
             "textures/gui/ender_gateway_topdown.png",
             false,
             false);

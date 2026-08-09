@@ -4,63 +4,63 @@ public class AdvancedFarmOptions extends BaseOption {
 
     public static AdvancedFarmOptions AutomatedBambooFarm = new AdvancedFarmOptions(
             "prefab.gui.advanced.farm.bamboo",
-            "assets/prefab/structures/automated_bamboo_farm.zip",
+            "assets/prefab/structures/automated_bamboo_farm.gz",
             "textures/gui/automated_bamboo_farm_topdown.png",
             false,
             true);
 
     public static AdvancedFarmOptions AutomatedBeeFarm = new AdvancedFarmOptions(
             "prefab.gui.advanced.farm.bee",
-            "assets/prefab/structures/automated_bee_farm.zip",
+            "assets/prefab/structures/automated_bee_farm.gz",
             "textures/gui/automated_bee_farm_topdown.png",
             false,
             true);
 
     public static AdvancedFarmOptions AutomatedMelonFarm = new AdvancedFarmOptions(
             "prefab.gui.advanced.farm.melon",
-            "assets/prefab/structures/automated_melon_farm.zip",
+            "assets/prefab/structures/automated_melon_farm.gz",
             "textures/gui/automated_melon_farm_topdown.png",
             false,
             true);
 
     public static AdvancedFarmOptions Barn = new AdvancedFarmOptions(
             "prefab.gui.advanced.farm.barn",
-            "assets/prefab/structures/barn.zip",
+            "assets/prefab/structures/barn.gz",
             "textures/gui/barn_topdown.png",
             false,
             false);
 
     public static AdvancedFarmOptions GreenHouse = new AdvancedFarmOptions(
             "prefab.gui.advanced.farm.green_house",
-            "assets/prefab/structures/green_house.zip",
+            "assets/prefab/structures/green_house.gz",
             "textures/gui/green_house_topdown.png",
             false,
             false);
 
     public static AdvancedFarmOptions LargeHorseStable = new AdvancedFarmOptions(
             "prefab.gui.advanced.farm.horse",
-            "assets/prefab/structures/advanced_horse_stable.zip",
+            "assets/prefab/structures/advanced_horse_stable.gz",
             "textures/gui/advanced_horse_stable_topdown.png",
             false,
             false);
 
     public static AdvancedFarmOptions MonsterMasher = new AdvancedFarmOptions(
             "prefab.gui.advanced.farm.monster",
-            "assets/prefab/structures/monster_masher.zip",
+            "assets/prefab/structures/monster_masher.gz",
             "textures/gui/monster_masher_top_down.png",
             false,
             true);
 
     public static AdvancedFarmOptions ProduceFarm = new AdvancedFarmOptions(
             "prefab.gui.advanced.farm.produce",
-            "assets/prefab/structures/producefarm.zip",
+            "assets/prefab/structures/producefarm.gz",
             "textures/gui/produce_farm_top_down.png",
             false,
             true);
 
     public static AdvancedFarmOptions TreeFarm = new AdvancedFarmOptions(
             "prefab.gui.advanced.farm.tree",
-            "assets/prefab/structures/treefarm.zip",
+            "assets/prefab/structures/treefarm.gz",
             "textures/gui/tree_farm_top_down.png",
             false,
             false);

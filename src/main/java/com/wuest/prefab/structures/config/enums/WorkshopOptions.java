@@ -5,7 +5,7 @@ import net.minecraft.util.Direction;
 public class WorkshopOptions extends BaseOption {
     public static WorkshopOptions Default = new WorkshopOptions(
             "item.prefab.workshop",
-            "assets/prefab/structures/workshop.zip",
+            "assets/prefab/structures/workshop.gz",
             "textures/gui/workshop_topdown.png",
             true,
             true);

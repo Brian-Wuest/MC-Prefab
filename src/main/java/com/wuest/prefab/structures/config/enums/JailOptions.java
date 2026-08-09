@@ -5,7 +5,7 @@ import net.minecraft.util.Direction;
 public class JailOptions extends BaseOption {
     public static JailOptions Default = new JailOptions(
             "item.prefab.jail",
-            "assets/prefab/structures/jail.zip",
+            "assets/prefab/structures/jail.gz",
             "textures/gui/jail_topdown.png",
             false,
             false);

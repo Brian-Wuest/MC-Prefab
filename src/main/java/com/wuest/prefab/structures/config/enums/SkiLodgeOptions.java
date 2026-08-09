@@ -5,7 +5,7 @@ import net.minecraft.util.Direction;
 public class SkiLodgeOptions extends BaseOption {
     public static SkiLodgeOptions Default = new SkiLodgeOptions(
             "item.prefab.ski_lodge",
-            "assets/prefab/structures/ski_lodge.zip",
+            "assets/prefab/structures/ski_lodge.gz",
             "textures/gui/ski_lodge_topdown.png",
             false,
             false);

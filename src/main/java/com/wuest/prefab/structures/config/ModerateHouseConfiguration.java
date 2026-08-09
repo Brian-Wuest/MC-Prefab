@@ -138,19 +138,19 @@ public class ModerateHouseConfiguration extends StructureConfiguration {
      */
     public enum HouseStyle {
         SPRUCE_HOME(0, GuiLangKeys.MODERATE_HOUSE_SPRUCE, new ResourceLocation("prefab", "textures/gui/moderate_house_spruce_topdown.png"), 176, 154,
-                "assets/prefab/structures/moderate_house_spruce.zip", 31, 31, 23, 8, 1),
+                "assets/prefab/structures/moderate_house_spruce.gz", 31, 31, 23, 8, 1),
         ACACIA_HOME(1, GuiLangKeys.MODERATE_HOUSE_ACACIA, new ResourceLocation("prefab", "textures/gui/moderate_house_acacia_topdown.png"), 176, 154,
-                "assets/prefab/structures/moderate_house_acacia.zip", 31, 31, 21, 12, 6),
+                "assets/prefab/structures/moderate_house_acacia.gz", 31, 31, 21, 12, 6),
         EARTHEN_HOME(2, GuiLangKeys.MODERATE_EARTHEN_HOME, new ResourceLocation("prefab", "textures/gui/moderate_house_earthen_topdown.png"), 174, 146,
-                "assets/prefab/structures/moderate_house_earthen.zip", 16, 16, 16, 8, 6),
+                "assets/prefab/structures/moderate_house_earthen.gz", 16, 16, 16, 8, 6),
         JUNGLE_TREE_HOME(3, GuiLangKeys.MODERATE_JUNGLE_HOME, new ResourceLocation("prefab", "textures/gui/moderate_house_jungle_topdown.png"), 88, 164,
-                "assets/prefab/structures/moderate_house_jungle.zip", 16, 16, 41, 8, 1),
+                "assets/prefab/structures/moderate_house_jungle.gz", 16, 16, 41, 8, 1),
         NETHER_HOME(4, GuiLangKeys.MODERATE_NETHER_HOME, new ResourceLocation("prefab", "textures/gui/moderate_house_nether_topdown.png"), 141, 165,
-                "assets/prefab/structures/moderate_house_nether.zip", 16, 15, 22, 0, 0),
+                "assets/prefab/structures/moderate_house_nether.gz", 16, 15, 22, 0, 0),
         MOUNTAIN_HOME(5, GuiLangKeys.MODERATE_MOUNTAIN_HOME, new ResourceLocation("prefab", "textures/gui/moderate_house_mountain_topdown.png"), 174, 99,
-                "assets/prefab/structures/moderate_house_mountain.zip", 20, 21, 12, 10, 0),
+                "assets/prefab/structures/moderate_house_mountain.gz", 20, 21, 12, 10, 0),
         ACACIA_HOME2(6, GuiLangKeys.MODERATE_HOUSE_ACACIA_2, new ResourceLocation("prefab", "textures/gui/moderate_house_acacia_2_topdown.png"), 174, 99,
-                "assets/prefab/structures/moderate_house_acacia_2.zip", 31, 31, 21, 12, 6);
+                "assets/prefab/structures/moderate_house_acacia_2.gz", 31, 31, 21, 12, 6);
 
         private final int value;
         private final String displayName;

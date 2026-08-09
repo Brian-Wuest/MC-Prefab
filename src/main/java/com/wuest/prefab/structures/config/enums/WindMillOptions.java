@@ -5,7 +5,7 @@ import net.minecraft.util.Direction;
 public class WindMillOptions extends BaseOption {
     public static WindMillOptions Default = new WindMillOptions(
             "item.prefab.wind_mill",
-            "assets/prefab/structures/wind_mill.zip",
+            "assets/prefab/structures/wind_mill.gz",
             "textures/gui/wind_mill_topdown.png",
             false,
             false);

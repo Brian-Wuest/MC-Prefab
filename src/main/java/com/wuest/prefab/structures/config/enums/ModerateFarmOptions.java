@@ -8,35 +8,35 @@ import java.util.ArrayList;
 public class ModerateFarmOptions extends BaseOption{
     public static ModerateFarmOptions AutomatedChickenCoop = new ModerateFarmOptions(
             "prefab.gui.moderate.farm.chicken",
-            "assets/prefab/structures/advancedcoop.zip",
+            "assets/prefab/structures/advancedcoop.gz",
             "textures/gui/advanced_chicken_coop_topdown.png",
             false,
             false);
 
     public static ModerateFarmOptions AutomatedFarm = new ModerateFarmOptions(
             "prefab.gui.moderate.farm.automated",
-            "assets/prefab/structures/automated_farm.zip",
+            "assets/prefab/structures/automated_farm.gz",
             "textures/gui/automated_farm_topdown.png",
             false,
             false);
 
     public static ModerateFarmOptions FishPond = new ModerateFarmOptions(
             "prefab.gui.moderate.farm.fish",
-            "assets/prefab/structures/fishpond.zip",
+            "assets/prefab/structures/fishpond.gz",
             "textures/gui/fish_pond_top_down.png",
             false,
             false);
 
     public static ModerateFarmOptions BeeFarm = new ModerateFarmOptions(
             "prefab.gui.moderate.farm.bee",
-            "assets/prefab/structures/bee_farm.zip",
+            "assets/prefab/structures/bee_farm.gz",
             "textures/gui/bee_farm_topdown.png",
             false,
             false);
 
     public static ModerateFarmOptions SugarCaneFarm = new ModerateFarmOptions(
             "prefab.gui.moderate.farm.sugar_cane",
-            "assets/prefab/structures/sugar_cane_farm.zip",
+            "assets/prefab/structures/sugar_cane_farm.gz",
             "textures/gui/sugar_cane_farm_topdown.png",
             false,
             true);
@@ -44,7 +44,7 @@ public class ModerateFarmOptions extends BaseOption{
     // This is for 1.17 and later
 /*    public static ModerateFarmOptions MushroomFarm = new ModerateFarmOptions(
             "prefab.gui.starter.farm.mushroom",
-            "assets/prefab/structures/mushroom_farm.zip",
+            "assets/prefab/structures/mushroom_farm.gz",
             "textures/gui/mushroom_farm_topdown.png",
             false,
             false);*/
