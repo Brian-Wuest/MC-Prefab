@@ -112,11 +112,11 @@ public class HouseAdvancedConfiguration extends StructureConfiguration {
      */
     public enum HouseStyle {
         MANOR(0, GuiLangKeys.ADVANCED_HOUSE_MANOR, new ResourceLocation("prefab", "textures/gui/house_advanced_manor.png"),
-                "assets/prefab/structures/house_advanced_manor.zip"),
+                "assets/prefab/structures/house_advanced_manor.gz"),
         WORKSHOP(1, GuiLangKeys.ADVANCED_HOUSE_WORKSHOP, new ResourceLocation("prefab", "textures/gui/house_advanced_workshop.png"),
-                "assets/prefab/structures/house_advanced_workshop.zip"),
+                "assets/prefab/structures/house_advanced_workshop.gz"),
         ESTATE(2, GuiLangKeys.ADVANCED_HOUSE_ESTATE, new ResourceLocation("prefab", "textures/gui/house_advanced_estate.png"),
-                "assets/prefab/structures/house_advanced_estate.zip");
+                "assets/prefab/structures/house_advanced_estate.gz");
 
         private final int value;
         private final String displayName;

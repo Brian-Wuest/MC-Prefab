@@ -5,7 +5,7 @@ import net.minecraft.core.Direction;
 public class WelcomeCenterOptions extends BaseOption {
 	public static WelcomeCenterOptions Default = new WelcomeCenterOptions(
 			"item.prefab.welcome_center",
-			"assets/prefab/structures/welcome_center.zip",
+			"assets/prefab/structures/welcome_center.gz",
 			"textures/gui/welcome_center.png",
 			true,
 			false);

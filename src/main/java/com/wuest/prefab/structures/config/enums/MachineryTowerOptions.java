@@ -5,7 +5,7 @@ import net.minecraft.core.Direction;
 public class MachineryTowerOptions extends BaseOption {
     public static MachineryTowerOptions Default = new MachineryTowerOptions(
             "item.prefab.machinery.tower",
-            "assets/prefab/structures/machinery_tower.zip",
+            "assets/prefab/structures/machinery_tower.gz",
             "textures/gui/machinery_tower.png",
             false,
             true);
