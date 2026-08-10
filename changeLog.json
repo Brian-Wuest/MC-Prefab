@@ -195,10 +195,12 @@
     "1.9.2.2": "Fixed more issues with dedicated servers, sorry about these!!!!",
     "1.9.2.3": "Added Estate, Dark WatchTower, New Monster Masher, New Dark-Light Block and Light Switch",
     "1.9.2.4": "Glass option for instant bridge, clearer starting item config option, German translations!",
-    "1.9.2.5": "Fixed issue with the mineshaft entrance not generating the mineshaft"
+    "1.9.2.5": "Fixed issue with the mineshaft entrance not generating the mineshaft",
+    "1.9.2.6": "Fixed issue with structure file extension to help out modpack devs uploading the mod to CurseForge"
   },
   "1.19.3": {
-    "1.9.3.0": "Initial release for 1.19.3. Added Finnish language"
+    "1.9.3.0": "Initial release for 1.19.3. Added Finnish language",
+    "1.9.3.1": "Fixed issue with structure file extension to help out modpack devs uploading the mod to CurseForge"
   },
   "1.20.1": {
     "1.10.0.0": "Initial release for 1.20.1."
