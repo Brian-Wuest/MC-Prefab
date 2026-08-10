@@ -69,7 +69,7 @@ public class StructureScannerBlockEntity extends TileEntityBase<StructureScanner
                 config.blockPos,
                 cornerPos,
                 otherCorner,
-                "..\\src\\main\\resources\\assets\\prefab\\structures\\" + config.structureZipName + ".zip",
+                "..\\src\\main\\resources\\assets\\prefab\\structures\\" + config.structureZipName + ".gz",
                 clearedSpace,
                 playerFacing,
                 false,

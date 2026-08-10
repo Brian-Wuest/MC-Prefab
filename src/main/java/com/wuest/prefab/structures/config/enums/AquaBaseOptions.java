@@ -5,7 +5,7 @@ import net.minecraft.core.Direction;
 public class AquaBaseOptions extends BaseOption {
     public static AquaBaseOptions Default = new AquaBaseOptions(
             "item.prefab.aqua_base",
-            "assets/prefab/structures/aqua_base.zip",
+            "assets/prefab/structures/aqua_base.gz",
             "textures/gui/aqua_base.png",
             false,
             false);
