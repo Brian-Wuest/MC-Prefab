@@ -135,25 +135,25 @@ public class StructureBasic extends Structure {
                     switch (monstersPlaced) {
                         case 0: {
                             // Zombie.
-                            spawner.getSpawner().setEntityId(EntityType.ZOMBIE, world, world.random, spawnerPos);
+                            spawner.getSpawner().setEntityId(EntityType.ZOMBIE, world, world.getRandom(), spawnerPos);
                             break;
                         }
 
                         case 1: {
                             // Skeleton.
-                            spawner.getSpawner().setEntityId(EntityType.SKELETON, world, world.random, spawnerPos);
+                            spawner.getSpawner().setEntityId(EntityType.SKELETON, world, world.getRandom(), spawnerPos);
                             break;
                         }
 
                         case 2: {
                             // Witch.
-                            spawner.getSpawner().setEntityId(EntityType.WITCH, world, world.random, spawnerPos);
+                            spawner.getSpawner().setEntityId(EntityType.WITCH, world, world.getRandom(), spawnerPos);
                             break;
                         }
 
                         default: {
                             // Creeper.
-                            spawner.getSpawner().setEntityId(EntityType.CREEPER, world, world.random, spawnerPos);
+                            spawner.getSpawner().setEntityId(EntityType.CREEPER, world, world.getRandom(), spawnerPos);
                             break;
                         }
                     }

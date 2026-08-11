@@ -106,7 +106,7 @@ public class Utils {
      * @return True if the tag exists on the block state; otherwise false.
      */
     public static boolean doesBlockStateHaveTag(BlockState blockState, Identifier location) {
-        for (TagKey<Block> tagKey : blockState.getTags().toList()) {
+        for (TagKey<Block> tagKey : blockState.tags().toList()) {
             if (tagKey.location().toString().equalsIgnoreCase(location.toString())) {
                 return true;
             }

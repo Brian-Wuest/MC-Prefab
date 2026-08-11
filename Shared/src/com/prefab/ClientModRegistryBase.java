@@ -68,16 +68,6 @@ public class ClientModRegistryBase {
     }
 
     /**
-     * This is called within a Mixin as the BlockColors and ItemColors classes are otherwise null when this class is called.
-     */
-    public static void RegisterBlockRenderer() {
-        // Register the block renderer.
-        Minecraft.getInstance().getBlockColors().register((state, worldIn, pos, tintIndex) -> worldIn != null && pos != null
-                ? BiomeColors.getAverageGrassColor(worldIn, pos)
-                : GrassColor.get(0.5D, 1.0D), ModRegistryBase.GrassWall, ModRegistryBase.GrassSlab, ModRegistryBase.GrassStairs);
-    }
-
-    /**
      * Adds all of the Mod Guis to the HasMap.
      */
     public static void RegisterGuis() {

@@ -20,7 +20,5 @@ public class MinecraftClientInitMixin {
             // it also needs to accept a special argument that mixin passes to this injection method
             GameConfig gameConfig, CallbackInfo ci
     ) {
-        // This is used to color the various grass blocks so it uses the correct grass color for the biome.
-        ClientModRegistryBase.RegisterBlockRenderer();
     }
 }
