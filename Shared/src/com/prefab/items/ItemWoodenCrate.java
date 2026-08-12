@@ -14,7 +14,7 @@ public class ItemWoodenCrate extends Item {
      * Creates a new instance of the ItemWoodenCrateClass.
      */
     public ItemWoodenCrate(CrateType crateType, Item.Properties properties) {
-        super(properties.craftRemainder(ItemWoodenCrate.getRecipeRemainderForCrateType(crateType)));
+        super(properties);
 
         this.crateType = crateType;
     }
