@@ -48,7 +48,8 @@ public class GuiInstantBridge extends GuiStructure {
         this.shownImageHeight = 150;
         this.shownImageWidth = 268;
         this.serverConfiguration = PrefabBase.serverConfiguration;
-        this.configuration = this.specificConfiguration = ClientModRegistryBase.playerConfig.getClientConfig("InstantBridge", InstantBridgeConfiguration.class);
+        this.configuration = this.specificConfiguration = ClientModRegistryBase.playerConfig
+                .getClientConfig("InstantBridge", InstantBridgeConfiguration.class);
         this.configuration.pos = this.pos;
         this.structureImageLocation = structureTopDown;
 
@@ -62,9 +63,12 @@ public class GuiInstantBridge extends GuiStructure {
         int grayBoxX = adjustedXYValue.getFirst();
         int grayBoxY = adjustedXYValue.getSecond();
 
+        int bridgeLengthMaxvalue = PrefabBase.isDebug ? 750 : 75;
+
         // Create the buttons.
         this.btnMaterialType = this.createAndAddButton(grayBoxX + 15, grayBoxY + 45, 90, 20, this.specificConfiguration.bridgeMaterial.getName());
-        this.sldrBridgeLength = this.createAndAddSlider(grayBoxX + 15, grayBoxY + 85, 90, 20, 25, 75, this.specificConfiguration.bridgeLength);
+        this.sldrBridgeLength = this.createAndAddSlider(grayBoxX + 15, grayBoxY + 85,
+                90, 20, 25, bridgeLengthMaxvalue, this.specificConfiguration.bridgeLength);
         this.chckIncludeRoof = this.createAndAddCheckBox(grayBoxX + 15, grayBoxY + 112, GuiLangKeys.INCLUDE_ROOF, this.specificConfiguration.includeRoof, this::buttonClicked);
         this.sldrInteriorHeight = this.createAndAddSlider(grayBoxX + 15, grayBoxY + 140, 90, 20, 3, 8, this.specificConfiguration.interiorHeight);
         this.sldrInteriorHeight.visible = this.chckIncludeRoof.isChecked();
@@ -125,13 +129,15 @@ public class GuiInstantBridge extends GuiStructure {
     public void buttonClicked(AbstractButton button) {
         int sliderValue = this.sldrBridgeLength.getIntValue();
 
-        if (sliderValue > 75) {
-            sliderValue = 75;
-        } else if (sliderValue < 25) {
-            sliderValue = 25;
+        if (!PrefabBase.isDebug) {
+            if (sliderValue > 75) {
+                sliderValue = 75;
+            } else if (sliderValue < 25) {
+                sliderValue = 25;
+            }
         }
 
-        this.specificConfiguration.bridgeLength =sliderValue;
+        this.specificConfiguration.bridgeLength = sliderValue;
 
         sliderValue = this.sldrInteriorHeight.getIntValue();
 
