@@ -132,7 +132,7 @@ public class BlockBoundary extends Block {
     }
 
     @Override
-    public int getLightBlock(BlockState blockState) {
+    public int getLightDampening(BlockState blockState) {
         boolean powered = blockState.getValue(Powered);
 
         if (powered && blockState.isSolidRender()) {

@@ -10,7 +10,7 @@ import com.prefab.gui.controls.GuiCheckBox;
 import com.prefab.gui.controls.GuiSlider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -82,7 +82,7 @@ public abstract class GuiBase extends Screen {
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int x, int y, float f) {
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int x, int y, float f) {
         Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
 
         this.preButtonRender(guiGraphics, adjustedXYValue.getFirst(), adjustedXYValue.getSecond(), x, y, f);
@@ -214,7 +214,7 @@ public abstract class GuiBase extends Screen {
         return this.addRenderableWidget(slider);
     }
 
-    protected void drawControlBackground(GuiGraphics guiGraphics, int grayBoxX, int grayBoxY, int width, int height) {
+    protected void drawControlBackground(GuiGraphicsExtractor guiGraphics, int grayBoxX, int grayBoxY, int width, int height) {
         GuiUtils.bindAndDrawScaledTexture(
                 this.backgroundTextures,
                 guiGraphics,
@@ -228,7 +228,7 @@ public abstract class GuiBase extends Screen {
                 height);
     }
 
-    protected void drawComplexStructureControlBackground(GuiGraphics guiGraphics, int grayBoxX, int grayBoxY, int width, int height) {
+    protected void drawComplexStructureControlBackground(GuiGraphicsExtractor guiGraphics, int grayBoxX, int grayBoxY, int width, int height) {
         GuiUtils.bindAndDrawScaledTexture(
                 this.complexStructureBackgroundTextures,
                 guiGraphics,
@@ -242,9 +242,9 @@ public abstract class GuiBase extends Screen {
                 height);
     }
 
-    protected void drawStandardControlBoxAndImage(GuiGraphics guiGraphics, Identifier imageLocation, int x, int y, int mouseX, int mouseY, float partialTicks) {
+    protected void drawStandardControlBoxAndImage(GuiGraphicsExtractor guiGraphics, Identifier imageLocation, int x, int y, int mouseX, int mouseY, float partialTicks) {
         guiGraphics.guiRenderState.reset();
-        this.renderBackground(guiGraphics, x, y, 0);
+        this.extractBackground(guiGraphics, x, y, 0);
         this.drawControlBackground(guiGraphics, x, y, this.imagePanelWidth, this.imagePanelHeight);
 
         if (imageLocation != null) {
@@ -266,17 +266,17 @@ public abstract class GuiBase extends Screen {
         }
     }
 
-    protected void drawComplexControlBox(GuiGraphics guiGraphics, int x, int y, int width, int height) {
+    protected void drawComplexControlBox(GuiGraphicsExtractor guiGraphics, int x, int y, int width, int height) {
         guiGraphics.guiRenderState.reset();
-        this.renderBackground(guiGraphics, 0, 0, 0);
+        this.extractBackground(guiGraphics, 0, 0, 0);
         this.drawComplexStructureControlBackground(guiGraphics, x, y, width, height);
     }
 
-    protected void renderButtons(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+    protected void renderButtons(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
         for (GuiEventListener button : this.children()) {
             if (button instanceof AbstractWidget currentButton) {
                 if (currentButton.visible) {
-                    currentButton.render(guiGraphics, mouseX, mouseY, this.getMinecraft().getFrameTimeNs());
+                    currentButton.extractRenderState(guiGraphics, mouseX, mouseY, this.getMinecraft().getFrameTimeNs());
                 }
             }
         }
@@ -299,8 +299,8 @@ public abstract class GuiBase extends Screen {
      * @param y     The Y-Coordinates of the string to start.
      * @param color The color of the text.
      */
-    public void drawString(GuiGraphics guiGraphics, String text, float x, float y, int color) {
-        guiGraphics.drawWordWrap(font, Utils.createTextComponent(text), (int) x, (int) y, 9999, color, false);
+    public void drawString(GuiGraphicsExtractor guiGraphics, String text, float x, float y, int color) {
+        guiGraphics.textWithWordWrap(font, Utils.createTextComponent(text), (int) x, (int) y, 9999, color, false);
     }
 
     /**
@@ -312,8 +312,8 @@ public abstract class GuiBase extends Screen {
      * @param wrapWidth The maximum width before wrapping begins.
      * @param textColor The color of the text.
      */
-    public void drawSplitString(GuiGraphics guiGraphics, String str, int x, int y, int wrapWidth, int textColor) {
-        guiGraphics.drawWordWrap(font, Utils.createTextComponent(str), x, y, wrapWidth, textColor, false);
+    public void drawSplitString(GuiGraphicsExtractor guiGraphics, String str, int x, int y, int wrapWidth, int textColor) {
+        guiGraphics.textWithWordWrap(font, Utils.createTextComponent(str), x, y, wrapWidth, textColor, false);
     }
 
     public List<FormattedCharSequence> getSplitString(String str, int wrapWidth) {
@@ -347,7 +347,7 @@ public abstract class GuiBase extends Screen {
      */
     public abstract void buttonClicked(AbstractButton button);
 
-    protected abstract void preButtonRender(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks);
+    protected abstract void preButtonRender(GuiGraphicsExtractor guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks);
 
-    protected abstract void postButtonRender(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks);
+    protected abstract void postButtonRender(GuiGraphicsExtractor guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks);
 }

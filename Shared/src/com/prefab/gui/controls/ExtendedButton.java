@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.prefab.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.Nullable;
@@ -40,7 +40,7 @@ public class ExtendedButton extends Button {
     }
 
     @Override
-    public void renderContents(GuiGraphics guiGraphics, int i, int j, float f) {
+    public void extractContents(GuiGraphicsExtractor guiGraphics, int i, int j, float f) {
         Component buttonText = this.getMessage();
         Font font = Minecraft.getInstance().font;
         int strWidth = font.width(buttonText);
@@ -52,8 +52,8 @@ public class ExtendedButton extends Button {
 
         int xPosition = ((this.getX() + this.width / 2));
         int yPosition = ((this.getY() + (this.height - 8) / 2));
-        this.renderDefaultSprite(guiGraphics);
-        guiGraphics.drawCenteredString(font, buttonText, xPosition, yPosition, this.getFGColor());
+        this.extractDefaultSprite(guiGraphics);
+        guiGraphics.centeredText(font, buttonText, xPosition, yPosition, this.getFGColor());
     }
 
     public int getFGColor() {

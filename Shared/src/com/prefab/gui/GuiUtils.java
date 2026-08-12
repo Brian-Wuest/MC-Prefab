@@ -1,11 +1,9 @@
 package com.prefab.gui;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.prefab.PrefabBase;
 import com.prefab.Utils;
 import com.prefab.gui.controls.ExtendedButton;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderBuffers;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.texture.AbstractTexture;
@@ -21,14 +19,14 @@ public class GuiUtils {
         return new RenderBuffers(j);
     }
 
-    public static void bindAndDrawTexture(Identifier resourceLocation, GuiGraphics guiGraphics, int x, int y,
+    public static void bindAndDrawTexture(Identifier resourceLocation, GuiGraphicsExtractor guiGraphics, int x, int y,
                                           int z, int width, int height, int textureWidth, int textureHeight) {
         //GuiUtils.bindTexture(resourceLocation);
         GuiUtils.drawTexture(resourceLocation, guiGraphics, x, y, z, width, height, textureWidth, textureHeight);
     }
 
 
-    public static void bindAndDrawScaledTexture(Identifier resourceLocation, GuiGraphics guiGraphics, int x,
+    public static void bindAndDrawScaledTexture(Identifier resourceLocation, GuiGraphicsExtractor guiGraphics, int x,
                                                 int y, int width, int height, int regionWidth, int regionHeight,
                                                 int textureWidth, int textureHeight) {
         //GuiUtils.bindTexture(resourceLocation);
@@ -61,7 +59,7 @@ public class GuiUtils {
      * @param textureWidth     The width of the texture.
      * @param textureHeight    The height of the texture.
      */
-    public static void drawTexture(Identifier resourceLocation, GuiGraphics guiGraphics, int x, int y,
+    public static void drawTexture(Identifier resourceLocation, GuiGraphicsExtractor guiGraphics, int x, int y,
                                    int z, int width, int height, int textureWidth, int textureHeight) {
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, resourceLocation,
                 x, y, 0, 0, width, height, textureWidth, textureHeight,

@@ -5,14 +5,13 @@ import com.prefab.PrefabBase;
 import com.prefab.Utils;
 import com.prefab.gui.GuiUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 
 import java.awt.*;
-
 
 public class CustomButton extends ExtendedButton {
     private final Identifier buttonTexture = Identifier.tryBuild(PrefabBase.MODID, "textures/gui/prefab_button.png");
@@ -46,7 +45,7 @@ public class CustomButton extends ExtendedButton {
      */
     @Override
     //renderWidget(GuiGraphics guiGraphics, int i, int j, float f)
-    public void renderContents(GuiGraphics guiGraphics, int mouseX, int mouseY, float partial) {
+    public void extractContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partial) {
         if (this.visible) {
             Minecraft mc = Minecraft.getInstance();
             this.isHovered = mouseX >= this.getX() && mouseY >= this.getY() && mouseX < this.getX() + this.width && mouseY < this.getY() + this.height;
@@ -63,7 +62,7 @@ public class CustomButton extends ExtendedButton {
                 buttonText = Utils.createTextComponent(mc.font.substrByWidth(buttonText, width - 6 - ellipsisWidth).getString() + "...");
             }
 
-            guiGraphics.drawCenteredString(mc.font, buttonText, this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, color);
+            guiGraphics.centeredText(mc.font, buttonText, this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, color);
 
         }
     }

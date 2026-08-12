@@ -9,7 +9,7 @@ import com.prefab.structures.base.Structure;
 import com.prefab.structures.config.StructureConfiguration;
 import com.prefab.structures.messages.StructureTagMessage;
 import com.prefab.structures.render.StructureRenderHandler;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.core.BlockPos;
@@ -72,7 +72,7 @@ public abstract class GuiStructure extends GuiBase {
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int x, int y, float f) {
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int x, int y, float f) {
         Tuple<Integer, Integer> adjustedXYValue = this.getAdjustedXYValue();
 
         this.preButtonRender(guiGraphics, adjustedXYValue.getFirst(), adjustedXYValue.getSecond(), x, y, f);
@@ -87,12 +87,12 @@ public abstract class GuiStructure extends GuiBase {
     }
 
     @Override
-    protected void preButtonRender(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks) {
+    protected void preButtonRender(GuiGraphicsExtractor guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks) {
         this.drawStandardControlBoxAndImage(guiGraphics, this.structureImageLocation, x, y, mouseX, mouseY, partialTicks);
     }
 
     @Override
-    protected void postButtonRender(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks) {
+    protected void postButtonRender(GuiGraphicsExtractor guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks) {
     }
 
     /**

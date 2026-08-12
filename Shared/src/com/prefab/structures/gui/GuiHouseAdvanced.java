@@ -11,7 +11,7 @@ import com.prefab.gui.controls.GuiCheckBox;
 import com.prefab.structures.config.HouseAdvancedConfiguration;
 import com.prefab.structures.messages.StructureTagMessage;
 import com.prefab.structures.predefined.StructureHouseAdvanced;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.DyeColor;
@@ -106,13 +106,13 @@ public class GuiHouseAdvanced extends GuiStructure {
     }
 
     @Override
-    protected void preButtonRender(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks) {
+    protected void preButtonRender(GuiGraphicsExtractor guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks) {
         int imagePanelUpperLeft = x + 136;
         int imagePanelWidth = 285;
         int imagePanelMiddle = imagePanelWidth / 2;
 
         guiGraphics.guiRenderState.reset();
-        this.renderBackground(guiGraphics,0,0,0);
+        this.extractBackground(guiGraphics,0,0,0);
 
         this.drawComplexControlBox(guiGraphics, x + 2, y + 10, 440, 300);
 
@@ -135,7 +135,7 @@ public class GuiHouseAdvanced extends GuiStructure {
     }
 
     @Override
-    protected void postButtonRender(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks) {
+    protected void postButtonRender(GuiGraphicsExtractor guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks) {
         // Draw the text here.
         int yOffSet = 15;
 

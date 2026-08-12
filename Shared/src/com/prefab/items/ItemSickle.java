@@ -44,7 +44,8 @@ public class ItemSickle extends Item {
     public float getDestroySpeed(ItemStack stack, BlockState state) {
         Block block = state.getBlock();
 
-        if (!ItemSickle.effectiveBlocks.contains(block) && block != Blocks.COBWEB && state.getTags().noneMatch(blockTagKey -> blockTagKey.equals(BlockTags.LEAVES))) {
+        if (!ItemSickle.effectiveBlocks.contains(block) && block != Blocks.COBWEB
+                && state.tags().noneMatch(blockTagKey -> blockTagKey.equals(BlockTags.LEAVES))) {
             return super.getDestroySpeed(stack, state);
         } else {
             return 15.0F;
@@ -62,7 +63,8 @@ public class ItemSickle extends Item {
             stack.hurtAndBreak(1, entityLiving, EquipmentSlot.MAINHAND);
 
             if (entityLiving instanceof Player) {
-                if (state.getTags().anyMatch(blockTagKey -> blockTagKey.equals(BlockTags.LEAVES) || blockTagKey.equals(MOWABLE))
+                if (state.tags().anyMatch(blockTagKey -> blockTagKey.equals(BlockTags.LEAVES)
+                        || blockTagKey.equals(MOWABLE))
                     || state.getBlock() instanceof BushBlock) {
                     this.reapArea(pos, worldIn);
                 } else {

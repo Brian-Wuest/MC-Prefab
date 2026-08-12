@@ -2,7 +2,7 @@ package com.prefab.gui.controls;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -104,7 +104,7 @@ public class GuiTextBox extends AbstractWidget implements Renderable, GuiEventLi
     }
 
     @Override
-    protected void renderWidget(GuiGraphics guiGraphics, int i, int j, float f) {
+    protected void extractWidgetRenderState(GuiGraphicsExtractor guiGraphics, int i, int j, float f) {
         this.renderTextBox(guiGraphics, i, j, f);
     }
 
@@ -391,7 +391,7 @@ public class GuiTextBox extends AbstractWidget implements Renderable, GuiEventLi
         this.setFocused(isFocused);
     }
 
-    public void renderTextBox(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialFrames) {
+    public void renderTextBox(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialFrames) {
         if (this.isVisible()) {
             int k;
 
@@ -411,7 +411,7 @@ public class GuiTextBox extends AbstractWidget implements Renderable, GuiEventLi
             if (!string.isEmpty()) {
                 String string2 = bl ? string.substring(0, l) : string;
                 FormattedCharSequence formattedCharSequence = (FormattedCharSequence) this.formatter.apply(string2, this.displayPos);
-                guiGraphics.drawString(this.font, formattedCharSequence, m, this.textY, k, this.drawsTextShadow);
+                guiGraphics.text(this.font, formattedCharSequence, m, this.textY, k, this.drawsTextShadow);
                 m += this.font.width(formattedCharSequence) + 1;
             }
 
@@ -425,15 +425,15 @@ public class GuiTextBox extends AbstractWidget implements Renderable, GuiEventLi
             }
 
             if (!string.isEmpty() && bl && l < string.length()) {
-                guiGraphics.drawString(this.font, this.formatter.apply(string.substring(l), this.cursorPos), m, this.textY, k, this.drawsTextShadow);
+                guiGraphics.text(this.font, this.formatter.apply(string.substring(l), this.cursorPos), m, this.textY, k, this.drawsTextShadow);
             }
 
             if (this.hint != null && string.isEmpty() && !this.isFocused()) {
-                guiGraphics.drawString(this.font, this.hint, m, this.textY, k);
+                guiGraphics.text(this.font, this.hint, m, this.textY, k);
             }
 
             if (!bl3 && this.suggestion != null) {
-                guiGraphics.drawString(this.font, this.suggestion, o - 1, this.textY, -8355712, this.drawsTextShadow);
+                guiGraphics.text(this.font, this.suggestion, o - 1, this.textY, -8355712, this.drawsTextShadow);
             }
 
             if (n != l) {
@@ -449,7 +449,7 @@ public class GuiTextBox extends AbstractWidget implements Renderable, GuiEventLi
                 if (bl3) {
                     guiGraphics.fill(o, this.textY - 1, o + 1, this.textY + 1 + 9, -3092272);
                 } else {
-                    guiGraphics.drawString(this.font, "_", o, this.textY, k, this.drawsTextShadow);
+                    guiGraphics.text(this.font, "_", o, this.textY, k, this.drawsTextShadow);
                 }
             }
 

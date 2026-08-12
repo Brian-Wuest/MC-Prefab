@@ -351,11 +351,11 @@ public class StructureRenderHandler {
                     MutableComponent message = Component.translatable(GuiLangKeys.GUI_PREVIEW_NOTICE);
                     message.setStyle(Style.EMPTY.withColor(ChatFormatting.GREEN));
 
-                    StructureRenderHandler.mcInstance.gui.getChat().addMessage(message);
+                    StructureRenderHandler.mcInstance.gui.getChat().addClientSystemMessage(message);
 
                     message = Component.translatable(GuiLangKeys.GUI_BLOCK_CLICKED);
                     message.setStyle(Style.EMPTY.withColor(ChatFormatting.YELLOW));
-                    StructureRenderHandler.mcInstance.gui.getChat().addMessage(message);
+                    StructureRenderHandler.mcInstance.gui.getChat().addClientSystemMessage(message);
 
                     StructureRenderHandler.showedMessage = true;
                 }

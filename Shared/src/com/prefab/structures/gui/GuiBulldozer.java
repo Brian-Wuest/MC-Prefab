@@ -7,7 +7,7 @@ import com.prefab.config.ModConfiguration;
 import com.prefab.gui.GuiLangKeys;
 import com.prefab.structures.config.BulldozerConfiguration;
 import com.prefab.structures.messages.StructureTagMessage;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.network.chat.Component;
 
@@ -56,7 +56,7 @@ public class GuiBulldozer extends GuiStructure {
     }
 
     @Override
-    protected void postButtonRender(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks) {
+    protected void postButtonRender(GuiGraphicsExtractor guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks) {
         String strToDraw = GuiLangKeys.translateString(GuiLangKeys.GUI_BULLDOZER_DESCRIPTION) + "\n \n" + GuiLangKeys.translateString(GuiLangKeys.GUI_CLEARED_AREA);
         this.drawSplitString(guiGraphics, strToDraw, x + 10, y + 10, 230, this.textColor);
 

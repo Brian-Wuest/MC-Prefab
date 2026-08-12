@@ -6,7 +6,7 @@ import com.prefab.PrefabBase;
 import com.prefab.Utils;
 import com.prefab.gui.GuiUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarratedElementType;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
@@ -113,7 +113,7 @@ public class GuiCheckBox extends AbstractButton {
     }
 
     @Override
-    public void renderContents(GuiGraphics guiGraphics, int mouseX, int mouseY, float partial) {
+    public void extractContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partial) {
         if (this.visible) {
             Identifier resourceLocation = GuiCheckBox.buttonTexture;
             this.isHovered = mouseX >= this.getX() && mouseY >= this.getY() && mouseX < this.getX() + this.boxWidth && mouseY < this.getY() + this.height;
@@ -133,9 +133,9 @@ public class GuiCheckBox extends AbstractButton {
             int color = this.stringColor;
 
             if (this.withShadow) {
-                guiGraphics.drawString(this.mineCraft.font, displayString, this.getX() + this.boxWidth + 2, this.getY() + 4, color, true);
+                guiGraphics.text(this.mineCraft.font, displayString, this.getX() + this.boxWidth + 2, this.getY() + 4, color, true);
             } else {
-                guiGraphics.drawWordWrap(this.mineCraft.font, Utils.createTextComponent(displayString), this.getX() + this.boxWidth + 2, this.getY() + 2, this.labelWidth, color, false);
+                guiGraphics.textWithWordWrap(this.mineCraft.font, Utils.createTextComponent(displayString), this.getX() + this.boxWidth + 2, this.getY() + 2, this.labelWidth, color, false);
             }
         }
     }

@@ -13,7 +13,7 @@ import com.prefab.structures.base.EnumStructureMaterial;
 import com.prefab.structures.config.InstantBridgeConfiguration;
 import com.prefab.structures.messages.StructureTagMessage;
 import com.prefab.structures.predefined.StructureInstantBridge;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -76,7 +76,7 @@ public class GuiInstantBridge extends GuiStructure {
     }
 
     @Override
-    protected void preButtonRender(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks) {
+    protected void preButtonRender(GuiGraphicsExtractor guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks) {
         int imagePanelUpperLeft = x + 132;
         int imagePanelWidth = 285;
         int imagePanelMiddle = imagePanelWidth / 2;
@@ -100,7 +100,7 @@ public class GuiInstantBridge extends GuiStructure {
     }
 
     @Override
-    protected void postButtonRender(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks) {
+    protected void postButtonRender(GuiGraphicsExtractor guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks) {
         this.drawSplitString(guiGraphics, GuiLangKeys.translateString("item.prefab.item_instant_bridge"), x + 15, y + 17, 100, this.textColor);
 
         this.drawString(guiGraphics, GuiLangKeys.translateString(GuiLangKeys.BRIDGE_MATERIAL), x + 15, y + 35, this.textColor);

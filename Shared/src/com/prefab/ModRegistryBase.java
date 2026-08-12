@@ -491,16 +491,20 @@ public class ModRegistryBase {
                 this.setItemBlockId(new Item.Properties(), ModRegistryBase.EmptyCrate));
 
         ModRegistryBase.ItemCartonOfEggs = new ItemBlockWoodenCrate(ModRegistryBase.CartonOfEggs, ItemWoodenCrate.CrateType.Carton_Of_Eggs,
-                this.setItemBlockId(new Item.Properties(), ModRegistryBase.CartonOfEggs));
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.CartonOfEggs)
+                        .craftRemainder(ItemWoodenCrate.getRecipeRemainderForCrateType(ItemWoodenCrate.CrateType.Carton_Of_Eggs)));
 
         ModRegistryBase.ItemCrateOfPotatoes = new ItemBlockWoodenCrate(ModRegistryBase.CrateOfPotatoes, ItemWoodenCrate.CrateType.Crate_Of_Potatoes,
-                this.setItemBlockId(new Item.Properties(), ModRegistryBase.CrateOfPotatoes));
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.CrateOfPotatoes)
+                        .craftRemainder(ItemWoodenCrate.getRecipeRemainderForCrateType(ItemWoodenCrate.CrateType.Crate_Of_Potatoes)));
 
         ModRegistryBase.ItemCrateOfCarrots = new ItemBlockWoodenCrate(ModRegistryBase.CrateOfCarrots, ItemWoodenCrate.CrateType.Crate_Of_Carrots,
-                this.setItemBlockId(new Item.Properties(), ModRegistryBase.CrateOfCarrots));
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.CrateOfCarrots)
+                        .craftRemainder(ItemWoodenCrate.getRecipeRemainderForCrateType(ItemWoodenCrate.CrateType.Crate_Of_Carrots)));
 
         ModRegistryBase.ItemCrateOfBeets = new ItemBlockWoodenCrate(ModRegistryBase.CrateOfBeets, ItemWoodenCrate.CrateType.Crate_Of_Beets,
-                this.setItemBlockId(new Item.Properties(), ModRegistryBase.CrateOfBeets));
+                this.setItemBlockId(new Item.Properties(), ModRegistryBase.CrateOfBeets)
+                        .craftRemainder(ItemWoodenCrate.getRecipeRemainderForCrateType(ItemWoodenCrate.CrateType.Crate_Of_Beets)));
 
         this.initializeModLoaderBlockItems();
     }

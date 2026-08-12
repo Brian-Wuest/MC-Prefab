@@ -7,7 +7,7 @@ version = project.mod_version
 group = project.maven_group
 
 loom {
-    //accessWidenerPath = file("src/main/resources/prefab.accesswidener")
+    accessWidenerPath = file("src/main/resources/prefab.accesswidener")
 
     // Don't do source splits, that breaks the code structure.
     // May want to do it in the future, but not now....

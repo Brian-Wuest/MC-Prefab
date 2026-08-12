@@ -10,7 +10,7 @@ import com.prefab.gui.controls.ExtendedButton;
 import com.prefab.gui.controls.GuiTextBox;
 import com.prefab.network.ClientToServerTypes;
 import com.prefab.network.message.ScannerInfo;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -100,12 +100,12 @@ public class GuiStructureScanner extends GuiBase {
     }
 
     @Override
-    protected void preButtonRender(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks) {
+    protected void preButtonRender(GuiGraphicsExtractor guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks) {
         this.drawControlBackground(guiGraphics, x, y + 15, 350, 250);
     }
 
     @Override
-    protected void postButtonRender(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks) {
+    protected void postButtonRender(GuiGraphicsExtractor guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks) {
         this.drawString(guiGraphics, "Starting Position", x + 15, y + 20, this.textColor);
         this.drawString(guiGraphics, "Left: " + this.config.blocksToTheLeft + " Down: " + -this.config.blocksDown, x + 15, y + 35, this.textColor);
         this.drawString(guiGraphics, "Length: " + this.config.blocksLong, x + 120, y + 20, this.textColor);

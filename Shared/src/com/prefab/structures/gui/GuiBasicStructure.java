@@ -13,7 +13,7 @@ import com.prefab.structures.config.enums.BaseOption;
 import com.prefab.structures.items.ItemBasicStructure;
 import com.prefab.structures.messages.StructureTagMessage;
 import com.prefab.structures.predefined.StructureBasic;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.world.item.DyeColor;
@@ -152,7 +152,7 @@ public class GuiBasicStructure extends GuiStructure {
     }
 
     @Override
-    protected void preButtonRender(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks) {
+    protected void preButtonRender(GuiGraphicsExtractor guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks) {
         if (!this.showConfigurationOptions) {
             super.preButtonRender(guiGraphics, x, y, mouseX, mouseY, partialTicks);
         } else {
@@ -207,7 +207,7 @@ public class GuiBasicStructure extends GuiStructure {
     }
 
     @Override
-    protected void postButtonRender(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks) {
+    protected void postButtonRender(GuiGraphicsExtractor guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks) {
         if (this.showConfigurationOptions) {
             this.drawSplitString(guiGraphics, GuiLangKeys.translateString(this.specificConfiguration.basicStructureName.getItemTranslationString()), x + 8, y + 17, 128, this.textColor);
 

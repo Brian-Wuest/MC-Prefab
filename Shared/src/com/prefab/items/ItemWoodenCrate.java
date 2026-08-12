@@ -2,6 +2,7 @@ package com.prefab.items;
 
 import com.prefab.ModRegistryBase;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 /**
  * @author WuestMan
@@ -18,12 +19,12 @@ public class ItemWoodenCrate extends Item {
         this.crateType = crateType;
     }
 
-    public static ItemBlockWoodenCrate getRecipeRemainderForCrateType(CrateType crateType) {
+    public static Item getRecipeRemainderForCrateType(CrateType crateType) {
         if (crateType.isCrateOfFood) {
             return ModRegistryBase.ItemEmptyCrate;
         }
 
-        return null;
+        return ItemStack.EMPTY.getItem();
     }
 
     /**

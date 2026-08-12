@@ -11,7 +11,7 @@ import com.prefab.gui.controls.GuiCheckBox;
 import com.prefab.structures.config.HouseImprovedConfiguration;
 import com.prefab.structures.messages.StructureTagMessage;
 import com.prefab.structures.predefined.StructureHouseImproved;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.DyeColor;
@@ -123,7 +123,7 @@ public class GuiHouseImproved extends GuiStructure {
     }
 
     @Override
-    protected void preButtonRender(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks) {
+    protected void preButtonRender(GuiGraphicsExtractor guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks) {
         int imagePanelUpperLeft = x + 136;
         int imagePanelWidth = 285;
         int imagePanelMiddle = imagePanelWidth / 2;
@@ -151,7 +151,7 @@ public class GuiHouseImproved extends GuiStructure {
     }
 
     @Override
-    protected void postButtonRender(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks) {
+    protected void postButtonRender(GuiGraphicsExtractor guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks) {
         // Draw the text here.
         int yOffSet = 15;
 

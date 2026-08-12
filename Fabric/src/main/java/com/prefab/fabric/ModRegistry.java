@@ -18,7 +18,7 @@ import com.prefab.fabric.network.ServerPayloadHandler;
 import com.prefab.fabric.recipe.RecipeEnabledCondition;
 import com.prefab.network.payloads.*;
 import com.prefab.structures.config.BasicStructureConfiguration;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
@@ -43,7 +43,7 @@ public class ModRegistry extends ModRegistryBase {
             ResourceConditionType.create(Identifier.fromNamespaceAndPath(PrefabBase.MODID, "recipe_enabled"), RecipeEnabledCondition.CODEC);
     private static final ArrayList<Item> ModItems = new ArrayList<>();
     /* *********************************** Item Group *********************************** */
-    private static final CreativeModeTab ITEM_GROUP = FabricItemGroup.builder()
+    private static final CreativeModeTab ITEM_GROUP = FabricCreativeModeTab.builder()
             .icon(() -> new ItemStack(ModRegistryBase.LogoItem))
             .displayItems((context, entries) -> {
                 for (Item item : ModRegistry.ModItems) {
@@ -359,11 +359,11 @@ public class ModRegistry extends ModRegistryBase {
     }
 
     private void registerPayloadTypes() {
-        PayloadTypeRegistry.playC2S().register(StructurePayload.PACKET_TYPE, StructurePayload.STREAM_CODEC);
-        PayloadTypeRegistry.playC2S().register(ScannerConfigPayload.PACKET_TYPE, ScannerConfigPayload.STREAM_CODEC);
-        PayloadTypeRegistry.playC2S().register(ScanShapePayload.PACKET_TYPE, ScanShapePayload.STREAM_CODEC);
-        PayloadTypeRegistry.playS2C().register(ConfigSyncPayload.PACKET_TYPE, ConfigSyncPayload.STREAM_CODEC);
-        PayloadTypeRegistry.playS2C().register(PlayerConfigPayload.PACKET_TYPE, PlayerConfigPayload.STREAM_CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(StructurePayload.PACKET_TYPE, StructurePayload.STREAM_CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(ScannerConfigPayload.PACKET_TYPE, ScannerConfigPayload.STREAM_CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(ScanShapePayload.PACKET_TYPE, ScanShapePayload.STREAM_CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(ConfigSyncPayload.PACKET_TYPE, ConfigSyncPayload.STREAM_CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(PlayerConfigPayload.PACKET_TYPE, PlayerConfigPayload.STREAM_CODEC);
     }
 
     private void registerResourceConditions() {
