@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.GameMasterBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.level.BlockEvent;
+import net.neoforged.neoforge.event.level.block.BreakBlockEvent;
 
 public class EventCaller implements IEventCaller {
     @Override
@@ -24,7 +25,7 @@ public class EventCaller implements IEventCaller {
         }
 
         // Post the block break event
-        BlockEvent.BreakEvent event = new BlockEvent.BreakEvent(world, blockPos, blockState, player);
+        BreakBlockEvent event = new BreakBlockEvent(world, blockPos, blockState, player);
         event.setCanceled(false);
         NeoForge.EVENT_BUS.post(event);
 

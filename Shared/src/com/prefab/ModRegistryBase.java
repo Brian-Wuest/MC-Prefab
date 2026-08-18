@@ -4,7 +4,6 @@ import com.prefab.blockItems.ToolTipBlockItem;
 import com.prefab.blocks.*;
 import com.prefab.blocks.entities.LightSwitchBlockEntity;
 import com.prefab.blocks.entities.StructureScannerBlockEntity;
-import com.prefab.fabric.ModRegistry;
 import com.prefab.items.*;
 import com.prefab.registries.ModRegistries;
 import com.prefab.structures.config.BasicStructureConfiguration;
@@ -660,7 +659,7 @@ public class ModRegistryBase {
         ModRegistryBase.BuildingBlueprint = SoundEvent.createVariableRangeEvent(Identifier.tryBuild(PrefabBase.MODID, "building_blueprint"));
     }
 
-    private void registerBlocks() {
+    public void registerBlocks() {
         this.registerBlock(BlockCompressedStone.EnumType.COMPRESSED_STONE.getUnlocalizedName(), ModRegistryBase.CompressedStone);
         this.registerBlock(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE.getUnlocalizedName(), ModRegistryBase.DoubleCompressedStone);
         this.registerBlock(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE.getUnlocalizedName(), ModRegistryBase.TripleCompressedStone);
@@ -717,7 +716,7 @@ public class ModRegistryBase {
         this.registerBlock("block_quartz_crete_smooth_slab", ModRegistryBase.SmoothQuartzCreteSlab);
     }
 
-    private void registerItems() {
+    public void registerItems() {
         this.registerItem("item_logo", ModRegistryBase.LogoItem);
         this.registerItem("item_pile_of_bricks", ModRegistryBase.ItemPileOfBricks);
         this.registerItem("item_pallet_of_bricks", ModRegistryBase.ItemPalletOfBricks);
@@ -758,7 +757,7 @@ public class ModRegistryBase {
         this.registerItem("item_crate_of_beets", ModRegistryBase.ItemCrateOfBeets);
     }
 
-    private void registerBluePrints() {
+    public void registerBluePrints() {
         this.registerItem("item_house", ModRegistryBase.House);
         this.registerItem("item_instant_bridge", ModRegistryBase.InstantBridge);
         this.registerItem("item_house_improved", ModRegistryBase.HouseImproved);
@@ -793,7 +792,7 @@ public class ModRegistryBase {
         this.registerItem(BasicStructureConfiguration.EnumBasicStructureName.FarmAdvanced.getItemTextureLocation().getPath(), ModRegistryBase.FarmAdvanced);
     }
 
-    private void registerItemBlocks() {
+    public void registerItemBlocks() {
         this.registerItem(BlockCompressedStone.EnumType.COMPRESSED_STONE.getUnlocalizedName(), ModRegistryBase.CompressedStoneItem);
         this.registerItem(BlockCompressedStone.EnumType.DOUBLE_COMPRESSED_STONE.getUnlocalizedName(), ModRegistryBase.DoubleCompressedStoneItem);
         this.registerItem(BlockCompressedStone.EnumType.TRIPLE_COMPRESSED_STONE.getUnlocalizedName(), ModRegistryBase.TripleCompressedStoneItem);
@@ -865,6 +864,6 @@ public class ModRegistryBase {
 
     protected void registerItem(String registryName, Item item) {
         Registry.register(BuiltInRegistries.ITEM, Identifier.tryBuild(PrefabBase.MODID, registryName), item);
-        ModRegistry.ModItems.add(item);
+        ModRegistryBase.ModItems.add(item);
     }
 }
