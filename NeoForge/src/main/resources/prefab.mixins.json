@@ -10,7 +10,8 @@
   ],
   "client": [
     "RenderIndicatorMixin",
-    "MinecraftClientInitMixin"
+    "MinecraftClientInitMixin",
+    "BlockColorsMixin"
   ],
   "injectors": {
     "defaultRequire": 1
