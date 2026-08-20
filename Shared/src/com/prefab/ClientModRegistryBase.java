@@ -50,7 +50,7 @@ public class ClientModRegistryBase {
                 GuiStructure screen = entry.getValue();
                 screen.pos = itemUseContext.getClickedPos();
 
-                Minecraft.getInstance().setScreen(screen);
+                Minecraft.getInstance().gui.setScreen(screen);
             }
         }
     }
@@ -63,7 +63,7 @@ public class ClientModRegistryBase {
         }
 
         if (screen != null) {
-            Minecraft.getInstance().setScreen(screen);
+            Minecraft.getInstance().gui.setScreen(screen);
         }
     }
 

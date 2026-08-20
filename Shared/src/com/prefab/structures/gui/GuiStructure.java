@@ -113,6 +113,6 @@ public abstract class GuiStructure extends GuiBase {
     }
 
     protected void showNoOptionsScreen() {
-        this.getMinecraft().setScreen(new GuiNoOptions());
+        this.getMinecraft().gui.setScreen(new GuiNoOptions());
     }
 }

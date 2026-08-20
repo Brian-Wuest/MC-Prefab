@@ -15,6 +15,7 @@ import com.prefab.structures.config.enums.FarmImprovedOptions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.animal.chicken.Chicken;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -110,7 +111,7 @@ public class StructureBasic extends Structure {
             if (structureName.equals(EnumBasicStructureName.FarmImproved.getName()) && chosenOption == FarmImprovedOptions.AutomatedChickenCoop) {
                 // For the advanced chicken coop, spawn 4 chickens above the hopper.
                 for (int i = 0; i < 4; i++) {
-                    Chicken entity = new Chicken(EntityType.CHICKEN, world);
+                    Chicken entity = new Chicken(EntityTypes.CHICKEN, world);
                     entity.setPos(this.customBlockPos.getX(), this.customBlockPos.above().getY(), this.customBlockPos.getZ());
                     world.addFreshEntity(entity);
                 }
@@ -135,25 +136,25 @@ public class StructureBasic extends Structure {
                     switch (monstersPlaced) {
                         case 0: {
                             // Zombie.
-                            spawner.getSpawner().setEntityId(EntityType.ZOMBIE, world, world.getRandom(), spawnerPos);
+                            spawner.getSpawner().setEntityId(EntityTypes.ZOMBIE, world, world.getRandom(), spawnerPos);
                             break;
                         }
 
                         case 1: {
                             // Skeleton.
-                            spawner.getSpawner().setEntityId(EntityType.SKELETON, world, world.getRandom(), spawnerPos);
+                            spawner.getSpawner().setEntityId(EntityTypes.SKELETON, world, world.getRandom(), spawnerPos);
                             break;
                         }
 
                         case 2: {
                             // Witch.
-                            spawner.getSpawner().setEntityId(EntityType.WITCH, world, world.getRandom(), spawnerPos);
+                            spawner.getSpawner().setEntityId(EntityTypes.WITCH, world, world.getRandom(), spawnerPos);
                             break;
                         }
 
                         default: {
                             // Creeper.
-                            spawner.getSpawner().setEntityId(EntityType.CREEPER, world, world.getRandom(), spawnerPos);
+                            spawner.getSpawner().setEntityId(EntityTypes.CREEPER, world, world.getRandom(), spawnerPos);
                             break;
                         }
                     }

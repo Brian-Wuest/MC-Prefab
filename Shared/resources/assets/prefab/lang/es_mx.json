@@ -280,13 +280,13 @@
   "prefab.wall.block.type.jungle": "Selva",
   "prefab.wall.block.type.oak": "Roble",
   "prefab.wall.block.type.spruce": "Abeto",
-  "tag.item.c.bronze_ingots": "Lingotes de bronce",
   "tag.item.c.compressed_dirt": "Suciedad comprimida",
   "tag.item.c.compressed_glow_stone": "Brillante comprimido",
   "tag.item.c.compressed_lights": "Luces comprimidas",
   "tag.item.c.compressed_obsidian": "Obsidiana comprimida",
   "tag.item.c.compressed_quartz_crete": "Concreto de cuarzo comprimido",
   "tag.item.c.compressed_stone": "Piedra comprimida",
+  "tag.item.c.concrete": "Concreto",
   "tag.item.c.double_compressed_dirt": "Doble suciedad comprimida",
   "tag.item.c.double_compressed_glow_stone": "Doble comprimido brillante",
   "tag.item.c.double_compressed_lights": "Luces doblemente comprimidas",
@@ -343,5 +343,6 @@
   "text.autoconfig.Prefab.option.strictModeOptions.operatorsBypassRestrictions": "Los administradores pueden eludir las restricciones",
   "text.autoconfig.Prefab.option.strictModeOptions.overwritableBlocks": "Bloques sobrescribibles",
   "text.autoconfig.Prefab.option.strictModeOptions.overwritableTags": "Etiquetas sobrescribibles",
-  "text.autoconfig.Prefab.title": "Configuración prefabricada"
+  "text.autoconfig.Prefab.title": "Configuración prefabricada",
+  "tag.item.c.bronze_ingots": "Lingotes de bronce"
 }

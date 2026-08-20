@@ -648,8 +648,8 @@ public class Structure {
         }
 
         Identifier blockIdentifier = BuiltInRegistries.BLOCK.getKey(foundBlock);
-        Identifier glassIdentifier = BuiltInRegistries.BLOCK.getKey(Blocks.WHITE_STAINED_GLASS);
-        Identifier glassPaneIdentifier = BuiltInRegistries.BLOCK.getKey(Blocks.WHITE_STAINED_GLASS_PANE);
+        Identifier glassIdentifier = BuiltInRegistries.BLOCK.getKey(Blocks.STAINED_GLASS.white());
+        Identifier glassPaneIdentifier = BuiltInRegistries.BLOCK.getKey(Blocks.STAINED_GLASS_PANE.white());
 
         if (blockIdentifier.getNamespace().equals(glassIdentifier.getNamespace())
                 && blockIdentifier.getPath().endsWith("glass")) {

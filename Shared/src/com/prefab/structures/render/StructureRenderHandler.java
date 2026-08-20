@@ -13,7 +13,7 @@ import com.prefab.structures.base.Structure;
 import com.prefab.structures.config.StructureConfiguration;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.gui.Hud;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gizmos.Gizmos;
@@ -54,7 +54,6 @@ public class StructureRenderHandler {
     }
 
     public static void renderStructureStartPositionBox(Level worldIn, PoseStack matrixStack,
-                                                       MultiBufferSource.BufferSource multiBufferSource,
                                                        float cameraX, float cameraY, float cameraZ) {
         if (StructureRenderHandler.currentStructure != null
                 && StructureRenderHandler.dimension == Minecraft.getInstance().player.level().dimensionType().logicalHeight()
@@ -68,7 +67,6 @@ public class StructureRenderHandler {
 
             StructureRenderHandler.drawBox(
                     matrixStack,
-                    multiBufferSource,
                     blockXOffset,
                     blockZOffset,
                     blockStartYOffset,
@@ -83,19 +81,17 @@ public class StructureRenderHandler {
 
     public static void drawBox(
             PoseStack matrixStack,
-            MultiBufferSource multiBufferSource,
             float blockXOffset,
             float blockZOffset,
             float blockStartYOffset,
             float cameraX, float cameraY, float cameraZ,
             int xLength, int zLength, int height) {
-        StructureRenderHandler.drawBox(matrixStack, multiBufferSource, blockXOffset, blockZOffset, blockStartYOffset,
+        StructureRenderHandler.drawBox(matrixStack, blockXOffset, blockZOffset, blockStartYOffset,
                 cameraX, cameraY, cameraZ, xLength, zLength, height, 1.0F, 1.0F, 0.0F, 1.0F, 2.0);
     }
 
     public static void drawBox(
             PoseStack matrixStack,
-            MultiBufferSource multiBufferSource,
             float blockXOffset,
             float blockZOffset,
             float blockStartYOffset,
@@ -168,7 +164,6 @@ public class StructureRenderHandler {
     }
 
     public static void renderScanningBoxes(PoseStack matrixStack,
-                                           MultiBufferSource multiBufferSource,
                                            float cameraX, float cameraY, float cameraZ) {
         for (int i = 0; i < ClientModRegistryBase.structureScanners.size(); i++) {
             StructureScannerConfig config = ClientModRegistryBase.structureScanners.get(i);
@@ -230,7 +225,6 @@ public class StructureRenderHandler {
 
             StructureRenderHandler.drawBox(
                     matrixStack,
-                    multiBufferSource,
                     startingPosition.getX(),
                     startingPosition.getZ(),
                     startingPosition.getY(),
@@ -244,7 +238,6 @@ public class StructureRenderHandler {
     }
 
     public static void renderDynamicallySizedOutlineBox(PoseStack matrixStack,
-                                                        MultiBufferSource.BufferSource bufferSource,
                                                         float cameraX, float cameraY, float cameraZ,
                                                         BlockPos startingPosition,
                                                         int blocksWide,
@@ -292,7 +285,6 @@ public class StructureRenderHandler {
 
         StructureRenderHandler.drawBox(
                 matrixStack,
-                bufferSource,
                 startingPosition.getX(),
                 startingPosition.getZ(),
                 startingPosition.getY(),
@@ -311,7 +303,6 @@ public class StructureRenderHandler {
     }
 
     public static void renderPreview(Player player,
-                                     MultiBufferSource.BufferSource bufferSource,
                                      PoseStack matrixStack,
                                      float cameraX, float cameraY, float cameraZ) {
         if (StructureRenderHandler.currentStructure != null
@@ -331,7 +322,6 @@ public class StructureRenderHandler {
 
                 StructureRenderHandler.renderDynamicallySizedOutlineBox(
                         matrixStack,
-                        bufferSource,
                         cameraX,
                         cameraY,
                         cameraZ,
@@ -351,11 +341,11 @@ public class StructureRenderHandler {
                     MutableComponent message = Component.translatable(GuiLangKeys.GUI_PREVIEW_NOTICE);
                     message.setStyle(Style.EMPTY.withColor(ChatFormatting.GREEN));
 
-                    StructureRenderHandler.mcInstance.gui.getChat().addClientSystemMessage(message);
+                    StructureRenderHandler.mcInstance.gui.hud.getChat().addClientSystemMessage(message);
 
                     message = Component.translatable(GuiLangKeys.GUI_BLOCK_CLICKED);
                     message.setStyle(Style.EMPTY.withColor(ChatFormatting.YELLOW));
-                    StructureRenderHandler.mcInstance.gui.getChat().addClientSystemMessage(message);
+                    StructureRenderHandler.mcInstance.gui.hud.getChat().addClientSystemMessage(message);
 
                     StructureRenderHandler.showedMessage = true;
                 }

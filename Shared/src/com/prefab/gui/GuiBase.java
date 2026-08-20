@@ -328,7 +328,7 @@ public abstract class GuiBase extends Screen {
      * Closes the current screen.
      */
     public void closeScreen() {
-        this.getMinecraft().setScreen(null);
+        this.getMinecraft().gui.setScreen(null);
     }
 
     public @NotNull Minecraft getMinecraft() {

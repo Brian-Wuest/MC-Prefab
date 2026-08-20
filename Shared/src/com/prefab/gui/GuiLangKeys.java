@@ -2,8 +2,10 @@ package com.prefab.gui;
 
 import com.prefab.Utils;
 import com.prefab.blocks.FullDyeColor;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.Direction;
+import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.DyeColor;
 
@@ -394,7 +396,9 @@ public class GuiLangKeys {
      * @return The translated language key.
      */
     public static String translateString(String translateKey) {
-        if (I18n.exists(translateKey)) {
+        Language language = Language.getInstance();
+
+        if (language.has(translateKey)) {
             return I18n.get(translateKey);
         } else {
             return GuiLangKeys.getUnLocalized(translateKey);

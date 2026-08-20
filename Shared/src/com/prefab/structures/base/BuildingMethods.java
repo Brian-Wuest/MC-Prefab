@@ -298,102 +298,8 @@ public class BuildingMethods {
         BlockState bedHead = null;
         BlockState bedFoot = null;
 
-        switch (bedColor) {
-            case BLACK: {
-                bedHead = Blocks.BLACK_BED.defaultBlockState().setValue(BedBlock.PART, BedPart.HEAD);
-                bedFoot = Blocks.BLACK_BED.defaultBlockState().setValue(BedBlock.PART, BedPart.FOOT);
-                break;
-            }
-            case BLUE: {
-                bedHead = Blocks.BLUE_BED.defaultBlockState().setValue(BedBlock.PART, BedPart.HEAD);
-                bedFoot = Blocks.BLUE_BED.defaultBlockState().setValue(BedBlock.PART, BedPart.FOOT);
-                break;
-            }
-
-            case BROWN: {
-                bedHead = Blocks.BROWN_BED.defaultBlockState().setValue(BedBlock.PART, BedPart.HEAD);
-                bedFoot = Blocks.BROWN_BED.defaultBlockState().setValue(BedBlock.PART, BedPart.FOOT);
-                break;
-            }
-
-            case CYAN: {
-                bedHead = Blocks.CYAN_BED.defaultBlockState().setValue(BedBlock.PART, BedPart.HEAD);
-                bedFoot = Blocks.CYAN_BED.defaultBlockState().setValue(BedBlock.PART, BedPart.FOOT);
-                break;
-            }
-
-            case GRAY: {
-                bedHead = Blocks.GRAY_BED.defaultBlockState().setValue(BedBlock.PART, BedPart.HEAD);
-                bedFoot = Blocks.GRAY_BED.defaultBlockState().setValue(BedBlock.PART, BedPart.FOOT);
-                break;
-            }
-
-            case GREEN: {
-                bedHead = Blocks.GREEN_BED.defaultBlockState().setValue(BedBlock.PART, BedPart.HEAD);
-                bedFoot = Blocks.GREEN_BED.defaultBlockState().setValue(BedBlock.PART, BedPart.FOOT);
-                break;
-            }
-
-            case LIGHT_BLUE: {
-                bedHead = Blocks.LIGHT_BLUE_BED.defaultBlockState().setValue(BedBlock.PART, BedPart.HEAD);
-                bedFoot = Blocks.LIGHT_BLUE_BED.defaultBlockState().setValue(BedBlock.PART, BedPart.FOOT);
-                break;
-            }
-
-            case LIGHT_GRAY: {
-                bedHead = Blocks.LIGHT_GRAY_BED.defaultBlockState().setValue(BedBlock.PART, BedPart.HEAD);
-                bedFoot = Blocks.LIGHT_GRAY_BED.defaultBlockState().setValue(BedBlock.PART, BedPart.FOOT);
-                break;
-            }
-
-            case LIME: {
-                bedHead = Blocks.LIME_BED.defaultBlockState().setValue(BedBlock.PART, BedPart.HEAD);
-                bedFoot = Blocks.LIME_BED.defaultBlockState().setValue(BedBlock.PART, BedPart.FOOT);
-                break;
-            }
-
-            case MAGENTA: {
-                bedHead = Blocks.MAGENTA_BED.defaultBlockState().setValue(BedBlock.PART, BedPart.HEAD);
-                bedFoot = Blocks.MAGENTA_BED.defaultBlockState().setValue(BedBlock.PART, BedPart.FOOT);
-                break;
-            }
-
-            case ORANGE: {
-                bedHead = Blocks.ORANGE_BED.defaultBlockState().setValue(BedBlock.PART, BedPart.HEAD);
-                bedFoot = Blocks.ORANGE_BED.defaultBlockState().setValue(BedBlock.PART, BedPart.FOOT);
-                break;
-            }
-
-            case PINK: {
-                bedHead = Blocks.PINK_BED.defaultBlockState().setValue(BedBlock.PART, BedPart.HEAD);
-                bedFoot = Blocks.PINK_BED.defaultBlockState().setValue(BedBlock.PART, BedPart.FOOT);
-                break;
-            }
-
-            case PURPLE: {
-                bedHead = Blocks.PURPLE_BED.defaultBlockState().setValue(BedBlock.PART, BedPart.HEAD);
-                bedFoot = Blocks.PURPLE_BED.defaultBlockState().setValue(BedBlock.PART, BedPart.FOOT);
-                break;
-            }
-
-            case RED: {
-                bedHead = Blocks.RED_BED.defaultBlockState().setValue(BedBlock.PART, BedPart.HEAD);
-                bedFoot = Blocks.RED_BED.defaultBlockState().setValue(BedBlock.PART, BedPart.FOOT);
-                break;
-            }
-
-            case WHITE: {
-                bedHead = Blocks.WHITE_BED.defaultBlockState().setValue(BedBlock.PART, BedPart.HEAD);
-                bedFoot = Blocks.WHITE_BED.defaultBlockState().setValue(BedBlock.PART, BedPart.FOOT);
-                break;
-            }
-
-            case YELLOW: {
-                bedHead = Blocks.YELLOW_BED.defaultBlockState().setValue(BedBlock.PART, BedPart.HEAD);
-                bedFoot = Blocks.YELLOW_BED.defaultBlockState().setValue(BedBlock.PART, BedPart.FOOT);
-                break;
-            }
-        }
+        bedHead = Blocks.BED.pick(bedColor).defaultBlockState().setValue(BedBlock.PART, BedPart.HEAD);
+        bedFoot = Blocks.BED.pick(bedColor).defaultBlockState().setValue(BedBlock.PART, BedPart.FOOT);
 
         Direction direction = Direction.NORTH;
         BlockPos tempPos = bedHeadPos.relative(Direction.NORTH);
@@ -792,114 +698,22 @@ public class BuildingMethods {
     }
 
     public static BlockState getStainedGlassBlock(FullDyeColor color) {
-        switch (color) {
-            case BLACK: {
-                return Blocks.BLACK_STAINED_GLASS.defaultBlockState();
-            }
-            case BLUE: {
-                return Blocks.BLUE_STAINED_GLASS.defaultBlockState();
-            }
-            case BROWN: {
-                return Blocks.BROWN_STAINED_GLASS.defaultBlockState();
-            }
-            case GRAY: {
-                return Blocks.GRAY_STAINED_GLASS.defaultBlockState();
-            }
-            case GREEN: {
-                return Blocks.GREEN_STAINED_GLASS.defaultBlockState();
-            }
-            case LIGHT_BLUE: {
-                return Blocks.LIGHT_BLUE_STAINED_GLASS.defaultBlockState();
-            }
-            case LIGHT_GRAY: {
-                return Blocks.LIGHT_GRAY_STAINED_GLASS.defaultBlockState();
-            }
-            case LIME: {
-                return Blocks.LIME_STAINED_GLASS.defaultBlockState();
-            }
-            case MAGENTA: {
-                return Blocks.MAGENTA_STAINED_GLASS.defaultBlockState();
-            }
-            case ORANGE: {
-                return Blocks.ORANGE_STAINED_GLASS.defaultBlockState();
-            }
-            case PINK: {
-                return Blocks.PINK_STAINED_GLASS.defaultBlockState();
-            }
-            case PURPLE: {
-                return Blocks.PURPLE_STAINED_GLASS.defaultBlockState();
-            }
-            case RED: {
-                return Blocks.RED_STAINED_GLASS.defaultBlockState();
-            }
-            case WHITE: {
-                return Blocks.WHITE_STAINED_GLASS.defaultBlockState();
-            }
-            case YELLOW: {
-                return Blocks.YELLOW_STAINED_GLASS.defaultBlockState();
-            }
-            case CLEAR: {
-                return Blocks.GLASS.defaultBlockState();
-            }
-            default: {
-                return Blocks.CYAN_STAINED_GLASS.defaultBlockState();
-            }
+        DyeColor dyeColor = color.getLinkedColor();
+
+        if (dyeColor == null) {
+            return Blocks.GLASS.defaultBlockState();
         }
+
+        return Blocks.STAINED_GLASS.pick(dyeColor).defaultBlockState();
     }
 
     public static BlockState getStainedGlassPaneBlock(FullDyeColor color) {
-        switch (color) {
-            case BLACK: {
-                return Blocks.BLACK_STAINED_GLASS_PANE.defaultBlockState();
-            }
-            case BLUE: {
-                return Blocks.BLUE_STAINED_GLASS_PANE.defaultBlockState();
-            }
-            case BROWN: {
-                return Blocks.BROWN_STAINED_GLASS_PANE.defaultBlockState();
-            }
-            case GRAY: {
-                return Blocks.GRAY_STAINED_GLASS_PANE.defaultBlockState();
-            }
-            case GREEN: {
-                return Blocks.GREEN_STAINED_GLASS_PANE.defaultBlockState();
-            }
-            case LIGHT_BLUE: {
-                return Blocks.LIGHT_BLUE_STAINED_GLASS_PANE.defaultBlockState();
-            }
-            case LIGHT_GRAY: {
-                return Blocks.LIGHT_GRAY_STAINED_GLASS_PANE.defaultBlockState();
-            }
-            case LIME: {
-                return Blocks.LIME_STAINED_GLASS_PANE.defaultBlockState();
-            }
-            case MAGENTA: {
-                return Blocks.MAGENTA_STAINED_GLASS_PANE.defaultBlockState();
-            }
-            case ORANGE: {
-                return Blocks.ORANGE_STAINED_GLASS_PANE.defaultBlockState();
-            }
-            case PINK: {
-                return Blocks.PINK_STAINED_GLASS_PANE.defaultBlockState();
-            }
-            case PURPLE: {
-                return Blocks.PURPLE_STAINED_GLASS_PANE.defaultBlockState();
-            }
-            case RED: {
-                return Blocks.RED_STAINED_GLASS_PANE.defaultBlockState();
-            }
-            case WHITE: {
-                return Blocks.WHITE_STAINED_GLASS_PANE.defaultBlockState();
-            }
-            case YELLOW: {
-                return Blocks.YELLOW_STAINED_GLASS_PANE.defaultBlockState();
-            }
-            case CLEAR: {
-                return Blocks.GLASS_PANE.defaultBlockState();
-            }
-            default: {
-                return Blocks.CYAN_STAINED_GLASS_PANE.defaultBlockState();
-            }
+        DyeColor dyeColor = color.getLinkedColor();
+
+        if (dyeColor == null) {
+            return Blocks.GLASS_PANE.defaultBlockState();
         }
+
+        return Blocks.STAINED_GLASS_PANE.pick(dyeColor).defaultBlockState();
     }
 }

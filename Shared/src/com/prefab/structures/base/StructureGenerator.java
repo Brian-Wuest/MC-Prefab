@@ -6,10 +6,12 @@ import com.prefab.Tuple;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.UUIDUtil;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.DoubleTag;
 import net.minecraft.nbt.IntArrayTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
@@ -230,7 +232,8 @@ public class StructureGenerator {
 
                 if (entityResourceString != null
                         && !entityResourceString.isBlank()) {
-                    Optional<EntityType<?>> entityType = EntityType.byString(entityResourceString);
+                    Optional<EntityType<?>> entityType = BuiltInRegistries.ENTITY_TYPE
+                            .getOptional(Identifier.tryParse(entityResourceString));
 
                     if (entityType.isPresent()) {
                         StructureGenerator.entitiesToGenerate.add(new Tuple<>(structure, buildEntity));
@@ -248,7 +251,8 @@ public class StructureGenerator {
             BuildEntity buildEntity = entityRecords.second;
             Structure structure = entityRecords.first;
 
-            Optional<EntityType<?>> entityType = EntityType.byString(buildEntity.getEntityResourceString());
+            Optional<EntityType<?>> entityType = BuiltInRegistries.ENTITY_TYPE
+                    .getOptional(Identifier.tryParse(buildEntity.getEntityResourceString()));
 
             if (entityType.isPresent()) {
                 Entity entity = entityType.get().create(structure.world, EntitySpawnReason.STRUCTURE);

@@ -3,8 +3,10 @@ plugins {
     id 'maven-publish'
 }
 
-version = project.mod_version
-group = project.maven_group
+repositories {
+    maven { url "https://maven.shedaniel.me/" }
+    maven { url "https://maven.terraformersmc.com/releases/" }
+}
 
 loom {
     accessWidenerPath = file("src/main/resources/prefab.accesswidener")
@@ -21,11 +23,6 @@ fabricApi {
 
 base {
     archivesName = project.archives_base_name
-}
-
-repositories {
-    maven { url "https://maven.shedaniel.me/" }
-    maven { url "https://maven.terraformersmc.com/releases/" }
 }
 
 dependencies {
