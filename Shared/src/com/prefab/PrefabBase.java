@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.phys.AABB;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -30,6 +31,10 @@ public class PrefabBase {
 	 */
 	public static final String MODID = "prefab";
 
+	public static final BlockBehaviour.StateArgumentPredicate<AABB> NEVER_VIEW_BLOCKING = (state, level, blockPos, nearPlaneBox) -> {
+		return false;
+	};
+
 	public static Logger logger;
 	/**
 	 * This is used to determine if the mod is currently being debugged.
@@ -40,7 +45,9 @@ public class PrefabBase {
 	 * Simulates an air block that blocks movement and cannot be moved.
 	 * Basically a GLASS block, but NOT glass.
 	 */
-	public static final Supplier<BlockBehaviour.Properties> SeeThroughImmovable = ()->BlockBehaviour.Properties.of().noOcclusion().isViewBlocking(PrefabBase::never).pushReaction(PushReaction.IGNORE).sound(SoundType.STONE);
+	public static final Supplier<BlockBehaviour.Properties> SeeThroughImmovable = ()->BlockBehaviour.Properties.of()
+			.noOcclusion().isViewBlocking(NEVER_VIEW_BLOCKING)
+			.pushReaction(PushReaction.IGNORE_ENTITY).sound(SoundType.STONE);
 
 	public static INetworkWrapper networkWrapper;
 

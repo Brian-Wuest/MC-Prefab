@@ -148,7 +148,7 @@ public class StructureGenerator {
                             || foundBlock instanceof DoorBlock
                             || foundBlock instanceof LadderBlock
                             || foundBlock instanceof VineBlock
-                            || foundBlock instanceof RedStoneWireBlock
+                            || foundBlock instanceof RedstoneWireBlock
                             || foundBlock instanceof DiodeBlock
                             || foundBlock instanceof AbstractBannerBlock
                             || foundBlock instanceof LanternBlock

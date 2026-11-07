@@ -53,8 +53,6 @@ public class BlockLightSwitch extends TileBlockBase<LightSwitchBlockEntity> {
 
     public static final BooleanProperty POWERED;
 
-    public static final MapCodec<BlockLightSwitch> CODEC = simpleCodec(BlockLightSwitch::new);
-
     static {
         FACING = HorizontalDirectionalBlock.FACING;
         FACE = EnumProperty.create("face", AttachFace.class);
@@ -98,7 +96,7 @@ public class BlockLightSwitch extends TileBlockBase<LightSwitchBlockEntity> {
                         Identifier.fromNamespaceAndPath(PrefabBase.MODID,
                                 "block_light_switch")))
                 .mapColor(MapColor.TERRACOTTA_RED)
-                .pushReaction(PushReaction.DESTROY)
+                .pushReaction(PushReaction.POPPED)
                 .noOcclusion()
                 .strength(1.5F, 10.0F)
                 .noCollision()
@@ -248,10 +246,5 @@ public class BlockLightSwitch extends TileBlockBase<LightSwitchBlockEntity> {
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
         return new LightSwitchBlockEntity(blockPos, blockState);
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
     }
 }

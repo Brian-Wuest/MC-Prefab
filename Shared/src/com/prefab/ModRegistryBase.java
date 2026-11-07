@@ -26,9 +26,12 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.phys.AABB;
 
 import java.util.ArrayList;
 import java.util.function.Consumer;
+
+import static com.prefab.PrefabBase.NEVER_VIEW_BLOCKING;
 
 public class ModRegistryBase {
     public static final ArrayList<Consumer<Object>> guiRegistrations = new ArrayList<>();
@@ -254,9 +257,6 @@ public class ModRegistryBase {
         return true;
     }
 
-    public static boolean never(BlockState state, BlockGetter world, BlockPos pos) {
-        return false;
-    }
 
     /**
      * Use this to initialize everything in one go.
@@ -324,19 +324,19 @@ public class ModRegistryBase {
 
         ModRegistryBase.PileOfBricks = new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.PileOfBricks,
                 this.setBlockId(Block.Properties.ofFullCopy(Blocks.BRICKS), "item_pile_of_bricks")
-                        .mapColor(MapColor.COLOR_RED).noOcclusion().isViewBlocking(ModRegistryBase::never));
+                        .mapColor(MapColor.COLOR_RED).noOcclusion().isViewBlocking(NEVER_VIEW_BLOCKING));
         ModRegistryBase.PalletOfBricks = new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.PalletOfBricks,
                 this.setBlockId(Block.Properties.ofFullCopy(Blocks.BRICKS), "item_pallet_of_bricks")
-                        .mapColor(MapColor.COLOR_RED).noOcclusion().isViewBlocking(ModRegistryBase::never));
+                        .mapColor(MapColor.COLOR_RED).noOcclusion().isViewBlocking(NEVER_VIEW_BLOCKING));
         ModRegistryBase.BundleOfTimber = new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.BundleOfTimber,
                 this.setBlockId(Block.Properties.ofFullCopy(Blocks.OAK_WOOD), "item_bundle_of_timber")
-                        .mapColor(MapColor.COLOR_BROWN).sound(SoundType.WOOD).noOcclusion().isViewBlocking(ModRegistryBase::never));
+                        .mapColor(MapColor.COLOR_BROWN).sound(SoundType.WOOD).noOcclusion().isViewBlocking(NEVER_VIEW_BLOCKING));
         ModRegistryBase.HeapOfTimber = new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.HeapOfTimber,
                 this.setBlockId(Block.Properties.ofFullCopy(Blocks.OAK_WOOD), "item_heap_of_timber")
-                        .mapColor(MapColor.COLOR_BROWN).sound(SoundType.WOOD).noOcclusion().isViewBlocking(ModRegistryBase::never));
+                        .mapColor(MapColor.COLOR_BROWN).sound(SoundType.WOOD).noOcclusion().isViewBlocking(NEVER_VIEW_BLOCKING));
         ModRegistryBase.TonOfTimber = new BlockRotatableHorizontalShaped(BlockShaped.BlockShape.TonOfTimber,
                 this.setBlockId(Block.Properties.ofFullCopy(Blocks.OAK_WOOD), "item_ton_of_timber")
-                        .mapColor(MapColor.COLOR_BROWN).sound(SoundType.WOOD).noOcclusion().isViewBlocking(ModRegistryBase::never));
+                        .mapColor(MapColor.COLOR_BROWN).sound(SoundType.WOOD).noOcclusion().isViewBlocking(NEVER_VIEW_BLOCKING));
 
         ModRegistryBase.EmptyCrate = new BlockRotatable(
                 this.setBlockId(Block.Properties.ofFullCopy(Blocks.OAK_WOOD), "item_wooden_crate")

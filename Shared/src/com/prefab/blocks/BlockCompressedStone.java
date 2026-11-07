@@ -25,7 +25,7 @@ public class BlockCompressedStone extends Block {
     public BlockCompressedStone(EnumType typeOfStone, BlockBehaviour.Properties properties) {
         super(properties
                 .mapColor(MapColor.TERRACOTTA_RED)
-                .pushReaction(PushReaction.DESTROY)
+                .pushReaction(PushReaction.POPPED)
                 .noOcclusion()
                 .strength(1.5F, 10.0F)
                 .sound(typeOfStone.getSoundType())

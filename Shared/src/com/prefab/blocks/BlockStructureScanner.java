@@ -27,7 +27,6 @@ import org.jetbrains.annotations.NotNull;
 
 public class BlockStructureScanner extends TileBlockBase<StructureScannerBlockEntity> {
     public static final EnumProperty<Direction> FACING;
-    public static final MapCodec<BlockStructureScanner> CODEC = simpleCodec(BlockStructureScanner::new);
 
     static {
         FACING = HorizontalDirectionalBlock.FACING;
@@ -92,10 +91,5 @@ public class BlockStructureScanner extends TileBlockBase<StructureScannerBlockEn
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new StructureScannerBlockEntity(pos, state);
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
     }
 }
