@@ -19,13 +19,8 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
-import net.neoforged.neoforge.client.settings.KeyConflictContext;
-import net.neoforged.neoforge.client.settings.KeyModifier;
-import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
-
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_B;
 
 // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
 @EventBusSubscriber(modid = PrefabBase.MODID, value = Dist.CLIENT)
@@ -58,8 +53,8 @@ public class ModClientEvents {
         category = KeyMapping.Category.register(Identifier.fromNamespaceAndPath(PrefabBase.MODID, "structure_preview"));
         KeyMapping binding = new KeyMapping(
                 "Build Current Structure", // The translation key of the keybinding's name
-                InputConstants.Type.KEYSYM,
-                GLFW.GLFW_KEY_B,
+                InputConstants.Type.KEYBOARD,
+                InputConstants.KEY_B,
                 category // The translation key of the keybinding's category.
         );
 
