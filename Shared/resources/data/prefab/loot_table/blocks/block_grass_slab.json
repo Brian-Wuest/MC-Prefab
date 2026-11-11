@@ -9,33 +9,17 @@
           "children": [
             {
               "type": "minecraft:item",
-              "conditions": [
+              "condition": "minecraft:tool/can_silk_touch",
+              "modifier": [
                 {
-                  "condition": "minecraft:match_tool",
-                  "predicate": {
-                    "enchantments": [
-                      {
-                        "enchantment": "minecraft:silk_touch",
-                        "levels": {
-                          "min": 1
-                        }
-                      }
-                    ]
-                  }
-                }
-              ],
-              "functions": [
-                {
-                  "function": "minecraft:set_count",
-                  "conditions": [
-                    {
-                      "condition": "minecraft:block_state_property",
-                      "block": "prefab:block_grass_slab",
-                      "properties": {
-                        "type": "double"
-                      }
+                  "type": "minecraft:set_count",
+                  "condition": {
+                    "type": "minecraft:match_block",
+                    "blocks": "prefab:block_grass_slab",
+                    "state": {
+                      "type": "double"
                     }
-                  ],
+                  },
                   "count": 2
                 }
               ],
@@ -43,22 +27,20 @@
             },
             {
               "type": "minecraft:item",
-              "functions": [
+              "modifier": [
                 {
-                  "function": "minecraft:set_count",
-                  "conditions": [
-                    {
-                      "condition": "minecraft:block_state_property",
-                      "block": "prefab:block_grass_slab",
-                      "properties": {
-                        "type": "double"
-                      }
+                  "type": "minecraft:set_count",
+                  "condition": {
+                    "type": "minecraft:match_block",
+                    "blocks": "prefab:block_grass_slab",
+                    "state": {
+                      "type": "double"
                     }
-                  ],
+                  },
                   "count": 2
                 },
                 {
-                  "function": "minecraft:explosion_decay"
+                  "type": "minecraft:explosion_decay"
                 }
               ],
               "name": "prefab:block_dirt_slab"
