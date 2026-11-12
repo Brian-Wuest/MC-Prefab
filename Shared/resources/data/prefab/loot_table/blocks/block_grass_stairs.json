@@ -9,21 +9,7 @@
           "children": [
             {
               "type": "minecraft:item",
-              "conditions": [
-                {
-                  "condition": "minecraft:match_tool",
-                  "predicate": {
-                    "enchantments": [
-                      {
-                        "enchantment": "minecraft:silk_touch",
-                        "levels": {
-                          "min": 1
-                        }
-                      }
-                    ]
-                  }
-                }
-              ],
+              "condition": "minecraft:tool/can_silk_touch",
               "name": "prefab:block_grass_stairs"
             },
             {
@@ -39,5 +25,6 @@
         }
       ]
     }
-  ]
+  ],
+  "random_sequence": "prefab:block_grass_stairs"
 }

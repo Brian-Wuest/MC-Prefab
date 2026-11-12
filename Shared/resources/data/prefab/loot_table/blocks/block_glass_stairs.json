@@ -10,21 +10,8 @@
           "name": "prefab:block_glass_stairs"
         }
       ],
-      "conditions": [
-        {
-          "condition": "minecraft:match_tool",
-          "predicate": {
-            "enchantments": [
-              {
-                "enchantment": "minecraft:silk_touch",
-                "levels": {
-                  "min": 1
-                }
-              }
-            ]
-          }
-        }
-      ]
+      "condition": "minecraft:tool/can_silk_touch"
     }
-  ]
+  ],
+  "random_sequence": "prefab:block_glass_stairs"
 }

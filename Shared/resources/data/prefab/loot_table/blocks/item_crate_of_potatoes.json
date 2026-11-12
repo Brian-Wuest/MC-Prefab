@@ -9,11 +9,10 @@
           "name": "prefab:item_crate_of_potatoes"
         }
       ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ]
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      }
     }
-  ]
+  ],
+  "random_sequence": "prefab:item_crate_of_potatoes"
 }

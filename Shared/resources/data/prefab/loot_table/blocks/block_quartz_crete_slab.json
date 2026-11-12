@@ -7,28 +7,27 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "functions": [
+          "modifier": [
             {
-              "function": "minecraft:set_count",
-              "conditions": [
-                {
-                  "condition": "minecraft:block_state_property",
-                  "block": "prefab:block_quartz_crete_slab",
-                  "properties": {
-                    "type": "double"
-                  }
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "prefab:block_quartz_crete_slab",
+                "state": {
+                  "type": "double"
                 }
-              ],
+              },
               "count": 2.0,
               "add": false
             },
             {
-              "function": "minecraft:explosion_decay"
+              "type": "minecraft:explosion_decay"
             }
           ],
           "name": "prefab:block_quartz_crete_slab"
         }
       ]
     }
-  ]
+  ],
+  "random_sequence": "prefab:block_quartz_crete_slab"
 }

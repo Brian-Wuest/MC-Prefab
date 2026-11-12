@@ -10,11 +10,10 @@
           "name": "prefab:block_quartz_crete_smooth"
         }
       ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ]
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      }
     }
-  ]
+  ],
+  "random_sequence": "prefab:block_quartz_crete_smooth"
 }

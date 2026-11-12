@@ -9,11 +9,10 @@
           "name": "prefab:item_pallet_of_bricks"
         }
       ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ]
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      }
     }
-  ]
+  ],
+  "random_sequence": "prefab:item_pallet_of_bricks"
 }
