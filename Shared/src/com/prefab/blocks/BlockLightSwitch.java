@@ -1,6 +1,5 @@
 package com.prefab.blocks;
 
-import com.mojang.serialization.MapCodec;
 import com.prefab.ModRegistryBase;
 import com.prefab.PrefabBase;
 import com.prefab.base.TileBlockBase;
